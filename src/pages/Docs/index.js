@@ -27,6 +27,8 @@ import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import Application from "./components/Application/Form";
 import ApplicationRegistry from "./components/Application/ApplicationRegistry";
+import ExhibitionsForm from "./components/Exhibitions/ExhibitionsForm";
+import ExhibitionsRegistry from "./components/Exhibitions/ExhibitionsRegistry";
 import "./index.scss";
 
 
@@ -67,7 +69,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route
                             exact={true}
                             path='/:route/documents/application/registry'
-                            component={() => <ApplicationRegistry history={history}/>}
+                            component={() => <ApplicationRegistry history={history} />}
                         />
 
                         <Route exact={true} path='/:route/documents/replace-pedigree/registry' component={() =>
@@ -130,6 +132,18 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/:route/documents/stamps/registry' component={() =>
                             <Registry history={history} />}
                         />
+                        <Route exact={true} path='/:route/documents/exhibitions/application/form' component={() =>
+                            <ExhibitionsForm clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/exhibitions/application/registry' component={() =>
+                            <ExhibitionsRegistry clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/exhibitions/application/form/view/:docId' component={() =>
+                            <ExhibitionsForm clubAlias={clubAlias} history={history} status="view" />}
+                        />
+                        <Route exact={true} path='/:route/documents/exhibitions/application/form/edit/:docId' component={() =>
+                            <ExhibitionsForm clubAlias={clubAlias} history={history} status="edit" />}
+                        />
                         <Route exact={true} path='/:route/documents/responsible/form' component={() =>
                             <ResponsiblePersonForm clubAlias={clubAlias} history={history} />}
                         />
@@ -142,10 +156,10 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/:route/documents/responsible/checkmembership/registry' component={() =>
                             <CheckMembershipRegistry clubAlias={clubAlias} history={history} />}
                         />
-                        <Route exact={true} path='/:route/documents/responsible/checkmembership/form/view/:docId' component={() => 
+                        <Route exact={true} path='/:route/documents/responsible/checkmembership/form/view/:docId' component={() =>
                             <CheckMembershipForm clubAlias={clubAlias} history={history} status="view" />}
                         />
-                        <Route exact={true} path='/:route/documents/responsible/checkmembership/form/edit/:docId' component={() => 
+                        <Route exact={true} path='/:route/documents/responsible/checkmembership/form/edit/:docId' component={() =>
                             <CheckMembershipForm clubAlias={clubAlias} history={history} status="edit" />}
                         />
                         <Route exact={true} path='/:route/documents/responsible/table' component={() =>

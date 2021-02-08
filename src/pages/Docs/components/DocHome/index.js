@@ -214,6 +214,23 @@ const StampCards = ({ clubAlias }) => {
     </div>
 };
 
+const ExhibitionsCards = ({ clubAlias }) => {
+
+    return <div className="documents-page__right">
+        <Card>
+            <div className="documents-page__icon exhibitions-icon" />
+            <h3>ПОДАТЬ ЗАЯВКУ НА ПРОВЕДЕНИЕ ВЫСТАВКИ</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.             </p>
+            <hr />
+            <div className="Card__links">
+                <Link to={`/${clubAlias}/documents/exhibitions/application/form`}>Подать заявку</Link>
+                <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
+            </div>
+        </Card>
+    </div>
+};
+
 const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
 
     return <div className="documents-page__right">
@@ -272,6 +289,7 @@ const DocHome = ({ clubAlias }) => {
         <Switch>
             <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
             <Route path='/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
+            <Route path='/:route/documents/exhibitions' component={() => <ExhibitionsCards clubAlias={clubAlias} />} />
             <Route path='/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/Club/club_federation' />} />
             <Route path='/:route/documents/review' component={() => <BookformCard url='/api/Club/club_federation' />} />
             <Route path='/:route/documents' component={() => <DocumentCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
