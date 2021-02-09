@@ -37,33 +37,40 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const OptionsCell = ({ dataItem }, setErrorReport) => {
+const DateCell = ({ dataItem }, field) => {
+
+    return (dataItem[field] === null ? <td></td> : <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>);
+};
+
+const ExpressCell = ({ dataItem }, field) => {
+    const fieldLabel = dataItem[field] ? 'Срочная' : 'Не срочная';
+
+    return (
+        <td>{fieldLabel}</td>
+    );
+};
+
+const OptionsCell = ({ dataItem }) => {
     const { status_id, id } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
-            to={`/${route}/documents/responsible/checkmembership/form/view/${id}`}
+            to={`/${route}/documents/exhibitions/cancellation/form/view/${id}`}
             className="row-control__link">{item.text}</Link>
     },
     {
         text: 'Ответить',
-        disabled: status_id !== 1,
+        disabled: status_id === 1 ? false : true,
         render: ({ item }) => <Link
-            to={`/${route}/documents/responsible/checkmembership/form/edit/${id}`}
+            to={`/${route}/documents/exhibitions/cancellation/form/edit/${id}`}
             className="row-control__link">{item.text}</Link>
-    },
-    {
-        text: 'Сообщить об ошибке кинолога',
-        disabled: status_id === 3 ? false : true,
-        render: ({ item }) => <span className="row-control__link" onClick={() => setErrorReport(id)}>{item.text}</span>
-    }
-].filter(o => !o.disabled);
+    }].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
 
-const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport }) => {
+const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) => {
     const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
@@ -123,11 +130,16 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
         {...gridData}
         onDataStateChange={handleGridDataChange}>
         <GridColumn field="status_name" title="Статус" />
+        <GridColumn field="express" title="Срочность" cell={props => ExpressCell(props, 'express')} columnMenu={ColumnMenu} />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
         <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} />
-        <GridColumn field="federation_name" title="Федерация" columnMenu={ColumnMenu} />
-        <GridColumn field="mating_whelping_book_document_year" title="Год" width={fullScreen ? 'auto' : '258px'} columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
+
+        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
+        <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
+        <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} />
+        <GridColumn field="production_department_date" title="Дата передачи в производственный департамент" columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
     </Grid>;
 
     const rowRender = (trElement, props) => {
@@ -178,23 +190,26 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        style={{ height: "700px", maxWidth: `${fullScreen ? 'auto' : '703px'}`, margin: '0 auto' }}>
+                        style={{ height: "700px", width: "auto", margin: '0 auto' }}>
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="federation_name" title="Федерация" width={fullScreen ? 'auto' : '120px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="mating_whelping_book_document_year" title="Год" width={fullScreen ? 'auto' : '120px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
-                        <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, setErrorReport)} />
+
+                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '258px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="pedigree_number" title="Номер родословной" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '259px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} />
+                        <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
                     </Grid>}
                     <GridPDFExport
-                        fileName={`Подтверждение_членства_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                        fileName={`Перенос_отмена_выставки_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
                         pageTemplate={() => <PdfPageTemplate
-                            title="ЗАЯВКА НА ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА"
+                            title="ЗАЯВКА НА ПЕРЕНОС/ОТМЕНУ ВЫСТАВКИ"
                         />}
                     >
                         {gridForExport}

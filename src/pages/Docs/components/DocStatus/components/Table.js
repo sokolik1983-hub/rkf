@@ -92,7 +92,6 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         {...gridData}
         onDataStateChange={handleGridDataChange}
         onRowClick={handleGridRowClick}
-        className="club-documents-status__pointer"
     >
         <GridColumn field="status_name" title="Скачать" />
         <GridColumn field="date_create" title="Дата регистрации" columnMenu={ColumnMenu} />
@@ -117,7 +116,7 @@ const rowRender = (trElement, props) => {
     const StatusCell = (props) => {
         return (
             <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-                <td title={props.dataItem.status_name}>
+                <td>
                     {props.dataItem.status_value}
                 </td>
             </LightTooltip>
@@ -137,7 +136,6 @@ const rowRender = (trElement, props) => {
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
                         onRowClick={handleGridRowClick}
-                        className="club-documents-status__pointer"
                         style={{ height: "700px", width: "auto", margin: "0 auto" }}>
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                         <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '130px' : '150px'} columnMenu={ColumnMenu} />
