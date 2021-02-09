@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownButton, ChipList } from '@progress/kendo-react-buttons';
-import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
@@ -51,17 +50,6 @@ const ExpressCell = ({ dataItem }, field) => {
     );
 };
 
-const LinkCell = ({ dataItem }) => {
-    const { created_document_id } = dataItem;
-    return <td>
-        {created_document_id &&
-            <LightTooltip title="Скачать файл" enterDelay={200} leaveDelay={200}>
-                <span className="download-document" onClick={e => handleClick(e, created_document_id)}></span>
-            </LightTooltip>
-        }
-    </td>
-};
-
 const OptionsCell = ({ dataItem }) => {
     const { status_id, id } = dataItem;
     const { route } = useParams();
@@ -94,29 +82,6 @@ const OptionsCell = ({ dataItem }) => {
     }].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
-};
-
-const handleClick = async (e, id) => {
-    e.preventDefault();
-    let el = e.target;
-    el.className = 'stamp-loading';
-    el.innerText = 'Загрузка...';
-    await fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=${id}`, {
-        method: 'GET',
-        headers: getHeaders()
-    })
-        .then(response => response.blob())
-        .then(blob => {
-            let url = window.URL.createObjectURL(blob),
-                a = document.createElement('a');
-            a.href = url;
-            a.download = `Документ ${id}`;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-        });
-    el.innerText = '';
-    el.className = 'download-document';
 };
 
 const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) => {
@@ -182,11 +147,12 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         <GridColumn field="express" title="Срочность" cell={props => ExpressCell(props, 'express')} columnMenu={ColumnMenu} />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
         <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
+
         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
         <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
         <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
-        <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+        <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} />
         <GridColumn field="production_department_date" title="Дата передачи в производственный департамент" columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
     </Grid>;
 
@@ -242,11 +208,12 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
                         <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
+
                         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '258px'} columnMenu={ColumnMenu} />
                         <GridColumn field="pedigree_number" title="Номер родословной" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
                         <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '259px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
-                        <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+                        <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} />
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
                     </Grid>}
                     <GridPDFExport
