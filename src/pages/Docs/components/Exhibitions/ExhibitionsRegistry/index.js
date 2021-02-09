@@ -5,17 +5,15 @@ import Table from "./components/Table";
 import { Request } from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
 import { Link } from 'react-router-dom';
-import ls from "local-storage";
 import moment from "moment";
 import "./index.scss";
 
 
-const ExhibitionsRegistry = ({ history }) => {
+const ExhibitionsRegistry = ({ history, clubAlias }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
-    const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
 
     useEffect(() => {
@@ -45,7 +43,7 @@ const ExhibitionsRegistry = ({ history }) => {
                     {document_id && <button
                         className="user-documents-status__control user-documents-status__control--resetIcon"
                     >
-                        <Link to={`/${alias}/documents/exhibitions/application/registry`}>
+                        <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>
                             Вернуться к списку
                         </Link>
                     </button>}
@@ -70,7 +68,7 @@ const ExhibitionsRegistry = ({ history }) => {
             :
             <Card className="user-documents-status">
                 <div className="user-documents-status__head">
-                    <Link className="btn-backward" to={`/${alias}/documents/exhibitions`}>Личный кабинет</Link>
+                    <Link className="btn-backward" to={`/${clubAlias}/documents/exhibitions`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     Заявка на проведение выставки
                 </div>
@@ -80,7 +78,7 @@ const ExhibitionsRegistry = ({ history }) => {
                             {document_id && <button
                                 className="user-documents-status__control user-documents-status__control--resetIcon"
                             >
-                                <Link to={`/${alias}/documents/exhibitions/application/registry`}>
+                                <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>
                                     Вернуться к списку
                                 </Link>
                             </button>}

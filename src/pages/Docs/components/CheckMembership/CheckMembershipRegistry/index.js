@@ -5,18 +5,16 @@ import Table from "./components/Table";
 import { Request } from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
 import { Link } from 'react-router-dom';
-import ls from "local-storage";
 import ReportError from './components/ReportError';
 import moment from "moment";
 import "./index.scss";
 
 
-const ApplicationRegistry = ({ history }) => {
+const ApplicationRegistry = ({ history, clubAlias }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
-    const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const [errorReport, setErrorReport] = useState(null);
     const document_id = window.location.href.split('=')[1];
 
@@ -47,7 +45,7 @@ const ApplicationRegistry = ({ history }) => {
                     {document_id && <button
                         className="user-documents-status__control user-documents-status__control--resetIcon"
                     >
-                    <Link to={`/${alias}/documents/responsible/checkmembership/registry`}>
+                    <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>
                         Вернуться к списку
                     </Link>
                     </button>}
@@ -73,7 +71,7 @@ const ApplicationRegistry = ({ history }) => {
             :
             <Card className="user-documents-status">
                 <div className="user-documents-status__head">
-                    <Link className="btn-backward" to={`/${alias}/documents/responsible`}>Личный кабинет</Link>
+                    <Link className="btn-backward" to={`/${clubAlias}/documents/responsible`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     Подтверждение членства
                 </div>
@@ -83,7 +81,7 @@ const ApplicationRegistry = ({ history }) => {
                             {document_id && <button
                                 className="user-documents-status__control user-documents-status__control--resetIcon"
                             >
-                            <Link to={`/${alias}/documents/responsible/checkmembership/registry`}>
+                            <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>
                                 Вернуться к списку
                             </Link>
                             </button>}
