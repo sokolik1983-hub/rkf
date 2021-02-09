@@ -26,7 +26,7 @@ const _replacePedigreeExportOld = 13;
 // const _dogHealthCheckDysplasia = 20;
 // const _dogHealthCheckPatella = 21;
 // const _getRKFDocument = 22;
-const _checkMembership = 23;
+// const _checkMembership = 23;
 
 //temporarily hidden
 //
