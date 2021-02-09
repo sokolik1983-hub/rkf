@@ -190,7 +190,7 @@ const StampCards = ({ clubAlias }) => {
     };
     return <div className="documents-page__right">
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon stamps-icon" />
             <h3>КЛЕЙМА</h3>
             <p>
                 Указанные коды клейма могут быть использованы в формах оформления заявок на изготовление документов. При указании кода клейма клуба должна быть приложена электронная копия свидетельства о регистрации кода клейма или документ его заменяющий.
