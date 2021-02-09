@@ -143,7 +143,7 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
     const StatusCell = (props) => {
         return (
             <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-                <td title={props.dataItem.status_name}>
+                <td>
                     {props.dataItem.status_value}
                 </td>
             </LightTooltip>
@@ -188,13 +188,13 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, setErrorReport)} />
                     </Grid>}
                     <GridPDFExport
-                        fileName={`Получение_документов_РКФ_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                        fileName={`Подтверждение_членства_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
                         pageTemplate={() => <PdfPageTemplate
-                            title="ЗАЯВКА НА ПОЛУЧЕНИЕ ДОКУМЕНТОВ РКФ"
+                            title="ЗАЯВКА НА ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА"
                         />}
                     >
                         {gridForExport}

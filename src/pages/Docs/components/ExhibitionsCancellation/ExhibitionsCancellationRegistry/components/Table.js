@@ -155,7 +155,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
     const StatusCell = (props) => {
         return (
             <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-                <td title={props.dataItem.status_name}>
+                <td>
                     {props.dataItem.status_value}
                 </td>
             </LightTooltip>
