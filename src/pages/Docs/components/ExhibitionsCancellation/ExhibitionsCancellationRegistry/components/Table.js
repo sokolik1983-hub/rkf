@@ -56,28 +56,14 @@ const OptionsCell = ({ dataItem }) => {
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
-            to={`/${route}/documents/exhibitions/application/form/view/${id}`}
+            to={`/${route}/documents/exhibitions/cancellation/form/view/${id}`}
             className="row-control__link">{item.text}</Link>
     },
     {
         text: 'Ответить',
         disabled: status_id === 1 ? false : true,
         render: ({ item }) => <Link
-            to={`/${route}/documents/exhibitions/application/form/edit/${id}`}
-            className="row-control__link">{item.text}</Link>
-    },
-    {
-        text: 'Перенести',
-        disabled: status_id === 2 ? false : true,
-        render: ({ item }) => <Link
-            to={`/${route}/documents/exhibitions/application/form/change/${id}`}
-            className="row-control__link">{item.text}</Link>
-    },
-    {
-        text: 'Отменить',
-        disabled: status_id === 2 ? false : true,
-        render: ({ item }) => <Link
-            to={`/${route}/documents/exhibitions/application/form/cancel/${id}`}
+            to={`/${route}/documents/exhibitions/cancellation/form/edit/${id}`}
             className="row-control__link">{item.text}</Link>
     }].filter(o => !o.disabled);
 
@@ -217,13 +203,13 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
                     </Grid>}
                     <GridPDFExport
-                        fileName={`Проведение_выставки_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                        fileName={`Перенос_отмена_выставки_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
                         pageTemplate={() => <PdfPageTemplate
-                            title="ЗАЯВКА НА ПРОВЕДЕНИЕ ВЫСТАВКИ"
+                            title="ЗАЯВКА НА ПЕРЕНОС/ОТМЕНУ ВЫСТАВКИ"
                         />}
                     >
                         {gridForExport}

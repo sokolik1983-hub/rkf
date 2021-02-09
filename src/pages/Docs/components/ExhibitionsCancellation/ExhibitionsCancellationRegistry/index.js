@@ -43,7 +43,7 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                     {document_id && <button
                         className="user-documents-status__control user-documents-status__control--resetIcon"
                     >
-                        <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>
+                        <Link to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}>
                             Вернуться к списку
                         </Link>
                     </button>}
@@ -70,7 +70,7 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                 <div className="user-documents-status__head">
                     <Link className="btn-backward" to={`/${clubAlias}/documents/exhibitions`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    Заявка на проведение выставки
+                    Заявка на перенос или отмену выставки
                 </div>
                 {documents && !!documents.length
                     ? <div>
@@ -78,7 +78,7 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                             {document_id && <button
                                 className="user-documents-status__control user-documents-status__control--resetIcon"
                             >
-                                <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>
+                                <Link to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}>
                                     Вернуться к списку
                                 </Link>
                             </button>}

@@ -228,6 +228,17 @@ const ExhibitionsCards = ({ clubAlias }) => {
                 <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
             </div>
         </Card>
+        <Card>
+            <div className="documents-page__icon cancellation-icon" />
+            <h3>ПОДАТЬ ЗАЯВКУ НА ПЕРЕНОС/ОТМЕНУ ВЫСТАВКИ</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.             </p>
+            <hr />
+            <div className="Card__links">
+                <Link to={`/${clubAlias}/documents/exhibitions/cancellation/form`}>Подать заявку</Link>
+                <Link to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}>Реестр заявок</Link>
+            </div>
+        </Card>
     </div>
 };
 

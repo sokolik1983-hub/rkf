@@ -72,10 +72,10 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
     });
 
     useEffect(() => {
-        handleDropDown()
+        setBarcodeFilter();
     }, []);
 
-    const handleDropDown = () => {
+    const setBarcodeFilter = () => {
         const document_id = window.location.href.split('=')[1];
         let newDataState = { ...gridData }
         if (document_id) {
