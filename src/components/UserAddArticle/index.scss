@@ -261,18 +261,6 @@
 
   &__advert {
     color: #72839C;
-    .FormInput:first-child {
-      flex-grow: 2 !important;
-      flex-shrink: 0 !important;
-    }
-
-    @media (max-width: 767px) {
-      display: block;
-      margin-bottom: 10px;
-      .FormInput:not(:last-child) {
-        margin: 0 0 10px;
-      }
-    }
 
     .FormInput__input {
       padding: 7px 16px 7px 16px !important;
