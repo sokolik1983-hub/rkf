@@ -51,8 +51,7 @@ const DocumentCards = ({ clubAlias, authorizedAccess }) => {
     return <div className="documents-page__right">
         {!hasAccess && <Card className="documents-page__alert-card">
             <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
-            <p style={{ padding: 0, textAlign: 'center' }}>Для продолжения работы с личным кабинетов Вам необходимо подтвердить членство Вашей организации. Для этого Вам необходимо перейти в раздел "Организационная информация" вашего личного кабинета
-                и подать заявку на подтверждение членства.</p>
+            <p style={{ padding: 0, textAlign: 'center' }}>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
         </Card>}
         <Card className={litter ? `` : `_inactive`}>
             <div className="documents-page__icon litter-icon" />

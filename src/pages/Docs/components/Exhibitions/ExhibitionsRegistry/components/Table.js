@@ -37,19 +37,6 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => {
-
-    return (dataItem[field] === null ? <td></td> : <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>);
-};
-
-const ExpressCell = ({ dataItem }, field) => {
-    const fieldLabel = dataItem[field] ? 'Срочная' : 'Не срочная';
-
-    return (
-        <td>{fieldLabel}</td>
-    );
-};
-
 const OptionsCell = ({ dataItem }) => {
     const { status_id, id } = dataItem;
     const { route } = useParams();
@@ -144,16 +131,15 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         {...gridData}
         onDataStateChange={handleGridDataChange}>
         <GridColumn field="status_name" title="Статус" />
-        <GridColumn field="express" title="Срочность" cell={props => ExpressCell(props, 'express')} columnMenu={ColumnMenu} />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
         <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
-
-        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
-        <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} />
-        <GridColumn field="production_department_date" title="Дата передачи в производственный департамент" columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
+        <GridColumn field="date_begin" title="Дата начала проведения выставки" columnMenu={ColumnMenu} />
+        <GridColumn field="date_end" title="Дата окончания проведения выставки" columnMenu={ColumnMenu} />
+        <GridColumn field="format_name" title="Формат мероприятия" columnMenu={ColumnMenu} />
+        <GridColumn field="rank_name" title="Ранг заявленный выставки" columnMenu={ColumnMenu} />
+        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" columnMenu={ColumnMenu} />
+        <GridColumn field="city_name" title="Место проведения выставки" columnMenu={ColumnMenu} />
     </Grid>;
 
     const rowRender = (trElement, props) => {
@@ -209,11 +195,12 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
                         <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
-
-                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '258px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="pedigree_number" title="Номер родословной" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '259px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} />
+                        <GridColumn field="date_begin" title="Дата начала проведения выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="date_end" title="Дата окончания проведения выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="format_name" title="Формат мероприятия" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="rank_name" title="Ранг заявленный выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="city_name" title="Место проведения выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
                     </Grid>}
                     <GridPDFExport
@@ -228,7 +215,6 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                     >
                         {gridForExport}
                     </GridPDFExport>
-
                 </IntlProvider>
             </LocalizationProvider>
             <NotificationGroup
