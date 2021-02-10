@@ -18,14 +18,16 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
 
     useEffect(() => {
         (() => Request({
-            url: `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest/register_of_requests`,
+            url: `/api/requests/exhibition_request/clubexhibitionrequest/register_of_requests?typeId=2`,
             method: 'GET'
         }, data => {
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
-            }).map(({ date_change, date_create, production_department_date, ...rest }) => ({
+            }).map(({ date_change, date_create, date_begin, date_end, ...rest }) => ({
                 date_change: moment(date_change).format('DD.MM.YY'),
                 date_create: moment(date_create).format('DD.MM.YY'),
+                date_begin: moment(date_begin).format('DD.MM.YY'),
+                date_end: moment(date_end).format('DD.MM.YY'),
                 ...rest
             })));
             setLoading(false);
