@@ -131,15 +131,15 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         {...gridData}
         onDataStateChange={handleGridDataChange}>
         <GridColumn field="status_name" title="Статус" />
-        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
-        <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
-        <GridColumn field="date_begin" title="Дата начала проведения выставки" columnMenu={ColumnMenu} />
-        <GridColumn field="date_end" title="Дата окончания проведения выставки" columnMenu={ColumnMenu} />
-        <GridColumn field="format_name" title="Формат мероприятия" columnMenu={ColumnMenu} />
-        <GridColumn field="rank_name" title="Ранг заявленный выставки" columnMenu={ColumnMenu} />
-        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" columnMenu={ColumnMenu} />
-        <GridColumn field="city_name" title="Место проведения выставки" columnMenu={ColumnMenu} />
+        <GridColumn field="date_create" title="Дата создания" />
+        <GridColumn field="date_change" title="Дата последнего изменения статуса" />
+        <GridColumn field="barcode" title="Трек-номер" />
+        <GridColumn field="date_begin" title="Дата начала проведения выставки" />
+        <GridColumn field="date_end" title="Дата окончания проведения выставки" />
+        <GridColumn field="format_name" title="Формат мероприятия" />
+        <GridColumn field="rank_name" title="Ранг заявленный выставки" />
+        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" />
+        <GridColumn field="city_name" title="Место проведения выставки" />
     </Grid>;
 
     const rowRender = (trElement, props) => {
@@ -197,10 +197,10 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="date_begin" title="Дата начала проведения выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
                         <GridColumn field="date_end" title="Дата окончания проведения выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="format_name" title="Формат мероприятия" width={fullScreen ? '130px' : '135px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="rank_name" title="Ранг заявленный выставки" width={fullScreen ? '130px' : '136px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" width={fullScreen ? '136px' : '130px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="city_name" title="Место проведения выставки" width={fullScreen ? '130px' : '136px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="format_name" title="Формат мероприятия" width={fullScreen ? 'auto' : '135px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="rank_name" title="Ранг заявленный выставки" width={fullScreen ? 'auto' : '136px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" width={fullScreen ? 'auto' : '130px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="city_name" title="Место проведения выставки" width={fullScreen ? 'auto' : '136px'} columnMenu={ColumnMenu} />
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
                     </Grid>}
                     <GridPDFExport
