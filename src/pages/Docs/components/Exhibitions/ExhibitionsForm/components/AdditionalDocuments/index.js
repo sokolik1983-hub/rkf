@@ -41,6 +41,7 @@ const AdditionalDocuments = ({ id, documents, setDocuments, attachedDocuments, f
                 setDocumentsOverflow={setDocumentsOverflow}
                 setDisableSubmit={setDisableSubmit}
                 formRenderProps={formRenderProps}
+                handleError={handleError}
             />
         </div>
         <Modal showModal={showModal} handleClose={() => { setShowModal(false); setUrl('') }}>

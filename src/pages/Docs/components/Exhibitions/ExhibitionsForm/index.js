@@ -33,11 +33,16 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [values, setValues] = useState({});
-    const [exhibitionProperties, setExhibitionProperties] = useState({ formats: [], ranks: [], forbidden_dates: [], cities: [] });
     const [documents, setDocuments] = useState([]);
-    const [nationalBreedClubs, setNationalBreedClubs] = useState([]);
     const [formProps, setFormProps] = useState(null);
     const [loaded, setLoaded] = useState(false);
+    const [exhibitionProperties, setExhibitionProperties] = useState({
+        formats: [],
+        ranks: [],
+        national_breed_clubs: [],
+        forbidden_dates: [],
+        cities: []
+    });
     const [initialValues, setInitialValues] = useState({
         format_id: '',
         rank_id: '',
@@ -65,7 +70,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
 
     useEffect(() => {
         if (!status) {
-            Promise.all([getExhibitionProperties(), getNationalBreedClubs()]).then(() => setLoaded(true));
+            Promise.all([getExhibitionProperties()]).then(() => setLoaded(true));
         }
     }, []);
 
@@ -116,23 +121,10 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                     ...exhibitionProperties,
                     formats: data.formats.map(d => ({ text: d.name, value: d.id })),
                     ranks: data.ranks.map(d => ({ text: d.name, value: d.id })),
+                    national_breed_clubs: data.national_breed_clubs,
                     forbidden_dates: data.forbidden_dates,
                     cities: data.cities
                 });
-            } else {
-                setError('Ошибка');
-            }
-        }, error => {
-            handleError(error);
-        });
-    };
-
-    const getNationalBreedClubs = async () => {
-        await Request({
-            url: `/api/nationalbreedclub/list`
-        }, data => {
-            if (data) {
-                setNationalBreedClubs(data);
             } else {
                 setError('Ошибка');
             }
@@ -145,14 +137,10 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         let newData = {
             ...data,
             format_id: data.format_id.value,
+            date_begin: moment(data.date_begin).format(),
+            date_end: moment(data.date_end).format(),
             documents: documents.map(d => ({ name: d.name, document_id: d.id }))
         };
-
-        // newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
-
-        // delete newData.declarant_name;
-        // delete newData.document_type_id;
-        // delete newData.payment_document;
 
         if (status === 'edit') {
             newData.id = values.id;
@@ -162,7 +150,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                     ...formProps.valueGetter('documents')
                 ];
             }
-        }
+        };
 
         await Request({
             url: '/api/requests/exhibition_request/clubexhibitionrequest',
@@ -326,7 +314,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             label={'Выберите НКП'}
                                                             component={FormComboBox}
                                                             textField={'name'}
-                                                            data={nationalBreedClubs}
+                                                            data={exhibitionProperties.national_breed_clubs}
                                                             value={formRenderProps.valueGetter('national_breed_club_id')}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
