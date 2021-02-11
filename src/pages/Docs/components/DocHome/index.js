@@ -227,7 +227,7 @@ const ExhibitionsCards = ({ clubAlias, authorizedAccess }) => {
                 <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
             </div>
         </Card>
-        <Card>
+        <Card className={exhibitionCancellation ? `` : `_inactive`}>
             <div className="documents-page__icon cancellation-icon" />
             <h3>ПОДАТЬ ЗАЯВКУ НА ПЕРЕНОС/ОТМЕНУ ВЫСТАВКИ</h3>
             <p>
