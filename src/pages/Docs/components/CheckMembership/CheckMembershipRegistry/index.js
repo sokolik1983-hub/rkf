@@ -75,7 +75,7 @@ const ApplicationRegistry = ({ history }) => {
                 <div className="user-documents-status__head">
                     <Link className="btn-backward" to={`/${alias}/documents/responsible`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    Подтверждение членства
+                    Отчёты о племенной деятельности
                 </div>
                 {documents && !!documents.length
                     ? <div>

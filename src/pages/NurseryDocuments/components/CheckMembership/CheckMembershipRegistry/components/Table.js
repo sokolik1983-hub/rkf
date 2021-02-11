@@ -188,13 +188,13 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, setErrorReport)} />
                     </Grid>}
                     <GridPDFExport
-                        fileName={`Подтверждение_членства_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                        fileName={`Племенная_деятельность_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
                         pageTemplate={() => <PdfPageTemplate
-                            title="ЗАЯВКА НА ПОТДВЕРЖДЕНИЕ ЧЛЕНСТВА"
+                            title="ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ"
                         />}
                     >
                         {gridForExport}
