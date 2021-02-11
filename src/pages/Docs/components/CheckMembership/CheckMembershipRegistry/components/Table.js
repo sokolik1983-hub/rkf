@@ -199,7 +199,6 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
                     >
                         {gridForExport}
                     </GridPDFExport>
-
                 </IntlProvider>
             </LocalizationProvider>
             <NotificationGroup

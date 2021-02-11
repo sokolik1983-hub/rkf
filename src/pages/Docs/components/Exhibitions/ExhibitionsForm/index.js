@@ -1,75 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { Form, Field, FormElement } from "@progress/kendo-react-form";
+import { Form, Field, FieldArray, FormElement } from "@progress/kendo-react-form";
 import { Fade } from "@progress/kendo-react-animation";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import Loading from "../../../../../components/Loading";
 import Card from "../../../../../components/Card";
-import LightTooltip from "../../../../../components/LightTooltip";
-import FormInput from "../../../../../components/kendo/Form/FormInput";
-import FormContactsCheckbox from "../../../../../components/kendo/Form/FormContactsCheckbox";
-import FormUpload from "./components/FormUpload";
+import AdditionalDocuments from "./components/AdditionalDocuments";
+import FormContactsFieldArray from "./components/FormContactsFieldArray";
+import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import DocumentLink from "../../DocumentLink";
-import DocumentLinksArray from "../../DocumentLinksArray";
-import {
-    dateRequiredValidator, nameRequiredValidator,
-    documentRequiredValidator, requiredWithTrimValidator,
-    documentTypeRequired, innValidator, requiredValidator, nameValidator
-} from "../../../../../components/kendo/Form/validators";
+import { requiredValidator } from "../../../../../components/kendo/Form/validators";
 import { Request } from "../../../../../utils/request";
-import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import "./index.scss";
-
+import {
+    phoneRequiredValidator,
+    phoneValidator,
+    emailRequiredValidator,
+    emailValidator
+} from 'pages/UserEditKendo/validators';
 
 loadMessages(ruMessages, 'ru');
 
 
 const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
-    const [disableFields, setDisableFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
-    const [isForeignPedigree, setIsForeignPedigree] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
-    const [values, setValues] = useState(null);
-    const [declarants, setDeclarants] = useState([]);
-    const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
-    const [documentTypeIds, setDocumentTypeIds] = useState([]);
+    const [values, setValues] = useState({});
+    const [exhibitionProperties, setExhibitionProperties] = useState({ formats: [], ranks: [], forbidden_dates: [], cities: [] });
+    const [documents, setDocuments] = useState([]);
+    const [nationalBreedClubs, setNationalBreedClubs] = useState([]);
     const [formProps, setFormProps] = useState(null);
-    const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [initialValues, setInitialValues] = useState({
-        declarant_id: 0,
-        is_foreign_owner: false,
-        owner_last_name: '',
-        owner_first_name: '',
-        owner_second_name: '',
-        express: false,
-        pedigree_number: '',
-        dog_name: '',
-        is_foreign_pedigree: false,
-        payment_date: '',
-        payment_number: '',
-        payment_document_id: '',
-        payment_name: '',
-        inn: '',
+        format_id: '',
+        rank_id: '',
+        city_id: '',
+        date_begin: '',
+        date_end: '',
+        national_breed_club_id: '',
         comment: '',
-        document_type_id: 0,
-        rkf_document_type_id: 0,
-        payment_document: [],
-        documents: []
+        documents: [{
+            name: '',
+            document_id: ''
+        }],
+        phones: [{
+            value: '',
+            is_main: true,
+            description: ''
+        }],
+        emails: [{
+            value: '',
+            is_main: true,
+            description: ''
+        }]
     });
     const editable = !status || status === 'edit';
 
     useEffect(() => {
         if (!status) {
-            Promise.all([getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
+            Promise.all([getExhibitionProperties(), getNationalBreedClubs()]).then(() => setLoaded(true));
         }
     }, []);
 
@@ -87,9 +83,6 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                 });
                 if (data.documents) {
                     values.documents = [];
-                }
-                if (data.is_foreign_pedigree) {
-                    setIsForeignPedigree(true);
                 }
                 setValues(data);
                 setInitialValues(values);
@@ -114,15 +107,17 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         }
     };
 
-    const getDocumentTypes = async () => {
+    const getExhibitionProperties = async () => {
         await Request({
-            url: `/api/requests/commonrequest/rkf_document_types`
+            url: `/api/requests/exhibition_request/clubexhibitionrequest/exhibition_properties`
         }, data => {
             if (data) {
-                setDocumentTypes({
-                    ...documentTypes,
-                    id: data.id.map(d => ({ text: d.name, value: d.id })),
-                    documents: data.documents.map(d => ({ text: d.name, value: d.id, document_type_id: d.document_type_id }))
+                setExhibitionProperties({
+                    ...exhibitionProperties,
+                    formats: data.formats.map(d => ({ text: d.name, value: d.id })),
+                    ranks: data.ranks.map(d => ({ text: d.name, value: d.id })),
+                    forbidden_dates: data.forbidden_dates,
+                    cities: data.cities
                 });
             } else {
                 setError('Ошибка');
@@ -132,35 +127,12 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         });
     };
 
-    const getDeclarants = async () => {
+    const getNationalBreedClubs = async () => {
         await Request({
-            url: `/api/clubs/declarant/club_declarants`
+            url: `/api/nationalbreedclub/list`
         }, data => {
             if (data) {
-                setDeclarants(data.map(declarant => ({ text: declarant.full_name, value: declarant.id })));
-
-                let defaultDeclarant = data.sort((a, b) => Number(b.is_default) - Number(a.is_default))[0].id;
-                setInitialValues({
-                    declarant_id: defaultDeclarant,
-                    is_foreign_owner: false,
-                    owner_last_name: '',
-                    owner_first_name: '',
-                    owner_second_name: '',
-                    express: false,
-                    pedigree_number: '',
-                    dog_name: '',
-                    is_foreign_pedigree: false,
-                    payment_date: '',
-                    payment_number: '',
-                    payment_document_id: '',
-                    payment_name: '',
-                    inn: '',
-                    comment: '',
-                    document_type_id: 0,
-                    rkf_document_type_id: 0,
-                    payment_document: [],
-                    documents: []
-                });
+                setNationalBreedClubs(data);
             } else {
                 setError('Ошибка');
             }
@@ -170,19 +142,17 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     };
 
     const handleSubmit = async data => {
-        const paymentId = formProps.valueGetter('payment_document')[0]?.id;
-        setDisableSubmit(true);
-
         let newData = {
             ...data,
-            payment_document_id: paymentId ? paymentId : data.payment_document_id
+            format_id: data.format_id.value,
+            documents: documents.map(d => ({ name: d.name, document_id: d.id }))
         };
 
-        newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
+        // newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
 
-        delete newData.declarant_name;
-        delete newData.document_type_id;
-        delete newData.payment_document;
+        // delete newData.declarant_name;
+        // delete newData.document_type_id;
+        // delete newData.payment_document;
 
         if (status === 'edit') {
             newData.id = values.id;
@@ -195,98 +165,46 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         }
 
         await Request({
-            url: '/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest',
+            url: '/api/requests/exhibition_request/clubexhibitionrequest',
             method: status === 'edit' ? 'PUT' : 'POST',
             data: JSON.stringify(newData)
         }, () => {
-            history.push(`/${clubAlias}/documents`);
+            history.push(`/${clubAlias}/documents/exhibitions`);
         }, error => {
             handleError(error);
             setDisableSubmit(false);
         });
     };
 
-    const getDogName = async (pedigreeNumber, changeDogName) => {
-        await Request({
-            url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
-        }, data => {
-            if (data) {
-                setDisableFields(true);
-                setError('');
-                changeDogName('dog_name', { value: data.name });
+    const handleFormatChange = id => {
+        //setDocumentTypeIds(documentTypes.documents.filter(d => d.document_type_id === value));
+        formProps.onChange('format_id', { value: id });
+        formProps.onChange('rank_id', { text: "Выберите формат", value: 0 });
+    };
+
+    const dateRequiredValidator = value => {
+        const stopDates = exhibitionProperties.forbidden_dates;
+        if (value) {
+            const startDate = moment(new Date(formProps.valueGetter('date_begin')).toLocaleDateString());
+            const endDate = moment(new Date(formProps.valueGetter('date_end')).toLocaleDateString());
+            const selectedDate = new Date(`${value}`);
+            const forbiddenDate = stopDates.find(f => new Date(`${f}`).getTime() === selectedDate.getTime());
+            if (forbiddenDate) {
+                return 'Проведение выставки невозможно в выбранную дату'
             } else {
-                setError('Номер родословной не найден в базе ВЕРК');
+                if (!!startDate && !!endDate && stopDates) {
+                    if (stopDates.find(d => moment(new Date(d).toLocaleDateString()).isBetween(startDate, endDate))) {
+                        return 'Проведение выставки невозможно в выбранную дату'
+                    } else {
+                        return ''
+                    }
+                }
+                return ''
             }
-        }, error => {
-            handleError(error);
-        });
-    };
-
-    const handleChange = name => {
-        if (name === 'is_foreign_pedigree') {
-            const isForeign = !formProps.valueGetter(name);
-
-            formProps.onChange('pedigree_number', { value: '' });
-
-            formProps.onChange('dog_name', { value: '' });
-
-            setDisableFields(false);
-            setIsForeignPedigree(isForeign);
-        }
-
-        formProps.onChange(name, { value: !formProps.valueGetter(name) })
-    };
-
-    const onAdd = event => {
-        const { newState } = event;
-        if (status === 'edit') {
-            (values.documents?.length + newState.length) > 20
-                ? setDocumentsOverflow(true)
-                : formProps.onChange('documents', { value: newState })
         } else {
-            newState.length > 20
-                ? setDocumentsOverflow(true)
-                : formProps.onChange('documents', { value: newState })
+            return 'Обязательное поле'
         }
-    };
-
-    const onRemove = event => {
-        const { newState } = event;
-        newState.length <= 20 && setDocumentsOverflow(false);
-        formProps.onChange('documents', { value: newState })
-    };
-
-    const onProgress = (event, name) => formProps.onChange(name, { value: event.newState });
-
-    const onBeforeUpload = (e, type) => {
-        e.headers = getHeaders(true);
-        e.additionalData = { document_type_id: type };
-    };
-
-    const onStatusChange = (event, name) => {
-        const { newState, affectedFiles, response } = event;
-        if (response) {
-            const updatedNewState = newState.map(d => d.uid === affectedFiles[0].uid ? ({ ...d, id: response?.response?.result?.id }) : d);
-            formProps.onChange(name, { value: updatedNewState });
-        } else {
-            formProps.onChange(name, { value: newState });
-        }
-    };
-
-    const handleDocTypeChange = docType => {
-        const { value } = docType;
-        setDocumentTypeIds(documentTypes.documents.filter(d => d.document_type_id === value));
-        formProps.onChange('document_type_id', { value: docType });
-        formProps.onChange('rkf_document_type_id', { value: 0 });
-    };
-
-    const handleDocumentRemove = id => {
-        formProps.valueGetter('documents').length + (values.documents.length - 1) <= 20 && setDocumentsOverflow(false);
-        setValues({
-            ...values,
-            documents: values.documents.filter(d => d.id !== id)
-        })
-    };
+    }
 
     return (
         <div className="application-form">
@@ -294,7 +212,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                 <div className="club-documents-status__head">
                     <Link to={`/${clubAlias}/documents`} className="club-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    <span className="user-documents__breadcrumbs-item">Заявка на получение документов РКФ</span>
+                    <span className="user-documents__breadcrumbs-item">Подача заявки на проведение выставки</span>
                 </div>
                 {!loaded ?
                     <Loading centered={false} /> :
@@ -304,6 +222,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                         key={JSON.stringify(initialValues)}
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
+                            const isCACIB = formRenderProps.valueGetter('format_id').value === 2;
+                            const isCAC = formRenderProps.valueGetter('format_id').value === 1;
                             return (
                                 <FormElement>
                                     <div className="application-form__content">
@@ -313,321 +233,161 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                         <h4 className="application-form__title" style={{ marginBottom: 0, marginTop: '20px' }}>
                                             {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                         </h4>
-                                        <div className="application-form__row-is-foreign">
-                                            <div className="application-form__declarant">
-                                                <p className={`k-label${disableAllFields ? ' k-text-disabled' : ''}`}>
-                                                    <span>Ответственное лицо</span>
-                                                    {!disableAllFields &&
-                                                        <>
-                                                            &nbsp;
-                                                            <span>
-                                                                (<a href={`/${clubAlias}/documents/responsible/form`}>Создать ответственное лицо</a>)
-                                                            </span>
-                                                        </>
-                                                    }
-                                                </p>
+                                        <div className="application-form__row three-column">
+                                            <div>
                                                 <Field
-                                                    id="declarant_id"
-                                                    name="declarant_id"
+                                                    id="format_id"
+                                                    name="format_id"
+                                                    label="Формат мероприятия"
                                                     component={FormDropDownList}
-                                                    data={declarants}
-                                                    defaultItem={values && values.declarant_name
-                                                        ? { text: values.declarant_name, value: values.declarant_id }
-                                                        : { text: "Не выбран", value: 0 }
-                                                    }
-                                                    validator={disableAllFields ? '' : documentTypeRequired}
-                                                    disabled={disableAllFields}
-                                                />
-                                            </div>
-                                            <div>
-                                                <Field
-                                                    id="is_foreign_owner"
-                                                    name="is_foreign_owner"
-                                                    label="Владелец является иностранным гражданином"
-                                                    component={FormContactsCheckbox}
-                                                    onChange={handleChange}
-                                                    disabled={disableAllFields}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="application-form__row row _payment-info">
-                                            <div>
-                                                <Field
-                                                    id="owner_last_name"
-                                                    name="owner_last_name"
-                                                    label="Фамилия владельца"
-                                                    cutValue={150}
-                                                    component={FormInput}
-                                                    validator={value => nameRequiredValidator(value, 150)}
-                                                    disabled={initialValues.owner_last_name || status === 'view' ? true : false}
-                                                />
-                                            </div>
-                                            <div>
-                                                <Field
-                                                    id="owner_first_name"
-                                                    name="owner_first_name"
-                                                    label="Имя владельца"
-                                                    cutValue={150}
-                                                    component={FormInput}
-                                                    validator={value => nameRequiredValidator(value, 150)}
-                                                    disabled={initialValues.owner_last_name || status === 'view' ? true : false}
-                                                />
-                                            </div>
-                                            <div>
-                                                <Field
-                                                    id="owner_second_name"
-                                                    name="owner_second_name"
-                                                    label="Отчество владельца"
-                                                    cutValue={150}
-                                                    component={FormInput}
-                                                    validator={value => nameValidator(value, 150)}
-                                                    disabled={initialValues.owner_last_name || status === 'view' ? true : false}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="application-form__row row">
-                                            <Field
-                                                id="express"
-                                                name="express"
-                                                label="Срочное изготовление"
-                                                component={FormContactsCheckbox}
-                                                onChange={handleChange}
-                                                disabled={disableAllFields}
-                                            />
-                                        </div>
-                                        <div className="application-form__row row">
-                                            <div>
-                                                <Field
-                                                    id="document_type_id"
-                                                    name="document_type_id"
-                                                    label="Выберите тип документа"
-                                                    component={FormDropDownList}
-                                                    onChange={handleDocTypeChange}
-                                                    data={documentTypes.id}
+                                                    onChange={handleFormatChange}
+                                                    data={exhibitionProperties.formats}
                                                     defaultItem={values && values.document_type_name
                                                         ? { text: values.document_type_name, value: values.document_type_id }
-                                                        : { text: "Не выбран", value: 0 }
+                                                        : { text: "Выберите формат", value: 0 }
                                                     }
-                                                    validator={disableAllFields ? '' : documentTypeRequired}
+                                                    validator={requiredValidator}
                                                     disabled={disableAllFields}
                                                 />
                                             </div>
-                                            <div className="application-form__doc-type-id">
+                                            <div>
                                                 <LocalizationProvider language="ru">
                                                     <IntlProvider locale="ru">
                                                         <Field
-                                                            id="rkf_document_type_id"
-                                                            name="rkf_document_type_id"
-                                                            label="Документ"
+                                                            id="rank_id"
+                                                            name="rank_id"
+                                                            label="Ранг выставки"
                                                             component={FormDropDownList}
-                                                            data={documentTypeIds}
+                                                            data={exhibitionProperties.ranks}
                                                             defaultItem={values && values.rkf_document_type_name
                                                                 ? { text: values.rkf_document_type_name, value: values.rkf_document_type_id }
-                                                                : { text: "Не выбран", value: 0 }
+                                                                : { text: "Выберите ранг", value: 0 }
                                                             }
-                                                            validator={documentTypeRequired}
-                                                            disabled={disableAllFields}
+                                                            validator={isCAC ? requiredValidator : null}
+                                                            disabled={!isCAC || disableAllFields}
+                                                            resetValue={isCAC ? false : { text: "Выберите ранг", value: 0 }}
+                                                        />
+                                                    </IntlProvider>
+                                                </LocalizationProvider>
+                                            </div>
+                                            <div>
+                                                <LocalizationProvider language="ru">
+                                                    <IntlProvider locale="ru">
+                                                        <FormComboBox
+                                                            id={'city_id'}
+                                                            name={'city_id'}
+                                                            label={'Город проведения выставки'}
+                                                            component={FormComboBox}
+                                                            textField={'name'}
+                                                            data={exhibitionProperties.cities}
+                                                            value={formRenderProps.valueGetter('city_id')}
+                                                            onChange={formRenderProps.onChange}
+                                                            validationMessage="Обязательное поле"
+                                                            required={formRenderProps.valueGetter('format_id').value ? true : false}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
                                             </div>
                                         </div>
-                                        <div className="application-form__row row">
-                                            <Field
-                                                id="pedigree_number"
-                                                name="pedigree_number"
-                                                label="№ родословной собаки"
-                                                hint={!isForeignPedigree ? 'Допускается ввод только цифр' : ''}
-                                                maxLength={30}
-                                                onlyNumbers={!isForeignPedigree}
-                                                disabled={!editable || disableFields}
-                                                component={FormInput}
-                                                validator={requiredValidator}
-                                            />
-                                            {editable && !disableFields && !isForeignPedigree &&
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-primary"
-                                                    onClick={() => getDogName(
-                                                        formRenderProps.valueGetter('pedigree_number'),
-                                                        formRenderProps.onChange
-                                                    )}
-                                                    disabled={!formRenderProps.valueGetter('pedigree_number')}
-                                                >Поиск
-                                                </button>
-                                            }
-                                            <Field
-                                                id="dog_name"
-                                                name="dog_name"
-                                                label="Кличка собаки"
-                                                disabled={!editable || disableFields}
-                                                component={FormInput}
-                                                validator={requiredValidator}
-                                            />
-                                            {editable && disableFields &&
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-red"
-                                                    onClick={() => {
-                                                        formRenderProps.onChange('pedigree_number', { value: '' });
-                                                        formRenderProps.onChange('dog_name', { value: '' });
-                                                        setDisableFields(false);
-                                                    }}
-                                                >Удалить
-                                                </button>
-                                            }
-                                        </div>
-                                        <div className="application-form__row row">
-                                            <Field
-                                                id="is_foreign_pedigree"
-                                                name="is_foreign_pedigree"
-                                                label="Иностранная родословная"
-                                                component={FormContactsCheckbox}
-                                                onChange={handleChange}
-                                                disabled={!editable}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="application-form__content">
-                                        <h4 className="application-form__title">Документы</h4>
-                                        {!!status && values &&
-                                            <DocumentLinksArray
-                                                documents={values.documents}
-                                                editable={editable}
-                                                onRemove={handleDocumentRemove}
-                                            />
-                                        }
-                                        {editable &&
-                                            <>
-                                                <div>
-                                                    При загрузке файлов постарайтесь&nbsp;
-                                                    <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
-                                                        <>
-                                                            <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="application-form__how-to-link"
-                                                            >объединить их в один файл </a>
-                                                            (PDF, JPEG, JPG, PNG)
-                                                        </>
-                                                    </LightTooltip>.
-                                                </div>
-                                                <div className="application-form__file">
-                                                    <Field
-                                                        id="documents"
-                                                        name="documents"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                        component={FormUpload}
-                                                        saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
-                                                        saveField="document"
-                                                        multiple={true}
-                                                        showActionButtons={!documentsOverflow}
-                                                        onAdd={onAdd}
-                                                        onRemove={onRemove}
-                                                        onBeforeUpload={e => onBeforeUpload(e, 27)}
-                                                        onStatusChange={(e) => onStatusChange(e, 'documents')}
-                                                        onProgress={(e) => onProgress(e, 'documents')}
-                                                        validator={values?.documents.length
-                                                            ? ''
-                                                            : () => documentRequiredValidator(formProps?.valueGetter('documents').find(d => d.id))
-                                                        }
-                                                    />
-                                                    {values &&
-                                                        values.veterinary_contract_document_id &&
-                                                        !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
-                                                    }
-                                                    {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
-                                                        Вы не можете добавить больше 20 документов
-                                                    </div>}
-                                                </div>
-                                            </>
-                                        }
-                                    </div>
-
-                                    <div className="application-form__content">
-                                        <h4 className="application-form__title">Информация о платеже</h4>
-                                        {!disableAllFields && <>
-                                            <p style={{ marginBottom: '10px' }}>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
-                                            <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
-                                        </>
-                                        }
-                                        <div className="application-form__row">
-                                            {editable ?
-                                                <div className="application-form__file">
-                                                    <Field
-                                                        id="payment_document"
-                                                        name="payment_document"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                        component={FormUpload}
-                                                        saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
-                                                        saveField="document"
-                                                        multiple={false}
-                                                        showActionButtons={true}
-                                                        onBeforeUpload={e => onBeforeUpload(e, 5)}
-                                                        onStatusChange={e => onStatusChange(e, 'payment_document')}
-                                                        onProgress={e => onProgress(e, 'payment_document')}
-                                                        validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document')
-                                                            .find(d => d.id))}
-                                                    />
-                                                    {values &&
-                                                        values.payment_document_id &&
-                                                        !formRenderProps.valueGetter('payment_document').length &&
-                                                        <DocumentLink docId={values.payment_document_id} />
-                                                    }
-                                                </div>
-                                                : <div className="application-form__file">
-                                                    <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
-                                                    <DocumentLink docId={values.payment_document_id} />
-                                                </div>
-                                            }
-                                        </div>
-                                        <div className="application-form__row">
+                                        <div className="application-form__row two-column">
                                             <div>
                                                 <Field
-                                                    id="payment_date"
-                                                    name="payment_date"
-                                                    label="Дата оплаты"
-                                                    max={new Date()}
+                                                    id="date_begin"
+                                                    name="date_begin"
+                                                    label="Дата начала проведения"
+                                                    min={isCACIB
+                                                        ? new Date(`01.01.${new Date().getFullYear() + 2}`)
+                                                        : new Date(`01.01.${new Date().getFullYear() + 1}`)
+                                                    }
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
-                                                    disabled={!editable}
+                                                    disabled={!formRenderProps.valueGetter('format_id').value || disableAllFields}
                                                 />
                                             </div>
                                             <div>
                                                 <Field
-                                                    id="payment_number"
-                                                    name="payment_number"
-                                                    label="Номер платежного документа"
-                                                    cutValue={30}
-                                                    component={FormInput}
-                                                    validator={requiredWithTrimValidator}
-                                                    disabled={!editable}
+                                                    id="date_end"
+                                                    name="date_end"
+                                                    label="Дата окончания"
+                                                    min={formRenderProps.valueGetter('date_begin') ? formRenderProps.valueGetter('date_begin') : null}
+                                                    component={FormDatePicker}
+                                                    validator={dateRequiredValidator}
+                                                    disabled={!formRenderProps.valueGetter('date_begin') || disableAllFields}
                                                 />
                                             </div>
                                         </div>
-                                        <div className="application-form__row">
-                                            <Field
-                                                id="payment_name"
-                                                name="payment_name"
-                                                label="ФИО плательщика/наименования юр. лица"
-                                                cutValue={150}
-                                                component={FormInput}
-                                                validator={value => nameRequiredValidator(value, 150)}
-                                                disabled={!editable}
-                                            />
-                                            <Field
-                                                id="inn"
-                                                name="inn"
-                                                label="ИНН (для юр. лиц)"
-                                                cutValue={12}
-                                                onlyNumbers={true}
-                                                component={FormInput}
-                                                validator={innValidator}
-                                                disabled={!editable}
-                                            />
+                                        <div className="application-form__row two-thirds-column">
+                                            <div>
+                                                <LocalizationProvider language="ru">
+                                                    <IntlProvider locale="ru">
+                                                        <FormComboBox
+                                                            id={'national_breed_club_id'}
+                                                            name={'national_breed_club_id'}
+                                                            label={'Выберите НКП'}
+                                                            component={FormComboBox}
+                                                            textField={'name'}
+                                                            data={nationalBreedClubs}
+                                                            value={formRenderProps.valueGetter('national_breed_club_id')}
+                                                            onChange={formRenderProps.onChange}
+                                                            validationMessage="Обязательное поле"
+                                                            disabled={formRenderProps.valueGetter('format_id').value !== 3}
+                                                            required={formRenderProps.valueGetter('format_id').value === 3 ? true : false}
+                                                        />
+                                                    </IntlProvider>
+                                                </LocalizationProvider>
+                                            </div>
                                         </div>
+                                    </div>
+
+                                    <fieldset className={'k-form-fieldset application-form__contacts'}>
+                                        <div className="form-row mt-3">
+                                            <div className="form-group col-md-8">
+                                                <div className="row">
+                                                    <div className="col-md-4">
+                                                        <div className="Contacts__custom-label">Телефон</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <FieldArray
+                                            id="phones"
+                                            name="phones"
+                                            component={FormContactsFieldArray}
+                                            formRenderProps={formRenderProps}
+                                            valueValidator={phoneValidator}
+                                            valueRequiredValidator={phoneRequiredValidator}
+                                        />
+
+                                        <div className="form-row mt-3">
+                                            <div className="form-group col-md-8">
+                                                <div className="row">
+                                                    <div className="col-md-4">
+                                                        <div className="Contacts__custom-label">E-mail</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <FieldArray
+                                            id="emails"
+                                            name="emails"
+                                            component={FormContactsFieldArray}
+                                            formRenderProps={formRenderProps}
+                                            valueValidator={value => emailValidator(value, 100)}
+                                            valueRequiredValidator={emailRequiredValidator}
+                                        />
+                                    </fieldset>
+
+                                    <div className="application-form__content">
+                                        {editable && <AdditionalDocuments
+                                            attachedDocuments={values.documents}
+                                            documents={documents}
+                                            setDocuments={setDocuments}
+                                            history={history}
+                                            clubAlias={clubAlias}
+                                            handleError={handleError}
+                                            setDisableSubmit={setDisableSubmit}
+                                            formRenderProps={formRenderProps}
+                                        />}
                                         {editable &&
                                             <div className="application-form__row">
                                                 <Field
@@ -645,7 +405,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             <button
                                                 type="submit"
                                                 className="btn btn-primary"
-                                                disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
+                                                //disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
+                                                disabled={!formRenderProps.modified || disableSubmit}
                                             >Отправить</button>
                                         }
                                     </div>
@@ -657,11 +418,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                 }
             </Card>
             <NotificationGroup
-                style={{
-                    position: 'absolute',
-                    right: '1vh',
-                    top: '80vh',
-                }}
+                style={{ position: 'fixed' }}
             >
                 <Fade enter={true} exit={true}>
                     {success &&

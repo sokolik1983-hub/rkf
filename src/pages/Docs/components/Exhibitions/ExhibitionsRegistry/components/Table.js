@@ -197,10 +197,10 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="date_begin" title="Дата начала проведения выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
                         <GridColumn field="date_end" title="Дата окончания проведения выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="format_name" title="Формат мероприятия" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="rank_name" title="Ранг заявленный выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="city_name" title="Место проведения выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="format_name" title="Формат мероприятия" width={fullScreen ? '130px' : '135px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="rank_name" title="Ранг заявленный выставки" width={fullScreen ? '130px' : '136px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" width={fullScreen ? '136px' : '130px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="city_name" title="Место проведения выставки" width={fullScreen ? '130px' : '136px'} columnMenu={ColumnMenu} />
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
                     </Grid>}
                     <GridPDFExport
