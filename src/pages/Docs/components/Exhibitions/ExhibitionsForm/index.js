@@ -199,7 +199,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         <div className="application-form">
             <Card>
                 <div className="club-documents-status__head">
-                    <Link to={`/${clubAlias}/documents`} className="club-documents-status__head-link">Личный кабинет</Link>
+                    <Link to={`/${clubAlias}/documents/exhibitions`} className="club-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     <span className="user-documents__breadcrumbs-item">Подача заявки на проведение выставки</span>
                 </div>
