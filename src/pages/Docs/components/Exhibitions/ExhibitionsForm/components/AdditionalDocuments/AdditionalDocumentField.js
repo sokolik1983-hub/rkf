@@ -10,13 +10,14 @@ const AdditionalDocumentField = ({
     setDocumentsOverflow,
     id,
     name,
-    accept
+    accept,
+    editable
 }) => {
     const headers = getHeaders();
 
     const getDocument = (docId) => {
         if (isNaN(docId) || !docId) return;
-        fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=` + docId, { headers })
+        fetch(`/api/requests/exhibition_request/clubexhibitionrequestdocument?id=` + docId, { headers })
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => setUrl(url));
@@ -45,7 +46,7 @@ const AdditionalDocumentField = ({
             </div>
         </div>
         {
-            !accept && <div className="AdditionalDocumentField__remove">
+            !accept && editable && <div className="AdditionalDocumentField__remove">
                 <span onClick={() => handleRemove()} className="k-icon k-i-trash" />
             </div>
         }

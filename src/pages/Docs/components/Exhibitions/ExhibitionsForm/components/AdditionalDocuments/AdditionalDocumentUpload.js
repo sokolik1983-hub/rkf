@@ -4,7 +4,7 @@ import { Field } from "@progress/kendo-react-form";
 import FormUpload from "../FormUpload";
 import { getHeaders } from "utils/request";
 
-const AdditionalDocumentUpload = ({ documents, setDocuments, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps }) => {
+const AdditionalDocumentUpload = ({ documents, setDocuments, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError }) => {
 
     const onBeforeUpload = (e) => {
         e.headers = getHeaders(true);
@@ -15,9 +15,14 @@ const AdditionalDocumentUpload = ({ documents, setDocuments, documentsOverflow, 
     const onStatusChange = (event, name) => {
         if (event.response?.response) {
             const { result } = event.response.response;
-            setDocuments([...documents, result]);
-            formRenderProps.onChange(name, { value: [] });
-            setDisableSubmit(false);
+            if (result) {
+                setDocuments([...documents, result]);
+                formRenderProps.onChange(name, { value: [] });
+                setDisableSubmit(false);
+            } else {
+                handleError(event.response);
+                formRenderProps.onChange(name, { value: [] });
+            }
         }
         if ((documents?.length + event.newState.length) > 9) {
             setDocumentsOverflow(true);

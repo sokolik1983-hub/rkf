@@ -2,6 +2,18 @@
   &__contacts {
     @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
     @import "~bootstrap/scss/bootstrap.scss";
+    &._disabled {
+      opacity: 0.65;
+      pointer-events: none;
+      .Contacts__custom-trash{
+        display: none!important;
+      }
+      .Contacts__custom-plus{
+        .k-i-plus-circle{
+          opacity: 0.6;
+        }
+      }
+    }
     &.k-form-fieldset {
       margin: 0;
     }

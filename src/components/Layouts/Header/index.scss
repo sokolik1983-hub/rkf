@@ -452,8 +452,8 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    @media (min-width: 560px) {
-      min-width: 448px;
+    @media (max-width: 990px) {
+      margin-left: auto;
     }
     &--feedback {
       margin-right: 28px;
@@ -473,7 +473,6 @@
 .widget-login {
   position: relative;
   display: flex;
-  //min-width: 126px;
   @media (max-width: 990px) {
     margin-left: auto;
     min-width: initial;

@@ -33,11 +33,16 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [values, setValues] = useState({});
-    const [exhibitionProperties, setExhibitionProperties] = useState({ formats: [], ranks: [], forbidden_dates: [], cities: [] });
     const [documents, setDocuments] = useState([]);
-    const [nationalBreedClubs, setNationalBreedClubs] = useState([]);
     const [formProps, setFormProps] = useState(null);
     const [loaded, setLoaded] = useState(false);
+    const [exhibitionProperties, setExhibitionProperties] = useState({
+        formats: [],
+        ranks: [],
+        national_breed_clubs: [],
+        forbidden_dates: [],
+        cities: []
+    });
     const [initialValues, setInitialValues] = useState({
         format_id: '',
         rank_id: '',
@@ -65,7 +70,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
 
     useEffect(() => {
         if (!status) {
-            Promise.all([getExhibitionProperties(), getNationalBreedClubs()]).then(() => setLoaded(true));
+            Promise.all([getExhibitionProperties()]).then(() => setLoaded(true));
         }
     }, []);
 
@@ -75,7 +80,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
             const id = paramsArr[paramsArr.length - 1];
 
             (() => Request({
-                url: `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest?id=${id}`
+                url: `/api/requests/exhibition_request/clubexhibitionrequest?id=${id}`
             }, data => {
                 let values = {};
                 Object.keys(initialValues).forEach(key => {
@@ -85,6 +90,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                     values.documents = [];
                 }
                 setValues(data);
+                console.log(data);
                 setInitialValues(values);
                 setLoaded(true);
             }, error => {
@@ -116,23 +122,10 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                     ...exhibitionProperties,
                     formats: data.formats.map(d => ({ text: d.name, value: d.id })),
                     ranks: data.ranks.map(d => ({ text: d.name, value: d.id })),
+                    national_breed_clubs: data.national_breed_clubs,
                     forbidden_dates: data.forbidden_dates,
                     cities: data.cities
                 });
-            } else {
-                setError('Ошибка');
-            }
-        }, error => {
-            handleError(error);
-        });
-    };
-
-    const getNationalBreedClubs = async () => {
-        await Request({
-            url: `/api/nationalbreedclub/list`
-        }, data => {
-            if (data) {
-                setNationalBreedClubs(data);
             } else {
                 setError('Ошибка');
             }
@@ -145,14 +138,10 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         let newData = {
             ...data,
             format_id: data.format_id.value,
+            date_begin: moment(data.date_begin).format(),
+            date_end: moment(data.date_end).format(),
             documents: documents.map(d => ({ name: d.name, document_id: d.id }))
         };
-
-        // newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
-
-        // delete newData.declarant_name;
-        // delete newData.document_type_id;
-        // delete newData.payment_document;
 
         if (status === 'edit') {
             newData.id = values.id;
@@ -162,7 +151,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                     ...formProps.valueGetter('documents')
                 ];
             }
-        }
+        };
 
         await Request({
             url: '/api/requests/exhibition_request/clubexhibitionrequest',
@@ -210,7 +199,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         <div className="application-form">
             <Card>
                 <div className="club-documents-status__head">
-                    <Link to={`/${clubAlias}/documents`} className="club-documents-status__head-link">Личный кабинет</Link>
+                    <Link to={`/${clubAlias}/documents/exhibitions`} className="club-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     <span className="user-documents__breadcrumbs-item">Подача заявки на проведение выставки</span>
                 </div>
@@ -223,7 +212,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
                             const isCACIB = formRenderProps.valueGetter('format_id').value === 2;
-                            const isCAC = formRenderProps.valueGetter('format_id').value === 1;
+                            const isCAC = formRenderProps.valueGetter('format_id') === 1 || formRenderProps.valueGetter('format_id').value === 1;
                             return (
                                 <FormElement>
                                     <div className="application-form__content">
@@ -242,8 +231,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     component={FormDropDownList}
                                                     onChange={handleFormatChange}
                                                     data={exhibitionProperties.formats}
-                                                    defaultItem={values && values.document_type_name
-                                                        ? { text: values.document_type_name, value: values.document_type_id }
+                                                    defaultItem={values && values.format_id
+                                                        ? { text: values.format_name, value: values.format_id }
                                                         : { text: "Выберите формат", value: 0 }
                                                     }
                                                     validator={requiredValidator}
@@ -259,8 +248,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             label="Ранг выставки"
                                                             component={FormDropDownList}
                                                             data={exhibitionProperties.ranks}
-                                                            defaultItem={values && values.rkf_document_type_name
-                                                                ? { text: values.rkf_document_type_name, value: values.rkf_document_type_id }
+                                                            defaultItem={values && values.rank_id
+                                                                ? { text: values.rank_name, value: values.rank_id }
                                                                 : { text: "Выберите ранг", value: 0 }
                                                             }
                                                             validator={isCAC ? requiredValidator : null}
@@ -280,10 +269,11 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             component={FormComboBox}
                                                             textField={'name'}
                                                             data={exhibitionProperties.cities}
-                                                            value={formRenderProps.valueGetter('city_id')}
+                                                            placeholder={values && values.city_name ? values.city_name : ''}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
                                                             required={formRenderProps.valueGetter('format_id').value ? true : false}
+                                                            disabled={disableAllFields}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
@@ -300,7 +290,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                         : new Date(`01.01.${new Date().getFullYear() + 1}`)
                                                     }
                                                     component={FormDatePicker}
-                                                    validator={dateRequiredValidator}
+                                                    validator={disableAllFields ? '' : dateRequiredValidator}
                                                     disabled={!formRenderProps.valueGetter('format_id').value || disableAllFields}
                                                 />
                                             </div>
@@ -309,9 +299,9 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     id="date_end"
                                                     name="date_end"
                                                     label="Дата окончания"
-                                                    min={formRenderProps.valueGetter('date_begin') ? formRenderProps.valueGetter('date_begin') : null}
+                                                    min={formRenderProps.valueGetter('date_begin') ? new Date(formRenderProps.valueGetter('date_begin')) : null}
                                                     component={FormDatePicker}
-                                                    validator={dateRequiredValidator}
+                                                    validator={disableAllFields ? '' : dateRequiredValidator}
                                                     disabled={!formRenderProps.valueGetter('date_begin') || disableAllFields}
                                                 />
                                             </div>
@@ -326,11 +316,11 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             label={'Выберите НКП'}
                                                             component={FormComboBox}
                                                             textField={'name'}
-                                                            data={nationalBreedClubs}
-                                                            value={formRenderProps.valueGetter('national_breed_club_id')}
+                                                            data={exhibitionProperties.national_breed_clubs}
+                                                            placeholder={values && values.national_breed_club_name ? values.national_breed_club_name : ''}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
-                                                            disabled={formRenderProps.valueGetter('format_id').value !== 3}
+                                                            disabled={formRenderProps.valueGetter('format_id').value !== 3 || disableAllFields}
                                                             required={formRenderProps.valueGetter('format_id').value === 3 ? true : false}
                                                         />
                                                     </IntlProvider>
@@ -339,7 +329,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                         </div>
                                     </div>
 
-                                    <fieldset className={'k-form-fieldset application-form__contacts'}>
+                                    <fieldset className={`k-form-fieldset application-form__contacts${disableAllFields ? ' _disabled' : ''}`}>
                                         <div className="form-row mt-3">
                                             <div className="form-group col-md-8">
                                                 <div className="row">
@@ -378,7 +368,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                     </fieldset>
 
                                     <div className="application-form__content">
-                                        {editable && <AdditionalDocuments
+                                        <AdditionalDocuments
                                             attachedDocuments={values.documents}
                                             documents={documents}
                                             setDocuments={setDocuments}
@@ -387,7 +377,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             handleError={handleError}
                                             setDisableSubmit={setDisableSubmit}
                                             formRenderProps={formRenderProps}
-                                        />}
+                                            editable={editable}
+                                        />
                                         {editable &&
                                             <div className="application-form__row">
                                                 <Field
