@@ -200,7 +200,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         {city && <p>{`г. ${city}`}</p>}
                                         {address && <p>{address}</p>}
                                         <br />
-                                        {contacts.map((item, index) => {
+                                        {contacts.sort((a, b) => a.contact_type_id - b.contact_type_id).map((item, index) => {
                                             return item.contact_type_id === 1 ? <p className="exhibition-page__contacts" key={index}>Телефон: <span>{item.value}</span></p> :
                                                 item.contact_type_id === 2 ? <p className="exhibition-page__contacts" key={index}>Email: <a href={`mailto:${item.value}`}>{item.value}</a></p> :
                                                     item.contact_type_id === 3 ? <p className="exhibition-page__contacts" key={index}>Сайт: <a href={item.value} target="_blank" rel="noopener noreferrer">{item.value}</a></p> : null
