@@ -2,6 +2,13 @@
   &__contacts {
     @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
     @import "~bootstrap/scss/bootstrap.scss";
+    &._disabled {
+      opacity: 0.65;
+      pointer-events: none;
+      .Contacts__custom-trash{
+        display: none;
+      }
+    }
     &.k-form-fieldset {
       margin: 0;
     }

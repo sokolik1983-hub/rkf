@@ -80,7 +80,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
             const id = paramsArr[paramsArr.length - 1];
 
             (() => Request({
-                url: `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest?id=${id}`
+                url: `/api/requests/exhibition_request/clubexhibitionrequest?id=${id}`
             }, data => {
                 let values = {};
                 Object.keys(initialValues).forEach(key => {
@@ -90,6 +90,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                     values.documents = [];
                 }
                 setValues(data);
+                console.log(data);
                 setInitialValues(values);
                 setLoaded(true);
             }, error => {
@@ -211,7 +212,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
                             const isCACIB = formRenderProps.valueGetter('format_id').value === 2;
-                            const isCAC = formRenderProps.valueGetter('format_id').value === 1;
+                            const isCAC = formRenderProps.valueGetter('format_id') === 1 || formRenderProps.valueGetter('format_id').value === 1;
                             return (
                                 <FormElement>
                                     <div className="application-form__content">
@@ -230,8 +231,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     component={FormDropDownList}
                                                     onChange={handleFormatChange}
                                                     data={exhibitionProperties.formats}
-                                                    defaultItem={values && values.document_type_name
-                                                        ? { text: values.document_type_name, value: values.document_type_id }
+                                                    defaultItem={values && values.format_id
+                                                        ? { text: values.format_name, value: values.format_id }
                                                         : { text: "Выберите формат", value: 0 }
                                                     }
                                                     validator={requiredValidator}
@@ -247,8 +248,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             label="Ранг выставки"
                                                             component={FormDropDownList}
                                                             data={exhibitionProperties.ranks}
-                                                            defaultItem={values && values.rkf_document_type_name
-                                                                ? { text: values.rkf_document_type_name, value: values.rkf_document_type_id }
+                                                            defaultItem={values && values.rank_id
+                                                                ? { text: values.rank_name, value: values.rank_id }
                                                                 : { text: "Выберите ранг", value: 0 }
                                                             }
                                                             validator={isCAC ? requiredValidator : null}
@@ -268,10 +269,11 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             component={FormComboBox}
                                                             textField={'name'}
                                                             data={exhibitionProperties.cities}
-                                                            value={formRenderProps.valueGetter('city_id')}
+                                                            placeholder={values && values.city_name ? values.city_name : ''}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
                                                             required={formRenderProps.valueGetter('format_id').value ? true : false}
+                                                            disabled={disableAllFields}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
@@ -288,7 +290,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                         : new Date(`01.01.${new Date().getFullYear() + 1}`)
                                                     }
                                                     component={FormDatePicker}
-                                                    validator={dateRequiredValidator}
+                                                    validator={disableAllFields ? '' : dateRequiredValidator}
                                                     disabled={!formRenderProps.valueGetter('format_id').value || disableAllFields}
                                                 />
                                             </div>
@@ -297,9 +299,9 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     id="date_end"
                                                     name="date_end"
                                                     label="Дата окончания"
-                                                    min={formRenderProps.valueGetter('date_begin') ? formRenderProps.valueGetter('date_begin') : null}
+                                                    min={formRenderProps.valueGetter('date_begin') ? new Date(formRenderProps.valueGetter('date_begin')) : null}
                                                     component={FormDatePicker}
-                                                    validator={dateRequiredValidator}
+                                                    validator={disableAllFields ? '' : dateRequiredValidator}
                                                     disabled={!formRenderProps.valueGetter('date_begin') || disableAllFields}
                                                 />
                                             </div>
@@ -315,10 +317,10 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             component={FormComboBox}
                                                             textField={'name'}
                                                             data={exhibitionProperties.national_breed_clubs}
-                                                            value={formRenderProps.valueGetter('national_breed_club_id')}
+                                                            placeholder={values && values.national_breed_club_name ? values.national_breed_club_name : ''}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
-                                                            disabled={formRenderProps.valueGetter('format_id').value !== 3}
+                                                            disabled={formRenderProps.valueGetter('format_id').value !== 3 || disableAllFields}
                                                             required={formRenderProps.valueGetter('format_id').value === 3 ? true : false}
                                                         />
                                                     </IntlProvider>
@@ -327,7 +329,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                         </div>
                                     </div>
 
-                                    <fieldset className={'k-form-fieldset application-form__contacts'}>
+                                    <fieldset className={`k-form-fieldset application-form__contacts${disableAllFields ? ' _disabled' : ''}`}>
                                         <div className="form-row mt-3">
                                             <div className="form-group col-md-8">
                                                 <div className="row">
