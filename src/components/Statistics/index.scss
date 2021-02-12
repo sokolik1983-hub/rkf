@@ -149,6 +149,16 @@
         width: 45%;
     }
     .statistics-list li {
-        width: 55%;
+        padding-right: 30px;
+    }
+}
+@media screen and (max-width: 660px) { 
+    .statistics-list li {
+        padding-right: 40px;
+    }
+}
+@media screen and (max-width: 500px) { 
+    .statistics-list li {
+        padding-right: 30px;
     }
 }
