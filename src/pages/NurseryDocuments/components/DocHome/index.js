@@ -197,7 +197,7 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
         </Card>
         <Card>
             <div className="documents-page__icon membership-icon" />
-            <h3>ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА</h3>
+            <h3>ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ</h3>
             <p>
                 В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
             </p>

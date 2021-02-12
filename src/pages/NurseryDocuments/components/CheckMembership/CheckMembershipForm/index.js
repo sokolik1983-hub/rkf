@@ -226,7 +226,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                 <div className="club-documents-status__head">
                     <Link to={`/kennel/${nurseryAlias}/documents/responsible`} className="club-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    <span className="user-documents__breadcrumbs-item">Подтверждение членства</span>
+                    <span className="user-documents__breadcrumbs-item">Отчёты о племенной деятельности</span>
                 </div>
                 {
                     !loaded ?
