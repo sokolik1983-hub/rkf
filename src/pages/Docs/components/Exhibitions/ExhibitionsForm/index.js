@@ -368,7 +368,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                     </fieldset>
 
                                     <div className="application-form__content">
-                                        {editable && <AdditionalDocuments
+                                        <AdditionalDocuments
                                             attachedDocuments={values.documents}
                                             documents={documents}
                                             setDocuments={setDocuments}
@@ -377,7 +377,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             handleError={handleError}
                                             setDisableSubmit={setDisableSubmit}
                                             formRenderProps={formRenderProps}
-                                        />}
+                                            editable={editable}
+                                        />
                                         {editable &&
                                             <div className="application-form__row">
                                                 <Field
