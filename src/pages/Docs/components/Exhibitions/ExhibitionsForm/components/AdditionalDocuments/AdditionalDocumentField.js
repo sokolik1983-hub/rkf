@@ -6,12 +6,12 @@ const AdditionalDocumentField = ({
     setShowModal,
     setUrl,
     documents,
-    setDocuments,
     setDocumentsOverflow,
     id,
     name,
     accept,
-    editable
+    editable,
+    formRenderProps
 }) => {
     const headers = getHeaders();
 
@@ -31,7 +31,7 @@ const AdditionalDocumentField = ({
     const handleRemove = () => {
         if (window.confirm('Удалить документ?')) {
             const updatedDocuments = [...documents.filter(d => d.id !== id)];
-            setDocuments(updatedDocuments);
+            formRenderProps.onChange('documents', { value: updatedDocuments });
             if (updatedDocuments.length <= 10) {
                 setDocumentsOverflow(false);
             }
