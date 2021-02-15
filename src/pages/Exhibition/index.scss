@@ -5,6 +5,20 @@
   &__content {
     padding-top: 65px;
   }
+  &__contacts {
+    color: #72839c;
+    span {
+      color: #253c5e;
+    }
+    a {
+      text-decoration: none;
+      border: 0;
+      color: #3366ff;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
   .mobile-only {
     @media (min-width: 991px) {
       display: none !important;
