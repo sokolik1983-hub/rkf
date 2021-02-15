@@ -135,7 +135,11 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
             ...data,
             date_begin: moment(data.date_begin).format(),
             date_end: moment(data.date_end).format(),
-            documents: data.documents.map(d => ({ name: d.name, document_id: d.id }))
+            documents: data.documents.map(d => ({
+                id: d.id ? d.id : null,
+                name: d.name,
+                document_id: d.document_id
+            }))
         };
         delete newData.documents_upload;
         !status && delete newData.id;

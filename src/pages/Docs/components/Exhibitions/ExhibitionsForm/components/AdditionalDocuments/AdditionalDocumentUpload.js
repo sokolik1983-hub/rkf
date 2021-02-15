@@ -15,7 +15,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, setDocumentsOv
         if (event.response?.response) {
             const { result } = event.response.response;
             if (result) {
-                formRenderProps.onChange('documents', { value: [...documents, result] });
+                formRenderProps.onChange('documents', { value: [...documents, { name: result.name, document_id: result.id }] });
                 formRenderProps.onChange(name, { value: [] });
                 setDisableSubmit(false);
             } else {
