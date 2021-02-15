@@ -42,6 +42,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         cities: []
     });
     const [initialValues, setInitialValues] = useState({
+        id: '',
         format_id: '',
         format_name: '',
         rank_id: '',
@@ -137,10 +138,11 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
             documents: data.documents.map(d => ({ name: d.name, document_id: d.id }))
         };
         delete newData.documents_upload;
+        !status && delete newData.id;
 
         await Request({
             url: '/api/requests/exhibition_request/clubexhibitionrequest',
-            method: 'POST',
+            method: status ? 'PUT' : 'POST',
             data: JSON.stringify(newData)
         }, () => {
             history.push(`/${clubAlias}/documents/exhibitions`);
