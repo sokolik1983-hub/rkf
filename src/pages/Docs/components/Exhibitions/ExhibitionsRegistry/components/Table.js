@@ -10,6 +10,7 @@ import moment from "moment";
 import PdfPageTemplate from "../../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../../components/LightTooltip";
 import CopyCell from '../../../../../Docs/components/CopyCell';
+import { Request } from "utils/request";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import "./index.scss";
@@ -36,6 +37,21 @@ const ColumnMenu = (props) => {
         <GridColumnMenuFilter {...props} expanded={true} />
     </div>
 };
+
+const handleCancel = (e, id) => {
+    e.preventDefault();
+    if (window.confirm('Отменить выставку?')) {
+        Request({
+            url: `/api/requests/exhibition_request/clubexhibitionrequest/cancel_by_user`,
+            method: 'POST',
+            data: id
+        }, data => {
+            alert('Выставка отменена');
+        }, error => {
+            alert(`Ошибка: ${error?.message}`);
+        });
+    }
+}
 
 const OptionsCell = ({ dataItem }) => {
     const { status_id, id } = dataItem;
@@ -65,6 +81,7 @@ const OptionsCell = ({ dataItem }) => {
         disabled: status_id === 2 ? false : true,
         render: ({ item }) => <Link
             to={`/${route}/documents/exhibitions/application/form/cancel/${id}`}
+            onClick={e => handleCancel(e, id)}
             className="row-control__link">{item.text}</Link>
     }].filter(o => !o.disabled);
 
