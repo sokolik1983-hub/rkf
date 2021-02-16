@@ -366,7 +366,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                     </fieldset>
 
                                     <div className="application-form__content">{
-                                        !!formRenderProps.valueGetter('documents').length && <AdditionalDocuments
+                                        <AdditionalDocuments
                                             documents={formRenderProps.valueGetter('documents')}
                                             history={history}
                                             clubAlias={clubAlias}
@@ -374,6 +374,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             setDisableSubmit={setDisableSubmit}
                                             formRenderProps={formRenderProps}
                                             editable={editable}
+                                            status={status}
                                         />
                                     }
                                         {editable && statusId !== 3 &&
