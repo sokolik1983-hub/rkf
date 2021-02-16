@@ -220,7 +220,7 @@ const ExhibitionsCards = ({ clubAlias, authorizedAccess }) => {
             <div className="documents-page__icon exhibitions-icon" />
             <h3>ПОДАТЬ ЗАЯВКУ НА ПРОВЕДЕНИЕ ВЫСТАВКИ</h3>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                Для подачи заявки Вы должны указать место проведения выставки, ранг выставки, дату начала и окончания мероприятия и т.д.  После одобрения заявки со стороны выставочной комиссии РКФ выставка появится в календаре мероприятий. Данные, указанные в заявке могут быть изменены или дополнены в любое время.</p>
             <hr />
             <div className="Card__links">
                 <Link to={`/${clubAlias}/documents/exhibitions/application/form`}>Подать заявку</Link>

@@ -133,6 +133,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     };
 
     const handleSubmit = async data => {
+        setDisableSubmit(true);
         let newData = {
             ...data,
             date_begin: moment(data.date_begin).format(),
@@ -267,7 +268,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
                                                             required={!status && formRenderProps.valueGetter('format_id') ? true : false}
-                                                            disabled={disableAllFields || statusId === 3}
+                                                            disabled={disableAllFields || statusId === 3 || !formRenderProps.valueGetter('format_id')}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
@@ -364,8 +365,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                         />
                                     </fieldset>
 
-                                    <div className="application-form__content">
-                                        <AdditionalDocuments
+                                    <div className="application-form__content">{
+                                        !!formRenderProps.valueGetter('documents').length && <AdditionalDocuments
                                             documents={formRenderProps.valueGetter('documents')}
                                             history={history}
                                             clubAlias={clubAlias}
@@ -374,6 +375,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             formRenderProps={formRenderProps}
                                             editable={editable}
                                         />
+                                    }
                                         {editable && statusId !== 3 &&
                                             <div className="application-form__row">
                                                 <Field
