@@ -48,8 +48,10 @@ const Notifications = forwardRef(
         const user_type = ls.get('user_info')?.user_type;
 
         useEffect(() => {
-            getNotifications(currentCategory);
-        }, [currentCategory]);
+            if (isAuthenticated) {
+                getNotifications(currentCategory);
+            }
+        }, [currentCategory, isAuthenticated]);
 
         useEffect(() => {
 

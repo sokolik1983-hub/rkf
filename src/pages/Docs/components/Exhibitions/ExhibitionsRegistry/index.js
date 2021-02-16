@@ -5,29 +5,29 @@ import Table from "./components/Table";
 import { Request } from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
 import { Link } from 'react-router-dom';
-import ReportError from './components/ReportError';
 import moment from "moment";
 import "./index.scss";
 
 
-const ApplicationRegistry = ({ history, clubAlias }) => {
+const ExhibitionsRegistry = ({ history, clubAlias }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
-    const [errorReport, setErrorReport] = useState(null);
     const document_id = window.location.href.split('=')[1];
 
     useEffect(() => {
         (() => Request({
-            url: `/api/requests/membership_confirmation_request/membershipconfirmationrequest/register_of_requests`,
+            url: `/api/requests/exhibition_request/clubexhibitionrequest/register_of_requests?typeId=1`,
             method: 'GET'
         }, data => {
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
-            }).map(({ date_change, date_create, ...rest }) => ({
+            }).map(({ date_change, date_create, date_begin, date_end, ...rest }) => ({
                 date_change: moment(date_change).format('DD.MM.YY'),
                 date_create: moment(date_create).format('DD.MM.YY'),
+                date_begin: moment(date_begin).format('DD.MM.YY'),
+                date_end: moment(date_end).format('DD.MM.YY'),
                 ...rest
             })));
             setLoading(false);
@@ -45,9 +45,9 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
                     {document_id && <button
                         className="user-documents-status__control user-documents-status__control--resetIcon"
                     >
-                    <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>
-                        Вернуться к списку
-                    </Link>
+                        <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>
+                            Вернуться к списку
+                        </Link>
                     </button>}
                     <button
                         className="user-documents-status__control user-documents-status__control--downloadIcon"
@@ -64,16 +64,15 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
                     documents={documents}
                     exporting={exporting}
                     setExporting={setExporting}
-                    setErrorReport={setErrorReport}
                     fullScreen
                 />
             </Card>
             :
             <Card className="user-documents-status">
                 <div className="user-documents-status__head">
-                    <Link className="btn-backward" to={`/${clubAlias}/documents/responsible`}>Личный кабинет</Link>
+                    <Link className="btn-backward" to={`/${clubAlias}/documents/exhibitions`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    Отчёты о племенной деятельности
+                    Заявка на проведение выставки
                 </div>
                 {documents && !!documents.length
                     ? <div>
@@ -81,9 +80,9 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
                             {document_id && <button
                                 className="user-documents-status__control user-documents-status__control--resetIcon"
                             >
-                            <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>
-                                Вернуться к списку
-                            </Link>
+                                <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>
+                                    Вернуться к списку
+                                </Link>
                             </button>}
                             <button
                                 className="user-documents-status__control user-documents-status__control--downloadIcon"
@@ -100,7 +99,6 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
                             documents={documents}
                             exporting={exporting}
                             setExporting={setExporting}
-                            setErrorReport={setErrorReport}
                         />
                     </div>
                     : <div className="user-documents-status__plug">
@@ -108,8 +106,7 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
                         <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>
                 }
-                {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
             </Card>
 };
 
-export default React.memo(ApplicationRegistry);
+export default React.memo(ExhibitionsRegistry);

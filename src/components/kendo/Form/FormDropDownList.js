@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldWrapper } from "@progress/kendo-react-form";
 import { Label, Error } from "@progress/kendo-react-labels";
 import { DropDownList } from "@progress/kendo-react-dropdowns";
 
 
 const FormDropDownList = fieldRenderProps => {
-    const { validationMessage, touched, label, id, valid, disabled, hint, wrapperStyle, data, value, onChange, ...others } = fieldRenderProps;
+    const { validationMessage, touched, label, id, valid, disabled, hint, wrapperStyle, data, value, onChange, resetValue, ...others } = fieldRenderProps;
     const [dropdownValue, setDropdownValue] = useState(data.filter(d => d.value === value)[0]);
     const editorRef = React.useRef(null);
     const showValidationMessage = touched && validationMessage;
     const errorId = showValidationMessage ? `${id}_error` : '';
     const labelId = label ? `${id}_label` : '';
+
+    useEffect(() => {
+        resetValue && setDropdownValue(resetValue);
+    }, [resetValue])
 
     const onValueChange = React.useCallback(
         ({ target }) => {

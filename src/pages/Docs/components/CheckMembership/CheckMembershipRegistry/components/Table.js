@@ -72,10 +72,10 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
     });
 
     useEffect(() => {
-        handleDropDown()
+        setBarcodeFilter();
     }, []);
 
-    const handleDropDown = () => {
+    const setBarcodeFilter = () => {
         const document_id = window.location.href.split('=')[1];
         let newDataState = { ...gridData }
         if (document_id) {
@@ -143,7 +143,7 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
     const StatusCell = (props) => {
         return (
             <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-                <td title={props.dataItem.status_name}>
+                <td>
                     {props.dataItem.status_value}
                 </td>
             </LightTooltip>
@@ -199,7 +199,6 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
                     >
                         {gridForExport}
                     </GridPDFExport>
-
                 </IntlProvider>
             </LocalizationProvider>
             <NotificationGroup
