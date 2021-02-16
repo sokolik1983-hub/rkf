@@ -8,6 +8,7 @@ const AdditionalDocumentField = ({
     documents,
     setDocumentsOverflow,
     id,
+    document_id,
     name,
     accept,
     editable,
@@ -23,9 +24,9 @@ const AdditionalDocumentField = ({
             .then(url => setUrl(url));
     };
 
-    const handleClick = (id) => {
+    const handleClick = () => {
         setShowModal(true);
-        getDocument(id);
+        getDocument(document_id);
     }
 
     const handleRemove = () => {
@@ -40,7 +41,7 @@ const AdditionalDocumentField = ({
 
     return (<div className="AdditionalDocumentField">
         <div className="AdditionalDocumentField__name">
-            <div onClick={() => handleClick(id)}>
+            <div onClick={() => handleClick()}>
                 <span className="AdditionalDocumentField__name-icon" />
                 {name}
             </div>

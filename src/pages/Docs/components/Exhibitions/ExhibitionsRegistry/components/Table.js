@@ -46,7 +46,7 @@ const handleCancel = (e, id) => {
             method: 'POST',
             data: id
         }, data => {
-            alert('Выставка отменена');
+            window.location.reload();
         }, error => {
             alert(`Ошибка: ${error?.message}`);
         });
@@ -54,7 +54,7 @@ const handleCancel = (e, id) => {
 }
 
 const OptionsCell = ({ dataItem }) => {
-    const { status_id, id } = dataItem;
+    const { status_id, id, is_approved } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
@@ -70,15 +70,15 @@ const OptionsCell = ({ dataItem }) => {
             className="row-control__link">{item.text}</Link>
     },
     {
-        text: 'Перенести',
-        disabled: status_id === 2 ? false : true,
+        text: 'Редактировать',
+        disabled: status_id === 2 && !is_approved ? false : true,
         render: ({ item }) => <Link
             to={`/${route}/documents/exhibitions/application/form/change/${id}`}
             className="row-control__link">{item.text}</Link>
     },
     {
         text: 'Отменить',
-        disabled: status_id === 2 ? false : true,
+        disabled: status_id === 2 && !is_approved ? false : true,
         render: ({ item }) => <Link
             to={`/${route}/documents/exhibitions/application/form/cancel/${id}`}
             onClick={e => handleCancel(e, id)}

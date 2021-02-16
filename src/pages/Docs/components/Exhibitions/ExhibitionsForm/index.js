@@ -32,6 +32,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
+    const [statusId, setStatusId] = useState(null);
     const [formProps, setFormProps] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [exhibitionProperties, setExhibitionProperties] = useState({
@@ -109,6 +110,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                 values[key] = data[key] || initialValues[key];
             });
             setInitialValues(values);
+            setStatusId(data.status_id);
         }, error => {
             history.replace('/404');
         });
@@ -265,7 +267,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
                                                             required={!status && formRenderProps.valueGetter('format_id') ? true : false}
-                                                            disabled={disableAllFields}
+                                                            disabled={disableAllFields || statusId === 3}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
@@ -283,7 +285,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     }
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
-                                                    disabled={(!status && !formRenderProps.valueGetter('format_id')) || disableAllFields}
+                                                    disabled={(!status && !formRenderProps.valueGetter('format_id')) || disableAllFields || statusId === 3}
                                                 />
                                             </div>
                                             <div>
@@ -296,7 +298,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                         : null}
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
-                                                    disabled={!formRenderProps.valueGetter('date_begin') || disableAllFields}
+                                                    disabled={!formRenderProps.valueGetter('date_begin') || disableAllFields || statusId === 3}
                                                 />
                                             </div>
                                         </div>
@@ -324,7 +326,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                         </div>
                                     </div>
 
-                                    <fieldset className={`k-form-fieldset application-form__contacts${status && (status === 'view') ? ' _disabled' : ''}`}>
+                                    <fieldset className={`k-form-fieldset application-form__contacts${(status && (status === 'view')) || statusId === 3 ? ' _disabled' : ''}`}>
                                         <div className="form-row mt-3">
                                             <div className="form-group col-md-8">
                                                 <div className="row">
@@ -372,7 +374,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             formRenderProps={formRenderProps}
                                             editable={editable}
                                         />
-                                        {editable &&
+                                        {editable && statusId !== 3 &&
                                             <div className="application-form__row">
                                                 <Field
                                                     id="comment"
