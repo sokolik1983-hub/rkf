@@ -23,7 +23,9 @@ const ApplicationRegistry = ({ history }) => {
             url: `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest/register_of_requests`,
             method: 'GET'
         }, data => {
-            setDocuments(data.map(({ date_change, date_create, production_department_date, ...rest }) => ({
+            setDocuments(data.sort(function (a, b) {
+                return new Date(b.date_create) - new Date(a.date_create);
+            }).map(({ date_change, date_create, ...rest }) => ({
                 date_change: moment(date_change).format('DD.MM.YY'),
                 date_create: moment(date_create).format('DD.MM.YY'),
                 ...rest

@@ -13,7 +13,7 @@ import AdditionalDocuments from "./components/AdditionalDocuments";
 import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import DocumentLink from "./components/DocumentLinksArray";
+import DocumentLink from "../../DocumentLink";
 import DocumentLinksArray from "./components/DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
@@ -78,10 +78,10 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                 setDocTypes(data);
                 setLoaded(true);
             }, error => {
-                // history.replace('/404');
+                history.replace('/404');
                 console.log(error)
             }))();
-            // setDisableAllFields(true);
+            setDisableAllFields(true);
         }
     }, [status]);
 
@@ -107,7 +107,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                 setInitialValues(values);
                 setLoaded(true);
             }, error => {
-                // history.replace('/404');
+                history.replace('/404');
                 console.log(error)
             }))();
             setDisableAllFields(true);
@@ -143,9 +143,6 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
         };
 
         newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
-
-        // delete newData.document_type_id;
-        // delete newData.payment_document;
 
         if (status === 'edit') {
             newData.id = values.id;
@@ -223,14 +220,14 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
         const { value } = year;
         formProps.onChange('mating_whelping_book_document_year', { value: value });
     };
-console.log('documents', documents)
+
     return (
         <div className="application-form">
             <Card>
                 <div className="club-documents-status__head">
                     <Link to={`/${clubAlias}/documents/responsible`} className="club-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    <span className="user-documents__breadcrumbs-item">Подтверждение членства</span>
+                    <span className="user-documents__breadcrumbs-item">Отчёты о племенной деятельности</span>
                 </div>
                 {
                     !loaded ?
@@ -269,7 +266,7 @@ console.log('documents', documents)
                                                             label="Комментарий"
                                                             maxLength={500}
                                                             component={FormTextArea}
-                                                            placeholder="Прошу изменить/добавить данные"
+                                                            placeholder={!isActual ? `Прошу изменить/добавить данные` : ``}
                                                             disabled={disableAllFields || disableIsActualFields}
                                                             validator={disableAllFields || disableIsActualFields ? '' : value => requiredValidator(value)}
                                                         />
@@ -278,7 +275,7 @@ console.log('documents', documents)
                                                 <div>
                                                     <div>
                                                         Документ для подтверждения вносимых изменений
-                                            </div>
+                                                    </div>
                                                     <div className="application-form__file">
                                                         {!isView ? <Field
                                                             id="changes_confirmation_document_id"
@@ -498,7 +495,7 @@ console.log('documents', documents)
                                 docTypes={docTypes}
                                 handleError={handleError}
                             />}
-                            {status === 'view' && documents &&
+                            {status === 'view' && !!documents.length &&
                                 <div><h3 className="application-form__additional-title">Дополнительные документы</h3>
                                     <DocumentLinksArray
                                         documents={documents}

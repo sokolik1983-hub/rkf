@@ -77,10 +77,10 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                 setDocTypes(data);
                 setLoaded(true);
             }, error => {
-                // history.replace('/404');
+                history.replace('/404');
                 console.log(error)
             }))();
-            // setDisableAllFields(true);
+            setDisableAllFields(true);
         }
     }, [status]);
 
@@ -106,7 +106,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                 setInitialValues(values);
                 setLoaded(true);
             }, error => {
-                // history.replace('/404');
+                history.replace('/404');
                 console.log(error)
             }))();
             setDisableAllFields(true);
@@ -142,9 +142,6 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
         };
 
         newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
-
-        // delete newData.document_type_id;
-        // delete newData.payment_document;
 
         if (status === 'edit') {
             newData.id = values.id;
@@ -223,21 +220,13 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
         formProps.onChange('mating_whelping_book_document_year', { value: value });
     };
 
-    const handleDocumentRemove = id => {
-        formProps.valueGetter('documents').length + (values.documents.length - 1) <= 10 && setDocumentsOverflow(false);
-        setValues({
-            ...values,
-            documents: values.documents.filter(d => d.id !== id)
-        })
-    };
-
     return (
         <div className="application-form">
             <Card>
                 <div className="club-documents-status__head">
                     <Link to={`/kennel/${nurseryAlias}/documents/responsible`} className="club-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    <span className="user-documents__breadcrumbs-item">Подтверждение членства</span>
+                    <span className="user-documents__breadcrumbs-item">Отчёты о племенной деятельности</span>
                 </div>
                 {
                     !loaded ?
@@ -276,7 +265,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                             label="Комментарий"
                                                             maxLength={500}
                                                             component={FormTextArea}
-                                                            placeholder="Прошу изменить/добавить данные"
+                                                            placeholder={!isActual ? `Прошу изменить/добавить данные` : ``}
                                                             disabled={disableAllFields || disableIsActualFields}
                                                             validator={disableAllFields || disableIsActualFields ? '' : value => requiredValidator(value)}
                                                         />
@@ -285,7 +274,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                 <div>
                                                     <div>
                                                         Документ для подтверждения вносимых изменений
-                                            </div>
+                                                    </div>
                                                     <div className="application-form__file">
                                                         {!isView ? <Field
                                                             id="changes_confirmation_document_id"
@@ -302,7 +291,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                             onStatusChange={(e) => onStatusChange(e, 'changes_confirmation_document_id')}
                                                             onProgress={(e) => onProgress(e, 'changes_confirmation_document_id')}
                                                             disabled={disableAllFields || disableIsActualFields}
-                                                            validator={values?.documents.length || disableAllFields || disableIsActualFields
+                                                            validator={values?.documents?.length || disableAllFields || disableIsActualFields
                                                                 ? ''
                                                                 : () => documentRequiredValidator(formProps?.valueGetter('changes_confirmation_document_id')?.find(d => d.id))
                                                             }
@@ -334,7 +323,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                             onStatusChange={(e) => onStatusChange(e, 'membership_confirmation_document_id')}
                                                             onProgress={(e) => onProgress(e, 'membership_confirmation_document_id')}
                                                             disabled={disableAllFields}
-                                                            validator={values?.documents.length || disableAllFields
+                                                            validator={values?.documents?.length || disableAllFields
                                                                 ? ''
                                                                 : () => documentRequiredValidator(formProps?.valueGetter('membership_confirmation_document_id').find(d => d.id))
                                                             }
@@ -374,7 +363,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                     onStatusChange={(e) => onStatusChange(e, 'mating_whelping_book_document_id')}
                                                                     onProgress={(e) => onProgress(e, 'mating_whelping_book_document_id')}
                                                                     disabled={disableAllFields}
-                                                                    validator={values?.documents.length || disableAllFields
+                                                                    validator={values?.documents?.length || disableAllFields
                                                                         ? ''
                                                                         : () => documentRequiredValidator(formProps?.valueGetter('mating_whelping_book_document_id').find(d => d.id))
                                                                     }
@@ -505,7 +494,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                 docTypes={docTypes}
                                 handleError={handleError}
                             />}
-                            {status === 'view' && documents &&
+                            {status === 'view' && !!documents.length &&
                                 <div><h3 className="application-form__additional-title">Дополнительные документы</h3>
                                     <DocumentLinksArray
                                         documents={documents}

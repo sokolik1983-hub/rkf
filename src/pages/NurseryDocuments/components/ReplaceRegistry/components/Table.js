@@ -81,9 +81,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
     const [success, setSuccess] = useState(false);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
-        sort: [
-            { field: "date_create", dir: "desc" }
-        ]
+        sort: []
     });
 
     useEffect(() => {
@@ -168,7 +166,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
     const StatusCell = (props) => {
         return (
             <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-                <td title={props.dataItem.status_name}>
+                <td>
                     {props.dataItem.status_value}
                 </td>
             </LightTooltip>

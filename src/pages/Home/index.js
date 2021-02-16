@@ -56,23 +56,39 @@ const HomePage = ({ homepage, cities }) => {
                             <Aside className="home-page__right">
                                 <StickyBox offsetTop={65}>
                                     <div className="home-page__right-wrap">
-                                        <Card className="home-page__about">
-                                            <h3>{RKFInfo.aboutTitle}</h3>
-                                            <p>{RKFInfo.about}</p>
-                                        </Card>
-                                        <Card className="home-page__socials">
-                                            <h3>РКФ в соцсетях</h3>
-                                            <div className="home-page__right-socials">
-                                                <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
-                                                <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
-                                                {/* <a target="_blank" rel="noopener noreferrer" href="https://ok.ru/rkforg"><img src="/static/icons/social/odnoklassniki.svg" alt="" /></a>
-                                            <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a> */}
-                                                <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
-                                                <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
-                                                <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
+                                        <div className="home-page__tablet-wrap">
+                                            <Card className="home-page__about">
+                                                <h3>{RKFInfo.aboutTitle}</h3>
+                                                <p>{RKFInfo.about}</p>
+                                            </Card>
+                                            <Card className="home-page__socials home-page__desktop">
+                                                <h3>РКФ в соцсетях</h3>
+                                                <div className="home-page__right-socials">
+                                                    <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
+                                                    <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
+                                                    {/* <a target="_blank" rel="noopener noreferrer" href="https://ok.ru/rkforg"><img src="/static/icons/social/odnoklassniki.svg" alt="" /></a>
+                                                    <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a> */}
+                                                    <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
+                                                    <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
+                                                    <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
+                                                </div>
+                                            </Card>
+                                            <div className="home-page__tablet-inner">
+                                                <Statistics />
+                                                <Card className="home-page__socials home-page__mobile">
+                                                    <h3>РКФ в соцсетях</h3>
+                                                    <div className="home-page__right-socials">
+                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
+                                                        <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
+                                                        {/* <a target="_blank" rel="noopener noreferrer" href="https://ok.ru/rkforg"><img src="/static/icons/social/odnoklassniki.svg" alt="" /></a>
+                                                        <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a> */}
+                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
+                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
+                                                        <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
+                                                    </div>
+                                                </Card>
                                             </div>
-                                        </Card>
-                                        <Statistics />
+                                        </div>
                                         <Card className="home-page__projects-wrap">
                                             <h3>Международные мероприятия</h3>
                                             <div className="home-page__projects">
@@ -90,7 +106,9 @@ const HomePage = ({ homepage, cities }) => {
                                                 <ClubsMap />
                                             </div>
                                         </Card>
-                                        <CopyrightInfo withSocials={true} />
+                                        <div className="home-page__desktop">
+                                            <CopyrightInfo withSocials={true} />
+                                        </div>
                                     </div>
                                 </StickyBox>
                             </Aside>

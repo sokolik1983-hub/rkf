@@ -102,9 +102,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
-        sort: [
-            { field: "date_create", dir: "desc" }
-        ]
+        sort: []
     });
 
     useEffect(() => {
@@ -182,7 +180,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
     const StatusCell = (props) => {
         return (
             <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-                <td title={props.dataItem.status_name}>
+                <td>
                     {props.dataItem.status_value}
                 </td>
             </LightTooltip>

@@ -25,7 +25,9 @@ const ApplicationRegistry = ({ history }) => {
             url: `/api/requests/membership_confirmation_request/kennelmembershipconfirmationrequest/register_of_requests`,
             method: 'GET'
         }, data => {
-            setDocuments(data.map(({ date_change, date_create, ...rest }) => ({
+            setDocuments(data.sort(function (a, b) {
+                return new Date(b.date_create) - new Date(a.date_create);
+            }).map(({ date_change, date_create, ...rest }) => ({
                 date_change: moment(date_change).format('DD.MM.YY'),
                 date_create: moment(date_create).format('DD.MM.YY'),
                 ...rest
@@ -73,7 +75,7 @@ const ApplicationRegistry = ({ history }) => {
                 <div className="user-documents-status__head">
                     <Link className="btn-backward" to={`/kennel/${alias}/documents/responsible`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    Подтверждение членства
+                    Отчёты о племенной деятельности
                 </div>
                 {documents && !!documents.length
                     ? <div>

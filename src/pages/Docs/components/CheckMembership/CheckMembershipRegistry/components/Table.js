@@ -68,16 +68,14 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
-        sort: [
-            { field: "date_create", dir: "asc" }
-        ]
+        sort: []
     });
 
     useEffect(() => {
-        handleDropDown()
+        setBarcodeFilter();
     }, []);
 
-    const handleDropDown = () => {
+    const setBarcodeFilter = () => {
         const document_id = window.location.href.split('=')[1];
         let newDataState = { ...gridData }
         if (document_id) {
@@ -145,7 +143,7 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
     const StatusCell = (props) => {
         return (
             <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-                <td title={props.dataItem.status_name}>
+                <td>
                     {props.dataItem.status_value}
                 </td>
             </LightTooltip>
@@ -190,18 +188,17 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, setErrorReport)} />
                     </Grid>}
                     <GridPDFExport
-                        fileName={`Получение_документов_РКФ_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                        fileName={`Племенная_деятельность_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
                         pageTemplate={() => <PdfPageTemplate
-                            title="ЗАЯВКА НА ПОЛУЧЕНИЕ ДОКУМЕНТОВ РКФ"
+                            title="ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ"
                         />}
                     >
                         {gridForExport}
                     </GridPDFExport>
-
                 </IntlProvider>
             </LocalizationProvider>
             <NotificationGroup

@@ -67,9 +67,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
-        sort: [
-            { field: "date_create", dir: "desc" }
-        ]
+        sort: []
     });
 
     const handleGridDataChange = (e) => {
@@ -94,7 +92,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         {...gridData}
         onDataStateChange={handleGridDataChange}
         onRowClick={handleGridRowClick}
-        className="club-documents-status__pointer">
+        >
         <GridColumn field="status_name" title="Статус" />
         <GridColumn field="date_create" title="Дата регистрации" columnMenu={ColumnMenu} />
         <GridColumn field="federation_name" title="Федерация" columnMenu={ColumnMenu} />
@@ -118,7 +116,7 @@ const rowRender = (trElement, props) => {
     const StatusCell = (props) => {
         return (
             <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-                <td title={props.dataItem.status_name}>
+                <td>
                     {props.dataItem.status_value}
                 </td>
             </LightTooltip>
@@ -137,7 +135,6 @@ const rowRender = (trElement, props) => {
                     {...gridData}
                     onDataStateChange={handleGridDataChange}
                     onRowClick={handleGridRowClick}
-                    className="club-documents-status__pointer"
                     style={{ height: "700px", width: "auto", margin: "0 auto" }}>
                     <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                     <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '130px' : '150px'} columnMenu={ColumnMenu} />

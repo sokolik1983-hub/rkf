@@ -34,7 +34,7 @@ const sortFederationName = (array) => {
     return [firstName, secondName, thirdName, fourthName];
 };
 
-const Statistics = ({isAboutPage}) => {
+const Statistics = ({ isAboutPage }) => {
     const [loading, setLoading] = useState(true);
     const [clubs, setClubs] = useState({});
     const { clubs_total_count, federation_clubs } = clubs;
@@ -59,51 +59,46 @@ const Statistics = ({isAboutPage}) => {
         });
     }, []);
 
-    return (
-        <Card className={`statistics ${isAboutPage ? `_about_page` : ``}`}>
-            {loading ?
-                <Loading centered={false} /> :
-                <>
-                    <h3 className="statistics__title">
-                        На RKF.Online авторизовано
+    return (loading ? <Loading centered={false} /> :
+        clubs_total_count && <Card className={`statistics ${isAboutPage ? `_about_page` : ``}`}>
+            <h3 className="statistics__title">
+                На RKF.Online авторизовано
                     </h3>
-                    <div className="statistics__wrap">
-                        <div className="statistics__text-wrap">
-                            <span className="statistics__text">Клубов</span>
-                            <span className="statistics__text">Питомников</span>
-                        </div>
-                        <div className="statistics__federations-wrap">
-                            <div className="statistics__federations--table">
-                              <div className="statistics__federations--column">
-                                {sortFederationName(federation_clubs).map((federation, i) =>
-                                    <div className="statistics__federations" key={i}>
-                                        <div className="statistics__federations--head">
-                                            <span className={setLogoClassName(federation.federation_name)} />
-                                            <span>{federation.federation_name}</span>
-                                        </div>
-                                        <span className="federation-count">{federation.federation_clubs_count}</span>
+            <div className="statistics__wrap">
+                <div className="statistics__text-wrap">
+                    <span className="statistics__text">Клубов</span>
+                    <span className="statistics__text">Питомников</span>
+                </div>
+                <div className="statistics__federations-wrap">
+                    <div className="statistics__federations--table">
+                        <div className="statistics__federations--column">
+                            {sortFederationName(federation_clubs)?.map((federation, i) =>
+                                <div className="statistics__federations" key={i}>
+                                    <div className="statistics__federations--head">
+                                        <span className={setLogoClassName(federation.federation_name)} />
+                                        <span>{federation.federation_name}</span>
                                     </div>
-                                )}
-                             </div>
-                             <div className="statistics__federations--column statistics__federations--column--last">
-                                {sortFederationName(federation_nurseries).map((federation, i) =>
-                                    <div className="statistics__federations" key={i}>
-                                        <span className="federation-count">{federation.federation_nurseries_count}</span>
-                                    </div>
-                                )}
-                              </div>
-                            </div>
+                                    <span className="federation-count">{federation.federation_clubs_count}</span>
+                                </div>
+                            )}
                         </div>
-                        <div className="statistics__federations-total">
-                            <span className="statistics-total__name">Всего</span>
-                            <ul className="statistics-list">
-                                <li>{clubs_total_count}</li>
-                                <li>{nurseries_total_count}</li>
-                            </ul>
+                        <div className="statistics__federations--column statistics__federations--column--last">
+                            {sortFederationName(federation_nurseries)?.map((federation, i) =>
+                                <div className="statistics__federations" key={i}>
+                                    <span className="federation-count">{federation.federation_nurseries_count}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
-                </>
-            }
+                </div>
+                <div className="statistics__federations-total">
+                    <span className="statistics-total__name">Всего</span>
+                    <ul className="statistics-list">
+                        <li>{clubs_total_count}</li>
+                        <li>{nurseries_total_count}</li>
+                    </ul>
+                </div>
+            </div>
         </Card>
     )
 };

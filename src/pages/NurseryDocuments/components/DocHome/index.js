@@ -26,32 +26,31 @@ const _replacePedigreeExportOld = 13;
 // const _dogHealthCheckDysplasia = 20;
 // const _dogHealthCheckPatella = 21;
 // const _getRKFDocument = 22;
-const _checkMembership = 23;
+// const _checkMembership = 23;
 
 //temporarily hidden
 //
-// const replacePedigreeOld = authorizedAccess.includes(_replacePedigreeOld);
-// const replacePedigreeChangeOwner = authorizedAccess.includes(_replacePedigreeChangeOwner);
-// const replacePedigreeRkfFc1 = authorizedAccess.includes(_replacePedigreeRkfFc1);
-// const replacePedigreeDuplicate = authorizedAccess.includes(_replacePedigreeDuplicate);
-// const replacePedigreeForeignRegistration = authorizedAccess.includes(_replacePedigreeForeignRegistration);
-// const replacePedigreeDeclarantError = authorizedAccess.includes(_replacePedigreeDeclarantError);
-// const dogHealthCheckDysplasia = authorizedAccess.includes(_dogHealthCheckDysplasia);
-// const dogHealthCheckPatella = authorizedAccess.includes(_dogHealthCheckPatella);
-// const getRKFDocument = authorizedAccess.includes(_getRKFDocument);
+// const replacePedigreeOld = authorizedAccess?.includes(_replacePedigreeOld);
+// const replacePedigreeChangeOwner = authorizedAccess?.includes(_replacePedigreeChangeOwner);
+// const replacePedigreeRkfFc1 = authorizedAccess?.includes(_replacePedigreeRkfFc1);
+// const replacePedigreeDuplicate = authorizedAccess?.includes(_replacePedigreeDuplicate);
+// const replacePedigreeForeignRegistration = authorizedAccess?.includes(_replacePedigreeForeignRegistration);
+// const replacePedigreeDeclarantError = authorizedAccess?.includes(_replacePedigreeDeclarantError);
+// const dogHealthCheckDysplasia = authorizedAccess?.includes(_dogHealthCheckDysplasia);
+// const dogHealthCheckPatella = authorizedAccess?.includes(_dogHealthCheckPatella);
+// const getRKFDocument = authorizedAccess?.includes(_getRKFDocument);
 
 const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
     const [alert, seAlert] = useState(false);
-    const pedigree = authorizedAccess.includes(_pedigree);
-    const litter = authorizedAccess.includes(_litter);
-    const replacePedigreeExportOld = authorizedAccess.includes(_replacePedigreeExportOld);
+    const pedigree = authorizedAccess?.includes(_pedigree);
+    const litter = authorizedAccess?.includes(_litter);
+    const replacePedigreeExportOld = authorizedAccess?.includes(_replacePedigreeExportOld);
     const hasAccess = pedigree && litter && replacePedigreeExportOld;
 
     return <div className="documents-page__right">
     {!hasAccess && <Card className="documents-page__alert-card">
             <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
-            <p style={{padding: 0, textAlign: 'center'}}>Для продолжения работы с личным кабинетов Вам необходимо подтвердить членство Вашей организации. Для этого Вам необходимо перейти в раздел "Организационная информация" вашего личного кабинета
-                и подать заявку на подтверждение членства.</p>
+            <p style={{padding: 0, textAlign: 'center'}}>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
         </Card>}
         <Card className={litter ? `` : `_inactive`}>
             <div className="documents-page__icon litter-icon" />
@@ -182,7 +181,6 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
 };
 
 const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
-    const checkMembership = authorizedAccess.includes(_checkMembership);
 
     return <div className="documents-page__right">
         <Card>
@@ -197,9 +195,9 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-        {checkMembership && <Card>
+        <Card>
             <div className="documents-page__icon membership-icon" />
-            <h3>ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА</h3>
+            <h3>ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ</h3>
             <p>
                 В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
             </p>
@@ -208,7 +206,7 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
             </div>
-        </Card>}
+        </Card>
     </div>
 };
 

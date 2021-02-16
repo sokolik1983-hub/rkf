@@ -194,7 +194,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     <FormGroup inline>
                         <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
                     </FormGroup>
-                    <FormGroup inline className="ArticleCreateForm__advert">
+                    <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
                         <CustomNumber {...fields.advert_cost} maxLength={10} />
                         {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}

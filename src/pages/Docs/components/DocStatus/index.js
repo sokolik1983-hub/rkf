@@ -26,7 +26,9 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 : '/api/requests/LitterRequest/headers_base_info'
         },
             data => {
-                setDocuments(data.map(({ date_create, ...rest }) => ({
+                setDocuments(data.sort(function (a, b) {
+                    return new Date(b.date_create) - new Date(a.date_create);
+                }).map(({ date_create, ...rest }) => ({
                     date_create: moment(date_create).format('DD.MM.YY'),
                     ...rest
                 })));

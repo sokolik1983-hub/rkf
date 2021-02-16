@@ -24,6 +24,15 @@ import MenuComponent from "../../components/MenuComponent";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
+const urlRegexp = new RegExp(/^((http|https):\/\/?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
+
+const checkUrl = (url) => {
+    if (urlRegexp.test(url)) {
+        return <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>;
+    } else {
+        return <span>{url}</span>;
+    }
+};
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
     const isMobile = useIsMobile();
@@ -97,7 +106,9 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         address,
         address_additional_info,
         additional_info,
-        exhibition_map_link } = exhibition;
+        exhibition_map_link,
+        contacts } = exhibition;
+
     const { club_alias,
         display_name,
         club_fact_name,
@@ -111,7 +122,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         bic,
         account_number,
         active_member,
-        active_rkf_user } = club_information;
+        active_rkf_user,
+    } = club_information;
 
     return isError
         ? <PageNotFound />
@@ -196,6 +208,12 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         <h4 className="exhibition-page__address-title">Адрес проведения и контакты</h4>
                                         {city && <p>{`г. ${city}`}</p>}
                                         {address && <p>{address}</p>}
+                                        <br />
+                                        {contacts.sort((a, b) => a.contact_type_id - b.contact_type_id).map((item, index) => {
+                                            return item.contact_type_id === 1 ? <p className="exhibition-page__contacts" key={index}>Телефон: <span>{item.value}</span></p> :
+                                                item.contact_type_id === 2 ? <p className="exhibition-page__contacts" key={index}>Email: <a href={`mailto:${item.value}`}>{item.value}</a></p> :
+                                                    item.contact_type_id === 3 ? <p className="exhibition-page__contacts" key={index}>Сайт: {checkUrl(item.value)}</p> : null
+                                        })}
                                         <br />
                                         <h4 className="exhibition-page__address-title">Дополнительная информация</h4>
                                         {address_additional_info ?

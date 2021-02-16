@@ -14,7 +14,7 @@ import CopyrightInfo from "../../../../components/CopyrightInfo";
 import "./styles.scss";
 
 
-//method statuses
+//Access method statuses
 const _pedigree = 11;
 const _litter = 12;
 const _replacePedigreeExportOld = 13;
@@ -27,32 +27,24 @@ const _replacePedigreeExportOld = 13;
 const _dogHealthCheckDysplasia = 20;
 const _dogHealthCheckPatella = 21;
 const _getRKFDocument = 22;
-// const _checkMembership = 23;
-
-//temporarily hidden
-//
-// const replacePedigreeOld = authorizedAccess.includes(_replacePedigreeOld);
-// const replacePedigreeChangeOwner = authorizedAccess.includes(_replacePedigreeChangeOwner);
-// const replacePedigreeRkfFc1 = authorizedAccess.includes(_replacePedigreeRkfFc1);
-// const replacePedigreeDuplicate = authorizedAccess.includes(_replacePedigreeDuplicate);
-// const replacePedigreeForeignRegistration = authorizedAccess.includes(_replacePedigreeForeignRegistration);
-// const replacePedigreeDeclarantError = authorizedAccess.includes(_replacePedigreeDeclarantError);
+const _checkMembership = 23;
+const _exhibitionApplication = 24;
+const _exhibitionCancellation = 25;
 
 const DocumentCards = ({ clubAlias, authorizedAccess }) => {
     const [alert, seAlert] = useState(false);
-    const pedigree = authorizedAccess.includes(_pedigree);
-    const litter = authorizedAccess.includes(_litter);
-    const replacePedigreeExportOld = authorizedAccess.includes(_replacePedigreeExportOld);
-    const dogHealthCheckDysplasia = authorizedAccess.includes(_dogHealthCheckDysplasia);
-    const dogHealthCheckPatella = authorizedAccess.includes(_dogHealthCheckPatella);
-    const getRKFDocument = authorizedAccess.includes(_getRKFDocument);
+    const pedigree = authorizedAccess?.includes(_pedigree);
+    const litter = authorizedAccess?.includes(_litter);
+    const replacePedigreeExportOld = authorizedAccess?.includes(_replacePedigreeExportOld);
+    const dogHealthCheckDysplasia = authorizedAccess?.includes(_dogHealthCheckDysplasia);
+    const dogHealthCheckPatella = authorizedAccess?.includes(_dogHealthCheckPatella);
+    const getRKFDocument = authorizedAccess?.includes(_getRKFDocument);
     const hasAccess = pedigree && litter && replacePedigreeExportOld && dogHealthCheckDysplasia && dogHealthCheckPatella && getRKFDocument;
 
     return <div className="documents-page__right">
         {!hasAccess && <Card className="documents-page__alert-card">
             <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
-            <p style={{padding: 0, textAlign: 'center'}}>Для продолжения работы с личным кабинетов Вам необходимо подтвердить членство Вашей организации. Для этого Вам необходимо перейти в раздел "Организационная информация" вашего личного кабинета
-                и подать заявку на подтверждение членства.</p>
+            <p style={{ padding: 0, textAlign: 'center' }}>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
         </Card>}
         <Card className={litter ? `` : `_inactive`}>
             <div className="documents-page__icon litter-icon" />
@@ -190,7 +182,7 @@ const StampCards = ({ clubAlias }) => {
     };
     return <div className="documents-page__right">
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon stamps-icon" />
             <h3>КЛЕЙМА</h3>
             <p>
                 Указанные коды клейма могут быть использованы в формах оформления заявок на изготовление документов. При указании кода клейма клуба должна быть приложена электронная копия свидетельства о регистрации кода клейма или документ его заменяющий.
@@ -214,7 +206,31 @@ const StampCards = ({ clubAlias }) => {
     </div>
 };
 
-const ResponsibleCards = ({ clubAlias }) => {
+const ExhibitionsCards = ({ clubAlias, authorizedAccess }) => {
+    const exhibitionApplication = authorizedAccess?.includes(_exhibitionApplication);
+    const exhibitionCancellation = authorizedAccess?.includes(_exhibitionCancellation);
+    const hasAccess = exhibitionApplication && exhibitionCancellation;
+
+    return <div className="documents-page__right">
+        {!hasAccess && <Card className="documents-page__alert-card">
+            <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
+            <p style={{ padding: 0, textAlign: 'center' }}>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
+        </Card>}
+        <Card className={exhibitionApplication ? `` : `_inactive`}>
+            <div className="documents-page__icon exhibitions-icon" />
+            <h3>ПОДАТЬ ЗАЯВКУ НА ПРОВЕДЕНИЕ ВЫСТАВКИ</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <hr />
+            <div className="Card__links">
+                <Link to={`/${clubAlias}/documents/exhibitions/application/form`}>Подать заявку</Link>
+                <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
+            </div>
+        </Card>
+    </div>
+};
+
+const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
 
     return <div className="documents-page__right">
         <Card>
@@ -229,18 +245,20 @@ const ResponsibleCards = ({ clubAlias }) => {
                 <Link to={`/${clubAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-        <Card>
-            <div className="documents-page__icon membership-icon" />
-            <h3>ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА</h3>
-            <p>
-                В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
-            </p>
-            <hr />
-            <div className="Card__links">
-                <Link to={`/${clubAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
-                <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
-            </div>
-        </Card>
+        {
+            authorizedAccess?.includes(_checkMembership) && <Card>
+                <div className="documents-page__icon membership-icon" />
+                <h3>ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ</h3>
+                <p>
+                    В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
+                </p>
+                <hr />
+                <div className="Card__links">
+                    <Link to={`/${clubAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
+                    <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
+                </div>
+            </Card>
+        }
     </div>
 };
 
@@ -268,8 +286,9 @@ const DocHome = ({ clubAlias }) => {
             </StickyBox>
         </aside>
         <Switch>
-            <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} />} />
+            <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
             <Route path='/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
+            <Route path='/:route/documents/exhibitions' component={() => <ExhibitionsCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
             <Route path='/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/Club/club_federation' />} />
             <Route path='/:route/documents/review' component={() => <BookformCard url='/api/Club/club_federation' />} />
             <Route path='/:route/documents' component={() => <DocumentCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
