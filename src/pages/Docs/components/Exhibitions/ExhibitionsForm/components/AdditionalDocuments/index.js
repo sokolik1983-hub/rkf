@@ -6,7 +6,7 @@ import Loading from "components/Loading";
 import "./styles.scss";
 
 
-const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit, history, clubAlias, handleError, editable }) => {
+const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit, history, clubAlias, handleError, editable, status }) => {
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
@@ -16,7 +16,10 @@ const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit,
     }, [documents])
 
     return <div style={{ marginTop: '20px' }}>
-        <div className="application-form__additional-title">{editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}</div>
+        {
+            (!status || (status && !!documents.length)) &&
+            <div className="application-form__additional-title">{editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}</div>
+        }
         <div className="AdditionalDocumentField__wrap">
             {
                 documents && documents.map(d => <AdditionalDocumentField
