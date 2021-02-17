@@ -193,8 +193,10 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     }
 
     const setMaxDate = () => {
-        const startDate = new Date(formProps.valueGetter('date_begin'));
-        return startDate ? new Date(startDate.setDate(startDate.getDate() + 7)) : null
+        if (formProps && editable) {
+            const startDate = new Date(formProps.valueGetter('date_begin'));
+            return startDate ? new Date(startDate.setDate(startDate.getDate() + 7)) : null
+        }
     }
 
     return (
@@ -255,6 +257,9 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                                 : { text: "Выберите ранг", value: 0 }
                                                             }
                                                             validator={isCAC ? requiredValidator : null}
+                                                            valid={isCAC
+                                                                ? formRenderProps.valueGetter('rank_id')
+                                                                : true}
                                                             disabled={!isCAC || !!status}
                                                             resetValue={isCAC ? false : { text: "Выберите ранг", value: 0 }}
                                                         />
