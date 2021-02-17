@@ -330,6 +330,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             validationMessage="Обязательное поле"
                                                             disabled={(formRenderProps.valueGetter('format_id') !== 3 || status) ? true : false}
                                                             required={!status && formRenderProps.valueGetter('format_id') === 3 ? true : false}
+                                                            resetValue={formRenderProps.valueGetter('format_id') !== 3 ? true : false}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
