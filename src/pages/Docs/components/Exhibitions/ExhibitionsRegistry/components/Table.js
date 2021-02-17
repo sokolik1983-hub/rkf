@@ -10,6 +10,7 @@ import moment from "moment";
 import PdfPageTemplate from "../../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../../components/LightTooltip";
 import CopyCell from '../../../../../Docs/components/CopyCell';
+import { Request } from "utils/request";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import "./index.scss";
@@ -37,8 +38,23 @@ const ColumnMenu = (props) => {
     </div>
 };
 
+const handleCancel = (e, id) => {
+    e.preventDefault();
+    if (window.confirm('Отменить выставку?')) {
+        Request({
+            url: `/api/requests/exhibition_request/clubexhibitionrequest/cancel_by_user`,
+            method: 'POST',
+            data: id
+        }, data => {
+            window.location.reload();
+        }, error => {
+            alert(`Ошибка: ${error?.message}`);
+        });
+    }
+}
+
 const OptionsCell = ({ dataItem }) => {
-    const { status_id, id } = dataItem;
+    const { status_id, id, is_approved } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
@@ -54,17 +70,18 @@ const OptionsCell = ({ dataItem }) => {
             className="row-control__link">{item.text}</Link>
     },
     {
-        text: 'Перенести',
-        disabled: status_id === 2 ? false : true,
+        text: 'Редактировать',
+        disabled: status_id === 2 && !is_approved ? false : true,
         render: ({ item }) => <Link
             to={`/${route}/documents/exhibitions/application/form/change/${id}`}
             className="row-control__link">{item.text}</Link>
     },
     {
         text: 'Отменить',
-        disabled: status_id === 2 ? false : true,
+        disabled: status_id === 2 && !is_approved ? false : true,
         render: ({ item }) => <Link
             to={`/${route}/documents/exhibitions/application/form/cancel/${id}`}
+            onClick={e => handleCancel(e, id)}
             className="row-control__link">{item.text}</Link>
     }].filter(o => !o.disabled);
 

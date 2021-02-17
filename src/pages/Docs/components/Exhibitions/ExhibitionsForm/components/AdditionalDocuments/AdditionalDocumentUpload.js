@@ -1,22 +1,21 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Field } from "@progress/kendo-react-form";
 import FormUpload from "../FormUpload";
 import { getHeaders } from "utils/request";
 
-const AdditionalDocumentUpload = ({ documents, setDocuments, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError }) => {
+const AdditionalDocumentUpload = ({ documents, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError }) => {
 
     const onBeforeUpload = (e) => {
         e.headers = getHeaders(true);
         setDisableSubmit(true);
-        //e.additionalData = { document_type_id: documentType };
     };
 
     const onStatusChange = (event, name) => {
         if (event.response?.response) {
             const { result } = event.response.response;
             if (result) {
-                setDocuments([...documents, result]);
+                formRenderProps.onChange('documents', { value: [...documents, { name: result.name, document_id: result.id }] });
                 formRenderProps.onChange(name, { value: [] });
                 setDisableSubmit(false);
             } else {
@@ -31,15 +30,15 @@ const AdditionalDocumentUpload = ({ documents, setDocuments, documentsOverflow, 
 
     return (<div className="AdditionalDocumentUpload">
         <Field
-            id="documents"
-            name="documents"
+            id="documents_upload"
+            name="documents_upload"
             fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
             component={FormUpload}
             saveUrl={'/api/requests/exhibition_request/clubexhibitionrequestdocument'}
             saveField="file"
             multiple={false}
             onBeforeUpload={e => onBeforeUpload(e)}
-            onStatusChange={(e) => onStatusChange(e, 'documents')}
+            onStatusChange={(e) => onStatusChange(e, 'documents_upload')}
             disabled={documentsOverflow}
             autoUpload={true}
             showFileList={false}

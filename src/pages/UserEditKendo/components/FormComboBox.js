@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FieldWrapper } from '@progress/kendo-react-form';
 import { Label, Error } from '@progress/kendo-react-labels';
 import { ComboBox } from '@progress/kendo-react-dropdowns';
@@ -9,7 +9,7 @@ import kendoMessages from "../../../kendoMessages.json";
 loadMessages(kendoMessages, 'ru');
 
 export const FormComboBox = (fieldRenderProps) => {
-    const { validationMessage, touched, label, id, name, valid, disabled, wrapperStyle, data, value, onChange, ...others } = fieldRenderProps;
+    const { validationMessage, touched, label, id, name, valid, disabled, wrapperStyle, data, value, onChange, resetValue, ...others } = fieldRenderProps;
     const [filteredData, setFilteredData] = useState(data);
     const [dropdownValue, setDropdownValue] = useState(filteredData.filter(d => d.id === value)[0]);
     const editorRef = React.useRef(null);
@@ -17,6 +17,10 @@ export const FormComboBox = (fieldRenderProps) => {
     const showValidationMessage = touched && validationMessage;
     const errorId = showValidationMessage ? `${id}_error` : '';
     const labelId = label ? `${id}_label` : '';
+
+    useEffect(() => {
+        resetValue && setDropdownValue(null);
+    }, [resetValue])
 
     const onValueChange = React.useCallback(
         ({ target }) => {

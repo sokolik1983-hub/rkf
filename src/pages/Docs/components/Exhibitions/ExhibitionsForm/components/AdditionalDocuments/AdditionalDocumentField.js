@@ -6,12 +6,13 @@ const AdditionalDocumentField = ({
     setShowModal,
     setUrl,
     documents,
-    setDocuments,
     setDocumentsOverflow,
     id,
+    document_id,
     name,
     accept,
-    editable
+    editable,
+    formRenderProps
 }) => {
     const headers = getHeaders();
 
@@ -23,15 +24,15 @@ const AdditionalDocumentField = ({
             .then(url => setUrl(url));
     };
 
-    const handleClick = (id) => {
+    const handleClick = () => {
         setShowModal(true);
-        getDocument(id);
+        getDocument(document_id);
     }
 
     const handleRemove = () => {
         if (window.confirm('Удалить документ?')) {
             const updatedDocuments = [...documents.filter(d => d.id !== id)];
-            setDocuments(updatedDocuments);
+            formRenderProps.onChange('documents', { value: updatedDocuments });
             if (updatedDocuments.length <= 10) {
                 setDocumentsOverflow(false);
             }
@@ -40,7 +41,7 @@ const AdditionalDocumentField = ({
 
     return (<div className="AdditionalDocumentField">
         <div className="AdditionalDocumentField__name">
-            <div onClick={() => handleClick(id)}>
+            <div onClick={() => handleClick()}>
                 <span className="AdditionalDocumentField__name-icon" />
                 {name}
             </div>

@@ -4,11 +4,11 @@ import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
 import FormContactsRadioButton from 'pages/UserEditKendo/components/FormContactsRadioButton';
 import { Error } from '@progress/kendo-react-labels';
-//import { lengthValidator } from "../validators";
+import { lengthValidator } from "components/kendo/Form/validators";
 import { phoneMask } from 'pages/UserEditKendo/config';
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
-    const { validationMessage, visited, id, value, onRemove, onPush, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
+    const { validationMessage, visited, id, value, onRemove, onPush, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
     const newItem = { "is_main": false, "value": "", "description": "" };
     const valuesArray = formRenderProps.valueGetter(id);
 
@@ -93,7 +93,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                         placeholder="Описание"
                         maxLength="50"
                         component={FormInput}
-                    //validator={value => lengthValidator(value, 50)} 
+                        validator={value => lengthValidator(value, 50)}
                     />
                 </div>
                 <div className="col-md-1 d-none d-sm-block">

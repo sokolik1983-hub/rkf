@@ -6,31 +6,31 @@ import Loading from "components/Loading";
 import "./styles.scss";
 
 
-const AdditionalDocuments = ({ id, documents, setDocuments, attachedDocuments, formRenderProps, setDisableSubmit, history, clubAlias, handleError, editable }) => {
+const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit, history, clubAlias, handleError, editable, status }) => {
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
 
     useEffect(() => {
-        setDocuments(attachedDocuments ? attachedDocuments : []);
-        attachedDocuments?.length >= 10 && setDocumentsOverflow(true);
-    }, [attachedDocuments])
-
-
+        documents?.length >= 10 && setDocumentsOverflow(true);
+    }, [documents])
 
     return <div style={{ marginTop: '20px' }}>
-        <div className="application-form__additional-title">{editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}</div>
+        {
+            (!status || (status && !!documents.length)) &&
+            <div className="application-form__additional-title">{editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}</div>
+        }
         <div className="AdditionalDocumentField__wrap">
             {
                 documents && documents.map(d => <AdditionalDocumentField
                     {...d}
                     key={d.id}
                     documents={documents}
-                    setDocuments={setDocuments}
                     setDocumentsOverflow={setDocumentsOverflow}
                     setShowModal={setShowModal}
                     setUrl={setUrl}
                     editable={editable}
+                    formRenderProps={formRenderProps}
                 />)
             }
         </div>
@@ -38,7 +38,6 @@ const AdditionalDocuments = ({ id, documents, setDocuments, attachedDocuments, f
             editable && <div className="application-form__row">
                 <AdditionalDocumentUpload
                     documents={documents}
-                    setDocuments={setDocuments}
                     documentsOverflow={documentsOverflow}
                     setDocumentsOverflow={setDocumentsOverflow}
                     setDisableSubmit={setDisableSubmit}
