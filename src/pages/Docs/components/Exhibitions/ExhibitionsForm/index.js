@@ -162,6 +162,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const handleFormatChange = id => {
         formProps.onChange('format_id', id);
         formProps.onChange('rank_id', { text: "Выберите формат", value: 0 });
+        formProps.onChange('date_begin', '');
+        formProps.onChange('date_end', '');
     };
 
     const dateRequiredValidator = value => {
@@ -187,6 +189,13 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
             }
         } else {
             return 'Обязательное поле'
+        }
+    }
+
+    const setMaxDate = () => {
+        if (formProps && editable) {
+            const startDate = new Date(formProps.valueGetter('date_begin'));
+            return startDate ? new Date(startDate.setDate(startDate.getDate() + 7)) : null
         }
     }
 
@@ -248,6 +257,9 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                                 : { text: "Выберите ранг", value: 0 }
                                                             }
                                                             validator={isCAC ? requiredValidator : null}
+                                                            valid={isCAC
+                                                                ? formRenderProps.valueGetter('rank_id')
+                                                                : true}
                                                             disabled={!isCAC || !!status}
                                                             resetValue={isCAC ? false : { text: "Выберите ранг", value: 0 }}
                                                         />
@@ -297,6 +309,9 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     min={formRenderProps.valueGetter('date_begin')
                                                         ? new Date(formRenderProps.valueGetter('date_begin'))
                                                         : null}
+                                                    max={formRenderProps.valueGetter('date_begin')
+                                                        ? setMaxDate()
+                                                        : null}
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
                                                     disabled={!formRenderProps.valueGetter('date_begin') || disableAllFields || statusId === 3}
@@ -320,6 +335,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             validationMessage="Обязательное поле"
                                                             disabled={(formRenderProps.valueGetter('format_id') !== 3 || status) ? true : false}
                                                             required={!status && formRenderProps.valueGetter('format_id') === 3 ? true : false}
+                                                            resetValue={formRenderProps.valueGetter('format_id') !== 3 ? true : false}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
