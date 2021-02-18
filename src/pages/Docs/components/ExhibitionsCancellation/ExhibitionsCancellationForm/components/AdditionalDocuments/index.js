@@ -6,7 +6,7 @@ import Loading from "components/Loading";
 import "./styles.scss";
 
 
-const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit, history, clubAlias, handleError, editable, status, disableAllFields }) => {
+const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit, disabled, history, clubAlias, handleError, editable, status }) => {
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
@@ -43,7 +43,7 @@ const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit,
                     setDisableSubmit={setDisableSubmit}
                     formRenderProps={formRenderProps}
                     handleError={handleError}
-                    disableAllFields={disableAllFields}
+                    disabled={disabled}
                 />
             </div>
         }

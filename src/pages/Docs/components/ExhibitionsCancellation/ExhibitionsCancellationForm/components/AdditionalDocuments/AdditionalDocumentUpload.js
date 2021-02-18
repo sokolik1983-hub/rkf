@@ -4,7 +4,7 @@ import { Field } from "@progress/kendo-react-form";
 import FormUpload from "../FormUpload";
 import { getHeaders } from "utils/request";
 
-const AdditionalDocumentUpload = ({ documents, documentsOverflow, disableAllFields, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError }) => {
+const AdditionalDocumentUpload = ({ documents, documentsOverflow, disabled, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError }) => {
 
     const onBeforeUpload = (e) => {
         e.headers = getHeaders(true);
@@ -39,7 +39,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, disableAllFiel
             multiple={false}
             onBeforeUpload={e => onBeforeUpload(e)}
             onStatusChange={(e) => onStatusChange(e, 'documents_upload')}
-            disabled={documentsOverflow || disableAllFields}
+            disabled={documentsOverflow || disabled}
             autoUpload={true}
             showFileList={false}
         />

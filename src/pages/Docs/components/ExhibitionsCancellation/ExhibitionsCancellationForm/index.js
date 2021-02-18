@@ -47,6 +47,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const [initialValues, setInitialValues] = useState({
         id: '',
         exhibition_id: '',
+        type_id: '',
         format_id: '',
         format_name: '',
         rank_id: '',
@@ -147,7 +148,10 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const handleSubmit = async data => {
         setDisableSubmit(true);
         let newData = {
-            ...data,
+            exhibition_id: data.exhibition_id,
+            type_id: data.type_id,
+            city_id: data.city_id,
+            comment: data.comment,
             date_begin: moment(data.date_begin).format(),
             date_end: moment(data.date_end).format(),
             documents: data.documents.map(d => ({
@@ -156,50 +160,25 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                 document_id: d.document_id
             }))
         };
-        delete newData.documents_upload;
-        
-        delete newData.city_name;
-        delete newData.format_id;
-        delete newData.format_name;
-        delete newData.rank_id;
-        delete newData.rank_name;
-        delete newData.national_breed_club_id;
-        delete newData.national_breed_club_name;
-        delete newData.emails;
-        delete newData.phones;
-        
-        
-
-        !status && delete newData.id;
-console.log(newData);
-        // await Request({
-        //     url: '/api/requests/exhibition_request/clubexhibitionrequest',
-        //     method: status ? 'PUT' : 'POST',
-        //     data: JSON.stringify(newData)
-        // }, () => {
-        //     history.push(`/${clubAlias}/documents/exhibitions`);
-        // }, error => {
-        //     handleError(error);
-        //     setDisableSubmit(false);
-        // });
+        await Request({
+            url: '/api/requests/exhibition_request/clubexhibitionrequest/change_cancel',
+            method: status ? 'PUT' : 'POST',
+            data: JSON.stringify(newData)
+        }, () => {
+            history.push(`/${clubAlias}/documents/exhibitions`);
+        }, error => {
+            handleError(error);
+            setDisableSubmit(false);
+        });
     };
 
     const handleExhibitionChange = (name, { value }) => {
         if (value) {
-            formProps.onChange(name, value);
             getExhibitionInfo(value);
         }
     };
 
-    const handleFormatChange = id => {
-        formProps.onChange('format_id', id);
-        formProps.onChange('rank_id', { text: "Выберите формат", value: 0 });
-        formProps.onChange('date_begin', '');
-        formProps.onChange('date_end', '');
-    };
-
     const dateRequiredValidator = value => {
-
         if (formProps && value) {
             const stopDates = exhibitionProperties.forbidden_dates;
             const getDate = (type) => moment(new Date(formProps.valueGetter(type)).toLocaleDateString());
@@ -224,11 +203,9 @@ console.log(newData);
         }
     }
 
-    const setMaxDate = () => {
-        if (formProps && editable) {
-            const startDate = new Date(formProps.valueGetter('date_begin'));
-            return startDate ? new Date(startDate.setDate(startDate.getDate() + 7)) : null
-        }
+    const setMaxDate = (d) => {
+        const startDate = new Date(d);
+        return startDate ? new Date(startDate.setDate(startDate.getDate() + 7)) : null
     }
 
     return (
@@ -243,12 +220,11 @@ console.log(newData);
                     <Loading centered={false} /> :
                     <Form
                         onSubmit={handleSubmit}
-                        initialValues={initialValues}
                         key={JSON.stringify(initialValues)}
+                        initialValues={initialValues}
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
                             const isCACIB = formRenderProps.valueGetter('format_id') === 2;
-                            const isCAC = formRenderProps.valueGetter('format_id') === 1;
                             return (
                                 <FormElement>
                                     <div className="application-form__content">
@@ -258,7 +234,7 @@ console.log(newData);
                                         <h4 className="application-form__title" style={{ marginBottom: 0, marginTop: '20px' }}>
                                             {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                         </h4>
-                                        <div className="application-form__row two-column">
+                                        <div className="application-form__row two-thirds-column">
                                             <div>
                                                 <LocalizationProvider language="ru">
                                                     <IntlProvider locale="ru">
@@ -269,15 +245,24 @@ console.log(newData);
                                                             component={FormComboBox}
                                                             textField={'name'}
                                                             data={exhibitions}
-                                                            //clearButton={false}
                                                             onChange={handleExhibitionChange}
                                                             validationMessage="Обязательное поле"
                                                             disabled={exhibitionLoaded ? false : true}
                                                             value={formRenderProps.valueGetter('exhibition_id')}
-                                                        //required={!status && formRenderProps.valueGetter('format_id') ? true : false}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
+                                            </div>
+                                            <div>
+                                                <Field
+                                                    id="type_id"
+                                                    name="type_id"
+                                                    label="Выберите тип заявки"
+                                                    component={FormDropDownList}
+                                                    data={[{ text: 'Перенос', value: 2 }, { text: 'Отмена', value: 3 }]}
+                                                    disabled={!formRenderProps.valueGetter('exhibition_id')}
+                                                    validator={requiredValidator}
+                                                />
                                             </div>
                                         </div>
                                         <div className="application-form__row three-column">
@@ -287,13 +272,11 @@ console.log(newData);
                                                     name="format_id"
                                                     label="Формат мероприятия"
                                                     component={FormDropDownList}
-                                                    onChange={handleFormatChange}
                                                     data={exhibitionProperties.formats}
                                                     defaultItem={status && formRenderProps.valueGetter('format_id')
                                                         ? { text: formRenderProps.valueGetter('format_name'), value: formRenderProps.valueGetter('format_id') }
                                                         : { text: "Выберите формат", value: 0 }
                                                     }
-                                                    validator={requiredValidator}
                                                     disabled={true}
                                                 />
                                             </div>
@@ -310,12 +293,7 @@ console.log(newData);
                                                                 ? { text: formRenderProps.valueGetter('rank_name'), value: formRenderProps.valueGetter('rank_id') }
                                                                 : { text: "Выберите ранг", value: 0 }
                                                             }
-                                                            validator={isCAC ? requiredValidator : null}
-                                                            valid={isCAC
-                                                                ? formRenderProps.valueGetter('rank_id')
-                                                                : true}
                                                             disabled={true}
-                                                            resetValue={isCAC ? false : { text: "Выберите ранг", value: 0 }}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
@@ -330,10 +308,11 @@ console.log(newData);
                                                             component={FormComboBox}
                                                             textField={'name'}
                                                             data={exhibitionProperties.cities}
-                                                            placeholder={status ? formRenderProps.valueGetter('city_name') : ''}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
                                                             required={formRenderProps.modified}
+                                                            value={formRenderProps.valueGetter('city_id')}
+                                                            //placeholder={formRenderProps.valueGetter('city_name')}
                                                             //disabled={disableAllFields || statusId === 3 || !formRenderProps.valueGetter('format_id')}
                                                             disabled={!formRenderProps.valueGetter('exhibition_id')}
                                                         />
@@ -366,7 +345,7 @@ console.log(newData);
                                                         ? new Date(formRenderProps.valueGetter('date_begin'))
                                                         : null}
                                                     max={formRenderProps.valueGetter('date_begin')
-                                                        ? setMaxDate()
+                                                        ? setMaxDate(formRenderProps.valueGetter('date_begin'))
                                                         : null}
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
@@ -389,10 +368,7 @@ console.log(newData);
                                                             placeholder={formRenderProps.valueGetter('national_breed_club_name')
                                                                 ? formRenderProps.valueGetter('national_breed_club_name') : ''}
                                                             onChange={formRenderProps.onChange}
-                                                            validationMessage="Обязательное поле"
-                                                            disabled={(formRenderProps.valueGetter('format_id') !== 3 || status) ? true : false}
-                                                            required={!status && formRenderProps.valueGetter('format_id') === 3 ? true : false}
-                                                            resetValue={formRenderProps.valueGetter('format_id') !== 3 ? true : false}
+                                                            disabled={true}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
@@ -448,7 +424,7 @@ console.log(newData);
                                             formRenderProps={formRenderProps}
                                             editable={editable}
                                             status={status}
-                                            disableAllFields={disableAllFields}
+                                            disabled={!formRenderProps.valueGetter('exhibition_id')}
                                         />
                                     }
                                         {editable && statusId !== 3 &&

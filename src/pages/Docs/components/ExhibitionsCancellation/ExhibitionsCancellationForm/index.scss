@@ -158,7 +158,7 @@
       }
     }
     &.two-thirds-column {
-      & > div {
+      & > div:first-child {
         margin: 0;
         @media (min-width: 560px) {
           max-width: 66.6%;
