@@ -1,4 +1,90 @@
 .application-form {
+  &__contacts {
+    @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
+    @import "~bootstrap/scss/bootstrap.scss";
+    &._disabled {
+      opacity: 0.65;
+      pointer-events: none;
+      .Contacts__custom-trash{
+        display: none!important;
+      }
+      .Contacts__custom-plus{
+        .k-i-plus-circle{
+          opacity: 0.6;
+        }
+      }
+    }
+    &.k-form-fieldset {
+      margin: 0;
+    }
+    .k-maskedtextbox,
+    .k-textbox {
+      width: 100%;
+    }
+    .k-radio[aria-checked="true"] {
+      border-color: #007bff;
+      color: #ffffff;
+      background-color: #007bff;
+      &::before {
+        top: calc(50% - 3px);
+        left: calc(50% - 3px);
+        background-color: white;
+        transform: none;
+      }
+    }
+    .Contacts {
+      &__custom-label {
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+      &__custom-plus {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 10px;
+        span.k-i-plus-circle {
+          font-size: 24px;
+          color: #007bff;
+          &.k-icon-disabled {
+            opacity: 0.6;
+          }
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      &__custom-checkbox {
+        display: flex;
+        align-items: flex-start;
+        padding-top: 8px;
+        justify-content: center;
+        &-label {
+          margin-top: -24px;
+          @media (max-width: 560px) {
+            display: none;
+          }
+        }
+      }
+      &__custom-trash {
+        padding-top: 8px;
+        text-align: center;
+        & > span {
+          max-width: 100%;
+          color: red;
+          font-size: 22px;
+          opacity: 0.8;
+          &:hover {
+            opacity: 1;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .k-form-field {
+      margin-top: 0;
+    }
+  }
   &__content {
     margin-top: 20px;
     padding-bottom: 20px;
@@ -24,30 +110,6 @@
     flex-flow: row;
     align-items: flex-start;
     justify-content: flex-start;
-    @media (max-width: 1090px) {
-      &._payment-info {
-        display: block;
-        & > div:not(:last-child) {
-          margin-right: 0;
-        }
-      }
-    }
-    @media (max-width: 990px) {
-      &._payment-info {
-        display: flex;
-        & > div:not(:last-child) {
-          margin-right: 16px;
-        }
-      }
-    }
-    @media (max-width: 730px) {
-      &._payment-info {
-        display: block;
-        & > div:not(:last-child) {
-          margin-right: 0;
-        }
-      }
-    }
     @media (max-width: 560px) {
       display: block;
       & > div:not(:last-child) {
@@ -59,9 +121,6 @@
     }
     & > div {
       flex: 1 1;
-      &:not(:last-child) {
-        margin-right: 16px;
-      }
     }
     & > .btn {
       margin-top: 40px;
@@ -70,40 +129,45 @@
         margin-right: 0;
       }
     }
-    &-is-foreign {
-      display: flex;
-      @media (max-width: 700px) {
-        display: block;
-      }
-      & > div:first-child {
-        width: 70%;
-        margin-right: 16px;
-        @media (max-width: 700px) {
-          width: auto;
-          margin-right: 0;
-        }
-        & + div {
-          width: 30%;
-          padding-top: 24px;
-          @media (max-width: 700px) {
-            width: auto;
-            padding-top: 0;
-          }
-          .k-state-default,
-          .k-state-disabled {
-            display: flex;
-            align-items: center;
-            input {
-              flex-shrink: 0;
+    &.three-column {
+      & > div {
+        margin: 0;
+        @media (min-width: 560px) {
+          max-width: 33.3%;
+          min-width: 33.3%;
+          &:not(:last-child) {
+            & > div {
+              margin-right: 16px;
             }
           }
         }
       }
     }
-  }
-  &__doc-type-id {
-    @media (min-width: 560px) {
-      max-width: calc(50% - 8px);
+    &.two-column {
+      & > div {
+        margin: 0;
+        @media (min-width: 560px) {
+          max-width: 50%;
+          min-width: 50%;
+          &:first-child {
+            & > div {
+              margin-right: 16px;
+            }
+          }
+        }
+      }
+    }
+    &.two-thirds-column {
+      & > div {
+        margin: 0;
+        @media (min-width: 560px) {
+          max-width: 66.6%;
+          min-width: 66.6%;
+          & > div {
+            margin-right: 16px;
+          }
+        }
+      }
     }
   }
   &__danger {
@@ -125,7 +189,7 @@
       opacity: 1 !important;
       letter-spacing: normal;
       &.k-text-disabled {
-        opacity: .65 !important;
+        opacity: 0.65 !important;
       }
     }
     .k-form-field {
@@ -151,8 +215,8 @@
     margin-top: 8px;
   }
   .k-notification-group {
-    right: 8px;
-    bottom: 55px;
+    right: 10px;
+    bottom: 10px;
     @media (max-width: 560px) {
       left: 5px;
       right: 5px;
