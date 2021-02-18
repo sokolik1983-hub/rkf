@@ -13,6 +13,9 @@ import "./index.scss";
 
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => (
     <header className="header">
+        <div id="maintenance-message"> {/* TEMP */}
+                Дорогие друзья! В настоящее время на Платформе RKF.Online ведутся технические работы. До окончания работ загрузка данных к заявкам и поисковые сервисы могут работать некорректно. Благодарим Вас за понимание.
+        </div>
         <Container className="header__content">
             <Link to="/" className="header__logo" />
             {withFilters &&
