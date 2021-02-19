@@ -47,7 +47,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const [initialValues, setInitialValues] = useState({
         id: '',
         exhibition_id: '',
-        name:'',
+        name: '',
         type_id: '',
         format_id: '',
         format_name: '',
@@ -135,16 +135,13 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
             Object.keys(initialValues).forEach(key => {
                 values[key] = data[key] || initialValues[key];
             });
-            values.exhibition_id = id;
+            values.exhibition_id = exhibitionId;
             values.breed_name = data.breed_name ? data.breed_name : '';
             setInitialValues(values);
             setExhibitionLoaded(true);
         }, error => {
             history.replace('/404');
         });
-        // if (status === 'view') {
-        //     setDisableAllFields(true);
-        // }
     }
 
     const handleError = e => {
@@ -174,6 +171,10 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                 document_id: d.document_id
             }))
         };
+        if (status) {
+            delete newData.exhibition_id;
+            newData.id = data.exhibition_id;
+        }
         await Request({
             url: '/api/requests/exhibition_request/clubexhibitionrequest/change_cancel',
             method: status ? 'PUT' : 'POST',
@@ -239,6 +240,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
                             const isCACIB = formRenderProps.valueGetter('format_id') === 2;
+                            const isCancelation = editable && formRenderProps.valueGetter('type_id') === 3;
                             return (
                                 <FormElement>
                                     <div className="application-form__content">
@@ -260,8 +262,9 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             textField={'name'}
                                                             data={exhibitions}
                                                             onChange={handleExhibitionChange}
+                                                            placeholder={formRenderProps.valueGetter('name') ? formRenderProps.valueGetter('name') : ''}
                                                             validationMessage="Обязательное поле"
-                                                            disabled={(!status && exhibitionLoaded) || status ? true : false}
+                                                            disabled={(!status && !exhibitionLoaded) || status ? true : false}
                                                             value={formRenderProps.valueGetter('exhibition_id')}
                                                         />
                                                     </IntlProvider>
@@ -274,7 +277,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     label="Выберите тип заявки"
                                                     component={FormDropDownList}
                                                     data={[{ text: 'Перенос', value: 2 }, { text: 'Отмена', value: 3 }]}
-                                                    disabled={!formRenderProps.valueGetter('exhibition_id')}
+                                                    disabled={!formRenderProps.valueGetter('exhibition_id') || !editable}
                                                     validator={requiredValidator}
                                                 />
                                             </div>
@@ -321,14 +324,13 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             label={'Город проведения выставки'}
                                                             component={FormComboBox}
                                                             textField={'name'}
+                                                            clearButton={editable && !isCancelation}
                                                             data={exhibitionProperties.cities}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
                                                             required={formRenderProps.modified}
                                                             value={formRenderProps.valueGetter('city_id')}
-                                                            //placeholder={formRenderProps.valueGetter('city_name')}
-                                                            //disabled={disableAllFields || statusId === 3 || !formRenderProps.valueGetter('format_id')}
-                                                            disabled={!formRenderProps.valueGetter('exhibition_id')}
+                                                            disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
@@ -346,8 +348,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     }
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
-                                                    //disabled={(!status && !formRenderProps.valueGetter('format_id')) || disableAllFields || statusId === 3}
-                                                    disabled={!formRenderProps.valueGetter('exhibition_id')}
+                                                    disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation}
                                                 />
                                             </div>
                                             <div>
@@ -363,8 +364,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                         : null}
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
-                                                    //disabled={!formRenderProps.valueGetter('date_begin') || disableAllFields || statusId === 3}
-                                                    disabled={!formRenderProps.valueGetter('exhibition_id')}
+                                                    disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation}
                                                 />
                                             </div>
                                         </div>
@@ -470,7 +470,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                     </div>
                                     <div className="application-form__controls">
                                         {exhibitionLoaded ?
-                                            <button
+                                            editable && <button
                                                 type="submit"
                                                 className="btn btn-primary"
                                                 disabled={!formRenderProps.modified || disableSubmit}
