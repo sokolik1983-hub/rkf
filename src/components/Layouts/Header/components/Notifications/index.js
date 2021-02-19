@@ -85,7 +85,7 @@ const Notifications = forwardRef(
                     { ...categories.find(c => c.id === 4), count: counter_of_request }
                 ]);
                 setNotifications(notifications);
-                setNotificationsLength(notifications.filter(n => n.is_read === false).length);
+                setNotificationsLength && setNotificationsLength(notifications.filter(n => n.is_read === false).length);
                 setLoaded(true);
             }, error => {
                 console.log(error)
