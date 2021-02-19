@@ -26,6 +26,9 @@ import {
 
 loadMessages(ruMessages, 'ru');
 
+// TODO
+// - В редактировании запретить менять тип заявки
+// - Если статус = 3, то можно редактировать только доки и коммент
 
 const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(true);
