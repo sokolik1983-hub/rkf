@@ -342,10 +342,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     id="date_begin"
                                                     name="date_begin"
                                                     label="Дата начала проведения"
-                                                    min={isCACIB
-                                                        ? new Date(`01.01.${new Date().getFullYear() + 2}`)
-                                                        : new Date(`01.01.${new Date().getFullYear() + 1}`)
-                                                    }
+                                                    min={new Date(`01.01.${new Date().getFullYear()}`)}
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
                                                     disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation}

@@ -231,7 +231,7 @@ const ExhibitionsCards = ({ clubAlias, authorizedAccess }) => {
             <div className="documents-page__icon cancellation-icon" />
             <h3>ПОДАТЬ ЗАЯВКУ НА ПЕРЕНОС/ОТМЕНУ ВЫСТАВКИ</h3>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.             </p>
+                Здесь вы можете внести изменения в утверждённую выставку. После одобрения заявки со стороны выставочной комиссии РКФ внесённые изменения отобразятся в календаре мероприятий.</p>
             <hr />
             <div className="Card__links">
                 <Link to={`/${clubAlias}/documents/exhibitions/cancellation/form`}>Подать заявку</Link>
