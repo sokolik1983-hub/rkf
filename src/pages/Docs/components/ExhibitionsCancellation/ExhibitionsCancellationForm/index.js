@@ -47,6 +47,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const [initialValues, setInitialValues] = useState({
         id: '',
         exhibition_id: '',
+        name:'',
         type_id: '',
         format_id: '',
         format_name: '',
@@ -58,6 +59,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         date_end: '',
         national_breed_club_id: '',
         national_breed_club_name: '',
+        breed_id: '',
+        breed_name: '',
         comment: '',
         rejected_comment: '',
         documents: [],
@@ -114,15 +117,26 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     }
 
     const getExhibitionInfo = async id => {
+        let exhibitionId;
+        if (status) {
+            const paramsArr = history.location.pathname.split('/');
+            exhibitionId = paramsArr[paramsArr.length - 1];
+        } else {
+            exhibitionId = id;
+        }
+
         setExhibitionLoaded(false);
         await Request({
-            url: `/api/requests/exhibition_request/clubexhibitionrequest/exhibition_fields?id=${id}`
+            url: status
+                ? `/api/requests/exhibition_request/clubexhibitionrequest?id=${exhibitionId}`
+                : `/api/requests/exhibition_request/clubexhibitionrequest/exhibition_fields?id=${exhibitionId}`
         }, data => {
             let values = {};
             Object.keys(initialValues).forEach(key => {
                 values[key] = data[key] || initialValues[key];
             });
             values.exhibition_id = id;
+            values.breed_name = data.breed_name ? data.breed_name : '';
             setInitialValues(values);
             setExhibitionLoaded(true);
         }, error => {
@@ -247,7 +261,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             data={exhibitions}
                                                             onChange={handleExhibitionChange}
                                                             validationMessage="Обязательное поле"
-                                                            disabled={exhibitionLoaded ? false : true}
+                                                            disabled={(!status && exhibitionLoaded) || status ? true : false}
                                                             value={formRenderProps.valueGetter('exhibition_id')}
                                                         />
                                                     </IntlProvider>
@@ -354,7 +368,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="application-form__row two-thirds-column">
+                                        <div className="application-form__row two-column">
                                             <div>
                                                 <LocalizationProvider language="ru">
                                                     <IntlProvider locale="ru">
@@ -368,6 +382,24 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             placeholder={formRenderProps.valueGetter('national_breed_club_name')
                                                                 ? formRenderProps.valueGetter('national_breed_club_name') : ''}
                                                             onChange={formRenderProps.onChange}
+                                                            disabled={true}
+                                                        />
+                                                    </IntlProvider>
+                                                </LocalizationProvider>
+                                            </div>
+                                            <div>
+                                                <LocalizationProvider language="ru">
+                                                    <IntlProvider locale="ru">
+                                                        <FormComboBox
+                                                            id={'breed_id'}
+                                                            name={'breed_id'}
+                                                            label={'Порода'}
+                                                            component={FormComboBox}
+                                                            textField={'name'}
+                                                            data={[]}
+                                                            placeholder={formRenderProps.valueGetter('breed_name')
+                                                                ? formRenderProps.valueGetter('breed_name') : ''}
+                                                            //onChange={formRenderProps.onChange}
                                                             disabled={true}
                                                         />
                                                     </IntlProvider>
@@ -391,8 +423,6 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             name="phones"
                                             component={FormContactsFieldArray}
                                             formRenderProps={formRenderProps}
-                                            valueValidator={phoneValidator}
-                                            valueRequiredValidator={phoneRequiredValidator}
                                         />
 
                                         <div className="form-row mt-3">
@@ -409,8 +439,6 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             name="emails"
                                             component={FormContactsFieldArray}
                                             formRenderProps={formRenderProps}
-                                            valueValidator={value => emailValidator(value, 100)}
-                                            valueRequiredValidator={emailRequiredValidator}
                                         />
                                     </fieldset>
 
