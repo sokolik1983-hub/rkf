@@ -48,127 +48,133 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
     const hasAccess = pedigree && litter && replacePedigreeExportOld;
 
     return <div className="documents-page__right">
-    {!hasAccess && <Card className="documents-page__alert-card">
-            <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
-            <p style={{padding: 0, textAlign: 'center'}}>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
-        </Card>}
-        <Card className={litter ? `` : `_inactive`}>
-            <div className="documents-page__icon litter-icon" />
-            <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
-            <p>
-                В соответствии с требованиями РКФ, с заявлением на регистрацию помета так же принимаются:
-                акт вязки, акт обследования помета, копии свидетельств о происхождении производителей,
-                копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно -
-                оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.
+        {
+            !authorizedAccess
+                ? <Loading />
+                : <>
+                    {!hasAccess && <Card className="documents-page__alert-card">
+                        <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
+                        <p style={{ padding: 0, textAlign: 'center' }}>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
+                    </Card>}
+                    <Card className={litter ? `` : `_inactive`}>
+                        <div className="documents-page__icon litter-icon" />
+                        <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
+                        <p>
+                            В соответствии с требованиями РКФ, с заявлением на регистрацию помета так же принимаются:
+                            акт вязки, акт обследования помета, копии свидетельств о происхождении производителей,
+                            копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно -
+                            оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.
             </p>
-            <div className="documents-page__support-links">
-                <p>
-                    <a href="https://help.rkf.online/ru/knowledge_base/art/4/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче заявления на регистрацию помета</a>
-                </p>
-                <p>
-                    <a href="https://help.rkf.online/ru/knowledge_base/article/81/category/3/#/" target="_blank" rel="noopener noreferrer">Видео-инструкция по подаче заявления на регистрацию помета</a>
-                </p>
-            </div>
-            <hr />
-            <div className="Card__links">
-                <Link to={`/kennel/${nurseryAlias}/documents/litter/form`}>Подать заявление</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/litter/status`}> Проверить статус документа</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/litter/requests`}> Реестр заявок</Link>
-            </div>
-        </Card>
-        <Card className={pedigree ? `` : `_inactive`}>
-            <div className="documents-page__icon pedigree-icon" />
-            <h3>ОФОРМЛЕНИЕ РОДОСЛОВНОЙ</h3>
-            <p>
-                Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на
-                свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.
+                        <div className="documents-page__support-links">
+                            <p>
+                                <a href="https://help.rkf.online/ru/knowledge_base/art/4/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче заявления на регистрацию помета</a>
+                            </p>
+                            <p>
+                                <a href="https://help.rkf.online/ru/knowledge_base/article/81/category/3/#/" target="_blank" rel="noopener noreferrer">Видео-инструкция по подаче заявления на регистрацию помета</a>
+                            </p>
+                        </div>
+                        <hr />
+                        <div className="Card__links">
+                            <Link to={`/kennel/${nurseryAlias}/documents/litter/form`}>Подать заявление</Link>
+                            <Link to={`/kennel/${nurseryAlias}/documents/litter/status`}> Проверить статус документа</Link>
+                            <Link to={`/kennel/${nurseryAlias}/documents/litter/requests`}> Реестр заявок</Link>
+                        </div>
+                    </Card>
+                    <Card className={pedigree ? `` : `_inactive`}>
+                        <div className="documents-page__icon pedigree-icon" />
+                        <h3>ОФОРМЛЕНИЕ РОДОСЛОВНОЙ</h3>
+                        <p>
+                            Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на
+                            свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.
             </p>
-            <div className="documents-page__support-links">
-                <p>
-                    <a href="https://help.rkf.online/ru/knowledge_base/art/37/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче родословной</a>
-                </p>
-                <p>
-                    <a href="https://help.rkf.online/ru/knowledge_base/art/68/cat/3/#/" target="_blank" rel="noopener noreferrer">Видео-инструкция по подаче родословной</a>
-                </p>
-            </div>
-            <hr />
-            <div className="Card__links">
-                <Link to={`/kennel/${nurseryAlias}/documents/pedigree/form`}>Подать заявление</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
-            </div>
-        </Card>
-        <Card className={litter ? `` : `_inactive`}>
-            <div className="documents-page__icon puppy-icon" />
-            <h3>МЕТРИКА ЩЕНКА</h3>
-            <p>Метрика щенка автоматически формируется на основании данных, указанных при регистрации помета. Формирование документа на основании данных, предоставленных другой кинологической организацией может быть реализован посредством ввода кода клейма собаки. ФИО владельца собаки могут быть указаны заявителем в разделе редактирования метрики щенка.</p>
-            <hr />
-            <div className="Card__links">
-                {/* <Link to={`/kennel/${nurseryAlias}/documents/puppy/metrics`}>Реестр метрик</Link> */}
-                <span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>
-            </div>
-        </Card>
-        <Card className={replacePedigreeExportOld ? `` : `_inactive`}>
-            <div className="documents-page__icon replace-pedigree-icon" />
-            <h3>ЗАМЕНА РОДОСЛОВНОЙ</h3>
-            <p>Обмен родословной возможен при наличии у заявителя внутренней или экспортной родословной РКФ старого образца или свидетельства о регистрации, выданного зарубежной кинологической организацией. Кроме того, при подаче соответствующего заявления может быть осуществлена выдача дубликата родословной или замена владельца в документе.</p>
-            <hr />
-            <div className="Card__link-columns">
-                <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/2/form`} >По внутренней родословной старого образца</Link>
-                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/1/form`} >По экспортной родословной старого образца</Link>
-                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/4/form`} >По заявлению при смене владельца</Link>
-                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/7/form`} >Замена родословной по ошибке заявителя</Link>
-                </div>
-                <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/5/form`} >По родословной выданной вне системы РКФ/FCI</Link>
-                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/3/form`} >По заявлению о выдаче дубликата</Link>
-                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/6/form`} >Регистрация иностранной родословной</Link>
-                </div>
-            </div>
-            <hr />
-            <div className="Card__link-columns">
-                <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/registry`} >Реестр заявок</Link>
-                </div>
-            </div>
-        </Card>
-        <Card>
-            <div className="documents-page__icon dysplasia-icon" />
-            <h3>СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ</h3>
-            <p>Для изготовления и получения сертификата о проверке на дисплазию HD и ED необходимо подать заявку, прикрепив договор с печатью ветеринарного учреждения и подписью ветеринарного врача, а также рентгенограмму. Плановый срок изготовления сертификата составляет два месяца со дня подачи документов в РКФ. После изготовления сертификата результаты исследования автоматически вносятся в электронную базу РКФ и в дальнейшем отражаются в родословных потомков собаки.</p>
-            <hr />
-            <div className="Card__links">
-                <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/form`}>Подать заявление</Link>
-                    <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
-                </div>
-            </div>
-        </Card>
-        <Card>
-            <div className="documents-page__icon patella-icon" />
-            <h3>СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)</h3>
-            <p>Для оформления сертфиката клинической оценки коленных суставов необходимо обратиться к любому ветеринарному врачу РКФ, лицензированному в системе FCI в качестве специалиста, имеющего право оценки состояния коленных суставов (PL) с выдачей сертификата установленного образца.</p>
-            <hr />
-            <div className="Card__links">
-                <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/patella/form`}>Подать заявление</Link>
-                    <Link to={`/kennel/${nurseryAlias}/documents/patella/registry`}>Реестр заявок</Link>
-                </div>
-            </div>
-        </Card>
-        <Card>
-            <div className="documents-page__icon litter-icon" />
-            <h3>ЗАЯВКА НА ПОЛУЧЕНИЕ ДОКУМЕНТОВ РКФ</h3>
-            <p>В данном разделе Вы можете оформить заявки на получение следующих документов: дипломы чемпионов, дипломы победителей, племенные сертификаты, рабочие сертификаты. После изготовления диплома/сертификата данные автоматически заносятся в электронную базу РКФ.</p>
-            <hr />
-            <div className="Card__links">
-                <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/application/form`}>Подать заявление</Link>
-                    <Link to={`/kennel/${nurseryAlias}/documents/application/registry`}>Реестр заявок</Link>
-                </div>
-            </div>
-        </Card>
+                        <div className="documents-page__support-links">
+                            <p>
+                                <a href="https://help.rkf.online/ru/knowledge_base/art/37/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче родословной</a>
+                            </p>
+                            <p>
+                                <a href="https://help.rkf.online/ru/knowledge_base/art/68/cat/3/#/" target="_blank" rel="noopener noreferrer">Видео-инструкция по подаче родословной</a>
+                            </p>
+                        </div>
+                        <hr />
+                        <div className="Card__links">
+                            <Link to={`/kennel/${nurseryAlias}/documents/pedigree/form`}>Подать заявление</Link>
+                            <Link to={`/kennel/${nurseryAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
+                            <Link to={`/kennel/${nurseryAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
+                        </div>
+                    </Card>
+                    <Card className={litter ? `` : `_inactive`}>
+                        <div className="documents-page__icon puppy-icon" />
+                        <h3>МЕТРИКА ЩЕНКА</h3>
+                        <p>Метрика щенка автоматически формируется на основании данных, указанных при регистрации помета. Формирование документа на основании данных, предоставленных другой кинологической организацией может быть реализован посредством ввода кода клейма собаки. ФИО владельца собаки могут быть указаны заявителем в разделе редактирования метрики щенка.</p>
+                        <hr />
+                        <div className="Card__links">
+                            {/* <Link to={`/kennel/${nurseryAlias}/documents/puppy/metrics`}>Реестр метрик</Link> */}
+                            <span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>
+                        </div>
+                    </Card>
+                    <Card className={replacePedigreeExportOld ? `` : `_inactive`}>
+                        <div className="documents-page__icon replace-pedigree-icon" />
+                        <h3>ЗАМЕНА РОДОСЛОВНОЙ</h3>
+                        <p>Обмен родословной возможен при наличии у заявителя внутренней или экспортной родословной РКФ старого образца или свидетельства о регистрации, выданного зарубежной кинологической организацией. Кроме того, при подаче соответствующего заявления может быть осуществлена выдача дубликата родословной или замена владельца в документе.</p>
+                        <hr />
+                        <div className="Card__link-columns">
+                            <div>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/2/form`} >По внутренней родословной старого образца</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/1/form`} >По экспортной родословной старого образца</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/4/form`} >По заявлению при смене владельца</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/7/form`} >Замена родословной по ошибке заявителя</Link>
+                            </div>
+                            <div>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/5/form`} >По родословной выданной вне системы РКФ/FCI</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/3/form`} >По заявлению о выдаче дубликата</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/6/form`} >Регистрация иностранной родословной</Link>
+                            </div>
+                        </div>
+                        <hr />
+                        <div className="Card__link-columns">
+                            <div>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/registry`} >Реестр заявок</Link>
+                            </div>
+                        </div>
+                    </Card>
+                    <Card>
+                        <div className="documents-page__icon dysplasia-icon" />
+                        <h3>СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ</h3>
+                        <p>Для изготовления и получения сертификата о проверке на дисплазию HD и ED необходимо подать заявку, прикрепив договор с печатью ветеринарного учреждения и подписью ветеринарного врача, а также рентгенограмму. Плановый срок изготовления сертификата составляет два месяца со дня подачи документов в РКФ. После изготовления сертификата результаты исследования автоматически вносятся в электронную базу РКФ и в дальнейшем отражаются в родословных потомков собаки.</p>
+                        <hr />
+                        <div className="Card__links">
+                            <div>
+                                <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/form`}>Подать заявление</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
+                            </div>
+                        </div>
+                    </Card>
+                    <Card>
+                        <div className="documents-page__icon patella-icon" />
+                        <h3>СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)</h3>
+                        <p>Для оформления сертфиката клинической оценки коленных суставов необходимо обратиться к любому ветеринарному врачу РКФ, лицензированному в системе FCI в качестве специалиста, имеющего право оценки состояния коленных суставов (PL) с выдачей сертификата установленного образца.</p>
+                        <hr />
+                        <div className="Card__links">
+                            <div>
+                                <Link to={`/kennel/${nurseryAlias}/documents/patella/form`}>Подать заявление</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/patella/registry`}>Реестр заявок</Link>
+                            </div>
+                        </div>
+                    </Card>
+                    <Card>
+                        <div className="documents-page__icon litter-icon" />
+                        <h3>ЗАЯВКА НА ПОЛУЧЕНИЕ ДОКУМЕНТОВ РКФ</h3>
+                        <p>В данном разделе Вы можете оформить заявки на получение следующих документов: дипломы чемпионов, дипломы победителей, племенные сертификаты, рабочие сертификаты. После изготовления диплома/сертификата данные автоматически заносятся в электронную базу РКФ.</p>
+                        <hr />
+                        <div className="Card__links">
+                            <div>
+                                <Link to={`/kennel/${nurseryAlias}/documents/application/form`}>Подать заявление</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/application/registry`}>Реестр заявок</Link>
+                            </div>
+                        </div>
+                    </Card>
+                </>
+        }
         {alert &&
             <Alert
                 title="Внимание!"
@@ -212,7 +218,7 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
 
 const DocHome = ({ nurseryAlias }) => {
     const [loading, setLoading] = useState(true);
-    const [authorizedAccess, setAuthorizedAccess] = useState([]);
+    const [authorizedAccess, setAuthorizedAccess] = useState(null);
 
     useEffect(() => {
         (() => Request({
