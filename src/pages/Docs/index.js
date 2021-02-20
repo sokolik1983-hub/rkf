@@ -29,6 +29,8 @@ import Application from "./components/Application/Form";
 import ApplicationRegistry from "./components/Application/ApplicationRegistry";
 import ExhibitionsForm from "./components/Exhibitions/ExhibitionsForm";
 import ExhibitionsRegistry from "./components/Exhibitions/ExhibitionsRegistry";
+import ExhibitionsCancellationForm from "./components/ExhibitionsCancellation/ExhibitionsCancellationForm";
+import ExhibitionsCancellationRegistry from "./components/ExhibitionsCancellation/ExhibitionsCancellationRegistry";
 import "./index.scss";
 
 
@@ -149,6 +151,18 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         />
                         <Route exact={true} path='/:route/documents/exhibitions/application/form/cancel/:docId' component={() =>
                             <ExhibitionsForm clubAlias={clubAlias} history={history} status="cancel" />}
+                        />
+                        <Route exact={true} path='/:route/documents/exhibitions/cancellation/form' component={() =>
+                            <ExhibitionsCancellationForm clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/exhibitions/cancellation/registry' component={() =>
+                            <ExhibitionsCancellationRegistry clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/exhibitions/cancellation/form/view/:docId' component={() =>
+                            <ExhibitionsCancellationForm clubAlias={clubAlias} history={history} status="view" />}
+                        />
+                        <Route exact={true} path='/:route/documents/exhibitions/cancellation/form/edit/:docId' component={() =>
+                            <ExhibitionsCancellationForm clubAlias={clubAlias} history={history} status="edit" />}
                         />
                         <Route exact={true} path='/:route/documents/responsible/form' component={() =>
                             <ResponsiblePersonForm clubAlias={clubAlias} history={history} />}
