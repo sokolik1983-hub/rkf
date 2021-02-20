@@ -115,10 +115,17 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
-        if (e.value === "1" || e.value === "2" || e.value === "3") {
+        if (e.value === "2" || e.value === "3") {
             newDataState.filter = {
                 logic: 'and',
                 filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]
+            }
+            newDataState.skip = 0
+        } else if (e.value === "1") {
+            newDataState.filter = {
+                logic: 'or',
+                filters: [{ field: 'status_id', operator: 'eq', value: "1" },
+                { field: 'status_id', operator: 'eq', value: "5" }]
             }
             newDataState.skip = 0
         } else {
@@ -165,7 +172,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
         const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
         const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
-        const trProps = { style: status === 1 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
+        const trProps = { style: status === 1 || status === 5 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
     };
 
