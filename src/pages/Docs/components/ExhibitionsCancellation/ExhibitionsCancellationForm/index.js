@@ -26,10 +26,6 @@ import {
 
 loadMessages(ruMessages, 'ru');
 
-// TODO
-// - В редактировании запретить менять тип заявки
-// - Если статус = 3, то можно редактировать только доки и коммент
-
 const ExhibitionsForm = ({ clubAlias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(true);
     const [disableSubmit, setDisableSubmit] = useState(false);
@@ -52,6 +48,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         exhibition_id: '',
         name: '',
         type_id: '',
+        status_id: '',
         format_id: '',
         format_name: '',
         rank_id: '',
@@ -280,7 +277,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     label="Выберите тип заявки"
                                                     component={FormDropDownList}
                                                     data={[{ text: 'Перенос', value: 2 }, { text: 'Отмена', value: 3 }]}
-                                                    disabled={!formRenderProps.valueGetter('exhibition_id') || !editable}
+                                                    disabled={!formRenderProps.valueGetter('exhibition_id') || status}
                                                     validator={requiredValidator}
                                                 />
                                             </div>
@@ -327,13 +324,14 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                             label={'Город проведения выставки'}
                                                             component={FormComboBox}
                                                             textField={'name'}
-                                                            clearButton={editable && !isCancelation}
+                                                            clearButton={false}
                                                             data={exhibitionProperties.cities}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
                                                             required={formRenderProps.modified}
                                                             value={formRenderProps.valueGetter('city_id')}
-                                                            disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation}
+                                                            disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation
+                                                                || formRenderProps.valueGetter('status_id') === 3}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
@@ -348,7 +346,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     min={new Date(`01.01.${new Date().getFullYear()}`)}
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
-                                                    disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation}
+                                                    disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation
+                                                        || formRenderProps.valueGetter('status_id') === 3}
                                                 />
                                             </div>
                                             <div>
@@ -364,7 +363,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                         : null}
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
-                                                    disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation}
+                                                    disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation
+                                                        || formRenderProps.valueGetter('status_id') === 3}
                                                 />
                                             </div>
                                         </div>
