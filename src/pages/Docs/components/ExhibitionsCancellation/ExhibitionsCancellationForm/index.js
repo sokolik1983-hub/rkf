@@ -17,12 +17,6 @@ import { requiredValidator } from "../../../../../components/kendo/Form/validato
 import { Request } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import "./index.scss";
-import {
-    phoneRequiredValidator,
-    phoneValidator,
-    emailRequiredValidator,
-    emailValidator
-} from 'pages/UserEditKendo/validators';
 
 loadMessages(ruMessages, 'ru');
 
