@@ -29,6 +29,10 @@ const categories = [
     {
         text: 'Выполненные',
         value: '3',
+    },
+    {
+        text: 'Отмененные',
+        value: '6',
     }
 ];
 
@@ -115,7 +119,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
-        if (e.value === "2" || e.value === "3") {
+        if (e.value === "2" || e.value === "3" || e.value === "6") {
             newDataState.filter = {
                 logic: 'and',
                 filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]

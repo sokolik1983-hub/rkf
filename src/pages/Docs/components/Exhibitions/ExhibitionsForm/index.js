@@ -393,7 +393,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             status={status}
                                         />
                                     }
-                                        {editable && statusId !== 3 &&
+                                        {editable &&
                                             <div className="application-form__row">
                                                 <Field
                                                     id="comment"
