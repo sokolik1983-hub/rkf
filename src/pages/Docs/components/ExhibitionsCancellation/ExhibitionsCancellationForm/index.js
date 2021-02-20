@@ -21,11 +21,9 @@ import "./index.scss";
 loadMessages(ruMessages, 'ru');
 
 const ExhibitionsForm = ({ clubAlias, history, status }) => {
-    const [disableAllFields, setDisableAllFields] = useState(true);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
-    const [statusId, setStatusId] = useState(null);
     const [formProps, setFormProps] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [exhibitions, setExhibitions] = useState([]);
@@ -233,7 +231,6 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                         initialValues={initialValues}
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
-                            const isCACIB = formRenderProps.valueGetter('format_id') === 2;
                             const isCancelation = editable && formRenderProps.valueGetter('type_id') === 3;
                             return (
                                 <FormElement>
@@ -402,7 +399,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                         </div>
                                     </div>
 
-                                    <fieldset className={`k-form-fieldset application-form__contacts${disableAllFields ? ' _disabled' : ''}`}>
+                                    <fieldset className="k-form-fieldset application-form__contacts _disabled">
                                         <div className="form-row mt-3">
                                             <div className="form-group col-md-8">
                                                 <div className="row">
@@ -449,7 +446,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                             disabled={!formRenderProps.valueGetter('exhibition_id')}
                                         />
                                     }
-                                        {editable && statusId !== 3 &&
+                                        {editable &&
                                             <div className="application-form__row">
                                                 <Field
                                                     id="comment"
