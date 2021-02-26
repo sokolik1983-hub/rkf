@@ -12,8 +12,9 @@ import FormContactsFieldArray from "./components/FormContactsFieldArray";
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
+import FormMultiSelect from "../../../../../components/kendo/Form/FormMultiSelect";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import { requiredValidator } from "../../../../../components/kendo/Form/validators";
+import { requiredValidator, requiredNcpValidator } from "../../../../../components/kendo/Form/validators";
 import { Request } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import "./index.scss";
@@ -26,8 +27,11 @@ import {
 
 loadMessages(ruMessages, 'ru');
 
+const requiredRanksMessage = 'Максимальное количество рангов 7';
+const requiredMessage = 'Обязательное поле';
+const requiredRankError = 'Исчерпан лимит по выбранным рангам';
 
-const ExhibitionsForm = ({ clubAlias, history, status }) => {
+const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [success, setSuccess] = useState('');
@@ -46,13 +50,13 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         id: '',
         format_id: '',
         format_name: '',
-        rank_id: '',
+        rank_ids: [],
         rank_name: '',
         city_id: '',
         city_name: '',
         date_begin: '',
         date_end: '',
-        national_breed_club_id: '',
+        national_breed_club_ids: [],
         national_breed_club_name: '',
         comment: '',
         rejected_comment: '',
@@ -88,7 +92,9 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                     ranks: data.ranks.map(d => ({ text: d.name, value: d.id })),
                     national_breed_clubs: data.national_breed_clubs,
                     forbidden_dates: data.forbidden_dates,
-                    cities: data.cities
+                    cities: data.cities,
+                    year_forbidden_nkp: data.year_forbidden_nkp,
+                    year_forbidden_ranks: data.year_forbidden_ranks,
                 });
             } else {
                 setError('Ошибка');
@@ -140,10 +146,12 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
             date_begin: moment(data.date_begin).format(),
             date_end: moment(data.date_end).format(),
             documents: data.documents.map(d => ({
-                id: d.id ? d.id : null,
+                object_id: d.object_id ? d.object_id : null,
                 name: d.name,
                 document_id: d.document_id
-            }))
+            })),
+            rank_ids: data.rank_ids?.map(rank => rank.value),
+            national_breed_club_ids: data.national_breed_club_ids?.map(club_id => club_id.id),
         };
         delete newData.documents_upload;
         !status && delete newData.id;
@@ -162,7 +170,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
 
     const handleFormatChange = id => {
         formProps.onChange('format_id', id);
-        formProps.onChange('rank_id', { text: "Выберите формат", value: 0 });
+        formProps.onChange('rank_ids', []);
+        formProps.onChange('documents', {value: []});
         formProps.onChange('date_begin', '');
         formProps.onChange('date_end', '');
     };
@@ -198,7 +207,24 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
             const startDate = new Date(formProps.valueGetter('date_begin'));
             return startDate ? new Date(startDate.setDate(startDate.getDate() + 7)) : null
         }
-    }
+    };
+
+    const checkDiff = (where, what) => {
+        if (where && what) {
+            for(var i = 0; i < what.length; i++){
+                if(where.includes(what[i])) return true;
+            }
+            return false;
+        }
+    };
+
+    const requiredRanksValidator = value => {
+        const pickedYear = formProps.valueGetter('date_begin') ? formProps.valueGetter('date_begin').getFullYear() : null;
+        let forbiddenRankIds = pickedYear ? exhibitionProperties.year_forbidden_ranks[pickedYear] : null;
+        let pickedValues = value?.slice().map(i => i.value);
+
+        return !value ? requiredMessage : value.length > 7 ? requiredRanksMessage : checkDiff(pickedValues, forbiddenRankIds) ? requiredRankError : '';
+    };
 
     return (
         <div className="application-form">
@@ -218,6 +244,13 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                             if (!formProps) setFormProps(formRenderProps);
                             const isCACIB = formRenderProps.valueGetter('format_id') === 2;
                             const isCAC = formRenderProps.valueGetter('format_id') === 1;
+                            const ranksIds = formRenderProps.valueGetter('rank_ids');
+                            const ncpIds = formRenderProps.valueGetter('national_breed_club_ids');
+                            const pickedYear = formRenderProps.valueGetter('date_begin') ?
+                                formRenderProps.valueGetter('date_begin').getFullYear() :
+                                null;
+                            const CAC_CH_F = ranksIds?.slice().map(i => i.value).includes(2);
+
                             return (
                                 <FormElement>
                                     <div className="application-form__content">
@@ -245,42 +278,41 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <LocalizationProvider language="ru">
-                                                    <IntlProvider locale="ru">
-                                                        <Field
-                                                            id="rank_id"
-                                                            name="rank_id"
-                                                            label="Ранг выставки"
-                                                            component={FormDropDownList}
-                                                            data={exhibitionProperties.ranks}
-                                                            defaultItem={formRenderProps.valueGetter('rank_id')
-                                                                ? { text: formRenderProps.valueGetter('rank_name'), value: formRenderProps.valueGetter('rank_id') }
-                                                                : { text: "Выберите ранг", value: 0 }
-                                                            }
-                                                            validator={isCAC ? requiredValidator : null}
-                                                            valid={isCAC
-                                                                ? formRenderProps.valueGetter('rank_id')
-                                                                : true}
-                                                            disabled={!isCAC || !!status}
-                                                            resetValue={isCAC ? false : { text: "Выберите ранг", value: 0 }}
-                                                        />
-                                                    </IntlProvider>
-                                                </LocalizationProvider>
+                                                <Field
+                                                    id="rank_ids"
+                                                    name="rank_ids"
+                                                    label="Ранг выставки"
+                                                    selectType="rank"
+                                                    component={FormMultiSelect}
+                                                    data={exhibitionProperties.ranks}
+                                                    defaultValue={formRenderProps.valueGetter('rank_ids')
+                                                        ? formRenderProps.valueGetter('rank_ids')
+                                                        : []
+                                                    }
+                                                    validator={isCAC ? requiredRanksValidator : null}
+                                                    valid={isCAC
+                                                        ? !!formRenderProps.valueGetter('rank_ids')?.length
+                                                        : true
+                                                    }
+                                                    disabled={!isCAC || !!status}
+                                                    resetValue={isCAC ? false : []}
+                                                />
+                                                {CAC_CH_F && <span>Только для труднодоступных городов из списка, утвержденных Президиумом РКФ</span>}
                                             </div>
                                             <div>
                                                 <LocalizationProvider language="ru">
                                                     <IntlProvider locale="ru">
                                                         <FormComboBox
-                                                            id={'city_id'}
-                                                            name={'city_id'}
-                                                            label={'Город проведения выставки'}
+                                                            id="city_id"
+                                                            name="city_id"
+                                                            label="Город проведения выставки"
                                                             component={FormComboBox}
-                                                            textField={'name'}
+                                                            textField="name"
                                                             data={exhibitionProperties.cities}
                                                             placeholder={status ? formRenderProps.valueGetter('city_name') : ''}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
-                                                            required={!status && formRenderProps.valueGetter('format_id') ? true : false}
+                                                            required={!status && !!formRenderProps.valueGetter('format_id')}
                                                             disabled={disableAllFields || statusId === 3 || !formRenderProps.valueGetter('format_id')}
                                                         />
                                                     </IntlProvider>
@@ -321,25 +353,28 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                         </div>
                                         <div className="application-form__row two-thirds-column">
                                             <div>
-                                                <LocalizationProvider language="ru">
-                                                    <IntlProvider locale="ru">
-                                                        <FormComboBox
-                                                            id={'national_breed_club_id'}
-                                                            name={'national_breed_club_id'}
-                                                            label={'Выберите НКП'}
-                                                            component={FormComboBox}
-                                                            textField={'name'}
-                                                            data={exhibitionProperties.national_breed_clubs}
-                                                            placeholder={formRenderProps.valueGetter('national_breed_club_name')
-                                                                ? formRenderProps.valueGetter('national_breed_club_name') : ''}
-                                                            onChange={formRenderProps.onChange}
-                                                            validationMessage="Обязательное поле"
-                                                            disabled={(formRenderProps.valueGetter('format_id') !== 3 || status) ? true : false}
-                                                            required={!status && formRenderProps.valueGetter('format_id') === 3 ? true : false}
-                                                            resetValue={formRenderProps.valueGetter('format_id') !== 3 ? true : false}
-                                                        />
-                                                    </IntlProvider>
-                                                </LocalizationProvider>
+                                                <Field
+                                                    id="national_breed_club_ids"
+                                                    name="national_breed_club_ids"
+                                                    label="Выберите НКП"
+                                                    selectType="ncp"
+                                                    component={FormMultiSelect}
+                                                    data={pickedYear && Object.keys(exhibitionProperties.year_forbidden_nkp).length > 0 ?
+                                                        exhibitionProperties.national_breed_clubs.filter(item => exhibitionProperties.year_forbidden_nkp[pickedYear]?.every(nkp => item.id !== nkp)) :
+                                                        exhibitionProperties.national_breed_clubs
+                                                    }
+                                                    defaultValue={formRenderProps.valueGetter('national_breed_club_ids')
+                                                        ? formRenderProps.valueGetter('national_breed_club_ids')
+                                                        : []
+                                                    }
+                                                    valid={formRenderProps.valueGetter('format_id') === 3
+                                                        ? !!formRenderProps.valueGetter('national_breed_club_ids')?.length
+                                                        : true
+                                                    }
+                                                    disabled={!formRenderProps.valueGetter('date_begin') || formRenderProps.valueGetter('format_id') !== 3 || !!status}
+                                                    validator={!status && formRenderProps.valueGetter('format_id') === 3 ? requiredNcpValidator : null}
+                                                    resetValue={formRenderProps.valueGetter('format_id') === 3 ? false : []}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -382,18 +417,40 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                         />
                                     </fieldset>
 
-                                    <div className="application-form__content">{
-                                        <AdditionalDocuments
-                                            documents={formRenderProps.valueGetter('documents')}
-                                            history={history}
-                                            clubAlias={clubAlias}
-                                            handleError={handleError}
-                                            setDisableSubmit={setDisableSubmit}
-                                            formRenderProps={formRenderProps}
-                                            editable={editable}
-                                            status={status}
-                                        />
-                                    }
+                                    <div className="application-form__content">
+                                        {formRenderProps.valueGetter('format_id') === 2 &&
+                                            <AdditionalDocuments
+                                                documents={formRenderProps.valueGetter('documents')}
+                                                handleError={handleError}
+                                                setDisableSubmit={setDisableSubmit}
+                                                formRenderProps={formRenderProps}
+                                                editable={editable}
+                                                status={status}
+                                            />
+                                        }
+                                        {ranksIds && !!ranksIds.length &&
+                                            <AdditionalDocuments
+                                                documents={formRenderProps.valueGetter('documents')}
+                                                docTypes={ranksIds}
+                                                formRenderProps={formRenderProps}
+                                                setDisableSubmit={setDisableSubmit}
+                                                handleError={handleError}
+                                                editable={editable}
+                                                status={status}
+                                            />
+                                        }
+                                        {ncpIds && !!ncpIds.length &&
+                                            <AdditionalDocuments
+                                                documents={formRenderProps.valueGetter('documents')}
+                                                docTypes={ncpIds}
+                                                formRenderProps={formRenderProps}
+                                                setDisableSubmit={setDisableSubmit}
+                                                handleError={handleError}
+                                                editable={editable}
+                                                status={status}
+                                                dataType={'ncpIds'}
+                                            />
+                                        }
                                         {editable &&
                                             <div className="application-form__row">
                                                 <Field
@@ -452,4 +509,4 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
     )
 };
 
-export default React.memo(ExhibitionsForm);
+export default React.memo(ExhibitionsFormNew);

@@ -9,11 +9,14 @@ const nameRegexp = new RegExp(/^[A-Za-zа-яА-ЯёЁ]+((-[A-Za-zа-яА-ЯёЁ]
 const trimRegexp = new RegExp(/^\s+|\s{2,}|\s+?$/);
 const requiredMessage = 'Обязательное поле';
 const requiredTrimMessage = 'Не должно начинаться и/или заканчиваться пробелом. В середине не должно быть 2 и более пробелов подряд';
+const requiredNcpMessage = 'Максимальное количество НКП 30';
 const noUnderscore = value => value.replaceAll('_', '');
 
 
 
 export const requiredValidator = value => value ? "" : requiredMessage;
+
+export const requiredNcpValidator = value => !value ? requiredMessage : value.length > 30 ? requiredNcpMessage : '';
 
 export const requiredWithTrimValidator = value => !value ?
     requiredMessage :

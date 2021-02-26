@@ -54,7 +54,6 @@ const Notifications = forwardRef(
         }, [currentCategory, isAuthenticated]);
 
         useEffect(() => {
-
             if (notification.value.length) {
                 setShowDot(true);
                 getNotifications(currentCategory);
@@ -62,7 +61,7 @@ const Notifications = forwardRef(
                 setShowDot(notification.hasNewMessage);
             }
 
-            if (loaded) {
+            if (loaded && notification.value) {
                 const updated = [...notifications];
                 updated?.length > 11 && updated.pop();
                 updated.unshift(JSON.parse(notification.value));
