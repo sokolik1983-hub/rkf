@@ -74,7 +74,6 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
             (() => Request({
                 url: `/api/requests/commonrequest/membership_confirmation_additional_doc_types`
             }, data => {
-                console.log('DocTypes', data)
                 setDocTypes(data);
                 setLoaded(true);
             }, error => {

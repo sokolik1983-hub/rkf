@@ -28,6 +28,7 @@ import { connectAuthVisible } from "../Login/connectors";
 import Application from "./components/Application/Form";
 import ApplicationRegistry from "./components/Application/ApplicationRegistry";
 import ExhibitionsForm from "./components/Exhibitions/ExhibitionsForm";
+import ExhibitionsFormNew from "./components/Exhibitions/ExhibitionsFormNew";
 import ExhibitionsRegistry from "./components/Exhibitions/ExhibitionsRegistry";
 import ExhibitionsCancellationForm from "./components/ExhibitionsCancellation/ExhibitionsCancellationForm";
 import ExhibitionsCancellationRegistry from "./components/ExhibitionsCancellation/ExhibitionsCancellationRegistry";
@@ -135,7 +136,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <Registry history={history} />}
                         />
                         <Route exact={true} path='/:route/documents/exhibitions/application/form' component={() =>
-                            <ExhibitionsForm clubAlias={clubAlias} history={history} />}
+                            <ExhibitionsFormNew clubAlias={clubAlias} history={history} />}
                         />
                         <Route exact={true} path='/:route/documents/exhibitions/application/registry' component={() =>
                             <ExhibitionsRegistry clubAlias={clubAlias} history={history} />}
