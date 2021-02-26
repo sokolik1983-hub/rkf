@@ -6,7 +6,7 @@ import Loading from "../../../../../../../components/Loading";
 import "./styles.scss";
 
 
-const AdditionalDocuments = ({documents, docTypes, formRenderProps, setDisableSubmit, handleError, editable, status}) => {
+const AdditionalDocuments = ({documents, docTypes, formRenderProps, setDisableSubmit, handleError, editable, status, dataType}) => {
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
@@ -46,6 +46,7 @@ const AdditionalDocuments = ({documents, docTypes, formRenderProps, setDisableSu
                         setDisableSubmit={setDisableSubmit}
                         formRenderProps={formRenderProps}
                         handleError={handleError}
+                        dataType={dataType}
                     />
                 </div>
             }

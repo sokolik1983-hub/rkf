@@ -5,7 +5,7 @@ import {getHeaders} from "../../../../../../../utils/request";
 import {DropDownList} from "@progress/kendo-react-dropdowns";
 
 
-const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError}) => {
+const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError, dataType}) => {
     const [documentType, setDocumentType] = useState(0);
 
     const onBeforeUpload = e => {
@@ -20,8 +20,6 @@ const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDo
                 let newDocument = {name: result.name, document_id: result.id};
 
                 if(documentType) newDocument.object_id = documentType;
-
-                console.log('documents', documents);
 
                 formRenderProps.onChange('documents', {value: [...documents, newDocument]});
                 formRenderProps.onChange(name, {value: []});
@@ -42,10 +40,10 @@ const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDo
             {docTypes &&
                 <DropDownList
                     data={docTypes}
-                    dataItemKey="value"
-                    textField="text"
+                    dataItemKey={dataType === 'ncpIds' ? 'id' : 'value'}
+                    textField={dataType === 'ncpIds' ? 'name' : 'text'}
                     onChange={({value}) => setDocumentType(value.value)}
-                    defaultItem={{text: "Выберите тип", value: 0}}
+                    defaultItem={dataType === 'ncpIds' ? {name: "Выберите тип", id: 0} : {text: "Выберите тип", value: 0}}
                     disabled={documentsOverflow}
                 />
             }
