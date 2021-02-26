@@ -21,6 +21,8 @@ const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDo
 
                 if(documentType) newDocument.object_id = documentType;
 
+                console.log('documents', documents);
+
                 formRenderProps.onChange('documents', {value: [...documents, newDocument]});
                 formRenderProps.onChange(name, {value: []});
                 setDisableSubmit(false);
@@ -57,7 +59,7 @@ const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDo
                 multiple={false}
                 onBeforeUpload={e => onBeforeUpload(e)}
                 onStatusChange={e => onStatusChange(e, 'documents_upload')}
-                disabled={documentType === 0 || documentsOverflow}
+                disabled={(docTypes && documentType === 0) || documentsOverflow}
                 autoUpload={true}
                 showFileList={false}
             />

@@ -25,7 +25,7 @@ const AdditionalDocuments = ({documents, docTypes, formRenderProps, setDisableSu
             <div className="AdditionalDocumentField__wrap">
                 {documents && documents.map(document =>
                     <AdditionalDocumentField
-                        key={'doc-' + document.id}
+                        key={'doc-' + document.document_id}
                         {...document}
                         documents={documents}
                         setDocumentsOverflow={setDocumentsOverflow}

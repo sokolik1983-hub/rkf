@@ -170,6 +170,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
     const handleFormatChange = id => {
         formProps.onChange('format_id', id);
         formProps.onChange('rank_ids', []);
+        formProps.onChange('documents', {value: []});
         formProps.onChange('date_begin', '');
         formProps.onChange('date_end', '');
     };
@@ -239,6 +240,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                             const isCACIB = formRenderProps.valueGetter('format_id') === 2;
                             const isCAC = formRenderProps.valueGetter('format_id') === 1;
                             const ranksIds = formRenderProps.valueGetter('rank_ids');
+                            const ncpIds = formRenderProps.valueGetter('national_breed_club_ids');
                             const pickedYear = formRenderProps.valueGetter('date_begin') ?
                                 formRenderProps.valueGetter('date_begin').getFullYear() :
                                 null;
@@ -426,6 +428,17 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                             <AdditionalDocuments
                                                 documents={formRenderProps.valueGetter('documents')}
                                                 docTypes={ranksIds}
+                                                formRenderProps={formRenderProps}
+                                                setDisableSubmit={setDisableSubmit}
+                                                handleError={handleError}
+                                                editable={editable}
+                                                status={status}
+                                            />
+                                        }
+                                        {ncpIds && !!ncpIds.length &&
+                                            <AdditionalDocuments
+                                                documents={formRenderProps.valueGetter('documents')}
+                                                docTypes={ncpIds}
                                                 formRenderProps={formRenderProps}
                                                 setDisableSubmit={setDisableSubmit}
                                                 handleError={handleError}
