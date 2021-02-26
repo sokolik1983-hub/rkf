@@ -29,6 +29,7 @@ loadMessages(ruMessages, 'ru');
 
 const requiredRanksMessage = 'Максимальное количество рангов 7';
 const requiredMessage = 'Обязательное поле';
+const requiredRankError = 'Исчерпан лимит по выбранным рангам';
 
 const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
@@ -207,17 +208,20 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
         }
     };
 
+    function checkDiff(where, what){
+        if (where && what) {
+            for(var i = 0; i < what.length; i++){
+                if(where.includes(what[i])) return true;
+            }
+            return false;    
+        }
+    }
+
     const requiredRanksValidator = value => {
         const pickedYear = formProps.valueGetter('date_begin') ? formProps.valueGetter('date_begin').getFullYear() : null;
-        let forbiddenRankIds = exhibitionProperties.year_forbidden_ranks[pickedYear];
-        if (value) {
-            console.log('forbiddenRankIds', forbiddenRankIds);
-            console.log('value', value);
-            let check = value.slice().filter(i => i.key === value).filter(item => forbiddenRankIds?.every(rank => item.value === rank));
-            console.log('check', check);
-        }
-
-        return !value ? requiredMessage : value.length > 7 ? requiredRanksMessage : '';
+        let forbiddenRankIds = pickedYear ? exhibitionProperties.year_forbidden_ranks[pickedYear] : null;
+        let pickedValues = value?.slice().map(i => i.value);
+        return !value ? requiredMessage : value.length > 7 ? requiredRanksMessage : checkDiff(pickedValues, forbiddenRankIds) ? requiredRankError : '';
     };
 
     return (
