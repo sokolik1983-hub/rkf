@@ -284,10 +284,6 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     label="Ранг выставки"
                                                     selectType="rank"
                                                     component={FormMultiSelect}
-                                                    // data={pickedYear && Object.keys(exhibitionProperties.year_forbidden_ranks).length > 0 ?
-                                                    //     exhibitionProperties.ranks.filter(item => exhibitionProperties.year_forbidden_ranks[pickedYear]?.every(rank => item.value !== rank)) :
-                                                    //     exhibitionProperties.ranks
-                                                    // }
                                                     data={exhibitionProperties.ranks}
                                                     defaultValue={formRenderProps.valueGetter('rank_ids')
                                                         ? formRenderProps.valueGetter('rank_ids')
