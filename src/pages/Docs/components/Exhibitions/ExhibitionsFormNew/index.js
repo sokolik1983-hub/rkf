@@ -146,7 +146,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
             date_begin: moment(data.date_begin).format(),
             date_end: moment(data.date_end).format(),
             documents: data.documents.map(d => ({
-                id: d.id ? d.id : null,
+                object_id: d.object_id ? d.object_id : null,
                 name: d.name,
                 document_id: d.document_id
             })),

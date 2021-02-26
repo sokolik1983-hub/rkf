@@ -42,7 +42,7 @@ const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDo
                     data={docTypes}
                     dataItemKey={dataType === 'ncpIds' ? 'id' : 'value'}
                     textField={dataType === 'ncpIds' ? 'name' : 'text'}
-                    onChange={({value}) => setDocumentType(value.value)}
+                    onChange={dataType === 'ncpIds' ? ({value}) => setDocumentType(value.id) : ({value}) => setDocumentType(value.value)}
                     defaultItem={dataType === 'ncpIds' ? {name: "Выберите тип", id: 0} : {text: "Выберите тип", value: 0}}
                     disabled={documentsOverflow}
                 />
