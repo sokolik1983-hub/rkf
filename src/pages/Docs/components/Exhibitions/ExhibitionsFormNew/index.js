@@ -171,6 +171,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
     const handleFormatChange = id => {
         formProps.onChange('format_id', id);
         formProps.onChange('rank_ids', []);
+        formProps.onChange('documents', {value: []});
         formProps.onChange('date_begin', '');
         formProps.onChange('date_end', '');
     };
@@ -208,14 +209,14 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
         }
     };
 
-    function checkDiff(where, what){
+    const checkDiff = (where, what) => {
         if (where && what) {
             for(var i = 0; i < what.length; i++){
                 if(where.includes(what[i])) return true;
             }
-            return false;    
+            return false;
         }
-    }
+    };
 
     const requiredRanksValidator = value => {
         const pickedYear = formProps.valueGetter('date_begin') ? formProps.valueGetter('date_begin').getFullYear() : null;
@@ -242,7 +243,12 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                             if (!formProps) setFormProps(formRenderProps);
                             const isCACIB = formRenderProps.valueGetter('format_id') === 2;
                             const isCAC = formRenderProps.valueGetter('format_id') === 1;
-                            const pickedYear = formRenderProps.valueGetter('date_begin') ? formRenderProps.valueGetter('date_begin').getFullYear() : null;
+                            const ranksIds = formRenderProps.valueGetter('rank_ids');
+                            const ncpIds = formRenderProps.valueGetter('national_breed_club_ids');
+                            const pickedYear = formRenderProps.valueGetter('date_begin') ?
+                                formRenderProps.valueGetter('date_begin').getFullYear() :
+                                null;
+
                             return (
                                 <FormElement>
                                     <div className="application-form__content">
@@ -271,11 +277,15 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                             </div>
                                             <div>
                                                 <Field
-                                                    id={'rank_ids'}
-                                                    name={'rank_ids'}
+                                                    id="rank_ids"
+                                                    name="rank_ids"
                                                     label="Ранг выставки"
+                                                    selectType="rank"
                                                     component={FormMultiSelect}
-                                                    data={pickedYear && Object.keys(exhibitionProperties.year_forbidden_ranks).length > 0 ? exhibitionProperties.ranks.filter(item => exhibitionProperties.year_forbidden_ranks[pickedYear]?.every(rank => item.value !== rank)) : exhibitionProperties.ranks}
+                                                    data={pickedYear && Object.keys(exhibitionProperties.year_forbidden_ranks).length > 0 ?
+                                                        exhibitionProperties.ranks.filter(item => exhibitionProperties.year_forbidden_ranks[pickedYear]?.every(rank => item.value !== rank)) :
+                                                        exhibitionProperties.ranks
+                                                    }
                                                     defaultValue={formRenderProps.valueGetter('rank_ids')
                                                         ? formRenderProps.valueGetter('rank_ids')
                                                         : []
@@ -283,26 +293,26 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     validator={isCAC ? requiredRanksValidator : null}
                                                     valid={isCAC
                                                         ? !!formRenderProps.valueGetter('rank_ids')?.length
-                                                        : true}
+                                                        : true
+                                                    }
                                                     disabled={!isCAC || !!status}
                                                     resetValue={isCAC ? false : []}
-                                                    selectType={'rank'}
                                                 />
                                             </div>
                                             <div>
                                                 <LocalizationProvider language="ru">
                                                     <IntlProvider locale="ru">
                                                         <FormComboBox
-                                                            id={'city_id'}
-                                                            name={'city_id'}
-                                                            label={'Город проведения выставки'}
+                                                            id="city_id"
+                                                            name="city_id"
+                                                            label="Город проведения выставки"
                                                             component={FormComboBox}
-                                                            textField={'name'}
+                                                            textField="name"
                                                             data={exhibitionProperties.cities}
                                                             placeholder={status ? formRenderProps.valueGetter('city_name') : ''}
                                                             onChange={formRenderProps.onChange}
                                                             validationMessage="Обязательное поле"
-                                                            required={!status && formRenderProps.valueGetter('format_id') ? true : false}
+                                                            required={!status && !!formRenderProps.valueGetter('format_id')}
                                                             disabled={disableAllFields || statusId === 3 || !formRenderProps.valueGetter('format_id')}
                                                         />
                                                     </IntlProvider>
@@ -344,22 +354,26 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                         <div className="application-form__row two-thirds-column">
                                             <div>
                                                 <Field
-                                                    id={'national_breed_club_ids'}
-                                                    name={'national_breed_club_ids'}
-                                                    label={'Выберите НКП'}
+                                                    id="national_breed_club_ids"
+                                                    name="national_breed_club_ids"
+                                                    label="Выберите НКП"
+                                                    selectType="ncp"
                                                     component={FormMultiSelect}
-                                                    data={pickedYear && Object.keys(exhibitionProperties.year_forbidden_nkp).length > 0 ? exhibitionProperties.national_breed_clubs.filter(item => exhibitionProperties.year_forbidden_nkp[pickedYear]?.every(nkp => item.id !== nkp)) : exhibitionProperties.national_breed_clubs}
+                                                    data={pickedYear && Object.keys(exhibitionProperties.year_forbidden_nkp).length > 0 ?
+                                                        exhibitionProperties.national_breed_clubs.filter(item => exhibitionProperties.year_forbidden_nkp[pickedYear]?.every(nkp => item.id !== nkp)) :
+                                                        exhibitionProperties.national_breed_clubs
+                                                    }
                                                     defaultValue={formRenderProps.valueGetter('national_breed_club_ids')
                                                         ? formRenderProps.valueGetter('national_breed_club_ids')
                                                         : []
                                                     }
                                                     valid={formRenderProps.valueGetter('format_id') === 3
                                                         ? !!formRenderProps.valueGetter('national_breed_club_ids')?.length
-                                                        : true}
-                                                    disabled={(!formRenderProps.valueGetter('date_begin') || formRenderProps.valueGetter('format_id') !== 3 || status) ? true : false}
+                                                        : true
+                                                    }
+                                                    disabled={!formRenderProps.valueGetter('date_begin') || formRenderProps.valueGetter('format_id') !== 3 || !!status}
                                                     validator={!status && formRenderProps.valueGetter('format_id') === 3 ? requiredNcpValidator : null}
                                                     resetValue={formRenderProps.valueGetter('format_id') === 3 ? false : []}
-                                                    selectType={'ncp'}
                                                 />
                                             </div>
                                         </div>
@@ -407,11 +421,31 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                         {formRenderProps.valueGetter('format_id') === 2 &&
                                             <AdditionalDocuments
                                                 documents={formRenderProps.valueGetter('documents')}
-                                                history={history}
-                                                clubAlias={clubAlias}
                                                 handleError={handleError}
                                                 setDisableSubmit={setDisableSubmit}
                                                 formRenderProps={formRenderProps}
+                                                editable={editable}
+                                                status={status}
+                                            />
+                                        }
+                                        {ranksIds && !!ranksIds.length &&
+                                            <AdditionalDocuments
+                                                documents={formRenderProps.valueGetter('documents')}
+                                                docTypes={ranksIds}
+                                                formRenderProps={formRenderProps}
+                                                setDisableSubmit={setDisableSubmit}
+                                                handleError={handleError}
+                                                editable={editable}
+                                                status={status}
+                                            />
+                                        }
+                                        {ncpIds && !!ncpIds.length &&
+                                            <AdditionalDocuments
+                                                documents={formRenderProps.valueGetter('documents')}
+                                                docTypes={ncpIds}
+                                                formRenderProps={formRenderProps}
+                                                setDisableSubmit={setDisableSubmit}
+                                                handleError={handleError}
                                                 editable={editable}
                                                 status={status}
                                             />
