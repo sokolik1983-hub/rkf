@@ -1,57 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, {memo, useEffect, useState} from "react";
 import AdditionalDocumentUpload from "./AdditionalDocumentUpload";
 import AdditionalDocumentField from "./AdditionalDocumentField";
-import Modal from "components/Modal";
-import Loading from "components/Loading";
+import Modal from "../../../../../../../components/Modal";
+import Loading from "../../../../../../../components/Loading";
 import "./styles.scss";
 
 
-const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit, history, clubAlias, handleError, editable, status }) => {
+const AdditionalDocuments = ({documents, docTypes, formRenderProps, setDisableSubmit, handleError, editable, status}) => {
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
 
     useEffect(() => {
-        documents?.length >= 10 && setDocumentsOverflow(true);
+        if(documents && documents.length >= 10) setDocumentsOverflow(true);
     }, [documents])
 
-    return <div style={{ marginTop: '20px' }}>
-        {
-            (!status || (status && !!documents.length)) &&
-            <div className="application-form__additional-title">{editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}</div>
-        }
-        <div className="AdditionalDocumentField__wrap">
-            {
-                documents && documents.map(d => <AdditionalDocumentField
-                    {...d}
-                    key={d.id}
-                    documents={documents}
-                    setDocumentsOverflow={setDocumentsOverflow}
-                    setShowModal={setShowModal}
-                    setUrl={setUrl}
-                    editable={editable}
-                    formRenderProps={formRenderProps}
-                />)
+    return (
+        <div style={{marginTop: '20px'}}>
+            {(!status || (status && !!documents.length)) &&
+                <div className="application-form__additional-title">
+                    {editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}
+                </div>
             }
-        </div>
-        {
-            editable && <div className="application-form__row">
-                <AdditionalDocumentUpload
-                    documents={documents}
-                    documentsOverflow={documentsOverflow}
-                    setDocumentsOverflow={setDocumentsOverflow}
-                    setDisableSubmit={setDisableSubmit}
-                    formRenderProps={formRenderProps}
-                    handleError={handleError}
-                />
+            <div className="AdditionalDocumentField__wrap">
+                {documents && documents.map(document =>
+                    <AdditionalDocumentField
+                        key={'doc-' + document.id}
+                        {...document}
+                        documents={documents}
+                        setDocumentsOverflow={setDocumentsOverflow}
+                        setShowModal={setShowModal}
+                        setUrl={setUrl}
+                        editable={editable}
+                        formRenderProps={formRenderProps}
+                    />
+                )}
             </div>
-        }
-        <Modal showModal={showModal} handleClose={() => { setShowModal(false); setUrl('') }}>
-            {url ?
-                <embed src={url} className="DocumentLinksArray__embed" /> :
-                <Loading />
+            {editable &&
+                <div className="application-form__row">
+                    <AdditionalDocumentUpload
+                        documents={documents}
+                        docTypes={docTypes}
+                        documentsOverflow={documentsOverflow}
+                        setDocumentsOverflow={setDocumentsOverflow}
+                        setDisableSubmit={setDisableSubmit}
+                        formRenderProps={formRenderProps}
+                        handleError={handleError}
+                    />
+                </div>
             }
-        </Modal>
-    </div>
-}
-export default React.memo(AdditionalDocuments);
+            <Modal
+                showModal={showModal}
+                handleClose={() => {
+                    setUrl('');
+                    setShowModal(false);
+                }}
+            >
+                {url ?
+                    <embed src={url} className="DocumentLinksArray__embed" /> :
+                    <Loading />
+                }
+            </Modal>
+        </div>
+    )
+};
+
+export default memo(AdditionalDocuments);
