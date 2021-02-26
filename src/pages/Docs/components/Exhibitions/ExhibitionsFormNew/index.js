@@ -222,6 +222,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
         const pickedYear = formProps.valueGetter('date_begin') ? formProps.valueGetter('date_begin').getFullYear() : null;
         let forbiddenRankIds = pickedYear ? exhibitionProperties.year_forbidden_ranks[pickedYear] : null;
         let pickedValues = value?.slice().map(i => i.value);
+
         return !value ? requiredMessage : value.length > 7 ? requiredRanksMessage : checkDiff(pickedValues, forbiddenRankIds) ? requiredRankError : '';
     };
 
@@ -248,6 +249,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                             const pickedYear = formRenderProps.valueGetter('date_begin') ?
                                 formRenderProps.valueGetter('date_begin').getFullYear() :
                                 null;
+                            const CAC_CH_F = ranksIds?.slice().map(i => i.value).includes(2);
 
                             return (
                                 <FormElement>
@@ -299,6 +301,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     disabled={!isCAC || !!status}
                                                     resetValue={isCAC ? false : []}
                                                 />
+                                                {CAC_CH_F && <span>Только для труднодоступных городов из списка, утвержденных Президиумом РКФ</span>}
                                             </div>
                                             <div>
                                                 <LocalizationProvider language="ru">
