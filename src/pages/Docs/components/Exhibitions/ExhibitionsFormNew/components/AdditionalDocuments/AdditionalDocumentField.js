@@ -31,7 +31,7 @@ const AdditionalDocumentField = ({
 
     const handleRemove = () => {
         if (window.confirm('Удалить документ?')) {
-            const updatedDocuments = [...documents.filter(d => d.document_id !== document_id)];
+            const updatedDocuments = [...documents].filter(d => d.document_id !== document_id);
             formRenderProps.onChange('documents', { value: updatedDocuments });
             if (updatedDocuments.length <= 10) {
                 setDocumentsOverflow(false);
