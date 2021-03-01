@@ -12,7 +12,7 @@ const AdditionalDocuments = ({documents, docTypes, formRenderProps, setDisableSu
     const [url, setUrl] = useState('');
 
     const typesIds = dataType === 'ranksIds' ? docTypes.slice().map(type => type.value) : docTypes.slice().map(type => type.id);
-    const updatedDocuments = documents.slice()?.filter(doc => typesIds?.includes(doc.object_id));
+    const updatedDocuments = documents.slice().filter(doc => typesIds.includes(doc.object_id));
 
     useEffect(() => {
         if(updatedDocuments && updatedDocuments.length >= 10) setDocumentsOverflow(true);
