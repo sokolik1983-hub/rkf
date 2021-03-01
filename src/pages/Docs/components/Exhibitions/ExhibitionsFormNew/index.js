@@ -211,7 +211,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
 
     const checkDiff = (where, what) => {
         if (where && what) {
-            for(var i = 0; i < what.length; i++){
+            for (var i = 0; i < what.length; i++) {
                 if(where.includes(what[i])) return true;
             }
             return false;
@@ -437,6 +437,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                 handleError={handleError}
                                                 editable={editable}
                                                 status={status}
+                                                dataType={'ranksIds'}
                                             />
                                         }
                                         {ncpIds && !!ncpIds.length &&

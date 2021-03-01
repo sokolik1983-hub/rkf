@@ -11,23 +11,26 @@ const AdditionalDocuments = ({documents, docTypes, formRenderProps, setDisableSu
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
 
+    const typesIds = dataType === 'ranksIds' ? docTypes.slice().map(type => type.value) : docTypes.slice().map(type => type.id);
+    const updatedDocuments = documents.slice()?.filter(doc => typesIds?.includes(doc.object_id));
+
     useEffect(() => {
-        if(documents && documents.length >= 10) setDocumentsOverflow(true);
-    }, [documents])
+        if(updatedDocuments && updatedDocuments.length >= 10) setDocumentsOverflow(true);
+    }, [updatedDocuments])
 
     return (
         <div style={{marginTop: '20px'}}>
-            {(!status || (status && !!documents.length)) &&
+            {(!status || (status && !!updatedDocuments.length)) &&
                 <div className="application-form__additional-title">
                     {editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}
                 </div>
             }
             <div className="AdditionalDocumentField__wrap">
-                {documents && documents.map(document =>
+                {updatedDocuments && updatedDocuments.map(document =>
                     <AdditionalDocumentField
                         key={'doc-' + document.document_id}
                         {...document}
-                        documents={documents}
+                        documents={updatedDocuments}
                         setDocumentsOverflow={setDocumentsOverflow}
                         setShowModal={setShowModal}
                         setUrl={setUrl}
@@ -39,7 +42,7 @@ const AdditionalDocuments = ({documents, docTypes, formRenderProps, setDisableSu
             {editable &&
                 <div className="application-form__row">
                     <AdditionalDocumentUpload
-                        documents={documents}
+                        documents={updatedDocuments}
                         docTypes={docTypes}
                         documentsOverflow={documentsOverflow}
                         setDocumentsOverflow={setDocumentsOverflow}
