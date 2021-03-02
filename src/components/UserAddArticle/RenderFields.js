@@ -21,7 +21,7 @@ import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile }) => {
+const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile, isFederation, isMust, setIsMust }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -170,15 +170,44 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                                 }}
                             />
                         </LightTooltip>
-                        {!videoLink && focus &&
+                        <div className="ArticleCreateForm__ad-wrap">
+                        {
+                            !videoLink && focus &&
                             <CustomCheckbox
                                 id="ad"
                                 label="Объявление"
                                 className="ArticleCreateForm__ad"
                                 checked={isAd}
-                                onChange={() => setIsAd(!isAd)}
+                                onChange={() => {
+                                    if (isAd) {
+                                        setIsAd(false);
+                                        setIsMust(false);
+                                    } else if (!isAd) {
+                                        setIsAd(true);
+                                        setIsMust(false);
+                                    }
+                                }}
                             />
                         }
+                        {
+                            isFederation && focus &&
+                            <CustomCheckbox
+                                id="is_must_read"
+                                label="Обязательно к прочтению"
+                                className="ArticleCreateForm__ad"
+                                checked={isMust}
+                                onChange={() => {
+                                    if (isMust) {
+                                        setIsMust(false);
+                                        setIsAd(false);
+                                    } else if (!isMust) {
+                                        setIsMust(true);
+                                        setIsAd(false);
+                                    }
+                                }}
+                            />
+                        }
+                        </div>
                     </FormControls>
                     {content && !isMobile &&
                         <div className="ArticleCreateForm__length-hint">

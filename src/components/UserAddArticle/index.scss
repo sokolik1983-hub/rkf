@@ -32,10 +32,28 @@
   .custom-checkbox {
     margin-left: 20px;
 
+    @media(max-width: 500px) {
+      margin-left: 7px !important;
+      margin-top: 15px;
+      &:last-child {
+        margin-bottom: 10px;
+      }
+      &__label:before {
+        width: 20px;
+        height: 20px;
+        border-width: 1px;
+      }
+
+    }
+
     @media (max-width: 700px) {
       position: relative;
       top: -4px;
       left: -8px;
+      margin-left: 10px;
+      &:first-child {
+        margin-left: 20px;
+      }
     }
   }
 
@@ -104,6 +122,10 @@
         margin-left: 0;
         padding-left: 0;
       }
+
+      @media(max-width: 500px) {
+        flex-wrap: wrap;
+      }
     }
 
     &>* {
@@ -111,6 +133,10 @@
 
       @media (max-width: 700px) {
         margin-right: 5px;
+      }
+
+      @media (max-width: 500px) {
+        margin-right: 45px;
       }
     }
 
@@ -238,8 +264,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
-    @media(max-width: 400px) {
-      flex-wrap: nowrap;
+    @media(max-width: 500px) {
+      justify-content: flex-start;
     }
 
     .custom-checkbox {
@@ -256,6 +282,15 @@
     margin-top: 20px;
     @media (max-width: 700px) {
       margin-top: 0;
+    }
+  }
+
+  &__ad-wrap {
+    display: flex;
+
+    @media(max-width: 500px) {
+      flex-basis: 100%;
+      flex-direction: column;
     }
   }
 
