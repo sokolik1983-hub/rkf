@@ -22,7 +22,7 @@ const Layout = props => {
 }
 
 const Content = (props) => {
-    const { showMustRead, notificationUrlIndex } = props;
+    const { showMustRead, notificationUrlIndex, activeCategoryId } = props;
 
     return (
         <div className="NewsFeed">
@@ -31,7 +31,7 @@ const Content = (props) => {
             </div>
             <div className="NewsFeed-right">
                 <CategoriesList {...props} />
-                {( showMustRead || notificationUrlIndex === 4) && <MustRead {...props} notificationUrlIndex={notificationUrlIndex} />}
+                {( showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) && <MustRead {...props} notificationUrlIndex={notificationUrlIndex} />}
             </div>
         </div>);
 };
@@ -59,4 +59,4 @@ const NewsFeed = (props) => {
     )
 }
 
-export default NewsFeed;
+export default React.memo(NewsFeed);
