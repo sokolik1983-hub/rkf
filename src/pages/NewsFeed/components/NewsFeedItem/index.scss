@@ -236,8 +236,12 @@
       }
     }
     .k-chip.k-chip-filled.must-read__chip {
-      background-color: rgba(255, 193, 7, 0.15) !important;
-      color: #ffc107 !important;
+      color: #dc3545 !important;
+      background-color: rgba(220, 53, 69, 0.15) !important;
+    }
+    .k-chip.k-chip-filled.k-chip-disabled.must-read__chip {
+      background-color: #7899ff4d !important;
+      color: #72839c !important;
     }
   }
   &__city {
