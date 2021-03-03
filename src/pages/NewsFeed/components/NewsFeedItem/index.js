@@ -33,7 +33,6 @@ const NewsFeedItem = forwardRef(({
     documents,
     changeCityFilter,
     userAlias,
-
     is_advert,
     advert_breed_id,
     advert_breed_name,
@@ -58,11 +57,14 @@ const NewsFeedItem = forwardRef(({
     profile_id, // News item profile ID
     profileId, // User profile ID
     handleUnsubscribe,
+    handleHaveRead,
     is_liked,
     like_count,
     user_type,
     is_request_article,
-    member = false
+    member = false,
+    must_read,
+    is_read,
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -105,7 +107,7 @@ const NewsFeedItem = forwardRef(({
 
         return <>
             <div className="NewsFeedItem__content">
-                <div className="NewsFeedItem__head"  style={{margin: '0 10px 0 10px'}}>
+                <div className="NewsFeedItem__head" style={{ margin: '0 10px 0 10px' }}>
                     <div className="NewsFeedItem__left">
                         <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
                             <div className="NewsFeedItem__left-logo" style={{
@@ -155,6 +157,15 @@ const NewsFeedItem = forwardRef(({
                                 onClick={() => handleUnsubscribe(profile_id)}
                             />
                         }
+                        {
+                            must_read && <Chip
+                                text={is_read ? `Прочитано` : `Отметить как прочитанное`}
+                                value="chip"
+                                selected={is_read}
+                                onClick={() => handleHaveRead(id)}
+                                disabled={is_read}
+                            />
+                        }
                         {canEdit && profileId === profile_id && alias === userAlias &&
                             <div className="NewsFeedItem__head-control">
                                 <button
@@ -193,7 +204,7 @@ const NewsFeedItem = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'NewsFeedItem__text-wrap' : ''}  style={{margin: '0 10px 0 10px'}}>
+                <div className={!collapsed ? 'NewsFeedItem__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
                     {is_advert && <div className="NewsFeedItem__ad">
                         <p className="NewsFeedItem__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
@@ -222,7 +233,7 @@ const NewsFeedItem = forwardRef(({
                         />
                     }
                 </div>
-                <div className="NewsFeedItem__show-all-wrap" style={{margin: '0 10px 0 10px'}}>
+                <div className="NewsFeedItem__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
                     {
                         is_request_article
                             ? <div className="NewsFeedItem__show-all"><Link to={redirect_link} target="_blank">Подробнее...</Link></div>
@@ -260,7 +271,7 @@ const NewsFeedItem = forwardRef(({
             </div>
             {
                 documents && !!documents.length &&
-                <div className="NewsFeedItem__documents" style={{margin: '0 10px 0 10px'}}>
+                <div className="NewsFeedItem__documents" style={{ margin: '0 10px 0 10px' }}>
                     <ul className="NewsFeedItem__documents-list">
                         {documents.map(d =>
                             <li className="DocumentItem" key={d.id}>
@@ -282,7 +293,7 @@ const NewsFeedItem = forwardRef(({
                 </div>
             }
             {/* {videoLink && <p className={`NewsFeedItem__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
-            <div className="NewsFeedItem__controls" style={{margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px'}}>
+            <div className="NewsFeedItem__controls" style={{ margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px' }}>
                 <div className="NewsFeedItem__controls-left">
                     <div>
                         <span className={`k-icon ${isLiked ? ' k-i-heart colored-icon' : ' k-i-heart-outline'}`} onClick={handleLikeClick} />
