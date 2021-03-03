@@ -164,6 +164,7 @@ const NewsFeedItem = forwardRef(({
                                 selected={is_read}
                                 onClick={() => handleHaveRead(id)}
                                 disabled={is_read}
+                                className={'must-read__chip'}
                             />
                         }
                         {canEdit && profileId === profile_id && alias === userAlias &&

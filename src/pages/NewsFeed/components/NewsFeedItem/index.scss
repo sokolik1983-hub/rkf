@@ -235,6 +235,10 @@
         margin-right: 20px;
       }
     }
+    .k-chip.k-chip-filled.must-read__chip {
+      background-color: rgba(255, 193, 7, 0.15) !important;
+      color: #ffc107 !important;
+    }
   }
   &__city {
     position: relative;
