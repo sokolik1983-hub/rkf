@@ -61,6 +61,8 @@
     border-bottom: 1px solid #e8e8e8;
   }
   &__clear {
+    display: flex;
+    align-items: center;
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
@@ -71,8 +73,16 @@
     border-radius: 0;
     border-bottom: 1px solid transparent;
     transition: all 0.2s linear;
-    &:hover {
-      color: #3366ff;
+    &:hover,
+    &:hover svg path {
+      fill: #36f;
+      color: #36f;
+    }
+    svg {
+      margin-right: 3px;
+      path {
+        transition: all 0.2s linear;
+      }
     }
   }
   &__title {
@@ -91,3 +101,9 @@
     }
   }
 }
+
+// .exhibitions-filters__clear:hover,
+// .exhibitions-filters__clear:hover .icon-broom path {
+//   fill: #36f;
+//   color: #36f;
+// }

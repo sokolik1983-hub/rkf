@@ -8,6 +8,18 @@
   .Card {
     padding: 10px;
     margin-bottom: 16px;
+    button {
+      display: flex;
+      align-items: center;
+      line-height: 24px;
+      transition: all 0.2s linear;
+      svg {
+        margin-right: 3px;
+        path {
+          transition: all 0.2s linear;
+        }
+      }
+    }
   }
   .organizations-page__about {
     margin-bottom: 16px;
@@ -95,7 +107,9 @@
     border: none;
     padding: 0;
     transition: color .2s linear;
-    &:hover {
+    &:hover,
+    &:hover svg path {
+      fill: #36f;
       color: #36f;
     }
   }
@@ -103,3 +117,9 @@
     margin-top: 16px;
   }
 }
+
+// .link:hover,
+// .link:hover .icon-broom path {
+//   fill: #36f;
+//   color: #36f;
+// }
