@@ -3,13 +3,14 @@ import { SvgIcon } from '@progress/kendo-react-common';
 import { pencil, trash } from '@progress/kendo-svg-icons';
 import { CSSTransition } from "react-transition-group";
 import Share from "../../Share";
-import ModalEditAvatar from "./ModalEditAvatar";
 import ModalDeleteAvatar from "./ModalDeleteAvatar";
 import { DEFAULT_IMG } from "../../../appConfig";
 import { Link } from "react-router-dom";
 import LightTooltip from "../../LightTooltip";
 import UserActionControls from "components/UserActionControls";
 import { connectAuthVisible } from "pages/Login/connectors";
+import EditAvatar from "../../EditAvatar";
+import OutsideClickHandler from "react-outside-click-handler";
 import "./index.scss";
 
 
@@ -101,11 +102,14 @@ const UserInfo = ({
                         onError={onError}
                     />
             }
-            {modalType === 'edit' &&
-                <ModalEditAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} />
-            }
+            {modalType === 'edit' && <EditAvatar
+                setModalType={setModalType}
+                avatar={logo_link}
+            />}
             {modalType === 'delete' &&
-                <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} />
+                <OutsideClickHandler onOutsideClick={() => setModalType('')}>
+                    <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} modalType={modalType} />
+                </OutsideClickHandler>
             }
         </>
     )

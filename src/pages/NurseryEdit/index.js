@@ -1,19 +1,19 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ls from 'local-storage';
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Disclaimer from "../../components/Disclaimer";
-import {Form} from "../../components/Form";
+import { Form } from "../../components/Form";
 import SubmitButton from "../../components/Form/SubmitButton";
 import RenderFields from "./RenderFields";
 import Alert from "../../components/Alert";
-import {Request} from "../../utils/request";
-import {editForm, defaultValues} from './config';
+import { Request } from "../../utils/request";
+import { editForm, defaultValues } from './config';
 import './styles.scss';
 
 
-const NurseryEdit = () => {
+const NurseryEdit = ({ history }) => {
     const [initialValues, setInitialValues] = useState(defaultValues);
     const [streetTypes, setStreetTypes] = useState([]);
     const [houseTypes, setHouseTypes] = useState([]);
@@ -33,9 +33,9 @@ const NurseryEdit = () => {
     const getInfo = () => PromiseRequest('/api/nurseries/nursery/nursery_edit_information')
         .then(data => {
             if (data) {
-                if(data.contacts && data.contacts.length) {
+                if (data.contacts && data.contacts.length) {
                     data.contacts.map(item => {
-                        if(item.contact_type_id === 1 && !/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/.test(item.value)) {
+                        if (item.contact_type_id === 1 && !/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/.test(item.value)) {
                             const valueArr = item.value.split(' ');
                             item.value = '+' + valueArr[0] + valueArr[1].slice(0, 6) + '-' + valueArr[1].slice(-2);
                         }
@@ -69,7 +69,7 @@ const NurseryEdit = () => {
         return newValues;
     };
 
-    const handleSuccess = (data, { alias, logo_link }) => {
+    const handleSuccess = (data, { alias }) => {
         setShowAlert({
             title: "Информация сохранена!",
             autoclose: 2,
@@ -78,13 +78,13 @@ const NurseryEdit = () => {
         let updatedUserInfo = {
             ...ls.get('user_info'),
             alias,
-            logo_link
         };
         ls.set('user_info', updatedUserInfo);
+        history.push(`/kennel/${alias}`);
     };
 
     const handleError = e => {
-        if(e.response) {
+        if (e.response) {
             let errorText = e.response.data.errors
                 ? Object.values(e.response.data.errors)
                 : `${e.response.status} ${e.response.statusText}`;

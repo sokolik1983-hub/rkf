@@ -1,0 +1,56 @@
+.avatar-editor {
+  &__dropzone {
+    width: 382px;
+    margin: 0 auto;
+    position: relative;
+    & > * {
+      outline: none;
+    }
+  }
+  &__add-file {
+    display: inline-block;
+    position: absolute;
+    right: -20px;
+    bottom: -14px;
+    z-index: 1;
+  }
+  &__add-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+    transition: background-color .2s linear;
+    &:hover {
+      background-color: #36f;
+    }
+  }
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 382px;
+    margin: 24px auto 0;
+    padding-left: 21px;
+  }
+  &__scale-bar {
+    margin-right: 21px;
+    color: #36f !important;
+  }
+  &__submit {
+    display: block;
+    margin: 24px auto 0;
+    font-family: "Source Sans Pro", Helvetica, sans-serif !important;
+  }
+  &__btn {
+    border: 0;
+    &:hover {
+      color: #36f;
+    }
+  }
+}
