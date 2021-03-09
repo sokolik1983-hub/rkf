@@ -172,6 +172,7 @@
 }
 .menu-component__link {
   position: relative;
+  padding-left: 0 !important;
   &--documents {
       position: relative;
       display: flex;
