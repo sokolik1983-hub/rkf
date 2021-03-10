@@ -3,6 +3,7 @@ import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import Alert from "../../../../components/Alert";
 import {Request} from "../../../../utils/request";
+import ls from "local-storage";
 import "./index.scss";
 
 
@@ -33,7 +34,9 @@ const ModalDeleteAvatar = ({closeModal, updateInfo}) => {
             method: 'DELETE'
         }, () => {
             closeModal();
-            updateInfo(true);
+            // updateInfo(true);
+            ls.set('user_info', { ...ls.get('user_info'), logo_link: '' });
+            window.location.reload();
         }, error => {
             handleError(error);
         });
@@ -42,7 +45,7 @@ const ModalDeleteAvatar = ({closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="delete-avatar-modal" showModal={true} handleClose={() => null} handleX={closeModal} headerName={"Удаление аватара"}>
+        <Modal className="delete-avatar-modal" showModal={true} handleClose={() => null} handleX={() => null} headerName={"Удаление аватара"}>
             <div className="delete-avatar-modal__content">
                 {loading ?
                     <Loading centered={false}/> :

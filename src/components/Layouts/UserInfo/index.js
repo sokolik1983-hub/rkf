@@ -10,7 +10,6 @@ import LightTooltip from "../../LightTooltip";
 import UserActionControls from "components/UserActionControls";
 import { connectAuthVisible } from "pages/Login/connectors";
 import EditAvatar from "../../EditAvatar";
-import OutsideClickHandler from "react-outside-click-handler";
 import "./index.scss";
 
 
@@ -107,9 +106,7 @@ const UserInfo = ({
                 avatar={logo_link}
             />}
             {modalType === 'delete' &&
-                <OutsideClickHandler onOutsideClick={() => setModalType('')}>
-                    <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} modalType={modalType} />
-                </OutsideClickHandler>
+                    <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} />
             }
         </>
     )
