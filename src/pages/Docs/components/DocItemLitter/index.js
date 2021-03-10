@@ -33,7 +33,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
-    
+
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     const getEverkData = stamp_code =>
         PromiseRequest(`${apiLitterEverk}?stamp_code=${stamp_code}`)
@@ -81,6 +81,13 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </div>}
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
+            <FormField
+                fieldType="customCheckbox"
+                name={`declarants[${i}].express`}
+                label='Срочное изготовление'
+                value={declarant.express}
+                disabled
+            />
             <FormGroup inline>
                 <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
                 <HideIf cond={true || !!everkData || update}>

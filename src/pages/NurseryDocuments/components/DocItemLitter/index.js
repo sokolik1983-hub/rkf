@@ -80,6 +80,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </div>}
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
+            <FormField
+                fieldType="customCheckbox"
+                name={`declarants[${i}].express`}
+                label='Срочное изготовление'
+                disabled
+            />
             <FormGroup inline>
                 <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
                 <HideIf cond={true || !!everkData || update}>
