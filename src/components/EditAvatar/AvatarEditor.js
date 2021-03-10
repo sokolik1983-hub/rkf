@@ -5,6 +5,7 @@ import { Slider } from "@material-ui/core";
 import { Button } from '@progress/kendo-react-buttons';
 import LightTooltip from "../LightTooltip";
 import { Request } from "../../utils/request";
+import Alert from "../Alert";
 import ls from "local-storage";
 import "./index.scss";
 
@@ -122,6 +123,13 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
             >
                 Сохранить
             </Button>
+            {!!editorErrors.length &&
+                <Alert
+                    text="Ошибка: Формат файла не поддерживается, либо размер файла превышает 5Мб. Поддерживаемые форматы JPG, JPEG, PNG."
+                    okButton={true}
+                    onOk={() => setEditorErrors([])}
+                />
+            }
         </div>
     )
 };
