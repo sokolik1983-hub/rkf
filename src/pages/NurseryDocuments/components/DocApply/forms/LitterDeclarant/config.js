@@ -15,6 +15,7 @@ const apiNurseryDeclarantsEndpoint = '/api/nurseries/NurseryDeclarant/nursery_de
 
 const validationSchema = {
     litter_header_declarant_request_id: number(),
+    express: boolean(),
     id: number(),
     first_name: string().required(reqText),
     last_name: string().required(reqText),
@@ -109,6 +110,7 @@ const updateSchema = {
 
 
 const emptyNurseryLitterDeclarant = {
+    express: false,
     first_name: '',
     last_name: '',
     second_name: '',
