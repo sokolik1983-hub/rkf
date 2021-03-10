@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "formik";
 import { FormField, FormGroup } from "components/Form";
 import ActiveImageWrapper from "components/ActiveImageWrapper";
@@ -9,10 +9,13 @@ import Documents from './components/Documents';
 import SocialNetworks from './components/SocialNetworks';
 import Schedule from './components/Schedule';
 import Card from "components/Card";
+import EditAvatar from "../../components/EditAvatar";
 import { Request } from "utils/request";
 import { editForm } from "./config";
 
 const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
+    const [modalType, setModalType] = useState('');
+
     const handleUpload = (file, isLogo) => {
         setWorking(true);
         let data = new FormData();
@@ -24,7 +27,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
             isMultipart: true
         },
             data => {
-                formik.setFieldValue(isLogo ? 'logo_link' : 'banner_link', data.avatar_link);
+                // formik.setFieldValue(isLogo ? 'logo_link' : 'banner_link', data.avatar_link);
                 setWorking(false);
             },
             e => {
@@ -74,14 +77,17 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                 <div className="NurseryEdit__main-info">
                     <div className="NurseryEdit__main-info-left">
                         <h3>Логотип</h3>
-
-                        <ActiveImageWrapper onChangeFunc={file => handleUpload(file, true)} requestUrl={'/'} >
-                            <div
-                                style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.clubAvatar})` }}
-                                className="NurseryEdit__main-info-logo"
-                            />
-                        </ActiveImageWrapper>
-
+                        <div
+                            style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.clubAvatar})` }}
+                            className="NurseryEdit__main-info-logo"
+                            onClick={() => setModalType('edit')}
+                        >
+                        </div>
+                        <span style={{cursor: 'pointer', color: '#36f'}} onClick={() => setModalType('edit')}>Изменить</span>
+                        {modalType && <EditAvatar
+                            setModalType={setModalType}
+                            avatar={logo_link}
+                        />}
                     </div>
                     <div className="NurseryEdit__main-info-right">
                         <h3>Общая информация</h3>

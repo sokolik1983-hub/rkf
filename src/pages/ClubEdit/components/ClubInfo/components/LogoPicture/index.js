@@ -1,26 +1,30 @@
-import React, {useRef} from "react";
-import ActiveImageWrapper from "../../../../../../components/ActiveImageWrapper";
-import {DEFAULT_IMG} from "../../../../../../appConfig";
-import {connectClientClubLogoPicture} from "../../../../connectors";
+import React, { useRef, useState } from "react";
+import { DEFAULT_IMG } from "../../../../../../appConfig";
+import { connectClientClubLogoPicture } from "../../../../connectors";
+// import ActiveImageWrapper from "../../../../../../components/ActiveImageWrapper";
+import EditAvatar from "../../../../../../components/EditAvatar";
 import "./styles.scss";
 
 
-const ClubLogoPicture = ({backgroundImage, clubLogoUpdateSuccess, bindSubmitForm}) => {
+const ClubLogoPicture = ({ backgroundImage, clubLogoUpdateSuccess }) => {
+    const [modalType, setModalType] = useState('');
     const ref = useRef(null);
 
-    return (
-        <div className="ClubLogoPicture__holder">
+    return (<>
+        <div className="ClubLogoPicture__holder" onClick={() => setModalType('edit')}>
             <h3>Логотип</h3>
-            <ActiveImageWrapper
-                requestUrl={'/api/Avatar/full'}
-                onSubmitSuccess={clubLogoUpdateSuccess}
-                bindSubmitForm={bindSubmitForm}
-            >
-                <div ref={ref} style={{
-                    backgroundImage: `url(${backgroundImage ? backgroundImage : DEFAULT_IMG.clubAvatar })`
-                }} className="ClubLogoPicture"/>
-            </ActiveImageWrapper>
+            <div ref={ref} style={{
+                backgroundImage: `url(${backgroundImage ? backgroundImage : DEFAULT_IMG.clubAvatar})`
+            }} className="ClubLogoPicture" />
+            <span style={{cursor: 'pointer', color: '#36f'}}>Изменить</span>
         </div>
+        {modalType && <EditAvatar
+            setModalType={setModalType}
+            avatar={backgroundImage}
+            userType={'club'}
+            onSubmitSuccess={clubLogoUpdateSuccess}
+        />}
+    </>
     )
 };
 

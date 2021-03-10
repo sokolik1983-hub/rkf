@@ -1,0 +1,55 @@
+.modal {
+  position: relative;
+  &-close {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url(/static/icons/cross-gray.svg) center no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    &:hover {
+      background: url(/static/icons/cross-gray-blue.svg) center no-repeat;
+    }
+  }
+  &__top {
+    background-color: #192d3e;
+    padding: 10px;
+  }
+  &__title {
+    min-height: auto;
+    padding: 0;
+  }
+  &__content {
+    padding: 16px;
+  }
+  .MuiPaper-rounded {
+    border-radius: 4px;
+  }
+  .MuiAppBar-colorPrimary {
+    background-color: #fff !important;
+    color: #253c5e !important;
+  }
+  .MuiPaper-elevation4 {
+    box-shadow: none !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+  .MuiToolbar-regular {
+    border-bottom: 1px solid #E5E5E5;
+    min-height: auto;
+    padding-bottom: 10px !important;
+  }
+  .MuiToolbar-gutters {
+    padding: 0;
+  }
+  .MuiDialogContent-root {
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+.MuiDialog-root {
+  z-index: 98 !important;
+}
