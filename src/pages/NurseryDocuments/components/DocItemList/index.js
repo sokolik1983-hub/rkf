@@ -97,12 +97,6 @@ const DocItemList = ({formik, view, update, nurseryAlias, distinction, stampCode
         name="declarants"
         render={helpers => <>
             {redirect && <Redirect to={redirect}/>}
-            <FormField
-                fieldType="customCheckbox"
-                name="express"
-                label='Срочное изготовление'
-                disabled
-            />
             <FormGroup inline>
                 <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
                 {formik.values.folder_number && (distinction === "pedigree") && <FormField disabled name="folder_number" label='Номер папки' />}

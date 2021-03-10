@@ -8,7 +8,7 @@ import FormInput from "../../../../components/kendo/Form/FormInput";
 import FormUpload from "../../../../components/kendo/Form/FormUpload";
 import FormDatePicker from "../../../../components/kendo/Form/FormDatePicker";
 import FormTextArea from "../../../../components/kendo/Form/FormTextArea";
-import FormContactsCheckbox from "../../../../components/kendo/Form/FormContactsCheckbox";
+// import FormContactsCheckbox from "../../../../components/kendo/Form/FormContactsCheckbox";
 import DocumentLink from "../../components/DocumentLink";
 import {
     dateRequiredValidator, nameRequiredValidator,
@@ -142,9 +142,9 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                     key={JSON.stringify(initialValues)}
                     render={formRenderProps => {
 
-                        const handleChange = name => {
-                            formRenderProps.onChange(name, { value: !formRenderProps.valueGetter(name) });
-                        };
+                        // const handleChange = name => {
+                        //     formRenderProps.onChange(name, { value: !formRenderProps.valueGetter(name) });
+                        // };
                         
                         return (
                             <FormElement>
@@ -155,6 +155,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                     <h4 className="patella-form__title" style={{ marginBottom: 0, marginTop: '10px' }}>
                                         {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                     </h4>
+                                    {/* раздизеблить когда будет необходимо
                                     <div className="patella-form__row">
                                         <Field
                                             id="express"
@@ -164,7 +165,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                             onChange={handleChange}
                                             disabled={disableAllFields}
                                         />
-                                    </div>
+                                    </div> */}
                                     <div className="patella-form__row">
                                         <Field
                                             id="declarant_name"
