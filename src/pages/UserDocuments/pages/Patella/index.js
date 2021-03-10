@@ -8,6 +8,7 @@ import FormInput from "../../../../components/kendo/Form/FormInput";
 import FormUpload from "../../../../components/kendo/Form/FormUpload";
 import FormDatePicker from "../../../../components/kendo/Form/FormDatePicker";
 import FormTextArea from "../../../../components/kendo/Form/FormTextArea";
+import FormContactsCheckbox from "../../../../components/kendo/Form/FormContactsCheckbox";
 import DocumentLink from "../../components/DocumentLink";
 import {
     dateRequiredValidator, nameRequiredValidator,
@@ -27,6 +28,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
     const [initialValues, setInitialValues] = useState({
+        express: false,
         declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         veterinary_contract_document: [],
         pedigree_number: '',
@@ -53,6 +55,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                 setValues(data);
                 setInitialValues(values);
             }, error => {
+                console.log(error);
                 history.replace('/404');
             }))();
 
@@ -123,6 +126,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
         setDisableSubmit(false);
     };
 
+
     return (
         <div className="patella-form">
             <Card>
@@ -136,180 +140,197 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                     onSubmit={handleSubmit}
                     initialValues={initialValues}
                     key={JSON.stringify(initialValues)}
-                    render={formRenderProps =>
-                        <FormElement>
-                            <div className="patella-form__content">
-                                {values && values.rejected_comment &&
-                                    <p className="patella-form__danger">{values.rejected_comment}</p>
-                                }
-                                <h4 className="patella-form__title" style={{ marginBottom: 0, marginTop: '10px' }}>
-                                    {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
-                                </h4>
-                                <div className="patella-form__row">
-                                    <Field
-                                        id="declarant_name"
-                                        name="declarant_name"
-                                        label="Ответственное лицо"
-                                        component={FormInput}
-                                        disabled={true}
-                                    />
-                                </div>
-                                <div className="patella-form__row">
-                                    {disableAllFields && values &&
-                                        <div className="patella-form__file">
-                                            <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)</p>
-                                            <DocumentLink docId={values.veterinary_contract_document_id} />
-                                        </div>
+                    render={formRenderProps => {
+
+                        const handleChange = name => {
+                            formRenderProps.onChange(name, { value: !formRenderProps.valueGetter(name) });
+                        };
+                        
+                        return (
+                            <FormElement>
+                                <div className="patella-form__content">
+                                    {values && values.rejected_comment &&
+                                        <p className="patella-form__danger">{values.rejected_comment}</p>
                                     }
-                                    {!disableAllFields &&
-                                        <div className="patella-form__file">
-                                            <Field
-                                                id="veterinary_contract_document"
-                                                name="veterinary_contract_document"
-                                                label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)"
-                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                component={FormUpload}
-                                                validator={requiredValidator}
-                                            />
-                                            {values &&
-                                                values.veterinary_contract_document_id &&
-                                                !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                <DocumentLink docId={values.veterinary_contract_document_id} />
-                                            }
-                                        </div>
-                                    }
-                                </div>
-                                <div className="patella-form__row">
-                                    <Field
-                                        id="pedigree_number"
-                                        name="pedigree_number"
-                                        label="№ родословной собаки"
-                                        hint="Допускается ввод только цифр"
-                                        maxLength={30}
-                                        onlyNumbers={true}
-                                        disabled={disableAllFields || disableFields}
-                                        component={FormInput}
-                                        validator={requiredValidator}
-                                    />
-                                    {!disableAllFields && !disableFields &&
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={() => getDogName(
-                                                formRenderProps.valueGetter('pedigree_number'),
-                                                formRenderProps.onChange
-                                            )}
-                                            disabled={!formRenderProps.valueGetter('pedigree_number')}
-                                        >Поиск
-                                        </button>
-                                    }
-                                    <Field
-                                        id="dog_name"
-                                        name="dog_name"
-                                        label="Кличка собаки"
-                                        disabled={disableAllFields || disableFields}
-                                        component={FormInput}
-                                        validator={requiredValidator}
-                                    />
-                                    {!disableAllFields && disableFields &&
-                                        <button
-                                            type="button"
-                                            className="btn btn-red"
-                                            onClick={() => {
-                                                formRenderProps.onChange('pedigree_number', { value: '' });
-                                                formRenderProps.onChange('dog_name', { value: '' });
-                                                setDisableFields(false);
-                                            }}
-                                        >Удалить
-                                        </button>
-                                    }
-                                </div>
-                            </div>
-                            <div className="patella-form__content">
-                                <h4 className="patella-form__title">Информация о платеже</h4>
-                                {!disableAllFields &&
-                                    <>
-                                        <p style={{ marginBottom: '10px' }}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
-                                        <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
-                                    </>
-                                }
-                                <div className="patella-form__row">
-                                    {disableAllFields && values &&
-                                        <div className="patella-form__file">
-                                            <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
-                                            <DocumentLink docId={values.payment_document_id} />
-                                        </div>
-                                    }
-                                    {!disableAllFields &&
-                                        <div className="patella-form__file">
-                                            <Field
-                                                id="payment_document"
-                                                name="payment_document"
-                                                label="Квитанция об оплате (PDF, JPEG, JPG, PNG)"
-                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                component={FormUpload}
-                                                validator={requiredValidator}
-                                            />
-                                            {values &&
-                                                values.payment_document_id &&
-                                                !formRenderProps.valueGetter('payment_document').length &&
-                                                <DocumentLink docId={values.payment_document_id} />
-                                            }
-                                        </div>
-                                    }
-                                </div>
-                                <div className="patella-form__row _payment-info">
-                                    <Field
-                                        id="payment_date"
-                                        name="payment_date"
-                                        label="Дата оплаты"
-                                        max={new Date()}
-                                        component={FormDatePicker}
-                                        validator={dateRequiredValidator}
-                                        disabled={disableAllFields}
-                                    />
-                                    <Field
-                                        id="payment_number"
-                                        name="payment_number"
-                                        label="Номер платежного документа"
-                                        cutValue={30}
-                                        component={FormInput}
-                                        validator={requiredWithTrimValidator}
-                                        disabled={disableAllFields}
-                                    />
-                                    <Field
-                                        id="payment_name"
-                                        name="payment_name"
-                                        label="ФИО плательщика"
-                                        cutValue={150}
-                                        component={FormInput}
-                                        validator={value => nameRequiredValidator(value, 150)}
-                                        disabled={disableAllFields}
-                                    />
-                                </div>
-                                {!disableAllFields &&
+                                    <h4 className="patella-form__title" style={{ marginBottom: 0, marginTop: '10px' }}>
+                                        {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
+                                    </h4>
                                     <div className="patella-form__row">
                                         <Field
-                                            id="comment"
-                                            name="comment"
-                                            label="Комментарий к заявке"
-                                            maxLength={500}
-                                            component={FormTextArea}
+                                            id="express"
+                                            name="express"
+                                            label="Срочное изготовление"
+                                            component={FormContactsCheckbox}
+                                            onChange={handleChange}
+                                            disabled={disableAllFields}
                                         />
                                     </div>
-                                }
-                            </div>
-                            <div className="patella-form__controls">
-                                {!disableAllFields &&
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary"
-                                        disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
-                                    >Отправить
+                                    <div className="patella-form__row">
+                                        <Field
+                                            id="declarant_name"
+                                            name="declarant_name"
+                                            label="Ответственное лицо"
+                                            component={FormInput}
+                                            disabled={true}
+                                        />
+                                    </div>
+                                    <div className="patella-form__row">
+                                        {disableAllFields && values &&
+                                            <div className="patella-form__file">
+                                                <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)</p>
+                                                <DocumentLink docId={values.veterinary_contract_document_id} />
+                                            </div>
+                                        }
+                                        {!disableAllFields &&
+                                            <div className="patella-form__file">
+                                                <Field
+                                                    id="veterinary_contract_document"
+                                                    name="veterinary_contract_document"
+                                                    label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)"
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    component={FormUpload}
+                                                    validator={requiredValidator}
+                                                />
+                                                {values &&
+                                                    values.veterinary_contract_document_id &&
+                                                    !formRenderProps.valueGetter('veterinary_contract_document').length &&
+                                                    <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div className="patella-form__row">
+                                        <Field
+                                            id="pedigree_number"
+                                            name="pedigree_number"
+                                            label="№ родословной собаки"
+                                            hint="Допускается ввод только цифр"
+                                            maxLength={30}
+                                            onlyNumbers={true}
+                                            disabled={disableAllFields || disableFields}
+                                            component={FormInput}
+                                            validator={requiredValidator}
+                                        />
+                                        {!disableAllFields && !disableFields &&
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                onClick={() => getDogName(
+                                                    formRenderProps.valueGetter('pedigree_number'),
+                                                    formRenderProps.onChange
+                                                )}
+                                                disabled={!formRenderProps.valueGetter('pedigree_number')}
+                                            >Поиск
+                                        </button>
+                                        }
+                                        <Field
+                                            id="dog_name"
+                                            name="dog_name"
+                                            label="Кличка собаки"
+                                            disabled={disableAllFields || disableFields}
+                                            component={FormInput}
+                                            validator={requiredValidator}
+                                        />
+                                        {!disableAllFields && disableFields &&
+                                            <button
+                                                type="button"
+                                                className="btn btn-red"
+                                                onClick={() => {
+                                                    formRenderProps.onChange('pedigree_number', { value: '' });
+                                                    formRenderProps.onChange('dog_name', { value: '' });
+                                                    setDisableFields(false);
+                                                }}
+                                            >Удалить
+                                        </button>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="patella-form__content">
+                                    <h4 className="patella-form__title">Информация о платеже</h4>
+                                    {!disableAllFields &&
+                                        <>
+                                            <p style={{ marginBottom: '10px' }}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
+                                            <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
+                                        </>
+                                    }
+                                    <div className="patella-form__row">
+                                        {disableAllFields && values &&
+                                            <div className="patella-form__file">
+                                                <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
+                                                <DocumentLink docId={values.payment_document_id} />
+                                            </div>
+                                        }
+                                        {!disableAllFields &&
+                                            <div className="patella-form__file">
+                                                <Field
+                                                    id="payment_document"
+                                                    name="payment_document"
+                                                    label="Квитанция об оплате (PDF, JPEG, JPG, PNG)"
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    component={FormUpload}
+                                                    validator={requiredValidator}
+                                                />
+                                                {values &&
+                                                    values.payment_document_id &&
+                                                    !formRenderProps.valueGetter('payment_document').length &&
+                                                    <DocumentLink docId={values.payment_document_id} />
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div className="patella-form__row _payment-info">
+                                        <Field
+                                            id="payment_date"
+                                            name="payment_date"
+                                            label="Дата оплаты"
+                                            max={new Date()}
+                                            component={FormDatePicker}
+                                            validator={dateRequiredValidator}
+                                            disabled={disableAllFields}
+                                        />
+                                        <Field
+                                            id="payment_number"
+                                            name="payment_number"
+                                            label="Номер платежного документа"
+                                            cutValue={30}
+                                            component={FormInput}
+                                            validator={requiredWithTrimValidator}
+                                            disabled={disableAllFields}
+                                        />
+                                        <Field
+                                            id="payment_name"
+                                            name="payment_name"
+                                            label="ФИО плательщика"
+                                            cutValue={150}
+                                            component={FormInput}
+                                            validator={value => nameRequiredValidator(value, 150)}
+                                            disabled={disableAllFields}
+                                        />
+                                    </div>
+                                    {!disableAllFields &&
+                                        <div className="patella-form__row">
+                                            <Field
+                                                id="comment"
+                                                name="comment"
+                                                label="Комментарий к заявке"
+                                                maxLength={500}
+                                                component={FormTextArea}
+                                            />
+                                        </div>
+                                    }
+                                </div>
+                                <div className="patella-form__controls">
+                                    {!disableAllFields &&
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary"
+                                            disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
+                                        >Отправить
                                     </button>
-                                }
-                            </div>
-                        </FormElement>
+                                    }
+                                </div>
+                            </FormElement>)
+                    }
                     }
                 />
             </Card>

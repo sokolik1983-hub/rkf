@@ -1,10 +1,11 @@
-import { number, string } from "yup";
+import { number, string, boolean } from "yup";
 import { reqText, numbersOnly } from "../../config.js";
 
 const endpointGetFederations = '/api/clubs/Federation';
 
 const validationSchema = distinction => ({...{
     id: number(),
+    express: boolean(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
     veterinary_contract_document_id: number().required(reqText).typeError(reqText),
@@ -45,6 +46,7 @@ const config = (distinction, profileType) => ({
     get: `/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheck${distinction}request`,
     responsibleLink: alias => profileType === 'kennel' ? `/kennel/${alias}/documents/responsible/form` : `/${alias}/documents/responsible/form`,
     initialValues: {
+        express: false,
         federation_id: '',
         declarant_id: '',
         veterinary_contract_document_id: '',

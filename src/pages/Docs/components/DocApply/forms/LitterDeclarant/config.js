@@ -16,6 +16,7 @@ const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 const validationSchema = {
     litter_header_declarant_request_id: number(),
     id: number(),
+    express: boolean(),
     first_name: string().required(reqText),
     last_name: string().required(reqText),
     second_name: string(),
@@ -109,6 +110,7 @@ const updateSchema = {
 
 
 const emptyLitterDeclarant = {
+    express: false,
     first_name: '',
     last_name: '',
     second_name: '',

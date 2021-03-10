@@ -111,6 +111,7 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
 
 const litterDeclarantsValidationSchema = array().of(object().shape({
     id: number(),
+    express: boolean(),
     first_name: string().required(reqText),
     last_name: string().required(reqText),
     second_name: string(),
@@ -288,6 +289,7 @@ const emptyNurseryPedigreeDeclarant = {
 };
 
 const emptyNurseryLitterDeclarant = {
+    express: false,
     first_name: '',
     last_name: '',
     second_name: '',

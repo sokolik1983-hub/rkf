@@ -45,6 +45,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     let stamp_code_name = (stampCodes && stampCodes[0]) ? stampCodes[0].label : '';
     let declarant_id = declarants && declarants[0] && declarants[0].id;
     const initialValues = {
+        express: false,
         federation_id: '',
         last_name: '',
         first_name: '',

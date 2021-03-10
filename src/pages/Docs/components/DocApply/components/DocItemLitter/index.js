@@ -86,6 +86,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 </div>}
                 <input type="hidden" name={`id`} />
                 <input type="hidden" name={`declarant_uid`} />
+                <FormField
+                    fieldType="customCheckbox"
+                    name="express"
+                    label='Срочное изготовление'
+                />
                 <FormGroup inline>
                     <Transliteratable disabled={update} name={`last_name`} label='Фамилия заводчика' />
                     <Transliteratable disabled={update} name={`first_name`} label='Имя заводчика' />
