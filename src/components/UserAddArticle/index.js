@@ -5,11 +5,13 @@ import Alert from "../Alert";
 import { Form } from "../Form";
 import RenderFields from "./RenderFields";
 import { newsArticleFormConfig } from "./config";
+import ls from "local-storage";
 import "./index.scss";
 
 
-const AddArticle = ({ id, logo, setNeedRequest, userPage, profileInfo, setProfileInfo }) => {
+const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInfo }) => {
     const [isAd, setIsAd] = useState(false);
+    const [isMust, setIsMust] = useState(false);
     const [videoLink, setVideoLink] = useState('');
     const [documents, setDocuments] = useState([]);
     const [categories, setCategories] = useState(null);
@@ -17,13 +19,15 @@ const AddArticle = ({ id, logo, setNeedRequest, userPage, profileInfo, setProfil
     const [showAlert, setShowAlert] = useState('');
     const [loadFile, setLoadFile] = useState(false);
 
+    const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
+    const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
+    
     const transformValues = values => {
         if (isAd) {
             return {
                 ...values,
                 advert_number_of_puppies: isMating ? `` : +values.advert_number_of_puppies,
                 is_advert: true,
-                club_id: id,
                 documents
             }
         } else {
@@ -31,8 +35,8 @@ const AddArticle = ({ id, logo, setNeedRequest, userPage, profileInfo, setProfil
                 content: values.content,
                 file: values.file,
                 video_link: values.video_link || '',
-                club_id: id,
-                documents
+                documents,
+                is_must_read: isMust,
             }
         }
     };
@@ -96,6 +100,8 @@ const AddArticle = ({ id, logo, setNeedRequest, userPage, profileInfo, setProfil
                     logo={logo}
                     isAd={isAd}
                     setIsAd={setIsAd}
+                    isMust={isMust}
+                    setIsMust={setIsMust}
                     videoLink={videoLink}
                     setVideoLink={setVideoLink}
                     documents={documents}
@@ -106,6 +112,7 @@ const AddArticle = ({ id, logo, setNeedRequest, userPage, profileInfo, setProfil
                     setIsMating={setIsMating}
                     userPage={userPage}
                     setLoadFile = {setLoadFile}
+                    isFederation={isFederation}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

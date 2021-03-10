@@ -21,7 +21,8 @@ const ExhibitionInfo = ({
     documents_links,
     schedule_link,
     catalog_link,
-    reports_link
+    reports_link,
+    national_breed_club_name,
 }) => {
     const { dictionary: rankDictionary } = useDictionary('rank_type');
     const { dictionary: breedDictionary } = useDictionary('breed_types');
@@ -69,6 +70,10 @@ const ExhibitionInfo = ({
                         {breedTypes && !!breedTypes.length && <PropertyP
                             name="Породы"
                             value={resolveBreeds(rankTypes, breedTypes)}
+                        />}
+                        {national_breed_club_name && <PropertyP
+                            name="НКП"
+                            value={national_breed_club_name}
                         />}
                     </div>
                 </div>

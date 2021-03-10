@@ -83,7 +83,7 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
     const handleSuccess = () => {
         setLoading(true);
         getNews(1, true);
-    }
+    };
 
     const handleUnsubscribe = id => {
         if (window.confirm('Вы действительно хотите отписаться?')) {
@@ -100,7 +100,22 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
                     setLoading(false);
                 });
         }
-    }
+    };
+
+    const handleHaveRead = id => {
+        Request({
+            url: '/api/article/confirm_reading',
+            method: 'PUT',
+            data: JSON.stringify(id)
+        }, () => {
+            getNews(1, true);
+            notifySuccess && notifySuccess('Прочитано!')
+        },
+            e => {
+                notifyError ? notifyError(e) : alert('Произошла ошибка');
+                setLoading(false);
+            });
+    };
 
     return loading
         ? <Loading centered={false} />
@@ -128,6 +143,7 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
                         handleSuccess={handleSuccess}
                         userAlias={userAlias}
                         handleUnsubscribe={handleUnsubscribe}
+                        handleHaveRead={handleHaveRead}
                     />)
                 }
             </InfiniteScroll>
