@@ -68,7 +68,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
                                 position={position}
                                 onPositionChange={pos => setPosition(pos)}
                                 rotate={parseFloat(rotate)}
-                                borderRadius={150}
+                                borderRadius={166}
                                 image={image}
                                 className="avatar-editor__canvas"
                                 style={image ? {} : { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
