@@ -21,7 +21,9 @@ import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
 import { connectAuthVisible } from "../../../Login/connectors";
 import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
-import ApplicationRegistry from "../Application/ApplicationRegistry"
+import ApplicationRegistry from "../Application/ApplicationRegistry";
+import Banner from "../../../../components/Banner";
+import useIsMobile from "../../../../utils/useIsMobile";
 import "./index.scss";
 
 
@@ -29,6 +31,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         (() => getUserInfo())();
@@ -72,6 +75,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 />
                             </Card>
                             <UserMenu userNav={userNav(userAlias)} />
+                            {!isMobile && <Banner type={10} />}
                             <CopyrightInfo withSocials={true} />
                         </StickyBox>
                     </aside>
@@ -101,8 +105,8 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/patella/form'
-                                    component={() => <PatellaForm 
-                                        alias={userAlias} 
+                                    component={() => <PatellaForm
+                                        alias={userAlias}
                                         history={history}
                                         owner={userInfo.personal_information}
                                     />}
@@ -120,13 +124,13 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:route/documents/patella/registry'
-                                    component={() => <HealthCheckRegistry history={history} distinction="patella"/>}
+                                    component={() => <HealthCheckRegistry history={history} distinction="patella" />}
                                 />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/dysplasia/form'
-                                    component={() => <DysplasiaForm 
-                                        alias={userAlias} 
+                                    component={() => <DysplasiaForm
+                                        alias={userAlias}
                                         history={history}
                                         owner={userInfo.personal_information}
                                     />}
@@ -134,12 +138,12 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/dysplasia/view/:docId'
-                                    component={() => <DysplasiaForm alias={userAlias} history={history} status="view"/>}
+                                    component={() => <DysplasiaForm alias={userAlias} history={history} status="view" />}
                                 />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/dysplasia/edit/:docId'
-                                    component={() => <DysplasiaForm alias={userAlias} history={history} status="edit"/>}
+                                    component={() => <DysplasiaForm alias={userAlias} history={history} status="edit" />}
                                 />
                                 <Route
                                     exact={true}
@@ -184,7 +188,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:route/documents/application/registry'
-                                    component={() => <ApplicationRegistry history={history}/>}
+                                    component={() => <ApplicationRegistry history={history} />}
                                 />
                                 <Route
                                     component={() => <PageNotFound />}

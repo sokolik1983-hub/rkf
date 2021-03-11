@@ -11,6 +11,8 @@ import { clubNav } from "../../config";
 import Loading from "../../../../components/Loading";
 import { Request } from "../../../../utils/request";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
+import Banner from "../../../../components/Banner";
+import useIsMobile from "../../../../utils/useIsMobile";
 import "./styles.scss";
 
 
@@ -288,6 +290,7 @@ const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
 const DocHome = ({ clubAlias }) => {
     const [loading, setLoading] = useState(true);
     const [authorizedAccess, setAuthorizedAccess] = useState(null);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         (() => Request({
@@ -305,6 +308,7 @@ const DocHome = ({ clubAlias }) => {
         <aside className="documents-page__left">
             <StickyBox offsetTop={65}>
                 <UserMenu userNav={clubNav(clubAlias)} />
+                {!isMobile && <Banner type={8} />}
                 <CopyrightInfo withSocials={true} />
             </StickyBox>
         </aside>

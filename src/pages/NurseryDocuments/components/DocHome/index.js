@@ -10,6 +10,8 @@ import { Request } from "../../../../utils/request";
 import { kennelNav } from "../../config";
 import Loading from "../../../../components/Loading";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
+import Banner from "../../../../components/Banner";
+import useIsMobile from "../../../../utils/useIsMobile";
 import "./styles.scss";
 
 
@@ -219,6 +221,7 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
 const DocHome = ({ nurseryAlias }) => {
     const [loading, setLoading] = useState(true);
     const [authorizedAccess, setAuthorizedAccess] = useState(null);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         (() => Request({
@@ -236,11 +239,7 @@ const DocHome = ({ nurseryAlias }) => {
         <aside className="documents-page__left">
             <StickyBox offsetTop={65}>
                 <UserMenu userNav={kennelNav(nurseryAlias)} />
-                <div className="documents-page__publication">
-                    <a href="https://www.royal-canin.ru/breeders/partner/" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
-                        <img src="/static/images/publications/breeder-club.png" alt="" />
-                    </a>
-                </div>
+                {!isMobile && <Banner type={9} />}
                 <CopyrightInfo withSocials={true} />
             </StickyBox>
         </aside>
