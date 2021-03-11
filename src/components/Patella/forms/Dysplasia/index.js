@@ -88,15 +88,15 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
             <div className="flex-row heading-row">
                 <h4 className="caps" style={{ marginTop: '10px' }}>Добавление заявки</h4>
             </div>
-            {/* заменить на 'patella' когда будет необходимо */}
-            {(config.distinction === 'disabled') && <FormGroup>
+            <FormGroup>
                 <FormField
                     fieldType="customCheckbox"
                     name="express"
                     label='Срочное изготовление'
                     disabled={view || update}
                 />
-            </FormGroup>}
+            </FormGroup>
+            {(config.distinction === 'dysplasia') && !update && !view && <p style={{marginTop: '-20px', marginBottom: '16px'}}>Только при оценке внешним специалистом</p>}
             <FormGroup inline>
                 <FormField
                     disabled={update}
