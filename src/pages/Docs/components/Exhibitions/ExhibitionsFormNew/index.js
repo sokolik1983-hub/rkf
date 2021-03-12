@@ -14,7 +14,7 @@ import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker"
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormMultiSelect from "../../../../../components/kendo/Form/FormMultiSelect";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import { requiredValidator, requiredNcpValidator } from "../../../../../components/kendo/Form/validators";
+import { requiredValidator } from "../../../../../components/kendo/Form/validators";
 import { Request } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import "./index.scss";
@@ -30,6 +30,8 @@ loadMessages(ruMessages, 'ru');
 const requiredRanksMessage = 'Максимальное количество рангов 7';
 const requiredMessage = 'Обязательное поле';
 const requiredRankError = 'Исчерпан лимит по выбранным рангам';
+const requiredNcpMessage = 'Максимальное количество НКП 30';
+
 
 const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
@@ -39,12 +41,18 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
     const [statusId, setStatusId] = useState(null);
     const [formProps, setFormProps] = useState(null);
     const [loaded, setLoaded] = useState(false);
+    const [isRanksValid, setIsRanksValid] = useState(true);
+    const [isNcpValid, setIsNcpValid] = useState(true);
+    const [showCityWarning, setShowCityWarning] = useState(false);
     const [exhibitionProperties, setExhibitionProperties] = useState({
         formats: [],
         ranks: [],
         national_breed_clubs: [],
         forbidden_dates: [],
-        cities: []
+        cities: [],
+        year_forbidden_nkp: [],
+        year_forbidden_ranks: [],
+        year_warning_ranks: [],
     });
     const [initialValues, setInitialValues] = useState({
         id: '',
@@ -83,7 +91,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
 
     const getExhibitionProperties = async () => {
         await Request({
-            url: `/api/requests/exhibition_request/clubexhibitionrequest/exhibition_properties`
+            url: `/api/requests/exhibition_request/clubexhibitionrequest/exhibition_properties?isCreate=${true}`
         }, data => {
             if (data) {
                 setExhibitionProperties({
@@ -95,6 +103,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                     cities: data.cities,
                     year_forbidden_nkp: data.year_forbidden_nkp,
                     year_forbidden_ranks: data.year_forbidden_ranks,
+                    year_warning_ranks: data.year_warning_ranks,
                 });
             } else {
                 setError('Ошибка');
@@ -220,10 +229,32 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
 
     const requiredRanksValidator = value => {
         const pickedYear = formProps.valueGetter('date_begin') ? formProps.valueGetter('date_begin').getFullYear() : null;
-        let forbiddenRankIds = pickedYear ? exhibitionProperties.year_forbidden_ranks[pickedYear] : null;
+        let forbiddenRankIds = pickedYear ? exhibitionProperties?.year_forbidden_ranks[pickedYear] : null;
+        let warningRanks = pickedYear ? exhibitionProperties?.year_warning_ranks[pickedYear] : null;
         let pickedValues = value?.slice().map(i => i.value);
 
+        if (value && value.length <= 7) {
+            setIsRanksValid(true)
+        } else if (value && value.length > 7) {
+            setIsRanksValid(false)
+        }
+
+        if (checkDiff(pickedValues, warningRanks)) {
+            setShowCityWarning(true)
+        } else {
+            setShowCityWarning(false)
+        }
+
         return !value ? requiredMessage : value.length > 7 ? requiredRanksMessage : checkDiff(pickedValues, forbiddenRankIds) ? requiredRankError : '';
+    };
+
+    const requiredNcpValidator = value => {
+        if (value && value.length <= 30) {
+            setIsNcpValid(true)
+        } else if (value && value.length > 30) {
+            setIsNcpValid(false)
+        }
+        return !value ? requiredMessage : value.length > 30 ? requiredNcpMessage : ''
     };
 
     return (
@@ -249,7 +280,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                             const pickedYear = formRenderProps.valueGetter('date_begin') ?
                                 formRenderProps.valueGetter('date_begin').getFullYear() :
                                 null;
-                            const CAC_CH_F = ranksIds?.slice().map(i => i.value).includes(2);
+                            // const CAC_CH_F = ranksIds?.slice().map(i => i.value).includes(2);
 
                             return (
                                 <FormElement>
@@ -279,6 +310,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                             </div>
                                             <div>
                                                 <Field
+                                                    className={isRanksValid ? '' : 'k-state-invalid'}
                                                     id="rank_ids"
                                                     name="rank_ids"
                                                     label="Ранг выставки"
@@ -297,7 +329,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     disabled={!isCAC || !!status}
                                                     resetValue={isCAC ? false : []}
                                                 />
-                                                {CAC_CH_F && <span>Только для труднодоступных городов из списка, утвержденных Президиумом РКФ</span>}
+                                                {showCityWarning && <span>Только для труднодоступных городов из списка, утвержденных Президиумом РКФ</span>}
                                             </div>
                                             <div>
                                                 <LocalizationProvider language="ru">
@@ -354,6 +386,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                         <div className="application-form__row two-thirds-column">
                                             <div>
                                                 <Field
+                                                    className={isNcpValid ? '' : 'k-state-invalid'}
                                                     id="national_breed_club_ids"
                                                     name="national_breed_club_ids"
                                                     label="Выберите НКП"
