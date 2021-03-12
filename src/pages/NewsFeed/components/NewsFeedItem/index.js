@@ -64,7 +64,7 @@ const NewsFeedItem = forwardRef(({
     is_request_article,
     member = false,
     must_read,
-    is_read,
+    is_read
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -105,6 +105,14 @@ const NewsFeedItem = forwardRef(({
             }
         }
 
+        const formatDate = date => {
+            if (new Date(date).getFullYear() === new Date().getFullYear()) {
+                return moment(create_date).format('DD MMM')
+            } else {
+                return moment(create_date).format('DD MMM Y')
+            }
+        }
+
         return <>
             <div className="NewsFeedItem__content">
                 <div className="NewsFeedItem__head" style={{ margin: '0 10px 0 10px' }}>
@@ -120,32 +128,43 @@ const NewsFeedItem = forwardRef(({
                             }} />
                         </Link>
                         <span className="NewsFeedItem__left-name">
-                            <span>
-                                {(user_type === 3 || user_type === 4 || user_type === 5) &&
-                                    <>
-                                        {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}
-                                &nbsp;
-                            </>
-                                }
-                                <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                            {is_request_article
+                                ? <div>
+                                    <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                                        {user_type === 1 ? first_name + ' ' + last_name : name}
+                                    </Link>
+                                    <span>{`, ${formatDate(create_date)}`}</span>&nbsp;
+                                    {formatText(content)}
+                                </div>
+                                : <>
+                                    <span>
+                                        {(user_type === 3 || user_type === 4 || user_type === 5) &&
+                                            <>
+                                                {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}
+                                                &nbsp;
+                                            </>
+                                        }
+                                        <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
 
-                                    {user_type === 1 ? first_name + ' ' + last_name : name}
-                                </Link>
-                                {active_rkf_user &&
-                                    <ActiveUserMark />
-                                }
-                                {active_member &&
-                                    <FederationChoiceMark />
-                                }
-                            </span>
-                            <div style={{ display: 'flex' }}>
-                                {formatDateTime(create_date)}
-                                {fact_city_name &&
-                                    <span className="NewsFeedItem__city" title={fact_city_name}>
-                                        {fact_city_name}
+                                            {user_type === 1 ? first_name + ' ' + last_name : name}
+                                        </Link>
+                                        {active_rkf_user &&
+                                            <ActiveUserMark />
+                                        }
+                                        {active_member &&
+                                            <FederationChoiceMark />
+                                        }
                                     </span>
-                                }
-                            </div>
+                                    <div style={{ display: 'flex' }}>
+                                        {formatDateTime(create_date)}
+                                        {fact_city_name &&
+                                            <span className="NewsFeedItem__city" title={fact_city_name}>
+                                                {fact_city_name}
+                                            </span>
+                                        }
+                                    </div>
+                                </>
+                            }
                         </span>
                     </div>
                     <div className="NewsFeedItem__right" >
@@ -220,10 +239,10 @@ const NewsFeedItem = forwardRef(({
                             {is_closed_advert && <div className="NewsFeedItem__ad-inactive" >Объявление не активно</div>}
                         </div>
                     </div>}
-                    <p className={`NewsFeedItem__text${!canCollapse ? ' _disabled' : ''}`}
+                    {!is_request_article && <p className={`NewsFeedItem__text${!canCollapse ? ' _disabled' : ''}`}
                         ref={ref}
                         dangerouslySetInnerHTML={{ __html: formatText(content) }}
-                    />
+                    />}
                     {videoLink &&
                         <iframe
                             className={`NewsFeedItem__video${!collapsed ? ' _disabled' : ''}`}

@@ -4,6 +4,12 @@
     padding: 10px 0 10px 0 !important;
   }
   &.is-request-article {
+    .NewsFeedItem__left {
+      height: auto;
+      a {
+        display: inline;
+      }
+    }
     .NewsFeedItem__controls {
       display: none;
     }
@@ -418,7 +424,7 @@
         cursor: pointer;
       }
       .colored-icon {
-        color: #FF6977 !important;
+        color: #ff6977 !important;
       }
     }
     &-right {
