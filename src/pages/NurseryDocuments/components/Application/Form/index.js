@@ -21,7 +21,7 @@ import {
     documentRequiredValidator, requiredWithTrimValidator,
     documentTypeRequired, innValidator, requiredValidator, nameValidator
 } from "../../../../../components/kendo/Form/validators";
-import {PromiseRequest, Request} from "../../../../../utils/request";
+import { PromiseRequest, Request } from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import "./index.scss";
@@ -60,11 +60,14 @@ const Application = ({ alias, history, status }) => {
         payment_number: '',
         payment_document_id: '',
         payment_name: '',
+        application_document_id: '',
+        application_document_accept: '',
         inn: '',
         comment: '',
         document_type_id: 0,
         rkf_document_type_id: 0,
         payment_document: [],
+        application_document: [],
         documents: []
     });
     const editable = !status || status === 'edit';
@@ -72,15 +75,15 @@ const Application = ({ alias, history, status }) => {
     useEffect(() => {
         if (!status) {
             Promise.all([
-                PromiseRequest({url: '/api/nurseries/Nursery/pedigree_request_information'}),
-                PromiseRequest({url: '/api/nurseries/nurserydeclarant/nursery_declarants'}),
-                PromiseRequest({url: '/api/requests/commonrequest/rkf_document_types'})
+                PromiseRequest({ url: '/api/nurseries/Nursery/pedigree_request_information' }),
+                PromiseRequest({ url: '/api/nurseries/nurserydeclarant/nursery_declarants' }),
+                PromiseRequest({ url: '/api/requests/commonrequest/rkf_document_types' })
             ]).then(data => {
                 const owner = data[0];
                 const declarants = data[1];
                 const documents = data[2];
 
-                let newInitialValues = {...initialValues};
+                let newInitialValues = { ...initialValues };
 
                 if (owner) {
                     setOwner(owner);
@@ -184,10 +187,12 @@ const Application = ({ alias, history, status }) => {
 
     const handleSubmit = async data => {
         const paymentId = formProps.valueGetter('payment_document')[0]?.id;
+        const applicationDocumentId = formProps.valueGetter('application_document')[0]?.id;
         setDisableSubmit(true);
         let newData = {
             ...data,
-            payment_document_id: paymentId ? paymentId : data.payment_document_id
+            payment_document_id: paymentId ? paymentId : data.payment_document_id,
+            application_document_id: applicationDocumentId ? applicationDocumentId : data.application_document_id
         };
 
         newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
@@ -195,6 +200,7 @@ const Application = ({ alias, history, status }) => {
         delete newData.declarant_name;
         delete newData.document_type_id;
         delete newData.payment_document;
+        delete newData.application_document;
 
         if (status === 'edit') {
             newData.id = values.id;
@@ -525,7 +531,39 @@ const Application = ({ alias, history, status }) => {
                                             />
                                         </div>
                                     </div>
-
+                                    <div className="application-form__content">
+                                        <h4 className="application-form__title no-margin">Заявочный лист</h4>
+                                        <div className="application-form__row">
+                                            {editable
+                                                ? <div className="application-form__file">
+                                                    <Field
+                                                        id="application_document"
+                                                        name="application_document"
+                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                        component={FormUpload}
+                                                        saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
+                                                        saveField="document"
+                                                        multiple={false}
+                                                        showActionButtons={true}
+                                                        disabled={values?.application_document_accept}
+                                                        onBeforeUpload={e => onBeforeUpload(e, 47)}
+                                                        onStatusChange={e => onStatusChange(e, 'application_document')}
+                                                        onProgress={e => onProgress(e, 'application_document')}
+                                                        validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document'))}
+                                                    />
+                                                    {values &&
+                                                        values.application_document_id &&
+                                                        !formRenderProps.valueGetter('application_document_id').length &&
+                                                        <DocumentLink docId={values.application_document_id} />
+                                                    }
+                                                </div>
+                                                : values?.application_document_id && <div className="application-form__file">
+                                                    <p className="k-label">Заявочный лист</p>
+                                                    <DocumentLink docId={values.application_document_id} />
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
                                     <div className="application-form__content">
                                         <h4 className="application-form__title">Документы</h4>
                                         {!!status && values &&
