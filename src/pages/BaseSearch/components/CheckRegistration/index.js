@@ -9,7 +9,7 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import '../FoundInfo/index.scss';
 
 
-const CheckRegistration = ({registration_clicked}) => {
+const CheckRegistration = ({ registration_clicked }) => {
     const [stamp_number, setStampNumber] = useState('');
     const [stamp_code, setStampCode] = useState('');
     const [status, setStatus] = useState(false);
@@ -110,7 +110,7 @@ const CheckRegistration = ({registration_clicked}) => {
                             disabled={loading}
                             onClick={handleReset}
                         >
-                            <span/>
+                            <span />
                         </button>
                     </div>
                     :
@@ -134,7 +134,8 @@ const CheckRegistration = ({registration_clicked}) => {
                         {status.status === 2 && <p>{status.message}</p>}
                         {status.status === 3 &&
                             <>
-                                <p>Данный помет не зарегистрирован в РКФ. Для уточнения деталей обратитесь в клуб/питомник.</p>
+                                <p style={{ color: 'red' }}>Данный помет не зарегистрирован в РКФ. Для уточнения деталей обратитесь в клуб/питомник. <br />
+                                Вы не можете подать заявку на оформление родословной.</p>
                                 <CardOrganization
                                     alias={status.alias}
                                     logo={status.logo}
