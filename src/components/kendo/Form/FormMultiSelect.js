@@ -4,7 +4,7 @@ import { Label, Error } from "@progress/kendo-react-labels";
 import { MultiSelect } from '@progress/kendo-react-dropdowns';
 
 const FormMultiSelect = fieldRenderProps => {
-    const { validationMessage, touched, label, id, valid, disabled, hint, wrapperStyle, data, value, onChange, resetValue, selectType, ...others } = fieldRenderProps;
+    const { validationMessage, touched, label, id, valid, disabled, hint, wrapperStyle, data, value, onChange, resetValue, selectType, className, ...others } = fieldRenderProps;
     const [dropdownValues, setDropdownValues] = useState(data.filter(selectType === 'rank' ? (d => d.value === value) : (d => d.id === value)));
     const editorRef = React.useRef(null);
     const showValidationMessage = touched && validationMessage;
@@ -35,6 +35,7 @@ const FormMultiSelect = fieldRenderProps => {
                 {label}
             </Label>
             <MultiSelect
+                className={className}
                 ariaLabelledBy={labelId}
                 ariaDescribedBy={`${errorId}`}
                 ref={editorRef}
