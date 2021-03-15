@@ -6,7 +6,7 @@ import {Request} from "../../../utils/request";
 import {endpointEditExhibitionPicture} from "../config";
 import "./index.scss";
 
-const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link, catalog_link}) => {
+const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link, catalog_link, phones, emails}) => {
     const [initialValues, setInitialValues] = useState(null);
     const {
         id,
@@ -53,6 +53,13 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
                 values[`time_start_${date.id}`] = date.time_start || '';
                 values[`time_end_${date.id}`] = date.time_end || '';
             });
+        }
+
+        if (phones && phones.length) {
+            values.phones = phones
+        }
+        if (emails && emails.length) {
+            values.emails = emails
         }
 
         setInitialValues(values);
@@ -122,7 +129,9 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
                 additional_info: values.additional_info,
                 address_additional_info: values.address_additional_info
             },
-             documents_links: docLinks
+             documents_links: docLinks,
+             phones: values.phones,
+             emails: values.emails,
         };
 
          if(values.schedule_url) {

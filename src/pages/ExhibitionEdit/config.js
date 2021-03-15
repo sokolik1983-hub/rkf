@@ -1,4 +1,4 @@
-import {object, string} from "yup";
+import {object, string, array} from "yup";
 
 export const endpointExhibition = '/api/exhibitions/Exhibition/with_document_links';
 export const endpointEditExhibitionPicture = '/api/exhibitions/Picture/';
@@ -104,6 +104,8 @@ export const exhibitionInfoForm = {
             .required('Укажите город'),
         address: string()
             .required('Укажите адрес'),
+        phones: array(),
+        emails: array(),
         // rank_types: array()
         //     .required('Укажите Ранг выставки'),
         // class_types: array()
