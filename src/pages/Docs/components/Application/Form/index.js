@@ -225,7 +225,7 @@ const Application = ({ alias, history, status }) => {
                 ];
             }
         }
-
+        
         await Request({
             url: '/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest',
             method: status === 'edit' ? 'PUT' : 'POST',
@@ -364,7 +364,7 @@ const Application = ({ alias, history, status }) => {
                                                 label="Из возврата/исправление ошибки"
                                                 component={FormContactsCheckbox}
                                                 onChange={handleChange}
-                                                disabled={!editable}
+                                                disabled={!editable || (status === 'edit' && formRenderProps.valueGetter('is_return') === false)}
                                             />
                                         </div>
                                         <div className="application-form__row-is-foreign">
@@ -552,13 +552,15 @@ const Application = ({ alias, history, status }) => {
                                                             component={FormComboBox}
                                                             textField={'name'}
                                                             data={breeds}
-                                                            placeholder={formRenderProps.valueGetter('breed_name')
+                                                            placeholder={formRenderProps.valueGetter('breed_id')
                                                                 ? formRenderProps.valueGetter('breed_name') : ''}
                                                             onChange={formRenderProps.onChange}
-
+                                                            clearButton={editable}
                                                             resetValue={isBreedNeeded(formRenderProps.valueGetter('rkf_document_type_id')) ? false : { value: '' }}
                                                             validationMessage="Обязательное поле"
-                                                            required={formRenderProps.modified && isBreedNeeded(formRenderProps.valueGetter('rkf_document_type_id'))}
+                                                            required={formRenderProps.modified
+                                                                && isBreedNeeded(formRenderProps.valueGetter('rkf_document_type_id'))
+                                                                && (!status || (status === 'edit' && initialValues.breed_id))}
                                                             value={formRenderProps.valueGetter('breed_id')}
                                                             disabled={!isBreedNeeded(formRenderProps.valueGetter('rkf_document_type_id')) || !editable}
                                                         />
@@ -568,39 +570,40 @@ const Application = ({ alias, history, status }) => {
                                             <div></div>
                                         </div>
                                     </div>
-                                    <div className="application-form__content">
-                                        <h4 className="application-form__title no-margin">Заявочный лист</h4>
-                                        <div className="application-form__row">
-                                            {editable
-                                                ? <div className="application-form__file">
-                                                    <Field
-                                                        id="application_document"
-                                                        name="application_document"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                        component={FormUpload}
-                                                        saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
-                                                        saveField="document"
-                                                        multiple={false}
-                                                        showActionButtons={true}
-                                                        disabled={values?.application_document_accept}
-                                                        onBeforeUpload={e => onBeforeUpload(e, 47)}
-                                                        onStatusChange={e => onStatusChange(e, 'application_document')}
-                                                        onProgress={e => onProgress(e, 'application_document')}
-                                                        validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document'))}
-                                                    />
-                                                    {values &&
-                                                        values.application_document_id &&
-                                                        !formRenderProps.valueGetter('application_document_id').length &&
+                                    {(editable || values?.application_document_id) &&
+                                        <div className="application-form__content">
+                                            <h4 className="application-form__title no-margin">Заявочный лист</h4>
+                                            <div className="application-form__row">
+                                                {editable
+                                                    ? <div className="application-form__file">
+                                                        <Field
+                                                            id="application_document"
+                                                            name="application_document"
+                                                            fileFormats={['.pdf', '.jpg', '.jpeg']}
+                                                            component={FormUpload}
+                                                            saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
+                                                            saveField="document"
+                                                            multiple={false}
+                                                            showActionButtons={true}
+                                                            disabled={values?.application_document_accept}
+                                                            onBeforeUpload={e => onBeforeUpload(e, 47)}
+                                                            onStatusChange={e => onStatusChange(e, 'application_document')}
+                                                            onProgress={e => onProgress(e, 'application_document')}
+                                                            validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document'))}
+                                                        />
+                                                        {values &&
+                                                            values.application_document_id &&
+                                                            !formRenderProps.valueGetter('application_document_id').length &&
+                                                            <DocumentLink docId={values.application_document_id} />
+                                                        }
+                                                    </div>
+                                                    : values?.application_document_id && <div className="application-form__file">
+                                                        <p className="k-label">Заявочный лист</p>
                                                         <DocumentLink docId={values.application_document_id} />
-                                                    }
-                                                </div>
-                                                : values?.application_document_id && <div className="application-form__file">
-                                                    <p className="k-label">Заявочный лист</p>
-                                                    <DocumentLink docId={values.application_document_id} />
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>}
                                     <div className="application-form__content">
                                         <h4 className="application-form__title">Документы</h4>
                                         {!!status && values &&
