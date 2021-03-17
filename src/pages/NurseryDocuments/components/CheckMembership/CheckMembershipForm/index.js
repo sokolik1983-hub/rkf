@@ -279,7 +279,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                         {!isView ? <Field
                                                             id="changes_confirmation_document_id"
                                                             name="changes_confirmation_document_id"
-                                                            fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                            fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                             component={FormUpload}
                                                             saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
                                                             saveField="document"
@@ -311,7 +311,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                         {!isView ? <Field
                                                             id="membership_confirmation_document_id"
                                                             name="membership_confirmation_document_id"
-                                                            fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                            fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                             component={FormUpload}
                                                             showActionButtons={!documentsOverflow}
                                                             saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
@@ -351,7 +351,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                 {!isView ? <Field
                                                                     id="mating_whelping_book_document_id"
                                                                     name="mating_whelping_book_document_id"
-                                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                                    fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                                     component={FormUpload}
                                                                     showActionButtons={!documentsOverflow}
                                                                     saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
@@ -396,14 +396,14 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                             <div className="application-form__content">
                                                 <h4 className="application-form__title">Информация о платеже</h4>
                                                 {!disableAllFields && <>
-                                                    <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже<br />(PDF, JPEG, JPG, PNG).</p>
+                                                    <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже<br />(PDF, JPEG, JPG).</p>
                                                 </>}
                                                 <div className="application-form__row">
                                                     <div className="application-form__file">
                                                         {!isView ? <Field
                                                             id="payment_document_id"
                                                             name="payment_document_id"
-                                                            fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                            fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                             component={FormUpload}
                                                             saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
                                                             saveField="document"

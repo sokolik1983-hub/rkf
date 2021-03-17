@@ -479,7 +479,7 @@ const Application = ({ alias, history, status, owner }) => {
                                                         rel="noopener noreferrer"
                                                         className="application-form__how-to-link"
                                                     >объединить их в один файл </a>
-                                                (PDF, JPEG, JPG, PNG)
+                                                (PDF, JPEG, JPG)
                                                 </>
                                             </LightTooltip>.
                                 </div>
@@ -490,7 +490,7 @@ const Application = ({ alias, history, status, owner }) => {
                                             <Field
                                                 id="documents"
                                                 name="documents"
-                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                 component={FormUpload}
                                                 saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
                                                 saveField="document"
@@ -521,7 +521,7 @@ const Application = ({ alias, history, status, owner }) => {
                                 <div className="application-form__content">
                                     <h4 className="application-form__title">Информация о платеже</h4>
                                     {!disableAllFields && <>
-                                        <p style={{marginBottom: '10px'}}>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                        <p style={{marginBottom: '10px'}}>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG).</p>
                                         <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
                                     </>
                                     }
@@ -531,7 +531,7 @@ const Application = ({ alias, history, status, owner }) => {
                                                 <Field
                                                     id="payment_document"
                                                     name="payment_document"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                     component={FormUpload}
                                                     saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
                                                     saveField="document"
@@ -550,7 +550,7 @@ const Application = ({ alias, history, status, owner }) => {
                                                 }
                                             </div>
                                             : <div className="application-form__file">
-                                                <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
+                                                <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
                                                 <DocumentLink docId={values.payment_document_id} />
                                             </div>
                                         }

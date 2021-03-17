@@ -19,7 +19,7 @@ const config = {
         document: {
             name: 'document',
             type: 'file',
-            accept: '.jpg, .jpeg, .png'
+            accept: '.jpg, .jpeg'
         }
     },
     validationSchema: object().shape({
@@ -58,7 +58,7 @@ const ReportError = ({ id, declarant_uid, setIsNestedOpen }) => {
             <FormGroup>
                 <FormField {...fields.error_message} />
                 <div className="FormInput">
-                    <label htmlFor="document">Прикрепите файл (JPEG, JPG, PNG)</label>
+                    <label htmlFor="document">Прикрепите файл (JPEG, JPG)</label>
                     <FormFile {...fields.document} />
                 </div>
             </FormGroup>

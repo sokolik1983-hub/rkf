@@ -222,8 +222,8 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                     <Field
                                                         id="veterinary_contract_document"
                                                         name="veterinary_contract_document"
-                                                        label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                        label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)"
+                                                        fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                         component={FormUpload}
                                                         validator={documentRequiredValidatorTypeArray}
                                                     />
@@ -237,8 +237,8 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                     <Field
                                                         id="roentgenogram_document"
                                                         name="roentgenogram_document"
-                                                        label="Рентгенограмма (PDF, JPEG, JPG, PNG)"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                        label="Рентгенограмма (PDF, JPEG, JPG)"
+                                                        fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                         component={FormUpload}
                                                         validator={documentRequiredValidatorTypeArray}
                                                     />
@@ -301,12 +301,12 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                     <div className="dysplasia-form__row _files" style={{marginTop: '16px'}}>
                                         <div className="dysplasia-form__file">
                                             <div>
-                                                Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)
+                                                Соглашение на обработку персональных данных (PDF, JPEG, JPG)
                                             </div><a href={privacyHref} style={{ textDecoration: 'none' }}> Скачать форму соглашения</a>
                                             <Field
                                                 id="personal_data_document"
                                                 name="personal_data_document"
-                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                 component={FormUpload}
                                                 validator={documentRequiredValidatorTypeArray}
                                             />
@@ -320,8 +320,8 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                             <Field
                                                 id="pedigree_document"
                                                 name="pedigree_document"
-                                                label="Загрузите родословную (PDF, JPEG, JPG, PNG)"
-                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                label="Загрузите родословную (PDF, JPEG, JPG)"
+                                                fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                 component={FormUpload}
                                                 validator={documentRequiredValidatorTypeArray}
                                             />
@@ -343,7 +343,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                     <div className="dysplasia-form__row">
                                         {disableAllFields && values &&
                                             <div className="dysplasia-form__file">
-                                                <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
+                                                <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
                                                 <DocumentLink docId={values.payment_document_id} />
                                             </div>
                                         }
@@ -352,8 +352,8 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                 <Field
                                                     id="payment_document"
                                                     name="payment_document"
-                                                    label="Квитанция об оплате (PDF, JPEG, JPG, PNG)"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    label="Квитанция об оплате (PDF, JPEG, JPG)"
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                     component={FormUpload}
                                                     validator={documentRequiredValidatorTypeArray}
                                                 />

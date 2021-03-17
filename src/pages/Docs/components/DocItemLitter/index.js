@@ -16,7 +16,7 @@ import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
 
-const accept = ".pdf, .jpg, .jpeg, .png";
+const accept = ".pdf, .jpg, .jpeg";
 // litter
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref, stampCodes, clubAlias }) => {
     const distinction = "litter";
@@ -172,7 +172,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update || filledEverk('address_lat')} name={`declarants[${i}].address_lat`} label='Адрес заводчика латиницей'/>
 
             {/*files*/}
-            <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>
+            <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG</h4>
             <FormGroup inline>
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}

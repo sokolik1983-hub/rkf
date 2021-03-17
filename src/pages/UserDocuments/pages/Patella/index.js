@@ -181,7 +181,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                         {disableAllFields && values &&
                                             <>
                                                 <div className="patella-form__file">
-                                                    <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)</p>
+                                                    <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)</p>
                                                     <DocumentLink docId={values.veterinary_contract_document_id} />
                                                 </div>
                                                 <div className="dysplasia-form__file" style={{marginTop: '48px'}}>
@@ -195,8 +195,8 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                 <Field
                                                     id="veterinary_contract_document"
                                                     name="veterinary_contract_document"
-                                                    label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)"
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                     component={FormUpload}
                                                     validator={documentRequiredValidatorTypeArray}
                                                 />
@@ -208,8 +208,8 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                 <Field
                                                     id="pedigree_document"
                                                     name="pedigree_document"
-                                                    label="Загрузите родословную (PDF, JPEG, JPG, PNG)"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    label="Загрузите родословную (PDF, JPEG, JPG)"
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                     component={FormUpload}
                                                     validator={documentRequiredValidatorTypeArray}
                                                 />
@@ -278,7 +278,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                     <div className="patella-form__row">
                                         {disableAllFields && values &&
                                             <div className="patella-form__file">
-                                                <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
+                                                <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
                                                 <DocumentLink docId={values.payment_document_id} />
                                             </div>
                                         }
@@ -287,8 +287,8 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                 <Field
                                                     id="payment_document"
                                                     name="payment_document"
-                                                    label="Квитанция об оплате (PDF, JPEG, JPG, PNG)"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    label="Квитанция об оплате (PDF, JPEG, JPG)"
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                     component={FormUpload}
                                                     validator={documentRequiredValidatorTypeArray}
                                                 />

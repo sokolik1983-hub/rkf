@@ -177,33 +177,33 @@ export const activationForm = {
         },
         certificate_registration_nursery: {
             name: 'certificate_registration_nursery',
-            label: 'Копия свидетельства о регистрации питомника (PDF, JPEG, JPG, PNG)',
+            label: 'Копия свидетельства о регистрации питомника (PDF, JPEG, JPG)',
             fieldType: 'fileDownloadable',
-            accept: '.pdf, .jpg, .jpeg, .png'
+            accept: '.pdf, .jpg, .jpeg'
         },
         certificate_registration_in_rkf: {
             name: 'certificate_registration_in_rkf',
-            label: 'Копия свидетельства о регистрации в Федерации (PDF, JPEG, JPG, PNG)',
+            label: 'Копия свидетельства о регистрации в Федерации (PDF, JPEG, JPG)',
             fieldType: 'fileDownloadable',
-            accept: '.pdf, .jpg, .jpeg, .png'
+            accept: '.pdf, .jpg, .jpeg'
         },
         certificate_special_education: {
             name: 'certificate_special_education',
-            label: 'Копия свидетельства о специальном образовании (PDF, JPEG, JPG, PNG)',
+            label: 'Копия свидетельства о специальном образовании (PDF, JPEG, JPG)',
             fieldType: 'fileDownloadable',
-            accept: '.pdf, .jpg, .jpeg, .png'
+            accept: '.pdf, .jpg, .jpeg'
         },
         certificate_specialist_rkf: {
             name: 'certificate_specialist_rkf',
-            label: 'Копия свидетельства о присвоении звания специалиста РКФ (PDF, JPEG, JPG, PNG)',
+            label: 'Копия свидетельства о присвоении звания специалиста РКФ (PDF, JPEG, JPG)',
             fieldType: 'fileDownloadable',
-            accept: '.pdf, .jpg, .jpeg, .png'
+            accept: '.pdf, .jpg, .jpeg'
         },
         certificate_honorary_title: {
             name: 'certificate_honorary_title',
-            label: 'Копия удостоверения или равного ему документа о присвоении почётного звания(знака) РФСС и/или РКФ (PDF, JPEG, JPG, PNG)',
+            label: 'Копия удостоверения или равного ему документа о присвоении почётного звания(знака) РФСС и/или РКФ (PDF, JPEG, JPG)',
             fieldType: 'fileDownloadable',
-            accept: '.pdf, .jpg, .jpeg, .png'
+            accept: '.pdf, .jpg, .jpeg'
         }
     },
     validationSchema: object().shape({
