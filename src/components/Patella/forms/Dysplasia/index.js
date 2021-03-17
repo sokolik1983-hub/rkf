@@ -134,6 +134,25 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 {everk && !view && <Button className='btn btn-red' onClick={e => deleteClick()}>Удалить</Button>}
             </FormGroup>
 
+            <FormGroup inline>
+                <FormFile
+                    name={`pedigree_document`}
+                    label='Родословная (PDF, JPEG, JPG, PNG)'
+                    docId={formik.values.pedigree_document_id}
+                    disabled={view || formik.values.pedigree_document_accept}
+                    document_type_id={7}
+                    profileType={config.profileType}
+                />
+                {(config.distinction !== 'patella') && <FormFile
+                    name={`personal_data_document`}
+                    label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
+                    docId={formik.values.personal_data_document_id}
+                    disabled={view || formik.values.personal_data_document_accept}
+                    document_type_id={11}
+                    profileType={config.profileType}
+                />}
+            </FormGroup>
+
             <FormGroup>
                 <br />
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>

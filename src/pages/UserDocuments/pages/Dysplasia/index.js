@@ -13,14 +13,17 @@ import DocumentLink from "../../components/DocumentLink";
 import {
     dateRequiredValidator, nameRequiredValidator,
     requiredValidator,
-    requiredWithTrimValidator
+    requiredWithTrimValidator, documentRequiredValidatorTypeArray
 } from "../../../../components/kendo/Form/validators";
 import { Request } from "../../../../utils/request";
 import flatten from "../../../../utils/flatten";
 import "./index.scss";
 
+const apiPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
 
 const DysplasiaForm = ({ alias, history, status, owner }) => {
+    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
+    const [privacyHref, setPrivacyHref] = useState('');
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [disableFields, setDisableFields] = useState(false);
@@ -34,12 +37,22 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
         pedigree_number: '',
         dog_name: '',
         roentgenogram_document: [],
+        personal_data_document: [],
+        pedigree_document: [],
         payment_document: [],
         payment_date: '',
         payment_number: '',
         payment_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         comment: ''
     });
+
+    useEffect(() => {
+        Promise.all([
+            fetch(apiPrivacyEndpoint, { headers })
+                .then(response => response.blob())
+                .then(data => setPrivacyHref(URL.createObjectURL(data))),
+        ])
+    }, []);
 
     useEffect(() => {
         if (status) {
@@ -94,19 +107,21 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
     const handleSubmit = async data => {
         setDisableSubmit(true);
         setDisableFields(false);
-
         const payment_document = data.payment_document.length ? data.payment_document[0].getRawFile() : null;
         const roentgenogram_document = data.roentgenogram_document.length ? data.roentgenogram_document[0].getRawFile() : null;
         const veterinary_contract_document = data.veterinary_contract_document.length ? data.veterinary_contract_document[0].getRawFile() : null;
+        const personal_data_document = data.personal_data_document.length ? data.personal_data_document[0].getRawFile() : null;
+        const pedigree_document = data.pedigree_document.length ? data.pedigree_document[0].getRawFile() : null;
 
-        let newData = { ...data, veterinary_contract_document, roentgenogram_document, payment_document };
+        let newData = { ...data, veterinary_contract_document, roentgenogram_document, payment_document, pedigree_document, personal_data_document };
         delete newData.declarant_name;
-
         if (status === 'edit') {
             newData.id = values.id;
             if (!payment_document) newData.payment_document_id = values.payment_document_id;
             if (!roentgenogram_document) newData.roentgenogram_document_id = values.roentgenogram_document_id;
             if (!veterinary_contract_document) newData.veterinary_contract_document_id = values.veterinary_contract_document_id;
+            if (!personal_data_document) newData.personal_data_document = values.personal_data_document;
+            if (!pedigree_document) newData.pedigree_document = values.pedigree_document;
         }
 
         newData = flatten(newData);
@@ -163,7 +178,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                             label="Срочное изготовление"
                                             component={FormContactsCheckbox}
                                             onChange={handleChange}
-                                            disabled={disableAllFields}
+                                            disabled={disableAllFields || status === 'edit'}
                                         />
                                     </div>
                                     {!disableAllFields && <p>Только при оценке внешним специалистом</p>}
@@ -178,16 +193,28 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                     </div>
                                     <div className="dysplasia-form__row _files">
                                         {disableAllFields && values &&
-                                            <>
-                                                <div className="dysplasia-form__file">
-                                                    <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)</p>
-                                                    <DocumentLink docId={values.veterinary_contract_document_id} />
+                                            <div>
+                                                <div style={{display: 'flex', flexDirection: 'row'}}>
+                                                    <div className="dysplasia-form__file">
+                                                        <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача</p>
+                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                    </div>
+                                                    <div className="dysplasia-form__file">
+                                                        <p className="k-label">Рентгенограмма</p>
+                                                        <DocumentLink docId={values.roentgenogram_document_id} />
+                                                    </div>
                                                 </div>
-                                                <div className="dysplasia-form__file">
-                                                    <p className="k-label">Рентгенограмма (PDF, JPEG, JPG, PNG)</p>
-                                                    <DocumentLink docId={values.roentgenogram_document_id} />
+                                                <div  style={{display: 'flex', flexDirection: 'row'}}>
+                                                    <div className="dysplasia-form__file">
+                                                        <p className="k-label">Соглашение на обработку персональных данных</p>
+                                                        <DocumentLink docId={values.pedigree_document_id} />
+                                                    </div>
+                                                    <div style={{marginLeft: '50px'}}>
+                                                        <p className="k-label">Родословная</p>
+                                                        <DocumentLink docId={values.personal_data_document_id} />
+                                                    </div>
                                                 </div>
-                                            </>
+                                            </div>
                                         }
                                         {!disableAllFields &&
                                             <>
@@ -198,7 +225,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)"
                                                         fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                         component={FormUpload}
-                                                        validator={requiredValidator}
+                                                        validator={documentRequiredValidatorTypeArray}
                                                     />
                                                     {values &&
                                                         values.veterinary_contract_document_id &&
@@ -213,7 +240,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         label="Рентгенограмма (PDF, JPEG, JPG, PNG)"
                                                         fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                         component={FormUpload}
-                                                        validator={requiredValidator}
+                                                        validator={documentRequiredValidatorTypeArray}
                                                     />
                                                     {values &&
                                                         values.roentgenogram_document_id &&
@@ -270,6 +297,42 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                         }
                                     </div>
                                 </div>
+                                {!disableAllFields &&
+                                    <div className="dysplasia-form__row _files" style={{marginTop: '16px'}}>
+                                        <div className="dysplasia-form__file">
+                                            <div>
+                                                Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)
+                                            </div><a href={privacyHref} style={{ textDecoration: 'none' }}> Скачать форму соглашения</a>
+                                            <Field
+                                                id="personal_data_document"
+                                                name="personal_data_document"
+                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                component={FormUpload}
+                                                validator={documentRequiredValidatorTypeArray}
+                                            />
+                                            {values &&
+                                                values.personal_data_document_id &&
+                                                !formRenderProps.valueGetter('personal_data_document').length &&
+                                                <DocumentLink docId={values.personal_data_document_id} />
+                                            }
+                                        </div>
+                                        <div className="dysplasia-form__file">
+                                            <Field
+                                                id="pedigree_document"
+                                                name="pedigree_document"
+                                                label="Загрузите родословную (PDF, JPEG, JPG, PNG)"
+                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                component={FormUpload}
+                                                validator={documentRequiredValidatorTypeArray}
+                                            />
+                                            {values &&
+                                                values.pedigree_document_id &&
+                                                !formRenderProps.valueGetter('pedigree_document').length &&
+                                                <DocumentLink docId={values.pedigree_document_id} />
+                                            }
+                                        </div>
+                                    </div>
+                                }
                                 <div className="dysplasia-form__content">
                                     <h4 className="dysplasia-form__title">Информация о платеже</h4>
                                     {!disableAllFields && <>
@@ -292,7 +355,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                     label="Квитанция об оплате (PDF, JPEG, JPG, PNG)"
                                                     fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                     component={FormUpload}
-                                                    validator={requiredValidator}
+                                                    validator={documentRequiredValidatorTypeArray}
                                                 />
                                                 {values &&
                                                     values.payment_document_id &&
