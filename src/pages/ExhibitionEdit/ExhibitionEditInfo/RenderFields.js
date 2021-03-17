@@ -4,19 +4,26 @@ import {FormGroup, FormField, FormControls} from "../../../components/Form";
 import {exhibitionInfoForm} from "../config";
 import {DEFAULT_IMG} from "../../../appConfig";
 import { acceptType } from "../../../utils/checkImgType";
+import Contacts from "./components/Contacts";
 
 
-const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setInitialValues}) => {
+const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setInitialValues,}) => {
     const [avatarSrc, setAvatarSrc] = useState(avatar);
     const [mapSrc, setMapSrc] = useState(map);
     const [docs, setDocs] = useState(documents);
     const [docField, setDocField] = useState(null);
     const {fields} = exhibitionInfoForm;
+    const {
+       phones,
+       emails,
+    } = formik.values;
+
 
     useEffect(() => {
         formik.setFieldValue('avatar', avatar);
         formik.setFieldValue('map', map);
     }, []);
+
 
     const handleValidate = value => {
         let error;
@@ -183,6 +190,10 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     {...fields.catalog_name}
                 />
             </FormGroup>
+            <Contacts 
+                phones={phones} 
+                emails={emails} 
+                errors={formik.errors}/>
             <div className="exhibition-edit__documents">
                 <h3>Документы</h3>
                 {docs && !!docs.length &&
