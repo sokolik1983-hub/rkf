@@ -14,6 +14,7 @@ import FormUpload from "./components/FormUpload";
 import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
+import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import DocumentLink from "../../DocumentLink";
 import DocumentLinksArray from "../../DocumentLinksArray";
 import {
@@ -39,6 +40,7 @@ const Application = ({ alias, history, status }) => {
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
     const [declarants, setDeclarants] = useState([]);
+    const [breeds, setBreeds] = useState([]);
     const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
     const [documentTypeIds, setDocumentTypeIds] = useState([]);
     const [formProps, setFormProps] = useState(null);
@@ -53,7 +55,10 @@ const Application = ({ alias, history, status }) => {
         express: false,
         pedigree_number: '',
         dog_name: '',
+        breed_id: '',
+        breed_name: '',
         is_foreign_pedigree: false,
+        is_return: false,
         payment_date: '',
         payment_number: '',
         payment_document_id: '',
@@ -72,7 +77,7 @@ const Application = ({ alias, history, status }) => {
 
     useEffect(() => {
         if (!status) {
-            Promise.all([getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
+            Promise.all([getDocumentTypes(), getDeclarants(), getBreeds()]).then(() => setLoaded(true));
         }
     }, []);
 
@@ -81,7 +86,7 @@ const Application = ({ alias, history, status }) => {
             const paramsArr = history.location.pathname.split('/');
             const id = paramsArr[paramsArr.length - 1];
 
-            (() => Request({
+            const getData = () => Request({
                 url: `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest?id=${id}`
             }, data => {
                 let values = {};
@@ -96,11 +101,11 @@ const Application = ({ alias, history, status }) => {
                 }
                 setValues(data);
                 setInitialValues(values);
-                setLoaded(true);
             }, error => {
                 history.replace('/404');
-            }))();
+            });
 
+            Promise.all([getData(), getBreeds()]).then(() => setLoaded(true))
             setDisableAllFields(true);
         }
     }, [status]);
@@ -135,6 +140,20 @@ const Application = ({ alias, history, status }) => {
         });
     };
 
+    const getBreeds = async () => {
+        await Request({
+            url: `/api/dog/Breed`
+        }, data => {
+            if (data) {
+                setBreeds(data);
+            } else {
+                setError('Ошибка');
+            }
+        }, error => {
+            handleError(error);
+        });
+    };
+
     const getDeclarants = async () => {
         await Request({
             url: `/api/clubs/declarant/club_declarants`
@@ -152,7 +171,10 @@ const Application = ({ alias, history, status }) => {
                     express: false,
                     pedigree_number: '',
                     dog_name: '',
+                    breed_id: '',
+                    breed_name: '',
                     is_foreign_pedigree: false,
+                    is_return: false,
                     payment_date: '',
                     payment_number: '',
                     payment_document_id: '',
@@ -190,6 +212,9 @@ const Application = ({ alias, history, status }) => {
         delete newData.document_type_id;
         delete newData.payment_document;
         delete newData.application_document;
+        if (newData.rkf_document_type_id === 61 || newData.rkf_document_type_id === 62) {
+            newData.breed_id = '';
+        }
 
         if (status === 'edit') {
             newData.id = values.id;
@@ -239,6 +264,10 @@ const Application = ({ alias, history, status }) => {
 
             setDisableFields(false);
             setIsForeignPedigree(isForeign);
+        }
+
+        if (name === 'is_return' && status === 'edit' && (formProps.valueGetter(name) === false)) {
+            return;
         }
 
         formProps.onChange(name, { value: !formProps.valueGetter(name) })
@@ -295,6 +324,14 @@ const Application = ({ alias, history, status }) => {
         })
     };
 
+    const isBreedNeeded = id => {
+        if (id === 61 || id === 62) {
+            return false
+        } else {
+            return true;
+        }
+    }
+
     return (
         <div className="application-form">
             <Card>
@@ -320,6 +357,16 @@ const Application = ({ alias, history, status }) => {
                                         <h4 className="application-form__title" style={{ marginBottom: 0, marginTop: '20px' }}>
                                             {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                         </h4>
+                                        <div className="application-form__row row">
+                                            <Field
+                                                id="is_return"
+                                                name="is_return"
+                                                label="Из возврата/исправление ошибки"
+                                                component={FormContactsCheckbox}
+                                                onChange={handleChange}
+                                                disabled={!editable}
+                                            />
+                                        </div>
                                         <div className="application-form__row-is-foreign">
                                             <div className="application-form__declarant">
                                                 <p className={`k-label${disableAllFields ? ' k-text-disabled' : ''}`}>
@@ -493,6 +540,32 @@ const Application = ({ alias, history, status }) => {
                                                 onChange={handleChange}
                                                 disabled={!editable}
                                             />
+                                        </div>
+                                        <div className="application-form__row row">
+                                            <div>
+                                                <LocalizationProvider language="ru">
+                                                    <IntlProvider locale="ru">
+                                                        <FormComboBox
+                                                            id={'breed_id'}
+                                                            name={'breed_id'}
+                                                            label={'Порода'}
+                                                            component={FormComboBox}
+                                                            textField={'name'}
+                                                            data={breeds}
+                                                            placeholder={formRenderProps.valueGetter('breed_name')
+                                                                ? formRenderProps.valueGetter('breed_name') : ''}
+                                                            onChange={formRenderProps.onChange}
+
+                                                            resetValue={isBreedNeeded(formRenderProps.valueGetter('rkf_document_type_id')) ? false : { value: '' }}
+                                                            validationMessage="Обязательное поле"
+                                                            required={formRenderProps.modified && isBreedNeeded(formRenderProps.valueGetter('rkf_document_type_id'))}
+                                                            value={formRenderProps.valueGetter('breed_id')}
+                                                            disabled={!isBreedNeeded(formRenderProps.valueGetter('rkf_document_type_id')) || !editable}
+                                                        />
+                                                    </IntlProvider>
+                                                </LocalizationProvider>
+                                            </div>
+                                            <div></div>
                                         </div>
                                     </div>
                                     <div className="application-form__content">
