@@ -58,7 +58,53 @@
             }
         }
         .custom-checkbox__label {
+            width: 26px;
             height: 26px;
+            top: -3px;
+            @media (max-width: 768px) {
+                top: 0;
+            }
         }
     }
+}
+
+.FormGroup__contact {
+    margin-bottom: 35px;
+}
+.FormGroup--inline {
+    margin-bottom: 28px;
+}
+.Contacts__checkbox-wrap {
+    position: relative;
+}
+.k-icon {
+    color: red;
+    position: absolute;
+    top: 50%;
+    right: -22px;
+    font-size: 22px;
+    opacity: 0.8;
+    cursor: pointer;
+    @media (max-width: 768px) {
+        top: 0;
+        right: 0;
+    }
+}
+.Contacts__checkbox-wrap div:nth-child(2) {
+    margin-right: 0;
+}
+.custom-checkbox__input:checked ~ .custom-checkbox__label:before {
+    border: 6px solid #007bff;
+    background-color: #fff;
+    
+}
+.custom-checkbox__label:before {
+    border-radius: 50%;
+}
+.custom-checkbox__label:after {
+    border-right: none; 
+    border-bottom: none;
+}
+.Contacts__button-add {
+    height: 40px;
 }

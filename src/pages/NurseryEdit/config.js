@@ -148,6 +148,7 @@ export const editForm = {
             value: string().when(['contact_type_id'], {
                 is: 1,
                 then: string()
+                    .max(16, 'Формат номера: +7(999)999-99-99')
                     .matches(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/, 'Формат номера: +7(999)999-99-99')
                     .required('Введите номер телефона'),
                 otherwise: string()

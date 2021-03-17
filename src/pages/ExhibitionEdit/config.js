@@ -104,8 +104,19 @@ export const exhibitionInfoForm = {
             .required('Укажите город'),
         address: string()
             .required('Укажите адрес'),
-        phones: array(),
-        emails: array(),
+        phones: array().of(object().shape({
+            value: string()
+            .max(16, 'Формат номера: +7(999)999-99-99')
+            .matches(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/, 'Формат номера: +7(999)999-99-99')
+            .required('Введите номер телефона'),
+            description: string(),
+        })),
+        emails: array().of(object().shape({
+            value: string().email('Неверный формат электронного адреса')
+            .required('Введите e-mail')
+            }),
+        ),
+        
         // rank_types: array()
         //     .required('Укажите Ранг выставки'),
         // class_types: array()
