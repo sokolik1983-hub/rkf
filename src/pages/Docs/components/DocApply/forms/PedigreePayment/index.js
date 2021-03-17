@@ -34,7 +34,7 @@ const PaymentFormFields = connect(({ formik, update, view, options, alias, setRe
                     <FormGroup inline>
                         <FormFile
                             name='payment_document'
-                            label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
+                            label='Квитанция об оплате (PDF, JPEG, JPG)'
                             docId={formik.values.payment_document_id}
                             disabled={view || formik.values.payment_document_accept || !statusAllowsUpdate}
                             document_type_id={5}

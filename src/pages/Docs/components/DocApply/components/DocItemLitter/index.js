@@ -17,7 +17,7 @@ import moment from "moment";
 import "./index.scss";
 const apiPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
 
-const accept = ".pdf, .jpg, .jpeg, .png";
+const accept = ".pdf, .jpg, .jpeg";
 // litter
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, verkHref, statuses, litterStatuses, litterHref, stampCodes, alias }) => {
     const distinction = "litter";
@@ -186,7 +186,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 <FormField disabled={update || filledEverk('address_lat')} name={`address_lat`} label='Адрес заводчика латиницей' />
 
                 {/*files*/}
-                <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>
+                <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG</h4>
                 <FormGroup inline>
                     <FormFile
                         name={`dog_mating_act`}

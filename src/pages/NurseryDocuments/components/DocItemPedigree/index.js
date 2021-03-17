@@ -16,7 +16,7 @@ import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
 
-const accept = ".pdf, .jpg, .jpeg, .png";
+const accept = ".pdf, .jpg, .jpeg";
 // pedigree
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, stampCodes, nurseryAlias }) => {
     const distinction = "pedigree";
@@ -190,7 +190,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update || filledEverk('dog_name_lat')} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
             
-            <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>
+            <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG</h4>
             <FormFile
                 name={`declarants[${i}].biometric_card_document`}
                 label='Метрика щенка'

@@ -74,14 +74,14 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         <FormGroup inline>
             <FormFile
                 name={`change_owner_application_document`}
-                label='Поле загрузки заявления на смену владельца (бланк 15) (PDF, JPEG, JPG, PNG)'
+                label='Поле загрузки заявления на смену владельца (бланк 15) (PDF, JPEG, JPG)'
                 docId={formik.values.change_owner_application_document_id}
                 disabled={view}
                 document_type_id={29}
             />
             <FormFile
                 name={`copy_pedigree_document`}
-                label='Поле загрузки копии родословной (PDF, JPEG, JPG, PNG)'
+                label='Поле загрузки копии родословной (PDF, JPEG, JPG)'
                 docId={formik.values.copy_pedigree_document_id}
                 disabled={view}
                 document_type_id={30}
