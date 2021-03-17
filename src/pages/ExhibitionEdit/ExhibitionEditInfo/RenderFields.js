@@ -22,18 +22,9 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
     useEffect(() => {
         formik.setFieldValue('avatar', avatar);
         formik.setFieldValue('map', map);
-        phones.forEach(e => {
-            e.contact_type_id = 1
-
-        });
-        emails.forEach(e => {
-            e.contact_type_id = 2
-
-        });
     }, []);
 
 
-    const contacts = [...phones, ...emails]
     const handleValidate = value => {
         let error;
         if(!value) {
@@ -202,7 +193,6 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
             <Contacts 
                 phones={phones} 
                 emails={emails} 
-                contacts={contacts}
                 errors={formik.errors}/>
             <div className="exhibition-edit__documents">
                 <h3>Документы</h3>
