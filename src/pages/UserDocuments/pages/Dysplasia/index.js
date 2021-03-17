@@ -308,6 +308,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                 name="personal_data_document"
                                                 fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                 component={FormUpload}
+                                                disabled={status === 'edit' && values && values.personal_data_document_accept}
                                                 validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
                                             />
                                             {values &&
@@ -323,6 +324,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                 label="Загрузите родословную (PDF, JPEG, JPG)"
                                                 fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                 component={FormUpload}
+                                                disabled={status === 'edit' && values && values.pedigree_document_accept}
                                                 validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
                                             />
                                             {values &&
