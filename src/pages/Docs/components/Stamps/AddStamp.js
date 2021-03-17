@@ -19,10 +19,10 @@ const fields = {
     },
     stamp_code_document: {
         name: 'stamp_code_document',
-        label: 'Cвидетельство о регистрации кода клейма (PDF, JPEG, JPG, PNG)',
+        label: 'Cвидетельство о регистрации кода клейма (PDF, JPEG, JPG)',
         fieldType: 'file',
         required: true,
-        accept: '.pdf,.jpeg,.jpg,.png'
+        accept: '.pdf,.jpeg,.jpg'
     },
     comment: {
         name: 'comment',

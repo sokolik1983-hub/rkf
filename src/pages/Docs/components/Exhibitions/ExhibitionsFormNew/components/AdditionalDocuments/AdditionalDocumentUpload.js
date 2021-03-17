@@ -50,7 +50,7 @@ const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDo
             <Field
                 id="documents_upload"
                 name="documents_upload"
-                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                fileFormats={['.pdf', '.jpg', '.jpeg']}
                 component={FormUpload}
                 saveUrl="/api/requests/exhibition_request/clubexhibitionrequestdocument"
                 saveField="file"
