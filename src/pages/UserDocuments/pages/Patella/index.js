@@ -211,6 +211,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                     label="Загрузите родословную (PDF, JPEG, JPG)"
                                                     fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                     component={FormUpload}
+                                                    disabled={status === 'edit' && values && values.pedigree_document_accept}
                                                     validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
                                                 />
                                                 {values &&
