@@ -4,7 +4,6 @@ import { FormField, FormGroup } from "components/Form";
 import Button from "components/Button";
 import "./styles.scss";
 
-
 const Contacts = ({ phones, emails, errors, formik }) => {
 
     const checkForPhones = () => {
@@ -30,16 +29,19 @@ const Contacts = ({ phones, emails, errors, formik }) => {
     }
     
     React.useEffect(() => {
-        phones.sort((a, b) => {
-            if(a.is_main > b.is_main) return -1
-            if(a.is_main < b.is_main) return 1
-            else return 0
-            })
-        emails.sort((a, b) => {
-            if(a.is_main > b.is_main) return -1
-            if(a.is_main < b.is_main) return 1
-            else return 0
-            })
+        if(phones && emails) {
+            phones.sort((a, b) => {
+                if(a.is_main > b.is_main) return -1
+                if(a.is_main < b.is_main) return 1
+                else return 0
+                })
+            emails.sort((a, b) => {
+                if(a.is_main > b.is_main) return -1
+                if(a.is_main < b.is_main) return 1
+                else return 0
+                })
+        }
+        
     }, [])
 
     return <div className="Contacts">
@@ -91,12 +93,16 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                     <div className="Contacts__buttons-wrap">
                         <Button
                            className={`btn-green Contacts__button-add ${checkForPhones() ? 'disabled' : ''}`}
-                            onClick={() => arrayHelpers.push({
-                                id: null,
-                                value: '',
-                                description: '',
-                                is_main: false,
-                            })}>Добавить телефон</Button>
+                            onClick={() => {
+                                arrayHelpers.push({
+                                            id: null,
+                                            value: '',
+                                            description: '',
+                                            is_main: false,
+                                        })
+                                }
+                            
+                            }>Добавить телефон</Button>
                     </div>
                 </div>
             )}
