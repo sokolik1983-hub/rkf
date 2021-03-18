@@ -184,10 +184,10 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                     <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)</p>
                                                     <DocumentLink docId={values.veterinary_contract_document_id} />
                                                 </div>
-                                                <div className="dysplasia-form__file" style={{marginTop: '48px'}}>
+                                                {values.pedigree_document_id && <div className="dysplasia-form__file" style={{marginTop: '48px'}}>
                                                     <p className="k-label">Родословная</p>
                                                     <DocumentLink docId={values.pedigree_document_id} />
-                                                </div>
+                                                </div>}
                                             </>
                                         }
                                         {!disableAllFields &&
@@ -198,7 +198,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                     label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)"
                                                     fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                     component={FormUpload}
-                                                    validator={documentRequiredValidatorTypeArray}
+                                                    validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
                                                 />
                                                 {values &&
                                                     values.veterinary_contract_document_id &&
@@ -211,7 +211,8 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                     label="Загрузите родословную (PDF, JPEG, JPG)"
                                                     fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                     component={FormUpload}
-                                                    validator={documentRequiredValidatorTypeArray}
+                                                    disabled={status === 'edit' && values && values.pedigree_document_accept}
+                                                    validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
                                                 />
                                                 {values &&
                                                     values.pedigree_document_id &&
@@ -290,7 +291,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                     label="Квитанция об оплате (PDF, JPEG, JPG)"
                                                     fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                     component={FormUpload}
-                                                    validator={documentRequiredValidatorTypeArray}
+                                                    validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
                                                 />
                                                 {values &&
                                                     values.payment_document_id &&
