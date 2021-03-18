@@ -135,17 +135,17 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
             </FormGroup>
 
             <FormGroup inline>
-                {formik.values.pedigree_document_id && <FormFile
+                <FormFile
                     name={`pedigree_document`}
-                    label='Родословная (PDF, JPEG, JPG)'
+                    label={view && !formik.values.pedigree_document_id ? '' : `Родословная (PDF, JPEG, JPG)`}
                     docId={formik.values.pedigree_document_id}
                     disabled={view || formik.values.pedigree_document_accept}
                     document_type_id={7}
                     profileType={config.profileType}
-                />}
-                {(config.distinction !== 'patella') && formik.values.personal_data_document_id && <FormFile
+                />
+                {(config.distinction !== 'patella') && <FormFile
                     name={`personal_data_document`}
-                    label='Соглашение на обработку персональных данных (PDF, JPEG, JPG)'
+                    label={view && !formik.values.personal_data_document_id ? '' : `Соглашение на обработку персональных данных (PDF, JPEG, JPG)`}
                     docId={formik.values.personal_data_document_id}
                     disabled={view || formik.values.personal_data_document_accept}
                     document_type_id={11}
