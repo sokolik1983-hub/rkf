@@ -587,7 +587,7 @@ const Application = ({ alias, history, status }) => {
                                                             clearButton={editable}
                                                             validationMessage="Обязательное поле"
                                                             valid={disableAllFields || (formRenderProps.modified ? formRenderProps.valueGetter('breed_id') && (!status || (status === 'edit' && initialValues.breed_id)) : true)}
-                                                            disabled={!editable || (status && !formRenderProps.valueGetter('breed_id'))}
+                                                            disabled={!editable}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
@@ -614,7 +614,7 @@ const Application = ({ alias, history, status }) => {
                                                             onBeforeUpload={e => onBeforeUpload(e, 47)}
                                                             onStatusChange={e => onStatusChange(e, 'application_document')}
                                                             onProgress={e => onProgress(e, 'application_document')}
-                                                            validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document'))}
+                                                            validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document').length)}
                                                         />
                                                         {values &&
                                                             values.application_document_id &&
