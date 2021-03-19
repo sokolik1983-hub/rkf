@@ -9,7 +9,7 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import '../FoundInfo/index.scss';
 
 
-const CheckRegistration = ({registration_clicked}) => {
+const CheckRegistration = ({ registration_clicked }) => {
     const [stamp_number, setStampNumber] = useState('');
     const [stamp_code, setStampCode] = useState('');
     const [status, setStatus] = useState(false);
@@ -110,7 +110,7 @@ const CheckRegistration = ({registration_clicked}) => {
                             disabled={loading}
                             onClick={handleReset}
                         >
-                            <span/>
+                            <span />
                         </button>
                     </div>
                     :

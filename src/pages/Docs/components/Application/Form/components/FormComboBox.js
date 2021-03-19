@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { FieldWrapper } from "@progress/kendo-react-form";
-import { Label, Error } from "@progress/kendo-react-labels";
-import { ComboBox } from "@progress/kendo-react-dropdowns";
-import { filterBy } from "@progress/kendo-data-query";
+import React, { useState, useEffect } from "react";
+import { FieldWrapper } from '@progress/kendo-react-form';
+import { Label, Error } from '@progress/kendo-react-labels';
+import { ComboBox } from '@progress/kendo-react-dropdowns';
+import { filterBy } from '@progress/kendo-data-query';
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import kendoMessages from "../../../kendoMessages.json";
+import kendoMessages from "kendoMessages.json";
 
 loadMessages(kendoMessages, 'ru');
 
 export const FormComboBox = (fieldRenderProps) => {
     const { validationMessage, touched, label, id, name, valid, disabled, wrapperStyle, data, value, onChange, resetValue, ...others } = fieldRenderProps;
     const [filteredData, setFilteredData] = useState(data);
-    const [dropdownValue, setDropdownValue] = useState(filteredData.filter(d => d.id === value)[0]);
     const editorRef = React.useRef(null);
 
     const showValidationMessage = touched && validationMessage;
@@ -19,13 +18,12 @@ export const FormComboBox = (fieldRenderProps) => {
     const labelId = label ? `${id}_label` : '';
 
     useEffect(() => {
-        resetValue && setDropdownValue(resetValue);
-    }, [resetValue])
+        data !== filteredData && setFilteredData(data);
+    }, [data]);
 
     const onValueChange = React.useCallback(
         ({ target }) => {
             onChange(name, { value: target.value ? target.value.id : null })
-            setDropdownValue(target.value);
         },
         [onChange, value]
     );
@@ -53,7 +51,6 @@ export const FormComboBox = (fieldRenderProps) => {
                         valid={valid}
                         id={id}
                         disabled={disabled}
-                        value={dropdownValue}
                         data={filteredData}
                         onChange={onValueChange}
                         validationMessage={validationMessage}
