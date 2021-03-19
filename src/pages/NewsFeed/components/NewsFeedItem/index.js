@@ -1,20 +1,21 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
-import { Chip } from '@progress/kendo-react-buttons';
+import { Chip } from "@progress/kendo-react-buttons";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Lightbox from "react-images";
-import Card from "components/Card";
-import Share from "components/Share";
-import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
-import { formatText } from "utils";
-import { formatDateTime } from "utils/datetime";
-import { DEFAULT_IMG } from "appConfig";
-import EditForm from "./EditForm";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf } from "@progress/kendo-svg-icons";
-import { Request } from "utils/request";
 import moment from "moment";
+import Card from "../../../../components/Card";
+import Share from "../../../../components/Share";
+import { ActiveUserMark, FederationChoiceMark } from "../../../../components/Marks";
+import { formatText } from "../../../../utils";
+import { formatDateTime } from "../../../../utils/datetime";
+import { DEFAULT_IMG } from "../../../../appConfig";
+import EditForm from "./EditForm";
+import { Request } from "../../../../utils/request";
+
 import "./index.scss";
 
 const NewsFeedItem = forwardRef(({
