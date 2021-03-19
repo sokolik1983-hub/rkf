@@ -64,6 +64,13 @@ const RankCell = ({ dataItem }) => {
     return <td>{fieldValue}</td>
 };
 
+const ApprovedRankCell = ({ dataItem }) => {
+    const { approved_rank_name, status_id } = dataItem;
+    let fieldValue = status_id === 3 ? approved_rank_name : '';
+
+    return <td>{fieldValue}</td>
+};
+
 const OptionsCell = ({ dataItem }) => {
     const { status_id, id, is_approved } = dataItem;
     const { route } = useParams();
@@ -180,7 +187,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         <GridColumn field="date_end" title="Дата окончания проведения выставки" />
         <GridColumn field="format_name" title="Формат мероприятия" />
         <GridColumn field="rank_name" title="Ранг заявленный / НКП" cell={props => RankCell(props)} />
-        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" />
+        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" cell={props => ApprovedRankCell(props)} />
         <GridColumn field="city_name" title="Место проведения выставки" />
     </Grid>;
 
@@ -241,7 +248,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         <GridColumn field="date_end" title="Дата окончания проведения выставки" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
                         <GridColumn field="format_name" title="Формат мероприятия" width={fullScreen ? 'auto' : '135px'} columnMenu={ColumnMenu} />
                         <GridColumn field="rank_name" title="Ранг заявленный / НКП" width={fullScreen ? 'auto' : '150px'} cell={props => RankCell(props)} columnMenu={ColumnMenu} />
-                        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" width={fullScreen ? 'auto' : '116px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="approved_rank_name" title="Ранг утвержденный выставки" width={fullScreen ? 'auto' : '116px'} cell={props => ApprovedRankCell(props)} columnMenu={ColumnMenu} />
                         <GridColumn field="city_name" title="Место проведения выставки" width={fullScreen ? 'auto' : '136px'} columnMenu={ColumnMenu} />
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
                     </Grid>}
