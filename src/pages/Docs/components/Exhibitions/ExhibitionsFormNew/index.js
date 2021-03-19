@@ -27,7 +27,7 @@ import {
 
 loadMessages(ruMessages, 'ru');
 
-const requiredRanksMessage = 'Максимальное количество рангов 7';
+// const requiredRanksMessage = 'Максимальное количество рангов 4';
 const requiredMessage = 'Обязательное поле';
 const requiredRankError = 'Исчерпан лимит по выбранным рангам';
 const requiredNcpMessage = 'Максимальное количество НКП 30';
@@ -102,8 +102,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                     forbidden_dates: data.forbidden_dates,
                     cities: data.cities,
                     year_forbidden_nkp: data.year_forbidden_nkp,
-                    year_forbidden_ranks: data.year_forbidden_ranks,
-                    year_warning_ranks: data.year_warning_ranks,
+                    year_rank_counters: data.year_rank_counters,
                 });
             } else {
                 setError('Ошибка');
@@ -180,7 +179,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
     const handleFormatChange = id => {
         formProps.onChange('format_id', id);
         formProps.onChange('rank_ids', []);
-        formProps.onChange('documents', {value: []});
+        formProps.onChange('documents', { value: [] });
         formProps.onChange('date_begin', '');
         formProps.onChange('date_end', '');
     };
@@ -218,34 +217,55 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
         }
     };
 
-    const checkDiff = (where, what) => {
-        if (where && what) {
-            for (var i = 0; i < what.length; i++) {
-                if(where.includes(what[i])) return true;
-            }
-            return false;
-        }
-    };
-
     const requiredRanksValidator = value => {
-        const pickedYear = formProps.valueGetter('date_begin') ? formProps.valueGetter('date_begin').getFullYear() : null;
-        let forbiddenRankIds = pickedYear ? exhibitionProperties?.year_forbidden_ranks[pickedYear] : null;
-        let warningRanks = pickedYear ? exhibitionProperties?.year_warning_ranks[pickedYear] : null;
-        let pickedValues = value?.slice().map(i => i.value);
+        //ранги без САС не валидируются
+        //САС ранги 2 в год, третья только для труднодоступных регионов (показывается хинт)
+        //групповые до 4-х включительно
 
-        if (value && value.length <= 7) {
-            setIsRanksValid(true)
-        } else if (value && value.length > 7) {
+        //получаю выбранный юзером год
+        const pickedYear = formProps.valueGetter('date_begin') ? formProps.valueGetter('date_begin').getFullYear() : null;
+
+        //получаю счетчик поданных заявок на выбранный год общий и по отдельным рангам
+        let currentRankCounter = pickedYear ? exhibitionProperties?.year_rank_counters[pickedYear] : null;
+        let registeredCACRanks = currentRankCounter?.filter(i => i.type_id === 1)[0]?.count === undefined ? 0 : currentRankCounter?.filter(i => i.type_id === 1)[0]?.count;
+        let registeredGroupeRanks = currentRankCounter?.filter(i => i.type_id === 2)[0]?.count === undefined ? 0 : currentRankCounter?.filter(i => i.type_id === 2)[0]?.count;
+
+        //отслеживаю выбранные юзером ранги всех типов, кроме "без САС"
+        let pickedCAC_CHRKF = value?.slice().map(i => i.value).filter(i => i === 1) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 1).length;
+        let pickedCAC_CHF = value?.slice().map(i => i.value).filter(i => i === 2) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 2).length;
+
+        let pickedGroupe1 = value?.slice().map(i => i.value).filter(i => i === 10) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 10).length;
+        let pickedGroupe2 = value?.slice().map(i => i.value).filter(i => i === 11) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 11).length;
+        let pickedGroupe3 = value?.slice().map(i => i.value).filter(i => i === 12) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 12).length;
+        let pickedGroupe4 = value?.slice().map(i => i.value).filter(i => i === 13) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 13).length;
+        let pickedGroupe5 = value?.slice().map(i => i.value).filter(i => i === 14) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 14).length;
+        let pickedGroupe6 = value?.slice().map(i => i.value).filter(i => i === 15) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 15).length;
+        let pickedGroupe7 = value?.slice().map(i => i.value).filter(i => i === 16) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 16).length;
+        let pickedGroupe8 = value?.slice().map(i => i.value).filter(i => i === 17) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 17).length;
+        let pickedGroupe9 = value?.slice().map(i => i.value).filter(i => i === 18) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 18).length;
+        let pickedGroupe10 = value?.slice().map(i => i.value).filter(i => i === 19) === undefined ? 0 : value?.slice().map(i => i.value).filter(i => i === 19).length;
+
+        //вычисляю общее количество рангов на выбранный год
+        let totalPickedCACRanks = pickedCAC_CHRKF + pickedCAC_CHF;
+        let totalPickedGroupeRanks = pickedGroupe1 + pickedGroupe2 + pickedGroupe3 + pickedGroupe4 + pickedGroupe5 + pickedGroupe6 + pickedGroupe7 + pickedGroupe8 + pickedGroupe9 + pickedGroupe10;
+
+        //вычисляю общее количество рангов на выбранный год с учётом ранее поданных
+        let totalCAC = totalPickedCACRanks + registeredCACRanks;
+        let totalGroupe = totalPickedGroupeRanks + registeredGroupeRanks;
+
+        if ((totalPickedCACRanks && (totalCAC > 3)) || (totalPickedGroupeRanks && (totalGroupe > 4))) {
             setIsRanksValid(false)
+        } else {
+            setIsRanksValid(true)
         }
 
-        if (checkDiff(pickedValues, warningRanks)) {
+        if (totalPickedCACRanks && totalCAC === 3) {
             setShowCityWarning(true)
         } else {
             setShowCityWarning(false)
         }
 
-        return !value ? requiredMessage : value.length > 7 ? requiredRanksMessage : checkDiff(pickedValues, forbiddenRankIds) ? requiredRankError : '';
+        return !value ? requiredMessage : ((totalPickedCACRanks && (totalCAC > 3)) || (totalPickedGroupeRanks && (totalGroupe > 4))) ? requiredRankError : '';
     };
 
     const requiredNcpValidator = value => {
@@ -280,7 +300,6 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                             const pickedYear = formRenderProps.valueGetter('date_begin') ?
                                 formRenderProps.valueGetter('date_begin').getFullYear() :
                                 null;
-                            // const CAC_CH_F = ranksIds?.slice().map(i => i.value).includes(2);
 
                             return (
                                 <FormElement>
