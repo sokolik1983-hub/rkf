@@ -54,7 +54,7 @@ const LinkCell = ({ dataItem }) => {
     </td>
 };
 
-const OptionsCell = ({ dataItem }) => {
+const OptionsCell = ({ dataItem }, setErrorReport) => {
     const { status_id, id } = dataItem;
     const { route } = useParams();
     const options = [{
@@ -69,6 +69,11 @@ const OptionsCell = ({ dataItem }) => {
         render: ({ item }) => <Link
             to={`/kennel/${route}/documents/application/edit/${id}`}
             className="row-control__link">{item.text}</Link>
+    },
+    {
+        text: 'Сообщить об ошибке',
+        disabled: status_id === 3 ? false : true,
+        render: ({ item }) => <span className="row-control__link" onClick={() => setErrorReport(id)}>{item.text}</span>
     }].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
@@ -97,7 +102,7 @@ const handleClick = async (e, id) => {
     el.className = 'download-document';
 };
 
-const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) => {
+const Table = ({ documents, profileType, fullScreen, exporting, setExporting, setErrorReport }) => {
     const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
@@ -233,7 +238,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '259px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-                        <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
+                        <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, setErrorReport)} />
                     </Grid>}
                     <GridPDFExport
                         fileName={`Получение_документов_РКФ_${moment(new Date()).format(`DD_MM_YYYY`)}`}

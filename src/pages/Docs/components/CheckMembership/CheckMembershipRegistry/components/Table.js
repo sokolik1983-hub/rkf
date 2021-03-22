@@ -58,7 +58,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
         disabled: status_id === 3 ? false : true,
         render: ({ item }) => <span className="row-control__link" onClick={() => setErrorReport(id)}>{item.text}</span>
     }
-].filter(o => !o.disabled);
+    ].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
