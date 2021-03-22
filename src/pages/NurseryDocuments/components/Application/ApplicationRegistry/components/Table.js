@@ -1,18 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
+import moment from "moment";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownButton, ChipList } from '@progress/kendo-react-buttons';
-import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Fade } from '@progress/kendo-react-animation';
 import kendoMessages from 'kendoMessages.json';
-import moment from "moment";
+
 import PdfPageTemplate from "../../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../../components/LightTooltip";
 import CopyCell from '../../../../../Docs/components/CopyCell';
-import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-import { Fade } from '@progress/kendo-react-animation';
+import { getHeaders } from "utils/request";
+
 import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');

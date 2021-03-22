@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { object, string } from "yup";
+
 import { Form, SubmitButton, FormGroup, FormField } from 'components/Form';
 import FormFile from 'components/Form/Field/FormFile';
-import { object, string } from "yup";
 import Alert from 'components/Alert';
 import Modal from 'components/Modal';
+
 import './styles.scss';
 
 const config = {
