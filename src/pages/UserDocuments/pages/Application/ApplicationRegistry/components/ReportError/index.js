@@ -9,7 +9,7 @@ import Modal from 'components/Modal';
 import './styles.scss';
 
 const config = {
-    action: '​/api​/requests​/get_rkf_document_request​/ownergetrkfdocumentrequest​/error',
+    action: `/api/requests/get_rkf_document_request/ownergetrkfdocumentrequest/error`,
     format: "multipart/form-data",
     fields: {
         error_message: {
