@@ -1,4 +1,9 @@
 .UserActionControls {
+        margin: 10px 0 0;
+    @media (max-width: 768px) {
+            width: 100%;
+            margin-top: 10px;
+          }
     .k-icon {
         position: absolute;
         left: 55px;
