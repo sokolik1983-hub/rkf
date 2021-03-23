@@ -17,7 +17,7 @@ import UserDatePicker from "../../../../../../components/kendo/DatePicker";
 import "./index.scss";
 const apiPrivacyEndpoint = '/api/requests/PedigreeRequest/personal_data_document';
 
-const accept = ".pdf, .jpg, .jpeg, .png";
+const accept = ".pdf, .jpg, .jpeg";
 
 // pedigree
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, statuses, stampCodes, alias, stage }) => {
@@ -217,7 +217,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <span className="DocItem__pedigree-warning">Если данное поле не заполнено, транслитерация клички остается на усмотрение кинолога</span>
                     <FormField disabled={update || filledEverk('dog_name_lat')} name={`dog_name_lat`} label='Кличка собаки латиницей' />
 
-                    <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>
+                    <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG</h4>
                     <FormGroup inline>
                         <FormFile
                             name={`biometric_card_document`}

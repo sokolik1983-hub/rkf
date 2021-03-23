@@ -38,7 +38,7 @@ const AdditionalDocumentUpload = ({ documents, setDocuments, docTypes, documents
         <Field
             id="documents"
             name="documents"
-            fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+            fileFormats={['.pdf', '.jpg', '.jpeg']}
             component={FormUpload}
             saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
             saveField="document"

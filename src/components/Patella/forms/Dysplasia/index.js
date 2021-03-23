@@ -111,7 +111,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
             <FormGroup inline>
                 <FormFile
                     name={`veterinary_contract_document`}
-                    label='Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)'
+                    label='Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)'
                     docId={formik.values.veterinary_contract_document_id}
                     disabled={view}
                     document_type_id={31}
@@ -119,7 +119,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 />
                 {(config.distinction !== 'patella') && <FormFile
                     name={`roentgenogram_document`}
-                    label='Рентгенограмма (PDF, JPEG, JPG, PNG)'
+                    label='Рентгенограмма (PDF, JPEG, JPG)'
                     docId={formik.values.roentgenogram_document_id}
                     disabled={view}
                     document_type_id={32}
@@ -134,6 +134,25 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 {everk && !view && <Button className='btn btn-red' onClick={e => deleteClick()}>Удалить</Button>}
             </FormGroup>
 
+            <FormGroup inline>
+                <FormFile
+                    name={`pedigree_document`}
+                    label={view && !formik.values.pedigree_document_id ? '' : `Родословная (PDF, JPEG, JPG)`}
+                    docId={formik.values.pedigree_document_id}
+                    disabled={view || formik.values.pedigree_document_accept}
+                    document_type_id={7}
+                    profileType={config.profileType}
+                />
+                {(config.distinction !== 'patella') && <FormFile
+                    name={`personal_data_document`}
+                    label={view && !formik.values.personal_data_document_id ? '' : `Соглашение на обработку персональных данных (PDF, JPEG, JPG)`}
+                    docId={formik.values.personal_data_document_id}
+                    disabled={view || formik.values.personal_data_document_accept}
+                    document_type_id={11}
+                    profileType={config.profileType}
+                />}
+            </FormGroup>
+
             <FormGroup>
                 <br />
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
@@ -146,7 +165,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                     <FormGroup inline>
                         <FormFile
                             name='payment_document'
-                            label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
+                            label='Квитанция об оплате (PDF, JPEG, JPG)'
                             docId={formik.values.payment_document_id}
                             disabled={view || formik.values.payment_accept}
                             document_type_id={5}

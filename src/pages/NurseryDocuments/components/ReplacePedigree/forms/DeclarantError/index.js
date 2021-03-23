@@ -78,7 +78,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         <FormGroup inline>
             <FormFile
                 name={`personal_data_document`}
-                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
+                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG)'
                 docId={formik.values.personal_data_document_id}
                 disabled={view}
                 document_type_id={11}
@@ -86,7 +86,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             />
             <FormFile
                 name={`copy_pedigree_document`}
-                label='Поле загрузки копии родословной (PDF, JPEG, JPG, PNG)'
+                label='Поле загрузки копии родословной (PDF, JPEG, JPG)'
                 docId={formik.values.copy_pedigree_document_id}
                 disabled={view}
                 document_type_id={30}

@@ -51,7 +51,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
         <div className="avatar-editor">
             <div className="avatar-editor__dropzone">
                 <Dropzone
-                    accept={['.jpg', '.jpeg', '.png']}
+                    accept={['.jpg', '.jpeg']}
                     maxSize={5242880} //5MB
                     noClick
                     multiple={false}
@@ -125,7 +125,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
             </Button>
             {!!editorErrors.length &&
                 <Alert
-                    text="Ошибка: Формат файла не поддерживается, либо размер файла превышает 5Мб. Поддерживаемые форматы JPG, JPEG, PNG."
+                    text="Ошибка: Формат файла не поддерживается, либо размер файла превышает 5Мб. Поддерживаемые форматы JPG, JPEG."
                     okButton={true}
                     onOk={() => setEditorErrors([])}
                 />

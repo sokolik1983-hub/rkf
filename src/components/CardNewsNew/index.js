@@ -108,7 +108,7 @@ const CardNewsNew = forwardRef(({
 
         return <>
             <div className="CardNewsNew__content">
-                <div className="CardNewsNew__head" style={{margin: '0 10px 0 10px'}}>
+                <div className="CardNewsNew__head" style={{ margin: '0 10px 0 10px' }}>
                     <div className="CardNewsNew__left">
                         <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
                             <div className="CardNewsNew__left-logo" style={{
@@ -186,11 +186,11 @@ const CardNewsNew = forwardRef(({
                                         >
                                             <ul className="CardNewsNew__head-control-list">
                                                 {!is_closed_advert &&
-                                                    <li className="CardNewsNew__head-control-item" 
-                                                        // onClick={() => setIsEditing(true)}
+                                                    <li className="CardNewsNew__head-control-item"
+                                                    // onClick={() => setIsEditing(true)}
                                                     >
                                                         {/* <span>Редактировать</span> */}
-                                                        {isFederation ? <Link to={`/news/${id}`} style={{textDecoration: 'none'}}>Подробнее...</Link> : <Link to={`${url}/edit`} style={{textDecoration: 'none'}}>Редактировать</Link>}
+                                                        {isFederation ? <Link to={`/news/${id}`} style={{ textDecoration: 'none' }}>Подробнее...</Link> : <Link to={`${url}/edit`} style={{ textDecoration: 'none' }}>Редактировать</Link>}
                                                     </li>
                                                 }
                                                 {is_advert && !is_closed_advert &&
@@ -209,7 +209,7 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'CardNewsNew__text-wrap' : ''} style={{margin: '0 10px 0 10px'}}>
+                <div className={!collapsed ? 'CardNewsNew__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
                     {is_advert && <div className="CardNewsNew__ad">
                         <p className="CardNewsNew__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
@@ -229,7 +229,7 @@ const CardNewsNew = forwardRef(({
                         dangerouslySetInnerHTML={{ __html: formatText(content) }}
                     />
                 </div>
-                <div className="CardNewsNew__show-all-wrap" style={{margin: '0 10px 0 10px'}}>
+                <div className="CardNewsNew__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
                     {
                         is_request_article
                             ? <div className="CardNewsNew__show-all">
@@ -269,18 +269,18 @@ const CardNewsNew = forwardRef(({
             </div>
             {
                 documents && !!documents.length &&
-                <div className="CardNewsNew__documents" style={{margin: '0 10px 0 10px'}}>
+                <div className="CardNewsNew__documents" style={{ margin: '0 10px 0 10px' }}>
                     <ul className="CardNewsNew__documents-list">
                         {documents.map(d =>
                             <li className="DocumentItem" key={d.id}>
                                 <Link
                                     to={`/docs/${d.id}`}
                                     target="_blank"
-                                    style={{display: 'flex', alignItems: 'center', textDecoration: 'none'}}
+                                    style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
                                     rel="noopener noreferrer"
                                 >
                                     <SvgIcon icon={filePdf} size="default" />
-                                    <div style={{display: 'flex', flexDirection: 'column'}}>{d.name}<span className="DocumentItem__date">
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>{d.name}<span className="DocumentItem__date">
                                         {`Добавлено ${moment(d.create_date).format('D MMMM YYYY')} в ${moment(d.create_date).format('HH:mm')}`}
                                     </span>
                                     </div>
@@ -291,7 +291,7 @@ const CardNewsNew = forwardRef(({
                 </div>
             }
             {/* {videoLink && <p className={`CardNewsNew__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
-            <div className="CardNewsNew__controls"  style={{margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px'}}>
+            <div className="CardNewsNew__controls" style={{ margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px' }}>
                 <div className="CardNewsNew__controls-left">
                     <div>
                         <span 

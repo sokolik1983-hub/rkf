@@ -115,7 +115,7 @@ export const editForm = {
         },
         logo: {
             name: 'logo',
-            accept: '.jpg, .png, .gif'
+            accept: '.jpg, .gif'
         },
         banner: {
             name: "banner",

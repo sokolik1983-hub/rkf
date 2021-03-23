@@ -83,7 +83,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
             <FormGroup inline>
                 <FormFile
                     name={`personal_data_document`}
-                    label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
+                    label='Соглашение на обработку персональных данных (PDF, JPEG, JPG)'
                     docId={formik.values.personal_data_document_id}
                     disabled={view}
                     document_type_id={11}
@@ -91,7 +91,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 />
                 <FormFile
                     name={`copy_foreign_pedigree_document`}
-                    label='Поле загрузки копии иностранной родословной (PDF, JPEG, JPG, PNG)'
+                    label='Поле загрузки копии иностранной родословной (PDF, JPEG, JPG)'
                     docId={formik.values.copy_foreign_pedigree_document_id}
                     disabled={view}
                     document_type_id={33}
@@ -100,7 +100,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
             </FormGroup>
             <FormFile
                 name={`application_verk_statement_document`}
-                label='Поле загрузки заявления на выписку ВЕРК (бланк 14) (PDF, JPEG, JPG, PNG)'
+                label='Поле загрузки заявления на выписку ВЕРК (бланк 14) (PDF, JPEG, JPG)'
                 docId={formik.values.application_verk_statement_document_id}
                 disabled={view}
                 document_type_id={32}

@@ -78,5 +78,8 @@ export const dateRequiredValidator = value => !value ?
     requiredMessage :
     +value > +new Date() ? "Некорректная дата" : ""
 
-export const documentRequiredValidator = value => value ? "" : "Должен быть загружен хотя бы один документ";
+export const documentRequiredValidator = value => value ? "" : "Документ обязателен для загрузки";
 export const documentTypeRequired = value => value === 0 ? requiredMessage : "";
+export const documentRequiredValidatorTypeArray = value => {
+    return value && !!value.length ? "" : "Документ обязателен для загрузки"
+}
