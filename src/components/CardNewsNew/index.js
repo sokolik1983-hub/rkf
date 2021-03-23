@@ -2,19 +2,21 @@ import React, { forwardRef, useEffect, useRef, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
-import Lightbox from "react-images";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf } from "@progress/kendo-svg-icons";
+import Lightbox from "react-images";
 import moment from "moment";
 import ls from "local-storage";
-import { ActiveUserMark, FederationChoiceMark } from "../Marks";
-import { formatText } from "../../utils";
-import { formatDateTime } from "../../utils/datetime";
-import { DEFAULT_IMG } from "../../appConfig";
+
+import Card from "components/Card";
+import Share from "components/Share";
+import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
+import { formatText } from "utils";
+import { formatDateTime } from "utils/datetime";
+import { DEFAULT_IMG } from "appConfig";
 import EditForm from "./EditForm";
-import { Request } from "../../utils/request";
-import Card from "../Card";
-import Share from "../Share";
+import { Request } from "utils/request";
+
 import "./index.scss";
 
 const CardNewsNew = forwardRef(({
@@ -67,14 +69,13 @@ const CardNewsNew = forwardRef(({
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
-
+    
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
-
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
     }, []);
-
+    
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
@@ -120,25 +121,43 @@ const CardNewsNew = forwardRef(({
                             }} />
                         </Link>
                         <span className="CardNewsNew__left-name">
-                            <span>
+                            <span className="CardNewsNew__left-city">
+                                <div className="CardNewsNew__left-inner">
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&
-                                    <>
-                                        {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}
-                                &nbsp;
-                            </>
+                                    <span>
+                                        {user_type === 3 
+                                            ? 'Клуб' 
+                                            : user_type === 4 
+                                            ? 'Питомник' 
+                                            : user_type === 5 
+                                            ? 'Федерация' 
+                                            : ''
+                                        }
+                                        &nbsp;
+                                    </span>
                                 }
-                                <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
-
+                                <Link to={user_type === 4 
+                                        ? `/kennel/${alias}` 
+                                        : user_type === 1 
+                                        ? `/user/${alias}` 
+                                        : `/${alias}`}>
                                     {user_type === 1 ? first_name + ' ' + last_name : name}
                                 </Link>
-                                {active_rkf_user &&
-                                    <ActiveUserMark />
-                                }
-                                {active_member &&
-                                    <FederationChoiceMark />
-                                }
+
+                                <span className="CardNewsNew__left-mark">
+                                    <span>
+                                        { active_rkf_user &&
+                                            <ActiveUserMark />
+                                        }</span>
+                                        <span>
+                                        { active_member &&
+                                            <FederationChoiceMark />
+                                        }
+                                    </span>
+                                </span>
+                                </div>
                             </span>
-                            <div style={{ display: 'flex' }}>
+                            <div  className="CardNewsNew__left__city-inner">
                                 {formatDateTime(create_date)}
                                 {fact_city_name &&
                                     <span className="CardNewsNew__city" title={fact_city_name}>
@@ -213,10 +232,13 @@ const CardNewsNew = forwardRef(({
                 <div className="CardNewsNew__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
                     {
                         is_request_article
-                            ? <div className="CardNewsNew__show-all"><Link to={redirect_link} target="_blank">Подробнее...</Link></div>
-                            : <div className={`CardNewsNew__show-all${!canCollapse ? ' _disabled' : ''}`}
-                                onClick={() => canCollapse && setCollapsed(!collapsed)}
-                            >
+                            ? <div className="CardNewsNew__show-all">
+                                    <Link to={redirect_link} target="_blank">
+                                        Подробнее...
+                                    </Link>
+                                </div>
+                            : <div className={`CardNewsNew__show-all${!canCollapse ? '_disabled': ''}`}
+                                onClick={() => canCollapse && setCollapsed(!collapsed)}>
                                 {!collapsed ? 'Подробнее...' : 'Свернуть'}
                             </div>
                     }
@@ -272,9 +294,11 @@ const CardNewsNew = forwardRef(({
             <div className="CardNewsNew__controls" style={{ margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px' }}>
                 <div className="CardNewsNew__controls-left">
                     <div>
-                        <span
-                            className={`k-icon ${isLiked ? ' k-i-heart colored-icon' : ' k-i-heart-outline'}`}
-                        // onClick={handleLikeClick}
+                        <span 
+                            className={`k-icon ${isLiked 
+                                ? ' k-i-heart colored-icon'
+                                : ' k-i-heart-outline'}`}
+                            // onClick={handleLikeClick}
                         />
                         {/* <span>{likesCount}</span> */}
                         <span>0</span>
@@ -299,7 +323,11 @@ const CardNewsNew = forwardRef(({
         <div className="CardNewsNew__content">
             <div className="CardNewsNew__head">
                 <div className="CardNewsNew__left">
-                    <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                    <Link to={user_type === 4 
+                                ? `/kennel/${alias}` 
+                                : user_type === 1 ? `/user/${alias}` 
+                                : `/${alias}`}
+                    >
                         <div className="CardNewsNew__left-logo" style={{
                             background: `url(${logo_link ?
                                 logo_link :
@@ -314,9 +342,19 @@ const CardNewsNew = forwardRef(({
                             <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                     <>
-                                        <span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
-                                &nbsp;
-                            </>
+                                        <span>
+                                            {
+                                                user_type === 3 
+                                                ? 'Клуб' 
+                                                : user_type === 4 
+                                                ? 'Питомник' 
+                                                : user_type === 5
+                                                ? 'Федерация'
+                                                : ''
+                                            }
+                                        </span>
+                                            &nbsp;
+                                    </>
                                 }
                                 {user_type === 1 ? first_name + ' ' + last_name : name}
                             </Link>
@@ -327,7 +365,7 @@ const CardNewsNew = forwardRef(({
                                 <FederationChoiceMark />
                             }
                         </span>
-                        <div style={{ display: 'flex' }}>
+                        <div>
                             {formatDateTime(create_date)}
                             {fact_city_name &&
                                 <span className="CardNewsNew__city" title={fact_city_name}>
@@ -337,9 +375,9 @@ const CardNewsNew = forwardRef(({
                         </div>
                     </span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'top' }}></div>
             </div>
             <div>
+
                 <EditForm id={id}
                     text={content}
                     img={picture_link || ''}

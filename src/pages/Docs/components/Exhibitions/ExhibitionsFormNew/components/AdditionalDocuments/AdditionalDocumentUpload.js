@@ -1,12 +1,12 @@
-import React, {memo, useState} from "react";
-import {Field} from "@progress/kendo-react-form";
+import React, { memo, useState } from "react";
+import { Field } from "@progress/kendo-react-form";
 import FormUpload from "../FormUpload";
-import {getHeaders} from "../../../../../../../utils/request";
-import {DropDownList} from "@progress/kendo-react-dropdowns";
+import { getHeaders } from "../../../../../../../utils/request";
+import { DropDownList } from "@progress/kendo-react-dropdowns";
 
 
-const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError, dataType}) => {
-    const [documentType, setDocumentType] = useState(0);
+const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError, dataType }) => {
+    const [documentType, setDocumentType] = useState(dataType === 'international' ? 99 : 0);
 
     const onBeforeUpload = e => {
         e.headers = getHeaders(true);
@@ -15,18 +15,18 @@ const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDo
 
     const onStatusChange = (event, name) => {
         if (event.response && event.response.response) {
-            const {result} = event.response.response;
+            const { result } = event.response.response;
             if (result) {
-                let newDocument = {name: result.name, document_id: result.id};
+                let newDocument = { name: result.name, document_id: result.id };
 
-                if(documentType) newDocument.object_id = documentType;
+                if (documentType) newDocument.object_id = documentType;
 
-                formRenderProps.onChange('documents', {value: [...documents, newDocument]});
-                formRenderProps.onChange(name, {value: []});
+                formRenderProps.onChange('documents', { value: [...documents, newDocument] });
+                formRenderProps.onChange(name, { value: [] });
                 setDisableSubmit(false);
             } else {
                 handleError(event.response);
-                formRenderProps.onChange(name, {value: []});
+                formRenderProps.onChange(name, { value: [] });
             }
         }
 
@@ -42,9 +42,9 @@ const AdditionalDocumentUpload = ({documents, docTypes, documentsOverflow, setDo
                     data={docTypes}
                     dataItemKey={dataType === 'ncpIds' ? 'id' : 'value'}
                     textField={dataType === 'ncpIds' ? 'name' : 'text'}
-                    onChange={dataType === 'ncpIds' ? ({value}) => setDocumentType(value.id) : ({value}) => setDocumentType(value.value)}
-                    defaultItem={dataType === 'ncpIds' ? {name: "Выберите тип", id: 0} : {text: "Выберите тип", value: 0}}
-                    disabled={documentsOverflow}
+                    onChange={dataType === 'ncpIds' ? ({ value }) => setDocumentType(value.id) : ({ value }) => setDocumentType(value.value)}
+                    defaultItem={dataType === 'ncpIds' ? { name: "Выберите тип", id: 0 } : dataType === 'international' ? { text: "Интернациональная", value: 99 } : { text: "Выберите тип", value: 0 }}
+                    disabled={documentsOverflow || dataType === 'international'}
                 />
             }
             <Field

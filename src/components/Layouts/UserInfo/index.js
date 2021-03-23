@@ -1,15 +1,17 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { SvgIcon } from '@progress/kendo-react-common';
 import { pencil, trash } from '@progress/kendo-svg-icons';
 import { CSSTransition } from "react-transition-group";
+
 import Share from "../../Share";
 import ModalDeleteAvatar from "./ModalDeleteAvatar";
 import { DEFAULT_IMG } from "../../../appConfig";
-import { Link } from "react-router-dom";
 import LightTooltip from "../../LightTooltip";
 import UserActionControls from "components/UserActionControls";
 import { connectAuthVisible } from "pages/Login/connectors";
 import EditAvatar from "../../EditAvatar";
+
 import "./index.scss";
 
 
@@ -79,11 +81,18 @@ const UserInfo = ({
                     <img className="user-info__logo" src={logo_link ? logo_link : DEFAULT_IMG.userAvatar} alt="" />
                 </div>
                 <div className="user-info__info">
-                    {share_link ?
-                        <div className="user-info__with-share">
-                            <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}</p>
-                            <Share url={share_link} className={!first_name && !last_name ? `_no_share_name` : ``} />
-                        </div> :
+                    {share_link 
+                        ?
+                            <div className="user-info__with-share" >
+                                <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}</p>
+                                <Share url={share_link} 
+                                        className={!first_name && !last_name 
+                                                        ? `_no_share_name` 
+                                                        : ``
+                                                    } 
+                                />
+                            </div> 
+                        :
                         <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}</p>
                     }
                     {last_name && <p title={last_name}>{last_name}</p>}

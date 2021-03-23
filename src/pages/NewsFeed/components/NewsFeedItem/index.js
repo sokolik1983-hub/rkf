@@ -1,20 +1,21 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
-import { Chip } from "@progress/kendo-react-buttons";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Lightbox from "react-images";
+import { Chip } from '@progress/kendo-react-buttons';
 import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf } from "@progress/kendo-svg-icons";
 import moment from "moment";
-import Card from "../../../../components/Card";
-import Share from "../../../../components/Share";
-import { ActiveUserMark, FederationChoiceMark } from "../../../../components/Marks";
-import { formatText } from "../../../../utils";
-import { formatDateTime } from "../../../../utils/datetime";
-import { DEFAULT_IMG } from "../../../../appConfig";
+
+import Card from "components/Card";
+import Share from "components/Share";
+import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
+import { formatText } from "utils";
+import { formatDateTime } from "utils/datetime";
+import { DEFAULT_IMG } from "appConfig";
 import EditForm from "./EditForm";
-import { Request } from "../../../../utils/request";
+import { Request } from "utils/request";
 
 import "./index.scss";
 
@@ -131,7 +132,12 @@ const NewsFeedItem = forwardRef(({
                         <span className="NewsFeedItem__left-name">
                             {is_request_article
                                 ? <div>
-                                    <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                                    <Link to={user_type === 4 
+                                                ? `/kennel/${alias}` 
+                                                : user_type === 1 
+                                                ? `/user/${alias}` 
+                                                : `/${alias}`}
+                                    >
                                         {user_type === 1 ? first_name + ' ' + last_name : name}
                                     </Link>
                                     <span>{`, ${formatDate(create_date)}`}</span>&nbsp;
@@ -145,7 +151,12 @@ const NewsFeedItem = forwardRef(({
                                                 &nbsp;
                                             </>
                                         }
-                                        <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                                        <Link to={user_type === 4 
+                                                    ? `/kennel/${alias}` 
+                                                    : user_type === 1 
+                                                    ? `/user/${alias}` 
+                                                    : `/${alias}`}
+                                        >
 
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
                                         </Link>
@@ -156,7 +167,7 @@ const NewsFeedItem = forwardRef(({
                                             <FederationChoiceMark />
                                         }
                                     </span>
-                                    <div style={{ display: 'flex' }}>
+                                    <div>
                                         {formatDateTime(create_date)}
                                         {fact_city_name &&
                                             <span className="NewsFeedItem__city" title={fact_city_name}>

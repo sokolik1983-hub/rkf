@@ -19,7 +19,7 @@ import { Request } from "../../../../utils/request";
 import flatten from "../../../../utils/flatten";
 import "./index.scss";
 
-const apiPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
+const apiPrivacyEndpoint = '/api/requests/dog_health_check_request/ownerdoghealthcheckdysplasiarequest/personal_data_document';
 
 const DysplasiaForm = ({ alias, history, status, owner }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
@@ -194,7 +194,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                     <div className="dysplasia-form__row _files">
                                         {disableAllFields && values &&
                                             <div>
-                                                <div style={{display: 'flex', flexDirection: 'row'}}>
+                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
                                                     <div className="dysplasia-form__file">
                                                         <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача</p>
                                                         <DocumentLink docId={values.veterinary_contract_document_id} />
@@ -204,8 +204,8 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         <DocumentLink docId={values.roentgenogram_document_id} />
                                                     </div>
                                                 </div>
-                                                <div  style={{display: 'flex', flexDirection: 'row'}}>
-                                                    {values.pedigree_document_id && <div className="dysplasia-form__file"  style={{marginRight: '50px'}}>
+                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                    {values.pedigree_document_id && <div className="dysplasia-form__file" style={{ marginRight: '50px' }}>
                                                         <p className="k-label">Соглашение на обработку персональных данных</p>
                                                         <DocumentLink docId={values.pedigree_document_id} />
                                                     </div>}
@@ -298,14 +298,12 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                     </div>
                                 </div>
                                 {!disableAllFields &&
-                                    <div className="dysplasia-form__row _files" style={{marginTop: '16px'}}>
+                                    <div className="dysplasia-form__row _files" style={{ marginTop: '16px' }}>
                                         <div className="dysplasia-form__file">
-                                            <div>
-                                                Соглашение на обработку персональных данных (PDF, JPEG, JPG)
-                                            </div><a href={privacyHref} style={{ textDecoration: 'none' }}> Скачать форму соглашения</a>
                                             <Field
                                                 id="personal_data_document"
                                                 name="personal_data_document"
+                                                label={<div>Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br /><a href={privacyHref} style={{ textDecoration: 'none' }}>Скачать форму соглашения</a></div>}
                                                 fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                 component={FormUpload}
                                                 disabled={status === 'edit' && values && values.personal_data_document_accept}

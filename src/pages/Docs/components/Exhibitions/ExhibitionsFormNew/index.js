@@ -478,6 +478,8 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                 formRenderProps={formRenderProps}
                                                 editable={editable}
                                                 status={status}
+                                                dataType={'international'}
+                                                docTypes={[{ text: 'Интернациональная', value: 99 }]}
                                             />
                                         }
                                         {ranksIds && !!ranksIds.length &&

@@ -68,7 +68,7 @@
       font-size: 16px;
       line-height: 24px;
       letter-spacing: 0.2px;
-      padding: 7px 16px 7px 0;
+      padding: 7px 7px 7px 0;
 
       &:empty {
         height: auto !important;
@@ -104,7 +104,6 @@
   }
 
   &__controls {
-    padding-left: 10px;
     align-items: center;
 
     @media (max-width: 700px) {
@@ -129,41 +128,27 @@
     }
 
     &>* {
-      margin-right: 15px;
+      margin-right: 25px;
 
       @media (max-width: 700px) {
-        margin-right: 5px;
-      }
-
-      @media (max-width: 500px) {
-        margin-right: 45px;
+        margin-right: 15px;
       }
     }
-
     &-wrap {
       display: flex;
       justify-content: space-between;
       margin-top: 4px;
-
-      @media (max-width: 700px) {
-        margin-top: 12px;
-      }
     }
   }
 
   &__labelfile {
-    padding-left: 24px;
+    padding-left: 15px;
     margin-bottom: 0;
     min-height: 24px;
     color: #72839c;
     cursor: pointer;
     position: relative;
     transition: color 0.2s linear;
-
-    @media (max-width: 700px) {
-      margin-bottom: 10px;
-    }
-
     &:before {
       content: "";
       display: inline-block;
@@ -189,7 +174,6 @@
   &__attach-video,
   &__attach-pdf {
     border: none;
-    padding: 0 0 0 28px;
     min-height: 24px;
     position: relative;
     letter-spacing: normal;
@@ -197,11 +181,6 @@
     cursor: pointer;
     color: #72839c;
     transition: color 0.2s linear;
-
-    @media (max-width: 700px) {
-      margin-bottom: 10px;
-    }
-
     &:before {
       content: "";
       display: inline-block;
@@ -471,14 +450,14 @@
 }
 
 ._focus {
-  display: flex;
   flex-direction: column;
+  
 }
 
 ._no_focus {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .k-chip-filled:focus,

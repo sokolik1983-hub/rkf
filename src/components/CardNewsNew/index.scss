@@ -40,6 +40,10 @@
   }
   &__content {
     margin-bottom: 10px;
+    position: initial;
+      @media (max-width: 560px) {
+        position: relative;
+      }
   }
   &__media {
     & > div + div {
@@ -75,9 +79,6 @@
     align-items: flex-start;
     margin-bottom: 10px;
     text-align: right;
-    @media (max-width: 560px) {
-      flex-direction: column;
-    }
     &-control {
       position: relative;
       & > button {
@@ -159,14 +160,48 @@
     height: 62px;
     overflow: hidden;
     flex-grow: 1;
+    position: relative;
     @media (max-width: 560px) {
       width: 100%;
+    }
+    &-inner {
+      position: relative;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      @media (max-width: 560px) {
+        position: initial;
+      }
+    }
+    &__city-inner {
+      display: flex;
+        @media (max-width: 560px) {
+          flex-direction: column;
+          }
+    }
+    &-mark {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      & span:last-child {
+        margin-left: 5px;
+      }
+      @media (max-width: 560px) {
+        top: 66%;
+        left: 0;
+      }
+    }
+    &-city {
+     &:first-child {
+      white-space: nowrap;
+     }
     }
     &-logo {
       display: flex;
       flex-shrink: 0;
-      width: 60px;
-      height: 60px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
       margin: 0 10px 0 0;
     }
@@ -174,9 +209,10 @@
       display: flex;
       align-items: flex-start;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       text-align: left;
       width: 100%;
+      min-width: 0;
       @media (min-width: 560px) {
         width: calc(100% - 70px);
       }
@@ -190,6 +226,9 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         display: block;
+        @media (max-width: 375px) {
+          font-size: 14px;
+        }
         span {
           display: inline-block;
         }
@@ -199,6 +238,11 @@
         font-size: 16px;
         line-height: 20px;
         color: #b9b9b9;
+        display: flex;
+        padding-right: 40px;
+        @media (max-width: 375px) {
+          font-size: 14px;
+        }
         span {
           color: #72839c;
         }
@@ -206,19 +250,21 @@
       & > span {
         display: flex;
         align-items: center;
-        margin-bottom: 5px;
         color: #b9b9b9;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
         font-size: 18px;
         max-width: 100%;
+        @media (max-width: 375px) {
+          font-size: 14px;
+        }
       }
     }
   }
   &__right {
     display: flex;
     padding-top: 6px;
+    @media (max-width: 560px) {
+      padding-top: 30px;
+     }
     .k-chip.k-chip-filled,
     .k-chip.k-chip-filled.k-chip-selected {
       height: 26px;
@@ -246,8 +292,8 @@
     &:before {
       content: "";
       position: absolute;
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 17px;
       left: 0;
       top: 2px;
       background: url("/static/icons/pin-gray.svg") center no-repeat;
@@ -295,6 +341,7 @@
     word-wrap: break-word;
     transition: height 0.2s linear;
     margin-bottom: 0 !important;
+    padding-top: 20px;
     &._disabled {
       margin-bottom: 10px !important;
     }
@@ -569,5 +616,23 @@
   }
   .ya-share2__popup {
     right: -25px;
+  }
+}
+.user-header {
+  &__content {
+    padding: 12px 12px 17px !important;
+    @media (max-width: 768px) {
+      width: 100%;      
+   }
+  }
+  @media (max-width: 768px) {
+         flex-direction: column;
+         
+      }
+  @media (max-width: 610px) {
+    &__logo-wrap {
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }

@@ -15,15 +15,22 @@ import UserDatePicker from "../../../kendo/DatePicker";
 import moment from "moment";
 import "./index.scss";
 
+
 // dysplasia request
 const FormFields = connect(({ formik, update, view, options, alias, setRedirect, send, initial, Title, config }) => {
+    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     // const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     // const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
     // const cash_payment = initial.cash_payment;
+    const [privacyHref, setPrivacyHref] = useState('');
     const [everkAlert, setEverkAlert] = useState(false);
     const [everk, setEverk] = useState(false);
     const [init, setInit] = useState(false);
+
+    const apiPrivacyEndpoint = config.profileType === 'kennel' ? '/api/requests/dog_health_check_request/doghealthcheckdysplasiarequest/personal_data_document' : '/api/requests/dog_health_check_request/kenneldoghealthcheckdysplasiarequest/personal_data_document';
+
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
+
     const getEverkData = () => {
         let rfc = getIn(formik.values, 'pedigree_number');
         return PromiseRequest(`/api/dog/Dog/everk_dog/${rfc}`)
@@ -42,6 +49,14 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
         formik.setFieldValue('dog_name', '');
         setEverk(false);
     }
+
+    useEffect(() => {
+        Promise.all([
+            fetch(apiPrivacyEndpoint, { headers })
+                .then(response => response.blob())
+                .then(data => setPrivacyHref(URL.createObjectURL(data))),
+        ])
+    }, []);
 
     const { stampCodes } = options;
     useEffect(() => {
@@ -96,7 +111,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                     disabled={view || update}
                 />
             </FormGroup>
-            {(config.distinction === 'dysplasia') && !update && !view && <p style={{marginTop: '-20px', marginBottom: '16px'}}>Только при оценке внешним специалистом</p>}
+            {(config.distinction === 'dysplasia') && !update && !view && <p style={{ marginTop: '-20px', marginBottom: '16px' }}>Только при оценке внешним специалистом</p>}
             <FormGroup inline>
                 <FormField
                     disabled={update}
@@ -145,7 +160,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 />
                 {(config.distinction !== 'patella') && <FormFile
                     name={`personal_data_document`}
-                    label={view && !formik.values.personal_data_document_id ? '' : `Соглашение на обработку персональных данных (PDF, JPEG, JPG)`}
+                    label={view && !formik.values.personal_data_document_id ? '' : <>Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br /><a href={privacyHref}>Скачать форму соглашения</a></>}
                     docId={formik.values.personal_data_document_id}
                     disabled={view || formik.values.personal_data_document_accept}
                     document_type_id={11}
