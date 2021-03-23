@@ -23,7 +23,7 @@ const TypeFilter = ({ types, type_ids, onChange, is_club_link }) => {
     const [isOpen, setIsOpen] = useState(is_club_link && !types.length ? false : true);
 
     useEffect(() => {
-        if (types.length) { 
+        if (types.length) {
             setOptionsNotInValues(types.filter(option => type_ids.indexOf(option.value) === -1));
             setValues(types.filter(option => type_ids.indexOf(option.value) !== -1));
         }
@@ -33,9 +33,15 @@ const TypeFilter = ({ types, type_ids, onChange, is_club_link }) => {
         onChange(options.map(option => option.value));
     };
 
-    const handleDelete = typeId => {
-        onChange(values.filter(type => type.value !== typeId).map(type => type.value));
-    };
+    function compare(a, b) {
+        let comparison = 0;
+        if (a.value > b.value) {
+            comparison = 1;
+        } else if (a.value < b.value) {
+            comparison = -1;
+        }
+        return comparison;
+    }
 
     return (
         <Card className="types-filter">
@@ -54,7 +60,7 @@ const TypeFilter = ({ types, type_ids, onChange, is_club_link }) => {
                         id="types-filter"
                         isMulti={true}
                         closeMenuOnSelect={false}
-                        options={[...values, ...optionsNotInValues]}
+                        options={[...values, ...optionsNotInValues].sort(compare)}
                         defaultMenuIsOpen={true}
                         hideSelectedOptions={false}
                         menuIsOpen={true}
@@ -69,16 +75,6 @@ const TypeFilter = ({ types, type_ids, onChange, is_club_link }) => {
                         components={{ Option }}
                         maxMenuHeight={170}
                     />
-                    {!!values.length &&
-                        <ul className="types-filter__values">
-                            {values.map(item =>
-                                <li className="types-filter__values-item" key={item.value}>
-                                    <span>{item.label}</span>
-                                    <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
-                                </li>
-                            )}
-                        </ul>
-                    }
                 </div>
             </CSSTransition>
         </Card>
