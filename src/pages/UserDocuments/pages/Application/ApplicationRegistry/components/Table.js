@@ -1,18 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
+import moment from "moment";
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Fade } from '@progress/kendo-react-animation';
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownButton, ChipList } from '@progress/kendo-react-buttons';
-import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
-import moment from "moment";
+
 import PdfPageTemplate from "../../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../../components/LightTooltip";
 import CopyCell from '../../../../../Docs/components/CopyCell';
-import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-import { Fade } from '@progress/kendo-react-animation';
+import { getHeaders } from "utils/request";
+
 import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -48,7 +50,7 @@ const LinkCell = ({ dataItem }) => {
     return <td>
         {created_document_id &&
             <LightTooltip title="Скачать файл" enterDelay={200} leaveDelay={200}>
-            <span className="download-document" onClick={e => handleClick(e, created_document_id)}></span>
+                <span className="download-document" onClick={e => handleClick(e, created_document_id)}></span>
             </LightTooltip>
         }
     </td>
@@ -62,7 +64,7 @@ const ExpressCell = ({ dataItem }, field) => {
     );
 };
 
-const OptionsCell = ({ dataItem }) => {
+const OptionsCell = ({ dataItem }, setErrorReport) => {
     const { status_id, id } = dataItem;
     const { route } = useParams();
     const options = [{
@@ -77,6 +79,11 @@ const OptionsCell = ({ dataItem }) => {
         render: ({ item }) => <Link
             to={`/user/${route}/documents/application/edit/${id}`}
             className="row-control__link">{item.text}</Link>
+    },
+    {
+        text: 'Сообщить об ошибке',
+        disabled: status_id === 3 ? false : true,
+        render: ({ item }) => <span className="row-control__link" onClick={() => setErrorReport(id)}>{item.text}</span>
     }].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
@@ -105,7 +112,7 @@ const handleClick = async (e, id) => {
     el.className = 'download-document';
 };
 
-const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) => {
+const Table = ({ documents, profileType, fullScreen, exporting, setExporting, setErrorReport }) => {
     const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
@@ -233,7 +240,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '133px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-                        <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
+                        <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, setErrorReport)} />
                     </Grid>}
                     <GridPDFExport
                         fileName={`Получение_документов_РКФ_${moment(new Date()).format(`DD_MM_YYYY`)}`}
