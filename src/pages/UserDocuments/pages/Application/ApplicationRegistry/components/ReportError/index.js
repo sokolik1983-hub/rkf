@@ -103,7 +103,7 @@ const ReportError = ({ id, onErrorReport }) => {
                 showModal={isModalOpen}
                 handleClose={() => handleClose()}
                 noBackdrop={true}
-                className="status-table__modal"
+                className="user-status-table__modal"
             >
                 <ReportErrorForm id={id} setIsOpen={handleClose} />
             </Modal>
