@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from "react";
+import React, { memo, useEffect, useState } from "react";
 import AdditionalDocumentUpload from "./AdditionalDocumentUpload";
 import AdditionalDocumentField from "./AdditionalDocumentField";
 import Modal from "../../../../../../../components/Modal";
@@ -6,19 +6,19 @@ import Loading from "../../../../../../../components/Loading";
 import "./styles.scss";
 
 
-const AdditionalDocuments = ({documents, docTypes, formRenderProps, setDisableSubmit, handleError, editable, status, dataType}) => {
+const AdditionalDocuments = ({ documents, docTypes, formRenderProps, setDisableSubmit, handleError, editable, status, dataType }) => {
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
-    const typesIds = docTypes ? (dataType === 'ranksIds' ? [...docTypes].map(type => type.value) : [...docTypes].map(type => type.id)) : [];
+    const typesIds = docTypes ? ((dataType === 'ranksIds' || dataType === 'international') ? [...docTypes].map(type => type.value) : [...docTypes].map(type => type.id)) : [];
     const updatedDocuments = [...documents].filter(doc => typesIds.includes(doc.object_id));
 
     useEffect(() => {
-        if(updatedDocuments && updatedDocuments.length >= 10) setDocumentsOverflow(true);
+        if (updatedDocuments && updatedDocuments.length >= 10) setDocumentsOverflow(true);
     }, [updatedDocuments])
 
     return (
-        <div style={{marginTop: '20px'}}>
+        <div style={{ marginTop: '20px' }}>
             {(!status || (status && !!updatedDocuments.length)) &&
                 <div className="application-form__additional-title">
                     {editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}
