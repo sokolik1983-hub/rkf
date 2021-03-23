@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import getYouTubeID from "get-youtube-id";
 import { connect } from "formik";
-import Modal from "../Modal";
+
+import { trash } from "@progress/kendo-svg-icons";
+import { SvgIcon } from "@progress/kendo-react-common";
+import OutsideClickHandler from "react-outside-click-handler";
+
 import { SubmitButton, FormControls, FormGroup, FormField } from '../Form';
 import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
@@ -13,10 +17,8 @@ import ImagePreview from "../ImagePreview";
 import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
-import { trash } from "@progress/kendo-svg-icons";
-import { SvgIcon } from "@progress/kendo-react-common";
+import Modal from "../Modal";
 import { useFocus } from "../../shared/hooks";
-import OutsideClickHandler from "react-outside-click-handler";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 
@@ -37,7 +39,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             error => console.log(error.response)
         )
     }, []);
-
     const handleChange = e => {
         const file = e.target.files[0];
 

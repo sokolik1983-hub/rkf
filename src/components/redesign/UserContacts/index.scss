@@ -40,11 +40,14 @@
           }
           &:last-child {
             color: #61797c;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
       }
       .ReactCollapse--collapse {
-        min-height: 115px;
+        min-height: 165px;
         transition: height 500ms;
       }
     }

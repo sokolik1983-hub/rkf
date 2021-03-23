@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import Card from "../Card";
 import Share from "../Share";
 import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import { DEFAULT_IMG } from "../../appConfig";
+
 import "./index.scss";
 
 
@@ -42,6 +44,7 @@ const CardOrganization = ({ alias,
                             />
                             <div className="card-organization__name-wrap">
                                 <div>
+                                    <div className="card-organization__name-inner">
                                     <Link to={url} className="card-organization__name" title={name || 'Название отсутствует'}>
                                         {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
                                             <>
@@ -53,12 +56,15 @@ const CardOrganization = ({ alias,
                                         }
                                         <span>{name || 'Название отсутствует'}</span>
                                     </Link>
-                                    {active_rkf_user &&
-                                        <ActiveUserMark/>
-                                    }
-                                    {active_member &&
-                                        <FederationChoiceMark/>
-                                    }
+                                    <span className="card-organization__mark">
+                                        {active_rkf_user &&
+                                            <ActiveUserMark/>
+                                        }
+                                        {active_member &&
+                                            <FederationChoiceMark/>
+                                        }
+                                    </span>
+                                    </div>
                                 </div>
                                 {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
                                     <div className="card-organization__info-item">
@@ -79,7 +85,13 @@ const CardOrganization = ({ alias,
                                 {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
                                     <>
                                         <span>
-                                            {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : ''}
+                                            {user_type === 3 
+                                                ? 'Клуб' 
+                                                : user_type === 4 
+                                                ? 'Питомник' : user_type === 5 
+                                                ? 'Федерация' : user_type === 7 
+                                                ? 'НКП' : ''
+                                            }
                                         </span>
                                         &nbsp;
                                     </>

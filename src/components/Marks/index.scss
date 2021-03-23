@@ -2,7 +2,10 @@
   display: block;
   width: 14px;
   min-width: 14px;
-  margin-left: 6px;
+  margin-left: 5px;
+  &:first-child {
+  margin-left: 0;
+  }  
   &.active-user-mark {
     width: 17px;
     min-width: 17px;
