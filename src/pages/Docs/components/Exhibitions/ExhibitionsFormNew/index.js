@@ -103,6 +103,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                     cities: data.cities,
                     year_forbidden_nkp: data.year_forbidden_nkp,
                     year_rank_counters: data.year_rank_counters,
+                    current_month: data.current_month,
                 });
             } else {
                 setError('Ошибка');
@@ -293,8 +294,8 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                         key={JSON.stringify(initialValues)}
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
-                            const isCACIB = formRenderProps.valueGetter('format_id') === 2;
                             const isCAC = formRenderProps.valueGetter('format_id') === 1;
+                            const isCACIB = formRenderProps.valueGetter('format_id') === 2;
                             const ranksIds = formRenderProps.valueGetter('rank_ids');
                             const ncpIds = formRenderProps.valueGetter('national_breed_club_ids');
                             const pickedYear = formRenderProps.valueGetter('date_begin') ?
@@ -376,9 +377,9 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     id="date_begin"
                                                     name="date_begin"
                                                     label="Дата начала проведения"
-                                                    min={isCACIB
-                                                        ? new Date(`01.01.${new Date().getFullYear() + 2}`)
-                                                        : new Date(`01.01.${new Date().getFullYear() + 1}`)
+                                                    min={isCACIB ?
+                                                        new Date(`01.01.${new Date().getFullYear() + ((exhibitionProperties?.current_month <= 4 ? 2 : 3))}`)
+                                                        : new Date(`01.01.${new Date().getFullYear() + (exhibitionProperties?.current_month <= 4 ? 1 : 2)}`)
                                                     }
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
