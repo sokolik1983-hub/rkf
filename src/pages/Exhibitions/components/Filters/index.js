@@ -4,6 +4,7 @@ import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
 import BreedsFilter from "../../../../components/Filters/BreedsFilter";
 import RanksFilter from "../../../../components/Filters/RanksFilter";
+import TypeFilter from "../../../../components/Filters/TypeFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
 import FormatFilter from "../../../../components/Filters/FormatFilter";
 import PaymentFormFilter from "../../../../components/Filters/PaymentFormFilter";
@@ -26,6 +27,7 @@ import "./index.scss";
 
 const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user, notificationsLength, isEducational }) => {
     const [ranks, setRanks] = useState([]);
+    const [types, setTypes] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [breeds, setBreeds] = useState([]);
     const [cities, setCities] = useState({ exhibitionCities: [], educationalCities: [] });
@@ -40,6 +42,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
         ]).then(data => {
             setCities({ exhibitionCities: data[0].cities, educationalCities: data[1].cities });
             setRanks(data[0].ranks);
+            setTypes(data[0].types);
             setBreeds(data[0].breeds.filter(item => item.value !== 1));
             setLoading(false);
             window.scrollTo(0, 0);
@@ -117,14 +120,14 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                 <div className="exhibitions-filters__head">
                                     <h4>Диапазон дат</h4>
                                     <button type="button" className="exhibitions-filters__clear" onClick={clearAll}>
-                                    <svg
-                                        className="icon-broom" 
-                                        width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M17.01 2.86102e-08L18.43 1.42L12.71 7.13C13.78
+                                        <svg
+                                            className="icon-broom"
+                                            width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M17.01 2.86102e-08L18.43 1.42L12.71 7.13C13.78
                                             8.67 13.93 10.52 13.03 11.72L6.71 5.4C7.91 4.5 9.76 4.65
                                             11.3 5.72L17.01 2.86102e-08ZM3.58 14.85C1.57 12.84 0.34 10.44
                                             -9.53674e-08 8.2L4.88 6.11L12.32 13.55L10.23 18.43C7.99 18.09
-                                            5.59 16.86 3.58 14.85Z" fill="#72839c"/>
+                                            5.59 16.86 3.58 14.85Z" fill="#72839c" />
                                         </svg>
                                         Сбросить
                                     </button>
@@ -163,6 +166,14 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                 onChange={filter => setFiltersToUrl({ CityIds: filter })}
                                 is_club_link={clubName && filters.Alias}
                             />
+                            {parseInt(filters.CategoryId) !== 4 &&
+                                <TypeFilter
+                                    types={types}
+                                    type_ids={filters.TypeIds}
+                                    onChange={filter => setFiltersToUrl({ TypeIds: filter })}
+                                    is_club_link={clubName && filters.Alias}
+                                />
+                            }
                             {parseInt(filters.CategoryId) === 4
                                 ? <PaymentFormFilter
                                     payment_form_ids={filters.PaymentFormTypeIds}
