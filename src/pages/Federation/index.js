@@ -15,6 +15,7 @@ import DocumentsComponent from "../../components/DocumentsComponent";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import CopyrightInfo from "../../components/CopyrightInfo";
+import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
 
@@ -25,6 +26,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
     const [page, setPage] = useState(1);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         (() => Request({
@@ -72,11 +74,11 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                             name={federation.owner_name}
                             position={federation.owner_position}
                         />
-                        <MenuComponent
+                        {isMobile && <MenuComponent
                             alias={alias}
                             name={federation.name}
                             isFederation={true}
-                        />
+                        />}
                     </div>
                     <div className="federation-page__info">
                         <aside className="federation-page__left">

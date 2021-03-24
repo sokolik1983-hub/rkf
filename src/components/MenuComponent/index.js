@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Card from "../Card";
 import Modal from "../Modal";
@@ -205,14 +205,30 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
+const MenuComponent = ({ alias, name, user, isFederation, noCard = false, history }) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
     const [open, setOpen] = useState(false);
+    const [fedDocId, setFedDocId] = useState(null);
     const isMobile = useIsMobile();
+
+    useEffect(() => {
+        if (alias === 'rfls') {
+            //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
+            //Alias (алиас федерации)
+            (() => Request({
+                url: `/api/federation/federation_documents?FederationDocumentType=2&Alias=${alias}`
+            }, data => {
+                setFedDocId(data[0]?.documents[0]?.document_id);
+            }, error => {
+                console.log(error.response);
+                history.replace('/');
+            }))();
+        }
+    }, [alias]);
 
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
@@ -234,28 +250,6 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                     )}
                 </ol>
             </>
-        }
-    };
-
-    const getFees = e => {
-        e.preventDefault();
-        setErrorText(null);
-        setShowModal('fees');
-        if (!data.fees) {
-            setLoading(true);
-            Request({
-                url: `/api/federation/membership_fees?alias=${alias}`
-            }, result => {
-                setData({ ...data, fees: [...result] });
-                setLoading(false);
-            },
-                error => {
-                    console.log(error.response);
-                    if (error.response) {
-                        setErrorText(`${error.response.status} ${error.response.statusText}`);
-                    }
-                    setLoading(false);
-                });
         }
     };
 
@@ -405,14 +399,14 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                         >
                             <ul className="user-menu__list">
                                 {user !== 'nursery' &&
-                                <li className="user-menu__item">
-                                    <Link to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</Link>
-                                </li>
+                                    <li className="user-menu__item">
+                                        <Link to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</Link>
+                                    </li>
                                 }
                                 {presidium[alias] &&
-                                <li className="user-menu__item">
-                                    <Link to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</Link>
-                                </li>
+                                    <li className="user-menu__item">
+                                        <Link to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</Link>
+                                    </li>
                                 }
                                 <li className="user-menu__item">
                                     <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link" title="Публикации">Публикации</Link>
@@ -427,28 +421,34 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                                     <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</Link>
                                 </li>
                                 {alias === 'rfls' &&
-                                <>
-                                    <li className="user-menu__item">
-                                        <Link to="/" onClick={getFees} className="user-menu__link" title="Размеры членских взносов">
-                                            Размеры членских взносов
+                                    <>
+                                        {fedDocId && <li className="user-menu__item">
+                                            <Link
+                                                to={`/details-viewer/${fedDocId}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="user-menu__link"
+                                                title="Размеры членских взносов"
+                                            >
+                                                Размеры членских взносов
                                         </Link>
-                                    </li>
-                                    <li className="user-menu__item">
-                                        <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
-                                            Бланки
+                                        </li>}
+                                        <li className="user-menu__item">
+                                            <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
+                                                Бланки
                                         </Link>
-                                    </li>
-                                    <li className="user-menu__item">
-                                        <Link to="/" onClick={getRequisites} className="user-menu__link" title="Реквизиты">
-                                            Реквизиты
+                                        </li>
+                                        <li className="user-menu__item">
+                                            <Link to="/" onClick={getRequisites} className="user-menu__link" title="Реквизиты">
+                                                Реквизиты
                                         </Link>
-                                    </li>
-                                </>
+                                        </li>
+                                    </>
                                 }
                                 {isFederation &&
-                                <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</Link>
-                                </li>
+                                    <li className="user-menu__item">
+                                        <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</Link>
+                                    </li>
                                 }
                                 <li className="user-menu__item">
                                     <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link" title={name}>
@@ -461,23 +461,23 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                 </Card> :
                 <ul className="menu-component__list">
                     {user !== 'nursery' &&
-                    <li className="menu-component__item">
-                        <Link
-                            to={`/exhibitions?Alias=${alias}`}
-                            className="menu-component__link _events"
-                            title="Мероприятия"
-                        >Мероприятия</Link>
-                    </li>
+                        <li className="menu-component__item">
+                            <Link
+                                to={`/exhibitions?Alias=${alias}`}
+                                className="menu-component__link _events"
+                                title="Мероприятия"
+                            >Мероприятия</Link>
+                        </li>
                     }
                     {presidium[alias] &&
-                    <li className="menu-component__item">
-                        <Link
-                            to="/"
-                            onClick={getPresidium}
-                            className="menu-component__link _presidium"
-                            title="Президиум"
-                        >Президиум</Link>
-                    </li>
+                        <li className="menu-component__item">
+                            <Link
+                                to="/"
+                                onClick={getPresidium}
+                                className="menu-component__link _presidium"
+                                title="Президиум"
+                            >Президиум</Link>
+                        </li>
                     }
                     <li className="menu-component__item">
                         <Link
@@ -508,47 +508,48 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                         >Видеозаписи</Link>
                     </li>
                     {alias === 'rfls' &&
-                    <>
-                        <li className="menu-component__item">
-                            <Link
-                                to="/"
-                                onClick={getFees}
-                                className="menu-component__link _fees"
-                                title="Размеры членских взносов"
-                            >
-                                Размеры членских взносов
+                        <>
+                            {fedDocId && <li className="menu-component__item">
+                                <Link
+                                    to={`/details-viewer/${fedDocId}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="menu-component__link _fees"
+                                    title="Размеры членских взносов"
+                                >
+                                    Размеры членских взносов
                             </Link>
-                        </li>
-                        <li className="menu-component__item">
-                            <Link
-                                to="/"
-                                onClick={getBlanks}
-                                className="menu-component__link _blanks"
-                                title="Бланки"
-                            >
-                                Бланки
+                            </li>}
+                            <li className="menu-component__item">
+                                <Link
+                                    to="/"
+                                    onClick={getBlanks}
+                                    className="menu-component__link _blanks"
+                                    title="Бланки"
+                                >
+                                    Бланки
                             </Link>
-                        </li>
-                        <li className="menu-component__item">
-                            <Link
-                                to="/"
-                                onClick={getRequisites}
-                                className="menu-component__link _requisites"
-                                title="Реквизиты"
-                            >
-                                Реквизиты
+                            </li>
+                            <li className="menu-component__item">
+                                <Link
+                                    to="/"
+                                    onClick={getRequisites}
+                                    className="menu-component__link _requisites"
+                                    title="Реквизиты"
+                                >
+                                    Реквизиты
                             </Link>
-                        </li>
-                    </>
+                            </li>
+                        </>
                     }
                     {isFederation &&
-                    <li className="menu-component__item">
-                        <Link
-                            to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`}
-                            className="menu-component__link _documents"
-                            title="Статус документов"
-                        >Статус документов</Link>
-                    </li>
+                        <li className="menu-component__item">
+                            <Link
+                                to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`}
+                                className="menu-component__link _documents"
+                                title="Статус документов"
+                            >Статус документов</Link>
+                        </li>
                     }
                     <li className="menu-component__item">
                         <Link
@@ -563,19 +564,19 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
             }
             {showModal &&
                 <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
-                <div className="menu-component__wrap">
-                    {
-                        loading
-                            ? <Loading centered={false} />
-                            : <>
-                                {showModal === 'presidium' && showPresidium()}
-                                {showModal === 'fees' && showFees()}
-                                {showModal === 'blanks' && showBlanks()}
-                                {showModal === 'requisites' && showRequisites()}
-                            </>
-                    }
-                </div>
-            </Modal>
+                    <div className="menu-component__wrap">
+                        {
+                            loading
+                                ? <Loading centered={false} />
+                                : <>
+                                    {showModal === 'presidium' && showPresidium()}
+                                    {showModal === 'fees' && showFees()}
+                                    {showModal === 'blanks' && showBlanks()}
+                                    {showModal === 'requisites' && showRequisites()}
+                                </>
+                        }
+                    </div>
+                </Modal>
             }
         </Card>
     )
