@@ -212,7 +212,8 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
     const [open, setOpen] = useState(false);
-    const [fedDocId, setFedDocId] = useState(null);
+    const [fedFeesId, setFedFeesId] = useState(null);
+    const [fedDetails, setFedDetails] = useState(null);
     const isMobile = useIsMobile();
 
     useEffect(() => {
@@ -220,9 +221,10 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({
-                url: `/api/federation/federation_documents?FederationDocumentType=2&Alias=${alias}`
+                url: `/api/federation/federation_documents?Alias=${alias}`
             }, data => {
-                setFedDocId(data[0]?.documents[0]?.document_id);
+                setFedFeesId(data[0]?.documents?.filter(i => i.document_type_id === 2)[0].document_id);
+                setFedDetails(data[0]?.documents?.filter(i => i.document_type_id === 1)[0].document_id);
             }, error => {
                 console.log(error.response);
                 history.replace('/');
@@ -304,28 +306,6 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
             }
         </div>
     });
-
-    const getRequisites = e => {
-        e.preventDefault();
-        setErrorText(null);
-        setShowModal('requisites');
-        if (!data.requisites) {
-            setLoading(true);
-            Request({
-                url: `/api/federation/requisites?alias=${alias}`
-            }, result => {
-                setData({ ...data, requisites: { ...result } })
-                setLoading(false);
-            },
-                error => {
-                    console.log(error.response);
-                    if (error.response) {
-                        setErrorText(`${error.response.status} ${error.response.statusText}`);
-                    }
-                    setLoading(false);
-                });
-        }
-    };
 
     const showRequisites = () => {
         const { owner_name,
@@ -422,9 +402,9 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                 </li>
                                 {alias === 'rfls' &&
                                     <>
-                                        {fedDocId && <li className="user-menu__item">
+                                        {fedFeesId && <li className="user-menu__item">
                                             <Link
-                                                to={`/details-viewer/${fedDocId}`}
+                                                to={`/details-viewer/${fedFeesId}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="user-menu__link"
@@ -438,11 +418,16 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                                 Бланки
                                         </Link>
                                         </li>
-                                        <li className="user-menu__item">
-                                            <Link to="/" onClick={getRequisites} className="user-menu__link" title="Реквизиты">
+                                        {fedDetails && <li className="user-menu__item">
+                                            <Link
+                                                to={`/details-viewer/${fedDetails}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="user-menu__link"
+                                                title="Реквизиты">
                                                 Реквизиты
                                         </Link>
-                                        </li>
+                                        </li>}
                                     </>
                                 }
                                 {isFederation &&
@@ -509,9 +494,9 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                     </li>
                     {alias === 'rfls' &&
                         <>
-                            {fedDocId && <li className="menu-component__item">
+                            {fedFeesId && <li className="menu-component__item">
                                 <Link
-                                    to={`/details-viewer/${fedDocId}`}
+                                    to={`/details-viewer/${fedFeesId}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="menu-component__link _fees"
@@ -530,16 +515,17 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                     Бланки
                             </Link>
                             </li>
-                            <li className="menu-component__item">
+                            {fedDetails && <li className="menu-component__item">
                                 <Link
-                                    to="/"
-                                    onClick={getRequisites}
+                                    to={`/details-viewer/${fedDetails}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="menu-component__link _requisites"
                                     title="Реквизиты"
                                 >
                                     Реквизиты
                             </Link>
-                            </li>
+                            </li>}
                         </>
                     }
                     {isFederation &&
