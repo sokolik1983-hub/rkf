@@ -334,7 +334,7 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                     id="date_begin"
                                                     name="date_begin"
                                                     label="Дата начала проведения"
-                                                    min={new Date(`01.01.${new Date().getFullYear()}`)}
+                                                    min={new Date(new Date().getFullYear(), 1, 1)}
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
                                                     disabled={!formRenderProps.valueGetter('exhibition_id') || !editable || isCancelation
