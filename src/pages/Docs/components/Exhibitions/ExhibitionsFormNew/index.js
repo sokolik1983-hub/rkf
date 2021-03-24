@@ -378,8 +378,8 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     name="date_begin"
                                                     label="Дата начала проведения"
                                                     min={isCACIB ?
-                                                        new Date(`01.01.${new Date().getFullYear() + ((exhibitionProperties?.current_month <= 4 ? 2 : 3))}`)
-                                                        : new Date(`01.01.${new Date().getFullYear() + (exhibitionProperties?.current_month <= 4 ? 1 : 2)}`)
+                                                        new Date(new Date().getFullYear() + ((exhibitionProperties?.current_month < 4 ? 2 : 3)), 1, 1)
+                                                        : new Date(new Date().getFullYear() + (exhibitionProperties?.current_month < 4 ? 1 : 2), 1, 1)
                                                     }
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
