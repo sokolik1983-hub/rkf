@@ -44,12 +44,19 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                                                 : "user-header__user"}>
                                     {setUserType(user, alias)}
                                 </p>
+                                <div style={{display: "flex", marginLeft: "5px"}} 
+                                    className={name.length > 50 
+                                                ? "user-header__user long-top" 
+                                                : name.length > 30 
+                                                ? "user-header__user middle-top" 
+                                                : "user-header__user"}>
                                 {active_rkf_user &&
                                     <ActiveUserMark />
                                 }
                                 {active_member &&
                                     <FederationChoiceMark />
                                 }
+                                </div>
                             </div>
                             <div className="user-header__container">
                                 <h3 className="user-header__name">{name}</h3>
