@@ -46,6 +46,8 @@ const Application = ({ alias, history, status }) => {
     const [formProps, setFormProps] = useState(null);
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [withoutBreed, setWithoutBreed] = useState(false);
+    const [isCertificate, setIsCertificate] = useState(false);
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
         is_foreign_owner: false,
@@ -72,7 +74,8 @@ const Application = ({ alias, history, status }) => {
         payment_document: [],
         application_document: [],
         documents: [],
-        breeds: []
+        breeds: [],
+        without_breed: false,
     });
     const editable = !status || status === 'edit';
 
@@ -206,7 +209,8 @@ const Application = ({ alias, history, status }) => {
                     rkf_document_type_id: 0,
                     payment_document: [],
                     application_document: [],
-                    documents: []
+                    documents: [],
+                    without_breed: false,
                 });
             } else {
                 setError('Ошибка');
@@ -290,6 +294,14 @@ const Application = ({ alias, history, status }) => {
             return;
         }
 
+        if (name === 'without_breed') {
+            const without_breed = !formProps.valueGetter(name);
+            if (without_breed) {
+                formProps.onChange('breed_id', { value: '' });
+            }
+            setWithoutBreed(without_breed);
+        }
+
         formProps.onChange(name, { value: !formProps.valueGetter(name) })
     };
 
@@ -331,6 +343,11 @@ const Application = ({ alias, history, status }) => {
 
     const handleDocTypeChange = docType => {
         const { value } = docType;
+        if (value === 44) {
+            setIsCertificate(true)
+        } else {
+            setIsCertificate(false)
+        }
         setDocumentTypeIds(documentTypes.documents.filter(d => d.document_type_id === value));
         formProps.onChange('document_type_id', { value: docType });
         formProps.onChange('rkf_document_type_id', { value: 0 });
@@ -586,13 +603,24 @@ const Application = ({ alias, history, status }) => {
                                                             onChange={formRenderProps.onChange}
                                                             clearButton={editable}
                                                             validationMessage="Обязательное поле"
-                                                            valid={disableAllFields || (formRenderProps.modified ? formRenderProps.valueGetter('breed_id') && (!status || (status === 'edit' && initialValues.breed_id)) : true)}
-                                                            disabled={!editable}
+                                                            valid={disableAllFields || withoutBreed || (formRenderProps.modified ? formRenderProps.valueGetter('breed_id') && (!status || (status === 'edit' && initialValues.breed_id)) : true)}
+                                                            disabled={!editable || withoutBreed || formRenderProps.valueGetter('without_breed')}
+                                                            resetValue={withoutBreed}
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
                                             </div>
-                                            <div></div>
+                                            {(isCertificate || values?.document_type_id === 44) && <div className="application-form__without-breed">
+                                                <Field
+                                                    id="without_breed"
+                                                    name="without_breed"
+                                                    label="без породы"
+                                                    component={FormContactsCheckbox}
+                                                    onChange={handleChange}
+                                                    disabled={status}
+                                                />
+                                            </div>}
+                                            {!isCertificate && <div></div>}
                                         </div>
                                     </div>
                                     {(editable || values?.application_document_id) &&

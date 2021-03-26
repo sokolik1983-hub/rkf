@@ -11,6 +11,7 @@ loadMessages(kendoMessages, 'ru');
 export const FormComboBox = (fieldRenderProps) => {
     const { validationMessage, touched, label, id, name, valid, disabled, wrapperStyle, data, value, onChange, resetValue, ...others } = fieldRenderProps;
     const [filteredData, setFilteredData] = useState(data);
+    const [currentValue, setCurrentValue] = useState({ id: null, name: null });
     const editorRef = React.useRef(null);
 
     const showValidationMessage = touched && validationMessage;
@@ -23,6 +24,7 @@ export const FormComboBox = (fieldRenderProps) => {
 
     const onValueChange = React.useCallback(
         ({ target }) => {
+            setCurrentValue({ id: target.value?.id, name: target.value?.name })
             onChange(name, { value: target.value ? target.value.id : null })
         },
         [onChange, value]
@@ -56,6 +58,7 @@ export const FormComboBox = (fieldRenderProps) => {
                         validationMessage={validationMessage}
                         filterable={true}
                         onFilterChange={handleFilterChange}
+                        value={resetValue ? { id: null, name: null } : currentValue}
                         {...others}
                     />
                 </IntlProvider>
