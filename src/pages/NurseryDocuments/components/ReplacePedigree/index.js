@@ -66,12 +66,12 @@ const ReplacePedigree = ({ alias, history }) => {
     const FormTitle = (forms[reqtype] || forms[3]).title;
 
     const Title = props => <div>
-        <DocHead text={FormTitle} link={`/kennel/${alias}/documents`} history={history}/>
-            </div>;
+        <DocHead text={FormTitle} link={`/kennel/${alias}/documents`} history={history} />
+    </div>;
 
 
     return <div className={`documents-page__info DocApply ${errAlert ? 'view' : ''}`}>
-        {redirect && <Redirect push to={redirect}/>}
+        {redirect && <Redirect push to={redirect} />}
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
@@ -82,7 +82,7 @@ const ReplacePedigree = ({ alias, history }) => {
         }
         <div className="documents-page__right">
             <FormContent
-                {...{alias, id, profileId, Title, update, view}}
+                {...{ alias, id, profileId, Title, update, view }}
             />
         </div>
     </div>
