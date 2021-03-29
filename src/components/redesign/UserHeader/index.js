@@ -44,7 +44,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                                                 : "user-header__user"}>
                                     {setUserType(user, alias)}
                                 </p>
-                                <div style={{display: "flex", marginLeft: "5px"}} 
+                                <div style={{display: "flex", marginLeft: "5px", alignItems: 'center'}} 
                                     className={name.length > 50 
                                                 ? "user-header__user long-top" 
                                                 : name.length > 30 
