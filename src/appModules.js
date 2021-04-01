@@ -33,7 +33,7 @@ export const LoadableRKFPage = Loadable({
 });
 
 export const LoadableFederationPage = Loadable({
-    loader: () => import('./pages/Federation'),
+    loader: () => import('./pages/FederationRedesign'),
     loading: Loading
 });
 
