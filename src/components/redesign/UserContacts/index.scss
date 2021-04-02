@@ -53,13 +53,13 @@
             color: #61797c;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap;
+            white-space: pre-wrap;
           }
         }
       }
 
       .ReactCollapse--collapse {
-        min-height: 180px;
+        min-height: 175px;
         transition: height 500ms;
 
         @media (max-width: 440px) {
