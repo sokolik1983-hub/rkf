@@ -19,8 +19,11 @@ import { Request } from "../../../../utils/request";
 import flatten from "../../../../utils/flatten";
 import "./index.scss";
 
+const apiPrivacyEndpoint = '/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest/personal_data_document';
 
 const PatellaForm = ({ alias, history, status, owner }) => {
+    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
+    const [privacyHref, setPrivacyHref] = useState('');
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [disableFields, setDisableFields] = useState(false);
@@ -33,6 +36,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
         veterinary_contract_document: [],
         pedigree_number: '',
         dog_name: '',
+        personal_data_document: [],
         pedigree_document: [],
         payment_document: [],
         payment_date: '',
@@ -40,6 +44,14 @@ const PatellaForm = ({ alias, history, status, owner }) => {
         payment_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         comment: ''
     });
+
+    useEffect(() => {
+        Promise.all([
+            fetch(apiPrivacyEndpoint, { headers })
+                .then(response => response.blob())
+                .then(data => setPrivacyHref(URL.createObjectURL(data))),
+        ])
+    }, []);
 
     useEffect(() => {
         if (status) {
@@ -98,15 +110,17 @@ const PatellaForm = ({ alias, history, status, owner }) => {
 
         const payment_document = data.payment_document.length ? data.payment_document[0].getRawFile() : null;
         const veterinary_contract_document = data.veterinary_contract_document.length ? data.veterinary_contract_document[0].getRawFile() : null;
+        const personal_data_document = data.personal_data_document.length ? data.personal_data_document[0].getRawFile() : null;
         const pedigree_document = data.pedigree_document.length ? data.pedigree_document[0].getRawFile() : null;
 
-        let newData = { ...data, veterinary_contract_document, payment_document, pedigree_document };
+        let newData = { ...data, veterinary_contract_document, payment_document, pedigree_document, personal_data_document };
         delete newData.declarant_name;
 
         if (status === 'edit') {
             newData.id = values.id;
             if (!payment_document) newData.payment_document_id = values.payment_document_id;
             if (!veterinary_contract_document) newData.veterinary_contract_document_id = values.veterinary_contract_document_id;
+            if (!personal_data_document) newData.personal_data_document = values.personal_data_document;
             if (!pedigree_document) newData.pedigree_document = values.pedigree_document;
         }
 
@@ -148,7 +162,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                         const handleChange = name => {
                             formRenderProps.onChange(name, { value: !formRenderProps.valueGetter(name) });
                         };
-                        
+
                         return (
                             <FormElement>
                                 <div className="patella-form__content">
@@ -179,16 +193,24 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                     </div>
                                     <div className="patella-form__row">
                                         {disableAllFields && values &&
-                                            <>
-                                                <div className="patella-form__file">
-                                                    <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)</p>
-                                                    <DocumentLink docId={values.veterinary_contract_document_id} />
+                                            <div>
+                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                    <div className="patella-form__file">
+                                                        <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)</p>
+                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                    </div>
                                                 </div>
-                                                {values.pedigree_document_id && <div className="dysplasia-form__file" style={{marginTop: '48px'}}>
-                                                    <p className="k-label">Родословная</p>
-                                                    <DocumentLink docId={values.pedigree_document_id} />
-                                                </div>}
-                                            </>
+                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                    {values.pedigree_document_id && <div className="patella-form__file" style={{ marginRight: '50px' }}>
+                                                        <p className="k-label">Соглашение на обработку персональных данных</p>
+                                                        <DocumentLink docId={values.pedigree_document_id} />
+                                                    </div>}
+                                                    {values.personal_data_document_id && <div>
+                                                        <p className="k-label">Родословная</p>
+                                                        <DocumentLink docId={values.personal_data_document_id} />
+                                                    </div>}
+                                                </div>
+                                            </div>
                                         }
                                         {!disableAllFields &&
                                             <div>
@@ -205,23 +227,44 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                     !formRenderProps.valueGetter('veterinary_contract_document').length &&
                                                     <DocumentLink docId={values.veterinary_contract_document_id} />
                                                 }
-                                                <Field
-                                                    id="pedigree_document"
-                                                    name="pedigree_document"
-                                                    label="Загрузите родословную (PDF, JPEG, JPG)"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg']}
-                                                    component={FormUpload}
-                                                    disabled={status === 'edit' && values && values.pedigree_document_accept}
-                                                    validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
-                                                />
-                                                {values &&
-                                                    values.pedigree_document_id &&
-                                                    !formRenderProps.valueGetter('pedigree_document').length &&
-                                                    <DocumentLink docId={values.pedigree_document_id} />
-                                                }
+
                                             </div>
                                         }
                                     </div>
+                                    {!disableAllFields && <div className="dysplasia-form__row _files">
+                                        <div className="dysplasia-form__file">
+                                            <Field
+                                                id="personal_data_document"
+                                                name="personal_data_document"
+                                                label={<div>Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br /><a href={privacyHref} style={{ textDecoration: 'none' }}>Скачать форму соглашения</a></div>}
+                                                fileFormats={['.pdf', '.jpg', '.jpeg']}
+                                                component={FormUpload}
+                                                disabled={status === 'edit' && values && values.personal_data_document_accept}
+                                                validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
+                                            />
+                                            {values &&
+                                                values.personal_data_document_id &&
+                                                !formRenderProps.valueGetter('personal_data_document').length &&
+                                                <DocumentLink docId={values.personal_data_document_id} />
+                                            }
+                                        </div>
+                                        <div className="dysplasia-form__file">
+                                            <Field
+                                                id="pedigree_document"
+                                                name="pedigree_document"
+                                                label="Загрузите родословную (PDF, JPEG, JPG)"
+                                                fileFormats={['.pdf', '.jpg', '.jpeg']}
+                                                component={FormUpload}
+                                                disabled={status === 'edit' && values && values.pedigree_document_accept}
+                                                validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
+                                            />
+                                            {values &&
+                                                values.pedigree_document_id &&
+                                                !formRenderProps.valueGetter('pedigree_document').length &&
+                                                <DocumentLink docId={values.pedigree_document_id} />
+                                            }
+                                        </div>
+                                    </div>}
                                     <div className="patella-form__row">
                                         <Field
                                             id="pedigree_number"

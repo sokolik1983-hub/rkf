@@ -65,7 +65,7 @@ const LinkCell = ({ dataItem }) => {
 };
 
 const OptionsCell = ({ dataItem }, setErrorReport) => {
-    const { status_id, id } = dataItem;
+    const { status_id, id, is_title_fci } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
@@ -82,8 +82,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
     },
     {
         text: 'Сообщить об ошибке',
-        // disabled: status_id === 3 ? false : true,
-        disabled: true,
+        disabled: (status_id === 3 && !is_title_fci) ? false : true,
         render: ({ item }) => <span className="row-control__link" onClick={() => setErrorReport(id)}>{item.text}</span>
     }].filter(o => !o.disabled);
 

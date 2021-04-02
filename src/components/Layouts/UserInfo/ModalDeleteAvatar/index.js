@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import Alert from "../../../../components/Alert";
-import {Request} from "../../../../utils/request";
+import { Request } from "../../../../utils/request";
 import ls from "local-storage";
 import "./index.scss";
 
 
-const ModalDeleteAvatar = ({closeModal, updateInfo}) => {
+const ModalDeleteAvatar = ({ closeModal, updateInfo }) => {
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
 
@@ -45,13 +45,13 @@ const ModalDeleteAvatar = ({closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="delete-avatar-modal" showModal={true} handleClose={() => null} handleX={() => null} headerName={"Удаление аватара"}>
+        <Modal className="delete-avatar-modal" showModal={true} handleClose={closeModal} handleX={closeModal} headerName={"Удаление аватара"}>
             <div className="delete-avatar-modal__content">
                 {loading ?
-                    <Loading centered={false}/> :
+                    <Loading centered={false} /> :
                     <>
                         <p className="delete-avatar-modal__describe">
-                            Вы уверены, что хотите удалить <br/>
+                            Вы уверены, что хотите удалить <br />
                             Ваш аватар?
                         </p>
                         <div className="k-form-buttons">

@@ -27,7 +27,8 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
     const [everk, setEverk] = useState(false);
     const [init, setInit] = useState(false);
 
-    const apiPrivacyEndpoint = config.profileType === 'kennel' ? '/api/requests/dog_health_check_request/doghealthcheckdysplasiarequest/personal_data_document' : '/api/requests/dog_health_check_request/kenneldoghealthcheckdysplasiarequest/personal_data_document';
+    const apiPrivacyEndpointDysplasia = config.profileType === 'kennel' ? '/api/requests/dog_health_check_request/kenneldoghealthcheckdysplasiarequest/personal_data_document' : '/api/requests/dog_health_check_request/doghealthcheckdysplasiarequest/personal_data_document';
+    const apiPrivacyEndpointPatella = config.profileType === 'kennel' ? '/api/requests/dog_health_check_request/kenneldoghealthcheckpatellarequest/personal_data_document' : '/api/requests/dog_health_check_request/doghealthcheckpatellarequest/personal_data_document';
 
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
@@ -51,8 +52,9 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
     }
 
     useEffect(() => {
+        let url = config.distinction === 'dysplasia' ? apiPrivacyEndpointDysplasia : apiPrivacyEndpointPatella;
         Promise.all([
-            fetch(apiPrivacyEndpoint, { headers })
+            fetch(url, { headers })
                 .then(response => response.blob())
                 .then(data => setPrivacyHref(URL.createObjectURL(data))),
         ])
@@ -158,14 +160,14 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                     document_type_id={7}
                     profileType={config.profileType}
                 />
-                {(config.distinction !== 'patella') && <FormFile
+                <FormFile
                     name={`personal_data_document`}
                     label={view && !formik.values.personal_data_document_id ? '' : <>Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br /><a href={privacyHref}>Скачать форму соглашения</a></>}
                     docId={formik.values.personal_data_document_id}
                     disabled={view || formik.values.personal_data_document_accept}
                     document_type_id={11}
                     profileType={config.profileType}
-                />}
+                />
             </FormGroup>
 
             <FormGroup>

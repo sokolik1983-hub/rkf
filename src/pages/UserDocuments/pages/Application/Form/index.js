@@ -44,6 +44,8 @@ const Application = ({ alias, history, status, owner }) => {
     const [formProps, setFormProps] = useState(null);
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [withoutBreed, setWithoutBreed] = useState(false);
+    const [isCertificate, setIsCertificate] = useState(false);
     const [initialValues, setInitialValues] = useState({
         declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         is_foreign_owner: false,
@@ -69,7 +71,8 @@ const Application = ({ alias, history, status, owner }) => {
         payment_document: [],
         application_document: [],
         documents: [],
-        breeds: []
+        breeds: [],
+        without_breed: false,
     });
     const editable = !status || status === 'edit';
 
@@ -89,7 +92,7 @@ const Application = ({ alias, history, status, owner }) => {
                 PromiseRequest({ url: `/api/dog/Breed` }),
                 PromiseRequest({ url: `/api/requests/commonrequest/rkf_document_types` })
             ]).then(data => {
-                
+
                 const requestData = data[0];
                 const breedsData = data[1];
                 const rkfDocTypesData = data[2];
@@ -203,7 +206,7 @@ const Application = ({ alias, history, status, owner }) => {
                 ];
             }
         }
-        
+
         await Request({
             url: '/api/requests/get_rkf_document_request/ownergetrkfdocumentrequest',
             method: status === 'edit' ? 'PUT' : 'POST',
@@ -274,6 +277,14 @@ const Application = ({ alias, history, status, owner }) => {
             setIsForeignPedigree(isForeign);
         }
 
+        if (name === 'without_breed') {
+            const without_breed = !formProps.valueGetter(name);
+            if (without_breed) {
+                formProps.onChange('breed_id', { value: '' });
+            }
+            setWithoutBreed(without_breed);
+        }
+
         formProps.onChange(name, { value: !formProps.valueGetter(name) });
     };
 
@@ -315,6 +326,11 @@ const Application = ({ alias, history, status, owner }) => {
 
     const handleDocTypeChange = docType => {
         const { value } = docType;
+        if (value === 44) {
+            setIsCertificate(true)
+        } else {
+            setIsCertificate(false)
+        }
         setDocumentTypeIds(documentTypes.documents.filter(d => d.document_type_id === value));
         formProps.onChange('document_type_id', { value: docType });
         formProps.onChange('rkf_document_type_id', { value: 0 });
@@ -507,7 +523,7 @@ const Application = ({ alias, history, status, owner }) => {
                                                     formRenderProps.onChange
                                                 )}
                                                 disabled={!formRenderProps.valueGetter('pedigree_number')}
-                                                style={{ marginTop: '45px' }}
+                                                style={{ marginTop: '40px' }}
                                             >Поиск
                                             </button>
                                         }
@@ -558,13 +574,24 @@ const Application = ({ alias, history, status, owner }) => {
                                                         onChange={formRenderProps.onChange}
                                                         clearButton={editable}
                                                         validationMessage="Обязательное поле"
-                                                        valid={disableAllFields || (formRenderProps.modified ? formRenderProps.valueGetter('breed_id') && (!status || (status === 'edit' && initialValues.breed_id)) : true)}
-                                                        disabled={!editable}
+                                                        valid={disableAllFields || withoutBreed || (formRenderProps.modified ? formRenderProps.valueGetter('breed_id') && (!status || (status === 'edit' && initialValues.breed_id)) : true)}
+                                                        disabled={!editable || withoutBreed || formRenderProps.valueGetter('without_breed')}
+                                                        resetValue={withoutBreed}
                                                     />
                                                 </IntlProvider>
                                             </LocalizationProvider>
                                         </div>
-                                        <div></div>
+                                        {(isCertificate || values?.document_type_id === 44) && <div className="application-form__user-without-breed">
+                                            <Field
+                                                id="without_breed"
+                                                name="without_breed"
+                                                label="без породы"
+                                                component={FormContactsCheckbox}
+                                                onChange={handleChange}
+                                                disabled={status}
+                                            />
+                                        </div>}
+                                        {!isCertificate && <div></div>}
                                     </div>
                                 </div>
                                 {(editable || values?.application_document_id) && <div className="application-form__content">
