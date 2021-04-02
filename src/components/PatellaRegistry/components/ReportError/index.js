@@ -9,7 +9,6 @@ import Modal from 'components/Modal';
 import './styles.scss';
 
 const config = {
-    // action: `/api​/requests​/dog_health_check_request​/ownerdoghealthcheckrequest​/error`,
     format: "multipart/form-data",
     fields: {
         error_message: {
@@ -42,7 +41,7 @@ const ReportErrorForm = ({ id, setIsOpen, profileType }) => {
     const handleSusccess = () => {
         setSuccessAlert(true);
     };
-    config.action = profileType === "kennel" ? `/api/requests/get_rkf_document_request/kennelgetrkfdocumentrequest/error` : `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest/error`;
+    config.action = profileType === "kennel" ? `/api/requests/dog_health_check_request/kenneldoghealthcheckrequest/error` : `/api/requests/dog_health_check_request/doghealthcheckrequest/error`;
     const { fields } = config;
     const initialValues = {
         error_message: '',
