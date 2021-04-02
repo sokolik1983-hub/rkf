@@ -35,9 +35,11 @@
     @media(max-width: 500px) {
       margin-left: 7px !important;
       margin-top: 15px;
+
       &:last-child {
         margin-bottom: 10px;
       }
+
       &__label:before {
         width: 20px;
         height: 20px;
@@ -51,6 +53,7 @@
       top: -4px;
       left: -8px;
       margin-left: 10px;
+
       &:first-child {
         margin-left: 20px;
       }
@@ -134,10 +137,10 @@
         margin-right: 15px;
       }
     }
+
     &-wrap {
       display: flex;
       justify-content: space-between;
-      margin-top: 4px;
     }
   }
 
@@ -149,6 +152,7 @@
     cursor: pointer;
     position: relative;
     transition: color 0.2s linear;
+
     &:before {
       content: "";
       display: inline-block;
@@ -181,6 +185,7 @@
     cursor: pointer;
     color: #72839c;
     transition: color 0.2s linear;
+
     &:before {
       content: "";
       display: inline-block;
@@ -259,6 +264,7 @@
     display: flex;
     align-items: center;
     margin-top: 20px;
+
     @media (max-width: 700px) {
       margin-top: 0;
     }
@@ -318,9 +324,11 @@
     height: 38px;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
     margin: 0 auto;
+
     @media (max-width: 700px) {
       margin-bottom: 10px;
     }
+
     &.active {
       background: #007bff;
       box-shadow: 0 4px 8px rgba(51, 102, 255, 0.3);
@@ -451,7 +459,7 @@
 
 ._focus {
   flex-direction: column;
-  
+
 }
 
 ._no_focus {

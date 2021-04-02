@@ -482,7 +482,7 @@ export const clubNav = alias => {
         {
             id: 10,
             exact: true,
-            title: 'Страница клуба',
+            title: `Страница ${isFederation ? `федерации` : `клуба`}`,
             to: `/${alias}`,
             icon: <svg viewBox="0 0 512 412" xmlns="http://www.w3.org/2000/svg">
                 <path transform="translate(0 -50)" d="M497,50H15A15,15,0,0,0,0,65v45H512V65A15,15,0,0,0,497,50Z" />

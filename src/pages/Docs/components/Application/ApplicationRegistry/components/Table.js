@@ -82,7 +82,8 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
     },
     {
         text: 'Сообщить об ошибке',
-        disabled: status_id === 3 ? false : true,
+        // disabled: status_id === 3 ? false : true,
+        disabled: true,
         render: ({ item }) => <span className="row-control__link" onClick={() => setErrorReport(id)}>{item.text}</span>
     }].filter(o => !o.disabled);
 
