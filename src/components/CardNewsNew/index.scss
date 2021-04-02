@@ -1,31 +1,5 @@
 .CardNewsNew {
   padding: 10px 0 10px 0 !important;
-  &.is-request-article {
-    .CardNewsNew__controls {
-      display: none;
-    }
-    .CardNewsNew__content {
-      padding-bottom: 0;
-      margin-bottom: 0;
-      border-bottom: none;
-    }
-    .CardNewsNew__show-all {
-      margin: 0;
-    }
-    .CardNewsNew__text-wrap {
-      padding-bottom: 10px;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    .CardNewsNew__show-all-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 10px;
-    }
-    .Share {
-      height: 20px;
-    }
-  }
   &__wrap {
     &.is_closed {
       .CardNewsNew__controls,

@@ -413,11 +413,11 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                                 Размеры членских взносов
                                         </Link>
                                         </li>}
-                                        <li className="user-menu__item">
+                                        {/* <li className="user-menu__item">
                                             <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
                                                 Бланки
                                         </Link>
-                                        </li>
+                                        </li> */}
                                         {fedDetails && <li className="user-menu__item">
                                             <Link
                                                 to={`/details-viewer/${fedDetails}`}
@@ -505,7 +505,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                     Размеры членских взносов
                             </Link>
                             </li>}
-                            <li className="menu-component__item">
+                            {/* <li className="menu-component__item">
                                 <Link
                                     to="/"
                                     onClick={getBlanks}
@@ -514,7 +514,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                 >
                                     Бланки
                             </Link>
-                            </li>
+                            </li> */}
                             {fedDetails && <li className="menu-component__item">
                                 <Link
                                     to={`/details-viewer/${fedDetails}`}
