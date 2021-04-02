@@ -1,4 +1,4 @@
-import { number, string } from "yup";
+import { number, string, boolean } from "yup";
 import { reqText } from "../../config.js";
 import Common from "../../commonFields.js";
 
@@ -9,6 +9,7 @@ const validationSchema = {
     id: number(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
+    express: boolean().required(reqText),
     personal_data_document_id: number().required(reqText).typeError(reqText),
     copy_foreign_pedigree_document_id: number().required(reqText).typeError(reqText),
     application_verk_statement_document_id: number().required(reqText).typeError(reqText),
@@ -59,6 +60,7 @@ const config = {
     initialValues: {
         federation_id: '',
         declarant_id: '',
+        express: false,
         personal_data_document_id: '',
         copy_foreign_pedigree_document_id: '',
         application_verk_statement_document_id: '',
@@ -72,4 +74,4 @@ const config = {
     }
 }
 
-export default config; 
+export default config;

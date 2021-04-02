@@ -169,6 +169,12 @@
       resize: none;
     }
   }
+  &__without-breed {
+    padding-top: 33px;
+    @media (max-width: 560px) {
+      padding-top: 0;
+    }
+  }
 }
 
 .club-documents-status__head {
