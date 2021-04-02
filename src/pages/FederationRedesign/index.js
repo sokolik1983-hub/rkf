@@ -41,7 +41,6 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
         (() => Request({
             url: `/api/Club/federation_base_info?alias=` + alias
         }, data => {
-            console.log('fed_data', data)
             setFedInfo(data);
             setNotActiveProfile(isAuthenticated && !is_active_profile);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
