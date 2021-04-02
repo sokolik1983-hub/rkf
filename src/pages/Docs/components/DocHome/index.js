@@ -60,7 +60,7 @@ const DocumentCards = ({ clubAlias, authorizedAccess }) => {
                             акт вязки, акт обследования помета, копии свидетельств о происхождении производителей,
                             копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно -
                             оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.
-            </p>
+                        </p>
                         <div className="documents-page__support-links">
                             <p>
                                 <a href="https://help.rkf.online/ru/knowledge_base/art/4/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче заявления на регистрацию помета</a>
@@ -82,7 +82,7 @@ const DocumentCards = ({ clubAlias, authorizedAccess }) => {
                         <p>
                             Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на
                             свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.
-            </p>
+                        </p>
                         <div className="documents-page__support-links">
                             <p>
                                 <a href="https://help.rkf.online/ru/knowledge_base/art/37/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче родословной</a>

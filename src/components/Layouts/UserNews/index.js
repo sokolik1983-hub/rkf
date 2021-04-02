@@ -1,15 +1,15 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../Loading";
 import List from "./List";
 import ListFilter from './ListFilter';
-import {Request} from "../../../utils/request";
-import {endpointGetNews, endpointDeleteArticle} from "./config";
-import {DEFAULT_IMG} from "../../../appConfig";
+import { Request } from "../../../utils/request";
+import { endpointGetNews, endpointDeleteArticle } from "./config";
+import { DEFAULT_IMG } from "../../../appConfig";
 import "./index.scss";
 
 
-const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, profileInfo, first_name, last_name}) => {
+const UserNews = ({ canEdit, alias, needRequest, setNeedRequest, setProfileInfo, profileInfo, first_name, last_name, isFederation }) => {
     const [filters, setFilters] = useState(null);
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
@@ -22,33 +22,33 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, 
         setLoading(true);
 
         await Request({
-            url: `${endpointGetNews}?alias=${alias}&start_element=${startElem}${filters ? '&is_advert=' + filters.is_advert : ''}`
+            url: `${endpointGetNews}?alias=${alias}&start_element=${startElem}${filters?.is_must_read ? '&is_must_read=' + filters.is_must_read : filters ? '&is_advert=' + filters.is_advert : ''}`
         },
-        data => {
-            if (data.articles.length) {
-                const modifiedNews = data.articles.map(article => {
-                    article.title = article.club_name;
-                    article.url = `/news/${article.id}`;
-                    return article;
-                });
+            data => {
+                if (data.articles.length) {
+                    const modifiedNews = data.articles.map(article => {
+                        article.title = article.club_name;
+                        article.url = `/news/${article.id}`;
+                        return article;
+                    });
 
-                if (data.articles.length < 10) {
-                    setHasMore(false);
+                    if (data.articles.length < 10) {
+                        setHasMore(false);
+                    } else {
+                        setHasMore(true);
+                    }
+
+                    setNews(startElem === 1 ? modifiedNews : [...news, ...modifiedNews]);
                 } else {
-                    setHasMore(true);
-                }
+                    if (startElem === 1) {
+                        setNews([]);
+                    }
 
-                setNews(startElem === 1 ? modifiedNews : [...news, ...modifiedNews]);
-            } else {
-                if (startElem === 1) {
-                    setNews([]);
+                    setHasMore(false);
                 }
-
-                setHasMore(false);
-            }
-        }, error => {
-            console.log(error.response);
-        });
+            }, error => {
+                console.log(error.response);
+            });
 
         setNeedRequest(false);
         setLoading(false);
@@ -77,10 +77,10 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, 
                 method: 'PUT',
                 data: JSON.stringify({ "id": id, "is_closed_advert": true })
             }, () => { setNeedRequest(true); setIsOpenControls(false) },
-            error => {
-                console.log(error);
-                alert('Объявление не закрыто');
-            });
+                error => {
+                    console.log(error);
+                    alert('Объявление не закрыто');
+                });
         }
     };
 
@@ -106,6 +106,7 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, 
                     <ListFilter
                         setFilters={setFilters}
                         setNeedRequest={setNeedRequest}
+                        isFederation={isFederation}
                     />
                 </div>
             </div>
@@ -113,7 +114,7 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, 
                 dataLength={news.length}
                 next={getNextNews}
                 hasMore={hasMore}
-                loader={loading && <Loading centered={false}/>}
+                loader={loading && <Loading centered={false} />}
                 endMessage={
                     <div className="user-news__content">
                         <h4 className="user-news__text">{news.length ? 'Публикаций больше нет' : 'Публикации не найдены'}</h4>
