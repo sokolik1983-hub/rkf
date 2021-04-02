@@ -201,8 +201,8 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                     </div>
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                                    {values.pedigree_document_id && <div className="patella-form__file" style={{ marginTop: '48px' }}>
-                                                        <p className="k-label">Родословная</p>
+                                                    {values.pedigree_document_id && <div className="patella-form__file" style={{ marginRight: '50px' }}>
+                                                        <p className="k-label">Соглашение на обработку персональных данных</p>
                                                         <DocumentLink docId={values.pedigree_document_id} />
                                                     </div>}
                                                     {values.personal_data_document_id && <div>
