@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import Alert from "../../../../components/Alert";
-import {Request} from "../../../../utils/request";
+import { Request } from "../../../../utils/request";
 import "./index.scss";
 
 
-const ModalDeleteBanner = ({closeModal, updateInfo}) => {
+const ModalDeleteBanner = ({ closeModal, updateInfo }) => {
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
 
@@ -42,13 +42,13 @@ const ModalDeleteBanner = ({closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="delete-banner-modal" showModal={true} handleClose={() => null} handleX={closeModal} headerName = {"Удаление баннера"}>
+        <Modal className="delete-banner-modal" showModal={true} handleClose={closeModal} handleX={closeModal} headerName={"Удаление баннера"}>
             <div className="delete-banner-modal__content">
                 {loading ?
-                    <Loading centered={false}/> :
+                    <Loading centered={false} /> :
                     <>
                         <p className="delete-banner-modal__describe">
-                            Вы уверены, что хотите удалить <br/>
+                            Вы уверены, что хотите удалить <br />
                             Ваш баннер?
                         </p>
                         <div className="k-form-buttons">
