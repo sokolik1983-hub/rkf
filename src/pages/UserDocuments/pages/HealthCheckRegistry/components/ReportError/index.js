@@ -9,7 +9,7 @@ import Modal from 'components/Modal';
 import './styles.scss';
 
 const config = {
-    action: `/api​/requests​/dog_health_check_request​/ownerdoghealthcheckrequest​/error`,
+    action: '/api/requests/dog_health_check_request/ownerdoghealthcheckrequest/error',
     format: "multipart/form-data",
     fields: {
         error_message: {
