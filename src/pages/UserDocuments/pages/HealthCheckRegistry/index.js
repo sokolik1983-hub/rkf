@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import ls from "local-storage";
+import moment from "moment";
+
 import Loading from "components/Loading";
 import Card from "components/Card";
 import Table from './components/Table';
 import { PromiseRequest } from "utils/request";
 import { DEFAULT_IMG } from "../../../../appConfig";
-import { Link } from 'react-router-dom';
-import ls from "local-storage";
-import moment from "moment";
+import ReportError from './components/ReportError';
+
 import "./index.scss";
 
 const HealthCheckRegistry = ({ history, distinction }) => {
@@ -14,6 +17,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
+    const [errorReport, setErrorReport] = useState(null);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
 
@@ -63,6 +67,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
             documents={documents}
             exporting={exporting}
             setExporting={setExporting}
+            setErrorReport={setErrorReport}
             fullScreen
         />
     </Card>
@@ -99,6 +104,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                         exporting={exporting}
                         setExporting={setExporting}
                         distinction={distinction}
+                        setErrorReport={setErrorReport}
                     />
                 </div> :
                 <div className="user-documents-status__plug">
@@ -106,6 +112,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                     <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                 </div>
             }
+            {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
         </Card>
 };
 
