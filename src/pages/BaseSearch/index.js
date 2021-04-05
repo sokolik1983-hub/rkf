@@ -24,6 +24,8 @@ import { Request } from "../../utils/request";
 import { clubNav } from "../Docs/config";
 import { kennelNav } from "../NurseryDocuments/config";
 import "./index.scss";
+import useIsMobile from "../../utils/useIsMobile";
+import SearchCard from "./components/SearchCard/SearchCard";
 
 
 const BaseSearch = () => {
@@ -35,6 +37,7 @@ const BaseSearch = () => {
     const [publication_clicked, setPublicationClicked] = useState(false);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
@@ -89,6 +92,17 @@ const BaseSearch = () => {
                         withShare={false}
                     />}
                     <div className="base-search__content-wrap">
+                        {(isMobile) &&
+                        <SearchCard className="search_card_mobile"
+                            handleActiveReset={handleActiveReset}
+                            setFoundInfoClicked={setFoundInfoClicked}
+                            setStatusClicked={setStatusClicked}
+                            setRegistrationClicked={setRegistrationClicked}
+                            setStampClicked={setStampClicked}
+                            setRefereeClicked={setRefereeClicked}
+                            setPublicationClicked={setPublicationClicked}
+                        />
+                    }
                         <div className="base-search__content">
                             <FoundInfo found_info_clicked={found_info_clicked} />
                             <CheckStatus status_clicked={status_clicked} />
@@ -105,115 +119,17 @@ const BaseSearch = () => {
                                         nurseryData ?
                                             <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
                                             <>
-                                                <OutsideClickHandler onOutsideClick={handleActiveReset}>
-                                                    <Card className="menu-component__card">
-                                                        <h3 className="menu-component__title">Поиск</h3>
-                                                        <ul className="menu-component__list">
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="found-info-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Информация о найденных собаках"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setFoundInfoClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Информация о найденных собаках
-                                                            </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="check-status-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Статус документов"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setStatusClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Статус документов
-                                                            </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="check-registration-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Регистационные данные собаки"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setRegistrationClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Регистационные данные собаки
-                                                            </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="stamp-search-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Поиск клуба/питомника"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setStampClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Поиск клуба/питомника по клейму
-                                                            </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item menu-component__item--judge">
-                                                                <LinkScroll
-                                                                    to="referee-search-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Поиск судьи"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setRefereeClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Поиск судьи
-                                                            </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="publication-search-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Поиск по объявлениям"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setPublicationClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Поиск по объявлениям
-                                                            </LinkScroll>
-                                                            </li>
-                                                        </ul>
-                                                    </Card>
-                                                </OutsideClickHandler>
+                                                {(!isMobile) &&
+                                                <SearchCard
+                                                    handleActiveReset={handleActiveReset}
+                                                    setFoundInfoClicked={setFoundInfoClicked}
+                                                    setStatusClicked={setStatusClicked}
+                                                    setRegistrationClicked={setRegistrationClicked}
+                                                    setStampClicked={setStampClicked}
+                                                    setRefereeClicked={setRefereeClicked}
+                                                    setPublicationClicked={setPublicationClicked}
+                                                />
+                                                }
                                                 <Card className="base-search__socials">
                                                     <h3>РКФ в соцсетях</h3>
                                                     <div className="base-search__right-socials">
