@@ -215,9 +215,10 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
     const isMobile = useIsMobile();
+    const showDetails = isFederation && alias !== 'rkf' && alias !== 'oankoo';
 
     useEffect(() => {
-        if (alias === 'rfls') {
+        if (showDetails) {
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({
@@ -400,7 +401,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                 <li className="user-menu__item">
                                     <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</Link>
                                 </li>
-                                {alias === 'rfls' &&
+                                {showDetails &&
                                     <>
                                         {fedFeesId && <li className="user-menu__item">
                                             <Link
@@ -492,7 +493,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                             title="Фотогалерея"
                         >Видеозаписи</Link>
                     </li>
-                    {alias === 'rfls' &&
+                    {showDetails &&
                         <>
                             {fedFeesId && <li className="menu-component__item">
                                 <Link
