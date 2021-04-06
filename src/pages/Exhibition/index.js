@@ -173,11 +173,12 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                                 isExhibitionPage={true}
                                             />
                                         }
-                                        {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />}
+                                        {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} /> && 
                                         <UserPhotoGallery
                                             alias={club_alias}
                                             pageLink={`/${club_alias}/gallery`}
-                                        />
+                                        />}
+                                        
                                         <CopyrightInfo withSocials={true} />
                                         <div className="mobile-only">
                                             <div className="exhibition-page__title-wrap">
@@ -264,6 +265,11 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 {isMobile && <div style={{ marginTop: '16px' }}>
                                     <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                 </div>}
+                                {isMobile &&  <UserPhotoGallery
+                                            alias={club_alias}
+                                            pageLink={`/${club_alias}/gallery`}
+                                        />}
+                                       
                             </div>
                         </div>
                     </Container>
