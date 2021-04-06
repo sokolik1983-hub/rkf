@@ -31,6 +31,9 @@
     &__wrap-with_but{
         display: flex;
         align-items: center;
+        .search-form__cancel{
+            right: 40px;
+        }
         .search-form__button{
             margin-left: 6px;
         }
@@ -38,7 +41,7 @@
     &__input {
         border: 1px solid lightgray;
         border-radius: 6px;
-        padding: 5px;
+        padding: 5px 34px 5px 5px;
         margin-bottom: 6px;
         width: 100%;
     }
