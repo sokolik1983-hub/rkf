@@ -8,7 +8,6 @@
       max-width: 900px;
 
       @media (max-width: 600px) {
-        max-width: 100%;
         font-size: 15px;
         white-space: pre-wrap;
       }
@@ -171,15 +170,8 @@
 
   &__wrap {
     background-color: #fff;
-    // width: calc(100vw - 32px);
-    // max-width: 900px;
-    white-space: nowrap;
-    padding: 15px;
 
-    // overflow-x: auto;
-    @media (max-width: 560px) {
-      padding: 10px 5px;
-    }
+    white-space: pre-wrap;
 
     &-title {
       font-weight: normal;
@@ -188,10 +180,6 @@
       padding-bottom: 11px;
       border-bottom: 1px solid #E5E5E5;
       margin-bottom: 8px;
-    }
-
-    &-title:first-child {
-      margin-top: -17px;
     }
 
     &-list {

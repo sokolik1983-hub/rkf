@@ -7,50 +7,63 @@
   box-shadow: 2px 2px 10px black;
   border-radius: 6px;
   position: relative;
-  padding: 13px 20px 20px;
+  padding: 10px;
+
   @media (max-width: 560px) {
     padding: 12px;
     font-size: 15px;
   }
+
   @media (max-width: 350px) {
     padding: 12px;
     font-size: 13px;
   }
+
   h1 {
     font-size: 20px;
     padding: 5px 15px;
     border-bottom: 1px solid #dcd3de;
+
     @media (max-width: 560px) {
       padding: 5px 10px;
     }
+
     @media (max-width: 320px) {
       padding: 5px;
     }
   }
+
   &__inner {
     padding: 15px;
+
     @media (max-width: 560px) {
       padding: 8px;
     }
+
     @media (max-width: 320px) {
       padding: 8px 5px;
     }
   }
+
   .FormInput {
     margin-bottom: 8px;
+
     label {
       font-weight: normal;
     }
+
     input,
     textarea {
       padding: 5px 10px;
       border: 1px solid #dcd3de;
+
       &:focus,
       &:active {
         padding: 5px 10px;
         border: 1px solid #bcc3ce;
       }
     }
+
     &__custom-error {
       color: red;
       position: absolute;
@@ -63,6 +76,7 @@
       padding: 0 4px;
       white-space: nowrap;
     }
+
     &--error {
       .FormInput__error {
         color: red;
@@ -78,6 +92,7 @@
         white-space: nowrap;
       }
     }
+
     &--select {
       .FormInput__error {
         color: red;
@@ -90,20 +105,25 @@
         font-weight: normal;
         white-space: nowrap;
       }
-      & > div > div {
+
+      &>div>div {
         border: 1px solid #dcd3de;
         box-shadow: none;
         padding: 0;
       }
     }
+
     &--checkbox {
       padding: 20px 0;
       align-items: center;
+
       @media (max-width: 560px) {
         padding: 10px 0;
       }
+
       label {
         margin: 0;
+
         @media (max-width: 560px) {
           font-size: 16px;
           line-height: 18px;
@@ -111,6 +131,7 @@
       }
     }
   }
+
   &__close {
     width: 12px;
     height: 12px;
@@ -122,17 +143,21 @@
     cursor: pointer;
     z-index: 10;
   }
+
   &__buttons {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
     button {
       padding: 5px 15px;
     }
-    button + button {
+
+    button+button {
       margin-left: 8px;
     }
   }
+
   &__modal {
     .Modal__close {
       width: 16px;
@@ -141,17 +166,19 @@
       right: 27px !important;
       z-index: 1;
     }
+
     .Modal__inner {
       max-height: none;
     }
   }
+
   &__table {
     td {
       white-space: nowrap;
     }
   }
 
-  &__modal__title{
+  &__modal__title {
     font-weight: normal;
     font-size: 18px;
     line-height: 23px;
