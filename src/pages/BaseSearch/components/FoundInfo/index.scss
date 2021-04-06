@@ -28,6 +28,13 @@
             }
         }
     }
+    &__wrap-with_but{
+        display: flex;
+        align-items: center;
+        .search-form__button{
+            margin-left: 6px;
+        }
+    }
     &__input {
         border: 1px solid lightgray;
         border-radius: 6px;
