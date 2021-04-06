@@ -127,10 +127,22 @@
 .menu-component {
   &__card {
     padding-bottom: 10px !important;
+    @media (max-width: 990px) {
+      margin-bottom: 16px;
+    }
   }
   &__title {
     padding-bottom: 8px;
     border-bottom: 1px solid #e8e8e8;
+  }
+  &__icon {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    display: inline-block;
+    width: 16px;
+    height: auto;
+    margin: 0 5px 0 0;
   }
   &__list {
       list-style: none;
@@ -172,7 +184,7 @@
 }
 .menu-component__link {
   position: relative;
-  padding-left: 0 !important;
+  padding-left: 23px !important;
   &--documents {
       position: relative;
       display: flex;
