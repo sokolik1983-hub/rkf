@@ -13,6 +13,7 @@ const HomepageSlider = ({inputBanners}) => (
             infinite={true}
             autoplay={true}
             fade={false}
+            adaptiveHeight={true}
             autoplaySpeed={5000}
             speed={500}
             slidesToScroll={1}

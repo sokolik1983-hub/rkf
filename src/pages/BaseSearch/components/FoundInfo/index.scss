@@ -16,13 +16,8 @@
     &__wrap {
         position: relative;
         flex-grow: 1;
-        &:first-child{
-            @media (max-width: 768px) {
-                margin-right: 6px;
-            }
-        }
+        margin-right: 6px;
         &:not(:first-child) {
-            margin-left: 6px;
             @media (max-width: 768px) {
                 margin-left: 0;
             }

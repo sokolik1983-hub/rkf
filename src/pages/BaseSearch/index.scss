@@ -4,6 +4,9 @@
   .menu-component__list {
     margin-top: 10px;
   }
+  .Card{
+    padding: 10px;
+  }
   & + .Footer {
     display: none;
   }
@@ -141,7 +144,7 @@
     left: 0;
     display: inline-block;
     width: 16px;
-    height: auto;
+    height: 16px;
     margin: 0 5px 0 0;
   }
   &__list {
@@ -168,6 +171,9 @@
       }
       &:hover {
         color: #3366ff;
+        svg path{
+          fill: #3366ff;
+        }
       }
       &.disabled {
         color: #babfc7;
