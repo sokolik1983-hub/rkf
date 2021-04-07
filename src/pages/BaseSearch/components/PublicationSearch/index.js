@@ -122,14 +122,14 @@ const PublicationSearch = ({ publication_clicked }) => {
             <div className="search-form__icon publication-search" />
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
-            <p className="PublicationSearch__price">Цена</p>
+            <p className="PublicationSearch__price">Цена руб.</p>
             <form className="search-form" onSubmit={handleSubmit}>
                 <div className="search-form__wrap">
                     <input
                         className="search-form__input"
                         type="text"
                         pattern="^[0-9]+$"
-                        onChange={({ target }) => setMinPrice(target.value)}
+                        onChange={({ target }) => setMinPrice(Number(target.value.slice(0,13).replace(/[^0-9]/g, '')).toLocaleString())}
                         value={min_price}
                         title="Цена от"
                         placeholder="от"
@@ -143,7 +143,7 @@ const PublicationSearch = ({ publication_clicked }) => {
                         className="search-form__input"
                         type="text"
                         pattern="^[0-9]+$"
-                        onChange={({ target }) => setMaxPrice(target.value)}
+                        onChange={({ target }) => setMaxPrice(Number(target.value.slice(0,13).replace(/[^0-9]/g, '')).toLocaleString())}
                         value={max_price}
                         title="Цена до"
                         placeholder="до"

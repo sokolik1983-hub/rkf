@@ -71,32 +71,39 @@ const CheckRegistration = ({ registration_clicked }) => {
         <Card id="check-registration-anchor" className={registration_clicked ? `_active_card` : ``}>
             <div className="search-form__icon check-registration" />
             <h3>Регистрационные данные собаки</h3>
-            <p>В целях получения информации о факте регистрации помета в РКФ, наличии у собаки родословной или возможности ее получения введите код и номер клейма и нажмите кнопку "Поиск". Вся необходимая информация будет отображена ниже. Просим Вас использовать данную форму перед отправкой заявки на изготовление документов.</p>
+            <p className="search-form__text">В целях получения информации о факте регистрации помета в РКФ, наличии у собаки родословной или возможности ее получения введите код и номер клейма и нажмите кнопку "Поиск". Вся необходимая информация будет отображена ниже. Просим Вас использовать данную форму перед отправкой заявки на изготовление документов.</p>
             <form className="search-form" onSubmit={handleSubmit}>
                 <div className="search-form__wrap">
+                    <label htmlFor="check-registration-anchor-mark" className="search-form__label">Код клейма</label>
                     <input
+                        id="check-registration-anchor-mark"
                         className="search-form__input"
                         type="text"
                         pattern="[A-Za-z]{3}"
-                        onChange={({ target }) => setStampCode(target.value)}
+                        onChange={({ target }) => setStampCode(target.value.slice(0,3).replace(/[^A-Za-z]/ig, ''))}
                         value={stamp_code}
                         title="Введите 3 латинских символа"
-                        placeholder="код клейма"
+                        placeholder=""
                         disabled={loading || !!status}
                         required
                     />
                     {stamp_code &&
                         <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear} />}
+                    <div className="search-form__note">
+                        Введите 3 латинских символа
+                    </div>
                 </div>
                 <div className="search-form__wrap search-form__wrap-with_but">
+                    <label htmlFor="check-registration-anchor-mark-number" className="search-form__label">Номер клейма</label>
                     <input
+                        id="check-registration-anchor-mark-number"
                         className="search-form__input"
                         type="text"
                         pattern="^[0-9]+$"
-                        onChange={({ target }) => setStampNumber(target.value)}
+                        onChange={({ target }) => setStampNumber(target.value.slice(0,7).trim().replace(/ +/g, ' '))}
                         value={stamp_number}
                         title="Введите числовое значение номера клейма"
-                        placeholder="номер клейма"
+                        placeholder=""
                         disabled={loading || !!status}
                         required
                     />
@@ -124,6 +131,9 @@ const CheckRegistration = ({ registration_clicked }) => {
                             </button>
                         </div>
                     }
+                    <div className="search-form__note">
+                        Введите числовое значение номера клейма
+                    </div>
                 </div>
             </form>
             {loading ?

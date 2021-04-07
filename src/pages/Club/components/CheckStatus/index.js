@@ -62,19 +62,24 @@ const CheckStatus = ({status_clicked}) => {
         История изменений статусов будет отображена в таблице ниже.</p>
         <form onSubmit={handleSubmit}>
             <div className="check-status__wrap">
+                <label htmlFor="check-status-anchor-track" className="search-form__label">Трек-номер</label>
                 <input
+                    id="check-status-anchor-track"
                     className="check-status__input"
                     type="text"
                     pattern="[0-9]{13}"
-                    onChange={({ target }) => setBarcode(target.value)}
+                    onChange={({ target }) => setBarcode(target.value.slice(0,13).replace(/[^0-9]/g, ''))}
                     value={barcode}
                     title="Введите 13-символьный трек-номер"
-                    placeholder="введите трек-номер"
+                    placeholder=""
                     disabled={loading || !!status.length ? true : false}
                     required
                 />
                 {barcode &&
                     <button type="button" className={`check-status__cancel ${status.length ? `_hide` : ``}`} onClick={handleBarcodeClear} />}
+                <div className="search-form__note">
+                    Введите 13-символьный трек-номер
+                </div>
             </div>
             {!status.length ? <div className="check-status__button">
                 <button
