@@ -155,7 +155,10 @@
     }
   },
   "browserslist": [
-    "last 4 versions"
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
   ],
   "jest": {
     "watchPlugins": [
