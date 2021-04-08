@@ -89,6 +89,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                             member={fedInfo.member}
                                             onSubscriptionUpdate={onSubscriptionUpdate}
                                             isAuthenticated={isAuthenticated}
+                                            canEdit={canEdit}
                                         />
                                         <PhotoComponent
                                             photo={fedInfo.owner_photo}
