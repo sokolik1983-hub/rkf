@@ -24,12 +24,16 @@
             }
         }
         &-title {
-            margin-bottom: 7px;
+            margin-bottom: 3px;
         }
     }
     &__price {
         position: relative;
         top: 15px;
+        @media (max-width: 960px) {
+            position: static;
+            margin-top: 15px
+        }
     }
     .user-news {
         margin-bottom: 24px;
@@ -48,6 +52,18 @@
     .infinite-scroll-component {
         overflow: visible!important;
       }
+    .search-form__wrap-with_but .search-form__button{
+        margin: 20px 0 0 6px;
+    }
+    .search-form__wrap{
+        margin-bottom: 0;
+    }
+    .search-form__input{
+        margin: 17px 0 6px 0;
+    }
+    .search-form__cancel{
+        top: 36px;
+    }
 }
 .Card._active_card {
     box-shadow: 0 6px 12px #3366ff;

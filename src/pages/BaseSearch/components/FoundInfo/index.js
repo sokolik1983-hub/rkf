@@ -57,22 +57,27 @@ const FoundInfo = ({found_info_clicked}) => {
         <Card id="found-info-anchor" className={found_info_clicked ? `_active_card` : ``}>
             <div className="search-form__icon found-info" />
             <h3>Информация о найденных собаках</h3>
-            <p>Если Вами была найдена собака, на теле которой проставлено клеймо - введите его код в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, зарегистрировавший собаку, в который Вы можете обратиться для уточнения любой интересующей Вас информации.</p>
+            <p className="search-form__text">Если Вами была найдена собака, на теле которой проставлено клеймо - введите его код в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, зарегистрировавший собаку, в который Вы можете обратиться для уточнения любой интересующей Вас информации.</p>
             <form className="search-form" onSubmit={handleSubmit}>
                 <div className="search-form__wrap">
+                    <label htmlFor="found-info-anchor-mark" className="search-form__label">Код клейма</label>
                     <input
+                        id="found-info-anchor-mark"
                         className="search-form__input"
                         type="text"
                         pattern="[A-Za-z]{3}"
-                        onChange={({ target }) => setStampCode(target.value)}
+                        onChange={({ target }) => setStampCode(target.value.slice(0, 3).replace(/[^A-Za-z]/ig, ''))}
                         value={stamp_code}
                         title="Введите 3 латинских символа"
-                        placeholder="код клейма"
+                        placeholder=""
                         disabled={loading || status ? true : false}
                         required
                     />
                     {stamp_code &&
                         <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear} />}
+                    <div className="search-form__note">
+                        Введите 3 латинских символа
+                    </div>
                 </div>
                 {status ? <div className="search-form__button--clear">
                     <button

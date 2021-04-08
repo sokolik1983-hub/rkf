@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
+import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
+import { CSSTransition } from "react-transition-group";
+
 import Card from "../Card";
 import Modal from "../Modal";
 import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
-import { CSSTransition } from "react-transition-group";
-import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import useIsMobile from "../../utils/useIsMobile";
+
 import "./index.scss";
 
 
@@ -91,86 +93,89 @@ const presidium = {
 const presidiumRfls = <>
     <h4 className="menu-component__wrap-title">ПРЕЗИДИУМ РФЛС</h4>
     <table className="menu-component__table">
-        <tr>
-            <td>1.</td>
-            <td>Голубев Владимир Семенович</td>
-        </tr>
-        <tr>
-            <td>2.</td>
-            <td>Бычкова Елена Ивановна</td>
-            <td>Тел.: +7-918-748-85-20</td>
-            <td>E-mail:elena 69@bk.ru</td>
-        </tr>
-        <tr>
-            <td>3.</td>
-            <td>Ваулина Нина Павловна</td>
-            <td>Тел.: +7-922-236-44-13</td>
-            <td>E-mail:chelregools@gmail.com</td>
-        </tr>
-        <tr>
-            <td>4.</td>
-            <td>Горева Светлана Викторовна</td>
-            <td>Тел.: +7-926-580-79-29</td>
-            <td>E-mail: sgoreva@inbox.ru</td>
-        </tr>
-        <tr>
-            <td>5.</td>
-            <td>Городилов Станислав Валентинович</td>
-            <td>Тел.: +7-914-237-24-66</td>
-            <td>E-mail: yras89142732466@icloud.com</td>
-        </tr>
-        <tr>
-            <td>6.</td>
-            <td>Зубкова Людмила Анатольевна</td>
-            <td>Тел.: +7-903-947-07-35</td>
-            <td>E-mail: zubkova-69@mail.ru</td>
-        </tr>
-        <tr>
-            <td>7.</td>
-            <td>Купляускас Евгений Стасович</td>
-            <td>Тел.: +7-903-509-57-68</td>
-            <td>E-mail: koulstas@mail.ru</td>
-        </tr>
-        <tr>
-            <td>8.</td>
-            <td>Мазина Людмила Анатольевна</td>
-            <td>Тел.: +7-917-219-50-00</td>
-            <td>E-mail: volga.rfls.info@yandex.ru</td>
-        </tr>
-        <tr>
-            <td>9.</td>
-            <td>Набиева Марина Борисовна</td>
-            <td>Тел.: +7-921-261-72-12</td>
-            <td>E-mail: m.b.nabieva@yandex.ru</td>
-        </tr>
-        <tr>
-            <td>10.</td>
-            <td>Никитин Александр Владимирович</td>
-            <td>Тел.: +7-903-856-87-80</td>
-            <td>E-mail: cacchr@mail.ru</td>
-        </tr>
-        <tr>
-            <td>11.</td>
-            <td>Новиславский Олег Юрьевич</td>
-            <td>Тел.: +7-926-211-39-39</td>
-            <td>E-mail: denfris@gmail.com</td>
-        </tr>
-        <tr>
-            <td>12.</td>
-            <td>Седых Николай Борисович</td>
-            <td>Тел.: +7-911-241-34-16</td>
-            <td>E-mail: nik5978824@yandex.ru</td>
-        </tr>
-        <tr>
+        <tbody>
+            <tr>
+                <td>1.</td>
+                <td>Голубев Владимир Семенович</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>Бычкова Елена Ивановна</td>
+                <td>Тел.: +7-918-748-85-20</td>
+                <td>E-mail:elena 69@bk.ru</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>Ваулина Нина Павловна</td>
+                <td>Тел.: +7-922-236-44-13</td>
+                <td>E-mail:chelregools@gmail.com</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>Горева Светлана Викторовна</td>
+                <td>Тел.: +7-926-580-79-29</td>
+                <td>E-mail: sgoreva@inbox.ru</td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>Городилов Станислав Валентинович</td>
+                <td>Тел.: +7-914-237-24-66</td>
+                <td>E-mail: yras89142732466@icloud.com</td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>Зубкова Людмила Анатольевна</td>
+                <td>Тел.: +7-903-947-07-35</td>
+                <td>E-mail: zubkova-69@mail.ru</td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>Купляускас Евгений Стасович</td>
+                <td>Тел.: +7-903-509-57-68</td>
+                <td>E-mail: koulstas@mail.ru</td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td>Мазина Людмила Анатольевна</td>
+                <td>Тел.: +7-917-219-50-00</td>
+                <td>E-mail: volga.rfls.info@yandex.ru</td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td>Набиева Марина Борисовна</td>
+                <td>Тел.: +7-921-261-72-12</td>
+                <td>E-mail: m.b.nabieva@yandex.ru</td>
+            </tr>
+            <tr>
+                <td>10.</td>
+                <td>Никитин Александр Владимирович</td>
+                <td>Тел.: +7-903-856-87-80</td>
+                <td>E-mail: cacchr@mail.ru</td>
+            </tr>
+            <tr>
+                <td>11.</td>
+                <td>Новиславский Олег Юрьевич</td>
+                <td>Тел.: +7-926-211-39-39</td>
+                <td>E-mail: denfris@gmail.com</td>
+            </tr>
+            <tr>
+                <td>12.</td>
+                <td>Седых Николай Борисович</td>
+                <td>Тел.: +7-911-241-34-16</td>
+                <td>E-mail: nik5978824@yandex.ru</td>
+            </tr>
+            <tr>
             <td>13.</td>
             <td>Швец Ирина Львовна</td>
             <td>Тел.: +7-916-145-16-41</td>
             <td>E-mail: icetoifel@mail.ru</td>
         </tr>
+        </tbody>
     </table>
     <br />
     <h4 className="menu-component__wrap-title">СПИСОК ЧЛЕНОВ РЕВИЗИОННОЙ КОМИССИИ РФЛС:</h4>
     <table className="menu-component__table" style={{ maxWidth: '68%' }}>
+    <tbody>
         <tr>
             <td>
                 Председатель:
@@ -202,6 +207,7 @@ const presidiumRfls = <>
                 Тел.: +7-909-670-35-54
             </td>
         </tr>
+    </tbody>
     </table>
 </>;
 
@@ -231,6 +237,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                 history.replace('/');
             }))();
         }
+        console.log(alias);
     }, [alias]);
 
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
@@ -381,30 +388,31 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                             <ul className="user-menu__list">
                                 {user !== 'nursery' &&
                                     <li className="user-menu__item">
-                                        <Link to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</Link>
+                                        <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</NavLink>
                                     </li>
                                 }
                                 {presidium[alias] &&
                                     <li className="user-menu__item">
-                                        <Link to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</Link>
+                                        <NavLink exact to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</NavLink>
                                     </li>
                                 }
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link" title="Публикации">Публикации</Link>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link" title="Публикации">Публикации</NavLink>
                                 </li>
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link" title="Документы">Документы</Link>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link" title="Документы">Документы</NavLink>
                                 </li>
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link" title="Фотогалерея">Фотогалерея</Link>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link" title="Фотогалерея">Фотогалерея</NavLink>
                                 </li>
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</Link>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</NavLink>
                                 </li>
                                 {showDetails &&
                                     <>
                                         {fedFeesId && <li className="user-menu__item">
-                                            <Link
+                                            <NavLink
+                                                exact
                                                 to={`/details-viewer/${fedFeesId}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
@@ -412,7 +420,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                                 title="Размеры членских взносов"
                                             >
                                                 Размеры членских взносов
-                                        </Link>
+                                        </NavLink>
                                         </li>}
                                         {/* <li className="user-menu__item">
                                             <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
@@ -420,26 +428,27 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                         </Link>
                                         </li> */}
                                         {fedDetails && <li className="user-menu__item">
-                                            <Link
+                                            <NavLink
+                                                exact
                                                 to={`/details-viewer/${fedDetails}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="user-menu__link"
                                                 title="Реквизиты">
                                                 Реквизиты
-                                        </Link>
+                                        </NavLink>
                                         </li>}
                                     </>
                                 }
                                 {isFederation &&
                                     <li className="user-menu__item">
-                                        <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</Link>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</NavLink>
                                     </li>
                                 }
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link" title={name}>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link" title={name}>
                                         {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
-                                    </Link>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </CSSTransition>
@@ -448,55 +457,62 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                 <ul className="menu-component__list">
                     {user !== 'nursery' &&
                         <li className="menu-component__item">
-                            <Link
+                            <NavLink
+                                exact
                                 to={`/exhibitions?Alias=${alias}`}
                                 className="menu-component__link _events"
                                 title="Мероприятия"
-                            >Мероприятия</Link>
+                            >Мероприятия</NavLink>
                         </li>
                     }
                     {presidium[alias] &&
                         <li className="menu-component__item">
-                            <Link
+                            <NavLink
+                                exact
                                 to="/"
                                 onClick={getPresidium}
                                 className="menu-component__link _presidium"
                                 title="Президиум"
-                            >Президиум</Link>
+                            >Президиум</NavLink>
                         </li>
                     }
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`}
                             className="menu-component__link _public"
                             title="Публикации"
-                        >Публикации</Link>
+                        >Публикации</NavLink>
                     </li>
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`}
                             className="menu-component__link _documents"
                             title="Документы"
-                        >Документы</Link>
+                        >Документы</NavLink>
                     </li>
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`}
                             className="menu-component__link _gallery"
                             title="Фотогалерея"
-                        >Фотогалерея</Link>
+                        >Фотогалерея</NavLink>
                     </li>
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`}
                             className="menu-component__link _video"
                             title="Фотогалерея"
-                        >Видеозаписи</Link>
+                        >Видеозаписи</NavLink>
                     </li>
                     {showDetails &&
                         <>
                             {fedFeesId && <li className="menu-component__item">
-                                <Link
+                                <NavLink
+                                    exact
                                     to={`/details-viewer/${fedFeesId}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -504,7 +520,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                     title="Размеры членских взносов"
                                 >
                                     Размеры членских взносов
-                            </Link>
+                            </NavLink>
                             </li>}
                             {/* <li className="menu-component__item">
                                 <Link
@@ -517,7 +533,8 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                             </Link>
                             </li> */}
                             {fedDetails && <li className="menu-component__item">
-                                <Link
+                                <NavLink
+                                    exact
                                     to={`/details-viewer/${fedDetails}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -525,32 +542,34 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                     title="Реквизиты"
                                 >
                                     Реквизиты
-                            </Link>
+                            </NavLink>
                             </li>}
                         </>
                     }
                     {isFederation &&
                         <li className="menu-component__item">
-                            <Link
+                            <NavLink
+                                exact
                                 to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`}
                                 className="menu-component__link _documents"
                                 title="Статус документов"
-                            >Статус документов</Link>
+                            >Статус документов</NavLink>
                         </li>
                     }
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`}
                             className="menu-component__link _club"
                             title={name}
                         >
                             {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
             }
             {showModal &&
-                <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
+                <Modal headerName={alias === 'rfls' ? "" : "Президиум"} className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
                     <div className="menu-component__wrap">
                         {
                             loading

@@ -12,7 +12,8 @@ const HomepageSlider = ({inputBanners}) => (
             dots={true}
             infinite={true}
             autoplay={true}
-            fade={true}
+            fade={false}
+            adaptiveHeight={true}
             autoplaySpeed={5000}
             speed={500}
             slidesToScroll={1}
@@ -21,7 +22,7 @@ const HomepageSlider = ({inputBanners}) => (
         >
             {
                 inputBanners.map((banner, index) =>   {
-                    return <img src={banner.banner_link} alt="" key={index}/>
+                    return banner.url ? <a href={banner.url} target="_blank" key={index}><img src={banner.banner_link} alt=""/></a> : <img src={banner.banner_link} alt=""/>
                 }) 
             }
 

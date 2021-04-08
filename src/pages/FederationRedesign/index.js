@@ -85,11 +85,11 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                             name={fedInfo.short_name || fedInfo.name || 'Название федерации отсутствует'}
                                             alias={alias}
                                             profileId={fedInfo.id}
-                                            canEdit={canEdit}
                                             subscribed={fedInfo.subscribed}
                                             member={fedInfo.member}
                                             onSubscriptionUpdate={onSubscriptionUpdate}
                                             isAuthenticated={isAuthenticated}
+                                            canEdit={canEdit}
                                         />
                                         <PhotoComponent
                                             photo={fedInfo.owner_photo}
