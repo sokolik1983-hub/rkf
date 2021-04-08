@@ -60,7 +60,7 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
     };
 
     return <div className="DocumentItem container p-0 mb-4">
-        <div className="row d-flex align-items-center flex-row" >
+        <div className="row d-flex align-items-center" >
             <div className="col-5">
                 <Link
                     to={`/docs/${id}`}
