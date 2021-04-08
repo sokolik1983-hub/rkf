@@ -129,7 +129,7 @@ const PublicationSearch = ({ publication_clicked }) => {
                         className="search-form__input"
                         type="text"
                         pattern="^[0-9]+$"
-                        onChange={({ target }) => setMinPrice(Number(target.value.slice(0,13).replace(/[^0-9]/g, '')).toLocaleString())}
+                        onChange={({ target }) => setMinPrice(target.value.slice(0,10).replace(/[^0-9]/g, ''))}
                         value={min_price}
                         title="Цена от"
                         placeholder="от"
@@ -143,7 +143,7 @@ const PublicationSearch = ({ publication_clicked }) => {
                         className="search-form__input"
                         type="text"
                         pattern="^[0-9]+$"
-                        onChange={({ target }) => setMaxPrice(Number(target.value.slice(0,13).replace(/[^0-9]/g, '')).toLocaleString())}
+                        onChange={({ target }) => setMaxPrice(target.value.slice(0,10).replace(/[^0-9]/g, ''))}
                         value={max_price}
                         title="Цена до"
                         placeholder="до"

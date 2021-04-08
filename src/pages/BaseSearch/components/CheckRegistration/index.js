@@ -99,8 +99,8 @@ const CheckRegistration = ({ registration_clicked }) => {
                         id="check-registration-anchor-mark-number"
                         className="search-form__input"
                         type="text"
-                        pattern="^[0-9]+$"
-                        onChange={({ target }) => setStampNumber(target.value.slice(0,7).trim().replace(/ +/g, ' '))}
+                        pattern="[0-9]{,7}"
+                        onChange={({ target }) => setStampNumber(target.value.slice(0,7).replace(/[^0-9]/g, ''))}
                         value={stamp_number}
                         title="Введите числовое значение номера клейма"
                         placeholder=""
