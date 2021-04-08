@@ -49,9 +49,8 @@ const CardSpecialist = () => {
 
     const onShowMoreClick = () => {
         (() => Request({
-            url: `/api/workreferee/additional_details?id=${id}`
+            url: `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=1`
         }, data => {
-            console.log('data_set', data);
             setAdditionalPhones(data.phones);
             setAdditionalEmails(data.emails);
             setAdditionalDisciplines(chunkArray(data.disciplines, 2));
@@ -123,7 +122,6 @@ const CardSpecialist = () => {
                     </div>
                     <div className={`card-specialist__controls _open`}>
                         <span className="card-specialist__go-back" onClick={() => setShowModal(false)}>Вернуться к списку</span>
-                        {/* <Share url={`https://rkf.online${url}`} /> */}
                         <Share url={`https://rkf.online`} />
                     </div>
                 </Card>
@@ -176,7 +174,6 @@ const CardSpecialist = () => {
                 {show_details && <span className="card-specialist__more" onClick={onShowMoreClick}>Подробнее...</span>}
             </div>}
             <div className={`card-specialist__controls`}>
-                {/* <Share url={`https://rkf.online${url}`} /> */}
                 <Share url={`https://rkf.online`} />
             </div>
         </Card>
