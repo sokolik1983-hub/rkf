@@ -363,6 +363,9 @@
     &:not(:last-child) {
       margin-bottom: 8px;
     }
+    .active{
+      color: #3366ff!important;
+    }
   }
 
   &__link {

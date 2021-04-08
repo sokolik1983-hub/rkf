@@ -388,30 +388,31 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                             <ul className="user-menu__list">
                                 {user !== 'nursery' &&
                                     <li className="user-menu__item">
-                                        <Link to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</Link>
+                                        <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</NavLink>
                                     </li>
                                 }
                                 {presidium[alias] &&
                                     <li className="user-menu__item">
-                                        <Link to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</Link>
+                                        <NavLink exact to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</NavLink>
                                     </li>
                                 }
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link" title="Публикации">Публикации</Link>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link" title="Публикации">Публикации</NavLink>
                                 </li>
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link" title="Документы">Документы</Link>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link" title="Документы">Документы</NavLink>
                                 </li>
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link" title="Фотогалерея">Фотогалерея</Link>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link" title="Фотогалерея">Фотогалерея</NavLink>
                                 </li>
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</Link>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</NavLink>
                                 </li>
                                 {showDetails &&
                                     <>
                                         {fedFeesId && <li className="user-menu__item">
-                                            <Link
+                                            <NavLink
+                                                exact
                                                 to={`/details-viewer/${fedFeesId}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
@@ -419,7 +420,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                                 title="Размеры членских взносов"
                                             >
                                                 Размеры членских взносов
-                                        </Link>
+                                        </NavLink>
                                         </li>}
                                         {/* <li className="user-menu__item">
                                             <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
@@ -427,26 +428,27 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                         </Link>
                                         </li> */}
                                         {fedDetails && <li className="user-menu__item">
-                                            <Link
+                                            <NavLink
+                                                exact
                                                 to={`/details-viewer/${fedDetails}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="user-menu__link"
                                                 title="Реквизиты">
                                                 Реквизиты
-                                        </Link>
+                                        </NavLink>
                                         </li>}
                                     </>
                                 }
                                 {isFederation &&
                                     <li className="user-menu__item">
-                                        <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</Link>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</NavLink>
                                     </li>
                                 }
                                 <li className="user-menu__item">
-                                    <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link" title={name}>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link" title={name}>
                                         {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
-                                    </Link>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </CSSTransition>
