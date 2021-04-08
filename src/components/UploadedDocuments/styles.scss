@@ -95,6 +95,8 @@
         padding: 12px !important;
         div {
             font-weight: normal;
+            flex-direction: column;
+            align-content: start;
         }
 
         @media (max-width: 560px) {
