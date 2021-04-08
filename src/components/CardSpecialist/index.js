@@ -6,6 +6,7 @@ import { DEFAULT_IMG } from "../../appConfig";
 import { Request } from "../../utils/request";
 import Modal from "./components/Modal";
 import useIsMobile from "../../utils/useIsMobile";
+import { setFiltersToUrl } from "../../pages/Specialists/utils";
 
 import "./index.scss";
 
@@ -24,7 +25,6 @@ const CardSpecialist = ({
     email,
     disciplines,
     show_details,
-    setFilters,
 }) => {
 
     const [showModal, setShowModal] = useState(false);
@@ -58,7 +58,7 @@ const CardSpecialist = ({
                 <Card className="card-specialist _modal">
                     {isMobile && <span
                         className="card-specialist__city"
-                        onClick={() => setFilters ? setFilters(city_id) : null}
+                        onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
                         title={city_name}
                     >
                         {city_name}
@@ -86,7 +86,7 @@ const CardSpecialist = ({
                                 </div>
                                 {!isMobile && <span
                                     className="card-specialist__city"
-                                    onClick={() => setFilters ? setFilters(city_id) : null}
+                                    onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
                                     title={city_name}
                                 >
                                     {city_name}
@@ -115,7 +115,7 @@ const CardSpecialist = ({
         <Card className="card-specialist">
             {isMobile && <span
                 className="card-specialist__city"
-                onClick={() => setFilters ? setFilters(city_id) : null}
+                onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
                 title={city_name}
             >
                 {city_name}
@@ -143,7 +143,7 @@ const CardSpecialist = ({
                         </div>}
                         {!isMobile && <span
                             className="card-specialist__city"
-                            onClick={() => setFilters ? setFilters(city_id) : null}
+                            onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
                             title={city_name}
                         >
                             {city_name}
