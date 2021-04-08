@@ -1,50 +1,29 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
-import CardExhibition from "../../../../components/CardExhibition";
-import CardEducational from "../../../../components/CardEducational";
-import { setFiltersToUrl } from "../../utils";
+import CardSpecialist from "../../../../components/CardSpecialist";
 import { DEFAULT_IMG } from "../../../../appConfig";
 import "./index.scss";
 
 
-const ExhibitionsList = ({ exhibitions, isEducational, loading, getNextExhibitions, hasMore,setShowModal }) => (
-    <div className="ExhibitionsList">
+const SpecialistsList = ({ specialists, loading, getNextSpecialists, hasMore, setShowModal }) => (
+    <div className="SpecialistsList">
         <InfiniteScroll
-            dataLength={exhibitions.length}
-            next={getNextExhibitions}
+            dataLength={specialists.length}
+            next={getNextSpecialists}
             hasMore={hasMore}
             loader={loading && <Loading centered={false} />}
             endMessage={
-                <div className="ExhibitionsList__no-exhibitions">
-                    <h4>{exhibitions.length ? 'Мероприятий больше нет' : 'Мероприятия не найдены'}</h4>
-                    <img src={DEFAULT_IMG.noNews} alt={exhibitions.length ? 'Мероприятий больше нет' : 'Мероприятия не найдены'} />
+                <div className="SpecialistsList__no-specialists">
+                    <h4>{specialists.length ? 'Специалистов больше нет' : 'Специалисты не найдены'}</h4>
+                    <img src={DEFAULT_IMG.noNews} alt={specialists.length ? 'Специалистов больше нет' : 'Специалисты не найдены'} />
                 </div>
             }
         >
-            <ul className="ExhibitionsList__content">
-                {exhibitions.map(item => (
-                    <li className="ExhibitionsList__item" key={item.id}>
-                        {
-                            isEducational
-                                ? <CardEducational
-                                    {...item}
-                                    photo={item.picture_link}
-                                    ranks={item.rank_string}
-                                    user={item.user_type}
-                                    setFilters={city_id => setFiltersToUrl({ CityIds: [city_id] })}
-                                    reports={item.reports_links}
-                                    setShowModal={setShowModal}
-                                />
-                                : <CardExhibition
-                                    {...item}
-                                    photo={item.picture_link}
-                                    ranks={item.rank_string}
-                                    user={item.user_type}
-                                    setFilters={city_id => setFiltersToUrl({ CityIds: [city_id] })}
-                                    reports={item.reports_links}
-                                />
-                        }
+            <ul className="SpecialistsList__content">
+                {specialists.map(item => (
+                    <li className="SpecialistsList__item" key={item.id}>
+                        <CardSpecialist {...item} />
                     </li>
                 ))}
             </ul>
@@ -52,4 +31,4 @@ const ExhibitionsList = ({ exhibitions, isEducational, loading, getNextExhibitio
     </div>
 );
 
-export default React.memo(ExhibitionsList);
+export default React.memo(SpecialistsList);

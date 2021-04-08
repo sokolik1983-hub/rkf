@@ -5,7 +5,6 @@ import Container from "../../components/Layouts/Container";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import SpecialistsList from "./components/SpecialistsList";
-import SpecialistsTable from "./components/SpecialistsTable";
 import ClickGuard from "../../components/ClickGuard";
 import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
@@ -28,12 +27,11 @@ moment.locale('ru');
 const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
     const [loading, setLoading] = useState(true);
     const [listLoading, setListLoading] = useState(false);
-    const [exhibitionsLoading, setSpecialistsLoading] = useState(true);
+    const [specialistsLoading, setSpecialistsLoading] = useState(true);
     const [filters, setFilters] = useState({ ...getInitialFilters() });
     const [url, setUrl] = useState(buildUrl({ ...filters }));
     const [club, setClub] = useState(null);
-    const [exhibitions, setSpecialists] = useState([]);
-    const [exhibitionsForTable, setSpecialistsForTable] = useState([]);
+    const [specialists, setSpecialists] = useState([]);
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [displayName, setDisplayName] = useState('');
@@ -43,14 +41,10 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
     const [clubId, setClubId] = useState('');
     const [active_member, setActiveMember] = useState(null);
     const [active_rkf_user, setActiveRkfUser] = useState(null);
-    const [standardView, setStandardView] = useState(true);
-    const [count, setCount] = useState(0);
-    const [needUpdateTable, setNeedUpdateTable] = useState(false);
-    const [exporting, setExporting] = useState(false);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const [showModal, setShowModal] = useState(false);
 
-    const isEducational = parseInt(filters.CategoryId) === 4 ? true : false;
+    const isEducational = parseInt(filters.SearchTypeId) === 4 ? true : false;
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -69,32 +63,31 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
         await Request({
             url: `${url}&StartElement=${startElem}&ElementCount=50`
         }, data => {
-            if (data.exhibitions?.length) {
-                const modifiedSpecialists = data.exhibitions.map(exhibition => {
-                    exhibition.date = '';
-                    if (exhibition.dates && exhibition.dates.length) {
-                        const startDate = exhibition.dates[0];
-                        const endDate = exhibition.dates[exhibition.dates.length - 1];
-                        exhibition.date = exhibition.dates.length === 1
+            if (data.judges?.length) {
+                const modifiedSpecialists = data.judges.map(s => {
+                    s.date = '';
+                    if (s.dates && s.dates.length) {
+                        const startDate = s.dates[0];
+                        const endDate = s.dates[s.dates.length - 1];
+                        s.date = s.dates.length === 1
                             ? formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`))
                             : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) +
                             ' - ' + formatDateCommon(new Date(`${endDate.year}/${endDate.month}/${endDate.day}`));
                     }
-                    exhibition.club_string = `Клуб ${exhibition.club_name}, ${exhibition.federation_name ? 'Федерация ' + exhibition.federation_name + ', ' : ''}${exhibition.city}`;
-                    exhibition.rank_string = exhibition.ranks && exhibition.ranks.length ? exhibition.ranks.map(rank => rank.name).join(', ') : 'Не указано';
-                    exhibition.club_rank_string = exhibition.club_string + ' / ' + exhibition.rank_string;
-                    exhibition.breed_string = exhibition.breeds && exhibition.breeds.length ? exhibition.breeds.map(breed => breed.name).join(', ') : 'Не указано';
-                    exhibition.url = `/exhibitions/${exhibition.id}`;
-                    return exhibition;
+                    s.club_string = `Клуб ${s.club_name}, ${s.federation_name ? 'Федерация ' + s.federation_name + ', ' : ''}${s.city}`;
+                    s.rank_string = s.ranks && s.ranks.length ? s.ranks.map(rank => rank.name).join(', ') : 'Не указано';
+                    s.club_rank_string = s.club_string + ' / ' + s.rank_string;
+                    s.breed_string = s.breeds && s.breeds.length ? s.breeds.map(breed => breed.name).join(', ') : 'Не указано';
+                    s.url = `/specialists/${s.id}`;
+                    return s;
                 });
 
-                if (data.exhibitions.length < 50) {
+                if (data.judges.length < 50) {
                     setHasMore(false);
                 } else {
                     setHasMore(true);
                 }
-                setSpecialistsForTable(modifiedSpecialists);
-                setSpecialists(startElem === 1 ? modifiedSpecialists : [...exhibitions, ...modifiedSpecialists]);
+                setSpecialists(startElem === 1 ? modifiedSpecialists : [...specialists, ...modifiedSpecialists]);
             } else if (isEducational && data.length) {
                 const modifiedSpecialists = data.map(educationEvent => {
                     educationEvent.date = moment(educationEvent.date_begin).format('DD.MM.YYYY');
@@ -111,18 +104,13 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                 } else {
                     setHasMore(true);
                 }
-                setSpecialistsForTable(modifiedSpecialists);
-                setSpecialists(startElem === 1 ? modifiedSpecialists : [...exhibitions, ...modifiedSpecialists]);
+                setSpecialists(startElem === 1 ? modifiedSpecialists : [...specialists, ...modifiedSpecialists]);
             } else {
                 if (startElem === 1) {
                     setSpecialists([]);
-                    setSpecialistsForTable([]);
                 }
                 setHasMore(false);
             }
-
-            setCount(data.count);
-            setNeedUpdateTable(false);
 
             const club = data.searching_club;
 
@@ -156,15 +144,10 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
         }
     };
 
-    const getNextSpecialistsForTable = startElem => {
-        (() => getSpecialists(buildUrl({ ...filters }), startElem))();
-    };
-
     useEffect(() => {
         if (url) {
             setListLoading(true);
             setStartElement(1);
-            setNeedUpdateTable(true);
             (() => getSpecialists(url, 1))();
         }
     }, [url]);
@@ -176,8 +159,8 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
             setNotificationsLength={setNotificationsLength}
         >
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
-            <div className="exhibitions-page__wrap redesign">
-                <Container className="exhibitions-page content">
+            <div className="specialists-page__wrap redesign">
+                <Container className="specialists-page content">
                     <Filters
                         filters={filters}
                         clubName={shorten(displayName)}
@@ -192,9 +175,9 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                         notificationsLength={notificationsLength}
                         isEducational={isEducational}
                     />
-                    <div className="exhibitions-page__content">
+                    <div className="specialists-page__content">
                         {filters.Alias && displayName &&
-                            <div className="exhibitions-page__mobile-only">
+                            <div className="specialists-page__mobile-only">
                                 {isFederationAlias(filters.Alias) ?
                                     <MenuComponent
                                         alias={filters.Alias}
@@ -208,43 +191,18 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                                 }
                             </div>
                         }
-                        <ListFilter categoryId={filters.CategoryId} />
-                        <div className="exhibitions-page__controls">
-                            {!!exhibitionsForTable.length && !standardView &&
-                                <button
-                                    className="exhibitions-page__control exhibitions-page__control--downloadIcon"
-                                    onClick={() => setExporting(true)}
-                                    disabled={exporting}
-                                >
-                                    Скачать PDF
-                                </button>
-                            }
-                            <button className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')} onClick={() => setStandardView(!standardView)}>
-                                {standardView ? 'Переключиться на табличный вид' : 'Вернуться к стандартному просмотру'}
-                            </button>
-                        </div>
+                        <ListFilter searchTypeId={filters.SearchTypeId} />
                         {
                             listLoading
                                 ? <Loading centered={false} />
-                                : <>{standardView
-                                    ? <SpecialistsList
-                                        exhibitions={exhibitions}
-                                        isEducational={isEducational}
-                                        getNextSpecialists={getNextSpecialists}
-                                        hasMore={hasMore}
-                                        loading={exhibitionsLoading}
-                                        setShowModal={setShowModal}
-                                    />
-                                    : <SpecialistsTable
-                                        exhibitions={exhibitionsForTable}
-                                        count={count}
-                                        startElement={startElement - 1}
-                                        needUpdate={needUpdateTable}
-                                        getNextSpecialists={getNextSpecialistsForTable}
-                                        exporting={exporting}
-                                        setExporting={setExporting}
-                                    />
-                                }</>
+                                : <SpecialistsList
+                                    specialists={specialists}
+                                    isEducational={isEducational}
+                                    getNextSpecialists={getNextSpecialists}
+                                    hasMore={hasMore}
+                                    loading={specialistsLoading}
+                                    setShowModal={setShowModal}
+                                />
                         }
                     </div>
                 </Container>

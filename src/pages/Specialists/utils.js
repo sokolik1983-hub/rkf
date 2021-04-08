@@ -1,5 +1,5 @@
 import history from "../../utils/history";
-import { endpointGetExhibitions, endpointGetEducationals } from "./config";
+import { endpointGetSpecialists } from "./config";
 import { formatDateToString } from "../../utils/datetime";
 
 const buildUrlParams = filter => {
@@ -11,11 +11,11 @@ const buildUrlParams = filter => {
                 if (filter[key] > 1) {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'CategoryId') {
+            } else if (key === 'SearchTypeId') {
                 if (filter[key] > 0) {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
+            } else if (key === 'ClassificationId' || key === 'TypeIds' || key === 'DisciplineIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
                 if (filter[key].length) {
                     params = params + filter[key].map(r => `${key}=${r}&`).join('');
                 }
@@ -36,11 +36,7 @@ export const buildUrl = filter => {
     filter = filter || {};
     const params = buildUrlParams(filter);
 
-    if (parseInt(filter.CategoryId) === 4) {
-        return endpointGetEducationals + params;
-    } else {
-        return endpointGetExhibitions + params;
-    }
+    return endpointGetSpecialists + params;
 };
 
 export const getFiltersFromUrl = () => {
@@ -55,7 +51,7 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'CityIds' || key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
+            if (key === 'CityIds' || key === 'ClassificationId' || key === 'TypeIds' || key === 'DisciplineIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else {
                 filtersFromUrl[key] = key === 'PageNumber' ? +value : value;
@@ -82,11 +78,11 @@ export const getEmptyFilters = (alias = null) => ({
     Alias: alias,
     CityIds: [],
     ClubIds: null,
-    RankIds: [],
-    BreedIds: [],
+    ClassificationId: [],
+    DisciplineIds: [],
     TypeIds: [],
     PaymentFormTypeIds: [],
-    CategoryId: 0,
+    SearchTypeId: 1,
     DateFrom: formatDateToString(new Date()),
     DateTo: null
 });

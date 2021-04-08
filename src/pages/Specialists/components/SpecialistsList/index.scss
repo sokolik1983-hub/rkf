@@ -1,6 +1,7 @@
-.ExhibitionsList {
+.SpecialistsList {
   &__content {
     list-style: none;
+    padding-top: 16px;
   }
   &__item {
     margin-bottom: 16px;
@@ -439,7 +440,7 @@
   .infinite-scroll-component {
     overflow: visible !important;
   }
-  &__no-exhibitions {
+  &__no-specialists {
     text-align: center;
     h4 {
       font-weight: normal;
