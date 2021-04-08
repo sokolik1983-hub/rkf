@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Card from "../Card";
 import Share from "../Share";
 import { DEFAULT_IMG } from "../../appConfig";
-// import { data } from "./sample.js";
 import { Request } from "../../utils/request";
 import Modal from "./components/Modal";
 import useIsMobile from "../../utils/useIsMobile";
@@ -27,22 +26,6 @@ const CardSpecialist = ({
     show_details,
     setFilters,
 }) => {
-    // const {
-    //     id,
-    //     cert_number,
-    //     last_name,
-    //     first_name,
-    //     last_name_lat,
-    //     first_name_lat,
-    //     picture_link,
-    //     city_id,
-    //     city_name,
-    //     phone,
-    //     email,
-    //     disciplines,
-    //     show_details,
-    //     setFilters,
-    // } = data;
 
     const [showModal, setShowModal] = useState(false);
     const [additionalDisciplines, setAdditionalDisciplines] = useState(null);
