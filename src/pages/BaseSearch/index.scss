@@ -140,19 +140,18 @@
   }
   &__icon {
     position: absolute;
-    top: 3px;
+    top: 0px;
     left: 0;
     display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin: 0 5px 0 0;
+    width: 20px;
+    height: 20px;
   }
   &__list {
       list-style: none;
     }
     &__item {
       &:not(:last-child) {
-        margin-bottom: 3px;
+        margin-bottom: 12px;
       }
     }
     &__link,
@@ -190,7 +189,7 @@
 }
 .menu-component__link {
   position: relative;
-  padding-left: 23px !important;
+  padding-left: 27px !important;
   &--documents {
       position: relative;
       display: flex;
