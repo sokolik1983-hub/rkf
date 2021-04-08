@@ -22,7 +22,7 @@ const HomepageSlider = ({inputBanners}) => (
         >
             {
                 inputBanners.map((banner, index) =>   {
-                    return banner.url ? <a href={banner.url} target="_blank" key={index}><img src={banner.banner_link} alt=""/></a> : <img src={banner.banner_link} alt=""/>
+                    return banner.url ? <a href={banner.url} target="_blank" key={index}><img src={banner.banner_link} alt=""/></a> : <img key={index} src={banner.banner_link} alt=""/>
                 }) 
             }
 
