@@ -130,12 +130,9 @@
       height: 16px;
       background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
       position: absolute;
-      right: 60px;
+      margin-left: -15px;
       top: 50%;
       transform: translateY(-50%);
-      @media (max-width: 990px) {
-        right: 55px;
-      }
     }
     &:hover {
       color: #3366ff;
@@ -148,8 +145,6 @@
       line-height: 18px;
       display: flex;
       justify-content: flex-end;
-      // position: absolute;
-      // right: 10px;
     }
   }
   &__contacts {
