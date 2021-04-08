@@ -95,6 +95,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
                                     <div className="nursery-page__info-inner">
                                         {!isMobile &&
                                             <UserHeader
+                                                canEdit={canEdit}
                                                 user="nursery"
                                                 logo={nursery.logo_link}
                                                 name={nursery.name || 'Имя отсутствует'}

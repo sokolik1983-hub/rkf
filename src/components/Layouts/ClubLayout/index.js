@@ -84,6 +84,7 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
                                                 <UserHeader
+                                                    canEdit={canEdit}
                                                     user={alias !== 'rkf-online' ? 'club' : ''}
                                                     logo={clubInfo.logo_link}
                                                     name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
