@@ -70,7 +70,7 @@ const CheckStatus = ({status_clicked}) => {
                     pattern="[0-9]{13}"
                     onChange={({ target }) => setBarcode(target.value.slice(0,13).replace(/[^0-9]/g, ''))}
                     value={barcode}
-                    title="Введите 13-символьный трек-номер"
+                    title="Введите 13-значный трек-номер"
                     placeholder=""
                     disabled={loading || !!status.length ? true : false}
                     required
@@ -78,7 +78,7 @@ const CheckStatus = ({status_clicked}) => {
                 {barcode &&
                     <button type="button" className={`check-status__cancel ${status.length ? `_hide` : ``}`} onClick={handleBarcodeClear} />}
                 <div className="search-form__note">
-                    Введите 13-символьный трек-номер
+                    Введите 13-значный трек-номер
                 </div>
             </div>
             {!status.length ? <div className="check-status__button">

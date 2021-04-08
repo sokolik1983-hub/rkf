@@ -42,6 +42,9 @@
         }
       }
     }
+    @media (max-width: 350px) {
+      display: none!important;
+    }
     li {
       margin: 0;
       button:before {
