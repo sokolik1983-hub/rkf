@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Link, NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
 
@@ -165,49 +165,49 @@ const presidiumRfls = <>
                 <td>E-mail: nik5978824@yandex.ru</td>
             </tr>
             <tr>
-            <td>13.</td>
-            <td>Швец Ирина Львовна</td>
-            <td>Тел.: +7-916-145-16-41</td>
-            <td>E-mail: icetoifel@mail.ru</td>
-        </tr>
+                <td>13.</td>
+                <td>Швец Ирина Львовна</td>
+                <td>Тел.: +7-916-145-16-41</td>
+                <td>E-mail: icetoifel@mail.ru</td>
+            </tr>
         </tbody>
     </table>
     <br />
     <h4 className="menu-component__wrap-title">СПИСОК ЧЛЕНОВ РЕВИЗИОННОЙ КОМИССИИ РФЛС:</h4>
     <table className="menu-component__table" style={{ maxWidth: '68%' }}>
-    <tbody>
-        <tr>
-            <td>
-                Председатель:
+        <tbody>
+            <tr>
+                <td>
+                    Председатель:
             </td>
-            <td>
-                Бородин Дмитрий
+                <td>
+                    Бородин Дмитрий
             </td>
-            <td>
-                Тел.: +7-919-247-69065
+                <td>
+                    Тел.: +7-919-247-69065
             </td>
-        </tr>
-        <tr>
-            <td>
-                Члены:
+            </tr>
+            <tr>
+                <td>
+                    Члены:
             </td>
-            <td>
-                Бойко Надежда
+                <td>
+                    Бойко Надежда
             </td>
-            <td>
-                Тел.: +7-915-089-81-58
+                <td>
+                    Тел.: +7-915-089-81-58
             </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                Эглит Вероника
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    Эглит Вероника
             </td>
-            <td>
-                Тел.: +7-909-670-35-54
+                <td>
+                    Тел.: +7-909-670-35-54
             </td>
-        </tr>
-    </tbody>
+            </tr>
+        </tbody>
     </table>
 </>;
 
