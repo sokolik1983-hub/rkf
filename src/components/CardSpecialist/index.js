@@ -33,25 +33,13 @@ const CardSpecialist = ({
     const [additionalEmails, setAdditionalEmails] = useState(null);
     const isMobile = useIsMobile();
 
-    const chunkArray = (arr, chunkSize) => {
-        let index = 0;
-        let tempArr = [];
-        if (arr.length) {
-            for (index = 0; index < arr.length; index += chunkSize) {
-                let myChunk = arr.slice(index, index + chunkSize);
-                tempArr.push(myChunk);
-            }
-        }
-        return tempArr;
-    }
-
     const onShowMoreClick = () => {
         (() => Request({
             url: `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=1`
         }, data => {
             setAdditionalPhones(data.phones);
             setAdditionalEmails(data.emails);
-            setAdditionalDisciplines(chunkArray(data.disciplines, 2));
+            setAdditionalDisciplines(data.disciplines);
             setShowModal(true);
         }, error => {
             console.log(error.response);
@@ -111,9 +99,9 @@ const CardSpecialist = ({
                         <div className="card-specialist__full-content">
                             <div>
                                 {disciplines?.map(i => <p key={i}>{i}</p>)}
-                                {additionalDisciplines && additionalDisciplines[0] && additionalDisciplines[0].map(i => <p key={i}>{i}</p>)}
+                                {additionalDisciplines?.slice(0, Math.round(additionalDisciplines?.length / 2)).map(i => <p key={i}>{i}</p>)}
                             </div>
-                            <div>{additionalDisciplines && additionalDisciplines[1] && additionalDisciplines[1].map(i => <p key={i}>{i}</p>)}</div>
+                            <div>{additionalDisciplines?.slice(Math.round(additionalDisciplines?.length / 2)).map(i => <p key={i}>{i}</p>)}</div>
                         </div>
                     </div>
                     <div className={`card-specialist__controls _open`}>
@@ -144,7 +132,7 @@ const CardSpecialist = ({
                         </span>
                         <br />
                         {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
-                        {email && <span className="card-specialist__subtitle">Email: {email}</span>}
+                        {email && <span className="card-specialist__subtitle _email">Email: {email}</span>}
                     </div>
                 </div>
                 <div className="card-specialist__content">
