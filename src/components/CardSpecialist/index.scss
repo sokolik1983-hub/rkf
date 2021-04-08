@@ -256,6 +256,7 @@
     }
   }
   .Share {
+    pointer-events: none;
     .ya-share2__icon_more {
       height: 16px;
       background-color: white;
@@ -276,46 +277,4 @@
   & > div {
     max-width: 868px;
   }
-  .Modal__body {
-    padding: 0 !important;
-  }
-  .Modal__header {
-    line-height: 1;
-    padding-bottom: 10px;
-  }
-  .Modal__close {
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    right: 282px;
-    top: 130px;
-    background: url(/static/icons/cross_white.svg) center no-repeat;
-    background-size: contain;
-    cursor: pointer;
-    &:hover {
-      background: url(/static/icons/cross-gray-blue.svg) center no-repeat;
-    }
-  }
-  &__title {
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 23px;
-    border-bottom: 1px solid #E5E5E5;
-  }
-  &__describe {
-    font-size: 18px;
-    line-height: 23px;
-    text-align: center;
-    margin: 50px 0;
-    @media (max-width: 560px) {
-      font-size: 16px;
-      line-height: 20px;
-      br {
-        display: none;
-      }
-    }
-    b {
-      color: #72839c;
-    }
-  }
-}
+ }

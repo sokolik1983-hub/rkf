@@ -3,31 +3,46 @@ import React, { useState } from "react";
 import Card from "../Card";
 import Share from "../Share";
 import { DEFAULT_IMG } from "../../appConfig";
-import { data } from "./sample.js";
+// import { data } from "./sample.js";
 import { Request } from "../../utils/request";
-import Modal from "../Modal"
+import Modal from "./components/Modal";
 import useIsMobile from "../../utils/useIsMobile";
 
 import "./index.scss";
 
 
-const CardSpecialist = () => {
-    const {
-        id,
-        cert_number,
-        last_name,
-        first_name,
-        last_name_lat,
-        first_name_lat,
-        picture_link,
-        city_id,
-        city_name,
-        phone,
-        email,
-        disciplines,
-        show_details,
-        setFilters,
-    } = data;
+const CardSpecialist = ({
+    id,
+    cert_number,
+    last_name,
+    first_name,
+    last_name_lat,
+    first_name_lat,
+    picture_link,
+    city_id,
+    city_name,
+    phone,
+    email,
+    disciplines,
+    show_details,
+    setFilters,
+}) => {
+    // const {
+    //     id,
+    //     cert_number,
+    //     last_name,
+    //     first_name,
+    //     last_name_lat,
+    //     first_name_lat,
+    //     picture_link,
+    //     city_id,
+    //     city_name,
+    //     phone,
+    //     email,
+    //     disciplines,
+    //     show_details,
+    //     setFilters,
+    // } = data;
 
     const [showModal, setShowModal] = useState(false);
     const [additionalDisciplines, setAdditionalDisciplines] = useState(null);
@@ -49,9 +64,8 @@ const CardSpecialist = () => {
 
     const onShowMoreClick = () => {
         (() => Request({
-            url: `/api/workreferee/additional_details?id=${id}`
+            url: `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=1`
         }, data => {
-            console.log('data_set', data);
             setAdditionalPhones(data.phones);
             setAdditionalEmails(data.emails);
             setAdditionalDisciplines(chunkArray(data.disciplines, 2));
@@ -97,9 +111,7 @@ const CardSpecialist = () => {
                         </div>
                         <div className="card-specialist__content">
                             <div className="card-specialist__header">
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    {/* {rank ? <span className="card-specialist__content-title">Ранг</span> : ''}
-                                    {rank ? <span className="card-specialist__subtitle">{rank}</span> : ''} */}
+                                <div>
                                 </div>
                                 {!isMobile && <span
                                     className="card-specialist__city"
@@ -115,15 +127,14 @@ const CardSpecialist = () => {
                         <span className="card-specialist__content-title">Разрешено судейство видов испытаний</span>
                         <div className="card-specialist__full-content">
                             <div>
-                                {disciplines?.map(i => <p>{i}</p>)}
-                                {additionalDisciplines && additionalDisciplines[0] && additionalDisciplines[0].map(i => <p>{i}</p>)}
+                                {disciplines?.map(i => <p key={i}>{i}</p>)}
+                                {additionalDisciplines && additionalDisciplines[0] && additionalDisciplines[0].map(i => <p key={i}>{i}</p>)}
                             </div>
-                            <div>{additionalDisciplines && additionalDisciplines[1] && additionalDisciplines[1].map(i => <p>{i}</p>)}</div>
+                            <div>{additionalDisciplines && additionalDisciplines[1] && additionalDisciplines[1].map(i => <p key={i}>{i}</p>)}</div>
                         </div>
                     </div>
                     <div className={`card-specialist__controls _open`}>
                         <span className="card-specialist__go-back" onClick={() => setShowModal(false)}>Вернуться к списку</span>
-                        {/* <Share url={`https://rkf.online${url}`} /> */}
                         <Share url={`https://rkf.online`} />
                     </div>
                 </Card>
@@ -157,7 +168,7 @@ const CardSpecialist = () => {
                     <div className="card-specialist__header">
                         {isMobile ? <div></div> : <div><br />
                             <span className="card-specialist__content-title">Разрешено судейство видов испытаний</span>
-                            <div className="card-specialist__subtitle">{disciplines.map(i => <p>{i}</p>)}</div>
+                            <div className="card-specialist__subtitle">{disciplines?.map(i => <p key={i}>{i}</p>)}</div>
                         </div>}
                         {!isMobile && <span
                             className="card-specialist__city"
@@ -172,11 +183,10 @@ const CardSpecialist = () => {
             </div>
             {isMobile && <div>
                 <span className="card-specialist__content-title">Разрешено судейство видов испытаний</span>
-                <div className="card-specialist__subtitle">{disciplines.map(i => <p>{i}</p>)}</div>
+                <div className="card-specialist__subtitle">{disciplines?.map(i => <p key={i}>{i}</p>)}</div>
                 {show_details && <span className="card-specialist__more" onClick={onShowMoreClick}>Подробнее...</span>}
             </div>}
             <div className={`card-specialist__controls`}>
-                {/* <Share url={`https://rkf.online${url}`} /> */}
                 <Share url={`https://rkf.online`} />
             </div>
         </Card>
