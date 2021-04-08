@@ -62,6 +62,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                                 <h3 className="user-header__name">{name}</h3>
                                 <Share />
                             </div>
+                            {!federationName && <div className="user-header__federation"/>}
                             {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
                                 <Link to={`/${federationAlias}`} 
                                         className={name.length > 50 
@@ -70,6 +71,15 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                                                         ? "user-header__federation middle-bottom" 
                                                         : "user-header__federation"}>
                                             {federationName}
+                                </Link>
+                            }
+                            {
+                                canEdit &&
+                                <Link
+                                    to={`/${setUserType(user, alias) === 'Питомник' ? "kennel" : "client"}/${alias}/edit`}
+                                    className="widget-login__button"
+                                    style={{marginTop: "20px"}}>
+                                    Редактировать профиль
                                 </Link>
                             }
                             {
