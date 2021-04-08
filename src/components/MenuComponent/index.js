@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
 
@@ -455,55 +455,62 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                 <ul className="menu-component__list">
                     {user !== 'nursery' &&
                         <li className="menu-component__item">
-                            <Link
+                            <NavLink
+                                exact
                                 to={`/exhibitions?Alias=${alias}`}
                                 className="menu-component__link _events"
                                 title="Мероприятия"
-                            >Мероприятия</Link>
+                            >Мероприятия</NavLink>
                         </li>
                     }
                     {presidium[alias] &&
                         <li className="menu-component__item">
-                            <Link
+                            <NavLink
+                                exact
                                 to="/"
                                 onClick={getPresidium}
                                 className="menu-component__link _presidium"
                                 title="Президиум"
-                            >Президиум</Link>
+                            >Президиум</NavLink>
                         </li>
                     }
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`}
                             className="menu-component__link _public"
                             title="Публикации"
-                        >Публикации</Link>
+                        >Публикации</NavLink>
                     </li>
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`}
                             className="menu-component__link _documents"
                             title="Документы"
-                        >Документы</Link>
+                        >Документы</NavLink>
                     </li>
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`}
                             className="menu-component__link _gallery"
                             title="Фотогалерея"
-                        >Фотогалерея</Link>
+                        >Фотогалерея</NavLink>
                     </li>
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`}
                             className="menu-component__link _video"
                             title="Фотогалерея"
-                        >Видеозаписи</Link>
+                        >Видеозаписи</NavLink>
                     </li>
                     {showDetails &&
                         <>
                             {fedFeesId && <li className="menu-component__item">
-                                <Link
+                                <NavLink
+                                    exact
                                     to={`/details-viewer/${fedFeesId}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -511,7 +518,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                     title="Размеры членских взносов"
                                 >
                                     Размеры членских взносов
-                            </Link>
+                            </NavLink>
                             </li>}
                             {/* <li className="menu-component__item">
                                 <Link
@@ -524,7 +531,8 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                             </Link>
                             </li> */}
                             {fedDetails && <li className="menu-component__item">
-                                <Link
+                                <NavLink
+                                    exact
                                     to={`/details-viewer/${fedDetails}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -532,27 +540,29 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                     title="Реквизиты"
                                 >
                                     Реквизиты
-                            </Link>
+                            </NavLink>
                             </li>}
                         </>
                     }
                     {isFederation &&
                         <li className="menu-component__item">
-                            <Link
+                            <NavLink
+                                exact
                                 to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`}
                                 className="menu-component__link _documents"
                                 title="Статус документов"
-                            >Статус документов</Link>
+                            >Статус документов</NavLink>
                         </li>
                     }
                     <li className="menu-component__item">
-                        <Link
+                        <NavLink
+                            exact
                             to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`}
                             className="menu-component__link _club"
                             title={name}
                         >
                             {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
             }

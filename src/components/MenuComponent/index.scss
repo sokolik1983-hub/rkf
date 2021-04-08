@@ -22,6 +22,12 @@
     &:not(:last-child) {
       margin-bottom: 12px;
     }
+    .active{
+      color: #3366FF!important;
+      &::before{
+        background: url("/static/icons/eventsIcon-blue.svg") no-repeat center/contain!important;
+      }
+    }
   }
 
   &__link {
@@ -34,6 +40,7 @@
     letter-spacing: .2px;
     color: #72839c;
     transition: color .2s linear;
+
 
     &:visited,
     &:active {
