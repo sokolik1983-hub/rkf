@@ -159,8 +159,8 @@ const Notifications = forwardRef(
                                                         {
                                                             notifications.length
                                                                 ? notifications.map((n, key) => {
-                                                                    return <>
-                                                                        <NotificationItem key={key} {...n} setOpen={setOpen} />
+                                                                    return <React.Fragment key={key}>
+                                                                        <NotificationItem  {...n} setOpen={setOpen} />
                                                                         {++key === notifications.length &&
                                                                             <div className="NotificationItem end-message">
                                                                                 <h4>Уведомлений больше нет</h4>
@@ -170,7 +170,7 @@ const Notifications = forwardRef(
                                                                                     style={{ width: notifications.length > 2 ? '100px' : 'auto' }}
                                                                                 />
                                                                             </div>}
-                                                                    </>
+                                                                    </React.Fragment>
                                                                 })
                                                                 : <div className="NotificationItem nothing-found">
                                                                     <h4>Здесь будут ваши уведомления</h4>
