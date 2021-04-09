@@ -56,23 +56,20 @@ const CardSpecialist = ({
         >
             <div className="full-card-modal__content">
                 <Card className="card-specialist _modal">
-                    {isMobile && <span
+                    {isMobile && <div style={{ display: 'flex', justifyContent: 'flex-end' }}><span
                         className="card-specialist__city"
                         onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
                         title={city_name}
                     >
                         {city_name}
-                    </span>}
+                    </span></div>}
                     <div className="card-specialist__wrap">
                         <span className="card-specialist__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
                         <div className="card-specialist__info">
                             <div className="card-specialist__contacts">
-                                <span className="card-specialist__name">
-                                    {first_name} {last_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
+                                <span className="card-specialist__name">{last_name} {first_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
                                 </span>
-                                <span className="card-specialist__name-eng">
-                                    {first_name_lat} {last_name_lat}
-                                </span>
+                                <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
                                 <br />
                                 {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
                                 {additionalPhones && additionalPhones.map(phone => <span className="card-specialist__subtitle" key={phone}>т. {phone}</span>)}
@@ -113,23 +110,20 @@ const CardSpecialist = ({
         </Modal>
         :
         <Card className="card-specialist">
-            {isMobile && <span
+            {isMobile && <div style={{ display: 'flex', justifyContent: 'flex-end' }}><span
                 className="card-specialist__city"
                 onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
                 title={city_name}
             >
                 {city_name}
-            </span>}
+            </span></div>}
             <div className="card-specialist__wrap">
                 <span className="card-specialist__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
                 <div className="card-specialist__info">
                     <div className="card-specialist__contacts">
-                        <span className="card-specialist__name">
-                            {first_name} {last_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
+                        <span className="card-specialist__name">{last_name} {first_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
                         </span>
-                        <span className="card-specialist__name-eng">
-                            {first_name_lat} {last_name_lat}
-                        </span>
+                        <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
                         <br />
                         {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
                         {email && <span className="card-specialist__subtitle _email">Email: {email}</span>}
