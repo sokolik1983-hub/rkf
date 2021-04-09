@@ -62,7 +62,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                                 <h3 className="user-header__name">{name}</h3>
                                 <Share />
                             </div>
-                            {!federationName && <div className="user-header__federation" style={{paddingTop: 0}}/>}
+                            {setUserType(user, alias) === 'Федерация' && <div className="user-header__federation" style={{paddingTop: 0}}/>}
                             {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
                                 <Link to={`/${federationAlias}`} 
                                         className={name.length > 50 

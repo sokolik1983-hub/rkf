@@ -237,7 +237,6 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                 history.replace('/');
             }))();
         }
-        console.log(alias);
     }, [alias]);
 
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
