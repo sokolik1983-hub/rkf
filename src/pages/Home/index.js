@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import StickyBox from "react-sticky-box";
+
+
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
@@ -11,19 +14,22 @@ import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
 import { RKFInfo, exhibitions } from "./config";
-import StickyBox from "react-sticky-box";
-import "./index.scss";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import { Request } from "utils/request";
 import Loading from "../../components/Loading";
 import CopyrightInfo from "components/CopyrightInfo";
+import Socials from "../../components/Socials";
+import useIsMobile from "../../utils/useIsMobile";
+
+import "./index.scss";
 
 
 const HomePage = ({ homepage, cities }) => {
 
     const [banners, setBanners] = useState();
     const [loading, setLoading] = useState(true);
+    const isMobile = useIsMobile(1101);
 
     useEffect(() => {
         (() => Request({
@@ -61,32 +67,10 @@ const HomePage = ({ homepage, cities }) => {
                                                 <h3>{RKFInfo.aboutTitle}</h3>
                                                 <p>{RKFInfo.about}</p>
                                             </Card>
-                                            <Card className="home-page__socials home-page__desktop">
-                                                <h3>РКФ в соцсетях</h3>
-                                                <div className="home-page__right-socials">
-                                                    <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
-                                                    <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
-                                                    {/* <a target="_blank" rel="noopener noreferrer" href="https://ok.ru/rkforg"><img src="/static/icons/social/odnoklassniki.svg" alt="" /></a>
-                                                    <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a> */}
-                                                    <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
-                                                    <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
-                                                    <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
-                                                </div>
-                                            </Card>
+                                            {!isMobile && <Socials />}
                                             <div className="home-page__tablet-inner">
                                                 <Statistics />
-                                                <Card className="home-page__socials home-page__mobile">
-                                                    <h3>РКФ в соцсетях</h3>
-                                                    <div className="home-page__right-socials">
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
-                                                        {/* <a target="_blank" rel="noopener noreferrer" href="https://ok.ru/rkforg"><img src="/static/icons/social/odnoklassniki.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a> */}
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
-                                                    </div>
-                                                </Card>
+                                                {isMobile && <Socials />}
                                             </div>
                                         </div>
                                         <Card className="home-page__projects-wrap">
@@ -106,9 +90,7 @@ const HomePage = ({ homepage, cities }) => {
                                                 <ClubsMap />
                                             </div>
                                         </Card>
-                                        <div className="home-page__desktop">
-                                            <CopyrightInfo withSocials={true} />
-                                        </div>
+                                        {!isMobile && <CopyrightInfo withSocials={true} />}
                                     </div>
                                 </StickyBox>
                             </Aside>

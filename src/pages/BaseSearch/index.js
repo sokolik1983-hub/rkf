@@ -24,6 +24,7 @@ import { clubNav } from "../Docs/config";
 import { kennelNav } from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
 import SearchCard from "./components/SearchCard/SearchCard";
+import Socials from "../../components/Socials";
 
 import "./index.scss";
 
@@ -92,7 +93,7 @@ const BaseSearch = () => {
                         withShare={false}
                     />}
                     <div className="base-search__content-wrap">
-                        {(isMobile) &&
+                        {isMobile &&
                             <SearchCard className="search_card_mobile"
                                 handleActiveReset={handleActiveReset}
                                 setFoundInfoClicked={setFoundInfoClicked}
@@ -119,7 +120,7 @@ const BaseSearch = () => {
                                         nurseryData ?
                                             <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
                                             <>
-                                                {(!isMobile) &&
+                                                {!isMobile &&
                                                     <SearchCard
                                                         handleActiveReset={handleActiveReset}
                                                         setFoundInfoClicked={setFoundInfoClicked}
@@ -130,16 +131,7 @@ const BaseSearch = () => {
                                                         setPublicationClicked={setPublicationClicked}
                                                     />
                                                 }
-                                                <Card className="base-search__socials">
-                                                    <h3>РКФ в соцсетях</h3>
-                                                    <div className="base-search__right-socials">
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
-                                                    </div>
-                                                </Card>
+                                                <Socials />
                                                 <Statistics />
                                                 <Card className="base-search__map-wrap">
                                                     <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
