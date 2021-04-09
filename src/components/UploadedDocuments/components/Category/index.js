@@ -1,21 +1,26 @@
 import React, { useState } from "react";
-import DocumentItem from "../DocumentItem";
-import DocumentItemReadOnly from "../DocumentItemReadOnly";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { pencil, trash } from "@progress/kendo-svg-icons";
 import { Upload } from "@progress/kendo-react-upload";
-import Card from "components/Card";
 import { Button } from "@progress/kendo-react-buttons";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
+import ls from "local-storage";
+
+import DocumentItem from "../DocumentItem";
+import DocumentItemReadOnly from "../DocumentItemReadOnly";
+import Card from "components/Card";
 import { Request, getHeaders } from "utils/request";
 import kendoMessages from 'kendoMessages.json';
 import { DEFAULT_IMG } from "appConfig";
+
 import './styles.scss';
 
 loadMessages(kendoMessages, 'ru-RU');
 
 const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, documents, setModal, getDocuments, handleError, handleSuccess }) => {
     const [documentsToUpdate, setDocumentsToUpdate] = useState([]);
+    const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
+    const isFederation = userType === 5;
 
     const onBeforeUpload = event => {
         event.headers = getHeaders(true);
@@ -115,9 +120,9 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     batch={true}
                     multiple={false}
                     maxFileSize={10485760}
-                    accept=".pdf"
+                    accept={isFederation ? `.pdf, .doc, .docx` : `.pdf`}
                     restrictions={{
-                        allowedExtensions: ['.pdf']
+                        allowedExtensions: isFederation ? ['.pdf', '.doc', '.docx'] : ['.pdf']
                     }}
                     withCredentials={false}
                     showFileList={false}
