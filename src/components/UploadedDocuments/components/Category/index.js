@@ -100,7 +100,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
         }
         {
             !!documentsToUpdate.length && <div className="DocumentItem container p-0 mb-4">
-                <div className="d-flex flex-column align-items-start">
+                <div className="row d-flex align-items-center">
                     <div className="col-8">
                     </div>
                     <div className="col-3 text-right">
