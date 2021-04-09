@@ -12,6 +12,8 @@ const TopBanner = () => (
                     Цифровая платформа российского кинологического сообщества
                 </p>
             </div>
+            <div className="top-banner__logo">
+            </div>
         </Container>
     </div>
 );
