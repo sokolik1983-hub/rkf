@@ -35,6 +35,7 @@ const sortFederationName = (array) => {
 };
 
 const Statistics = ({ isAboutPage }) => {
+
     const [loading, setLoading] = useState(true);
     const [clubs, setClubs] = useState({});
     const { clubs_total_count, federation_clubs } = clubs;
