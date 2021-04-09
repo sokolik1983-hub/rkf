@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import StickyBox from "react-sticky-box";
+import { Link } from "react-router-dom";
+
 import { useTimeOut } from "../../shared/hooks.js";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import CheckStatus from "../Club/components/CheckStatus";
 import CheckRegistration from "./components/CheckRegistration"
 import FoundInfo from "./components/FoundInfo";
-import StickyBox from "react-sticky-box";
 import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
@@ -13,19 +15,17 @@ import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
 import RefereeSearch from "./components/RefereeSearch";
-import OutsideClickHandler from "react-outside-click-handler";
 import TopComponent from "../../components/TopComponent";
 import UserMenu from "../../components/Layouts/UserMenu";
-import { Link as LinkScroll } from "react-scroll";
-import { Link } from "react-router-dom";
 import PublicationSearch from "./components/PublicationSearch";
 import { parseLocationSearch } from "./utils.js";
 import { Request } from "../../utils/request";
 import { clubNav } from "../Docs/config";
 import { kennelNav } from "../NurseryDocuments/config";
-import "./index.scss";
 import useIsMobile from "../../utils/useIsMobile";
 import SearchCard from "./components/SearchCard/SearchCard";
+
+import "./index.scss";
 
 
 const BaseSearch = () => {
@@ -93,16 +93,16 @@ const BaseSearch = () => {
                     />}
                     <div className="base-search__content-wrap">
                         {(isMobile) &&
-                        <SearchCard className="search_card_mobile"
-                            handleActiveReset={handleActiveReset}
-                            setFoundInfoClicked={setFoundInfoClicked}
-                            setStatusClicked={setStatusClicked}
-                            setRegistrationClicked={setRegistrationClicked}
-                            setStampClicked={setStampClicked}
-                            setRefereeClicked={setRefereeClicked}
-                            setPublicationClicked={setPublicationClicked}
-                        />
-                    }
+                            <SearchCard className="search_card_mobile"
+                                handleActiveReset={handleActiveReset}
+                                setFoundInfoClicked={setFoundInfoClicked}
+                                setStatusClicked={setStatusClicked}
+                                setRegistrationClicked={setRegistrationClicked}
+                                setStampClicked={setStampClicked}
+                                setRefereeClicked={setRefereeClicked}
+                                setPublicationClicked={setPublicationClicked}
+                            />
+                        }
                         <div className="base-search__content">
                             <FoundInfo found_info_clicked={found_info_clicked} />
                             <CheckStatus status_clicked={status_clicked} />
@@ -120,15 +120,15 @@ const BaseSearch = () => {
                                             <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
                                             <>
                                                 {(!isMobile) &&
-                                                <SearchCard
-                                                    handleActiveReset={handleActiveReset}
-                                                    setFoundInfoClicked={setFoundInfoClicked}
-                                                    setStatusClicked={setStatusClicked}
-                                                    setRegistrationClicked={setRegistrationClicked}
-                                                    setStampClicked={setStampClicked}
-                                                    setRefereeClicked={setRefereeClicked}
-                                                    setPublicationClicked={setPublicationClicked}
-                                                />
+                                                    <SearchCard
+                                                        handleActiveReset={handleActiveReset}
+                                                        setFoundInfoClicked={setFoundInfoClicked}
+                                                        setStatusClicked={setStatusClicked}
+                                                        setRegistrationClicked={setRegistrationClicked}
+                                                        setStampClicked={setStampClicked}
+                                                        setRefereeClicked={setRefereeClicked}
+                                                        setPublicationClicked={setPublicationClicked}
+                                                    />
                                                 }
                                                 <Card className="base-search__socials">
                                                     <h3>РКФ в соцсетях</h3>
