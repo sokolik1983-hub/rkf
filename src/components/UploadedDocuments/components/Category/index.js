@@ -85,7 +85,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                         setDocumentsToUpdate={setDocumentsToUpdate}
                     />)
                 : <div className="DocumentItem container p-0">
-                    <div className="row d-flex align-items-center">
+                    <div className="d-flex flex-column align-items-start">
                         {
                             documents.filter(d => d.category_id === id)
                                 .map((d, i) => <DocumentItemReadOnly key={i} {...d} categories={categories} setModal={setModal} />)
@@ -100,7 +100,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
         }
         {
             !!documentsToUpdate.length && <div className="DocumentItem container p-0 mb-4">
-                <div className="row d-flex align-items-center">
+                <div className="d-flex flex-column align-items-start">
                     <div className="col-8">
                     </div>
                     <div className="col-3 text-right">
