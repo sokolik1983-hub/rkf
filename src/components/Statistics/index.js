@@ -60,7 +60,7 @@ const Statistics = ({ isAboutPage }) => {
     }, []);
 
     return (loading ? <Loading centered={false} /> :
-        clubs_total_count && <Card className={`statistics ${isAboutPage ? `_about_page` : ``}`}>
+        clubs_total_count && <Card className={`statistics`}>
             <h3 className="statistics__title">
                 На RKF.Online авторизовано
                     </h3>

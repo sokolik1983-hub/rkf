@@ -44,8 +44,14 @@
   }
   &__info {
     width: 100%;
-    max-width: 416px;
+    max-width: 300px;
     margin-left: 24px;
+    h3, h4{
+      padding-bottom: 10px;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+    }
     .statistics {
       margin-bottom: 16px;
     }
