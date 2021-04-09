@@ -29,10 +29,6 @@ const EventsFilter = ({ events, event_ids, onChange, is_club_link }) => {
         }
     }, [events, event_ids]);
 
-    const handleChange = options => {
-        onChange(options.map(option => option.value));
-    };
-
     function compare(a, b) {
         let comparison = 0;
         if (a.value > b.value) {
@@ -58,14 +54,14 @@ const EventsFilter = ({ events, event_ids, onChange, is_club_link }) => {
                 <div className="events-filter__wrap">
                     <Select
                         id="events-filter"
-                        isMulti={true}
+                        isMulti={false}
                         closeMenuOnSelect={false}
                         options={[...values, ...optionsNotInValues].sort(compare)}
                         defaultMenuIsOpen={true}
                         hideSelectedOptions={false}
                         menuIsOpen={true}
                         controlShouldRenderValue={false}
-                        onChange={handleChange}
+                        onChange={({ value }) => onChange(value === event_ids[0] ? [] : [value])}
                         clearable={true}
                         isSearchable={false}
                         classNamePrefix="events-filter"
