@@ -120,9 +120,14 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     batch={true}
                     multiple={false}
                     maxFileSize={10485760}
-                    accept={isFederation ? `.pdf, .doc, .docx` : `.pdf`}
+                    // accept={isFederation ? `.pdf, .doc, .docx` : `.pdf`}
+                    accept={`.pdf, .doc, .docx`}
+
+                    // restrictions={{
+                    //     allowedExtensions: isFederation ? ['.pdf', '.doc', '.docx'] : ['.pdf']
+                    // }}
                     restrictions={{
-                        allowedExtensions: isFederation ? ['.pdf', '.doc', '.docx'] : ['.pdf']
+                        allowedExtensions: ['.pdf', '.doc', '.docx']
                     }}
                     withCredentials={false}
                     showFileList={false}
