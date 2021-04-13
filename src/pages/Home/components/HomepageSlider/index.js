@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./styles.scss";
 
 
-const HomepageSlider = ({inputBanners}) => (
+const HomepageSlider = ({ inputBanners }) => (
     <div className="HomepageSlider">
         <Slider
             arrows={false}
@@ -21,11 +21,13 @@ const HomepageSlider = ({inputBanners}) => (
             slidesPerRow={1}
         >
             {
-                inputBanners.map((banner, index) =>   {
-                    return banner.url ? <a href={banner.url} target="_blank" key={index}><img src={banner.banner_link} alt=""/></a> : <img key={index} src={banner.banner_link} alt=""/>
-                }) 
+                inputBanners.map((banner, index) => {
+                    return banner.url ? <a href={banner.url} target="_blank" rel="noopener noreferrer" key={index}>
+                        <img src={banner.banner_link} alt="" /></a>
+                        :
+                        <img key={index} src={banner.banner_link} alt="" />
+                })
             }
-
         </Slider>
     </div>
 );

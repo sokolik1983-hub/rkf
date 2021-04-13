@@ -1,0 +1,86 @@
+.Modal-specialist {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 10;
+
+  &--hidden {
+    display: none;
+  }
+
+  &__inner {
+    position: relative;
+    max-width: 100%;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 2px 2px 10px black;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    background: #fff;
+  }
+
+  &__wrap {
+    position: relative;
+    max-width: 100%;
+    background: transparent;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+
+  &>div {
+    width: 80%;
+
+    @media (max-width: 560px) {
+      width: 92%;
+    }
+  }
+
+  &__body {
+    padding: 0;
+  }
+
+  &__header {
+    line-height: 1;
+    padding-bottom: 10px;
+  }
+
+  &__close {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 3px;
+    top: 15px;
+    background: url(/static/icons/cross_white.svg) center no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    &:hover {
+      background: url(/static/icons/cross-gray-blue.svg) center no-repeat;
+    }
+
+    &-text {
+      color: white;
+      cursor: pointer;
+      float: right;
+
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  &.no-backdrop {
+    .Modal-specialist__inner {
+      box-shadow: none;
+    }
+
+    &>div {
+      width: auto;
+    }
+  }
+}

@@ -9,8 +9,7 @@ import './styles.scss';
 moment.locale('ru');
 
 const DocumentItemReadOnly = ({ id, name, date_create }) => {
-
-    return <div className="col-md-6 mb-3">
+    return <div className="mb-3">
         <Link
             to={`/docs/${id}`}
             target="_blank"
