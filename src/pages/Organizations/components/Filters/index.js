@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import StickyBox from "react-sticky-box";
+
 import Loading from "../../../../components/Loading";
 import Aside from "../../../../components/Layouts/Aside";
 import Card from "../../../../components/Card";
@@ -17,6 +18,7 @@ import { getEmptyFilters, setFiltersToUrl } from "../../utils";
 import { RKFInfo } from "../../../Home/config";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { Request } from "../../../../utils/request";
+import Socials from "../../../../components/Socials";
 import {
     endpointGetClubsCities,
     endpointGetFederations,
@@ -24,9 +26,10 @@ import {
     endpointGetKennelsCities,
     endpointGetNKPBreeds
 } from "../../config";
-import "./index.scss";
 import NotActivatedFilter from "../../../../components/Filters/NotActivatedFilter";
 import ActiveUserFilter from "../../../../components/Filters/ActiveUserFilter";
+
+import "./index.scss";
 
 
 const Filters = ({ organization_type,
@@ -105,36 +108,7 @@ const Filters = ({ organization_type,
                                     <h3>{RKFInfo.aboutTitle}</h3>
                                     <p>{RKFInfo.about}</p>
                                 </Card>
-                                <Card className="organizations-page__socials">
-                                    <h3>РКФ в соцсетях</h3>
-                                    <ul className="organizations-page__socials-list">
-                                        <li>
-                                            <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/">
-                                                <img src="/static/icons/social/facebook.svg" alt="" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed">
-                                                <img src="/static/icons/social/vk.svg" alt="" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig">
-                                                <img src="/static/icons/social/youtube.svg" alt="" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/">
-                                                <img src="/static/icons/social/instagram.svg" alt="" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial">
-                                                <img src="/static/icons/social/telegram.svg" alt="" />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </Card>
+                                <Socials />
                                 <Statistics />
                                 <Card className="organizations-page__map-wrap">
                                     <h3><Link className="organizations-page__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
@@ -153,13 +127,13 @@ const Filters = ({ organization_type,
                                         onClick={() => setFiltersToUrl({ ...getEmptyFilters(), organization_type })}
                                     >
                                         <svg
-                                            className="icon-broom" 
+                                            className="icon-broom"
                                             width="16" height="16" viewBox="0 0 20 20 " fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M17.01 2.86102e-08L18.43 1.42L12.71 7.13C13.78
                                              8.67 13.93 10.52 13.03 11.72L6.71 5.4C7.91 4.5 9.76 4.65
                                               11.3 5.72L17.01 2.86102e-08ZM3.58 14.85C1.57 12.84 0.34 10.44
                                                -9.53674e-08 8.2L4.88 6.11L12.32 13.55L10.23 18.43C7.99 18.09
-                                                5.59 16.86 3.58 14.85Z" fill="#72839c"/>
+                                                5.59 16.86 3.58 14.85Z" fill="#72839c" />
                                         </svg>
                                         Сбросить все параметры
                                     </button>
