@@ -35,6 +35,7 @@ const sortFederationName = (array) => {
 };
 
 const Statistics = ({ isAboutPage }) => {
+
     const [loading, setLoading] = useState(true);
     const [clubs, setClubs] = useState({});
     const { clubs_total_count, federation_clubs } = clubs;
@@ -60,7 +61,7 @@ const Statistics = ({ isAboutPage }) => {
     }, []);
 
     return (loading ? <Loading centered={false} /> :
-        clubs_total_count && <Card className={`statistics ${isAboutPage ? `_about_page` : ``}`}>
+        clubs_total_count && <Card className={`statistics`}>
             <h3 className="statistics__title">
                 На RKF.Online авторизовано
                     </h3>

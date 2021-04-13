@@ -9,7 +9,7 @@ import LightTooltip from "../LightTooltip";
 import './styles.scss';
 
 
-const Feedback = ({ className, title, HelpdeskApiKey, isMainNav }) => {
+const Feedback = ({isAboutPage, className, title, HelpdeskApiKey, isMainNav }) => {
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -87,7 +87,7 @@ const Feedback = ({ className, title, HelpdeskApiKey, isMainNav }) => {
                     {title || 'Центр поддержки'}
                 </a>
             }
-            <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className="feedback__modal">
+            <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className={`feedback__modal${isAboutPage && ' about-page_feedback__modal'}`} >
                 <div className="feedback">
                     <h3 className="feedback__modal__title">Центр поддержки</h3>
                     <p>В случае возникновения вопросов просим Вас ознакомиться с <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noopener noreferrer">Базой знаний РКФ</a></p>
