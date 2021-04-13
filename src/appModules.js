@@ -57,6 +57,11 @@ export const LoadableExhibitionEdit = Loadable({
     loading: Loading
 });
 
+export const LoadableSpecialists = Loadable({
+    loader: () => import('./pages/Specialists'),
+    loading: Loading
+});
+
 export const LoadableNewsFeed = Loadable({
     loader: () => import('./pages/NewsFeed'),
     loading: Loading
