@@ -25,6 +25,7 @@ const CardSpecialist = ({
     email,
     disciplines,
     show_details,
+    searchTypeId,
 }) => {
 
     const [showModal, setShowModal] = useState(false);
@@ -35,7 +36,7 @@ const CardSpecialist = ({
 
     const onShowMoreClick = () => {
         (() => Request({
-            url: `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=1`
+            url: `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=${searchTypeId}`
         }, data => {
             setAdditionalPhones(data.phones);
             setAdditionalEmails(data.emails);

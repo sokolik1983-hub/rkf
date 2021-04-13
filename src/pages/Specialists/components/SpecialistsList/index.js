@@ -6,7 +6,7 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import "./index.scss";
 
 
-const SpecialistsList = ({ specialists, loading, getNextSpecialists, hasMore, setShowModal }) => (
+const SpecialistsList = ({ specialists, loading, getNextSpecialists, hasMore, setShowModal, searchTypeId }) => (
     <div className="SpecialistsList">
         <InfiniteScroll
             dataLength={specialists.length}
@@ -23,7 +23,7 @@ const SpecialistsList = ({ specialists, loading, getNextSpecialists, hasMore, se
             <ul className="SpecialistsList__content">
                 {specialists.map(item => (
                     <li className="SpecialistsList__item" key={item.id}>
-                        <CardSpecialist {...item} />
+                        <CardSpecialist {...item} searchTypeId={searchTypeId} />
                     </li>
                 ))}
             </ul>

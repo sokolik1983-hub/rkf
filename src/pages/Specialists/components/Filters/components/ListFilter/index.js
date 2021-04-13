@@ -30,8 +30,8 @@ const ListFilter = ({ searchTypeId }) => {
                     <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 3 ? ' _active' : ''}`}
-                            style={{opacity:0.6}}
-                            //onClick={() => handleClick(1)}
+                            style={{ opacity: 0.6 }}
+                        //onClick={() => handleClick(1)}
                         >Судьи по породам</span>
                     </li>
                     <li className="list-filter__item">
@@ -43,15 +43,14 @@ const ListFilter = ({ searchTypeId }) => {
                     <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 2 ? ' _active' : ''}`}
-                            style={{opacity:0.6}}
-                            //onClick={() => handleClick(2)}
+                            onClick={() => handleClick(2)}
                         >Судьи по охотничьим дисциплинам</span>
                     </li>
                     <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 4 ? ' _active' : ''}`}
-                            style={{opacity:0.6}}
-                            //onClick={() => handleClick(2)}
+                            style={{ opacity: 0.6 }}
+                        //onClick={() => handleClick(2)}
                         >Специалисты</span>
                     </li>
                     {/* <li className="list-filter__item">

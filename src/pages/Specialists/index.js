@@ -202,6 +202,7 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                                     hasMore={hasMore}
                                     loading={specialistsLoading}
                                     setShowModal={setShowModal}
+                                    searchTypeId={parseInt(filters.SearchTypeId)}
                                 />
                         }
                     </div>
