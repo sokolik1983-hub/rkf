@@ -2,34 +2,42 @@
   &__title {
     display: block;
     position: relative;
-    padding: 10px 20px 10px 0;
-    border-bottom: 2px solid transparent;
+    padding: 0 20px 10px 0;
     font-weight: normal;
-    font-size: 16px;
-    line-height: 1;
+    font-size: 18px;
+    line-height: 16px;
     letter-spacing: .2px;
-    color: #72839c;
+    color: #253C5E;
     cursor: pointer;
     transition: all .2s linear;
     &:hover {
       color: #3366ff;
     }
+    &:before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      right: 22px;
+      width: 1px;
+      height: 15px;
+      background: #72839C;
+    }
     &:after {
       content: '';
       width: 12px;
-      height: 20px;
+      height: 6px;
       background: url("/static/icons/chevron-down-light.svg") no-repeat center;
       position: absolute;
-      top: 10px;
-      right: 0;
+      top: 5px;
+      right: 1px;
       transition: all .2s linear;
     }
   }
   &._open .dropdown__title:after {
     transform: rotate(180deg);
   }
-  &._active .dropdown__title {
-    border-bottom-color: #3366ff;
+  &._active .dropdown__list:before {
+    background: #3366ff;
   }
   &:last-child .dropdown__list {
     margin-bottom: 0 !important;
@@ -57,9 +65,18 @@
     }
   }
   &__list {
+    position: relative;
     list-style: none;
     margin: 10px 0;
-    padding-left: 16px;
+    &:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: #E5E5E5;
+      top: -10px;
+      left: 0;
+    }
   }
   &__item {
     &._active .dropdown__item-title {
@@ -71,7 +88,7 @@
       opacity: .5;
     }
     &:not(:last-child) {
-      margin-bottom: 10px;
+      margin-bottom: 13px;
     }
     &-head {
       display: flex;
@@ -79,33 +96,45 @@
       justify-content: space-between;
     }
     &-count {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
       margin-left: 10px;
-      font-size: 12px;
-      line-height: 1;
-      padding: 3px 7px 5px;
-      border-radius: 12px;
+      font-size: 16px;
+      border-radius: 10px;
       color: #fff;
       background-color: #3366FF;
+      padding: 0 0 2px 1px;
+      @media (max-width: 375px) {
+        padding: 0 0 2px 0;
+      }
       &._disabled {
         background-color: #e8e8e8;
       }
     }
     &-title {
       letter-spacing: .2px;
-      color: #72839c;
+      color: #253C5E;
       cursor: pointer;
       transition: all .2s linear;
+      max-width: 250px;
       &:hover {
         color: #3366ff;
       }
     }
     &-body {
       padding-top: 16px;
-      margin-left: -16px;
       .Card {
         padding: 0 !important;
         box-shadow: none !important;
       }
     }
   }
+}
+
+.longCount {
+  width: 32px;
+  border-radius: 16px;
 }
