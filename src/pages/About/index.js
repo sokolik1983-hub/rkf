@@ -32,7 +32,7 @@ const AboutPage = () => {
                         />
                     </div>
                     <aside className="about-page__info">
-                        <FeedbackComponent />
+                        <FeedbackComponent isAboutPage/>
                         <Statistics isAboutPage />
                         <Banner type={BANNER_TYPES.aboutRkfOnlineRightSiteBar} />
                         <CopyrightInfo withSocials={true} />

@@ -187,3 +187,24 @@
     margin-bottom: 8px;
   }
 }
+
+.Modal.about-page_feedback__modal{
+  .Modal__inner{
+    box-shadow: 2px 2px 10px black;
+    @media (max-width: 960px) {
+      max-width: 95%;
+      margin: 0 auto;
+    }
+    .feedback{
+      padding: 0;
+      box-shadow: none;
+      @media (max-width: 960px) {
+        width: 100%
+      }
+    }
+    .Modal__close{
+      top: 14px;
+      right: 11px !important;
+    }
+  }
+}

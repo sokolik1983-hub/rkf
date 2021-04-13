@@ -5,8 +5,13 @@
         justify-content: center;
     }
     &__img{
+        max-width: 300px;
         border-radius: 6px;
         box-shadow: 0 6px 12px rgba(51,102,255,.08);
+
+        @media (max-width: 560px) {
+            max-width: 100%;
+        }
 
         @media (max-width: 448px) {
             max-width:100%;

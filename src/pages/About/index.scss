@@ -2,10 +2,11 @@
   &__content {
     padding-bottom: 1px;
     h2 {
-      font-weight: bold;
-      font-size: 36px;
-      line-height: 44px;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 16px;
       margin-bottom: 24px;
+      margin-left: 35px;
       @media (max-width: 560px) {
         font-weight: 600;
         font-size: 18px;
@@ -44,8 +45,14 @@
   }
   &__info {
     width: 100%;
-    max-width: 416px;
+    max-width: 300px;
     margin-left: 24px;
+    h3, h4{
+      padding-bottom: 10px;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+    }
     .statistics {
       margin-bottom: 16px;
     }
