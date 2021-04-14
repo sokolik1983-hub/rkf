@@ -16,14 +16,6 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
 
-    useEffect(() => {
-        filters.sort((a, b) => {
-            if (a.count > b.count) return 1;
-            if (a.count < b.count) return -1;
-            return 0;
-        })
-    }, []);
-
     return (
         <Aside className={`search-page__left${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox offsetTop={66}>
