@@ -6,29 +6,32 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import "./index.scss";
 
 
-const SpecialistsList = ({ specialists, loading, getNextSpecialists, hasMore, setShowModal, searchTypeId }) => (
-    <div className="SpecialistsList">
-        <InfiniteScroll
-            dataLength={specialists.length}
-            next={getNextSpecialists}
-            hasMore={hasMore}
-            loader={loading && <Loading centered={false} />}
-            endMessage={
-                <div className="SpecialistsList__no-specialists">
-                    <h4>{specialists.length ? 'Специалистов больше нет' : 'Специалисты не найдены'}</h4>
-                    <img src={DEFAULT_IMG.noNews} alt={specialists.length ? 'Специалистов больше нет' : 'Специалисты не найдены'} />
-                </div>
-            }
-        >
-            <ul className="SpecialistsList__content">
-                {specialists.map(item => (
-                    <li className="SpecialistsList__item" key={item.id}>
-                        <CardSpecialist {...item} searchTypeId={searchTypeId} />
-                    </li>
-                ))}
-            </ul>
-        </InfiniteScroll>
-    </div>
-);
+const SpecialistsList = ({ specialists, loading, getNextSpecialists, hasMore, setShowModal, searchTypeId }) => {
+
+    return (
+        <div className="SpecialistsList">
+            <InfiniteScroll
+                dataLength={specialists.length}
+                next={getNextSpecialists}
+                hasMore={hasMore}
+                loader={loading && <Loading centered={false} />}
+                endMessage={
+                    <div className="SpecialistsList__no-specialists">
+                        <h4>{specialists.length ? 'Специалистов больше нет' : 'Специалисты не найдены'}</h4>
+                        <img src={DEFAULT_IMG.noNews} alt={specialists.length ? 'Специалистов больше нет' : 'Специалисты не найдены'} />
+                    </div>
+                }
+            >
+                <ul className="SpecialistsList__content">
+                    {specialists.map(item => (
+                        <li className="SpecialistsList__item" key={item.id}>
+                            <CardSpecialist {...item} searchTypeId={searchTypeId} />
+                        </li>
+                    ))}
+                </ul>
+            </InfiniteScroll>
+        </div>
+    )
+};
 
 export default React.memo(SpecialistsList);

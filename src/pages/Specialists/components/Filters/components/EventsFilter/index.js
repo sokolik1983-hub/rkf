@@ -23,7 +23,7 @@ const EventsFilter = ({ events, event_ids, onChange, is_club_link }) => {
     const [isOpen, setIsOpen] = useState(is_club_link && !events.length ? false : true);
 
     useEffect(() => {
-        if (events.length) {
+        if (events?.length) {
             setOptionsNotInValues(events.filter(option => event_ids.indexOf(option.value) === -1));
             setValues(events.filter(option => event_ids.indexOf(option.value) !== -1));
         }

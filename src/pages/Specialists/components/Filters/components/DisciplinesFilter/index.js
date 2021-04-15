@@ -23,7 +23,7 @@ const DisciplinesFilter = ({ disciplines, discipline_ids, onChange, is_club_link
     const [isOpen, setIsOpen] = useState(is_club_link && !disciplines.length ? false : true);
 
     useEffect(() => {
-        if (disciplines.length) { 
+        if (disciplines?.length) {
             setOptionsNotInValues(disciplines.filter(option => discipline_ids.indexOf(option.value) === -1));
             setValues(disciplines.filter(option => discipline_ids.indexOf(option.value) !== -1));
         }

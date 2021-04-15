@@ -23,7 +23,7 @@ const SpecializationFilter = ({ types, type_ids, onChange, is_club_link }) => {
     const [isOpen, setIsOpen] = useState(is_club_link && !types.length ? false : true);
 
     useEffect(() => {
-        if (types.length) {
+        if (types?.length) {
             setOptionsNotInValues(types.filter(option => type_ids.indexOf(option.value) === -1));
             setValues(types.filter(option => type_ids.indexOf(option.value) !== -1));
         }
@@ -69,8 +69,8 @@ const SpecializationFilter = ({ types, type_ids, onChange, is_club_link }) => {
                         clearable={true}
                         isSearchable={false}
                         classNamePrefix="types-filter"
-                        placeholder="Начните вводить ранг"
-                        noOptionsMessage={() => 'Ранг не найден'}
+                        placeholder="Начните вводить специализацию"
+                        noOptionsMessage={() => 'Специализация не найдена'}
                         value={values}
                         components={{ Option }}
                         maxMenuHeight={170}
