@@ -23,7 +23,7 @@ const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
     const [isOpen, setIsOpen] = useState(is_club_link && !cities.length ? false : true);
 
     useEffect(() => {
-        if (cities.length) {
+        if (cities?.length) {
             setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
             setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }

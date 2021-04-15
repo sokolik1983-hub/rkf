@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ls from "local-storage";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -17,7 +18,6 @@ import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "pages/Educational/components/SignUpModal";
-import ls from "local-storage";
 import './index.scss';
 import moment from "moment";
 import "moment/locale/ru";
@@ -43,6 +43,7 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
     const [active_rkf_user, setActiveRkfUser] = useState(null);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const [showModal, setShowModal] = useState(false);
+    const [needRequest, setNeedRequest] = useState(false);
 
     const isEducational = parseInt(filters.SearchTypeId) === 4 ? true : false;
 
@@ -63,8 +64,8 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
         await Request({
             url: `${url}&StartElement=${startElem}&ElementCount=50`
         }, data => {
-            if (data.judges?.length) {
-                const modifiedSpecialists = data.judges.map(s => {
+            if (data.specialists?.length) {
+                const modifiedSpecialists = data.specialists.map(s => {
                     s.date = '';
                     if (s.dates && s.dates.length) {
                         const startDate = s.dates[0];
@@ -82,7 +83,7 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                     return s;
                 });
 
-                if (data.judges.length < 50) {
+                if (data.specialists.length < 50) {
                     setHasMore(false);
                 } else {
                     setHasMore(true);
@@ -174,6 +175,8 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                         setClub={setClub}
                         notificationsLength={notificationsLength}
                         isEducational={isEducational}
+                        needRequest={needRequest}
+                        setNeedRequest={setNeedRequest}
                     />
                     <div className="specialists-page__content">
                         {filters.Alias && displayName &&
@@ -191,7 +194,10 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                                 }
                             </div>
                         }
-                        <ListFilter searchTypeId={filters.SearchTypeId} />
+                        <ListFilter
+                            searchTypeId={filters.SearchTypeId}
+                            setNeedRequest={setNeedRequest}
+                        />
                         {
                             listLoading
                                 ? <Loading centered={false} />
@@ -202,6 +208,7 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                                     hasMore={hasMore}
                                     loading={specialistsLoading}
                                     setShowModal={setShowModal}
+                                    searchTypeId={parseInt(filters.SearchTypeId)}
                                 />
                         }
                     </div>
