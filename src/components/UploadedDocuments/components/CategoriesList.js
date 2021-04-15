@@ -15,7 +15,7 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
             <li className={isActive(0)}>
                 <Link to="0">Документы</Link>
             </li>
-            {categories.map(({ id, name }, key) => <li
+            {categories.map(({ id, name, editable }, key) => <li
                 className={isActive(id)}
                 key={key} >
                 <Link to={`${id}`}>{name}</Link>
@@ -25,6 +25,7 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
                             className="UploadedDocuments__edit-btn"
                             type="button"
                             //title="Редактировать"
+                            disabled={!editable}
                             onClick={() => setModal({ type: 'editCategory', categoryId: id, categoryName: name })}
                         >
                             <SvgIcon icon={pencil} size="default" />
@@ -33,6 +34,7 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
                             className="UploadedDocuments__delete-btn"
                             type="button"
                             //title="Удалить"
+                            disabled={!editable}
                             onClick={() => setModal({ type: 'deleteCategory', categoryId: id })}
                         >
                             <SvgIcon icon={trash} size="default" />

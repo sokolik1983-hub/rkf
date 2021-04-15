@@ -17,7 +17,7 @@ import './styles.scss';
 
 loadMessages(kendoMessages, 'ru-RU');
 
-const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, documents, setModal, getDocuments, handleError, handleSuccess }) => {
+const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, documents, setModal, getDocuments, handleError, handleSuccess, editable }) => {
     const [documentsToUpdate, setDocumentsToUpdate] = useState([]);
     const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
     const isFederation = userType === 5;
@@ -60,6 +60,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                         type="button"
                         //title="Редактировать"
                         onClick={() => setModal({ type: 'editCategory', categoryId: id, categoryName: currentCategory.name })}
+                        disabled={!editable}
                     >
                         <SvgIcon icon={pencil} size="default" />
                     </button>}
@@ -70,6 +71,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     className="DocumentItem__delete-btn"
                     type="button"
                     //title="Удалить"
+                    disabled={!editable}
                     onClick={() => setModal({ type: 'deleteCategory', categoryId: id })}
                 >
                     <SvgIcon icon={trash} size="default" />
@@ -88,6 +90,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                         setModal={setModal}
                         documentsToUpdate={documentsToUpdate}
                         setDocumentsToUpdate={setDocumentsToUpdate}
+                        editable={editable}
                     />)
                 : <div className="DocumentItem container p-0">
                     <div className="d-flex flex-column align-items-start">
@@ -130,6 +133,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     onBeforeUpload={onBeforeUpload}
                     onStatusChange={onStatusChange}
                     saveUrl="/api/document/publicdocument"
+                    disabled={!editable}
                 />
             </IntlProvider>
         </LocalizationProvider>}
