@@ -5,9 +5,8 @@ const AllCategories = ({ match, canEdit, setActiveCategoryId, categories, docume
     useEffect(() => {
         setActiveCategoryId(null);
     }, []);
-    const unsortedCategory = { id: 0, name: "Документы" };
+    const unsortedCategory = { id: 0, name: "Документы", editable: true };
     const updatedCategories = [unsortedCategory, ...categories];
-
     return <>
         {updatedCategories.map((c, i) => {
             return <Category
@@ -25,6 +24,7 @@ const AllCategories = ({ match, canEdit, setActiveCategoryId, categories, docume
                 handleSuccess={handleSuccess}
                 homePage={homePage}
                 id={c.id}
+                editable={c.editable}
             />
         })}
     </>;

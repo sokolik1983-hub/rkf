@@ -12,9 +12,10 @@ import './styles.scss';
 
 moment.locale('ru');
 
-const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, unsortedCategory, setModal, documentsToUpdate, setDocumentsToUpdate }) => {
+const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, unsortedCategory, setModal, documentsToUpdate, setDocumentsToUpdate, editable }) => {
     const [category, setCategory] = useState({});
     const initialCategory = category_id ? { id: category_id, name: category_name } : unsortedCategory;
+    const categoriesToShow = categories.filter(category => category.editable !== false);
 
     useEffect(() => {
         setCategory(initialCategory);
@@ -89,12 +90,13 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
             </div>
             <div className="col-4">
                 <DropDownList
-                    data={categories}
+                    data={categoriesToShow}
                     dataItemKey="id"
                     textField="name"
                     value={category}
                     itemRender={itemRender}
                     onChange={handleCategoryChange}
+                    disabled={!editable}
                 />
             </div>
             <div className="col-1">
