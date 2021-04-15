@@ -26,9 +26,16 @@
     letter-spacing: 0.2px;
     color: #72839c;
     text-decoration: none;
-    white-space: nowrap;
     cursor: pointer;
     transition: border-bottom-color 0.2s linear;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-align: center;
+    white-space: nowrap;
     &._active {
       border-bottom-color: #3366ff;
     }
