@@ -8,7 +8,7 @@ const CategoryPage = (props) => {
     const { match, categories, setActiveCategoryId, homePage } = props;
 
     let id = parseInt(match.params.id, 10);
-    const unsortedCategory = { id: 0, name: "Документы" };
+    const unsortedCategory = { id: 0, name: "Документы", editable: true };
     const updatedCategories = [unsortedCategory, ...categories];
     const currentCategory = updatedCategories.filter(c => c.id === id)[0];
 
@@ -28,6 +28,7 @@ const CategoryPage = (props) => {
             categories={updatedCategories}
             currentCategory={currentCategory}
             unsortedCategory={unsortedCategory}
+            editable={currentCategory.editable}
         />
     </>;
 };

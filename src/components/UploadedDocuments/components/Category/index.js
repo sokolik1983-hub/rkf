@@ -55,23 +55,19 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
             <div className="col-11">
                 <h1 className="UploadedDocuments__category-title">
                     {currentCategory ? currentCategory.name : 'Документы'}
-                    {canEdit && id > 0 && <button
+                    {canEdit && id > 0 && editable && <button
                         className="UploadedDocuments__category-btn"
                         type="button"
-                        //title="Редактировать"
                         onClick={() => setModal({ type: 'editCategory', categoryId: id, categoryName: currentCategory.name })}
-                        disabled={!editable}
                     >
                         <SvgIcon icon={pencil} size="default" />
                     </button>}
                 </h1>
             </div>
             <div className="col-1">
-                {canEdit && id > 0 && <button
+                {canEdit && id > 0 && editable && <button
                     className="DocumentItem__delete-btn"
                     type="button"
-                    //title="Удалить"
-                    disabled={!editable}
                     onClick={() => setModal({ type: 'deleteCategory', categoryId: id })}
                 >
                     <SvgIcon icon={trash} size="default" />
@@ -117,7 +113,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                 </div>
             </div>
         }
-        {canEdit && <LocalizationProvider language="ru-RU">
+        {canEdit && editable && <LocalizationProvider language="ru-RU">
             <IntlProvider locale="ru" >
                 <Upload
                     batch={true}
