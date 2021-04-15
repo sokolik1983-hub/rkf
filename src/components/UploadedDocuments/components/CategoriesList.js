@@ -21,24 +21,20 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
                 <Link to={`${id}`}>{name}</Link>
                 {
                     canEdit && id > 0 && <div className="UploadedDocuments__category-controls">
-                        <button
+                        {editable && <button
                             className="UploadedDocuments__edit-btn"
                             type="button"
-                            //title="Редактировать"
-                            disabled={!editable}
                             onClick={() => setModal({ type: 'editCategory', categoryId: id, categoryName: name })}
                         >
                             <SvgIcon icon={pencil} size="default" />
-                        </button>
-                        <button
+                        </button>}
+                        {editable && <button
                             className="UploadedDocuments__delete-btn"
                             type="button"
-                            //title="Удалить"
-                            disabled={!editable}
                             onClick={() => setModal({ type: 'deleteCategory', categoryId: id })}
                         >
                             <SvgIcon icon={trash} size="default" />
-                        </button>
+                        </button>}
                     </div>
                 }
             </li>
