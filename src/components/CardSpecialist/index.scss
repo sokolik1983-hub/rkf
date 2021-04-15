@@ -31,6 +31,15 @@
   &__wrap {
     display: flex;
   }
+  &__additional-wrap {
+    display: flex;
+    & > div {
+      flex-basis: 33%;
+    }
+    @media (max-width: 990px) {
+      flex-direction: column;
+    }
+  }
   &__photo {
     display: block;
     min-height: 133px;
@@ -109,6 +118,9 @@
       color: #72839C;
       font-weight: 600;
     }
+  }
+  &__specialization {
+    color: #72839C;
   }
   &__sertificate {
     color: #36f;

@@ -25,17 +25,19 @@ const CardSpecialist = ({
     email,
     disciplines,
     show_details,
+    searchTypeId,
+    specializations,
 }) => {
-
     const [showModal, setShowModal] = useState(false);
     const [additionalDisciplines, setAdditionalDisciplines] = useState(null);
     const [additionalPhones, setAdditionalPhones] = useState(null);
     const [additionalEmails, setAdditionalEmails] = useState(null);
     const isMobile = useIsMobile();
+    const isSpecialist = searchTypeId === 3;
 
     const onShowMoreClick = () => {
         (() => Request({
-            url: `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=1`
+            url: `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=${searchTypeId}`
         }, data => {
             setAdditionalPhones(data.phones);
             setAdditionalEmails(data.emails);
@@ -91,7 +93,7 @@ const CardSpecialist = ({
                             </div>
                         </div>
                     </div>
-                    <div style={{ marginTop: '70px' }}>
+                    {!isSpecialist && <div style={{ marginTop: '70px' }}>
                         <span className="card-specialist__content-title">Разрешено судейство видов испытаний</span>
                         <div className="card-specialist__full-content">
                             <div>
@@ -100,7 +102,17 @@ const CardSpecialist = ({
                             </div>
                             <div>{additionalDisciplines?.slice(Math.round(additionalDisciplines?.length / 2)).map(i => <p key={i}>{i}</p>)}</div>
                         </div>
-                    </div>
+                    </div>}
+                    {isSpecialist && <div className="card-specialist__additional-wrap" style={{ marginTop: '70px' }}>
+                        {additionalDisciplines?.map(i => {
+                            return <div>
+                                <p className="card-specialist__specialization">Специализация</p>
+                                <p className="card-specialist__subtitle">{i.specialization}</p>
+                                <p className="card-specialist__content-title" style={{ marginTop: '16px', marginBottom: '16px' }}>Разрешено судейство видов испытаний</p>
+                                {i.disciplines.map(dis => <p className="card-specialist__subtitle">{dis}</p>)}
+                            </div>
+                        })}
+                    </div>}
                     <div className={`card-specialist__controls _open`}>
                         <span className="card-specialist__go-back" onClick={() => setShowModal(false)}>Вернуться к списку</span>
                         <Share url={`https://rkf.online`} />
@@ -131,7 +143,11 @@ const CardSpecialist = ({
                 </div>
                 <div className="card-specialist__content">
                     <div className="card-specialist__header">
-                        {isMobile ? <div></div> : <div><br />
+                        {isMobile ? <div></div> : <div>{isSpecialist && <div>
+                            <p className="card-specialist__specialization">Специализация</p>
+                            <p className="card-specialist__subtitle">{specializations}</p>
+                        </div>}
+                            <br />
                             <span className="card-specialist__content-title">Разрешено судейство видов испытаний</span>
                             <div className="card-specialist__subtitle">{disciplines?.map(i => <p key={i}>{i}</p>)}</div>
                         </div>}
@@ -143,13 +159,13 @@ const CardSpecialist = ({
                             {city_name}
                         </span>}
                     </div>
-                    {!isMobile && show_details && <span className="card-specialist__more" onClick={onShowMoreClick}>Подробнее...</span>}
+                    {!isMobile && (show_details || isSpecialist) && <span className="card-specialist__more" onClick={onShowMoreClick}>Подробнее...</span>}
                 </div>
             </div>
             {isMobile && <div>
                 <span className="card-specialist__content-title">Разрешено судейство видов испытаний</span>
                 <div className="card-specialist__subtitle">{disciplines?.map(i => <p key={i}>{i}</p>)}</div>
-                {show_details && <span className="card-specialist__more" onClick={onShowMoreClick}>Подробнее...</span>}
+                {(show_details || isSpecialist) && <span className="card-specialist__more" onClick={onShowMoreClick}>Подробнее...</span>}
             </div>}
             <div className={`card-specialist__controls`}>
                 <Share url={`https://rkf.online`} />

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import StickyBox from "react-sticky-box";
+import ls from "local-storage";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
 import EventsFilter from "./components/EventsFilter";
+import SpecializationFilter from "./components/SpecializationFilter";
 import DisciplinesFilter from "./components/DisciplinesFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
@@ -15,12 +17,29 @@ import { clubNav } from "../../../Club/config";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import MenuComponent from "../../../../components/MenuComponent";
 import { connectAuthVisible } from "pages/Login/connectors";
-import ls from "local-storage";
 import "./index.scss";
 
 
-const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user, notificationsLength }) => {
+const Filters = ({
+    isOpenFilters,
+    filters,
+    clubName,
+    profileId,
+    club,
+    setClub,
+    isAuthenticated,
+    logo,
+    federationName,
+    federationAlias,
+    active_member,
+    active_rkf_user,
+    notificationsLength,
+    needRequest,
+    setNeedRequest,
+}) => {
+
     const [events, setEvents] = useState([]);
+    const [specializations, setSpecializations] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [disciplines, setDisciplines] = useState([]);
     const [cities, setCities] = useState([]);
@@ -29,11 +48,11 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
     useEffect(() => {
         Promise.all([
             PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}` }),
-            //PromiseRequest({ url: `${endpointEducationalsFilters}${filters.Alias ? '?Alias=' + filters.Alias : ''}` })
         ]).then(data => {
             setCities(data[0].cities);
             setDisciplines(data[0].disciplines);
             setEvents(data[0].classification);
+            setSpecializations(data[0].specializations);
             setLoading(false);
             window.scrollTo(0, 0);
             setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
@@ -44,6 +63,26 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
         });
     }, [filters.Alias]);
 
+    useEffect(() => {
+        if (needRequest) {
+            Promise.all([
+                PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}` }),
+            ]).then(data => {
+                setCities(data[0].cities);
+                setDisciplines(data[0].disciplines);
+                setEvents(data[0].classification);
+                setSpecializations(data[0].specializations);
+                setLoading(false);
+                window.scrollTo(0, 0);
+                setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
+            }).catch(error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+                setLoading(false);
+            });
+            setNeedRequest(false);
+        }
+    }, [filters.Alias, needRequest, setNeedRequest]);
 
     useEffect(() => {
         setOverflow(isOpenFilters);
@@ -98,24 +137,30 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                             </div>
                         }
                         <div className="specialists-filters__wrap">
-                            <CitiesFilter
+                            {loading ? <Loading centered={false} /> : <CitiesFilter
                                 cities={cities}
                                 city_ids={filters.CityIds}
                                 onChange={filter => setFiltersToUrl({ CityIds: filter })}
                                 is_club_link={clubName && filters.Alias}
-                            />
-                            <EventsFilter
+                            />}
+                            {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) !== 3 && <EventsFilter
                                 events={events}
                                 event_ids={filters.ClassificationId}
                                 onChange={filter => setFiltersToUrl({ ClassificationId: filter })}
                                 is_club_link={clubName && filters.Alias}
-                            />
-                            <DisciplinesFilter
+                            />}
+                            {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) === 3 && <SpecializationFilter
+                                types={specializations}
+                                type_ids={filters.SpecializationIds}
+                                onChange={filter => setFiltersToUrl({ SpecializationIds: filter })}
+                                is_club_link={clubName && filters.Alias}
+                            />}
+                            {loading ? <Loading centered={false} /> : <DisciplinesFilter
                                 disciplines={disciplines}
                                 discipline_ids={filters.DisciplineIds}
                                 onChange={filter => setFiltersToUrl({ DisciplineIds: filter })}
                                 is_club_link={clubName && filters.Alias}
-                            />
+                            />}
                             <CopyrightInfo withSocials={true} />
                         </div>
                     </>

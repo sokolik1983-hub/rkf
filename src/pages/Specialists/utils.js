@@ -15,7 +15,7 @@ const buildUrlParams = filter => {
                 if (filter[key] > 0) {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'ClassificationId' || key === 'TypeIds' || key === 'DisciplineIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
+            } else if (key === 'ClassificationId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
                 if (filter[key].length) {
                     params = params + filter[key].map(r => `${key}=${r}&`).join('');
                 }
@@ -51,7 +51,7 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'CityIds' || key === 'ClassificationId' || key === 'TypeIds' || key === 'DisciplineIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
+            if (key === 'CityIds' || key === 'ClassificationId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else {
                 filtersFromUrl[key] = key === 'PageNumber' ? +value : value;
@@ -80,6 +80,7 @@ export const getEmptyFilters = (alias = null) => ({
     ClubIds: null,
     ClassificationId: [],
     DisciplineIds: [],
+    SpecializationIds: [],
     TypeIds: [],
     PaymentFormTypeIds: [],
     SearchTypeId: 1,
