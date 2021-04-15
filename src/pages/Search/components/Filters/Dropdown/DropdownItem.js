@@ -43,7 +43,7 @@ const DropdownItem = ({ filtersValue,
         <li className={`dropdown__item${filtersValue.search_type === search_type ? ' _active' : ''}${!count ? ' _disabled' : ''}`}>
             <div className="dropdown__item-head" onClick={handleClick}>
                 <span className="dropdown__item-title">{name}</span>
-                <span className={`dropdown__item-count${!count ? ' _disabled' : ''}`} title={count}>
+                <span className={`dropdown__item-count${!count ? ' _disabled' : ''} ${count > 99 ? "longCount" : ''}`} title={count} >
                     {count > 99 ? '99+' : count}
                 </span>
             </div>

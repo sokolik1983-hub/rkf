@@ -33,7 +33,7 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
                             />
                         </Card>
                     )}
-                    <CopyrightInfo/>
+                    <CopyrightInfo withSocials/>
                 </div>
             </StickyBox>
         </Aside>
