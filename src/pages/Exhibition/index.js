@@ -140,6 +140,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     <div className="exhibition-page__left-inner">
                                         <div className="mobile-only">
                                             <UserHeader
+                                                canEdit={canEdit}
+                                                isAuthenticated={isAuthenticated}
                                                 user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                                 logo={club_avatar}
                                                 name={display_name || club_fact_name || 'Название клуба отсутствует'}
@@ -152,6 +154,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             />
                                         </div>
                                         <UserHeader
+                                            canEdit={canEdit}
+                                            isAuthenticated={isAuthenticated}
                                             user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                             logo={club_avatar}
                                             name={display_name || club_fact_name || 'Название клуба отсутствует'}

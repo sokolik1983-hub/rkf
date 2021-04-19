@@ -592,21 +592,3 @@
     right: -25px;
   }
 }
-.user-header {
-  &__content {
-    padding: 12px 12px 17px !important;
-    @media (max-width: 768px) {
-      width: 100%;      
-   }
-  }
-  @media (max-width: 768px) {
-         flex-direction: column;
-         
-      }
-  @media (max-width: 610px) {
-    &__logo-wrap {
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-}
