@@ -23,8 +23,10 @@ import {
     requiredWithTrimValidator,
     documentTypeRequired, requiredValidator, nameValidator
 } from "../../../../../components/kendo/Form/validators";
+
 import { PromiseRequest, Request, getHeaders } from "../../../../../utils/request";
 import ruMessages from "kendoMessages.json";
+
 import "./index.scss";
 
 loadMessages(ruMessages, 'ru');
@@ -570,7 +572,7 @@ const Application = ({ alias, history, status, owner }) => {
                                                         textField={'name'}
                                                         data={formRenderProps.valueGetter('breeds')}
                                                         placeholder={formRenderProps.valueGetter('breed_id')
-                                                            ? formRenderProps.valueGetter('breed_name') : ''}
+                                                            ? formRenderProps.valueGetter('breed_name') : "Не выбран"}
                                                         onChange={formRenderProps.onChange}
                                                         clearButton={editable}
                                                         validationMessage="Обязательное поле"
