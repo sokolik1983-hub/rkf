@@ -1,3 +1,8 @@
-.comboBox .k-list .k-item:focus, .k-list .k-item.k-state-focused, .k-list-optionlabel:focus, .k-list-optionlabel.k-state-focused {
-  box-shadow: none !important;
+.combobox__item {
+  .k-list .k-item:focus,
+  .k-list .k-item.k-state-focused,
+  .k-list-optionlabel:focus,
+  .k-list-optionlabel.k-state-focused {
+    box-shadow: none !important;
+  }
 }

@@ -48,7 +48,6 @@ export const FormComboBox = (fieldRenderProps) => {
             <LocalizationProvider language="ru">
                 <IntlProvider locale="ru">
                     <ComboBox
-                        className="comboBox"
                         ariaLabelledBy={labelId}
                         ariaDescribedBy={`${errorId}`}
                         ref={editorRef}
@@ -61,6 +60,7 @@ export const FormComboBox = (fieldRenderProps) => {
                         filterable={true}
                         onFilterChange={handleFilterChange}
                         value={resetValue ? { id: null, name: null } : value}
+                        popupSettings={{className: "combobox__item"}}
                         {...others}
                     />
                 </IntlProvider>
