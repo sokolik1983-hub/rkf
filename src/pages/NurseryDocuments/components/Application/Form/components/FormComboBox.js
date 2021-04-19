@@ -48,6 +48,7 @@ export const FormComboBox = (fieldRenderProps) => {
             <LocalizationProvider language="ru">
                 <IntlProvider locale="ru">
                     <ComboBox
+                        className="comboBox"
                         ariaLabelledBy={labelId}
                         ariaDescribedBy={`${errorId}`}
                         ref={editorRef}
