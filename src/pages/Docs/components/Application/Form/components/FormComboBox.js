@@ -3,15 +3,17 @@ import { FieldWrapper } from '@progress/kendo-react-form';
 import { Label, Error } from '@progress/kendo-react-labels';
 import { ComboBox } from '@progress/kendo-react-dropdowns';
 import { filterBy } from '@progress/kendo-data-query';
+
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import kendoMessages from "kendoMessages.json";
+
+import './index.scss';
 
 loadMessages(kendoMessages, 'ru');
 
 export const FormComboBox = (fieldRenderProps) => {
     const { validationMessage, touched, label, id, name, valid, disabled, wrapperStyle, data, value, onChange, resetValue, ...others } = fieldRenderProps;
     const [filteredData, setFilteredData] = useState(data);
-    const [currentValue, setCurrentValue] = useState({ id: null, name: null });
     const editorRef = React.useRef(null);
 
     const showValidationMessage = touched && validationMessage;
@@ -24,7 +26,6 @@ export const FormComboBox = (fieldRenderProps) => {
 
     const onValueChange = React.useCallback(
         ({ target }) => {
-            setCurrentValue({ id: target.value?.id, name: target.value?.name })
             onChange(name, { value: target.value ? target.value.id : null })
         },
         [onChange, value]
@@ -38,7 +39,6 @@ export const FormComboBox = (fieldRenderProps) => {
     const handleFilterChange = (event) => {
         setFilteredData(filterData(event.filter));
     };
-
     return (
         <FieldWrapper style={wrapperStyle}>
             <Label id={labelId} editorRef={editorRef} editorId={id} editorValid={valid} editorDisabled={disabled}>
@@ -58,7 +58,8 @@ export const FormComboBox = (fieldRenderProps) => {
                         validationMessage={validationMessage}
                         filterable={true}
                         onFilterChange={handleFilterChange}
-                        value={resetValue ? { id: null, name: null } : currentValue}
+                        value={resetValue ? { id: null, name: null } : value}
+                        popupSettings={{className: "combobox__item"}}
                         {...others}
                     />
                 </IntlProvider>

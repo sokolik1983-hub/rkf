@@ -599,7 +599,7 @@ const Application = ({ alias, history, status }) => {
                                                             textField={'name'}
                                                             data={formRenderProps.valueGetter('breeds')}
                                                             placeholder={formRenderProps.valueGetter('breed_id')
-                                                                ? formRenderProps.valueGetter('breed_name') : ''}
+                                                                ? formRenderProps.valueGetter('breed_name') : "Не выбран"}
                                                             onChange={formRenderProps.onChange}
                                                             clearButton={editable}
                                                             validationMessage="Обязательное поле"
