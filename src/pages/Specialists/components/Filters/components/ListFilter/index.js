@@ -27,7 +27,7 @@ const ListFilter = ({ searchTypeId, setNeedRequest }) => {
     return (
         <div className="specialists-page__list-filter">
             <h4 className="list-filter__title">Судьи и специалисты</h4>
-            <HorizontalSwipe id="specialists-list-filter" desktopScroll={true}>
+            <HorizontalSwipe id="specialists-list-filter">
                 <ul className="list-filter">
                     <li className="list-filter__item">
                         <span
