@@ -23,6 +23,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
     const [exporting, setExporting] = useState(false);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
+    const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
     const checkType = i => setCheckedTypes(checkedTypes.includes(i)
         ? checkedTypes.filter(x => x !== i)
@@ -57,7 +58,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 console.log(error.response);
                 setLoading(false);
             }))();
-    }, []);
+    }, [needUpdateTable]);
 
     return loading
         ? <Loading /> : !standardView ? <Card className="club-documents-status__popup">
@@ -139,7 +140,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                         <h4 className="club-documents-status__text">Заявок не найдено</h4>
                         <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>}
-                {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
             </Card>
 };
 
