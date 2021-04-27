@@ -625,7 +625,7 @@ const Application = ({ alias, history, status }) => {
                                     </div>
                                     {(editable || values?.application_document_id) &&
                                         <div className="application-form__content">
-                                            <h4 className="application-form__title no-margin">Заявочный лист</h4>git
+                                            <h4 className="application-form__title no-margin">Заявочный лист</h4>
                                             <div className="application-form__row">
                                                 {editable
                                                     ? <div className="application-form__file">
