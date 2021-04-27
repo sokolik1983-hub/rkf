@@ -625,7 +625,7 @@ const Application = ({ alias, history, status }) => {
                                     </div>
                                     {(editable || values?.application_document_id) &&
                                         <div className="application-form__content">
-                                            <h4 className="application-form__title no-margin">Заявочный лист</h4>
+                                            <h4 className="application-form__title no-margin">Заявочный лист</h4>git
                                             <div className="application-form__row">
                                                 {editable
                                                     ? <div className="application-form__file">
@@ -642,7 +642,7 @@ const Application = ({ alias, history, status }) => {
                                                             onBeforeUpload={e => onBeforeUpload(e, 47)}
                                                             onStatusChange={e => onStatusChange(e, 'application_document')}
                                                             onProgress={e => onProgress(e, 'application_document')}
-                                                            validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document').length)}
+                                                            validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document').find(d => d.id))}
                                                         />
                                                         {values &&
                                                             values.application_document_id &&
