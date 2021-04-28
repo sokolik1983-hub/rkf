@@ -1,14 +1,14 @@
-import React, {useEffect, useState, createRef} from "react";
+import React, {useEffect, useState} from "react";
 import "./index.scss";
 
 
-// Для работы горизонтального скрола нужно прокинуть из родительского компонента "desktopScroll={true}"
+// Для работы горизонтального скрола на desktop нужно прокинуть из родительского компонента "desktopScroll={true}"
 const HorizontalSwipe = ({id, className, children}) => {
     const [elem, setElem] = useState(null);
     const [left, setLeft] = useState(0);
     const [startX, setStartX] = useState(0);
 
-    //Функционал горизонтальной прокрутки
+    //Функционал горизонтальной прокрутки на desktop
     // const scrollRef = createRef();
     // const [scrollState, setScrollState] = useState({
     //     isScrolling: false,
@@ -69,7 +69,6 @@ const HorizontalSwipe = ({id, className, children}) => {
             calculateOffset(x)
         }
     };
-
 
 
     return (

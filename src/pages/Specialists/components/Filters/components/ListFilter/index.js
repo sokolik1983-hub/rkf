@@ -34,19 +34,19 @@ const ListFilter = ({ searchTypeId, setNeedRequest }) => {
                             className={`list-filter__control${activeType === 99 ? ' _active' : ''}`}
                             style={{ opacity: 0.6 }}
                         //onClick={() => handleClick(99)}
-                        >Судьи по породам</span>
+                        >По породам</span>
                     </li>
                     <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 1 ? ' _active' : ''}`}
                             onClick={() => handleClick(1)}
-                        >Судьи по служебным и игровым дисциплинам</span>
+                        >По служебным и игровым дисциплинам</span>
                     </li>
                     <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 2 ? ' _active' : ''}`}
                             onClick={() => handleClick(2)}
-                        >Судьи по охотничьим дисциплинам</span>
+                        >По охотничьим дисциплинам</span>
                     </li>
                     <li className="list-filter__item">
                         <span

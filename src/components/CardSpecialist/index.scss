@@ -30,6 +30,9 @@
   }
   &__wrap {
     display: flex;
+    @media (max-width: 660px) {
+      flex-wrap: wrap;
+    }
   }
   &__additional-wrap {
     display: flex;
@@ -201,6 +204,13 @@
   &__info {
     display: flex;
     flex-basis: 40%;
+    flex-direction: column;
+    @media (max-width: 660px) {
+      margin-right: 100px;
+    }
+    @media (max-width: 425px) {
+      margin-right: 0;
+    }
     & > div {
       // margin-right: 35px;
       white-space: nowrap;
