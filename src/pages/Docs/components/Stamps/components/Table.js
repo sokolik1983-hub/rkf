@@ -126,7 +126,7 @@ const Table = ({ documents, setDefaultStamp }) => {
                         <GridColumn field="document_id" title="Свидетельство" width="170px" columnMenu={ColumnMenu} cell={LinkCell} />
                         <GridColumn field="date_create" title="Дата добавления" width="180px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="is_default" title="По умолчанию" width="132px" columnMenu={ColumnMenu} cell={isDefaultCell} />
-                        <GridColumn width="60px" cell={(props) => OptionsCell(props, setDefaultStamp)} />
+                        <GridColumn width="65px" cell={(props) => OptionsCell(props, setDefaultStamp)} />
                     </Grid>
                 }
             </IntlProvider>

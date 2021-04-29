@@ -20,6 +20,8 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
     const [errorReport, setErrorReport] = useState(null);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
+    const [needUpdateTable, setNeedUpdateTable] = useState(false);
+
 
     useEffect(() => {
         (() => PromiseRequest({
@@ -42,7 +44,7 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
                     console.log(error.response);
                     setLoading(false);
                 }))();
-    }, []);
+    }, [needUpdateTable]);
 
     return loading ? <Loading /> : !standardView ? <Card className="club-documents-status__popup">
         <div className="club-documents-status__controls" style={{ position: 'relative', top: '29px' }}>
@@ -115,7 +117,7 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
                     <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                 </div>
             }
-            {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} profileType={profileType} />}
+            {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} profileType={profileType} />}
         </Card>
 };
 

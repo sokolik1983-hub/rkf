@@ -17,6 +17,7 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
     const [exporting, setExporting] = useState(false);
     const [errorReport, setErrorReport] = useState(null);
     const document_id = window.location.href.split('=')[1];
+    const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -35,7 +36,7 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
             console.log(error.response);
             setLoading(false);
         }))();
-    }, []);
+    }, [needUpdateTable]);
 
     return loading ?
         <Loading /> :
@@ -108,7 +109,7 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
                         <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>
                 }
-                {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
             </Card>
 };
 

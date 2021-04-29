@@ -21,6 +21,7 @@ const ApplicationRegistry = ({ history }) => {
     const [errorReport, setErrorReport] = useState(null);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
+    const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -40,7 +41,7 @@ const ApplicationRegistry = ({ history }) => {
             console.log(error.response);
             setLoading(false);
         }))();
-    }, []);
+    }, [needUpdateTable]);
 
     return loading ?
         <Loading /> :
@@ -113,7 +114,7 @@ const ApplicationRegistry = ({ history }) => {
                         <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>
                 }
-                {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
             </Card>
 };
 

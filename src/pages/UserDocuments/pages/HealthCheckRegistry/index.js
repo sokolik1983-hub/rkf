@@ -20,6 +20,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
     const [errorReport, setErrorReport] = useState(null);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
+    const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
     useEffect(() => {
         (() => PromiseRequest({
@@ -42,7 +43,8 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                     console.log(error.response);
                     setLoading(false);
                 }))();
-    }, []);
+
+    }, [needUpdateTable]);
 
     return loading ? <Loading /> : !standardView ? <Card className="user-documents-status__popup">
         <div className="user-documents-status__fullscreen-controls">
@@ -113,7 +115,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                     <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                 </div>
             }
-            {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+            {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
         </Card>
 };
 

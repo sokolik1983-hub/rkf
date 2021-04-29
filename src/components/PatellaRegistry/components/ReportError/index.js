@@ -30,7 +30,7 @@ const config = {
     })
 };
 
-const ReportErrorForm = ({ id, setIsOpen, profileType }) => {
+const ReportErrorForm = ({ id, setIsOpen, profileType, setNeedUpdateTable }) => {
     const [errorAlert, setErrorAlert] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -39,6 +39,7 @@ const ReportErrorForm = ({ id, setIsOpen, profileType }) => {
         setErrorAlert(true);
     };
     const handleSusccess = () => {
+        setNeedUpdateTable(prevState => !prevState);
         setSuccessAlert(true);
     };
     config.action = profileType === "kennel" ? `/api/requests/dog_health_check_request/kenneldoghealthcheckrequest/error` : `/api/requests/dog_health_check_request/doghealthcheckrequest/error`;
@@ -88,7 +89,7 @@ const ReportErrorForm = ({ id, setIsOpen, profileType }) => {
     </div>
 };
 
-const ReportError = ({ id, onErrorReport, profileType }) => {
+const ReportError = ({ id, onErrorReport, profileType, setNeedUpdateTable }) => {
     const [isModalOpen, setIsModalOpen] = useState(true);
 
     const handleClose = () => {
@@ -105,7 +106,7 @@ const ReportError = ({ id, onErrorReport, profileType }) => {
                 noBackdrop={true}
                 className="user-status-table__modal"
             >
-                <ReportErrorForm id={id} setIsOpen={handleClose} profileType={profileType} />
+                <ReportErrorForm setNeedUpdateTable={setNeedUpdateTable} id={id} setIsOpen={handleClose} profileType={profileType} />
             </Modal>
         </div>
     </li>
