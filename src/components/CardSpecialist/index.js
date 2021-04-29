@@ -33,6 +33,7 @@ const CardSpecialist = ({
     const [additionalPhones, setAdditionalPhones] = useState(null);
     const [additionalEmails, setAdditionalEmails] = useState(null);
     const isMobile = useIsMobile();
+    const isMobile660px = useIsMobile(660);
     const isSpecialist = searchTypeId === 3;
 
     const onShowMoreClick = () => {
@@ -136,11 +137,25 @@ const CardSpecialist = ({
                         <span className="card-specialist__name">{last_name} {first_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
                         </span>
                         <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
-                        <br />
+                        <br/>
+                        {!isMobile660px &&
+                            <div className="card-specialist__contacts">
+                                <div>
+                                    {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
+                                    {email && <span className="card-specialist__subtitle _email">Email: {email}</span>}
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                {isMobile660px &&  <div className="card-specialist__contacts" style={{marginTop: "10px"}}>
+                    <div>
                         {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
                         {email && <span className="card-specialist__subtitle _email">Email: {email}</span>}
                     </div>
-                </div>
+                </div> }
+
                 <div className="card-specialist__content">
                     <div className="card-specialist__header">
                         {isMobile ? <div></div> : <div>{isSpecialist && <div>
