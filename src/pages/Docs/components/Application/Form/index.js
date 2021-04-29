@@ -642,7 +642,7 @@ const Application = ({ alias, history, status }) => {
                                                             onBeforeUpload={e => onBeforeUpload(e, 47)}
                                                             onStatusChange={e => onStatusChange(e, 'application_document')}
                                                             onProgress={e => onProgress(e, 'application_document')}
-                                                            validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document').length)}
+                                                            validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document').find(d => d.id))}
                                                         />
                                                         {values &&
                                                             values.application_document_id &&
