@@ -17,6 +17,7 @@ import PdfPageTemplate from "../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../components/LightTooltip";
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import { getDiffInDays, DAYS_BEFORE_ARCHIVING } from "../../../../../utils/getDiffInDays";
+import declension from "../../../../../utils/declension";
 
 import "./index.scss";
 
@@ -58,7 +59,7 @@ const ArchiveCell = ({ dataItem }) => {
     const { status_id, date_change, date_archive } = dataItem;
     const countStatus = status_id === 1 || status_id === 3;
 
-    return date_archive ? <td>{date_archive}</td> : countStatus ? <td>{`До архивации ${DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change)} дней`}</td> : <td></td>;
+    return date_archive ? <td>{date_archive}</td> : countStatus ? <td>{`До архивации ${DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change)} ${declension(DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change), ['день', 'дня', 'дней'])}`}</td> : <td></td>;
 };
 
 const OptionsCell = ({ dataItem }, setErrorReport) => {

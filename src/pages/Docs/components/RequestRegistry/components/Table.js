@@ -14,6 +14,7 @@ import LightTooltip from "../../../../../components/LightTooltip";
 import CopyCell from '../../CopyCell';
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import { getDiffInDays, DAYS_BEFORE_ARCHIVING } from "../../../../../utils/getDiffInDays";
+import declension from "../../../../../utils/declension";
 import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -48,7 +49,7 @@ const ArchiveCell = ({ dataItem }) => {
     const countStatus = status_id === 1 || status_id === 3;
     const draftStatus = status_id === 4;
 
-    return date_archive ? <td>{date_archive}</td> : countStatus ? <td>{`До архивации ${DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change)} дней`}</td> : draftStatus ? <td>{`До удаления ${DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change)} дней`}</td> : <td></td>;
+    return date_archive ? <td>{date_archive}</td> : countStatus ? <td>{`До архивации ${DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change)} ${declension(DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change), ['день', 'дня', 'дней'])}`}</td> : draftStatus ? <td>{`До удаления ${DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change)} ${declension(DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change), ['день', 'дня', 'дней'])}`}</td> : <td></td>;
 };
 
 const Table = ({ documents, distinction, height, exporting, setExporting, fullScreen }) => {
