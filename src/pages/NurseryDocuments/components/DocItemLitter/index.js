@@ -68,7 +68,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <td>{email}</td>
             <td>{declarant.date_archive ? '' : declarant.documents ? declarant.documents.length + docConst : docConst}</td>
             <td>
-                <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={declarant.date_archive ? () => null : activateClick} alt="" />
+                {!declarant.date_archive && <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt="" />}
             </td>
         </tr>
         <tr className={`DocItem collapse ${active && 'active'}`}>
