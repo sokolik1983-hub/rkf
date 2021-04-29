@@ -156,6 +156,7 @@
     color: #72839c;
     transition: color .2s linear;
     position: relative;
+    z-index: 3;
     @media (max-width: 500px) {
       margin: 10px 0 0 0;
     }

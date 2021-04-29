@@ -27,10 +27,11 @@ const RequestRegistry = ({ history, distinction }) => {
             data => {
                 setDocuments(data.sort(function (a, b) {
                     return new Date(b.date_create) - new Date(a.date_create);
-                }).map(({ date_change, date_create, date_of_birth_litter, ...rest }) => ({
+                }).map(({ date_change, date_create, date_of_birth_litter, date_archive, ...rest }) => ({
                     date_change: moment(date_change).format('DD.MM.YY'),
                     date_create: moment(date_create).format('DD.MM.YY'),
                     date_of_birth_litter: moment(date_of_birth_litter).format('DD.MM.YY'),
+                    date_archive: date_archive ? moment(date_archive).format('DD.MM.YY') : null,
                     ...rest
                 })));
                 setLoading(false);
@@ -55,10 +56,15 @@ const RequestRegistry = ({ history, distinction }) => {
                     className="club-documents-status__control club-documents-status__control--downloadIcon"
                     onClick={() => setExporting(true)}
                     disabled={exporting}
+                    style={{ zIndex: '2' }}
                 >
                     Скачать PDF
                 </button>
-                <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                <button
+                    className="club-documents-status__control club-documents-status__control--tableIcon"
+                    onClick={() => setStandardView(true)}
+                    style={{ zIndex: '2' }}
+                >
                     Уменьшить таблицу
                 </button>
             </div>
@@ -92,10 +98,15 @@ const RequestRegistry = ({ history, distinction }) => {
                             className="club-documents-status__control club-documents-status__control--downloadIcon"
                             onClick={() => setExporting(true)}
                             disabled={exporting}
+                            style={{ zIndex: '2' }}
                         >
                             Скачать PDF
                             </button>
-                        <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                        <button
+                            style={{ zIndex: '2' }}
+                            className="club-documents-status__control club-documents-status__control--tableIcon"
+                            onClick={() => setStandardView(false)}
+                        >
                             Увеличить таблицу
                         </button>
                     </div>
