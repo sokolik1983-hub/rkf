@@ -1,10 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
+import CardMessage from "../../../../components/CardMessage";
 
 
 const Documents = ({ alias }) => (
     <>
+        <CardMessage>
+            <h3>Уважаемые пользователи!</h3>
+            <p>Обращаем ваше внимание, что в майские праздники и с 4 по 7 мая 2021 года, официально объявленные нерабочими днями, согласно указу Президента РФ, заявки обрабатываться не будут. Заявки, поданные в период с 01 по 10 мая 2021 года сотрудники РКФ начнут обрабатывать только 11 мая 2021 года.</p>
+        </CardMessage>
         <Card className="documents-card">
             <div className="documents-card__icon _dysplasia" />
             <h3 className="documents-card__title">Сертификат о проверке на дисплазию</h3>
