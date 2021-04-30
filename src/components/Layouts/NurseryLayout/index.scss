@@ -115,7 +115,7 @@
           min-width: 0;
           padding: 12px 10px 10px 10px;
           @media (max-width: 768px) {
-            padding: 12px;
+            padding: 12px 10px 10px 10px;
           }
         }
         .menu-component__list, hr {
