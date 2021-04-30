@@ -13,6 +13,7 @@ import CopyrightInfo from "../../../../components/CopyrightInfo";
 import Banner from "../../../../components/Banner";
 import useIsMobile from "../../../../utils/useIsMobile";
 import "./styles.scss";
+import CardMessage from "../../../../components/CardMessage";
 
 
 //method statuses
@@ -58,6 +59,10 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
                         <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
                         <p style={{ padding: 0, textAlign: 'center' }}>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
                     </Card>}
+                    <CardMessage>
+                        <h3>Уважаемые пользователи!</h3>
+                        <p>Обращаем ваше внимание, что в майские праздники и с 4 по 7 мая 2021 года, официально объявленные нерабочими днями, согласно указу Президента РФ, заявки обрабатываться не будут. Заявки, поданные в период с 01 по 10 мая 2021 года сотрудники РКФ начнут обрабатывать только 11 мая 2021 года.</p>
+                    </CardMessage>
                     <Card className={litter ? `` : `_inactive`}>
                         <div className="documents-page__icon litter-icon" />
                         <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
