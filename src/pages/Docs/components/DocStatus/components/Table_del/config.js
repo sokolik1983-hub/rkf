@@ -4,7 +4,7 @@ import * as search from "searchtabular";
 import RowControl from "../RowControl";
 import { formatDateWithTime } from "../../../../../../utils";
 import { Link } from "react-router-dom";
-import {Request} from "utils/request";
+import { Request } from "utils/request";
 
 const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
 
@@ -49,7 +49,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
         {
             property: 'id',
             header: {
-                label: '№ документа'
+                label: '№ пакета'
             }
         },
         {
@@ -101,7 +101,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                     <li className="row-control__item">
                                         <span
                                             className="row-control__link"
-                                            onClick={() => setState({docId: rowData.id, showModal: true})}
+                                            onClick={() => setState({ docId: rowData.id, showModal: true })}
                                         >
                                             Вложенные заявки
                                         </span>
@@ -142,8 +142,8 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                             onClick={e => {
                                                 e.preventDefault();
                                                 if (window.confirm("Удалить черновик?")) {
-                                                    Request({url:`/api/requests/${up(distinction)}Request`,data:rowData.id,method:'DELETE'},
-                                                        data => {deleteRow && deleteRow(rowData.id);window.alert('Заявка удалена')},
+                                                    Request({ url: `/api/requests/${up(distinction)}Request`, data: rowData.id, method: 'DELETE' },
+                                                        data => { deleteRow && deleteRow(rowData.id); window.alert('Заявка удалена') },
                                                         e => window.alert('Отсутствует соединение с сервером')
                                                     )
                                                 }

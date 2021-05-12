@@ -32,9 +32,10 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
             data => {
                 setDocuments(data.sort(function (a, b) {
                     return new Date(b.date_create) - new Date(a.date_create);
-                }).map(({ date_change, date_create, production_department_date, ...rest }) => ({
+                }).map(({ date_change, date_create, date_archive, ...rest }) => ({
                     date_change: moment(date_change).format('DD.MM.YY'),
                     date_create: moment(date_create).format('DD.MM.YY'),
+                    date_archive: date_archive ? moment(date_archive).format('DD.MM.YY') : null,
                     ...rest
                 })));
                 setLoading(false);

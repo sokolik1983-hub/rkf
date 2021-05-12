@@ -1,3 +1,28 @@
 ._chips_full_screen {
     margin-bottom: 10px;
 }
+
+.archive-notification {
+    margin-bottom: 20px;
+    border: 2px solid #dc3545;
+    border-radius: 6px;
+    padding: 10px;
+    &__title {
+        text-align: center;
+        margin-bottom: 0;
+    }
+}
+
+.chip-list__wrap {
+    display: flex;
+    @media (max-width: 990px) {
+        flex-direction: column;
+    }
+    .custom-checkbox {
+        margin-left: 50px;
+        margin-top: 3px;
+        @media (max-width: 990px) {
+            margin-left: 0;
+        }
+    }
+}

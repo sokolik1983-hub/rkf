@@ -18,8 +18,15 @@ const ColumnMenu = (props) => {
     </div>
 };
 
+const ArchiveCell = ({ dataItem }) => {
+    const { date_archive, count_request_archive } = dataItem;
+
+    return date_archive ? <td>{date_archive}</td> : count_request_archive ? <td>Есть заявки в архиве</td> : <td></td>;
+};
+
 const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
-    const { id, status_id } = dataItem;
+    const [open, setOpen] = useState(false);
+    const { id, status_id, date_archive } = dataItem;
     const { route } = useParams();
     const options = [
         {
@@ -60,7 +67,7 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
         }
     ].filter(o => !o.disabled);
 
-    return <td><DropDownButton icon="more-horizontal" items={options} /></td>
+    return date_archive ? <td></td> : <td><DropDownButton icon={`k-icon k-i-arrow-chevron-${open ? `up` : `down`}`} onOpen={() => setOpen(true)} onClose={() => setOpen(false)} items={options} /></td>
 };
 
 const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, exporting, setExporting, fullScreen }) => {
@@ -93,25 +100,28 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         onDataStateChange={handleGridDataChange}
         onRowClick={handleGridRowClick}
     >
-        <GridColumn field="status_name" title="Скачать" />
+        <GridColumn field="status_name" title="Статус" />
         <GridColumn field="date_create" title="Дата регистрации" columnMenu={ColumnMenu} />
         <GridColumn field="federation_name" title="Федерация" columnMenu={ColumnMenu} />
         <GridColumn field="count" title="Всего заявок" columnMenu={ColumnMenu} />
         <GridColumn field="count_done" title="Изготовлено" columnMenu={ColumnMenu} />
         <GridColumn field="count_in_work" title="В работе" columnMenu={ColumnMenu} />
-        <GridColumn field="id" title="№ документа" columnMenu={ColumnMenu} />
+        <GridColumn field="id" title="№ пакета" columnMenu={ColumnMenu} />
         <GridColumn field="name" title="ФИО заявителя" columnMenu={ColumnMenu} />
+        <GridColumn field="date_archive" title="Архивировано" columnMenu={ColumnMenu} cell={props => ArchiveCell(props)} />
     </Grid>;
 
-const rowRender = (trElement, props) => {
-    const status = props.dataItem.status_id;
-    const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
-    const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
-    const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
-    const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
-    const trProps = { style: status === 1 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
-    return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
-};
+    const rowRender = (trElement, props) => {
+        const status = props.dataItem.status_id;
+        const isArchive = props.dataItem.date_archive;
+        const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
+        const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
+        const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
+        const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
+        const archive = { backgroundColor: "rgb(210, 215, 218)" };
+        const trProps = { style: isArchive ? archive : status === 1 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
+        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+    };
 
     const StatusCell = (props) => {
         return (
@@ -137,15 +147,16 @@ const rowRender = (trElement, props) => {
                         onDataStateChange={handleGridDataChange}
                         onRowClick={handleGridRowClick}
                         style={{ height: "700px", width: "auto", margin: "0 auto" }}>
-                        <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '130px' : '150px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '168px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="count" title="Всего заявок" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="id" title="№ документа" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
+                        <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
+                        <GridColumn field="status_value" cell={StatusCell} title="Статус" width={fullScreen ? '62px' : '61px'} />
+                        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '130px' : '118px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '110px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="count" title="Всего заявок" width={fullScreen ? '110px' : '110px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '120px' : '110px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '120px' : '110px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="id" title="№ пакета" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
                         <GridColumn field="name" title="ФИО заявителя" width={fullScreen ? 'auto' : '218px'} columnMenu={ColumnMenu} />
-                        <GridColumn width={fullScreen ? '100px' : '70px'} cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
+                        <GridColumn field="date_archive" width={fullScreen ? '130px' : '90px'} title="Архивировано" columnMenu={ColumnMenu} cell={props => ArchiveCell(props)} />
                     </Grid>
                 }
                 <GridPDFExport
@@ -154,7 +165,7 @@ const rowRender = (trElement, props) => {
                     scale={0.5}
                     margin="1cm"
                     paperSize={["297mm", "210mm"]}
-                    pageTemplate={() => <PdfPageTemplate 
+                    pageTemplate={() => <PdfPageTemplate
                         title={distinction === "litter" ? "ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА" : "ОФОРМЛЕНИЕ РОДОСЛОВНОЙ"}
                     />}
                 >
