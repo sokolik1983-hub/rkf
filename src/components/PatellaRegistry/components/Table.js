@@ -50,7 +50,7 @@ const ArchiveCell = ({ dataItem }) => {
     const { status_id, archive_days_left, date_archive } = dataItem;
     const countStatus = status_id === 1 || status_id === 3;
 
-    return date_archive ? <td>{date_archive}</td> : (countStatus && archive_days_left > 0) ? <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ? <td>{`Будет архивирована сегодня`}</td> : <td></td>;
+    return date_archive ? <td>{date_archive}</td> : (countStatus && archive_days_left > 0) ? <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ? <td>{`В очереди на архивацию`}</td> : <td></td>;
 };
 
 const LinkCell = ({ dataItem }, profileType) => {
