@@ -48,7 +48,7 @@ const ArchiveCell = ({ dataItem }) => {
     const countStatus = status_id === 1 || status_id === 3;
     const draftStatus = status_id === 4;
 
-    return date_archive ? <td>{date_archive}</td> : (countStatus && archive_days_left > 0) ? <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ? <td>{`Будет архивировано сегодня`}</td> : (draftStatus && archive_days_left > 0) ? <td>{`До удаления ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (draftStatus && archive_days_left < 1) ? <td>{`Будет удалено сегодня`}</td> : <td></td>;
+    return date_archive ? <td>{date_archive}</td> : (countStatus && archive_days_left > 0) ? <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ? <td>{`Будет архивирована сегодня`}</td> : (draftStatus && archive_days_left > 0) ? <td>{`До удаления ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (draftStatus && archive_days_left < 1) ? <td>{`Будет удалена сегодня`}</td> : <td></td>;
 };
 
 const Table = ({ documents, distinction, height, exporting, setExporting, fullScreen }) => {
