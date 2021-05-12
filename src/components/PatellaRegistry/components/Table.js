@@ -14,7 +14,6 @@ import CopyCell from '../../../pages/Docs/components/CopyCell';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import CustomCheckbox from "../../Form/CustomCheckbox";
-import { getDiffInDays, DAYS_BEFORE_ARCHIVING } from "../../../utils/getDiffInDays";
 import declension from "../../../utils/declension";
 
 import "./index.scss";
@@ -48,10 +47,10 @@ const DateCell = ({ dataItem }, field) => {
 };
 
 const ArchiveCell = ({ dataItem }) => {
-    const { status_id, date_change, date_archive } = dataItem;
+    const { status_id, archive_days_left, date_archive } = dataItem;
     const countStatus = status_id === 1 || status_id === 3;
 
-    return date_archive ? <td>{date_archive}</td> : countStatus ? <td>{`До архивации ${DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change)} ${declension(DAYS_BEFORE_ARCHIVING - getDiffInDays(date_change), ['день', 'дня', 'дней'])}`}</td> : <td></td>;
+    return date_archive ? <td>{date_archive}</td> : (countStatus && archive_days_left > 0) ? <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ? <td>{`Будет архивировано сегодня`}</td> : <td></td>;
 };
 
 const LinkCell = ({ dataItem }, profileType) => {
