@@ -16,6 +16,7 @@ const CardSpecialist = ({
     cert_number,
     last_name,
     first_name,
+    second_name,
     last_name_lat,
     first_name_lat,
     picture_link,
@@ -35,7 +36,6 @@ const CardSpecialist = ({
     const isMobile = useIsMobile();
     const isMobile660px = useIsMobile(660);
     const isSpecialist = searchTypeId === 3;
-
     const onShowMoreClick = () => {
         (() => Request({
             url: `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=${searchTypeId}`
@@ -70,7 +70,10 @@ const CardSpecialist = ({
                         <span className="card-specialist__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
                         <div className="card-specialist__info">
                             <div className="card-specialist__contacts">
-                                <span className="card-specialist__name">{last_name} {first_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
+                                <span className="card-specialist__name">
+                                    {last_name}
+                                    <br/>
+                                    {first_name + " " + second_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
                                 </span>
                                 <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
                                 <br />
@@ -134,7 +137,10 @@ const CardSpecialist = ({
                 <span className="card-specialist__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
                 <div className="card-specialist__info">
                     <div className="card-specialist__contacts">
-                        <span className="card-specialist__name">{last_name} {first_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
+                        <span className="card-specialist__name">
+                            {last_name}
+                            <br/>
+                            {first_name + " " + second_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
                         </span>
                         <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
                         <br/>
