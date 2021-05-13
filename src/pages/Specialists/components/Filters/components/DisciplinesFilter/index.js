@@ -3,18 +3,22 @@ import Select, { components } from "react-select";
 import CustomCheckbox from "components/Form/CustomCheckbox";
 import { CSSTransition } from "react-transition-group";
 import Card from "components/Card";
+import LightTooltip from "../../../../../../components/LightTooltip";
 import "./index.scss";
 
-
 const Option = props => (
-    <components.Option {...props}>
-        <CustomCheckbox
-            id={`disciplines-${props.value}`}
-            label={props.label}
-            checked={props.isSelected}
-            onChange={() => null}
-        />
-    </components.Option>
+        <components.Option {...props}>
+            <LightTooltip title={props.data.full_name} enterDelay={200} leaveDelay={200}>
+                <div>
+                    <CustomCheckbox
+                        id={`disciplines-${props.value}`}
+                        label={props.label}
+                        checked={props.isSelected}
+                        onChange={() => null}
+                    />
+                </div>
+            </LightTooltip>
+        </components.Option>
 );
 
 const DisciplinesFilter = ({ disciplines, discipline_ids, onChange, is_club_link }) => {
