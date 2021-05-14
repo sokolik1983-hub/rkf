@@ -44,9 +44,15 @@ const CardSpecialist = ({
             setAdditionalEmails(data.emails);
             setAdditionalDisciplines(data.disciplines);
             setShowModal(true);
+            console.log("data", data)
         }, error => {
             console.log(error.response);
         }))();
+
+        console.log("additionalDisciplines", additionalDisciplines)
+        console.log("disciplines", disciplines)
+
+
     };
 
     return (showModal ?
@@ -68,22 +74,20 @@ const CardSpecialist = ({
                     </span></div>}
                     <div className="card-specialist__wrap">
                         <span className="card-specialist__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
-                        <div className="card-specialist__info">
-                            <div className="card-specialist__contacts">
-                                <span className="card-specialist__name">
-                                    {last_name}
-                                    <br/>
-                                    {first_name + " " + second_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
+                        <div className="card-specialist__info _modal">
+                            <div className="card-specialist__contacts _modal">
+                                <span className="card-specialist__name _modal">
+                                    {last_name + " " + first_name + " " + second_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
                                 </span>
-                                <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
-                                <br />
+                                <span className="card-specialist__name-eng _modal">{last_name_lat} {first_name_lat}</span>
+                                {/*<br />*/}
                                 {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
                                 {additionalPhones && additionalPhones.map(phone => <span className="card-specialist__subtitle" key={phone}>т. {phone}</span>)}
                                 {email && <span className="card-specialist__subtitle">Email: {email}</span>}
                                 {additionalEmails && additionalEmails.map(email => <span className="card-specialist__subtitle" key={email}>Email: {email}</span>)}
                             </div>
                         </div>
-                        <div className="card-specialist__content">
+                        <div className="card-specialist__content-modal">
                             <div className="card-specialist__header">
                                 <div>
                                 </div>
@@ -97,14 +101,20 @@ const CardSpecialist = ({
                             </div>
                         </div>
                     </div>
-                    {!isSpecialist && <div style={{ marginTop: '70px' }}>
-                        <span className="card-specialist__content-title">Разрешено судейство видов испытаний</span>
-                        <div className="card-specialist__full-content">
+                    {!isSpecialist && <div style={{ marginTop: '50px' }}>
+                        <p className="card-specialist__content-specialization">Специализация
+                            <br/>
+
+                            {/*тут данные с бека*/}
+                            <span>Помошник судьи</span>
+                        </p>
+                        <span className="card-specialist__content-title">Дисциплины</span>
+                        <div className="card-specialist__full-content _modal">
                             <div>
-                                {disciplines?.map(i => <p key={i}>{i}</p>)}
-                                {additionalDisciplines?.slice(0, Math.round(additionalDisciplines?.length / 2)).map(i => <p key={i}>{i}</p>)}
+                                {disciplines?.map(i => <span key={i}>{i}, </span>)}
+                                {additionalDisciplines?.slice(0, Math.round(additionalDisciplines?.length / 2)).map(i => <span key={i}>{i}, </span>)}
                             </div>
-                            <div>{additionalDisciplines?.slice(Math.round(additionalDisciplines?.length / 2)).map(i => <p key={i}>{i}</p>)}</div>
+                            <div>{additionalDisciplines?.slice(Math.round(additionalDisciplines?.length / 2)).map(i => <span key={i}>{i}, </span>)}</div>
                         </div>
                     </div>}
                     {isSpecialist && <div className="card-specialist__additional-wrap" style={{ marginTop: '70px' }}>

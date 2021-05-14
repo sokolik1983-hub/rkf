@@ -71,6 +71,14 @@
     @media (max-width: 560px) {
       width: 100%;
     }
+    &-specialization {
+      color: #72839C;
+      line-height: 20px;
+      padding-bottom: 20px;
+      & span {
+        color: #90999E;
+      }
+    }
     &-title {
       font-weight: 600;
       color: #72839C;
@@ -79,6 +87,9 @@
   &__full-content {
     display: flex;
     justify-content: space-between;
+    &._modal {
+      flex-direction: column;
+    }
     & > div {
       text-align: left;
       color: #90999E;
@@ -117,9 +128,15 @@
     overflow: hidden;
     max-width: 100%;
     transition: color 0.2s linear;
+    &._modal {
+      margin-bottom: 6px;
+    }
     &-eng {
       color: #72839C;
       font-weight: 600;
+      &._modal {
+        margin-bottom: 20px;
+      }
     }
   }
   &__specialization {
@@ -174,6 +191,9 @@
     text-decoration: none;
     color: #253c5e;
     margin-bottom: 10px;
+    &._modal {
+      margin-top: 10px;
+    }
     & > a {
       text-decoration: none;
       display: flex;
@@ -205,6 +225,9 @@
     display: flex;
     flex-basis: 40%;
     flex-direction: column;
+    &._modal {
+      flex-basis: 100%;
+    }
     @media (max-width: 660px) {
       margin-right: 100px;
     }
