@@ -1,10 +1,10 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames'
 import Tab from './Tab';
 import './index.scss'
 
-export const TabContent = ({children}) =>
+export const TabContent = ({ children }) =>
     <div className="tab-content">
         {children}
     </div>;
@@ -21,8 +21,8 @@ class Tabs extends Component {
 
 
     onClickTabItem = (tab) => {
-        const {onClickTab} = this.props;
-        this.setState({activeTab: tab});
+        const { onClickTab } = this.props;
+        this.setState({ activeTab: tab });
         if (onClickTab) {
             onClickTab(tab)
         }
@@ -41,9 +41,9 @@ class Tabs extends Component {
         } = this.props;
         return (
             <Fragment>
-                <div className={classNames("tabs", {[className]: className})}>
+                <div className={classNames("tabs", { [className]: className })}>
                     {children.map((child) => {
-                        const {label} = child.props;
+                        const { label } = child.props;
 
                         return (
                             <Tab
