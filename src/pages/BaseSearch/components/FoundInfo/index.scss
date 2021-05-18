@@ -36,6 +36,9 @@
         .search-form__button{
             margin: 26px 0 0 6px;
         }
+      .search-form__button--clear{
+        margin: 17px 0 0 3px;
+      }
     }
     &__input {
         border: 1px solid lightgray;
@@ -130,7 +133,7 @@
             button {
                 display: block;
                 background-color: #ffffff;
-                margin-left: 3px;
+                margin: 0 0 0 3px;
                 border: none;
                 padding: 0;
                 span {
@@ -171,7 +174,7 @@
         padding: 12px 16px;
     }
     &__button--clear{
-        margin-top: 23px;
+
     }
 }
 ._hide {
