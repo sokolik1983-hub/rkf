@@ -14,6 +14,7 @@ import LightTooltip from "../../../../../components/LightTooltip";
 import CopyCell from '../../../../Docs/components/CopyCell';
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import declension from "../../../../../utils/declension";
+import CardMessage from "../../../../../components/CardMessage";
 
 import "./index.scss";
 
@@ -200,8 +201,11 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                     </div>
                     {
                         filteredDocuments && distinction === 'litter'
-                            ? <><div className="archive-notification"><p className="archive-notification__title">Уважаемые пользователи!</p>
-                                <span>Заявки в статусах "Выполнено" и "Отклонено", если в течение 60 дней с ними не производилось никаких действий, будут перенесены в архив и станут недоступны для просмотра вложений, редактирования и повторной отправки! Заявки в статусе "Не отправлена" будут безвозвратно удалены по прошествии 60 дней с момента их создания!</span></div>
+                            ? <>
+                                <CardMessage>
+                                    <h3>Уважаемые пользователи!</h3>
+                                    <p>Заявки в статусах "Выполнено" и "Отклонено", если в течение 60 дней с ними не производилось никаких действий, будут перенесены в архив и станут недоступны для просмотра вложений, редактирования и повторной отправки! Заявки в статусе "Не отправлена" будут безвозвратно удалены по прошествии 60 дней с момента их создания!</p>
+                                </CardMessage>
                                 <Grid
                                     data={process(filteredDocuments, gridData)}
                                     rowRender={rowRender}
@@ -240,8 +244,11 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     {litterGridForExport}
                                 </GridPDFExport>
                             </>
-                            : <><div className="archive-notification"><p className="archive-notification__title">Уважаемые пользователи!</p>
-                                <span>Заявки в статусах "Выполнено" и "Отклонено", если в течение 60 дней с ними не производилось никаких действий, будут перенесены в архив и станут недоступны для просмотра вложений, редактирования и повторной отправки! Заявки в статусе "Не отправлена" будут безвозвратно удалены по прошествии 60 дней с момента их создания!</span></div>
+                            : <>
+                                <CardMessage>
+                                    <h3>Уважаемые пользователи!</h3>
+                                    <p>Заявки в статусах "Выполнено" и "Отклонено", если в течение 60 дней с ними не производилось никаких действий, будут перенесены в архив и станут недоступны для просмотра вложений, редактирования и повторной отправки! Заявки в статусе "Не отправлена" будут безвозвратно удалены по прошествии 60 дней с момента их создания!</p>
+                                </CardMessage>
                                 <Grid
                                     data={process(filteredDocuments, gridData)}
                                     rowRender={rowRender}

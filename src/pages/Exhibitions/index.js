@@ -209,21 +209,14 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                                 }
                             </div>
                         }
-                        <ListFilter categoryId={filters.CategoryId} />
-                        <div className="exhibitions-page__controls">
-                            {!!exhibitionsForTable.length && !standardView &&
-                                <button
-                                    className="exhibitions-page__control exhibitions-page__control--downloadIcon"
-                                    onClick={() => setExporting(true)}
-                                    disabled={exporting}
-                                >
-                                    Скачать PDF
-                                </button>
-                            }
-                            <button className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')} onClick={() => setStandardView(!standardView)}>
-                                {standardView ? 'Переключиться на табличный вид' : 'Вернуться к стандартному просмотру'}
-                            </button>
-                        </div>
+                        <ListFilter
+                            exhibitionsForTable={exhibitionsForTable}
+                            categoryId={filters.CategoryId}
+                            standardView={standardView}
+                            setExporting={setExporting}
+                            exporting={exporting}
+                            setStandardView={setStandardView}
+                        />
                         {
                             listLoading
                                 ? <Loading centered={false} />

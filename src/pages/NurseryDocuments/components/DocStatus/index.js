@@ -9,9 +9,12 @@ import { Request } from "utils/request";
 import Declarants from "./components/Declarants";
 import CustomCheckbox from "../../../../components/Form/CustomCheckbox";
 import moment from "moment";
+import CardMessage from "../../../../components/CardMessage";
+
+
 import "./index.scss";
 
-const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
+const NurseryDocumentsStatus = ({history, nurseryAlias, distinction}) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [documents, setDocuments] = useState(null);
@@ -23,14 +26,14 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
 
     useEffect(() => {
         (() => Request({
-            url: distinction === 'pedigree' ?
-                '/api/requests/NurseryPedigreeRequest/headers_base_info' :
-                '/api/requests/NurseryLitterRequest/headers_base_info'
-        },
+                url: distinction === 'pedigree' ?
+                    '/api/requests/NurseryPedigreeRequest/headers_base_info' :
+                    '/api/requests/NurseryLitterRequest/headers_base_info'
+            },
             data => {
                 setDocuments(data.sort(function (a, b) {
                     return new Date(b.date_create) - new Date(a.date_create);
-                }).map(({ date_create, date_archive, ...rest }) => ({
+                }).map(({date_create, date_archive, ...rest}) => ({
                     date_create: moment(date_create).format('DD.MM.YY'),
                     date_archive: date_archive ? moment(date_archive).format('DD.MM.YY') : null,
                     ...rest
@@ -44,12 +47,12 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
     }, []);
 
     const rowClick = id => Request({
-        url: distinction === 'pedigree' ?
-            '/api/requests/NurseryPedigreeRequest/register_of_requests?id=' + id :
-            '/api/requests/NurseryLitterRequest/register_of_requests?id=' + id
-    },
+            url: distinction === 'pedigree' ?
+                '/api/requests/NurseryPedigreeRequest/register_of_requests?id=' + id :
+                '/api/requests/NurseryLitterRequest/register_of_requests?id=' + id
+        },
         data => {
-            setInnerDocuments(data.map(({ date_create, date_change, date_archive, date_of_birth_litter, ...rest }) => ({
+            setInnerDocuments(data.map(({date_create, date_change, date_archive, date_of_birth_litter, ...rest}) => ({
                 date_create: moment(date_create).format('DD.MM.YY'),
                 date_change: moment(date_change).format('DD.MM.YY'),
                 date_of_birth_litter: moment(date_of_birth_litter).format('DD.MM.YY'),
@@ -65,7 +68,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
     const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
     const deleteRow = (id) => {
         if (window.confirm("Удалить черновик?")) {
-            Request({ url: `/api/requests/Nursery${up(distinction)}Request`, data: id, method: 'DELETE' },
+            Request({url: `/api/requests/Nursery${up(distinction)}Request`, data: id, method: 'DELETE'},
                 () => {
                     setDocuments(documents.filter(x => x && x.id !== id));
                     window.alert('Заявка удалена')
@@ -79,75 +82,91 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
     };
 
     return loading ?
-        <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-            <div className="nursery-documents-status__controls" style={{ position: 'relative', top: '10px' }}>
-                <CustomCheckbox
-                    id={'is_archive_pkg'}
-                    label={'Архивные заявки'}
-                    checked={isArchivePkg}
-                    onChange={() => setIsArchivePkg(!isArchivePkg)}
-                    style={{ position: 'relative', top: '4px' }}
+        <Loading/> : !standardView ? <Card className="nursery-documents-status__popup">
+                <div className="nursery-documents-status__controls" style={{position: 'relative', top: '10px'}}>
+                    <CustomCheckbox
+                        id={'is_archive_pkg'}
+                        label={'Архивные заявки'}
+                        checked={isArchivePkg}
+                        onChange={() => setIsArchivePkg(!isArchivePkg)}
+                        style={{position: 'relative', top: '4px'}}
+                    />
+                    <button
+                        className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
+                        onClick={() => setExporting(true)}
+                        disabled={exporting}
+                    >
+                        Скачать PDF
+                    </button>
+                    <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon"
+                            onClick={() => setStandardView(true)}>
+                        Уменьшить таблицу
+                    </button>
+                </div>
+                <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку
+                    таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись
+                </div>
+                <CardMessage>
+                    <h3>Уважаемые пользователи!</h3>
+                    <p>Заявки в статусах "Выполнено" и "Отклонено", если в течение 60 дней с ними не производилось никаких
+                        действий, будут перенесены в архив и станут недоступны для просмотра вложений, редактирования и
+                        повторной отправки! Заявки в статусе "Не отправлена" будут безвозвратно удалены по прошествии 60
+                        дней с момента их создания!</p>
+                </CardMessage>
+                <Table
+                    documents={isArchivePkg ? documents : documents?.filter(i => Boolean(i.date_archive) !== true)}
+                    distinction={distinction}
+                    rowClick={rowClick}
+                    deleteRow={deleteRow}
+                    setShowModal={setShowModal}
+                    exporting={exporting}
+                    setExporting={setExporting}
+                    fullScreen
                 />
-                <button
-                    className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
-                    onClick={() => setExporting(true)}
-                    disabled={exporting}
-                >
-                    Скачать PDF
-                    </button>
-                <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
-                    Уменьшить таблицу
-                    </button>
-            </div>
-            <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-            <div className="archive-notification"><p className="archive-notification__title">Уважаемые пользователи!</p>
-                <span>Заявки в статусах "Выполнено" и "Отклонено", если в течение 60 дней с ними не производилось никаких действий, будут перенесены в архив и станут недоступны для просмотра вложений, редактирования и повторной отправки! Заявки в статусе "Не отправлена" будут безвозвратно удалены по прошествии 60 дней с момента их создания!</span></div>
-            <Table
-                documents={isArchivePkg ? documents : documents?.filter(i => Boolean(i.date_archive) !== true)}
-                distinction={distinction}
-                rowClick={rowClick}
-                deleteRow={deleteRow}
-                setShowModal={setShowModal}
-                exporting={exporting}
-                setExporting={setExporting}
-                fullScreen
-            />
-        </Card> :
+            </Card> :
             <Card className="nursery-documents-status">
                 <div className="nursery-documents-status__head">
                     <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
-                &nbsp;/&nbsp;
-                {distinction === 'pedigree'
+                    &nbsp;/&nbsp;
+                    {distinction === 'pedigree'
                         ? 'Оформление родословной'
                         : 'Заявление на регистрацию помета'}
                 </div>
                 <div className="nursery-documents-status__table">
                     {documents && !!documents.length
                         ? <div className="nursery-documents-status__controls-wrap">
-                            <div className="nursery-documents-status__controls" style={{ marginTop: '8px', marginBottom: '11px' }}>
+                            <div className="nursery-documents-status__controls"
+                                 style={{marginTop: '8px', marginBottom: '11px'}}>
                                 <CustomCheckbox
                                     id={'is_archive_pkg'}
                                     label={'Архивные заявки'}
                                     checked={isArchivePkg}
                                     onChange={() => setIsArchivePkg(!isArchivePkg)}
-                                    style={{ position: 'relative', top: '4px' }}
+                                    style={{position: 'relative', top: '4px'}}
                                 />
                                 {standardView &&
-                                    <button
-                                        className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
-                                        onClick={() => setExporting(true)}
-                                        disabled={exporting}
-                                    >
-                                        Скачать PDF
-                                    </button>
+                                <button
+                                    className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
+                                    onClick={() => setExporting(true)}
+                                    disabled={exporting}
+                                >
+                                    Скачать PDF
+                                </button>
                                 }
-                                <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                                <button
+                                    className="nursery-documents-status__control nursery-documents-status__control--tableIcon"
+                                    onClick={() => setStandardView(false)}>
                                     Увеличить таблицу
                                 </button>
                             </div>
-                            <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-                            <div className="archive-notification"><p className="archive-notification__title">Уважаемые пользователи!</p>
-                                <span>Заявки в статусах "Выполнено" и "Отклонено", если в течение 60 дней с ними не производилось никаких действий, будут перенесены в архив и станут недоступны для просмотра вложений, редактирования и повторной отправки! Заявки в статусе "Не отправлена" будут безвозвратно удалены по прошествии 60 дней с момента их создания!</span></div>
+                            <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок -
+                                нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас
+                                запись
+                            </div>
+                            <CardMessage>
+                                <h3>Уважаемые пользователи!</h3>
+                                <p>Заявки в статусах "Выполнено" и "Отклонено", если в течение 60 дней с ними не производилось никаких действий, будут перенесены в архив и станут недоступны для просмотра вложений, редактирования и повторной отправки! Заявки в статусе "Не отправлена" будут безвозвратно удалены по прошествии 60 дней с момента их создания!</p>
+                            </CardMessage>
                             <Table
                                 documents={isArchivePkg ? documents : documents?.filter(i => Boolean(i.date_archive) !== true)}
                                 distinction={distinction}
@@ -162,18 +181,18 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                     }
                 </div>
                 {innerDocuments &&
-                    <div className="nursery-documents-status__table">
-                        {!!innerDocuments.length
-                            ? <div className="nursery-documents-status__table-wrap">
-                                <h3 className="nursery-documents-status__table-title">Вложенные заявки</h3>
-                                <RequestTable
-                                    documents={innerDocuments}
-                                    distinction={distinction}
-                                    height="300px"
-                                /></div>
-                            : <h2>Вложенных заявок не найдено</h2>
-                        }
-                    </div>
+                <div className="nursery-documents-status__table">
+                    {!!innerDocuments.length
+                        ? <div className="nursery-documents-status__table-wrap">
+                            <h3 className="nursery-documents-status__table-title">Вложенные заявки</h3>
+                            <RequestTable
+                                documents={innerDocuments}
+                                distinction={distinction}
+                                height="300px"
+                            /></div>
+                        : <h2>Вложенных заявок не найдено</h2>
+                    }
+                </div>
                 }
                 <div className="nursery-documents-status__bottom">
                     <p>{distinction === 'litter' ?
@@ -193,7 +212,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                     hideCloseButton={true}
                     className="status-table__modal"
                 >
-                    <Declarants id={showModal} />
+                    <Declarants id={showModal}/>
                 </Modal>}
             </Card>
 };
