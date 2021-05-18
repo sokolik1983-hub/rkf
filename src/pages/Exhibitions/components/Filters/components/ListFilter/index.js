@@ -4,7 +4,7 @@ import { setFiltersToUrl } from "../../../../utils";
 import "./index.scss";
 
 
-const ListFilter = ({ categoryId }) => {
+const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExporting, exporting, setStandardView }) => {
     const [activeType, setActiveType] = useState(0);
 
     useEffect(() => {
@@ -24,7 +24,24 @@ const ListFilter = ({ categoryId }) => {
 
     return (
         <div className="exhibitions-page__list-filter">
-            <h4 className="list-filter__title">Мероприятия</h4>
+           <div className="exhibitions-page__title-inner">
+               <h4 className="list-filter__title">Мероприятия</h4>
+               <div className="exhibitions-page__controls">
+                   {!!exhibitionsForTable.length && !standardView &&
+                   <button
+                       className="exhibitions-page__control exhibitions-page__control--downloadIcon"
+                       onClick={() => setExporting(true)}
+                       disabled={exporting}
+                   >
+                       Скачать PDF
+                   </button>
+                   }
+                   <button className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')} onClick={() => setStandardView(!standardView)}>
+                       {standardView ? 'Переключиться на табличный вид' : 'Вернуться к стандартному просмотру'}
+                   </button>
+               </div>
+           </div>
+
             <HorizontalSwipe id="exhibitions-list-filter">
                 <ul className="list-filter">
                     <li className="list-filter__item">
