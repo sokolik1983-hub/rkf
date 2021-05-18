@@ -1,13 +1,16 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
 import Modal from "../../../../components/Modal";
+import { Request } from "../../../../utils/request";
+import ls from "local-storage";
 
 
 const MeetingRegistration = () => {
     const [showModal, setShowModal] = useState(false);
     const [iframeLink, setIframeLink] = useState('');
     const [isRKF, setIsRKF] = useState(false);
+    const user_email = ls.get('user_info') ? ls.get('user_info').mail : '';
 
     const handleClick = (e, isRKF) => {
         e.preventDefault();
@@ -15,6 +18,22 @@ const MeetingRegistration = () => {
         setIsRKF(isRKF);
         setShowModal(true);
     };
+
+    const correspondenceURL = `https://zline.me/widgets/registration-for-service?service_id=27&email=` + user_email;
+
+    const handleZlineClick = (e, targetUrl, isRKF) => {
+        e.preventDefault();
+        (() => Request({
+            url: `/api/registration/user_info_for_zline_session_registration`
+        }, data => {
+            setIframeLink(targetUrl + (data.first_name ? `&first_name=${data.first_name.replaceAll(' ', '_')}` : '') + (data.last_name ? `&last_name=${data.last_name.replaceAll(' ', '_')}` : '') + (data.phone ? `&phone=${data.phone.replaceAll(' ', '_')}` : '') + (data.additional_info ? `&additional_info=${data.additional_info.replaceAll(' ', '_')}` : ''));
+            setIsRKF(isRKF);
+            setShowModal(true);
+        }, error => {
+            console.log(error.response);
+        }))();
+    };
+
 
     return (
         <>
@@ -42,16 +61,21 @@ const MeetingRegistration = () => {
                         className="documents-card__link"
                         onClick={e => handleClick(e, true)}
                     >Запись в РКФ</Link>
+                    <Link
+                        to="/"
+                        className="documents-card__link"
+                        onClick={e => handleZlineClick(e, correspondenceURL, true)}
+                    >Подача корреспонденции в РКФ</Link>
                 </div>
             </Card>
             {showModal &&
                 <Modal showModal={showModal}
-                       handleClose={() => {
-                           setIframeLink('');
-                           setShowModal(false);
-                       }}
-                       className="documents-card__modal"
-                       headerName = {`Запись в ${isRKF ? "РКФ" : "Федерацию"}`}
+                    handleClose={() => {
+                        setIframeLink('');
+                        setShowModal(false);
+                    }}
+                    className="documents-card__modal"
+                    headerName={`Запись в ${isRKF ? "РКФ" : "Федерацию"}`}
                 >
                     <iframe src={iframeLink} title="unique_iframe" />
                 </Modal>
