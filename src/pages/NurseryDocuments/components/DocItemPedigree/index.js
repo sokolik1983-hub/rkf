@@ -46,12 +46,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 data.mother_name && formik.setFieldValue('mother_name', data.mother_name);
                 data.mother_pedigree_number && formik.setFieldValue('mother_pedigree_number', data.mother_pedigree_number);
                 data.color && formik.setFieldValue('color', data.color);
-                data.breeder_last_name && formik.setFieldValue('breeder_last_name', data.breeder_last_name);
-                data.breeder_address && formik.setFieldValue('breeder_address', data.breeder_address);
-                data.owner_last_name && formik.setFieldValue('owner_last_name', data.owner_last_name);
-                data.owner_address && formik.setFieldValue('breowner_addressed_id', data.owner_address);
-                data.owner_last_name_lat && formik.setFieldValue('owner_last_name_lat', data.owner_last_name_lat);
-                data.owner_address_lat && formik.setFieldValue('owner_address_lat', data.owner_address_lat);
                 data.breed_id && formik.setFieldValue('breed_id', data.breed_id);
                 data.dog_sex_type && formik.setFieldValue('dog_sex_type', data.dog_sex_type);
                 data.dog_birth_date && formik.setFieldValue('dog_birth_date', data.dog_birth_date);
