@@ -35,12 +35,22 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const getEverkData = (stamp_number, stamp_code) =>
         PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
             .then(data => {
-                Object.keys(data).forEach(k => {
-                    if (!data[k]) return;
-                    if (nurseryData[k]) return;
-                    formik.setFieldValue(`${k}`, data[k]);
-                    !data[`${k}_lat`] && formik.setFieldValue(`${k}_lat`, transliterate(data[k]));
-                });
+                data.dog_name && formik.setFieldValue('dog_name', data.dog_name);
+                data.dog_name_lat && formik.setFieldValue('dog_name_lat', data.dog_name_lat);
+                data.father_name && formik.setFieldValue('father_name', data.father_name);
+                data.father_pedigree_number && formik.setFieldValue('father_pedigree_number', data.father_pedigree_number);
+                data.mother_name && formik.setFieldValue('mother_name', data.mother_name);
+                data.mother_pedigree_number && formik.setFieldValue('mother_pedigree_number', data.mother_pedigree_number);
+                data.color && formik.setFieldValue('color', data.color);
+                data.breeder_last_name && formik.setFieldValue('breeder_last_name', data.breeder_last_name);
+                data.breeder_address && formik.setFieldValue('breeder_address', data.breeder_address);
+                data.owner_last_name && formik.setFieldValue('owner_last_name', data.owner_last_name);
+                data.owner_address && formik.setFieldValue('breowner_addressed_id', data.owner_address);
+                data.owner_last_name_lat && formik.setFieldValue('owner_last_name_lat', data.owner_last_name_lat);
+                data.owner_address_lat && formik.setFieldValue('owner_address_lat', data.owner_address_lat);
+                data.breed_id && formik.setFieldValue('breed_id', data.breed_id);
+                data.dog_sex_type && formik.setFieldValue('dog_sex_type', data.dog_sex_type);
+                data.dog_birth_date && formik.setFieldValue('dog_birth_date', data.dog_birth_date);
                 setEverkData(data);
                 setEverkAlert(true);
             })
@@ -59,9 +69,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             fetch(apiPrivacyEndpoint, { headers })
                 .then(response => response.blob())
                 .then(data => setPrivacyHref(URL.createObjectURL(data))),
-            //fetch(apiLitterEmptyDocument, {headers})
-            //.then(response => response.blob())
-            //.then(data => setLitterHref(URL.createObjectURL(data))),
             PromiseRequest('/api/nurseries/Nursery/pedigree_request_information')
                 .then(data => {
                     if (!formik.values.owner_first_name) {
@@ -100,7 +107,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <HideIf cond={false}>
             <div className={`DocItem`}>
                 <div className="flex-row heading-row">
-                    <h4 className="caps" style={{marginTop: '10px'}}>Добавление заявки</h4>
+                    <h4 className="caps" style={{ marginTop: '10px' }}>Добавление заявки</h4>
                     <FormField disabled={update} fieldType="customCheckbox" name={`express`} label='Срочное изготовление' />
                 </div>
                 <RadioGroup radios={[
