@@ -34,7 +34,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
             .then(data => {
                 data.dog_name && formik.setFieldValue('dog_name', data.dog_name);
-                data.dog_name_lat && formik.setFieldValue('dog_name_lat', data.dog_name_lat);
+                formik.setFieldValue('dog_name_lat', transliterate(data.dog_name));
                 data.father_name && formik.setFieldValue('father_name', data.father_name);
                 data.father_pedigree_number && formik.setFieldValue('father_pedigree_number', data.father_pedigree_number);
                 data.mother_name && formik.setFieldValue('mother_name', data.mother_name);
