@@ -12,8 +12,8 @@ import Transliteratable from "../../components/Transliteratable";
 import { FormGroup, FormField } from "components/Form";
 import { apiPedigreeEverk } from "../../config.js";
 import { Request } from "utils/request";
-import transliterate from "utils/transliterate";
 import HideIf from "components/HideIf";
+import transliterate from "../../../../utils/transliterate";
 import moment from "moment";
 import "./index.scss";
 
@@ -35,16 +35,20 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
 
     const docConst = 2 + Number(declarant.father_foreign) + Number(declarant.mother_foreign);
-
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
     const getEverkData = (stamp_number, stamp_code) =>
         PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
             .then(data => {
-                Object.keys(data).forEach(k => {
-                    if (!data[k]) return;
-                    formik.setFieldValue(`declarants[${i}].${k}`, data[k]);
-                    !data[`${k}_lat`] && formik.setFieldValue(`declarants[${i}].${k}_lat`, transliterate(data[k]));
-                });
+                data.dog_name && formik.setFieldValue('dog_name', data.dog_name);
+                formik.setFieldValue('dog_name_lat', transliterate(data.dog_name));
+                data.father_name && formik.setFieldValue('father_name', data.father_name);
+                data.father_pedigree_number && formik.setFieldValue('father_pedigree_number', data.father_pedigree_number);
+                data.mother_name && formik.setFieldValue('mother_name', data.mother_name);
+                data.mother_pedigree_number && formik.setFieldValue('mother_pedigree_number', data.mother_pedigree_number);
+                data.color && formik.setFieldValue('color', data.color);
+                data.breed_id && formik.setFieldValue('breed_id', data.breed_id);
+                data.dog_sex_type && formik.setFieldValue('dog_sex_type', data.dog_sex_type);
+                data.dog_birth_date && formik.setFieldValue('dog_birth_date', data.dog_birth_date);
                 setEverkData(data);
                 setEverkAlert(true);
             })
@@ -56,7 +60,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
-
     return <>
         {everkAlert &&
             <Alert

@@ -28,17 +28,21 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [privacyHref, setPrivacyHref] = useState('');
     const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? [2, 4, 7].includes(declarant.status_id) : true;
-    //let error = formik.errors && formik.touched;
     const handleTransliterate = (field) => formik.setFieldValue(`${field}_lat`, transliterate(getIn(formik.values, field)));
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
     const getEverkData = (stamp_number, stamp_code) =>
         PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
             .then(data => {
-                Object.keys(data).forEach(k => {
-                    if (!data[k]) return;
-                    formik.setFieldValue(`${k}`, data[k]);
-                    !data[`${k}_lat`] && formik.setFieldValue(`${k}_lat`, transliterate(data[k]));
-                });
+                data.dog_name && formik.setFieldValue('dog_name', data.dog_name);
+                formik.setFieldValue('dog_name_lat', transliterate(data.dog_name));
+                data.father_name && formik.setFieldValue('father_name', data.father_name);
+                data.father_pedigree_number && formik.setFieldValue('father_pedigree_number', data.father_pedigree_number);
+                data.mother_name && formik.setFieldValue('mother_name', data.mother_name);
+                data.mother_pedigree_number && formik.setFieldValue('mother_pedigree_number', data.mother_pedigree_number);
+                data.color && formik.setFieldValue('color', data.color);
+                data.breed_id && formik.setFieldValue('breed_id', data.breed_id);
+                data.dog_sex_type && formik.setFieldValue('dog_sex_type', data.dog_sex_type);
+                data.dog_birth_date && formik.setFieldValue('dog_birth_date', data.dog_birth_date);
                 setEverkData(data);
                 setEverkAlert(true);
             })
@@ -57,9 +61,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             fetch(apiPrivacyEndpoint, { headers })
                 .then(response => response.blob())
                 .then(data => setPrivacyHref(URL.createObjectURL(data))),
-            //fetch(apiLitterEmptyDocument, {headers})
-            //.then(response => response.blob())
-            //.then(data => setLitterHref(URL.createObjectURL(data))),
         ])
     }, []);
 
@@ -90,7 +91,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <HideIf cond={false}>
             <div className={`DocItem`}>
                 <div className="flex-row heading-row">
-                    <h4 className="caps" style={{marginTop: '10px'}}>Добавление заявки</h4>
+                    <h4 className="caps" style={{ marginTop: '10px' }}>Добавление заявки</h4>
                     <FormField disabled={update} fieldType="customCheckbox" name={`express`} label='Срочное изготовление' />
                 </div>
                 <RadioGroup radios={[

@@ -105,7 +105,7 @@ const BookformCard = ({ url, distinction }) => {
     const handleZlineClick = (e, targetUrl, rkf) => {
         e.preventDefault();
         (() => Request({
-            url: `/api/registration/user_info_for_zline_session_registration`
+            url: `/api/registration/user_info_for_zline_session_registration?alias=rkf`
         }, data => {
             setLink(targetUrl + (data.first_name ? `&first_name=${data.first_name.replaceAll(' ', '_')}` : '') + (data.last_name ? `&last_name=${data.last_name.replaceAll(' ', '_')}` : '') + (data.phone ? `&phone=${data.phone.replaceAll(' ', '_')}` : '') + (data.additional_info ? `&additional_info=${data.additional_info.replaceAll(' ', '_')}` : ''));
             setColor('_blue');
