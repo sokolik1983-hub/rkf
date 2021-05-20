@@ -101,7 +101,7 @@
     flex: 10%;
     @media (max-width: 660px) {
       margin-left: 30px;
-      flex: 10%;
+      flex: 11%;
     }
   }
   &__rank {
@@ -109,12 +109,16 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 18px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       color: #72839C;
+      @media (max-width: 776px) {
+        padding-top: 5px;
+        margin-bottom: 5px;
+      }
     }
   }
   &__content-data {
-    color: #90999E
+    color: #90999E;
   }
   &__header {
     display: flex;
@@ -240,9 +244,11 @@
   }
   &__disciplines-inner {
     display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
   }
   &__disciplines-inner:first-child {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   &__specialization-inner:not(:last-child) {
     border-bottom: 1px solid #e8e8e8;

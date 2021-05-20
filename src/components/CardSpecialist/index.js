@@ -141,7 +141,8 @@ const CardSpecialist = ({
                                                     <div className="card-specialist__rank" >
                                                         {item.rank
                                                             && index < 1
-                                                            && <h3  style={{display: 'block'}} className="card-specialist__rank-title">Ранг</h3>
+                                                            && <h3  style={{display: 'block'}} className="card-specialist__rank-title"
+                                                                    style={{marginBottom: '10px'}}>Ранг</h3>
                                                         }
                                                             <span style={{display: 'block'}}  className="card-specialist__content-data">{item.rank}</span>
                                                         </div>
