@@ -8,7 +8,7 @@ import "./index.scss";
 
 const Option = props => (
         <components.Option {...props}>
-            <LightTooltip title={props.data.full_name} enterDelay={200} leaveDelay={200}>
+            <LightTooltip title={props.data.full_name} enterDelay={100} leaveDelay={50}>
                 <div>
                     <CustomCheckbox
                         id={`disciplines-${props.value}`}

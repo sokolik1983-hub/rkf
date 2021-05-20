@@ -1,6 +1,13 @@
 .card-specialist {
   padding: 10px !important;
   margin-bottom: 16px;
+  &__disciplines {
+    display: flex;
+    flex: 70%;
+    @media (max-width: 660px) {
+      flex: 67%;
+    }
+  }
   &._modal {
     margin-bottom: 0;
   }
@@ -12,10 +19,6 @@
       .card-specialist__city {
         display: block;
         margin-right: 4px;
-      }
-      .card-specialist__rank {
-        margin-left: 4px;
-        white-space: nowrap;
       }
       &.card-specialist__header-info {
         display: flex;
@@ -34,11 +37,13 @@
       flex-wrap: wrap;
     }
   }
+  &__additional-disciplines {
+    display: flex;
+    align-items: center;
+  }
   &__additional-wrap {
     display: flex;
-    & > div {
-      flex-basis: 33%;
-    }
+    flex-direction: column;
     @media (max-width: 990px) {
       flex-direction: column;
     }
@@ -71,6 +76,7 @@
     @media (max-width: 560px) {
       width: 100%;
     }
+
     &-specialization {
       color: #72839C;
       line-height: 20px;
@@ -82,22 +88,33 @@
     &-title {
       font-weight: 600;
       color: #72839C;
+      margin-bottom: 5px;
     }
   }
-  &__full-content {
+  &__disciplines {
+    text-align: left;
+    color: #90999E;
+  }
+  &__ranks {
     display: flex;
-    justify-content: space-between;
-    &._modal {
-      flex-direction: column;
+    flex-direction: column;
+    flex: 10%;
+    @media (max-width: 660px) {
+      margin-left: 30px;
+      flex: 10%;
     }
-    & > div {
-      text-align: left;
-      color: #90999E;
-      flex-basis: 50%;
+  }
+  &__rank {
+    &-title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 18px;
+      margin-bottom: 5px;
+      color: #72839C;
     }
-    @media (max-width: 990px) {
-      flex-direction: column;
-    }
+  }
+  &__content-data {
+    color: #90999E
   }
   &__header {
     display: flex;
@@ -212,7 +229,7 @@
     line-height: 24px;
     letter-spacing: 0.2px;
     color: #90999e;
-    
+    padding-bottom: 10px;
     &._email {
       @media (min-width: 990px) {
         max-width: 210px;
@@ -220,6 +237,22 @@
         overflow: hidden;
       }
     }
+  }
+  &__disciplines-inner {
+    display: flex;
+  }
+  &__disciplines-inner:first-child {
+    margin-bottom: 10px;
+  }
+  &__specialization-inner:not(:last-child) {
+    border-bottom: 1px solid #e8e8e8;
+    padding: 10px 0
+  }
+  &__specialization-inner:first-child {
+    padding: 0;
+  }
+  &__specialization-inner:last-child {
+    padding-top: 10px;
   }
   &__info {
     display: flex;
@@ -239,19 +272,6 @@
       white-space: nowrap;
       @media (max-width: 400px) {
         white-space: pre-wrap;
-      }
-      &.card-specialist__rank {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        min-width: 50px;
-        @media(max-width:1200px){
-          flex-grow: 0;
-        }
-        p {
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
       }
     }
   }
