@@ -117,19 +117,19 @@ const CardSpecialist = ({
                                     {additionalDisciplines?.map((item, index, arr) => {
 
                                         return (
-                                            <div className="card-specialists__grid-item" key={index} style={{display: 'flex'}}>
+                                            <div className="card-specialists__grid-item" key={index}>
                                                 
                                                 <div className="card-specialist__disciplines">
 
-                                                    <div className="card-specialist__disciplines-inner" style={{flexDirection: 'column'}}>
-                                                        {index < 1 && <div className="card-specialist__content-title" style={{marginBottom: '10px'}} >Дисциплины </div>}
-                                                        <div style={{flexDirection: 'row'}}>
+                                                    <div className="card-specialist__disciplines-inner nospecialists">
+                                                        {index < 1 && <div className="card-specialist__content-title">Дисциплины</div>}
+                                                        <div>
                                                             {item?.disciplines.map((item, index, arr) => {
                                                                 return (
                                                                     <LightTooltip title={item.discipline_name} enterDelay={100} leaveDelay={50} key={index}>
                                                                         <span className="card-specialist__discipline">
                                                                             {item.discipline_short_name}
-                                                                            {index < arr.length - 1 && ","} &nbsp;
+                                                                            {index < arr.length - 1 && ","}&nbsp;
                                                                         </span>
                                                                     </LightTooltip>
                                                                 )
@@ -141,10 +141,9 @@ const CardSpecialist = ({
                                                     <div className="card-specialist__rank" >
                                                         {item.rank
                                                             && index < 1
-                                                            && <h3  style={{display: 'block'}} className="card-specialist__rank-title"
-                                                                    style={{marginBottom: '10px'}}>Ранг</h3>
+                                                            && <h3 className="card-specialist__rank-title">Ранг</h3>
                                                         }
-                                                            <span style={{display: 'block'}}  className="card-specialist__content-data">{item.rank}</span>
+                                                            <span className="card-specialist__content-data">{item.rank}</span>
                                                         </div>
                                                 </div>
                                             </div>
@@ -167,7 +166,7 @@ const CardSpecialist = ({
                                             {item?.disciplines.map((item, index, arr) => {
                                                 return (
                                                     <div className="card-specialists__grid-item"  style={{display: 'flex'}} key={index}>
-                                                        <div className="card-specialist__disciplines" style={{flexDirection: 'column'}}>
+                                                        <div className="card-specialist__disciplines">
                                                             {index < 1 && <div className="card-specialist__content-title" >Дисциплины </div>}
                                                              <div className="card-specialist__disciplines-inner">
 
@@ -176,7 +175,7 @@ const CardSpecialist = ({
                                                                          <LightTooltip title={item.discipline_name} enterDelay={100} leaveDelay={50} key={index}>
                                                                             <span className="card-specialist__discipline">
                                                                                 {item.discipline_short_name}
-                                                                                {index < arr.length - 1 && ","} &nbsp;
+                                                                                {index < arr.length - 1 && ","}&nbsp;
                                                                             </span>
                                                                          </LightTooltip>
                                                                      )
