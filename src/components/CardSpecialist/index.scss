@@ -3,6 +3,7 @@
   margin-bottom: 16px;
   &__disciplines {
     display: flex;
+    flex-direction: column;
     flex: 70%;
     @media (max-width: 660px) {
       flex: 67%;
@@ -88,7 +89,7 @@
     &-title {
       font-weight: 600;
       color: #72839C;
-      margin-bottom: 5px;
+      margin-bottom: 7px;
     }
   }
   &__disciplines {
@@ -113,7 +114,7 @@
       color: #72839C;
       @media (max-width: 776px) {
         padding-top: 5px;
-        margin-bottom: 5px;
+        margin-bottom: 7px;
       }
     }
   }
@@ -246,6 +247,9 @@
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;
+  &.nospecialists {
+    flex-direction: column;
+  }
   }
   &__disciplines-inner:first-child {
     margin-bottom: 15px;
@@ -348,7 +352,15 @@
     }
   }
 }
+.card-specialists {
+  .card-specialist__content-title {
+    margin-bottom: 10px;
+  }
+  &__grid-item {
+    display: flex;
+  }
 
+}
 .full-card-modal {
   & > div {
     max-width: 868px;
