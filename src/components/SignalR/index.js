@@ -7,7 +7,7 @@ const SignalR = () => {
     const [alert, setAlert] = useState(false);
     const [message, setMessage] = useState('');
     const hubUrl = isDevEnv()
-        ? 'https://stage.uep24.ru/api/hubs/deploy_hub'
+        ? 'https://notification.stage.uep24.ru/api/hubs/deploy_hub'
         : 'https://rkf.online/api/hubs/deploy_hub';
 
     useEffect(() => {
