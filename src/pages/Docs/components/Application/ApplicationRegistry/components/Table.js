@@ -82,7 +82,7 @@ const handleExtract = async (e, request_id) => {
     await fetch(`/api/requests/commonrequest/dearchive_request`, {
         method: 'POST',
         headers: getHeaders(),
-        data: JSON.stringify({
+        body: JSON.stringify({
             "request_id": request_id,
             "request_type": 6,
         })
