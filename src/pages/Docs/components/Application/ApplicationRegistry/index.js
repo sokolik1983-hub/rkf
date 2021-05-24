@@ -13,7 +13,7 @@ import ReportError from './components/ReportError';
 import "./index.scss";
 
 
-const ApplicationRegistry = ({ history }) => {
+const ApplicationRegistry = () => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
@@ -29,10 +29,9 @@ const ApplicationRegistry = ({ history }) => {
         }, data => {
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
-            }).map(({ date_change, date_create, date_archive, ...rest }) => ({
+            }).map(({ date_change, date_create, ...rest }) => ({
                 date_change: moment(date_change).format('DD.MM.YY'),
                 date_create: moment(date_create).format('DD.MM.YY'),
-                date_archive: date_archive ? moment(date_archive).format('DD.MM.YY') : null,
                 ...rest
             })));
             setLoading(false);
