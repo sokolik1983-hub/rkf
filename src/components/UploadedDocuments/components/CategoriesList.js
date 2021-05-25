@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import { Link } from "react-router-dom";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { pencil, trash } from "@progress/kendo-svg-icons";
@@ -6,6 +6,7 @@ import { pencil, trash } from "@progress/kendo-svg-icons";
 
 const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homePage }) => {
     const isActive = (value) => activeCategoryId === value ? "UploadedDocuments__category-item active" : "UploadedDocuments__category-item";
+    const pagePath = useRef(homePage);
 
     return <>
         <ul className="UploadedDocuments__inner-list">
@@ -13,12 +14,12 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
                 <Link to={homePage}>Все категории</Link>
             </li>
             <li className={isActive(0)}>
-                <Link to="0">Документы</Link>
+                <Link to={`${pagePath.current}uploaded-documents/0`}>Документы</Link>
             </li>
             {categories.map(({ id, name, editable }, key) => <li
                 className={isActive(id)}
                 key={key} >
-                <Link to={`${id}`}>{name}</Link>
+                <Link to={`${pagePath.current}uploaded-documents/${id}`}>{name}</Link>
                 {
                     canEdit && id > 0 && <div className="UploadedDocuments__category-controls">
                         {editable && <button
