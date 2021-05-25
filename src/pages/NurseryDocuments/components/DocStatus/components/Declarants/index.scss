@@ -91,6 +91,24 @@
         }
       }
     }
+    &__extract {
+      border: 0;
+      color: #fff;
+      background-color: #3366ff;
+      height: 36px;
+      padding: 5px 9px 5px 9px;
+      &:hover {
+        opacity: 0.9;
+      }
+      &:active {
+        opacity: 0.5;
+      }
+      &-wrap {
+        margin-top: 16px;
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 
   .accordion-nested-item {

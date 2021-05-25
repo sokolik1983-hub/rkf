@@ -31,13 +31,13 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
     const options = [
         {
             text: 'Подробнее',
+            disabled: !!date_archive,
             render: ({ item }) => <Link
                 className="club-documents-status__dropdown-link"
                 to={`/kennel/${route}/documents/${distinction}/${id}`}>{item.text}</Link>
         },
         {
             text: 'Вложенные заявки',
-            disabled: distinction === 'pedigree' ? false : true,
             render: ({ item }) => <span onClick={() => setShowModal(id)}>{item.text}</span>
         },
         {
@@ -49,13 +49,14 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
         },
         {
             text: 'Ответить',
-            disabled: status_id === 1 ? false : true,
+            disabled: (status_id === 1 && !date_archive) ? false : true,
             render: ({ item }) => <Link
                 className="club-documents-status__dropdown-link"
                 to={`/kennel/${route}/documents/${distinction}/${id}/edit`}>{item.text}</Link>
         },
         {
             text: 'Печать',
+            disabled: !!date_archive,
             render: ({ item }) => <Link
                 className="club-documents-status__dropdown-link"
                 to={`/kennel/${route}/documents/${distinction}/${id}/print`}>{item.text}</Link>
@@ -67,7 +68,9 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
         }
     ].filter(o => !o.disabled);
 
-    return date_archive ? <td></td> : <td><DropDownButton icon={`k-icon k-i-arrow-chevron-${open ? `up` : `down`}`} onOpen={() => setOpen(true)} onClose={() => setOpen(false)} items={options} /></td>
+    return <td>
+        <DropDownButton icon={`k-icon k-i-arrow-chevron-${open ? `up` : `down`}`} onOpen={() => setOpen(true)} onClose={() => setOpen(false)} items={options} />
+    </td>
 };
 
 const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, exporting, setExporting, fullScreen }) => {

@@ -1,30 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../../../../../../components/Loading";
-import {Request} from "../../../../../../utils/request";
+import { Request } from "../../../../../../utils/request";
 import "./index.scss";
 import AccardionItem from "./AccardionItem";
 
 
-const Declarants = ({id}) => {
+const Declarants = ({ id, distinction }) => {
     const [declarants, setDeclarants] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         (() => Request({
-            url: `/api/requests/PedigreeRequest/header_main_info?id=${id}`
+            url: distinction === 'pedigree' ? `/api/requests/pedigreerequest/header_main_info?id=${id}` : `/api/requests/litterrequest/header_main_info?id=${id}`
         },
-        data => {
-            setDeclarants(data);
-            setLoading(false);
-        },
-        error => {
-            console.log(error.response);
-            setLoading(false);
-        }))();
+            data => {
+                setDeclarants(data);
+                setLoading(false);
+            },
+            error => {
+                console.log(error.response);
+                setLoading(false);
+            }))();
     }, []);
 
     return loading ?
-        <Loading/> :
+        <Loading /> :
         <div className="declarants">
             {!declarants.length ?
                 <h2>Заявителей не найдено</h2> :
@@ -33,7 +33,7 @@ const Declarants = ({id}) => {
                     <ul className="declarants__accardion">
                         {declarants.map(declarant =>
                             <li className="declarants__accardion-item" key={declarant.id}>
-                                <AccardionItem {...declarant} />
+                                <AccardionItem {...declarant} distinction={distinction} />
                             </li>
                         )}
                     </ul>

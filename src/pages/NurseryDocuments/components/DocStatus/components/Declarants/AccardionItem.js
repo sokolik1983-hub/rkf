@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { formatDateWithTime } from "../../../../../../utils";
 import ReportError from './components/ReportError';
 import ShareButtons from "./ShareButtons";
+import { getHeaders } from "../../../../../../utils/request";
 
 const formatCountTime = (str) => {
     const dateArray = str.split('.');
@@ -14,9 +15,23 @@ const formatCountTime = (str) => {
 }
 
 
-const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, status, status_id, id, declarant_uid, count_time }) => {
+const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, stamp_code, status, status_id, id, declarant_uid, count_time, dearchiving_allowed, distinction }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isNestedOpen, setIsNestedOpen] = useState(false);
+
+    const handleExtract = async (e, request_id) => {
+        e.preventDefault();
+        await fetch(`/api/requests/commonrequest/dearchive_request`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify({
+                "request_id": request_id,
+                "request_type": distinction === 'pedigree' ? 1 : 2,
+            })
+        })
+            .then(data => alert('Заявка извлечена из архива'))
+            .catch(error => console.log(error))
+    };
 
     const isReportable = pedigree_link && (status_id === 10 || status_id === 6);
 
@@ -36,7 +51,7 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
                     <p><span>ФИО владельца/заводчика: </span>{full_name}</p>
                     <p><span>Порода: </span>{breed}</p>
                     <p><span>Кличка: </span>{dog_name}</p>
-                    <p><span>Клеймо: </span>{stamp}</p>
+                    <p><span>Клеймо: </span>{stamp || stamp_code}</p>
                     <p><span>Трек-номер: </span>{barcode}</p>
                     <p>
                         <span>Статус: </span>
@@ -54,6 +69,12 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
                     </div>}
                     {count_time && <p><span>До получения родословной осталось: </span>{formatCountTime(count_time)}</p>}
                     {pedigree_link && <ShareButtons link={pedigree_link} />}
+                    {dearchiving_allowed && <div className="accordion-item__extract-wrap"><button
+                        className="accordion-item__extract"
+                        onClick={(e) => handleExtract(e, id)}
+                    >
+                        Восстановить
+                    </button></div>}
                 </div>
             </div>
         </div>
