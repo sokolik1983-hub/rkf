@@ -26,7 +26,7 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
             headers: getHeaders(),
             body: JSON.stringify({
                 "request_id": request_id,
-                "request_type": distinction === 'pedigree' ? 1 : 2,
+                "request_type": distinction === 'pedigree' ? 2 : 1,
             })
         })
             .then(data => alert('Заявка извлечена из архива'))
