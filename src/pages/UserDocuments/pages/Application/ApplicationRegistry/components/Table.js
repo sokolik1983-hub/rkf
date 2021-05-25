@@ -85,13 +85,13 @@ const handleExtract = async (e, request_id) => {
             "request_type": 6,
         })
     })
-        .then(alert('Заявка извлечена из архива'))
+        .then(data => alert('Заявка извлечена из архива'))
         .catch(error => console.log(error))
 };
 
 const OptionsCell = ({ dataItem }, setErrorReport) => {
     const [open, setOpen] = useState(false);
-    const { status_id, id, is_title_fci, status_name } = dataItem;
+    const { status_id, id, is_title_fci, status_name, dearchiving_allowed } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
@@ -114,12 +114,14 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
     },
     {
         text: 'Восстановить',
-        disabled: (status_id === 8 && status_name !== 'Выполнена') ? false : true,
+        disabled: dearchiving_allowed ? false : true,
         render: ({ item }) => <span className="row-control__link"
             onClick={e => handleExtract(e, id)}>{item.text}</span>
     }].filter(o => !o.disabled);
 
-    return <td><DropDownButton icon={`k-icon k-i-arrow-chevron-${open ? `up` : `down`}`} onOpen={() => setOpen(true)} onClose={() => setOpen(false)} items={options} /></td>
+    return <td>
+        <DropDownButton icon={`k-icon k-i-arrow-chevron-${open ? `up` : `down`}`} onOpen={() => setOpen(true)} onClose={() => setOpen(false)} items={options} />
+    </td>
 };
 
 const handleClick = async (e, id) => {

@@ -93,7 +93,7 @@ const handleExtract = async (e, request_id) => {
 
 const OptionsCell = ({ dataItem }, setErrorReport) => {
     const [open, setOpen] = useState(false);
-    const { status_id, id, is_title_fci, status_name } = dataItem;
+    const { status_id, id, is_title_fci, status_name, dearchiving_allowed } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
@@ -117,7 +117,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
     },
     {
         text: 'Восстановить',
-        disabled: (status_id === 8 && status_name !== 'Выполнена') ? false : true,
+        disabled: dearchiving_allowed ? false : true,
         render: ({ item }) => <span className="row-control__link"
             onClick={e => handleExtract(e, id)}>{item.text}</span>
     }].filter(o => !o.disabled);
