@@ -8,7 +8,7 @@ import { connectAuthVisible } from "pages/Login/connectors";
 export const NotificationsContext = React.createContext(null);
 
 const hubUrl = isDevEnv()
-    ? 'https://notification.stage.uep24.ru/api/hubs/user_hub'
+    ? 'https://stage.uep24.ru/notification/user_hub'
     : 'https://rkf.online/api/hubs/user_hub';
 
 const NotificationsProvider = ({ isAuthenticated, children }) => {
