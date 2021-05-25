@@ -69,7 +69,7 @@ const LinkCell = ({ dataItem }, profileType) => {
     </td>
 };
 
-const handleExtract = async (e, request_id, type_id) => {
+const handleExtract = async (e, request_id, type_id, setNeedUpdateTable) => {
     e.preventDefault();
     await fetch(`/api/requests/commonrequest/dearchive_request`, {
         method: 'POST',
@@ -79,11 +79,12 @@ const handleExtract = async (e, request_id, type_id) => {
             "request_type": type_id === 1 ? 4 : 5,
         })
     })
-        .then(alert('Заявка извлечена из архива'))
+        .then(data => alert('Заявка извлечена из архива'))
+        .then(() => setNeedUpdateTable(true))
         .catch(error => console.log(error))
 };
 
-const OptionsCell = ({ dataItem }, profileType, setErrorReport) => {
+const OptionsCell = ({ dataItem }, profileType, setErrorReport, setNeedUpdateTable) => {
     const [open, setOpen] = useState(false);
     const { type_id, status_id, id, dearchiving_allowed, can_error_report } = dataItem;
     const { route } = useParams();
@@ -114,7 +115,7 @@ const OptionsCell = ({ dataItem }, profileType, setErrorReport) => {
         text: 'Восстановить',
         disabled: dearchiving_allowed ? false : true,
         render: ({ item }) => <span className="row-control__link"
-            onClick={e => handleExtract(e, id, type_id)}>{item.text}
+            onClick={e => handleExtract(e, id, type_id, setNeedUpdateTable)}>{item.text}
         </span>
     }].filter(o => !o.disabled);
 
@@ -147,7 +148,7 @@ const handleClick = async (e, id, profileType) => {
     el.className = 'download-document';
 };
 
-const Table = ({ documents, profileType, exporting, setExporting, fullScreen, distinction, setErrorReport }) => {
+const Table = ({ documents, profileType, exporting, setExporting, fullScreen, distinction, setErrorReport, setNeedUpdateTable }) => {
     const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [isArchive, setIsArchive] = useState(false);
@@ -290,7 +291,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                             onDataStateChange={handleGridDataChange}
                             style={{ height: "700px", width: "auto", margin: "0 auto" }}>
                             <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции"
-                                cell={props => OptionsCell(props, profileType, setErrorReport)} />
+                                cell={props => OptionsCell(props, profileType, setErrorReport, setNeedUpdateTable)} />
                             <GridColumn field="status_value" cell={StatusCell} title="Статус"
                                 width={fullScreen ? '62px' : '61px'} />
                             <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '160px' : '80px'}

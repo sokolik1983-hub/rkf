@@ -95,6 +95,7 @@ const ReplaceRegistry = ({ isOpenFilters, setShowFilters }) => {
                 exporting={exporting}
                 setExporting={setExporting}
                 fullScreen
+                setNeedUpdateTable={setNeedUpdateTable}
             />
         </Card>
             : <Card className="club-documents-status">
@@ -136,6 +137,7 @@ const ReplaceRegistry = ({ isOpenFilters, setShowFilters }) => {
                             setErrorReport={setErrorReport}
                             exporting={exporting}
                             setExporting={setExporting}
+                            setNeedUpdateTable={setNeedUpdateTable}
                         />
                     </div>
                     : <div className="club-documents-status__plug">

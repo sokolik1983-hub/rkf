@@ -64,7 +64,7 @@ const ArchiveCell = ({ dataItem }) => {
     return isArchive ? <td>{date_change}</td> : (countStatus && archive_days_left > 0) ? <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ? <td>{`В очереди на архивацию`}</td> : <td></td>;
 };
 
-const handleExtract = async (e, request_id) => {
+const handleExtract = async (e, request_id, setNeedUpdateTable) => {
     e.preventDefault();
     await fetch(`/api/requests/commonrequest/dearchive_request`, {
         method: 'POST',
@@ -75,10 +75,11 @@ const handleExtract = async (e, request_id) => {
         })
     })
         .then(data => alert('Заявка извлечена из архива'))
+        .then(() => setNeedUpdateTable(true))
         .catch(error => console.log(error))
 };
 
-const OptionsCell = ({ dataItem }, setErrorReport) => {
+const OptionsCell = ({ dataItem }, setErrorReport, setNeedUpdateTable) => {
     const [open, setOpen] = useState(false);
     const { status_id, type_id, id, can_error_report, dearchiving_allowed } = dataItem;
     const { route } = useParams();
@@ -103,7 +104,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
         text: 'Восстановить',
         disabled: dearchiving_allowed ? false : true,
         render: ({ item }) => <span className="row-control__link"
-            onClick={e => handleExtract(e, id)}>{item.text}</span>
+            onClick={e => handleExtract(e, id, setNeedUpdateTable)}>{item.text}</span>
     }].filter(o => !o.disabled);
 
     return <td>
@@ -111,7 +112,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
     </td>
 };
 
-const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport, exporting, setExporting, fullScreen }) => {
+const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport, exporting, setExporting, fullScreen, setNeedUpdateTable }) => {
     const gridPDFExport = useRef(null);
     const [success, setSuccess] = useState(false);
     const [isArchive, setIsArchive] = useState(false);
@@ -261,7 +262,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
                         style={{ height: "700px", width: "auto", margin: "0 auto" }}>
-                        <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции" cell={props => OptionsCell(props, setErrorReport)} />
+                        <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции" cell={props => OptionsCell(props, setErrorReport, setNeedUpdateTable)} />
                         <GridColumn field="status_value" cell={StatusCell} title="Статус" width={fullScreen ? '62px' : '61px'} />
                         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
                         <GridColumn field="id" title="№ заявки" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />

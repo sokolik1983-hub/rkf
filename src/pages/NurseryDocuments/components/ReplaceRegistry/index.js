@@ -94,6 +94,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 exporting={exporting}
                 setExporting={setExporting}
                 fullScreen
+                setNeedUpdateTable={setNeedUpdateTable}
             />
         </Card>
             :
@@ -136,6 +137,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                             setErrorReport={setErrorReport}
                             exporting={exporting}
                             setExporting={setExporting}
+                            setNeedUpdateTable={setNeedUpdateTable}
                         />
                     </div>
                     : <div className="nursery-documents-status__plug">

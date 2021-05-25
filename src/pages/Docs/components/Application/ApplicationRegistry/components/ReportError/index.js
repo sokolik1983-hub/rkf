@@ -31,7 +31,7 @@ const config = {
     })
 };
 
-const ReportErrorForm = ({ id, setIsOpen }) => {
+const ReportErrorForm = ({ id, setIsOpen, setNeedUpdateTable }) => {
     const [errorAlert, setErrorAlert] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -41,6 +41,7 @@ const ReportErrorForm = ({ id, setIsOpen }) => {
     };
     const handleSusccess = () => {
         setSuccessAlert(true);
+        setNeedUpdateTable(prevState => !prevState);
     };
     const { fields } = config;
     const initialValues = {
@@ -88,7 +89,7 @@ const ReportErrorForm = ({ id, setIsOpen }) => {
     </div>
 };
 
-const ReportError = ({ id, onErrorReport }) => {
+const ReportError = ({ id, onErrorReport, setNeedUpdateTable }) => {
     const [isModalOpen, setIsModalOpen] = useState(true);
 
     const handleClose = () => {
@@ -105,7 +106,11 @@ const ReportError = ({ id, onErrorReport }) => {
                 noBackdrop={true}
                 className="status-table__modal"
             >
-                <ReportErrorForm id={id} setIsOpen={handleClose} />
+                <ReportErrorForm
+                    id={id}
+                    setIsOpen={handleClose}
+                    setNeedUpdateTable={setNeedUpdateTable}
+                />
             </Modal>
         </div>
     </li>

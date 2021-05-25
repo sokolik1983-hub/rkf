@@ -8,6 +8,7 @@ import AccardionItem from "./AccardionItem";
 const Declarants = ({ id, distinction }) => {
     const [declarants, setDeclarants] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [needUpdate, setNeedUpdate] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -21,7 +22,7 @@ const Declarants = ({ id, distinction }) => {
                 console.log(error.response);
                 setLoading(false);
             }))();
-    }, []);
+    }, [needUpdate]);
 
     return loading ?
         <Loading /> :
@@ -33,7 +34,11 @@ const Declarants = ({ id, distinction }) => {
                     <ul className="declarants__accardion">
                         {declarants.map(declarant =>
                             <li className="declarants__accardion-item" key={declarant.id}>
-                                <AccardionItem {...declarant} distinction={distinction} />
+                                <AccardionItem
+                                    {...declarant}
+                                    distinction={distinction}
+                                    setNeedUpdate={setNeedUpdate}
+                                />
                             </li>
                         )}
                     </ul>

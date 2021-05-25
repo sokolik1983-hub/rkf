@@ -71,6 +71,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
             setExporting={setExporting}
             setErrorReport={setErrorReport}
             fullScreen
+            setNeedUpdateTable={setNeedUpdateTable}
         />
     </Card>
         :
@@ -107,6 +108,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                         setExporting={setExporting}
                         distinction={distinction}
                         setErrorReport={setErrorReport}
+                        setNeedUpdateTable={setNeedUpdateTable}
                     />
                 </div> :
                 <div className="user-documents-status__plug">

@@ -19,6 +19,7 @@ const ApplicationRegistry = () => {
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
     const [errorReport, setErrorReport] = useState(null);
+    const [needUpdateTable, setNeedUpdateTable] = useState(false);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
 
@@ -39,7 +40,7 @@ const ApplicationRegistry = () => {
             console.log(error.response);
             setLoading(false);
         }))();
-    }, []);
+    }, [needUpdateTable]);
 
     return loading ?
         <Loading /> :
@@ -70,6 +71,7 @@ const ApplicationRegistry = () => {
                     setExporting={setExporting}
                     setErrorReport={setErrorReport}
                     fullScreen
+                    setNeedUpdateTable={setNeedUpdateTable}
                 />
             </Card>
             :
@@ -105,6 +107,7 @@ const ApplicationRegistry = () => {
                             exporting={exporting}
                             setExporting={setExporting}
                             setErrorReport={setErrorReport}
+                            setNeedUpdateTable={setNeedUpdateTable}
                         />
                     </div>
                     : <div className="user-documents-status__plug">
@@ -112,7 +115,11 @@ const ApplicationRegistry = () => {
                         <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>
                 }
-                {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+                {errorReport && <ReportError
+                    id={errorReport}
+                    onErrorReport={id => setErrorReport(id)}
+                    setNeedUpdateTable={setNeedUpdateTable}
+                />}
             </Card>
 };
 

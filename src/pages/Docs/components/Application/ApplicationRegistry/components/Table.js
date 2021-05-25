@@ -77,7 +77,7 @@ const LinkCell = ({ dataItem }) => {
     </td>
 };
 
-const handleExtract = async (e, request_id) => {
+const handleExtract = async (e, request_id, setNeedUpdateTable) => {
     e.preventDefault();
     await fetch(`/api/requests/commonrequest/dearchive_request`, {
         method: 'POST',
@@ -87,11 +87,12 @@ const handleExtract = async (e, request_id) => {
             "request_type": 6,
         })
     })
-        .then(alert('Заявка извлечена из архива'))
+        .then(data => alert('Заявка извлечена из архива'))
+        .then(() => setNeedUpdateTable(true))
         .catch(error => console.log(error))
 };
 
-const OptionsCell = ({ dataItem }, setErrorReport) => {
+const OptionsCell = ({ dataItem }, setErrorReport, setNeedUpdateTable) => {
     const [open, setOpen] = useState(false);
     const { status_id, id, is_title_fci, can_error_report, dearchiving_allowed } = dataItem;
     const { route } = useParams();
@@ -119,7 +120,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
         text: 'Восстановить',
         disabled: dearchiving_allowed ? false : true,
         render: ({ item }) => <span className="row-control__link"
-            onClick={e => handleExtract(e, id)}>{item.text}</span>
+            onClick={e => handleExtract(e, id, setNeedUpdateTable)}>{item.text}</span>
     }].filter(o => !o.disabled);
 
     return <td><DropDownButton icon={`k-icon k-i-arrow-chevron-${open ? `up` : `down`}`} onOpen={() => setOpen(true)}
@@ -149,7 +150,7 @@ const handleClick = async (e, id) => {
     el.className = 'download-document';
 };
 
-const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport }) => {
+const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport, setNeedUpdateTable }) => {
     const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [isArchive, setIsArchive] = useState(false);
@@ -294,7 +295,7 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
                             onDataStateChange={handleGridDataChange}
                             style={{ height: "700px", width: "auto", margin: '0 auto' }}>
                             <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции"
-                                cell={props => OptionsCell(props, setErrorReport)} />
+                                cell={props => OptionsCell(props, setErrorReport, setNeedUpdateTable)} />
                             <GridColumn field="status_value" cell={StatusCell} title="Статус"
                                 width={fullScreen ? '62px' : '61px'} />
                             <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'}

@@ -16,7 +16,7 @@ const formatCountTime = (str) => {
 }
 
 
-const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, stamp_code, status, status_id, id, declarant_uid, count_time, dearchiving_allowed, distinction }) => {
+const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, stamp_code, status, status_id, id, declarant_uid, count_time, dearchiving_allowed, distinction, setNeedUpdate }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isNestedOpen, setIsNestedOpen] = useState(false);
 
@@ -31,6 +31,7 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
             })
         })
             .then(data => alert('Заявка извлечена из архива'))
+            .then(() => setNeedUpdate(true))
             .catch(error => console.log(error))
     };
 

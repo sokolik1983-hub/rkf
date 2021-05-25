@@ -70,6 +70,7 @@ const ApplicationRegistry = ({ history }) => {
             setExporting={setExporting}
             setErrorReport={setErrorReport}
             fullScreen
+            setNeedUpdateTable={setNeedUpdateTable}
         />
     </Card>
         :
@@ -105,6 +106,7 @@ const ApplicationRegistry = ({ history }) => {
                         exporting={exporting}
                         setExporting={setExporting}
                         setErrorReport={setErrorReport}
+                        setNeedUpdateTable={setNeedUpdateTable}
                     />
                 </div>
                 : <div className="user-documents-status__plug">
@@ -112,7 +114,11 @@ const ApplicationRegistry = ({ history }) => {
                     <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                 </div>
             }
-            {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+            {errorReport && <ReportError
+                setNeedUpdateTable={setNeedUpdateTable}
+                id={errorReport}
+                onErrorReport={id => setErrorReport(id)}
+            />}
         </Card>
 };
 
