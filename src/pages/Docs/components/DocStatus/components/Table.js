@@ -42,7 +42,7 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
         },
         {
             text: 'Редактировать',
-            disabled: status_id === 4 ? false : true,
+            disabled: (status_id === 4 && !date_archive) ? false : true,
             render: ({ item }) => <Link
                 className="club-documents-status__dropdown-link"
                 to={`/${route}/documents/${distinction}/${id}/form`}>{item.text}</Link>
@@ -63,7 +63,7 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
         },
         {
             text: 'Удалить черновик',
-            disabled: status_id === 4 ? false : true,
+            disabled: (status_id === 4 && !date_archive) ? false : true,
             render: ({ item }) => <span onClick={() => deleteRow(id)}>{item.text}</span>
         }
     ].filter(o => !o.disabled);

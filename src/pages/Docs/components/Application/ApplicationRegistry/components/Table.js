@@ -93,7 +93,7 @@ const handleExtract = async (e, request_id) => {
 
 const OptionsCell = ({ dataItem }, setErrorReport) => {
     const [open, setOpen] = useState(false);
-    const { status_id, id, is_title_fci, status_name, dearchiving_allowed } = dataItem;
+    const { status_id, id, is_title_fci, can_error_report, dearchiving_allowed } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
@@ -111,7 +111,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
     },
     {
         text: 'Сообщить об ошибке',
-        disabled: (status_id === 3 && !is_title_fci) || (status_id === 8 && status_name === 'Выполнена') ? false : true,
+        disabled: (status_id === 3 && !is_title_fci) || can_error_report ? false : true,
         render: ({ item }) => <span className="row-control__link"
             onClick={() => setErrorReport(id)}>{item.text}</span>
     },

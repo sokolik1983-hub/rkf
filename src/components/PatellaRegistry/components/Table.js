@@ -85,7 +85,7 @@ const handleExtract = async (e, request_id, type_id) => {
 
 const OptionsCell = ({ dataItem }, profileType, setErrorReport) => {
     const [open, setOpen] = useState(false);
-    const { type_id, status_id, id, dearchiving_allowed, status_name } = dataItem;
+    const { type_id, status_id, id, dearchiving_allowed, can_error_report } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
@@ -105,7 +105,7 @@ const OptionsCell = ({ dataItem }, profileType, setErrorReport) => {
     },
     {
         text: 'Сообщить об ошибке',
-        disabled: (status_id === 3) || (status_id === 8 && status_name === 'Выполнена') ? false : true,
+        disabled: (status_id === 3) || can_error_report ? false : true,
         render: ({ item }) => <span className="row-control__link"
             onClick={() => setErrorReport(id)}>{item.text}
         </span>

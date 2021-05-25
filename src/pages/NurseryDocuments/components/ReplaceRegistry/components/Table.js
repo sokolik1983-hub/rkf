@@ -78,7 +78,7 @@ const handleExtract = async (e, request_id) => {
 
 const OptionsCell = ({ dataItem }, setErrorReport) => {
     const [open, setOpen] = useState(false);
-    const { status_id, type_id, id, status_name, dearchiving_allowed } = dataItem;
+    const { status_id, type_id, id, can_error_report, dearchiving_allowed } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
@@ -94,7 +94,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
             to={`/kennel/${route}/documents/replace-pedigree/${type_id}/edit/${id}`}>{item.text}</Link>
     }, {
         text: 'Сообщить об ошибке кинолога',
-        disabled: (status_id === 3) || (status_id === 8 && status_name === 'Выполнена') ? false : true,
+        disabled: (status_id === 3) || can_error_report ? false : true,
         render: ({ item }) => <span onClick={() => setErrorReport(id)}>{item.text}</span>
     },
     {
