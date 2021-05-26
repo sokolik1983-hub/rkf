@@ -5,10 +5,9 @@ import "./index.scss";
 import AccardionItem from "./AccardionItem";
 
 
-const Declarants = ({ id, distinction }) => {
+const Declarants = ({ id, distinction, needUpdateTable, setNeedUpdateTable }) => {
     const [declarants, setDeclarants] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [needUpdate, setNeedUpdate] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -16,13 +15,14 @@ const Declarants = ({ id, distinction }) => {
         },
             data => {
                 setDeclarants(data);
+                setNeedUpdateTable(false);
                 setLoading(false);
             },
             error => {
                 console.log(error.response);
                 setLoading(false);
             }))();
-    }, [needUpdate]);
+    }, [needUpdateTable]);
 
     return loading ?
         <Loading /> :
@@ -37,7 +37,7 @@ const Declarants = ({ id, distinction }) => {
                                 <AccardionItem
                                     {...declarant}
                                     distinction={distinction}
-                                    setNeedUpdate={setNeedUpdate}
+                                    setNeedUpdateTable={setNeedUpdateTable}
                                 />
                             </li>
                         )}

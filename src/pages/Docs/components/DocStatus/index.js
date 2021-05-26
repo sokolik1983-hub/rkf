@@ -22,6 +22,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
     const [isArchivePkg, setIsArchivePkg] = useState(false);
+    const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -37,13 +38,14 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                     date_archive: date_archive ? moment(date_archive).format('DD.MM.YY') : null,
                     ...rest
                 })));
+                setNeedUpdateTable(false);
                 setLoading(false);
             },
             error => {
                 console.log(error.response);
                 setLoading(false);
             }))();
-    }, []);
+    }, [needUpdateTable]);
 
     const rowClick = id => Request({
         url: distinction === 'pedigree'
@@ -213,6 +215,8 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                     <Declarants
                         id={showModal}
                         distinction={distinction}
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        needUpdateTable={needUpdateTable}
                     />
                 </Modal>}
             </Card>

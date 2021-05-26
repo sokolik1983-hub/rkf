@@ -16,7 +16,7 @@ const formatCountTime = (str) => {
 }
 
 
-const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, stamp_code, status, status_id, id, declarant_uid, count_time, dearchiving_allowed, distinction, setNeedUpdate }) => {
+const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, stamp_code, status, status_id, id, declarant_uid, count_time, dearchiving_allowed, distinction, can_error_report, setNeedUpdateTable }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isNestedOpen, setIsNestedOpen] = useState(false);
 
@@ -31,11 +31,11 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
             })
         })
             .then(data => alert('Заявка извлечена из архива'))
-            .then(() => setNeedUpdate(true))
+            .then(setNeedUpdateTable(true))
             .catch(error => console.log(error))
     };
 
-    const isReportable = pedigree_link && (status_id === 10 || status_id === 6);
+    const isReportable = pedigree_link && (status_id === 10 || status_id === 6 || can_error_report);
 
     return (
         <div className={`accordion-item${isOpen ? ' accordion-item--opened' : ''}`}>
@@ -66,7 +66,9 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
                             <ReportError
                                 id={id}
                                 declarant_uid={declarant_uid}
-                                setIsNestedOpen={setIsNestedOpen} />
+                                setIsNestedOpen={setIsNestedOpen}
+                                setNeedUpdateTable={setNeedUpdateTable}
+                            />
                         </div>
                     </div>}
                     {count_time && <p><span>До получения родословной осталось: </span>{formatCountTime(count_time)}</p>}

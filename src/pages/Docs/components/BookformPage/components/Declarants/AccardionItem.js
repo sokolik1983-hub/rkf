@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {formatDateWithTime} from "../../../../../../utils";
+import { formatDateWithTime } from "../../../../../../utils";
 import ReportError from './components/ReportError';
 
 const formatCountTime = (str) => {
@@ -9,15 +9,16 @@ const formatCountTime = (str) => {
     const hours = +timeArray[0];
     const minutes = +timeArray[1];
 
-    return `${days ? days + 'д. ': ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
+    return `${days ? days + 'д. ' : ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
 }
 
 
-const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, status, status_id, id, declarant_uid, count_time }) => {
+const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, status, status_id, id, declarant_uid, count_time,
+    can_error_report }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isNestedOpen, setIsNestedOpen] = useState(false);
 
-    const isReportable = status_id === 10 || status_id === 6;
+    const isReportable = status_id === 10 || status_id === 6 || can_error_report;
 
     return (
         <div className={`accordion-item${isOpen ? ' accordion-item--opened' : ''}`}>
