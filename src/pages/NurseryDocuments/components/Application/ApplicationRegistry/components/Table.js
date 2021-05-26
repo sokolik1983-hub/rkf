@@ -170,8 +170,9 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport,
         let newDataState = { ...gridData }
         if (e.value === "1" || e.value === "2" || e.value === "3") {
             newDataState.filter = {
-                logic: 'and',
-                filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]
+                logic: 'or',
+                filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] },
+                { field: 'prev_status_id', operator: 'eq', value: e.value[0] }]
             }
             newDataState.skip = 0
         } else {
