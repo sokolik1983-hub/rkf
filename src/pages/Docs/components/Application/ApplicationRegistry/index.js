@@ -13,12 +13,13 @@ import ReportError from './components/ReportError';
 import "./index.scss";
 
 
-const ApplicationRegistry = ({ history }) => {
+const ApplicationRegistry = () => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
     const [errorReport, setErrorReport] = useState(null);
+    const [needUpdateTable, setNeedUpdateTable] = useState(false);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
 
@@ -29,10 +30,9 @@ const ApplicationRegistry = ({ history }) => {
         }, data => {
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
-            }).map(({ date_change, date_create, date_archive, ...rest }) => ({
+            }).map(({ date_change, date_create, ...rest }) => ({
                 date_change: moment(date_change).format('DD.MM.YY'),
                 date_create: moment(date_create).format('DD.MM.YY'),
-                date_archive: date_archive ? moment(date_archive).format('DD.MM.YY') : null,
                 ...rest
             })));
             setLoading(false);
@@ -40,7 +40,7 @@ const ApplicationRegistry = ({ history }) => {
             console.log(error.response);
             setLoading(false);
         }))();
-    }, []);
+    }, [needUpdateTable]);
 
     return loading ?
         <Loading /> :
@@ -71,6 +71,7 @@ const ApplicationRegistry = ({ history }) => {
                     setExporting={setExporting}
                     setErrorReport={setErrorReport}
                     fullScreen
+                    setNeedUpdateTable={setNeedUpdateTable}
                 />
             </Card>
             :
@@ -106,6 +107,7 @@ const ApplicationRegistry = ({ history }) => {
                             exporting={exporting}
                             setExporting={setExporting}
                             setErrorReport={setErrorReport}
+                            setNeedUpdateTable={setNeedUpdateTable}
                         />
                     </div>
                     : <div className="user-documents-status__plug">
@@ -113,7 +115,11 @@ const ApplicationRegistry = ({ history }) => {
                         <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>
                 }
-                {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+                {errorReport && <ReportError
+                    id={errorReport}
+                    onErrorReport={id => setErrorReport(id)}
+                    setNeedUpdateTable={setNeedUpdateTable}
+                />}
             </Card>
 };
 

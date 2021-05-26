@@ -30,10 +30,9 @@ const ApplicationRegistry = ({ history }) => {
         }, data => {
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
-            }).map(({ date_change, date_create, date_archive, ...rest }) => ({
+            }).map(({ date_change, date_create, ...rest }) => ({
                 date_change: moment(date_change).format('DD.MM.YY'),
                 date_create: moment(date_create).format('DD.MM.YY'),
-                date_archive: date_archive ? moment(date_archive).format('DD.MM.YY') : null,
                 ...rest
             })));
             setLoading(false);
@@ -72,6 +71,7 @@ const ApplicationRegistry = ({ history }) => {
                     setExporting={setExporting}
                     setErrorReport={setErrorReport}
                     fullScreen
+                    setNeedUpdateTable={setNeedUpdateTable}
                 />
             </Card>
             :
@@ -107,6 +107,7 @@ const ApplicationRegistry = ({ history }) => {
                             exporting={exporting}
                             setExporting={setExporting}
                             setErrorReport={setErrorReport}
+                            setNeedUpdateTable={setNeedUpdateTable}
                         />
                     </div>
                     : <div className="user-documents-status__plug">
@@ -114,7 +115,11 @@ const ApplicationRegistry = ({ history }) => {
                         <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>
                 }
-                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+                {errorReport && <ReportError
+                    setNeedUpdateTable={setNeedUpdateTable}
+                    id={errorReport}
+                    onErrorReport={id => setErrorReport(id)}
+                />}
             </Card>
 };
 

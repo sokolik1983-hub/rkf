@@ -59,36 +59,64 @@ const LinkCell = ({ dataItem }) => {
 };
 
 const ArchiveCell = ({ dataItem }) => {
-    const { status_id, archive_days_left, date_archive } = dataItem;
+    const { status_id, archive_days_left, date_change } = dataItem;
     const countStatus = status_id === 1 || status_id === 3;
+    const isArchive = status_id === 8;
 
-    return date_archive ? <td>{date_archive}</td> : (countStatus && archive_days_left > 0) ? <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ? <td>{`Архивировано сегодня`}</td> : <td></td>;
+    return isArchive ? <td>{date_change}</td> : (countStatus && archive_days_left > 0) ? <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ? <td>{`Архивировано сегодня`}</td> : <td></td>;
 };
 
-const OptionsCell = ({ dataItem }, setErrorReport) => {
+const handleExtract = async (e, request_id, type_id, setNeedUpdateTable) => {
+    e.preventDefault();
+    await fetch(`/api/requests/commonrequest/dearchive_request`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({
+            "request_id": request_id,
+            "request_type": type_id === 1 ? 4 : 5,
+        })
+    })
+        .then(data => alert('Заявка извлечена из архива'))
+        .then(() => setNeedUpdateTable(true))
+        .catch(error => console.log(error))
+};
+
+const OptionsCell = ({ dataItem }, setErrorReport, setNeedUpdateTable) => {
     const [open, setOpen] = useState(false);
-    const { type_id, status_id, id, date_archive } = dataItem;
+    const { type_id, status_id, id, dearchiving_allowed, can_error_report } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
+        disabled: status_id === 8,
         render: ({ item }) => <Link
             to={`/user/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/view/${id}`}
-            className="row-control__link">{item.text}</Link>
+            className="row-control__link">{item.text}
+        </Link>
     },
     {
         text: 'Ответить',
-        disabled: status_id === 1 ? false : true,
+        disabled: status_id !== 1,
         render: ({ item }) => <Link
             to={`/user/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/edit/${id}`}
-            className="row-control__link">{item.text}</Link>
+            className="row-control__link">{item.text}
+        </Link>
     },
     {
         text: 'Сообщить об ошибке',
-        disabled: status_id === 3 ? false : true,
+        disabled: (status_id === 3) || can_error_report ? false : true,
         render: ({ item }) => <span className="row-control__link" onClick={() => setErrorReport(id)}>{item.text}</span>
+    },
+    {
+        text: 'Восстановить',
+        disabled: dearchiving_allowed ? false : true,
+        render: ({ item }) => <span className="row-control__link"
+            onClick={e => handleExtract(e, id, type_id, setNeedUpdateTable)}>{item.text}
+        </span>
     }].filter(o => !o.disabled);
 
-    return date_archive ? <td></td> : <td><DropDownButton icon={`k-icon k-i-arrow-chevron-${open ? `up` : `down`}`} onOpen={() => setOpen(true)} onClose={() => setOpen(false)} items={options} /></td>
+    return <td>
+        <DropDownButton icon={`k-icon k-i-arrow-chevron-${open ? `up` : `down`}`} onOpen={() => setOpen(true)} onClose={() => setOpen(false)} items={options} />
+    </td>
 };
 
 const handleClick = async (e, id) => {
@@ -114,7 +142,7 @@ const handleClick = async (e, id) => {
     el.className = 'download-document';
 };
 
-const Table = ({ documents, fullScreen, exporting, setExporting, distinction, setErrorReport }) => {
+const Table = ({ documents, fullScreen, exporting, setExporting, distinction, setErrorReport, setNeedUpdateTable }) => {
     const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [isArchive, setIsArchive] = useState(false);
@@ -123,7 +151,7 @@ const Table = ({ documents, fullScreen, exporting, setExporting, distinction, se
         sort: []
     });
 
-    let filteredDocuments = isArchive ? documents : documents?.filter(i => Boolean(i.date_archive) !== true);
+    let filteredDocuments = isArchive ? documents : documents?.filter(doc => doc.status_id !== 8);
 
     useEffect(() => {
         setSelectedDocument();
@@ -146,8 +174,9 @@ const Table = ({ documents, fullScreen, exporting, setExporting, distinction, se
         let newDataState = { ...gridData }
         if (e.value === "1" || e.value === "2" || e.value === "3") {
             newDataState.filter = {
-                logic: 'and',
-                filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]
+                logic: 'or',
+                filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] },
+                { field: 'prev_status_id', operator: 'eq', value: e.value[0] }]
             }
             newDataState.skip = 0
         } else {
@@ -190,7 +219,7 @@ const Table = ({ documents, fullScreen, exporting, setExporting, distinction, se
 
     const rowRender = (trElement, props) => {
         const status = props.dataItem.status_id;
-        const isArchive = props.dataItem.date_archive;
+        const isArchive = props.dataItem.status_id === 8;
         const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
         const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
         const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
@@ -249,7 +278,7 @@ const Table = ({ documents, fullScreen, exporting, setExporting, distinction, se
                             {...gridData}
                             onDataStateChange={handleGridDataChange}
                             style={{ height: "700px", width: "auto", margin: '0 auto' }}>
-                            <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции" cell={props => OptionsCell(props, setErrorReport)} />
+                            <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции" cell={props => OptionsCell(props, setErrorReport, setNeedUpdateTable)} />
                             <GridColumn field="status_value" cell={StatusCell} title="Статус" width={fullScreen ? '62px' : '61px'} />
                             <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} />
                             <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} />

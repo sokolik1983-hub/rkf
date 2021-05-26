@@ -28,7 +28,7 @@ const config = {
     })
 };
 
-const ReportError = ({ id, declarant_uid, setIsNestedOpen }) => {
+const ReportError = ({ id, declarant_uid, setIsNestedOpen, setNeedUpdateTable }) => {
     const [errorAlert, setErrorAlert] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -39,6 +39,7 @@ const ReportError = ({ id, declarant_uid, setIsNestedOpen }) => {
     const handleSusccess = () => {
         setSuccessAlert(true);
         setIsNestedOpen(false);
+        setNeedUpdateTable(true);
     };
     const { fields } = config;
     const initialValues = {

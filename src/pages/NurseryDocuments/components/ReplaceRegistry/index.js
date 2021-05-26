@@ -46,7 +46,8 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
         ]).then(data => {
             setDocuments(data[0].sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
-            }).map(({ date_create, ...rest }) => ({
+            }).map(({ date_change, date_create, ...rest }) => ({
+                date_change: moment(date_change).format('DD.MM.YY'),
                 date_create: moment(date_create).format('DD.MM.YY'),
                 ...rest
             })));
@@ -84,7 +85,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
             <Table
                 documents={documents
                     .sort((a, b) => new Date(b.date_create).getTime() - new Date(a.date_create).getTime())
-                    .filter(x => x && checkedTypes.includes(x.type_id) && [1, 2, 3, 4].includes(x.status_id))}
+                    .filter(x => x && checkedTypes.includes(x.type_id) && [1, 2, 3, 4, 8].includes(x.status_id))}
                 reqTypes={reqTypes}
                 checkedTypes={checkedTypes}
                 checkType={checkType}
@@ -93,6 +94,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 exporting={exporting}
                 setExporting={setExporting}
                 fullScreen
+                setNeedUpdateTable={setNeedUpdateTable}
             />
         </Card>
             :
@@ -127,7 +129,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                         <Table
                             documents={documents
                                 .sort((a, b) => new Date(b.date_create).getTime() - new Date(a.date_create).getTime())
-                                .filter(x => x && checkedTypes.includes(x.type_id) && [1, 2, 3, 4].includes(x.status_id))}
+                                .filter(x => x && checkedTypes.includes(x.type_id) && [1, 2, 3, 4, 8].includes(x.status_id))}
                             reqTypes={reqTypes}
                             checkedTypes={checkedTypes}
                             checkType={checkType}
@@ -135,6 +137,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                             setErrorReport={setErrorReport}
                             exporting={exporting}
                             setExporting={setExporting}
+                            setNeedUpdateTable={setNeedUpdateTable}
                         />
                     </div>
                     : <div className="nursery-documents-status__plug">
