@@ -177,7 +177,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                                 isExhibitionPage={true}
                                             />
                                         }
-                                        {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} /> && 
+                                        {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} /> }
+                                        {!isMobile &&
                                         <UserPhotoGallery
                                             alias={club_alias}
                                             pageLink={`/${club_alias}/gallery`}
