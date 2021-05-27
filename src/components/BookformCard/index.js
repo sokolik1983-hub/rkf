@@ -182,7 +182,7 @@ const BookformCard = ({ url, distinction }) => {
                     setShowZlineModal(false);
                 }}
             >
-                <iframe src={'http://zsdev.uep24.ru/widgets/registration-for-service?id=72'} title="unique_iframe" />
+                <iframe src={'https://zline.me/widgets/registration-for-service?id=10'} title="unique_iframe" />
             </ZlineModal>
             {showAlert &&
                 <Alert
