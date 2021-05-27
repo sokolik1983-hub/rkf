@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Loading from "../Loading";
 import Card from "../Card";
 import Modal from "../Modal";
+import ZlineModal from "./components/ZlineModal";
 import Alert from "../Alert";
 import { Request } from "../../utils/request";
 import ls from "local-storage";
@@ -51,9 +52,9 @@ const BookformCard = ({ url, distinction }) => {
     const [color, setColor] = useState('');
     const [headerName, setHeaderName] = useState('');
     const [authorizedAccess, setAuthorizedAccess] = useState(true);
+    const [showZlineModal, setShowZlineModal] = useState(false);
 
     const user_type = ls.get('user_info') ? ls.get('user_info').user_type : '';
-    const user_email = ls.get('user_info') ? ls.get('user_info').mail : '';
 
     useEffect(() => {
         if (user_type === 4) {
@@ -100,22 +101,10 @@ const BookformCard = ({ url, distinction }) => {
         }
     };
 
-    const correspondenceURL = `https://zline.me/widgets/registration-for-service?service_id=27&email=` + user_email;
 
-    const handleZlineClick = (e, targetUrl, rkf) => {
+    const handleZlineClick = (e) => {
         e.preventDefault();
-        (() => Request({
-            url: `/api/registration/user_info_for_zline_session_registration?alias=rkf`
-        }, data => {
-            setLink(targetUrl + (data.first_name ? `&first_name=${data.first_name.replaceAll(' ', '_')}` : '') + (data.last_name ? `&last_name=${data.last_name.replaceAll(' ', '_')}` : '') + (data.phone ? `&phone=${data.phone.replaceAll(' ', '_')}` : '') + (data.additional_info ? `&additional_info=${data.additional_info.replaceAll(' ', '_')}` : ''));
-            setColor('_blue');
-            setHeaderName(`Запись в ${rkf ? 'РКФ' : federation}`);
-            setShowModal(true);
-            setLoading(false);
-        }, error => {
-            console.log(error.response);
-            setLoading(false);
-        }))();
+        setShowZlineModal(true);
     };
 
 
@@ -141,7 +130,7 @@ const BookformCard = ({ url, distinction }) => {
                     <Link to={`/`} onClick={e => handleClick(e, true)}>Запись в РКФ</Link>
                 </div>
                 <div className="Card__links">
-                    <Link to={`/`} onClick={e => handleZlineClick(e, correspondenceURL, true)}>Подача корреспонденции в РКФ</Link>
+                    <Link to={`/`} onClick={e => handleZlineClick(e)}>Подача корреспонденции в РКФ</Link>
                 </div>
             </div>
         </Card>
@@ -188,6 +177,13 @@ const BookformCard = ({ url, distinction }) => {
             >
                 <iframe src={link} title="unique_iframe" />
             </Modal>
+            <ZlineModal showModal={showZlineModal}
+                handleClose={() => {
+                    setShowZlineModal(false);
+                }}
+            >
+                <iframe src={'http://zsdev.uep24.ru/widgets/registration-for-service?id=72'} title="unique_iframe" />
+            </ZlineModal>
             {showAlert &&
                 <Alert
                     text="Ваша организация не приписана ни к одной федерации. Для уточнения деталей обратитесь в Центр Поддержки."
