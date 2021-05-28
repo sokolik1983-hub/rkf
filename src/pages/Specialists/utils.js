@@ -19,7 +19,10 @@ const buildUrlParams = filter => {
                 if (filter[key].length) {
                     params = params + filter[key].map(r => `${key}=${r}&`).join('');
                 }
-            } else {
+            } else if (key === 'StringFilter') {
+                params = params + `${key}=${filter[key]}&`;
+            }
+            else {
                 params = params + `${key}=${filter[key]}&`;
             }
         }
@@ -53,6 +56,8 @@ export const getFiltersFromUrl = () => {
 
             if (key === 'CityIds' || key === 'ClassificationId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
+            } else if (key === 'StringFilter') {
+                filtersFromUrl[key] = key === 'StringFilter' ? value : value;
             } else {
                 filtersFromUrl[key] = key === 'PageNumber' ? +value : value;
             }
@@ -85,7 +90,8 @@ export const getEmptyFilters = (alias = null) => ({
     PaymentFormTypeIds: [],
     SearchTypeId: 1,
     DateFrom: formatDateToString(new Date()),
-    DateTo: null
+    DateTo: null,
+    StringFilter: ''
 });
 
 export const getInitialFilters = () => {
