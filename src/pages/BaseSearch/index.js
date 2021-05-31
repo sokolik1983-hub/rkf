@@ -42,6 +42,7 @@ const BaseSearch = ({isAuthenticated}) => {
     const [publication_clicked, setPublicationClicked] = useState(false);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
+    const [litterClicks, setLitterClicks] = useState(null);
     const isMobile = useIsMobile();
     const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
     useEffect(() => {
@@ -76,6 +77,7 @@ const BaseSearch = ({isAuthenticated}) => {
         setStampClicked(false);
         setRefereeClicked(false);
         setPublicationClicked(false);
+        setLitterClicks(false)
     };
 
     useTimeOut(handleActiveReset, 2000);
@@ -106,6 +108,7 @@ const BaseSearch = ({isAuthenticated}) => {
                                 setStampClicked={setStampClicked}
                                 setRefereeClicked={setRefereeClicked}
                                 setPublicationClicked={setPublicationClicked}
+                                setLitterClicks={setLitterClicks}
                             />
                         }
                         <div className="base-search__content">
@@ -114,7 +117,7 @@ const BaseSearch = ({isAuthenticated}) => {
                             <CheckRegistration registration_clicked={registration_clicked} />
                             <StampSearch stamp_clicked={stamp_clicked} />
 
-                            {isAuthenticated && userType === 3 && <CheckLitterStatus status_clicked={status_clicked} />}
+                            {isAuthenticated && userType === 3 && <CheckLitterStatus litterClicks={litterClicks} />}
 
                             <RefereeSearch referee_clicked={referee_clicked} />
                             <PublicationSearch publication_clicked={publication_clicked} />
@@ -137,6 +140,9 @@ const BaseSearch = ({isAuthenticated}) => {
                                                         setStampClicked={setStampClicked}
                                                         setRefereeClicked={setRefereeClicked}
                                                         setPublicationClicked={setPublicationClicked}
+                                                        setLitterClicks={setLitterClicks}
+                                                        userType={userType}
+                                                        isAuthenticated={isAuthenticated}
                                                     />
                                                 }
                                                 <Socials />

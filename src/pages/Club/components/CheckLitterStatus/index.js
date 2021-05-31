@@ -8,7 +8,7 @@ import Alert from "components/Alert";
 
 import './styles.scss';
 
-const CheckLitterStatus = ({status_clicked}) => {
+const CheckLitterStatus = ({litterClicks}) => {
     const [code, setCode] = useState('');
     const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -54,19 +54,18 @@ const CheckLitterStatus = ({status_clicked}) => {
         setLoading(false);
     };
 
-    return <Card className={`check-status ${status_clicked ? `_active_card` : ``}`} id="check-status-anchor">
-        <div className="check-status__icon" />
+    return <Card   className={`check-status ${litterClicks ? `_active_card` : ``}`} id="check-status__letter">
+        <div className="check-status__icon"  />
         <h3>Информация о ПОМЁТАХ</h3>
         <p>Введите номер родословной интересующей Вас производительницы, чтобы проверить информацию о её щенениях. Номер вводится без буквенного обозначения. После ввода нажмите на кнопку "Поиск".
         </p>
         <form onSubmit={handleSubmit}>
             <div className="check-status__wrap">
-                <label htmlFor="check-status-anchor-track" className="search-form__label">Номер родословной</label>
+                <label htmlFor="check-status-letter-track" className="search-form__label">Номер родословной</label>
                 <input
-                    id="check-status-anchor-track"
+                    id="check-status-letter-track"
                     className="check-status__input"
                     type="text"
-                    pattern="[0-9]{7}"
                     onChange={({ target }) =>  setCode(target.value.slice(0, 7).replace(/[^0-9]/g, ''))
                     }
                     value={code}
