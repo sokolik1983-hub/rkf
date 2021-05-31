@@ -6,6 +6,7 @@ import { useTimeOut } from "../../shared/hooks.js";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import CheckStatus from "../Club/components/CheckStatus";
+import CheckLitterStatus from "../Club/components/CheckLitterStatus";
 import CheckRegistration from "./components/CheckRegistration"
 import FoundInfo from "./components/FoundInfo";
 import Aside from "../../components/Layouts/Aside";
@@ -25,11 +26,14 @@ import { kennelNav } from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
 import SearchCard from "./components/SearchCard/SearchCard";
 import Socials from "../../components/Socials";
+import { connectAuthVisible } from "../../pages/Login/connectors";
+
+import ls from 'local-storage';
 
 import "./index.scss";
 
 
-const BaseSearch = () => {
+const BaseSearch = ({isAuthenticated}) => {
     const [found_info_clicked, setFoundInfoClicked] = useState(false);
     const [status_clicked, setStatusClicked] = useState(false);
     const [registration_clicked, setRegistrationClicked] = useState(false);
@@ -38,8 +42,9 @@ const BaseSearch = () => {
     const [publication_clicked, setPublicationClicked] = useState(false);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
+    const [litterClicks, setLitterClicks] = useState(null);
     const isMobile = useIsMobile();
-
+    const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
         let [orgType, alias] = organizationData[0];
@@ -72,6 +77,7 @@ const BaseSearch = () => {
         setStampClicked(false);
         setRefereeClicked(false);
         setPublicationClicked(false);
+        setLitterClicks(false)
     };
 
     useTimeOut(handleActiveReset, 2000);
@@ -102,6 +108,7 @@ const BaseSearch = () => {
                                 setStampClicked={setStampClicked}
                                 setRefereeClicked={setRefereeClicked}
                                 setPublicationClicked={setPublicationClicked}
+                                setLitterClicks={setLitterClicks}
                             />
                         }
                         <div className="base-search__content">
@@ -109,8 +116,12 @@ const BaseSearch = () => {
                             <CheckStatus status_clicked={status_clicked} />
                             <CheckRegistration registration_clicked={registration_clicked} />
                             <StampSearch stamp_clicked={stamp_clicked} />
+
+                            {isAuthenticated && userType === 3 && <CheckLitterStatus litterClicks={litterClicks} />}
+
                             <RefereeSearch referee_clicked={referee_clicked} />
                             <PublicationSearch publication_clicked={publication_clicked} />
+
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
@@ -129,6 +140,9 @@ const BaseSearch = () => {
                                                         setStampClicked={setStampClicked}
                                                         setRefereeClicked={setRefereeClicked}
                                                         setPublicationClicked={setPublicationClicked}
+                                                        setLitterClicks={setLitterClicks}
+                                                        userType={userType}
+                                                        isAuthenticated={isAuthenticated}
                                                     />
                                                 }
                                                 <Socials />
@@ -151,5 +165,4 @@ const BaseSearch = () => {
         </Layout>
     )
 };
-
-export default React.memo(BaseSearch);
+export default React.memo(connectAuthVisible(BaseSearch));
