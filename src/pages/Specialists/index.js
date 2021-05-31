@@ -18,6 +18,7 @@ import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "pages/Educational/components/SignUpModal";
+import SearchFilter from "./components/Filters/components/Search";
 import './index.scss';
 import moment from "moment";
 import "moment/locale/ru";
@@ -198,6 +199,7 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                             searchTypeId={filters.SearchTypeId}
                             setNeedRequest={setNeedRequest}
                         />
+                        <SearchFilter StringFilter={filters.StringFilter} />
                         {
                             listLoading
                                 ? <Loading centered={false} />
