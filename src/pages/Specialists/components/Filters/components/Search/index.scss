@@ -35,5 +35,8 @@
     @media (max-width: 560px) {
       padding: 7px;
     }
+    &:hover {
+      background: url("/static/icons/cross-gray-blue.svg") no-repeat center;
+    }
   }
 }
