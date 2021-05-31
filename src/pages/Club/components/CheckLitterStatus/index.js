@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+
 import { useParams } from 'react-router-dom';
 import Card from "../../../../components/Card";
 import { Request } from "utils/request";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
+
 import './styles.scss';
 
 const CheckLitterStatus = ({status_clicked}) => {
@@ -29,7 +31,7 @@ const CheckLitterStatus = ({status_clicked}) => {
         setStatus(null);
         setCode('');
     };
-    const handleBarcodeClear = e => {
+    const handleInputClear = e => {
         e.preventDefault();
         setCode('');
     };
@@ -51,7 +53,7 @@ const CheckLitterStatus = ({status_clicked}) => {
 
         setLoading(false);
     };
-    
+
     return <Card className={`check-status ${status_clicked ? `_active_card` : ``}`} id="check-status-anchor">
         <div className="check-status__icon" />
         <h3>Информация о ПОМЁТАХ</h3>
@@ -74,7 +76,7 @@ const CheckLitterStatus = ({status_clicked}) => {
                     required
                 />
                 {code &&
-                    <button type="button" className={`check-status__cancel ${status ? `_hide` : ``}`} onClick={handleBarcodeClear} />}
+                    <button type="button" className={`check-status__cancel ${status ? `_hide` : ``}`} onClick={handleInputClear} />}
                 <div className="search-form__note">
                     Допускается ввод только цифр
                 </div>
