@@ -34,15 +34,9 @@ import "./index.scss";
 
 
 const BaseSearch = ({isAuthenticated}) => {
-    const [found_info_clicked, setFoundInfoClicked] = useState(false);
-    const [status_clicked, setStatusClicked] = useState(false);
-    const [registration_clicked, setRegistrationClicked] = useState(false);
-    const [stamp_clicked, setStampClicked] = useState(false);
-    const [referee_clicked, setRefereeClicked] = useState(false);
-    const [publication_clicked, setPublicationClicked] = useState(false);
+    const [cardClicked, setCardClicked] = useState(0);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
-    const [litterClicks, setLitterClicks] = useState(null);
     const isMobile = useIsMobile();
     const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
     useEffect(() => {
@@ -71,13 +65,7 @@ const BaseSearch = ({isAuthenticated}) => {
     }, [])
 
     const handleActiveReset = () => {
-        setFoundInfoClicked(false);
-        setStatusClicked(false);
-        setRegistrationClicked(false);
-        setStampClicked(false);
-        setRefereeClicked(false);
-        setPublicationClicked(false);
-        setLitterClicks(false)
+        setCardClicked(0);
     };
 
     useTimeOut(handleActiveReset, 2000);
@@ -102,27 +90,21 @@ const BaseSearch = ({isAuthenticated}) => {
                         {isMobile &&
                             <SearchCard className="search_card_mobile"
                                 handleActiveReset={handleActiveReset}
-                                setFoundInfoClicked={setFoundInfoClicked}
-                                setStatusClicked={setStatusClicked}
-                                setRegistrationClicked={setRegistrationClicked}
-                                setStampClicked={setStampClicked}
-                                setRefereeClicked={setRefereeClicked}
-                                setPublicationClicked={setPublicationClicked}
-                                setLitterClicks={setLitterClicks}
+                                setCardClicked={setCardClicked}
                                 userType={userType}
                                 isAuthenticated={isAuthenticated}
                             />
                         }
                         <div className="base-search__content">
-                            <FoundInfo found_info_clicked={found_info_clicked} />
-                            <CheckStatus status_clicked={status_clicked} />
-                            <CheckRegistration registration_clicked={registration_clicked} />
-                            <StampSearch stamp_clicked={stamp_clicked} />
+                            <FoundInfo cardClicked={cardClicked} />
+                            <CheckStatus cardClicked={cardClicked} />
+                            <CheckRegistration cardClicked={cardClicked} />
+                            <StampSearch cardClicked={cardClicked} />
 
-                            {isAuthenticated && userType === 3 && <CheckLitterStatus litterClicks={litterClicks} />}
+                            {isAuthenticated && userType === 3 && <CheckLitterStatus cardClicked={cardClicked} />}
 
-                            <RefereeSearch referee_clicked={referee_clicked} />
-                            <PublicationSearch publication_clicked={publication_clicked} />
+                            <RefereeSearch cardClicked={cardClicked} />
+                            <PublicationSearch cardClicked={cardClicked} />
 
                         </div>
                         <Aside className="base-search__info">
@@ -136,13 +118,7 @@ const BaseSearch = ({isAuthenticated}) => {
                                                 {!isMobile &&
                                                     <SearchCard
                                                         handleActiveReset={handleActiveReset}
-                                                        setFoundInfoClicked={setFoundInfoClicked}
-                                                        setStatusClicked={setStatusClicked}
-                                                        setRegistrationClicked={setRegistrationClicked}
-                                                        setStampClicked={setStampClicked}
-                                                        setRefereeClicked={setRefereeClicked}
-                                                        setPublicationClicked={setPublicationClicked}
-                                                        setLitterClicks={setLitterClicks}
+                                                        setCardClicked={setCardClicked}
                                                         userType={userType}
                                                         isAuthenticated={isAuthenticated}
                                                     />
