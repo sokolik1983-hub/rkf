@@ -109,6 +109,8 @@ const BaseSearch = ({isAuthenticated}) => {
                                 setRefereeClicked={setRefereeClicked}
                                 setPublicationClicked={setPublicationClicked}
                                 setLitterClicks={setLitterClicks}
+                                userType={userType}
+                                isAuthenticated={isAuthenticated}
                             />
                         }
                         <div className="base-search__content">
