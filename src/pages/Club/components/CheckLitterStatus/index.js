@@ -55,7 +55,7 @@ const CheckLitterStatus = ({litterClicks}) => {
     };
 
     return <Card   className={`check-status ${litterClicks ? `_active_card` : ``}`} id="check-status__letter">
-        <div className="check-status__icon"  />
+        <div className="check-status__litter__icon"  />
         <h3>Информация о ПОМЁТАХ</h3>
         <p>Введите номер родословной интересующей Вас производительницы, чтобы проверить информацию о её щенениях. Номер вводится без буквенного обозначения. После ввода нажмите на кнопку "Поиск".
         </p>
