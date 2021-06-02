@@ -18,6 +18,7 @@ import UserMenu from "../../../../components/Layouts/UserMenu";
 import MenuComponent from "../../../../components/MenuComponent";
 import { connectAuthVisible } from "pages/Login/connectors";
 import "./index.scss";
+import RegionFilter from "../../../../components/Filters/RegionFilter";
 
 
 const Filters = ({
@@ -44,16 +45,18 @@ const Filters = ({
     const [disciplines, setDisciplines] = useState([]);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [regions, setRegions] = useState([]);
 
     useEffect(() => {
         Promise.all([
-            PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}` }),
+            PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}&returnRegions=true` }),
         ]).then(data => {
             setCities(data[0].cities);
             setDisciplines(data[0].disciplines);
             setEvents(data[0].classification);
             setSpecializations(data[0].specializations);
             setLoading(false);
+            setRegions(data[0].regions);
             window.scrollTo(0, 0);
             setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
         }).catch(error => {
@@ -66,13 +69,14 @@ const Filters = ({
     useEffect(() => {
         if (needRequest) {
             Promise.all([
-                PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}` }),
+                PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}&returnRegions=true` }),
             ]).then(data => {
                 setCities(data[0].cities);
                 setDisciplines(data[0].disciplines);
                 setEvents(data[0].classification);
                 setSpecializations(data[0].specializations);
                 setLoading(false);
+                setRegions(data[0].regions);
                 window.scrollTo(0, 0);
                 setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
             }).catch(error => {
@@ -96,6 +100,11 @@ const Filters = ({
             subscribed: subscribed
         })
     }
+
+const region_ids = []
+    regions.forEach((region, index) => {
+        region_ids.push(region.value)
+    });
 
     return (
         <aside className={`specialists-page__filters specialists-filters${isOpenFilters ? ' _open' : ''}`}>
@@ -137,6 +146,11 @@ const Filters = ({
                             </div>
                         }
                         <div className="specialists-filters__wrap">
+                            {loading ? <Loading centered={false} /> : <RegionFilter
+                                regions={regions}
+                                onChange={filter => setFiltersToUrl({ RegionIds: filter })}
+                                region_ids={filters.RegionIds}
+                            />}
                             {loading ? <Loading centered={false} /> : <CitiesFilter
                                 cities={cities}
                                 city_ids={filters.CityIds}
