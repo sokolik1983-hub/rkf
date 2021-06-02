@@ -23,7 +23,7 @@ const RegionFilter = ({ regions, onChange, region_ids}) => {
 
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState(!regions.length ? false : true);
+    const [isOpen, setIsOpen] = useState(regions.length ? false : true);
 
     useEffect(() => {
         if (regions?.length) {

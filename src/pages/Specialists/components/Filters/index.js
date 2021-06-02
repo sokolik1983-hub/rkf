@@ -101,10 +101,10 @@ const Filters = ({
         })
     }
 
-const region_ids = []
-    regions.forEach((region, index) => {
-        region_ids.push(region.value)
-    });
+// const region_ids = []
+//     regions.forEach((region, index) => {
+//         region_ids.push(region.value)
+//     });
 
     return (
         <aside className={`specialists-page__filters specialists-filters${isOpenFilters ? ' _open' : ''}`}>

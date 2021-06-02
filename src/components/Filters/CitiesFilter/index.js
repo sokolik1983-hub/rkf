@@ -20,7 +20,7 @@ const Option = props => (
 const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState(is_club_link && !cities.length ? false : true);
+    const [isOpen, setIsOpen] = useState( false );
 
     useEffect(() => {
         if (cities?.length) {

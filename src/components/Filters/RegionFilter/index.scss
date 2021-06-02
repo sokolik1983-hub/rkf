@@ -62,15 +62,15 @@
   }
 }
 
-#cities-filter {
-  .cities-filter {
+#regions-filter {
+  .regions-filter {
     &__control {
       background-color: transparent;
       border-color: hsl(0,0%,80%);
       border-radius: 0;
-      border-top: none;
-      border-left: none;
-      border-right: none;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
       box-shadow: none;
     }
     &__value-container {
