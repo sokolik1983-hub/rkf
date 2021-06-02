@@ -10,7 +10,7 @@ import CitiesFilterKendo from "../../../../components/kendo/Filters/CitiesFilter
 import { DEFAULT_IMG } from "../../../../appConfig";
 import './index.scss';
 
-const PublicationSearch = ({ publication_clicked }) => {
+const PublicationSearch = ({ cardClicked }) => {
     const [items, setItems] = useState([]);
     const [min_price, setMinPrice] = useState(undefined);
     const [max_price, setMaxPrice] = useState(undefined);
@@ -118,7 +118,7 @@ const PublicationSearch = ({ publication_clicked }) => {
     };
 
     return (
-        <Card className={`PublicationSearch ${publication_clicked ? `_active_card` : ``}`} id="publication-search-anchor">
+        <Card className={`PublicationSearch ${cardClicked === 7 && `_active_card`}`} id="publication-search-anchor">
             <div className="search-form__icon publication-search" />
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>

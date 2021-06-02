@@ -8,7 +8,7 @@ import Alert from "components/Alert";
 
 import './styles.scss';
 
-const CheckLitterStatus = ({litterClicks}) => {
+const CheckLitterStatus = ({cardClicked}) => {
     const [code, setCode] = useState('');
     const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -54,8 +54,8 @@ const CheckLitterStatus = ({litterClicks}) => {
         setLoading(false);
     };
 
-    return <Card   className={`check-status ${litterClicks ? `_active_card` : ``}`} id="check-status__letter">
-        <div className="check-status__litter__icon"  />
+    return <Card   className={`check-status ${cardClicked === 5 && `_active_card`}`} id="check-status__letter">
+        <div className="check-status__icon"  />
         <h3>Информация о ПОМЁТАХ</h3>
         <p>Введите номер родословной интересующей Вас производительницы, чтобы проверить информацию о её щенениях. Номер вводится без буквенного обозначения. После ввода нажмите на кнопку "Поиск".
         </p>

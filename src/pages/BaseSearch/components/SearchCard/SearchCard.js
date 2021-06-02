@@ -3,7 +3,7 @@ import Card from "../../../../components/Card";
 import {Link as LinkScroll} from "react-scroll";
 import React from "react";
 
-function SearchCard({handleActiveReset, setFoundInfoClicked, setStatusClicked, setRegistrationClicked, setStampClicked, setRefereeClicked, setPublicationClicked, setLitterClicks, userType, isAuthenticated}) {
+function SearchCard({handleActiveReset, setCardClicked, userType, isAuthenticated}) {
     return(
         <>
             <OutsideClickHandler onOutsideClick={handleActiveReset}>
@@ -21,7 +21,7 @@ function SearchCard({handleActiveReset, setFoundInfoClicked, setStatusClicked, s
                                 title="Информация о найденных собаках"
                                 onClick={() => {
                                     handleActiveReset();
-                                    setFoundInfoClicked(true);
+                                    setCardClicked(1);
                                 }}
                             >
                                <span className="menu-component__icon">
@@ -44,7 +44,7 @@ function SearchCard({handleActiveReset, setFoundInfoClicked, setStatusClicked, s
                                 title="Статус документов"
                                 onClick={() => {
                                     handleActiveReset();
-                                    setStatusClicked(true);
+                                    setCardClicked(2);
                                 }}
                             >
                                 <span className="menu-component__icon">
@@ -75,7 +75,7 @@ function SearchCard({handleActiveReset, setFoundInfoClicked, setStatusClicked, s
                                 title="Регистационные данные собаки"
                                 onClick={() => {
                                     handleActiveReset();
-                                    setRegistrationClicked(true);
+                                    setCardClicked(3);
                                 }}
                             >
                                 <span className="menu-component__icon">
@@ -99,7 +99,7 @@ function SearchCard({handleActiveReset, setFoundInfoClicked, setStatusClicked, s
                                 title="Поиск клуба/питомника"
                                 onClick={() => {
                                     handleActiveReset();
-                                    setStampClicked(true);
+                                    setCardClicked(4);
                                 }}
                             >
                                 <span className="menu-component__icon">
@@ -128,7 +128,7 @@ function SearchCard({handleActiveReset, setFoundInfoClicked, setStatusClicked, s
                                 title="Информация о помётах"
                                 onClick={() => {
                                     handleActiveReset();
-                                    setLitterClicks(true);
+                                    setCardClicked(5);
                                 }}
                             >
                                 <span className="menu-component__icon">
@@ -153,7 +153,7 @@ function SearchCard({handleActiveReset, setFoundInfoClicked, setStatusClicked, s
                                 title="Поиск судьи"
                                 onClick={() => {
                                     handleActiveReset();
-                                    setRefereeClicked(true);
+                                    setCardClicked(6);
                                 }}
                             >
                                 <span className="menu-component__icon">
@@ -177,7 +177,7 @@ function SearchCard({handleActiveReset, setFoundInfoClicked, setStatusClicked, s
                                 title="Поиск по объявлениям"
                                 onClick={() => {
                                     handleActiveReset();
-                                    setPublicationClicked(true);
+                                    setCardClicked(7);
                                 }}
                             >
                                 <span className="menu-component__icon">
