@@ -49,7 +49,7 @@ function SearchCard({handleActiveReset, setCardClicked, userType, isAuthenticate
                             >
                                 <span className="menu-component__icon">
                                         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0)">
+                                        <g clipPath="url(#clip0)">
                                         <path d="M3.67645 0V1.74936H15.8977V17.3235H17.647C17.647 17.202 17.647 0.485934 17.647 0C17.2826 0 4.0409 0 3.67645 0Z" fill="#72839C"/>
                                         <path d="M2 19H14.8043V2.867H2V19ZM4.76982 6.19565H12.0102V7.3133H4.76982V6.19565ZM4.76982 8.98977H12.0102V10.1074H4.76982V8.98977ZM4.76982 11.7596H12.0102V12.8772H4.76982V11.7596ZM4.76982 14.5537H12.0102V15.6714H4.76982V14.5537Z" fill="#72839C"/>
                                         </g>
