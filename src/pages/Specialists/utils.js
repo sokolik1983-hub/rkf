@@ -15,7 +15,7 @@ const buildUrlParams = filter => {
                 if (filter[key] > 0) {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'ClassificationId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
+            } else if (key === 'ClassificationId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key ===  "RegionIds") {
                 if (filter[key].length) {
                     params = params + filter[key].map(r => `${key}=${r}&`).join('');
                 }
@@ -54,7 +54,7 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'CityIds' || key === 'ClassificationId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
+            if (key === 'CityIds' || key === 'ClassificationId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === "RegionIds") {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else if (key === 'StringFilter') {
                 filtersFromUrl[key] = key === 'StringFilter' ? value : value;
@@ -91,7 +91,8 @@ export const getEmptyFilters = (alias = null) => ({
     SearchTypeId: 1,
     DateFrom: formatDateToString(new Date()),
     DateTo: null,
-    StringFilter: ''
+    StringFilter: '',
+    RegionIds: []
 });
 
 export const getInitialFilters = () => {
