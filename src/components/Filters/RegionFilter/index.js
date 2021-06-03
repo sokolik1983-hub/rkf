@@ -4,6 +4,9 @@ import CustomCheckbox from "../../Form/CustomCheckbox";
 import { CSSTransition } from "react-transition-group";
 import Card from "../../Card";
 import "./index.scss";
+import Loading from "../../Loading";
+import CitiesFilter from "../CitiesFilter";
+import { setFiltersToUrl } from "../../../pages/Specialists/utils";
 
 
 const Option = props => {
@@ -19,8 +22,7 @@ const Option = props => {
     )
 };
 
-const RegionFilter = ({regions, onChange, region_ids, setNeedOpen}) => {
-
+const RegionFilter = ({regions, onChange, region_ids, setNeedOpen, cities,  needOpen, filters, clubName, loading}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(regions.length ? false : true);
@@ -88,6 +90,13 @@ const RegionFilter = ({regions, onChange, region_ids, setNeedOpen}) => {
                     }
                 </div>
             </CSSTransition>
+            {loading ? <Loading centered={false} /> : <CitiesFilter
+                cities={cities}
+                city_ids={filters.CityIds}
+                onChange={filter => setFiltersToUrl({ CityIds: filter })}
+                is_club_link={clubName && filters.Alias}
+                needOpen={needOpen}
+            />}
         </Card>
     )
 };

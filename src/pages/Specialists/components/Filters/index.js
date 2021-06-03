@@ -149,15 +149,13 @@ const Filters = ({
                                 onChange={filter => setFiltersToUrl({ RegionIds: filter })}
                                 region_ids={filters.RegionIds}
                                 setNeedOpen={setNeedOpen}
-                            />}
-                            {loading ? <Loading centered={false} /> : <CitiesFilter
                                 cities={cities}
                                 city_ids={filters.CityIds}
-                                onChange={filter => setFiltersToUrl({ CityIds: filter })}
+                                filters={filters}
                                 is_club_link={clubName && filters.Alias}
+                                clubName={clubName}
                                 needOpen={needOpen}
-                                setNeedOpen={setNeedOpen}
-                            />}
+s                            />}
                             {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) !== 3 && <EventsFilter
                                 events={events}
                                 event_ids={filters.ClassificationId}
