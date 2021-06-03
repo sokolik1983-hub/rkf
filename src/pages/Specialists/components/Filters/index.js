@@ -148,7 +148,6 @@ const Filters = ({
                                 regions={regions}
                                 onChange={filter => setFiltersToUrl({ RegionIds: filter })}
                                 region_ids={filters.RegionIds}
-                                city_ids={filters.CityIds}
                                 setNeedOpen={setNeedOpen}
                             />}
                             {loading ? <Loading centered={false} /> : <CitiesFilter
