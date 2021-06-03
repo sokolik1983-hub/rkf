@@ -52,7 +52,7 @@ const Filters = ({
     useEffect(() => {
         Promise.all([
             PromiseRequest({
-                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}&${filters.RegionIds.map(reg => `RegionIds=${reg}&`).join('')}&returnRegions=true` }),
+                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}&returnRegions=true`}),
         ]).then(data => {
             setCities(data[0].cities);
             setDisciplines(data[0].disciplines);
