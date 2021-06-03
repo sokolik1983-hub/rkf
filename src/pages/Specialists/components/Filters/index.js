@@ -47,9 +47,12 @@ const Filters = ({
     const [loading, setLoading] = useState(true);
     const [regions, setRegions] = useState([]);
 
+    const [needOpen, setNeedOpen] = useState(false)
+
     useEffect(() => {
         Promise.all([
-            PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}&returnRegions=true` }),
+            PromiseRequest({
+                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}&${filters.RegionIds.map(reg => `RegionIds=${reg}&`).join('')}&returnRegions=true` }),
         ]).then(data => {
             setCities(data[0].cities);
             setDisciplines(data[0].disciplines);
@@ -64,12 +67,12 @@ const Filters = ({
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
         });
-    }, [filters.Alias]);
+    }, [filters.Alias, filters.RegionIds]);
 
     useEffect(() => {
         if (needRequest) {
             Promise.all([
-                PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}&returnRegions=true` }),
+                PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}&returnRegions=true`}),
             ]).then(data => {
                 setCities(data[0].cities);
                 setDisciplines(data[0].disciplines);
@@ -100,11 +103,6 @@ const Filters = ({
             subscribed: subscribed
         })
     }
-
-// const region_ids = []
-//     regions.forEach((region, index) => {
-//         region_ids.push(region.value)
-//     });
 
     return (
         <aside className={`specialists-page__filters specialists-filters${isOpenFilters ? ' _open' : ''}`}>
@@ -150,12 +148,16 @@ const Filters = ({
                                 regions={regions}
                                 onChange={filter => setFiltersToUrl({ RegionIds: filter })}
                                 region_ids={filters.RegionIds}
+                                city_ids={filters.CityIds}
+                                setNeedOpen={setNeedOpen}
                             />}
                             {loading ? <Loading centered={false} /> : <CitiesFilter
                                 cities={cities}
                                 city_ids={filters.CityIds}
                                 onChange={filter => setFiltersToUrl({ CityIds: filter })}
                                 is_club_link={clubName && filters.Alias}
+                                needOpen={needOpen}
+                                setNeedOpen={setNeedOpen}
                             />}
                             {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) !== 3 && <EventsFilter
                                 events={events}

@@ -17,17 +17,18 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
+const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState( false );
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         if (cities?.length) {
             setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
             setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }
-    }, [cities, city_ids]);
+        setIsOpen(needOpen || values.length > 0)
+    }, [cities, city_ids, needOpen]);
 
     const handleChange = options => {
         onChange(options.map(option => option.value));

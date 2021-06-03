@@ -4,6 +4,7 @@ import CustomCheckbox from "../../Form/CustomCheckbox";
 import { CSSTransition } from "react-transition-group";
 import Card from "../../Card";
 import "./index.scss";
+// import {setFiltersToUrl} from "../../../pages/Specialists/utils";
 
 
 const Option = props => {
@@ -19,7 +20,7 @@ const Option = props => {
     )
 };
 
-const RegionFilter = ({ regions, onChange, region_ids}) => {
+const RegionFilter = ({regions, onChange, region_ids, setNeedOpen}) => {
 
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
@@ -38,6 +39,8 @@ const RegionFilter = ({ regions, onChange, region_ids}) => {
     const handleDelete = regionId => {
         onChange(values.filter(region => region.value !== regionId).map(region => region.value));
     };
+
+    setNeedOpen(values.length > 0)
 
     return (
         <Card className="regions-filter">

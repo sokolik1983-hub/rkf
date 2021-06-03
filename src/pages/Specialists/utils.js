@@ -81,6 +81,7 @@ export const setFiltersToUrl = (filters, initial = false) => {
 
 export const getEmptyFilters = (alias = null) => ({
     Alias: alias,
+    RegionIds: [],
     CityIds: [],
     ClubIds: null,
     ClassificationId: [],
@@ -92,7 +93,6 @@ export const getEmptyFilters = (alias = null) => ({
     DateFrom: formatDateToString(new Date()),
     DateTo: null,
     StringFilter: '',
-    RegionIds: []
 });
 
 export const getInitialFilters = () => {
