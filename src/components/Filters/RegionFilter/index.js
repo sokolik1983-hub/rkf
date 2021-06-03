@@ -4,7 +4,6 @@ import CustomCheckbox from "../../Form/CustomCheckbox";
 import { CSSTransition } from "react-transition-group";
 import Card from "../../Card";
 import "./index.scss";
-// import {setFiltersToUrl} from "../../../pages/Specialists/utils";
 
 
 const Option = props => {
