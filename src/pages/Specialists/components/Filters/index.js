@@ -44,7 +44,7 @@ const Filters = ({
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
     const [regions, setRegions] = useState([]);
-    const [needOpen, setNeedOpen] = useState(false)
+    const [needOpen, setNeedOpen] = useState(false);
 
     useEffect(() => {
         Promise.all([
@@ -52,7 +52,7 @@ const Filters = ({
                 url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${regions.length ? '' : `&returnRegions=true`}`
             }),
         ]).then(data => {
-            setCities(data[0].cities);
+            setCities(cities.length && !filters.RegionIds.length && filters.CityIds.length ? cities : data[0].cities);
             setDisciplines(data[0].disciplines);
             setEvents(data[0].classification);
             setSpecializations(data[0].specializations);
