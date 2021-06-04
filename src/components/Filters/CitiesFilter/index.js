@@ -38,7 +38,7 @@ const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
     };
 
     return (
-        <Card className="cities-filter" id="cities-filter">
+        <Card className="cities-filter">
             <div className="cities-filter__head" onClick={() => setIsOpen(!isOpen)}>
                 <h5 className="cities-filter__title">Города</h5>
                 <span className={`cities-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
