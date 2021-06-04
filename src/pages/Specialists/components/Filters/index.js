@@ -49,7 +49,7 @@ const Filters = ({
     useEffect(() => {
         Promise.all([
             PromiseRequest({
-                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${regions.length ? '' : `&returnRegions=true`}`
+                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=true`
             }),
         ]).then(data => {
             setCities(cities.length && !filters.RegionIds.length && filters.CityIds.length ? cities : data[0].cities);
@@ -57,7 +57,7 @@ const Filters = ({
             setEvents(data[0].classification);
             setSpecializations(data[0].specializations);
             setLoading(false);
-            setRegions(regions.length ? regions : data[0].regions);
+            setRegions(data[0].regions);
             window.scrollTo(0, 0);
             setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
         }).catch(error => {
