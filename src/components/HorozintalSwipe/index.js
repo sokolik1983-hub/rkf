@@ -1,39 +1,39 @@
-import React, {useEffect, useState} from "react";
+import React, {createRef, useEffect, useState} from "react";
 import "./index.scss";
 
 
 // Для работы горизонтального скрола на desktop нужно прокинуть из родительского компонента "desktopScroll={true}"
-const HorizontalSwipe = ({id, className, children}) => {
+const HorizontalSwipe = ({id, className, children, desktopScroll}) => {
     const [elem, setElem] = useState(null);
     const [left, setLeft] = useState(0);
     const [startX, setStartX] = useState(0);
 
     //Функционал горизонтальной прокрутки на desktop
-    // const scrollRef = createRef();
-    // const [scrollState, setScrollState] = useState({
-    //     isScrolling: false,
-    //     clientX: 0,
-    //     scrollX: 0,
-    // });
-    // const onMouseDown = e => {
-    //     if(desktopScroll) {
-    //         setScrollState({
-    //             ...scrollState,
-    //             isScrolling: true,
-    //             clientX: e.clientX
-    //         });
-    //         setStartX(Math.round(e.clientX));
-    //     }
-    // };
-    //
-    // const onMouseMove = e => {
-    //     if (scrollState.isScrolling) {
-    //         const x = Math.round(e.clientX);
-    //         calculateOffset(x);
-    //     }
-    // };
-    //
-    // const onMouseUp = () => setScrollState({ ...scrollState, isScrolling: false });
+    const scrollRef = createRef();
+    const [scrollState, setScrollState] = useState({
+        isScrolling: false,
+        clientX: 0,
+        scrollX: 0,
+    });
+    const onMouseDown = e => {
+        if(desktopScroll) {
+            setScrollState({
+                ...scrollState,
+                isScrolling: true,
+                clientX: e.clientX
+            });
+            setStartX(Math.round(e.clientX));
+        }
+    };
+
+    const onMouseMove = e => {
+        if (scrollState.isScrolling) {
+            const x = Math.round(e.clientX);
+            calculateOffset(x);
+        }
+    };
+
+    const onMouseUp = () => setScrollState({ ...scrollState, isScrolling: false });
 
     useEffect(() => {
         setElem(document.getElementById(id));
@@ -64,6 +64,7 @@ const HorizontalSwipe = ({id, className, children}) => {
     };
 
     const onTouchMove = e => {
+        console.log("move")
         if(elem.scrollWidth > elem.clientWidth) {
             const x = Math.round(e.touches[0].clientX);
             calculateOffset(x)
@@ -74,10 +75,10 @@ const HorizontalSwipe = ({id, className, children}) => {
     return (
         <div
             id={id}
-            // ref={scrollRef}              //Функционал горизонтальной прокрутки
-            // onMouseDown={onMouseDown}    //Функционал горизонтальной прокрутки
-            // onMouseUp={onMouseUp}        //Функционал горизонтальной прокрутки
-            // onMouseMove={onMouseMove}    //Функционал горизонтальной прокрутки
+            ref={scrollRef}              //Функционал горизонтальной прокрутки
+            onMouseDown={onMouseDown}    //Функционал горизонтальной прокрутки
+            onMouseUp={onMouseUp}        //Функционал горизонтальной прокрутки
+            onMouseMove={onMouseMove}    //Функционал горизонтальной прокрутки
             className={`horizontal-swipe${className ? ' ' + className : ''}`}
             onTouchStart={e => setStartX(Math.round(e.touches[0].clientX))}
             onTouchMove={onTouchMove}
