@@ -49,14 +49,15 @@ const Filters = ({
     useEffect(() => {
         Promise.all([
             PromiseRequest({
-                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}&returnRegions=true`}),
+                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${regions.length ? '' : `&returnRegions=true`}`
+            }),
         ]).then(data => {
             setCities(data[0].cities);
             setDisciplines(data[0].disciplines);
             setEvents(data[0].classification);
             setSpecializations(data[0].specializations);
             setLoading(false);
-            setRegions(data[0].regions);
+            setRegions(regions.length ? regions : data[0].regions);
             window.scrollTo(0, 0);
             setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
         }).catch(error => {
@@ -65,28 +66,6 @@ const Filters = ({
             setLoading(false);
         });
     }, [filters.Alias, filters.RegionIds, needRequest]);
-
-    // useEffect(() => {
-    //     if (needRequest) {
-    //         Promise.all([
-    //             PromiseRequest({ url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}&returnRegions=true`}),
-    //         ]).then(data => {
-    //             setCities(data[0].cities);
-    //             setDisciplines(data[0].disciplines);
-    //             setEvents(data[0].classification);
-    //             setSpecializations(data[0].specializations);
-    //             setLoading(false);
-    //             setRegions(data[0].regions);
-    //             window.scrollTo(0, 0);
-    //             setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
-    //         }).catch(error => {
-    //             console.log(error.response);
-    //             if (error.response) alert(`Ошибка: ${error.response.status}`);
-    //             setLoading(false);
-    //         });
-    //         setNeedRequest(false);
-    //     }
-    // }, [filters.Alias, needRequest, setNeedRequest]);
 
     useEffect(() => {
         setOverflow(isOpenFilters);
@@ -149,8 +128,7 @@ const Filters = ({
                                 city_ids={filters.CityIds}
                                 filters={filters}
                                 needOpen={needOpen}
-                                setNeedOpen={setNeedOpen}
-s                            />}
+                                setNeedOpen={setNeedOpen} />}
                             {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) !== 3 && <EventsFilter
                                 events={events}
                                 event_ids={filters.ClassificationId}

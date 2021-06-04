@@ -13,17 +13,17 @@ import "./index.scss";
 const Option = props => {
     return (
         <components.Option {...props}>
-        <CustomCheckbox
-            id={`regions-${props.value}`}
-            label={props.label}
-            checked={props.isSelected}
-            onChange={() => null}
-        />
-    </components.Option>
+            <CustomCheckbox
+                id={`regions-${props.value}`}
+                label={props.label}
+                checked={props.isSelected}
+                onChange={() => null}
+            />
+        </components.Option>
     )
 };
 
-const RegionFilter = ({regions, onChange, region_ids, setNeedOpen, cities,  needOpen, filters, loading}) => {
+const RegionFilter = ({ regions, onChange, region_ids, setNeedOpen, cities, needOpen, filters, loading }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(regions.length ? false : true);
@@ -36,6 +36,7 @@ const RegionFilter = ({regions, onChange, region_ids, setNeedOpen, cities,  need
     }, [regions, region_ids]);
 
     const handleChange = options => {
+        filters.CityIds.length && setFiltersToUrl({ CityIds: [] });
         onChange(options.map(option => option.value));
     };
     const handleDelete = regionId => {
@@ -77,15 +78,15 @@ const RegionFilter = ({regions, onChange, region_ids, setNeedOpen, cities,  need
                         maxMenuHeight={170}
                     />
                     {!!values.length &&
-                    <ul className="regions-filter__values">
+                        <ul className="regions-filter__values">
                             {values.map(item => {
-                                    return (
-                                        <li className="regions-filter__values-item" key={item.value}>
+                                return (
+                                    <li className="regions-filter__values-item" key={item.value}>
                                         <span>{item.label}</span>
                                         <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
                                     </li>
-                                    )
-                                }
+                                )
+                            }
                             )}
                         </ul>
                     }
