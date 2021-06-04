@@ -1,5 +1,8 @@
-.regions-filter {
-  margin-bottom: 16px;
+.cities-filter {
+  &.__regions {
+    padding: 8px 0 0 0 !important;
+    box-shadow: none !important;
+  }
   &__title {
     font-weight: normal;
     font-size: 18px;
@@ -11,12 +14,12 @@
     flex-grow: 1;
     border-right: 1px solid #72839C;
   }
+
   &__head {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    border-bottom: 1px solid #e8e8e8;
-    padding-bottom: 10px;
+    padding:  0 0 5px 0;
   }
   &__chevron {
     width: 24px;
@@ -60,15 +63,16 @@
   }
 }
 
-#regions-filter {
-  .regions-filter {
+#cities-filter {
+  box-shadow: none !important;
+  .cities-filter {
     &__control {
       background-color: transparent;
       border-color: hsl(0,0%,80%);
       border-radius: 0;
-      border-top: none !important;
-      border-left: none !important;
-      border-right: none !important;
+      border-top: none;
+      border-left: none;
+      border-right: none;
       box-shadow: none;
     }
     &__value-container {
@@ -84,8 +88,6 @@
       border: none;
       border-radius: 0;
       box-shadow: none;
-      border-bottom: 1px solid #e8e8e8;
-      padding-bottom: 10px;
     }
     &__option {
       padding: 0 12px 0 0;

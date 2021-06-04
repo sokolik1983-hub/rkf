@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Select, { components } from "react-select";
-import CustomCheckbox from "../../Form/CustomCheckbox";
+import CustomCheckbox from "../../../Form/CustomCheckbox";
 import { CSSTransition } from "react-transition-group";
-import Card from "../../Card";
+import Card from "../../../Card";
 
 import "./index.scss";
 
@@ -17,17 +17,18 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
+const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState(is_club_link && !cities.length ? false : true);
+    const [isOpen, setIsOpen] = useState(values.length > 0);
 
     useEffect(() => {
         if (cities?.length) {
             setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
             setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }
-    }, [cities, city_ids]);
+        setIsOpen(needOpen || values.length > 0)
+    }, [cities, city_ids, needOpen, values.length]);
 
     const handleChange = options => {
         onChange(options.map(option => option.value));
@@ -38,7 +39,7 @@ const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
     };
 
     return (
-        <Card className="cities-filter" id="cities-filter">
+        <Card className="cities-filter __regions" id="cities-filter">
             <div className="cities-filter__head" onClick={() => setIsOpen(!isOpen)}>
                 <h5 className="cities-filter__title">Города</h5>
                 <span className={`cities-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>

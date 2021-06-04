@@ -3,10 +3,11 @@ import Select, { components } from "react-select";
 import CustomCheckbox from "../../Form/CustomCheckbox";
 import { CSSTransition } from "react-transition-group";
 import Card from "../../Card";
-import "./index.scss";
 import Loading from "../../Loading";
-import CitiesFilter from "../CitiesFilter";
+import CitiesFilter from "./CitiesFilter";
 import { setFiltersToUrl } from "../../../pages/Specialists/utils";
+
+import "./index.scss";
 
 
 const Option = props => {
@@ -76,14 +77,14 @@ const RegionFilter = ({regions, onChange, region_ids, setNeedOpen, cities,  need
                         maxMenuHeight={170}
                     />
                     {!!values.length &&
-                        <ul className="regions-filter__values">
+                    <ul className="regions-filter__values">
                             {values.map(item => {
-                                return (
-                                    <li className="regions-filter__values-item" key={item.value}>
+                                    return (
+                                        <li className="regions-filter__values-item" key={item.value}>
                                         <span>{item.label}</span>
                                         <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
                                     </li>
-                                 )
+                                    )
                                 }
                             )}
                         </ul>
