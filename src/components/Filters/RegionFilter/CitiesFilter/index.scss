@@ -1,8 +1,6 @@
-.cities-filter {
-  &.__regions {
+.cities-filter-regions {
     padding: 8px 0 0 0 !important;
     box-shadow: none !important;
-  }
   &__title {
     font-weight: normal;
     font-size: 18px;
@@ -14,12 +12,10 @@
     flex-grow: 1;
     border-right: 1px solid #72839C;
   }
-
   &__head {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    padding:  0 0 5px 0;
   }
   &__chevron {
     width: 24px;
@@ -63,9 +59,9 @@
   }
 }
 
-#cities-filter {
+#cities-filter-regions {
   box-shadow: none !important;
-  .cities-filter {
+  .cities-filter-regions {
     &__control {
       background-color: transparent;
       border-color: hsl(0,0%,80%);
@@ -101,7 +97,7 @@
     }
   }
 }
-.dropdown__filters {
+.dropdown__filters-regions {
   &-enter,
   &-appear {
     opacity: 0;

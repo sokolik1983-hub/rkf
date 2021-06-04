@@ -23,7 +23,7 @@ const Option = props => {
     )
 };
 
-const RegionFilter = ({regions, onChange, region_ids, setNeedOpen, cities,  needOpen, filters, clubName, loading}) => {
+const RegionFilter = ({regions, onChange, region_ids, setNeedOpen, cities,  needOpen, filters, loading}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(regions.length ? false : true);
@@ -95,7 +95,6 @@ const RegionFilter = ({regions, onChange, region_ids, setNeedOpen, cities,  need
                 cities={cities}
                 city_ids={filters.CityIds}
                 onChange={filter => setFiltersToUrl({ CityIds: filter })}
-                is_club_link={clubName && filters.Alias}
                 needOpen={needOpen}
             />}
         </Card>

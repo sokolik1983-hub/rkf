@@ -148,7 +148,6 @@ const Filters = ({
                                 cities={cities}
                                 city_ids={filters.CityIds}
                                 filters={filters}
-                                clubName={clubName}
                                 needOpen={needOpen}
                                 setNeedOpen={setNeedOpen}
 s                            />}
