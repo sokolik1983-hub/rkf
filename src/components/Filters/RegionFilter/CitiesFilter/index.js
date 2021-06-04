@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Select, { components } from "react-select";
-import CustomCheckbox from "../../Form/CustomCheckbox";
+import CustomCheckbox from "../../../Form/CustomCheckbox";
 import { CSSTransition } from "react-transition-group";
-import Card from "../../Card";
+import Card from "../../../Card";
 
 import "./index.scss";
 
@@ -17,17 +17,19 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
+const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState(is_club_link && !cities.length ? false : true);
+    const [isOpen, setIsOpen] = useState(values.length > 0);
 
     useEffect(() => {
         if (cities?.length) {
             setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
             setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }
-    }, [cities, city_ids]);
+        setIsOpen(needOpen || values.length > 0);
+
+    }, [cities, city_ids, needOpen, values.length]);
 
     const handleChange = options => {
         onChange(options.map(option => option.value));
@@ -38,20 +40,20 @@ const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
     };
 
     return (
-        <Card className="cities-filter">
-            <div className="cities-filter__head" onClick={() => setIsOpen(!isOpen)}>
-                <h5 className="cities-filter__title">Города</h5>
-                <span className={`cities-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+        <Card className="cities-filter-regions">
+            <div className="cities-filter-regions__head" onClick={() => setIsOpen(!isOpen)}>
+                <h5 className="cities-filter-regions__title">Города</h5>
+                <span className={`cities-filter-regions__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
             </div>
             <CSSTransition
                 in={isOpen}
                 timeout={50}
                 unmountOnExit
-                classNames="dropdown__filters"
+                classNames="dropdown__filters-regions"
             >
-                <div className="cities-filter__wrap">
+                <div className="cities-filter__wrap-regions">
                     <Select
-                        id="cities-filter"
+                        id="cities-filter-regions"
                         isMulti={true}
                         closeMenuOnSelect={false}
                         options={[...values, ...optionsNotInValues]}
@@ -62,7 +64,7 @@ const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
                         onChange={handleChange}
                         clearable={true}
                         isSearchable
-                        classNamePrefix="cities-filter"
+                        classNamePrefix="cities-filter-regions"
                         placeholder="Начните вводить город"
                         noOptionsMessage={() => 'Город не найден'}
                         value={values}
@@ -70,9 +72,9 @@ const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
                         maxMenuHeight={170}
                     />
                     {!!values.length &&
-                    <ul className="cities-filter__values">
+                    <ul className="cities-filter-regions__values">
                             {values.map(item =>
-                                <li className="cities-filter__values-item" key={item.value}>
+                                <li className="cities-filter-regions__values-item" key={item.value}>
                                     <span>{item.label}</span>
                                     <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
                                 </li>

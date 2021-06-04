@@ -123,7 +123,7 @@ const Filters = ({ organization_type,
                                 <Card>
                                     <button
                                         type="button"
-                                        className="link"
+                                        className="link link-broom"
                                         onClick={() => setFiltersToUrl({ ...getEmptyFilters(), organization_type })}
                                     >
                                         <svg
