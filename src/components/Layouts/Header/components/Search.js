@@ -31,7 +31,7 @@ const Search = ({ withFilters }) => {
                 <input
                     className={`header__search-control${isClicked ? ' _open' : ''}`}
                     type="text"
-                    placeholder="Поиск"
+                    // placeholder="Поиск"
                     onChange={({ target }) => setSearchValue(target.value)}
                     onClick={() => setIsClicked(true)}
                     value={searchValue}

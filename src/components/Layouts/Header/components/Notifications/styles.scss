@@ -9,8 +9,8 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
         position: relative;
     }
     &__icon {
-        width: 21px;
-        height: 21px;
+        width: 44px;
+        height: 44px;
         background-position: center center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -22,7 +22,7 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
         }
         &-wrap {
             position: relative;
-            top: 3px;
+            top: 0;
         }
         &-dot {
             position: absolute;

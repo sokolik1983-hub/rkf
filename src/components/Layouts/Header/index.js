@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import Container from "../Container";
 import Search from "./components/Search";
@@ -9,28 +9,45 @@ import { connectShowFilters } from "../connectors";
 import { connectAuthVisible } from "pages/Login/connectors";
 import Feedback from "components/Feedback";
 import "./index.scss";
+import useIsMobile from "../../../utils/useIsMobile";
 
-
-const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => (
-    <header className="header">
+const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
+    const isMobile = useIsMobile();
+console.log(isMobile)
+        return (
+        <header className="header">
         <Container className="header__content">
-            <Link to="/" className="header__logo" />
-            {withFilters &&
-                <button className="header__filters" onClick={() => setShowFilters({ isOpenFilters: !isOpenFilters })} />
+
+             {isMobile && <Nav login_page={login_page}/>}
+
+            {!isMobile &&
+             <Link to="/" className="header__logo"/>
             }
-            <Search withFilters={withFilters} />
-            <Nav login_page={login_page} />
+                {withFilters &&
+                <button className="header__filters" onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}/>
+                }
+                <Search withFilters={withFilters}/>
+
+
+            {!isMobile &&
+                <Nav login_page={login_page}/>
+            }
             <div className="header__widgets">
                 {!isAuthenticated &&
-                    <div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>
-                        <Feedback isMainNav={true} />
+                <div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>
+                        <Feedback isMainNav={true}/>
                     </div>
                 }
-                <Notifications setNotificationsLength={setNotificationsLength} />
-                <WidgetLogin login_page={login_page} />
+                <Notifications setNotificationsLength={setNotificationsLength}/>
+                <WidgetLogin login_page={login_page}/>
             </div>
+
+
+
+
         </Container>
     </header>
-);
+    )
+};
 
 export default connectAuthVisible(connectShowFilters(React.memo(Header)));
