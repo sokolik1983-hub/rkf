@@ -10,19 +10,18 @@
   &__content {
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 70px;
     & *::selection {
       background: none;
     }
-    @media (max-width: 560px) {
-      height: 48px;
+    @media (max-width: 1024px) {
+      height: 50px;
     }
   }
   &__logo {
     display: block;
-    height: 40px;
-    width: 40px;
-    min-width: 40px;
+    height: 55px !important;
+    width: 55px;
     background: url("/static/images/header/rkf-logo-transparent.svg") no-repeat center;
     background-size: cover;
     margin-right: 30px;
@@ -58,7 +57,7 @@
     }
     &-control {
       width: 100%;
-      padding: 6px 36px 6px 40px;
+      padding: 6px 5px 6px 5px;
       border: 1px solid transparent;
       border-radius: 6px;
       background-color: #fff;
@@ -132,12 +131,22 @@
     min-width: 24px;
     background: url("/static/icons/icon-filters.svg") no-repeat center;
     background-size: cover;
-    @media (max-width: 990px) {
-      display: block;
-      margin-right: 24px;
+    margin-top: -20px;
+    display: flex;
+    justify-content: center;
+    button {
+      border: none;
+      padding: 0;
+      padding-top: 20px;
+      font-size: 12px;
+      color: #979797;
+      line-height: 26px;
+    }
+    @media (max-width: 1025px) {
+      display: flex;
+      //margin-right: 24px;
     }
     @media (max-width: 700px) {
-      margin-right: 16px;
     }
     @media (max-width: 560px) {
       width: 18px;
@@ -150,39 +159,39 @@
     padding: 0;
     border: 0;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-end;
-    width: 28px;
-    height: 20px;
+    width: 32px;
+    height: 24px;
+    transition: all 0.2s linear;
+    position: relative;
+    margin-right: 34px;
+    @media (max-width: 560px) {
+      align-items: center;
+    }
     span {
-      width: 24px;
+      width: 32px;
       height: 1px;
+      top: 12px;
+      position: absolute;
       background-color: #90999e;
-      transition: all 0.2s linear;
-      position: relative;
-      @media (max-width: 560px) {
-        width: 20px;
-        height: 1px;
-      }
+
       &:after, &:before {
         content: '';
         position: absolute;
-        width: 24px;
+        width: 32px;
         height: 1px;
         left: 0;
         background-color: #90999e;
       }
       &:after {
-
-        top: -5px;
-
+        top: -6px;
       }
       &:before {
-
-        top: 5px;
-
+        top: 6px;
       }
     }
+
     //&._open span {
     //  width: 24px;
     //  @media (max-width: 560px) {
@@ -200,17 +209,26 @@
     //    transform-origin: left bottom;
     //  }
     //}
-    @media (max-width: 990px) {
+    @media (max-width: 1025px) {
       display: flex;
-    }
-    @media (max-width: 560px) {
-      width: 24px;
-      height: 14px;
     }
   }
   &__nav {
     width: 100%;
-    margin-right: 24px;
+    &-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      span {
+        font-size: 12px;
+        line-height: 16px;
+        color: #979797;
+        display: block;
+        @media (max-width: 400px) {
+          font-size: 9px;
+        }
+      }
+    }
     &-icon {
       fill: #90999e;
       transition: fill 0.2s linear;
@@ -232,13 +250,10 @@
         margin-left: 0;
       }
     }
-    @media (max-width: 990px) {
+    @media (max-width: 1025px) {
       width: auto;
-      margin: 0 0 0 24px;
     }
-    @media (max-width: 700px) {
-      margin-left: 16px;
-    }
+
     .click-guard {
       top: 50px;
       left: 0;
@@ -266,10 +281,10 @@
           }
         }
       }
-      @media (max-width: 990px) {
+      @media (max-width: 1025px) {
         display: block;
         visibility: hidden;
-        transform: translateX(100%);
+        transform: translateX(-100%);
         height: calc(100vh - 50px);
         min-width: 320px;
         overflow-y: auto;
@@ -308,7 +323,7 @@
         }
       }
 
-      @media (max-width: 990px) {
+      @media (max-width: 1025px) {
         margin: 0 !important;
         &:last-child {
           border-top: 1px solid #72839c;
@@ -336,7 +351,7 @@
         color: #72839c !important;
         cursor: pointer;
 
-        @media (max-width: 990px) {
+        @media (max-width: 1025px) {
           display: block;
           padding: 8px 32px;
           white-space: nowrap;
@@ -419,7 +434,7 @@
       background-color: #fff;
       border-radius: 6px;
       overflow: hidden;
-      @media (max-width: 990px) {
+      @media (max-width: 1025px) {
         padding-left: 32px;
       }
       @media (max-width: 560px) {
@@ -448,7 +463,7 @@
             background-color: transparent;
             color: #72839c;
           }
-          @media (max-width: 990px) {
+          @media (max-width: 1025px) {
             &:hover {
               background-color: transparent;
               color: #72839c;
@@ -467,7 +482,7 @@
       font-size: 16px;
       line-height: 24px;
       color: #3366ff !important;
-      @media (max-width: 990px) {
+      @media (max-width: 1025px) {
         border-bottom: none;
       }
     }
@@ -498,8 +513,23 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    @media (max-width: 990px) {
+    @media (max-width: 1025px) {
       margin-left: auto;
+    }
+    &-notifications-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 18px;
+      & .Notifications {
+        align-items: flex-end;
+        height: auto;
+      }
+      span {
+        font-size: 12px;
+        color: #979797;
+        line-height: 18px;
+      }
     }
     &--feedback {
       margin-right: 28px;
@@ -518,13 +548,13 @@
 .widget-login {
   position: relative;
   display: flex;
-  @media (max-width: 990px) {
+  @media (max-width: 1025px) {
     margin-left: auto;
     min-width: initial;
   }
   &__user-icon {
-    height: 40px;
-    width: 40px;
+    height: 55px;
+    width: 55px;
     min-width: 40px;
     background-position: center;
     background-size: cover;
@@ -541,9 +571,10 @@
     }
   }
   &__wrap {
-    width: 40px;
-    height: 50px;
+    width:  55px;
+    height: 55px;
     cursor: pointer;
+    margin-top: -8px;
     &:hover {
       transition: all 0.2s linear;
     }
@@ -731,7 +762,7 @@
     line-height: 24px;
     letter-spacing: 0.5px;
     white-space: nowrap;
-    @media (max-width: 990px) {
+    @media (max-width: 1025px) {
       padding: 0;
       text-transform: none;
       background: none;

@@ -8,25 +8,34 @@ import Notifications from "./components/Notifications";
 import { connectShowFilters } from "../connectors";
 import { connectAuthVisible } from "pages/Login/connectors";
 import Feedback from "components/Feedback";
-import "./index.scss";
 import useIsMobile from "../../../utils/useIsMobile";
 
+import "./index.scss";
+
+
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
-    const isMobile = useIsMobile();
-console.log(isMobile)
+    const isMobile = useIsMobile(1025);
         return (
-        <header className="header">
+            <header className="header">
         <Container className="header__content">
 
-             {isMobile && <Nav login_page={login_page}/>}
+             {isMobile &&
+                <div className="header__nav-wrap">
+                    <Nav login_page={login_page}/>
+                    <span>Меню</span>
+                </div>
+            }
 
             {!isMobile &&
-             <Link to="/" className="header__logo"/>
+                <div>
+                    <Link to="/" className="header__logo"/>
+                </div>
             }
-                {withFilters &&
+
+            {withFilters &&
                 <button className="header__filters" onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}/>
-                }
-                <Search withFilters={withFilters}/>
+            }
+            <Search withFilters={withFilters}/>
 
 
             {!isMobile &&
@@ -34,12 +43,19 @@ console.log(isMobile)
             }
             <div className="header__widgets">
                 {!isAuthenticated &&
-                <div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>
+                    <div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>
                         <Feedback isMainNav={true}/>
                     </div>
                 }
-                <Notifications setNotificationsLength={setNotificationsLength}/>
-                <WidgetLogin login_page={login_page}/>
+                <div className="header__widgets-notifications-wrap">
+                    <Notifications setNotificationsLength={setNotificationsLength}/>
+                    {isMobile && <span>Уведомления</span>}
+                </div>
+                {isMobile
+                    ? <div className="header__filters">
+                        <button>Фильтр</button>
+                    </div>
+                    : <WidgetLogin login_page={login_page}/>}
             </div>
 
 

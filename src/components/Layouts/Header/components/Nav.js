@@ -11,12 +11,12 @@ import useIsMobile from "../../../../utils/useIsMobile";
 
 const Nav = ({ isAuthenticated, login_page }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const isMobile = useIsMobile(740);
+    const isMobile = useIsMobile(1025);
 
     const setOverflow = (isOpen) => {
-        if (window.innerWidth <= 990) {
+        if (window.innerWidth <= 1025) {
             document.body.style.overflow = isOpen ? 'hidden' : '';
-        } else if (window.innerWidth > 990 && isOpen) {
+        } else if (window.innerWidth > 1025 && isOpen) {
             document.body.style.overflow = '';
         }
     };
@@ -74,7 +74,6 @@ console.log(isMobile)
                                         {/*<div style={{display: 'flex', flexDirection: "column", alignItems: 'center'}}>*/}
                                             {navItem.image}
                                             <span className="header__nav-item-title">{navItem.name}</span>
-
                                         {/*</div>*/}
                                     </NavLink>
 

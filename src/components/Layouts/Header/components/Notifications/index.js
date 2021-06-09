@@ -12,6 +12,7 @@ import { NotificationsContext } from 'app/context';
 import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
+import useIsMobile from "../../../../../utils/useIsMobile";
 
 const defaultCategories = [
     {
@@ -46,6 +47,8 @@ const Notifications = forwardRef(
         const { notification } = useContext(NotificationsContext);
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
+
+        const isMobile = useIsMobile(1025);
 
         useEffect(() => {
             if (isAuthenticated) {
@@ -127,8 +130,12 @@ const Notifications = forwardRef(
                     && <>
                         <LightTooltip title="Уведомления" enterDelay={200} leaveDelay={200}>
                             <div className="Notifications__icon-wrap">
-                                <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick} />
-                                {showDot && <div className="Notifications__icon-dot" />}
+                                <div
+                                    className={`Notifications__icon ${open ? ` _active` : ``} ${isMobile && "__mobile"}`}
+                                    onClick={handleNotificationsClick}
+
+                                />
+                                         {showDot && <div className="Notifications__icon-dot" />}
                             </div>
                         </LightTooltip>
                         <CSSTransition
