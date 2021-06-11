@@ -33,7 +33,7 @@ import ls from 'local-storage';
 import "./index.scss";
 
 
-const BaseSearch = ({isAuthenticated}) => {
+const BaseSearch = ({ isAuthenticated }) => {
     const [cardClicked, setCardClicked] = useState(0);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
@@ -101,7 +101,7 @@ const BaseSearch = ({isAuthenticated}) => {
                             <CheckRegistration cardClicked={cardClicked} />
                             <StampSearch cardClicked={cardClicked} />
 
-                            {isAuthenticated && userType === 3 && <CheckLitterStatus cardClicked={cardClicked} />}
+                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) && <CheckLitterStatus cardClicked={cardClicked} />}
 
                             <RefereeSearch cardClicked={cardClicked} />
                             <PublicationSearch cardClicked={cardClicked} />
