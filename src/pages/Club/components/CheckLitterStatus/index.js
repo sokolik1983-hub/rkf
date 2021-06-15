@@ -8,13 +8,13 @@ import Alert from "components/Alert";
 
 import './styles.scss';
 
-const CheckLitterStatus = ({cardClicked}) => {
+const CheckLitterStatus = ({ cardClicked }) => {
     const [code, setCode] = useState('');
     const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
     const { query } = useParams();
-    
+
     useEffect(() => {
         if (query && query.length === 13) {
             setCode(query);
@@ -54,8 +54,8 @@ const CheckLitterStatus = ({cardClicked}) => {
         setLoading(false);
     };
 
-    return <Card   className={`check-status ${cardClicked === 5 && `_active_card`}`} id="check-status__letter">
-        <div className="check-status__icon"  />
+    return <Card className={`check-status ${cardClicked === 5 && `_active_card`}`} id="check-status__letter">
+        <div className="check-status__icon" />
         <h3>Информация о ПОМЁТАХ</h3>
         <p>Введите номер родословной интересующей Вас производительницы, чтобы проверить информацию о её щенениях. Номер вводится без буквенного обозначения. После ввода нажмите на кнопку "Поиск".
         </p>
@@ -66,7 +66,7 @@ const CheckLitterStatus = ({cardClicked}) => {
                     id="check-status-letter-track"
                     className="check-status__input"
                     type="text"
-                    onChange={({ target }) =>  setCode(target.value.slice(0, 7).replace(/[^0-9]/g, ''))
+                    onChange={({ target }) => setCode(target.value.slice(0, 7).replace(/[^0-9]/g, ''))
                     }
                     value={code}
                     title="Допускается ввод только цифр"
@@ -80,7 +80,7 @@ const CheckLitterStatus = ({cardClicked}) => {
                     Допускается ввод только цифр
                 </div>
             </div>
-            {!!status == false ? <div className="check-status__button">
+            {!!status === false ? <div className="check-status__button">
                 <button
                     type="submit"
                     disabled={loading}
@@ -110,7 +110,7 @@ const CheckLitterStatus = ({cardClicked}) => {
                         <h3 className="check-status__breed">Порода:<span>{status.breed_name}</span></h3>
                     </div>
 
-                {status.litter && <table>
+                    {status.litter && <table>
                         <colgroup>
                             <col width="15%" />
                             <col width="85%" />
@@ -125,16 +125,16 @@ const CheckLitterStatus = ({cardClicked}) => {
 
                                     return (
                                         <tr key={key}>
-                                        <td>{new Date(item.birth_date).toLocaleDateString("ru-RU")}</td>
-                                        <td>{item.dog_count}</td>
-                                    </tr>
+                                            <td>{new Date(item.birth_date).toLocaleDateString("ru-RU")}</td>
+                                            <td>{item.dog_count}</td>
+                                        </tr>
                                     )
 
                                 })
                             }
                         </tbody>
                     </table>
-                }
+                    }
 
 
 
