@@ -9,6 +9,7 @@ import './styles.scss';
 const LS_KEY = 'GLOBAL_CITY';
 const noOptionsMessage = () => 'ГОРОДОВ НЕ НАЙДЕНО';
 const selectorInitialState = { label: 'Выберите город', value: null };
+
 const storeFilters = city => {
     let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
     filters.cities = city ? [city.value] : [];
@@ -17,6 +18,7 @@ const storeFilters = city => {
 const storeCity = city => {
     localStorage.setItem(LS_KEY, JSON.stringify(city));
     //записываем город в фильтры в LocalStorage
+    debugger
     storeFilters(city);
 };
 const loadCity = () => {
@@ -26,33 +28,35 @@ const loadCity = () => {
 };
 
 function CitySelect({ cityFilter, currentCity }) {
-    const ddRef = useRef();
+    // const ddRef = useRef();
     const [city, setCity] = useState(loadCity());
-
     const { dictionary } = useDictionary(DICTIONARIES.cities);
 
-    const closeSelector = () => {
-        // TODO сделано "быстро", надо сделать хорошо
-        ddRef.current.props.onOutsideClick();
-    };
+    // const closeSelector = () => {
+    //     // TODO сделано "быстро", надо сделать хорошо
+    //     // ddRef.current.props.onOutsideClick();
+    // };
 
     useEffect(() => {
+        console.log('useEffect')
         currentCity && onChange(currentCity)
     }, [currentCity]);
 
     const onChange = value => {
+        console.log('change value',value)
+        // debugger
         if (!value.value || value.value === 'reset') {
             setCity(selectorInitialState);
             localStorage.removeItem(LS_KEY);
             storeFilters();
             cityFilter && value.value && cityFilter(null);
-            closeSelector();
+            // closeSelector();
             return;
         }
-
+        debugger
         storeCity(value);
         cityFilter && cityFilter(value);
-        closeSelector();
+        // closeSelector();
         setCity(value);
     };
 
@@ -62,29 +66,51 @@ function CitySelect({ cityFilter, currentCity }) {
     ];
 
     return (
-        <Dropdown
-            ref={ddRef}
-            innerComponent={city.label}
-            className="CitySelect left"
-            withClear={false}
-            clearLabel={() => onChange(selectorInitialState)}
-        >
-            <Select
-                closeMenuOnSelect={false}
-                styles={CITY_SELECTOR_STYLE}
-                options={selectOptions}
-                defaultMenuIsOpen={true}
-                hideSelectedOptions={false}
-                menuIsOpen={true}
-                controlShouldRenderValue={false}
-                clearable={true}
-                placeholder={'Начните вводить город'}
-                noOptionsMessage={noOptionsMessage}
-                isSearchable
-                value={city}
-                onChange={onChange}
-            />
-        </Dropdown>
+        <Select
+            isMulti
+            defaultValue={city[0]}
+            isClearable
+            isSearchable
+            inputValue={city.value || ''}
+            onInputChange={onChange}
+            name="color"
+            options={selectOptions}
+            menuIsOpen={true}
+
+            onChange={onChange}
+            styles={CITY_SELECTOR_STYLE}
+            placeholder={'Начните вводить город'}
+        />
+
+        // <Dropdown
+        //     ref={ddRef}
+        //     innerComponent={city.label}
+        //     className="CitySelect left"
+        //     withClear={false}
+        //     clearLabel={() => onChange(selectorInitialState)}
+        // >
+        //     <Select
+        //         isMulti
+        //         isClearable
+        //         onInputChange={onChange}
+        //         // innerComponent={city.label}
+        //         closeMenuOnSelect={false}
+        //         styles={CITY_SELECTOR_STYLE}
+        //         options={selectOptions}
+        //         // defaultMenuIsOpen={true}
+        //         hideSelectedOptions={false}
+        //         menuIsOpen={true}
+        //         // controlShouldRenderValue={false}
+        //         clearable={true}
+        //         placeholder={'Начните вводить город'}
+        //         // noOptionsMessage={noOptionsMessage}
+        //         isSearchable
+        //         value={city}
+        //         onChange={onChange}
+        //         // inputValue={city[0]}
+        //         name="city"
+        //         // controlShouldRenderValue={false}
+        //     />
     );
 }
 

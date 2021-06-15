@@ -54,12 +54,7 @@ const HomePage = ({ homepage, cities }) => {
                     <ExhibitionsComponent />
                     <Container className="home-page__news" >
                         <div className="home-page__news-wrap">
-                            <NewsList
-                                isFullDate={false}
-                                citiesDict={cities.options}
-                                banner={banners.homePageArticle}
-                            />
-                            <Aside className="home-page__right">
+                          <Aside className="home-page__right">
                                 <StickyBox offsetTop={65}>
                                     <div className="home-page__right-wrap">
                                         <div className="home-page__tablet-wrap">
@@ -93,7 +88,13 @@ const HomePage = ({ homepage, cities }) => {
                                         {!isMobile && <CopyrightInfo withSocials={true} />}
                                     </div>
                                 </StickyBox>
-                            </Aside>
+                        </Aside>
+                            <NewsList
+                                isFullDate={false}
+                                citiesDict={cities.options}
+                                banner={banners.homePageArticle}
+                            />
+
                         </div>
                     </Container>
                 </div>

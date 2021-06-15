@@ -7,6 +7,7 @@ import BurgerButton from "./BurgerButton";
 import NavSublist from "./NavSublist";
 import { connectAuthVisible } from "../../../../pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
+import MenuLink from "./MenuLink";
 
 
 const Nav = ({ isAuthenticated, login_page }) => {
@@ -26,7 +27,7 @@ const Nav = ({ isAuthenticated, login_page }) => {
         window.addEventListener('resize', () => setOverflow(isOpen));
         return () => window.removeEventListener('resize', () => setOverflow(isOpen));
     }, [isOpen]);
-console.log(isMobile)
+
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
@@ -51,8 +52,13 @@ console.log(isMobile)
                                         <span>{navItem.name}</span>
                                     </NavLink>
                                 }
+
                             </li>
                         )}
+                        <li className="widget-login__item" onClick={() => setIsOpen(false)}>
+                                        <a style={{ color: '#3366ff' }} href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/" target="_blank" rel="noopener noreferrer">База знаний</a>
+                            <Feedback/>
+                        </li>
                         {!isAuthenticated && <li className="header__nav-item"><Feedback /></li>}
                     </ul>
                 </>
@@ -64,27 +70,18 @@ console.log(isMobile)
                             return (
 
                                 <li className="header__nav-item--desktop" key={navItem.id}>
-                                {/*<LightTooltip title={navItem.title} enterDelay={200} leaveDelay={200}>*/}
-                                    <NavLink
-                                        to={navItem.to}
-                                        exact={navItem.exact}
-                                        className={`${navItem.disabled ? `header__nav-item-link _disabled` : `header__nav-item-link `}`}
-                                        onClick={e => navItem.disabled ? e.preventDefault() : e}
-                                    >
-                                        {/*<div style={{display: 'flex', flexDirection: "column", alignItems: 'center'}}>*/}
-                                            {navItem.image}
-                                            <span className="header__nav-item-title">{navItem.name}</span>
-                                        {/*</div>*/}
-                                    </NavLink>
 
-                                {/*</LightTooltip>*/}
+                                   <MenuLink {...navItem}/>
+
                             </li>
                             )
                             }
                         )}
+
                     </ul>
                 </>
             }
+
         </nav>
     )
 };

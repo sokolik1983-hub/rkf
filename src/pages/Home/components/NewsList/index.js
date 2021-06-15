@@ -113,25 +113,27 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
             <div className="NewsList__head">
                 <div className="NewsList__head-wrap">
                     <div className="Homepage__news-title">
-                        <h3>Публикации</h3>
-                        <div className="Homepage__news-mobile-only">
-                            <CitySelect
-                                currentCity={newsFilter.city}
-                                cityFilter={city => {
-                                    if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
-                                        changeCityFilter(city);
-                                    }
-                                }}
-                            />
-                        </div>
+
+                        {/*<div className="Homepage__news-mobile-only">*/}
+                        {/*    <CitySelect*/}
+                        {/*        currentCity={newsFilter.city}*/}
+                        {/*        cityFilter={city => {*/}
+                        {/*            if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {*/}
+                        {/*                changeCityFilter(city);*/}
+                        {/*            }*/}
+                        {/*        }}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
                     </div>
                     <div className="NewsList__filters">
-                        <div className="Homepage__news-title-wrap">
+                        <div className="Homepage__news-title-w ">
                             <ul className="ListFilter">
-                                <li>
+                                <h3>Публикации</h3>
+                                <li  style={{backgroundImage: '/static/icons/home-filters/cards-variant.svg'}}>
                                     <span
                                         className={`ListFilter__item${activeType === 'all' ? ' _active' : ''}`}
                                         onClick={() => changeTypeFilters('all')}
+
                                     >Все</span>
                                 </li>
                                 <li>
@@ -147,15 +149,16 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
                                     >Объявления</span>
                                 </li>
                             </ul>
-                            <CitySelect
-                                currentCity={newsFilter.city}
-                                cityFilter={city => {
-                                    if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
-                                        changeCityFilter(city);
-                                    }
-                                }}
-                            />
+                            {/*<CitySelect*/}
+                            {/*    currentCity={newsFilter.city}*/}
+                            {/*    cityFilter={city => {*/}
+                            {/*        if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {*/}
+                            {/*            changeCityFilter(city);*/}
+                            {/*        }*/}
+                            {/*    }}*/}
+                            {/*/>*/}
                         </div>
+
                         <ListFilter
                             changeFilter={changeOrganizationFilters}
                         />

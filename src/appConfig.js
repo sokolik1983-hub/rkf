@@ -413,7 +413,7 @@ const mainNav = [
         to: '/booking',
         disabled: true,
         exact: false,
-        image: <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        image: <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path
     d="M17.9238 6.3894H7.11886C6.5516 6.3894 6.1059 6.83511 6.1059 7.40237C6.1059 7.96963 6.56511 8.41534 7.11886 8.41534H17.9238C18.4776 8.41534 18.9368 7.95612 18.9368 7.40237C18.9368 6.84862 18.4776 6.3894 17.9238 6.3894Z"
     fill="#8F989D"/>

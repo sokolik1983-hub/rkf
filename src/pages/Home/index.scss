@@ -152,7 +152,7 @@
       }
     }
     &.side {
-      margin-left: 16px;
+      margin-right: 16px;
       width: 368px;
       z-index: 2;
       @media (max-width: 1100px) {
@@ -217,7 +217,7 @@
       }
       &-wrap {
         display: flex;
-        align-items: flex-start;
+        flex-direction: column;
         @media (max-width: 560px) {
           display: block;
         }
@@ -252,7 +252,7 @@
               transition: all 0.2s linear;
               border-bottom: 2px solid transparent;
               &.active {
-                border-bottom: 2px solid #3366ff;
+                color: #3366ff;
               }
             }
           }
@@ -396,3 +396,17 @@
     }
   }
 }
+//
+//.CitySelectrap {
+//  width: 236px;
+//  margin-bottom: 15px;
+//  //background: #fff;
+//  //padding: 10px 10px 0;
+//  //border-radius: 6px;
+//  //box-shadow: 0 2px 10px rgba(51, 102, 255, 0.05), 0 4px 30px rgba(51, 102, 255, 0.1);
+//  h3 {
+//    font-size: 18px;
+//    color: #253C5E;
+//  }
+//}
+

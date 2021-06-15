@@ -15,28 +15,19 @@ import "./index.scss";
 
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
     const isMobile = useIsMobile(1025);
+
         return (
             <header className="header">
-        <Container className="header__content">
+            <Container className="header__content">
 
-             {isMobile &&
-                <div className="header__nav-wrap">
-                    <Nav login_page={login_page}/>
-                    <span>Меню</span>
-                </div>
-            }
-
-            {!isMobile &&
-                <div>
-                    <Link to="/" className="header__logo"/>
-                </div>
-            }
-
-            {withFilters &&
-                <button className="header__filters" onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}/>
+             {isMobile
+                 ? <div className="header__nav-wrap">
+                        <Nav login_page={login_page}/>
+                        <span>Меню</span>
+                    </div>
+                 : <div><Link to="/" className="header__logo"/></div>
             }
             <Search withFilters={withFilters}/>
-
 
             {!isMobile &&
                 <Nav login_page={login_page}/>
@@ -52,7 +43,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     {isMobile && <span>Уведомления</span>}
                 </div>
                 {isMobile
-                    ? <div className="header__filters">
+                    ? <div className="header__filters" onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}>
                         <button>Фильтр</button>
                     </div>
                     : <WidgetLogin login_page={login_page}/>}
