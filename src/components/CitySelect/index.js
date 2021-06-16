@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Select from 'react-select';
+import Select,{ components} from 'react-select';
 import { CITY_SELECTOR_STYLE } from './config';
 import { useDictionary } from "../../dictionaries";
 import { DICTIONARIES } from "../../dictionaries/config";
 import Dropdown from 'components/Dropdown';
 import './styles.scss';
+import CustomCheckbox from "../Form/CustomCheckbox";
 
 const LS_KEY = 'GLOBAL_CITY';
 const noOptionsMessage = () => 'ГОРОДОВ НЕ НАЙДЕНО';
@@ -14,6 +15,17 @@ const storeFilters = city => {
     filters.cities = city ? [city.value] : [];
     localStorage.setItem('FiltersValues', JSON.stringify(filters));
 };
+
+const Option = props => (
+    <components.Option {...props}>
+        <CustomCheckbox
+            id={`cities-${props.value}`}
+            label={props.label}
+            checked={props.isSelected}
+            onChange={() => null}
+        />
+    </components.Option>
+);
 const storeCity = city => {
     localStorage.setItem(LS_KEY, JSON.stringify(city));
     //записываем город в фильтры в LocalStorage
@@ -41,6 +53,8 @@ function CitySelect({ cityFilter, currentCity }) {
     }, [currentCity]);
 
     const onChange = value => {
+        
+        console.log('change value', value)
         if (!value.value || value.value === 'reset') {
             setCity(selectorInitialState);
             localStorage.removeItem(LS_KEY);
@@ -63,7 +77,25 @@ function CitySelect({ cityFilter, currentCity }) {
 
     return (
 
-
+        <Select
+            id="cities-filter"
+            isMulti={true}
+            closeMenuOnSelect={false}
+            options={selectOptions}
+            defaultMenuIsOpen={true}
+            hideSelectedOptions={false}
+            menuIsOpen={true}
+            controlShouldRenderValue={false}
+            onChange={onChange}
+            clearable={true}
+            isSearchable
+            classNamePrefix="cities-filter"
+            placeholder="Начните вводить город"
+            noOptionsMessage={noOptionsMessage}
+            // value={city}
+            components={{ Option }}
+            maxMenuHeight={170}
+        />
 
         // <Dropdown
         //     ref={ddRef}
@@ -73,21 +105,21 @@ function CitySelect({ cityFilter, currentCity }) {
         //     clearLabel={() => onChange(selectorInitialState)}
         // >
         // <div className="NewsList__filters-city">
-            <Select
-                closeMenuOnSelect={false}
-                styles={CITY_SELECTOR_STYLE}
-                options={selectOptions}
-                defaultMenuIsOpen={true}
-                hideSelectedOptions={false}
-                menuIsOpen={true}
-                controlShouldRenderValue={false}
-                clearable={true}
-                placeholder={'Начните вводить город'}
-                noOptionsMessage={noOptionsMessage}
-                isSearchable
-                value={city}
-                onChange={onChange}
-            />
+        //     <Select
+        //         closeMenuOnSelect={false}
+        //         styles={CITY_SELECTOR_STYLE}
+        //         options={selectOptions}
+        //         defaultMenuIsOpen={true}
+        //         hideSelectedOptions={false}
+        //         menuIsOpen={true}
+        //         controlShouldRenderValue={false}
+        //         clearable={true}
+        //         placeholder={'Начните вводить город'}
+        //         noOptionsMessage={noOptionsMessage}
+        //         isSearchable
+        //         value={city}
+        //         onChange={onChange}
+        //     />
             // </div>
         //  </Dropdown>
     );
