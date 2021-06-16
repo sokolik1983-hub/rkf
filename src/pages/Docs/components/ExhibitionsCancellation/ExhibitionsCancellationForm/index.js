@@ -155,8 +155,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
             type_id: data.type_id,
             city_id: data.city_id,
             comment: data.comment,
-            date_begin: moment(data.date_begin).format(),
-            date_end: moment(data.date_end).format(),
+            date_begin: data.date_begin,
+            date_end: data.date_end,
             documents: data.documents.map(d => ({
                 id: d.id ? d.id : null,
                 name: d.name,
