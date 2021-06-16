@@ -149,20 +149,23 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
                                     >Объявления</span>
                                 </li>
                             </ul>
-                            {/*<CitySelect*/}
-                            {/*    currentCity={newsFilter.city}*/}
-                            {/*    cityFilter={city => {*/}
-                            {/*        if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {*/}
-                            {/*            changeCityFilter(city);*/}
-                            {/*        }*/}
-                            {/*    }}*/}
-                            {/*/>*/}
+
                         </div>
 
                         <ListFilter
                             changeFilter={changeOrganizationFilters}
                         />
                     </div>
+                    <div className="NewsList__filters-city">
+                    <CitySelect
+                        currentCity={newsFilter.city}
+                        cityFilter={city => {
+                            if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
+                                changeCityFilter(city);
+                            }
+                        }}
+                    />
+                        </div>
                 </div>
             </div>
             {news && !!news.length &&
