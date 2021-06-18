@@ -1,7 +1,7 @@
-import {number, boolean, string, object, mixed, array} from "yup";
-import {reqText, reqEmail, numbersOnly, lat, reqCheckbox} from "../../config.js";
+import { number, boolean, string, object, mixed, array } from "yup";
+import { reqText, reqEmail, numbersOnly, lat, reqCheckbox } from "../../config.js";
 
-const latOptional = () => string().matches(/^[^а-я]+$/i, {message: 'Поле заполняется латиницей', excludeEmptyString: true})
+const latOptional = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей', excludeEmptyString: true })
 
 const endpointGetFederations = '/api/clubs/Federation';
 const apiDoctypeEndpoint = '/api/requests/NurseryLitterRequest/additional_document_types';
@@ -27,7 +27,7 @@ const validationSchema = {
     address_lat: lat().required(reqText),
     breed_id: number().required(reqText).typeError(reqText),
     stamp_code_id: number().required(reqText).typeError(reqText),
-    
+
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
     father_pedigree_number: string().required(reqText),
@@ -51,6 +51,8 @@ const validationSchema = {
     dog_mating_act_id: number().required(reqText),
     application_document_id: number().required(reqText),
     personal_data_document_id: number().required(reqText),
+    decision_breeding_commission_document_id: number(),
+    receipt_payment_fee_violated_breeding_document_id: number(),
     litters: array().of(object().shape({
         id: number(),
         dog_name: string().required(reqText),
@@ -61,7 +63,7 @@ const validationSchema = {
         chip_number: string(),
         litter_dog_status_id: string().required(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => !["2","4"].includes(String(v)),
+            is: v => !["2", "4"].includes(String(v)),
             then: string(),
             otherwise: string().required(reqText)
         })
@@ -100,7 +102,7 @@ const updateSchema = {
         chip_number: string(),
         litter_dog_status_id: number().required(reqText).typeError(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => !["2","4"].includes(String(v)),
+            is: v => !["2", "4"].includes(String(v)),
             then: string(),
             otherwise: string().required(reqText)
         })
@@ -121,7 +123,7 @@ const emptyNurseryLitterDeclarant = {
     address_lat: '',
     breed_id: '',
     stamp_code_id: '',
-    
+
     father_name: '',
     father_foreign: false,
     father_pedigree_number: '',
@@ -164,43 +166,43 @@ const config = {
     options: {
         federations: {
             url: endpointGetFederations,
-            mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name}))
+            mapping: data => data.sort((a, b) => a.id - b.id).map(m => ({ value: m.id, label: m.short_name }))
         },
         declarants: {
             url: apiNurseryDeclarantsEndpoint,
-            mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
+            mapping: data => data.sort((a, b) => Number(b.is_default) - Number(a.is_default))
         },
         doctypes: {
             url: apiDoctypeEndpoint,
-            mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus})),
+            mapping: data => data.sort((a, b) => a.id - b.id).map(m => ({ value: m.id, label: m.name_rus })),
         },
         breeds: {
             url: apiBreedsEndpoint,
-            mapping: data => data.filter(f => typeof f.id === 'number' && f.id !== 1).map(m => ({value: m.id, label:m.name})),
+            mapping: data => data.filter(f => typeof f.id === 'number' && f.id !== 1).map(m => ({ value: m.id, label: m.name })),
         },
         sexTypes: {
             url: apiSexTypesEndpoint,
-            mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})),
+            mapping: data => data.sort((a, b) => a.id - b.id).map(m => ({ value: m.id, label: m.name })),
         },
         statuses: {
             url: apiLitterStatusesEndpoint,
-            mapping: data => data.sort((a,b) => a.id - b.id),
+            mapping: data => data.sort((a, b) => a.id - b.id),
         },
         stampCodes: {
             url: nurseryId => apiStampCodesEndpoint + '?id=' + nurseryId,
-            mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code}))
+            mapping: data => data.sort((a, b) => Number(b.is_default) - Number(a.is_default)).map(m => ({ value: m.stamp_code_id, label: m.stamp_code }))
         },
         litterStatuses: {
             url: apiLitterDogStatusEndpoint,
-            mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name}))
+            mapping: data => data.sort((a, b) => a.id - b.id).map(m => ({ value: m.id, label: m.name }))
         }
     },
     hooks: {
-        values: values => ({...values.declarant, litter_header_declarant_request_id: values.id, litter_request_id: values.litter_request_id, declarant_uid: values.declarant_uid, documents: values.documents, litters: values.litters})
+        values: values => ({ ...values.declarant, litter_header_declarant_request_id: values.id, litter_request_id: values.litter_request_id, declarant_uid: values.declarant_uid, documents: values.documents, litters: values.litters })
     },
     url: '/api/requests/litter_request/NurseryLitterDeclarantRequest',
     get: '/api/requests/litter_request/NurseryLitterDeclarantRequest/declarant',
     initialValues: emptyNurseryLitterDeclarant
 }
 
-export default config; 
+export default config;
