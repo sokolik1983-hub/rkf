@@ -205,7 +205,26 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             distinction={distinction}
                         />
                     </FormGroup>
-                    {/*files*/}
+                    <FormGroup inline>
+                        {(declarant.status_id === 9 || declarant.decision_breeding_commission_document_id) &&
+                            < FormFile
+                                name={`declarants[${i}].decision_breeding_commission_document`}
+                                label='Решение/ответ племенной комиссии'
+                                docId={declarant.decision_breeding_commission_document_id}
+                                disabled={view || declarant.decision_breeding_commission_document_accept}
+                                distinction={distinction}
+                                document_type_id={55}
+                            />}
+                        {(declarant.status_id === 9 || declarant.receipt_payment_fee_violated_breeding_document_id) &&
+                            <FormFile
+                                name={`declarants[${i}].receipt_payment_fee_violated_breeding_document`}
+                                label='Квитанция о дополнительном взносе на регистрацию в ВЕРК помета, полученного с нарушениями Племенного положения РКФ.'
+                                docId={declarant.receipt_payment_fee_violated_breeding_document_id}
+                                disabled={view || declarant.receipt_payment_fee_violated_breeding_document_accept}
+                                distinction={distinction}
+                                document_type_id={56}
+                            />}
+                    </FormGroup>
 
                     <h4>Щенки</h4>
                     <FieldArray name={`declarants[${i}].litters`} render={({ push, remove }) => (<table>
