@@ -2,6 +2,7 @@
   list-style: none;
   display: flex;
   border-bottom: 1px solid #e8e8e8;
+  z-index: 2;
   &__title {
     font-weight: normal;
     font-size: 18px;
@@ -10,6 +11,7 @@
     margin-bottom: 10px;
     border-bottom: 1px solid #e8e8e8;
     padding-bottom: 12px;
+
   }
   &__item {
     &:not(:last-child) {
