@@ -167,6 +167,16 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
             }))();
     }, []);
 
+    const getErrorText = e => {
+        if (e.response) {
+            return e.response.data.errors
+                ? Object.values(e.response.data.errors)
+                : `${e.response.status} ${e.response.statusText}`;
+        } else {
+            return 'Пожалуйста, проверьте правильность заполнения всех полей'
+        }
+    };
+
     const comment = initial.rejected_comment && initial.rejected_comment.comment;
 
     return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
@@ -182,7 +192,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
-                text={`Пожалуйста, проверьте правильность заполнения всех полей`}
+                text={getErrorText(errAlert)}
                 autoclose={2.5}
                 onOk={() => setErrAlert(false)}
             />
@@ -190,7 +200,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         <div className="documents-page__right">
             <Form
                 onSuccess={e => setOkAlert(true)}
-                onError={e => console.log(e) || setErrAlert(true)}
+                onError={e => console.log(e) || setErrAlert(e)}
                 action={apiEndpoint}
                 method={update || draft ? "PUT" : "POST"}
                 validationSchema={update ? updateSchema : validationSchema}
