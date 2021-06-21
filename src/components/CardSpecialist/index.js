@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-
 import Card from "../Card";
 import Share from "../Share";
 import { DEFAULT_IMG } from "../../appConfig";
 import { Request } from "../../utils/request";
-import Modal from "./components/Modal";
 import useIsMobile from "../../utils/useIsMobile";
 import { setFiltersToUrl } from "../../pages/Specialists/utils";
 import LightTooltip from "../../components/LightTooltip";
@@ -13,30 +11,29 @@ import "./index.scss";
 
 
 const CardSpecialist = ({
-    id,
-    cert_number,
-    last_name,
-    first_name,
-    second_name,
-    last_name_lat,
-    first_name_lat,
-    picture_link,
-    city_id,
-    city_name,
-    phone,
-    email,
-    disciplines,
-    show_details,
-    searchTypeId,
-    specializations,
-}) => {
-    const [showModal, setShowModal] = useState(false);
+                            id,
+                            cert_number,
+                            last_name,
+                            first_name,
+                            second_name,
+                            last_name_lat,
+                            first_name_lat,
+                            picture_link,
+                            city_id,
+                            city_name,
+                            phone,
+                            email,
+                            disciplines,
+                            show_details,
+                            searchTypeId,
+                            specialization,
+                        }) => {
     const [additionalDisciplines, setAdditionalDisciplines] = useState(null);
     const [additionalPhones, setAdditionalPhones] = useState(null);
     const [additionalEmails, setAdditionalEmails] = useState(null);
+    const [moreData, setMoreData] = useState(false);
 
-    const isMobile = useIsMobile();
-    const isMobile660px = useIsMobile(660);
+    const isMobile700 = useIsMobile(700);
     const isSpecialist = searchTypeId === 3;
 
     const onShowMoreClick = () => {
@@ -46,87 +43,114 @@ const CardSpecialist = ({
             setAdditionalPhones(data.phones);
             setAdditionalEmails(data.emails);
             setAdditionalDisciplines(data.disciplines);
-            setShowModal(true);
+            setMoreData(!moreData)
         }, error => {
             console.log(error.response);
         }))();
     };
 
-    return (showModal ?
-            <Modal
-                className="full-card-modal"
-                showModal={true}
-                handleClose={() => setShowModal(false)}
-                handleX={() => setShowModal(false)}
-                headerName={""}
-            >
-                <div className="full-card-modal__content">
-                    <Card className="card-specialist _modal">
-                        {isMobile &&
-                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}><span
-                                className="card-specialist__city"
-                                onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
-                                title={city_name}
-                                >
-                                    {city_name}
+    return (
+        <Card className="card-specialist">
+            <div className="card-specialist__city"
+                 onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
+                 title={city_name}>
+                    {city_name}
+            </div>
+                <div className="card-specialist__wrap">
+                    <span className="card-specialist__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})`}}/>
+                    {isMobile700 && <div className="card-specialist__names">
+                            <span className="card-specialist__name">
+                                {last_name + " " + first_name}&nbsp;
+                                <br/>
+                                {second_name}
+                            </span>
+                                <span className="card-specialist__name-eng">
+                                    {last_name_lat} {first_name_lat}
                                 </span>
-                            </div>
-                        }
-                        <div className="card-specialist__wrap">
-                            <span className="card-specialist__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
-                            <div className="card-specialist__info _modal">
-                                <div className="card-specialist__contacts _modal">
-                                <span className="card-specialist__name _modal">
-                                    {last_name + " " + first_name + " " + second_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
-                                </span>
-                                    <span className="card-specialist__name-eng _modal">{last_name_lat} {first_name_lat}</span>
-                                    {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
+                            </div>}
 
-                                    {additionalPhones && additionalPhones.map((phone, index) => {
+                    <div className="card-specialist-inner">
+
+                        <div className="card-specialist__info">
+
+                            {!isMobile700 &&
+                            <><span className="card-specialist__name">
+                                    {last_name + " " + first_name}&nbsp;
+                                <br/>
+                                {second_name}
+                                    </span>
+                                <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span></>
+                            }
+                            <span className="card-specialist__sertificate">Номер сертификата<span> {cert_number}</span></span>
+                        </div>
+
+                        {isMobile700 && <div className="card-specialist__contacts">
+                              <div>
+                                    <h3>Контакты</h3>
+                                  {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
+                                  {(additionalPhones && moreData) && additionalPhones.map((phone, index) => {
+                                      return (
+                                          <span key={index}
+                                                className="card-specialist__subtitle">
+                                            т. {phone}
+                                            </span>
+                                      )
+                                  })}
+
+                                  {email && <span className="card-specialist__subtitle">{email}</span>}
+                                  {(additionalEmails && moreData) && additionalEmails.map((email, index) => {
+                                      return (
+                                          <span key={index}
+                                                className="card-specialist__subtitle">
+                                                        {email}
+                                                </span>
+                                      )
+                                  }) }
+                                </div>
+                            </div> }
+
+                        <div className="card-specialist__content">
+                         {!isMobile700 && <div className="card-specialist__contacts">
+                                <div>
+                                    <h3>Контакты</h3>
+                                    {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
+                                    {(additionalPhones && moreData) && additionalPhones.map((phone, index) => {
                                         return (
                                             <span key={index}
                                                   className="card-specialist__subtitle">
                                             т. {phone}
-                                        </span>
+                                            </span>
                                         )
-                                    })
-                                    }
-                                    {email && <span className="card-specialist__subtitle">Email: {email}</span>}
-                                    {additionalEmails && additionalEmails.map((email, index) => <span className="card-specialist__subtitle" key={index}>Email: {email}</span>)}
-                                </div>
-                            </div>
-                            <div className="card-specialist__content-modal">
-                                <div className="card-specialist__header">
-                                    <div>
-                                    </div>
-                                    {!isMobile && <span
-                                        className="card-specialist__city"
-                                        onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
-                                        title={city_name}
-                                    >
-                                    {city_name}
-                                </span>}
-                                </div>
-                            </div>
-                        </div>
-                        {!isSpecialist && <div style={{ marginTop: '40px' }}>
+                                    })}
 
-                            <div className="card-specialist__full-content _modal">
-                                <div className="card-specialists__grid">
-
-                                    {additionalDisciplines?.map((item, index, arr) => {
-
+                                    {email && <span className="card-specialist__subtitle">{email}</span>}
+                                    {(additionalEmails && moreData) && additionalEmails.map((email, index) => {
                                         return (
-                                            <div className="card-specialists__grid-item" key={index}>
-                                                
+                                            <span key={index}
+                                                  className="card-specialist__subtitle">
+                                                        {email}
+                                                </span>
+                                        )
+                                    }) }
+                                </div>
+                            </div>}
+                        </div>
+
+                        <div className="card-specialists__grid">
+
+                            {(!isSpecialist && additionalDisciplines)
+                            && additionalDisciplines?.map((item, index, arr) => {
+                                return (
+                                    <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
                                                 <div className="card-specialist__disciplines">
 
-                                                    <div className="card-specialist__disciplines-inner nospecialists">
-                                                        {index < 1 && <div className="card-specialist__content-title">Дисциплины</div>}
+                                                    <div className="card-specialist__disciplines-inner">
+                                                        {index === 0 &&  <div className="card-specialist__content-title">Дисциплины</div>}
+
                                                         <div>
                                                             {item?.disciplines.map((item, index, arr) => {
                                                                 return (
-                                                                    <LightTooltip title={item.discipline_name} enterDelay={100} leaveDelay={50} key={index}>
+                                                                    <LightTooltip title={item.discipline_name || 'title'} enterDelay={100} leaveDelay={50} key={index}>
                                                                         <span className="card-specialist__discipline">
                                                                             {item.discipline_short_name}
                                                                             {index < arr.length - 1 && ","}&nbsp;
@@ -140,41 +164,40 @@ const CardSpecialist = ({
                                                 <div className="card-specialist__ranks">
                                                     <div className="card-specialist__rank" >
                                                         {item.rank
-                                                            && index < 1
-                                                            && <h3 className="card-specialist__rank-title">Ранг</h3>
+                                                        && index === 0
+                                                        && <h3 className="card-specialist__rank-title">Ранг</h3>
                                                         }
-                                                            <span className="card-specialist__content-data">{item.rank}</span>
+                                                        <span className="card-specialist__content-data">{item.rank}</span>
                                                         </div>
                                                 </div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        </div>}
 
+                                    </div>
+                                )
+                            })
+                            }
 
-                        {isSpecialist && <div className="card-specialist__additional-wrap" style={{ marginTop: '40px' }}>
+                            {moreData && additionalDisciplines && isSpecialist
+                                ? additionalDisciplines?.map((additionalDiscipline, index, arr) => {
 
-                            <div className="card-specialists__grid">
-                                {additionalDisciplines?.map((item, index, arr) => {
                                     return (
-                                        <div className="card-specialist__specialization-inner" key={index}>
-                                        <p className="card-specialist__specialization">Специализация</p>
-                                        <p className="card-specialist__subtitle" >{item.specialization}</p>
-
-                                            {item?.disciplines.map((item, index, arr) => {
-                                                return (
-                                                    <div className="card-specialists__grid-item"  style={{display: 'flex'}} key={index}>
+                                        <React.Fragment key={index}>
+                                            <div
+                                                className={ !moreData && index > 0  ? "card-specialist__specialization-inner __hide" : "card-specialist__specialization-inner"}>
+                                            <p className="card-specialist__specialization">Специализация</p>
+                                            <p className="card-specialist__subtitle">{additionalDiscipline.specialization}</p>
+                                                {additionalDiscipline?.disciplines?.map((rank, index, arr) => {
+                                                    return (
+                                                        <div className="card-specialists__grid-item" key={index}>
                                                         <div className="card-specialist__disciplines">
-                                                            {index < 1 && <div className="card-specialist__content-title" >Дисциплины </div>}
-                                                             <div className="card-specialist__disciplines-inner">
+                                                            {index === 0 && <div className="card-specialist__content-title" >Дисциплины</div>}
 
-                                                                 {item?.disciplines.map((item, index, arr) => {
+                                                            <div className="card-specialist__disciplines-inner" style={{flexDirection: 'row'}}>
+
+                                                                 {rank?.disciplines?.map((discipline, index, arr) => {
                                                                      return (
-                                                                         <LightTooltip title={item.discipline_name} enterDelay={100} leaveDelay={50} key={index}>
+                                                                         <LightTooltip title={discipline.discipline_name || 'title'} enterDelay={100} leaveDelay={50} key={index}>
                                                                             <span className="card-specialist__discipline">
-                                                                                {item.discipline_short_name}
+                                                                                {discipline.discipline_short_name}
                                                                                 {index < arr.length - 1 && ","}&nbsp;
                                                                             </span>
                                                                          </LightTooltip>
@@ -183,102 +206,73 @@ const CardSpecialist = ({
                                                             </div>
                                                         </div>
                                                         <div className="card-specialist__ranks">
-
-                                                    {item.rank &&
-                                                        <div className="card-specialist__rank">
-                                                            {item.rank
-                                                                && index < 1
-                                                                && <h3  style={{display: 'block'}} className="card-specialist__rank-title">Ранг</h3>
+                                                        <div className="card-specialist__rank" >
+                                                            {rank.rank
+                                                            && index === 0
+                                                            && <h3 className="card-specialist__rank-title">Ранг</h3>
                                                             }
-                                                            <span style={{display: 'block'}}
-                                                                  className="card-specialist__content-data">
-                                                                    {item.rank}
-                                                            </span>
+                                                            <span className="card-specialist__content-data">{rank.rank}</span>
+                                                            </div>
+                                                    </div>
+                                                    </div>
+                                                    )
+                                                })}
+                                        </div>
+                                        </React.Fragment>
+                                    )
+                                })
+                                :  disciplines.map((item, index, arr) => {
+                                    return (
+                                        <React.Fragment key={index}>
+                                        <div className="card-specialists__grid-item" key={index}>
+                                                <div className="card-specialist__disciplines">
+                                                     {isSpecialist
+                                                     && <div style={{display: 'flex', flexDirection: 'column'}}>
+                                                            <p className="card-specialist__specialization">Специализация</p>
+                                                            <p className="card-specialist__subtitle">{specialization}</p>
                                                         </div>
-                                                    }
+                                                     }
+                                                    <div className="card-specialist__disciplines-inner" style={{flexDirection: 'column'}}>
+                                                    {index < 1 && <div className="card-specialist__content-title" >Дисциплины</div>}
+                                                        <div style={{flexDirection: 'row'}}>
+                                                        {item?.disciplines.map((item, index, arr) => {
+                                                            return (
+                                                                <LightTooltip title={item.discipline_name || 'title'} enterDelay={100} leaveDelay={50} key={index}>
+                                                                    <span className="card-specialist__discipline">
+                                                                        {item.discipline_short_name}
+                                                                        {index < arr.length - 1 && ","}&nbsp;
+                                                                    </span>
+                                                                </LightTooltip>
+                                                            )
+                                                        })}
                                                     </div>
                                                 </div>
-                                            )
-                                        })}
-                                    </div>
+                                            </div>
+                                            <div className="card-specialist__ranks">
+                                                <div className="card-specialist__rank" >
+                                                    {item.rank
+                                                    && <h3  style={{display: 'block'}} className="card-specialist__rank-title">Ранг</h3>
+                                                    }
+                                                    <span style={{display: 'block'}}  className="card-specialist__content-data">{item.rank}</span>
+                                                    </div>
+                                            </div>
+                                        </div>
+
+                                    </React.Fragment>
                                     )
-                                })}
-                            </div>
-                        </div>
-                        }
-                        <div className={`card-specialist__controls _open`}>
-                            <span className="card-specialist__go-back" onClick={() => setShowModal(false)}>Вернуться к списку</span>
-                            <Share url={`https://rkf.online`} />
-                        </div>
-                    </Card>
-                </div>
-            </Modal>
-            :
-
-
-            <Card className="card-specialist">
-                {isMobile && <div style={{ display: 'flex', justifyContent: 'flex-end' }}><span
-                    className="card-specialist__city"
-                    onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
-                    title={city_name}
-                >
-                {city_name}
-            </span></div>}
-                <div className="card-specialist__wrap">
-                    <span className="card-specialist__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
-                    <div className="card-specialist__info">
-                        <div className="card-specialist__contacts">
-                        <span className="card-specialist__name">
-                            {last_name}
-                            <br/>
-                            {first_name + " " + second_name}&nbsp;<span className="card-specialist__sertificate">({cert_number})</span>
-                        </span>
-                            <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
-                            <br/>
-                            {!isMobile660px &&
-                            <div className="card-specialist__contacts">
-                                <div>
-                                    {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
-                                    {email && <span className="card-specialist__subtitle _email">Email: {email}</span>}
-                                </div>
-                            </div>
+                                })
                             }
+
                         </div>
                     </div>
-
-                    {isMobile660px &&  <div className="card-specialist__contacts" style={{marginTop: "10px"}}>
-                        <div>
-                            {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
-                            {email && <span className="card-specialist__subtitle _email">Email: {email}</span>}
-                        </div>
-                    </div> }
-
-                    <div className="card-specialist__content">
-                        <div className="card-specialist__header">
-                            {isMobile ? <div></div> : <div>{isSpecialist && <div>
-                                <p className="card-specialist__specialization">Специализация</p>
-                                <p className="card-specialist__subtitle">{specializations}</p>
-                            </div>}
-                                <br />
-                                <span className="card-specialist__content-title">Дисциплины</span>
-                                <div className="card-specialist__subtitle">{disciplines?.map((i, index) => <p key={index}>{i}</p>)}</div>
-                            </div>}
-                            {!isMobile && <span
-                                className="card-specialist__city"
-                                onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
-                                title={city_name}
-                            >
-                            {city_name}
-                        </span>}
-                        </div>
-                        {!isMobile && (show_details || isSpecialist) && <span className="card-specialist__more" onClick={onShowMoreClick}>Подробнее...</span>}
-                    </div>
+                    {show_details &&
+                    <>
+                            {!moreData  && <span className="card-specialist__more" onClick={onShowMoreClick}> Подробнее...</span>}
+                        {moreData  && <span className="card-specialist__more" onClick={() => setMoreData(!moreData)}>Скрыть</span>}
+                        </>
+                    }
                 </div>
-                {isMobile && <div>
-                    <span className="card-specialist__content-title">Дисциплины</span>
-                    <div className="card-specialist__subtitle">{disciplines?.map((i, index) => <p key={index}>{i}</p>)}</div>
-                    {(show_details || isSpecialist) && <span className="card-specialist__more" onClick={onShowMoreClick}>Подробнее...</span>}
-                </div>}
+
                 <div className={`card-specialist__controls`}>
                     <Share url={`https://rkf.online`} />
                 </div>
