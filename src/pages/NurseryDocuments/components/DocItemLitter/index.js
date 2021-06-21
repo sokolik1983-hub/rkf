@@ -48,7 +48,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val];
-    const docConst = 3 + Number(declarant && declarant.father_foreign);
+    const docConst = 4 + Number(declarant && declarant.father_foreign) + (declarant?.receipt_payment_fee_violated_breeding_document_id ? 1 : 0) + (declarant?.decision_breeding_commission_document_id ? 1 : 0);
 
     return <>
         {everkAlert &&
@@ -66,7 +66,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <td>{declarant.id || ''}</td>
             <td>{[lastName, firstName, secondName].filter(f => f).join(' ')}</td>
             <td>{email}</td>
-            <td>{declarant.date_archive ? '' : declarant.documents ? declarant.documents.length + docConst : docConst}</td>
+            <td>{declarant.date_archive ? '' : declarant.documents ? (declarant.documents.length + docConst) : docConst}</td>
             <td>
                 {!declarant.date_archive && <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt="" />}
             </td>
