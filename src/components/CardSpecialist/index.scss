@@ -64,6 +64,7 @@
     }
     @media (max-width: 700px) {
       margin: 30px 15px 10px 0;
+      flex: 30%;
     }
   }
   &__content {
@@ -128,6 +129,7 @@
     flex-direction: column;
     @media (max-width: 700px) {
       margin-top: 35px;
+      flex: 50%;
     }
   }
   &__name {
@@ -157,6 +159,7 @@
     font-size: 16px;
     font-weight: 600;
     color: #72839C;
+    margin-top: 10px;
     span {
       font-weight: normal;
     }
@@ -290,6 +293,13 @@
     &._open {
       justify-content: space-between;
     }
+    button {
+      margin-right: auto;
+      color: #72839C;
+      border: none;
+      padding: 0;
+      opacity: 0.6;
+    }
   }
   &__go-back {
     color: #72839C;
@@ -321,7 +331,6 @@
     text-decoration: none;
     line-height: 1;
     letter-spacing: 0.2px;
-    color: #72839c;
     transition: color 0.2s linear;
     cursor: pointer;
     margin-right: auto;
@@ -337,6 +346,7 @@
   }
   .Share {
     pointer-events: none;
+    line-height: 20px;
     .ya-share2__icon_more {
       height: 16px;
       background-color: white;
@@ -356,7 +366,7 @@
 
 .card-specialists__grid {
   width: 100%;
-  margin-top: 15px;
+  margin-top: 10px;
 
 }
 .card-specialist-inner {
