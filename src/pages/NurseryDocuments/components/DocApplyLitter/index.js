@@ -207,7 +207,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
-                text={`Пожалуйста, проверьте правильность заполнения всех полей`}
+                text={getErrorText(errAlert)}
                 autoclose={2.5}
                 onOk={() => setErrAlert(false)}
             />
