@@ -28,6 +28,11 @@ const sendAlertProps = {
     text: "Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
 }
 
+const sendAlertEmptyProps = {
+    title: "Вы не внесли никаких изменений",
+    text: "Необходимо внести изменения перед отправкой"
+}
+
 const draftAlertProps = {
     title: "Заявка сохранена",
     text: "Заявка сохранена. Вы можете отредактировать ее в личном кабинете."
@@ -73,6 +78,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
     };
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
+    const [noChangeAlert, setNoChangeAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
@@ -180,6 +186,15 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
     const comment = initial.rejected_comment && initial.rejected_comment.comment;
 
     return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
+
+         {noChangeAlert &&
+             <Alert
+                 {...(sendAlertEmptyProps)}
+                 autoclose={2.5}
+                 okButton="true"
+                 onOk={() => setRedirect(`/kennel/${nurseryAlias}/documents`)}
+             />
+         }
         {okAlert &&
             <Alert
                 {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
@@ -199,8 +214,8 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         }
         <div className="documents-page__right">
             <Form
-                onSuccess={e => setOkAlert(true)}
-                onError={e => console.log(e) || setErrAlert(e)}
+                onSuccess={e =>  e ? setOkAlert(false) : setNoChangeAlert(true)}
+                onError={e => console.log(e) || setErrAlert(true)}
                 action={apiEndpoint}
                 method={update || draft ? "PUT" : "POST"}
                 validationSchema={update ? updateSchema : validationSchema}
