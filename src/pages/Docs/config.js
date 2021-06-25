@@ -181,6 +181,8 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     dog_mating_act: file(),
     father_pedigree_document: file(),
     personal_data_document: file(),
+    decision_breeding_commission_document: file(),
+    receipt_payment_fee_violated_breeding_document: file(),
     comment: string(),
     documents: array().of(object().shape({
         id: number(),

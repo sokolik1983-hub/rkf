@@ -27,6 +27,10 @@ const sendAlertProps = {
     title: "Документы отправлены",
     text: "Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
 }
+const sendAlertEmptyProps = {
+    title: "Вы не внесли никаких изменений",
+    text: "Необходимо внести изменения перед отправкой"
+}
 
 const draftAlertProps = {
     title: "Заявка сохранена",
@@ -73,6 +77,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     };
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
+    const [noChangeAlert, setNoChangeAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
@@ -167,29 +172,47 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             }))();
     }, []);
 
+    const getErrorText = e => {
+        if (e.response) {
+            return e.response.data.errors
+                ? Object.values(e.response.data.errors)
+                : `${e.response.status} ${e.response.statusText}`;
+        } else {
+            return 'Пожалуйста, проверьте правильность заполнения всех полей'
+        }
+    };
+
     const comment = initial.rejected_comment && initial.rejected_comment.comment;
 
     return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
-            <Alert
-                {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
-                autoclose={2.5}
-                okButton="true"
-                onOk={() => setRedirect(`/${clubAlias}/documents`)}
-            />
+        <Alert
+            {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
+            autoclose={2.5}
+            okButton="true"
+            onOk={() => setRedirect(`/${clubAlias}/documents`)}
+        />
+        }
+        {noChangeAlert &&
+        <Alert
+            {...(sendAlertEmptyProps)}
+            autoclose={2.5}
+            okButton="true"
+            onOk={() => setRedirect(`/${clubAlias}/documents`)}
+        />
         }
         {redirect && <Redirect to={redirect} />}
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
-                text={`Пожалуйста, проверьте правильность заполнения всех полей`}
+                text={getErrorText(errAlert)}
                 autoclose={2.5}
                 onOk={() => setErrAlert(false)}
             />
         }
         <div className="documents-page__right">
             <Form
-                onSuccess={e => setOkAlert(true)}
+                onSuccess={e =>  e ? setOkAlert(false) : setNoChangeAlert(true)}
                 onError={e => console.log(e) || setErrAlert(true)}
                 action={apiEndpoint}
                 method={update || draft ? "PUT" : "POST"}
