@@ -66,7 +66,6 @@ const Nav = ({ isAuthenticated, login_page }) => {
                 <>
                     <ul className={`header__nav-list--desktop ${isAuthenticated ? ` _uthenticated` : ``}`}>
                         {mainNav.map(navItem => {
-                            console.log(navItem)
                             return (
 
                                 <li className="header__nav-item--desktop" key={navItem.id}>

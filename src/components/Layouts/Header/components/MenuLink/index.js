@@ -4,7 +4,6 @@ import {NavLink} from "react-router-dom";
 const MenuLink = (navItem) => {
 
     const [hoverMenu, setHoverMenu] = useState(false)
-console.log(hoverMenu)
     return (
         <div className={hoverMenu ? "header__nav-item-hover __hover" : "header__nav-item-hover"}
              onMouseOver={() => setHoverMenu(true)}

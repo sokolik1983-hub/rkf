@@ -160,6 +160,8 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
                     <CitySelect
                         currentCity={newsFilter.city}
                         cityFilter={city => {
+
+
                             if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
                                 changeCityFilter(city);
                             }

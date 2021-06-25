@@ -40,6 +40,7 @@ const loadCity = () => {
 function CitySelect({ cityFilter, currentCity }) {
     const ddRef = useRef();
     const [city, setCity] = useState(loadCity());
+    const [citys, setCitys] = useState(loadCity());
 
     const { dictionary } = useDictionary(DICTIONARIES.cities);
 
@@ -53,75 +54,52 @@ function CitySelect({ cityFilter, currentCity }) {
     }, [currentCity]);
 
     const onChange = value => {
-        
+        setCitys(value)
         console.log('change value', value)
-        if (!value.value || value.value === 'reset') {
-            setCity(selectorInitialState);
-            localStorage.removeItem(LS_KEY);
-            storeFilters();
-            cityFilter && value.value && cityFilter(null);
-            // closeSelector();
-            return;
-        }
-
-        storeCity(value);
-        cityFilter && cityFilter(value);
-        // closeSelector();
-        setCity(value);
+        // if (!value.value || value.value === 'reset') {
+        //     setCity(selectorInitialState);
+        //     localStorage.removeItem(LS_KEY);
+        //     storeFilters();
+        //     cityFilter && value.value && cityFilter(null);
+        //     // closeSelector();
+        //     return;
+        // }
+        //
+        // storeCity(value);
+        cityFilter && cityFilter(citys);
+        // // closeSelector();
+        // setCity(value);
     };
-
+console.log("citys", citys)
+console.log("cityFilter", cityFilter)
     const selectOptions = [
         { value: 'reset', label: 'Все города' },
         ...dictionary.options
     ];
 
     return (
-
+        <div className="cities-filter__wrap"><div className="cities-filter__wrap"></div>
         <Select
             id="cities-filter"
             isMulti={true}
-            closeMenuOnSelect={false}
+            // closeMenuOnSelect={false}
             options={selectOptions}
-            defaultMenuIsOpen={true}
-            hideSelectedOptions={false}
+            // defaultMenuIsOpen={true}
+            // hideSelectedOptions={false}
             menuIsOpen={true}
-            controlShouldRenderValue={false}
+            // controlShouldRenderValue={false}
             onChange={onChange}
             clearable={true}
             isSearchable
             classNamePrefix="cities-filter"
             placeholder="Начните вводить город"
-            noOptionsMessage={noOptionsMessage}
-            // value={city}
+            noOptionsMessage={() => 'Город не найден'}
+            // value={values}
             components={{ Option }}
             maxMenuHeight={170}
         />
+    </div>
 
-        // <Dropdown
-        //     ref={ddRef}
-        //     innerComponent={city.label}
-        //     className="CitySelect left"
-        //     withClear={false}
-        //     clearLabel={() => onChange(selectorInitialState)}
-        // >
-        // <div className="NewsList__filters-city">
-        //     <Select
-        //         closeMenuOnSelect={false}
-        //         styles={CITY_SELECTOR_STYLE}
-        //         options={selectOptions}
-        //         defaultMenuIsOpen={true}
-        //         hideSelectedOptions={false}
-        //         menuIsOpen={true}
-        //         controlShouldRenderValue={false}
-        //         clearable={true}
-        //         placeholder={'Начните вводить город'}
-        //         noOptionsMessage={noOptionsMessage}
-        //         isSearchable
-        //         value={city}
-        //         onChange={onChange}
-        //     />
-            // </div>
-        //  </Dropdown>
     );
 }
 
