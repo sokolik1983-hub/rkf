@@ -9,6 +9,7 @@ import { Request } from "../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../appConfig";
 // import Banner from "../../../../components/Banner";
 import './index.scss';
+import NewsFilters from "../../../../components/NewsFilters";
 
 
 function getCity() {
@@ -23,7 +24,8 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
     const [newsLoading, setNewsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [newsFilter, setNewsFilter] = useState({
-        city: getCity(),
+        cities: [],
+        // city: getCity(),
         activeType: null,
         isAdvert: null
     });
@@ -100,76 +102,18 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
         (() => getNews(1, {...newsFilter, activeType: activeFiltername}))();
     };
 
-    const changeCityFilter = city => {
+    const changeCityFilter = cities => {
+        debugger
         const el = newsListRef.current;
         el && window.scrollTo(0, el.offsetTop - 75);
-        setNewsFilter({...newsFilter, city});
+        setNewsFilter({...newsFilter, cities});
         setStartElement(1);
-        (() => getNews(1, {...newsFilter, city}))();
+        (() => getNews(1, {...newsFilter, cities}))();
     };
 
     return (
         <div className="NewsList" ref={newsListRef}>
-            <div className="NewsList__head">
-                <div className="NewsList__head-wrap">
-                    <div className="Homepage__news-title">
-
-                        {/*<div className="Homepage__news-mobile-only">*/}
-                        {/*    <CitySelect*/}
-                        {/*        currentCity={newsFilter.city}*/}
-                        {/*        cityFilter={city => {*/}
-                        {/*            if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {*/}
-                        {/*                changeCityFilter(city);*/}
-                        {/*            }*/}
-                        {/*        }}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                    </div>
-                    <div className="NewsList__filters">
-                        <div className="Homepage__news-title-w ">
-                            <ul className="ListFilter">
-                                <h3>Публикации</h3>
-                                <li  style={{backgroundImage: '/static/icons/home-filters/cards-variant.svg'}}>
-                                    <span
-                                        className={`ListFilter__item${activeType === 'all' ? ' _active' : ''}`}
-                                        onClick={() => changeTypeFilters('all')}
-
-                                    >Все</span>
-                                </li>
-                                <li>
-                                    <span
-                                        className={`ListFilter__item${activeType === 'news' ? ' _active' : ''}`}
-                                        onClick={() => changeTypeFilters('news')}
-                                    >Новости</span>
-                                </li>
-                                <li>
-                                    <span
-                                        className={`ListFilter__item${activeType === 'advert' ? ' _active' : ''}`}
-                                        onClick={() => changeTypeFilters('advert')}
-                                    >Объявления</span>
-                                </li>
-                            </ul>
-
-                        </div>
-
-                        <ListFilter
-                            changeFilter={changeOrganizationFilters}
-                        />
-                    </div>
-                    <div className="NewsList__filters-city">
-                    <CitySelect
-                        currentCity={newsFilter.city}
-                        cityFilter={city => {
-
-
-                            if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
-                                changeCityFilter(city);
-                            }
-                        }}
-                    />
-                        </div>
-                </div>
-            </div>
+            <NewsFilters newsFilter changeOrganizationFilters changeTypeFilters activeType changeCityFilter/>
             {news && !!news.length &&
                 <InfiniteScroll
                     dataLength={news.length}

@@ -55,7 +55,7 @@ const Nav = ({ isAuthenticated, login_page }) => {
 
                             </li>
                         )}
-                        <li className="widget-login__item" onClick={() => setIsOpen(false)}>
+                        <li className="widget-login__item" onClick={() => setIsOpen(false)} style={{    padding: "8px 32px"}}>
                                         <a style={{ color: '#3366ff' }} href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/" target="_blank" rel="noopener noreferrer">База знаний</a>
                             <Feedback/>
                         </li>

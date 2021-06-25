@@ -21,7 +21,7 @@ const Search = ({ withFilters }) => {
         setSearchValue('');
         setIsClicked(false);
     };
-console.log(isClicked)
+
     return (
         <form
             className={`header__search${isClicked ? ' _open' : ''}${withFilters ? ' _with-filter' : ''}`}
