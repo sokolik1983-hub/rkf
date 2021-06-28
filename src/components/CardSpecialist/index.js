@@ -63,7 +63,7 @@ const CardSpecialist = ({
                             <span className="card-specialist__name">
                                     {last_name}&nbsp;
                                 <br/>
-                                {last_name + " " + second_name}
+                                {first_name + " " + second_name}
                                 </span>
                                 <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
                             </div>}
@@ -77,7 +77,7 @@ const CardSpecialist = ({
                                 <span className="card-specialist__name">
                                     {last_name}&nbsp;
                                 <br/>
-                                    {last_name + " " + second_name}
+                                    {first_name + " " + second_name}
                                 </span>
                                 <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
                             </>
