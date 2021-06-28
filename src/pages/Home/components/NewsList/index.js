@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CitySelect from "../../../../components/CitySelect";
 import ListFilter from './ListFilter';
 import CardNewsNew from "../../../../components/CardNewsNew";
-import { endpointGetNews } from "../../config";
-import { Request } from "../../../../utils/request";
-import { DEFAULT_IMG } from "../../../../appConfig";
+import {endpointGetNews} from "../../config";
+import {Request} from "../../../../utils/request";
+import {DEFAULT_IMG} from "../../../../appConfig";
 // import Banner from "../../../../components/Banner";
 import './index.scss';
 import NewsFilters from "../../../../components/NewsFilters";
@@ -14,10 +14,10 @@ import NewsFilters from "../../../../components/NewsFilters";
 
 function getCity() {
     const l = localStorage.getItem('GLOBAL_CITY');
-    return l ? JSON.parse(l) : { label: 'Выберите город', value: null };
+    return l ? JSON.parse(l) : {label: 'Выберите город', value: null};
 };
 
-const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
+const NewsList = ({isFullDate = true, citiesDict, banner}) => {
     const [activeType, setActiveType] = useState('all');
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
@@ -25,7 +25,6 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
     const [hasMore, setHasMore] = useState(true);
     const [newsFilter, setNewsFilter] = useState({
         cities: [],
-        // city: getCity(),
         activeType: null,
         isAdvert: null
     });
@@ -36,32 +35,32 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
         setNewsLoading(true);
 
         await Request({
-            url: `${endpointGetNews}?start_element=${startElem}${filters.city && filters.city.value ? `&fact_city_ids=${filters.city.value}` : ''}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
-        },
-        data => {
-            if (data.articles.length) {
-                const modifiedNews = data.articles.map(article => {
-                    article.title = article.club_name;
-                    article.url = `/news/${article.id}`;
-                    return article;
-                });
+                url: `${endpointGetNews}?start_element=${startElem}${filters.city && filters.city.value ? `&fact_city_ids=${filters.city.value}` : ''}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
+            },
+            data => {
+                if (data.articles.length) {
+                    const modifiedNews = data.articles.map(article => {
+                        article.title = article.club_name;
+                        article.url = `/news/${article.id}`;
+                        return article;
+                    });
 
-                if(data.articles.length < 10) {
-                    setHasMore(false);
+                    if (data.articles.length < 10) {
+                        setHasMore(false);
+                    } else {
+                        setHasMore(true);
+                    }
+
+                    setNews(startElem === 1 ? modifiedNews : [...news, ...modifiedNews]);
                 } else {
-                    setHasMore(true);
-                }
+                    if (startElem === 1) {
+                        setNews([]);
+                    }
 
-                setNews(startElem === 1 ? modifiedNews : [...news, ...modifiedNews]);
-            } else {
-                if(startElem === 1) {
-                    setNews([]);
+                    setHasMore(false);
                 }
-
-                setHasMore(false);
-            }
-        },
-        error => console.log(error.response));
+            },
+            error => console.log(error.response));
 
         setNewsLoading(false);
     };
@@ -71,7 +70,7 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
     }, []);
 
     const getNextNews = () => {
-        if(hasMore) {
+        if (hasMore) {
             setStartElement(startElement + 10);
             (() => getNews(startElement + 10, newsFilter))();
         }
@@ -83,7 +82,7 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
         el && window.scrollTo(0, el.offsetTop - 75);
         let newFilters = {};
 
-        if(type !== 'all') {
+        if (type !== 'all') {
             newFilters = {...newsFilter, isAdvert: type === 'advert'};
         } else {
             newFilters = {...newsFilter, isAdvert: null};
@@ -103,7 +102,6 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
     };
 
     const changeCityFilter = cities => {
-        debugger
         const el = newsListRef.current;
         el && window.scrollTo(0, el.offsetTop - 75);
         setNewsFilter({...newsFilter, cities});
@@ -115,51 +113,51 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
         <div className="NewsList" ref={newsListRef}>
             <NewsFilters newsFilter changeOrganizationFilters changeTypeFilters activeType changeCityFilter/>
             {news && !!news.length &&
-                <InfiniteScroll
-                    dataLength={news.length}
-                    next={getNextNews}
-                    hasMore={hasMore}
-                    loader={newsLoading && <Loading centered={false} />}
-                    endMessage={
-                        <div className="NewsList__no-news">
-                            <h4>Публикаций больше нет</h4>
-                            <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
-                        </div>
-                    }
-                >
-                    <ul className="NewsList__content">
-                        {news && !!news.length && news.map((item,index) => (
-                            <li className="NewsList__item" key={item.id}>
-                                <CardNewsNew
-                                    {...item}
-                                    user={item.user_type}
-                                    city={item.fact_city_name}
-                                    date={item.create_date}
-                                    isFullDate={isFullDate}
-                                    small_photo={item.picture_short_link}
-                                    photo={item.picture_link}
-                                    text={item.content}
-                                    url={`/news/${item.id}`}
-                                    changeCityFilter={changeCityFilter}
-                                    citiesDict={citiesDict}
-                                    isAd={item.is_advert}
-                                    adBreedName={item.advert_breed_name}
-                                    adCode={item.advert_code}
-                                    adPrice={item.advert_cost}
-                                    adAmount={item.advert_number_of_puppies}
-                                    adCategory={item.advert_type_name}
-                                    videoLink={item.video_link}
-                                />
-                                {/* {
+            <InfiniteScroll
+                dataLength={news.length}
+                next={getNextNews}
+                hasMore={hasMore}
+                loader={newsLoading && <Loading centered={false}/>}
+                endMessage={
+                    <div className="NewsList__no-news">
+                        <h4>Публикаций больше нет</h4>
+                        <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет"/>
+                    </div>
+                }
+            >
+                <ul className="NewsList__content">
+                    {news && !!news.length && news.map((item, index) => (
+                        <li className="NewsList__item" key={item.id}>
+                            <CardNewsNew
+                                {...item}
+                                user={item.user_type}
+                                city={item.fact_city_name}
+                                date={item.create_date}
+                                isFullDate={isFullDate}
+                                small_photo={item.picture_short_link}
+                                photo={item.picture_link}
+                                text={item.content}
+                                url={`/news/${item.id}`}
+                                changeCityFilter={changeCityFilter}
+                                citiesDict={citiesDict}
+                                isAd={item.is_advert}
+                                adBreedName={item.advert_breed_name}
+                                adCode={item.advert_code}
+                                adPrice={item.advert_cost}
+                                adAmount={item.advert_number_of_puppies}
+                                adCategory={item.advert_type_name}
+                                videoLink={item.video_link}
+                            />
+                            {/* {
                                     banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : '' 
                                 } */}
-                            </li>
-                        ))}
-                    </ul>
-                </InfiniteScroll>}
+                        </li>
+                    ))}
+                </ul>
+            </InfiniteScroll>}
             {(!news || !news.length) && !newsLoading && <div className="NewsList__no-news">
                 <h4>Публикации не найдены</h4>
-                <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
+                <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены"/>
             </div>}
         </div>
     )

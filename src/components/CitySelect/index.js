@@ -58,7 +58,6 @@ function CitySelect({ cityFilter, currentCity }) {
 
     useEffect(() => {
         // setValues(cities.filter(option => cities.values.indexOf(option.value) !== -1));
-console.log("cities", cities)
         currentCity && onChange(currentCity)
     }, [currentCity]);
 

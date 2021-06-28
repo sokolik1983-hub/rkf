@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
 const ListFilter = ({ changeFilter }) => {
+    console.log("changeFilter", changeFilter)
     const [activeType, setActiveType] = useState(null);
 
     const handleClick = e => {
+        debugger
         e.preventDefault();
         setActiveType(e.target.name);
         changeFilter(e.target.name);

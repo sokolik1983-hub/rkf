@@ -20,7 +20,18 @@
     top: 50px;
     max-width: 236px;
     z-index: 1;
-
+    transition: all 0.2s ease;
+    &-mobile {
+      position: fixed;
+      top: 70px;
+      right: 0;
+      transform: translateX(110%);
+      background: #fff;
+      &.__open {
+        transform: translateX(0);
+      }
+    }
+  }
     @media (max-width: 560px) {
       display: block;
       top: 48px;
@@ -28,10 +39,11 @@
     &-wrap {
       display: flex;
       flex-direction: column;
+
       @media (max-width: 600px) {
         display: block;
       }
-    }
+
   }
   .infinite-scroll-component__outerdiv {
     width: 100%;

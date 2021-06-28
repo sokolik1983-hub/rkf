@@ -11,29 +11,27 @@ import Feedback from "components/Feedback";
 import useIsMobile from "../../../utils/useIsMobile";
 
 import "./index.scss";
-import CitySelect from "../../CitySelect";
-
 
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
     const isMobile = useIsMobile(1025);
 
-        return (
-            <header className="header">
+    return (
+        <header className="header">
             <Container className="header__content">
 
-             {isMobile
-                 ? <div className="header__nav-wrap">
+                {isMobile
+                    ? <div className="header__nav-wrap">
                         <Nav login_page={login_page}/>
                         <h5 className="header__nav-menu">Меню</h5>
                     </div>
-                 : <div><Link to="/" className="header__logo"/></div>
-            }
-            <Search withFilters={withFilters}/>
+                    : <div><Link to="/" className="header__logo"/></div>
+                }
+                <Search withFilters={withFilters}/>
 
-            {!isMobile &&
-                <Nav login_page={login_page}/>
-            }
-            <div className="header__widgets">
+                {!isMobile
+                && <Nav login_page={login_page}/>
+                }
+                <div className="header__widgets">
                 {!isAuthenticated &&
                     <div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>
                         <Feedback isMainNav={true}/>
@@ -46,17 +44,13 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                 {isMobile
                     ? <div className="header__filters" onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}>
                         <button>Фильтр</button>
-
-                        {isOpenFilters && <CitySelect/>}
-                    </div>
-                    : <WidgetLogin login_page={login_page}/>}
-            </div>
+                        </div>
+                        : <WidgetLogin login_page={login_page}/>}
+                </div>
 
 
-
-
-        </Container>
-    </header>
+            </Container>
+        </header>
     )
 };
 
