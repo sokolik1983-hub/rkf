@@ -46,8 +46,6 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
     const [showModal, setShowModal] = useState(false);
     const [needRequest, setNeedRequest] = useState(false);
 
-    const isEducational = parseInt(filters.SearchTypeId) === 4 ? true : false;
-
     useEffect(() => {
         const unListen = history.listen(() => {
             const filters = getFiltersFromUrl();
@@ -65,8 +63,9 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
         await Request({
             url: `${url}&StartElement=${startElem}&ElementCount=50`
         }, data => {
-            if (data.specialists?.length) {
-                const modifiedSpecialists = data.specialists.map(s => {
+            const itemsArray = data.specialists || data.exterior_judges;
+            if (itemsArray?.length) {
+                const modifiedSpecialists = itemsArray.map(s => {
                     s.date = '';
                     if (s.dates && s.dates.length) {
                         const startDate = s.dates[0];
@@ -77,31 +76,17 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                             ' - ' + formatDateCommon(new Date(`${endDate.year}/${endDate.month}/${endDate.day}`));
                     }
                     s.club_string = `Клуб ${s.club_name}, ${s.federation_name ? 'Федерация ' + s.federation_name + ', ' : ''}${s.city}`;
-                    s.rank_string = s.ranks && s.ranks.length ? s.ranks.map(rank => rank.name).join(', ') : 'Не указано';
+                    s.rank_string = s.ranks && s.ranks.length
+                        ? Array.isArray(s.ranks) ? s.ranks.map(rank => rank.name).join(', ') : s.ranks
+                        : 'Не указано';
+                    s.opened_group_and_breed = s.opened_group_and_breed ? s.opened_group_and_breed : '—';
                     s.club_rank_string = s.club_string + ' / ' + s.rank_string;
                     s.breed_string = s.breeds && s.breeds.length ? s.breeds.map(breed => breed.name).join(', ') : 'Не указано';
                     s.url = `/specialists/${s.id}`;
                     return s;
                 });
 
-                if (data.specialists.length < 50) {
-                    setHasMore(false);
-                } else {
-                    setHasMore(true);
-                }
-                setSpecialists(startElem === 1 ? modifiedSpecialists : [...specialists, ...modifiedSpecialists]);
-            } else if (isEducational && data.length) {
-                const modifiedSpecialists = data.map(educationEvent => {
-                    educationEvent.date = moment(educationEvent.date_begin).format('DD.MM.YYYY');
-                    educationEvent.event_name = educationEvent.name;
-                    educationEvent.type = educationEvent.type_name;
-                    educationEvent.form = educationEvent.payment_form_type_name;
-
-                    educationEvent.url = `/educationals/${educationEvent.id}`;
-                    return educationEvent;
-                });
-
-                if (data.length < 50) {
+                if (itemsArray.length < 50) {
                     setHasMore(false);
                 } else {
                     setHasMore(true);
@@ -175,7 +160,6 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                         club={club}
                         setClub={setClub}
                         notificationsLength={notificationsLength}
-                        isEducational={isEducational}
                         needRequest={needRequest}
                         setNeedRequest={setNeedRequest}
                     />
@@ -205,7 +189,6 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                                 ? <Loading centered={false} />
                                 : <SpecialistsList
                                     specialists={specialists}
-                                    isEducational={isEducational}
                                     getNextSpecialists={getNextSpecialists}
                                     hasMore={hasMore}
                                     loading={specialistsLoading}

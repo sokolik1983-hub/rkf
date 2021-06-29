@@ -1,5 +1,5 @@
 import history from "../../utils/history";
-import { endpointGetSpecialists } from "./config";
+import { endpointGetSpecialists, endpointGetJudges } from "./config";
 import { formatDateToString } from "../../utils/datetime";
 
 const buildUrlParams = filter => {
@@ -15,7 +15,40 @@ const buildUrlParams = filter => {
                 if (filter[key] > 0) {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'ClassificationId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key ===  "RegionIds") {
+            } else if (key === 'ClassificationId' || key === 'RankId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'ContestIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === "RegionIds" || key === "BreedGroupIds" || key === "BreedIds") {
+                if (filter[key].length) {
+                    params = params + filter[key].map(r => `${key}=${r}&`).join('');
+                }
+            } else if (key === 'StringFilter') {
+                params = params + `${key}=${filter[key]}&`;
+            }
+            else {
+                params = params + `${key}=${filter[key]}&`;
+            }
+        }
+    });
+
+    if (params.charAt(params.length - 1) === '&') {
+        params = params.slice(0, -1);
+    }
+
+    return params ? `?${params}` : '';
+};
+
+const buildJudgesUrlParams = filter => {
+    let params = '';
+
+    Object.keys(filter).forEach(key => {
+        if (filter[key]) {
+            if (key === 'PageNumber') {
+                if (filter[key] > 1) {
+                    params = params + `${key}=${filter[key]}&`;
+                }
+            } else if (key === 'SearchTypeId') {
+                if (filter[key] > 0) {
+                    params = params + `${key}=${filter[key]}&`;
+                }
+            } else if (key === 'ClassificationId' || key === 'RankId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'ContestIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === "RegionIds" || key === "BreedGroupIds" || key === "BreedIds") {
                 if (filter[key].length) {
                     params = params + filter[key].map(r => `${key}=${r}&`).join('');
                 }
@@ -37,9 +70,9 @@ const buildUrlParams = filter => {
 
 export const buildUrl = filter => {
     filter = filter || {};
-    const params = buildUrlParams(filter);
-
-    return endpointGetSpecialists + params;
+    return parseInt(filter.SearchTypeId) === 4
+        ? endpointGetJudges + buildJudgesUrlParams(filter)
+        : endpointGetSpecialists + buildUrlParams(filter);
 };
 
 export const getFiltersFromUrl = () => {
@@ -54,7 +87,7 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'CityIds' || key === 'ClassificationId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === "RegionIds") {
+            if (key === 'CityIds' || key === 'ClassificationId' || key === 'RankId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'ContestIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === "RegionIds" || key === "BreedGroupIds" || key === "BreedIds") {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else if (key === 'StringFilter') {
                 filtersFromUrl[key] = key === 'StringFilter' ? value : value;
@@ -85,11 +118,15 @@ export const getEmptyFilters = (alias = null) => ({
     CityIds: [],
     ClubIds: null,
     ClassificationId: [],
+    RankId: [],
     DisciplineIds: [],
+    ContestIds: [],
+    BreedIds: [],
+    BreedGroupIds: [],
     SpecializationIds: [],
     TypeIds: [],
     PaymentFormTypeIds: [],
-    SearchTypeId: 1,
+    SearchTypeId: 4,
     DateFrom: formatDateToString(new Date()),
     DateTo: null,
     StringFilter: '',

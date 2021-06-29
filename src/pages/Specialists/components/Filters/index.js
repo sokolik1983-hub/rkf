@@ -4,13 +4,16 @@ import ls from "local-storage";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
 import EventsFilter from "./components/EventsFilter";
+import RanksFilter from "./components/RanksFilter";
 import SpecializationFilter from "./components/SpecializationFilter";
 import DisciplinesFilter from "./components/DisciplinesFilter";
+import ContestsFilter from "./components/ContestsFilter";
+import BreedGroupsFilter from "./components/BreedGroupsFilter";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl } from "../../utils";
 import { isFederationAlias, setOverflow } from "../../../../utils";
 import { PromiseRequest } from "../../../../utils/request";
-import { endpointSpecialistsFilters } from "../../config";
+import { endpointSpecialistsFilters, endpointJudgesFilters } from "../../config";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
 import { clubNav } from "../../../Club/config";
 import UserMenu from "../../../../components/Layouts/UserMenu";
@@ -38,33 +41,61 @@ const Filters = ({
 }) => {
 
     const [events, setEvents] = useState([]);
+    const [ranks, setRanks] = useState([]);
     const [specializations, setSpecializations] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [disciplines, setDisciplines] = useState([]);
+    const [contests, setContests] = useState([]);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
     const [regions, setRegions] = useState([]);
+    const [breeds, setBreeds] = useState([]);
+    const [breedGroups, setBreedGroups] = useState([]);
     const [needOpen, setNeedOpen] = useState(false);
 
+    const isJudges = parseInt(filters.SearchTypeId) === 4;
+
     useEffect(() => {
-        Promise.all([
-            PromiseRequest({
-                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=true`
-            }),
-        ]).then(data => {
-            setCities(cities.length && !filters.RegionIds.length && filters.CityIds.length ? cities : data[0].cities);
-            setDisciplines(data[0].disciplines);
-            setEvents(data[0].classification);
-            setSpecializations(data[0].specializations);
-            setLoading(false);
-            setRegions(data[0].regions);
-            window.scrollTo(0, 0);
-            setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
-        }).catch(error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setLoading(false);
-        });
+        if (isJudges) {
+            Promise.all([
+                PromiseRequest({
+                    url: `${endpointJudgesFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${filters.BreedGroupIds.map(b => `&BreedGroupIds=${b}`).join('')}&ReturnStaticFilters=true&ReturnBreeds=true&ReturnCities=true`
+                }),
+            ]).then(data => {
+                setCities(cities.length && !filters.RegionIds.length && filters.CityIds.length ? cities : data[0].cities);
+                setContests(data[0].contests);
+                setRanks(data[0].ranks);    
+                setBreedGroups(data[0].breed_groups);    
+                setBreeds(data[0].breeds);    
+                setLoading(false);
+                setRegions(data[0].regions);
+                window.scrollTo(0, 0);
+                setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
+            }).catch(error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+                setLoading(false);
+            });
+        } else {
+            Promise.all([
+                PromiseRequest({
+                    url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=true`
+                }),
+            ]).then(data => {
+                setCities(cities.length && !filters.RegionIds.length && filters.CityIds.length ? cities : data[0].cities);
+                setDisciplines(data[0].disciplines);
+                setEvents(data[0].classification);
+                setSpecializations(data[0].specializations);
+                setLoading(false);
+                setRegions(data[0].regions);
+                window.scrollTo(0, 0);
+                setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
+            }).catch(error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+                setLoading(false);
+            });
+        }
     }, [filters.Alias, filters.RegionIds, needRequest]);
 
     useEffect(() => {
@@ -79,6 +110,69 @@ const Filters = ({
             subscribed: subscribed
         })
     }
+
+    const judgeFilters = <>
+        {loading ? <Loading centered={false} /> : <RegionFilter
+            regions={regions}
+            onChange={filter => setFiltersToUrl({ RegionIds: filter })}
+            region_ids={filters.RegionIds}
+            cities={cities}
+            city_ids={filters.CityIds}
+            filters={filters}
+            needOpen={needOpen}
+            setNeedOpen={setNeedOpen} />}
+        {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) !== 3 && <RanksFilter
+            ranks={ranks}
+            rank_ids={filters.RankId}
+            onChange={filter => setFiltersToUrl({ RankId: filter })}
+            is_club_link={clubName && filters.Alias}
+        />}
+        {loading ? <Loading centered={false} /> : <BreedGroupsFilter
+            breeds={breeds}
+            onChange={filter => setFiltersToUrl({ BreedGroupIds: filter })}
+            breed_group_ids={filters.BreedGroupIds}
+            breedGroups={breedGroups}
+            breed_ids={filters.BreedIds}
+            filters={filters}
+            needOpen={needOpen}
+            setNeedOpen={setNeedOpen} />}
+        {loading ? <Loading centered={false} /> : <ContestsFilter
+            contests={contests}
+            contest_ids={filters.ContestIds}
+            onChange={filter => setFiltersToUrl({ ContestIds: filter })}
+            is_club_link={clubName && filters.Alias}
+        />}
+    </>;
+
+    const specialistFilters = <>
+        {loading ? <Loading centered={false} /> : <RegionFilter
+            regions={regions}
+            onChange={filter => setFiltersToUrl({ RegionIds: filter })}
+            region_ids={filters.RegionIds}
+            cities={cities}
+            city_ids={filters.CityIds}
+            filters={filters}
+            needOpen={needOpen}
+            setNeedOpen={setNeedOpen} />}
+        {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) !== 3 && <EventsFilter
+            events={events}
+            event_ids={filters.ClassificationId}
+            onChange={filter => setFiltersToUrl({ ClassificationId: filter })}
+            is_club_link={clubName && filters.Alias}
+        />}
+        {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) === 3 && <SpecializationFilter
+            types={specializations}
+            type_ids={filters.SpecializationIds}
+            onChange={filter => setFiltersToUrl({ SpecializationIds: filter })}
+            is_club_link={clubName && filters.Alias}
+        />}
+        {loading ? <Loading centered={false} /> : <DisciplinesFilter
+            disciplines={disciplines}
+            discipline_ids={filters.DisciplineIds}
+            onChange={filter => setFiltersToUrl({ DisciplineIds: filter })}
+            is_club_link={clubName && filters.Alias}
+        />}
+    </>;
 
     return (
         <aside className={`specialists-page__filters specialists-filters${isOpenFilters ? ' _open' : ''}`}>
@@ -120,33 +214,7 @@ const Filters = ({
                             </div>
                         }
                         <div className="specialists-filters__wrap">
-                            {loading ? <Loading centered={false} /> : <RegionFilter
-                                regions={regions}
-                                onChange={filter => setFiltersToUrl({ RegionIds: filter })}
-                                region_ids={filters.RegionIds}
-                                cities={cities}
-                                city_ids={filters.CityIds}
-                                filters={filters}
-                                needOpen={needOpen}
-                                setNeedOpen={setNeedOpen} />}
-                            {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) !== 3 && <EventsFilter
-                                events={events}
-                                event_ids={filters.ClassificationId}
-                                onChange={filter => setFiltersToUrl({ ClassificationId: filter })}
-                                is_club_link={clubName && filters.Alias}
-                            />}
-                            {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) === 3 && <SpecializationFilter
-                                types={specializations}
-                                type_ids={filters.SpecializationIds}
-                                onChange={filter => setFiltersToUrl({ SpecializationIds: filter })}
-                                is_club_link={clubName && filters.Alias}
-                            />}
-                            {loading ? <Loading centered={false} /> : <DisciplinesFilter
-                                disciplines={disciplines}
-                                discipline_ids={filters.DisciplineIds}
-                                onChange={filter => setFiltersToUrl({ DisciplineIds: filter })}
-                                is_club_link={clubName && filters.Alias}
-                            />}
+                            {isJudges ? judgeFilters : specialistFilters}
                             <CopyrightInfo withSocials={true} />
                         </div>
                     </>
