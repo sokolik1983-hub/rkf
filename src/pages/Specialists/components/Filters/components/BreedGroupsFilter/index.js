@@ -26,7 +26,7 @@ const Option = props => {
 const BreedGroupsFilter = ({ breedGroups, onChange, breed_group_ids, setNeedOpen, breeds, needOpen, filters, loading }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState(breedGroups.length ? false : true);
+    const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
         if (breedGroups?.length) {

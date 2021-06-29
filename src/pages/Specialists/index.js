@@ -79,7 +79,6 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                     s.rank_string = s.ranks && s.ranks.length
                         ? Array.isArray(s.ranks) ? s.ranks.map(rank => rank.name).join(', ') : s.ranks
                         : 'Не указано';
-                    s.opened_group_and_breed = s.opened_group_and_breed ? s.opened_group_and_breed : '—';
                     s.club_rank_string = s.club_string + ' / ' + s.rank_string;
                     s.breed_string = s.breeds && s.breeds.length ? s.breeds.map(breed => breed.name).join(', ') : 'Не указано';
                     s.url = `/specialists/${s.id}`;
@@ -183,7 +182,7 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                             searchTypeId={filters.SearchTypeId}
                             setNeedRequest={setNeedRequest}
                         />
-                        <SearchFilter StringFilter={filters.StringFilter} />
+                        <SearchFilter StringFilter={filters.StringFilter} searchTypeId={parseInt(filters.SearchTypeId)} />
                         {
                             listLoading
                                 ? <Loading centered={false} />

@@ -52,6 +52,7 @@ const Filters = ({
     const [breeds, setBreeds] = useState([]);
     const [breedGroups, setBreedGroups] = useState([]);
     const [needOpen, setNeedOpen] = useState(false);
+    const [needBreedsOpen, setNeedBreedsOpen] = useState(false);
 
     const isJudges = parseInt(filters.SearchTypeId) === 4;
 
@@ -64,9 +65,9 @@ const Filters = ({
             ]).then(data => {
                 setCities(cities.length && !filters.RegionIds.length && filters.CityIds.length ? cities : data[0].cities);
                 setContests(data[0].contests);
-                setRanks(data[0].ranks);    
-                setBreedGroups(data[0].breed_groups);    
-                setBreeds(data[0].breeds);    
+                setRanks(data[0].ranks);
+                setBreedGroups(data[0].breed_groups);
+                setBreeds(data[0].breeds);
                 setLoading(false);
                 setRegions(data[0].regions);
                 window.scrollTo(0, 0);
@@ -134,8 +135,8 @@ const Filters = ({
             breedGroups={breedGroups}
             breed_ids={filters.BreedIds}
             filters={filters}
-            needOpen={needOpen}
-            setNeedOpen={setNeedOpen} />}
+            needOpen={needBreedsOpen}
+            setNeedOpen={setNeedBreedsOpen} />}
         {loading ? <Loading centered={false} /> : <ContestsFilter
             contests={contests}
             contest_ids={filters.ContestIds}
@@ -152,7 +153,7 @@ const Filters = ({
             cities={cities}
             city_ids={filters.CityIds}
             filters={filters}
-            needOpen={needOpen}
+            needOpen={needBreedsOpen}
             setNeedOpen={setNeedOpen} />}
         {loading ? <Loading centered={false} /> : parseInt(filters.SearchTypeId) !== 3 && <EventsFilter
             events={events}

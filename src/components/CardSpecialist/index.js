@@ -161,12 +161,14 @@ const CardSpecialist = ({
                         {isJudge && <div className="card-specialists__grid-item">
                             <div className="card-specialist__disciplines is_groups">
                                 <div className="card-specialist__disciplines-inner" style={{ flexDirection: 'column' }}>
-                                    <div className="card-specialist__content-title" >Группа, номер стандарта, название породы</div>
-                                    <div style={{ flexDirection: 'row' }}>
-                                        <span className="card-specialist__discipline">
-                                            {opened_group_and_breed}
-                                        </span>
-                                    </div>
+                                    {opened_group_and_breed && <>
+                                        <div className="card-specialist__content-title" >Группа, номер стандарта, название породы</div>
+                                        <div style={{ flexDirection: 'row' }}>
+                                            <span className="card-specialist__discipline">
+                                                {opened_group_and_breed}
+                                            </span>
+                                        </div>
+                                    </>}
                                     {additionalGroups && additionalGroups.map((item, index) => {
                                         return (
                                             <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
@@ -179,7 +181,7 @@ const CardSpecialist = ({
                                         )
                                     })}
                                     {additionalContests && !!additionalContests.length && <>
-                                        <div className="card-specialist__content-title" style={{ marginTop: '10px' }}>Выставочные конкурсы</div>
+                                        {moreData && <div className="card-specialist__content-title" style={{ marginTop: '10px' }}>Выставочные конкурсы</div>}
                                         {additionalContests.map((item, index) => {
                                             return <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
                                                 <div style={{ flexDirection: 'row' }}>

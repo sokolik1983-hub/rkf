@@ -20,6 +20,9 @@
     padding-right: 40px;
     &.is_groups {
       flex: 47%;
+      & + .card-specialist__ranks {
+        margin-bottom: 20px;
+      }
     }
     @media (max-width: 990px) {
       flex: 90%;
