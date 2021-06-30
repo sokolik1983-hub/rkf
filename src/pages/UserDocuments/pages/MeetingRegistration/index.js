@@ -1,26 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
-import Modal from "../../../../components/Modal";
-import ZlineModal from "../../../../components/BookformCard/components/ZlineModal";
+import ZlineModal from "../../../../components/ZlineModal";
 
 
 const MeetingRegistration = () => {
     const [showModal, setShowModal] = useState(false);
     const [iframeLink, setIframeLink] = useState('');
-    const [isRKF, setIsRKF] = useState(false);
-    const [showZlineModal, setShowZlineModal] = useState(false);
 
     const handleClick = (e, isRKF) => {
         e.preventDefault();
-        setIframeLink(`https://widget.bookform.ru/${isRKF ? '38636' : '30788'}`);
-        setIsRKF(isRKF);
+        setIframeLink(`https://zline.me/widgets/registration-for-service?id=${isRKF ? '18' : '19'}`);
         setShowModal(true);
-    };
-
-    const handleZlineClick = (e) => {
-        e.preventDefault();
-        setShowZlineModal(true);
     };
 
     return (
@@ -48,33 +39,17 @@ const MeetingRegistration = () => {
                         to="/"
                         className="documents-card__link"
                         onClick={e => handleClick(e, true)}
-                    >Запись в РКФ</Link>
-                    <Link
-                        to="/"
-                        className="documents-card__link"
-                        onClick={e => handleZlineClick(e)}
-                    >Подача корреспонденции в РКФ</Link>
+                    >Запись на услуги РКФ</Link>
                 </div>
             </Card>
-            {showModal &&
-                <Modal showModal={showModal}
-                    handleClose={() => {
-                        setIframeLink('');
-                        setShowModal(false);
-                    }}
-                    className="documents-card__modal"
-                    headerName={`Запись в ${isRKF ? "РКФ" : "Федерацию"}`}
-                >
-                    <iframe src={iframeLink} title="unique_iframe" />
-                </Modal>
-            }
-            <ZlineModal showModal={showZlineModal}
+            {showModal && <ZlineModal showModal={showModal}
                 handleClose={() => {
-                    setShowZlineModal(false);
+                    setShowModal(false);
+                    setIframeLink('');
                 }}
             >
-                <iframe src={'https://zline.me/widgets/registration-for-service?id=10'} title="unique_iframe" />
-            </ZlineModal>
+                <iframe src={iframeLink} title="zline_iframe" />
+            </ZlineModal>}
         </>
     )
 };

@@ -31,18 +31,13 @@
 
   iframe {
     width: 100%;
-    height: calc(100% - 48px);
+    height: 100%;
     border: none;
   }
 
   &>div {
     height: 100vh;
     min-width: 400px;
-    // width: 80%;
-
-    // @media (max-width: 560px) {
-    //   width: 92%;
-    // }
   }
 
   &__body {
