@@ -20,13 +20,15 @@ import CardMessage from "../../../../components/CardMessage";
 //Access method statuses
 const _pedigree = 11;
 const _litter = 12;
+
 const _replacePedigreeExportOld = 13;
-// const _replacePedigreeOld = 14;
-// const _replacePedigreeChangeOwner = 15;
-// const _replacePedigreeRkfFc1 = 16;
-// const _replacePedigreeDuplicate = 17;
-// const _replacePedigreeForeignRegistration = 18;
-// const _replacePedigreeDeclarantError = 19;
+const _replacePedigreeOld = 14;
+const _replacePedigreeChangeOwner = 15;
+const _replacePedigreeRkfFc1 = 16;
+const _replacePedigreeDuplicate = 17;
+const _replacePedigreeForeignRegistration = 18;
+const _replacePedigreeDeclarantError = 19;
+
 const _dogHealthCheckDysplasia = 20;
 const _dogHealthCheckPatella = 21;
 const _getRKFDocument = 22;
@@ -34,22 +36,31 @@ const _checkMembership = 23;
 const _exhibitionApplication = 24;
 const _exhibitionCancellation = 25;
 
-const DocumentCards = ({ clubAlias, authorizedAccess }) => {
+const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
     const [alert, seAlert] = useState(false);
     const pedigree = authorizedAccess?.includes(_pedigree);
     const litter = authorizedAccess?.includes(_litter);
+
     const replacePedigreeExportOld = authorizedAccess?.includes(_replacePedigreeExportOld);
+    const replacePedigreeChangeOwner = authorizedAccess?.includes(_replacePedigreeChangeOwner);
+    const replacePedigreeOld = authorizedAccess?.includes(_replacePedigreeOld);
+    const replacePedigreeRkfFc1 = authorizedAccess?.includes(_replacePedigreeRkfFc1);
+    const replacePedigreeDuplicate = authorizedAccess?.includes(_replacePedigreeDuplicate);
+    const replacePedigreeForeignRegistration = authorizedAccess?.includes(_replacePedigreeForeignRegistration);
+    const replacePedigreeDeclarantError = authorizedAccess?.includes(_replacePedigreeDeclarantError);
+
+    const replacePedigreeAll = !!(replacePedigreeExportOld && replacePedigreeChangeOwner && replacePedigreeOld && replacePedigreeRkfFc1 && replacePedigreeDuplicate && replacePedigreeForeignRegistration && replacePedigreeDeclarantError)
+
     const dogHealthCheckDysplasia = authorizedAccess?.includes(_dogHealthCheckDysplasia);
     const dogHealthCheckPatella = authorizedAccess?.includes(_dogHealthCheckPatella);
     const getRKFDocument = authorizedAccess?.includes(_getRKFDocument);
-    const hasAccess = pedigree && litter && replacePedigreeExportOld && dogHealthCheckDysplasia && dogHealthCheckPatella && getRKFDocument;
-
+    // const hasAccess = pedigree && litter && replacePedigreeExportOld && dogHealthCheckDysplasia && dogHealthCheckPatella && getRKFDocument;
     return <div className="documents-page__right">
         {
             !authorizedAccess
                 ? <Loading />
                 : <>
-                    {!hasAccess && <CardMessage>
+                    {!membershipPaid && <CardMessage>
                         <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
                         <p>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
                     </CardMessage>}
@@ -109,22 +120,22 @@ const DocumentCards = ({ clubAlias, authorizedAccess }) => {
                             <span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>
                         </div>
                     </Card>
-                    <Card className={replacePedigreeExportOld ? `` : `_inactive`}>
+                    <Card className={replacePedigreeAll ? `` : `_inactive`}>
                         <div className="documents-page__icon replace-pedigree-icon" />
                         <h3>ЗАМЕНА РОДОСЛОВНОЙ</h3>
                         <p>Обмен родословной возможен при наличии у заявителя внутренней или экспортной родословной РКФ старого образца или свидетельства о регистрации, выданного зарубежной кинологической организацией. Кроме того, при подаче соответствующего заявления может быть осуществлена выдача дубликата родословной или замена владельца в документе.</p>
                         <hr />
                         <div className="Card__link-columns">
                             <div>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/2/form`}>По внутренней родословной старого образца</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/1/form`}>По экспортной родословной старого образца</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/4/form`}>По заявлению при смене владельца</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/7/form`}>Замена родословной по ошибке заявителя</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/2/form`} className={replacePedigreeOld ? `` : `_inactive`}>По внутренней родословной старого образца</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/1/form`} className={replacePedigreeExportOld ? `` : `_inactive`}>По экспортной родословной старого образца</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/4/form`} className={replacePedigreeChangeOwner ? `` : `_inactive`}>По заявлению при смене владельца</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/7/form`} className={replacePedigreeDeclarantError ? `` : `_inactive`}>Замена родословной по ошибке заявителя</Link>
                             </div>
                             <div>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/5/form`} >По родословной выданной вне системы РКФ/FCI</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/3/form`} >По заявлению о выдаче дубликата</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/6/form`} >Регистрация иностранной родословной</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/5/form`} className={replacePedigreeRkfFc1 ? `` : `_inactive`} >По родословной выданной вне системы РКФ/FCI</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/3/form`} className={replacePedigreeDuplicate ? `` : `_inactive`} >По заявлению о выдаче дубликата</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/6/form`} className={replacePedigreeForeignRegistration ? `` : `_inactive`} >Регистрация иностранной родословной</Link>
                             </div>
                         </div>
                         <hr />
@@ -291,13 +302,15 @@ const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
 const DocHome = ({ clubAlias }) => {
     const [loading, setLoading] = useState(true);
     const [authorizedAccess, setAuthorizedAccess] = useState(null);
+    const [membershipPaid, setMembershipPaid] = useState(false);
     const isMobile = useIsMobile();
 
     useEffect(() => {
         (() => Request({
-            url: `/api/requests/commonrequest/request_access`
+            url: `/api/requests/commonrequest/request_access_v2`
         }, data => {
-            setAuthorizedAccess(data);
+            setAuthorizedAccess(data.request_types);
+            setMembershipPaid(data.membership_due_is_paid);
             setLoading(false);
         }, error => {
             console.log(error.response);
@@ -319,7 +332,7 @@ const DocHome = ({ clubAlias }) => {
             <Route path='/:route/documents/exhibitions' component={() => <ExhibitionsCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
             <Route path='/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/Club/club_federation' />} />
             <Route path='/:route/documents/review' component={() => <BookformCard url='/api/Club/club_federation' />} />
-            <Route path='/:route/documents' component={() => <DocumentCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
+            <Route path='/:route/documents' component={() => <DocumentCards membershipPaid={membershipPaid} clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
             <Route component={LoadableNotFound} />
         </Switch>
     </div>
