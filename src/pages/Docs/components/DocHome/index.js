@@ -236,17 +236,16 @@ const StampCards = ({ clubAlias }) => {
     </div>
 };
 
-const ExhibitionsCards = ({ clubAlias, authorizedAccess }) => {
+const ExhibitionsCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
     const exhibitionApplication = authorizedAccess?.includes(_exhibitionApplication);
     const exhibitionCancellation = authorizedAccess?.includes(_exhibitionCancellation);
-    const hasAccess = exhibitionApplication && exhibitionCancellation;
+    // const hasAccess = exhibitionApplication && exhibitionCancellation;
 
     return <div className="documents-page__right">
-        {
-            !authorizedAccess
+        {!authorizedAccess
                 ? <Loading />
                 : <>
-                    {!hasAccess && <CardMessage>
+                    {!membershipPaid && <CardMessage>
                         <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
                         <p>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
                     </CardMessage>}
@@ -338,7 +337,7 @@ const DocHome = ({ clubAlias }) => {
         <Switch>
             <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
             <Route path='/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
-            <Route path='/:route/documents/exhibitions' component={() => <ExhibitionsCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
+            <Route path='/:route/documents/exhibitions' component={() => <ExhibitionsCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} membershipPaid={membershipPaid} />} />
             <Route path='/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/Club/club_federation' />} />
             <Route path='/:route/documents/review' component={() => <BookformCard url='/api/Club/club_federation' />} />
             <Route path='/:route/documents' component={() => <DocumentCards membershipPaid={membershipPaid} clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
