@@ -32,7 +32,8 @@ const _dogHealthCheckDysplasia = 20;
 const _dogHealthCheckPatella = 21;
 const _getRKFDocument = 22;
 
-// const _checkMembership = 23;
+const _checkMembership = 23;
+
 //temporarily hidden
 //
 // const replacePedigreeOld = authorizedAccess?.includes(_replacePedigreeOld);
@@ -214,6 +215,7 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess, membershipPaid }) => {
 };
 
 const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
+    const checkMembership = authorizedAccess?.includes(_checkMembership);
 
     return <div className="documents-page__right">
         <Card>
@@ -228,7 +230,7 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-        <Card>
+        <Card className={checkMembership ? `` : `_inactive`}>
             <div className="documents-page__icon membership-icon" />
             <h3>ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ</h3>
             <p>

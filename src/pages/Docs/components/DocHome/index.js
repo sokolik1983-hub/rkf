@@ -33,6 +33,7 @@ const _dogHealthCheckPatella = 21;
 const _getRKFDocument = 22;
 
 const _checkMembership = 23;
+
 const _exhibitionApplication = 24;
 const _exhibitionCancellation = 25;
 
@@ -277,6 +278,7 @@ const ExhibitionsCards = ({ clubAlias, authorizedAccess }) => {
 };
 
 const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
+    const checkMembership = authorizedAccess?.includes(_checkMembership);
 
     return <div className="documents-page__right">
         <Card>
@@ -291,8 +293,7 @@ const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
                 <Link to={`/${clubAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-        {
-            authorizedAccess?.includes(_checkMembership) && <Card>
+         <Card className={checkMembership ? `` : `_inactive`}>
                 <div className="documents-page__icon membership-icon" />
                 <h3>ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ</h3>
                 <p>
@@ -304,7 +305,6 @@ const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
                     <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
                 </div>
             </Card>
-        }
     </div>
 };
 
