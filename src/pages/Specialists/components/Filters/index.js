@@ -70,7 +70,7 @@ const Filters = ({
                 setBreeds(data[0].breeds);
                 setLoading(false);
                 setRegions(data[0].regions);
-                window.scrollTo(0, 0);
+                // window.scrollTo(0, 0);
                 setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
             }).catch(error => {
                 console.log(error.response);
@@ -89,7 +89,7 @@ const Filters = ({
                 setSpecializations(data[0].specializations);
                 setLoading(false);
                 setRegions(data[0].regions);
-                window.scrollTo(0, 0);
+                // window.scrollTo(0, 0);
                 setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
             }).catch(error => {
                 console.log(error.response);

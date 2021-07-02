@@ -210,3 +210,4 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
 };
 
 export default connectShowFilters(React.memo(Specialists));
+
