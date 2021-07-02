@@ -12,10 +12,6 @@
         }
     }
     .Card {
-        &._inactive {
-            opacity: 0.5;
-            pointer-events: none;
-        }
         margin-bottom: 1em;
         h3 {
             font-size: 18px;
@@ -182,3 +178,8 @@
         }
     }
 }
+.link__inactive {
+    opacity: 0.5;
+    pointer-events: none;
+}
+

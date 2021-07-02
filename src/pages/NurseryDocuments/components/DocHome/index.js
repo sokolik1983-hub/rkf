@@ -60,7 +60,20 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess, membershipPaid }) => {
     const replacePedigreeForeignRegistration = authorizedAccess?.includes(_replacePedigreeForeignRegistration);
     const replacePedigreeDeclarantError = authorizedAccess?.includes(_replacePedigreeDeclarantError);
 
-    const replacePedigreeAll = !!(replacePedigreeExportOld && replacePedigreeChangeOwner && replacePedigreeOld && replacePedigreeRkfFc1 && replacePedigreeDuplicate && replacePedigreeForeignRegistration && replacePedigreeDeclarantError)
+    // const replacePedigreeAll = !!(!replacePedigreeExportOld && !replacePedigreeChangeOwner && !replacePedigreeOld && !replacePedigreeRkfFc1 && !replacePedigreeDuplicate && !replacePedigreeForeignRegistration && !replacePedigreeDeclarantError)
+
+
+    const allLinkStatus = [
+        replacePedigreeExportOld,
+        replacePedigreeChangeOwner,
+        replacePedigreeOld,
+        replacePedigreeRkfFc1,
+        replacePedigreeDuplicate,
+        replacePedigreeForeignRegistration,
+        replacePedigreeDeclarantError,
+    ].some(el => {
+        return el === true;
+    });
 
     return <div className="documents-page__right">
         {
@@ -79,7 +92,7 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess, membershipPaid }) => {
                             акт вязки, акт обследования помета, копии свидетельств о происхождении производителей,
                             копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно -
                             оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.
-            </p>
+                        </p>
                         <div className="documents-page__support-links">
                             <p>
                                 <a href="https://help.rkf.online/ru/knowledge_base/art/4/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче заявления на регистрацию помета</a>
@@ -127,22 +140,22 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess, membershipPaid }) => {
                             <span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>
                         </div>
                     </Card>
-                    <Card className={replacePedigreeAll ? `` : `_inactive`}>
+                    <Card className={allLinkStatus ? `` : `_inactive`}>
                         <div className="documents-page__icon replace-pedigree-icon" />
                         <h3>ЗАМЕНА РОДОСЛОВНОЙ</h3>
                         <p>Обмен родословной возможен при наличии у заявителя внутренней или экспортной родословной РКФ старого образца или свидетельства о регистрации, выданного зарубежной кинологической организацией. Кроме того, при подаче соответствующего заявления может быть осуществлена выдача дубликата родословной или замена владельца в документе.</p>
                         <hr />
                         <div className="Card__link-columns">
                             <div>
-                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/2/form`} className={replacePedigreeOld ? `` : `_inactive`} >По внутренней родословной старого образца</Link>
-                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/1/form`} className={replacePedigreeExportOld ? `` : `_inactive`} >По экспортной родословной старого образца</Link>
-                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/4/form`} className={replacePedigreeChangeOwner ? `` : `_inactive`}>По заявлению при смене владельца</Link>
-                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/7/form`} className={replacePedigreeDeclarantError ? `` : `_inactive`}>Замена родословной по ошибке заявителя</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/2/form`} className={replacePedigreeOld ? `` : `link__inactive`} >По внутренней родословной старого образца</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/1/form`} className={replacePedigreeExportOld ? `` : `link__inactive`} >По экспортной родословной старого образца</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/4/form`} className={replacePedigreeChangeOwner ? `` : `link__inactive`}>По заявлению при смене владельца</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/7/form`} className={replacePedigreeDeclarantError ? `` : `link__inactive`}>Замена родословной по ошибке заявителя</Link>
                             </div>
                             <div>
-                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/5/form`} className={replacePedigreeRkfFc1 ? `` : `_inactive`}>По родословной выданной вне системы РКФ/FCI</Link>
-                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/3/form`} className={replacePedigreeDuplicate ? `` : `_inactive`}>По заявлению о выдаче дубликата</Link>
-                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/6/form`} className={replacePedigreeForeignRegistration ? `` : `_inactive`}>Регистрация иностранной родословной</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/5/form`} className={replacePedigreeRkfFc1 ? `` : `link__inactive`}>По родословной выданной вне системы РКФ/FCI</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/3/form`} className={replacePedigreeDuplicate ? `` : `link__inactive`}>По заявлению о выдаче дубликата</Link>
+                                <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/6/form`} className={replacePedigreeForeignRegistration ? `` : `link__inactive`}>Регистрация иностранной родословной</Link>
                             </div>
                         </div>
                         <hr />
@@ -262,7 +275,7 @@ const DocHome = ({ nurseryAlias }) => {
             <Route path='/kennel/:route/documents/responsible' component={() => <ResponsibleCards authorizedAccess={authorizedAccess} nurseryAlias={nurseryAlias} membershipPaid={membershipPaid}/>} />
             <Route path='/kennel/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/nurseries/Nursery/nursery_federation' />} />
             <Route path='/kennel/:route/documents/review' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
-            <Route path='/kennel/:route/documents' component={() => <DocumentCards authorizedAccess={authorizedAccess} nurseryAlias={nurseryAlias} />} />
+            <Route path='/kennel/:route/documents' component={() => <DocumentCards authorizedAccess={authorizedAccess} nurseryAlias={nurseryAlias} membershipPaid={membershipPaid} />} />
             <Route component={LoadableNotFound} />
         </Switch>
     </div>

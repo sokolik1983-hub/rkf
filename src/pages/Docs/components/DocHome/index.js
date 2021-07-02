@@ -49,12 +49,24 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
     const replacePedigreeForeignRegistration = authorizedAccess?.includes(_replacePedigreeForeignRegistration);
     const replacePedigreeDeclarantError = authorizedAccess?.includes(_replacePedigreeDeclarantError);
 
-    const replacePedigreeAll = !!(replacePedigreeExportOld && replacePedigreeChangeOwner && replacePedigreeOld && replacePedigreeRkfFc1 && replacePedigreeDuplicate && replacePedigreeForeignRegistration && replacePedigreeDeclarantError)
+    // const replacePedigreeAll = !!(replacePedigreeExportOld && replacePedigreeChangeOwner && replacePedigreeOld && replacePedigreeRkfFc1 && replacePedigreeDuplicate && replacePedigreeForeignRegistration && replacePedigreeDeclarantError)
 
     const dogHealthCheckDysplasia = authorizedAccess?.includes(_dogHealthCheckDysplasia);
     const dogHealthCheckPatella = authorizedAccess?.includes(_dogHealthCheckPatella);
     const getRKFDocument = authorizedAccess?.includes(_getRKFDocument);
     // const hasAccess = pedigree && litter && replacePedigreeExportOld && dogHealthCheckDysplasia && dogHealthCheckPatella && getRKFDocument;
+
+    const allLinkStatus = [
+        replacePedigreeExportOld,
+        replacePedigreeChangeOwner,
+        replacePedigreeOld,
+        replacePedigreeRkfFc1,
+        replacePedigreeDuplicate,
+        replacePedigreeForeignRegistration,
+        replacePedigreeDeclarantError,
+    ].some(el => {
+        return el === true;
+    });
     return <div className="documents-page__right">
         {
             !authorizedAccess
@@ -120,22 +132,22 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                             <span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>
                         </div>
                     </Card>
-                    <Card className={replacePedigreeAll ? `` : `_inactive`}>
+                    <Card className={allLinkStatus ? `` : `_inactive`}>
                         <div className="documents-page__icon replace-pedigree-icon" />
                         <h3>ЗАМЕНА РОДОСЛОВНОЙ</h3>
                         <p>Обмен родословной возможен при наличии у заявителя внутренней или экспортной родословной РКФ старого образца или свидетельства о регистрации, выданного зарубежной кинологической организацией. Кроме того, при подаче соответствующего заявления может быть осуществлена выдача дубликата родословной или замена владельца в документе.</p>
                         <hr />
                         <div className="Card__link-columns">
                             <div>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/2/form`} className={replacePedigreeOld ? `` : `_inactive`}>По внутренней родословной старого образца</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/1/form`} className={replacePedigreeExportOld ? `` : `_inactive`}>По экспортной родословной старого образца</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/4/form`} className={replacePedigreeChangeOwner ? `` : `_inactive`}>По заявлению при смене владельца</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/7/form`} className={replacePedigreeDeclarantError ? `` : `_inactive`}>Замена родословной по ошибке заявителя</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/2/form`} className={replacePedigreeOld ? `` : `link__inactive`} >По внутренней родословной старого образца</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/1/form`} className={replacePedigreeExportOld ? `` : `link__inactive`}>По экспортной родословной старого образца</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/4/form`} className={replacePedigreeChangeOwner ? `` : `link__inactive`}>По заявлению при смене владельца</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/7/form`} className={replacePedigreeDeclarantError ? `` : `link__inactive`}>Замена родословной по ошибке заявителя</Link>
                             </div>
                             <div>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/5/form`} className={replacePedigreeRkfFc1 ? `` : `_inactive`} >По родословной выданной вне системы РКФ/FCI</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/3/form`} className={replacePedigreeDuplicate ? `` : `_inactive`} >По заявлению о выдаче дубликата</Link>
-                                <Link to={`/${clubAlias}/documents/replace-pedigree/6/form`} className={replacePedigreeForeignRegistration ? `` : `_inactive`} >Регистрация иностранной родословной</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/5/form`} className={replacePedigreeRkfFc1 ? `` : `link__inactive`} >По родословной выданной вне системы РКФ/FCI</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/3/form`} className={replacePedigreeDuplicate ? `` : `link__inactive`} >По заявлению о выдаче дубликата</Link>
+                                <Link to={`/${clubAlias}/documents/replace-pedigree/6/form`} className={replacePedigreeForeignRegistration ? `` : `link__inactive`} >Регистрация иностранной родословной</Link>
                             </div>
                         </div>
                         <hr />
@@ -305,7 +317,7 @@ const DocHome = ({ clubAlias }) => {
     const [membershipPaid, setMembershipPaid] = useState(false);
     const isMobile = useIsMobile();
 
-    useEffect(() => {
+    useEffect(() =>  {
         (() => Request({
             url: `/api/requests/commonrequest/request_access_v2`
         }, data => {
