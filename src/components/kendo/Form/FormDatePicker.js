@@ -4,6 +4,7 @@ import { Label, Error } from "@progress/kendo-react-labels";
 import { DatePicker } from "@progress/kendo-react-dateinputs";
 import { IntlProvider, load, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import kendoMessages from "../../../kendoMessages.json";
+import moment from "moment";
 import "./index.scss";
 
 loadMessages(kendoMessages, 'ru');
@@ -43,7 +44,7 @@ const FormDatePicker = fieldRenderProps => {
                             valid={valid}
                             id={id}
                             disabled={disabled}
-                            value={value ? new Date(value) : null}
+                            value={value ? new Date(moment(value).format('YYYY-MM-DD')) : null}
                             className="FormDatePicker"
                             {...others}
                         />
