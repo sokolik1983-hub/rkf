@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Loading from "../Loading";
 import Card from "../Card";
 import Modal from "../Modal";
-import ZlineModal from "./components/ZlineModal";
+import ZlineModal from "../ZlineModal";
 import Alert from "../Alert";
 import { Request } from "../../utils/request";
 import ls from "local-storage";
@@ -42,12 +42,19 @@ const feds = {
     }
 };
 
+const RKF = 'https://zline.me/widgets/registration-for-service?id=18';
+const RFSS = 'https://zline.me/widgets/registration-for-service?id=25';
+const RFOS = 'https://zline.me/widgets/registration-for-service?id=24';
+const RFLS = 'https://zline.me/widgets/registration-for-service?id=23';
+const ELITA = 'https://zline.me/widgets/registration-for-service?id=22';
+const FAUNA = 'https://zline.me/widgets/registration-for-service?id=21';
+const RKK = 'https://zline.me/widgets/registration-for-service?id=20';
 
 const BookformCard = ({ url, distinction }) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const [link, setLink] = useState('');
+    const [iframeLink, setIframeLink] = useState('');
     const [federation, setFederation] = useState('');
     const [color, setColor] = useState('');
     const [headerName, setHeaderName] = useState('');
@@ -82,17 +89,15 @@ const BookformCard = ({ url, distinction }) => {
             }))();
     }, []);
 
-    const handleClick = (e, rkf, destination) => {
+    const handleClick = (e, isRKF, destination) => {
         e.preventDefault();
         if (!destination) {
-            setColor('');
-            setLink(`https://widget.bookform.ru/${rkf ? 30637 : federation && feds[federation].id}/`);
-            setHeaderName(`Запись в ${rkf ? 'РКФ' : federation}`);
-            setShowModal(true);
+            setIframeLink(isRKF ? RKF : (federation === 'РФСС' && RFSS) || (federation === 'РФОС' && RFOS) || (federation === 'РФЛС' && RFLS) || (federation === 'ОАНКОО/Элита' && ELITA) || (federation === 'ОАНКОО/Фауна' && FAUNA) || (federation === 'ОАНКОО/РКК' && RKK));
+            setShowZlineModal(true);
         } else {
             if (federation) {
                 setColor('_blue');
-                setLink(feds[federation][destination]);
+                setIframeLink(feds[federation][destination]);
                 setHeaderName(`Оценка работы ${destination === "support" ? `службы поддержки ${federation}` : federation}`);
                 setShowModal(true);
             } else {
@@ -100,13 +105,6 @@ const BookformCard = ({ url, distinction }) => {
             }
         }
     };
-
-
-    const handleZlineClick = (e) => {
-        e.preventDefault();
-        setShowZlineModal(true);
-    };
-
 
     const Bookform = <>
         {federation && authorizedAccess && <Card>
@@ -116,7 +114,7 @@ const BookformCard = ({ url, distinction }) => {
             <p>Отменить запись в Федерацию Вы можете в группе в Telegram по ссылке <a href="https://t.me/EntryRKFOnline" target="_blank" rel="noopener noreferrer">https://t.me/EntryRKFOnline</a></p>
             <hr />
             <div className="Card__links">
-                <Link to={`/`} onClick={e => handleClick(e)}>Запись в {federation}</Link>
+                <Link to={`/`} onClick={e => handleClick(e, false, null)}>Запись в {federation}</Link>
             </div>
         </Card>}
         <Card>
@@ -126,11 +124,8 @@ const BookformCard = ({ url, distinction }) => {
             <p>Отменить запись в РКФ Вы можете в группе в Telegram по ссылке <a href="https://t.me/EntryRKFOnline" target="_blank" rel="noopener noreferrer">https://t.me/EntryRKFOnline</a></p>
             <hr />
             <div style={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-                <div className="Card__links" style={{ marginRight: '20px' }}>
-                    <Link to={`/`} onClick={e => handleClick(e, true)}>Запись в РКФ</Link>
-                </div>
                 <div className="Card__links">
-                    <Link to={`/`} onClick={e => handleZlineClick(e)}>Подача корреспонденции в РКФ</Link>
+                    <Link to={`/`} onClick={e => handleClick(e, true, null)}>Запись на услуги РКФ</Link>
                 </div>
             </div>
         </Card>
@@ -169,20 +164,20 @@ const BookformCard = ({ url, distinction }) => {
             {distinction === 'bookform' ? Bookform : Review}
             <Modal showModal={showModal}
                 handleClose={() => {
-                    setLink('');
+                    setIframeLink('');
                     setShowModal(false);
                 }}
                 className={`documents-page__modal${color ? ' ' + color : ''}`}
                 headerName={headerName}
             >
-                <iframe src={link} title="unique_iframe" />
+                <iframe src={iframeLink} title="unique_iframe" />
             </Modal>
             <ZlineModal showModal={showZlineModal}
                 handleClose={() => {
                     setShowZlineModal(false);
                 }}
             >
-                <iframe src={'https://zline.me/widgets/registration-for-service?id=10'} title="unique_iframe" />
+                <iframe src={iframeLink} title="unique_iframe" />
             </ZlineModal>
             {showAlert &&
                 <Alert
