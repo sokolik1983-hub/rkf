@@ -182,3 +182,7 @@
         }
     }
 }
+.link__inactive {
+    opacity: 0.5;
+    pointer-events: none;
+}
