@@ -137,8 +137,8 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
         setDisableSubmit(true);
         let newData = {
             ...data,
-            date_begin: data.date_begin,
-            date_end: data.date_end,
+            date_begin: moment(data.date_begin).format('YYYY-MM-DD'),
+            date_end: moment(data.date_end).format('YYYY-MM-DD'),
             documents: data.documents.map(d => ({
                 id: d.id ? d.id : null,
                 name: d.name,
