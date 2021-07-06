@@ -25,5 +25,3 @@ ReactDOM.render(
     document.getElementById('wrap')
 );
 unregister();
-const abc = document.querySelector('.SpecialistsList');
-console.log(abc)
