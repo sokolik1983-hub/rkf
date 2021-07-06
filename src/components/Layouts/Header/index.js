@@ -13,7 +13,8 @@ import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
-    const isMobile = useIsMobile(1025);
+    const isMobile = useIsMobile(1080);
+    const headerTitle = localStorage.getItem('_ym61376485_il').slice(1, -1);
 
     return (
         <header className="header">
@@ -27,9 +28,10 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     : <div><Link to="/" className="header__logo"/></div>
                 }
                 <Search withFilters={withFilters}/>
+                {isMobile && <h3 className="header__title">{headerTitle}</h3>}
 
                 {!isMobile
-                && <Nav login_page={login_page}/>
+                && <Nav isAuthenticated={isAuthenticated}/>
                 }
                 <div className="header__widgets">
                 {!isAuthenticated &&

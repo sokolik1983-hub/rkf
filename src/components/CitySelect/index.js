@@ -63,8 +63,6 @@ function CitySelect({ cityFilter, currentCity }) {
 
 
     const onChange = value => {
-        console.log('change value', value)
-        console.log("cities", cities)
         // if (!value.value || value.value === 'reset') {
         //     setCity(selectorInitialState);
         //     localStorage.removeItem(LS_KEY);

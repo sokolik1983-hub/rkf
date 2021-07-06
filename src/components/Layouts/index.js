@@ -12,8 +12,8 @@ const Layout = ({ children, withFilters, showCopyright, login_page, setNotificat
     <>
         <Header withFilters={withFilters} login_page={login_page} setNotificationsLength={setNotificationsLength} />
         {children}
-        {!login_page && <Footer showCopyright={showCopyright} />}
-        <FooterMenu/>
+        {/*{!login_page && <Footer showCopyright={showCopyright} />}*/}
+        <FooterMenu login_page={login_page}/>
     </>
 );
 

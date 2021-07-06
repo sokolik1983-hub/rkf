@@ -15,7 +15,6 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest, setProfileInfo,
     const [startElement, setStartElement] = useState(1);
     const [loading, setLoading] = useState(true);
     const [hasMore, setHasMore] = useState(true);
-
     const newsListRef = useRef(null);
 
     const getNews = async startElem => {

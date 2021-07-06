@@ -48,7 +48,7 @@ const Notifications = forwardRef(
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
 
-        const isMobile = useIsMobile(1025);
+        const isMobile = useIsMobile(1080);
 
         useEffect(() => {
             if (isAuthenticated) {

@@ -11,10 +11,10 @@ import history from "../../../../utils/history";
 import { Request } from "../../../../utils/request";
 import Feedback from "../../../Feedback";
 import LightTooltip from "../../../LightTooltip";
-
+import useIsMobile from "../../../../utils/useIsMobile";
 
 const WidgetLogin = forwardRef(
-    ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link, login_page }, ref) => {
+    ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link, login_page}, ref) => {
         const [open, setOpen] = useState(false);
         const [showModal, setShowModal] = useState(false);
 
@@ -25,7 +25,7 @@ const WidgetLogin = forwardRef(
         const accountType = ls.get('account_type') ? ls.get('account_type') : '';
         const firstName = ls.get('user_info') ? ls.get('user_info').first_name : '';
         const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
-
+        const isMobile1080 = useIsMobile(1080);
         const AuthButtons = () => {
             let path = history.location.pathname;
             return (<>
@@ -54,17 +54,28 @@ const WidgetLogin = forwardRef(
         };
 
         return (
-            <div className={`widget-login ${login_page ? `active` : ``}`}>
+            <div
+                className={`widget-login  ${login_page ? `active` : ``}`}
+                style={{ padding: 0, background: "url('/static/icons/footer-menu/profile.svg') no-repeat top center"}}
+                onClick={() => setOpen(!open)}
+            >
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
-                        <LightTooltip title="Аккаунт" enterDelay={200} leaveDelay={200}>
+                        <LightTooltip title={!isMobile1080 ? "Аккаунт"  : ''} enterDelay={200} leaveDelay={200}>
                             <div
                                 className={`widget-login__wrap ${open ? `_login_open` : ``}`}
-                                onClick={() => setOpen(!open)}
+
                             >
-                                <div className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
-                                    style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
-                                />
+                                {isMobile1080
+                                    ? <div
+                                    className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
+                                    />
+                                    : <div
+                                        className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
+                                        style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
+                                    />
+                                }
+                                {isMobile1080 && <span>Профиль</span>}
                             </div>
                         </LightTooltip>
                         <CSSTransition
@@ -145,13 +156,17 @@ const WidgetLogin = forwardRef(
                                     <li className="widget-login__item widget-login__add-user">
                                         <div>Добавить пользователя</div>
                                     </li>
+                                    {!isMobile1080 &&
+                                    <>
+                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                            <a style={{ color: '#3366ff' }} href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/" target="_blank" rel="noopener noreferrer">База знаний</a>
+                                        </li>
+                                        <li className="widget-login__item">
+                                             <Feedback />
 
-                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                        <a style={{ color: '#3366ff' }} href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/" target="_blank" rel="noopener noreferrer">База знаний</a>
-                                    </li>
-                                    <li className="widget-login__item">
-                                        <Feedback />
-                                    </li>
+                                        </li>
+                                    </>
+                                    }
                                 </ul>
                             </div>
                         </CSSTransition>

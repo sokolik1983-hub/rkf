@@ -10,14 +10,13 @@ import useIsMobile from "../../../../utils/useIsMobile";
 import MenuLink from "./MenuLink";
 
 
-const Nav = ({ isAuthenticated, login_page }) => {
+const Nav = ({ isAuthenticated }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const isMobile = useIsMobile(1025);
-
-    const setOverflow = (isOpen) => {
-        if (window.innerWidth <= 1025) {
+    const isMobile = useIsMobile(1080);
+     const setOverflow = (isOpen) => {
+        if (window.innerWidth <= 1080) {
             document.body.style.overflow = isOpen ? 'hidden' : '';
-        } else if (window.innerWidth > 1025 && isOpen) {
+        } else if (window.innerWidth > 1080 && isOpen) {
             document.body.style.overflow = '';
         }
     };
@@ -32,7 +31,7 @@ const Nav = ({ isAuthenticated, login_page }) => {
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
                 <>
-                    <ClickGuard value={isOpen} callback={() => setIsOpen(false)} />
+                    {/*<ClickGuard value={isOpen} callback={() => setIsOpen(false)} />*/}
                     <BurgerButton
                         className={isOpen ? '_open' : ''}
                         onClick={() => setIsOpen(!isOpen)}
@@ -70,7 +69,7 @@ const Nav = ({ isAuthenticated, login_page }) => {
 
                                 <li className="header__nav-item--desktop" key={navItem.id}>
 
-                                   <MenuLink {...navItem}/>
+                                   <MenuLink  {...navItem}/>
 
                             </li>
                             )

@@ -66,6 +66,7 @@ const NewsList = ({isFullDate = true, citiesDict, banner}) => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         (() => getNews(1, newsFilter))();
     }, []);
 
@@ -111,7 +112,7 @@ const NewsList = ({isFullDate = true, citiesDict, banner}) => {
 
     return (
         <div className="NewsList" ref={newsListRef}>
-            <NewsFilters newsFilter changeOrganizationFilters changeTypeFilters activeType changeCityFilter/>
+            <NewsFilters newsFilter={newsFilter} changeOrganizationFilters={changeOrganizationFilters} changeTypeFilters={changeTypeFilters} activeType changeCityFilter/>
             {news && !!news.length &&
             <InfiniteScroll
                 dataLength={news.length}

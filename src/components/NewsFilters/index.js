@@ -16,14 +16,13 @@ const NewsFilters = ({
                          isOpenFilters,
                      }) => {
 
-    const isMobile1024 = useIsMobile(1024)
-console.log("changeTypeFilters", changeTypeFilters)
+    const isMobile1080 = useIsMobile(1080)
     return (
 
             <div className={cn("NewsList__head", {
-                ["NewsList__head-mobile"] : isMobile1024,
-                ["NewsList__head-desktop"] : !isMobile1024,
-                ["__open"] : isMobile1024 && isOpenFilters,
+                ["NewsList__head-mobile"] : isMobile1080,
+                ["NewsList__head-desktop"] : !isMobile1080,
+                ["__open"] : isMobile1080 && isOpenFilters,
 
             })}>
             <div className="NewsList__head-wrap">
@@ -64,7 +63,6 @@ console.log("changeTypeFilters", changeTypeFilters)
                         <CitySelect
                             currentCity={newsFilter.cities}
                             cityFilter={cities => {
-                                console.log("cities father", cities)
                                 changeCityFilter(cities);
                             }}
                         />

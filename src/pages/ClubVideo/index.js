@@ -37,7 +37,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     let params = useParams();
     const alias = params.id;
     const isMobile = useIsMobile();
-
+console.log(alias)
     useEffect(() => {
         setPageLoaded(false);
         Promise.all([getVideos(1), !clubInfo && getClub()])
