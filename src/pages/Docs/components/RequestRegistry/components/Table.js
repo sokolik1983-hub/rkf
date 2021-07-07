@@ -152,20 +152,20 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_name" title=" " />
-        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
-        <GridColumn field={`${distinction}_request_id`} title="№ пакета" columnMenu={ColumnMenu} />
-        <GridColumn field="owner_full_name" title="ФИО владельца" columnMenu={ColumnMenu} />
-        <GridColumn field="breeder_full_name" title="Заводчик" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
-        <GridColumn field="breed" title="Порода" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp_number" title="Клеймо" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} />
-        <GridColumn field="date_archive" title="Архивировано" columnMenu={ColumnMenu}
-            cell={props => ArchiveCell(props)} />
-    </Grid>;
 
+        <GridColumn width="40px" className="customCSS" field="status_value" title=" " />
+        <GridColumn field="date_create" headerClassName="customCSS" className="customCSS" title="Дата создания" columnMenu={ColumnMenu} />
+        <GridColumn field={`${distinction}_request_id`} headerClassName="customCSS" className="customCSS" title="№ пакета" columnMenu={ColumnMenu} />
+        <GridColumn field="owner_full_name" headerClassName="customCSS" className="customCSS" title="ФИО владельца" columnMenu={ColumnMenu} />
+        <GridColumn field="breeder_full_name" headerClassName="customCSS" className="customCSS" title="Заводчик" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" headerClassName="customCSS" className="customCSS" title="Кличка" columnMenu={ColumnMenu} />
+        <GridColumn field="breed" headerClassName="customCSS" className="customCSS" title="Порода" columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_number" headerClassName="customCSS" className="customCSS" title="Клеймо" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" headerClassName="customCSS" className="customCSS" title="Трек-номер" columnMenu={ColumnMenu} />
+        {/*<GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} />*/}
+        {/*<GridColumn field="date_archive" title="Архивировано" columnMenu={ColumnMenu}*/}
+        {/*    cell={props => ArchiveCell(props)} />*/}
+    </Grid>;
     const rowRender = (trElement, props) => {
         const status = props.dataItem.status_id;
         const isArchive = props.dataItem.status_id === 8;
