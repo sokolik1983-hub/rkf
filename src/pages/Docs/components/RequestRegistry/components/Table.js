@@ -153,15 +153,15 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         {...gridData}
         onDataStateChange={handleGridDataChange}>
 
-        <GridColumn width="40px" className="customCSS" field="status_value" title=" " />
-        <GridColumn field="date_create" headerClassName="customCSS" className="customCSS" title="Дата создания" columnMenu={ColumnMenu} />
-        <GridColumn field={`${distinction}_request_id`} headerClassName="customCSS" className="customCSS" title="№ пакета" columnMenu={ColumnMenu} />
-        <GridColumn field="owner_full_name" headerClassName="customCSS" className="customCSS" title="ФИО владельца" columnMenu={ColumnMenu} />
-        <GridColumn field="breeder_full_name" headerClassName="customCSS" className="customCSS" title="Заводчик" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" headerClassName="customCSS" className="customCSS" title="Кличка" columnMenu={ColumnMenu} />
-        <GridColumn field="breed" headerClassName="customCSS" className="customCSS" title="Порода" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp_number" headerClassName="customCSS" className="customCSS" title="Клеймо" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" headerClassName="customCSS" className="customCSS" title="Трек-номер" columnMenu={ColumnMenu} />
+        <GridColumn width="40px" className="custom-font-size" field="status_value" title=" " />
+        <GridColumn field="date_create" headerClassName="custom-font-size" className="custom-font-size" title="Дата создания" columnMenu={ColumnMenu} />
+        <GridColumn field={`${distinction}_request_id`} headerClassName="custom-font-size" className="custom-font-size" title="№ пакета" columnMenu={ColumnMenu} />
+        <GridColumn field="owner_full_name" headerClassName="custom-font-size" className="custom-font-size" title="ФИО владельца" columnMenu={ColumnMenu} />
+        <GridColumn field="breeder_full_name" headerClassName="custom-font-size" className="custom-font-size" title="Заводчик" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" headerClassName="custom-font-size" className="custom-font-size" title="Кличка" columnMenu={ColumnMenu} />
+        <GridColumn field="breed" headerClassName="custom-font-size" className="custom-font-size" title="Порода" columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_number" headerClassName="custom-font-size" className="custom-font-size" title="Клеймо" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" headerClassName="custom-font-size" className="custom-font-size" title="Трек-номер" columnMenu={ColumnMenu} />
         {/*<GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} />*/}
         {/*<GridColumn field="date_archive" title="Архивировано" columnMenu={ColumnMenu}*/}
         {/*    cell={props => ArchiveCell(props)} />*/}
