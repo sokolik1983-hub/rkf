@@ -171,17 +171,17 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_name" title="Статус" />
-        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
-        <GridColumn field={`${distinction}_request_id`} title="№ пакета" columnMenu={ColumnMenu} />
-        <GridColumn field="owner_full_name" title="ФИО владельца" columnMenu={ColumnMenu} />
-        <GridColumn field="breeder_full_name" title="Заводчик" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
-        <GridColumn field="breed" title="Порода" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp_number" title="Клеймо" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
-        <GridColumn field="date_archive" title="Архивировано" columnMenu={ColumnMenu} cell={props => ArchiveCell(props)} />
+        <GridColumn width="40px" field="status_value" headerClassName="custom-font-size" className="custom-font-size" title=" " />
+        <GridColumn field="date_create" headerClassName="custom-font-size" className="custom-font-size" title="Дата создания" columnMenu={ColumnMenu} />
+        <GridColumn field={`${distinction}_request_id`} headerClassName="custom-font-size" className="custom-font-size" title="№ пакета" columnMenu={ColumnMenu} />
+        <GridColumn field="owner_full_name" headerClassName="custom-font-size" className="custom-font-size" title="ФИО владельца" columnMenu={ColumnMenu} />
+        <GridColumn field="breeder_full_name" headerClassName="custom-font-size" className="custom-font-size" title="Заводчик" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" headerClassName="custom-font-size" className="custom-font-size" title="Кличка" columnMenu={ColumnMenu} />
+        <GridColumn field="breed" headerClassName="custom-font-size" className="custom-font-size" title="Порода" columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_number" headerClassName="custom-font-size" className="custom-font-size" title="Клеймо" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" headerClassName="custom-font-size" className="custom-font-size" title="Трек-номер" columnMenu={ColumnMenu} />
+        {/*<GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />*/}
+        {/*<GridColumn field="date_archive" title="Архивировано" columnMenu={ColumnMenu} cell={props => ArchiveCell(props)} />*/}
     </Grid>;
 
     return (
