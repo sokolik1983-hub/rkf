@@ -114,7 +114,7 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess, membershipPaid }) => {
                     <p>
                         Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на
                         свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.
-        </p>
+                    </p>
                     <div className="documents-page__support-links">
                         <p>
                             <a href="https://help.rkf.online/ru/knowledge_base/art/37/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче родословной</a>
@@ -204,12 +204,12 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess, membershipPaid }) => {
             </>
         }
         {alert &&
-        <Alert
-            title="Внимание!"
-            text="В настоящее время данный раздел в разработке и будет доступен в ближайшее время. При необходимости подачи заявок данного характера - просьба пользоваться сервисом подачи заявок по электронной почте."
-            autoclose={5}
-            onOk={() => seAlert(false)}
-        />
+            <Alert
+                title="Внимание!"
+                text="В настоящее время данный раздел в разработке и будет доступен в ближайшее время. При необходимости подачи заявок данного характера - просьба пользоваться сервисом подачи заявок по электронной почте."
+                autoclose={5}
+                onOk={() => seAlert(false)}
+            />
         }
     </div>
 };
@@ -253,7 +253,7 @@ const DocHome = ({ nurseryAlias }) => {
 
     useEffect(() => {
         (() => Request({
-            url: `/api/requests/commonrequest/request_access_v2`
+            url: `/api/requests/commonrequest/request_access`
         }, data => {
             setAuthorizedAccess(data.request_types);
             setMembershipPaid(data.membership_due_is_paid);
@@ -273,7 +273,7 @@ const DocHome = ({ nurseryAlias }) => {
             </StickyBox>
         </aside>
         <Switch>
-            <Route path='/kennel/:route/documents/responsible' component={() => <ResponsibleCards authorizedAccess={authorizedAccess} nurseryAlias={nurseryAlias} membershipPaid={membershipPaid}/>} />
+            <Route path='/kennel/:route/documents/responsible' component={() => <ResponsibleCards authorizedAccess={authorizedAccess} nurseryAlias={nurseryAlias} membershipPaid={membershipPaid} />} />
             <Route path='/kennel/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/nurseries/Nursery/nursery_federation' />} />
             <Route path='/kennel/:route/documents/review' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
             <Route path='/kennel/:route/documents' component={() => <DocumentCards authorizedAccess={authorizedAccess} nurseryAlias={nurseryAlias} membershipPaid={membershipPaid} />} />

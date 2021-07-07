@@ -115,6 +115,7 @@ const RequestRegistry = ({ history, distinction }) => {
                         exporting={exporting}
                         setExporting={setExporting}
                     />
+
                 </div>
                     : <div className="club-documents-status__plug">
                         <h4 className="club-documents-status__text">Заявок не найдено</h4>
