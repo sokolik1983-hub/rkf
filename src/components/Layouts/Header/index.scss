@@ -139,10 +139,8 @@
     background: url("/static/icons/icon-filters.svg") no-repeat center;
     background-size: cover;
     margin-top: -20px;
-
     button {
       border: none;
-      padding: 0;
       padding-top: 20px;
       font-size: 12px;
       color: #979797;
@@ -197,24 +195,6 @@
         top: 6px;
       }
     }
-
-    //&._open span {
-    //  width: 24px;
-    //  @media (max-width: 560px) {
-    //    width: 18px;
-    //  }
-    //  &:nth-child(2) {
-    //    opacity: 0;
-    //  }
-    //  &:first-child {
-    //    transform: rotate(45deg);
-    //    transform-origin: left top;
-    //  }
-    //  &:last-child {
-    //    transform: rotate(-45deg);
-    //    transform-origin: left bottom;
-    //  }
-    //}
     @media (max-width: 1080px) {
       display: flex;
     }
@@ -366,11 +346,6 @@
             background-color: #f5f8ff;
             color: #3366ff !important;
           }
-          //&.active {
-          //  background-color: #f5f8ff;
-          //  border-color: #3366ff;
-          //  color: #3366ff !important;
-          //}
           &._disabled {
             opacity: 0.5;
             background-color: transparent;
@@ -549,11 +524,6 @@
   }
 }
 .widget-login {
-  position: relative;
-  display: flex;
-  @media (max-width: 1080px) {
-    min-width: initial;
-  }
   &__user-icon {
     height: 55px;
     width: 55px;
@@ -565,31 +535,25 @@
     cursor: pointer;
     transition: border-color 0.2s linear;
     position: relative;
-    top: 5px;
-    left: 0;
-    //&._active,
-    //&._no-logo {
-    //  border-color: #3366ff;
-    //}
     @media (max-width: 1080px) {
-      height: 30px;
-      width: 30px;
-      min-width: auto;
-      left: 50%;
-      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      flex-direction: column;
     }
   }
   &__wrap {
-    //width:  55px;
-    //height: 55px;
     cursor: pointer;
-    margin-top: -8px;
     &:hover {
       transition: all 0.2s linear;
     }
     span {
       color: #979797;
       font-size: 13px;
+    }
+    &._login_open {
+      svg path{
+        stroke: #3366FF;
+      }
     }
   }
   &__content {
@@ -604,13 +568,12 @@
     width: 314px;
     padding-bottom: 6px;
     @media (max-width: 1080px) {
-      bottom: 60px;
-      right: -20%;
-      //transform: translateX(-50%);
+      bottom: 67px;
+      right: 50%;
+      transform: translateX(50%);
       top: auto;
     }
   }
-
   &__userpic {
     height: 60px;
     width: 60px;
@@ -714,12 +677,6 @@
         background-color: whitesmoke;
         color: #3366ff;
       }
-      //&._disabled {
-      //  opacity: 0.5;
-      //  cursor: not-allowed;
-      //  background-color: transparent;
-      //  color: #72839c;
-      //}
     }
     &--logout {
       border-bottom: 1px solid #e8e8e8;

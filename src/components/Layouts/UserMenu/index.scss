@@ -1,6 +1,4 @@
 .user-nav {
-  padding-top: 20px;
-  background: url('/static/icons/footer-menu/menu.svg') no-repeat top center;
   cursor: pointer;
   color: #979797;
   font-size: 13px;
@@ -10,6 +8,9 @@
   &__button {
     padding: 0;
     border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     span {
       display: block;
       position: absolute;
@@ -20,17 +21,6 @@
       left: 9px;
       transform: rotate(0deg);
       transition: all .2s ease-in-out;
-
-      //&:nth-child(1) {
-      //  top: 13px;
-      //}
-      //&:nth-child(2),
-      //&:nth-child(3) {
-      //  top: 19px;
-      //}
-      //&:nth-child(4) {
-      //  top: 25px;
-      //}
     }
     &._open {
       span {
@@ -51,6 +41,9 @@
           left: 50%;
         }
       }
+      svg path{
+        stroke: #3366FF;
+      }
     }
   }
   &__list {
@@ -65,19 +58,6 @@
       background-color: #fff;
       box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
       border-radius: 6px;
-      //&:before {
-      //  content: "";
-      //  position: absolute;
-      //  right: 14px;
-      //  bottom: -8px;
-      //  z-index: -1;
-      //  width: 24px;
-      //  height: 24px;
-      //  border-radius: 4px;
-      //  background-color: #fff;
-      //  transform: rotate(45deg);
-      //
-      //}
     }
   }
   &__item {

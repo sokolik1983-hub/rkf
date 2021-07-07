@@ -14,7 +14,17 @@ import LightTooltip from "../../../LightTooltip";
 import useIsMobile from "../../../../utils/useIsMobile";
 
 const WidgetLogin = forwardRef(
-    ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link, login_page}, ref) => {
+    ({
+         isAuthenticated,
+         is_active_profile,
+         loginUserSuccess,
+         logOutUser,
+         logo_link,
+         login_page,
+         footerNav,
+        isActive,
+        setActive
+     }, ref) => {
         const [open, setOpen] = useState(false);
         const [showModal, setShowModal] = useState(false);
 
@@ -39,7 +49,6 @@ const WidgetLogin = forwardRef(
                 </Link>}
             </>);
         };
-
         const logoutAsUser = async () => {
             await Request({
                 url: '/api/administration/authentication/logout',
@@ -56,26 +65,22 @@ const WidgetLogin = forwardRef(
         return (
             <div
                 className={`widget-login  ${login_page ? `active` : ``}`}
-                style={{ padding: 0, background: "url('/static/icons/footer-menu/profile.svg') no-repeat top center"}}
+                style={{ padding: 0}}
                 onClick={() => setOpen(!open)}
             >
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
                         <LightTooltip title={!isMobile1080 ? "Аккаунт"  : ''} enterDelay={200} leaveDelay={200}>
                             <div
-                                className={`widget-login__wrap ${open ? `_login_open` : ``}`}
+                                className={`widget-login__wrap ${open ? `_login_open ` : ``}`}>
 
-                            >
-                                {isMobile1080
-                                    ? <div
-                                    className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
-                                    />
-                                    : <div
-                                        className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
-                                        style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
-                                    />
+                                {isMobile1080 &&
+                                <div className={`widget-login__user-icon`}>
+                                    {footerNav?.image}
+                                    <span style={{color: open && '#3366FF', userSelect: "none"  }}>{footerNav?.title}</span>
+                                </div>
                                 }
-                                {isMobile1080 && <span>Профиль</span>}
+
                             </div>
                         </LightTooltip>
                         <CSSTransition

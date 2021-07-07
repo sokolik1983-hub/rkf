@@ -6,8 +6,7 @@ import Alert from "../../Alert";
 import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
-
-const UserMenu = ({ userNav, notificationsLength, isExhibitionPage }) => {
+const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav }) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
     const [showPlus, setShowPlus] = useState(false);
@@ -41,7 +40,9 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage }) => {
 
                 {isMobile &&
                     <button className={`user-nav__button${open ? ' _open' : ''}`} >
-                        Моё&nbsp;меню
+                        {footerNav?.image}
+                        <p style={{color: open && '#3366FF', userSelect: "none"  }}>{footerNav?.title}</p>
+
                     </button>
                 }
                 <CSSTransition

@@ -436,6 +436,49 @@ const mainNav = [
     }
 ];
 
+const footerNav = [
+    {
+        id: 1,
+        title: "Главная",
+        to: '/',
+        image: <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 10L11 1L1 10" stroke="#90999E" strokeWidth="1.32" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M3 8.5V20H8.33333V12.9286H13.6667V20H19V8.5" stroke="#90999E" strokeWidth="1.32" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+    },
+
+    {
+        id: 2,
+        title: "Чат",
+        to: '',
+        image: <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 1.86957L21 14.913C21 15.3913 20.6087 15.7826 20.1304 15.7826H6.21739L1 19.2609V15.7826L1 1.86957C1 1.3913 1.39131 1 1.86957 1H20.1304C20.6087 1 21 1.3913 21 1.86957Z" stroke="#90999E" strokeWidth="1.32" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+
+    },
+    {
+        id: 3,
+        title: "Профиль",
+        to: '',
+        image:<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z" stroke="#979797" strokeWidth="1.32" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M4.18259 18.3131C5.29563 15.8087 7.93041 14.0435 11 14.0435C14.0695 14.0435 16.7043 15.8087 17.8174 18.3131" stroke="#979797" strokeWidth="1.32" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M11 11.7217C13.0795 11.7217 14.7652 10.036 14.7652 7.95653C14.7652 5.87706 13.0795 4.19131 11 4.19131C8.92051 4.19131 7.23477 5.87706 7.23477 7.95653C7.23477 10.036 8.92051 11.7217 11 11.7217Z" stroke="#979797" strokeWidth="1.32" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+    },
+    {
+        id: 4,
+        title: "Мое меню",
+        to: '',
+        image:<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z" stroke="#979797" strokeWidth="1.32" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M5.78261 7.08694H16.2174" stroke="#979797" strokeWidth="1.32" strokeMiterlimit="10"/>
+            <path d="M5.78261 11H16.2174" stroke="#979797" strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round"/>
+            <path d="M5.78261 14.9131H16.2174" stroke="#979797" strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round"/>
+        </svg>
+    }
+]
+
 const WEEKDAYS = [
     {
         "id": 1,
@@ -580,6 +623,7 @@ export {
     SERVER,
     appRoutes,
     mainNav,
+    footerNav,
     responsiveSliderConfig,
     DEFAULT_PHONE_INPUT_MASK,
     DEFAULT_PHONE_INPUT_PLACEHOLDER,
