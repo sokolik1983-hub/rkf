@@ -444,11 +444,15 @@
   .infinite-scroll-component__outerdiv  {
     position: fixed;
     overflow: scroll;
+    width: 100%;
     height: 100%;
     max-width: 870px;
 
   &::-webkit-scrollbar {
     width: 0 !important
+    }
+    @media (max-width: 1024px) {
+      position: static;
     }
   }
   &__no-specialists {
@@ -458,6 +462,7 @@
       font-weight: normal;
     }
   }
+
 }
 
 @keyframes fading {
