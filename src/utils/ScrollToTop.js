@@ -5,8 +5,7 @@ function ScrollToTop({ history, children }) {
 
   useEffect(() => {
     const unlisten = history.listen(() => {
-      // return !history.location.pathname === '/exhibitions' && requestCont.scrollTo(0, 0);
-      return history.location.pathname === '/exhibitions' || history.location.pathname === '/specialists' ? '' : '';
+      return (!history.location.pathname === '/exhibitions' && !history.location.pathname === '/specialists') && window.scrollTo(0, 0);
     });
 
     return () => {
