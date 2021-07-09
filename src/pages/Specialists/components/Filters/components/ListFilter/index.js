@@ -31,9 +31,8 @@ const ListFilter = ({ searchTypeId, setNeedRequest }) => {
                 <ul className="list-filter">
                     <li className="list-filter__item">
                         <span
-                            className={`list-filter__control${activeType === 99 ? ' _active' : ''}`}
-                            style={{ opacity: 0.6 }}
-                        //onClick={() => handleClick(99)}
+                            className={`list-filter__control${activeType === 4 ? ' _active' : ''}`}
+                            onClick={() => handleClick(4)}
                         >По породам</span>
                     </li>
                     <li className="list-filter__item">
