@@ -335,10 +335,7 @@
     letter-spacing: 0.2px;
     transition: color 0.2s linear;
     cursor: pointer;
-    margin-right: auto;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    margin-right: 10px;
     &:hover {
       color: #36f;
     }
@@ -369,7 +366,9 @@
 .card-specialists__grid {
   width: 100%;
   margin-top: 10px;
-
+  &.d-none {
+    display: none;
+  }
 }
 .card-specialist-inner {
   width: 90%;

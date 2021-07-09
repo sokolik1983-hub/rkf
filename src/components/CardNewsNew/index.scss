@@ -142,9 +142,14 @@
       position: relative;
       overflow: hidden;
       text-overflow: ellipsis;
+      width: 100%;
+      justify-content: space-between;
       @media (max-width: 560px) {
         position: initial;
       }
+    }
+    &-city {
+      width: 100%;
     }
     &__city-inner {
       display: flex;
@@ -155,10 +160,7 @@
     &-mark {
       display: flex;
       align-items: center;
-      position: absolute;
-      top: 0;
-      right: 0;
-      & span:last-child {
+      & span {
         margin-left: 5px;
       }
       @media (max-width: 560px) {
@@ -188,7 +190,7 @@
       width: 100%;
       min-width: 0;
       @media (min-width: 560px) {
-        width: calc(100% - 70px);
+        width: 100%;
       }
       a {
         font-weight: normal;
@@ -213,7 +215,6 @@
         line-height: 20px;
         color: #b9b9b9;
         display: flex;
-        padding-right: 40px;
         @media (max-width: 375px) {
           font-size: 14px;
         }

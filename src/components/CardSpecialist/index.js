@@ -118,6 +118,7 @@ const CardSpecialist = ({
                                 {additionalPhones && moreData && additionalPhones.map((phone, index) => {
                                     return (
                                         <span key={index}
+
                                               className="card-specialist__subtitle">
                                         т. {phone}
                                         </span>
@@ -139,19 +140,20 @@ const CardSpecialist = ({
                          }
                         </div>
 
-                        <div className="card-specialists__grid">
-                            {isSpecialist && !moreData
-                                && <div style={{display: 'flex', flexDirection: 'column'}}>
-                                    <p className="card-specialist__specialization">Специализация</p>
-                                    <p className="card-specialist__subtitle">{specialization}</p>
-                                </div>
-                            }
+                        <div className="card-specialists__grid __hide">
+                            {/*{isSpecialist && !moreData*/}
+                            {/*    && <div style={{display: 'flex', flexDirection: 'column'}}>*/}
+                            {/*        <p className="card-specialist__specialization">Специализация1</p>*/}
+                            {/*        <p className="card-specialist__subtitle">{specialization}</p>*/}
+                            {/*    </div>*/}
+                            {/*}*/}
 
                             {disciplines.map((item, index) => {
+
                                 return (
                                     <React.Fragment key={index}>
 
-                                        {!isSpecialist && <div className="card-specialists__grid-item" key={index}>
+                                        {!isSpecialist  && <div className={!moreData ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
                                                 <div className="card-specialist__disciplines">
                                                     <div className="card-specialist__disciplines-inner" style={{flexDirection: 'column'}}>
                                                     {index < 1 && <div className="card-specialist__content-title" >Дисциплины</div>}
@@ -182,36 +184,36 @@ const CardSpecialist = ({
                                             </div>
                                         </div>}
 
-                                        {isSpecialist && !moreData && <div className="card-specialists__grid-item" key={index}>
-                                                <div className="card-specialist__disciplines">
-                                                    <div className="card-specialist__disciplines-inner" style={{flexDirection: 'column'}}>
-                                                    {index < 1 && <div className="card-specialist__content-title" >Дисциплины</div>}
-                                                        <div style={{flexDirection: 'row'}}>
-                                                        {item?.disciplines.map((item, index, arr) => {
-                                                            return (
-                                                                <LightTooltip title={item.discipline_name || 'title'} enterDelay={100} leaveDelay={50} key={index}>
-                                                                    <span className="card-specialist__discipline">
-                                                                        {item.discipline_short_name}
-                                                                        {index < arr.length - 1 && ","}&nbsp;
-                                                                    </span>
-                                                                </LightTooltip>
-                                                            )
-                                                        })}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="card-specialist__ranks">
-                                                <div className="card-specialist__rank" >
-                                                     {item.rank &&
-                                                     <>
-                                                             <h3 className="card-specialist__rank-title" >Ранг</h3>
-                                                             <span className="card-specialist__content-data">{item.rank}</span>
-                                                        </>
-                                                     }
+                                        {/*{isSpecialist && !moreData && <div className="card-specialists__grid-item" key={index}>*/}
+                                        {/*        <div className="card-specialist__disciplines">*/}
+                                        {/*            <div className="card-specialist__disciplines-inner" style={{flexDirection: 'column'}}>*/}
+                                        {/*            {index < 1 && <div className="card-specialist__content-title" >Дисциплины2</div>}*/}
+                                        {/*                <div style={{flexDirection: 'row'}}>*/}
+                                        {/*                {item?.disciplines.map((item, index, arr) => {*/}
+                                        {/*                    return (*/}
+                                        {/*                        <LightTooltip title={item.discipline_name || 'title'} enterDelay={100} leaveDelay={50} key={index}>*/}
+                                        {/*                            <span className="card-specialist__discipline">*/}
+                                        {/*                                {item.discipline_short_name}*/}
+                                        {/*                                {index < arr.length - 1 && ","}&nbsp;*/}
+                                        {/*                            </span>*/}
+                                        {/*                        </LightTooltip>*/}
+                                        {/*                    )*/}
+                                        {/*                })}*/}
+                                        {/*            </div>*/}
+                                        {/*        </div>*/}
+                                        {/*    </div>*/}
+                                        {/*    <div className="card-specialist__ranks">*/}
+                                        {/*        <div className="card-specialist__rank" >*/}
+                                        {/*             {item.rank &&*/}
+                                        {/*             <>*/}
+                                        {/*                     <h3 className="card-specialist__rank-title" >Ранг2</h3>*/}
+                                        {/*                     <span className="card-specialist__content-data">{item.rank}</span>*/}
+                                        {/*                </>*/}
+                                        {/*             }*/}
 
-                                                    </div>
-                                            </div>
-                                        </div>}
+                                        {/*            </div>*/}
+                                        {/*    </div>*/}
+                                        {/*</div>}*/}
 
                                     </React.Fragment>
                                 )
@@ -220,7 +222,7 @@ const CardSpecialist = ({
                             {!isSpecialist && additionalDisciplines
                                 && additionalDisciplines.map((item, index) => {
                                 return (
-                                    <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
+                                    <div className={!moreData ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
                                         <div className="card-specialist__disciplines">
 
                                             <div className="card-specialist__disciplines-inner">
@@ -239,6 +241,7 @@ const CardSpecialist = ({
                                             </div>
                                         </div>
                                         <div className="card-specialist__ranks">
+
                                             {item.rank &&
                                                 <>
                                                  <span className="card-specialist__content-data">{item.rank}</span>
@@ -299,17 +302,18 @@ const CardSpecialist = ({
 
                         </div>
                     </div>
-                    {show_details &&
-                        <>
-                            {!moreData && <span className="card-specialist__more" onClick={onShowMoreClick}> Подробнее...</span>}
-                            {moreData && <span className="card-specialist__more" onClick={() => setMoreData(!moreData)}>Скрыть</span>}
-                        </>
-                    }
+
                 </div>
 
                 <div className={`card-specialist__controls`}>
-                    <button disabled>Перейти на страницу пользователя</button>
-                    <Share url={`https://rkf.online`} />
+                    <button disabled>Страница пользователя</button>
+                    <div className={`card-specialist__controls-wrap`}>
+                            <>
+                                {!moreData && <span className="card-specialist__more" onClick={onShowMoreClick}> Полная информация</span>}
+                                {moreData && <span className="card-specialist__more" onClick={() => setMoreData(!moreData)}>Скрыть</span>}
+                            </>
+                        <Share url={`https://rkf.online`} />
+                    </div>
                 </div>
             </Card>
     )
