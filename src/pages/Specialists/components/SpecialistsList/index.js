@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CardSpecialist from "../../../../components/CardSpecialist";
@@ -8,8 +8,26 @@ import "./index.scss";
 
 const SpecialistsList = ({ specialists, loading, getNextSpecialists, hasMore, setShowModal, searchTypeId }) => {
 
+    const [count, setCount] = useState(window.pageYOffset);
+
+    let marginTop = count < 50 ? -count + 'px' : -60 + 'px';
+
+    const scrollChanges = () => {
+        let posTop = window.pageYOffset;
+        setCount(posTop);
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll',scrollChanges);
+        return () => {
+            window.removeEventListener('scroll',scrollChanges);
+        };
+    }, []);
+
+    const divStyle = {marginTop: `${marginTop}`};
+
     return (
-        <div className="SpecialistsList">
+        <div className="SpecialistsList" style={divStyle}>
             <InfiniteScroll
                 dataLength={specialists.length}
                 next={getNextSpecialists}
