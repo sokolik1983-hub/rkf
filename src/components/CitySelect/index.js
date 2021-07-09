@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Select,{ components} from 'react-select';
+import Select from 'react-select';
 import { CITY_SELECTOR_STYLE } from './config';
 import { useDictionary } from "../../dictionaries";
 import { DICTIONARIES } from "../../dictionaries/config";
 import Dropdown from 'components/Dropdown';
 import './styles.scss';
-import CustomCheckbox from "../Form/CustomCheckbox";
-import useIsMobile from "../../utils/useIsMobile";
 
 const LS_KEY = 'GLOBAL_CITY';
 const noOptionsMessage = () => 'ГОРОДОВ НЕ НАЙДЕНО';
@@ -16,22 +14,6 @@ const storeFilters = city => {
     filters.cities = city ? [city.value] : [];
     localStorage.setItem('FiltersValues', JSON.stringify(filters));
 };
-
-const Option = props => {
-    // console.log(props.isSelected)
-    return  (
-        <components.Option {...props}>
-            <CustomCheckbox
-                id={`cities-${props.value}`}
-                label={props.label}
-                checked={props.isSelected}
-                onChange={() => null}
-            />
-        </components.Option>
-    )
-};
-
-
 const storeCity = city => {
     localStorage.setItem(LS_KEY, JSON.stringify(city));
     //записываем город в фильтры в LocalStorage
@@ -44,11 +26,9 @@ const loadCity = () => {
 };
 
 function CitySelect({ cityFilter, currentCity }) {
-    const isMobile = useIsMobile(700);
     const ddRef = useRef();
     const [city, setCity] = useState(loadCity());
-    const [cities, setCities] = useState([]);
-    const [values, setValues] = useState([]);
+
     const { dictionary } = useDictionary(DICTIONARIES.cities);
 
     const closeSelector = () => {
@@ -57,25 +37,23 @@ function CitySelect({ cityFilter, currentCity }) {
     };
 
     useEffect(() => {
-        // setValues(cities.filter(option => cities.values.indexOf(option.value) !== -1));
         currentCity && onChange(currentCity)
     }, [currentCity]);
 
-
     const onChange = value => {
-        // if (!value.value || value.value === 'reset') {
-        //     setCity(selectorInitialState);
-        //     localStorage.removeItem(LS_KEY);
-        //     storeFilters();
-        //     cityFilter && value.value && cityFilter(null);
-        //     // closeSelector();
-        //     return;
-        // }
-        //
-        // storeCity(value);
-        //  cityFilter(value);
-        // // // closeSelector();
-        setCities([...cities, ...value]);
+        if (!value.value || value.value === 'reset') {
+            setCity(selectorInitialState);
+            localStorage.removeItem(LS_KEY);
+            storeFilters();
+            cityFilter && value.value && cityFilter(null);
+            closeSelector();
+            return;
+        }
+
+        storeCity(value);
+        cityFilter && cityFilter(value);
+        closeSelector();
+        setCity(value);
     };
 
     const selectOptions = [
@@ -83,42 +61,30 @@ function CitySelect({ cityFilter, currentCity }) {
         ...dictionary.options
     ];
 
-
-    const handleChange = options => {
-        // debugger
-        console.log("options", options)
-        // setCities([...cities, ...value]);
-        cityFilter(options.map(option => option.value));
-    };
     return (
-
-        <>
-            <h5 className="cities-filter__title" style={{borderBottom: "1px solid #e8e8e8"
-            }}>Города</h5>
-            <div className="cities-filter__wrap"><div className="cities-filter__wrap"></div>
-                {!isMobile &&
-                <Select
-                    id="cities-filter"
-                    isMulti={true}
-                    closeMenuOnSelect={false}
-                    options={[...values, ...selectOptions]}
-                    defaultMenuIsOpen={true}
-                    hideSelectedOptions={false}
-                    menuIsOpen={true}
-                    controlShouldRenderValue={false}
-                    onChange={handleChange}
-                    clearable={true}
-                    isSearchable
-                    classNamePrefix="cities-filter"
-                    placeholder="Начните вводить город"
-                    noOptionsMessage={() => 'Город не найден'}
-                    // value={cities}
-                    components={{ Option }}
-                    maxMenuHeight={170}
-                />
-                }
-        </div>
-    </>
+        <Dropdown
+            ref={ddRef}
+            innerComponent={city.label}
+            className="CitySelect left"
+            withClear={false}
+            clearLabel={() => onChange(selectorInitialState)}
+        >
+            <Select
+                closeMenuOnSelect={false}
+                styles={CITY_SELECTOR_STYLE}
+                options={selectOptions}
+                defaultMenuIsOpen={true}
+                hideSelectedOptions={false}
+                menuIsOpen={true}
+                controlShouldRenderValue={false}
+                clearable={true}
+                placeholder={'Начните вводить город'}
+                noOptionsMessage={noOptionsMessage}
+                isSearchable
+                value={city}
+                onChange={onChange}
+            />
+        </Dropdown>
     );
 }
 

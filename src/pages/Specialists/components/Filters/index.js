@@ -49,7 +49,11 @@ const Filters = ({
     useEffect(() => {
         Promise.all([
             PromiseRequest({
-                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=true`
+                url: `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.Alias ? '&Alias=' + filters.Alias : ''}
+                
+                ${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}
+                
+                ${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=true`
             }),
         ]).then(data => {
             setCities(cities.length && !filters.RegionIds.length && filters.CityIds.length ? cities : data[0].cities);

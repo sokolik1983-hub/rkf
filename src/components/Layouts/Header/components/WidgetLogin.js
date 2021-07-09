@@ -74,11 +74,14 @@ const WidgetLogin = forwardRef(
                             <div
                                 className={`widget-login__wrap ${open ? `_login_open ` : ``}`}>
 
-                                {isMobile1080 &&
-                                <div className={`widget-login__user-icon`}>
-                                    {footerNav?.image}
-                                    <span style={{color: open && '#3366FF', userSelect: "none"  }}>{footerNav?.title}</span>
-                                </div>
+                                {isMobile1080
+                                    ? <div className={`widget-login__user-icon`}>
+                                            {footerNav?.image}
+                                            <span style={{color: open && '#3366FF', userSelect: "none"  }}>{footerNav?.title}</span>
+                                        </div>
+                                    : <div className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
+                                           style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
+                                        />
                                 }
 
                             </div>

@@ -1,20 +1,20 @@
 import React from 'react';
-import ListFilter from "../../pages/Home/components/NewsList/ListFilter";
-import CitySelect from "../CitySelect";
+import ListFilter from "../NewsList/ListFilter";
+import HomeCitySelect from "./HomeCitySelect/index";
 
 import cn from "classnames";
 
-import useIsMobile from "../../utils/useIsMobile";
-import {connectShowFilters} from "../Layouts/connectors";
+import useIsMobile from "../../../../utils/useIsMobile";
+import {connectShowFilters} from "../../../../components/Layouts/connectors";
 
 const NewsFilters = ({
-                         newsFilter,
-                         changeOrganizationFilters,
-                         changeTypeFilters,
-                         activeType,
-                         changeCityFilter,
-                         isOpenFilters,
-                     }) => {
+                 newsFilter,
+                 changeOrganizationFilters,
+                 changeTypeFilters,
+                 activeType,
+                 changeCityFilter,
+                 isOpenFilters,
+             }) => {
 
     const isMobile1080 = useIsMobile(1080)
     return (
@@ -60,11 +60,9 @@ const NewsFilters = ({
                     />
                 </div>
                 <div className="NewsList__filters-city">
-                        <CitySelect
-                            currentCity={newsFilter.cities}
-                            cityFilter={cities => {
-                                changeCityFilter(cities);
-                            }}
+                        <HomeCitySelect
+                            checkedCities={newsFilter.cities}
+                            changeCityFilter={changeCityFilter}
                         />
                     </div>
             </div>

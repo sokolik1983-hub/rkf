@@ -1,20 +1,17 @@
 import React, {useState, useEffect, useRef} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
-import CitySelect from "../../../../components/CitySelect";
-import ListFilter from './ListFilter';
 import CardNewsNew from "../../../../components/CardNewsNew";
+import NewsFilters from "../NewsFilters";
 import {endpointGetNews} from "../../config";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
-// import Banner from "../../../../components/Banner";
-import './index.scss';
-import NewsFilters from "../../../../components/NewsFilters";
+import "./index.scss";
 
 
-function getCity() {
-    const l = localStorage.getItem('GLOBAL_CITY');
-    return l ? JSON.parse(l) : {label: 'Выберите город', value: null};
+const getLSCities = () => {
+    const filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
+    return filters.cities || [];
 };
 
 const NewsList = ({isFullDate = true, citiesDict, banner}) => {
@@ -24,18 +21,18 @@ const NewsList = ({isFullDate = true, citiesDict, banner}) => {
     const [newsLoading, setNewsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [newsFilter, setNewsFilter] = useState({
-        cities: [],
+        cities: getLSCities(),
         activeType: null,
         isAdvert: null
     });
-
+// console.log("newsFilter", newsFilter)
     const newsListRef = useRef(null);
-
+console.log(newsFilter.cities.map(id => id.value))
     const getNews = async (startElem, filters) => {
         setNewsLoading(true);
 
         await Request({
-                url: `${endpointGetNews}?start_element=${startElem}${filters.city && filters.city.value ? `&fact_city_ids=${filters.city.value}` : ''}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
+                url: `${endpointGetNews}?start_element=${startElem}${filters.cities.map(city => `&fact_city_ids=${city.value}`).join('')}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
             },
             data => {
                 if (data.articles.length) {
@@ -105,6 +102,7 @@ const NewsList = ({isFullDate = true, citiesDict, banner}) => {
     const changeCityFilter = cities => {
         const el = newsListRef.current;
         el && window.scrollTo(0, el.offsetTop - 75);
+
         setNewsFilter({...newsFilter, cities});
         setStartElement(1);
         (() => getNews(1, {...newsFilter, cities}))();
@@ -112,7 +110,13 @@ const NewsList = ({isFullDate = true, citiesDict, banner}) => {
 
     return (
         <div className="NewsList" ref={newsListRef}>
-            <NewsFilters newsFilter={newsFilter} changeOrganizationFilters={changeOrganizationFilters} changeTypeFilters={changeTypeFilters} activeType changeCityFilter/>
+            <NewsFilters
+                activeType={activeType}
+                newsFilter={newsFilter}
+                changeOrganizationFilters={changeOrganizationFilters}
+                changeTypeFilters={changeTypeFilters}
+                changeCityFilter={changeCityFilter}
+            />
             {news && !!news.length &&
             <InfiniteScroll
                 dataLength={news.length}
