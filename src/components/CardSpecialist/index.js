@@ -195,7 +195,7 @@ const CardSpecialist = ({
                                 </div>
                             </div>
 
-                            <div className={!moreData ? "card-specialist__ranks card-specialists__grid-item __hide" : ""}>
+                            <div className={!moreData ? "card-specialist__ranks card-specialists__grid-item __hide" : "custom-css-flex-width"}>
                                 <div className="card-specialist__rank">
                                     {ranks &&
                                     <>
@@ -215,7 +215,7 @@ const CardSpecialist = ({
                                     {!isSpecialist && <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
                                         <div className="card-specialist__disciplines">
                                             <div className="card-specialist__disciplines-inner" style={{ flexDirection: 'column' }}>
-                                                {index < 1 && <div className="card-specialist__content-title" >Дисциплины1</div>}
+                                                {index < 1 && <div className="card-specialist__content-title" >Дисциплины</div>}
                                                 <div style={{ flexDirection: 'row' }}>
                                                     {item?.disciplines.map((item, index, arr) => {
                                                         return (
@@ -234,7 +234,7 @@ const CardSpecialist = ({
                                             <div className="card-specialist__rank">
                                                 {item.rank &&
                                                 <>
-                                                    <h3 className="card-specialist__rank-title" >Ранг1</h3>
+                                                    <h3 className="card-specialist__rank-title" >Ранг</h3>
                                                     <span className="card-specialist__content-data">{item.rank}</span>
                                                 </>
                                                 }
