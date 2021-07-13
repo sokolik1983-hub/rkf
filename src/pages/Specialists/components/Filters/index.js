@@ -21,21 +21,21 @@ import RegionFilter from "../../../../components/Filters/RegionFilter";
 import "./index.scss";
 
 const Filters = ({
-    isOpenFilters,
-    filters,
-    clubName,
-    profileId,
-    club,
-    setClub,
-    isAuthenticated,
-    logo,
-    federationName,
-    federationAlias,
-    active_member,
-    active_rkf_user,
-    notificationsLength,
-    needRequest,
-}) => {
+                     isOpenFilters,
+                     filters,
+                     clubName,
+                     profileId,
+                     club,
+                     setClub,
+                     isAuthenticated,
+                     logo,
+                     federationName,
+                     federationAlias,
+                     active_member,
+                     active_rkf_user,
+                     notificationsLength,
+                     needRequest,
+                 }) => {
 
     const [events, setEvents] = useState([]);
     const [specializations, setSpecializations] = useState([]);
@@ -91,37 +91,37 @@ const Filters = ({
                     <Loading centered={false} /> :
                     <>
                         {clubName && filters.Alias &&
-                            <div className="phone-hide">
-                                <UserHeader
-                                    user={filters.Alias !== 'rkf-online' ? 'club' : ''}
-                                    logo={filters.logo_link || logo}
-                                    name={clubName}
+                        <div className="phone-hide">
+                            <UserHeader
+                                user={filters.Alias !== 'rkf-online' ? 'club' : ''}
+                                logo={filters.logo_link || logo}
+                                name={clubName}
+                                alias={filters.Alias}
+                                profileId={profileId}
+                                federationName={federationName}
+                                federationAlias={federationAlias}
+                                active_member={active_member}
+                                active_rkf_user={active_rkf_user}
+                                canEdit={canEdit}
+                                subscribed={club.subscribed}
+                                member={club.member}
+                                subscribed_id={profileId = { profileId }}
+                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                isAuthenticated={isAuthenticated}
+                            />
+                            {isFederationAlias(filters.Alias) ?
+                                <MenuComponent
                                     alias={filters.Alias}
-                                    profileId={profileId}
-                                    federationName={federationName}
-                                    federationAlias={federationAlias}
-                                    active_member={active_member}
-                                    active_rkf_user={active_rkf_user}
-                                    canEdit={canEdit}
-                                    subscribed={club.subscribed}
-                                    member={club.member}
-                                    subscribed_id={profileId = { profileId }}
-                                    onSubscriptionUpdate={onSubscriptionUpdate}
-                                    isAuthenticated={isAuthenticated}
+                                    name={clubName}
+                                    isFederation={true}
+                                /> :
+                                <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
+                                    ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
+                                    : clubNav(filters.Alias).filter(i => i.id !== 2)}
+                                          notificationsLength={notificationsLength}
                                 />
-                                {isFederationAlias(filters.Alias) ?
-                                    <MenuComponent
-                                        alias={filters.Alias}
-                                        name={clubName}
-                                        isFederation={true}
-                                    /> :
-                                    <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                        notificationsLength={notificationsLength}
-                                    />
-                                }
-                            </div>
+                            }
+                        </div>
                         }
                         <div className="specialists-filters__wrap">
                             {loading ? <Loading centered={false} /> : <RegionFilter

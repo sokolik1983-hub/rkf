@@ -110,6 +110,7 @@ const NewsList = ({isFullDate = true, citiesDict}) => {
     return (
         <div className="NewsList" ref={newsListRef}>
             <NewsFilters
+                startElement={startElement}
                 activeType={activeType}
                 newsFilter={newsFilter}
                 changeOrganizationFilters={changeOrganizationFilters}
@@ -153,7 +154,7 @@ const NewsList = ({isFullDate = true, citiesDict}) => {
                                 videoLink={item.video_link}
                             />
                             {/* {
-                                    banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : '' 
+                                    banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : ''
                                 } */}
                         </li>
                     ))}

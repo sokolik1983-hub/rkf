@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Select, { components } from "react-select";
-import CustomCheckbox from "../../../Form/CustomCheckbox";
+import CustomCheckbox from "components/Form/CustomCheckbox";
 import { CSSTransition } from "react-transition-group";
-import Card from "../../../Card";
+import Card from "components/Card";
 
 import "./index.scss";
 
 const Option = props => (
     <components.Option {...props}>
         <CustomCheckbox
-            id={`cities-${props.value}`}
+            id={`breeds-${props.value}`}
             label={props.label}
             checked={props.isSelected}
             onChange={() => null}
@@ -17,22 +17,21 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
+const BreedsFilter = ({ breeds, breed_ids, onChange, needOpen }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(values.length > 0);
 
     useEffect(() => {
-        if (cities?.length) {
-            setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
-            setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
+        if (breeds?.length) {
+            setOptionsNotInValues(breeds.filter(option => breed_ids.indexOf(option.value) === -1));
+            setValues(breeds.filter(option => breed_ids.indexOf(option.value) !== -1));
         }
         setIsOpen(needOpen || values.length > 0);
 
-    }, [cities, city_ids, needOpen, values.length]);
+    }, [breeds, breed_ids, needOpen, values.length]);
 
     const handleChange = options => {
-        console.log(options)
         onChange(options.map(option => option.value));
     };
 
@@ -41,10 +40,10 @@ const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
     };
 
     return (
-        <Card className="cities-filter-regions">
-            <div className="cities-filter-regions__head" onClick={() => setIsOpen(!isOpen)}>
-                <h5 className="cities-filter-regions__title">Города</h5>
-                <span className={`cities-filter-regions__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+        <Card className="breeds-filter-regions">
+            <div className="breeds-filter-regions__head" onClick={() => setIsOpen(!isOpen)}>
+                <h5 className="breeds-filter-regions__title">Породы</h5>
+                <span className={`breeds-filter-regions__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
             </div>
             <CSSTransition
                 in={isOpen}
@@ -52,9 +51,9 @@ const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
                 unmountOnExit
                 classNames="dropdown__filters-regions"
             >
-                <div className="cities-filter__wrap-regions">
+                <div className="breeds-filter__wrap-regions">
                     <Select
-                        id="cities-filter-regions"
+                        id="breeds-filter-regions"
                         isMulti={true}
                         closeMenuOnSelect={false}
                         options={[...values, ...optionsNotInValues]}
@@ -65,17 +64,17 @@ const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
                         onChange={handleChange}
                         clearable={true}
                         isSearchable
-                        classNamePrefix="cities-filter-regions"
-                        placeholder="Начните вводить город"
-                        noOptionsMessage={() => 'Город не найден'}
+                        classNamePrefix="breeds-filter-regions"
+                        placeholder="Начните вводить породу"
+                        noOptionsMessage={() => 'Порода не найдена'}
                         value={values}
                         components={{ Option }}
                         maxMenuHeight={170}
                     />
                     {!!values.length &&
-                    <ul className="cities-filter-regions__values">
+                    <ul className="breeds-filter-regions__values">
                             {values.map(item =>
-                                <li className="cities-filter-regions__values-item" key={item.value}>
+                                <li className="breeds-filter-regions__values-item" key={item.value}>
                                     <span>{item.label}</span>
                                     <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
                                 </li>
@@ -88,4 +87,4 @@ const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
     )
 };
 
-export default React.memo(CitiesFilter);
+export default React.memo(BreedsFilter);
