@@ -15,16 +15,18 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
     const [clubInfo, setClubInfo] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const isMobile1080 = useIsMobile(1080);
-    const {alias} = ls.get('user_info');
+    const {alias} = ls.get('user_info') || {};
 
     const getClub = () => {
-        return Request({
-            url: '/api/Club/public/' + alias
-        }, data => {
-            setClubInfo(data);
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+        if(alias) {
+            return Request({
+                url: '/api/Club/public/' + alias
+            }, data => {
+                setClubInfo(data);
+                setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
 
-        }, error => console.log(error));
+            }, error => console.log(error));
+        }
     };
 
     useEffect(() => {

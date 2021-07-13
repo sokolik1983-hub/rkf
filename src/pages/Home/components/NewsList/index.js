@@ -14,7 +14,7 @@ const getLSCities = () => {
     return filters.cities || [];
 };
 
-const NewsList = ({isFullDate = true, citiesDict, banner}) => {
+const NewsList = ({isFullDate = true, citiesDict}) => {
     const [activeType, setActiveType] = useState('all');
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
@@ -25,14 +25,13 @@ const NewsList = ({isFullDate = true, citiesDict, banner}) => {
         activeType: null,
         isAdvert: null
     });
-// console.log("newsFilter", newsFilter)
     const newsListRef = useRef(null);
-console.log(newsFilter.cities.map(id => id.value))
+
     const getNews = async (startElem, filters) => {
         setNewsLoading(true);
 
         await Request({
-                url: `${endpointGetNews}?start_element=${startElem}${filters.cities.map(city => `&fact_city_ids=${city.value}`).join('')}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
+                url: `${endpointGetNews}?start_element=${startElem}${filters.cities.map(id => `&fact_city_ids=${id}`).join('')}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
             },
             data => {
                 if (data.articles.length) {
@@ -99,13 +98,13 @@ console.log(newsFilter.cities.map(id => id.value))
         (() => getNews(1, {...newsFilter, activeType: activeFiltername}))();
     };
 
-    const changeCityFilter = cities => {
+    const changeCityFilter = citiesIds => {
         const el = newsListRef.current;
         el && window.scrollTo(0, el.offsetTop - 75);
 
-        setNewsFilter({...newsFilter, cities});
+        setNewsFilter({...newsFilter, cities: citiesIds});
         setStartElement(1);
-        (() => getNews(1, {...newsFilter, cities}))();
+        (() => getNews(1, {...newsFilter, cities: citiesIds}))();
     };
 
     return (

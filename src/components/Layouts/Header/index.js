@@ -14,7 +14,7 @@ import "./index.scss";
 
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
     const isMobile = useIsMobile(1080);
-    const headerTitle = localStorage.getItem('_ym61376485_il').slice(1, -1);
+    const headerTitle = localStorage.getItem('_ym61376485_il')?.slice(1, -1);
 
     return (
         <header className="header">
