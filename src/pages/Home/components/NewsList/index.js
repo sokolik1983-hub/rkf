@@ -25,9 +25,8 @@ const NewsList = ({isFullDate = true, citiesDict, banner}) => {
         activeType: null,
         isAdvert: null
     });
-// console.log("newsFilter", newsFilter)
     const newsListRef = useRef(null);
-console.log(newsFilter.cities.map(id => id.value))
+
     const getNews = async (startElem, filters) => {
         setNewsLoading(true);
 
@@ -111,6 +110,7 @@ console.log(newsFilter.cities.map(id => id.value))
     return (
         <div className="NewsList" ref={newsListRef}>
             <NewsFilters
+                startElement={startElement}
                 activeType={activeType}
                 newsFilter={newsFilter}
                 changeOrganizationFilters={changeOrganizationFilters}
@@ -154,7 +154,7 @@ console.log(newsFilter.cities.map(id => id.value))
                                 videoLink={item.video_link}
                             />
                             {/* {
-                                    banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : '' 
+                                    banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : ''
                                 } */}
                         </li>
                     ))}

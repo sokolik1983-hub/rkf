@@ -14,9 +14,10 @@ const NewsFilters = ({
                  activeType,
                  changeCityFilter,
                  isOpenFilters,
+                 startElement,
              }) => {
 
-    const isMobile1080 = useIsMobile(1080)
+    const isMobile1080 = useIsMobile(1080);
     return (
 
             <div className={cn("NewsList__head", {
@@ -61,6 +62,7 @@ const NewsFilters = ({
                 </div>
                 <div className="NewsList__filters-city">
                         <HomeCitySelect
+                            startElement={startElement}
                             checkedCities={newsFilter.cities}
                             changeCityFilter={changeCityFilter}
                         />

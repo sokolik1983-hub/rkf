@@ -3,7 +3,7 @@ import { setFiltersToUrl } from "../../../../utils";
 import "./index.scss";
 
 
-const SearchFilter = ({ StringFilter }) => {
+const SearchFilter = ({ StringFilter, searchTypeId }) => {
     const [searchValue, setSearchValue] = useState(StringFilter);
 
     const onCancel = () => {
@@ -20,7 +20,7 @@ const SearchFilter = ({ StringFilter }) => {
     return (
         <div className="search-filter-specialists">
             <input
-                placeholder="Поиск судьи по имени, дисциплине или городу"
+                placeholder={searchTypeId === 4 ? 'Поиск судьи по имени, породе, конкурсу, или городу' : 'Поиск судьи по имени, дисциплине или городу'}
                 name="search"
                 className={`search-filter-specialists__control _no_border`}
                 onChange={e => setSearchValue(e.target.value)}

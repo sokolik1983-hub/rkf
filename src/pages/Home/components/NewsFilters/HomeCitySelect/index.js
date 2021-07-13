@@ -1,5 +1,5 @@
-import React from 'react';
-import Select, { components} from 'react-select';
+import React, {useEffect} from 'react';
+import Select, { components } from 'react-select';
 import { useDictionary } from "../../../../../dictionaries";
 import { DICTIONARIES } from "../../../../../dictionaries/config";
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
@@ -22,8 +22,9 @@ const Option = props => {
     )
 };
 
-const CitySelect = ({changeCityFilter, checkedCities}) => {
+const HomeCitySelect = ({changeCityFilter, checkedCities, startElement}) => {
     const isMobile = useIsMobile(700);
+
     const {dictionary} = useDictionary(DICTIONARIES.cities);
 
     const selectOptions = [
@@ -31,19 +32,38 @@ const CitySelect = ({changeCityFilter, checkedCities}) => {
         ...dictionary.options
     ];
 
+    
+    useEffect(() => {
+        console.log(checkedCities)
+    }, [checkedCities])
+    
     const setLSFilters = cities => {
         let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
         filters.cities = cities ? cities : [];
         localStorage.setItem('FiltersValues', JSON.stringify(filters));
     };
 
-    const handleChange = value => {
-        if (!value.length || value.value === 'reset') {
+    function handleChange(value){
+        // console.log(value)
+        // задать фильтр по умолчанию { label: 'Выберите город', value: null }
+        // localStorage.removeItem(LS_KEY);
+        // if(value.length === 0) {
+        //     return console.log('false')
+        // }
+        //
+        // else {
+        //     //записать в localstorage
+        //     changeCityFilter(Object.assign(checkedCities, value))
+        //     setLSFilters(checkedCities)
+        // }
 
+
+        if (!value.length || value.value === 'reset') {
             //задать фильтр по умолчанию { label: 'Выберите город', value: null }
             // localStorage.removeItem(LS_KEY);
+            // console.log("!value.length")
         } else {
-
+            // console.log(" yes value.length")
             //записать в localstorage
             changeCityFilter(Object.assign(checkedCities, value))
             setLSFilters(checkedCities)
@@ -63,23 +83,25 @@ const CitySelect = ({changeCityFilter, checkedCities}) => {
                     placeholder="Начните вводить город"
                     noOptionsMessage={() => 'Город не найден'}
                     isMulti
+                    hideSelectedOptions={false}
                     closeMenuOnSelect={false}
                     defaultMenuIsOpen={true}
-                    hideSelectedOptions={false}
                     menuIsOpen={true}
-                    controlShouldRenderValue={false}
+                    controlShouldRenderValue={true}
                     clearable
                     isSearchable
-                    options={selectOptions }
+                    options={selectOptions}
                     value={checkedCities}
                     onChange={handleChange}
                     components={{ Option }}
                     maxMenuHeight={170}
                 />
+
                 }
+
             </div>
         </>
     );
 }
 
-export default CitySelect;
+export default HomeCitySelect;

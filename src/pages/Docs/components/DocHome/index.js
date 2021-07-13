@@ -194,12 +194,12 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
             </>
         }
         {alert &&
-        <Alert
-            title="Внимание!"
-            text="В настоящее время данный раздел в разработке и будет доступен в ближайшее время. При необходимости подачи заявок данного характера - просьба пользоваться сервисом подачи заявок по электронной почте."
-            autoclose={5}
-            onOk={() => seAlert(false)}
-        />
+            <Alert
+                title="Внимание!"
+                text="В настоящее время данный раздел в разработке и будет доступен в ближайшее время. При необходимости подачи заявок данного характера - просьба пользоваться сервисом подачи заявок по электронной почте."
+                autoclose={5}
+                onOk={() => seAlert(false)}
+            />
         }
     </div>
 };
@@ -243,35 +243,35 @@ const ExhibitionsCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
 
     return <div className="documents-page__right">
         {!authorizedAccess
-                ? <Loading />
-                : <>
-                    {!membershipPaid && <CardMessage>
-                        <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
-                        <p>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
-                    </CardMessage>}
-                    <Card className={exhibitionApplication ? `` : `_inactive`}>
-                        <div className="documents-page__icon exhibitions-icon" />
-                        <h3>ПОДАТЬ ЗАЯВКУ НА ПРОВЕДЕНИЕ ВЫСТАВКИ</h3>
-                        <p>
-                            Для подачи заявки Вы должны указать место проведения выставки, ранг выставки, дату начала и окончания мероприятия и т.д.  После одобрения заявки со стороны выставочной комиссии РКФ выставка появится в календаре мероприятий. Данные, указанные в заявке могут быть изменены или дополнены в любое время.</p>
-                        <hr />
-                        <div className="Card__links">
-                            <Link to={`/${clubAlias}/documents/exhibitions/application/form`}>Подать заявку</Link>
-                            <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
-                        </div>
-                    </Card>
-                    <Card className={exhibitionCancellation ? `` : `_inactive`}>
-                        <div className="documents-page__icon cancellation-icon" />
-                        <h3>ПОДАТЬ ЗАЯВКУ НА ПЕРЕНОС/ОТМЕНУ ВЫСТАВКИ</h3>
-                        <p>
-                            Здесь вы можете внести изменения в утверждённую выставку. После одобрения заявки со стороны выставочной комиссии РКФ внесённые изменения отобразятся в календаре мероприятий.</p>
-                        <hr />
-                        <div className="Card__links">
-                            <Link to={`/${clubAlias}/documents/exhibitions/cancellation/form`}>Подать заявку</Link>
-                            <Link to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}>Реестр заявок</Link>
-                        </div>
-                    </Card>
-                </>
+            ? <Loading />
+            : <>
+                {!membershipPaid && <CardMessage>
+                    <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
+                    <p>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
+                </CardMessage>}
+                <Card className={exhibitionApplication ? `` : `_inactive`}>
+                    <div className="documents-page__icon exhibitions-icon" />
+                    <h3>ПОДАТЬ ЗАЯВКУ НА ПРОВЕДЕНИЕ ВЫСТАВКИ</h3>
+                    <p>
+                        Для подачи заявки Вы должны указать место проведения выставки, ранг выставки, дату начала и окончания мероприятия и т.д.  После одобрения заявки со стороны выставочной комиссии РКФ выставка появится в календаре мероприятий. Данные, указанные в заявке могут быть изменены или дополнены в любое время.</p>
+                    <hr />
+                    <div className="Card__links">
+                        <Link to={`/${clubAlias}/documents/exhibitions/application/form`}>Подать заявку</Link>
+                        <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
+                    </div>
+                </Card>
+                <Card className={exhibitionCancellation ? `` : `_inactive`}>
+                    <div className="documents-page__icon cancellation-icon" />
+                    <h3>ПОДАТЬ ЗАЯВКУ НА ПЕРЕНОС/ОТМЕНУ ВЫСТАВКИ</h3>
+                    <p>
+                        Здесь вы можете внести изменения в утверждённую выставку. После одобрения заявки со стороны выставочной комиссии РКФ внесённые изменения отобразятся в календаре мероприятий.</p>
+                    <hr />
+                    <div className="Card__links">
+                        <Link to={`/${clubAlias}/documents/exhibitions/cancellation/form`}>Подать заявку</Link>
+                        <Link to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}>Реестр заявок</Link>
+                    </div>
+                </Card>
+            </>
         }
     </div>
 };
@@ -292,18 +292,18 @@ const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
                 <Link to={`/${clubAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-         <Card className={checkMembership ? `` : `_inactive`}>
-                <div className="documents-page__icon membership-icon" />
-                <h3>ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ</h3>
-                <p>
-                    В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
-                </p>
-                <hr />
-                <div className="Card__links">
-                    <Link to={`/${clubAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
-                    <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
-                </div>
-            </Card>
+        <Card className={checkMembership ? `` : `_inactive`}>
+            <div className="documents-page__icon membership-icon" />
+            <h3>ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ</h3>
+            <p>
+                В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
+            </p>
+            <hr />
+            <div className="Card__links">
+                <Link to={`/${clubAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
+                <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
+            </div>
+        </Card>
     </div>
 };
 
@@ -313,9 +313,9 @@ const DocHome = ({ clubAlias }) => {
     const [membershipPaid, setMembershipPaid] = useState(false);
     const isMobile = useIsMobile();
 
-    useEffect(() =>  {
+    useEffect(() => {
         (() => Request({
-            url: `/api/requests/commonrequest/request_access_v2`
+            url: `/api/requests/commonrequest/request_access`
         }, data => {
             setAuthorizedAccess(data.request_types);
             setMembershipPaid(data.membership_due_is_paid);

@@ -44,7 +44,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     {isMobile && <span>Уведомления</span>}
                 </div>
                 {isMobile
-                    ? <div className="header__filters" onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}>
+                    ? <div className="header__filters"  onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}>
                         <button>Фильтр</button>
                         </div>
                         : <WidgetLogin login_page={login_page}/>}
