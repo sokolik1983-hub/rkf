@@ -22,8 +22,7 @@ const WidgetLogin = forwardRef(
          logo_link,
          login_page,
          footerNav,
-        isActive,
-        setActive
+         withFilters
      }, ref) => {
         const [open, setOpen] = useState(false);
         const [showModal, setShowModal] = useState(false);
@@ -36,6 +35,8 @@ const WidgetLogin = forwardRef(
         const firstName = ls.get('user_info') ? ls.get('user_info').first_name : '';
         const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
         const isMobile1080 = useIsMobile(1080);
+
+
         const AuthButtons = () => {
             let path = history.location.pathname;
             return (<>
@@ -64,7 +65,7 @@ const WidgetLogin = forwardRef(
 
         return (
             <div
-                className={`widget-login  ${login_page ? `active` : ``}`}
+                className={`widget-login  ${login_page ? `active` : !isAuthenticated ? `__noAuth` : ''}`}
                 style={{ padding: 0}}
                 onClick={() => setOpen(!open)}
             >
@@ -72,7 +73,7 @@ const WidgetLogin = forwardRef(
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
                         <LightTooltip title={!isMobile1080 ? "Аккаунт"  : ''} enterDelay={200} leaveDelay={200}>
                             <div
-                                className={`widget-login__wrap ${open ? `_login_open ` : ``}`}>
+                                className={`widget-login__wrap ${open ? `_login_open ` : !isAuthenticated ? `__noAuth` : ''}`}>
 
                                 {isMobile1080
                                     ? <div className={`widget-login__user-icon`}>

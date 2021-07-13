@@ -20,7 +20,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
     const getClub = () => {
         if(alias) {
             return Request({
-                url: '/api/Club/public/' + alias
+                url: '/api/Club/public/' + alias /// Только Клубы????
             }, data => {
                 setClubInfo(data);
                 setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
@@ -39,28 +39,38 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
 
             <div className="footer__menu">
 
+
+
                 <NavLink className="footer__menu-link" to='/'>
                     {footerNav[0].image}
                     <span>{footerNav[0].title}</span>
                 </NavLink>
 
+                {isAuthenticated &&
                 <NavLink className="footer__menu-link __disabled" to='/'>
                     {footerNav[1].image}
                     <span>{footerNav[1].title}</span>
                 </NavLink>
+                }
 
                 <WidgetLogin footerNav={footerNav[2]} />
 
-                <UserMenu
-                    footerNav={footerNav[3]}
-                    userNav={canEdit
-                    ? clubNav(clubInfo?.club_alias) // Show NewsFeed menu item to current user only
-                    : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
-                    notificationsLength={notificationsLength}
-                />
+                {isAuthenticated &&
+                    <UserMenu
+                        footerNav={footerNav[3]}
+                        userNav={canEdit
+                            ? clubNav(clubInfo?.club_alias) // Show NewsFeed menu item to current user only
+                            : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
+                        notificationsLength={notificationsLength}
+                    />
+                }
+
+
             </div>}
 
         </>
-    );
+    )
 };
+
+
 export default connectAuthVisible(React.memo(FooterMenu));

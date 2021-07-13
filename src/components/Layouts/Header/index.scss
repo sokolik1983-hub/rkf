@@ -139,6 +139,9 @@
     background: url("/static/icons/icon-filters.svg") no-repeat center;
     background-size: cover;
     margin: -20px 0 0 20px;
+    &.__hidden {
+      display: none;
+    }
     button {
       border: none;
       padding-top: 20px;
@@ -523,6 +526,16 @@
   }
 }
 .widget-login {
+  display: flex;
+  &.__noAuth {
+    @media (max-width: 1080px) {
+      width: 50%;
+      margin-left: auto;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
   &__user-icon {
     height: 55px;
     width: 55px;
@@ -534,7 +547,9 @@
     cursor: pointer;
     transition: border-color 0.2s linear;
     position: relative;
+    margin-left: 20px;
     @media (max-width: 1080px) {
+      margin-left: 0;
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -542,7 +557,10 @@
   }
   &__wrap {
     cursor: pointer;
-    margin-left: 20px;
+    //margin-left: 20px;
+    //&.__noAuth {
+    //  margin-left: 0;
+    //}
     &:hover {
       transition: all 0.2s linear;
     }
@@ -693,9 +711,11 @@
       transform: scale(0.9);
     }
   }
+
   .login-link__icon,
   .registration-link__icon {
     vertical-align: middle;
+
     @media (max-width: 560px) {
       width: 24px;
       height: 24px;
@@ -704,6 +724,12 @@
   }
   & > a:nth-child(2) {
     margin-left: 16px;
+  }
+  .login-link {
+    @media (max-width: 1080px) {
+      margin-right: auto;
+      transform: translateX(-15px);
+    }
   }
   .login-link,
   .registration-link {
@@ -714,9 +740,16 @@
     flex-direction: column;
     align-items: center;
     margin-left: auto;
+    @media (max-width: 1080px) {
+      margin-left: 0;
+    }
     & span {
       vertical-align: middle;
       margin-left: 5px;
+      @media (max-width: 1080px) {
+        font-size: 13px;
+        text-align: center;
+      }
     }
     &:hover {
       color: #3366ff;
@@ -736,12 +769,12 @@
       font-size: 16px;
     }
     @media (max-width: 560px) {
-      font-size: 12px;
-      line-height: 14px;
-      letter-spacing: normal;
-      span {
-        display: none;
-      }
+      //font-size: 12px;
+      //line-height: 14px;
+      //letter-spacing: normal;
+      //span {
+      //  display: none;
+      //}
     }
   }
   &__modal {

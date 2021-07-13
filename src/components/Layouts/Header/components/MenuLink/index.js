@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {NavLink} from "react-router-dom";
 
 const MenuLink = (navItem) => {
+
     const [hoverMenu, setHoverMenu] = useState(false)
     return (
         <div className={hoverMenu ? "header__nav-item-hover __hover" : "header__nav-item-hover"}
@@ -12,6 +13,7 @@ const MenuLink = (navItem) => {
                 exact={navItem.exact}
                 className={`${navItem.disabled ? `header__nav-item-link _disabled` : `header__nav-item-link `}`}
                 onClick={e => navItem.disabled ? e.preventDefault() : e}
+                style={{display: (navItem.title === "Записаться") && 'none'}}
 
             
             >

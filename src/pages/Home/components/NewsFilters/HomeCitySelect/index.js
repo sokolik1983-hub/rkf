@@ -2,10 +2,8 @@ import React, {useEffect, useState} from "react";
 import Select, {components} from "react-select";
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import Loading from "../../../../../components/Loading";
-import useIsMobile from "../../../../../utils/useIsMobile";
 import {Request} from "../../../../../utils/request";
 import "./styles.scss";
-
 
 const Option = props => (
     <components.Option {...props}>
@@ -25,13 +23,12 @@ const Option = props => (
 const CitySelect = ({changeCityFilter, checkedCities}) => {
     const [loading, setLoading] = useState(true);
     const [options, setOptions] = useState([]);
-    const isMobile = useIsMobile(700);
 
     useEffect(() => {
-        (() => Request({url: '/api/city'},
+        (() => Request({url: '/api/city/article_cities'},
         data => {
             if(data) {
-                setOptions(data.map(city => ({value: city.id, label: city.name}))); //переделать на бэке, чтобы приходили не все города и в формате {value, label}
+                setOptions(data);
                 setLoading(false);
             }
         },
@@ -47,19 +44,16 @@ const CitySelect = ({changeCityFilter, checkedCities}) => {
         localStorage.setItem('FiltersValues', JSON.stringify(filters));
     };
 
-    const handleChange = values => {
-        console.log('values', values);
-        if (!values.length || values.find(item => item.value === 'reset')) {
+    const handleChange = (values, {option}) => {
+        if (!values.length || option.value === 'reset') {
             changeCityFilter([]);
             setLSFilters([]);
         } else {
-            const ids = values.map(value => value.value);
+            const ids = values.filter(value => value.value !== 'reset').map(value => value.value);
             changeCityFilter(ids);
             setLSFilters(ids);
         }
     };
-
-    console.log('checkedCities', checkedCities)
 
     return (
         <>
@@ -68,7 +62,7 @@ const CitySelect = ({changeCityFilter, checkedCities}) => {
             </h5>
             <div className="cities-filter__wrap">
                 {loading && <Loading centered={false}/>}
-                {!loading && !isMobile &&
+                {!loading &&
                     <Select
                         id="cities-filter"
                         classNamePrefix="cities-filter"
@@ -87,7 +81,7 @@ const CitySelect = ({changeCityFilter, checkedCities}) => {
                             ...options.filter(option => checkedCities.indexOf(option.value) !== -1),
                             ...options.filter(option => checkedCities.indexOf(option.value) === -1)
                         ]}
-                        value={options.filter(option => checkedCities.indexOf(option.value) !== -1)}
+                        value={checkedCities.length ?  options.filter(option => checkedCities.indexOf(option.value) !== -1) : {value: 'reset', label: 'Все города'}}
                         onChange={handleChange}
                         components={{Option}}
                         maxMenuHeight={170}
