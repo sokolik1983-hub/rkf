@@ -121,7 +121,8 @@ const CardNewsNew = forwardRef(({
                         <span className="CardNewsNew__left-name">
                             <span className="CardNewsNew__left-city">
                                 <div className="CardNewsNew__left-inner">
-                                    {(user_type === 3 || user_type === 4 || user_type === 5) &&
+                                    <div className="CardNewsNew__add-wrap">
+                                        {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                         <span>
                                             {user_type === 3
                                                 ? 'Клуб'
@@ -131,36 +132,37 @@ const CardNewsNew = forwardRef(({
                                                         ? 'Федерация'
                                                         : ''
                                             }
-                                        &nbsp;
+                                            &nbsp;
                                     </span>
-                                    }
-                                    <Link to={user_type === 4
-                                        ? `/kennel/${alias}`
-                                        : user_type === 1
-                                            ? `/user/${alias}`
-                                            : `/${alias}`}>
+                                        }
+                                        <Link to={user_type === 4
+                                            ? `/kennel/${alias}`
+                                            : user_type === 1
+                                                ? `/user/${alias}`
+                                                : `/${alias}`}>
                                         {user_type === 1 ? first_name + ' ' + last_name : name}
                                     </Link>
                                     <span className="CardNewsNew__left-mark">
                                         <span>
                                             {active_rkf_user &&
-                                                <ActiveUserMark />
+                                            <ActiveUserMark />
                                             }</span>
                                         <span>
                                             {active_member &&
-                                                <FederationChoiceMark />
+                                            <FederationChoiceMark />
                                             }
                                         </span>
                                     </span>
+                                    </div>
+                                    {fact_city_name &&
+                                    <span className="CardNewsNew__city" title={fact_city_name}>
+                                        {fact_city_name}
+                                    </span>
+                                    }
                                 </div>
                             </span>
                             <div className="CardNewsNew__left__city-inner">
                                 {formatDateTime(create_date)}
-                                {fact_city_name &&
-                                    <span className="CardNewsNew__city" title={fact_city_name}>
-                                        {fact_city_name}
-                                    </span>
-                                }
                             </div>
                         </span>
                     </div>
