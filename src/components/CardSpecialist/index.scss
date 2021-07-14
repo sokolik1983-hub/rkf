@@ -304,10 +304,12 @@
     border-top: 1px solid #e8e8e8;
     display: flex;
     justify-content: flex-end;
+    position: relative;
     &._open {
       justify-content: space-between;
     }
     button {
+      text-align: left;
       margin-right: auto;
       color: #72839c;
       border: none;
@@ -347,7 +349,7 @@
     letter-spacing: 0.2px;
     transition: color 0.2s linear;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 20px;
     &:hover {
       color: #36f;
     }
@@ -358,6 +360,9 @@
   .Share {
     pointer-events: none;
     line-height: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
     .ya-share2__icon_more {
       height: 16px;
       background-color: white;
