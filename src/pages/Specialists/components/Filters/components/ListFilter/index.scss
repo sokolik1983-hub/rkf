@@ -1,3 +1,9 @@
+#specialists-list-filter{
+  & .slick-slide {
+    height: 52px;
+    padding: 0 15px;
+  }
+}
 .list-filter {
   list-style: none;
   display: flex;
@@ -11,7 +17,6 @@
     margin-bottom: 10px;
     border-bottom: 1px solid #e8e8e8;
     padding-bottom: 12px;
-
   }
   &__item {
     &:not(:last-child) {
@@ -37,7 +42,9 @@
     -ms-user-select: none;
     user-select: none;
     text-align: center;
-    white-space: nowrap;
+    @media (max-width: 600px) {
+      font-size: 13px;
+    }
     &._active {
       border-bottom-color: #3366ff;
     }
