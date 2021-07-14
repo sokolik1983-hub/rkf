@@ -25,7 +25,7 @@ import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
 
-const HomePage = ({ homepage, cities }) => {
+const HomePage = () => {
 
     const [banners, setBanners] = useState();
     const [loading, setLoading] = useState(true);
@@ -91,7 +91,6 @@ const HomePage = ({ homepage, cities }) => {
                         </Aside>
                             <NewsList
                                 isFullDate={false}
-                                citiesDict={cities.options}
                                 banner={banners.homePageArticle}
                             />
 
@@ -102,5 +101,4 @@ const HomePage = ({ homepage, cities }) => {
     )
 };
 
-const mapStateToProps = state => ({ homepage: state.homepage, cities: state.dictionaries.cities });
-export default React.memo(connect(mapStateToProps)(HomePage));
+export default React.memo(HomePage);

@@ -14,7 +14,7 @@ const getLSCities = () => {
     return filters.cities || [];
 };
 
-const NewsList = ({isFullDate = true, citiesDict}) => {
+const NewsList = ({isFullDate = true}) => {
     const [activeType, setActiveType] = useState('all');
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
@@ -144,7 +144,6 @@ const NewsList = ({isFullDate = true, citiesDict}) => {
                                 text={item.content}
                                 url={`/news/${item.id}`}
                                 changeCityFilter={changeCityFilter}
-                                citiesDict={citiesDict}
                                 isAd={item.is_advert}
                                 adBreedName={item.advert_breed_name}
                                 adCode={item.advert_code}

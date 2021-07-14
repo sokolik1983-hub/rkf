@@ -54,27 +54,27 @@ const Nav = ({ isAuthenticated }) => {
 
                             </li>
                         )}
-                        <li className="widget-login__item" onClick={() => setIsOpen(false)} style={{    padding: "8px 32px"}}>
+                        <li className="widget-login__item" onClick={() => setIsOpen(false)} style={{padding: "8px 32px"}}>
                                         <a style={{ color: '#3366ff' }} href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/" target="_blank" rel="noopener noreferrer">База знаний</a>
                             <Feedback/>
                         </li>
-                        {!isAuthenticated && <li className="header__nav-item"><Feedback /></li>}
+                        {/*{!isAuthenticated && <li className="header__nav-item"><Feedback /></li>}*/}
                     </ul>
                 </>
                 :
                 <>
                     <ul className={`header__nav-list--desktop ${isAuthenticated ? ` _uthenticated` : ``}`}>
-                        {mainNav.map(navItem => {
-                            return (
+                        {/*{mainNav.map(navItem => {*/}
+                        {/*    return (*/}
 
-                                <li className="header__nav-item--desktop" key={navItem.id}>
+                        {/*        <li className="header__nav-item--desktop" key={navItem.id}>*/}
 
-                                   <MenuLink  {...navItem}/>
+                        {/*           <MenuLink  {...navItem}/>*/}
 
-                            </li>
-                            )
-                            }
-                        )}
+                        {/*    </li>*/}
+                        {/*    )*/}
+                        {/*    }*/}
+                        {/*)}*/}
 
                     </ul>
                 </>
