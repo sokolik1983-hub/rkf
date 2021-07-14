@@ -31,7 +31,7 @@ const Nav = ({ isAuthenticated }) => {
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
                 <>
-                    {/*<ClickGuard value={isOpen} callback={() => setIsOpen(false)} />*/}
+                    <ClickGuard value={isOpen} callback={() => setIsOpen(false)} />
                     <BurgerButton
                         className={isOpen ? '_open' : ''}
                         onClick={() => setIsOpen(!isOpen)}
@@ -64,17 +64,17 @@ const Nav = ({ isAuthenticated }) => {
                 :
                 <>
                     <ul className={`header__nav-list--desktop ${isAuthenticated ? ` _uthenticated` : ``}`}>
-                        {/*{mainNav.map(navItem => {*/}
-                        {/*    return (*/}
+                        {mainNav.map(navItem => {
+                            return (
 
-                        {/*        <li className="header__nav-item--desktop" key={navItem.id}>*/}
+                                <li className="header__nav-item--desktop" key={navItem.id}>
 
-                        {/*           <MenuLink  {...navItem}/>*/}
+                                   <MenuLink  {...navItem}/>
 
-                        {/*    </li>*/}
-                        {/*    )*/}
-                        {/*    }*/}
-                        {/*)}*/}
+                            </li>
+                            )
+                            }
+                        )}
 
                     </ul>
                 </>
