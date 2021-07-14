@@ -1,6 +1,7 @@
 .home-page {
   &__wrap {
     background: var(--background);
+    padding-top: 20px;
     .infinite-scroll-component {
       overflow: visible !important;
     }
@@ -396,6 +397,10 @@
     }
   }
 }
+
+.css-1c1go8l {
+  min-height:200px;
+  }
 //
 //.CitySelectrap {
 //  width: 236px;

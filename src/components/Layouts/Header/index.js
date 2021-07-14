@@ -29,7 +29,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     : <div><Link to="/" className="header__logo"/></div>
                 }
                 <Search withFilters={withFilters}/>
-                {isMobile && <h3 className="header__title">{headerTitle}</h3>}
+                {/*{isMobile && <h3 className="header__title">{headerTitle}</h3>}*/}
 
                 {!isMobile
                 && <Nav isAuthenticated={isAuthenticated}/>

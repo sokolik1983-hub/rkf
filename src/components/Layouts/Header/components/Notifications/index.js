@@ -11,8 +11,9 @@ import NotificationItem from "./NotificationItem";
 import { NotificationsContext } from 'app/context';
 import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
-import "./styles.scss";
 import useIsMobile from "../../../../../utils/useIsMobile";
+
+import "./styles.scss";
 
 const defaultCategories = [
     {

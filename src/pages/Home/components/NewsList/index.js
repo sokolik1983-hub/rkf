@@ -31,6 +31,7 @@ const NewsList = ({isFullDate = true}) => {
         setNewsLoading(true);
 
         await Request({
+
                 url: `${endpointGetNews}?start_element=${startElem}${filters.cities.map(id => `&fact_city_ids=${id}`).join('')}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
             },
             data => {
@@ -61,22 +62,10 @@ const NewsList = ({isFullDate = true}) => {
         setNewsLoading(false);
     };
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        (() => getNews(1, newsFilter))();
-    }, []);
-
-    const getNextNews = () => {
-        if (hasMore) {
-            setStartElement(startElement + 10);
-            (() => getNews(startElement + 10, newsFilter))();
-        }
-    };
-
     const changeTypeFilters = type => {
         setActiveType(type);
         const el = newsListRef.current;
-        el && window.scrollTo(0, el.offsetTop - 75);
+        // el && window.scrollTo(0, el.offsetTop - 75);
         let newFilters = {};
 
         if (type !== 'all') {
@@ -90,9 +79,21 @@ const NewsList = ({isFullDate = true}) => {
         (() => getNews(1, newFilters))();
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        (() => getNews(1, newsFilter))();
+    }, []);
+
+    const getNextNews = () => {
+        if (hasMore) {
+            setStartElement(startElement + 10);
+            (() => getNews(startElement + 10, newsFilter))();
+        }
+    };
+
     const changeOrganizationFilters = activeFiltername => {
         const el = newsListRef.current;
-        el && window.scrollTo(0, el.offsetTop - 75);
+        // el && window.scrollTo(0, el.offsetTop - 75);
         setNewsFilter({...newsFilter, activeType: activeFiltername});
 
         (() => getNews(1, {...newsFilter, activeType: activeFiltername}))();
@@ -100,7 +101,7 @@ const NewsList = ({isFullDate = true}) => {
 
     const changeCityFilter = citiesIds => {
         const el = newsListRef.current;
-        el && window.scrollTo(0, el.offsetTop - 75);
+        // el && window.scrollTo(0, el.offsetTop - 75);
 
         setNewsFilter({...newsFilter, cities: citiesIds});
         setStartElement(1);

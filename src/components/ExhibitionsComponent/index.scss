@@ -103,7 +103,7 @@
   }
 
   &.exhibitions-homepage {
-    padding-top: 0;
+    padding-top: 15px;
     width: 1184px;
     margin: 0 auto;
     @media (max-width: 1220px) {
@@ -112,6 +112,7 @@
     }
     @media (max-width: 768px) {
       padding: 0 0 0 24px;
+      max-height: 335px;
     }
     @media (max-width: 560px) {
       padding: 0 0 0 16px;

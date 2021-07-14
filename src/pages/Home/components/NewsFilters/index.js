@@ -14,6 +14,7 @@ const NewsFilters = ({
                  changeCityFilter,
                  isOpenFilters,
              }) => {
+
     const isMobile1080 = useIsMobile(1080);
 
     return (
@@ -23,6 +24,7 @@ const NewsFilters = ({
                 ["__open"] : isMobile1080 && isOpenFilters,
 
             })}>
+
             <div className="NewsList__head-wrap">
                 <div className="NewsList__filters">
                     <div className="Homepage__news-title-w ">

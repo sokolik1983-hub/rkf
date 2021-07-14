@@ -24,7 +24,6 @@ import useIsMobile from "../../utils/useIsMobile";
 
 import "./index.scss";
 
-
 const HomePage = () => {
 
     const [banners, setBanners] = useState();
