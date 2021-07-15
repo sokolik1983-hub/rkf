@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import StickyBox from "react-sticky-box";
-
-
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
@@ -21,12 +18,10 @@ import Loading from "../../components/Loading";
 import CopyrightInfo from "components/CopyrightInfo";
 import Socials from "../../components/Socials";
 import useIsMobile from "../../utils/useIsMobile";
-
 import "./index.scss";
 
 
 const HomePage = () => {
-
     const [banners, setBanners] = useState();
     const [loading, setLoading] = useState(true);
     const isMobile = useIsMobile(1101);
@@ -54,7 +49,7 @@ const HomePage = () => {
                     <ExhibitionsComponent />
                     <Container className="home-page__news" >
                         <div className="home-page__news-wrap">
-                          <Aside className="home-page__right">
+                            <Aside className="home-page__right">
                                 <StickyBox offsetTop={65}>
                                     <div className="home-page__right-wrap">
                                         <div className="home-page__tablet-wrap">
@@ -88,12 +83,11 @@ const HomePage = () => {
                                         {!isMobile && <CopyrightInfo withSocials={true} />}
                                     </div>
                                 </StickyBox>
-                        </Aside>
+                            </Aside>
                             <NewsList
                                 isFullDate={false}
                                 banner={banners.homePageArticle}
                             />
-
                         </div>
                     </Container>
                 </div>
