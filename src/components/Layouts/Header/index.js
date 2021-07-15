@@ -12,6 +12,7 @@ import useIsMobile from "../../../utils/useIsMobile";
 
 import "./index.scss";
 
+
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
     const isMobile = useIsMobile(1080);
     const headerTitle = localStorage.getItem('_ym61376485_il')?.slice(1, -1);
@@ -42,6 +43,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                 <div className="header__widgets">
                     {isAuthenticated &&
                         <>
+
                             <div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>
                                 <Feedback isMainNav={true}/>
                             </div>
@@ -57,12 +59,14 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                         setShowFilters({isOpenFilters: !isOpenFilters})
                     }}>
                         <button>Фильтр</button>
+
                         </div>
                         : <WidgetLogin login_page={login_page}/>}
                 </div>
 
 
             </Container>
+
         </header>
     )
 };

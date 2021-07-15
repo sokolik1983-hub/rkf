@@ -7,14 +7,15 @@ import {endpointGetNews} from "../../config";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import "./index.scss";
-
+import { connectShowFilters } from "../../../../components/Layouts/connectors";
+import ClickGuard from "../../../../components/ClickGuard";
 
 const getLSCities = () => {
     const filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
     return filters.cities || [];
 };
 
-const NewsList = ({isFullDate = true}) => {
+const NewsList = ({isFullDate = true, setShowFilters, isOpenFilters}) => {
     const [activeType, setActiveType] = useState('all');
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
@@ -108,63 +109,70 @@ const NewsList = ({isFullDate = true}) => {
     };
 
     return (
-        <div className="NewsList" ref={newsListRef}>
-            <NewsFilters
-                startElement={startElement}
-                activeType={activeType}
-                newsFilter={newsFilter}
-                changeOrganizationFilters={changeOrganizationFilters}
-                changeTypeFilters={changeTypeFilters}
-                changeCityFilter={changeCityFilter}
-            />
-            {news && !!news.length &&
-            <InfiniteScroll
-                dataLength={news.length}
-                next={getNextNews}
-                hasMore={hasMore}
-                loader={newsLoading && <Loading centered={false}/>}
-                endMessage={
-                    <div className="NewsList__no-news">
-                        <h4>Публикаций больше нет</h4>
-                        <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет"/>
-                    </div>
-                }
-            >
-                <ul className="NewsList__content">
-                    {news && !!news.length && news.map((item, index) => (
-                        <li className="NewsList__item" key={item.id}>
-                            <CardNewsNew
-                                {...item}
-                                user={item.user_type}
-                                city={item.fact_city_name}
-                                date={item.create_date}
-                                isFullDate={isFullDate}
-                                small_photo={item.picture_short_link}
-                                photo={item.picture_link}
-                                text={item.content}
-                                url={`/news/${item.id}`}
-                                changeCityFilter={changeCityFilter}
-                                isAd={item.is_advert}
-                                adBreedName={item.advert_breed_name}
-                                adCode={item.advert_code}
-                                adPrice={item.advert_cost}
-                                adAmount={item.advert_number_of_puppies}
-                                adCategory={item.advert_type_name}
-                                videoLink={item.video_link}
-                            />
-                            {/* {
+        <>
+            <div className="NewsList" ref={newsListRef}>
+                <ClickGuard value={isOpenFilters}
+                            callback={() => setShowFilters({isOpenFilters: false})}
+                />
+                <NewsFilters
+                    startElement={startElement}
+                    activeType={activeType}
+                    newsFilter={newsFilter}
+                    changeOrganizationFilters={changeOrganizationFilters}
+                    changeTypeFilters={changeTypeFilters}
+                    changeCityFilter={changeCityFilter}
+                />
+                {news && !!news.length &&
+                <InfiniteScroll
+                    dataLength={news.length}
+                    next={getNextNews}
+                    hasMore={hasMore}
+                    loader={newsLoading && <Loading centered={false}/>}
+                    endMessage={
+                        <div className="NewsList__no-news">
+                            <h4>Публикаций больше нет</h4>
+                            <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет"/>
+                        </div>
+                    }
+                >
+                    <ul className="NewsList__content">
+                        {news && !!news.length && news.map((item, index) => (
+                            <li className="NewsList__item" key={item.id}>
+                                <CardNewsNew
+                                    {...item}
+                                    user={item.user_type}
+                                    city={item.fact_city_name}
+                                    date={item.create_date}
+                                    isFullDate={isFullDate}
+                                    small_photo={item.picture_short_link}
+                                    photo={item.picture_link}
+                                    text={item.content}
+                                    url={`/news/${item.id}`}
+                                    changeCityFilter={changeCityFilter}
+                                    isAd={item.is_advert}
+                                    adBreedName={item.advert_breed_name}
+                                    adCode={item.advert_code}
+                                    adPrice={item.advert_cost}
+                                    adAmount={item.advert_number_of_puppies}
+                                    adCategory={item.advert_type_name}
+                                    videoLink={item.video_link}
+                                />
+                                {/* {
                                     banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : ''
                                 } */}
-                        </li>
-                    ))}
-                </ul>
-            </InfiniteScroll>}
-            {(!news || !news.length) && !newsLoading && <div className="NewsList__no-news">
-                <h4>Публикации не найдены</h4>
-                <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены"/>
-            </div>}
-        </div>
+                            </li>
+                        ))}
+                    </ul>
+                </InfiniteScroll>}
+                {(!news || !news.length) && !newsLoading && <div className="NewsList__no-news">
+                    <h4>Публикации не найдены</h4>
+                    <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены"/>
+
+                </div>}
+
+            </div>
+        </>
     )
 };
 
-export default React.memo(NewsList);
+export default connectShowFilters(React.memo(NewsList));
