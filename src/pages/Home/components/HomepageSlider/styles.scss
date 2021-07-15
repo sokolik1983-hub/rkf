@@ -1,12 +1,12 @@
 .HomepageSlider {
   max-height: 528px;
-  padding: 52px 16px 0;
+  padding: 52px 18px 0;
   .slick-slide img{
     width: 100%;
   }
   @media (max-width: 768px) {
     min-height: auto;
-    padding: 52px 0 0;
+    padding: 52px 0 10px 0;
   }
   @media (max-width: 560px) {
     background: none;
