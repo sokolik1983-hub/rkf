@@ -72,6 +72,7 @@ const CardNewsNew = forwardRef(({
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
+
     }, []);
 
     const ViewItem = () => {

@@ -30,7 +30,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
     };
 
     useEffect(() => {
-        getClub()
+        getClub();
     }, []);
 
     return (
@@ -38,8 +38,6 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
             {isMobile1080 &&
 
             <div className="footer__menu">
-
-
 
                 <NavLink className="footer__menu-link" to='/'>
                     {footerNav[0].image}

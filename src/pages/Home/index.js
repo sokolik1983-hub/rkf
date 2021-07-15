@@ -20,7 +20,6 @@ import Socials from "../../components/Socials";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
-
 const HomePage = () => {
     const [banners, setBanners] = useState();
     const [loading, setLoading] = useState(true);

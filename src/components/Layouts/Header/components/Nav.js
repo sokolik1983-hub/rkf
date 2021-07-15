@@ -10,7 +10,7 @@ import useIsMobile from "../../../../utils/useIsMobile";
 import MenuLink from "./MenuLink";
 
 
-const Nav = ({ isAuthenticated }) => {
+const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters}) => {
     const [isOpen, setIsOpen] = useState(false);
     const isMobile = useIsMobile(1080);
      const setOverflow = (isOpen) => {
@@ -20,21 +20,31 @@ const Nav = ({ isAuthenticated }) => {
             document.body.style.overflow = '';
         }
     };
-
     useEffect(() => {
         setOverflow(isOpen);
         window.addEventListener('resize', () => setOverflow(isOpen));
         return () => window.removeEventListener('resize', () => setOverflow(isOpen));
+
     }, [isOpen]);
+
+    useEffect(() => {
+        if(isOpenFilters) {
+            setIsOpen(false);
+        }
+    }, [isOpenFilters]);
 
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
                 <>
-                    <ClickGuard value={isOpen} callback={() => setIsOpen(false)} />
+                    <ClickGuard value={isOpen}
+                                callback={() => setIsOpen(false)}/>
                     <BurgerButton
                         className={isOpen ? '_open' : ''}
-                        onClick={() => setIsOpen(!isOpen)}
+                        onClick={() => {
+                            setIsOpen(!isOpen);
+                            needChangeIsOpen(!isOpen);
+                        }}
                     />
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>
                         {mainNav.map(navItem =>
