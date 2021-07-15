@@ -17,13 +17,18 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
     const headerTitle = localStorage.getItem('_ym61376485_il')?.slice(1, -1);
     const {pathname} = useLocation();
 
+    const needChangeIsOpen = (valueIsOpen) => {
+        if (valueIsOpen) {
+            setShowFilters({isOpenFilters: false})
+        }
+    }
     return (
         <header className="header">
             <Container className="header__content">
 
                 {isMobile
                     ? <div className="header__nav-wrap">
-                        <Nav login_page={login_page}/>
+                        <Nav isOpenFilters={isOpenFilters} needChangeIsOpen={needChangeIsOpen} login_page={login_page}/>
                         <h5 className="header__nav-menu">Меню</h5>
                     </div>
                     : <div><Link to="/" className="header__logo"/></div>
@@ -48,7 +53,9 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     }
 
                 {isMobile
-                    ? <div className={withFilters || pathname === '/' ? "header__filters" : "header__filters __hidden"}  onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}>
+                    ? <div className={ withFilters || pathname === '/' ? "header__filters" : "header__filters __hidden"}  onClick={() => {
+                        setShowFilters({isOpenFilters: !isOpenFilters})
+                    }}>
                         <button>Фильтр</button>
                         </div>
                         : <WidgetLogin login_page={login_page}/>}
