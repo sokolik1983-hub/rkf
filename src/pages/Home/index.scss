@@ -43,11 +43,6 @@
       display: block;
     }
   }
-  &__news {
-    @media (max-width: 560px) {
-      padding: 15px 16px;
-    }
-  }
   &__news-wrap {
     display: flex;
     justify-content: space-between;

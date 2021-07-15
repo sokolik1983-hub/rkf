@@ -1,6 +1,4 @@
 .NewsList {
-  width: 600px;
-  min-width: 600px;
   min-height: 776px;
   flex-grow: 2;
   z-index: 3;
@@ -34,6 +32,7 @@
       transform: translateX(110%);
       background: #fff;
       padding: 0 0 30px 30px;
+      box-shadow: 0 2px 10px rgba(51, 102, 255, 0.05), 0 4px 30px rgba(51, 102, 255, 0.1);
       &.__open {
         transform: translateX(0);
       }
@@ -160,6 +159,9 @@
     margin-bottom: 16px;
     border-radius: 6px;
     box-shadow: 0 2px 10px rgba(51, 102, 255, 0.05), 0 4px 30px rgba(51, 102, 255, 0.1);
+    @media (max-width: 1080px) {
+      box-shadow: none;
+    }
     h3 {
       font-size: 18px;
       font-weight: 400;

@@ -94,7 +94,8 @@ const NewsList = ({isFullDate = true}) => {
 
     const changeTypeFilters = type => {
         setActiveType(type);
-
+        const el = newsListRef.current;
+        el && window.scrollTo(0, el.offsetTop - 75);
         let newFilters = {};
 
         if (type !== 'all') {
@@ -109,12 +110,16 @@ const NewsList = ({isFullDate = true}) => {
     };
 
     const changeOrganizationFilters = activeFiltername => {
+        const el = newsListRef.current;
+        el && window.scrollTo(0, el.offsetTop - 75);
         setNewsFilter({...newsFilter, activeType: activeFiltername});
 
         (() => getNews(1, {...newsFilter, activeType: activeFiltername}))();
     };
 
     const changeCityFilter = citiesIds => {
+        const el = newsListRef.current;
+        el && window.scrollTo(0, el.offsetTop - 75);
         setLSCities(citiesIds);
         setNewsFilter({...newsFilter, cities: citiesIds});
         setStartElement(1);
