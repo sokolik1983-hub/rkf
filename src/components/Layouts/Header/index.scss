@@ -539,6 +539,8 @@
   position: relative;
   @media (max-width: 1080px) {
     position: static;
+    margin-top: 5px;
+    height: 50px;
   }
   &.__noAuth {
     @media (max-width: 1080px) {
@@ -546,6 +548,7 @@
       margin-left: auto;
       display: flex;
       justify-content: center;
+
     }
   }
 
@@ -595,12 +598,10 @@
     width: 314px;
     padding-bottom: 6px;
     @media (max-width: 1080px) {
-      bottom: 0;
-      right: 0;
-      //bottom: 200px;
-      //right: 50%;
-      //transform: translateX(50%);
-      //top: auto;
+      bottom: 67px;
+      right: 50%;
+      transform: translateX(50%);
+      top: auto;
     }
   }
   &__userpic {
