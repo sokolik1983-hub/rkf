@@ -25,6 +25,9 @@
     line-height:26px;
     text-align: center;
     cursor: pointer;
+    div, a {
+      height: 50px;
+    }
     &.__active {
       color: #3366FF;
       svg path{

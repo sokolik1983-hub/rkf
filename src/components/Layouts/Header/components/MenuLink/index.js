@@ -13,9 +13,6 @@ const MenuLink = (navItem) => {
                 exact={navItem.exact}
                 className={`${navItem.disabled ? `header__nav-item-link _disabled` : `header__nav-item-link `}`}
                 onClick={e => navItem.disabled ? e.preventDefault() : e}
-                style={{display: (navItem.title === "Записаться") && 'none'}}
-
-            
             >
                     {navItem.image}
                 <div className={`${navItem.disabled ? `header__nav-item-title _disabled` : `header__nav-item-title `}`}
