@@ -536,6 +536,10 @@
 }
 .widget-login {
   display: flex;
+  position: relative;
+  @media (max-width: 1080px) {
+    position: static;
+  }
   &.__noAuth {
     @media (max-width: 1080px) {
       width: 50%;
@@ -581,8 +585,8 @@
   }
   &__content {
     position: absolute;
-    right: 9%;
-    top: 75px;
+    right: 0;
+    top: 65px;
     z-index: 1;
     box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
     background-color: #fff;

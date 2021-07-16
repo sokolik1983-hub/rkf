@@ -41,7 +41,8 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
                 {isMobile &&
                     <button className={`user-nav__button${open ? ' _open' : ''}`} >
                         {footerNav?.image}
-                        <p style={{color: open && '#3366FF', userSelect: "none"  }}>{footerNav?.title}</p>
+                        <p style={{color: open && '#3366FF', userSelect: "none", lineHeight: "29px"
+                        }}>{footerNav?.title}</p>
 
                     </button>
                 }

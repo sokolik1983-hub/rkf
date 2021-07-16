@@ -25,11 +25,12 @@
     list-style: none;
     color: #979797;
     font-size: 13px;
-    line-height: 29px;
+    line-height: 27px;
     text-align: center;
     cursor: pointer;
     &:nth-child(2) {
-      line-height: 31px;
+      margin-top: 3px;
+      line-height: 27px;
     }
     &.__active {
       color: #3366FF;
