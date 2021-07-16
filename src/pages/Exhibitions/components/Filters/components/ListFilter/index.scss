@@ -1,3 +1,14 @@
+#exhibitions-list-filter {
+  & .slick-slide {
+    min-height: 52px;
+
+  }
+  & .slick-slide span {
+    text-align: center;
+    padding: 0 20px 10px;
+    font-size: 13px;
+  }
+}
 .list-filter {
   list-style: none;
   display: flex;
