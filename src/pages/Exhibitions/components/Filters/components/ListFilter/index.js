@@ -2,8 +2,22 @@ import React, { useEffect, useState } from "react";
 import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
 import { setFiltersToUrl } from "../../../../utils";
 import "./index.scss";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-
+const exhibitionsMenuLi = [{
+        title: 'Все',
+    },
+    {
+        title: 'Выставочные мероприятия',
+    },
+    {
+        title: 'Племенные мероприятия',
+    },
+    {
+        title: 'Состязания и испытания рабочих качеств',
+    }]
 const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExporting, exporting, setStandardView }) => {
     const [activeType, setActiveType] = useState(0);
 
@@ -21,6 +35,8 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
             setFiltersToUrl({ CityIds: [] });
         }
     };
+
+    const clientWidth = window.innerWidth;
 
     return (
         <div className="exhibitions-page__list-filter">
@@ -43,38 +59,60 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
            </div>
 
             <HorizontalSwipe id="exhibitions-list-filter">
-                <ul className="list-filter">
-                    <li className="list-filter__item">
+                {
+                    (clientWidth < 600) ? (<Slider
+                        slidesToShow={1}
+                        arrows={false}
+                        centerMode={true}
+                        focusOnSelect={true}
+                        dots={false}
+                        infinite={false}
+                        autoplay={false}
+                        fade={false}
+                        adaptiveHeight={true}
+                        variableWidth={true}
+                    >
+                        {
+                           exhibitionsMenuLi.map((item, index) => (<li className="list-filter__item">
+                            <span
+                            className={`list-filter__control${activeType === index ? ' _active' : ''}`}
+                            onClick={() => handleClick(index)}
+                            >{item.title}</span>
+                            </li>))
+                        }
+                    </Slider>) : (<ul className="list-filter">
+                        <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 0 ? ' _active' : ''}`}
                             onClick={() => handleClick(0)}
                         >Все</span>
-                    </li>
-                    <li className="list-filter__item">
+                        </li>
+                        <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 1 ? ' _active' : ''}`}
                             onClick={() => handleClick(1)}
                         >Выставочные мероприятия</span>
-                    </li>
-                    <li className="list-filter__item">
+                        </li>
+                        <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 2 ? ' _active' : ''}`}
                             onClick={() => handleClick(2)}
                         >Племенные мероприятия</span>
-                    </li>
-                    <li className="list-filter__item">
+                        </li>
+                        <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 3 ? ' _active' : ''}`}
                             onClick={() => handleClick(3)}
                         >Состязания и испытания рабочих качеств</span>
-                    </li>
-                    {/* <li className="list-filter__item">
+                        </li>
+                        {/* <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 4 ? ' _active' : ''}`}
                             onClick={() => handleClick(4)}
                         >Обучение</span>
                     </li> */}
-                </ul>
+                    </ul>)
+                }
             </HorizontalSwipe>
         </div>
     )
