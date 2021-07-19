@@ -156,10 +156,24 @@ const CardOrganization = ({ alias,
             <div className="card-organization__controls">
                 {url ?
                     <>
-                        <Link className="card-organization__show-all" to={url}>Страница пользователя</Link>
+                        <Link className="card-organization__show-all" to={url}>
+                            {user_type === 3
+                                ? 'Страница клуба'
+                                : user_type === 4
+                                    ? 'Страница питомника' : user_type === 5
+                                        ? 'Страница Федерации' : user_type === 7
+                                            ? 'Страница НКП' : ''
+                            }
+                        </Link>
                         <Share url={`https://rkf.online${url}`} />
                     </> :
-                    <span className="card-organization__show-all _disabled">Страница пользователя</span>
+                    <span className="card-organization__show-all _disabled">{user_type === 3
+                        ? 'Страница клуба'
+                        : user_type === 4
+                            ? 'Страница питомника' : user_type === 5
+                                ? 'Страница Федерации' : user_type === 7
+                                    ? 'Страница НКП' : ''
+                    }</span>
                 }
             </div>
         </Card>
