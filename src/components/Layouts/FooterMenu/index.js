@@ -47,7 +47,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
 
                 <WidgetLogin footerNav={footerNav[2]} />
 
-                    {isAuthenticated  && isFederationAlias(alias) && user_type === 5 &&  <MenuComponent
+                    {isAuthenticated && user_type === 5 &&  <MenuComponent
                         footerNav={footerNav[3]}
                         alias={alias}
                         name={name}
