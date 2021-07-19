@@ -13,7 +13,6 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
-    const isMobile1080 = useIsMobile(1080);
     // const { fields } = feedbackFormConfig;
     // const initialValues = {
     //     reason: null,

@@ -164,11 +164,11 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 isAuthenticated={isAuthenticated}
                                             />
                                         }
-                                        <UserMenu userNav={canEdit
-                                            ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                            : kennelNav(alias).filter(i => i.id !== 2)}
-                                            notificationsLength={notificationsLength}
-                                            />
+                                        {/*<UserMenu userNav={canEdit*/}
+                                        {/*    ? kennelNav(alias) // Show NewsFeed menu item to current user only*/}
+                                        {/*    : kennelNav(alias).filter(i => i.id !== 2)}*/}
+                                        {/*    notificationsLength={notificationsLength}*/}
+                                        {/*    />*/}
                                         {!isMobile &&
                                             <>
                                                 <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />

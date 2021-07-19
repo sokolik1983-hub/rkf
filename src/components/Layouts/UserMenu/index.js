@@ -12,7 +12,7 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
     const [showPlus, setShowPlus] = useState(false);
     const [notificationsCount, setNotificationsCount] = useState(0);
     const isMobile = useIsMobile(1080);
-
+// console.log("userNav", userNav)
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
@@ -41,7 +41,7 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
                 {isMobile &&
                     <button className={`user-nav__button${open ? ' _open' : ''}`} >
                         {footerNav?.image}
-                        <p style={{color: open && '#3366FF', userSelect: "none", lineHeight: "29px"
+                        <p style={{color: open && '#3366FF', userSelect: "none", lineHeight: "24px"
                         }}>{footerNav?.title}</p>
 
                     </button>

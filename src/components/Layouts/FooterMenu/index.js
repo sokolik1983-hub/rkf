@@ -4,40 +4,34 @@ import useIsMobile from "../../../utils/useIsMobile";
 import WidgetLogin from "../Header/components/WidgetLogin";
 import UserMenu from "../UserMenu";
 import ls from "local-storage";
-import {clubNav} from "../../../pages/Club/config";
 import {connectAuthVisible} from "../../../pages/Authorization/connectors";
-import { Request } from "utils/request";
 import { footerNav } from "../../../appConfig";
+import {clubNav} from "../../../pages/Club/config";
+import {kennelNav} from "../NurseryLayout/config";
+import {userNav} from "../UserLayout/config";
+
+import { isFederationAlias} from "../../../utils";
 
 import './footerMenu.scss'
+import MenuComponent from "../../MenuComponent";
 
 const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, profile_id}) => {
-    const [clubInfo, setClubInfo] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const isMobile1080 = useIsMobile(1080);
-    const {alias} = ls.get('user_info') || {};
+    const {alias, user_type, id, name} = ls.get('user_info') || {};
 
-    const getLinkMenu = () => {
-        if(alias) {
-            return Request({
-                url: '/api/Club/public/' + alias /// Только Клубы????
-            }, data => {
-                setClubInfo(data);
-                setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-
-            }, error => console.log(error));
-        }
-    };
-
+    console.log(user_type)
     useEffect(() => {
-        getLinkMenu();
+        if(alias) {
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === id);
+        }
     }, []);
 
     return (
         <>
             {isMobile1080 &&
 
-            <div className="footer__menu">
+                <div className="footer__menu">
 
                 <NavLink className="footer__menu-link" to='/'>
                     {footerNav[0].image}
@@ -53,19 +47,30 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
 
                 <WidgetLogin footerNav={footerNav[2]} />
 
-                {isAuthenticated &&
-                    <UserMenu
+                    {isAuthenticated  && isFederationAlias(alias) && user_type === 5 &&  <MenuComponent
                         footerNav={footerNav[3]}
-                        userNav={canEdit
-                            ? clubNav(clubInfo?.club_alias) // Show NewsFeed menu item to current user only
-                            : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
-                        notificationsLength={notificationsLength}
-                    />
+                        alias={alias}
+                        name={name}
+                        isFederation={true}
+                    />}
+
+                {isAuthenticated && user_type !== 5 &&
+                <UserMenu
+                    notificationsLength={notificationsLength}
+                    footerNav={footerNav[3]}
+                    userNav={canEdit && user_type &&
+                        user_type === 1 ?
+                            userNav(alias)
+                            : user_type === 3  ?
+                                clubNav(alias)
+                            : user_type === 4  ?
+                                kennelNav(alias)
+                            : []
+                    }
+                />
                 }
-
-
-            </div>}
-
+            </div>
+            }
         </>
     )
 };

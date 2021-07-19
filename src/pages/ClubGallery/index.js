@@ -278,18 +278,19 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            {isFederationAlias(clubInfo.club_alias) ?
-                                                <MenuComponent
-                                                    alias={clubInfo.club_alias}
-                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                    isFederation={true}
-                                                /> :
-                                                <UserMenu userNav={canEdit
-                                                    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
-                                                    notificationsLength={notificationsLength}
-                                                />
-                                            }
+                                            {/*{isFederationAlias(clubInfo.club_alias) &&*/}
+                                            {/*    <MenuComponent*/}
+                                            {/*        alias={clubInfo.club_alias}*/}
+                                            {/*        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}*/}
+                                            {/*        isFederation={true}*/}
+                                            {/*    />*/}
+                                            {/*    // :*/}
+                                            {/*    // <UserMenu userNav={canEdit*/}
+                                            {/*    //     ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only*/}
+                                            {/*    //     : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}*/}
+                                            {/*    //     notificationsLength={notificationsLength}*/}
+                                            {/*    // />*/}
+                                            {/*}*/}
                                             {!isMobile &&
                                                 <>
                                                     <UserVideoGallery

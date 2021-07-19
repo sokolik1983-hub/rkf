@@ -194,21 +194,22 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                         isEducational={isEducational}
                     />
                     <div className="exhibitions-page__content">
-                        {filters.Alias && displayName &&
-                            <div className="exhibitions-page__mobile-only">
-                                {isFederationAlias(filters.Alias) ?
-                                    <MenuComponent
-                                        alias={filters.Alias}
-                                        name={shorten(displayName)}
-                                        isFederation={true}
-                                    /> : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                        notificationsLength={notificationsLength}
-                                    />
-                                }
-                            </div>
-                        }
+                        {/*{filters.Alias && displayName &&*/}
+                        {/*    <div className="exhibitions-page__mobile-only">*/}
+                        {/*        {isFederationAlias(filters.Alias) &&*/}
+                        {/*            <MenuComponent*/}
+                        {/*                alias={filters.Alias}*/}
+                        {/*                name={shorten(displayName)}*/}
+                        {/*                isFederation={true}*/}
+                        {/*            />*/}
+                        {/*            // : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias*/}
+                        {/*            //     ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only*/}
+                        {/*            //     : clubNav(filters.Alias).filter(i => i.id !== 2)}*/}
+                        {/*            //     notificationsLength={notificationsLength}*/}
+                        {/*            // />*/}
+                        {/*        }*/}
+                        {/*    </div>*/}
+                        {/*}*/}
                         <ListFilter
                             exhibitionsForTable={exhibitionsForTable}
                             categoryId={filters.CategoryId}

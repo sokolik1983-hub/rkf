@@ -233,7 +233,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         updateInfo={getUser}
                                     />
                                 </Card>
-                                <UserMenu userNav={userNav(alias)} notificationsLength={notificationsLength}/>
+                                {/*<UserMenu userNav={userNav(alias)} notificationsLength={notificationsLength}/>*/}
                                 <CopyrightInfo withSocials={true} />
                             </StickyBox>
                         </aside>

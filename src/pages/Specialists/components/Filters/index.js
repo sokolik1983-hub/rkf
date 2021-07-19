@@ -200,18 +200,19 @@ const Filters = ({
                                 onSubscriptionUpdate={onSubscriptionUpdate}
                                 isAuthenticated={isAuthenticated}
                             />
-                            {isFederationAlias(filters.Alias) ?
-                                <MenuComponent
-                                    alias={filters.Alias}
-                                    name={clubName}
-                                    isFederation={true}
-                                /> :
-                                <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                    ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                    : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                          notificationsLength={notificationsLength}
-                                />
-                            }
+                            {/*{isFederationAlias(filters.Alias) &&*/}
+                            {/*    <MenuComponent*/}
+                            {/*        alias={filters.Alias}*/}
+                            {/*        name={clubName}*/}
+                            {/*        isFederation={true}*/}
+                            {/*    />*/}
+                            {/*    // :*/}
+                            {/*    // <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias*/}
+                            {/*    //     ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only*/}
+                            {/*    //     : clubNav(filters.Alias).filter(i => i.id !== 2)}*/}
+                            {/*    //           notificationsLength={notificationsLength}*/}
+                            {/*    // />*/}
+                            {/*}*/}
                         </div>
                         }
                         <div className="specialists-filters__wrap">

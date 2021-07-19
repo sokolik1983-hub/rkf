@@ -165,17 +165,18 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                     <div className="specialists-page__content">
                         {filters.Alias && displayName &&
                             <div className="specialists-page__mobile-only">
-                                {isFederationAlias(filters.Alias) ?
-                                    <MenuComponent
-                                        alias={filters.Alias}
-                                        name={shorten(displayName)}
-                                        isFederation={true}
-                                    /> : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                        notificationsLength={notificationsLength}
-                                    />
-                                }
+                                {/*{isFederationAlias(filters.Alias) &&*/}
+                                {/*    <MenuComponent*/}
+                                {/*        alias={filters.Alias}*/}
+                                {/*        name={shorten(displayName)}*/}
+                                {/*        isFederation={true}*/}
+                                {/*    />*/}
+                                {/*    // : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias*/}
+                                {/*    //     ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only*/}
+                                {/*    //     : clubNav(filters.Alias).filter(i => i.id !== 2)}*/}
+                                {/*    //     notificationsLength={notificationsLength}*/}
+                                {/*    // />*/}
+                                {/*}*/}
                             </div>
                         }
                         <ListFilter

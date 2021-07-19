@@ -103,7 +103,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                 active_member={nursery.active_member}
                                             />
                                         }
-                                        <UserMenu userNav={kennelNav(alias)} />
+                                        {/*<UserMenu userNav={kennelNav(alias)} />*/}
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&
@@ -120,14 +120,14 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                 <CopyrightInfo withSocials={true} />
                                             </>
                                         }
-                                        {isMobile &&
-                                            <MenuComponent
-                                                alias={alias}
-                                                user={user}
-                                                profileId={nursery.id}
-                                                noCard={true}
-                                            />
-                                        }
+                                        {/*{isMobile &&*/}
+                                        {/*    <MenuComponent*/}
+                                        {/*        alias={alias}*/}
+                                        {/*        user={user}*/}
+                                        {/*        profileId={nursery.id}*/}
+                                        {/*        noCard={true}*/}
+                                        {/*    />*/}
+                                        {/*}*/}
                                     </div>
                                 </StickyBox>
                             </Aside>

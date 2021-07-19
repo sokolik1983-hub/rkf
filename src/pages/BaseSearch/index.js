@@ -110,11 +110,11 @@ const BaseSearch = ({ isAuthenticated }) => {
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
                                 <div className="base-search__info-inner">
-                                    {clubData ?
-                                        <UserMenu userNav={clubNav(clubData.club_alias)} /> :
-                                        nurseryData ?
-                                            <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
-                                            <>
+                                    {/*{clubData ?*/}
+                                    {/*    <UserMenu userNav={clubNav(clubData.club_alias)} /> :*/}
+                                    {/*    nurseryData ?*/}
+                                    {/*        <UserMenu userNav={kennelNav(nurseryData.alias)} /> :*/}
+                                    {/*        <>*/}
                                                 {!isMobile &&
                                                     <SearchCard
                                                         handleActiveReset={handleActiveReset}
@@ -131,8 +131,8 @@ const BaseSearch = ({ isAuthenticated }) => {
                                                         <ClubsMap />
                                                     </div>
                                                 </Card>
-                                            </>
-                                    }
+                                    {/*        </>*/}
+                                    {/*}*/}
                                     <CopyrightInfo withSocials={true} />
                                 </div>
                             </StickyBox>

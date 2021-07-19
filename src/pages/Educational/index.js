@@ -116,17 +116,18 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             federationName={organizer_name}
                                             federationAlias={organizer_alias}
                                         />
-                                        {isFederationAlias(organizer_alias) ?
-                                            <MenuComponent
-                                                alias={organizer_alias}
-                                                name={federation_name || ''}
-                                                isFederation={true}
-                                            /> :
-                                            <UserMenu
-                                                userNav={clubNav(organizer_alias)}
-                                                isExhibitionPage={true}
-                                            />
-                                        }
+                                        {/*{isFederationAlias(organizer_alias) &&*/}
+                                        {/*    <MenuComponent*/}
+                                        {/*        alias={organizer_alias}*/}
+                                        {/*        name={federation_name || ''}*/}
+                                        {/*        isFederation={true}*/}
+                                        {/*    />*/}
+                                        {/*    // :*/}
+                                        {/*    // <UserMenu*/}
+                                        {/*    //     userNav={clubNav(organizer_alias)}*/}
+                                        {/*    //     isExhibitionPage={true}*/}
+                                        {/*    // />*/}
+                                        {/*}*/}
                                         <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                         <UserPhotoGallery
                                             alias={organizer_alias}

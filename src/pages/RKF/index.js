@@ -72,11 +72,11 @@ const RKF = ({isAuthenticated, profile_id}) => {
                             name={info.owner_name || "Голубев Владимир Семенович"}
                             position={info.owner_position || "Президент Российской Кинологической Федерации"}
                         />
-                        <MenuComponent
-                            alias="rkf"
-                            name={info.name}
-                            isFederation
-                        />
+                        {/*<MenuComponent*/}
+                        {/*    alias="rkf"*/}
+                        {/*    name={info.name}*/}
+                        {/*    isFederation*/}
+                        {/*/>*/}
                     </div>
                     <div className="rkf-page__info">
                         <aside className="rkf-page__left">
@@ -85,11 +85,11 @@ const RKF = ({isAuthenticated, profile_id}) => {
                                 name={info.owner_name || "Голубев Владимир Семенович"}
                                 position={info.owner_position || "Президент Российской Кинологической Федерации"}
                             />
-                            <MenuComponent
-                                alias="rkf"
-                                name={info.name}
-                                isFederation
-                            />
+                            {/*<MenuComponent*/}
+                            {/*    alias="rkf"*/}
+                            {/*    name={info.name}*/}
+                            {/*    isFederation*/}
+                            {/*/>*/}
                             <ContactsComponent {...info}/>
                             {info.documents && !!info.documents.length && <DocumentsComponent documents={info.documents}/>}
                             {info.members && !!info.members.length && <MembersComponent members={info.members}/>}

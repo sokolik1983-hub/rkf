@@ -211,7 +211,7 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ({ alias, name, user, isFederation, noCard = false, history }) => {
+const MenuComponent = ({ alias, name, user, isFederation, noCard = false, history, footerNav }) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
@@ -367,17 +367,16 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
     };
 
     return (
-        <Card className="menu-component">
+        <>
             {isMobile ?
-                <Card className="user-menu">
-                    <h4 className="user-menu__title">Меню</h4>
                     <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
-                        <button className={`user-menu__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)}>
-                            <span />
-                            <span />
-                            <span />
-                            <span />
+                        {isMobile &&
+                        <button className={`user-nav__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)} >
+                            {footerNav?.image}
+                            <p style={{color: open ? '#3366FF' : '#979797', userSelect: "none", lineHeight: "20px", fontSize: "13px"
+                            }}>{footerNav?.title}</p>
                         </button>
+                        }
                         <CSSTransition
                             in={open}
                             timeout={350}
@@ -452,7 +451,10 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                             </ul>
                         </CSSTransition>
                     </OutsideClickHandler>
-                </Card> :
+                 :
+
+
+
                 <ul className="menu-component__list">
                     {user !== 'nursery' &&
                         <li className="menu-component__item">
@@ -583,7 +585,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                     </div>
                 </Modal>
             }
-        </Card>
+        </>
     )
 };
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Container from "../Container";
 import Search from "./components/Search";
@@ -7,17 +7,14 @@ import WidgetLogin from "./components/WidgetLogin";
 import Notifications from "./components/Notifications";
 import { connectShowFilters } from "../connectors";
 import { connectAuthVisible } from "pages/Login/connectors";
-import Feedback from "components/Feedback";
 import useIsMobile from "../../../utils/useIsMobile";
 
 import "./index.scss";
 
-
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
     const isMobile = useIsMobile(1080);
-    const headerTitle = localStorage.getItem('_ym61376485_il')?.slice(1, -1);
+    // const headerTitle = localStorage.getItem('_ym61376485_il')?.slice(1, -1);
     const {pathname} = useLocation();
-    const isMobile1080 = useIsMobile(1080);
 
     const needChangeIsOpen = (valueIsOpen) => {
         if (valueIsOpen) {
