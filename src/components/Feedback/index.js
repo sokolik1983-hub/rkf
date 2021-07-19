@@ -8,11 +8,12 @@ import Alert from 'components/Alert';
 import LightTooltip from "../LightTooltip";
 import './styles.scss';
 
-
+import useIsMobile from "../../utils/useIsMobile";
 const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
+    const isMobile1080 = useIsMobile(1080);
     // const { fields } = feedbackFormConfig;
     // const initialValues = {
     //     reason: null,
@@ -71,22 +72,26 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
 
     return (
         <>
-            {/*{isMainNav ? <LightTooltip title="Центр поддержки" enterDelay={200} leaveDelay={200}>*/}
-            {/*    <a className={`feedback-link${className ? ' ' + className : ''}`}*/}
-            {/*        onClick={handleClick}*/}
-            {/*        href="/"*/}
-            {/*    >*/}
-            {/*        <svg id="Layer_1" stroke="#90999e" width="30" height="30" className="header__nav-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M88.11,88c14.2,4.73,27.76,26.81,16.56,36.42-13.53,11.63-20-2.05-27.91,2.84-9.89,6.13-18.61,1.43-22.39-6.14s3.78-18.93,3.78-18.93S70.44,82.06,88.11,88Z"/><path  d="M58.65,92.74c4-1.64,5.33-7.57,3-13.25s-7.46-8.95-11.45-7.31-5.32,7.56-3,13.24S54.66,94.37,58.65,92.74Z"/><path  d="M105.88,92.22c3.76,2,9.14-.71,12-6.07,6.88-12.86-6.78-20.15-13.64-7.28C101.37,84.24,102.12,90.22,105.88,92.22Z"/><path  d="M92,77.28c4.68,1.11,9.77-3.38,11.35-10s-.93-13-5.61-14.09S88,56.52,86.44,63.2,87.36,76.17,92,77.28Z"/><path  d="M71.48,77.58c4.8-.33,8.3-6.15,7.82-13s-4.76-12.11-9.57-11.76-8.3,6.15-7.82,13S66.68,77.93,71.48,77.58Z"/><path fill="none" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="8px" d="M158.84,26H45.5c-14,0-17.7,20.08-17.7,31.81V171.37a2.43,2.43,0,0,0,3.56,2.31l50.85-29.41a3.85,3.85,0,0,1,3.87,0l51.5,29.45a2.44,2.44,0,0,0,3.56-2.32V72.9c0-10.27-.62-20.81,2.23-30.76,2.24-7.82,7-16.14,15.47-16.14,0,0,15.06-1.8,15.36,27.6V70.44s-.91,10.69-9.76,10.69h-9.31"/></svg>*/}
-            {/*    </a>*/}
-            {/*</LightTooltip>*/}
-            {/*:*/}
-            {/*<a style={{ color: '#3366ff' }} className={`feedback-link${className ? ' ' + className : ''}`}*/}
-            {/*    onClick={handleClick}*/}
-            {/*    href="/"*/}
-            {/*>*/}
-            {/*        {title || 'Центр поддержки'}*/}
-            {/*    </a>*/}
-            {/*}*/}
+
+            {isMainNav ? <LightTooltip title="Центр поддержки" enterDelay={200} leaveDelay={200}>
+                    <a className={`feedback-link${className ? ' ' + className : ''}`}
+                       onClick={handleClick}
+                       href="/"
+                    >
+                        <svg id="Layer_1" stroke="#90999e" width="30" height="30" className="header__nav-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M88.11,88c14.2,4.73,27.76,26.81,16.56,36.42-13.53,11.63-20-2.05-27.91,2.84-9.89,6.13-18.61,1.43-22.39-6.14s3.78-18.93,3.78-18.93S70.44,82.06,88.11,88Z"/><path  d="M58.65,92.74c4-1.64,5.33-7.57,3-13.25s-7.46-8.95-11.45-7.31-5.32,7.56-3,13.24S54.66,94.37,58.65,92.74Z"/><path  d="M105.88,92.22c3.76,2,9.14-.71,12-6.07,6.88-12.86-6.78-20.15-13.64-7.28C101.37,84.24,102.12,90.22,105.88,92.22Z"/><path  d="M92,77.28c4.68,1.11,9.77-3.38,11.35-10s-.93-13-5.61-14.09S88,56.52,86.44,63.2,87.36,76.17,92,77.28Z"/><path  d="M71.48,77.58c4.8-.33,8.3-6.15,7.82-13s-4.76-12.11-9.57-11.76-8.3,6.15-7.82,13S66.68,77.93,71.48,77.58Z"/><path fill="none" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="8px" d="M158.84,26H45.5c-14,0-17.7,20.08-17.7,31.81V171.37a2.43,2.43,0,0,0,3.56,2.31l50.85-29.41a3.85,3.85,0,0,1,3.87,0l51.5,29.45a2.44,2.44,0,0,0,3.56-2.32V72.9c0-10.27-.62-20.81,2.23-30.76,2.24-7.82,7-16.14,15.47-16.14,0,0,15.06-1.8,15.36,27.6V70.44s-.91,10.69-9.76,10.69h-9.31"/></svg>
+                    </a>
+                </LightTooltip>
+                :
+                <a style={{ color: '#3366ff' }} className={`feedback-link${className ? ' ' + className : ''}`}
+                   onClick={handleClick}
+                   href="/"
+                >
+                    {title || 'Центр поддержки'}
+                </a>
+
+            }
+
+
             <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className={`feedback__modal feedback_modal_popup`} >
                 <div className="feedback">
                     <h3 className="feedback__modal__title">Центр поддержки</h3>
