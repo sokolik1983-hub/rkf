@@ -117,7 +117,7 @@ const CardExhibition = ({ title,
                 </div>
             </div>
             <div className="card-exhibition__controls">
-                <Link className="card-exhibition__show-all" to={url}>Подробнее...</Link>
+                <Link className="card-exhibition__show-all" to={url}>Страница выставки</Link>
                 <Share url={`https://rkf.online${url}`} />
             </div>
         </Card>
