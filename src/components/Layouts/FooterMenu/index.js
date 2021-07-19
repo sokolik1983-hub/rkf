@@ -17,7 +17,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
     const isMobile1080 = useIsMobile(1080);
     const {alias} = ls.get('user_info') || {};
 
-    const getClub = () => {
+    const getLinkMenu = () => {
         if(alias) {
             return Request({
                 url: '/api/Club/public/' + alias /// Только Клубы????
@@ -30,7 +30,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
     };
 
     useEffect(() => {
-        getClub();
+        getLinkMenu();
     }, []);
 
     return (
