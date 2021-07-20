@@ -59,9 +59,9 @@
     @media (max-width: 560px) {
       &._open {
         min-width: calc(100% - 55px);
-        &._with-filter {
-          min-width: calc(100% - 90px);
-        }
+        //&._with-filter {
+        //  min-width: calc(100% - 90px);
+        //}
       }
     }
     &-control {
