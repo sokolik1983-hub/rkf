@@ -16,8 +16,8 @@ import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import useIsMobile from "../../utils/useIsMobile";
-import "./index.scss";
 
+import "./index.scss";
 
 const Federation = ({ match, isAuthenticated, profile_id }) => {
     const alias = match.path.replace('/', '');
@@ -87,11 +87,11 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                                 name={federation.owner_name}
                                 position={federation.owner_position}
                             />
-                            {/*<MenuComponent*/}
-                            {/*    alias={alias}*/}
-                            {/*    name={federation.name}*/}
-                            {/*    isFederation={true}*/}
-                            {/*/>*/}
+                            <MenuComponent
+                                alias={alias}
+                                name={federation.name}
+                                isFederation={true}
+                            />
                             <ContactsComponent {...federation} />
                             {federation.documents && !!federation.documents.length &&
                                 <DocumentsComponent documents={federation.documents} />

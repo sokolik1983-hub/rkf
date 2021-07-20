@@ -8,19 +8,21 @@ import ExhibitionsList from "./components/ExhibitionsList";
 import ExhibitionsTable from "./components/ExhibitionsTable";
 import EducationalsTable from "./components/EducationalsTable";
 import ClickGuard from "../../components/ClickGuard";
-import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
 import { formatDateCommon } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
-import { clubNav } from "../Club/config";
+// import UserMenu from "../../components/Layouts/UserMenu";
+// import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "pages/Educational/components/SignUpModal";
-import ls from "local-storage";
+// import ls from "local-storage";
+
 import './index.scss';
+
 import moment from "moment";
 import "moment/locale/ru";
 moment.locale('ru');
@@ -194,22 +196,22 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                         isEducational={isEducational}
                     />
                     <div className="exhibitions-page__content">
-                        {/*{filters.Alias && displayName &&*/}
-                        {/*    <div className="exhibitions-page__mobile-only">*/}
-                        {/*        {isFederationAlias(filters.Alias) &&*/}
-                        {/*            <MenuComponent*/}
-                        {/*                alias={filters.Alias}*/}
-                        {/*                name={shorten(displayName)}*/}
-                        {/*                isFederation={true}*/}
-                        {/*            />*/}
-                        {/*            // : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias*/}
-                        {/*            //     ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only*/}
-                        {/*            //     : clubNav(filters.Alias).filter(i => i.id !== 2)}*/}
-                        {/*            //     notificationsLength={notificationsLength}*/}
-                        {/*            // />*/}
-                        {/*        }*/}
-                        {/*    </div>*/}
-                        {/*}*/}
+                        {filters.Alias && displayName &&
+                            <div className="exhibitions-page__mobile-only">
+                                {isFederationAlias(filters.Alias) &&
+                                    <MenuComponent
+                                        alias={filters.Alias}
+                                        name={shorten(displayName)}
+                                        isFederation={true}
+                                    />
+                                    // : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
+                                    //     ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
+                                    //     : clubNav(filters.Alias).filter(i => i.id !== 2)}
+                                    //     notificationsLength={notificationsLength}
+                                    // />
+                                }
+                            </div>
+                        }
                         <ListFilter
                             exhibitionsForTable={exhibitionsForTable}
                             categoryId={filters.CategoryId}

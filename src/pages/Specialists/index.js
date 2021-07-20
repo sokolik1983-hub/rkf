@@ -7,23 +7,24 @@ import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import SpecialistsList from "./components/SpecialistsList";
 import ClickGuard from "../../components/ClickGuard";
-import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
 import { formatDateCommon } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
-import { clubNav } from "../Club/config";
+// import UserMenu from "../../components/Layouts/UserMenu";
+// import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "pages/Educational/components/SignUpModal";
 import SearchFilter from "./components/Filters/components/Search";
+
 import './index.scss';
+
 import moment from "moment";
 import "moment/locale/ru";
 moment.locale('ru');
-
 
 const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
     const [loading, setLoading] = useState(true);
@@ -165,18 +166,18 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                     <div className="specialists-page__content">
                         {filters.Alias && displayName &&
                             <div className="specialists-page__mobile-only">
-                                {/*{isFederationAlias(filters.Alias) &&*/}
-                                {/*    <MenuComponent*/}
-                                {/*        alias={filters.Alias}*/}
-                                {/*        name={shorten(displayName)}*/}
-                                {/*        isFederation={true}*/}
-                                {/*    />*/}
-                                {/*    // : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias*/}
-                                {/*    //     ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only*/}
-                                {/*    //     : clubNav(filters.Alias).filter(i => i.id !== 2)}*/}
-                                {/*    //     notificationsLength={notificationsLength}*/}
-                                {/*    // />*/}
-                                {/*}*/}
+                                {isFederationAlias(filters.Alias) &&
+                                    <MenuComponent
+                                        alias={filters.Alias}
+                                        name={shorten(displayName)}
+                                        isFederation={true}
+                                    />
+                                    // : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
+                                    //     ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
+                                    //     : clubNav(filters.Alias).filter(i => i.id !== 2)}
+                                    //     notificationsLength={notificationsLength}
+                                    // />
+                                }
                             </div>
                         }
                         <ListFilter

@@ -11,7 +11,8 @@ import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import Aside from "components/Layouts/Aside";
 import StickyBox from "react-sticky-box";
-import UserMenu from "../../components/Layouts/UserMenu";
+// import UserMenu from "../../components/Layouts/UserMenu";
+// import { clubNav } from "../Club/config";
 import UserHeader from "../../components/redesign/UserHeader";
 import { EditAlbum } from "components/Gallery";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -20,12 +21,11 @@ import { DEFAULT_IMG } from "appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
-import "./styles.scss";
 import "pages/Club/index.scss";
 
+import "./styles.scss";
 
 const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClub] = useState(null);
@@ -283,18 +283,18 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                         active_member={clubInfo.active_member}
                                                     />
                                                 }
-                                                {/*{isFederationAlias(clubInfo.club_alias) &&*/}
-                                                {/*    <MenuComponent*/}
-                                                {/*        alias={clubInfo.club_alias}*/}
-                                                {/*        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}*/}
-                                                {/*        isFederation={true}*/}
-                                                {/*    />*/}
-                                                {/*    // :*/}
-                                                {/*    // <UserMenu*/}
-                                                {/*    //     userNav={clubNav(clubInfo.club_alias)}*/}
-                                                {/*    //     notificationsLength={notificationsLength}*/}
-                                                {/*    // />*/}
-                                                {/*}*/}
+                                                {isFederationAlias(clubInfo.club_alias) &&
+                                                    <MenuComponent
+                                                        alias={clubInfo.club_alias}
+                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                        isFederation={true}
+                                                    />
+                                                    // :
+                                                    // <UserMenu
+                                                    //     userNav={clubNav(clubInfo.club_alias)}
+                                                    //     notificationsLength={notificationsLength}
+                                                    // />
+                                                }
                                                 {!isMobile &&
                                                     <>
                                                         <UserVideoGallery

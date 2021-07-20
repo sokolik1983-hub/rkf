@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
 
-import Card from "../Card";
+// import Card from "../Card";
 import Modal from "../Modal";
 import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
@@ -369,208 +369,209 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
     return (
         <>
             {isMobile ?
-                    <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
-                        {isMobile &&
-                        <button className={`user-nav__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)} >
-                            {footerNav?.image}
-                            <p style={{color: open ? '#3366FF' : '#979797', userSelect: "none", lineHeight: "20px", fontSize: "13px"
-                            }}>{footerNav?.title}</p>
-                        </button>
-                        }
-                        <CSSTransition
-                            in={open}
-                            timeout={350}
-                            classNames="user-menu__transition"
-                            unmountOnExit
-                        >
-                            <ul className="user-menu__list">
-                                {user !== 'nursery' &&
-                                    <li className="user-menu__item">
-                                        <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</NavLink>
-                                    </li>
-                                }
-                                {presidium[alias] &&
-                                    <li className="user-menu__item">
-                                        <NavLink exact to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</NavLink>
-                                    </li>
-                                }
+                <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
+                    {isMobile &&
+                    <button className={`user-nav__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)} >
+                        {footerNav?.image}
+                        <p style={{color: open ? '#3366FF' : '#979797', userSelect: "none", lineHeight: "20px", fontSize: "13px"
+                        }}>{footerNav?.title}</p>
+                    </button>
+                    }
+                    <CSSTransition
+                        in={open}
+                        timeout={350}
+                        classNames="user-menu__transition"
+                        unmountOnExit
+                    >
+                        <ul className="user-menu__list">
+                            {user !== 'nursery' &&
                                 <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link" title="Публикации">Публикации</NavLink>
+                                    <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</NavLink>
                                 </li>
+                            }
+                            {presidium[alias] &&
                                 <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link" title="Документы">Документы</NavLink>
+                                    <NavLink exact to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</NavLink>
                                 </li>
-                                <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link" title="Фотогалерея">Фотогалерея</NavLink>
-                                </li>
-                                <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</NavLink>
-                                </li>
-                                {showDetails &&
-                                    <>
-                                        {fedFeesId && <li className="user-menu__item">
-                                            <NavLink
-                                                exact
-                                                to={`/details-viewer/${fedFeesId}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="user-menu__link"
-                                                title="Размеры членских взносов"
-                                            >
-                                                Размеры членских взносов
-                                        </NavLink>
-                                        </li>}
-                                        {/* <li className="user-menu__item">
-                                            <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
-                                                Бланки
-                                        </Link>
-                                        </li> */}
-                                        {fedDetails && <li className="user-menu__item">
-                                            <NavLink
-                                                exact
-                                                to={`/details-viewer/${fedDetails}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="user-menu__link"
-                                                title="Реквизиты">
-                                                Реквизиты
-                                        </NavLink>
-                                        </li>}
-                                    </>
-                                }
-                                {isFederation &&
-                                    <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</NavLink>
-                                    </li>
-                                }
-                                <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link" title={name}>
-                                        {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
+                            }
+                            <li className="user-menu__item">
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link" title="Публикации">Публикации</NavLink>
+                            </li>
+                            <li className="user-menu__item">
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link" title="Документы">Документы</NavLink>
+                            </li>
+                            <li className="user-menu__item">
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link" title="Фотогалерея">Фотогалерея</NavLink>
+                            </li>
+                            <li className="user-menu__item">
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</NavLink>
+                            </li>
+                            {showDetails &&
+                                <>
+                                    {fedFeesId && <li className="user-menu__item">
+                                        <NavLink
+                                            exact
+                                            to={`/details-viewer/${fedFeesId}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="user-menu__link"
+                                            title="Размеры членских взносов"
+                                        >
+                                            Размеры членских взносов
                                     </NavLink>
+                                    </li>}
+                                    {/* <li className="user-menu__item">
+                                        <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
+                                            Бланки
+                                    </Link>
+                                    </li> */}
+                                    {fedDetails && <li className="user-menu__item">
+                                        <NavLink
+                                            exact
+                                            to={`/details-viewer/${fedDetails}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="user-menu__link"
+                                            title="Реквизиты">
+                                            Реквизиты
+                                    </NavLink>
+                                    </li>}
+                                </>
+                            }
+                            {isFederation &&
+                                <li className="user-menu__item">
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</NavLink>
                                 </li>
-                            </ul>
-                        </CSSTransition>
-                    </OutsideClickHandler>
-                 :
-
-
-
-                <ul className="menu-component__list">
-                    {user !== 'nursery' &&
-                        <li className="menu-component__item">
+                            }
+                            <li className="user-menu__item">
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link" title={name}>
+                                    {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </CSSTransition>
+                </OutsideClickHandler>
+            :
+            <ul className="menu-component__list">
+                {user !== 'nursery' &&
+                    <li className="menu-component__item">
+                        <NavLink
+                            exact
+                            to={`/exhibitions?Alias=${alias}`}
+                            className="menu-component__link _events"
+                            title="Мероприятия"
+                        >Мероприятия</NavLink>
+                    </li>
+                }
+                {presidium[alias] &&
+                    <li className="menu-component__item">
+                        <NavLink
+                            exact
+                            to="/"
+                            onClick={getPresidium}
+                            className="menu-component__link _presidium"
+                            title="Президиум"
+                        >Президиум</NavLink>
+                    </li>
+                }
+                <li className="menu-component__item">
+                    <NavLink
+                        exact
+                        to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`}
+                        className="menu-component__link _public"
+                        title="Публикации"
+                    >Публикации</NavLink>
+                </li>
+                <li className="menu-component__item">
+                    <NavLink
+                        exact
+                        to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`}
+                        className="menu-component__link _documents"
+                        title="Документы"
+                    >Документы</NavLink>
+                </li>
+                <li className="menu-component__item">
+                    <NavLink
+                        exact
+                        to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`}
+                        className="menu-component__link _gallery"
+                        title="Фотогалерея"
+                    >Фотогалерея</NavLink>
+                </li>
+                <li className="menu-component__item">
+                    <NavLink
+                        exact
+                        to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`}
+                        className="menu-component__link _video"
+                        title="Фотогалерея"
+                    >Видеозаписи</NavLink>
+                </li>
+                {showDetails &&
+                    <>
+                        {fedFeesId && <li className="menu-component__item">
                             <NavLink
                                 exact
-                                to={`/exhibitions?Alias=${alias}`}
-                                className="menu-component__link _events"
-                                title="Мероприятия"
-                            >Мероприятия</NavLink>
-                        </li>
-                    }
-                    {presidium[alias] &&
-                        <li className="menu-component__item">
-                            <NavLink
-                                exact
-                                to="/"
-                                onClick={getPresidium}
-                                className="menu-component__link _presidium"
-                                title="Президиум"
-                            >Президиум</NavLink>
-                        </li>
-                    }
-                    <li className="menu-component__item">
-                        <NavLink
-                            exact
-                            to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`}
-                            className="menu-component__link _public"
-                            title="Публикации"
-                        >Публикации</NavLink>
-                    </li>
-                    <li className="menu-component__item">
-                        <NavLink
-                            exact
-                            to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`}
-                            className="menu-component__link _documents"
-                            title="Документы"
-                        >Документы</NavLink>
-                    </li>
-                    <li className="menu-component__item">
-                        <NavLink
-                            exact
-                            to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`}
-                            className="menu-component__link _gallery"
-                            title="Фотогалерея"
-                        >Фотогалерея</NavLink>
-                    </li>
-                    <li className="menu-component__item">
-                        <NavLink
-                            exact
-                            to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`}
-                            className="menu-component__link _video"
-                            title="Фотогалерея"
-                        >Видеозаписи</NavLink>
-                    </li>
-                    {showDetails &&
-                        <>
-                            {fedFeesId && <li className="menu-component__item">
-                                <NavLink
-                                    exact
-                                    to={`/details-viewer/${fedFeesId}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="menu-component__link _fees"
-                                    title="Размеры членских взносов"
-                                >
-                                    Размеры членских взносов
-                            </NavLink>
-                            </li>}
-                            {/* <li className="menu-component__item">
-                                <Link
-                                    to="/"
-                                    onClick={getBlanks}
-                                    className="menu-component__link _blanks"
-                                    title="Бланки"
-                                >
-                                    Бланки
-                            </Link>
-                            </li> */}
-                            {fedDetails && <li className="menu-component__item">
-                                <NavLink
-                                    exact
-                                    to={`/details-viewer/${fedDetails}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="menu-component__link _requisites"
-                                    title="Реквизиты"
-                                >
-                                    Реквизиты
-                            </NavLink>
-                            </li>}
-                        </>
-                    }
-                    {isFederation &&
-                        <li className="menu-component__item">
-                            <NavLink
-                                exact
-                                to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`}
-                                className="menu-component__link _documents"
-                                title="Статус документов"
-                            >Статус документов</NavLink>
-                        </li>
-                    }
-                    <li className="menu-component__item">
-                        <NavLink
-                            exact
-                            to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`}
-                            className="menu-component__link _club"
-                            title={name}
-                        >
-                            {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
+                                to={`/details-viewer/${fedFeesId}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="menu-component__link _fees"
+                                title="Размеры членских взносов"
+                            >
+                                Размеры членских взносов
                         </NavLink>
+                        </li>}
+                        {/* <li className="menu-component__item">
+                            <Link
+                                to="/"
+                                onClick={getBlanks}
+                                className="menu-component__link _blanks"
+                                title="Бланки"
+                            >
+                                Бланки
+                        </Link>
+                        </li> */}
+                        {fedDetails && <li className="menu-component__item">
+                            <NavLink
+                                exact
+                                to={`/details-viewer/${fedDetails}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="menu-component__link _requisites"
+                                title="Реквизиты"
+                            >
+                                Реквизиты
+                        </NavLink>
+                        </li>}
+                    </>
+                }
+                {isFederation &&
+                    <li className="menu-component__item">
+                        <NavLink
+                            exact
+                            to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`}
+                            className="menu-component__link _documents"
+                            title="Статус документов"
+                        >Статус документов</NavLink>
                     </li>
-                </ul>
+                }
+                <li className="menu-component__item">
+                    <NavLink
+                        exact
+                        to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`}
+                        className="menu-component__link _club"
+                        title={name}
+                    >
+                        {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
+                    </NavLink>
+                </li>
+            </ul>
             }
             {showModal &&
-                <Modal headerName={alias === 'rfls' ? "" : "Президиум"} className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
+                <Modal
+                    headerName={alias === 'rfls' ? "" : "Президиум"}
+                    className="menu-component__modal"
+                    showModal={showModal} handleClose={() => setShowModal(false)}
+                    noBackdrop={true}>
                     <div className="menu-component__wrap">
                         {
                             loading

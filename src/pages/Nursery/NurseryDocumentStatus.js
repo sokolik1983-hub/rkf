@@ -17,10 +17,10 @@ import useIsMobile from "../../utils/useIsMobile";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import UserMenu from "../../components/Layouts/UserMenu";
+// import UserMenu from "../../components/Layouts/UserMenu";
 import BreedsList from "../../components/BreedsList";
-import "./index.scss";
 
+import "./index.scss";
 
 const NurseryDocumentStatus = ({ history, match, user }) => {
     const [nursery, setNurseryInfo] = useState(null);
@@ -120,14 +120,14 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                 <CopyrightInfo withSocials={true} />
                                             </>
                                         }
-                                        {/*{isMobile &&*/}
-                                        {/*    <MenuComponent*/}
-                                        {/*        alias={alias}*/}
-                                        {/*        user={user}*/}
-                                        {/*        profileId={nursery.id}*/}
-                                        {/*        noCard={true}*/}
-                                        {/*    />*/}
-                                        {/*}*/}
+                                        {isMobile &&
+                                            <MenuComponent
+                                                alias={alias}
+                                                user={user}
+                                                profileId={nursery.id}
+                                                noCard={true}
+                                            />
+                                        }
                                     </div>
                                 </StickyBox>
                             </Aside>
