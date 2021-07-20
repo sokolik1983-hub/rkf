@@ -14,8 +14,8 @@ import DocumentsComponent from "../../components/DocumentsComponent";
 import MembersComponent from "../../components/MembersComponent";
 import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../Login/connectors";
-import CopyrightInfo from "../../components/CopyrightInfo";
 import "./index.scss";
+import CopyrightInfo from "../../components/CopyrightInfo";
 
 
 const RKF = ({isAuthenticated, profile_id}) => {

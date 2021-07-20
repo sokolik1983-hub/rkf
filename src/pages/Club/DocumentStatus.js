@@ -7,9 +7,9 @@ import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
 import CheckStatus from './components/CheckStatus';
-import UserMenu from "../../components/Layouts/UserMenu";
+// import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
-import { clubNav, endpointGetClubInfo } from "./config";
+import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
@@ -19,8 +19,8 @@ import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGal
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
-import "./index.scss";
 
+import "./index.scss";
 
 const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -120,13 +120,14 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                                                 isAuthenticated={isAuthenticated}
                                             />
                                         }
-                                        {isFederationAlias(clubInfo.club_alias) ?
+                                        {isFederationAlias(clubInfo.club_alias) &&
                                             <MenuComponent
                                                 alias={clubInfo.club_alias}
                                                 name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                 isFederation={true}
-                                            /> :
-                                            <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            />
+                                            // :
+                                            // <UserMenu userNav={clubNav(clubInfo.club_alias)} />
                                         }
                                         {!isMobile &&
                                             <>

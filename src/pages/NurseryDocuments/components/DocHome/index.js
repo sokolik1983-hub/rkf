@@ -267,7 +267,7 @@ const DocHome = ({ nurseryAlias }) => {
     return (loading ? <Loading /> : <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={65}>
-                <UserMenu userNav={kennelNav(nurseryAlias)} />
+                {/*<UserMenu userNav={kennelNav(nurseryAlias)} />*/}
                 {!isMobile && <Banner type={9} />}
                 <CopyrightInfo withSocials={true} />
             </StickyBox>
