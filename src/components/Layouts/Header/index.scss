@@ -258,6 +258,7 @@
       color: #979797;
       line-height: 20px;
       padding-left: 2px;
+      padding-top: px;
     }
     &-icon {
       fill: #90999e;
@@ -277,7 +278,8 @@
     }
     @media (max-width: 1080px) {
       width: auto;
-      margin-top: 2px;
+      margin-top: 4px;
+      padding-bottom: 2px;
     }
 
     .click-guard {
