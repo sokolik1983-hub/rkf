@@ -20,7 +20,6 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
     const isMobile1080 = useIsMobile(1080);
     const {alias, user_type, id, name} = ls.get('user_info') || {};
 
-    console.log(user_type)
     useEffect(() => {
         if(alias) {
             setCanEdit(isAuthenticated && is_active_profile && profile_id === id);
