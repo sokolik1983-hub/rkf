@@ -194,9 +194,9 @@
 
     position: relative;
     margin-right: 20px;
-    &._open {
-      transform: translateX(25%);
-    }
+    //&._open {
+    //  transform: translateX(25%);
+    //}
     @media (max-width: 560px) {
       align-items: center;
       margin-right: 20px;
@@ -209,18 +209,18 @@
       position: absolute;
       background-color: #90999e;
       transition: all 0.2s linear;
-      &._open {
-        transform: rotate(45deg);
-        height: 0;
-        &:after  {
-          top: 0;
-          transform: rotate(0) ;
-        }
-        &:before {
-          top: 0;
-          transform: rotate(90deg);
-        }
-      }
+      //&._open {
+      //  transform: rotate(45deg);
+      //  height: 0;
+      //  &:after  {
+      //    top: 0;
+      //    transform: rotate(0) ;
+      //  }
+      //  &:before {
+      //    top: 0;
+      //    transform: rotate(90deg);
+      //  }
+      //}
       &:after, &:before {
         content: '';
         position: absolute;
@@ -277,7 +277,7 @@
     }
     @media (max-width: 1080px) {
       width: auto;
-      margin-top: 5px;
+      margin-top: 2px;
     }
 
     .click-guard {

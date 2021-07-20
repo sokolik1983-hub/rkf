@@ -22,7 +22,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
         }
     }
 
-    const menuTitle = isOpen ? 'Закрыть' : 'Меню';
+    // const menuTitle = isOpen ? 'Закрыть' : 'Меню';
 
     return (
         <header className="header">
@@ -38,7 +38,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                             setIsOpen={setIsOpen}
                         />
 
-                        <h5 className="header__nav-menu"> {menuTitle}</h5>
+                        <h5 className="header__nav-menu">Меню</h5>
                     </div>
                     : <div><Link to="/" className="header__logo"/></div>
                 }
