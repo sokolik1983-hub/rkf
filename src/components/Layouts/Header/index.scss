@@ -15,6 +15,12 @@
       top: 48px;
     }
   }
+  &__nav-item svg {
+    width: 24px;
+    margin-right: 6px;
+    margin-top: -4px;
+    vertical-align: middle;
+  }
   &__content {
     display: flex;
     align-items: center;
