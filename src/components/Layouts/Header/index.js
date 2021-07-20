@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import Container from "../Container";
 import Search from "./components/Search";
@@ -13,7 +13,7 @@ import "./index.scss";
 
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
     const isMobile = useIsMobile(1080);
-    // const headerTitle = localStorage.getItem('_ym61376485_il')?.slice(1, -1);
+    const [isOpen, setIsOpen] = useState(false);
     const {pathname} = useLocation();
 
     const needChangeIsOpen = (valueIsOpen) => {
@@ -21,19 +21,28 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
             setShowFilters({isOpenFilters: false})
         }
     }
+
+    const menuTitle = isOpen ? 'Закрыть' : 'Меню';
+
     return (
         <header className="header">
             <Container className="header__content">
 
                 {isMobile
                     ? <div className="header__nav-wrap">
-                        <Nav isOpenFilters={isOpenFilters} needChangeIsOpen={needChangeIsOpen} login_page={login_page}/>
-                        <h5 className="header__nav-menu">Меню</h5>
+                        <Nav
+                            isOpenFilters={isOpenFilters}
+                            needChangeIsOpen={needChangeIsOpen}
+                            login_page={login_page}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                        />
+
+                        <h5 className="header__nav-menu"> {menuTitle}</h5>
                     </div>
                     : <div><Link to="/" className="header__logo"/></div>
                 }
                 <Search withFilters={withFilters}/>
-                {/*{isMobile && <h3 className="header__title">{headerTitle}</h3>}*/}
 
                 {!isMobile
                 && <Nav isAuthenticated={isAuthenticated}/>

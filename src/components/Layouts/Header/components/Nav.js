@@ -10,8 +10,8 @@ import useIsMobile from "../../../../utils/useIsMobile";
 import MenuLink from "./MenuLink";
 
 
-const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters}) => {
-    const [isOpen, setIsOpen] = useState(false);
+const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen}) => {
+    // const [isOpen, setIsOpen] = useState(false);
     const isMobile = useIsMobile(1080);
      const setOverflow = (isOpen) => {
         if (window.innerWidth <= 1080) {
@@ -41,6 +41,7 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters}) => {
                                 callback={() => setIsOpen(false)}/>
                     <BurgerButton
                         className={isOpen ? '_open' : ''}
+                        isOpen= {isOpen}
                         onClick={() => {
                             setIsOpen(!isOpen);
                             needChangeIsOpen(!isOpen);
