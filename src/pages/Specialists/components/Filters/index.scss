@@ -14,14 +14,14 @@
   min-width: 300px;
   @media (max-width: 990px) {
     position: fixed;
-    top: 50px;
-    left: 0;
+    top: 70px;
+    right: 0;
     z-index: 3;
     padding: 16px;
     height: calc(100% - 50px);
     overflow-y: auto;
     visibility: hidden;
-    transform: translateX(-100%);
+    transform: translateX(200%);
     transition: all 0.2s ease-out;
     &._open {
       visibility: visible;

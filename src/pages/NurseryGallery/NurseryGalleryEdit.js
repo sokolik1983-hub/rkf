@@ -286,10 +286,10 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                         active_member={nursery.active_member}
                                                     />
                                                 }
-                                                <UserMenu
-                                                    userNav={kennelNav(alias)}
-                                                    notificationsLength={notificationsLength}
-                                                />
+                                                {/*<UserMenu*/}
+                                                {/*    userNav={kennelNav(alias)}*/}
+                                                {/*    notificationsLength={notificationsLength}*/}
+                                                {/*/>*/}
                                                 {!isMobile &&
                                                     <>
                                                         {nursery.breeds && !!nursery.breeds.length &&

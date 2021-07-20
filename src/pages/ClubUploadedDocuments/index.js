@@ -8,18 +8,18 @@ import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
 import Aside from "components/Layouts/Aside";
 import UserHeader from "../../components/redesign/UserHeader";
-import UserMenu from "../../components/Layouts/UserMenu";
 import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UploadedDocuments from "components/UploadedDocuments";
-import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
+// import UserMenu from "../../components/Layouts/UserMenu";
+// import { clubNav } from "../Club/config";
+
 import "pages/Club/index.scss";
 import './styles.scss';
-
 
 const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -111,17 +111,18 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            {isFederationAlias(clubInfo.club_alias) ?
+                                            {isFederationAlias(clubInfo.club_alias) &&
                                                 <MenuComponent
                                                     alias={clubInfo.club_alias}
                                                     name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                     isFederation={true}
-                                                /> :
-                                                <UserMenu userNav={canEdit
-                                                    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
-                                                    notificationsLength={notificationsLength}
                                                 />
+                                                // :
+                                                // <UserMenu userNav={canEdit
+                                                //     ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
+                                                //     : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
+                                                //     notificationsLength={notificationsLength}
+                                                // />
                                             }
                                             {!isMobile &&
                                                 <>

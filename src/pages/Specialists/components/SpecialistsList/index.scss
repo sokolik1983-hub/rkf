@@ -1,4 +1,5 @@
 .SpecialistsList .infinite-scroll-component__outerdiv::-webkit-scrollbar { width: 0 !important }
+.SpecialistsList .infinite-scroll-component__outerdiv { scrollbar-width: none; }
 .SpecialistsList {
   &__content {
     list-style: none;

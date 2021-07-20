@@ -166,17 +166,18 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             active_member={active_member}
                                             active_rkf_user={active_rkf_user}
                                         />
-                                        {isFederationAlias(club_alias) ?
-                                            <MenuComponent
-                                                alias={club_alias}
-                                                name={display_name || club_fact_name || ''}
-                                                isFederation={true}
-                                            /> :
-                                            <UserMenu
-                                                userNav={clubNav(club_alias)}
-                                                isExhibitionPage={true}
-                                            />
-                                        }
+                                        {/*{isFederationAlias(club_alias) &&*/}
+                                        {/*    <MenuComponent*/}
+                                        {/*        alias={club_alias}*/}
+                                        {/*        name={display_name || club_fact_name || ''}*/}
+                                        {/*        isFederation={true}*/}
+                                        {/*    />*/}
+                                        {/*    // :*/}
+                                        {/*    // <UserMenu*/}
+                                        {/*    //     userNav={clubNav(club_alias)}*/}
+                                        {/*    //     isExhibitionPage={true}*/}
+                                        {/*    // />*/}
+                                        {/*}*/}
                                         {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} /> }
                                         {!isMobile &&
                                         <UserPhotoGallery

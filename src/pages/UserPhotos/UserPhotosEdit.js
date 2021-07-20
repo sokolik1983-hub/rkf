@@ -194,10 +194,10 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                                 updateInfo={getUserInfo}
                                             />
                                         </Card>
-                                        <UserMenu 
-                                        userNav={userNav(alias)}
-                                        notificationsLength={notificationsLength}
-                                        />
+                                        {/*<UserMenu */}
+                                        {/*userNav={userNav(alias)}*/}
+                                        {/*notificationsLength={notificationsLength}*/}
+                                        {/*/>*/}
                                         {!isMobile &&
                                             <>
                                                 <UserVideoGallery

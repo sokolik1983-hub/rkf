@@ -5,10 +5,9 @@
     display: none;
   }
   &__content {
-    padding-top: 50px;
+    padding-top: 85px;
     padding-bottom: 50px;
     @media (max-width: 560px) {
-      padding-top: 45px;
       padding-bottom: 16px;
     }
   }
