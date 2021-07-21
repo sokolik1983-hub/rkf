@@ -146,8 +146,12 @@
       cursor: pointer;
       fill: #90999e;
       transition: fill 0.2s linear;
+      &._open {
+        display: none;
+      }
       @media (max-width: 1080px) {
         &._open {
+          display: block;
           fill: #3366FF;
         }
       }
