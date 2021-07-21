@@ -115,7 +115,7 @@
       z-index: 100;
       @media (max-width: 1080px) {
         left: 5px;
-        top: 11px;
+        top: 10px;
       }
     }
     &-btn {
@@ -217,6 +217,12 @@
       position: absolute;
       background-color: #90999e;
       transition: all 0.2s linear;
+      &._open {
+        background-color: #3366FF;
+        &:after, &:before {
+          background-color: #3366FF;
+        }
+      }
       &:after, &:before {
         content: '';
         position: absolute;
@@ -224,7 +230,7 @@
         height: 3px;
         left: 0;
         background-color: #90999e;
-
+        transition: all 0.2s linear;
       }
       &:after {
         top: -7px;
@@ -255,7 +261,13 @@
       color: #979797;
       line-height: 20px;
       padding-left: 2px;
+      padding-top: 3px;
       z-index: 100;
+      cursor: pointer;
+      &._open {
+        color: #3366FF;
+        transform: translateX(-7px);
+      }
     }
     &-icon {
       fill: #90999e;
