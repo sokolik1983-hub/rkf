@@ -11,9 +11,9 @@ import useIsMobile from "../../../utils/useIsMobile";
 
 import "./index.scss";
 
-const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
+const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength, isOpen, setIsOpen }) => {
     const isMobile = useIsMobile(1080);
-    const [isOpen, setIsOpen] = useState(false);
+
     const {pathname} = useLocation();
 
     const needChangeIsOpen = (valueIsOpen) => {
