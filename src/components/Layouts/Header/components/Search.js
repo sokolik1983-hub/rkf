@@ -3,7 +3,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import history from "../../../../utils/history";
 import useIsMobile from "../../../../utils/useIsMobile";
 
-const Search = ({ withFilters }) => {
+const Search = ({ withFilters, hideSideMenu }) => {
     const [searchValue, setSearchValue] = useState('');
     const [isClicked, setIsClicked] = useState(false);
     const isMobile = useIsMobile(1080);
@@ -31,6 +31,7 @@ const Search = ({ withFilters }) => {
         <form
             className={`header__search${isClicked ? ' _open' : ''}${withFilters ? ' _with-filter' : ''}`}
             onSubmit={handleSubmit}
+            onClick={hideSideMenu}
         >
             <OutsideClickHandler onOutsideClick={handleCancel}>
                 <input

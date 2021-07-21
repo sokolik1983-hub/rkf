@@ -22,6 +22,11 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
         }
     }
 
+    const hideSideMenu = () => {
+        setShowFilters({isOpenFilters: false});
+        setIsOpen(false);
+    }
+
     return (
         <header className="header">
             <Container className="header__content">
@@ -38,7 +43,9 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     </div>
                     : <div><Link to="/" className="header__logo"/></div>
                 }
-                <Search withFilters={withFilters}/>
+
+                    <Search hideSideMenu={hideSideMenu} withFilters={withFilters}/>
+
 
                 {!isMobile
                 && <Nav isAuthenticated={isAuthenticated}/>
@@ -49,7 +56,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                             {/*<div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>*/}
                             {/*    <Feedback isMainNav={true}/>*/}
                             {/*</div>*/}
-                            <div className="header__widgets-notifications-wrap">
+                            <div onClick={hideSideMenu} className="header__widgets-notifications-wrap">
                                 <Notifications setNotificationsLength={setNotificationsLength}/>
                                 {isMobile && <span>Уведомления</span>}
                             </div>
