@@ -15,7 +15,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
     const isMobile = useIsMobile(1080);
     const [isOpen, setIsOpen] = useState(false);
     const {pathname} = useLocation();
-
+    const [openWidgets, setOpenWidgets] = useState(false);
     const needChangeIsOpen = (valueIsOpen) => {
         if (valueIsOpen) {
             setShowFilters({isOpenFilters: false})
@@ -50,8 +50,11 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                             {/*    <Feedback isMainNav={true}/>*/}
                             {/*</div>*/}
                             <div className="header__widgets-notifications-wrap">
-                                <Notifications setNotificationsLength={setNotificationsLength}/>
-                                {isMobile && <span>Уведомления</span>}
+                                <Notifications  open={openWidgets}
+                                                setOpen={setOpenWidgets}
+                                                setNotificationsLength={setNotificationsLength}
+                                />
+                                {isMobile && <span  style={{color: openWidgets && "#3366ff"}}>Уведомления</span>}
                             </div>
                         </>
                     }
@@ -60,7 +63,15 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     ? <div className={ withFilters || pathname === '/' ? "header__filters" : "header__filters __hidden"}  onClick={() => {
                         setShowFilters({isOpenFilters: !isOpenFilters})
                     }}>
-                        <button>Фильтр</button>
+                        <div className={isOpenFilters ? "open" : ''}>
+                            <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 14V16H6V14H0ZM0 2V4H10V2H0ZM10
+                            18V16H18V14H10V12H8V18H10ZM4 6V8H0V10H4V12H6V6H4ZM18
+                            10V8H8V10H18ZM12 6H14V4H18V2H14V0H12V6Z" fill="#90999e"/>
+                            </svg>
+
+                        </div>
+                        <button style={{color: isOpenFilters && "#3366ff"}}>Фильтр</button>
 
                         </div>
                         : <WidgetLogin login_page={login_page}/>}

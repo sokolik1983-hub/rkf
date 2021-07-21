@@ -48,8 +48,8 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                         className={isOpen ? '_open' : ''}
                         isOpen= {isOpen}
                         />
-                         <h5
-                             className={isOpen ? "header__nav-menu _open" : "header__nav-menu"}>{menuTitle}</h5>
+
+                         <h5 className={isOpen ? "header__nav-menu _open" : "header__nav-menu"}>{menuTitle}</h5>
                     </div>
 
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>

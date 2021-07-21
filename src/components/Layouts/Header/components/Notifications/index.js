@@ -37,14 +37,12 @@ const defaultCategories = [
 ];
 
 const Notifications = forwardRef(
-    ({ isAuthenticated, is_active_profile, logOutUser, logo_link, setNotificationsLength }, ref) => {
+    ({ isAuthenticated, is_active_profile, logOutUser, logo_link, setNotificationsLength, open, setOpen }, ref) => {
         const [loaded, setLoaded] = useState(false);
-        const [open, setOpen] = useState(false);
         const [notifications, setNotifications] = useState([]);
         const [showDot, setShowDot] = useState(null);
         const [currentCategory, setCurrentCategory] = useState(2);
         const [categories, setCategories] = useState(defaultCategories);
-
         const { notification } = useContext(NotificationsContext);
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
@@ -149,7 +147,10 @@ const Notifications = forwardRef(
                             <div className="Notifications__content">
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
                                     <div className="Notifications__title">
-                                        <Link to={() => getNewsFeedLink(true)} onClick={() => setOpen(false)}>Уведомления</Link>
+                                        <Link
+                                            to={() => getNewsFeedLink(true)}
+                                            onClick={() => setOpen(false)}
+                                        >Уведомления</Link>
                                     </div>
                                     <div className="Notifications__tabs">
                                         <NotificationCategories
