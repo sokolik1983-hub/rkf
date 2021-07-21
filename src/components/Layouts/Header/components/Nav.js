@@ -11,8 +11,8 @@ import MenuLink from "./MenuLink";
 
 
 const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen}) => {
-    // const [isOpen, setIsOpen] = useState(false);
     const isMobile = useIsMobile(1080);
+
      const setOverflow = (isOpen) => {
         if (window.innerWidth <= 1080) {
             document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -32,21 +32,26 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
             setIsOpen(false);
         }
     }, [isOpenFilters]);
-
+    const menuTitle = isOpen ? 'Закрыть' : 'Меню';
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
                 <>
                     <ClickGuard value={isOpen}
                                 callback={() => setIsOpen(false)}/>
-                    <BurgerButton
+
+                    <div onClick={() => {
+                        setIsOpen(!isOpen);
+                        needChangeIsOpen(!isOpen);
+                    }}>
+                        <BurgerButton
                         className={isOpen ? '_open' : ''}
                         isOpen= {isOpen}
-                        onClick={() => {
-                            setIsOpen(!isOpen);
-                            needChangeIsOpen(!isOpen);
-                        }}
-                    />
+                        />
+                         <h5
+                             className={isOpen ? "header__nav-menu _open" : "header__nav-menu"}>{menuTitle}</h5>
+                    </div>
+
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>
                         {mainNav.map(navItem =>
                             <li className="header__nav-item" key={navItem.id}>
