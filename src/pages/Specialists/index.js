@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ls from "local-storage";
+import moment from "moment";
+import "moment/locale/ru";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -18,10 +20,10 @@ import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "pages/Educational/components/SignUpModal";
-import SearchFilter from "./components/Filters/components/Search";
+// import SearchFilter from "./components/Filters/components/Search";
 import './index.scss';
-import moment from "moment";
-import "moment/locale/ru";
+
+
 moment.locale('ru');
 
 
@@ -182,7 +184,7 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                             searchTypeId={filters.SearchTypeId}
                             setNeedRequest={setNeedRequest}
                         />
-                        <SearchFilter StringFilter={filters.StringFilter} searchTypeId={parseInt(filters.SearchTypeId)} />
+                        {/*<SearchFilter StringFilter={filters.StringFilter} searchTypeId={parseInt(filters.SearchTypeId)} />*/}
                         {
                             listLoading
                                 ? <Loading centered={false} />

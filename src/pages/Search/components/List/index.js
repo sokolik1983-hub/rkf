@@ -8,6 +8,7 @@ import {DEFAULT_IMG} from "../../../../appConfig";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {formatDateCommon} from "../../../../utils/datetime";
 import "./index.scss";
+import CardSpecialist from "../../../../components/CardSpecialist";
 
 
 const SearchList = ({searchResult, hasMore, getNextResults}) => {
@@ -78,6 +79,12 @@ const SearchList = ({searchResult, hasMore, getNextResults}) => {
                                     adCode={item.advert_code}
                                     adPrice={item.advert_cost}
                                     adAmount={item.advert_number_of_puppies}
+                                />
+                            }
+                            {(item.search_type === 'exterior_judges' || item.search_type === 'specialists') &&
+                                <CardSpecialist
+                                    {...item}
+                                    searchTypeId={item.search_type === 'specialists' ? 3 : 4}
                                 />
                             }
                         </li>
