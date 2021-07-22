@@ -122,8 +122,6 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         }
     };
 
-    console.log('searchResult', searchResult)
-
     return (
         <Layout withFilters>
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
