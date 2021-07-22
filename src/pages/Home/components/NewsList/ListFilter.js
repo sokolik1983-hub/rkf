@@ -8,12 +8,19 @@ const ListFilter = ({changeFilter}) => {
         setActiveType(e.target.name);
         changeFilter(e.target.name);
     };
-
+    const showAll = e => {
+        e.preventDefault();
+        setActiveType(null);
+        changeFilter(null);
+    }
     return (
         <div className="NewsList__filter">
             <div className="ListFilter__wrap">
                 <ul className="ListFilter">
-                     <h3>Автор</h3>
+                    <h3>Автор</h3>
+                    <li>
+                        <a href="/" name="rkf_and_federations" onClick={showAll} className={activeType === null ? 'active' : undefined}>Все</a>
+                    </li>
                     <li>
                         <a href="/" name="rkf_and_federations" onClick={handleClick} className={activeType === 'rkf_and_federations' ? 'active' : undefined}>РКФ и Федерации</a>
                     </li>
