@@ -38,6 +38,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     </div>
                     : <div><Link to="/" className="header__logo"/></div>
                 }
+
                 <Search withFilters={withFilters}/>
 
                 {!isMobile
