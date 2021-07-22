@@ -13,9 +13,9 @@ import "./index.scss";
 
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength, isOpen, setIsOpen }) => {
     const isMobile = useIsMobile(1080);
-
     const {pathname} = useLocation();
     const [openWidgets, setOpenWidgets] = useState(false);
+
     const needChangeIsOpen = (valueIsOpen) => {
         if (valueIsOpen) {
             setShowFilters({isOpenFilters: false})
