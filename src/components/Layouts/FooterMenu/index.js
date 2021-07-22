@@ -11,11 +11,12 @@ import {userNav} from "../UserLayout/config";
 import {isFederationAlias} from "../../../utils";
 import UserMenu from "../UserMenu";
 import MenuComponent from "../../MenuComponent";
+import { connectShowFilters } from "../connectors";
 
 import './footerMenu.scss'
 
 
-const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, profile_id}) => {
+const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, profile_id, isOpenFilters, setShowFilters, setIsOpen, isOpen}) => {
     const [canEdit, setCanEdit] = useState(false);
     const isMobile1080 = useIsMobile(1080);
     const {alias, user_type, id, name} = ls.get('user_info') || {};
@@ -26,12 +27,15 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         }
     }, []);
 
+    const hideSideMenu = () => {
+        setShowFilters({isOpenFilters: false});
+        setIsOpen(false);
+    }
     return (
         <>
             {isMobile1080 &&
 
-                <div className="footer__menu">
-
+                <div className="footer__menu" onClick={hideSideMenu}>
                 <NavLink className="footer__menu-link" to='/'>
                     {footerNav[0].image}
                     <span>{footerNav[0].title}</span>
@@ -77,4 +81,4 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
 };
 
 
-export default connectAuthVisible(React.memo(FooterMenu));
+export default connectAuthVisible(connectShowFilters(React.memo(FooterMenu)));

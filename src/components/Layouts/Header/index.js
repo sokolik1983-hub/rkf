@@ -11,15 +11,20 @@ import useIsMobile from "../../../utils/useIsMobile";
 
 import "./index.scss";
 
-const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => {
+const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength, isOpen, setIsOpen }) => {
     const isMobile = useIsMobile(1080);
-    const [isOpen, setIsOpen] = useState(false);
+
     const {pathname} = useLocation();
     const [openWidgets, setOpenWidgets] = useState(false);
     const needChangeIsOpen = (valueIsOpen) => {
         if (valueIsOpen) {
             setShowFilters({isOpenFilters: false})
         }
+    }
+
+    const hideSideMenu = () => {
+        setShowFilters({isOpenFilters: false});
+        setIsOpen(false);
     }
 
     return (
@@ -39,7 +44,8 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     : <div><Link to="/" className="header__logo"/></div>
                 }
 
-                <Search withFilters={withFilters}/>
+                    <Search hideSideMenu={hideSideMenu} withFilters={withFilters}/>
+
 
                 {!isMobile
                 && <Nav isAuthenticated={isAuthenticated}/>
@@ -50,7 +56,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                             {/*<div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>*/}
                             {/*    <Feedback isMainNav={true}/>*/}
                             {/*</div>*/}
-                            <div className="header__widgets-notifications-wrap">
+                            <div onClick={hideSideMenu} className="header__widgets-notifications-wrap">
                                 <Notifications  open={openWidgets}
                                                 setOpen={setOpenWidgets}
                                                 setNotificationsLength={setNotificationsLength}
