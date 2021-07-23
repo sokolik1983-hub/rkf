@@ -16,7 +16,7 @@ import { connectShowFilters } from "../connectors";
 import './footerMenu.scss'
 
 
-const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, profile_id, isOpenFilters, setShowFilters, setIsOpen, isOpen}) => {
+const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, profile_id, setShowFilters, setIsOpen }) => {
     const [canEdit, setCanEdit] = useState(false);
     const isMobile1080 = useIsMobile(1080);
     const {alias, user_type, id, name} = ls.get('user_info') || {};

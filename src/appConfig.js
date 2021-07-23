@@ -365,7 +365,7 @@ const mainNav = [
         id: 3,
         title: 'Специалисты',
         name: 'Специалисты',
-        to: '/specialists',
+        to: '/',
         disabled: true,
         exact: true,
         image: <svg id='Layer_1' className='header__nav-icon' width='30' height='30' data-name='Layer 1'

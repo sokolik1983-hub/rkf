@@ -67,7 +67,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     }
 
                 {isMobile
-                    ? <div className={ (withFilters || pathname === '/' || pathname !== '/organizations') ? "header__filters" : "header__filters __hidden"}  onClick={() => {
+                    ? <div className={ (withFilters || pathname === '/') ? "header__filters" : "header__filters __hidden"}  onClick={() => {
                         setShowFilters({isOpenFilters: !isOpenFilters})
                     }}>
                         <div className={isOpenFilters ? "open" : ''}>
