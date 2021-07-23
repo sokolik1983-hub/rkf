@@ -13,7 +13,7 @@ import "./index.scss";
 
 const Organizations = ({history, isOpenFilters, setShowFilters}) => {
     const [filtersValue, setFiltersValue] = useState({...getFiltersFromUrl()});
-
+console.log(history.location.pathname !== '/organizations')
     useEffect(() => {
         const unListen = history.listen(() => {
             if(history.location.pathname === '/organizations') {
