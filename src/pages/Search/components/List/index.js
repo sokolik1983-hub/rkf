@@ -31,8 +31,6 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
 
     const getRanks = rank_ids => rank_ids.length ? getDictElementsArray(dictionary, rank_ids).join(', ') : 'Не указано';
 
-    console.log('filtersSearchType', filtersSearchType)
-
     return (
         <div className="search-list">
             <InfiniteScroll
