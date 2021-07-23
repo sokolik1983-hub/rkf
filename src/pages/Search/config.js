@@ -27,5 +27,15 @@ export const defaultFilters = [
             {name: 'Новости', search_type: 8, count: 0, filters: []},
             {name: 'Объявления', search_type: 9, count: 0, filters: ['breed', 'city', 'price']}
         ]
+    },
+    {
+        name: 'Судьи и специалисты',
+        count: 0,
+        items: [
+            {name: 'По породам', search_type: 13, count: 0, filters: ['region', 'city', 'rank', 'contest', 'breed_group', 'breed']},
+            {name: 'По служебным и игровым дисциплинам', search_type: 10, count: 0, filters: ['region', 'city', 'classification', 'discipline']},
+            {name: 'По охотничьим дисциплинам', search_type: 11, count: 0, filters: ['region', 'city', 'classification', 'discipline']},
+            {name: 'Специалисты', search_type: 12, count: 0, filters: ['region', 'city', 'specialization', 'discipline']},
+        ]
     }
 ];

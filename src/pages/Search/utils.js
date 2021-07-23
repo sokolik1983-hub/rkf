@@ -7,7 +7,18 @@ export const buildUrlParams = filters => {
 
     Object.keys(filters).forEach(key => {
         if (filters[key]) {
-            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'rank_ids') {
+            if (
+                key === 'federation_ids' ||
+                key === 'region_ids' ||
+                key === 'city_ids' ||
+                key === 'breed_group_ids' ||
+                key === 'breed_ids' ||
+                key === 'rank_ids' ||
+                key === 'specialist_discipline_ids' ||
+                key === 'specialist_classification_id' ||
+                key === 'specialist_specialization_ids' ||
+                key === 'contest_ids'
+            ) {
                 if (filters[key].length) {
                     params += filters[key].map(id => `${key}=${id}&`).join('');
                 }
@@ -32,9 +43,15 @@ export const getEmptyFilters = () => ({
     string_filter: '',
     search_type: 8,
     federation_ids: [],
+    breed_group_ids: [],
     breed_ids: [],
+    region_ids: [],
     city_ids: [],
     rank_ids: [],
+    specialist_specialization_ids: [],
+    contest_ids: [],
+    specialist_classification_id: [],
+    specialist_discipline_ids: [],
     date_from: '',
     date_to: '',
     price_from: '',
@@ -53,7 +70,18 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'rank_ids') {
+            if (
+                key === 'federation_ids' ||
+                key === 'region_ids' ||
+                key === 'city_ids' ||
+                key === 'breed_group_ids' ||
+                key === 'breed_ids' ||
+                key === 'rank_ids' ||
+                key === 'specialist_discipline_ids' ||
+                key === 'specialist_classification_id' ||
+                key === 'specialist_specialization_ids' ||
+                key === 'contest_ids'
+            ) {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else if(key === 'activated' || key === 'active_member') {
                 filtersFromUrl[key] = value === 'true';
