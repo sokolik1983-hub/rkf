@@ -35,7 +35,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         <>
             {isMobile1080 &&
 
-                <div className="footer__menu" onClick={hideSideMenu}>
+            <div className="footer__menu" onClick={hideSideMenu}>
                 <NavLink className="footer__menu-link" to='/'>
                     {footerNav[0].image}
                     <span>{footerNav[0].title}</span>

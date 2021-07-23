@@ -177,7 +177,7 @@ const Filters = ({
 
     return (
         <aside className={`specialists-page__filters specialists-filters${isOpenFilters ? ' _open' : ''}`}>
-            <StickyBox offsetTop={65}>
+            <StickyBox offsetTop={65} style={{top: "225px"}}>
                 {loading ?
                     <Loading centered={false} /> :
                     <>

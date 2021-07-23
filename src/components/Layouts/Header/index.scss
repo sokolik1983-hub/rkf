@@ -340,7 +340,7 @@
         overflow-y: auto;
         padding: 16px 0 24px;
         position: absolute;
-        top: 62px;
+        top: 63px;
         left: 0;
         background-color: #fff;
         box-shadow: -2px 2px 4px rgba(51, 102, 255, 0.05);
@@ -797,6 +797,9 @@
       transform: translateX(-15px);
     }
   }
+  .registration-link {
+    margin-left: auto;
+  }
   .login-link,
   .registration-link {
     text-decoration: none;
@@ -805,9 +808,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: auto;
+    //margin-left: auto;
     @media (max-width: 1080px) {
-      margin-left: -5px;
+      //margin-left: -5px;
     }
     & span {
       vertical-align: middle;

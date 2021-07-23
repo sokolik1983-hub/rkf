@@ -35,10 +35,10 @@
       svg path{
         stroke: #3366FF;
       }
-      &.__disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
+    }
+    &.__disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 }
