@@ -74,7 +74,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     updateInfo={getUserInfo}
                                 />
                             </Card>
-                            {/*<UserMenu userNav={userNav(userAlias)} />*/}
+                            <UserMenu userNav={userNav(userAlias)} />
                             {!isMobile && <Banner type={10} />}
                             <CopyrightInfo withSocials={true} />
                         </StickyBox>

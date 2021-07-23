@@ -17,7 +17,7 @@ import useIsMobile from "../../utils/useIsMobile";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-// import UserMenu from "../../components/Layouts/UserMenu";
+import UserMenu from "../../components/Layouts/UserMenu";
 import BreedsList from "../../components/BreedsList";
 
 import "./index.scss";
@@ -103,7 +103,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                 active_member={nursery.active_member}
                                             />
                                         }
-                                        {/*<UserMenu userNav={kennelNav(alias)} />*/}
+                                        <UserMenu userNav={kennelNav(alias)} />
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&

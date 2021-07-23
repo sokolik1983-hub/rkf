@@ -134,17 +134,17 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                                                     updateInfo={getUserInfo}
                                                 />
                                             </Card>}
-                                            {/*<UserMenu*/}
-                                            {/*    userNav={userNav(alias)}*/}
-                                            {/*/>*/}
+                                            <UserMenu
+                                                userNav={userNav(alias)}
+                                            />
                                         </>
                                     }
-                                    {/*{user_type === 3 && <UserMenu*/}
-                                    {/*    userNav={clubNav(alias)}*/}
-                                    {/*/>}*/}
-                                    {/*{user_type === 4 && <UserMenu*/}
-                                    {/*    userNav={kennelNav(alias)}*/}
-                                    {/*/>}*/}
+                                    {user_type === 3 && <UserMenu
+                                        userNav={clubNav(alias)}
+                                    />}
+                                    {user_type === 4 && <UserMenu
+                                        userNav={kennelNav(alias)}
+                                    />}
                                     <CopyrightInfo withSocials={true} />
                                 </div>
                             </StickyBox>

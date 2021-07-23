@@ -114,9 +114,9 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 active_member={nursery.active_member}
                                             />
                                         }
-                                            {/*<UserMenu userNav={canEdit*/}
-                                            {/*    ? kennelNav(alias) // Show NewsFeed menu item to current user only*/}
-                                            {/*    : kennelNav(alias).filter(i => i.id !== 2)} />*/}
+                                            <UserMenu userNav={canEdit
+                                                ? kennelNav(alias) // Show NewsFeed menu item to current user only
+                                                : kennelNav(alias).filter(i => i.id !== 2)} />
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&

@@ -157,11 +157,11 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            {/*<UserMenu userNav={canEdit*/}
-                                            {/*    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only*/}
-                                            {/*    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}*/}
-                                            {/*    notificationsLength={notificationsLength}*/}
-                                            {/*/>*/}
+                                            <UserMenu userNav={canEdit
+                                                ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
+                                                : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
+                                                notificationsLength={notificationsLength}
+                                            />
                                             {!isMobile &&
                                                 <>
                                                     <Banner type={BANNER_TYPES.clubPageUnderPhotos} />

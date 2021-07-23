@@ -7,9 +7,9 @@ import Loading from "../../components/Loading";
 import UserHeader from "../../components/redesign/UserHeader";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
-// import UserMenu from "../../components/Layouts/UserMenu";
+import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
-import { endpointGetClubInfo } from "./config";
+import { clubNav, endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
@@ -129,16 +129,16 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                                 isAuthenticated={isAuthenticated}
                                             />
                                         }
-                                        {isFederationAlias(clubInfo.club_alias) &&
+                                        {isFederationAlias(clubInfo.club_alias) ?
                                             <MenuComponent
                                                 alias={clubInfo.club_alias}
                                                 name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                 isFederation={true}
                                             />
-                                            // :
-                                            // <UserMenu userNav={canEdit
-                                            //     ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                            //     : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)} />
+                                            :
+                                            <UserMenu userNav={canEdit
+                                                ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
+                                                : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)} />
                                         }
                                         {!isMobile &&
                                             <>

@@ -12,7 +12,7 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
     const [showPlus, setShowPlus] = useState(false);
     const [notificationsCount, setNotificationsCount] = useState(0);
     const isMobile = useIsMobile(1080);
-// console.log("userNav", userNav)
+
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
