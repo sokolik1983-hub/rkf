@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
 
-// import Card from "../Card";
+import Card from "../Card";
 import Modal from "../Modal";
 import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
@@ -220,7 +220,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
     const [open, setOpen] = useState(false);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const showDetails = isFederation && alias !== 'rkf' && alias !== 'oankoo';
 
     useEffect(() => {
@@ -452,7 +452,8 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                     </CSSTransition>
                 </OutsideClickHandler>
             :
-            <ul className="menu-component__list">
+            <Card>
+                <ul className="menu-component__list">
                 {user !== 'nursery' &&
                     <li className="menu-component__item">
                         <NavLink
@@ -565,6 +566,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                     </NavLink>
                 </li>
             </ul>
+            </Card>
             }
             {showModal &&
                 <Modal
