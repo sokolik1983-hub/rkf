@@ -32,7 +32,6 @@ const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
     }, [cities, city_ids, needOpen, values.length]);
 
     const handleChange = options => {
-        console.log(options)
         onChange(options.map(option => option.value));
     };
 
