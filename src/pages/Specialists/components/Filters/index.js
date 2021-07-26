@@ -9,6 +9,7 @@ import SpecializationFilter from "./components/SpecializationFilter";
 import DisciplinesFilter from "./components/DisciplinesFilter";
 import ContestsFilter from "./components/ContestsFilter";
 import BreedGroupsFilter from "./components/BreedGroupsFilter";
+import RegionFilter from "./components/RegionFilter";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl } from "../../utils";
 import { isFederationAlias, setOverflow } from "../../../../utils";
@@ -19,8 +20,6 @@ import { clubNav } from "../../../Club/config";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import MenuComponent from "../../../../components/MenuComponent";
 import { connectAuthVisible } from "pages/Login/connectors";
-import RegionFilter from "../../../../components/Filters/RegionFilter";
-
 import "./index.scss";
 
 const Filters = ({

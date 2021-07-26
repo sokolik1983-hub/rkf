@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Select, { components } from "react-select";
-import CustomCheckbox from "../../Form/CustomCheckbox";
 import { CSSTransition } from "react-transition-group";
-import Card from "../../Card";
-import Loading from "../../Loading";
+import Loading from "../../../../../../components/Loading";
+import Card from "../../../../../../components/Card";
+import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
 import CitiesFilter from "./CitiesFilter";
-import { setFiltersToUrl } from "../../../pages/Specialists/utils";
-
+import {setFiltersToUrl} from "../../../../utils";
 import "./index.scss";
 
 

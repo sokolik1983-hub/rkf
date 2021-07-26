@@ -8,9 +8,10 @@ import {DEFAULT_IMG} from "../../../../appConfig";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {formatDateCommon} from "../../../../utils/datetime";
 import "./index.scss";
+import CardSpecialist from "../../../../components/CardSpecialist";
 
 
-const SearchList = ({searchResult, hasMore, getNextResults}) => {
+const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
     const {dictionary} = useDictionary('rank_type');
 
     const getDate = dates => {
@@ -78,6 +79,17 @@ const SearchList = ({searchResult, hasMore, getNextResults}) => {
                                     adCode={item.advert_code}
                                     adPrice={item.advert_cost}
                                     adAmount={item.advert_number_of_puppies}
+                                />
+                            }
+                            {(item.search_type === 'exterior_judges' || item.search_type === 'specialists') &&
+                                <CardSpecialist
+                                    {...item}
+                                    searchTypeId={
+                                        //Костыль, работающий от фильтров. Если надо будет одновременно выводить разные карточки, то это работать не будет
+                                        filtersSearchType === 10 ? 1 :
+                                        filtersSearchType === 11 ? 2 :
+                                        filtersSearchType === 12 ? 3 : 4
+                                    }
                                 />
                             }
                         </li>

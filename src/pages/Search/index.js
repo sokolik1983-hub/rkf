@@ -130,6 +130,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                     <Filters filtersValue={filtersValue} filters={filters} additionalFilters={additionalFilters}/>
                     <div className="search-page__content">
                         <SearchList
+                            filtersSearchType={filtersValue.search_type}
                             searchResult={searchResult}
                             hasMore={hasMore}
                             getNextResults={getNextResults}

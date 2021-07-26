@@ -10,7 +10,7 @@ const SpecialistsList = ({ specialists, loading, getNextSpecialists, hasMore, se
 
     const [count, setCount] = useState(window.pageYOffset);
 
-    let marginTop = count < 50 ? -count + 'px' : -60 + 'px';
+    let marginTop = count < 50 ? -count + 'px' : -12 + 'px';
 
     const scrollChanges = () => {
         let posTop = window.pageYOffset;
