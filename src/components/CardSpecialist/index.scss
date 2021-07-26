@@ -361,8 +361,11 @@
     pointer-events: none;
     line-height: 20px;
     position: absolute;
-    top: 0;
     right: 0;
+    @media (max-width: 440px) {
+      top: 50%;
+      transform: translateY(-35%);
+    }
     .ya-share2__icon_more {
       height: 16px;
       background-color: white;
