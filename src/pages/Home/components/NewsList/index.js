@@ -8,6 +8,7 @@ import {endpointGetNews} from "../../config";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
+
 import "./index.scss";
 
 

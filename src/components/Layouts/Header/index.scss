@@ -327,7 +327,11 @@
 
         .active {
           .header__nav-icon {
+
             fill: #3366ff;
+            div {
+              color: red;
+            }
           }
         }
       }
@@ -369,7 +373,6 @@
           }
         }
       }
-
       @media (max-width: 1080px) {
         &:last-child {
           border-top: 1px solid #72839c;
@@ -380,6 +383,11 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+      }
+      &-link.active {
+        .header__nav-item-title {
+          color: #3366ff;
+        }
       }
       a,
       p {
@@ -887,6 +895,8 @@
     }
   }
 }
+
+
 
 
 

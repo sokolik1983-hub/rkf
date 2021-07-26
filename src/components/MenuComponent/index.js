@@ -239,7 +239,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
         }
     }, [alias]);
 
-    const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
+    // const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
     const getPresidium = e => {
         e.preventDefault();
@@ -278,28 +278,28 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
         </>
     };
 
-    const getBlanks = e => {
-        e.preventDefault();
-        setErrorText(null);
-        setShowModal('blanks');
-        if (!data.blanks) {
-            setLoading(true);
-            Promise.all([
-                PromiseRequest({ url: `/api/federation/federationblank/all?alias=${alias}` }),
-                PromiseRequest({ url: `/api/federation/federationblank/categories?alias=${alias}` })
-            ]).then(result => {
-                setData({ ...data, blanks: [...result[0]] });
-                setBlankCategories(result[1]);
-                setLoading(false);
-            }).catch(error => {
-                console.log(error.response);
-                if (error.response) {
-                    setErrorText(`${error.response.status} ${error.response.statusText}`);
-                }
-                setLoading(false);
-            });
-        }
-    };
+    // const getBlanks = e => {
+    //     e.preventDefault();
+    //     setErrorText(null);
+    //     setShowModal('blanks');
+    //     if (!data.blanks) {
+    //         setLoading(true);
+    //         Promise.all([
+    //             PromiseRequest({ url: `/api/federation/federationblank/all?alias=${alias}` }),
+    //             PromiseRequest({ url: `/api/federation/federationblank/categories?alias=${alias}` })
+    //         ]).then(result => {
+    //             setData({ ...data, blanks: [...result[0]] });
+    //             setBlankCategories(result[1]);
+    //             setLoading(false);
+    //         }).catch(error => {
+    //             console.log(error.response);
+    //             if (error.response) {
+    //                 setErrorText(`${error.response.status} ${error.response.statusText}`);
+    //             }
+    //             setLoading(false);
+    //         });
+    //     }
+    // };
 
     const showBlanks = () => blankCategories.map(({ id, name }) => {
         return <div className="menu-component__show-blanks" key={id}>

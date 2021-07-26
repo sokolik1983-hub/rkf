@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Modal from '../Modal';
 import { connect } from "react-redux";
 import Alert from 'components/Alert';
+import LightTooltip from "../LightTooltip";
 // import { Form, SubmitButton, FormGroup, FormField } from '../Form';
 //import FormFile from '../Form/Field/FormFile';
 // import { feedbackFormConfig, reasons } from "./config";
-import LightTooltip from "../LightTooltip";
+
 import './styles.scss';
 
-import useIsMobile from "../../utils/useIsMobile";
 const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(false);
@@ -22,6 +22,26 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
     //     description: '',
     //     //picture: null,
     //     terms: false
+
+    // const transformValues = values => {
+    //     let newValues = { ...values };
+    //
+    //     newValues.type = newValues.reason;
+    //     newValues.title = reasons.filter(r => r.type === newValues.reason)[0].name;
+    //     delete newValues.reason;
+    //
+    //     return { ...newValues }
+    // };
+    //
+    // const onSuccess = () => {
+    //     alert('Ваше сообщение отправлено');
+    //     setShowModal(false);
+    // };
+    //
+    // const onError = () => {
+    //     alert('Произошла ошибка, попробуйте позже');
+    //     setShowModal(false);
+    // }
     // };
 
     const openHelpdesk = async () => {
@@ -49,29 +69,9 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
         if (showModal) setShowModal(false);
     };
 
-    // const transformValues = values => {
-    //     let newValues = { ...values };
-    //
-    //     newValues.type = newValues.reason;
-    //     newValues.title = reasons.filter(r => r.type === newValues.reason)[0].name;
-    //     delete newValues.reason;
-    //
-    //     return { ...newValues }
-    // };
-    //
-    // const onSuccess = () => {
-    //     alert('Ваше сообщение отправлено');
-    //     setShowModal(false);
-    // };
-    //
-    // const onError = () => {
-    //     alert('Произошла ошибка, попробуйте позже');
-    //     setShowModal(false);
-    // }
 
     return (
         <>
-
             {isMainNav ? <LightTooltip title="Центр поддержки" enterDelay={200} leaveDelay={200}>
                     <a className={`feedback-link${className ? ' ' + className : ''}`}
                        onClick={handleClick}
