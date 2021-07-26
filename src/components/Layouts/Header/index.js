@@ -61,7 +61,6 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                                                 setOpen={setOpenWidgets}
                                                 setNotificationsLength={setNotificationsLength}
                                 />
-                                {isMobile && <span  style={{color: openWidgets && "#3366ff"}}>Уведомления</span>}
                             </div>
                         </>
                     }
