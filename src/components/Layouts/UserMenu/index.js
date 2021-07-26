@@ -37,14 +37,14 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
             onClick={() => setOpen(open => !open)}
         >
 
-                {isMobile &&
-                    <button className={`user-nav__button${open ? ' _open' : ''}`} >
-                        {footerNav?.image}
-                        <p style={{color: open && '#3366FF', userSelect: "none", lineHeight: "24px"
-                        }}>{footerNav?.title}</p>
+                {/*{isMobile &&*/}
+                {/*    <button className={`user-nav__button${open ? ' _open' : ''}`} >*/}
+                {/*        {footerNav?.image}*/}
+                {/*        <p style={{color: open && '#3366FF', userSelect: "none", lineHeight: "24px"*/}
+                {/*        }}>{footerNav?.title}</p>*/}
 
-                    </button>
-                }
+                {/*    </button>*/}
+                {/*}*/}
                 <CSSTransition
                     in={!isMobile || (isMobile && open)}
                     timeout={350}
