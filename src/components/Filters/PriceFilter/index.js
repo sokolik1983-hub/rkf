@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {memo, useState} from "react";
 import "./index.scss";
 
 
@@ -50,4 +50,4 @@ const PriceFilter = ({price_from, price_to, onChange}) => {
     )
 };
 
-export default React.memo(PriceFilter);
+export default memo(PriceFilter);

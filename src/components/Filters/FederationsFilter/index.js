@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import CustomCheckbox from "../../Form/CustomCheckbox";
-import { CSSTransition } from "react-transition-group";
+import React, {memo, useState} from "react";
+import {CSSTransition} from "react-transition-group";
 import Card from "../../Card";
+import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
 
@@ -20,7 +20,7 @@ const FederationsFilter = ({ federations, federation_ids, onChange }) => {
         <Card className="federations-filter">
             <div className="federations-filter__head" onClick={() => setIsOpen(!isOpen)}>
                 <h5 className="federations-filter__title">Федерации</h5>
-                <span className={`federations-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+                <span className={`federations-filter__chevron${isOpen ? ' _dropdown_open' : ''}`}/>
             </div>
             <CSSTransition
                 in={isOpen}
@@ -28,25 +28,23 @@ const FederationsFilter = ({ federations, federation_ids, onChange }) => {
                 unmountOnExit
                 classNames="dropdown__filters"
             >
-                <>
-                    {federations && !!federations.length &&
-                        <ul className="federations-filter__list">
-                            {federations.map(item => (
-                                <li className="federations-filter__item" key={item.id}>
-                                    <CustomCheckbox
-                                        id={item.id}
-                                        label={item.short_name}
-                                        checked={federation_ids.includes(item.id)}
-                                        onChange={() => handleChange(item.id)}
-                                    />
-                                </li>
-                            ))}
-                        </ul>
-                    }
-                </>
+                {federations && !!federations.length &&
+                    <ul className="federations-filter__list">
+                        {federations.map(item => (
+                            <li className="federations-filter__item" key={item.id}>
+                                <CustomCheckbox
+                                    id={item.id}
+                                    label={item.short_name}
+                                    checked={federation_ids.includes(item.id)}
+                                    onChange={() => handleChange(item.id)}
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                }
             </CSSTransition>
         </Card>
     )
 };
 
-export default React.memo(FederationsFilter);
+export default memo(FederationsFilter);

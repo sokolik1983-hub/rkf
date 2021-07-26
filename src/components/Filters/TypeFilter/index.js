@@ -1,26 +1,14 @@
-import React, { useState, useEffect } from "react";
-import Select, { components } from "react-select";
-import CustomCheckbox from "../../Form/CustomCheckbox";
-import { CSSTransition } from "react-transition-group";
+import React, {memo, useState, useEffect} from "react";
+import {CSSTransition} from "react-transition-group";
 import Card from "../../Card";
+import CustomFilterSelect from "../../CustomFilterSelect";
 import "./index.scss";
 
 
-const Option = props => (
-    <components.Option {...props}>
-        <CustomCheckbox
-            id={`types-${props.value}`}
-            label={props.label}
-            checked={props.isSelected}
-            onChange={() => null}
-        />
-    </components.Option>
-);
-
-const TypeFilter = ({ types, type_ids, onChange, is_club_link }) => {
+const TypeFilter = ({types, type_ids, onChange}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState(is_club_link && !types.length ? false : true);
+    const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
         if (types.length) {
@@ -33,21 +21,11 @@ const TypeFilter = ({ types, type_ids, onChange, is_club_link }) => {
         onChange(options.map(option => option.value));
     };
 
-    function compare(a, b) {
-        let comparison = 0;
-        if (a.value > b.value) {
-            comparison = 1;
-        } else if (a.value < b.value) {
-            comparison = -1;
-        }
-        return comparison;
-    }
-
     return (
         <Card className="types-filter">
             <div className="types-filter__head" onClick={() => setIsOpen(!isOpen)}>
                 <h5 className="types-filter__title">Тип выставки</h5>
-                <span className={`types-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+                <span className={`types-filter__chevron${isOpen ? ' _dropdown_open' : ''}`}/>
             </div>
             <CSSTransition
                 in={isOpen}
@@ -56,24 +34,13 @@ const TypeFilter = ({ types, type_ids, onChange, is_club_link }) => {
                 classNames="dropdown__filters"
             >
                 <div className="types-filter__wrap">
-                    <Select
-                        id="types-filter"
-                        isMulti={true}
-                        closeMenuOnSelect={false}
-                        options={[...values, ...optionsNotInValues].sort(compare)}
-                        defaultMenuIsOpen={true}
-                        hideSelectedOptions={false}
-                        menuIsOpen={true}
-                        controlShouldRenderValue={false}
+                    <CustomFilterSelect
+                        id="types"
+                        placeholder="Начните вводить тип"
+                        noOptionsMessage="Тип выставки не найден"
+                        options={[...values, ...optionsNotInValues]}
+                        values={values}
                         onChange={handleChange}
-                        clearable={true}
-                        isSearchable={false}
-                        classNamePrefix="types-filter"
-                        placeholder="Начните вводить ранг"
-                        noOptionsMessage={() => 'Ранг не найден'}
-                        value={values}
-                        components={{ Option }}
-                        maxMenuHeight={170}
                     />
                 </div>
             </CSSTransition>
@@ -81,4 +48,4 @@ const TypeFilter = ({ types, type_ids, onChange, is_club_link }) => {
     )
 };
 
-export default React.memo(TypeFilter);
+export default memo(TypeFilter);

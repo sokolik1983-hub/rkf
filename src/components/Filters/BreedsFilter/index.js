@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Select, { components } from "react-select";
-import CustomCheckbox from "../../Form/CustomCheckbox";
-import { CSSTransition } from "react-transition-group";
+import React, {memo, useEffect, useState} from "react";
+import {CSSTransition} from "react-transition-group";
 import Card from "../../Card";
+import CustomFilterSelect from "../../CustomFilterSelect";
 import "./index.scss";
 
 
-const Option = props => (
-    <components.Option {...props}>
-        <CustomCheckbox
-            id={`breeds-${props.value}`}
-            label={props.label}
-            checked={props.isSelected}
-            onChange={() => null}
-        />
-    </components.Option>
-);
-
-const BreedsFilter = ({ breeds, breed_ids, onChange, is_club_link }) => {
+const BreedsFilter = ({breeds, breed_ids, onChange}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState(is_club_link && !breeds.length ? false : true);
+    const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
         if (breeds.length) {
@@ -33,15 +21,11 @@ const BreedsFilter = ({ breeds, breed_ids, onChange, is_club_link }) => {
         onChange(options.map(option => option.value));
     };
 
-    const handleDelete = breedId => {
-        onChange(values.filter(breed => breed.value !== breedId).map(breed => breed.value));
-    };
-
     return (
         <Card className="breeds-filter">
             <div className="breeds-filter__head" onClick={() => setIsOpen(!isOpen)}>
                 <h5 className="breeds-filter__title">Породы</h5>
-                <span className={`breeds-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+                <span className={`breeds-filter__chevron${isOpen ? ' _dropdown_open' : ''}`}/>
             </div>
             <CSSTransition
                 in={isOpen}
@@ -50,39 +34,18 @@ const BreedsFilter = ({ breeds, breed_ids, onChange, is_club_link }) => {
                 classNames="dropdown__filters"
             >
                 <div className="breeds-filter__wrap">
-                    <Select
-                        id="breeds-filter"
-                        isMulti={true}
-                        closeMenuOnSelect={false}
-                        options={[...values, ...optionsNotInValues]}
-                        defaultMenuIsOpen={true}
-                        hideSelectedOptions={false}
-                        menuIsOpen={true}
-                        controlShouldRenderValue={false}
-                        onChange={handleChange}
-                        clearable={true}
-                        isSearchable
-                        classNamePrefix="breeds-filter"
+                    <CustomFilterSelect
+                        id="breeds"
                         placeholder="Начните вводить породу"
-                        noOptionsMessage={() => 'Порода не найдена'}
-                        value={values}
-                        components={{ Option }}
-                        maxMenuHeight={170}
+                        noOptionsMessage="Порода не найдена"
+                        options={[...values, ...optionsNotInValues]}
+                        values={values}
+                        onChange={handleChange}
                     />
-                    {!!values.length &&
-                        <ul className="breeds-filter__values">
-                            {values.map(item =>
-                                <li className="breeds-filter__values-item" key={item.value}>
-                                    <span>{item.label}</span>
-                                    <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
-                                </li>
-                            )}
-                        </ul>
-                    }
                 </div>
             </CSSTransition>
         </Card>
     )
 };
 
-export default React.memo(BreedsFilter);
+export default memo(BreedsFilter);

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { formatDateToString } from "../../../utils/datetime";
+import React, {memo, useEffect, useState} from "react";
+import {formatDateToString} from "../../../utils/datetime";
 import "./index.scss";
 
 
-const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter, range_clicked, handleRangeReset }) => {
+const CalendarFilter = ({date_from, onChange, is_club_link, clear_filter, range_clicked, handleRangeReset}) => {
     const [day, setDay] = useState(new Date(date_from));
     const [activeButton, setActiveButton] = useState(is_club_link && !clear_filter ? 'year' : null);
 
@@ -68,4 +68,4 @@ const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter, range
     )
 };
 
-export default React.memo(CalendarFilter);
+export default memo(CalendarFilter);
