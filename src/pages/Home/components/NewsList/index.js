@@ -10,6 +10,7 @@ import {DEFAULT_IMG} from "../../../../appConfig";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 
 import "./index.scss";
+import PublicationFilter from "./PublicationFilter";
 
 
 const getLSCities = () => {
@@ -159,6 +160,10 @@ const NewsList = ({isFullDate = true, setShowFilters, isOpenFilters}) => {
                             </div>
                         }
                     >
+                        <PublicationFilter
+                            changeTypeFilters={changeTypeFilters}
+                            activeType={activeType}
+                        />
                         <ul className="NewsList__content">
                             {news && !!news.length && news.map((item, index) => (
                                 <li className="NewsList__item" key={item.id}>
