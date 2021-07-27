@@ -31,32 +31,6 @@ const NewsFilters = ({
                     {loading ?
                         <Loading centered={false}/> :
                         <>
-                            <div className="Homepage__news-title-w">
-                                <ul className="ListFilter">
-                                    <h3>Публикации</h3>
-                                    <li style={{backgroundImage: '/static/icons/home-filters/cards-variant.svg'}}>
-                                <span
-                                    className={`ListFilter__item${activeType === 'all' ? ' _active' : ''}`}
-                                    onClick={() => changeTypeFilters('all')}>
-                                    Все
-                                </span>
-                                    </li>
-                                    <li>
-                                <span
-                                    className={`ListFilter__item${activeType === 'news' ? ' _active' : ''}`}
-                                    onClick={() => changeTypeFilters('news')}>
-                                    Новости
-                                </span>
-                                    </li>
-                                    <li>
-                                <span
-                                    className={`ListFilter__item${activeType === 'advert' ? ' _active' : ''}`}
-                                    onClick={() => changeTypeFilters('advert')}>
-                                    Объявления
-                                </span>
-                                    </li>
-                                </ul>
-                            </div>
                             <ListFilter
                                 changeFilter={changeOrganizationFilters}
                             />
