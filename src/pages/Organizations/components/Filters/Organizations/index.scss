@@ -7,10 +7,17 @@
   padding: 0 10px;
   overflow: hidden;
   position: sticky;
-  top: 50px;
+  top: 10px;
   z-index: 1;
-  @media (max-width: 560px) {
-    top: 48px;
+  h3 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #253C5E;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 12px 0;
+  }
+  .slick-track li {
+    padding: 0 20px;
   }
   .list-filter {
     list-style: none;
