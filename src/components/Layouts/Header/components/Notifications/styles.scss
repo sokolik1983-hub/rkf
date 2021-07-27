@@ -26,7 +26,12 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
             background-image: url("/static/new-icons/notifications/bell.svg");
             background-size: 25px 25px;
         }
-        &:hover,
+        &:hover {
+            filter: $blue-color;
+            @media (max-width: 1080px) {
+                filter: none;
+            }
+        }
         &._active {
             filter: $blue-color;
         }
