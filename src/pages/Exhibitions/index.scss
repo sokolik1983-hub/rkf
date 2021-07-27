@@ -1,7 +1,7 @@
 .exhibitions-page {
   display: flex;
   &.content {
-    padding-top: 65px;
+    padding-top: 75px;
   }
   @media (max-width: 990px) {
     display: block;
@@ -80,7 +80,7 @@
     background: white;
     z-index: 1;
     @media (max-width: 560px) {
-      top: 48px;
+      top: 71px;
     }
   }
   &__top-wrap {

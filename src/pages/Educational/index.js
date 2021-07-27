@@ -8,8 +8,6 @@ import PropertyP from "../../components/PropertyP";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { clubNav } from "../Club/config";
-import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
 import { endpointGetExhibition } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
@@ -19,10 +17,12 @@ import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGal
 import StickyBox from "react-sticky-box";
 import Banner from "../../components/Banner";
 import { isFederationAlias } from "../../utils";
+import { clubNav } from "../Club/config";
+import UserMenu from "../../components/Layouts/UserMenu";
 import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "./components/SignUpModal";
-import "./index.scss";
 
+import "./index.scss";
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
     const [exhibition, setExhibition] = useState({ club_information: {} });
@@ -121,7 +121,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                                 alias={organizer_alias}
                                                 name={federation_name || ''}
                                                 isFederation={true}
-                                            /> :
+                                            />
+                                            :
                                             <UserMenu
                                                 userNav={clubNav(organizer_alias)}
                                                 isExhibitionPage={true}

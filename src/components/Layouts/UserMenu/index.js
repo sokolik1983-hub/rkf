@@ -6,14 +6,12 @@ import Alert from "../../Alert";
 import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
-
-const UserMenu = ({ userNav, notificationsLength, isExhibitionPage }) => {
+const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav }) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
     const [showPlus, setShowPlus] = useState(false);
     const [notificationsCount, setNotificationsCount] = useState(0);
-    const isMobile = useIsMobile();
-
+    const isMobile = useIsMobile(1080);
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
@@ -33,16 +31,20 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage }) => {
     };
 
     return (
-        <div className={`user-nav ${isMobile ? `` : `_desktop_card`}`}>
-            <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
-                {isMobile &&
-                    <button className={`user-nav__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)}>
-                        <span />
-                        <span />
-                        <span />
-                        <span />
-                    </button>
-                }
+        <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
+        <div
+            className={`user-nav  ${isMobile ? `` : `_desktop_card`}`}
+            onClick={() => setOpen(open => !open)}
+        >
+
+                {/*{isMobile &&*/}
+                {/*    <button className={`user-nav__button${open ? ' _open' : ''}`} >*/}
+                {/*        {footerNav?.image}*/}
+                {/*        <p style={{color: open && '#3366FF', userSelect: "none", lineHeight: "24px"*/}
+                {/*        }}>{footerNav?.title}</p>*/}
+
+                {/*    </button>*/}
+                {/*}*/}
                 <CSSTransition
                     in={!isMobile || (isMobile && open)}
                     timeout={350}
@@ -66,7 +68,7 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage }) => {
                         )}
                     </ul>
                 </CSSTransition>
-            </OutsideClickHandler>
+
             {alert &&
                 <Alert
                     title="Внимание!"
@@ -76,6 +78,7 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage }) => {
                 />
             }
         </div>
+        </OutsideClickHandler>
     )
 };
 

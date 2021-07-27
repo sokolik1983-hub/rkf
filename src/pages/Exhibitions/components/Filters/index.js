@@ -22,8 +22,8 @@ import UserMenu from "../../../../components/Layouts/UserMenu";
 import MenuComponent from "../../../../components/MenuComponent";
 import { connectAuthVisible } from "pages/Login/connectors";
 import ls from "local-storage";
-import "./index.scss";
 
+import "./index.scss";
 
 const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user, notificationsLength, isEducational }) => {
     const [ranks, setRanks] = useState([]);
@@ -106,7 +106,8 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                         alias={filters.Alias}
                                         name={clubName}
                                         isFederation={true}
-                                    /> :
+                                    />
+                                    :
                                     <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
                                         ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
                                         : clubNav(filters.Alias).filter(i => i.id !== 2)}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 import StickyBox from "react-sticky-box";
 import NotConfirmed from "../NotConfirmed";
 import Layout from "../../components/Layouts";

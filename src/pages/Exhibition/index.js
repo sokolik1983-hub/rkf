@@ -171,7 +171,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                                 alias={club_alias}
                                                 name={display_name || club_fact_name || ''}
                                                 isFederation={true}
-                                            /> :
+                                            />
+                                            :
                                             <UserMenu
                                                 userNav={clubNav(club_alias)}
                                                 isExhibitionPage={true}

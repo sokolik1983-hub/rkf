@@ -23,21 +23,21 @@ import { connectAuthVisible } from "pages/Login/connectors";
 import "./index.scss";
 
 const Filters = ({
-    isOpenFilters,
-    filters,
-    clubName,
-    profileId,
-    club,
-    setClub,
-    isAuthenticated,
-    logo,
-    federationName,
-    federationAlias,
-    active_member,
-    active_rkf_user,
-    notificationsLength,
-    needRequest,
-}) => {
+                     isOpenFilters,
+                     filters,
+                     clubName,
+                     profileId,
+                     club,
+                     setClub,
+                     isAuthenticated,
+                     logo,
+                     federationName,
+                     federationAlias,
+                     active_member,
+                     active_rkf_user,
+                     notificationsLength,
+                     needRequest,
+                 }) => {
 
     const [events, setEvents] = useState([]);
     const [ranks, setRanks] = useState([]);
@@ -69,7 +69,7 @@ const Filters = ({
                 setBreeds(data[0].breeds);
                 setLoading(false);
                 setRegions(data[0].regions);
-                // window.scrollTo(0, 0);
+                window.scrollTo(0, 0);
                 setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
             }).catch(error => {
                 console.log(error.response);
@@ -88,7 +88,7 @@ const Filters = ({
                 setSpecializations(data[0].specializations);
                 setLoading(false);
                 setRegions(data[0].regions);
-                // window.scrollTo(0, 0);
+                window.scrollTo(0, 0);
                 setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
             }).catch(error => {
                 console.log(error.response);
@@ -176,42 +176,43 @@ const Filters = ({
 
     return (
         <aside className={`specialists-page__filters specialists-filters${isOpenFilters ? ' _open' : ''}`}>
-            <StickyBox offsetTop={65}>
+            <StickyBox offsetTop={65} style={{top: "225px"}}>
                 {loading ?
                     <Loading centered={false} /> :
                     <>
                         {clubName && filters.Alias &&
-                            <div className="phone-hide">
-                                <UserHeader
-                                    user={filters.Alias !== 'rkf-online' ? 'club' : ''}
-                                    logo={filters.logo_link || logo}
-                                    name={clubName}
+                        <div className="phone-hide">
+                            <UserHeader
+                                user={filters.Alias !== 'rkf-online' ? 'club' : ''}
+                                logo={filters.logo_link || logo}
+                                name={clubName}
+                                alias={filters.Alias}
+                                profileId={profileId}
+                                federationName={federationName}
+                                federationAlias={federationAlias}
+                                active_member={active_member}
+                                active_rkf_user={active_rkf_user}
+                                canEdit={canEdit}
+                                subscribed={club.subscribed}
+                                member={club.member}
+                                subscribed_id={profileId = { profileId }}
+                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                isAuthenticated={isAuthenticated}
+                            />
+                            {isFederationAlias(filters.Alias) ?
+                                <MenuComponent
                                     alias={filters.Alias}
-                                    profileId={profileId}
-                                    federationName={federationName}
-                                    federationAlias={federationAlias}
-                                    active_member={active_member}
-                                    active_rkf_user={active_rkf_user}
-                                    canEdit={canEdit}
-                                    subscribed={club.subscribed}
-                                    member={club.member}
-                                    subscribed_id={profileId = { profileId }}
-                                    onSubscriptionUpdate={onSubscriptionUpdate}
-                                    isAuthenticated={isAuthenticated}
+                                    name={clubName}
+                                    isFederation={true}
                                 />
-                                {isFederationAlias(filters.Alias) ?
-                                    <MenuComponent
-                                        alias={filters.Alias}
-                                        name={clubName}
-                                        isFederation={true}
-                                    /> :
-                                    <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                        notificationsLength={notificationsLength}
-                                    />
-                                }
-                            </div>
+                                :
+                                <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
+                                    ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
+                                    : clubNav(filters.Alias).filter(i => i.id !== 2)}
+                                          notificationsLength={notificationsLength}
+                                />
+                            }
+                        </div>
                         }
                         <div className="specialists-filters__wrap">
                             {isJudges ? judgeFilters : specialistFilters}

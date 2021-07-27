@@ -10,19 +10,19 @@ import Card from "components/Card";
 import Alert from "components/Alert";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UserHeader from "../../components/redesign/UserHeader";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import { VideoGallery } from "components/Gallery";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "appConfig";
-import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
+import UserMenu from "../../components/Layouts/UserMenu";
+import { clubNav } from "../Club/config";
+
 import "./styles.scss";
 import "pages/Club/index.scss";
-
 
 const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -230,7 +230,8 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                     alias={clubInfo.club_alias}
                                                     name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                     isFederation={true}
-                                                /> :
+                                                />
+                                                :
                                                 <UserMenu userNav={canEdit
                                                     ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
                                                     : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}

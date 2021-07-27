@@ -11,18 +11,18 @@ import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
 import Aside from "components/Layouts/Aside";
 import UserHeader from "../../components/redesign/UserHeader";
-import UserMenu from "../../components/Layouts/UserMenu";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { DEFAULT_IMG } from "appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
-import "./styles.scss";
-import "pages/Club/index.scss";
+import UserMenu from "../../components/Layouts/UserMenu";
+import { clubNav } from "../Club/config";
 
+import "pages/Club/index.scss";
+import "./styles.scss";
 
 const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -283,7 +283,8 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                     alias={clubInfo.club_alias}
                                                     name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                     isFederation={true}
-                                                /> :
+                                                />
+                                                :
                                                 <UserMenu userNav={canEdit
                                                     ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
                                                     : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}

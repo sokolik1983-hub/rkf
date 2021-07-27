@@ -19,8 +19,8 @@ import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGal
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
-import "./index.scss";
 
+import "./index.scss";
 
 const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -125,7 +125,8 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                                                 alias={clubInfo.club_alias}
                                                 name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                 isFederation={true}
-                                            /> :
+                                            />
+                                            :
                                             <UserMenu userNav={clubNav(clubInfo.club_alias)} />
                                         }
                                         {!isMobile &&

@@ -91,11 +91,11 @@
             flex-grow: 1;
             @media (max-width: 990px) {
                 position: fixed;
-                top: 50px;
+                top: 71px;
                 left: 0;
                 z-index: 3;
                 padding: 16px;
-                height: calc(100% - 50px);
+                height: calc(100% - 132px);
                 overflow-y: auto;
                 visibility: hidden;
                 transform: translateX(-100%);
@@ -113,7 +113,7 @@
             }
             @media (max-width: 560px) {
                 top: 48px;
-                height: calc(100% - 48px);
+                height: calc(100% - 109px);
             }
             & > .Card {
                 @media (min-width: 560px) {

@@ -16,15 +16,15 @@
     margin: 16px 16px 0 0;
     @media (max-width: 990px) {
       position: fixed;
-      top: 50px;
-      left: 0;
+      top: 57px;
+      right: 0;
       z-index: 3;
       margin: 0;
       background-color: #fff;
-      height: calc(100% - 50px);
+      height: calc(100% - 70px);
       overflow-y: auto;
       visibility: hidden;
-      transform: translateX(-100%);
+      transform: translateX(100%);
       transition: all .2s ease-out;
       &._open {
         visibility: visible;
@@ -35,8 +35,8 @@
       }
     }
     @media (max-width: 560px) {
-      top: 48px;
-      height: calc(100% - 48px);
+      top: 71px;
+      height: calc(100% - 135px);
     }
   }
   &__content {

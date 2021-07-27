@@ -19,8 +19,8 @@ import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGal
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import BreedsList from "../../components/BreedsList";
-import "./index.scss";
 
+import "./index.scss";
 
 const NurseryDocumentStatus = ({ history, match, user }) => {
     const [nursery, setNurseryInfo] = useState(null);

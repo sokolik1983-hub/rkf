@@ -22,10 +22,10 @@
     @media (max-width: 990px) {
       display: flex;
       justify-content: space-between;
-      & > div {
-        width: calc(50% - 12px);
-        min-width: calc(50% - 12px);
-      }
+      //& > div {
+      //  width: calc(50% - 12px);
+      //  min-width: calc(50% - 12px);
+      //}
     }
     @media (max-width: 768px) {
       .photo-component {

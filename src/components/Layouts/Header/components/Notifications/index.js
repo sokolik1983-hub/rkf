@@ -11,6 +11,7 @@ import NotificationItem from "./NotificationItem";
 import { NotificationsContext } from 'app/context';
 import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
+import useIsMobile from "../../../../../utils/useIsMobile";
 import "./styles.scss";
 
 const defaultCategories = [
@@ -42,7 +43,7 @@ const Notifications = forwardRef(
         const [showDot, setShowDot] = useState(null);
         const [currentCategory, setCurrentCategory] = useState(2);
         const [categories, setCategories] = useState(defaultCategories);
-
+        const isMobile = useIsMobile(1080);
         const { notification } = useContext(NotificationsContext);
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
@@ -124,74 +125,76 @@ const Notifications = forwardRef(
         return (
             <div className="Notifications">
                 {isAuthenticated
-                    && <>
-                        <LightTooltip title="Уведомления" enterDelay={200} leaveDelay={200}>
-                            <div className="Notifications__icon-wrap">
-                                <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick} />
-                                {showDot && <div className="Notifications__icon-dot" />}
+                && <>
+                    <LightTooltip title="Уведомления" enterDelay={200} leaveDelay={200}>
+                        <div className="Notifications__icon-wrap">
+                            <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick}>
+                                {isMobile && "Уведомления"}
                             </div>
-                        </LightTooltip>
-                        <CSSTransition
-                            in={open}
-                            timeout={350}
-                            classNames="Notifications-transition"
-                            unmountOnExit
-                            onExited={() => { setNotifications([]); setCurrentCategory(2); }}
-                        >
-                            <div className="Notifications__content">
-                                <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-                                    <div className="Notifications__title">
-                                        <Link to={() => getNewsFeedLink(true)} onClick={() => setOpen(false)}>Уведомления</Link>
-                                    </div>
-                                    <div className="Notifications__tabs">
-                                        <NotificationCategories
-                                            categories={categories}
-                                            currentCategory={currentCategory}
-                                            setCurrentCategory={setCurrentCategory}
-                                        />
-                                    </div>
-                                    <div className="Notifications__list-wrap">
-                                        {!loaded
-                                            ? <Loading centered={false} />
-                                            : <>
-                                                <div className="Notifications__list">
-                                                    <div className="Notifications__list-inner">
-                                                        {
-                                                            notifications.length
-                                                                ? notifications.map((n, key) => {
-                                                                    return <React.Fragment key={key}>
-                                                                        <NotificationItem  {...n} setOpen={setOpen} />
-                                                                        {++key === notifications.length &&
-                                                                            <div className="NotificationItem end-message">
-                                                                                <h4>Уведомлений больше нет</h4>
-                                                                                <img
-                                                                                    src={DEFAULT_IMG.noNews}
-                                                                                    alt="Уведомлений больше нет"
-                                                                                    style={{ width: notifications.length > 2 ? '100px' : 'auto' }}
-                                                                                />
-                                                                            </div>}
-                                                                    </React.Fragment>
-                                                                })
-                                                                : <div className="NotificationItem nothing-found">
-                                                                    <h4>Здесь будут ваши уведомления</h4>
-                                                                    <img src={DEFAULT_IMG.noNews} alt="Здесь будут ваши уведомления" />
-                                                                </div>
-                                                        }
-                                                    </div>
-                                                    <div className="Notifications__list-see-all">
-                                                        <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
-                                                    </div>
+                            {showDot && <div className="Notifications__icon-dot" />}
+                        </div>
+                    </LightTooltip>
+                    <CSSTransition
+                        in={open}
+                        timeout={350}
+                        classNames="Notifications-transition"
+                        unmountOnExit
+                        onExited={() => { setNotifications([]); setCurrentCategory(2); }}
+                    >
+                        <div className="Notifications__content">
+                            <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+                                <div className="Notifications__title">
+                                    <Link to={() => getNewsFeedLink(true)} onClick={() => setOpen(false)}>Уведомления</Link>
+                                </div>
+                                <div className="Notifications__tabs">
+                                    <NotificationCategories
+                                        categories={categories}
+                                        currentCategory={currentCategory}
+                                        setCurrentCategory={setCurrentCategory}
+                                    />
+                                </div>
+                                <div className="Notifications__list-wrap">
+                                    {!loaded
+                                        ? <Loading centered={false} />
+                                        : <>
+                                            <div className="Notifications__list">
+                                                <div className="Notifications__list-inner">
+                                                    {
+                                                        notifications.length
+                                                            ? notifications.map((n, key) => {
+                                                                return <React.Fragment key={key}>
+                                                                    <NotificationItem  {...n} setOpen={setOpen} />
+                                                                    {++key === notifications.length &&
+                                                                    <div className="NotificationItem end-message">
+                                                                        <h4>Уведомлений больше нет</h4>
+                                                                        <img
+                                                                            src={DEFAULT_IMG.noNews}
+                                                                            alt="Уведомлений больше нет"
+                                                                            style={{ width: notifications.length > 2 ? '100px' : 'auto' }}
+                                                                        />
+                                                                    </div>}
+                                                                </React.Fragment>
+                                                            })
+                                                            : <div className="NotificationItem nothing-found">
+                                                                <h4>Здесь будут ваши уведомления</h4>
+                                                                <img src={DEFAULT_IMG.noNews} alt="Здесь будут ваши уведомления" />
+                                                            </div>
+                                                    }
                                                 </div>
-                                            </>}
-                                    </div>
-                                </OutsideClickHandler>
-                            </div>
-                        </CSSTransition>
-                    </>
+                                                <div className="Notifications__list-see-all">
+                                                    <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
+                                                </div>
+                                            </div>
+                                        </>}
+                                </div>
+                            </OutsideClickHandler>
+                        </div>
+                    </CSSTransition>
+                </>
                 }
             </div>
         )
     }
-);
+)
 
 export default connectWidgetLogin(connectLogin(React.memo(Notifications)));

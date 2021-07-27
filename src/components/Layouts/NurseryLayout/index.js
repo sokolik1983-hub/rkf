@@ -109,7 +109,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
                                         }
                                         <UserMenu userNav={canEdit
                                             ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                            : kennelNav(alias).filter(i => i.id !== 2)} 
+                                            : kennelNav(alias).filter(i => i.id !== 2)}
                                             notificationsLength={notificationsLength}
                                             />
                                         {!isMobile &&

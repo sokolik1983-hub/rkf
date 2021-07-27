@@ -1,6 +1,13 @@
 .contacts-component {
   padding: 14px 16px !important;
-  margin-bottom: 24px;
+  margin: 16px 0;
+  @media (max-width: 990px) {
+    margin-top: 0;
+    max-width: 50%;
+  }
+  @media (max-width: 560px) {
+    max-width: 100%;
+  }
   &__title {
     font-weight: 600;
     font-size: 14px;

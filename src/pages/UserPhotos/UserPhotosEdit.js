@@ -194,7 +194,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                                 updateInfo={getUserInfo}
                                             />
                                         </Card>
-                                        <UserMenu 
+                                        <UserMenu
                                         userNav={userNav(alias)}
                                         notificationsLength={notificationsLength}
                                         />

@@ -13,6 +13,7 @@
   &__rank-title {
     margin-top: 10px;
     line-height: 24px!important;
+    min-height: 50px;
   }
   &__disciplines {
     display: flex;
@@ -303,10 +304,12 @@
     border-top: 1px solid #e8e8e8;
     display: flex;
     justify-content: flex-end;
+    position: relative;
     &._open {
       justify-content: space-between;
     }
     button {
+      text-align: left;
       margin-right: auto;
       color: #72839c;
       border: none;
@@ -346,7 +349,7 @@
     letter-spacing: 0.2px;
     transition: color 0.2s linear;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 20px;
     &:hover {
       color: #36f;
     }
@@ -357,6 +360,12 @@
   .Share {
     pointer-events: none;
     line-height: 20px;
+    position: absolute;
+    right: 0;
+    @media (max-width: 440px) {
+      top: 50%;
+      transform: translateY(-35%);
+    }
     .ya-share2__icon_more {
       height: 16px;
       background-color: white;
@@ -378,6 +387,7 @@
   margin-top: 10px;
   .card-specialist__content-title {
     margin: 10px 0;
+    min-height: 50px;
   }
 }
 .custom-css-flex-width {

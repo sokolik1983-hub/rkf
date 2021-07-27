@@ -1,75 +1,96 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
-import CitySelect from "../../../../components/CitySelect";
-import ListFilter from './ListFilter';
+import ClickGuard from "../../../../components/ClickGuard";
 import CardNewsNew from "../../../../components/CardNewsNew";
-import { endpointGetNews } from "../../config";
-import { Request } from "../../../../utils/request";
-import { DEFAULT_IMG } from "../../../../appConfig";
-// import Banner from "../../../../components/Banner";
-import './index.scss';
+import NewsFilters from "../NewsFilters";
+import {endpointGetNews} from "../../config";
+import {Request} from "../../../../utils/request";
+import {DEFAULT_IMG} from "../../../../appConfig";
+import { connectShowFilters } from "../../../../components/Layouts/connectors";
+
+import "./index.scss";
 
 
-function getCity() {
-    const l = localStorage.getItem('GLOBAL_CITY');
-    return l ? JSON.parse(l) : { label: 'Выберите город', value: null };
+const getLSCities = () => {
+    const filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
+    return filters.cities || [];
 };
 
-const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
+const setLSCities = citiesIds => {
+    let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
+    filters.cities = citiesIds;
+    localStorage.setItem('FiltersValues', JSON.stringify(filters));
+};
+
+
+const NewsList = ({isFullDate = true, setShowFilters, isOpenFilters}) => {
     const [activeType, setActiveType] = useState('all');
     const [news, setNews] = useState([]);
-    const [startElement, setStartElement] = useState(1);
+    const [cities, setCities] = useState([]);
+    const [filtersLoading, setFiltersLoading] = useState(true);
     const [newsLoading, setNewsLoading] = useState(false);
+    const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [newsFilter, setNewsFilter] = useState({
-        city: getCity(),
+        cities: getLSCities(),
         activeType: null,
         isAdvert: null
     });
-
     const newsListRef = useRef(null);
 
     const getNews = async (startElem, filters) => {
         setNewsLoading(true);
 
         await Request({
-            url: `${endpointGetNews}?start_element=${startElem}${filters.city && filters.city.value ? `&fact_city_ids=${filters.city.value}` : ''}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
-        },
-        data => {
-            if (data.articles.length) {
-                const modifiedNews = data.articles.map(article => {
-                    article.title = article.club_name;
-                    article.url = `/news/${article.id}`;
-                    return article;
-                });
+                url: `${endpointGetNews}?start_element=${startElem}${filters.cities.map(id => `&fact_city_ids=${id}`).join('')}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
+            }, data => {
+                if (data.articles.length) {
+                    const modifiedNews = data.articles.map(article => {
+                        article.title = article.club_name;
+                        article.url = `/news/${article.id}`;
+                        return article;
+                    });
 
-                if(data.articles.length < 10) {
-                    setHasMore(false);
+                    if (data.articles.length < 10) {
+                        setHasMore(false);
+                    } else {
+                        setHasMore(true);
+                    }
+
+                    setNews(startElem === 1 ? modifiedNews : [...news, ...modifiedNews]);
                 } else {
-                    setHasMore(true);
-                }
+                    if (startElem === 1) {
+                        setNews([]);
+                    }
 
-                setNews(startElem === 1 ? modifiedNews : [...news, ...modifiedNews]);
-            } else {
-                if(startElem === 1) {
-                    setNews([]);
+                    setHasMore(false);
                 }
-
-                setHasMore(false);
-            }
-        },
-        error => console.log(error.response));
+            }, error => console.log(error.response));
 
         setNewsLoading(false);
     };
 
     useEffect(() => {
-        (() => getNews(1, newsFilter))();
+        (async () => {
+            await Request({url: '/api/city/article_cities'},
+            data => {
+                if(data) {
+                    setCities(data);
+                }
+            },
+            error => {
+                console.log(error.response);
+            });
+
+            setFiltersLoading(false);
+
+            await getNews(1, newsFilter);
+        })();
     }, []);
 
     const getNextNews = () => {
-        if(hasMore) {
+        if (hasMore) {
             setStartElement(startElement + 10);
             (() => getNews(startElement + 10, newsFilter))();
         }
@@ -81,7 +102,7 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
         el && window.scrollTo(0, el.offsetTop - 75);
         let newFilters = {};
 
-        if(type !== 'all') {
+        if (type !== 'all') {
             newFilters = {...newsFilter, isAdvert: type === 'advert'};
         } else {
             newFilters = {...newsFilter, isAdvert: null};
@@ -100,117 +121,80 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
         (() => getNews(1, {...newsFilter, activeType: activeFiltername}))();
     };
 
-    const changeCityFilter = city => {
+    const changeCityFilter = citiesIds => {
         const el = newsListRef.current;
         el && window.scrollTo(0, el.offsetTop - 75);
-        setNewsFilter({...newsFilter, city});
+        setLSCities(citiesIds);
+        setNewsFilter({...newsFilter, cities: citiesIds});
         setStartElement(1);
-        (() => getNews(1, {...newsFilter, city}))();
+        (() => getNews(1, {...newsFilter, cities: citiesIds}))();
     };
 
     return (
-        <div className="NewsList" ref={newsListRef}>
-            <div className="NewsList__head">
-                <div className="NewsList__head-wrap">
-                    <div className="Homepage__news-title">
-                        <h3>Публикации</h3>
-                        <div className="Homepage__news-mobile-only">
-                            <CitySelect
-                                currentCity={newsFilter.city}
-                                cityFilter={city => {
-                                    if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
-                                        changeCityFilter(city);
-                                    }
-                                }}
-                            />
-                        </div>
+        <>
+            <div className="NewsList" ref={newsListRef}>
+                <ClickGuard value={isOpenFilters}
+                            callback={() => setShowFilters({isOpenFilters: false})}
+                />
+                <NewsFilters
+                    loading={filtersLoading}
+                    cities={cities}
+                    startElement={startElement}
+                    activeType={activeType}
+                    newsFilter={newsFilter}
+                    changeOrganizationFilters={changeOrganizationFilters}
+                    changeTypeFilters={changeTypeFilters}
+                    changeCityFilter={changeCityFilter}
+                />
+                {news && !!news.length &&
+                    <InfiniteScroll
+                        dataLength={news.length}
+                        next={getNextNews}
+                        hasMore={hasMore}
+                        loader={newsLoading && <Loading centered={false}/>}
+                        endMessage={
+                            <div className="NewsList__no-news">
+                                <h4>Публикаций больше нет</h4>
+                                <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет"/>
+                            </div>
+                        }
+                    >
+                        <ul className="NewsList__content">
+                            {news && !!news.length && news.map((item, index) => (
+                                <li className="NewsList__item" key={item.id}>
+                                    <CardNewsNew
+                                        {...item}
+                                        user={item.user_type}
+                                        city={item.fact_city_name}
+                                        date={item.create_date}
+                                        isFullDate={isFullDate}
+                                        small_photo={item.picture_short_link}
+                                        photo={item.picture_link}
+                                        text={item.content}
+                                        url={`/news/${item.id}`}
+                                        changeCityFilter={changeCityFilter}
+                                        isAd={item.is_advert}
+                                        adBreedName={item.advert_breed_name}
+                                        adCode={item.advert_code}
+                                        adPrice={item.advert_cost}
+                                        adAmount={item.advert_number_of_puppies}
+                                        adCategory={item.advert_type_name}
+                                        videoLink={item.video_link}
+                                    />
+                                </li>
+                            ))}
+                        </ul>
+                    </InfiniteScroll>
+                }
+                {(!news || !news.length) && !newsLoading &&
+                    <div className="NewsList__no-news">
+                        <h4>Публикации не найдены</h4>
+                        <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены"/>
                     </div>
-                    <div className="NewsList__filters">
-                        <div className="Homepage__news-title-wrap">
-                            <ul className="ListFilter">
-                                <li>
-                                    <span
-                                        className={`ListFilter__item${activeType === 'all' ? ' _active' : ''}`}
-                                        onClick={() => changeTypeFilters('all')}
-                                    >Все</span>
-                                </li>
-                                <li>
-                                    <span
-                                        className={`ListFilter__item${activeType === 'news' ? ' _active' : ''}`}
-                                        onClick={() => changeTypeFilters('news')}
-                                    >Новости</span>
-                                </li>
-                                <li>
-                                    <span
-                                        className={`ListFilter__item${activeType === 'advert' ? ' _active' : ''}`}
-                                        onClick={() => changeTypeFilters('advert')}
-                                    >Объявления</span>
-                                </li>
-                            </ul>
-                            <CitySelect
-                                currentCity={newsFilter.city}
-                                cityFilter={city => {
-                                    if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
-                                        changeCityFilter(city);
-                                    }
-                                }}
-                            />
-                        </div>
-                        <ListFilter
-                            changeFilter={changeOrganizationFilters}
-                        />
-                    </div>
-                </div>
+                }
             </div>
-            {news && !!news.length &&
-                <InfiniteScroll
-                    dataLength={news.length}
-                    next={getNextNews}
-                    hasMore={hasMore}
-                    loader={newsLoading && <Loading centered={false} />}
-                    endMessage={
-                        <div className="NewsList__no-news">
-                            <h4>Публикаций больше нет</h4>
-                            <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
-                        </div>
-                    }
-                >
-                    <ul className="NewsList__content">
-                        {news && !!news.length && news.map((item,index) => (
-                            <li className="NewsList__item" key={item.id}>
-                                <CardNewsNew
-                                    {...item}
-                                    user={item.user_type}
-                                    city={item.fact_city_name}
-                                    date={item.create_date}
-                                    isFullDate={isFullDate}
-                                    small_photo={item.picture_short_link}
-                                    photo={item.picture_link}
-                                    text={item.content}
-                                    url={`/news/${item.id}`}
-                                    changeCityFilter={changeCityFilter}
-                                    citiesDict={citiesDict}
-                                    isAd={item.is_advert}
-                                    adBreedName={item.advert_breed_name}
-                                    adCode={item.advert_code}
-                                    adPrice={item.advert_cost}
-                                    adAmount={item.advert_number_of_puppies}
-                                    adCategory={item.advert_type_name}
-                                    videoLink={item.video_link}
-                                />
-                                {/* {
-                                    banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : '' 
-                                } */}
-                            </li>
-                        ))}
-                    </ul>
-                </InfiniteScroll>}
-            {(!news || !news.length) && !newsLoading && <div className="NewsList__no-news">
-                <h4>Публикации не найдены</h4>
-                <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
-            </div>}
-        </div>
+        </>
     )
 };
 
-export default React.memo(NewsList);
+export default React.memo(connectShowFilters(NewsList));

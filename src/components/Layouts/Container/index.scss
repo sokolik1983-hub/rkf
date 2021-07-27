@@ -10,13 +10,10 @@
   }
 }
 .content {
-  padding-top: 50px;
+  padding-top: 80px;
   min-height: calc(100vh - 52px);
   @media (max-width: 768px) {
     min-height: calc(100vh - 108px);
-  }
-  @media (max-width: 560px) {
-    padding-top: 48px;
   }
   &__title {
     margin-top: 30px;

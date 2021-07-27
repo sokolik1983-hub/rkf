@@ -3,26 +3,36 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
 .Notifications {
     display: flex;
     align-items: center;
-    margin-right: 28px;
     height: 50px;
     @media (min-width: 560px) {
         position: relative;
     }
     &__icon {
-        width: 21px;
-        height: 21px;
-        background-position: center center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 25px;
+        margin-right: 10px;
+        width: 50px;
+        height: 50px;
+        font-size: 12px;
+        color: #979797;
+        background-position: top center;
         background-repeat: no-repeat;
-        background-size: contain;
+        background-size: 44px 44px;
         background-image: url("/static/new-icons/notifications/notifications.svg");
         cursor: pointer;
+        @media (max-width: 1080px) {
+            background-image: url("/static/new-icons/notifications/bell.svg");
+            background-size: 25px 25px;
+        }
         &:hover,
         &._active {
             filter: $blue-color;
         }
         &-wrap {
             position: relative;
-            top: 3px;
+            top: 2px;
         }
         &-dot {
             position: absolute;
@@ -30,8 +40,14 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
             height: 7px;
             border-radius: 50%;
             background: red;
-            top: -4px;
-            right: -7px;
+            top: -2px;
+            right: 14px;
+            border: 3px white solid;
+            box-sizing: content-box;
+            @media (max-width: 1080px) {
+                top: -9px;
+                right: 20px;
+            }
         }
     }
     &__title {
@@ -74,7 +90,7 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
     &__content {
         position: absolute;
         right: -55px;
-        top: 50px;
+        top: 58px;
         z-index: 1;
         box-shadow: 0px 0px 4px rgba(51, 102, 255, 0.3);
         background: white;
@@ -83,7 +99,7 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
         @media (max-width: 560px) {
             right: 15px;
             left: 15px;
-            top: 48px;
+            top: 64px;
             width: auto;
         }
         & > div:first-child {

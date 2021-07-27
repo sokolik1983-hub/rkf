@@ -98,11 +98,11 @@
       width: 300px;
       min-width: 300px;
       position: fixed;
-      top: 50px;
-      left: 0;
+      top: 71px;
+      right: 0;
       z-index: 3;
       padding: 16px;
-      height: calc(100% - 50px);
+      height: calc(100% - 132px);
       overflow-y: auto;
       visibility: hidden;
       transform: translateX(-100%);
@@ -115,7 +115,7 @@
     }
     @media (max-width: 560px) {
       top: 48px;
-      height: calc(100% - 48px);
+      height: calc(100% - 109px);
     }
     .StickyFilters {
       @media (min-width: 990px) {
