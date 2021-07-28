@@ -24,8 +24,9 @@
   .organizations-page__about {
     margin-bottom: 16px;
     h3 {
+      line-height: 24px;
       margin-bottom: 0;
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       border-bottom: 1px solid #e8e8e8;
       & + p {
         margin-top: 9px;
@@ -40,7 +41,8 @@
         display: none;
       }
       h3 {
-        padding-bottom: 12px;
+        line-height: 24px;
+        padding-bottom: 10px;
         border-bottom: 1px solid #e8e8e8;
       }
   
@@ -60,7 +62,7 @@
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid #e8e8e8;
-      padding-bottom: 12px;
+      padding-bottom: 10px;
       margin-bottom: 12px;
     }
     &-title {
@@ -74,6 +76,7 @@
     &-info {
       position: relative;
       top: 3px;
+      height: 20px;
     }
     &-svg:hover {
       fill: #3366ff;

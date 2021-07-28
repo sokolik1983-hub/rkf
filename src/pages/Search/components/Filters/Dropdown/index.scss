@@ -2,10 +2,10 @@
   &__title {
     display: block;
     position: relative;
-    padding: 0 20px 10px 0;
+    padding: 0 20px 0;
     font-weight: normal;
     font-size: 18px;
-    line-height: 16px;
+    line-height: 24px;
     letter-spacing: .2px;
     color: #253C5E;
     cursor: pointer;
@@ -32,6 +32,9 @@
       right: 1px;
       transition: all .2s linear;
     }
+  }
+  &._open .dropdown__title {
+    padding: 0 20px 10px 0;
   }
   &._open .dropdown__title:after {
     transform: rotate(180deg);
