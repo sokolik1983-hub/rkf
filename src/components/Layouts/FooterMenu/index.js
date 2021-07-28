@@ -41,18 +41,21 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                     <span>{footerNav[0].title}</span>
                 </NavLink>
 
-                {isAuthenticated &&
-                <NavLink className="footer__menu-link __disabled" to='/'>
-                    {footerNav[1].image}
-                    <span>{footerNav[1].title}</span>
+                <NavLink className="footer__menu-link" to='/'>
+                    {footerNav[5].image}
+                    <span>{footerNav[5].title}</span>
                 </NavLink>
-                }
 
-                <WidgetLogin footerNav={footerNav[2]} />
+                {/*{isAuthenticated &&*/}
+                {/*<NavLink className="footer__menu-link __disabled" to='/'>*/}
+                {/*    {footerNav[1].image}*/}
+                {/*    <span>{footerNav[1].title}</span>*/}
+                {/*</NavLink>*/}
+                {/*}*/}
 
                 {isAuthenticated && (user_type === 5 || alias === 'rkf') &&
                 <MenuComponent
-                    footerNav={footerNav[3]}
+                    footerNav={footerNav[4]}
                     alias={alias}
                     name={name}
                     isFederation={isFederationAlias}
@@ -62,7 +65,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                 {isAuthenticated && user_type !== 5 && alias !== 'rkf' &&
                 <UserMenu
                     notificationsLength={notificationsLength}
-                    footerNav={footerNav[3]}
+                    footerNav={footerNav[4]}
                     userNav={canEdit && user_type &&
                         user_type === 1 ?
                             userNav(alias)
@@ -74,6 +77,18 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                     }
                 />
                 }
+
+
+                <NavLink className="footer__menu-link" to={footerNav[6].to}>
+                    {footerNav[6].image}
+                    <span>{footerNav[6].title}</span>
+                </NavLink>
+
+
+                <NavLink className="footer__menu-link" to={footerNav[7].to}>
+                    {footerNav[7].image}
+                    <span>{footerNav[7].title}</span>
+                </NavLink>
             </div>
             }
         </>

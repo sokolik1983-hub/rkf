@@ -42,14 +42,16 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                     <ClickGuard value={isOpen}
                                 callback={() => setIsOpen(false)}/>
 
-                    <div onClick={() => {
+                    <div className={'header__nav-burger'}
+                        onClick={() => {
                         setIsOpen(!isOpen);
                         needChangeIsOpen(!isOpen);
                     }}>
-                        <BurgerButton
-                        className={isOpen ? '_open' : ''}
-                        isOpen= {isOpen}
-                        />
+                        <div>
+                           <svg  stroke={isOpen && '#3366FF'} width="26" height="18" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0V2H20V0H0ZM0 6V8H20V6H0ZM0 12V14H20V12H0Z" fill="#979797"/>
+                            </svg>
+                        </div>
 
                          <h5 className={isOpen ? "header__nav-menu _open" : "header__nav-menu"}>{menuTitle}</h5>
                     </div>
