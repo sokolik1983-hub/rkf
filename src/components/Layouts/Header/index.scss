@@ -522,7 +522,7 @@
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
-      color: #3366ff !important;
+      color: #72839c !important;
       @media (max-width: 1080px) {
         border-bottom: none;
       }
@@ -753,6 +753,7 @@
   }
   &__item {
     position: relative;
+    border-top: 1px solid #ccc;
     a,
     span {
       text-decoration: none;
@@ -896,6 +897,37 @@
   }
 }
 
+.header__nav-list  {
+  &._open {
+    & .widget-login__item {
+      @media (max-width: 580px) {
+        a {
+          position: relative;
+          padding-left: 25px;
+          color: #72839c;
+        }
+        a:first-child:before {
+          content: '';
+          background: url("/static/icons/base_of_knowledge.svg") no-repeat center/cover;
+          width: 17px;
+          height: 17px;
+          position: absolute;
+          left: -5px;
+          bottom: 5px;
+        }
+        a:nth-child(2):before {
+          content: '';
+          background: url("/static/icons/support_center.svg") no-repeat center/cover;
+          width: 17px;
+          height: 17px;
+          position: absolute;
+          left: -5px;
+          bottom: 5px;
+        }
+      }
+    }
+  }
+}
 
 
 
