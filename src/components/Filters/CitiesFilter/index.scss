@@ -33,92 +33,27 @@
       transform: rotate(180deg);
     }
   }
-  &__placeholder {
-    color: #757575 !important;
-  }
-  &__values {
-    list-style: none;
-    &-item {
-      display: inline-block;
-      padding: 4px;
-      background-color: #e8e8e8;
-      border-radius: 2px;
-      font-size: 14px;
-      line-height: 1;
-      &:not(:last-child) {
-        margin-right: 4px;
-      }
-      button {
-        padding: 0;
-        margin-left: 4px;
-        border: none;
-        font-size: 12px;
-        vertical-align: middle;
-      }
+  .dropdown__filters {
+    &-enter,
+    &-appear {
+      opacity: 0;
+      transform: translateY(-10px);
     }
-  }
-  .custom-checkbox{
-    pointer-events: none;
-  }
-}
-
-#cities-filter {
-  .cities-filter {
-    &__control {
-      background-color: transparent;
-      border-color: hsl(0,0%,80%);
-      border-radius: 0;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      box-shadow: none;
+    &-enter-active,
+    &-appear-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
     }
-    &__value-container {
-      padding: 0;
+    &-exit {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
     }
-    &__indicator-separator,
-    &__dropdown-indicator {
-      display: none;
+    &-exit-active {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
     }
-    &__menu {
-      position: static;
-      background-color: transparent;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-    }
-    &__option {
-      padding: 0 12px 0 0;
-      color: #253c5e;
-      cursor: pointer;
-      background-color: transparent !important;
-      transition: background-color .2s linear;
-      &:hover {
-        background-color: #DEEBFF !important;
-      }
-    }
-  }
-}
-.dropdown__filters {
-  &-enter,
-  &-appear {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  &-enter-active,
-  &-appear-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.2s, transform 0.2s;
-  }
-  &-exit {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.2s, transform 0.2s;
-  }
-  &-exit-active {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.2s, transform 0.2s;
   }
 }

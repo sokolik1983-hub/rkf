@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
@@ -14,4 +14,4 @@ const ActiveUserFilter = ({active_rkf_user, onChange}) => (
     </div>
 );
 
-export default React.memo(ActiveUserFilter);
+export default memo(ActiveUserFilter);

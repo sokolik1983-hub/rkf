@@ -1,21 +1,9 @@
 import React, {memo, useState, useEffect} from "react";
-import Select, {components} from "react-select";
 import {CSSTransition} from "react-transition-group";
 import Card from "../../Card";
 import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
-
-const Option = props => (
-    <components.Option {...props}>
-        <CustomCheckbox
-            id={`events-${props.value}`}
-            label={props.label}
-            checked={props.isSelected}
-            onChange={() => null}
-        />
-    </components.Option>
-);
 
 const ClassificationsFilter = ({events, event_ids, onChange}) => {
     const [values, setValues] = useState([]);
@@ -46,25 +34,21 @@ const ClassificationsFilter = ({events, event_ids, onChange}) => {
                 classNames="events__filters"
             >
                 <div className="events-filter__wrap">
-                    <Select
-                        id="events-filter"
-                        isMulti={false}
-                        closeMenuOnSelect={false}
-                        options={[...values, ...optionsNotInValues]}
-                        defaultMenuIsOpen={true}
-                        hideSelectedOptions={false}
-                        menuIsOpen={true}
-                        controlShouldRenderValue={false}
-                        onChange={handleChange}
-                        clearable={true}
-                        isSearchable
-                        classNamePrefix="events-filter"
-                        placeholder="Начните вводить мероприятие"
-                        noOptionsMessage={() => 'Мероприятий не найдено'}
-                        value={values}
-                        components={{Option}}
-                        maxMenuHeight={170}
-                    />
+                    {[...values, ...optionsNotInValues].length ?
+                        <ul className="events-filter__list">
+                            {[...values, ...optionsNotInValues].map(option =>
+                                <li className="events-filter__item" key={`event-${option.value}`}>
+                                    <CustomCheckbox
+                                        id={`event-${option.value}`}
+                                        label={option.label}
+                                        checked={!!values.find(value => value.value === option.value)}
+                                        onChange={() => handleChange(option)}
+                                    />
+                                </li>
+                            )}
+                        </ul> :
+                        <p className="events-filter__no-options">Мероприятий не найдено</p>
+                    }
                 </div>
             </CSSTransition>
         </Card>

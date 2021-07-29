@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
@@ -14,4 +14,4 @@ const NotActivatedFilter = ({not_activated, label, onChange}) => (
     </div>
 );
 
-export default React.memo(NotActivatedFilter);
+export default memo(NotActivatedFilter);
