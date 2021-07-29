@@ -1,114 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, {memo} from "react";
 import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
-import { setFiltersToUrl, getEmptyFilters } from "../../../../utils";
+import {setFiltersToUrl, getEmptyFilters} from "../../../../utils";
 import "./index.scss";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
-const ListFilter = ({ searchTypeId, setNeedRequest }) => {
-    const [activeType, setActiveType] = useState(0);
 
-    useEffect(() => {
-        setActiveType(+searchTypeId);
-    }, [searchTypeId]);
-
+const ListFilter = ({searchTypeId}) => {
     const handleClick = type => {
-        setFiltersToUrl(getEmptyFilters());
         const calendarButton = document.getElementsByClassName('specialists-calendar__button active')[0];
-        if (calendarButton) calendarButton.classList.remove('active');
 
-        setFiltersToUrl({ SearchTypeId: type });
+        if(calendarButton) calendarButton.classList.remove('active');
 
-        // if (type === 4 || (activeType === 4 && type !== 4)) {
-        //     setFiltersToUrl({ CityIds: [] });
-        // }
-        setNeedRequest(true);
+        setFiltersToUrl({...getEmptyFilters(), SearchTypeId: type});
     };
-
-    const clientWidth = window.innerWidth;
 
     return (
         <div className="specialists-page__list-filter">
             <h4 className="list-filter__title">Судьи и специалисты</h4>
             <HorizontalSwipe id="specialists-list-filter" desktopScroll={true}>
-
-                {
-                    (clientWidth < 600) ? (<Slider
-                        slidesToShow={1}
-                        arrows={false}
-                        centerMode={true}
-                        focusOnSelect={true}
-                        dots={false}
-                        infinite={false}
-                        autoplay={false}
-                        fade={false}
-                        adaptiveHeight={true}
-                        variableWidth={true}
-
-                    >
-                            <li className="list-filter__item">
-                        <span className={`list-filter__control${activeType === 4 ? ' _active' : ''}`}
-                              onClick={() => handleClick(4)}>
-                            По породам
-                        </span>
-                            </li>
-                            <li className="list-filter__item">
-                        <span className={`list-filter__control${activeType === 1 ? ' _active' : ''}`}
-                              onClick={() => handleClick(1)}>
-                        По служебным <br /> и игровым дисциплинам
-                        </span>
-                            </li>
-                            <li className="list-filter__item">
-                        <span className={`list-filter__control${activeType === 2 ? ' _active' : ''}`}
-                              onClick={() => handleClick(2)}>
-                        По охотничьим <br /> дисциплинам
-                        </span>
-                            </li>
-                            <li className="list-filter__item">
-                        <span className={`list-filter__control${activeType === 3 ? ' _active' : ''}`}
-                              onClick={() => handleClick(3)}>
-                        Специалисты
-                        </span>
-                            </li>
-
-                    </Slider>) : (<ul className="list-filter">
-                        <li className="list-filter__item">
-                        <span className={`list-filter__control${activeType === 4 ? ' _active' : ''}`}
-                              onClick={() => handleClick(4)}>
-                            По породам
-                        </span>
-                        </li>
-                        <li className="list-filter__item">
-                        <span className={`list-filter__control${activeType === 1 ? ' _active' : ''}`}
-                              onClick={() => handleClick(1)}>
-                        По служебным и игровым дисциплинам
-                        </span>
-                        </li>
-                        <li className="list-filter__item">
-                        <span className={`list-filter__control${activeType === 2 ? ' _active' : ''}`}
-                              onClick={() => handleClick(2)}>
-                        По охотничьим дисциплинам
-                        </span>
-                        </li>
-                        <li className="list-filter__item">
-                        <span className={`list-filter__control${activeType === 3 ? ' _active' : ''}`}
-                              onClick={() => handleClick(3)}>
-                        Специалисты
-                        </span>
-                        </li>
-                    </ul>)
-                }
-
-                {/* <li className="list-filter__item">
+                <ul className="list-filter">
+                    <li className="list-filter__item">
                         <span
-                            className={`list-filter__control${activeType === 99 ? ' _active' : ''}`}
-                            onClick={() => handleClick(99)}
-                        >Обучение</span>
-                    </li> */}
+                            className={`list-filter__control${searchTypeId === 4 ? ' _active' : ''}`}
+                            onClick={() => handleClick(4)}
+                        >
+                            По породам
+                        </span>
+                    </li>
+                    <li className="list-filter__item">
+                        <span
+                            className={`list-filter__control${searchTypeId === 1 ? ' _active' : ''}`}
+                            onClick={() => handleClick(1)}
+                        >
+                            По служебным и игровым дисциплинам
+                        </span>
+                    </li>
+                    <li className="list-filter__item">
+                        <span
+                            className={`list-filter__control${searchTypeId === 2 ? ' _active' : ''}`}
+                            onClick={() => handleClick(2)}
+                        >
+                            По охотничьим дисциплинам
+                        </span>
+                    </li>
+                    <li className="list-filter__item">
+                        <span
+                            className={`list-filter__control${searchTypeId === 3 ? ' _active' : ''}`}
+                            onClick={() => handleClick(3)}
+                        >
+                            Специалисты
+                        </span>
+                    </li>
+                </ul>
             </HorizontalSwipe>
         </div>
     )
 };
 
-export default React.memo(ListFilter);
+export default memo(ListFilter);

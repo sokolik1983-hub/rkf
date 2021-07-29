@@ -1,7 +1,7 @@
 .specialists-page {
   display: flex;
   &.content {
-    padding-top: 75px;
+    padding-top: 86px;
   }
   @media (max-width: 990px) {
     display: block;
@@ -35,21 +35,15 @@
       width: 100%;
       max-width: 100%;
     }
-    @media (max-width: 560px) {
-      margin: 12px 0;
-    }
   }
   &__list-filter {
     width: 100%;
     overflow: hidden;
     padding: 10px 10px 0;
     position: sticky;
-    top: 50px;
+    top: 70px;
     background: white;
     z-index: 2;
-    @media (max-width: 560px) {
-      top: 71px;
-    }
   }
   &__top-wrap {
     margin: 50px auto -50px;

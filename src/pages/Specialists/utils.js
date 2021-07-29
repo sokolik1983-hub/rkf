@@ -1,29 +1,30 @@
 import history from "../../utils/history";
-import { endpointGetSpecialists, endpointGetJudges } from "./config";
-import { formatDateToString } from "../../utils/datetime";
+import {endpointGetSpecialists, endpointGetJudges, endpointJudgesFilters, endpointSpecialistsFilters} from "./config";
 
-const buildUrlParams = filter => {
+
+const buildUrlParams = filters => {
     let params = '';
 
-    Object.keys(filter).forEach(key => {
-        if (filter[key]) {
-            if (key === 'PageNumber') {
-                if (filter[key] > 1) {
-                    params = params + `${key}=${filter[key]}&`;
+    Object.keys(filters).forEach(key => {
+        if(filters[key]) {
+            if(key === 'SearchTypeId') {
+                if(filters[key] > 0) {
+                    params = params + `${key}=${filters[key]}&`;
                 }
-            } else if (key === 'SearchTypeId') {
-                if (filter[key] > 0) {
-                    params = params + `${key}=${filter[key]}&`;
+            } else if(
+                key === 'RegionIds' ||
+                key === 'CityIds' ||
+                key === 'BreedGroupIds' ||
+                key === 'BreedIds' ||
+                key === 'SpecializationIds' ||
+                key === 'DisciplineIds' ||
+                key === 'ContestIds'
+            ) {
+                if (filters[key].length) {
+                    params = params + filters[key].map(item => `${key}=${item}&`).join('');
                 }
-            } else if (key === 'ClassificationId' || key === 'RankId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'ContestIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === "RegionIds" || key === "BreedGroupIds" || key === "BreedIds") {
-                if (filter[key].length) {
-                    params = params + filter[key].map(r => `${key}=${r}&`).join('');
-                }
-            } else if (key === 'StringFilter') {
-                params = params + `${key}=${filter[key]}&`;
-            }
-            else {
-                params = params + `${key}=${filter[key]}&`;
+            } else {
+                params = params + `${key}=${filters[key]}&`;
             }
         }
     });
@@ -35,44 +36,16 @@ const buildUrlParams = filter => {
     return params ? `?${params}` : '';
 };
 
-const buildJudgesUrlParams = filter => {
-    let params = '';
-
-    Object.keys(filter).forEach(key => {
-        if (filter[key]) {
-            if (key === 'PageNumber') {
-                if (filter[key] > 1) {
-                    params = params + `${key}=${filter[key]}&`;
-                }
-            } else if (key === 'SearchTypeId') {
-                if (filter[key] > 0) {
-                    params = params + `${key}=${filter[key]}&`;
-                }
-            } else if (key === 'ClassificationId' || key === 'RankId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'ContestIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === "RegionIds" || key === "BreedGroupIds" || key === "BreedIds") {
-                if (filter[key].length) {
-                    params = params + filter[key].map(r => `${key}=${r}&`).join('');
-                }
-            } else if (key === 'StringFilter') {
-                params = params + `${key}=${filter[key]}&`;
-            }
-            else {
-                params = params + `${key}=${filter[key]}&`;
-            }
-        }
-    });
-
-    if (params.charAt(params.length - 1) === '&') {
-        params = params.slice(0, -1);
-    }
-
-    return params ? `?${params}` : '';
+export const buildUrl = filters => {
+    return +filters.SearchTypeId === 4
+        ? endpointGetJudges + buildUrlParams(filters)
+        : endpointGetSpecialists + buildUrlParams(filters);
 };
 
-export const buildUrl = filter => {
-    filter = filter || {};
-    return parseInt(filter.SearchTypeId) === 4
-        ? endpointGetJudges + buildJudgesUrlParams(filter)
-        : endpointGetSpecialists + buildUrlParams(filter);
+export const buildFiltersUrl = (filters, isFirstTime) => {
+    return +filters.SearchTypeId === 4 ?
+        `${endpointJudgesFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${filters.BreedGroupIds.map(b => `&BreedGroupIds=${b}`).join('')}&ReturnStaticFilters=${isFirstTime}&ReturnBreeds=true&ReturnCities=true` :
+        `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=${isFirstTime}`
 };
 
 export const getFiltersFromUrl = () => {
@@ -87,20 +60,26 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'CityIds' || key === 'ClassificationId' || key === 'RankId' || key === 'SpecializationIds' || key === 'DisciplineIds' || key === 'ContestIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === "RegionIds" || key === "BreedGroupIds" || key === "BreedIds") {
+            if (
+                key === 'RegionIds' ||
+                key === 'CityIds' ||
+                key === 'BreedGroupIds' ||
+                key === 'BreedIds' ||
+                key === 'SpecializationIds' ||
+                key === 'DisciplineIds' ||
+                key === 'ContestIds'
+            ) {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
-            } else if (key === 'StringFilter') {
-                filtersFromUrl[key] = key === 'StringFilter' ? value : value;
+            } else if(key === 'SearchTypeId' || key === 'RankId' || key === 'ClassificationId') {
+                filtersFromUrl[key] = +value;
             } else {
-                filtersFromUrl[key] = key === 'PageNumber' ? +value : value;
+                filtersFromUrl[key] = value;
             }
         });
 
         Object.keys(emptyFilters).forEach(key => {
             filters[key] = filtersFromUrl[key] || emptyFilters[key];
         });
-    } else {
-        filters = null;
     }
 
     return filters;
@@ -112,33 +91,28 @@ export const setFiltersToUrl = (filters, initial = false) => {
     initial ? history.replace(targetUrl) : history.push(targetUrl);
 };
 
-export const getEmptyFilters = (alias = null) => ({
-    Alias: alias,
+export const getEmptyFilters = () => ({
     RegionIds: [],
     CityIds: [],
-    ClubIds: null,
-    ClassificationId: [],
-    RankId: [],
+    BreedGroupIds: [],
+    BreedIds: [],
+    RankId: 0,
+    ClassificationId: 0,
+    SpecializationIds: [],
     DisciplineIds: [],
     ContestIds: [],
-    BreedIds: [],
-    BreedGroupIds: [],
-    SpecializationIds: [],
-    TypeIds: [],
-    PaymentFormTypeIds: [],
     SearchTypeId: 4,
-    DateFrom: formatDateToString(new Date()),
-    DateTo: null,
-    StringFilter: '',
+    StringFilter: ''
 });
 
 export const getInitialFilters = () => {
     const emptyFilters = getEmptyFilters();
     const filtersFromUrl = getFiltersFromUrl();
+    const hasFiltersFromUrl = !!Object.keys(filtersFromUrl).length;
 
-    const filters = filtersFromUrl || emptyFilters;
+    const filters = hasFiltersFromUrl ? filtersFromUrl : emptyFilters;
 
-    if (!filtersFromUrl) setFiltersToUrl(filters, true);
+    if (!hasFiltersFromUrl) setFiltersToUrl(filters, true);
 
     return filters;
 };

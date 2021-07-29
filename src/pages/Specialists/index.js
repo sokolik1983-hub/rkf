@@ -1,59 +1,42 @@
-import React, { useEffect, useState } from "react";
-import ls from "local-storage";
+import React, {memo, useEffect, useState} from "react";
 import moment from "moment";
 import "moment/locale/ru";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
+import ClickGuard from "../../components/ClickGuard";
 import Container from "../../components/Layouts/Container";
+import SignUpModal from "../Educational/components/SignUpModal";
+// import SearchFilter from "./components/Filters/components/Search";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import SpecialistsList from "./components/SpecialistsList";
-import ClickGuard from "../../components/ClickGuard";
-import UserMenu from "../../components/Layouts/UserMenu";
-import { Request } from "../../utils/request";
-import { connectShowFilters } from "../../components/Layouts/connectors";
-import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
-import { formatDateCommon } from "../../utils/datetime";
-import { DEFAULT_IMG } from "../../appConfig";
-import shorten from "../../utils/shorten";
-import { clubNav } from "../Club/config";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
-import SignUpModal from "pages/Educational/components/SignUpModal";
-// import SearchFilter from "./components/Filters/components/Search";
-import './index.scss';
+import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
+import {formatDateCommon} from "../../utils/datetime";
+import {Request} from "../../utils/request";
+import {connectShowFilters} from "../../components/Layouts/connectors";
+import "./index.scss";
 
 
 moment.locale('ru');
 
 
-const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
+const Specialists = ({history, isOpenFilters, setShowFilters}) => {
     const [loading, setLoading] = useState(true);
     const [listLoading, setListLoading] = useState(false);
     const [specialistsLoading, setSpecialistsLoading] = useState(true);
-    const [filters, setFilters] = useState({ ...getInitialFilters() });
-    const [url, setUrl] = useState(buildUrl({ ...filters }));
-    const [club, setClub] = useState(null);
+    const [filters, setFilters] = useState({...getInitialFilters()});
+    const [url, setUrl] = useState(buildUrl({...filters}));
     const [specialists, setSpecialists] = useState([]);
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const [displayName, setDisplayName] = useState('');
-    const [federationName, setFederationName] = useState('');
-    const [federationAlias, setFederationAlias] = useState('');
-    const [clubAvatar, setClubAvatar] = useState('');
-    const [clubId, setClubId] = useState('');
-    const [active_member, setActiveMember] = useState(null);
-    const [active_rkf_user, setActiveRkfUser] = useState(null);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    const [needRequest, setNeedRequest] = useState(false);
 
     useEffect(() => {
         const unListen = history.listen(() => {
             const filters = getFiltersFromUrl();
-            setFilters({ ...filters });
-            setUrl(buildUrl({ ...filters }));
-            !filters && setShowFilters({ isOpenFilters: false });
+            setFilters({...filters});
+            setUrl(buildUrl({...filters}));
+            !filters && setShowFilters({isOpenFilters: false});
         });
 
         return () => unListen();
@@ -100,19 +83,6 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
                 setHasMore(false);
             }
 
-            const club = data.searching_club;
-
-            if (club) {
-                setDisplayName(club.display_name || "Название клуба отсутствует");
-                setClubAvatar(club.club_avatar);
-                setFederationName(club.federation_name || null);
-                setFederationAlias(club.federation_alias || null);
-                setClubId(club.club_id);
-                setActiveMember(club.active_member);
-                setActiveRkfUser(club.active_rkf_user);
-                setClub(club);
-            }
-
             setSpecialistsLoading(false);
             setLoading(false);
             setListLoading(false);
@@ -142,60 +112,26 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading ?
         <Loading /> :
-        <Layout
-            withFilters
-            setNotificationsLength={setNotificationsLength}
-        >
-            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
+        <Layout withFilters>
+            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
             <div className="specialists-page__wrap redesign">
                 <Container className="specialists-page content">
                     <Filters
-                        filters={filters}
-                        clubName={shorten(displayName)}
-                        profileId={clubId}
-                        logo={clubAvatar || DEFAULT_IMG.clubAvatar}
-                        active_member={active_member}
-                        active_rkf_user={active_rkf_user}
-                        federationName={federationName}
-                        federationAlias={federationAlias}
-                        club={club}
-                        setClub={setClub}
-                        notificationsLength={notificationsLength}
-                        needRequest={needRequest}
-                        setNeedRequest={setNeedRequest}
+                        isOpenFilters={isOpenFilters}
+                        filtersValue={filters}
                     />
                     <div className="specialists-page__content">
-                        {filters.Alias && displayName &&
-                            <div className="specialists-page__mobile-only">
-                                {isFederationAlias(filters.Alias) ?
-                                    <MenuComponent
-                                        alias={filters.Alias}
-                                        name={shorten(displayName)}
-                                        isFederation={true}
-                                    /> : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                        notificationsLength={notificationsLength}
-                                    />
-                                }
-                            </div>
-                        }
-                        <ListFilter
-                            searchTypeId={filters.SearchTypeId}
-                            setNeedRequest={setNeedRequest}
-                        />
+                        <ListFilter searchTypeId={filters.SearchTypeId}/>
                         {/*<SearchFilter StringFilter={filters.StringFilter} searchTypeId={parseInt(filters.SearchTypeId)} />*/}
-                        {
-                            listLoading
-                                ? <Loading centered={false} />
-                                : <SpecialistsList
-                                    specialists={specialists}
-                                    getNextSpecialists={getNextSpecialists}
-                                    hasMore={hasMore}
-                                    loading={specialistsLoading}
-                                    setShowModal={setShowModal}
-                                    searchTypeId={parseInt(filters.SearchTypeId)}
-                                />
+                        {listLoading ?
+                            <Loading centered={false} /> :
+                            <SpecialistsList
+                                specialists={specialists}
+                                getNextSpecialists={getNextSpecialists}
+                                hasMore={hasMore}
+                                loading={specialistsLoading}
+                                searchTypeId={filters.SearchTypeId}
+                            />
                         }
                     </div>
                 </Container>
@@ -211,5 +147,4 @@ const Specialists = ({ history, isOpenFilters, setShowFilters }) => {
         </Layout>
 };
 
-export default connectShowFilters(React.memo(Specialists));
-
+export default connectShowFilters(memo(Specialists));

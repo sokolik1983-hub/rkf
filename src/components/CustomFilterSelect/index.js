@@ -1,4 +1,5 @@
 import React, {memo, useState} from "react";
+import LightTooltip from "../LightTooltip";
 import CustomCheckbox from "../Form/CustomCheckbox";
 import "./index.scss";
 
@@ -48,12 +49,24 @@ const CustomFilterSelect = ({options = [], values, onChange, placeholder, noOpti
                 <ul className="custom-select__list">
                     {filterOptions(options).map(option =>
                         <li className="custom-select__item" key={`cs-${option.value}`}>
-                            <CustomCheckbox
-                                id={`${id}-${option.value}`}
-                                label={option.label}
-                                checked={!!values.find(value => value.value === option.value)}
-                                onChange={() => handleChange(option)}
-                            />
+                            {option.full_name ?
+                                <LightTooltip title={option.full_name} enterDelay={100} leaveDelay={50}>
+                                    <div>
+                                        <CustomCheckbox
+                                            id={`${id}-${option.value}`}
+                                            label={option.label}
+                                            checked={!!values.find(value => value.value === option.value)}
+                                            onChange={() => handleChange(option)}
+                                        />
+                                    </div>
+                                </LightTooltip> :
+                                <CustomCheckbox
+                                    id={`${id}-${option.value}`}
+                                    label={option.label}
+                                    checked={!!values.find(value => value.value === option.value)}
+                                    onChange={() => handleChange(option)}
+                                />
+                            }
                         </li>
                     )}
                 </ul>

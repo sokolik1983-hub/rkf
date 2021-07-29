@@ -1,5 +1,3 @@
-.SpecialistsList .infinite-scroll-component__outerdiv::-webkit-scrollbar { width: 0 !important }
-.SpecialistsList .infinite-scroll-component__outerdiv { scrollbar-width: none; }
 .SpecialistsList {
   &__content {
     list-style: none;
@@ -108,7 +106,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      font-family: "Source Sans Pro";
+      font-family: "Source Sans Pro", sans-serif;
       font-style: normal;
       font-weight: 600;
       font-size: 18px;
@@ -332,7 +330,6 @@
       }
     }
   }
-
   .Placeholder {
     height: 200px;
     box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
@@ -439,19 +436,10 @@
       }
     }
   }
-  .infinite-scroll-component {
-    overflow: visible !important;
-  }
   .infinite-scroll-component__outerdiv  {
-    position: fixed;
-    overflow: scroll;
     width: 100%;
     height: 100%;
     max-width: 870px;
-
-  &::-webkit-scrollbar {
-    width: 0 !important
-    }
     @media (max-width: 1024px) {
       position: static;
     }
