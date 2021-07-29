@@ -9,6 +9,7 @@ import useIsMobile from "../../../../utils/useIsMobile";
 import MenuLink from "./MenuLink";
 
 const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen}) => {
+
     const isMobile = useIsMobile(1080);
 
     const setOverflow = (isOpen) => {
@@ -33,7 +34,7 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
     }, [isOpenFilters]);
 
     const menuTitle = isOpen ? 'Закрыть' : 'Меню';
-    const strokeColor = isOpen ? '#3366FF' : '#90999E'
+    const strokeColor = isOpen ? '#3366FF' : '#90999E';
 
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
@@ -60,22 +61,20 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                     </div>
 
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>
-                        {mainNav.map(navItem =>
-                            <li className="header__nav-item" key={navItem.id}>
-                                {navItem.children ?
-                                    <NavSublist setIsOpen={setIsOpen} navItem={navItem} /> :
-                                    <NavLink
-                                        to={navItem.to}
-                                        exact={navItem.exact}
-                                        className={navItem.disabled ? '_disabled' : ''}
-                                        onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
-                                    >
-                                        {navItem.image}
-                                        <span>{navItem.name}</span>
-                                    </NavLink>
-                                }
-
-                            </li>
+                        {mainNav.map((navItem, i, arr) =>  <li style={{borderBottom: arr.length -2 === i && "1px solid #ccc"}} className="header__nav-item" key={navItem.id}>
+                                    {navItem.children ?
+                                        <NavSublist setIsOpen={setIsOpen} navItem={navItem}/> :
+                                        <NavLink
+                                            to={navItem.to}
+                                            exact={navItem.exact}
+                                            className={navItem.disabled ? '_disabled' : ''}
+                                            onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
+                                        >
+                                            {navItem.image}
+                                            <span >{navItem.name}</span>
+                                        </NavLink>
+                                    }
+                                </li>
                         )}
                         <li className="widget-login__item"
                             onClick={() => setIsOpen(false)}

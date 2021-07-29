@@ -33,10 +33,23 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         setIsOpen(false);
     }
 
-
     const pathAlias = pathname.substr(pathname.lastIndexOf('/') + 1);
 
     const urlAlias = pathname.search('kennel') === 1 ? kennelNav(pathAlias) : clubNav(pathAlias);
+
+    const isFederation = pathAlias === 'rkf'
+        || pathAlias === 'rfss'
+        || pathAlias === 'rfls'
+        || pathAlias === 'rfos'
+        || pathAlias === 'oankoo';
+
+    const checkPathForMenu = pathAlias  !== 'rkf'
+        && pathAlias !== 'organizations'
+        && pathAlias !== 'exhibitions'
+        && pathAlias !== 'search'
+        && pathAlias !== 'base-search'
+        && pathAlias !== ''
+        && pathAlias === 'uploaded-documents';
 
 
     return (
@@ -80,6 +93,17 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                 />
                 }
 
+                {!isAuthenticated && isFederation &&
+                    <MenuComponent
+                        footerNav={footerNav[4]}
+                        alias={pathAlias}
+                        name={name}
+                        isFederation={isFederationAlias}
+                    />
+                }
+
+
+
                 {isAuthenticated && user_type !== 5 && alias !== 'rkf' &&
                 <UserMenu
                     notificationsLength={notificationsLength}
@@ -96,39 +120,13 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                 />
                 }
 
-
-
-
-                {/*{!isAuthenticated*/}
-                {/*&& pathAlias  !== 'rkf'*/}
-                {/*&& pathAlias !== 'organizations'*/}
-                {/*&& pathAlias !== 'exhibitions'*/}
-                {/*&& pathAlias !== 'search'*/}
-                {/*&& pathAlias !== 'base-search'*/}
-                {/*&& pathAlias !== ''*/}
-                {/*&& <UserMenu*/}
-                {/*    notificationsLength={notificationsLength}*/}
-                {/*    footerNav={footerNav[4]}*/}
-                {/*    userNav={urlAlias}*/}
-                {/*/>*/}
-                {/*}*/}
-
-                {/*{!isAuthenticated*/}
-                {/*&& pathAlias === 'rkf'*/}
-                {/*|| pathAlias === 'rfss'*/}
-                {/*|| pathAlias === 'rfls'*/}
-                {/*|| pathAlias === 'rfos'*/}
-                {/*|| pathAlias === 'oankoo'*/}
-                {/*&&*/}
-                {/*<MenuComponent*/}
-                {/*    footerNav={footerNav[4]}*/}
-                {/*    alias={pathAlias}*/}
-                {/*    name={name}*/}
-                {/*    isFederation={isFederationAlias}*/}
-                {/*/>*/}
-                {/*}*/}
-
-
+                {!isAuthenticated && checkPathForMenu && !isFederation &&
+                    <UserMenu
+                        notificationsLength={notificationsLength}
+                        footerNav={footerNav[4]}
+                        userNav={urlAlias}
+                    />
+                }
 
             </div>
             }
