@@ -8,26 +8,26 @@ import "./index.scss";
 
 const SpecialistsList = ({ specialists, loading, getNextSpecialists, hasMore, setShowModal, searchTypeId }) => {
 
-    const [count, setCount] = useState(window.pageYOffset);
+    // const [count, setCount] = useState(window.pageYOffset);
+    //
+    // let marginTop = count < 50 ? -count + 'px' : -12 + 'px';
+    //
+    // const scrollChanges = () => {
+    //     let posTop = window.pageYOffset;
+    //     setCount(posTop);
+    // }
 
-    let marginTop = count < 50 ? -count + 'px' : -12 + 'px';
+    // useEffect(() => {
+    //     window.addEventListener('scroll',scrollChanges);
+    //     return () => {
+    //         window.removeEventListener('scroll',scrollChanges);
+    //     };
+    // }, []);
 
-    const scrollChanges = () => {
-        let posTop = window.pageYOffset;
-        setCount(posTop);
-    }
-
-    useEffect(() => {
-        window.addEventListener('scroll',scrollChanges);
-        return () => {
-            window.removeEventListener('scroll',scrollChanges);
-        };
-    }, []);
-
-    const divStyle = {marginTop: `${marginTop}`};
+    // const divStyle = {marginTop: `${marginTop}`};
 
     return (
-        <div className="SpecialistsList" style={divStyle}>
+        <div className="SpecialistsList">
             <InfiniteScroll
                 dataLength={specialists.length}
                 next={getNextSpecialists}
