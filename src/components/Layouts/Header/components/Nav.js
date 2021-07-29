@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { mainNav } from "../../../../appConfig";
 import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
-import BurgerButton from "./BurgerButton";
 import NavSublist from "./NavSublist";
 import { connectAuthVisible } from "../../../../pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
@@ -34,6 +33,7 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
     }, [isOpenFilters]);
 
     const menuTitle = isOpen ? 'Закрыть' : 'Меню';
+    const strokeColor = isOpen ? '#3366FF' : '#90999E'
 
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
@@ -48,12 +48,15 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                         needChangeIsOpen(!isOpen);
                     }}>
                         <div>
-                           <svg  stroke={isOpen && '#3366FF'} width="26" height="18" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 0V2H20V0H0ZM0 6V8H20V6H0ZM0 12V14H20V12H0Z" fill="#979797"/>
+                            <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line y1="1.34" x2="20" y2="1.34" stroke={strokeColor}  strokeWidth="1.32"/>
+                                <line y1="7.34" x2="20" y2="7.34" stroke={strokeColor} strokeWidth="1.32"/>
+                                <line y1="13.34" x2="20" y2="13.34" stroke={strokeColor}  strokeWidth="1.32"/>
                             </svg>
+
                         </div>
 
-                         <h5 className={isOpen ? "header__nav-menu _open" : "header__nav-menu"}>{menuTitle}</h5>
+                         <span className={isOpen ? "header__nav-menu _open" : "header__nav-menu"}>{menuTitle}</span>
                     </div>
 
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>

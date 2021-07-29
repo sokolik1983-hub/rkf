@@ -27,6 +27,8 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
         setIsOpen(false);
     }
 
+    const strokeColor = isOpenFilters ? '#3366FF' : '#90999E'
+
     return (
         <header className="header">
             <Container className="header__content">
@@ -66,18 +68,24 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     }
 
                 {isMobile
-                    ? <div className={ (withFilters || pathname === '/') ? "header__filters" : "header__filters __hidden"}  onClick={() => {
-                        setShowFilters({isOpenFilters: !isOpenFilters})
+                    ? <div className={ (isAuthenticated && withFilters || pathname === '/') ? "header__filters" : "header__filters __hidden"}          onClick={() => {setShowFilters({isOpenFilters: !isOpenFilters})
                     }}>
                         <div className={isOpenFilters ? "open" : ''}>
-                            <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 14V16H6V14H0ZM0 2V4H10V2H0ZM10
-                            18V16H18V14H10V12H8V18H10ZM4 6V8H0V10H4V12H6V6H4ZM18
-                            10V8H8V10H18ZM12 6H14V4H18V2H14V0H12V6Z" fill="#90999e"/>
+
+                            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.47827 12.6608V17.4434" stroke={strokeColor} strokeWidth="1.32" strokeMiterlimit="10"/>
+                                <path d="M0 15.0521H3.47826" stroke={strokeColor}  strokeWidth="1.32" strokeMiterlimit="10"/>
+                                <path d="M6.95654 15.0521H20" stroke={strokeColor}  strokeWidth="1.32" strokeMiterlimit="10"/>
+                                <path d="M0 2.3913H6.08696" stroke={strokeColor}  strokeWidth="1.32" strokeMiterlimit="10"/>
+                                <path d="M9.56519 2.3913H20" stroke={strokeColor}  strokeWidth="1.32" strokeMiterlimit="10"/>
+                                <path d="M6.08691 0V4.78261" stroke={strokeColor}  strokeWidth="1.32" strokeMiterlimit="10"/>
+                                <path d="M15.6522 6.33044V11.1131" stroke={strokeColor}  strokeWidth="1.32" strokeMiterlimit="10"/>
+                                <path d="M15.6522 8.72174H20" stroke={strokeColor}  strokeWidth="1.32" strokeMiterlimit="10"/>
+                                <path d="M0 8.72174H12.1739" stroke={strokeColor}  strokeWidth="1.32" strokeMiterlimit="10"/>
                             </svg>
 
                         </div>
-                        <button style={{color: isOpenFilters && "#3366ff"}}>Фильтр</button>
+                        <span style={{color: isOpenFilters && "#3366ff"}}>Фильтр</span>
 
                         </div>
                         : <WidgetLogin login_page={login_page}/>}

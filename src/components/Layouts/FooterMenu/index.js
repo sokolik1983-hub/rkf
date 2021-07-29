@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import useIsMobile from "../../../utils/useIsMobile";
 import WidgetLogin from "../Header/components/WidgetLogin";
 import ls from "local-storage";
@@ -20,6 +20,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
     const [canEdit, setCanEdit] = useState(false);
     const isMobile1080 = useIsMobile(1080);
     const {alias, user_type, id, name} = ls.get('user_info') || {};
+    const {pathname} = useLocation();
 
     useEffect(() => {
         if(alias) {
@@ -31,6 +32,13 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         setShowFilters({isOpenFilters: false});
         setIsOpen(false);
     }
+
+
+    const pathAlias = pathname.substr(pathname.lastIndexOf('/') + 1);
+
+    const urlAlias = pathname.search('kennel') === 1 ? kennelNav(pathAlias) : clubNav(pathAlias);
+
+
     return (
         <>
             {isMobile1080 &&
@@ -46,12 +54,22 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                     <span>{footerNav[5].title}</span>
                 </NavLink>
 
-                {/*{isAuthenticated &&*/}
-                {/*<NavLink className="footer__menu-link __disabled" to='/'>*/}
-                {/*    {footerNav[1].image}*/}
-                {/*    <span>{footerNav[1].title}</span>*/}
-                {/*</NavLink>*/}
-                {/*}*/}
+                {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} />}
+
+                {!isAuthenticated &&
+                    <>
+                        <NavLink className="footer__menu-link" to={footerNav[6].to}>
+                            {footerNav[6].image}
+                            <span>{footerNav[6].title}</span>
+                        </NavLink>
+
+
+                        <NavLink className="footer__menu-link" to={footerNav[7].to}>
+                            {footerNav[7].image}
+                            <span>{footerNav[7].title}</span>
+                        </NavLink>
+                    </>
+                }
 
                 {isAuthenticated && (user_type === 5 || alias === 'rkf') &&
                 <MenuComponent
@@ -67,28 +85,51 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                     notificationsLength={notificationsLength}
                     footerNav={footerNav[4]}
                     userNav={canEdit && user_type &&
-                        user_type === 1 ?
-                            userNav(alias)
-                            : user_type === 3  ?
-                                clubNav(alias)
+                    user_type === 1 ?
+                        userNav(alias)
+                        : user_type === 3  ?
+                            clubNav(alias)
                             : user_type === 4  ?
                                 kennelNav(alias)
-                            : []
+                                : []
                     }
                 />
                 }
 
 
-                <NavLink className="footer__menu-link" to={footerNav[6].to}>
-                    {footerNav[6].image}
-                    <span>{footerNav[6].title}</span>
-                </NavLink>
 
 
-                <NavLink className="footer__menu-link" to={footerNav[7].to}>
-                    {footerNav[7].image}
-                    <span>{footerNav[7].title}</span>
-                </NavLink>
+                {/*{!isAuthenticated*/}
+                {/*&& pathAlias  !== 'rkf'*/}
+                {/*&& pathAlias !== 'organizations'*/}
+                {/*&& pathAlias !== 'exhibitions'*/}
+                {/*&& pathAlias !== 'search'*/}
+                {/*&& pathAlias !== 'base-search'*/}
+                {/*&& pathAlias !== ''*/}
+                {/*&& <UserMenu*/}
+                {/*    notificationsLength={notificationsLength}*/}
+                {/*    footerNav={footerNav[4]}*/}
+                {/*    userNav={urlAlias}*/}
+                {/*/>*/}
+                {/*}*/}
+
+                {/*{!isAuthenticated*/}
+                {/*&& pathAlias === 'rkf'*/}
+                {/*|| pathAlias === 'rfss'*/}
+                {/*|| pathAlias === 'rfls'*/}
+                {/*|| pathAlias === 'rfos'*/}
+                {/*|| pathAlias === 'oankoo'*/}
+                {/*&&*/}
+                {/*<MenuComponent*/}
+                {/*    footerNav={footerNav[4]}*/}
+                {/*    alias={pathAlias}*/}
+                {/*    name={name}*/}
+                {/*    isFederation={isFederationAlias}*/}
+                {/*/>*/}
+                {/*}*/}
+
+
+
             </div>
             }
         </>
