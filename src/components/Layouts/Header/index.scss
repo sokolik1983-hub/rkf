@@ -16,9 +16,9 @@
     }
   }
   &__nav-item svg {
-    width: 24px;
+    width: 18px;
     margin-right: 6px;
-    margin-top: -4px;
+    margin-top: 0;
     vertical-align: middle;
   }
   &__content {
@@ -315,9 +315,9 @@
       list-style: none;
       display: flex;
       .header__nav-icon {
-        width: 24px;
+        width: 18px;
         margin-right: 6px;
-        margin-top: -4px;
+        margin-top: 0;
         vertical-align: middle;
       }
       &--desktop {
@@ -903,26 +903,26 @@
       @media (max-width: 580px) {
         a {
           position: relative;
-          padding-left: 25px;
+          padding-left: 18px;
           color: #72839c;
         }
         a:first-child:before {
           content: '';
           background: url("/static/icons/base_of_knowledge.svg") no-repeat center/cover;
-          width: 17px;
-          height: 17px;
+          width: 14px;
+          height: 14px;
           position: absolute;
-          left: -5px;
-          bottom: 5px;
+          left: -6px;
+          bottom: 7px;
         }
         a:nth-child(2):before {
           content: '';
           background: url("/static/icons/support_center.svg") no-repeat center/cover;
-          width: 17px;
-          height: 17px;
+          width: 14px;
+          height: 14px;
           position: absolute;
-          left: -5px;
-          bottom: 5px;
+          left: -6px;
+          bottom: 7px;
         }
       }
     }
