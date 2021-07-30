@@ -15,7 +15,6 @@ export const buildUrlParams = filters => {
                 key === 'breed_ids' ||
                 key === 'rank_ids' ||
                 key === 'specialist_discipline_ids' ||
-                key === 'specialist_classification_id' ||
                 key === 'specialist_specialization_ids' ||
                 key === 'contest_ids'
             ) {
@@ -48,9 +47,10 @@ export const getEmptyFilters = () => ({
     region_ids: [],
     city_ids: [],
     rank_ids: [],
+    rank_id: 0,
     specialist_specialization_ids: [],
     contest_ids: [],
-    specialist_classification_id: [],
+    specialist_classification_id: 0,
     specialist_discipline_ids: [],
     date_from: '',
     date_to: '',
@@ -78,15 +78,16 @@ export const getFiltersFromUrl = () => {
                 key === 'breed_ids' ||
                 key === 'rank_ids' ||
                 key === 'specialist_discipline_ids' ||
-                key === 'specialist_classification_id' ||
                 key === 'specialist_specialization_ids' ||
                 key === 'contest_ids'
             ) {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else if(key === 'activated' || key === 'active_member') {
                 filtersFromUrl[key] = value === 'true';
+            } else if(key === 'search_type' || key === 'specialist_classification_id' || key === 'rank_id') {
+                filtersFromUrl[key] = +value;
             } else {
-                filtersFromUrl[key] = key === 'search_type' ? +value : value;
+                filtersFromUrl[key] = value;
             }
         });
 

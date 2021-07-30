@@ -17,6 +17,7 @@ import SpecializationsFilter from "../../../../../components/Filters/Specializat
 import ContestsFilter from "../../../../../components/Filters/ContestsFilter";
 import BreedGroupsFilter from "../../../../../components/Filters/BreedGroupsFilter";
 import RegionsFilter from "../../../../../components/Filters/RegionsFilter";
+import RankFilter from "../../../../../components/Filters/RankFilter";
 
 
 const DropdownItem = ({
@@ -89,7 +90,7 @@ const DropdownItem = ({
                                         handleRangeReset={() => setRangeClicked(false)}
                                     />
                                 </div> :
-                            filter === 'federation' && federations ?
+                            filter === 'federations' && federations ?
                                 <FederationsFilter
                                     federations={federations}
                                     federation_ids={filtersValue.federation_ids}
@@ -109,49 +110,56 @@ const DropdownItem = ({
                                     onChange={filter => setFiltersToUrl({ activated: filter })}
                                     key="activated-filter"
                                 /> :
-                            filter === 'region' && regions && regions.length ?
+                            filter === 'regions' && regions && regions.length ?
                                 <RegionsFilter
                                     regions={regions}
                                     region_ids={filtersValue.region_ids}
                                     onChange={filter => setFiltersToUrl({region_ids: filter})}
                                     key="regions-filter"
                                 /> :
-                            filter === 'city' && cities && cities.length ?
+                            filter === 'cities' && cities && cities.length ?
                                 <CitiesFilter
                                     cities={cities}
                                     city_ids={filtersValue.city_ids}
-                                    onChange={filter => setFiltersToUrl({ city_ids: filter })}
+                                    onChange={filter => setFiltersToUrl({city_ids: filter})}
                                     key="cities-filter"
                                 /> :
-                            filter === 'breed_group' && breed_groups && breed_groups.length ?
+                            filter === 'breed_groups' && breed_groups && breed_groups.length ?
                                 <BreedGroupsFilter
                                     breedGroups={breed_groups}
                                     breedGroupIds={filtersValue.breed_group_ids}
                                     onChange={filter => setFiltersToUrl({breed_group_ids: filter})}
                                     key="breed-groups-filter"
                                 /> :
-                            filter === 'breed' && breeds && breeds.length ?
+                            filter === 'breeds' && breeds && breeds.length ?
                                 <BreedsFilter
                                     breeds={breeds}
                                     breed_ids={filtersValue.breed_ids}
-                                    onChange={filter => setFiltersToUrl({ breed_ids: filter })}
+                                    onChange={filter => setFiltersToUrl({breed_ids: filter})}
                                     key="breeds-filter"
                                 /> :
-                            filter === 'rank' && ranks && ranks.length ?
+                            filter === 'ranks' && ranks && ranks.length ?
                                 <RanksFilter
                                     ranks={ranks}
                                     rank_ids={filtersValue.rank_ids}
-                                    onChange={filter => setFiltersToUrl({ rank_ids: filter })}
+                                    onChange={filter => setFiltersToUrl({rank_ids: filter})}
                                     key="ranks-filter"
                                 /> :
-                            filter === 'specialization' && specializations && specializations.length ?
+                            filter === 'rank' && ranks && ranks.length ?
+                                <RankFilter
+                                    ranks={ranks}
+                                    rank_id={filtersValue.rank_id}
+                                    onChange={filter => setFiltersToUrl({rank_id: filter})}
+                                    key="rank-filter"
+                                /> :
+                            filter === 'specializations' && specializations && specializations.length ?
                                 <SpecializationsFilter
                                     types={specializations}
                                     type_ids={filtersValue.specialist_specialization_ids}
                                     onChange={filter => setFiltersToUrl({specialist_specialization_ids: filter})}
                                     key="specializations-filter"
                                 /> :
-                            filter === 'contest' && contests && contests.length ?
+                            filter === 'contests' && contests && contests.length ?
                                 <ContestsFilter
                                     contests={contests}
                                     contest_ids={filtersValue.contest_ids}
@@ -161,11 +169,11 @@ const DropdownItem = ({
                             filter === 'classification' && classification && classification.length ?
                                 <ClassificationsFilter
                                     events={classification}
-                                    event_ids={filtersValue.specialist_classification_id}
+                                    event_id={filtersValue.specialist_classification_id}
                                     onChange={filter => setFiltersToUrl({specialist_classification_id: filter})}
                                     key="classifications-filter"
                                 /> :
-                            filter === 'discipline' && disciplines && disciplines.length ?
+                            filter === 'disciplines' && disciplines && disciplines.length ?
                                 <DisciplinesFilter
                                     disciplines={disciplines}
                                     discipline_ids={filtersValue.specialist_discipline_ids}

@@ -1,4 +1,4 @@
-.breed-groups-filter {
+.rank-filter {
   margin-bottom: 16px;
   &__title {
     font-weight: normal;
@@ -32,6 +32,28 @@
     &._dropdown_open {
       transform: rotate(180deg);
     }
+  }
+  &__list {
+    list-style: none;
+    padding: 12px 0;
+    max-height: 180px;
+    overflow-y: auto;
+  }
+  &__item {
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color .2s linear;
+    &:hover {
+      background-color: #DEEBFF;
+    }
+    .custom-checkbox__label {
+      width: 100%;
+    }
+  }
+  &__no-options {
+    padding: 12px 0;
+    text-align: center;
+    color: #ccc;
   }
   .dropdown__filters {
     &-enter,

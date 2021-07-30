@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import CustomCheckbox from "../../Form/CustomCheckbox";
-import { CSSTransition } from "react-transition-group";
+import React, {memo, useState} from "react";
+import {CSSTransition} from "react-transition-group";
 import Card from "../../Card";
+import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
-const PaymentFormFilter = ({ payment_form_ids, onChange }) => {
+
+const PaymentFormFilter = ({payment_form_ids, onChange}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     const handleChange = id => {
@@ -26,7 +27,7 @@ const PaymentFormFilter = ({ payment_form_ids, onChange }) => {
                 <ul className="payment-form-filter__list">
                     <li>
                         <CustomCheckbox
-                            id={"payment-form-filter-1"}
+                            id="payment-form-filter-1"
                             label="Платная"
                             checked={payment_form_ids.includes(2)}
                             onChange={() => handleChange(2)}
@@ -34,7 +35,7 @@ const PaymentFormFilter = ({ payment_form_ids, onChange }) => {
                     </li>
                     <li>
                         <CustomCheckbox
-                            id={"payment-form-filter-2"}
+                            id="payment-form-filter-2"
                             label="Бесплатная"
                             checked={payment_form_ids.includes(1)}
                             onChange={() => handleChange(1)}
@@ -46,4 +47,4 @@ const PaymentFormFilter = ({ payment_form_ids, onChange }) => {
     )
 };
 
-export default React.memo(PaymentFormFilter);
+export default memo(PaymentFormFilter);
