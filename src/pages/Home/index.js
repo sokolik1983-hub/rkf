@@ -16,7 +16,7 @@ import Banner from "../../components/Banner";
 import { Request } from "utils/request";
 import Loading from "../../components/Loading";
 import CopyrightInfo from "components/CopyrightInfo";
-import Socials from "../../components/Socials";
+// import Socials from "../../components/Socials";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
@@ -56,10 +56,10 @@ const HomePage = () => {
                                                 <h3>{RKFInfo.aboutTitle}</h3>
                                                 <p>{RKFInfo.about}</p>
                                             </Card>
-                                            {!isMobile && <Socials />}
+                                            {/* {!isMobile && <Socials />} */}
                                             <div className="home-page__tablet-inner">
                                                 <Statistics />
-                                                {isMobile && <Socials />}
+                                                {/* {isMobile && <Socials />} */}
                                             </div>
                                         </div>
                                         <Card className="home-page__projects-wrap">

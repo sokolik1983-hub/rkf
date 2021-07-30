@@ -25,7 +25,7 @@ import { clubNav } from "../Docs/config";
 import { kennelNav } from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
 import SearchCard from "./components/SearchCard/SearchCard";
-import Socials from "../../components/Socials";
+// import Socials from "../../components/Socials";
 import { connectAuthVisible } from "../../pages/Login/connectors";
 
 import ls from 'local-storage';
@@ -123,7 +123,7 @@ const BaseSearch = ({ isAuthenticated }) => {
                                                         isAuthenticated={isAuthenticated}
                                                     />
                                                 }
-                                                <Socials />
+                                                {/* <Socials /> */}
                                                 <Statistics />
                                                 <Card className="base-search__map-wrap">
                                                     <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
