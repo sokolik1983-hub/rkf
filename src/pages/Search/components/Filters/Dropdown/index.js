@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {memo, useState} from "react";
 import {CSSTransition} from "react-transition-group";
 import DropdownItem from "./DropdownItem";
 import "./index.scss";
@@ -26,4 +26,4 @@ const Dropdown = ({name, items, filtersValue, additionalFilters}) => {
     )
 };
 
-export default Dropdown;
+export default memo(Dropdown);

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import ClickGuard from "../../components/ClickGuard";
@@ -38,10 +38,6 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         await Request({
             url: buildSearchUrl(filtersValue, startElem, needCount, needFilter)
         }, data => {
-            if(startElem === 1) {
-                window.scrollTo(0,0);
-            }
-
             let newFilters = [...filters];
 
             if(data.counts && data.counts.length) {
@@ -127,7 +123,12 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
             <div className="search-page__wrap">
                 <Container className="search-page content">
-                    <Filters filtersValue={filtersValue} filters={filters} additionalFilters={additionalFilters}/>
+                    <Filters
+                        filtersValue={filtersValue}
+                        filters={filters}
+                        additionalFilters={additionalFilters}
+                        isOpenFilters={isOpenFilters}
+                    />
                     <div className="search-page__content">
                         <SearchList
                             filtersSearchType={filtersValue.search_type}
@@ -142,4 +143,4 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     )
 };
 
-export default connectShowFilters(React.memo(SearchPage));
+export default connectShowFilters(memo(SearchPage));
