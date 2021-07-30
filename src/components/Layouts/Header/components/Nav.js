@@ -3,13 +3,13 @@ import { NavLink } from "react-router-dom";
 import { mainNav } from "../../../../appConfig";
 import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
-import BurgerButton from "./BurgerButton";
 import NavSublist from "./NavSublist";
 import { connectAuthVisible } from "../../../../pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
 import MenuLink from "./MenuLink";
 
 const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen}) => {
+
     const isMobile = useIsMobile(1080);
 
     const setOverflow = (isOpen) => {
@@ -34,6 +34,7 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
     }, [isOpenFilters]);
 
     const menuTitle = isOpen ? 'Закрыть' : 'Меню';
+    const strokeColor = isOpen ? '#3366FF' : '#90999E';
 
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
@@ -42,35 +43,38 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                     <ClickGuard value={isOpen}
                                 callback={() => setIsOpen(false)}/>
 
-                    <div onClick={() => {
+                    <div className={'header__nav-burger'}
+                        onClick={() => {
                         setIsOpen(!isOpen);
                         needChangeIsOpen(!isOpen);
                     }}>
-                        <BurgerButton
-                        className={isOpen ? '_open' : ''}
-                        isOpen= {isOpen}
-                        />
+                        <div>
+                            <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line y1="1.34" x2="20" y2="1.34" stroke={strokeColor}  strokeWidth="1.32"/>
+                                <line y1="7.34" x2="20" y2="7.34" stroke={strokeColor} strokeWidth="1.32"/>
+                                <line y1="13.34" x2="20" y2="13.34" stroke={strokeColor}  strokeWidth="1.32"/>
+                            </svg>
 
-                         <h5 className={isOpen ? "header__nav-menu _open" : "header__nav-menu"}>{menuTitle}</h5>
+                        </div>
+
+                         <span className={isOpen ? "header__nav-menu _open" : "header__nav-menu"}>{menuTitle}</span>
                     </div>
 
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>
-                        {mainNav.map(navItem =>
-                            <li className="header__nav-item" key={navItem.id}>
-                                {navItem.children ?
-                                    <NavSublist setIsOpen={setIsOpen} navItem={navItem} /> :
-                                    <NavLink
-                                        to={navItem.to}
-                                        exact={navItem.exact}
-                                        className={navItem.disabled ? '_disabled' : ''}
-                                        onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
-                                    >
-                                        {navItem.image}
-                                        <span>{navItem.name}</span>
-                                    </NavLink>
-                                }
-
-                            </li>
+                        {mainNav.map((navItem, i, arr) =>  <li style={{borderBottom: arr.length -2 === i && "1px solid #ccc"}} className="header__nav-item" key={navItem.id}>
+                                    {navItem.children ?
+                                        <NavSublist setIsOpen={setIsOpen} navItem={navItem}/> :
+                                        <NavLink
+                                            to={navItem.to}
+                                            exact={navItem.exact}
+                                            className={navItem.disabled ? '_disabled' : ''}
+                                            onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
+                                        >
+                                            {navItem.image}
+                                            <span >{navItem.name}</span>
+                                        </NavLink>
+                                    }
+                                </li>
                         )}
                         <li className="widget-login__item"
                             onClick={() => setIsOpen(false)}

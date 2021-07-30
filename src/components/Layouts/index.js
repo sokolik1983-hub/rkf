@@ -10,16 +10,16 @@ import './index.scss';
 
 
 const Layout = ({ children, withFilters, showCopyright, login_page, setNotificationsLength }) => {
-        const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-        return (
-            <>
-                <Header withFilters={withFilters} login_page={login_page} setNotificationsLength={setNotificationsLength} setIsOpen={setIsOpen} isOpen={isOpen}/>
-                {children}
-                <FooterMenu login_page={login_page} setIsOpen={setIsOpen} isOpen={isOpen}/>
-            </>
-        )
-    };
+    return (
+        <>
+            <Header withFilters={withFilters} login_page={login_page} setNotificationsLength={setNotificationsLength} setIsOpen={setIsOpen} isOpen={isOpen}/>
+            {children}
+            <FooterMenu login_page={login_page} setIsOpen={setIsOpen} isOpen={isOpen}/>
+        </>
+    )
+};
 
 const withReducer = injectReducer({ key: 'layout', reducer: reducer });
 
