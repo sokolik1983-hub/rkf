@@ -72,13 +72,14 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
 
                             </li>
                         )}
-                        <li className="widget-login__item"
+                        <li className="widget-login__item popup-menu"
                             onClick={() => setIsOpen(false)}
-                            style={{padding: "8px 32px"}}>
+                            >
                                 <a href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/"
                                    target="_blank"
-                                   rel="noopener noreferrer">
-                                    База знаний
+                                   rel="noopener noreferrer"
+                                >
+                                    <span>База знаний</span>
                                 </a>
                             <Feedback/>
                         </li>

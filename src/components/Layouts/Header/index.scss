@@ -900,29 +900,47 @@
 .header__nav-list  {
   &._open {
     & .widget-login__item {
-      @media (max-width: 580px) {
-        a {
-          position: relative;
-          padding-left: 18px;
-          color: #72839c;
+      &.popup-menu {
+        @media (max-width: 1080px) {
+          a {
+            color: #72839c;
+            border-left: 2px solid transparent;
+            padding: 8px 56px;
+            position: relative;
+            span {
+              padding: 0;
+            }
+          }
+          a:hover, span:hover {
+            color: #72839C!important;
+          }
+          a:first-child:before {
+            content: '';
+            background: url("/static/icons/base_of_knowledge.svg") no-repeat center/cover;
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            left: 32px;
+            bottom: 12px;
+          }
+          a:nth-child(2):before {
+            content: '';
+            background: url("/static/icons/support_center.svg") no-repeat center/cover;
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            left: 32px;
+            bottom: 12px;
+          }
+
         }
-        a:first-child:before {
-          content: '';
-          background: url("/static/icons/base_of_knowledge.svg") no-repeat center/cover;
-          width: 14px;
-          height: 14px;
-          position: absolute;
-          left: -6px;
-          bottom: 7px;
-        }
-        a:nth-child(2):before {
-          content: '';
-          background: url("/static/icons/support_center.svg") no-repeat center/cover;
-          width: 14px;
-          height: 14px;
-          position: absolute;
-          left: -6px;
-          bottom: 7px;
+        @media (max-width: 560px) {
+          a {
+            padding: 8px 48px;
+          }
+          a:first-child:before, a:nth-child(2):before {
+            left: 24px;
+          }
         }
       }
     }
