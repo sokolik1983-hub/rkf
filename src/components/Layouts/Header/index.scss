@@ -60,7 +60,7 @@
       min-width: auto;
     }
     &-control {
-      width: 100%;
+      width: 0;
       padding: 6px 5px 6px 5px;
       border: 1px solid transparent;
       border-radius: 6px;
@@ -72,22 +72,24 @@
       color: #90999e;
       caret-color: #3366ff;
       box-shadow: none;
-      transition: all 0.2s linear;
+      transition: all 0.3s linear;
       display: flex;
       &._open {
-        transition: all 0.2s linear;
+        width: 100%;
+        transition: all 0.3s linear;
         border-color: #ebf0f2 !important;
         box-shadow: 0 2px 10px rgba(51, 102, 255, 0.05), 0 4px 30px rgba(51, 102, 255, 0.1);
         @media (max-width: 1080px) {
+          border-radius: 0;
           transform: translateY(54px);
-          z-index: 50;
+          z-index: 1;
         }
       }
       @media (max-width: 1080px) {
-        width: 96%;
+        width: 100%;
         position: absolute;
         display: block;
-        left: 2%;
+        left: 0;
         transform: translateY(-200px);
       }
       @media (max-width: 560px) {

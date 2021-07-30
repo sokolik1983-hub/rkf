@@ -21,11 +21,12 @@ const NewsFilters = ({
 
     return (
         <div className={cn("NewsList__head", {
-            ["NewsList__head-mobile"] : isMobile1080,
-            ["NewsList__head-desktop"] : !isMobile1080,
-            ["__open"] : isMobile1080 && isOpenFilters,
+            "NewsList__head-mobile" : isMobile1080,
+            "NewsList__head-desktop" : !isMobile1080,
+            "__open" : isMobile1080 && isOpenFilters,
 
         })}>
+
             <div className="NewsList__head-wrap">
                 <div className="NewsList__filters">
                     {loading ?

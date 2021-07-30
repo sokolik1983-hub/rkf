@@ -15,7 +15,7 @@ import { formatText } from "utils";
 import { formatDateTime } from "utils/datetime";
 import { DEFAULT_IMG } from "appConfig";
 import EditForm from "./EditForm";
-import { Request } from "utils/request";
+// import { Request } from "utils/request";
 
 import "./index.scss";
 
@@ -79,31 +79,31 @@ const CardNewsNew = forwardRef(({
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
         const [isLiked, setIsLiked] = useState(is_liked);
-        const [likesCount, setLikesCount] = useState(like_count);
+        // const [likesCount, setLikesCount] = useState(like_count);
 
-        const handleLikeClick = () => {
-            if (isLiked) {
-                Request({
-                    url: `/api/article/remove_like_from_article/`,
-                    method: 'PUT',
-                    data: JSON.stringify({ article_id: id })
-                },
-                    () => {
-                        setIsLiked(!isLiked);
-                        setLikesCount(likesCount - 1);
-                    }, e => console.log(e.response));
-            } else {
-                Request({
-                    url: `/api/article/add_like_to_article/`,
-                    method: 'POST',
-                    data: JSON.stringify({ article_id: id })
-                },
-                    () => {
-                        setIsLiked(!isLiked);
-                        setLikesCount(likesCount + 1);
-                    }, e => console.log(e.response));
-            }
-        }
+        // const handleLikeClick = () => {
+        //     if (isLiked) {
+        //         Request({
+        //             url: `/api/article/remove_like_from_article/`,
+        //             method: 'PUT',
+        //             data: JSON.stringify({ article_id: id })
+        //         },
+        //             () => {
+        //                 setIsLiked(!isLiked);
+        //                 setLikesCount(likesCount - 1);
+        //             }, e => console.log(e.response));
+        //     } else {
+        //         Request({
+        //             url: `/api/article/add_like_to_article/`,
+        //             method: 'POST',
+        //             data: JSON.stringify({ article_id: id })
+        //         },
+        //             () => {
+        //                 setIsLiked(!isLiked);
+        //                 setLikesCount(likesCount + 1);
+        //             }, e => console.log(e.response));
+        //     }
+        // }
 
         return <>
             <div className="CardNewsNew__content">
