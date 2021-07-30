@@ -18,7 +18,7 @@ import { getEmptyFilters, setFiltersToUrl } from "../../utils";
 import { RKFInfo } from "../../../Home/config";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { Request } from "../../../../utils/request";
-import Socials from "../../../../components/Socials";
+// import Socials from "../../../../components/Socials";
 import {
     endpointGetClubsCities,
     endpointGetFederations,
@@ -108,7 +108,7 @@ const Filters = ({ organization_type,
                                     <h3>{RKFInfo.aboutTitle}</h3>
                                     <p>{RKFInfo.about}</p>
                                 </Card>
-                                <Socials />
+                                {/* <Socials /> */}
                                 <Statistics />
                                 <Card className="organizations-page__map-wrap">
                                     <h3><Link className="organizations-page__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
