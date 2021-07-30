@@ -13,7 +13,7 @@ import UserMenu from "../UserMenu";
 import MenuComponent from "../../MenuComponent";
 import { connectShowFilters } from "../connectors";
 
-import './footerMenu.scss'
+import "./footerMenu.scss";
 
 
 const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, profile_id, setShowFilters, setIsOpen }) => {
@@ -48,7 +48,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         && pathAlias !== 'exhibitions'
         && pathAlias !== 'search'
         && pathAlias !== 'base-search'
-        && pathname !== ''
+        && pathAlias !== ''
         && pathAlias !== 'uploaded-documents';
 
     return (
