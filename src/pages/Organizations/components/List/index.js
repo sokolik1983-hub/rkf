@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CardOrganization from "../../../../components/CardOrganization";
@@ -9,15 +9,17 @@ import {endpointGetOrganizations} from "../../config";
 import "./index.scss";
 
 
-const OrganizationsList = ({organization_type,
-                            string_filter,
-                            federation_ids,
-                            city_ids,
-                            breed_ids,
-                            activated,
-                            not_activated,
-                            active_member,
-                            active_rkf_user}) => {
+const OrganizationsList = ({
+    organization_type,
+    string_filter,
+    federation_ids,
+    city_ids,
+    breed_ids,
+    activated,
+    not_activated,
+    active_member,
+    active_rkf_user
+}) => {
     const [org, setOrg] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
@@ -37,10 +39,6 @@ const OrganizationsList = ({organization_type,
                 start_element: startElem
             })}`
         }, data => {
-            if(startElem === 1) {
-                window.scrollTo(0,0);
-            }
-
             if (data.length) {
                 if (data.length < 10) {
                     setHasMore(false);
@@ -95,4 +93,4 @@ const OrganizationsList = ({organization_type,
     )
 };
 
-export default React.memo(OrganizationsList);
+export default memo(OrganizationsList);

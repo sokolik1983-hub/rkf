@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {memo, useState} from "react";
 import {setFiltersToUrl} from "../../../utils";
 import "./index.scss";
 
@@ -22,7 +22,7 @@ const SearchFilter = ({string_filter, isOrganizations}) => {
             <input
                 placeholder="Поиск организации по названию или городу"
                 name="search"
-                className={`search-filter__control ${isOrganizations ? `_no_border` : ``}`}
+                className={`search-filter__control${isOrganizations ? ' _no_border' : ''}`}
                 onChange={e => setSearchValue(e.target.value)}
                 onKeyDown={handleKeyDown}
                 value={searchValue}
@@ -34,4 +34,4 @@ const SearchFilter = ({string_filter, isOrganizations}) => {
     )
 };
 
-export default React.memo(SearchFilter);
+export default memo(SearchFilter);

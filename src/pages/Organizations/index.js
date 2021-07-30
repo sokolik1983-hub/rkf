@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import ClickGuard from "../../components/ClickGuard";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Filters from "./components/Filters";
 import OrganizationsFilter from "./components/Filters/Organizations";
-import SearchFilter from "./components/Filters/Search";
+// import SearchFilter from "./components/Filters/Search";
 import OrganizationsList from "./components/List";
 import {getFiltersFromUrl} from "./utils";
 import {connectShowFilters} from "../../components/Layouts/connectors";
-
 import "./index.scss";
+
 
 const Organizations = ({history, isOpenFilters, setShowFilters}) => {
     const [filtersValue, setFiltersValue] = useState({...getFiltersFromUrl()});
@@ -29,7 +29,7 @@ const Organizations = ({history, isOpenFilters, setShowFilters}) => {
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <div className="organizations-page__wrap">
                 <Container className="content organizations-page">
-                    <Filters {...filtersValue}/>
+                    <Filters {...filtersValue} isOpenFilters={isOpenFilters}/>
                     <div className="organizations-page__content">
                         <OrganizationsFilter organization_type={filtersValue.organization_type}/>
                         {/*{filtersValue.organization_type !== 5 &&*/}
@@ -43,4 +43,4 @@ const Organizations = ({history, isOpenFilters, setShowFilters}) => {
     )
 };
 
-export default connectShowFilters(React.memo(Organizations));
+export default connectShowFilters(memo(Organizations));
