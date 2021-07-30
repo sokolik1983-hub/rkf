@@ -114,6 +114,12 @@
       top: 18px;
       left: 85px;
       z-index: 100;
+      &.__hide {
+        display: none;
+        @media (max-width: 1080px) {
+          display: block;
+        }
+      }
       @media (max-width: 1225px) {
         left: 100px;
       }
