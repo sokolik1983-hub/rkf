@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, {memo, useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import StickyBox from "react-sticky-box";
-
 import Loading from "../../../../components/Loading";
 import Aside from "../../../../components/Layouts/Aside";
 import Card from "../../../../components/Card";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
+import Socials from "../../../../components/Socials";
 import Statistics from "../../../../components/Statistics";
 import FederationsFilter from "../../../../components/Filters/FederationsFilter";
 import FederationChoiceFilter from "../../../../components/Filters/FederationChoiceFilter";
 import ActivatedFilter from "../../../../components/Filters/ActivatedFilter";
 import BreedsFilter from "../../../../components/Filters/BreedsFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
+import NotActivatedFilter from "../../../../components/Filters/NotActivatedFilter";
+import ActiveUserFilter from "../../../../components/Filters/ActiveUserFilter";
 import ClubsMap from "../../../../components/ClubsMap";
-import { setOverflow } from "../../../../utils";
-import { getEmptyFilters, setFiltersToUrl } from "../../utils";
-import { RKFInfo } from "../../../Home/config";
-import { connectShowFilters } from "../../../../components/Layouts/connectors";
-import { Request } from "../../../../utils/request";
-// import Socials from "../../../../components/Socials";
+import {RKFInfo} from "../../../Home/config";
+import {setOverflow} from "../../../../utils";
+import {Request} from "../../../../utils/request";
 import {
     endpointGetClubsCities,
     endpointGetFederations,
@@ -26,13 +25,12 @@ import {
     endpointGetKennelsCities,
     endpointGetNKPBreeds
 } from "../../config";
-import NotActivatedFilter from "../../../../components/Filters/NotActivatedFilter";
-import ActiveUserFilter from "../../../../components/Filters/ActiveUserFilter";
-
+import {getEmptyFilters, setFiltersToUrl} from "../../utils";
 import "./index.scss";
 
 
-const Filters = ({ organization_type,
+const Filters = ({
+    organization_type,
     federation_ids,
     city_ids,
     breed_ids,
@@ -40,7 +38,8 @@ const Filters = ({ organization_type,
     not_activated,
     active_member,
     active_rkf_user,
-    isOpenFilters }) => {
+    isOpenFilters
+}) => {
     const [loading, setLoading] = useState(true);
     const [federations, setFederations] = useState([]);
     const [cities, setCities] = useState([]);
@@ -50,7 +49,7 @@ const Filters = ({ organization_type,
         await Request({
             url: organization_type === 4 ? endpointGetKennelBreeds : endpointGetNKPBreeds
         }, data => {
-            setBreeds(data.map(item => ({ value: item.id, label: item.name })));
+            setBreeds(data.map(item => ({value: item.id, label: item.name})));
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -108,7 +107,7 @@ const Filters = ({ organization_type,
                                     <h3>{RKFInfo.aboutTitle}</h3>
                                     <p>{RKFInfo.about}</p>
                                 </Card>
-                                {/* <Socials /> */}
+                                <Socials />
                                 <Statistics />
                                 <Card className="organizations-page__map-wrap">
                                     <h3><Link className="organizations-page__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
@@ -143,7 +142,7 @@ const Filters = ({ organization_type,
                                         <FederationsFilter
                                             federations={federations}
                                             federation_ids={federation_ids}
-                                            onChange={filter => setFiltersToUrl({ federation_ids: filter })}
+                                            onChange={filter => setFiltersToUrl({federation_ids: filter})}
                                         />
                                         <Card className="organizations-page__other">
                                             <div className="organizations-page__other-info-wrap">
@@ -156,16 +155,16 @@ const Filters = ({ organization_type,
                                             </div>
                                             <ActiveUserFilter
                                                 active_rkf_user={active_rkf_user}
-                                                onChange={filter => setFiltersToUrl({ not_activated: false, active_rkf_user: filter })}
+                                                onChange={filter => setFiltersToUrl({not_activated: false, active_rkf_user: filter})}
                                             />
                                             <FederationChoiceFilter
                                                 active_member={active_member}
-                                                onChange={filter => setFiltersToUrl({ not_activated: false, active_member: filter })}
+                                                onChange={filter => setFiltersToUrl({not_activated: false, active_member: filter})}
                                             />
                                             <ActivatedFilter
                                                 activated={activated}
                                                 label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
-                                                onChange={filter => setFiltersToUrl({ not_activated: false, activated: filter })}
+                                                onChange={filter => setFiltersToUrl({not_activated: false, activated: filter})}
                                             />
                                             <NotActivatedFilter
                                                 not_activated={not_activated}
@@ -178,7 +177,7 @@ const Filters = ({ organization_type,
                                                         activated: false,
                                                         not_activated: filter
                                                     } :
-                                                    { not_activated: filter }
+                                                    {not_activated: filter}
                                                 )}
                                             />
                                         </Card>
@@ -188,14 +187,14 @@ const Filters = ({ organization_type,
                                     <BreedsFilter
                                         breeds={breeds}
                                         breed_ids={breed_ids}
-                                        onChange={filter => setFiltersToUrl({ breed_ids: filter })}
+                                        onChange={filter => setFiltersToUrl({breed_ids: filter})}
                                     />
                                 }
                                 {(organization_type === 3 || organization_type === 4) &&
                                     <CitiesFilter
                                         cities={cities}
                                         city_ids={city_ids}
-                                        onChange={filter => setFiltersToUrl({ city_ids: filter })}
+                                        onChange={filter => setFiltersToUrl({city_ids: filter})}
                                     />
                                 }
                             </>
@@ -208,4 +207,4 @@ const Filters = ({ organization_type,
     )
 };
 
-export default connectShowFilters(React.memo(Filters));
+export default memo(Filters);
