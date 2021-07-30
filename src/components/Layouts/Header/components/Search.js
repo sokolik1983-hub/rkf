@@ -45,7 +45,7 @@ const Search = ({ withFilters, hideSideMenu }) => {
                     value={searchValue}
                 />
 <               div>
-                <button type="submit" onClick={handleChecked} className="header__search-submit">
+                <button type="submit" onClick={handleChecked} className={isClicked ? 'header__search-submit __hide' : 'header__search-submit'}>
                     <svg  width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.62594 14.2519C11.2853 14.2519 14.2519 11.2853 14.2519 7.62594C14.2519 3.96653 11.2853 1 7.62594 1C3.96653 1 1 3.96653 1 7.62594C1 11.2853 3.96653 14.2519 7.62594 14.2519Z" stroke={strokeColor} strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round"/>
                         <path d="M12.3023 12.3024L19 19.0001" stroke={strokeColor} strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round"/>

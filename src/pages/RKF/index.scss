@@ -102,6 +102,9 @@
     }
   }
   &__left {
+    .Card {
+      padding: 10px;
+    }
     width: 266px;
     min-width: 266px;
     margin-right: 15px;

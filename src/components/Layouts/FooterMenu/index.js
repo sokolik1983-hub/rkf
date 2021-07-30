@@ -13,7 +13,7 @@ import UserMenu from "../UserMenu";
 import MenuComponent from "../../MenuComponent";
 import { connectShowFilters } from "../connectors";
 
-import './footerMenu.scss'
+import "./footerMenu.scss";
 
 
 const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, profile_id, setShowFilters, setIsOpen }) => {
@@ -49,8 +49,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         && pathAlias !== 'search'
         && pathAlias !== 'base-search'
         && pathAlias !== ''
-        && pathAlias === 'uploaded-documents';
-
+        && pathAlias !== 'uploaded-documents';
 
     return (
         <>
@@ -120,19 +119,17 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                 />
                 }
 
-                {!isAuthenticated && checkPathForMenu && !isFederation &&
+                {!isAuthenticated && !isFederation && checkPathForMenu &&
                     <UserMenu
                         notificationsLength={notificationsLength}
                         footerNav={footerNav[4]}
                         userNav={urlAlias}
                     />
                 }
-
             </div>
             }
         </>
     )
 };
-
 
 export default connectAuthVisible(connectShowFilters(React.memo(FooterMenu)));
