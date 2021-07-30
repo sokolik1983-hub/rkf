@@ -48,9 +48,8 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         && pathAlias !== 'exhibitions'
         && pathAlias !== 'search'
         && pathAlias !== 'base-search'
-        && pathAlias !== ''
-        && pathAlias === 'uploaded-documents';
-
+        && pathname !== ''
+        && pathAlias !== 'uploaded-documents';
 
     return (
         <>
@@ -120,19 +119,17 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                 />
                 }
 
-                {!isAuthenticated && checkPathForMenu && !isFederation &&
+                {!isAuthenticated && !isFederation && checkPathForMenu &&
                     <UserMenu
                         notificationsLength={notificationsLength}
                         footerNav={footerNav[4]}
                         userNav={urlAlias}
                     />
                 }
-
             </div>
             }
         </>
     )
 };
-
 
 export default connectAuthVisible(connectShowFilters(React.memo(FooterMenu)));
