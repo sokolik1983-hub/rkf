@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { CSSTransition } from "react-transition-group";
+import React, {memo, useEffect, useState} from "react";
+import {CSSTransition} from "react-transition-group";
 import CalendarFilter from "../../../../../components/Filters/CalendarFilter";
 import FederationsFilter from "../../../../../components/Filters/FederationsFilter";
 import ActiveFilter from "../../../../../components/Filters/FederationChoiceFilter";
@@ -8,8 +8,6 @@ import BreedsFilter from "../../../../../components/Filters/BreedsFilter";
 import CitiesFilter from "../../../../../components/Filters/CitiesFilter";
 import RanksFilter from "../../../../../components/Filters/RanksFilter";
 import PriceFilter from "../../../../../components/Filters/PriceFilter";
-import { formatDateToString } from "../../../../../utils/datetime";
-import { getEmptyFilters, setFiltersToUrl } from "../../../utils";
 import RangeCalendarSearch from "../../../../../components/kendo/RangeCalendar/RangeCalendarSearch.js";
 import DisciplinesFilter from "../../../../../components/Filters/DisciplinesFilter";
 import ClassificationsFilter from "../../../../../components/Filters/ClassificationsFilter";
@@ -18,6 +16,8 @@ import ContestsFilter from "../../../../../components/Filters/ContestsFilter";
 import BreedGroupsFilter from "../../../../../components/Filters/BreedGroupsFilter";
 import RegionsFilter from "../../../../../components/Filters/RegionsFilter";
 import RankFilter from "../../../../../components/Filters/RankFilter";
+import {formatDateToString} from "../../../../../utils/datetime";
+import {getEmptyFilters, setFiltersToUrl} from "../../../utils";
 
 
 const DropdownItem = ({
@@ -49,7 +49,7 @@ const DropdownItem = ({
         if (count) {
             setIsOpen(!isOpen);
             if (search_type !== filtersValue.search_type) {
-                setFiltersToUrl({ ...getEmptyFilters(), string_filter: filtersValue.string_filter, search_type });
+                setFiltersToUrl({...getEmptyFilters(), string_filter: filtersValue.string_filter, search_type});
             }
         }
     };
@@ -94,20 +94,20 @@ const DropdownItem = ({
                                 <FederationsFilter
                                     federations={federations}
                                     federation_ids={filtersValue.federation_ids}
-                                    onChange={filter => setFiltersToUrl({ federation_ids: filter })}
+                                    onChange={filter => setFiltersToUrl({federation_ids: filter})}
                                     key="federations-filter"
                                 /> :
                             filter === 'active_member' ?
                                 <ActiveFilter
                                     active_member={filtersValue.active_member}
-                                    onChange={filter => setFiltersToUrl({ active_member: filter })}
+                                    onChange={filter => setFiltersToUrl({active_member: filter})}
                                     key="active-filter"
                                 /> :
                             filter === 'activated' ?
                                 <ActivatedFilter
                                     activated={filtersValue.activated}
                                     label={`Активированные ${search_type === 2 ? 'клубы' : 'питомники'}`}
-                                    onChange={filter => setFiltersToUrl({ activated: filter })}
+                                    onChange={filter => setFiltersToUrl({activated: filter})}
                                     key="activated-filter"
                                 /> :
                             filter === 'regions' && regions && regions.length ?
@@ -196,4 +196,4 @@ const DropdownItem = ({
     )
 };
 
-export default DropdownItem;
+export default memo(DropdownItem);

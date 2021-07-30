@@ -1,11 +1,10 @@
-import React, {useEffect} from "react";
+import React, {memo, useEffect} from "react";
 import StickyBox from "react-sticky-box";
 import Aside from "../../../../components/Layouts/Aside";
 import Card from "../../../../components/Card";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
 import Dropdown from "./Dropdown";
 import {setOverflow} from "../../../../utils";
-import {connectShowFilters} from "../../../../components/Layouts/connectors";
 import "./index.scss";
 
 
@@ -40,4 +39,4 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
     )
 };
 
-export default connectShowFilters(React.memo(Filters));
+export default memo(Filters);
