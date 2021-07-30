@@ -1,40 +1,40 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from "react-router-dom";
-import Container from "../Container";
-import Search from "./components/Search";
-import Nav from "./components/Nav";
-import WidgetLogin from "./components/WidgetLogin";
-import Notifications from "./components/Notifications";
-import { connectShowFilters } from "../connectors";
-import { connectAuthVisible } from "pages/Login/connectors";
-import useIsMobile from "../../../utils/useIsMobile";
+import { Link, useLocation } from 'react-router-dom';
+import Container from '../Container';
+import Search from './components/Search';
+import Nav from './components/Nav';
+import WidgetLogin from './components/WidgetLogin';
+import Notifications from './components/Notifications';
+import { connectShowFilters } from '../connectors';
+import { connectAuthVisible } from 'pages/Login/connectors';
+import useIsMobile from '../../../utils/useIsMobile';
 
-import "./index.scss";
+import './index.scss';
 
 const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength, isOpen, setIsOpen }) => {
     const isMobile = useIsMobile(1080);
-    const {pathname} = useLocation();
+    const { pathname } = useLocation();
     const [openWidgets, setOpenWidgets] = useState(false);
 
     const needChangeIsOpen = (valueIsOpen) => {
         if (valueIsOpen) {
-            setShowFilters({isOpenFilters: false})
+            setShowFilters({ isOpenFilters: false });
         }
-    }
+    };
 
     const hideSideMenu = () => {
-        setShowFilters({isOpenFilters: false});
+        setShowFilters({ isOpenFilters: false });
         setIsOpen(false);
-    }
+    };
 
-    const strokeColor = isOpenFilters ? '#3366FF' : '#90999E'
+    const strokeColor = isOpenFilters ? '#3366FF' : '#90999E';
 
     return (
-        <header className="header">
-            <Container className="header__content">
+        <header className='header'>
+            <Container className='header__content'>
 
-                {isMobile
-                    ? <div className="header__nav-wrap">
+                {isMobile ?
+                    <div className='header__nav-wrap'>
                         <Nav
                             isOpenFilters={isOpenFilters}
                             needChangeIsOpen={needChangeIsOpen}
@@ -42,15 +42,14 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                             isOpen={isOpen}
                             setIsOpen={setIsOpen}
                         />
-                    </div>
-                    : <div><Link to="/" className="header__logo"/></div>
+                    </div> :
+                    <div><Link to='/' className='header__logo' /></div>
                 }
 
-                    <Search hideSideMenu={hideSideMenu} withFilters={withFilters}/>
-
+                <Search hideSideMenu={hideSideMenu} withFilters={withFilters} />
 
                 {!isMobile
-                && <Nav isAuthenticated={isAuthenticated}/>
+                && <Nav isAuthenticated={isAuthenticated} />
                 }
                 <div className="header__widgets">
                     {isAuthenticated &&
@@ -67,10 +66,14 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                         </>
                     }
 
-                {isMobile
-                    ? <div className={ (isAuthenticated && withFilters || pathname === '/') ? "header__filters" : "header__filters __hidden"}          onClick={() => {setShowFilters({isOpenFilters: !isOpenFilters})
-                    }}>
-                        <div className={isOpenFilters ? "open" : ''}>
+                    {isMobile  ?
+                        <div className={((isAuthenticated && withFilters) || pathname === '/') ?
+                            'header__filters' :
+                            'header__filters __hidden'}
+                            onClick={() => {
+                                setShowFilters({ isOpenFilters: !isOpenFilters });
+                            }}>
+                            <div className={isOpenFilters ? 'open' : ''}>
 
                             <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M3.47827 12.6608V17.4434" stroke={strokeColor} strokeWidth="1.32" strokeMiterlimit="10"/>
