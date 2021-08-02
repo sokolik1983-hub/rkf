@@ -1,6 +1,6 @@
 .header {
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(51, 102, 255, 0.05);
+  box-shadow: 0px 2px 2px -1px rgba(34, 60, 80, 0.2);
   position: fixed;
   top: 0;
   left: 0;
@@ -360,8 +360,7 @@
         top: 62px;
         left: 0;
         background-color: #fff;
-        box-shadow: -2px 2px 4px rgba(51, 102, 255, 0.05);
-        border-top: 1px solid #ccc;
+        box-shadow: 0px 2px 2px -1px rgba(34, 60, 80, 0.2) inset;
         transition: all 0.2s ease-out;
         &._open {
           visibility: visible;
