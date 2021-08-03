@@ -14,9 +14,9 @@
     min-width: 300px;
     max-width: 300px;
     margin: 16px 16px 0 0;
-    @media (max-width: 990px) {
+    @media (max-width: 1080px) {
       position: fixed;
-      top: 57px;
+      top: 70px;
       right: 0;
       z-index: 3;
       margin: 0;
@@ -26,6 +26,7 @@
       visibility: hidden;
       transform: translateX(100%);
       transition: all .2s ease-out;
+      padding-top: 5px;
       &._open {
         visibility: visible;
         transform: translateX(0);
@@ -33,10 +34,6 @@
       & > div {
         position: static !important;
       }
-    }
-    @media (max-width: 560px) {
-      top: 71px;
-      height: calc(100% - 135px);
     }
   }
   &__content {

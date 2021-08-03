@@ -17,7 +17,7 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
 
     return (
         <Aside className={`search-page__left${isOpenFilters ? ' _open' : ''}`}>
-            <StickyBox offsetTop={66}>
+            <StickyBox>
                 <div className="search-page__filters-wrap">
                     <Card className="search-page__filters">
                         <h3 className="search-page__filters-title">Результаты поиска по запросу:</h3>

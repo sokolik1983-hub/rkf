@@ -21,25 +21,26 @@
     }
     @media (max-width: 990px) {
       position: fixed;
-      top: 10px;
+      top: 70px;
       right: 0;
       z-index: 3;
       margin: 0;
+      padding: 5px 0 65px 20px;
       background-color: #fff;
-      height: calc(100% - 71px);
+      height: calc(100% - 70px);
       overflow-y: auto;
       visibility: hidden;
       transform: translateX(100%);
       transition: all 0.2s ease-out;
+
       &._open {
         visibility: visible;
         transform: translateX(0);
       }
     }
-    @media (max-width: 560px) {
-      top: 71px;
-      height: calc(100% - 130px);
-    }
+    //@media (max-width: 560px) {
+    //  top: 70px;
+    //}
   }
   &__content {
     margin-top: 16px;
