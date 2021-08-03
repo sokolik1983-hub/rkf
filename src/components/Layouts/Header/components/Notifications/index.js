@@ -130,7 +130,7 @@ const Notifications = forwardRef(
                     <LightTooltip title="Уведомления" enterDelay={200} leaveDelay={200}>
                         <div className="Notifications__icon-wrap">
                             <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick}>
-                                {isMobile && "Уведомления"}
+                                 Уведомления
                             </div>
                             {showDot && <div className="Notifications__icon-dot" />}
                         </div>

@@ -12,20 +12,16 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
         flex-direction: column;
         align-items: center;
         padding-top: 22px;
-        margin-right: 10px;
-        width: 50px;
-        height: 50px;
-        font-size: 12px;
+        margin-right: 35px;
+        font-size: 13px;
         color: #979797;
         background-position: top center;
         background-repeat: no-repeat;
-        background-size: 44px 44px;
-        background-image: url("/static/new-icons/notifications/notifications.svg");
         cursor: pointer;
-        @media (max-width: 1080px) {
-            background-image: url("/static/new-icons/notifications/bell.svg");
-            background-size: 23px 23px;
-        }
+        background-image: url("/static/new-icons/notifications/bell.svg");
+        background-size: 20px 23px;
+        line-height: 22px;
+        margin-top: 6px;
         &:hover {
             filter: $blue-color;
             @media (max-width: 1080px) {
@@ -45,13 +41,13 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
             height: 7px;
             border-radius: 50%;
             background: red;
-            top: -2px;
-            right: 14px;
+            top: -6px;
+            right: 58px;
             border: 3px white solid;
             box-sizing: content-box;
             @media (max-width: 1080px) {
-                top: -9px;
-                right: 20px;
+                top: -2px;
+                right: 57px;
             }
         }
     }

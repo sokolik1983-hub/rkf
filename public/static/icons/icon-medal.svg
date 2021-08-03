@@ -16,10 +16,10 @@
 	.st10{fill:url(#SVGID_10_);}
 	.st11{fill:url(#SVGID_11_);}
 	.st12{opacity:0.21;}
-	.st13{fill-rule:evenodd;clip-rule:evenodd;fill:#563208;}
-	.st14{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_12_);}
-	.st15{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_13_);}
-	.st16{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_14_);}
+	.st13{fillRule:evenodd;clipRule:evenodd;fill:#563208;}
+	.st14{fillRule:evenodd;clipRule:evenodd;fill:url(#SVGID_12_);}
+	.st15{fillRule:evenodd;clipRule:evenodd;fill:url(#SVGID_13_);}
+	.st16{fillRule:evenodd;clipRule:evenodd;fill:url(#SVGID_14_);}
 </style>
 <g>
 	<g id="badge_5">

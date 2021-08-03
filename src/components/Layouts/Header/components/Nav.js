@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
 import { mainNav } from "../../../../appConfig";
 import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
@@ -7,6 +7,7 @@ import NavSublist from "./NavSublist";
 import { connectAuthVisible } from "../../../../pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
 import MenuLink from "./MenuLink";
+// import Support from "./../../../../pages/About/components/Support";
 
 const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen}) => {
 
@@ -61,7 +62,7 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                     </div>
 
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>
-                        {mainNav.map((navItem, i, arr) =>  <li style={{borderBottom: arr.length -2 === i && "1px solid #ccc"}} className="header__nav-item" key={navItem.id}>
+                        {mainNav.map((navItem, i, arr) =>  <li className="header__nav-item" key={navItem.id}>
                                     {navItem.children ?
                                         <NavSublist setIsOpen={setIsOpen} navItem={navItem}/> :
                                         <NavLink
@@ -100,7 +101,25 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                                 </li>
                             )
                         })}
+                        {!isMobile &&
+                        <li className="header__nav-item--desktop Feedback"><Feedback isMainNav title='Поддержка'/></li>
+                        }
                     </ul>
+                    {/*{!isMobile &&*/}
+                    {/*<div className="header__nav-item--desktop Feedback"><Feedback isMainNav title='Поддержка'/></div>*/}
+                    {/*}*/}
+                        <Link className="header__nav-item--desktop recording" to="/booking">
+                            <svg width="23" height="24" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.6696 5.51138V2.97113C20.6696 1.8884 19.7951 1 18.6985 1H2.97113C1.87451 1 1 1.87451 1 2.97113V22.6408C1 23.7235 1.87451 24.6119 2.97113 24.6119H18.7124C19.7951 24.6119 20.6835 23.7374 20.6835 22.6408V11.7579" stroke="#8F989D" strokeWidth="1.6" strokeMiterlimit="10" strokeLinejoin="round"/>
+                                <path d="M12.2576 16.9633L15.256 17.1854L23.1405 9.30084C23.9039 8.53738 23.9039 7.28807 23.1405 6.52461L22.6963 6.08041C21.9328 5.31695 20.6835 5.31695 19.92 6.08041L12.0355 13.9649L12.2576 16.9633Z" stroke="#8F989D" strokeWidth="1.6" strokeMiterlimit="10" strokeLinejoin="round"/>
+                                <path d="M5.21985 5.51123H16.3248" stroke="#8F989D" strokeWidth="1.6" strokeMiterlimit="10" strokeLinejoin="round"/>
+                                <path d="M5.21985 9.71729H15.7834" stroke="#8F989D" strokeWidth="1.6" strokeMiterlimit="10" strokeLinejoin="round"/>
+                                <path d="M5.21985 13.9233H12.0355" stroke="#8F989D" strokeWidth="1.6" strokeMiterlimit="10" strokeLinejoin="round"/>
+                                <path d="M5.21985 18.1294H9.55078" stroke="#8F989D" strokeWidth="1.6" strokeMiterlimit="10" strokeLinejoin="round"/>
+                            </svg>
+                            <span>Записаться</span>
+                        </Link>
+
                 </>
             }
 
