@@ -22,6 +22,9 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
         background-size: 20px 23px;
         line-height: 22px;
         margin-top: 6px;
+        @media (max-width: 1080px) {
+            margin-right: 5px;
+        }
         &:hover {
             filter: $blue-color;
             @media (max-width: 1080px) {
@@ -47,7 +50,7 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
             box-sizing: content-box;
             @media (max-width: 1080px) {
                 top: -2px;
-                right: 57px;
+                right: 30px;
             }
         }
     }
