@@ -303,18 +303,25 @@
     padding-top: 10px;
     border-top: 1px solid #e8e8e8;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     position: relative;
     &._open {
       justify-content: space-between;
     }
     button {
       text-align: left;
-      margin-right: auto;
       color: #72839c;
       border: none;
       padding: 0;
       opacity: 0.6;
+      @media (max-width: 376px) {
+        font-size: 15px;
+      }
+    }
+    div {
+      @media (max-width: 440px) {
+        text-align: end;
+      }
     }
   }
   &__go-back {
@@ -349,22 +356,31 @@
     letter-spacing: 0.2px;
     transition: color 0.2s linear;
     cursor: pointer;
-    margin-right: 20px;
     &:hover {
       color: #36f;
     }
     &._disabled {
       color: #b9c1ce !important;
     }
+    @media (max-width: 376px) {
+      font-size: 15px;
+    }
   }
   .Share {
     pointer-events: none;
     line-height: 20px;
-    position: absolute;
-    right: 0;
-    @media (max-width: 440px) {
-      top: 50%;
-      transform: translateY(-35%);
+    margin: 0 auto 0 16px;
+    @media (max-width: 425px) {
+      position: absolute;
+      top: 34%;
+      right: 46%;
+    }
+    @media (max-width: 390px) {
+      right: 60%;
+    }
+    @media (max-width: 321px) {
+      right: 55%;
+      top: 38%;
     }
     .ya-share2__icon_more {
       height: 16px;
