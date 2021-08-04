@@ -10,15 +10,16 @@
   padding: 5px 0;
   .click-guard {
     z-index: 0;
-    top: 70px;
-    @media (max-width: 560px) {
-      top: 48px;
-    }
+    top: 60px;
   }
   &__nav-item svg {
     margin-right: 6px;
     margin-top: 0;
     vertical-align: middle;
+    @media (max-width: 1080px) {
+      height: 19px;
+      width: 19px;
+    }
   }
   &__content {
     display: flex;
@@ -328,16 +329,11 @@
               path {
                 fill: #3366FF;
               }
-
-              //stroke: red;
             }
             span {
               color: #3366FF;
             }
-
-
           }
-          //margin-top: 3px;
         }
       }
       .Feedback div {
@@ -348,7 +344,6 @@
       }
       span {
         padding-top: 4px;
-
       }
       span, a  {
         display: flex;
@@ -374,7 +369,7 @@
       z-index: 100;
     }
     .click-guard {
-      top: 70px;
+      top: 60px;
       left: 0;
       z-index: 0;
     }
@@ -430,7 +425,6 @@
         width: 288px;
       }
     }
-
     &-item {
       position: relative;
       display: block;
@@ -450,6 +444,17 @@
             fill: #3366ff;
           }
         }
+      }
+      &.__about {
+        border-top: 1px solid #e8e8e8;
+        padding-top: 5px;
+        margin-left: -2px;
+        a {
+          span {
+            margin-left: 2px;
+          }
+        }
+
       }
       a,
       p {
@@ -990,19 +995,12 @@
     .header__nav-item-link svg path, .header__nav-item-title {
       fill: #3366ff;
       color: #3366ff;
-      //stroke: #3366ff;
     }
   }
 }
-//.header__nav-item-link {
-//  svg {
-//    path {
-//      fill: red;
-//    }
-//  }
-//}
 .header__nav-list  {
   top: 54px;
+  height: 100vh;
   &._open {
     & .widget-login__item {
       &.popup-menu {
