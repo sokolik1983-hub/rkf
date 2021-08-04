@@ -467,8 +467,8 @@ const footerNav = [
         title: 'Главная',
         to: '/',
         image: <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 10L11 1L1 10" stroke="#90999E" strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round" strokeLinejoin="round"/>
-            <path d="M3 8.5V20H8.33333V12.9286H13.6667V20H19V8.5" stroke="#90999E" strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round" strokeLinejoin="round"/>
+            <path d="M21 10L11 1L1 10" stroke="#90999E" strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round"/>
+            <path d="M3 8.5V20H8.33333V12.9286H13.6667V20H19V8.5" stroke="#90999E" strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round" />
         </svg>
 
     },
