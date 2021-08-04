@@ -11,8 +11,6 @@ const NewsFilters = ({
     cities,
     newsFilter,
     changeOrganizationFilters,
-    changeTypeFilters,
-    activeType,
     changeCityFilter,
     isOpenFilters
 }) => {

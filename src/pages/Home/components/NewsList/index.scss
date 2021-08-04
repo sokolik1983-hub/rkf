@@ -23,8 +23,6 @@
   &__head {
     width: 250px;
     min-width: 250px;
-    position: sticky;
-    top: 50px;
     max-width: 236px;
     z-index: 1;
     transition: all 0.2s ease;
@@ -42,6 +40,10 @@
         overflow: scroll;
         bottom: 0;
       }
+    }
+    &-wrap {
+      position: sticky;
+      top: 70px;
     }
   }
   &-wrap {
