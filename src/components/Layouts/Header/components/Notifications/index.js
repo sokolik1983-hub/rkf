@@ -11,7 +11,6 @@ import NotificationItem from "./NotificationItem";
 import { NotificationsContext } from 'app/context';
 import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
-import useIsMobile from "../../../../../utils/useIsMobile";
 
 import "./styles.scss";
 
@@ -44,7 +43,6 @@ const Notifications = forwardRef(
         const [showDot, setShowDot] = useState(null);
         const [currentCategory, setCurrentCategory] = useState(2);
         const [categories, setCategories] = useState(defaultCategories);
-        const isMobile = useIsMobile(1080);
         const { notification } = useContext(NotificationsContext);
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
@@ -130,7 +128,7 @@ const Notifications = forwardRef(
                     <LightTooltip title="Уведомления" enterDelay={200} leaveDelay={200}>
                         <div className="Notifications__icon-wrap">
                             <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick}>
-                                {isMobile && "Уведомления"}
+                                 Уведомления
                             </div>
                             {showDot && <div className="Notifications__icon-dot" />}
                         </div>

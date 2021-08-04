@@ -6,7 +6,6 @@ import HomeCitySelect from "./HomeCitySelect/index";
 import useIsMobile from "../../../../utils/useIsMobile";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
 
-
 const NewsFilters = ({
     loading,
     cities,

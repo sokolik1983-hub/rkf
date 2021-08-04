@@ -49,7 +49,9 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         && pathAlias !== 'search'
         && pathAlias !== 'base-search'
         && pathAlias !== ''
-        && pathAlias !== 'uploaded-documents';
+        && pathAlias !== 'uploaded-documents'
+        && pathAlias !== 'auth/login'
+        && pathAlias !== 'auth/registration';
 
     return (
         <>

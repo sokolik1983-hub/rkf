@@ -1,13 +1,13 @@
 .header {
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(51, 102, 255, 0.05);
+  box-shadow: 0px 2px 2px -1px rgba(34, 60, 80, 0.2);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
   width: 100%;
-  height: 70px;
-  padding: 8px 0;
+  height: 59px;
+  padding: 5px 0;
   .click-guard {
     z-index: 0;
     top: 70px;
@@ -16,7 +16,6 @@
     }
   }
   &__nav-item svg {
-    width: 18px;
     margin-right: 6px;
     margin-top: 0;
     vertical-align: middle;
@@ -34,8 +33,8 @@
   }
   &__logo {
     display: block;
-    height: 55px !important;
-    width: 55px;
+    height: 45px !important;
+    width: 45px;
     background: url("/static/images/header/rkf-logo-transparent.svg") no-repeat center;
     background-size: cover;
     margin-right: 30px;
@@ -151,7 +150,7 @@
       position: absolute;
       width: 16px;
       height: 16px;
-      top: 21px;
+      top: 16px;
       left: 24%;
       @media (max-width: 1225px) {
         left: 26%;
@@ -305,7 +304,62 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
-      margin-left: 1%;
+      padding-top: 3px;
+       .recording {
+        display: flex;
+        justify-content: space-evenly;
+         margin-right: 36px;
+         &:hover  {
+           svg {
+             path {
+               stroke: #3366ff;
+             }
+
+           }
+           span {
+             color: #3366ff;
+           }
+         }
+      }
+      .Feedback {
+        .feedback-link {
+          &:hover  {
+            svg {
+              path {
+                fill: #3366FF;
+              }
+
+              //stroke: red;
+            }
+            span {
+              color: #3366FF;
+            }
+
+
+          }
+          //margin-top: 3px;
+        }
+      }
+      .Feedback div {
+        color: #979797;
+        font-size: 13px;
+        line-height: 13px;
+        padding-top: 4px;
+      }
+      span {
+        padding-top: 4px;
+
+      }
+      span, a  {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #979797;
+        font-size: 13px;
+        line-height: 13px;
+        //padding-top: 4px;
+        text-decoration: none;
+      }
       @media (max-width: 1120px) {
         margin-left: 5px;
       }
@@ -337,10 +391,12 @@
         list-style: none;
         display: flex;
         justify-content: flex-start;
-
+        align-items: center;
+        li {
+          margin-right: 34px;
+        }
         .active {
           .header__nav-icon {
-
             fill: #3366ff;
             div {
               color: red;
@@ -352,7 +408,7 @@
         display: block;
         visibility: hidden;
         transform: translateX(-100%);
-        height: 336px;
+        height: 332px;
         min-width: 320px;
         overflow-y: auto;
         padding: 16px 0 24px;
@@ -360,12 +416,12 @@
         top: 62px;
         left: 0;
         background-color: #fff;
-        box-shadow: -2px 2px 4px rgba(51, 102, 255, 0.05);
-        border-top: 1px solid #ccc;
+        box-shadow: 0px 2px 2px -1px rgba(34, 60, 80, 0.2) inset;
         transition: all 0.2s ease-out;
         &._open {
           visibility: visible;
           transform: translateX(0);
+
         }
       }
       @media (max-width: 560px) {
@@ -374,24 +430,11 @@
         width: 288px;
       }
     }
+
     &-item {
       position: relative;
       display: block;
-
-
-      &:nth-child(6) {
-        display: none;
-      }
-      &--desktop {
-        margin-right: 14px;
-        &:last-child {
-          display: block;
-          transform: translateX(200%);
-          @media (max-width: 1220px) {
-            transform: translateX(85%);
-          }
-        }
-      }
+      margin-bottom: 18px;
       &-link {
         text-decoration:none;
         display: flex;
@@ -402,19 +445,26 @@
         .header__nav-item-title {
           color: #3366ff;
         }
+        svg {
+          path {
+            fill: #3366ff;
+          }
+        }
       }
       a,
       p {
         display: flex;
         align-items: center;
+
         text-decoration: none;
         font-weight: normal;
-        font-size: 16px;
-        line-height: 22px;
-        color: #72839c !important;
+        font-size: 13px;
+        line-height: 20px;
+        color: #979797 !important;
         cursor: pointer;
 
         @media (max-width: 1080px) {
+          //flex-direction: column;
           padding: 5px 32px;
           white-space: nowrap;
           border-left: 2px solid transparent;
@@ -591,7 +641,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-left: 50px;
+      margin-left: 35px;
       z-index: 100;
       @media (max-width: 1080px) {
         margin-top: 5px;
@@ -601,7 +651,6 @@
       & .Notifications {
         align-items: flex-end;
         height: auto;
-        margin-top: 8px;
       }
       span {
         font-size: 12px;
@@ -642,11 +691,9 @@
 
     }
   }
-
   &__user-icon {
-    height: 55px;
-    width: 55px;
-    min-width: 40px;
+    height: 25px;
+    width: 25px;
     background-position: center;
     background-size: cover;
     border-radius: 50%;
@@ -654,22 +701,36 @@
     cursor: pointer;
     transition: border-color 0.2s linear;
     position: relative;
-    margin-left: 20px;
+    span {
+      color: #8F989D;
+      font-size: 13px;
+      line-height: 16px;
+    }
     @media (max-width: 1080px) {
       margin-left: 0;
       display: flex;
       align-items: center;
       flex-direction: column;
+      height: auto;
+      width: auto;
     }
   }
   &__wrap {
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     &:hover {
       transition: all 0.2s linear;
     }
     span {
       color: #979797;
       font-size: 13px;
+      line-height: 15px;
+      margin-top: 4px;
+      &:hover {
+        color: #3366FF;
+      }
     }
     &._login_open {
       svg path{
@@ -827,17 +888,22 @@
       left: 0;
     }
   }
-  & > a:nth-child(2) {
-    margin-left: 16px;
-  }
   .login-link {
+    margin-right: 36px;
+    span {
+      padding-top: 6px !important;
+    }
     @media (max-width: 1080px) {
       margin-right: auto;
       transform: translateX(-15px);
     }
   }
   .registration-link {
+    span {
+      padding-top: 6px !important;
+    }
     margin-left: auto;
+
   }
   .login-link,
   .registration-link {
@@ -847,13 +913,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    //margin-left: auto;
     @media (max-width: 1080px) {
       //margin-left: -5px;
     }
     & span {
       vertical-align: middle;
       margin-left: 5px;
+      padding-top: 4px;
       @media (max-width: 1080px) {
         font-size: 13px;
         text-align: center;
@@ -866,8 +932,8 @@
         stroke: #3366ff;
       }
     }
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 13px;
+    line-height: 13px;
     letter-spacing: 0.5px;
     white-space: nowrap;
     @media (max-width: 1080px) {
@@ -910,28 +976,38 @@
   ._disabled {
     opacity: 0.5;
     background-color: transparent;
-    color: #72839c !important;
+    color: #979797 !important;
     cursor: not-allowed;
     svg {
       opacity: 0.5;
+      stroke: #979797;
       &:hover {
         fill: #90999e;
       }
     }
   }
   &.__hover {
-    .header__nav-item-link svg, .header__nav-item-title {
+    .header__nav-item-link svg path, .header__nav-item-title {
       fill: #3366ff;
       color: #3366ff;
+      //stroke: #3366ff;
     }
   }
 }
-
+//.header__nav-item-link {
+//  svg {
+//    path {
+//      fill: red;
+//    }
+//  }
+//}
 .header__nav-list  {
+  top: 54px;
   &._open {
     & .widget-login__item {
       &.popup-menu {
         @media (max-width: 1080px) {
+          border-top: 1px solid #e8e8e8;
           a {
             color: #72839c;
             border-left: 2px solid transparent;

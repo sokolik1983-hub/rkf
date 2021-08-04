@@ -67,7 +67,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                     }
 
                     {isMobile  ?
-                        <div className={((isAuthenticated && withFilters) || pathname === '/') ?
+                        <div className={ withFilters || pathname === '/' ?
                             'header__filters' :
                             'header__filters __hidden'}
                             onClick={() => {
@@ -88,8 +88,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                             </svg>
 
                         </div>
-                        <span style={{color: isOpenFilters && "#3366ff"}}>Фильтр</span>
-
+                            <span style={{color: isOpenFilters && "#3366ff"}}>Фильтр</span>
                         </div>
                         : <WidgetLogin login_page={login_page}/>}
                 </div>
