@@ -49,12 +49,19 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                              needChangeIsOpen(!isOpen);
                          }}>
                         <div>
-                            <svg width='20' height='14' viewBox='0 0 20 14' fill='none'
-                                 xmlns='http://www.w3.org/2000/svg'>
-                                <line y1='1.34' x2='20' y2='1.34' stroke={strokeColor} strokeWidth='1.32' />
-                                <line y1='7.34' x2='20' y2='7.34' stroke={strokeColor} strokeWidth='1.32' />
-                                <line y1='13.34' x2='20' y2='13.34' stroke={strokeColor} strokeWidth='1.32' />
-                            </svg>
+                            {
+                                isOpen ? <svg width='20' height='20' viewBox='0 0 20 20' fill='none'
+                                           xmlns='http://www.w3.org/2000/svg'>
+                                    <line y1='1' x1='1' x2='20' y2='20' stroke={strokeColor} strokeWidth='1.32' />
+                                    <line y1='20' x1='1' x2='20' y2='1' stroke={strokeColor} strokeWidth='1.32' />
+                                </svg> : <svg width='20' height='14' viewBox='0 0 20 14' fill='none'
+                                              xmlns='http://www.w3.org/2000/svg'>
+                                    <line y1='1.34' x2='20' y2='1.34' stroke={strokeColor} strokeWidth='1.32' />
+                                    <line y1='7.34' x2='20' y2='7.34' stroke={strokeColor} strokeWidth='1.32' />
+                                    <line y1='13.34' x2='20' y2='13.34' stroke={strokeColor} strokeWidth='1.32' />
+                                </svg>
+                            }
+
 
                         </div>
 
@@ -62,6 +69,7 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                     </div>
 
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>
+                        <h3 className='headerPopupH3'>Меню</h3>
                         {mainNav.map((navItem, i, arr) => <li className='header__nav-item' key={navItem.id}>
                                 {navItem.children ?
                                     <NavSublist setIsOpen={setIsOpen} navItem={navItem} /> :
