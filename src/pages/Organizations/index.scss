@@ -10,8 +10,7 @@
     }
   }
   &__left {
-    min-width: 300px;
-    max-width: 300px;
+    width: 100%;
     margin: 16px 16px 0 0;
     & > div {
       padding-bottom: 16px;
@@ -23,7 +22,7 @@
       position: fixed;
       top: 60px;
       right: 0;
-      z-index: 3;
+      z-index: 99;
       margin: 0;
       padding: 5px 0 65px 20px;
       background-color: #fff;

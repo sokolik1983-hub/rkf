@@ -10,15 +10,14 @@
       display: none !important;
     }
   }
-  width: 300px;
-  min-width: 300px;
+  width: 100%;
   @media (max-width: 990px) {
     position: fixed;
-    top: 71px;
+    top: 60px;
     right: 0;
-    z-index: 3;
+    z-index: 99;
     padding: 16px;
-    height: calc(100% - 132px);
+    height: calc(100% - 60px);
     overflow-y: auto;
     visibility: hidden;
     transform: translateX(200%);
@@ -30,8 +29,8 @@
     }
   }
   @media (max-width: 560px) {
-    top: 71px;
-    height: calc(100% - 132px);
+    top: 60px;
+    height: calc(100% - 60px);
   }
   &__wrap {
     overflow: hidden;

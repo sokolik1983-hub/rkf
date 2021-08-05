@@ -25,7 +25,7 @@ const setLSCities = citiesIds => {
 };
 
 
-const NewsList = ({isFullDate = true, setShowFilters, isOpenFilters}) => {
+const NewsList = ({isFullDate = true, setShowFilters, isOpenFilters, isMainPage}) => {
     const [activeType, setActiveType] = useState('all');
     const [news, setNews] = useState([]);
     const [cities, setCities] = useState([]);

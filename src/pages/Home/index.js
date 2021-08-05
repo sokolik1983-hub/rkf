@@ -19,6 +19,7 @@ import CopyrightInfo from "components/CopyrightInfo";
 // import Socials from "../../components/Socials";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
+import NewsFilters from "./components/NewsFilters";
 
 const HomePage = () => {
     const [banners, setBanners] = useState();
@@ -46,7 +47,7 @@ const HomePage = () => {
                 <div className="home-page__wrap">
                     <HomepageSlider inputBanners={banners.homePageSlider} />
                     <ExhibitionsComponent />
-                    <Container className="home-page__news" >
+                    <Container className="home-page__news">
                         <div className="home-page__news-wrap">
                             <Aside className="home-page__right">
                                 <StickyBox offsetTop={65}>
