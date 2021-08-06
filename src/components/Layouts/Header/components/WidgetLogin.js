@@ -82,7 +82,6 @@ const WidgetLogin = forwardRef(
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
                         <LightTooltip title={!isMobile1080 ? "Аккаунт"  : ''} enterDelay={200} leaveDelay={200}>
                             <div className={`widget-login__wrap ${open ? `_login_open ` : !isAuthenticated ? `__noAuth` : ''}`}>
-
                                 {isMobile1080
                                     ? <div className={`widget-login__user-icon`}>
                                             {footerNav?.image}
@@ -180,10 +179,10 @@ const WidgetLogin = forwardRef(
                                         <li className="widget-login__item" onClick={() => setOpen(false)}>
                                             <a style={{ color: '#3366ff' }} href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/" target="_blank" rel="noopener noreferrer">База знаний</a>
                                         </li>
-                                        <li className="widget-login__item">
-                                             <Feedback />
+                                        {/*<li className="widget-login__item">*/}
+                                        {/*     <Feedback />*/}
 
-                                        </li>
+                                        {/*</li>*/}
                                     </>
                                     }
                                 </ul>

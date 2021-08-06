@@ -45,7 +45,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     return !isVisible
         ? <PageNotFound />
         : <Layout withFilters={isWithFilters}>
-            <div className="documents-page">
+            <div className="documents-page content">
                 <Container className="documents-page__content">
                     <TopComponent
                         logo={clubLogo}

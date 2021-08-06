@@ -1,8 +1,5 @@
 .exhibitions-page {
   display: flex;
-  &.content {
-    padding-top: 80px;
-  }
   @media (max-width: 990px) {
     display: block;
   }
