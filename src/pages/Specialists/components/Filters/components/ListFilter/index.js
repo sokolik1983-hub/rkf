@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from "react";
+import React, {memo} from "react";
 import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
 import {setFiltersToUrl, getEmptyFilters} from "../../../../utils";
 import "./index.scss";
