@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import {NavLink, useLocation} from "react-router-dom";
 import useIsMobile from "../../../utils/useIsMobile";
 import WidgetLogin from "../Header/components/WidgetLogin";
@@ -15,23 +15,25 @@ import { connectShowFilters } from "../connectors";
 
 import "./footerMenu.scss";
 
-
-const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, profile_id, setShowFilters, setIsOpen }) => {
-    const [canEdit, setCanEdit] = useState(false);
+const FooterMenu = ({
+    is_active_profile, profile_id,
+    notificationsLength,
+    isAuthenticated,
+    setShowFilters,
+    setIsOpen }) => {
     const isMobile1080 = useIsMobile(1080);
     const {alias, user_type, id, name} = ls.get('user_info') || {};
     const {pathname} = useLocation();
-
-    useEffect(() => {
-        if(alias) {
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === id);
-        }
-    }, []);
-
+    const [canEdit, setCanEdit] = useState(false);
     const hideSideMenu = () => {
         setShowFilters({isOpenFilters: false});
         setIsOpen(false);
     }
+    useEffect(() => {
+        if(alias) {
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === id);
+        }
+    }, [])
 
     const pathAlias = pathname.substr(pathname.lastIndexOf('/') + 1);
 
@@ -48,10 +50,10 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         && pathAlias !== 'exhibitions'
         && pathAlias !== 'search'
         && pathAlias !== 'base-search'
-        && pathAlias !== ''
         && pathAlias !== 'uploaded-documents'
-        && pathAlias !== 'auth/login'
-        && pathAlias !== 'auth/registration';
+        && pathAlias !== 'login'
+        && pathAlias !== 'registration'
+        && pathAlias !== '';
 
     return (
         <>
@@ -77,7 +79,6 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                             <span>{footerNav[6].title}</span>
                         </NavLink>
 
-
                         <NavLink className="footer__menu-link" to={footerNav[7].to}>
                             {footerNav[7].image}
                             <span>{footerNav[7].title}</span>
@@ -85,27 +86,8 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                     </>
                 }
 
-                {isAuthenticated && (user_type === 5 || alias === 'rkf') &&
-                <MenuComponent
-                    footerNav={footerNav[4]}
-                    alias={alias}
-                    name={name}
-                    isFederation={isFederationAlias}
-                />
-                }
 
-                {!isAuthenticated && isFederation &&
-                    <MenuComponent
-                        footerNav={footerNav[4]}
-                        alias={pathAlias}
-                        name={name}
-                        isFederation={isFederationAlias}
-                    />
-                }
-
-
-
-                {isAuthenticated && user_type !== 5 && alias !== 'rkf' &&
+                {isAuthenticated && !checkPathForMenu && !isFederation &&  user_type !== 5 && alias !== 'rkf' &&
                 <UserMenu
                     notificationsLength={notificationsLength}
                     footerNav={footerNav[4]}
@@ -121,13 +103,23 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
                 />
                 }
 
-                {!isAuthenticated && !isFederation && checkPathForMenu &&
+                {isFederation &&
+                    <MenuComponent
+                        footerNav={footerNav[4]}
+                        alias={pathAlias}
+                        name={name}
+                        isFederation={isFederationAlias}
+                    />
+                }
+
+                {!isFederation && checkPathForMenu &&
                     <UserMenu
                         notificationsLength={notificationsLength}
                         footerNav={footerNav[4]}
                         userNav={urlAlias}
                     />
                 }
+
             </div>
             }
         </>

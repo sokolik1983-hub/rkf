@@ -10,7 +10,6 @@ import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connec
 import history from "../../../../utils/history";
 import { Request } from "../../../../utils/request";
 import Feedback from "../../../Feedback";
-import LightTooltip from "../../../LightTooltip";
 import useIsMobile from "../../../../utils/useIsMobile";
 
 const WidgetLogin = forwardRef(
@@ -80,7 +79,6 @@ const WidgetLogin = forwardRef(
             >
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
-                        <LightTooltip title={!isMobile1080 ? "Аккаунт"  : ''} enterDelay={200} leaveDelay={200}>
                             <div className={`widget-login__wrap ${open ? `_login_open ` : !isAuthenticated ? `__noAuth` : ''}`}>
 
                                 {isMobile1080
@@ -96,7 +94,6 @@ const WidgetLogin = forwardRef(
                                 }
                                 {!isMobile1080 && <span>Профиль</span>}
                             </div>
-                        </LightTooltip>
                         <CSSTransition
                             in={open}
                             timeout={350}
