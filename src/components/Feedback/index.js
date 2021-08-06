@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Modal from '../Modal';
 import { connect } from "react-redux";
 import Alert from 'components/Alert';
-import LightTooltip from "../LightTooltip";
 // import { Form, SubmitButton, FormGroup, FormField } from '../Form';
 //import FormFile from '../Form/Field/FormFile';
 // import { feedbackFormConfig, reasons } from "./config";
@@ -72,7 +71,7 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
 
     return (
         <>
-            {isMainNav ? <LightTooltip title="Центр поддержки" enterDelay={200} leaveDelay={200}>
+            {isMainNav ?
                     <a className={`feedback-link${className ? ' ' + className : ''}`}
                        onClick={handleClick}
                        href="/"
@@ -91,7 +90,6 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
                             <span>{title || 'Центр поддержки'}</span>
                         </div>
                     </a>
-                </LightTooltip>
                 :
                 <a style={{ color: '#3366ff' }} className={`feedback-link${className ? ' ' + className : ''}`}
                    onClick={handleClick}

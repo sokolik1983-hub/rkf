@@ -16,13 +16,18 @@ import ZlineModal from "../../ZlineModal";
 
 import "./footerMenu.scss";
 
-
-const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, profile_id, setShowFilters, setIsOpen }) => {
+const FooterMenu = ({
+    is_active_profile,
+    profile_id,
+    notificationsLength,
+    isAuthenticated,
+    setShowFilters,
+    setIsOpen }) => {
+    const isMobile1080 = useIsMobile(1080);
+    const {alias, user_type, id, name} = ls.get('user_info') || {};
+    const {pathname} = useLocation();
     const [canEdit, setCanEdit] = useState(false);
     const [showZlineModal, setShowZlineModal] = useState(false);
-    const isMobile1080 = useIsMobile(1080);
-    const { alias, user_type, id, name } = ls.get('user_info') || {};
-    const { pathname } = useLocation();
 
     useEffect(() => {
         if (alias) {
@@ -30,10 +35,7 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         }
     }, []);
 
-    const hideSideMenu = () => {
-        setShowFilters({ isOpenFilters: false });
-        setIsOpen(false);
-    }
+
 
     const pathAlias = pathname.substr(pathname.lastIndexOf('/') + 1);
 
@@ -45,16 +47,20 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         || pathAlias === 'rfos'
         || pathAlias === 'oankoo';
 
-    const checkPathForMenu = pathAlias !== 'rkf'
+    const checkPathForMenu = pathAlias  !== 'rkf'
         && pathAlias !== 'organizations'
         && pathAlias !== 'exhibitions'
         && pathAlias !== 'search'
         && pathAlias !== 'base-search'
         && pathAlias !== ''
         && pathAlias !== 'uploaded-documents'
-        && pathAlias !== 'auth/login'
-        && pathAlias !== 'auth/registration';
+        && pathAlias !== 'login'
+        && pathAlias !== 'registration';
 
+    const hideSideMenu = () => {
+        setShowFilters({ isOpenFilters: false });
+        setIsOpen(false);
+    }
     const handleZlineClick = (e) => {
         e.preventDefault();
         setShowZlineModal(true);
@@ -64,78 +70,68 @@ const FooterMenu = ({ notificationsLength, isAuthenticated, is_active_profile, p
         <>
             {isMobile1080 &&
 
-                <div className="footer__menu" onClick={hideSideMenu}>
-                    <NavLink className="footer__menu-link" to='/'>
-                        {footerNav[0].image}
-                        <span>{footerNav[0].title}</span>
-                    </NavLink>
+            <div className="footer__menu" onClick={hideSideMenu}>
+                <NavLink className="footer__menu-link" to='/'>
+                    {footerNav[0].image}
+                    <span>{footerNav[0].title}</span>
+                </NavLink>
 
-                    <Link className="footer__menu-link" onClick={e => handleZlineClick(e)}>
-                        {footerNav[5].image}
-                        <span>{footerNav[5].title}</span>
-                    </Link>
+                <Link className="footer__menu-link" onClick={e => handleZlineClick(e)}>
+                    {footerNav[5].image}
+                    <span>{footerNav[5].title}</span>
+                </Link>
 
-                    {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} />}
+                {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} />}
 
-                    {!isAuthenticated &&
-                        <>
-                            <NavLink className="footer__menu-link" to={footerNav[6].to}>
-                                {footerNav[6].image}
-                                <span>{footerNav[6].title}</span>
-                            </NavLink>
+                {!isAuthenticated &&
+                    <>
+                        <NavLink className="footer__menu-link" to={footerNav[6].to}>
+                            {footerNav[6].image}
+                            <span>{footerNav[6].title}</span>
+                        </NavLink>
+
+                        <NavLink className="footer__menu-link" to={footerNav[7].to}>
+                            {footerNav[7].image}
+                            <span>{footerNav[7].title}</span>
+                        </NavLink>
+                    </>
+                }
 
 
-                            <NavLink className="footer__menu-link" to={footerNav[7].to}>
-                                {footerNav[7].image}
-                                <span>{footerNav[7].title}</span>
-                            </NavLink>
-                        </>
+                {isAuthenticated && !checkPathForMenu && !isFederation &&  user_type !== 5 && alias !== 'rkf' &&
+                <UserMenu
+                    notificationsLength={notificationsLength}
+                    footerNav={footerNav[4]}
+                    userNav={canEdit && user_type &&
+                    user_type === 1 ?
+                        userNav(alias)
+                        : user_type === 3  ?
+                            clubNav(alias)
+                            : user_type === 4  ?
+                                kennelNav(alias)
+                                : []
                     }
+                />
+                }
 
-                    {isAuthenticated && (user_type === 5 || alias === 'rkf') &&
-                        <MenuComponent
-                            footerNav={footerNav[4]}
-                            alias={alias}
-                            name={name}
-                            isFederation={isFederationAlias}
-                        />
-                    }
+                {isFederation &&
+                    <MenuComponent
+                        footerNav={footerNav[4]}
+                        alias={pathAlias}
+                        name={name}
+                        isFederation={isFederationAlias}
+                    />
+                }
 
-                    {!isAuthenticated && isFederation &&
-                        <MenuComponent
-                            footerNav={footerNav[4]}
-                            alias={pathAlias}
-                            name={name}
-                            isFederation={isFederationAlias}
-                        />
-                    }
+                {!isFederation && checkPathForMenu &&
+                    <UserMenu
+                        notificationsLength={notificationsLength}
+                        footerNav={footerNav[4]}
+                        userNav={urlAlias}
+                    />
+                }
 
-
-
-                    {isAuthenticated && user_type !== 5 && alias !== 'rkf' &&
-                        <UserMenu
-                            notificationsLength={notificationsLength}
-                            footerNav={footerNav[4]}
-                            userNav={canEdit && user_type &&
-                                user_type === 1 ?
-                                userNav(alias)
-                                : user_type === 3 ?
-                                    clubNav(alias)
-                                    : user_type === 4 ?
-                                        kennelNav(alias)
-                                        : []
-                            }
-                        />
-                    }
-
-                    {!isAuthenticated && !isFederation && checkPathForMenu &&
-                        <UserMenu
-                            notificationsLength={notificationsLength}
-                            footerNav={footerNav[4]}
-                            userNav={urlAlias}
-                        />
-                    }
-                </div>
+            </div>
             }
             <ZlineModal showModal={showZlineModal}
                 handleClose={() => {

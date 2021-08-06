@@ -5,7 +5,6 @@ import ls from "local-storage";
 import { connectLogin, connectWidgetLogin } from "pages/Login/connectors";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Request } from "utils/request";
-import LightTooltip from "components/LightTooltip";
 import NotificationCategories from "./NotificationCategories";
 import NotificationItem from "./NotificationItem";
 import { NotificationsContext } from 'app/context';
@@ -125,14 +124,12 @@ const Notifications = forwardRef(
             <div className="Notifications">
                 {isAuthenticated
                 && <>
-                    <LightTooltip title="Уведомления" enterDelay={200} leaveDelay={200}>
                         <div className="Notifications__icon-wrap">
                             <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick}>
                                  Уведомления
                             </div>
                             {showDot && <div className="Notifications__icon-dot" />}
                         </div>
-                    </LightTooltip>
                     <CSSTransition
                         in={open}
                         timeout={350}

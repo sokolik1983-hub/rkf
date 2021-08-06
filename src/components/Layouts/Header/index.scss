@@ -648,7 +648,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-left: 35px;
       z-index: 100;
       @media (max-width: 1080px) {
         margin-top: 5px;
@@ -897,6 +896,13 @@
   }
   .login-link {
     margin-right: 36px;
+    &:hover {
+      svg {
+        path {
+          fill: #36f;
+        }
+      }
+    }
     span {
       padding-top: 6px !important;
     }
@@ -912,6 +918,15 @@
     margin-left: auto;
 
   }
+  .registration-link {
+    &:hover {
+      svg {
+        path {
+          fill: #36f;
+        }
+      }
+    }
+  }
   .login-link,
   .registration-link {
     text-decoration: none;
@@ -925,7 +940,6 @@
     }
     & span {
       vertical-align: middle;
-      margin-left: 5px;
       padding-top: 4px;
       @media (max-width: 1080px) {
         font-size: 13px;
