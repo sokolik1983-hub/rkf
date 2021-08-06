@@ -60,14 +60,9 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
                 {
                     (clientWidth < 600) ? (<Slider
                         slidesToShow={1}
-                        arrows={false}
+                        infinite={false}
                         centerMode={true}
                         focusOnSelect={true}
-                        dots={false}
-                        infinite={false}
-                        autoplay={false}
-                        fade={false}
-                        adaptiveHeight={true}
                         variableWidth={true}
                     >
                         <li className="list-filter__item">

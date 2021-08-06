@@ -20,9 +20,13 @@
     top: 48px;
   }
   &__head {
+    max-width: 320px;
     width: 100%;
     z-index: 1;
     transition: all 0.2s ease;
+    @media (max-width: 1080px) {
+      max-width: 100%;
+    }
     &-mobile {
       display: block;
       position: fixed;
