@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Card from "components/Card";
 import useIsMobile from "utils/useIsMobile";
 import "./index.scss";
@@ -27,7 +28,10 @@ const CopyrightInfo = ({ withSocials }) => {
                             <img src="/static/icons/social/telegram.svg" alt="" />
                         </a>
                     </div>
-                    <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                    <div className="copyright-about">
+                        <span>© 1991—{new Date().getFullYear()} СОКО РКФ.</span>
+                        <Link to="/about" className="copyright-link">О RKF.Online</Link>
+                    </div>
                     <p>Политика обработки персональных данных</p>
                 </div>
             </Card>

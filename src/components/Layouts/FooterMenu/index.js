@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import {NavLink, useLocation} from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { NavLink, useLocation, Link } from "react-router-dom";
 import useIsMobile from "../../../utils/useIsMobile";
 import WidgetLogin from "../Header/components/WidgetLogin";
 import ls from "local-storage";
-import {connectAuthVisible} from "../../../pages/Authorization/connectors";
+import { connectAuthVisible } from "../../../pages/Authorization/connectors";
 import { footerNav } from "../../../appConfig";
-import {clubNav} from "../../../pages/Club/config";
-import {kennelNav} from "../NurseryLayout/config";
-import {userNav} from "../UserLayout/config";
-import {isFederationAlias} from "../../../utils";
+import { clubNav } from "../../../pages/Club/config";
+import { kennelNav } from "../NurseryLayout/config";
+import { userNav } from "../UserLayout/config";
+import { isFederationAlias } from "../../../utils";
 import UserMenu from "../UserMenu";
 import MenuComponent from "../../MenuComponent";
 import { connectShowFilters } from "../connectors";
+import ZlineModal from "../../ZlineModal";
 
 import "./footerMenu.scss";
 
 const FooterMenu = ({
-    is_active_profile, profile_id,
+    is_active_profile,
+    profile_id,
     notificationsLength,
     isAuthenticated,
     setShowFilters,
@@ -25,15 +27,15 @@ const FooterMenu = ({
     const {alias, user_type, id, name} = ls.get('user_info') || {};
     const {pathname} = useLocation();
     const [canEdit, setCanEdit] = useState(false);
-    const hideSideMenu = () => {
-        setShowFilters({isOpenFilters: false});
-        setIsOpen(false);
-    }
+    const [showZlineModal, setShowZlineModal] = useState(false);
+
     useEffect(() => {
-        if(alias) {
+        if (alias) {
             setCanEdit(isAuthenticated && is_active_profile && profile_id === id);
         }
-    }, [])
+    }, []);
+
+
 
     const pathAlias = pathname.substr(pathname.lastIndexOf('/') + 1);
 
@@ -50,10 +52,19 @@ const FooterMenu = ({
         && pathAlias !== 'exhibitions'
         && pathAlias !== 'search'
         && pathAlias !== 'base-search'
+        && pathAlias !== ''
         && pathAlias !== 'uploaded-documents'
         && pathAlias !== 'login'
-        && pathAlias !== 'registration'
-        && pathAlias !== '';
+        && pathAlias !== 'registration';
+
+    const hideSideMenu = () => {
+        setShowFilters({ isOpenFilters: false });
+        setIsOpen(false);
+    }
+    const handleZlineClick = (e) => {
+        e.preventDefault();
+        setShowZlineModal(true);
+    };
 
     return (
         <>
@@ -65,10 +76,10 @@ const FooterMenu = ({
                     <span>{footerNav[0].title}</span>
                 </NavLink>
 
-                <NavLink className="footer__menu-link" to='/'>
+                <Link className="footer__menu-link" onClick={e => handleZlineClick(e)}>
                     {footerNav[5].image}
                     <span>{footerNav[5].title}</span>
-                </NavLink>
+                </Link>
 
                 {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} />}
 
@@ -122,6 +133,13 @@ const FooterMenu = ({
 
             </div>
             }
+            <ZlineModal showModal={showZlineModal}
+                handleClose={() => {
+                    setShowZlineModal(false);
+                }}
+            >
+                <iframe src={'https://zline.me/widgets/registration-for-service?id=33'} title="unique_iframe" />
+            </ZlineModal>
         </>
     )
 };
