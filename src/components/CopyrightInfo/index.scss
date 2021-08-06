@@ -12,6 +12,18 @@
       letter-spacing: normal !important;
     }
   }
+  &-about {
+    display: flex;
+    justify-content: space-between;
+  }
+  &-link {
+    text-decoration: none;
+    color: #72839c;
+    &:hover {
+      color: #3366ff;
+      text-decoration: underline;
+    }
+  }
   &-socials {
     display: flex;
     align-items: center;
