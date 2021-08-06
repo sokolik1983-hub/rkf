@@ -19,7 +19,7 @@ import CopyrightInfo from "components/CopyrightInfo";
 // import Socials from "../../components/Socials";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
-import NewsFilters from "./components/NewsFilters";
+// import NewsFilters from "./components/NewsFilters";
 
 const HomePage = () => {
     const [banners, setBanners] = useState();

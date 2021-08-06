@@ -151,7 +151,7 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                     {/*{!isMobile &&*/}
                     {/*<div className="header__nav-item--desktop Feedback"><Feedback isMainNav title='Поддержка'/></div>*/}
                     {/*}*/}
-                    <Link className='header__nav-item--desktop recording' onClick={e => handleZlineClick(e)}>
+                    <Link to="" className='header__nav-item--desktop recording' onClick={e => handleZlineClick(e)}>
                         <svg width='23' height='24' viewBox='0 0 23 25' fill='none' xmlns='http://www.w3.org/2000/svg'>
                             <path
                                 d='M20.6696 5.51138V2.97113C20.6696 1.8884 19.7951 1 18.6985 1H2.97113C1.87451 1 1 1.87451 1 2.97113V22.6408C1 23.7235 1.87451 24.6119 2.97113 24.6119H18.7124C19.7951 24.6119 20.6835 23.7374 20.6835 22.6408V11.7579'
