@@ -17,6 +17,7 @@ import ZlineModal from "../../ZlineModal";
 import "./footerMenu.scss";
 
 const FooterMenu = ({
+    match,
     is_active_profile,
     profile_id,
     notificationsLength,
@@ -28,19 +29,18 @@ const FooterMenu = ({
     const { pathname } = useLocation();
     const [canEdit, setCanEdit] = useState(false);
     const [showZlineModal, setShowZlineModal] = useState(false);
-
+console.log(pathname)
     useEffect(() => {
         if (alias) {
             setCanEdit(isAuthenticated && is_active_profile && profile_id === id);
         }
     }, []);
 
-
-
+    // const aliasss = match.params.route;
     const pathAlias = pathname.substr(pathname.lastIndexOf('/') + 1);
-
+    //
     const urlAlias = pathname.search('kennel') === 1 ? kennelNav(pathAlias) : clubNav(pathAlias);
-
+    //
     const isFederation = pathAlias === 'rkf'
         || pathAlias === 'rfss'
         || pathAlias === 'rfls'
@@ -56,7 +56,7 @@ const FooterMenu = ({
         && pathAlias !== 'uploaded-documents'
         && pathAlias !== 'login'
         && pathAlias !== 'registration';
-
+console.log("checkPathForMenu", !checkPathForMenu)
     const hideSideMenu = () => {
         setShowFilters({ isOpenFilters: false });
         setIsOpen(false);
@@ -65,12 +65,15 @@ const FooterMenu = ({
         e.preventDefault();
         setShowZlineModal(true);
     };
-
+console.log(isAuthenticated)
     return (
         <>
             {isMobile1080 &&
 
-                <div className="footer__menu" onClick={hideSideMenu}>
+                <div className="footer__menu"
+                     onClick={hideSideMenu}
+                     style={{padding: !checkPathForMenu && !isFederation ? "10px 20px 5px 15px" :  isAuthenticated && isFederation ?  "10px 20px 5px 15px" :  "10px 19% 5px 15px"}}
+                >
                     <NavLink className="footer__menu-link" to='/'>
                         {footerNav[0].image}
                         <span>{footerNav[0].title}</span>
@@ -98,32 +101,32 @@ const FooterMenu = ({
                     }
 
 
-                    {isAuthenticated && !checkPathForMenu && !isFederation && user_type !== 5 && alias !== 'rkf' &&
-                        <UserMenu
-                            notificationsLength={notificationsLength}
-                            footerNav={footerNav[4]}
-                            userNav={canEdit && user_type &&
-                                user_type === 1 ?
-                                userNav(alias)
-                                : user_type === 3 ?
-                                    clubNav(alias)
-                                    : user_type === 4 ?
-                                        kennelNav(alias)
-                                        : []
-                            }
-                        />
-                    }
+                    {/*{isAuthenticated && !checkPathForMenu && !isFederation && user_type !== 5 && alias !== 'rkf' &&*/}
+                    {/*    <UserMenu*/}
+                    {/*        notificationsLength={notificationsLength}*/}
+                    {/*        footerNav={footerNav[4]}*/}
+                    {/*        userNav={canEdit && user_type &&*/}
+                    {/*            user_type === 1 ?*/}
+                    {/*            userNav(alias)*/}
+                    {/*            : user_type === 3 ?*/}
+                    {/*                clubNav(alias)*/}
+                    {/*                : user_type === 4 ?*/}
+                    {/*                    kennelNav(alias)*/}
+                    {/*                    : []*/}
+                    {/*        }*/}
+                    {/*    />*/}
+                    {/*}*/}
 
-                    {isFederation &&
+                    {isAuthenticated && isFederation  &&
                         <MenuComponent
                             footerNav={footerNav[4]}
-                            alias={pathAlias}
+                            alias={urlAlias}
                             name={name}
                             isFederation={isFederationAlias}
                         />
                     }
 
-                    {!isFederation && checkPathForMenu &&
+                    {isAuthenticated && !isFederation && !checkPathForMenu &&
                         <UserMenu
                             notificationsLength={notificationsLength}
                             footerNav={footerNav[4]}

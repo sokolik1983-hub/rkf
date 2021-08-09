@@ -139,7 +139,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                 <Aside className="club-page__info">
                                     <StickyBox offsetTop={65}>
                                         <div className="club-page__info-inner">
-                                            {!isMobile && <>
+                                            {isMobile && <>
                                                 <UserHeader
                                                     user={alias !== 'rkf-online' ? 'club' : ''}
                                                     logo={fedInfo.logo}
