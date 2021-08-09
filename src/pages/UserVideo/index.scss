@@ -15,7 +15,6 @@
     }
     &__right {
         width: calc(100% - 316px);
-        margin-top: 16px;
         @media (max-width: 990px) {
             width: 100%;
             margin-top: 0;
@@ -28,7 +27,7 @@
     &__left {
         width: 300px;
         min-width: 300px;
-        margin: 16px 16px 0 0;
+        margin: 0 16px 0 0;
         @media (max-width: 990px) {
             width: 100%;
             min-width: auto;
