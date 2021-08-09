@@ -54,7 +54,10 @@
     }
   }
   .infinite-scroll-component__outerdiv {
-    width: 100%;
+    width: 480px;
+    @media (max-width: 1080px) {
+      width: 100%;
+    }
   }
   .css-90zxau-menu {
     overflow-x: none;

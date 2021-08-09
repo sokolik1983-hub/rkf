@@ -440,6 +440,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        &:nth-child(1n) {
+          span {
+            color: red;
+            padding-top: 8px;
+          }
+        }
+        &:nth-child(3) {
+          span {
+            color: red;
+            padding-top: 2px;
+          }
+        }
       }
       &-link.active {
         .header__nav-item-title {
