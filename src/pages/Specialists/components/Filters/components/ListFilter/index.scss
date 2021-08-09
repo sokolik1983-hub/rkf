@@ -2,7 +2,7 @@
   width: 100%;
   overflow: hidden;
   &-wrap {
-    transition: 1s;
+    transition: .2s;
     display: flex;
     align-items: center;
     div {
@@ -50,7 +50,6 @@
     }
   }
   &__control {
-    display: block;
     padding: 0 6px 10px;
     border-bottom: 2px solid transparent;
     font-weight: 600;
@@ -68,6 +67,10 @@
     -ms-user-select: none;
     user-select: none;
     text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @media (max-width: 600px) {
       font-size: 13px;
     }

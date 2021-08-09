@@ -1,3 +1,31 @@
+.slider {
+  width: 100%;
+  overflow: hidden;
+  &-wrap {
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    div {
+      height: 62px;
+      letter-spacing: .2px;
+      color: #72839c;
+      line-height: 20px;
+      font-weight: 600;
+      font-size: 16px;
+      padding:0 15px 5px;
+      white-space: nowrap;
+      text-align: center;
+      border-bottom: 2px solid transparent;
+      display: flex;
+      align-items: center;
+      &._active {
+        border-bottom-color: #36f;
+      }
+    }
+  }
+}
+
+
 .organizations-page__filter-wrap {
   border-bottom: 1px solid #e8e8e8;
 }
@@ -27,6 +55,10 @@
       justify-content: space-between;
     }
     &__item {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       &:not(:last-child) {
         margin-right: 5px;
       }
