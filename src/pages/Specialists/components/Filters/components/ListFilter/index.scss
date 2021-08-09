@@ -1,3 +1,29 @@
+.slider {
+  width: 100%;
+  overflow: hidden;
+  &-wrap {
+    transition: 1s;
+    display: flex;
+    align-items: center;
+    div {
+      height: 62px;
+      letter-spacing: .2px;
+      color: #72839c;
+      line-height: 20px;
+      font-weight: 600;
+      font-size: 16px;
+      padding:0 10px 5px;
+      white-space: nowrap;
+      text-align: center;
+      border-bottom: 2px solid transparent;
+      display: flex;
+      align-items: center;
+      &._active {
+        border-bottom-color: #36f;
+      }
+    }
+  }
+}
 #specialists-list-filter{
   & .slick-slide {
     height: 52px;
