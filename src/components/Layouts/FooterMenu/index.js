@@ -72,6 +72,7 @@ const FooterMenu = ({
         && aliasParams !== 'uploaded-documents'
         && aliasParams !== 'login'
         && aliasParams !== 'registration';
+
     const hideSideMenu = () => {
         setShowFilters({ isOpenFilters: false });
         setIsOpen(false);
@@ -80,7 +81,6 @@ const FooterMenu = ({
         e.preventDefault();
         setShowZlineModal(true);
     };
-
 
     return (
         <>
@@ -123,9 +123,7 @@ const FooterMenu = ({
 
 
 
-                    {(urlAlias || alias) &&
-
-                        isFederationAlias( urlAlias || alias) ?
+                    {(!!urlAlias || !!alias) === true ? isFederationAlias( urlAlias || alias) ?
                         <MenuComponent
                             isExhibitionPage={isExhibitionPage}
                             alias={ urlAlias || alias}
@@ -137,6 +135,7 @@ const FooterMenu = ({
                             : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
                                   notificationsLength={notificationsLength}
                         />
+                        : ''
                     }
 
                 </div>

@@ -374,7 +374,13 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                     <button
                         className={`user-nav__button${open ? ' _open' : ''}`}
                         onClick={() => setOpen(!open)}
-                        style={{ background: 'url("/static/icons/footer-menu/more.svg") no-repeat', padding: "26px 0 0 0 "}}
+                        style={{
+                            background: 'url("/static/icons/footer-menu/more.svg") no-repeat',
+                            padding: "26px 0 0 0 ",
+                            position: "absolute",
+                            bottom: "5px",
+                            right: "25px",
+                            textAlign: 'center'}}
                     >
                         <p
                             // style={{color: open ? '#3366FF' : '#979797', userSelect: "none", lineHeight: "20px", fontSize: "13px"}}
