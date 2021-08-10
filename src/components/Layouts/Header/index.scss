@@ -472,10 +472,14 @@
         line-height: 20px;
         color: #979797 !important;
         cursor: pointer;
-
+        span {
+          @media (max-width: 1080px) {
+            line-height: 20px;
+          }
+        }
         @media (max-width: 1080px) {
           //flex-direction: column;
-          padding: 5px 10px;
+          padding: 10px 10px;
           white-space: nowrap;
           border-left: 2px solid transparent;
           transition: all 0.2s linear;
@@ -863,6 +867,9 @@
       padding: 4px 10px;
       transition: all 0.2s linear;
       cursor: pointer;
+      @media (max-width: 1080px) {
+        line-height: 20px;
+      }
       &:hover {
         background-color: whitesmoke;
         color: #3366ff;
@@ -1065,7 +1072,7 @@
         }
         @media (max-width: 1080px) {
           a {
-            padding: 8px 34px;
+            padding: 10px 34px;
           }
           a:first-child:before, a:nth-child(2):before {
             left: 10px;
