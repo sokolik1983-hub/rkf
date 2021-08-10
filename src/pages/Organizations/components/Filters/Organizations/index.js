@@ -6,7 +6,6 @@ import "./index.scss";
 
 
 const OrganizationsFilter = ({organization_type }) => {
-    console.log('organization_type',organization_type);
 
     const clientWidth = window.innerWidth;
     const handleClick = (organization_type, e, place ) => {
