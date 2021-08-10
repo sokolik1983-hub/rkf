@@ -113,9 +113,13 @@
       position: absolute;
       width: 20px;
       height: 20px;
-      top: 10px;
+      top: 8.5px;
       left: 85px;
       z-index: 100;
+      svg {
+        position: relative;
+        top: 1px;
+      }
       span {
         color: #979797;
         font-size: 13px;
@@ -132,7 +136,7 @@
       }
       @media (max-width: 1080px) {
         left: 80px;
-        top: 8px;
+
       }
       @media (max-width: 560px) {
         left: 70px;
@@ -147,6 +151,8 @@
       cursor: pointer;
       @media (max-width: 1080px) {
         margin-right: auto;
+        position: relative;
+        top: 1.5px;
       }
       &._open {
         color: #3366FF;
@@ -300,6 +306,10 @@
       line-height: 15px;
       z-index: 100;
       cursor: pointer;
+      @media (max-width: 1080px) {
+        position: relative;
+        top: 1.5px;
+      }
       &._open {
         color: #3366FF;
         transform: translateX(-7px);
@@ -318,6 +328,10 @@
         display: flex;
         justify-content: space-evenly;
          margin-right: 36px;
+         svg {
+           position: relative;
+           top: 1px;
+         }
          &:hover  {
            svg {
              path {
@@ -348,7 +362,6 @@
         color: #979797;
         font-size: 13px;
         line-height: 13px;
-        padding-top: 4px;
       }
       span {
         padding-top: 4px;
@@ -707,10 +720,14 @@
     cursor: pointer;
     transition: border-color 0.2s linear;
     position: relative;
+    top: 4px;
     span {
       color: #8F989D;
       font-size: 13px;
       line-height: 16px;
+    }
+    @media (max-width: 1080px) {
+      top: -2px;
     }
     @media (max-width: 1080px) {
       margin-left: 0;
@@ -733,7 +750,7 @@
       color: #979797;
       font-size: 13px;
       line-height: 15px;
-      margin-top: 4px;
+      margin-top: 6px;
       &:hover {
         color: #3366FF;
       }
@@ -904,16 +921,21 @@
       }
     }
     span {
-      padding-top: 6px !important;
+      padding-top: 9px !important;
     }
+
     @media (max-width: 1080px) {
       margin-right: auto;
       transform: translateX(-15px);
     }
   }
   .registration-link {
+    svg {
+      position: relative;
+      top: 5px;
+    }
     span {
-      padding-top: 6px !important;
+      padding-top: 8px !important;
     }
     margin-left: auto;
 
@@ -1026,6 +1048,10 @@
     padding-bottom: 10px;
     margin-left: 10px;
   }
+  &--desktop li:nth-child(4) span {
+    position: relative;
+    top: -1px;
+  }
   &._open {
     & .widget-login__item {
       &.popup-menu {
@@ -1076,7 +1102,9 @@
   }
 }
 
-
-
+.padding-for-header-title svg {
+  position: relative;
+  top: 5px;
+}
 
 
