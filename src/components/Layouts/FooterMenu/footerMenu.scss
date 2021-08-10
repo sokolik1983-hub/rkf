@@ -27,6 +27,13 @@
     text-align: center;
     cursor: pointer;
     width: 60px;
+    span {
+      @media (max-width: 1350px) {
+        position: relative;
+        top: 1px
+      }
+    }
+
     &.__active {
       color: #3366FF;
       svg path{
