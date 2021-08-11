@@ -17,14 +17,14 @@ import ZlineModal from '../../ZlineModal';
 import './footerMenu.scss';
 
 const FooterMenu = ({
-                        match,
-                        is_active_profile,
-                        profile_id,
-                        notificationsLength,
-                        isAuthenticated,
-                        setShowFilters,
-                        setIsOpen
-                    }) => {
+    match,
+    is_active_profile,
+    profile_id,
+    notificationsLength,
+    isAuthenticated,
+    setShowFilters,
+    setIsOpen
+}) => {
     const isMobile1080 = useIsMobile(1080);
     const { alias, id, user_type } = ls.get('user_info') || {};
     const { pathname } = useLocation();
@@ -95,68 +95,68 @@ const FooterMenu = ({
     return (
         <>
             {isMobile1080 &&
-            <div className='footer__menu'
-                 onClick={hideSideMenu}
-                 style={{
-                     padding:
-                         checkUrlAlias(aliasParams) === null
-                             ? '10px 20px 5px 15px'
-                             : '10px 3% 5px 15px'
-                 }}
-            >
-                <NavLink className='footer__menu-link' to='/'>
-                    {footerNav[0].image}
-                    <span>{footerNav[0].title}</span>
-                </NavLink>
-                <Link to='' className='footer__menu-link' onClick={e => handleZlineClick(e)}>
-                    {footerNav[5].image}
-                    <span>{footerNav[5].title}</span>
-                </Link>
-                {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} />}
-                {!isAuthenticated &&
-                <>
-                    <NavLink className='footer__menu-link' to={footerNav[6].to}>
-                        {footerNav[6].image}
-                        <span>{footerNav[6].title}</span>
+                <div className='footer__menu'
+                    onClick={hideSideMenu}
+                    style={{
+                        padding:
+                            checkUrlAlias(aliasParams) === null
+                                ? '10px 20px 5px 15px'
+                                : '10px 3% 5px 15px'
+                    }}
+                >
+                    <NavLink className='footer__menu-link' to='/'>
+                        {footerNav[0].image}
+                        <span>{footerNav[0].title}</span>
                     </NavLink>
-                    <NavLink className='footer__menu-link' to={footerNav[7].to}>
-                        {footerNav[7].image}
-                        <span>{footerNav[7].title}</span>
-                    </NavLink>
-                </>
-                }
+                    <Link to='' className='footer__menu-link' onClick={e => handleZlineClick(e)}>
+                        {footerNav[5].image}
+                        <span>{footerNav[5].title}</span>
+                    </Link>
+                    {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} />}
+                    {!isAuthenticated &&
+                        <>
+                            <NavLink className='footer__menu-link' to={footerNav[6].to}>
+                                {footerNav[6].image}
+                                <span>{footerNav[6].title}</span>
+                            </NavLink>
+                            <NavLink className='footer__menu-link' to={footerNav[7].to}>
+                                {footerNav[7].image}
+                                <span>{footerNav[7].title}</span>
+                            </NavLink>
+                        </>
+                    }
 
-                {
-                    <div className={(checkUrlAlias(aliasParams) === null) && 'more_btn-hide'}>
+                    {
+                        <div className={(checkUrlAlias(aliasParams) === null) && 'more_btn-hide'}>
 
-                        {isFederationAlias(urlAlias || alias)
-                            ?
-                            <MenuComponent
-                                isExhibitionPage={isExhibitionPage}
-                                alias={urlAlias || alias}
-                                name={clubInfo?.short_name || clubInfo?.name || 'Название федерации отсутствует'}
-                                isFederation={true}
-                            />
-                            :
-                            isKennel ? <UserMenu userNav={canEdit
+                            {isFederationAlias(urlAlias || alias)
+                                ?
+                                <MenuComponent
+                                    isExhibitionPage={isExhibitionPage}
+                                    alias={urlAlias || alias}
+                                    name={clubInfo?.short_name || clubInfo?.name || 'Название федерации отсутствует'}
+                                    isFederation={true}
+                                />
+                                :
+                                isKennel ? <UserMenu userNav={canEdit
                                     ? kennelNav(clubInfo?.alias) // Show NewsFeed menu item to current user only
                                     : kennelNav(clubInfo?.alias).filter(i => i.id !== 2)}
-                                                 notificationsLength={notificationsLength}
+                                    notificationsLength={notificationsLength}
                                 />
-                                : <UserMenu userNav={canEdit
-                                    ? clubNav(clubInfo?.club_alias) // Show NewsFeed menu item to current user only
-                                    : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
-                                            notificationsLength={notificationsLength}
-                                />}
-                    </div>
-                }
+                                    : <UserMenu userNav={canEdit
+                                        ? clubNav(clubInfo?.club_alias) // Show NewsFeed menu item to current user only
+                                        : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
+                                        notificationsLength={notificationsLength}
+                                    />}
+                        </div>
+                    }
 
-            </div>
+                </div>
             }
             <ZlineModal showModal={showZlineModal}
-                        handleClose={() => {
-                            setShowZlineModal(false);
-                        }}
+                handleClose={() => {
+                    setShowZlineModal(false);
+                }}
             >
                 <iframe src={'https://zline.me/widgets/registration-for-service?id=33'} title='unique_iframe' />
             </ZlineModal>
