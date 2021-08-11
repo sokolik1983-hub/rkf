@@ -3,7 +3,6 @@ import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
 import { setFiltersToUrl } from "../../../../utils";
 import "./index.scss";
 import mobileMenuMoves from "../../../../../../utils/mobileMenuMoves";
-import {getEmptyFilters} from "../../../../../Organizations/utils";
 
 const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExporting, exporting, setStandardView }) => {
     const clientWidth = window.innerWidth;

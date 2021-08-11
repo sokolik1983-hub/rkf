@@ -25,7 +25,7 @@ const mobileMenuMoves = (place, elem) => {
             }
             break;
         case 3:
-            if(clientWidth > 500 && clientWidth < 600 || clickElemWidth < 120) {
+            if((clientWidth > 500 && clientWidth < 600 ) || clickElemWidth < 120) {
                 position = (widthBeforeElems +widthAfterElems) - (sliderWidth-clickElemWidth);
             } else {
                 position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);

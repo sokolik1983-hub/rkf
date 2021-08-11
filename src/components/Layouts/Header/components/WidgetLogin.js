@@ -9,7 +9,6 @@ import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig"
 import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connectors";
 import history from "../../../../utils/history";
 import { Request } from "../../../../utils/request";
-import Feedback from "../../../Feedback";
 import useIsMobile from "../../../../utils/useIsMobile";
 
 const WidgetLogin = forwardRef(

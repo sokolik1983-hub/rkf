@@ -1,6 +1,4 @@
 import React from "react";
-import UserMenu from '../../components/Layouts/UserMenu';
-import { clubNav } from '../Club/config';
 
 export const endpointGetNurseryInfo = '/api/nurseries/nursery/public/';
 
