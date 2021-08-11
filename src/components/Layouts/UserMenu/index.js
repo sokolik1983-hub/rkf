@@ -40,8 +40,7 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
         >
 
                 {isMobile &&
-                    <button className={`user-nav__button${open ? ' _open' : ''}`}
-                            style={{padding: "26px 10px"}}>
+                    <button className={`user-nav__button${open ? ' _open' : ''}`}>
                         Еще
                     </button>
                 }
