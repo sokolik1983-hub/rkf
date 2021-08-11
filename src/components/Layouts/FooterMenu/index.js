@@ -67,7 +67,6 @@ const FooterMenu = ({
         (() => Request({
             url: (isKennel ? endpointGetNurseryInfo : isUser ? endpointGetUserInfo : endpointGetClubInfo) + checkUrlAlias()
         }, data => {
-            console.log('data', data);
             setClubInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
         }, error => {
