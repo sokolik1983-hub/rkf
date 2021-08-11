@@ -466,7 +466,7 @@ const footerNav = [
         id: 1,
         title: 'Главная',
         to: '/',
-        image: <svg width="22" height="21" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        image: <svg width="22" height="21" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 10L11 1L1 10" stroke="#90999E" strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round" />
             <path d="M3 8.5V20H8.33333V12.9286H13.6667V20H19V8.5" stroke="#90999E" strokeWidth="1.32" strokeMiterlimit="10" strokeLinejoin="round" />
         </svg>
@@ -477,7 +477,7 @@ const footerNav = [
         id: 2,
         title: 'Чат',
         to: '',
-        image: <svg width='22' height='20' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        image: <svg width='22' height='20' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
                 d='M21 1.86957L21 14.913C21 15.3913 20.6087 15.7826 20.1304 15.7826H6.21739L1 19.2609V15.7826L1 1.86957C1 1.3913 1.39131 1 1.86957 1H20.1304C20.6087 1 21 1.3913 21 1.86957Z'
                 stroke='#90999E' strokeWidth='1.32' strokeMiterlimit='10' strokeLinejoin='round' />
@@ -487,7 +487,7 @@ const footerNav = [
         id: 3,
         title: 'Профиль',
         to: '',
-        image: <svg width='22' height='22' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        image: <svg width='22' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
                 d='M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z'
                 stroke='#979797' strokeWidth='1.32' strokeMiterlimit='10'
@@ -506,7 +506,7 @@ const footerNav = [
         id: 4,
         title: 'Мое меню',
         to: '',
-        image: <svg width='28' height='22' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        image: <svg width='28' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
                 d='M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z'
                 stroke='#979797' strokeWidth='1.32' strokeMiterlimit='10' strokeLinecap='round'
@@ -522,7 +522,7 @@ const footerNav = [
         id: 5,
         title: 'Еще',
         to: '',
-        image: <svg width='22' height='22' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        image: <svg width='22' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
                 d='M5.04099 13.8913C3.99341 13.5411 3.42809 12.4079 3.7783 11.3604C4.12852 10.3128 5.26165 9.74745 6.30923 10.0977C7.35681 10.4479 7.92214 11.581 7.57192 12.6286C7.40374 13.1317 7.04261 13.5473 6.56797 13.7841C6.09333 14.0209 5.54406 14.0595 5.04099 13.8913ZM11.3655 13.8968C10.318 13.5466 9.75264 12.4135 10.1029 11.3659C10.4531 10.3183 11.5862 9.753 12.6338 10.1032C13.6814 10.4534 14.2467 11.5866 13.8965 12.6341C13.7283 13.1372 13.3672 13.5529 12.8925 13.7897C12.4179 14.0265 11.8686 14.065 11.3655 13.8968ZM17.6901 13.9024C16.6425 13.5522 16.0772 12.419 16.4274 11.3715C16.7776 10.3239 17.9108 9.75855 18.9583 10.1088C20.0059 10.459 20.5712 11.5921 20.221 12.6397C20.0528 13.1428 19.6917 13.5584 19.2171 13.7952C18.7424 14.032 18.1932 14.0706 17.6901 13.9024Z'
                 fill='#979797' />
@@ -537,7 +537,7 @@ const footerNav = [
         // to: '/booking',
         // disabled: true,
         exact: false,
-        image: <svg width='22' height='22' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        image: <svg width='22' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
                 d='M17.6608 4.82128V2.66961C17.6608 1.7525 16.92 1 15.9912 1H2.66961C1.74074 1 1 1.74074 1 2.66961V19.3304C1 20.2475 1.74074 21 2.66961 21H16.0029C16.92 21 17.6725 20.2593 17.6725 19.3304V10.1123'
                 stroke='#8F989D' strokeWidth='1.32' strokeMiterlimit='10' strokeLinejoin='round' />
@@ -562,7 +562,7 @@ const footerNav = [
         to: '/auth/login',
         disabled: false,
         exact: false,
-        image: <svg width='22' height='22' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        image: <svg width='22' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
                 d='M14.7096 17.7255L20.6898 11.7367C20.7846 11.6419 20.8621 11.5213 20.9138 11.392C20.9655 11.2628 20.9914 11.1249 20.9914 10.987C20.9914 10.8491 20.9655 10.7113 20.9138 10.582C20.8621 10.4528 20.7846 10.3407 20.6898 10.2373L14.7096 4.24854'
                 stroke='#90999E' strokeWidth='1.32' strokeMiterlimit='10' strokeLinejoin='round' />
@@ -581,7 +581,7 @@ const footerNav = [
         to: '/auth/registration',
         disabled: false,
         exact: false,
-        image: <svg width='22' height='22' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        image: <svg width='22' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
                 d='M17.6117 12.2923L19.0362 13.6872C19.1317 13.7807 19.1795 13.8898 19.1795 14.0145C19.1795 14.1392 19.1317 14.2561 19.0362 14.3418L12.5422 20.701C12.4626 20.779 12.3671 20.8179 12.2557 20.8335L10.664 20.9972C10.5924 21.005 10.5207 20.9972 10.4571 20.9738C10.3855 20.9504 10.3297 20.9114 10.2819 20.8647C10.2342 20.8179 10.1945 20.7556 10.1706 20.6932C10.1467 20.6231 10.1387 20.5608 10.1467 20.4906L10.3138 18.932C10.3217 18.8229 10.3695 18.7294 10.4491 18.6514L16.9431 12.2923C17.0386 12.1987 17.1501 12.152 17.2854 12.152C17.4047 12.1442 17.5241 12.1987 17.6117 12.2923Z'
                 stroke='#90999E' strokeWidth='1.32' strokeMiterlimit='10' />
