@@ -120,7 +120,7 @@ const FooterMenu = ({
                     }
 
                     {
-                        <div className={(checkUrlAlias() === null) && 'more_btn-hide'}>
+                        <div className={(checkUrlAlias() === null) ? 'more_btn-hide' : ''}>
 
                             {isFederationAlias(urlAlias || alias)
                                 ?
