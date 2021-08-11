@@ -11,6 +11,7 @@ import { connectShowFilters } from '../connectors';
 import { Request } from '../../../utils/request';
 import { clubNav, endpointGetClubInfo } from '../../../pages/Club/config';
 import { kennelNav, endpointGetNurseryInfo } from '../../../pages/Nursery/config';
+import { endpointGetUserInfo, userNav } from "../UserLayout/config";
 import UserMenu from '../UserMenu';
 import ZlineModal from '../../ZlineModal';
 
@@ -32,41 +33,41 @@ const FooterMenu = ({
     const [showZlineModal, setShowZlineModal] = useState(false);
     const [clubInfo, setClubInfo] = useState(null);
 
-    const aliasParams = match.path;
-    const isExhibitionPage = aliasParams === pathname;
+    const isExhibitionPage = match.path === pathname;
 
     //заменить в коде ниже на checkUrlAlias ??
-    const urlAlias = pathname.search('kennel') === 1 ? pathname.split('/')[2] : pathname.split('/')[1];
+    const urlAlias = (pathname.search('kennel') === 1 || pathname.search('user') === 1) ? pathname.split('/')[2] : pathname.split('/')[1];
 
-    const isKennel = aliasParams.search('kennel') === 1 || user_type === 4;
+    const isKennel = pathname.search('kennel') === 1 || user_type === 4;
+    const isUser = pathname.search('user') === 1 || user_type === 1;
 
     const exceptionUrl =
-        aliasParams === '/organizations'
-        || aliasParams === '/exhibitions'
-        || aliasParams === '/search'
-        || aliasParams === '/base-search'
-        || aliasParams === ''
-        || aliasParams === '/'
-        || aliasParams === '/uploaded-documents'
-        || aliasParams === '/auth/login'
-        || aliasParams === '/auth/registration';
+        pathname === '/organizations'
+        || pathname === '/exhibitions'
+        || pathname === '/search'
+        || pathname === '/base-search'
+        || pathname === ''
+        || pathname === '/'
+        || pathname === '/uploaded-documents'
+        || pathname === '/auth/login'
+        || pathname === '/auth/registration';
 
 
-    function checkUrlAlias(location) {
+    function checkUrlAlias() {
         if (exceptionUrl) {
             return alias ? alias : null;
-        } else if (aliasParams.search('kennel') === 1) {
-            return aliasParams.split('/')[2];
+        } else if (pathname.search('kennel') === 1 || pathname.search('user') === 1) {
+            return pathname.split('/')[2];
         } else {
-            return aliasParams.split('/')[1];
+            return pathname.split('/')[1];
         }
     }
 
-
     useEffect(() => {
         (() => Request({
-            url: (isKennel ? endpointGetNurseryInfo : endpointGetClubInfo) + checkUrlAlias(aliasParams)
+            url: (isKennel ? endpointGetNurseryInfo : isUser ? endpointGetUserInfo : endpointGetClubInfo) + checkUrlAlias()
         }, data => {
+            console.log('data', data);
             setClubInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
         }, error => {
@@ -74,7 +75,6 @@ const FooterMenu = ({
         }))();
 
     }, [match]);
-
 
     useEffect(() => {
         if (alias) {
@@ -97,12 +97,6 @@ const FooterMenu = ({
             {isMobile1080 &&
                 <div className='footer__menu'
                     onClick={hideSideMenu}
-                    style={{
-                        padding:
-                            checkUrlAlias(aliasParams) === null
-                                ? '10px 20px 5px 15px'
-                                : '10px 3% 5px 15px'
-                    }}
                 >
                     <NavLink className='footer__menu-link' to='/'>
                         {footerNav[0].image}
@@ -127,7 +121,7 @@ const FooterMenu = ({
                     }
 
                     {
-                        <div className={(checkUrlAlias(aliasParams) === null) && 'more_btn-hide'}>
+                        <div className={(checkUrlAlias() === null) && 'more_btn-hide'}>
 
                             {isFederationAlias(urlAlias || alias)
                                 ?
@@ -142,12 +136,18 @@ const FooterMenu = ({
                                     ? kennelNav(clubInfo?.alias) // Show NewsFeed menu item to current user only
                                     : kennelNav(clubInfo?.alias).filter(i => i.id !== 2)}
                                     notificationsLength={notificationsLength}
-                                />
-                                    : <UserMenu userNav={canEdit
-                                        ? clubNav(clubInfo?.club_alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
-                                        notificationsLength={notificationsLength}
-                                    />}
+                                /> :
+                                    isUser ?
+                                        <UserMenu userNav={canEdit
+                                            ? userNav(clubInfo?.alias) // Show NewsFeed menu item to current user only
+                                            : userNav(clubInfo?.alias).filter(i => i.id !== 2)}
+                                            notificationsLength={notificationsLength}
+                                        />
+                                        : <UserMenu userNav={canEdit
+                                            ? clubNav(clubInfo?.club_alias) // Show NewsFeed menu item to current user only
+                                            : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
+                                            notificationsLength={notificationsLength}
+                                        />}
                         </div>
                     }
 
