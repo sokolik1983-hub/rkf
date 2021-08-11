@@ -26,7 +26,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
     const [page, setPage] = useState(1);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => Request({

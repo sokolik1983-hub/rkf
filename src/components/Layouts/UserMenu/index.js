@@ -12,6 +12,7 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
     const [showPlus, setShowPlus] = useState(false);
     const [notificationsCount, setNotificationsCount] = useState(0);
     const isMobile = useIsMobile(1080);
+
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
@@ -35,14 +36,13 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
         <div
             className={`user-nav  ${isMobile ? `` : `_desktop_card`}`}
             onClick={() => setOpen(open => !open)}
+            style={{backgroundPosition: "top 20% left 50%"}}
         >
 
                 {isMobile &&
-                    <button className={`user-nav__button${open ? ' _open' : ''}`} >
-                        {footerNav?.image}
-                        <p style={{color: open && '#3366FF', userSelect: "none", lineHeight: "24px"
-                        }}>{footerNav?.title}</p>
-
+                    <button className={`user-nav__button${open ? ' _open' : ''}`}
+                            style={{padding: "26px 10px"}}>
+                        Еще
                     </button>
                 }
                 <CSSTransition

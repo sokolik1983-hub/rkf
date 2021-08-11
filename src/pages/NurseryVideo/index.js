@@ -34,7 +34,7 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
     const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         setPageLoaded(false);
@@ -221,11 +221,11 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            <UserMenu userNav={canEdit
+                                            {!isMobile && <UserMenu userNav={canEdit
                                                 ? kennelNav(alias) // Show NewsFeed menu item to current user only
                                                 : kennelNav(alias).filter(i => i.id !== 2)}
-                                                notificationsLength={notificationsLength}
-                                            />
+                                                       notificationsLength={notificationsLength}
+                                            />}
                                             {!isMobile &&
                                                 <>
                                                     {nursery.breeds && !!nursery.breeds.length &&

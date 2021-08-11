@@ -39,7 +39,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
     const params = useParams();
     const history = useHistory();
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         setPageLoaded(false);
@@ -288,11 +288,11 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            <UserMenu userNav={canEdit
+                                            {!isMobile && <UserMenu userNav={canEdit
                                                 ? kennelNav(alias) // Show NewsFeed menu item to current user only
                                                 : kennelNav(alias).filter(i => i.id !== 2)}
-                                                notificationsLength={notificationsLength}
-                                                />
+                                                       notificationsLength={notificationsLength}
+                                            />}
                                             {!isMobile &&
                                                 <>
                                                     {nursery.breeds && !!nursery.breeds.length &&

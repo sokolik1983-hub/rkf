@@ -41,7 +41,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     const [notificationsLength, setNotificationsLength] = useState(0);
     let params = useParams();
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         Promise.all([getImages(1), getNursery()])
@@ -286,10 +286,10 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                         active_member={nursery.active_member}
                                                     />
                                                 }
-                                                <UserMenu
+                                                {!isMobile && <UserMenu
                                                     userNav={kennelNav(alias)}
                                                     notificationsLength={notificationsLength}
-                                                />
+                                                />}
                                                 {!isMobile &&
                                                     <>
                                                         {nursery.breeds && !!nursery.breeds.length &&

@@ -27,7 +27,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const alias = match.params.route;
 
     useEffect(() => {
@@ -103,7 +103,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                 active_member={nursery.active_member}
                                             />
                                         }
-                                        <UserMenu userNav={kennelNav(alias)} />
+                                        {!isMobile && <UserMenu userNav={kennelNav(alias)} />}
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&

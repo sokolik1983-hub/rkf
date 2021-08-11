@@ -28,7 +28,7 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
     const [loading, setLoading] = useState(true);
     const [canEdit, setCanEdit] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const alias = match.params.route;
 
     useEffect(() => {
@@ -127,6 +127,7 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                                                 isFederation={true}
                                             />
                                             :
+                                            !isMobile &&
                                             <UserMenu userNav={clubNav(clubInfo.club_alias)} />
                                         }
                                         {!isMobile &&

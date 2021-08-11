@@ -42,7 +42,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
     const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         Promise.all([getImages(1), getClub()])
@@ -290,6 +290,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                         isFederation={true}
                                                     />
                                                     :
+                                                    !isMobile &&
                                                     <UserMenu
                                                         userNav={clubNav(clubInfo.club_alias)}
                                                         notificationsLength={notificationsLength}

@@ -39,7 +39,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
     const [startElement, setStartElement] = useState(1);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const params = useParams();
 
     useEffect(() => {
@@ -194,10 +194,10 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                                 updateInfo={getUserInfo}
                                             />
                                         </Card>
-                                        <UserMenu
-                                        userNav={userNav(alias)}
-                                        notificationsLength={notificationsLength}
-                                        />
+                                        {!isMobile && <UserMenu
+                                            userNav={userNav(alias)}
+                                            notificationsLength={notificationsLength}
+                                        />}
                                         {!isMobile &&
                                             <>
                                                 <UserVideoGallery

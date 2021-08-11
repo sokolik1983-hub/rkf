@@ -34,7 +34,7 @@ const checkUrl = (url) => {
     }
 };
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -166,13 +166,14 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             active_member={active_member}
                                             active_rkf_user={active_rkf_user}
                                         />
-                                        {isFederationAlias(club_alias) ?
+                                        {!isMobile && isFederationAlias(club_alias) ?
                                             <MenuComponent
                                                 alias={club_alias}
                                                 name={display_name || club_fact_name || ''}
                                                 isFederation={true}
                                             />
                                             :
+                                            !isMobile &&
                                             <UserMenu
                                                 userNav={clubNav(club_alias)}
                                                 isExhibitionPage={true}

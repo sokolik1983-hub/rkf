@@ -31,7 +31,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => getUserInfo())();
@@ -74,7 +74,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     updateInfo={getUserInfo}
                                 />
                             </Card>
-                            <UserMenu userNav={userNav(userAlias)} />
+                            {!isMobile && <UserMenu userNav={userNav(userAlias)} />}
                             {!isMobile && <Banner type={10} />}
                             <CopyrightInfo withSocials={true} />
                         </StickyBox>

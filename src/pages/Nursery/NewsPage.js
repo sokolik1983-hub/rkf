@@ -28,7 +28,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [loading, setLoading] = useState(true);
     const [needRequest, setNeedRequest] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const alias = match.params.route;
 
     useEffect(() => {
@@ -114,9 +114,10 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 active_member={nursery.active_member}
                                             />
                                         }
-                                            <UserMenu userNav={canEdit
-                                                ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                                : kennelNav(alias).filter(i => i.id !== 2)} />
+                                        {!isMobile &&
+                                        <UserMenu userNav={canEdit
+                                            ? kennelNav(alias) // Show NewsFeed menu item to current user only
+                                            : kennelNav(alias).filter(i => i.id !== 2)} />}
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&

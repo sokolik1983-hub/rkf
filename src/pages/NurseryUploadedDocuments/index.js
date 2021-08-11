@@ -29,7 +29,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
     const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.route;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         setPageLoaded(false);
@@ -131,11 +131,11 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            <UserMenu userNav={canEdit
+                                            {!isMobile && <UserMenu userNav={canEdit
                                                 ? kennelNav(alias) // Show NewsFeed menu item to current user only
                                                 : kennelNav(alias).filter(i => i.id !== 2)}
-                                                notificationsLength={notificationsLength}
-                                            />
+                                                       notificationsLength={notificationsLength}
+                                            />}
                                             {!isMobile &&
                                                 <>
                                                     {nursery.breeds && !!nursery.breeds.length &&

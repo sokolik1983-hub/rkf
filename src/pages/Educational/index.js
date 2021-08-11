@@ -21,6 +21,7 @@ import { clubNav } from "../Club/config";
 import UserMenu from "../../components/Layouts/UserMenu";
 import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "./components/SignUpModal";
+import useIsMobile from "../../utils/useIsMobile";
 
 import "./index.scss";
 
@@ -32,7 +33,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const exhibitionId = match.params.id;
     const canEdit = isAuthenticated && is_active_profile && exhibition && profile_id === exhibition.club_id;
     const comments = exhibition && (typeof exhibition.comments === 'string' ? exhibition.comments.split(';').join('\n') : exhibition.comments);
-
+    const isMobile = useIsMobile(1080);
     const dateEnd = exhibition && exhibition.dates && exhibition.dates.length ?
         exhibition.dates.length > 1 ?
             new Date(
@@ -116,13 +117,14 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             federationName={organizer_name}
                                             federationAlias={organizer_alias}
                                         />
-                                        {isFederationAlias(organizer_alias) ?
+                                        {!isMobile && isFederationAlias(organizer_alias) ?
                                             <MenuComponent
                                                 alias={organizer_alias}
                                                 name={federation_name || ''}
                                                 isFederation={true}
                                             />
                                             :
+                                            !isMobile &&
                                             <UserMenu
                                                 userNav={clubNav(organizer_alias)}
                                                 isExhibitionPage={true}

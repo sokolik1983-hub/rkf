@@ -249,7 +249,7 @@ const DocHome = ({ nurseryAlias }) => {
     const [loading, setLoading] = useState(true);
     const [authorizedAccess, setAuthorizedAccess] = useState(null);
     const [membershipPaid, setMembershipPaid] = useState(false);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => Request({
@@ -267,7 +267,7 @@ const DocHome = ({ nurseryAlias }) => {
     return (loading ? <Loading /> : <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={65}>
-                <UserMenu userNav={kennelNav(nurseryAlias)} />
+                {!isMobile && <UserMenu userNav={kennelNav(nurseryAlias)} />}
                 {!isMobile && <Banner type={9} />}
                 <CopyrightInfo withSocials={true} />
             </StickyBox>

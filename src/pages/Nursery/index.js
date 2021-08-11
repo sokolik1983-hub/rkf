@@ -44,7 +44,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
     const [loading, setLoading] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => Request({
@@ -164,11 +164,11 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 isAuthenticated={isAuthenticated}
                                             />
                                         }
-                                        <UserMenu userNav={canEdit
+                                        {!isMobile && <UserMenu userNav={canEdit
                                             ? kennelNav(alias) // Show NewsFeed menu item to current user only
                                             : kennelNav(alias).filter(i => i.id !== 2)}
-                                            notificationsLength={notificationsLength}
-                                            />
+                                                   notificationsLength={notificationsLength}
+                                        />}
                                         {!isMobile &&
                                             <>
                                                 <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />

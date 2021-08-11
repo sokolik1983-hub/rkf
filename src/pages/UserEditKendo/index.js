@@ -39,7 +39,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const [activeSection, setActiveSection] = useState(0);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
@@ -233,7 +233,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         updateInfo={getUser}
                                     />
                                 </Card>
-                                <UserMenu userNav={userNav(alias)} notificationsLength={notificationsLength}/>
+                                {!isMobile && <UserMenu userNav={userNav(alias)} notificationsLength={notificationsLength} />}
                                 <CopyrightInfo withSocials={true} />
                             </StickyBox>
                         </aside>

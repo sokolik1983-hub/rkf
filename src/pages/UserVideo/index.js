@@ -34,7 +34,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => getUserInfo())();
@@ -172,11 +172,11 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                         updateInfo={getUserInfo}
                                     />
                                 </Card>
-                                <UserMenu userNav={canEdit
+                                {!isMobile && <UserMenu userNav={canEdit
                                     ? userNav(alias) // Show NewsFeed menu item to current user only
                                     : userNav(alias).filter(i => i.id !== 2)}
-                                    notificationsLength={notificationsLength}
-                                />
+                                           notificationsLength={notificationsLength}
+                                />}
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery

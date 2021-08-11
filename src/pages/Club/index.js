@@ -34,7 +34,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => Request({
@@ -157,11 +157,11 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            <UserMenu userNav={canEdit
+                                            {!isMobile && <UserMenu userNav={canEdit
                                                 ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
                                                 : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
-                                                notificationsLength={notificationsLength}
-                                            />
+                                                       notificationsLength={notificationsLength}
+                                            />}
                                             {!isMobile &&
                                                 <>
                                                     <Banner type={BANNER_TYPES.clubPageUnderPhotos} />

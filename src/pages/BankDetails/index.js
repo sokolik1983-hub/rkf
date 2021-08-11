@@ -25,7 +25,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
     const [canEdit, setCanEdit] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [loading, setLoading] = useState(true);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const name = ls.get('user_info') ? ls.get('user_info').name : '';
@@ -134,15 +134,15 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                                                     updateInfo={getUserInfo}
                                                 />
                                             </Card>}
-                                            <UserMenu
+                                            {!isMobile && <UserMenu
                                                 userNav={userNav(alias)}
-                                            />
+                                            />}
                                         </>
                                     }
-                                    {user_type === 3 && <UserMenu
+                                    {user_type === 3 && !isMobile &&  <UserMenu
                                         userNav={clubNav(alias)}
                                     />}
-                                    {user_type === 4 && <UserMenu
+                                    {user_type === 4 && !isMobile && <UserMenu
                                         userNav={kennelNav(alias)}
                                     />}
                                     <CopyrightInfo withSocials={true} />

@@ -1,33 +1,79 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation, Link } from "react-router-dom";
-import useIsMobile from "../../../utils/useIsMobile";
-import WidgetLogin from "../Header/components/WidgetLogin";
-import ls from "local-storage";
-import { connectAuthVisible } from "../../../pages/Authorization/connectors";
-import { footerNav } from "../../../appConfig";
-import { clubNav } from "../../../pages/Club/config";
-import { kennelNav } from "../NurseryLayout/config";
-import { userNav } from "../UserLayout/config";
-import { isFederationAlias } from "../../../utils";
-import UserMenu from "../UserMenu";
-import MenuComponent from "../../MenuComponent";
-import { connectShowFilters } from "../connectors";
-import ZlineModal from "../../ZlineModal";
+import { NavLink, useLocation, Link, withRouter } from 'react-router-dom';
+import useIsMobile from '../../../utils/useIsMobile';
+import WidgetLogin from '../Header/components/WidgetLogin';
+import ls from 'local-storage';
+import { connectAuthVisible } from '../../../pages/Authorization/connectors';
+import { footerNav } from '../../../appConfig';
+import { isFederationAlias } from '../../../utils';
+import MenuComponent from '../../MenuComponent';
+import { connectShowFilters } from '../connectors';
+import { Request } from '../../../utils/request';
+import { clubNav, endpointGetClubInfo } from '../../../pages/Club/config';
+import { kennelNav, endpointGetNurseryInfo } from '../../../pages/Nursery/config';
+import { endpointGetUserInfo, userNav } from "../UserLayout/config";
+import UserMenu from '../UserMenu';
+import ZlineModal from '../../ZlineModal';
 
-import "./footerMenu.scss";
+import './footerMenu.scss';
 
 const FooterMenu = ({
+    match,
     is_active_profile,
     profile_id,
     notificationsLength,
     isAuthenticated,
     setShowFilters,
-    setIsOpen }) => {
+    setIsOpen
+}) => {
     const isMobile1080 = useIsMobile(1080);
-    const { alias, user_type, id, name } = ls.get('user_info') || {};
+    const { alias, id, user_type } = ls.get('user_info') || {};
     const { pathname } = useLocation();
     const [canEdit, setCanEdit] = useState(false);
     const [showZlineModal, setShowZlineModal] = useState(false);
+    const [clubInfo, setClubInfo] = useState(null);
+
+    const isExhibitionPage = match.path === pathname;
+
+    //заменить в коде ниже на checkUrlAlias ??
+    const urlAlias = (pathname.search('kennel') === 1 || pathname.search('user') === 1) ? pathname.split('/')[2] : pathname.split('/')[1];
+
+    const isKennel = pathname.search('kennel') === 1 || user_type === 4;
+    const isUser = pathname.search('user') === 1 || user_type === 1;
+
+    const exceptionUrl =
+        pathname === '/organizations'
+        || pathname === '/exhibitions'
+        || pathname === '/search'
+        || pathname === '/base-search'
+        || pathname === ''
+        || pathname === '/'
+        || pathname === '/uploaded-documents'
+        || pathname === '/auth/login'
+        || pathname === '/auth/registration';
+
+
+    function checkUrlAlias() {
+        if (exceptionUrl) {
+            return alias ? alias : null;
+        } else if (pathname.search('kennel') === 1 || pathname.search('user') === 1) {
+            return pathname.split('/')[2];
+        } else {
+            return pathname.split('/')[1];
+        }
+    }
+
+    useEffect(() => {
+        (() => Request({
+            url: (isKennel ? endpointGetNurseryInfo : isUser ? endpointGetUserInfo : endpointGetClubInfo) + checkUrlAlias()
+        }, data => {
+            setClubInfo(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+        }, error => {
+            console.log(error.response);
+        }))();
+
+    }, [match]);
 
     useEffect(() => {
         if (alias) {
@@ -35,32 +81,11 @@ const FooterMenu = ({
         }
     }, []);
 
-
-
-    const pathAlias = pathname.substr(pathname.lastIndexOf('/') + 1);
-
-    const urlAlias = pathname.search('kennel') === 1 ? kennelNav(pathAlias) : clubNav(pathAlias);
-
-    const isFederation = pathAlias === 'rkf'
-        || pathAlias === 'rfss'
-        || pathAlias === 'rfls'
-        || pathAlias === 'rfos'
-        || pathAlias === 'oankoo';
-
-    const checkPathForMenu = pathAlias !== 'rkf'
-        && pathAlias !== 'organizations'
-        && pathAlias !== 'exhibitions'
-        && pathAlias !== 'search'
-        && pathAlias !== 'base-search'
-        && pathAlias !== ''
-        && pathAlias !== 'uploaded-documents'
-        && pathAlias !== 'login'
-        && pathAlias !== 'registration';
-
     const hideSideMenu = () => {
         setShowFilters({ isOpenFilters: false });
         setIsOpen(false);
-    }
+    };
+
     const handleZlineClick = (e) => {
         e.preventDefault();
         setShowZlineModal(true);
@@ -69,66 +94,60 @@ const FooterMenu = ({
     return (
         <>
             {isMobile1080 &&
-
-                <div className="footer__menu" onClick={hideSideMenu}>
-                    <NavLink className="footer__menu-link" to='/'>
+                <div className='footer__menu'
+                    onClick={hideSideMenu}
+                >
+                    <NavLink className='footer__menu-link' to='/'>
                         {footerNav[0].image}
                         <span>{footerNav[0].title}</span>
                     </NavLink>
-
-                    <Link to="" className="footer__menu-link" onClick={e => handleZlineClick(e)}>
+                    <Link to='' className='footer__menu-link' onClick={e => handleZlineClick(e)}>
                         {footerNav[5].image}
                         <span>{footerNav[5].title}</span>
                     </Link>
-
                     {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} />}
-
                     {!isAuthenticated &&
                         <>
-                            <NavLink className="footer__menu-link" to={footerNav[6].to}>
+                            <NavLink className='footer__menu-link' to={footerNav[6].to}>
                                 {footerNav[6].image}
                                 <span>{footerNav[6].title}</span>
                             </NavLink>
-
-                            <NavLink className="footer__menu-link" to={footerNav[7].to}>
+                            <NavLink className='footer__menu-link' to={footerNav[7].to}>
                                 {footerNav[7].image}
                                 <span>{footerNav[7].title}</span>
                             </NavLink>
                         </>
                     }
 
+                    {
+                        <div className={(checkUrlAlias() === null) && 'more_btn-hide'}>
 
-                    {isAuthenticated && !checkPathForMenu && !isFederation && user_type !== 5 && alias !== 'rkf' &&
-                        <UserMenu
-                            notificationsLength={notificationsLength}
-                            footerNav={footerNav[4]}
-                            userNav={canEdit && user_type &&
-                                user_type === 1 ?
-                                userNav(alias)
-                                : user_type === 3 ?
-                                    clubNav(alias)
-                                    : user_type === 4 ?
-                                        kennelNav(alias)
-                                        : []
-                            }
-                        />
-                    }
-
-                    {isFederation &&
-                        <MenuComponent
-                            footerNav={footerNav[4]}
-                            alias={pathAlias}
-                            name={name}
-                            isFederation={isFederationAlias}
-                        />
-                    }
-
-                    {!isFederation && checkPathForMenu &&
-                        <UserMenu
-                            notificationsLength={notificationsLength}
-                            footerNav={footerNav[4]}
-                            userNav={urlAlias}
-                        />
+                            {isFederationAlias(urlAlias || alias)
+                                ?
+                                <MenuComponent
+                                    isExhibitionPage={isExhibitionPage}
+                                    alias={urlAlias || alias}
+                                    name={clubInfo?.short_name || clubInfo?.name || 'Название федерации отсутствует'}
+                                    isFederation={true}
+                                />
+                                :
+                                isKennel ? <UserMenu userNav={canEdit
+                                    ? kennelNav(clubInfo?.alias) // Show NewsFeed menu item to current user only
+                                    : kennelNav(clubInfo?.alias).filter(i => i.id !== 2)}
+                                    notificationsLength={notificationsLength}
+                                /> :
+                                    isUser ?
+                                        <UserMenu userNav={canEdit
+                                            ? userNav(clubInfo?.alias) // Show NewsFeed menu item to current user only
+                                            : userNav(clubInfo?.alias).filter(i => i.id !== 2)}
+                                            notificationsLength={notificationsLength}
+                                        />
+                                        : <UserMenu userNav={canEdit
+                                            ? clubNav(clubInfo?.club_alias) // Show NewsFeed menu item to current user only
+                                            : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
+                                            notificationsLength={notificationsLength}
+                                        />}
+                        </div>
                     }
 
                 </div>
@@ -138,10 +157,10 @@ const FooterMenu = ({
                     setShowZlineModal(false);
                 }}
             >
-                <iframe src={'https://zline.me/widgets/registration-for-service?id=33'} title="unique_iframe" />
+                <iframe src={'https://zline.me/widgets/registration-for-service?id=33'} title='unique_iframe' />
             </ZlineModal>
         </>
-    )
+    );
 };
 
-export default connectAuthVisible(connectShowFilters(React.memo(FooterMenu)));
+export default withRouter(connectAuthVisible(connectShowFilters(React.memo(FooterMenu))));
