@@ -13,6 +13,7 @@
   padding-top: 76px;
   min-height: calc(100vh - 52px);
   @media (max-width: 768px) {
+    padding-bottom: 70px;
     min-height: calc(100vh - 108px);
   }
   &__title {
