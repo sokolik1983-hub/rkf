@@ -317,6 +317,9 @@
       @media (max-width: 376px) {
         font-size: 15px;
       }
+      @media (max-width: 365px) {
+        width: 70%;
+      }
     }
     div {
       @media (max-width: 440px) {
@@ -375,7 +378,10 @@
       top: 34%;
       right: 46%;
     }
-    @media (max-width: 390px) {
+    @media (max-width: 370px) {
+      right: 40%;
+    }
+    @media (max-width: 320px) {
       right: 55%;
       top: 38%;
     }
