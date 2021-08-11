@@ -21,6 +21,7 @@ import { clubNav } from "../../../Club/config";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import MenuComponent from "../../../../components/MenuComponent";
 import { connectAuthVisible } from "pages/Login/connectors";
+import useIsMobile from "../../../../utils/useIsMobile";
 import ls from "local-storage";
 
 import "./index.scss";
@@ -34,6 +35,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
     const [loading, setLoading] = useState(true);
     const [clear_filter, setClearFilter] = useState(false);
     const [range_clicked, setRangeClicked] = useState(false);
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         Promise.all([
