@@ -249,7 +249,7 @@ const DocHome = ({ nurseryAlias }) => {
     const [loading, setLoading] = useState(true);
     const [authorizedAccess, setAuthorizedAccess] = useState(null);
     const [membershipPaid, setMembershipPaid] = useState(false);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => Request({

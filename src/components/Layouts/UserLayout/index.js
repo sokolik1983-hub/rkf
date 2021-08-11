@@ -32,7 +32,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
     const [needRequest, setNeedRequest] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const { route: alias, id } = useParams();
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => getUserInfo())();

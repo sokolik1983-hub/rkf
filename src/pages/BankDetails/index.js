@@ -25,7 +25,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
     const [canEdit, setCanEdit] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [loading, setLoading] = useState(true);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const name = ls.get('user_info') ? ls.get('user_info').name : '';

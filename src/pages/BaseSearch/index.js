@@ -37,7 +37,7 @@ const BaseSearch = ({ isAuthenticated }) => {
     const [cardClicked, setCardClicked] = useState(0);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);

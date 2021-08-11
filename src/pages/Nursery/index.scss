@@ -13,7 +13,7 @@
     &__content-wrap {
       display: flex;
       justify-content: space-between;
-      @media (max-width: 990px) {
+      @media (max-width: 1080px) {
         display: block;
       }
     }
@@ -35,7 +35,7 @@
       width: 100%;
       margin-left: 16px;
       order: 1;
-      @media (max-width: 990px) {
+      @media (max-width: 1080px) {
         margin-left: 0;
       }
       &-banner {

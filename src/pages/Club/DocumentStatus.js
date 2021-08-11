@@ -28,7 +28,7 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
     const [loading, setLoading] = useState(true);
     const [canEdit, setCanEdit] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const alias = match.params.route;
 
     useEffect(() => {
@@ -120,13 +120,14 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                                                 isAuthenticated={isAuthenticated}
                                             />
                                         }
-                                        {!isMobile && isFederationAlias(clubInfo.club_alias) ?
+                                        {isFederationAlias(clubInfo.club_alias) ?
                                             <MenuComponent
                                                 alias={clubInfo.club_alias}
                                                 name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                 isFederation={true}
                                             />
                                             :
+                                            !isMobile &&
                                             <UserMenu userNav={clubNav(clubInfo.club_alias)} />
                                         }
                                         {!isMobile &&

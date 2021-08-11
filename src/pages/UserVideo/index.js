@@ -34,7 +34,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => getUserInfo())();

@@ -29,7 +29,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
     const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.route;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         setPageLoaded(false);

@@ -34,7 +34,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => Request({

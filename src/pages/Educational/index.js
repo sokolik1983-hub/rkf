@@ -33,7 +33,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const exhibitionId = match.params.id;
     const canEdit = isAuthenticated && is_active_profile && exhibition && profile_id === exhibition.club_id;
     const comments = exhibition && (typeof exhibition.comments === 'string' ? exhibition.comments.split(';').join('\n') : exhibition.comments);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const dateEnd = exhibition && exhibition.dates && exhibition.dates.length ?
         exhibition.dates.length > 1 ?
             new Date(

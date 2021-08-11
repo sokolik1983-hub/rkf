@@ -39,7 +39,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
     const [loading, setLoading] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.route;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => getNurserynfo())();

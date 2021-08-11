@@ -44,7 +44,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
     const [loading, setLoading] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => Request({

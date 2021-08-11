@@ -34,7 +34,7 @@ const checkUrl = (url) => {
     }
 };
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);

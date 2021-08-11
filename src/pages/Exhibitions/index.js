@@ -52,7 +52,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [exporting, setExporting] = useState(false);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const isEducational = parseInt(filters.CategoryId) === 4 ? true : false;
 
     useEffect(() => {

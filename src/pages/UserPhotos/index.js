@@ -38,7 +38,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
     const [startElement, setStartElement] = useState(1);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const params = useParams();
 
     useEffect(() => {

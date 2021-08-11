@@ -39,7 +39,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
     const params = useParams();
     const history = useHistory();
     const alias = match.params.id;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         setPageLoaded(false);

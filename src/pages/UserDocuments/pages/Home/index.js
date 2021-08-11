@@ -31,7 +31,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => getUserInfo())();
