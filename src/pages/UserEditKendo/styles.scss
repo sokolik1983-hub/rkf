@@ -13,7 +13,7 @@
     &__wrap {
         & + .Footer {
             display: none;
-        }    
+        }
     }
     &__right {
         width: calc(100% - 316px);
@@ -90,19 +90,18 @@
             flex-grow: 1;
             @media (max-width: 990px) {
                 position: fixed;
-                top: 71px;
-                left: 0;
-                z-index: 3;
+                width: 100%;
+                top: 50px;
+                right: 0;
+                z-index: 99;
                 padding: 16px;
-                height: calc(100% - 132px);
+                height: 100%;
                 overflow-y: auto;
-                visibility: hidden;
-                transform: translateX(-100%);
+                transform: translateX(100%);
                 transition: all 0.2s ease-out;
+                background: #fff;
                 &._open {
-                    visibility: visible;
                     transform: translateX(0);
-                    background: white;
                     .Card {
                         margin: 0 !important;
                         padding: 0 !important;
@@ -112,7 +111,7 @@
             }
             @media (max-width: 560px) {
                 top: 48px;
-                height: calc(100% - 109px);
+                height: 100%;
             }
             & > .Card {
                 @media (min-width: 560px) {
