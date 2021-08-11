@@ -20,7 +20,7 @@ import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "pages/Educational/components/SignUpModal";
 import ls from "local-storage";
-
+import useIsMobile from "../../utils/useIsMobile";
 import './index.scss';
 
 import moment from "moment";
@@ -52,7 +52,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [exporting, setExporting] = useState(false);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const [showModal, setShowModal] = useState(false);
-
+    const isMobile = useIsMobile();
     const isEducational = parseInt(filters.CategoryId) === 4 ? true : false;
 
     useEffect(() => {
@@ -198,7 +198,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
                             <div className="exhibitions-page__mobile-only">
-                                {isFederationAlias(filters.Alias) ?
+                                {!isMobile && isFederationAlias(filters.Alias) ?
                                     <MenuComponent
                                         alias={filters.Alias}
                                         name={shorten(displayName)}

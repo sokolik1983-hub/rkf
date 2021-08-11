@@ -134,9 +134,9 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                                                     updateInfo={getUserInfo}
                                                 />
                                             </Card>}
-                                            <UserMenu
+                                            {!isMobile && <UserMenu
                                                 userNav={userNav(alias)}
-                                            />
+                                            />}
                                         </>
                                     }
                                     {user_type === 3 && <UserMenu

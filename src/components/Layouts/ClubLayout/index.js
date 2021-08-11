@@ -96,11 +96,11 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
                                                     active_member={clubInfo.active_member}
                                                 />
                                             }
-                                            <UserMenu userNav={canEdit
+                                            {!isMobile && <UserMenu userNav={canEdit
                                                 ? clubNav(alias) // Show NewsFeed menu item to current user only
                                                 : clubNav(alias).filter(i => i.id !== 2)}
-                                                notificationsLength={notificationsLength}
-                                            />
+                                                       notificationsLength={notificationsLength}
+                                            />}
                                             {!isMobile &&
                                                 <>
                                                     <Banner type={BANNER_TYPES.clubPageUnderPhotos} />

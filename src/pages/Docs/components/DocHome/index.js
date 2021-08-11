@@ -329,7 +329,7 @@ const DocHome = ({ clubAlias }) => {
     return (loading ? <Loading /> : <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={65}>
-                <UserMenu userNav={clubNav(clubAlias)} />
+                {!isMobile && <UserMenu userNav={clubNav(clubAlias)} />}
                 {!isMobile && <Banner type={8} />}
                 <CopyrightInfo withSocials={true} />
             </StickyBox>

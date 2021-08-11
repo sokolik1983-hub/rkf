@@ -166,7 +166,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             active_member={active_member}
                                             active_rkf_user={active_rkf_user}
                                         />
-                                        {isFederationAlias(club_alias) ?
+                                        {!isMobile && isFederationAlias(club_alias) ?
                                             <MenuComponent
                                                 alias={club_alias}
                                                 name={display_name || club_fact_name || ''}

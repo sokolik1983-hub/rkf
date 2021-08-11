@@ -283,7 +283,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                         active_member={clubInfo.active_member}
                                                     />
                                                 }
-                                                {isFederationAlias(clubInfo.club_alias) ?
+                                                {!isMobile && isFederationAlias(clubInfo.club_alias) ?
                                                     <MenuComponent
                                                         alias={clubInfo.club_alias}
                                                         name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}

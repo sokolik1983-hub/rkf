@@ -110,7 +110,7 @@ const BaseSearch = ({ isAuthenticated }) => {
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
                                 <div className="base-search__info-inner">
-                                    {clubData ?
+                                    {!isMobile && clubData ?
                                         <UserMenu userNav={clubNav(clubData.club_alias)} /> :
                                         nurseryData ?
                                             <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
