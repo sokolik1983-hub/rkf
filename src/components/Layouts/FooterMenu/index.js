@@ -10,8 +10,8 @@ import MenuComponent from '../../MenuComponent';
 import { connectShowFilters } from '../connectors';
 import { Request } from '../../../utils/request';
 import { clubNav, endpointGetClubInfo } from '../../../pages/Club/config';
-import { kennelNav, endpointGetNurseryInfo } from '../../../pages/Nursery/config';
-import { endpointGetUserInfo, userNav } from "../UserLayout/config";
+import { kennelNav } from '../../../pages/Nursery/config';
+import { userNav } from "../UserLayout/config";
 import UserMenu from '../UserMenu';
 import ZlineModal from '../../ZlineModal';
 
@@ -31,12 +31,9 @@ const FooterMenu = ({
     const { pathname } = useLocation();
     const [canEdit, setCanEdit] = useState(false);
     const [showZlineModal, setShowZlineModal] = useState(false);
-    const [clubInfo, setClubInfo] = useState(null);
+    const [fedInfo, setFedInfo] = useState(null);
 
     const isExhibitionPage = match.path === pathname;
-
-    //заменить в коде ниже на checkUrlAlias ??
-    const urlAlias = (pathname.search('kennel') === 1 || pathname.search('user') === 1) ? pathname.split('/')[2] : pathname.split('/')[1];
 
     const isKennel = pathname.search('kennel') === 1 || user_type === 4;
     const isUser = pathname.search('user') === 1 || user_type === 1;
@@ -52,7 +49,6 @@ const FooterMenu = ({
         || pathname === '/auth/login'
         || pathname === '/auth/registration';
 
-
     function checkUrlAlias() {
         if (exceptionUrl) {
             return alias ? alias : null;
@@ -64,15 +60,16 @@ const FooterMenu = ({
     }
 
     useEffect(() => {
-        (() => Request({
-            url: (isKennel ? endpointGetNurseryInfo : isUser ? endpointGetUserInfo : endpointGetClubInfo) + checkUrlAlias()
-        }, data => {
-            setClubInfo(data);
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-        }, error => {
-            console.log(error.response);
-        }))();
-
+        if (isFederationAlias(checkUrlAlias() || alias)) {
+            (() => Request({
+                url: endpointGetClubInfo + (checkUrlAlias() || alias)
+            }, data => {
+                setFedInfo(data);
+                setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+            }, error => {
+                console.log(error.response);
+            }))();
+        }
     }, [match]);
 
     useEffect(() => {
@@ -90,7 +87,7 @@ const FooterMenu = ({
         e.preventDefault();
         setShowZlineModal(true);
     };
-
+    console.log('canEdit', canEdit);
     return (
         <>
             {isMobile1080 &&
@@ -122,29 +119,29 @@ const FooterMenu = ({
                     {
                         <div className={(checkUrlAlias() === null) ? 'more_btn-hide' : ''}>
 
-                            {isFederationAlias(urlAlias || alias)
+                            {isFederationAlias(checkUrlAlias() || alias)
                                 ?
                                 <MenuComponent
                                     isExhibitionPage={isExhibitionPage}
-                                    alias={urlAlias || alias}
-                                    name={clubInfo?.short_name || clubInfo?.name || 'Название федерации отсутствует'}
+                                    alias={checkUrlAlias() || alias}
+                                    name={fedInfo?.short_name || fedInfo?.name || 'Название федерации отсутствует'}
                                     isFederation={true}
                                 />
                                 :
                                 isKennel ? <UserMenu userNav={canEdit
-                                    ? kennelNav(clubInfo?.alias) // Show NewsFeed menu item to current user only
-                                    : kennelNav(clubInfo?.alias).filter(i => i.id !== 2)}
+                                    ? kennelNav(checkUrlAlias() || alias) // Show NewsFeed menu item to current user only
+                                    : kennelNav(checkUrlAlias() || alias).filter(i => i.id !== 2)}
                                     notificationsLength={notificationsLength}
                                 /> :
                                     isUser ?
                                         <UserMenu userNav={canEdit
-                                            ? userNav(clubInfo?.alias) // Show NewsFeed menu item to current user only
-                                            : userNav(clubInfo?.alias).filter(i => i.id !== 2)}
+                                            ? userNav(checkUrlAlias() || alias) // Show NewsFeed menu item to current user only
+                                            : userNav(checkUrlAlias() || alias).filter(i => i.id !== 2)}
                                             notificationsLength={notificationsLength}
                                         />
                                         : <UserMenu userNav={canEdit
-                                            ? clubNav(clubInfo?.club_alias) // Show NewsFeed menu item to current user only
-                                            : clubNav(clubInfo?.club_alias).filter(i => i.id !== 2)}
+                                            ? clubNav(checkUrlAlias() || alias) // Show NewsFeed menu item to current user only
+                                            : clubNav(checkUrlAlias() || alias).filter(i => i.id !== 2)}
                                             notificationsLength={notificationsLength}
                                         />}
                         </div>
