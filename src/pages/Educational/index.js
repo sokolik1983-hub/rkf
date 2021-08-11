@@ -124,6 +124,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                                 isFederation={true}
                                             />
                                             :
+                                            !isMobile &&
                                             <UserMenu
                                                 userNav={clubNav(organizer_alias)}
                                                 isExhibitionPage={true}

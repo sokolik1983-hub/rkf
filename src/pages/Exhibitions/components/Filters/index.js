@@ -108,6 +108,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                         isFederation={true}
                                     />
                                     :
+                                    !isMobile &&
                                     <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
                                         ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
                                         : clubNav(filters.Alias).filter(i => i.id !== 2)}

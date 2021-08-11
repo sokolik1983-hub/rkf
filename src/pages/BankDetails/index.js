@@ -139,10 +139,10 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                                             />}
                                         </>
                                     }
-                                    {user_type === 3 && <UserMenu
+                                    {user_type === 3 && !isMobile &&  <UserMenu
                                         userNav={clubNav(alias)}
                                     />}
-                                    {user_type === 4 && <UserMenu
+                                    {user_type === 4 && !isMobile && <UserMenu
                                         userNav={kennelNav(alias)}
                                     />}
                                     <CopyrightInfo withSocials={true} />
