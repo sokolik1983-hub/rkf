@@ -112,7 +112,7 @@ function SearchCard({ handleActiveReset, setCardClicked, userType, isAuthenticat
                                 offset={-60}
                                 duration={500}
                                 className='menu-component__link'
-                                title='Регистационные данные собаки'
+                                title='Регистрационные данные собаки'
                                 onClick={() => {
                                     handleActiveReset();
                                     setCardClicked(3);
@@ -126,7 +126,7 @@ function SearchCard({ handleActiveReset, setCardClicked, userType, isAuthenticat
                                             fill='#72839C' />
                                     </svg>
                                 </span>
-                                Регистационные данные собаки
+                                Регистрационные данные собаки
                             </LinkScroll>
                         </li>
                         <li className='menu-component__item'>

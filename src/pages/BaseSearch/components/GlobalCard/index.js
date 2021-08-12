@@ -26,14 +26,14 @@ const GlobalCard = ({cardClicked}) => {
         <Card id="global-search-anchor" className={cardClicked === 8 && `_active_card`}>
             <div className="search-form__icon global-search" />
             <h3>ГЛОБАЛЬНЫЙ ПОИСК</h3>
-            <p className="search-form__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
+            <p className="search-form__text">Для осуществления поиска по всему порталу РКФ.Онлайн, пожалуйста, введите необходимый поисковый запрос. После ввода нажмите на кнопку "Поиск".</p>
 
             <form className="search-form" onSubmit={handleSubmit}>
 
-                <div className="search-form__wrap">
+                <div className="global-search-form__wrap">
                     <input
                         id="global-search-anchor-mark"
-                        className="search-form__input"
+                        className="global-search-form__input"
                         type="text"
                         onChange={({ target }) => setSearchValue(target.value)}
                         onClick={() => setIsClicked(true)}
