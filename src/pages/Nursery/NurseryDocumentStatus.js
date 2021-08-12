@@ -120,7 +120,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                 <CopyrightInfo withSocials={true} />
                                             </>
                                         }
-                                        {isMobile &&
+                                        {!isMobile &&
                                             <MenuComponent
                                                 alias={alias}
                                                 user={user}

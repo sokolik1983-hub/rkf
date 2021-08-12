@@ -14,8 +14,10 @@ import DocumentsComponent from "../../components/DocumentsComponent";
 import MembersComponent from "../../components/MembersComponent";
 import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../Login/connectors";
-import "./index.scss";
 import CopyrightInfo from "../../components/CopyrightInfo";
+import useIsMobile from "../../utils/useIsMobile";
+
+import "./index.scss";
 
 
 const RKF = ({isAuthenticated, profile_id}) => {
@@ -24,6 +26,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
     const [page, setPage] = useState(1);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => Request({
@@ -72,11 +75,11 @@ const RKF = ({isAuthenticated, profile_id}) => {
                             name={info.owner_name || "Голубев Владимир Семенович"}
                             position={info.owner_position || "Президент Российской Кинологической Федерации"}
                         />
-                        <MenuComponent
-                            alias="rkf"
+                        {!isMobile && <MenuComponent
+                            alias='rkf'
                             name={info.name}
                             isFederation
-                        />
+                        />}
                     </div>
                     <div className="rkf-page__info">
                         <aside className="rkf-page__left">
@@ -85,11 +88,11 @@ const RKF = ({isAuthenticated, profile_id}) => {
                                 name={info.owner_name || "Голубев Владимир Семенович"}
                                 position={info.owner_position || "Президент Российской Кинологической Федерации"}
                             />
-                            <MenuComponent
-                                alias="rkf"
+                            {!isMobile && <MenuComponent
+                                alias='rkf'
                                 name={info.name}
                                 isFederation
-                            />
+                            />}
                             <ContactsComponent {...info}/>
                             {info.documents && !!info.documents.length && <DocumentsComponent documents={info.documents}/>}
                             {info.members && !!info.members.length && <MembersComponent members={info.members}/>}

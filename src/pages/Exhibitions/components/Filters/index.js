@@ -103,7 +103,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                     isAuthenticated={isAuthenticated}
                                 />
-                                {isFederationAlias(filters.Alias) ?
+                                {!isMobile && isFederationAlias(filters.Alias) ?
                                     <MenuComponent
                                         alias={filters.Alias}
                                         name={clubName}

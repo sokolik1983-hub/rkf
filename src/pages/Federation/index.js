@@ -74,7 +74,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                             name={federation.owner_name}
                             position={federation.owner_position}
                         />
-                        {isMobile && <MenuComponent
+                        {!isMobile && <MenuComponent
                             alias={alias}
                             name={federation.name}
                             isFederation={true}
@@ -87,11 +87,11 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                                 name={federation.owner_name}
                                 position={federation.owner_position}
                             />
-                            <MenuComponent
+                            {!isMobile && <MenuComponent
                                 alias={alias}
                                 name={federation.name}
                                 isFederation={true}
-                            />
+                            />}
                             <ContactsComponent {...federation} />
                             {federation.documents && !!federation.documents.length &&
                                 <DocumentsComponent documents={federation.documents} />
