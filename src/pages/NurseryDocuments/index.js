@@ -39,7 +39,7 @@ const Docs = ({ history }) => {
     const isWithFilters = !!useRouteMatch('/kennel/:route/documents/replace-pedigree/registry');
 
     return <Layout withFilters={isWithFilters}>
-        <div className="documents-page">
+        <div className="documents-page content">
             <Container className="documents-page__content">
                 <TopComponent
                     logo={nurseryLogo}
