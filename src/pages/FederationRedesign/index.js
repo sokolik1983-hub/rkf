@@ -159,11 +159,11 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                                 />
                                             </>
                                             }
-                                            <MenuComponent
+                                            {!isMobile && <MenuComponent
                                                 alias={alias}
                                                 name={fedInfo.name}
                                                 isFederation={true}
-                                            />
+                                            />}
                                             {!isMobile &&
                                                 <>
                                                     <UserPhotoGallery

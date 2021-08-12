@@ -120,7 +120,7 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                                                 isAuthenticated={isAuthenticated}
                                             />
                                         }
-                                        {isFederationAlias(clubInfo.club_alias) ?
+                                        {!isMobile && isFederationAlias(clubInfo.club_alias) ?
                                             <MenuComponent
                                                 alias={clubInfo.club_alias}
                                                 name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
