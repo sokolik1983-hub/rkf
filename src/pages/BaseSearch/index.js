@@ -9,6 +9,7 @@ import CheckStatus from "../Club/components/CheckStatus";
 import CheckLitterStatus from "../Club/components/CheckLitterStatus";
 import CheckRegistration from "./components/CheckRegistration"
 import FoundInfo from "./components/FoundInfo";
+import GlobalCard from "./components/GlobalCard";
 import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
@@ -96,6 +97,7 @@ const BaseSearch = ({ isAuthenticated }) => {
                             />
                         }
                         <div className="base-search__content">
+                            <GlobalCard cardClicked={cardClicked} />
                             <FoundInfo cardClicked={cardClicked} />
                             <CheckStatus cardClicked={cardClicked} />
                             <CheckRegistration cardClicked={cardClicked} />
