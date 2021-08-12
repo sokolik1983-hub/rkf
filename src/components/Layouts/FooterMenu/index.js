@@ -51,16 +51,22 @@ const FooterMenu = ({
 
     function checkUrlAlias() {
         if (exceptionUrl) {
-            return alias ? alias : null;
+            return alias ? alias ? !exceptionUrl : pathname : null;
         } else if (pathname.search('kennel') === 1 || pathname.search('user') === 1) {
             return pathname.split('/')[2];
         }
-        //Временное решение, избегаем поломки страницы, при кейсе, когда с физика заходишь в клуб.
-        // При этом решении в меню футера ссылки будут вести на страницы физика, а не клуба не котором находишься
-        // Последний else оставляем
-        else if (pathname.search('kennel') === -1 || pathname.search('user') === -1) {
-            return alias
-        } else {
+//Временное решение, избегаем поломки страницы, при кейсе, когда с физика заходишь в клуб.
+// При этом решении в меню футера ссылки будут вести на страницы физика, а не клуба не котором находишься
+// Последний else оставляем
+        else if (pathname.search('kennel') === -1 || pathname.search('user') === -1 ) {
+            if (isFederationAlias(pathname.split('/')[1])) {
+                return pathname.split('/')[1]
+            } else {
+                return alias || pathname.split('/')[1]
+            }
+        }
+///////////
+        else {
             return pathname.split('/')[1];
         }
     }
