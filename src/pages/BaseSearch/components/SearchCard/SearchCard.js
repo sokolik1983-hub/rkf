@@ -10,8 +10,6 @@ function SearchCard({ handleActiveReset, setCardClicked, userType, isAuthenticat
                 <Card className='menu-component__card'>
                     <h3 className='menu-component__title'>Поиск</h3>
                     <ul className='menu-component__list'>
-
-
                         <li className='menu-component__item'>
                             <LinkScroll
                                 to='global-search-anchor'
@@ -41,8 +39,6 @@ function SearchCard({ handleActiveReset, setCardClicked, userType, isAuthenticat
                                 Глобальный поиск
                             </LinkScroll>
                         </li>
-
-
                         <li className='menu-component__item'>
                             <LinkScroll
                                 to='found-info-anchor'

@@ -26,6 +26,7 @@ import { clubNav } from "../Docs/config";
 import { kennelNav } from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
 import SearchCard from "./components/SearchCard/SearchCard";
+import ListFilter from "./components/ListFilter";
 // import Socials from "../../components/Socials";
 import { connectAuthVisible } from "../../pages/Login/connectors";
 
@@ -88,15 +89,21 @@ const BaseSearch = ({ isAuthenticated }) => {
                         withShare={false}
                     />}
                     <div className="base-search__content-wrap">
-                        {isMobile &&
-                            <SearchCard className="search_card_mobile"
-                                handleActiveReset={handleActiveReset}
+                        {/*{isMobile &&*/}
+                        {/*    <SearchCard className="search_card_mobile"*/}
+                        {/*        handleActiveReset={handleActiveReset}*/}
+                        {/*        setCardClicked={setCardClicked}*/}
+                        {/*        userType={userType}*/}
+                        {/*        isAuthenticated={isAuthenticated}*/}
+                        {/*    />*/}
+                        {/*}*/}
+                        <div className="base-search__content">
+                            <ListFilter
                                 setCardClicked={setCardClicked}
                                 userType={userType}
                                 isAuthenticated={isAuthenticated}
+                                isMobile={isMobile}
                             />
-                        }
-                        <div className="base-search__content">
                             <GlobalCard cardClicked={cardClicked} />
                             <FoundInfo cardClicked={cardClicked} />
                             <CheckStatus cardClicked={cardClicked} />
@@ -117,14 +124,14 @@ const BaseSearch = ({ isAuthenticated }) => {
                                         nurseryData ?
                                             <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
                                             <>
-                                                {!isMobile &&
-                                                    <SearchCard
-                                                        handleActiveReset={handleActiveReset}
-                                                        setCardClicked={setCardClicked}
-                                                        userType={userType}
-                                                        isAuthenticated={isAuthenticated}
-                                                    />
-                                                }
+                                                {/*{!isMobile &&*/}
+                                                {/*    <SearchCard*/}
+                                                {/*        handleActiveReset={handleActiveReset}*/}
+                                                {/*        setCardClicked={setCardClicked}*/}
+                                                {/*        userType={userType}*/}
+                                                {/*        isAuthenticated={isAuthenticated}*/}
+                                                {/*    />*/}
+                                                {/*}*/}
                                                 {/* <Socials /> */}
                                                 <Statistics />
                                                 <Card className="base-search__map-wrap">
