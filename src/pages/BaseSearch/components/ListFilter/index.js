@@ -1,8 +1,9 @@
 import React, {useRef} from "react";
 import { Link as LinkScroll } from 'react-scroll';
 import HorizontalSwipe from "../../../../components/HorozintalSwipe";
+import mobileMenuSearchPage from "../../../../utils/mobileMenuSearchPage";
 import "./index.scss";
-import mobileMenuSearchPage from "../../../../utils/mobileMenuSearchPage"
+
 
 const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => {
     const wrap = useRef();

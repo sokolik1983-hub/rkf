@@ -76,14 +76,6 @@ const BaseSearch = ({isAuthenticated}) => {
                         withShare={false}
                     />}
                     <div className="base-search__content-wrap">
-                        {/*{isMobile &&*/}
-                        {/*    <SearchCard className="search_card_mobile"*/}
-                        {/*        handleActiveReset={handleActiveReset}*/}
-                        {/*        setCardClicked={setCardClicked}*/}
-                        {/*        userType={userType}*/}
-                        {/*        isAuthenticated={isAuthenticated}*/}
-                        {/*    />*/}
-                        {/*}*/}
                         <div className="base-search__content">
                             <ListFilter
                                 setCardClicked={setCardClicked}
