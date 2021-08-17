@@ -103,15 +103,6 @@ const BaseSearch = ({isAuthenticated}) => {
                                         nurseryData ?
                                             <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
                                             <>
-                                                {/*{!isMobile &&*/}
-                                                {/*    <SearchCard*/}
-                                                {/*        handleActiveReset={handleActiveReset}*/}
-                                                {/*        setCardClicked={setCardClicked}*/}
-                                                {/*        userType={userType}*/}
-                                                {/*        isAuthenticated={isAuthenticated}*/}
-                                                {/*    />*/}
-                                                {/*}*/}
-                                                {/* <Socials /> */}
                                                 <Statistics />
                                                 <Banner type={11}/>
                                                 <Card className="base-search__map-wrap">
