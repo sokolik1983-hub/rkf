@@ -19,10 +19,6 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
         <Aside className={`search-page__left${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox>
                 <div className="search-page__filters-wrap">
-                    <Card className="search-page__filters">
-                        <h3 className="search-page__filters-title">Результаты поиска по запросу:</h3>
-                        <p className="search-page__filters-value">{filtersValue.string_filter}</p>
-                    </Card>
                     {filters.map(filter =>
                         <Card key={filter.name}>
                             <Dropdown
