@@ -26,7 +26,7 @@ import {Request} from "../../utils/request";
 import {clubNav} from "../Docs/config";
 import {kennelNav} from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
-import SearchCard from "./components/SearchCard/SearchCard";
+import ListFilter from "./components/ListFilter";
 import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
 
@@ -76,15 +76,13 @@ const BaseSearch = ({isAuthenticated}) => {
                         withShare={false}
                     />}
                     <div className="base-search__content-wrap">
-                        {isMobile &&
-                            <SearchCard className="search_card_mobile"
-                                handleActiveReset={handleActiveReset}
+                        <div className="base-search__content">
+                            <ListFilter
                                 setCardClicked={setCardClicked}
                                 userType={userType}
                                 isAuthenticated={isAuthenticated}
+                                isMobile={isMobile}
                             />
-                        }
-                        <div className="base-search__content">
                             <GlobalCard cardClicked={cardClicked} />
                             <FoundInfo cardClicked={cardClicked} />
                             <CheckStatus cardClicked={cardClicked} />
@@ -105,15 +103,6 @@ const BaseSearch = ({isAuthenticated}) => {
                                         nurseryData ?
                                             <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
                                             <>
-                                                {!isMobile &&
-                                                    <SearchCard
-                                                        handleActiveReset={handleActiveReset}
-                                                        setCardClicked={setCardClicked}
-                                                        userType={userType}
-                                                        isAuthenticated={isAuthenticated}
-                                                    />
-                                                }
-                                                {/* <Socials /> */}
                                                 <Statistics />
                                                 <Banner type={11}/>
                                                 <Card className="base-search__map-wrap">
