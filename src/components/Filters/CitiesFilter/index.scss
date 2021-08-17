@@ -9,7 +9,9 @@
     letter-spacing: 0.2px;
     color: #253c5e;
     flex-grow: 1;
-    border-right: 1px solid #72839C;
+    &._chevron {
+      border-right: 1px solid #72839C;
+    }
   }
   &__wrap {
     margin-top: 10px;

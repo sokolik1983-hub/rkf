@@ -1,10 +1,12 @@
-import React from "react";
-import cn from "classnames";
+import React, {memo} from "react";
+import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
+import ClickGuard from "../../../../components/ClickGuard";
 import ListFilter from "../NewsList/ListFilter";
-import HomeCitySelect from "./HomeCitySelect/index";
-import useIsMobile from "../../../../utils/useIsMobile";
+import CitiesFilter from "../../../../components/Filters/CitiesFilter";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
+import "./index.scss";
+
 
 const NewsFilters = ({
     loading,
@@ -12,37 +14,31 @@ const NewsFilters = ({
     newsFilter,
     changeOrganizationFilters,
     changeCityFilter,
+    setShowFilters,
     isOpenFilters
-}) => {
-    const isMobile1080 = useIsMobile(1080);
+}) => (
+    <aside className={`news-filters${isOpenFilters ? ' _open' : ''}`}>
+        <ClickGuard
+            value={isOpenFilters}
+            callback={() => setShowFilters({isOpenFilters: false})}
+        />
+        <StickyBox offsetTop={60}>
+            {loading ?
+                <Loading centered={false}/> :
+                <>
+                    <ListFilter
+                        changeFilter={changeOrganizationFilters}
+                    />
+                    <CitiesFilter
+                        withOpenButton={false}
+                        cities={cities}
+                        city_ids={newsFilter.cities}
+                        onChange={changeCityFilter}
+                    />
+                </>
+            }
+        </StickyBox>
+    </aside>
+);
 
-    return (
-        <div className={cn("NewsList__head", {
-            "NewsList__head-mobile" : isMobile1080,
-            "NewsList__head-desktop" : !isMobile1080,
-            "__open" : isMobile1080 && isOpenFilters,
-
-        })}>
-
-            <div className="NewsList__head-wrap">
-                <div className="NewsList__filters">
-                    {loading ?
-                        <Loading centered={false}/> :
-                        <>
-                            <ListFilter
-                                changeFilter={changeOrganizationFilters}
-                            />
-                            <HomeCitySelect
-                                checkedCities={newsFilter.cities}
-                                cities={cities}
-                                changeCityFilter={changeCityFilter}
-                            />
-                        </>
-                    }
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default connectShowFilters(React.memo(NewsFilters));
+export default memo(connectShowFilters(NewsFilters));

@@ -1,0 +1,39 @@
+.news-filters {
+  margin-left: 16px;
+  padding-bottom: 16px;
+  width: 320px;
+  min-width: 320px;
+  @media (max-width: 1079px) {
+    width: 100%;
+    margin-left: 0;
+    padding-bottom: 0;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    .click-guard {
+      display: block;
+    }
+    & > div:not(.click-guard) {
+      position: fixed !important;
+      z-index: 99;
+      top: 60px !important;
+      right: 0;
+      width: 320px;
+      background: #fff;
+      height: calc(100% - 60px);
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: all .2s ease-in-out;
+    }
+    &._open > div:not(.click-guard) {
+      transform: translateX(0);
+    }
+  }
+  .cities-filter {
+    margin-bottom: 16px;
+    @media (max-width: 1079px) {
+      margin-bottom: 0;
+    }
+  }
+}
