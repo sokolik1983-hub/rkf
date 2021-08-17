@@ -31,7 +31,7 @@ import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
 
 
-const BaseSearch = ({ isAuthenticated }) => {
+const BaseSearch = ({isAuthenticated}) => {
     const [cardClicked, setCardClicked] = useState(0);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
@@ -42,13 +42,15 @@ const BaseSearch = ({ isAuthenticated }) => {
         const organizationData = parseLocationSearch(window.location.search);
         const [orgType, alias] = organizationData[0];
 
-        (() => Request({
-            url: orgType === 'clubAlias' ? `/api/Club/public/${alias}` : `/api/nurseries/nursery/public/${alias}`
-        }, data => {
-            orgType === 'clubAlias' ? setClubData(data) : setNurseryData(data);
-        }, error => {
-            console.log(error.response);
-        }))();
+        if(orgType && alias) {
+            (() => Request({
+                url: orgType === 'clubAlias' ? `/api/Club/public/${alias}` : `/api/nurseries/nursery/public/${alias}`
+            }, data => {
+                orgType === 'clubAlias' ? setClubData(data) : setNurseryData(data);
+            }, error => {
+                console.log(error.response);
+            }))();
+        }
     }, []);
 
     const handleActiveReset = () => {
