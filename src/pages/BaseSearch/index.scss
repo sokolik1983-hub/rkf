@@ -80,7 +80,8 @@
           font-weight: normal;
         }
       }
-      &-inner .Card:not(:first-child) {
+      &-inner .Card:not(:first-child),
+      .banner-component {
         margin-top: 16px;
       }
     }

@@ -19,6 +19,7 @@ import StampSearch from "./components/StampSearch";
 import RefereeSearch from "./components/RefereeSearch";
 import TopComponent from "../../components/TopComponent";
 import UserMenu from "../../components/Layouts/UserMenu";
+import Banner from "../../components/Banner";
 import PublicationSearch from "./components/PublicationSearch";
 import {parseLocationSearch} from "./utils.js";
 import {Request} from "../../utils/request";
@@ -112,11 +113,7 @@ const BaseSearch = ({ isAuthenticated }) => {
                                                 }
                                                 {/* <Socials /> */}
                                                 <Statistics />
-                                                <Card className="base-search__map-wrap">
-                                                    <a href="http://lc.rkfshow.ru/" target="_blank" rel="noopener noreferrer">
-                                                        <img src="static/images/base_search/banner300x340.jpg" alt=""/>
-                                                    </a>
-                                                </Card>
+                                                <Banner type={11}/>
                                                 <Card className="base-search__map-wrap">
                                                     <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                                     <div className="base-search__map">
