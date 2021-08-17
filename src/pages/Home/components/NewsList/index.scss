@@ -14,40 +14,6 @@
     display: block;
     top: 48px;
   }
-  //&__head {
-  //  max-width: 320px;
-  //  width: 100%;
-  //  z-index: 1;
-  //  transition: all 0.2s ease;
-  //  @media (max-width: 1080px) {
-  //    max-width: 100%;
-  //  }
-  //  &-mobile {
-  //    display: block;
-  //    position: fixed;
-  //    z-index: 99;
-  //    top: 0;
-  //    right: 0;
-  //    transform: translateX(110%);
-  //    background: #fff;
-  //    padding: 5px 0 10px 10px;
-  //    &.__open {
-  //      transform: translateX(0);
-  //      bottom: 0;
-  //    }
-  //  }
-  //  &-wrap {
-  //    position: sticky;
-  //    top: 60px;
-  //  }
-  //}
-  //&-wrap {
-  //  display: flex;
-  //  flex-direction: column;
-  //  @media (max-width: 600px) {
-  //    display: block;
-  //  }
-  //}
   .infinite-scroll-component__outerdiv {
     width: calc(100% - 336px);
     @media (max-width: 1079px) {
