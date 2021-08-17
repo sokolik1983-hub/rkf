@@ -1,7 +1,9 @@
-const mobileMenuSearchPage = (place, elem) => {
+import React from "react";
+
+const mobileMenuSearchPage = (place, elem, wrap) => {
     const clickElemWidth = elem.getBoundingClientRect().width,
-        sliderWrap = document.querySelector(".slider-wrap"),
-        sliderWidth = document.querySelector(".slider").getBoundingClientRect().width;
+        sliderWrap = wrap.current.childNodes[0],
+        sliderWidth = wrap.current.getBoundingClientRect().width;
     let width = 0,
         position = 0;
 

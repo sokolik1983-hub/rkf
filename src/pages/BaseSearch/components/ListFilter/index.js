@@ -1,16 +1,17 @@
-import React from "react";
+import React, {useRef} from "react";
 import { Link as LinkScroll } from 'react-scroll';
 import HorizontalSwipe from "../../../../components/HorozintalSwipe";
 import "./index.scss";
 import mobileMenuSearchPage from "../../../../utils/mobileMenuSearchPage"
 
 const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => {
+    const wrap = useRef();
     const handleClick = (place, e) => {
         const calendarButton = document.getElementsByClassName('list-filter__item _active')[0];
         if(calendarButton) calendarButton.classList.remove('_active');
         e.target.closest('.list-filter__item').classList.add("_active");
         if(isMobile) {
-            mobileMenuSearchPage(place, e.target)
+            mobileMenuSearchPage(place, e.target, wrap)
         }
     }
     return (
@@ -19,9 +20,9 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => 
                 <div>
                     {
                         isMobile ? (
-                            <div className="slider">
-                                <HorizontalSwipe id="search-page__list-filter1" className="list-filter slider-wrap">
-                                    <div className="list-filter__item">
+                            <div ref={wrap} className="slider">
+                                <HorizontalSwipe  id="search-page__list-filter1" className="list-filter slider-wrap">
+                                    <div  className="list-filter__item">
                                         <LinkScroll
                                             to='global-search-anchor'
                                             spy={false}
