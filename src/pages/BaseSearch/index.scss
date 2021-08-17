@@ -46,7 +46,10 @@
           padding-bottom: 10px;
           border-bottom: 1px solid #e8e8e8;
         }
-    
+        img {
+          display: block;
+          width: 100%;
+        }
       }
       &-title {
         text-decoration: none;

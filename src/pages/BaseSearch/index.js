@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import StickyBox from "react-sticky-box";
 import { Link } from "react-router-dom";
-
 import { useTimeOut } from "../../shared/hooks.js";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -28,10 +27,9 @@ import useIsMobile from "../../utils/useIsMobile";
 import SearchCard from "./components/SearchCard/SearchCard";
 import ListFilter from "./components/ListFilter";
 // import Socials from "../../components/Socials";
-import { connectAuthVisible } from "../../pages/Login/connectors";
-
+// import { connectAuthVisible } from "../../pages/Login/connectors";
+import {connectAuthVisible} from "../Login/connectors";
 import ls from 'local-storage';
-
 import "./index.scss";
 
 
@@ -41,6 +39,7 @@ const BaseSearch = ({ isAuthenticated }) => {
     const [nurseryData, setNurseryData] = useState(null);
     const isMobile = useIsMobile(1080);
     const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
+
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
         let [orgType, alias] = organizationData[0];
@@ -70,7 +69,7 @@ const BaseSearch = ({ isAuthenticated }) => {
         setCardClicked(0);
     };
 
-    useTimeOut(handleActiveReset, 2000);
+    useTimeOut(handleActiveReset, 2000); //что за хрень??? Нахрен эта хрень?
 
     return (
         <Layout>
@@ -134,6 +133,9 @@ const BaseSearch = ({ isAuthenticated }) => {
                                                 {/*}*/}
                                                 {/* <Socials /> */}
                                                 <Statistics />
+                                                <Card className="base-search__map-wrap">
+                                                    <img src="static/images/base_search/banner300x340.jpg" alt=""/>
+                                                </Card>
                                                 <Card className="base-search__map-wrap">
                                                     <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                                     <div className="base-search__map">
