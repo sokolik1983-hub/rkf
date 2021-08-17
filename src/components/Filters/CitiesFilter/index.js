@@ -5,7 +5,7 @@ import CustomFilterSelect from "../../CustomFilterSelect";
 import "./index.scss";
 
 
-const CitiesFilter = ({cities, city_ids, onChange}) => {
+const CitiesFilter = ({cities, city_ids, onChange, withOpenButton = true}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(true);
@@ -23,9 +23,9 @@ const CitiesFilter = ({cities, city_ids, onChange}) => {
 
     return (
         <Card className="cities-filter">
-            <div className="cities-filter__head" onClick={() => setIsOpen(!isOpen)}>
-                <h5 className="cities-filter__title">Города</h5>
-                <span className={`cities-filter__chevron${isOpen ? ' _dropdown_open' : ''}`}/>
+            <div className="cities-filter__head" onClick={() => withOpenButton ? setIsOpen(!isOpen) : null}>
+                <h5 className={`cities-filter__title${withOpenButton ? ' _chevron' : ''}`}>Города</h5>
+                {withOpenButton && <span className={`cities-filter__chevron${isOpen ? ' _dropdown_open' : ''}`}/>}
             </div>
             <CSSTransition
                 in={isOpen}
