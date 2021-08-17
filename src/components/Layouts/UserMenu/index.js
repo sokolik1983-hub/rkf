@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, {memo, useState} from "react";
 import OutsideClickHandler from "react-outside-click-handler";
-import { CSSTransition } from "react-transition-group";
-import { NavLink } from "react-router-dom";
+import {CSSTransition} from "react-transition-group";
+import {NavLink} from "react-router-dom";
 import Alert from "../../Alert";
 import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
-const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav }) => {
+
+const UserMenu = ({userNav, notificationsLength, isExhibitionPage}) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
-    const [showPlus, setShowPlus] = useState(false);
-    const [notificationsCount, setNotificationsCount] = useState(0);
     const isMobile = useIsMobile(1080);
 
     const clickOnDisabledLink = e => {
@@ -18,27 +17,13 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
         setAlert(true);
     };
 
-    useEffect(() => {
-        checkNotificationsLength(notificationsLength);
-    }, [notificationsLength])
-
-    const checkNotificationsLength = (length) => {
-        if (length > 99) {
-            setShowPlus(true);
-            setNotificationsCount(99);
-        } else {
-            setNotificationsCount(length);
-        }
-    };
-
     return (
         <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
-        <div
-            className={`user-nav  ${isMobile ? `` : `_desktop_card`}`}
-            onClick={() => setOpen(open => !open)}
-            style={{backgroundPosition: "top 20% left 50%"}}
-        >
-
+            <div
+                className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
+                onClick={() => setOpen(open => !open)}
+                style={{backgroundPosition: "top 20% left 50%"}}
+            >
                 {isMobile &&
                     <button className={`user-nav__button${open ? ' _open' : ''}`}>
                         Еще
@@ -52,7 +37,7 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
                 >
                     <ul className="user-nav__list">
                         {userNav.map(navItem =>
-                            <li className={`user-nav__item ${isExhibitionPage && navItem.title === 'Уведомления' ? ` _hidden` : ``}`} key={navItem.id}>
+                            <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`} key={navItem.id}>
                                 <NavLink
                                     to={navItem.to}
                                     exact={navItem.exact}
@@ -62,23 +47,26 @@ const UserMenu = ({ userNav, notificationsLength, isExhibitionPage, footerNav })
                                     {navItem.icon}
                                     <span>{navItem.title}</span>
                                 </NavLink>
-                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength && <span className={`user-nav__item-notification ${showPlus ? `_plus` : ``}`}>{notificationsCount}</span>}
+                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                    <span className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
+                                        {notificationsLength > 99 ? 99 : notificationsLength}
+                                    </span>
+                                }
                             </li>
                         )}
                     </ul>
                 </CSSTransition>
-
-            {alert &&
-                <Alert
-                    title="Внимание!"
-                    text="Раздел находится в разработке."
-                    autoclose={1.5}
-                    onOk={() => setAlert(false)}
-                />
-            }
-        </div>
+                {alert &&
+                    <Alert
+                        title="Внимание!"
+                        text="Раздел находится в разработке."
+                        autoclose={1.5}
+                        onOk={() => setAlert(false)}
+                    />
+                }
+            </div>
         </OutsideClickHandler>
     )
 };
 
-export default React.memo(UserMenu);
+export default memo(UserMenu);

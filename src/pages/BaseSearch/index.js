@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {memo, useState, useEffect} from "react";
 import StickyBox from "react-sticky-box";
-import { Link } from "react-router-dom";
-import { useTimeOut } from "../../shared/hooks.js";
+import {Link} from "react-router-dom";
+import ls from "local-storage";
+import {useTimeOut} from "../../shared/hooks.js";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import CheckStatus from "../Club/components/CheckStatus";
@@ -18,19 +19,19 @@ import StampSearch from "./components/StampSearch";
 import RefereeSearch from "./components/RefereeSearch";
 import TopComponent from "../../components/TopComponent";
 import UserMenu from "../../components/Layouts/UserMenu";
+import Banner from "../../components/Banner";
 import PublicationSearch from "./components/PublicationSearch";
-import { parseLocationSearch } from "./utils.js";
-import { Request } from "../../utils/request";
-import { clubNav } from "../Docs/config";
-import { kennelNav } from "../NurseryDocuments/config";
+import {parseLocationSearch} from "./utils.js";
+import {Request} from "../../utils/request";
+import {clubNav} from "../Docs/config";
+import {kennelNav} from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
 import ListFilter from "./components/ListFilter";
 import {connectAuthVisible} from "../Login/connectors";
-import ls from 'local-storage';
 import "./index.scss";
 
 
-const BaseSearch = ({ isAuthenticated }) => {
+const BaseSearch = ({isAuthenticated}) => {
     const [cardClicked, setCardClicked] = useState(0);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
@@ -39,34 +40,24 @@ const BaseSearch = ({ isAuthenticated }) => {
 
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
-        let [orgType, alias] = organizationData[0];
-        if (orgType === 'clubAlias') {
+        const [orgType, alias] = organizationData[0];
 
-            (() => Request({ url: `/api/Club/public/${alias}` },
-                data => {
-                    setClubData(data);
-                },
-                error => {
-                    console.log(error.response);
-                }))();
-        } else if (orgType === 'nurseryAlias') {
-
-            (() => Request({ url: `/api/nurseries/nursery/public/${alias}` },
-                data => {
-                    setNurseryData(data);
-                },
-                error => {
-                    console.log(error.response);
-                }))();
+        if(orgType && alias) {
+            (() => Request({
+                url: orgType === 'clubAlias' ? `/api/Club/public/${alias}` : `/api/nurseries/nursery/public/${alias}`
+            }, data => {
+                orgType === 'clubAlias' ? setClubData(data) : setNurseryData(data);
+            }, error => {
+                console.log(error.response);
+            }))();
         }
-        window.scrollTo(0, 0);
-    }, [])
+    }, []);
 
     const handleActiveReset = () => {
         setCardClicked(0);
     };
 
-    useTimeOut(handleActiveReset, 2000); //что за хрень??? Нахрен эта хрень?
+    useTimeOut(handleActiveReset, 2000);
 
     return (
         <Layout>
@@ -130,9 +121,7 @@ const BaseSearch = ({ isAuthenticated }) => {
                                                 {/*}*/}
                                                 {/* <Socials /> */}
                                                 <Statistics />
-                                                <Card className="base-search__map-wrap">
-                                                    <img src="static/images/base_search/banner300x340.jpg" alt=""/>
-                                                </Card>
+                                                <Banner type={11}/>
                                                 <Card className="base-search__map-wrap">
                                                     <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                                     <div className="base-search__map">
@@ -151,4 +140,4 @@ const BaseSearch = ({ isAuthenticated }) => {
         </Layout>
     )
 };
-export default React.memo(connectAuthVisible(BaseSearch));
+export default memo(connectAuthVisible(BaseSearch));

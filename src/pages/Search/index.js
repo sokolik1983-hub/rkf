@@ -8,6 +8,7 @@ import {connectShowFilters} from "../../components/Layouts/connectors";
 import {buildSearchUrl, getFiltersFromUrl} from "./utils";
 import {defaultFilters} from "./config";
 import {Request} from "../../utils/request";
+import SearchFilter from "../../components/Filters/SearchFilter/index"
 import "./index.scss";
 
 
@@ -130,6 +131,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                         isOpenFilters={isOpenFilters}
                     />
                     <div className="search-page__content">
+                        <SearchFilter filtersValue={filtersValue} />
                         <SearchList
                             filtersSearchType={filtersValue.search_type}
                             searchResult={searchResult}
