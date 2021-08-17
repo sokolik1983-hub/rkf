@@ -1,8 +1,5 @@
 .redesign {
   min-height: 100vh;
-  .menu-component__list {
-    margin-top: 10px;
-  }
   .Card{
     padding: 10px;
   }
@@ -14,7 +11,7 @@
     font-size: 18px;
     line-height: 24px;
     letter-spacing: 0.4px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     padding-bottom: 10px;
     font-weight: normal;
   }
@@ -100,175 +97,5 @@
         }
       }
     }
-  }
-}
-
-// base-search menu styles
-.menu-component {
-  &__card {
-    padding-bottom: 10px !important;
-    @media (max-width: 990px) {
-      margin-bottom: 16px;
-    }
-  }
-  &__title {
-    padding-bottom: 8px;
-    border-bottom: 1px solid #e8e8e8;
-  }
-  &__icon {
-    position: absolute;
-    top: 0px;
-    left: 0;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-  }
-  &__list {
-      list-style: none;
-    }
-    &__item {
-      &:not(:last-child) {
-        margin-bottom: 12px;
-      }
-    }
-    &__link,
-    & a {
-      text-decoration: none;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 1;
-      letter-spacing: 0.2px;
-      color: #72839c;
-      transition: all 0.2s linear;
-      cursor: pointer;
-      &:visited,
-      &:active {
-        color: #72839c;
-      }
-      &:hover {
-        color: #3366ff;
-        svg path{
-          fill: #3366ff;
-        }
-      }
-      &.disabled {
-        color: #babfc7;
-        &:visited,
-        &:active,
-        :hover {
-          color: #babfc7;
-        }
-      }
-    }
-    &__item--judge {
-      pointer-events: none;
-    }
-}
-.menu-component__link {
-  position: relative;
-  padding-left: 27px !important;
-  &--documents {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-          content: '';
-          display: inline-block;
-          background: url(/static/icons/documentsIcon.svg) no-repeat center / cover;
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-      }
-  }
-  &--club {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-          content: '';
-          display: inline-block;
-          background: url(/static/icons/clubIcon.svg) no-repeat center / 16px;
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-      }
-  }
-  &--org {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-          content: '';
-          display: inline-block;
-          background: url(/static/icons/orgIcon.svg) no-repeat center / 16px;
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-      }
-  }
-  &--mark {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-          content: '';
-          display: inline-block;
-          background: url(/static/icons/markIcon.svg) no-repeat center / 16px;
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-      }
-  }
-  &--appointment {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-          content: '';
-          display: inline-block;
-          background: url(/static/icons/appointmentIcon.svg) no-repeat center / cover;
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-      }
-  }
-  &--report {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-          content: '';
-          display: inline-block;
-          background: url(/static/icons/report.svg) no-repeat center / cover;
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-      }
-  }
-  &--stain {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-          content: '';
-          display: inline-block;
-          background: url(/static/icons/stain.svg) no-repeat center / cover;
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-      }
-  }
-  &--search {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-          content: '';
-          display: inline-block;
-          background: url(/static/icons/searchIcon.svg) no-repeat center / cover;
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-      }
   }
 }
