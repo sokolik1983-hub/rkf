@@ -17,9 +17,9 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const profileId = ls.get('profile_id');
     const userAlias = ls.get('user_info').alias;
 
-    useEffect(async () => {
+    useEffect(() => {
         setLoading(true);
-        await getNews(1, true);
+        (() => getNews(1, true))();
     }, [activeCategoryId]);
 
     const getNews = async (startElement = 1, reset = false) => {
