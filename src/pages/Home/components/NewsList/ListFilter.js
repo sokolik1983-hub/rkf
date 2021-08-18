@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, {memo, useState} from "react";
+
 
 const ListFilter = ({changeFilter}) => {
     const [activeType, setActiveType] = useState(null);
@@ -39,4 +40,4 @@ const ListFilter = ({changeFilter}) => {
     )
 };
 
-export default React.memo(ListFilter);
+export default memo(ListFilter);
