@@ -11,6 +11,8 @@
     justify-content: center;
   }
   &__button {
+    display: flex;
+    flex-direction: column;
     padding: 25px 10px;
     border: none;
     align-items: center;
