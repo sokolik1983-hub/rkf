@@ -23,6 +23,13 @@
   user-select: none;
   list-style: none;
   display: flex;
+  li  {
+    padding: 10px 10px 8px 10px;
+    border-bottom: 2px solid transparent;
+    &._active {
+      border-bottom: 2px solid #3366ff;
+    }
+  }
   &.slider-wrap {
     transition: .2s;
     display: flex;
