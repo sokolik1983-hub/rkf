@@ -21,8 +21,8 @@ import "./index.scss";
 
 
 const HomePage = () => {
-    const [banners, setBanners] = useState();
     const [loading, setLoading] = useState(true);
+    const [banners, setBanners] = useState({});
     const isMobile = useIsMobile(1101);
 
     useEffect(() => {
