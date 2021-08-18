@@ -14,7 +14,16 @@
     .click-guard {
       display: block;
     }
-    & > div:not(.click-guard) {
+    &._open > div:not(.click-guard) {
+      transform: translateX(0);
+    }
+    .Card {
+      box-shadow: none;
+    }
+  }
+  & > div:not(.click-guard) {
+    padding-bottom: 16px;
+    @media (max-width: 1079px) {
       position: fixed !important;
       z-index: 99;
       top: 60px !important;
@@ -25,12 +34,6 @@
       overflow-y: auto;
       transform: translateX(100%);
       transition: all .2s ease-in-out;
-    }
-    &._open > div:not(.click-guard) {
-      transform: translateX(0);
-    }
-    .Card {
-      box-shadow: none;
     }
   }
   .cities-filter {
