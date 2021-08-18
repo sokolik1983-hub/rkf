@@ -201,6 +201,9 @@
           display: inline-block;
         }
       }
+      p {
+        margin-bottom: 0 !important;
+      }
       div {
         font-weight: normal;
         font-size: 16px;
@@ -209,10 +212,13 @@
         display: flex;
         flex-wrap: wrap;
         @media (max-width: 560px) {
-         flex-direction: column;
+         display: block;
         }
         span {
           color: #72839c;
+          @media (max-width: 560px) {
+            display: block;
+          }
         }
       }
       & > span {

@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, {memo, useState, useEffect} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Card from "components/Card";
-import Loading from "components/Loading";
-import NewsFeedItem from "../NewsFeedItem";
-import { Request } from "utils/request";
-import { DEFAULT_IMG } from "appConfig";
 import ls from "local-storage";
-import './styles.scss';
+import Loading from "../../../../components/Loading";
+import Card from "../../../../components/Card";
+import NewsFeedItem from "../NewsFeedItem";
+import {Request} from "../../../../utils/request";
+import {DEFAULT_IMG} from "../../../../appConfig";
+import "./styles.scss";
 
-const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => {
+
+const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
@@ -16,29 +17,29 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
     const profileId = ls.get('profile_id');
     const userAlias = ls.get('user_info').alias;
 
-    useEffect(() => {
+    useEffect(async () => {
         setLoading(true);
-        getNews(1, true);
+        await getNews(1, true);
     }, [activeCategoryId]);
 
-    const getNews = (startElement = 1, reset = false) => {
-        Request({
+    const getNews = async (startElement = 1, reset = false) => {
+        await Request({
             url: `/api/article/articles_feed?profile_id=${profileId}&start_element=${startElement}&size=10&filter_type=${activeCategoryId}`
-        },
-            data => {
-                setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
-                setLoading(false);
-                if (!data || data.articles?.length < 10) {
-                    setHasMore(false);
-                } else {
-                    setHasMore(true);
-                }
-            },
-            error => {
-                console.log(error.response);
-                setLoading(false);
-            });
-    }
+        }, data => {
+            setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
+
+            if (!data || data.articles?.length < 10) {
+                setHasMore(false);
+            } else {
+                setHasMore(true);
+            }
+
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setLoading(false);
+        });
+    };
 
     const getNextNews = () => {
         if (hasMore) {
@@ -55,11 +56,10 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
             }, () => {
                 setLoading(true);
                 getNews(1, true);
-            },
-                error => {
-                    console.log(error);
-                    alert('Новость не удалена');
-                });
+            }, error => {
+                console.log(error);
+                alert('Новость не удалена');
+            });
         }
     };
 
@@ -72,49 +72,46 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
             }, () => {
                 setLoading(true);
                 getNews(1, true);
-            },
-                error => {
-                    console.log(error);
-                    alert('Объявление не закрыто');
-                });
+            }, error => {
+                console.log(error);
+                alert('Объявление не закрыто');
+            });
         }
     };
 
-    const handleSuccess = () => {
+    const handleSuccess = async () => {
         setLoading(true);
-        getNews(1, true);
+        await getNews(1, true);
     };
 
-    const handleUnsubscribe = id => {
+    const handleUnsubscribe = async id => {
         if (window.confirm('Вы действительно хотите отписаться?')) {
-            Request({
+            await Request({
                 url: '/api/article/unsubscribe',
                 method: 'PUT',
                 data: JSON.stringify({ "subscription_profile_id": id })
             }, () => {
                 getNews(1, true);
                 notifySuccess && notifySuccess('Подписка отменена!')
-            },
-                e => {
-                    notifyError ? notifyError(e) : alert('Произошла ошибка');
-                    setLoading(false);
-                });
+            }, e => {
+                notifyError ? notifyError(e) : alert('Произошла ошибка');
+                setLoading(false);
+            });
         }
     };
 
-    const handleHaveRead = id => {
-        Request({
+    const handleHaveRead = async id => {
+        await Request({
             url: '/api/article/confirm_reading',
             method: 'PUT',
             data: JSON.stringify(id)
         }, () => {
             getNews(1, true);
             notifySuccess && notifySuccess('Прочитано!')
-        },
-            e => {
-                notifyError ? notifyError(e) : alert('Произошла ошибка');
-                setLoading(false);
-            });
+        }, e => {
+            notifyError ? notifyError(e) : alert('Произошла ошибка');
+            setLoading(false);
+        });
     };
 
     return loading
@@ -132,8 +129,8 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
                     </div>
                 }
             >
-                {
-                    news.map(n => <NewsFeedItem
+                {news.map(n =>
+                    <NewsFeedItem
                         key={n.id}
                         {...n}
                         canEdit={canEdit}
@@ -144,8 +141,8 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
                         userAlias={userAlias}
                         handleUnsubscribe={handleUnsubscribe}
                         handleHaveRead={handleHaveRead}
-                    />)
-                }
+                    />
+                )}
             </InfiniteScroll>
             : <Card>
                 <div className="NewsList__no-news">
@@ -155,4 +152,4 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
             </Card>
 };
 
-export default React.memo(NewsList);
+export default memo(NewsList);
