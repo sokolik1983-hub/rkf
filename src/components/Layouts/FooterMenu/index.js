@@ -45,6 +45,7 @@ const FooterMenu = ({
         || pathname === '/base-search'
         || pathname === ''
         || pathname === '/'
+        || pathname === '/about'
         || pathname === '/uploaded-documents'
         || pathname === '/auth/login'
         || pathname === '/auth/registration';
