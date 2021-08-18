@@ -125,7 +125,7 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => 
                                                 setCardClicked(5);
                                             }}
                                         >
-                                            Информация о помётах
+                                            <span className="list-filter__control">Информация о помётах</span>
                                         </LinkScroll>
                                     </div>}
                                     <div  className="list-filter__item">
