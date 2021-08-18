@@ -13,17 +13,16 @@
       overflow: hidden;
     }
   }
+  &__link {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
 }
 .list-filter {
+  user-select: none;
   list-style: none;
   display: flex;
-  li  {
-    padding: 10px 10px 8px 10px;
-    border-bottom: 2px solid transparent;
-    &._active {
-      border-bottom: 2px solid #3366ff;
-    }
-  }
   &.slider-wrap {
     transition: .2s;
     display: flex;
@@ -67,7 +66,6 @@
 
   }
   &__control {
-    border-bottom: 2px solid transparent;
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
