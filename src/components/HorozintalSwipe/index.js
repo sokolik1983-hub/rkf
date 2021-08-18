@@ -71,7 +71,6 @@ const HorizontalSwipe = ({id, className, children, desktopScroll}) => {
         }
     };
 
-
     return (
         <div
             id={id}
