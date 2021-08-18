@@ -29,6 +29,9 @@
     &._open > div:not(.click-guard) {
       transform: translateX(0);
     }
+    .Card {
+      box-shadow: none;
+    }
   }
   .cities-filter {
     margin-bottom: 16px;
