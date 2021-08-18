@@ -67,7 +67,9 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
                                     <div className={activeType === 0 ? ' _active' : ''} onClick={(e) => handleClick(0, e, 1)}>Все</div>
                                     <div className={activeType === 1 ? ' _active' : ''} onClick={(e) => handleClick(1, e, 2)}>Выставочные мероприятия</div>
                                     <div className={activeType === 2 ? ' _active' : ''}  onClick={(e) => handleClick(2, e,  3)}>Племенные мероприятия</div>
-                                    <div className={activeType === 3 ? ' _active' : ''} onClick={(e) => handleClick(3, e, 4)}>Состязания и испытания <br /> рабочих качеств</div>
+                                    <div className={activeType === 3 ? ' _active' : '_disabled'}
+                                         // onClick={(e) => handleClick(3, e, 4)}
+                                    >Состязания и испытания <br /> рабочих качеств</div>
                                 </HorizontalSwipe>
                             </div>
                         ) : (<ul className="list-filter">
@@ -91,8 +93,8 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
                         </li>
                         <li className="list-filter__item">
                         <span
-                            className={`list-filter__control${activeType === 3 ? ' _active' : ''}`}
-                            onClick={() => handleClick(3)}
+                            className={`list-filter__control${activeType === 3 ? ' _active' : ' _disabled'}`}
+                            // onClick={() => handleClick(3)}
                         >Состязания и испытания рабочих качеств</span>
                         </li>
                         {/* <li className="list-filter__item">
