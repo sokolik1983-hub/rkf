@@ -22,7 +22,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage}) => {
             <div
                 className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
                 onClick={() => setOpen(open => !open)}
-                style={{display: 'flex', justifyContent: 'center'}}
             >
                 {isMobile &&
                     <button className={`user-nav__button more-btn${open ? ' _open' : ''}`}>
