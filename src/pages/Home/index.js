@@ -25,8 +25,8 @@ const HomePage = () => {
     const [banners, setBanners] = useState({});
     const isMobile = useIsMobile(1101);
 
-    useEffect(async () => {
-        await Request({
+    useEffect(() => {
+       (() => Request({
             url: `/api/banner?ids=${BANNER_TYPES.homePageSlider}&ids=${BANNER_TYPES.homePageRightSiteBar}&ids=${BANNER_TYPES.homePageArticle}`
         }, data => {
             setBanners({
@@ -38,7 +38,7 @@ const HomePage = () => {
             setLoading(false);
         }, error => {
             console.log(error.response);
-        });
+        }))();
     }, []);
 
     return loading ?
