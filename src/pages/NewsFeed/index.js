@@ -22,7 +22,7 @@ const Layout = props => {
     }
 };
 
-const Content = props => {
+const Content = props => { //Дополнительные props берутся из Layout. Это неочевидно и лучше так не делать.
     const {showMustRead, notificationUrlIndex, activeCategoryId} = props;
 
     return (

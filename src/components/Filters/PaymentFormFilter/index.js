@@ -5,7 +5,7 @@ import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
 
-const PaymentFormFilter = ({payment_form_ids, onChange}) => {
+const PaymentFormFilter = ({payment_form_ids = [], onChange}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     const handleChange = id => {
