@@ -102,7 +102,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
                 <div className="user-page">
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
-                            <StickyBox offsetTop={66}>
+                            <StickyBox offsetTop={60}>
                                 {isMobile &&
                                     <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                                 }

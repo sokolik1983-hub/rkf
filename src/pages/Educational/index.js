@@ -95,7 +95,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                     <Container className="content educational-page__content">
                         <div className="educational-page__info">
                             <aside className="educational-page__left">
-                                <StickyBox offsetTop={65}>
+                                <StickyBox offsetTop={60}>
                                     <div className="educational-page__left-inner">
                                         <div className="mobile-only">
                                             <UserHeader

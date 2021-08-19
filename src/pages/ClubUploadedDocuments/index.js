@@ -91,7 +91,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                     </div>
                                 </div>
                                 <Aside className="club-page__info">
-                                    <StickyBox offsetTop={65}>
+                                    <StickyBox offsetTop={60}>
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
                                                 <UserHeader

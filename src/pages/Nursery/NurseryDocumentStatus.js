@@ -88,7 +88,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                 <CheckStatus />
                             </div>
                             <Aside className="nursery-page__info">
-                                <StickyBox offsetTop={65}>
+                                <StickyBox offsetTop={60}>
                                     <div className="nursery-page__info-inner">
                                         {!isMobile &&
                                             <UserHeader

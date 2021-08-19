@@ -271,7 +271,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                         </div>
                                     </div>
                                     <Aside className="nursery-page__info">
-                                        <StickyBox offsetTop={65}>
+                                        <StickyBox offsetTop={60}>
                                             <div className="nursery-page__info-inner">
                                                 {!isMobile &&
                                                     <UserHeader

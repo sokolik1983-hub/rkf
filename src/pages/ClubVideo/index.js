@@ -205,7 +205,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                     </div>
                                 </div>
                                 <Aside className="club-page__info">
-                                    <StickyBox offsetTop={65}>
+                                    <StickyBox offsetTop={60}>
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
                                                 <UserHeader
