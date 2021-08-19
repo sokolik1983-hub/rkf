@@ -5,7 +5,7 @@ import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
 
-const FormatFilter = ({format_ids, onChange}) => {
+const FormatFilter = ({format_ids = [], onChange}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     const handleChange = id => {

@@ -36,6 +36,11 @@
     padding-top: 12px;
     margin-top: 10px;
   }
+  &__no-options {
+    padding: 12px 0;
+    text-align: center;
+    color: #ccc;
+  }
   &__svg-info:hover {
     fill: #3366ff;
   }

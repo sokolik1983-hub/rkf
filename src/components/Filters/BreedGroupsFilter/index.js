@@ -5,16 +5,14 @@ import CustomFilterSelect from "../../CustomFilterSelect";
 import "./index.scss";
 
 
-const BreedGroupsFilter = ({breedGroups, breedGroupIds, onChange}) => {
+const BreedGroupsFilter = ({breedGroups = [], breedGroupIds, onChange}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
-        if (breedGroups?.length) {
-            setOptionsNotInValues(breedGroups.filter(option => breedGroupIds?.indexOf(option.value) === -1));
-            setValues(breedGroups.filter(option => breedGroupIds?.indexOf(option.value) !== -1));
-        }
+        setOptionsNotInValues(breedGroups.filter(option => breedGroupIds?.indexOf(option.value) === -1));
+        setValues(breedGroups.filter(option => breedGroupIds?.indexOf(option.value) !== -1));
     }, [breedGroups, breedGroupIds]);
 
     const handleChange = options => {

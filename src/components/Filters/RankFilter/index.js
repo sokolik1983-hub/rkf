@@ -5,7 +5,7 @@ import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
 
-const RankFilter = ({ranks, rank_id, onChange}) => {
+const RankFilter = ({ranks = [], rank_id, onChange}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     return (

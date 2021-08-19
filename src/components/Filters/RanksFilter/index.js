@@ -5,16 +5,14 @@ import CustomFilterSelect from "../../CustomFilterSelect";
 import "./index.scss";
 
 
-const RanksFilter = ({ranks, rank_ids, onChange}) => {
+const RanksFilter = ({ranks = [], rank_ids, onChange}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
-        if (ranks.length) { 
-            setOptionsNotInValues(ranks.filter(option => rank_ids.indexOf(option.value) === -1));
-            setValues(ranks.filter(option => rank_ids.indexOf(option.value) !== -1));
-        }
+        setOptionsNotInValues(ranks.filter(option => rank_ids.indexOf(option.value) === -1));
+        setValues(ranks.filter(option => rank_ids.indexOf(option.value) !== -1));
     }, [ranks, rank_ids]);
 
     const handleChange = options => {

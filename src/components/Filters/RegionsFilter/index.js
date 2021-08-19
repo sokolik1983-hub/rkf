@@ -5,16 +5,14 @@ import CustomFilterSelect from "../../CustomFilterSelect";
 import "./index.scss";
 
 
-const RegionsFilter = ({regions, region_ids, onChange}) => {
+const RegionsFilter = ({regions = [], region_ids, onChange}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
-        if (regions?.length) {
-            setOptionsNotInValues(regions.filter(option => region_ids?.indexOf(option.value) === -1));
-            setValues(regions.filter(option => region_ids?.indexOf(option.value) !== -1));
-        }
+        setOptionsNotInValues(regions.filter(option => region_ids?.indexOf(option.value) === -1));
+        setValues(regions.filter(option => region_ids?.indexOf(option.value) !== -1));
     }, [regions, region_ids]);
 
     const handleChange = options => {

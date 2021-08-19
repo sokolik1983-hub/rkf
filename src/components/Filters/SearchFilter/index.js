@@ -5,10 +5,12 @@ import  "./index.scss"
 
 const SearchFilter = ({filtersValue}) => {
     const [searchValue, setSearchValue] = useState(filtersValue.string_filter);
+
     const handleSubmit = e => {
         e.preventDefault();
         history.push(`/search?string_filter=${searchValue.trim()}&search_type=8`);
     };
+
     return (
         <div className="search-page__content-filter">
             <h3 className="search-page__filters-title">Результаты поиска по запросу:</h3>
