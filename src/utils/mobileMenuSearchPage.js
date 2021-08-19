@@ -33,9 +33,9 @@ const mobileMenuSearchPage = (place, elem, wrap, userType) => {
                     break;
                 case 8:
                     if(userType === 3 || userType === 4 || userType === 5) {
-                        position = width - (sliderWidth - clickElemWidth);
+                        position = width + 16 - (sliderWidth - clickElemWidth);
                     } else {
-                        position = width - hiddenElemWidth - (sliderWidth - clickElemWidth);
+                        position = width + 16 - hiddenElemWidth - (sliderWidth - clickElemWidth);
                     }
                     break;
                 default:
@@ -46,13 +46,12 @@ const mobileMenuSearchPage = (place, elem, wrap, userType) => {
                 width = width + item.getBoundingClientRect().width;
             }
             switch(place) {
-                case 4:
                 case 5:
                 case 6:
                 case 7:
                 case 8:
                     if(userType === 3 || userType === 4 || userType === 5) {
-                        position = width - (sliderWidth - lastElemWidth);
+                        position = width - lastElemWidth - (sliderWidth - lastElemWidth) ;
                     } else {
                         position = width - hiddenElemWidth - (sliderWidth - lastElemWidth);
                     }
