@@ -119,7 +119,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                             </>}
                         </div>
                         <Aside className="base-search__info">
-                            <StickyBox offsetTop={65}>
+                            <StickyBox offsetTop={60}>
                                 <div className="base-search__info-inner">
                                     {user_type === 1 &&
                                         <>

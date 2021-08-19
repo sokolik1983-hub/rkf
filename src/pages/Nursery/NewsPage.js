@@ -99,7 +99,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 />
                             </div>
                             <Aside className="nursery-page__info">
-                                <StickyBox offsetTop={65}>
+                                <StickyBox offsetTop={60}>
                                     <div className="nursery-page__info-inner">
                                         {!isMobile &&
                                             <UserHeader

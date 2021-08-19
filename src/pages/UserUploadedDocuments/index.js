@@ -66,7 +66,7 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
             : <Layout setNotificationsLength={setNotificationsLength}>
                 <Container className="UserUploadedDocuments content">
                     <aside className="UserUploadedDocuments__left">
-                        <StickyBox offsetTop={66}>
+                        <StickyBox offsetTop={60}>
                             {isMobile &&
                                 <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser} />
                             }

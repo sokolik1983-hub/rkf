@@ -137,7 +137,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                     />
                                 </div>
                                 <Aside className="club-page__info">
-                                    <StickyBox offsetTop={65}>
+                                    <StickyBox offsetTop={60}>
                                         <div className="club-page__info-inner">
                                             {!isMobile && <>
                                                 <UserHeader

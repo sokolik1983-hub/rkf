@@ -80,7 +80,7 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
                                     }
                                 </div>
                                 <Aside className="club-page__info">
-                                    <StickyBox offsetTop={65}>
+                                    <StickyBox offsetTop={60}>
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
                                                 <UserHeader

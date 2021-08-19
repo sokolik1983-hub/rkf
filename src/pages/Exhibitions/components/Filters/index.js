@@ -80,7 +80,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
 
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
-            <StickyBox offsetTop={75}>
+            <StickyBox offsetTop={60}>
                 {loading ?
                     <Loading centered={false} /> :
                     <>

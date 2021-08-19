@@ -62,7 +62,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                 <Loading /> :
                 <Container className="user-documents__content content">
                     <aside className="user-documents__left">
-                        <StickyBox offsetTop={66}>
+                        <StickyBox offsetTop={60}>
                             <Card>
                                 <UserInfo
                                     canEdit={canEdit}

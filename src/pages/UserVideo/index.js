@@ -157,7 +157,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                 <div className="user-page">
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
-                            <StickyBox offsetTop={66}>
+                            <StickyBox offsetTop={60}>
                                 <Card>
                                     <UserInfo
                                         canEdit={canEdit}

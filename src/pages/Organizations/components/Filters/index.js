@@ -103,7 +103,7 @@ const Filters = ({
 
     return (
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
-            <StickyBox>
+            <StickyBox offsetTop={60}>
                 <div className="organizations-page__filters">
                     {organization_type === 5 &&
                         <>

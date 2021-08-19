@@ -91,7 +91,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
                                 }
                             </div>
                             <Aside className="nursery-page__info">
-                                <StickyBox offsetTop={65}>
+                                <StickyBox offsetTop={60}>
                                     <div className="nursery-page__info-inner">
                                         {!isMobile &&
                                             <UserHeader
