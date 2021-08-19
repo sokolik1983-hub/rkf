@@ -21,12 +21,12 @@ import "./index.scss";
 
 
 const HomePage = () => {
-    const [banners, setBanners] = useState();
     const [loading, setLoading] = useState(true);
+    const [banners, setBanners] = useState({});
     const isMobile = useIsMobile(1101);
 
     useEffect(() => {
-        (() => Request({
+       (() => Request({
             url: `/api/banner?ids=${BANNER_TYPES.homePageSlider}&ids=${BANNER_TYPES.homePageRightSiteBar}&ids=${BANNER_TYPES.homePageArticle}`
         }, data => {
             setBanners({
@@ -34,10 +34,11 @@ const HomePage = () => {
                 homePageRightSiteBar: data.find(banner => banner.banner_type === BANNER_TYPES.homePageRightSiteBar),
                 homePageArticle: data.find(banner => banner.banner_type === BANNER_TYPES.homePageArticle)
             });
+
             setLoading(false);
         }, error => {
             console.log(error.response);
-        }))()
+        }))();
     }, []);
 
     return loading ?

@@ -1,4 +1,4 @@
-import React, {memo, useState, useEffect, useRef} from "react";
+import React, {memo, useState, useEffect} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CardNewsNew from "../../../../components/CardNewsNew";
@@ -35,7 +35,6 @@ const NewsList = ({isFullDate = true}) => {
         activeType: null,
         isAdvert: null
     });
-    const newsListRef = useRef(null);
 
     const getNews = async (startElem, filters) => {
         setNewsLoading(true);
@@ -123,7 +122,7 @@ const NewsList = ({isFullDate = true}) => {
     };
 
     return (
-        <div className="NewsList" ref={newsListRef}>
+        <div className="NewsList">
             {news && !!news.length &&
                 <InfiniteScroll
                     dataLength={news.length}

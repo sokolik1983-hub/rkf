@@ -24,7 +24,7 @@ const Banner = ({type, inputBanner}) => {
         <div className="banner-component">
             <a className="banner-component__link" href={banner.url} target="_blank" rel="noreferrer noopener">
                 <img
-                    className="banner_component__img"
+                    className="banner-component__img"
                     style={{
                         width: banner.width > 0 ? banner.width : '',
                         height: banner.height > 0 ? banner.height : ''

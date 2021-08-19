@@ -2,7 +2,8 @@
   min-height: 776px;
   margin: 0;
   display: flex;
-  width: calc(100% - 384px);
+  justify-content: right;
+  width: calc(100% - 318px);
   @media (max-width: 1100px) {
     width: 100%;
     min-width: auto;
@@ -15,7 +16,7 @@
     top: 48px;
   }
   .infinite-scroll-component__outerdiv {
-    width: calc(100% - 336px);
+    width: calc(100% - 266px);
     @media (max-width: 1079px) {
       width: 100%;
     }
@@ -86,7 +87,8 @@
       }
     }
   }
-  &__no-news{
+  &__no-news {
+    width: calc(100% - 266px);
     padding-top: 20px;
     text-align: center;
     margin-left: auto;
