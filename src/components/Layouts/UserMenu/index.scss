@@ -57,6 +57,19 @@
       box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
       border-radius: 6px;
     }
+    @media (max-width: 600px) {
+      width: calc(100% - 32px);
+      right: 16px;
+      &:before {
+        margin-bottom: 12px;
+        display: block;
+        content: "";
+        width: 100%;
+        height: 80px;
+        background-image: url("/static/images/user-nav/user-nav-bg.png");
+        background-size: 100% 80px ;
+      }
+    }
   }
   &__item {
     position: relative;

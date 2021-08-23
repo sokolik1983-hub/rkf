@@ -247,7 +247,6 @@
 .user-menu {
   padding: 14px 16px 16px !important;
   margin-bottom: 24px;
-
   @media (max-width: 1080px) {
     background-color: transparent !important;
     box-shadow: none !important;
@@ -337,12 +336,25 @@
     @media (max-width: 1080px) {
       position: fixed;
       right: 22px;
-      bottom: 60px;
+      bottom: 65px;
       z-index: 2;
       width: 250px;
       background-color: #fff;
       box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
       border-radius: 6px;
+    }
+    @media (max-width: 600px) {
+      width: calc(100% - 32px);
+      right: 16px;
+      &:before {
+        margin: 10px 10px 12px;
+        display: block;
+        content: "";
+        height: 80px;
+        background-image: url("/static/images/user-nav/user-nav-bg.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
     }
   }
 

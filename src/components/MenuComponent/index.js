@@ -387,6 +387,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                         unmountOnExit
                     >
                         <ul className="user-menu__list">
+
                             {user !== 'nursery' &&
                                 <li className="user-menu__item">
                                     <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</NavLink>
