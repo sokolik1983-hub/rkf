@@ -38,6 +38,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage}) => {
                     unmountOnExit
                 >
                     <ul className="user-nav__list">
+                        <div className="user-nav__bg-picture"></div>
                         {userNav.map(navItem =>
                             <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`} key={navItem.id}>
                                 <NavLink

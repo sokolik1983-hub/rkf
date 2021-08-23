@@ -783,6 +783,9 @@
       transform: translateX(50%);
       top: auto;
     }
+    @media (max-width: 600px) {
+      width: calc(100% - 32px);
+    }
   }
   &__userpic {
     height: 60px;

@@ -3,6 +3,13 @@
   text-align: center;
   color: #979797;
   font-size: 13px;
+  &__bg-picture {
+    @media (max-width: 600px) {
+      height: 80px;
+      margin-bottom: 12px;
+      background: url(/static/images/user-nav/user-nav-bg.png) center/cover no-repeat;
+    }
+  }
   @media (max-width: 1080px) {
     z-index: 99;
     width: 50px;
@@ -56,6 +63,10 @@
       background-color: #fff;
       box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
       border-radius: 6px;
+    }
+    @media (max-width: 600px) {
+      width: calc(100% - 32px);
+      right: 16px;
     }
   }
   &__item {

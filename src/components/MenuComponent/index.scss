@@ -247,7 +247,14 @@
 .user-menu {
   padding: 14px 16px 16px !important;
   margin-bottom: 24px;
+  &__bg-picture {
+    @media (max-width: 600px) {
+      height: 80px;
+      margin:10px 10px 12px;
 
+      background: url(/static/images/user-nav/user-nav-bg.png) center/cover no-repeat;
+    }
+  }
   @media (max-width: 1080px) {
     background-color: transparent !important;
     box-shadow: none !important;
@@ -343,6 +350,10 @@
       background-color: #fff;
       box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
       border-radius: 6px;
+    }
+    @media (max-width: 600px) {
+      width: calc(100% - 32px);
+      right: 16px;
     }
   }
 
