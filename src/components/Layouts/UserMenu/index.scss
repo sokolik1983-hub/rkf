@@ -3,13 +3,6 @@
   text-align: center;
   color: #979797;
   font-size: 13px;
-  &__bg-picture {
-    @media (max-width: 600px) {
-      height: 80px;
-      margin-bottom: 12px;
-      background: url(/static/images/user-nav/user-nav-bg.png) center/cover no-repeat;
-    }
-  }
   @media (max-width: 1080px) {
     z-index: 99;
     width: 50px;
@@ -67,6 +60,15 @@
     @media (max-width: 600px) {
       width: calc(100% - 32px);
       right: 16px;
+      &:before {
+        margin-bottom: 12px;
+        display: block;
+        content: "";
+        width: 100%;
+        height: 80px;
+        background-image: url("/static/images/user-nav/user-nav-bg.png");
+        background-size: 100% 80px ;
+      }
     }
   }
   &__item {
