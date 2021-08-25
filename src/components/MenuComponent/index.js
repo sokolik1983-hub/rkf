@@ -211,7 +211,7 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ({ alias, name, user, isFederation, noCard = false, history, footerNav }) => {
+const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, footerNav } ) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
@@ -390,25 +390,27 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
 
                             {user !== 'nursery' &&
                                 <li className="user-menu__item">
-                                    <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</NavLink>
+                                    <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
+
                                 </li>
                             }
                             {presidium[alias] &&
                                 <li className="user-menu__item">
-                                    <NavLink exact to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</NavLink>
+                                    <NavLink exact to="/" onClick={getPresidium} className="user-menu__link _presidium" title="Президиум">Президиум</NavLink>
+
                                 </li>
                             }
                             <li className="user-menu__item">
-                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link" title="Публикации">Публикации</NavLink>
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link _public" title="Публикации">Публикации</NavLink>
                             </li>
                             <li className="user-menu__item">
-                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link" title="Документы">Документы</NavLink>
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
                             </li>
                             <li className="user-menu__item">
-                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link" title="Фотогалерея">Фотогалерея</NavLink>
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link _gallery" title="Фотогалерея">Фотогалерея</NavLink>
                             </li>
                             <li className="user-menu__item">
-                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</NavLink>
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link _video" title="Фотогалерея">Видеозаписи</NavLink>
                             </li>
                             {showDetails &&
                                 <>
@@ -418,7 +420,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                             to={`/details-viewer/${fedFeesId}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="user-menu__link"
+                                            className="user-menu__link _fees"
                                             title="Размеры членских взносов"
                                         >
                                             Размеры членских взносов
@@ -435,7 +437,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                                             to={`/details-viewer/${fedDetails}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="user-menu__link"
+                                            className="user-menu__link _requisites"
                                             title="Реквизиты">
                                             Реквизиты
                                     </NavLink>
@@ -444,11 +446,11 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false, histor
                             }
                             {isFederation &&
                                 <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</NavLink>
+                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link _documents" title="Статус документов">Статус документов</NavLink>
                                 </li>
                             }
                             <li className="user-menu__item">
-                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link" title={name}>
+                                <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link _club" title={name}>
                                     {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
                                 </NavLink>
                             </li>

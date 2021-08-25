@@ -359,15 +359,26 @@
   }
 
   &__item {
+    @media (max-width: 1080px) {
+      padding-left: 10px;
+    }
     &:not(:last-child) {
       margin-bottom: 8px;
     }
-    .active{
-      color: #3366ff!important;
+    &:not(:last-child) {
+      margin-bottom: 12px;
     }
+    .active{
+      color: #3366FF!important;
+      &::before{
+        background: url("/static/icons/eventsIcon-blue.svg") no-repeat center/contain!important;
+      }
+    }
+
   }
 
   &__link {
+    position: relative;
     text-decoration: none;
     font-weight: normal;
     font-size: 16px;
@@ -376,7 +387,6 @@
     color: #72839c;
     border-bottom: 1px solid transparent;
     transition: all .2s linear;
-
     &:visited,
     &:active {
       color: #72839c;
@@ -396,12 +406,111 @@
         color: #babfc7;
       }
     }
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 0;
+      top: 4px;
+    }
+    &._documents:before {
+      background: url("/static/icons/documentsIcon.svg") no-repeat center / contain,
+      url("/static/icons/documentsIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._documents:hover:before {
+      background: url("/static/icons/documentsIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._gallery:before {
+      background: url("/static/icons/galleryIcon.svg") no-repeat center / contain,
+      url("/static/icons/galleryIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._gallery:hover:before {
+      background: url("/static/icons/galleryIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._video:before {
+      background: url("/static/icons/icon-youtube.svg") no-repeat center / contain,
+      url("/static/icons/icon-youtube-blue.svg") no-repeat center / contain;
+    }
+
+    &._video:hover:before {
+      background: url("/static/icons/icon-youtube-blue.svg") no-repeat center / contain;
+    }
+
+    &._events:before {
+      background: url("/static/icons/eventsIcon.svg") no-repeat center / contain,
+      url("/static/icons/eventsIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._events:hover:before {
+      background: url("/static/icons/eventsIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._public:before {
+      background: url("/static/icons/publicIcon.svg") no-repeat center / contain,
+      url("/static/icons/publicIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._public:hover:before {
+      background: url("/static/icons/publicIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._club:before {
+      background: url("/static/icons/clubIcon.svg") no-repeat center / contain,
+      url("/static/icons/clubIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._club:hover:before {
+      background: url("/static/icons/clubIcon-blue.svg") no-repeat center / contain;
+    }
+
+    &._fees:before {
+      background: url("/static/icons/icon-fees.svg") no-repeat top -2px center / contain,
+      url("/static/icons/icon-fees-blue.svg") no-repeat top -2px center / contain;
+    }
+
+    &._fees:hover:before {
+      background: url("/static/icons/icon-fees-blue.svg") no-repeat top -2px center / contain;
+    }
+
+    &._blanks:before {
+      background: url("/static/icons/icon-blanks.svg") no-repeat center / contain,
+      url("/static/icons/icon-blanks-blue.svg") no-repeat center / contain;
+    }
+
+    &._blanks:hover:before {
+      background: url("/static/icons/icon-blanks-blue.svg") no-repeat center / contain;
+    }
+
+    &._requisites:before {
+      background: url("/static/icons/icon-requisites.svg") no-repeat center / contain,
+      url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
+    }
+
+    &._requisites:hover:before {
+      background: url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
+    }
+
+    &._presidium:before {
+      background: url("/static/icons/icon-presidium.svg") no-repeat center / contain,
+      url("/static/icons/icon-presidium-blue.svg") no-repeat center / contain;
+    }
+
+    &._presidium:hover:before {
+      background: url("/static/icons/icon-presidium-blue.svg") no-repeat center / contain;
+    }
+
 
     @media (max-width: 1080px) {
       display: block;
       text-decoration: none;
       margin: 8px 0;
-      padding: 2px 16px;
+      padding: 2px 16px 2px 25px;
 
       &:hover {
         background-color: whitesmoke;
@@ -436,4 +545,3 @@
     }
   }
 }
-
