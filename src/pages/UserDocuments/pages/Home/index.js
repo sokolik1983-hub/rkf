@@ -25,6 +25,8 @@ import ApplicationRegistry from "../Application/ApplicationRegistry";
 import Banner from "../../../../components/Banner";
 import useIsMobile from "../../../../utils/useIsMobile";
 import "./index.scss";
+import HorizontalMenu from "../../../../components/HorizontalMenu";
+import {kennelNav} from "../../../NurseryDocuments/config";
 
 
 const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticated }) => {
@@ -58,10 +60,14 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
 
     return (
         <div className="user-documents">
+
+
             {loading ?
                 <Loading /> :
-                <Container className="user-documents__content content">
+
+                <Container className="user-documents__content">
                     <aside className="user-documents__left">
+
                         <StickyBox offsetTop={60}>
                             <Card>
                                 <UserInfo

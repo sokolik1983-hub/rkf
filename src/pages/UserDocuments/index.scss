@@ -2,4 +2,10 @@
   & + .Footer {
       display: none;
   }
+  &__horizontal-menu {
+    padding-top: 76px;
+    ul {
+      border-radius: 6px;
+    }
+  }
 }

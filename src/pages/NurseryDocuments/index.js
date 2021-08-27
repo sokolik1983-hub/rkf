@@ -27,7 +27,11 @@ import CheckMembershipForm from "./components/CheckMembership/CheckMembershipFor
 import CheckMembershipRegistry from "./components/CheckMembership/CheckMembershipRegistry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
+import HorizontalMenu from "../../components/HorizontalMenu";
+import useIsMobile from "../../utils/useIsMobile";
+import {kennelNav} from "../../pages/NurseryDocuments/config"
 import "./index.scss";
+
 
 
 const Docs = ({ history }) => {
@@ -37,6 +41,9 @@ const Docs = ({ history }) => {
     //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
     // const isVisible = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
     const isWithFilters = !!useRouteMatch('/kennel/:route/documents/replace-pedigree/registry');
+    const isMobile = useIsMobile(1080);
+
+
 
     return <Layout withFilters={isWithFilters}>
         <div className="documents-page content">
@@ -47,6 +54,7 @@ const Docs = ({ history }) => {
                     canEdit={false}
                     withShare={false}
                 />
+                { isMobile && <HorizontalMenu menu={kennelNav(nurseryAlias).filter(item => item.id !== 3 && item.id !== 7 && item.id !== 4)} />}
                 <Switch>
                     <Route
                         exact={true}

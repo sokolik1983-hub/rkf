@@ -64,6 +64,7 @@ const Content = ({ isMobile,
 
 const UserPage = (props) => {
     return (
+
         <UserLayout {...props}>
             <Content />
         </UserLayout>

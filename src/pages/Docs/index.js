@@ -32,7 +32,11 @@ import ExhibitionsFormNew from "./components/Exhibitions/ExhibitionsFormNew";
 import ExhibitionsRegistry from "./components/Exhibitions/ExhibitionsRegistry";
 import ExhibitionsCancellationForm from "./components/ExhibitionsCancellation/ExhibitionsCancellationForm";
 import ExhibitionsCancellationRegistry from "./components/ExhibitionsCancellation/ExhibitionsCancellationRegistry";
+import {clubNav} from "../../pages/Docs/config";
+import useIsMobile from "../../utils/useIsMobile";
+import HorizontalMenu from "../../components/HorizontalMenu";
 import "./index.scss";
+
 
 
 const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
@@ -41,6 +45,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     const isVisible = isAuthenticated && is_active_profile && match.params.route === clubAlias;
     const isWithFilters = !!useRouteMatch('/:route/documents/replace-pedigree/registry');
+    const isMobile = useIsMobile(1080);
 
     return !isVisible
         ? <PageNotFound />
@@ -53,6 +58,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         canEdit={false}
                         withShare={false}
                     />
+                    { isMobile && <HorizontalMenu menu={clubNav(clubAlias).filter(item => item.id !== 6 && item.id !== 10 && item.disabled !== true )} />}
                     <Switch>
                         <Route
                             exact={true}

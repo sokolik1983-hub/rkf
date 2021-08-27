@@ -16,6 +16,7 @@ import useIsMobile from "../../../../utils/useIsMobile";
 import "./styles.scss";
 import CardMessage from "../../../../components/CardMessage";
 
+
 //Access method statuses
 const _pedigree = 11;
 const _litter = 12;
