@@ -7,10 +7,8 @@ import './styles.scss'
 
 
 const HorizontalMenu = ({menu}) => {
-    console.log(menu)
     const wrap = useRef();
     const handleClick = (place, e) => {
-
         mobileMenuAccountPage(place, e.target, wrap.current)
     }
     return (

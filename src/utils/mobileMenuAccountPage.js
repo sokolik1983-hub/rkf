@@ -28,7 +28,6 @@ const mobileMenuAccountPage = (place, elem, wrap) => {
             position = widthBeforeElems - (elemPosition/2);
         }
         wrap.querySelector('div').style.transform = `translateX(-${position}px)`;
-        console.log('position', wrap.querySelector('div'))
     }
 }
 
