@@ -140,7 +140,7 @@
       }
       @media (max-width: 560px) {
         left: 70px;
-    }
+      }
     }
     &-btn {
       padding-top: 32px;
@@ -324,25 +324,25 @@
       justify-content: space-between;
       width: 100%;
       padding-top: 3px;
-       .recording {
+      .recording {
         display: flex;
         justify-content: space-evenly;
-         margin-right: 36px;
-         svg {
-           position: relative;
-           top: 1px;
-         }
-         &:hover  {
-           svg {
-             path {
-               stroke: #3366ff;
-             }
+        margin-right: 36px;
+        svg {
+          position: relative;
+          top: 1px;
+        }
+        &:hover  {
+          svg {
+            path {
+              stroke: #3366ff;
+            }
 
-           }
-           span {
-             color: #3366ff;
-           }
-         }
+          }
+          span {
+            color: #3366ff;
+          }
+        }
       }
       .Feedback {
         .feedback-link {
@@ -769,14 +769,13 @@
   &__content {
     position: absolute;
     right: 0;
-    top: 65px;
+    top: 55px;
     z-index: 1;
     box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
     background-color: #fff;
-    border-radius: 6px;
+    border-radius: 5px;
     overflow: hidden;
-    width: 314px;
-    padding-bottom: 6px;
+    width: 476px;
     @media (max-width: 1080px) {
       bottom: 65px;
       right: 50%;
@@ -788,8 +787,8 @@
     }
   }
   &__userpic {
-    height: 60px;
-    width: 60px;
+    height: 80px;
+    width: 80px;
     min-width: 60px;
     background-position: center;
     background-size: cover;
@@ -797,6 +796,10 @@
     border-radius: 50%;
     border: 2px solid #fff;
     margin-bottom: -30px;
+    @media (max-width: 600px) {
+      height: 60px;
+      width: 60px;
+    }
     &-wrap {
       display: flex;
       align-items: flex-end;
@@ -811,7 +814,10 @@
     text-align: center;
     font-size: 18px;
     line-height: 18px;
-    margin: 36px 0 6px 0;
+    margin: 36px 0 20px 0;
+    @media (max-width: 1080px) {
+      margin: 36px 0 10px 0;
+    }
     &:hover {
       background: whitesmoke;
       transition: all 0.2s linear;
@@ -831,15 +837,22 @@
     background-color: #dfe9fb !important;
     color: #72839c !important;
     width: 100%;
-    height: 38px;
+    height: 43px;
     text-align: center;
     border-radius: 6px;
+    line-height: 20px;
     &:hover {
       opacity: 0.8;
       transition: all 0.2s linear;
     }
     &-wrap {
-      padding: 0 10px 10px 10px;
+      padding-bottom: 10px;
+      width: 293px;
+      margin: 0 auto;
+      @media (max-width: 1080px) {
+        width: 100%;
+        padding: 0 10px 10px;
+      }
     }
   }
   &__add-user {
@@ -848,15 +861,16 @@
     font-size: 16px;
     line-height: 22px;
     display: block;
-    padding: 10px;
+    padding: 15px 10px 20px;
     border-bottom: 1px solid #e8e8e8;
     @media (max-width: 1080px) {
       border-bottom: none;
+      padding: 15px 10px 13px;
     }
     div {
       padding-left: 35px;
       background: url("/static/icons/add.svg") left center no-repeat;
-      line-height: 23px;
+      line-height: 22px;
       opacity: 0.5;
       cursor: default;
     }
@@ -867,7 +881,8 @@
   &__list {
     list-style: none;
     min-width: 150px;
-    max-width: 314px;
+    width: calc(100% - 20px);
+    margin: 0 auto;
     background-color: #fff;
     overflow: hidden;
     border-top: 1px solid #e8e8e8;
@@ -882,9 +897,9 @@
       color: #72839c;
       font-weight: normal;
       font-size: 16px;
-      line-height: 22px;
+      line-height: 20px;
       display: block;
-      padding: 4px 10px;
+      padding: 7px 10px;
       transition: all 0.2s linear;
       cursor: pointer;
       @media (max-width: 1080px) {
@@ -1116,5 +1131,6 @@
   position: relative;
   top: 5px;
 }
+
 
 
