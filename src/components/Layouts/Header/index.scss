@@ -778,11 +778,12 @@
     width: 476px;
     @media (max-width: 1080px) {
       bottom: 65px;
-      right: 50%;
-      transform: translateX(50%);
+      right: 100px;
       top: auto;
     }
     @media (max-width: 600px) {
+      right: 50%;
+      transform: translateX(50%);
       width: calc(100% - 32px);
     }
   }

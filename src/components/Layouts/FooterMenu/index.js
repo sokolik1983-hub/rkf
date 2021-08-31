@@ -106,22 +106,22 @@ const FooterMenu = ({
                 <div className='footer__menu'
                     onClick={hideSideMenu}
                 >
-                    <NavLink className='footer__menu-link' to='/'>
+                    <NavLink className='footer__menu-link class-for-grid-block1' to='/'>
                         {footerNav[0].image}
                         <span>{footerNav[0].title}</span>
                     </NavLink>
-                    <Link to='' className='footer__menu-link' onClick={e => handleZlineClick(e)}>
+                    <Link to='' className='footer__menu-link class-for-grid-block2' onClick={e => handleZlineClick(e)}>
                         {footerNav[5].image}
                         <span>{footerNav[5].title}</span>
                     </Link>
                     {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} />}
                     {!isAuthenticated &&
                         <>
-                            <NavLink className='footer__menu-link' to={footerNav[6].to}>
+                            <NavLink className='footer__menu-link class-for-grid-block6' to={footerNav[6].to}>
                                 {footerNav[6].image}
                                 <span>{footerNav[6].title}</span>
                             </NavLink>
-                            <NavLink className='footer__menu-link' to={footerNav[7].to}>
+                            <NavLink className='footer__menu-link class-for-grid-block5' to={footerNav[7].to}>
                                 {footerNav[7].image}
                                 <span>{footerNav[7].title}</span>
                             </NavLink>
@@ -129,7 +129,7 @@ const FooterMenu = ({
                     }
 
                     {
-                        <div className={(checkUrlAlias() === null) ? 'more_btn-hide' : ''}>
+                        <div className={(checkUrlAlias() === null) ? 'more_btn-hide' : 'class-for-grid4'}>
 
                             {isFederationAlias(checkUrlAlias() || alias)
                                 ?
