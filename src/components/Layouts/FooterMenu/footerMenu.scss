@@ -11,6 +11,39 @@
   z-index:98;
   padding: 10px 15px 5px 15px;
   box-shadow: 0px -2px 2px -1px rgba(34, 60, 80, 0.2);
+  @media (max-width: 1080px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "block1 block2 . . . . . . block3 block4";
+    & .class-for-grid-block1 {
+      grid-area: block1;
+    }
+    & .class-for-grid-block2 {
+      grid-area: block2;
+    }
+    & .class-for-grid-block3 {
+      grid-area: block3;
+    }
+    & .class-for-grid4 {
+      grid-area: block4;
+      & .user-nav__button {
+        padding: 0;
+      }
+    }
+    & .class-for-grid-block5 {
+      grid-area: block4;
+    }
+    & .class-for-grid-block6 {
+      grid-area: block3;
+    }
+  }
+  @media (max-width: 600px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
   button {
     border: none;
     padding: 25px 10px;

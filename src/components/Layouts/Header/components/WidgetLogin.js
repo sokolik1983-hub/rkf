@@ -72,7 +72,7 @@ const WidgetLogin = forwardRef(
 
         return (
             <div
-                className={`widget-login  ${login_page ? `active` : !isAuthenticated ? `__noAuth` : ''}`}
+                className={`widget-login class-for-grid-block3 ${login_page ? `active` : !isAuthenticated ? `__noAuth` : ''}`}
                 style={{ padding: 0}}
                 onClick={() => setOpen(!open)}
             >
