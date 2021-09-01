@@ -91,7 +91,7 @@ const CardSpecialist = ({
                             <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
                         </>
                         }
-                        <span className="card-specialist__sertificate">Номер сертификата<span> {cert_number}</span></span>
+                        <span className="card-specialist__sertificate">Лист судьи <span>{cert_number}</span></span>
                     </div>
 
                     {isMobile700 && <div className="card-specialist__contacts">
@@ -153,8 +153,14 @@ const CardSpecialist = ({
                         {isJudge && <div className="card-specialists__grid-item">
                             <div className="card-specialist__disciplines is_groups">
                                 <div className={!moreData ? "card-specialist__disciplines-inner card-specialists__grid-item __hide" : ""} style={{ flexDirection: 'column' }}>
+                                   {ranks &&
+                                       <div className="card-specialist__rank-wrap">
+                                            <span className="card-specialist__rank-title">Ранг </span>
+                                            <span className="card-specialist__content-data">{ranks}</span>
+                                       </div>
+                                    }
                                     {opened_group_and_breed && <>
-                                        <div className="card-specialist__content-title" >Группа, номер стандарта, название породы</div>
+                                        <div className="card-specialist__content-title title-style" >Группа, номер стандарта, название породы</div>
                                         <div style={{ flexDirection: 'row' }}>
                                             <span className="card-specialist__discipline">
                                                 {opened_group_and_breed}
@@ -173,7 +179,7 @@ const CardSpecialist = ({
                                         )
                                     })}
                                     {additionalContests && !!additionalContests.length && <>
-                                        {moreData && <div className="card-specialist__content-title" style={{ marginTop: '10px' }}>Выставочные конкурсы</div>}
+                                        {moreData && <div className="card-specialist__content-title title-style">Выставочные конкурсы</div>}
                                         {additionalContests.map((item, index) => {
                                             return <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item"} key={index}>
                                                 <div style={{ flexDirection: 'row' }}>
@@ -186,24 +192,11 @@ const CardSpecialist = ({
                                     </>}
                                 </div>
                             </div>
-
-                            <div className={!moreData ? "card-specialist__ranks card-specialists__grid-item __hide" : "custom-css-flex-width"}>
-                                <div className="card-specialist__rank">
-                                    {ranks &&
-                                    <>
-                                        <h3 className="card-specialist__rank-title" >Ранг</h3>
-                                        <span className="card-specialist__content-data">{ranks}</span>
-                                    </>
-                                    }
-
-                                </div>
-                            </div>
                         </div>}
 
                         {disciplines.map((item, index) => {
                             return (
                                 <React.Fragment key={index}>
-
                                     {!isSpecialist && <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
                                         <div className="card-specialist__disciplines">
                                             <div className="card-specialist__disciplines-inner" style={{ flexDirection: 'column' }}>
