@@ -2,6 +2,10 @@
   padding: 10px !important;
   margin-bottom: 16px;
   position: relative;
+  & .title-style {
+    margin-top: 15px;
+    line-height: 20px;
+  }
   &-inner {
     display: flex;
     flex-wrap: wrap;
@@ -107,7 +111,6 @@
     &-title {
       font-weight: 600;
       color: #72839c;
-      margin-bottom: 7px;
     }
   }
   &__ranks {
@@ -172,7 +175,7 @@
     font-size: 16px;
     font-weight: 600;
     color: #72839c;
-    margin-top: 10px;
+    margin-top: 3px;
     span {
       font-weight: normal;
     }
@@ -216,6 +219,10 @@
       font-weight: 600;
       color: #72839C;
       font-size: 17px;
+      line-height: 28px;
+      @media (max-width: 600px) {
+        line-height: 20px;
+      }
     }
     @media (max-width: 990px) {
       margin-top: 0;
@@ -248,11 +255,13 @@
     display: block;
     font-weight: normal;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 27px;
     letter-spacing: 0.2px;
     color: #90999e;
-    padding-bottom: 10px;
     white-space: pre-wrap;
+    @media (max-width: 600px) {
+      line-height: 20px;
+    }
     &._email {
       @media (min-width: 990px) {
         max-width: 210px;
@@ -404,10 +413,10 @@
 .card-specialists__grid {
   width: 100%;
   margin-top: 10px;
-  .card-specialist__content-title {
-    margin: 10px 0;
-    min-height: 50px;
-  }
+  //.card-specialist__content-title {
+  //  margin: 10px 0;
+  //  min-height: 50px;
+  //}
 }
 .custom-css-flex-width {
   flex: 40% 1;
