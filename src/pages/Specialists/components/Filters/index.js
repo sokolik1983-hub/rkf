@@ -11,13 +11,15 @@ import ContestsFilter from "../../../../components/Filters/ContestsFilter";
 import ClassificationsFilter from "../../../../components/Filters/ClassificationsFilter";
 import SpecializationsFilter from "../../../../components/Filters/SpecializationsFilter";
 import DisciplinesFilter from "../../../../components/Filters/DisciplinesFilter";
+import AllBbreedsFilter from "../../../../components/Filters/AllBbreedsFilter";
 import {buildFiltersUrl, setFiltersToUrl} from "../../utils";
 import {setOverflow} from "../../../../utils";
 import {Request} from "../../../../utils/request";
+
 import "./index.scss";
 
 
-const Filters = ({isOpenFilters, filtersValue}) => {
+const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
     const [loading, setLoading] = useState(true);
     const [isFirstTimeFiltersRequest, setIsFirstTimeFiltersRequest] = useState({
         1: true,
@@ -25,6 +27,7 @@ const Filters = ({isOpenFilters, filtersValue}) => {
         3: true,
         4: true
     });
+    
     const [filters, setFilters] = useState({
         regions: [],
         cities: [],
@@ -91,6 +94,13 @@ const Filters = ({isOpenFilters, filtersValue}) => {
                                         onChange={filter => setFiltersToUrl({RankId: filter})}
                                     />
                                 }
+
+                                <AllBbreedsFilter
+                                    allBreeder={allBreeder}
+                                    setAllBreeder={setAllBreeder}
+                                    onChange={() => setAllBreeder(prevState => !prevState)}
+                                />
+
                                 <BreedGroupsFilter
                                     breedGroups={filters.breed_groups}
                                     breedGroupIds={filtersValue.BreedGroupIds}
