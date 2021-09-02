@@ -36,11 +36,11 @@ const CardSpecialist = ({
     const [additionalPhones, setAdditionalPhones] = useState(null);
     const [additionalEmails, setAdditionalEmails] = useState(null);
     const [moreData, setMoreData] = useState(false);
-
+    const [isAllBreeder, setIsAllBreeder] = useState(false);
+    console.log("isAllBreeder ", isAllBreeder)
     const isMobile700 = useIsMobile(700);
     const isSpecialist = searchTypeId === 3;
     const isJudge = searchTypeId === 4;
-
     const onShowMoreClick = () => {
         (() => Request({
             url: isJudge
@@ -53,6 +53,8 @@ const CardSpecialist = ({
             setAdditionalContests(data.contests);
             setAdditionalGroups(data.opened_groups_and_breeds);
             setMoreData(!moreData)
+            setIsAllBreeder(data.is_all_breeder)
+            console.log("data.is_all_breeder", data.is_all_breeder)
         }, error => {
             console.log(error.response);
         }))();
@@ -151,6 +153,9 @@ const CardSpecialist = ({
                     <div className="card-specialists__grid">
 
                         {isJudge && <div className="card-specialists__grid-item">
+
+
+
                             <div className="card-specialist__disciplines is_groups">
                                 <div className={!moreData ? "card-specialist__disciplines-inner card-specialists__grid-item __hide" : ""} style={{ flexDirection: 'column' }}>
                                    {ranks &&
@@ -159,6 +164,8 @@ const CardSpecialist = ({
                                             <span className="card-specialist__content-data">{ranks}</span>
                                        </div>
                                     }
+
+
                                     {opened_group_and_breed && <>
                                         <div className="card-specialist__content-title title-style" >Группа, номер стандарта, название породы</div>
                                         <div style={{ flexDirection: 'row' }}>
@@ -180,7 +187,8 @@ const CardSpecialist = ({
                                     })}
                                     {additionalContests && !!additionalContests.length && <>
                                         {moreData && <div className="card-specialist__content-title title-style">Выставочные конкурсы</div>}
-                                        {additionalContests.map((item, index) => {
+                                        {
+                                            additionalContests.map((item, index) => {
                                             return <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item"} key={index}>
                                                 <div style={{ flexDirection: 'row' }}>
                                                     <span className="card-specialist__discipline">
@@ -188,10 +196,17 @@ const CardSpecialist = ({
                                                     </span>
                                                 </div>
                                             </div>
-                                        })}
+                                        }
+
+                                        )}
                                     </>}
                                 </div>
                             </div>
+
+
+
+
+
                         </div>}
 
                         {disciplines.map((item, index) => {

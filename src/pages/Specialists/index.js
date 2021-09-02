@@ -98,7 +98,7 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
 
     const getNextSpecialists = () => {
         if (hasMore) {
-            (() => getSpecialists(buildUrl({ ...filters }), startElement + 50))();
+            (() => getSpecialists(buildUrl({ ...filters }), startElement + 50, allBreeder))();
             setStartElement(startElement + 50);
         }
     };
