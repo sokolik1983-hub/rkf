@@ -7,7 +7,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { Request } from "utils/request";
 import NotificationCategories from "./NotificationCategories";
 import NotificationItem from "./NotificationItem";
-import { NotificationsContext } from 'app/context';
+import { NotificationsContext } from "app/context";
 import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
 import PopupModal from "../../../../PopupModal";
