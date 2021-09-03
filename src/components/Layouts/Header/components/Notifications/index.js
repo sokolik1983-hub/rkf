@@ -10,7 +10,6 @@ import NotificationItem from "./NotificationItem";
 import { NotificationsContext } from 'app/context';
 import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
-import ZlineModal from "../../../../ZlineModal";
 import PopupModal from "../../../../PopupModal";
 
 import "./styles.scss";
@@ -49,8 +48,7 @@ const Notifications = forwardRef(
         const user_type = ls.get('user_info')?.user_type;
         const [showPopupModal, setShowPopupModal] = useState(false);
 
-        const handleZlineClick = (e) => {
-            e.preventDefault();
+        const handlePopupClick = () => {
             setShowPopupModal(true);
         };
         useEffect(() => {
@@ -128,7 +126,7 @@ const Notifications = forwardRef(
         }
 
         return (
-            <div className="Notifications" onClick={e => handleZlineClick(e)}>
+            <div className="Notifications" onClick={handlePopupClick}>
                 {isAuthenticated
                 && <>
                     <div className="Notifications__icon-wrap">
