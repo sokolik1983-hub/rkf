@@ -1,0 +1,15 @@
+.Modal-popup {
+  position: fixed;
+  display: block;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 1000;
+
+  &--hidden {
+    display: none;
+  }
+}
+
