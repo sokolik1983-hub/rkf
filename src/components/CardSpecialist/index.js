@@ -37,10 +37,10 @@ const CardSpecialist = ({
     const [additionalEmails, setAdditionalEmails] = useState(null);
     const [moreData, setMoreData] = useState(false);
     const [isAllBreeder, setIsAllBreeder] = useState(false);
-    console.log("isAllBreeder ", isAllBreeder)
     const isMobile700 = useIsMobile(700);
     const isSpecialist = searchTypeId === 3;
     const isJudge = searchTypeId === 4;
+    
     const onShowMoreClick = () => {
         (() => Request({
             url: isJudge
@@ -54,7 +54,6 @@ const CardSpecialist = ({
             setAdditionalGroups(data.opened_groups_and_breeds);
             setMoreData(!moreData)
             setIsAllBreeder(data.is_all_breeder)
-            console.log("data.is_all_breeder", data.is_all_breeder)
         }, error => {
             console.log(error.response);
         }))();
@@ -166,11 +165,11 @@ const CardSpecialist = ({
                                     }
 
 
-                                    {opened_group_and_breed && <>
+                                    { <>
                                         <div className="card-specialist__content-title title-style" >Группа, номер стандарта, название породы</div>
                                         <div style={{ flexDirection: 'row' }}>
                                             <span className="card-specialist__discipline">
-                                                {opened_group_and_breed}
+                                                {isAllBreeder ? 'ВСЕ ПОРОДЫ / ALL BREEDS' : opened_group_and_breed}
                                             </span>
                                         </div>
                                     </>}
@@ -179,7 +178,7 @@ const CardSpecialist = ({
                                             <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
                                                 <div style={{ flexDirection: 'row' }}>
                                                     <span className="card-specialist__discipline">
-                                                        {item}
+                                                        {!isAllBreeder && item}
                                                     </span>
                                                 </div>
                                             </div>
