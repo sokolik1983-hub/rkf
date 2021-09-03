@@ -47,11 +47,11 @@ const Notifications = forwardRef(
         const { notification } = useContext(NotificationsContext);
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
-        const [showZlineModal, setShowZlineModal] = useState(false);
+        const [showPopupModal, setShowPopupModal] = useState(false);
 
         const handleZlineClick = (e) => {
             e.preventDefault();
-            setShowZlineModal(true);
+            setShowPopupModal(true);
         };
         useEffect(() => {
             if (isAuthenticated) {
@@ -144,10 +144,9 @@ const Notifications = forwardRef(
                         unmountOnExit
                         onExited={() => { setNotifications([]); setCurrentCategory(2); }}
                     >
-                        <PopupModal showModal={showZlineModal}
-                                    otherPopup={true}
+                        <PopupModal showModal={showPopupModal}
                                     handleClose={() => {
-                                        setShowZlineModal(false);
+                                        setShowPopupModal(false);
                                     }}
                         >
                             <div className="Notifications__content">
