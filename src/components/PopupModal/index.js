@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import OutsideClickHandler from "react-outside-click-handler";
-import Container from "../Layouts/Container";
+import OutsideClickHandler from 'react-outside-click-handler';
+import Container from '../Layouts/Container';
 import './styles.scss';
 
 const PopupModal = ({ showModal, handleClose, children }) => {
