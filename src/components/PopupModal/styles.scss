@@ -9,7 +9,9 @@
   height: 100vh;
   width: 100%;
   z-index: 1000;
-
+  &.otherPopup {
+    display: block;
+  }
   &--hidden {
     display: none;
   }
@@ -37,7 +39,7 @@
 
   &>div {
     height: 100vh;
-    min-width: 400px;
+    min-width: 320px;
   }
 
   &__body {

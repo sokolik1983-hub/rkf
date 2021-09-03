@@ -10,6 +10,7 @@ import NotificationItem from "./NotificationItem";
 import { NotificationsContext } from 'app/context';
 import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
+import ZlineModal from "../../../../ZlineModal";
 import PopupModal from "../../../../PopupModal";
 
 import "./styles.scss";
@@ -46,8 +47,12 @@ const Notifications = forwardRef(
         const { notification } = useContext(NotificationsContext);
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
-        const [showPopupModal, setShowPopupModal] = useState(false);
+        const [showZlineModal, setShowZlineModal] = useState(false);
 
+        const handleZlineClick = (e) => {
+            e.preventDefault();
+            setShowZlineModal(true);
+        };
         useEffect(() => {
             if (isAuthenticated) {
                 getNotifications(currentCategory);
@@ -121,20 +126,17 @@ const Notifications = forwardRef(
                 setOpen(false);
             }
         }
-        const handlePopupClick = (e) => {
-            e.preventDefault();
-            setShowPopupModal(true);
-        };
+
         return (
-            <div className="Notifications">
+            <div className="Notifications" onClick={e => handleZlineClick(e)}>
                 {isAuthenticated
                 && <>
-                        <div className="Notifications__icon-wrap">
-                            <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={ e =>(handleNotificationsClick, handlePopupClick(e))}>
-                                 Уведомления
-                            </div>
-                            {showDot && <div className="Notifications__icon-dot" />}
+                    <div className="Notifications__icon-wrap">
+                        <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick}>
+                            Уведомления
                         </div>
+                        {showDot && <div className="Notifications__icon-dot" />}
+                    </div>
                     <CSSTransition
                         in={open}
                         timeout={350}
@@ -142,7 +144,12 @@ const Notifications = forwardRef(
                         unmountOnExit
                         onExited={() => { setNotifications([]); setCurrentCategory(2); }}
                     >
-
+                        <PopupModal showModal={showZlineModal}
+                                    otherPopup={true}
+                                    handleClose={() => {
+                                        setShowZlineModal(false);
+                                    }}
+                        >
                             <div className="Notifications__content">
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
                                     <div className="Notifications__title">
@@ -191,18 +198,15 @@ const Notifications = forwardRef(
                                     </div>
                                 </OutsideClickHandler>
                             </div>
-                        <PopupModal showModal={showModal}
-                                    handleClose={() => {
-                                        setShowPopupModal(false);
-                                    }}
-                        >
-                            <div>1111111111111111111111111111111111111111111111111111111111</div>
                         </PopupModal>
+
+
 
                     </CSSTransition>
                 </>
                 }
             </div>
+
         )
     }
 )
