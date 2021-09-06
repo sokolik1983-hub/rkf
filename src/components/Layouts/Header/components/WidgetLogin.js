@@ -1,7 +1,6 @@
 import React, { forwardRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
-import OutsideClickHandler from "react-outside-click-handler";
 import ls from "local-storage";
 import Modal from "../../../Modal";
 import LoginAsUser from "./LoginAsUser";
