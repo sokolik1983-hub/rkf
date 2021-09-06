@@ -78,7 +78,7 @@ const WidgetLogin = forwardRef(
                 {isAuthenticated
                     ?
                             <>
-                                <div className={`widget-login__wrap ${open ? `_login_open ` : !isAuthenticated ? `__noAuth` : ''}`}>
+                                <div className={`widget-login__wrap ${open ? `_login_open ` : ''}`}>
                                     {isMobile1080
                                         ? <div className={`widget-login__user-icon`}>
                                             {footerNav?.image}
