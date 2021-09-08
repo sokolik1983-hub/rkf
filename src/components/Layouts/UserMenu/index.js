@@ -10,9 +10,6 @@ import "./index.scss";
 const UserMenu = ({userNav, notificationsLength, isExhibitionPage, test, setOpenUserMenu, openUserMenu}) => {
     const [alert, setAlert] = useState(false);
     const isMobile = useIsMobile(1080);
-
-    console.log(test,'test')
-    console.log('component',openUserMenu)
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);

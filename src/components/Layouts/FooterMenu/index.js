@@ -99,7 +99,6 @@ const FooterMenu = ({
     };
     const hideWidgetLoginPopup = () => {
         setOpen(false);
-        console.log('footer-menu', openUserMenu)
     }
 
     const handleZlineClick = (e) => {
