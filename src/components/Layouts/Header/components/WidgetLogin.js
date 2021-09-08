@@ -9,6 +9,7 @@ import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connec
 import history from "../../../../utils/history";
 import { Request } from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
+import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import PopupModal from "../../../PopupModal";
 
 const WidgetLogin = forwardRef(
@@ -79,7 +80,7 @@ const WidgetLogin = forwardRef(
                 onClick={() => setOpen(!open)}
             >
                 {isAuthenticated
-                    ?
+                    ? <OutsideClickHandler ref={ref} onOutsideClick={() => setShowModal(false)}>
                             <>
                                 <div className={`widget-login__wrap ${open ? `_login_open ` : ''}`}>
                                     {isMobile1080
@@ -194,7 +195,6 @@ const WidgetLogin = forwardRef(
                                                         }
                                                     </ul>
                                                 </div>
-
                                             </PopupModal>
                                             :
                                             <div className="widget-login__content">
@@ -288,6 +288,7 @@ const WidgetLogin = forwardRef(
 
                                 </CSSTransition>
                             </>
+                        </OutsideClickHandler>
                     : <AuthButtons />
                 }
                 <Modal className="widget-login__modal"

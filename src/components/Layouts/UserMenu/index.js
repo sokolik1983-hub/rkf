@@ -1,5 +1,4 @@
 import React, {memo, useState} from "react";
-import OutsideClickHandler from "react-outside-click-handler";
 import {CSSTransition} from "react-transition-group";
 import {NavLink} from "react-router-dom";
 import Alert from "../../Alert";
