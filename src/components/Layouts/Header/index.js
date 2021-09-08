@@ -24,6 +24,7 @@ const Header = ({
     const isMobile = useIsMobile(1080);
     const { pathname } = useLocation();
     const [openWidgets, setOpenWidgets] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const needChangeIsOpen = (valueIsOpen) => {
         if (valueIsOpen) {
@@ -119,7 +120,7 @@ const Header = ({
                                 }
                                 </span>
                         </div>
-                        : <WidgetLogin login_page={login_page} />}
+                        : <WidgetLogin login_page={login_page} setOpen={setOpen} open={open} />}
                 </div>
 
 

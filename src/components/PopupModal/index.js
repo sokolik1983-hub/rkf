@@ -4,12 +4,12 @@ import OutsideClickHandler from "react-outside-click-handler";
 import Container from "../Layouts/Container";
 import "./styles.scss";
 
-const PopupModal = ({ showModal, handleClose, children }) => {
+const PopupModal = ({ showModal, handleClose, children, bottomStyle }) => {
     return (
         ReactDOM.createPortal(
-            <div className={(showModal ? "Modal-popup" : "Modal-popup--hidden")}>
+            <div className={(showModal ? "Modal-popup" : "Modal-popup--hidden") + " " + (bottomStyle ? "bottomStyle" : "") }>
                 <OutsideClickHandler onOutsideClick={handleClose}>
-                            <Container className="header__content">
+                            <Container className="popup__content">
                                 {children}
                             </Container>
                 </OutsideClickHandler>

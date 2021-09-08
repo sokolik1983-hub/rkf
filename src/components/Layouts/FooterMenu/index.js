@@ -31,6 +31,8 @@ const FooterMenu = ({
     const { pathname } = useLocation();
     const [canEdit, setCanEdit] = useState(false);
     const [showZlineModal, setShowZlineModal] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [openUserMenu, setOpenUserMenu] = useState(false);
     const [fedInfo, setFedInfo] = useState(null);
 
     const isExhibitionPage = match.path === pathname;
@@ -95,10 +97,15 @@ const FooterMenu = ({
         setShowFilters({ isOpenFilters: false });
         setIsOpen(false);
     };
+    const hideWidgetLoginPopup = () => {
+        setOpen(false);
+        console.log('footer-menu', openUserMenu)
+    }
 
     const handleZlineClick = (e) => {
         e.preventDefault();
         setShowZlineModal(true);
+        hideWidgetLoginPopup();
     };
     return (
         <>
@@ -106,15 +113,15 @@ const FooterMenu = ({
                 <div className='footer__menu'
                     onClick={hideSideMenu}
                 >
-                    <NavLink className='footer__menu-link class-for-grid-block1' to='/'>
+                    <NavLink onClick={hideWidgetLoginPopup} className='footer__menu-link class-for-grid-block1' to='/'>
                         {footerNav[0].image}
                         <span>{footerNav[0].title}</span>
                     </NavLink>
-                    <Link to='' className='footer__menu-link class-for-grid-block2' onClick={e => handleZlineClick(e)}>
+                    <Link to='' className='footer__menu-link class-for-grid-block2' onClick={e => (handleZlineClick(e))}>
                         {footerNav[5].image}
                         <span>{footerNav[5].title}</span>
                     </Link>
-                    {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} />}
+                    {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} setOpen={setOpen} open={open}/>}
                     {!isAuthenticated &&
                         <>
                             <NavLink className='footer__menu-link class-for-grid-block6' to={footerNav[6].to}>
@@ -129,8 +136,7 @@ const FooterMenu = ({
                     }
 
                     {
-                        <div className={(checkUrlAlias() === null) ? 'more_btn-hide' : 'class-for-grid4'}>
-
+                        <div onClick={hideWidgetLoginPopup} className={(checkUrlAlias() === null) ? 'more_btn-hide' : 'class-for-grid4'}>
                             {isFederationAlias(checkUrlAlias() || alias)
                                 ?
                                 <MenuComponent
@@ -140,18 +146,30 @@ const FooterMenu = ({
                                     isFederation={true}
                                 />
                                 :
-                                isKennel ? <UserMenu userNav={canEdit
+                                isKennel ? <UserMenu
+                                        test={'1111'}
+                                        setOpenUserMenu={setOpenUserMenu}
+                                        openUserMenu={openUserMenu}
+                                        userNav={canEdit
                                     ? kennelNav(checkUrlAlias() || alias) // Show NewsFeed menu item to current user only
                                     : kennelNav(checkUrlAlias() || alias).filter(i => i.id !== 2)}
                                     notificationsLength={notificationsLength}
                                 /> :
                                     isUser ?
-                                        <UserMenu userNav={canEdit
+                                        <UserMenu
+                                            test={'2222'}
+                                            setOpenUserMenu={setOpenUserMenu}
+                                            openUserMenu={openUserMenu}
+                                            userNav={canEdit
                                             ? userNav(checkUrlAlias() || alias) // Show NewsFeed menu item to current user only
                                             : userNav(checkUrlAlias() || alias).filter(i => i.id !== 2)}
                                             notificationsLength={notificationsLength}
                                         />
-                                        : <UserMenu userNav={canEdit
+                                        : <UserMenu
+                                            test={'3333'}
+                                            setOpenUserMenu={setOpenUserMenu}
+                                            openUserMenu={openUserMenu}
+                                            userNav={canEdit
                                             ? clubNav(checkUrlAlias() || alias) // Show NewsFeed menu item to current user only
                                             : clubNav(checkUrlAlias() || alias).filter(i => i.id !== 2)}
                                             notificationsLength={notificationsLength}
