@@ -9,7 +9,7 @@ import useIsMobile from '../../../../utils/useIsMobile';
 import MenuLink from './MenuLink';
 import ZlineModal from "../../../../components/ZlineModal";
 
-const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen }) => {
+const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen, setOpen }) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
 
     const isMobile = useIsMobile(1080);
@@ -175,6 +175,9 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
             <ZlineModal showModal={showZlineModal}
                 handleClose={() => {
                     setShowZlineModal(false);
+                    if(!isMobile) {
+                        setOpen(false)
+                    }
                 }}
             >
                 <iframe src={'https://zline.me/widgets/registration-for-service?id=33'} title="unique_iframe" />

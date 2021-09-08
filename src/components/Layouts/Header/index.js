@@ -35,6 +35,7 @@ const Header = ({
     const hideSideMenu = () => {
         setShowFilters({ isOpenFilters: false });
         setIsOpen(false);
+        setOpen(false)
     };
 
     const strokeColor = isOpenFilters ? '#3366FF' : '#90999E';
@@ -59,7 +60,7 @@ const Header = ({
                 <Search hideSideMenu={hideSideMenu} withFilters={withFilters} />
 
                 {!isMobile
-                && <Nav isAuthenticated={isAuthenticated} />
+                && <Nav isAuthenticated={isAuthenticated} setOpen={setOpen} />
                 }
                 <div className='header__widgets'>
                     {isAuthenticated &&

@@ -80,7 +80,7 @@ const WidgetLogin = forwardRef(
                 onClick={() => setOpen(!open)}
             >
                 {isAuthenticated
-                    ? <OutsideClickHandler ref={ref} onOutsideClick={() => setShowModal(false)}>
+                    ? <OutsideClickHandler onOutsideClick={() => setShowModal(false)}>
                             <>
                                 <div className={`widget-login__wrap ${open ? `_login_open ` : ''}`}>
                                     {isMobile1080
