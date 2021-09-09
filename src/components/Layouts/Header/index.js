@@ -24,6 +24,7 @@ const Header = ({
     const isMobile = useIsMobile(1080);
     const { pathname } = useLocation();
     const [openWidgets, setOpenWidgets] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const needChangeIsOpen = (valueIsOpen) => {
         if (valueIsOpen) {
@@ -34,6 +35,7 @@ const Header = ({
     const hideSideMenu = () => {
         setShowFilters({ isOpenFilters: false });
         setIsOpen(false);
+        setOpen(false)
     };
 
     const strokeColor = isOpenFilters ? '#3366FF' : '#90999E';
@@ -58,7 +60,7 @@ const Header = ({
                 <Search hideSideMenu={hideSideMenu} withFilters={withFilters} />
 
                 {!isMobile
-                && <Nav isAuthenticated={isAuthenticated} />
+                && <Nav isAuthenticated={isAuthenticated} setOpen={setOpen} />
                 }
                 <div className='header__widgets'>
                     {isAuthenticated &&
@@ -119,7 +121,7 @@ const Header = ({
                                 }
                                 </span>
                         </div>
-                        : <WidgetLogin login_page={login_page} />}
+                        : <WidgetLogin login_page={login_page} setOpen={setOpen} open={open} />}
                 </div>
 
 

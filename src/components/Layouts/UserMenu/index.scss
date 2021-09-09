@@ -47,9 +47,9 @@
     list-style: none;
     text-align: start;
     @media (max-width: 1080px) {
-      position: fixed;
+      position: absolute;
       right: 19px;
-      bottom: 65px;
+      bottom: 1px;
       z-index: 2;
       width: 240px;
       padding: 10px;

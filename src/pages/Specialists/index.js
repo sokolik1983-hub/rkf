@@ -30,6 +30,7 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [allBreeder, setAllBreeder] = useState(false);
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -42,11 +43,11 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
         return () => unListen();
     }, []);
 
-    const getSpecialists = async (url, startElem) => {
+    const getSpecialists = async (url, startElem, allBreeder = '') => {
         setSpecialistsLoading(true);
 
         await Request({
-            url: `${url}&StartElement=${startElem}&ElementCount=50`
+            url: `${url}&StartElement=${startElem}&ElementCount=50&IsAllBreeder=${allBreeder}`
         }, data => {
             const itemsArray = data.specialists || data.exterior_judges;
             if (itemsArray?.length) {
@@ -97,30 +98,36 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
 
     const getNextSpecialists = () => {
         if (hasMore) {
-            (() => getSpecialists(buildUrl({ ...filters }), startElement + 50))();
+            (() => getSpecialists(buildUrl({ ...filters }), startElement + 50, allBreeder))();
             setStartElement(startElement + 50);
         }
     };
+
+
 
     useEffect(() => {
         if (url) {
             setListLoading(true);
             setStartElement(1);
-            (() => getSpecialists(url, 1))();
+            (() => getSpecialists(url, 1, allBreeder))();
         }
-    }, [url]);
+    }, [url, allBreeder]);
 
     return loading ?
         <Loading /> :
         <Layout withFilters>
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
             <div className="specialists-page__wrap redesign">
+
                 <Container className="specialists-page content">
                     <Filters
+                        allBreeder={allBreeder}
+                        setAllBreeder={setAllBreeder}
                         isOpenFilters={isOpenFilters}
                         filtersValue={filters}
                     />
                     <div className="specialists-page__content">
+
                         <ListFilter searchTypeId={filters.SearchTypeId}/>
                         {/*<SearchFilter StringFilter={filters.StringFilter} searchTypeId={parseInt(filters.SearchTypeId)} />*/}
                         {listLoading ?
