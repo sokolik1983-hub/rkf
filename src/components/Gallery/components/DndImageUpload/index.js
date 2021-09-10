@@ -40,13 +40,19 @@ const DndImageUpload = ({ callback, album_id }) => {
 
 
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop: acceptedFiles => {
+    const { getRootProps, getInputProps, isDragActive} = useDropzone({
+        accept: '.jpg, .jpeg',
+        onDrop: (acceptedFiles, rejectedFiles) => {
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
+            if(rejectedFiles.length > 0) {
+                alert('Тип файла не поддерживается')
+            }
         }
     });
+
+
     const style = useMemo(() => ({
         ...baseStyle,
         ...(isDragActive ? activeStyle : {})
