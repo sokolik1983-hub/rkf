@@ -35,17 +35,18 @@ const DndImageUpload = ({ callback, album_id }) => {
     const [loading, setLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
+
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
+
+
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        accept: '.jpg, .jpeg',
         onDrop: acceptedFiles => {
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
         }
     });
-
     const style = useMemo(() => ({
         ...baseStyle,
         ...(isDragActive ? activeStyle : {})

@@ -11,7 +11,7 @@ const AllBbreedsFilter = ({ setAllBreeder, allBreeder}) => {
         <Card className="breed-groups-filter">
             <div className="breeds-filter-input-wrap">
             <div className="breed-groups-filter__head" onClick={() => setIsOpen(!isOpen)}>
-                <h5 className="breed-groups-filter__title">ВСЕ ПОРОДЫ / ALL BREEDS</h5>
+                <h5 className="breed-groups-filter__title">Дополнительные</h5>
                 <span className={`breed-groups-filter__chevron${isOpen ? ' _dropdown_open' : ''}`}/>
             </div>
             <CSSTransition
