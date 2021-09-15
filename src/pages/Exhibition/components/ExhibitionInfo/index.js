@@ -104,7 +104,7 @@ const ExhibitionInfo = ({
                 </div>
                 <div className="exhibition-page__description">
                     <h4 className="exhibition-page__description-title">Комментарий</h4>
-                    {comments && <p style={{whiteSpace:'pre'}}>{comments}</p>}
+                    {comments && <p>{comments}</p>}
                 </div>
             </Card>
             <Card className="exhibition-info">
