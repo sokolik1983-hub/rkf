@@ -215,40 +215,54 @@ const WidgetLogin = forwardRef(
                                                     }
                                                 </div>
 
-                                                <div className="widget-login__button-wrap">
-                                                    {is_active_profile &&
-                                                    <>
-                                                        {userType === 1 &&
-                                                        <Link className="widget-login__button" to={`/user/${alias}/edit`} >Редактировать профиль</Link>
-                                                        }
-                                                        {(userType === 3 || userType === 5) &&
-                                                        <Link className="widget-login__button" to="/client" >Редактировать профиль</Link>
-                                                        }
-                                                        {userType === 4 &&
-                                                        <Link className="widget-login__button" to={`/kennel/${alias}/edit`} >Редактировать профиль</Link>
-                                                        }
-                                                    </>
-                                                    }
-                                                </div>
+                                                {/*<div className="widget-login__button-wrap">*/}
+                                                {/*    {is_active_profile &&*/}
+                                                {/*    <>*/}
+                                                {/*        {userType === 1 &&*/}
+                                                {/*        <Link className="widget-login__button" to={`/user/${alias}/edit`} >Редактировать профиль</Link>*/}
+                                                {/*        }*/}
+                                                {/*        {(userType === 3 || userType === 5) &&*/}
+                                                {/*        <Link className="widget-login__button" to="/client" >Редактировать профиль</Link>*/}
+                                                {/*        }*/}
+                                                {/*        {userType === 4 &&*/}
+                                                {/*        <Link className="widget-login__button" to={`/kennel/${alias}/edit`} >Редактировать профиль</Link>*/}
+                                                {/*        }*/}
+                                                {/*    </>*/}
+                                                {/*    }*/}
+                                                {/*</div>*/}
 
                                                 <ul className="widget-login__list">
                                                     {is_active_profile &&
                                                     <>
                                                         {userType === 1 &&
-
-                                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                            <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
-                                                        </li>
+                                                        <>
+                                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                <Link to={`/user/${alias}/edit`}>Редактировать профиль</Link>
+                                                            </li>
+                                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
+                                                            </li>
+                                                        </>
                                                         }
                                                         {(userType === 3 || userType === 5) &&
-                                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                            <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
-                                                        </li>
+                                                        <>
+                                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                <Link to="/client">Редактировать профиль</Link>
+                                                            </li>
+                                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
+                                                            </li>
+                                                        </>
                                                         }
                                                         {userType === 4 &&
-                                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                            <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
-                                                        </li>
+                                                        <>
+                                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                <Link to={`/kennel/${alias}/edit`}>Редактировать профиль</Link>
+                                                            </li>
+                                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
+                                                            </li>
+                                                        </>
                                                         }
                                                         {accountType === 5 && userType === 5 &&
                                                         <li className="widget-login__item" onClick={() => setOpen(false)}>

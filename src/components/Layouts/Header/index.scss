@@ -149,9 +149,9 @@
       text-align: center;
       z-index: 100;
       cursor: pointer;
+      position: relative;
       @media (max-width: 1080px) {
         margin-right: auto;
-        position: relative;
         top: 1.5px;
       }
       &._open {
@@ -1128,6 +1128,9 @@
   }
 }
 
+span.position-relative {
+  position: relative;
+}
 .padding-for-header-title svg {
   position: relative;
   top: 5px;

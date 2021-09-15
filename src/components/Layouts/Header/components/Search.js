@@ -54,7 +54,7 @@ const Search = ({ withFilters, hideSideMenu }) => {
                             <path d='M12.3023 12.3024L19 19.0001' stroke={strokeColor} strokeWidth='1.32'
                                   strokeMiterlimit='10' strokeLinejoin='round' />
                         </svg>
-                        {!isMobile && <span>Поиск</span>}
+                        {!isMobile && <span className="position-relative">Поиск</span>}
                     </button>
                     {isMobile &&
                     <span onClick={handleChecked}
