@@ -147,7 +147,9 @@
       background: url("/static/icons/icon-requisites.svg") no-repeat center / contain,
         url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
     }
-
+    &._requisites, &._fees {
+      cursor: pointer;
+    }
     &._requisites:hover:before {
       background: url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
     }
