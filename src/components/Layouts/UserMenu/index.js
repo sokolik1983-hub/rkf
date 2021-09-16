@@ -7,7 +7,7 @@ import PopupModal from "../../PopupModal";
 import "./index.scss";
 
 
-const UserMenu = ({userNav, notificationsLength, isExhibitionPage, test, setOpenUserMenu, openUserMenu}) => {
+const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
     const [alert, setAlert] = useState(false);
     const isMobile = useIsMobile(1080);
     const clickOnDisabledLink = e => {
