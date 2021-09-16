@@ -9,6 +9,7 @@ import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import PopupModal from "../PopupModal";
+import DocsInFrame from "../DocsInFrame";
 
 import "./index.scss";
 
@@ -219,10 +220,13 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
     const [openMenuComponent, setOpenMenuComponent] = useState(false);
+    const [openDoc, setOpenDoc] = useState(false);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
     const isMobile = useIsMobile(1080);
     const showDetails = isFederation && alias !== 'rkf' && alias !== 'oankoo';
+    const [doc, setDoc] = useState(null)
+
 
     useEffect(() => {
         if (showDetails) {
@@ -367,8 +371,19 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
         el.innerText = blankName;
     };
 
+    const showDoc = (id) => {
+        setOpenDoc(true);
+        setDoc(id);
+    }
+
     return (
         <>
+            <PopupModal
+                showModal={openDoc}
+                handleClose={() => setOpenDoc(false)}
+            >
+                <DocsInFrame fedDetails={doc}></DocsInFrame>
+            </PopupModal>
             {isMobile ?
                 <OutsideClickHandler onOutsideClick={() => setOpenMenuComponent(false)}>
                     {isMobile &&
@@ -420,33 +435,22 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                 </li>
                                 {showDetails &&
                                 <>
-                                    {fedFeesId && <li className="user-menu__item">
-                                        <NavLink
-                                            exact
-                                            to={`/details-viewer/${fedFeesId}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="user-menu__link _fees"
-                                            title="Размеры членских взносов"
-                                        >
+                                    {fedFeesId && <li className="user-menu__item" onClick={() => showDoc(fedFeesId)}>
+                                        <span className="menu-component__link _fees">
                                             Размеры членских взносов
-                                        </NavLink>
+                                        </span>
                                     </li>}
                                     {/* <li className="user-menu__item">
                                         <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
                                             Бланки
                                     </Link>
                                     </li> */}
-                                    {fedDetails && <li className="user-menu__item">
-                                        <NavLink
-                                            exact
-                                            to={`/details-viewer/${fedDetails}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="user-menu__link _requisites"
-                                            title="Реквизиты">
-                                            Реквизиты
-                                        </NavLink>
+                                    {fedDetails &&
+                                    <li className="user-menu__item" onClick={() => showDoc(fedDetails)}>
+                            <span className="menu-component__link _requisites">
+                                Реквизиты
+                            </span>
+
                                     </li>}
                                 </>
                                 }
@@ -523,17 +527,10 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                 </li>
                 {showDetails &&
                     <>
-                        {fedFeesId && <li className="menu-component__item">
-                            <NavLink
-                                exact
-                                to={`/details-viewer/${fedFeesId}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="menu-component__link _fees"
-                                title="Размеры членских взносов"
-                            >
+                        {fedFeesId && <li className="menu-component__item" onClick={() => showDoc(fedFeesId)}>
+                            <span className="menu-component__link _fees">
                                 Размеры членских взносов
-                        </NavLink>
+                                </span>
                         </li>}
                         {/* <li className="menu-component__item">
                             <Link
@@ -545,17 +542,11 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                 Бланки
                         </Link>
                         </li> */}
-                        {fedDetails && <li className="menu-component__item">
-                            <NavLink
-                                exact
-                                to={`/details-viewer/${fedDetails}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="menu-component__link _requisites"
-                                title="Реквизиты"
-                            >
+                        {fedDetails && <li className="menu-component__item" onClick={() => showDoc(fedDetails)}>
+                            <span class="menu-component__link _requisites">
                                 Реквизиты
-                        </NavLink>
+                            </span>
+
                         </li>}
                     </>
                 }

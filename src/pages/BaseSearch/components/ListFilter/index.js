@@ -21,7 +21,7 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => 
                     <h4 className="list-filter__title">Сервисы</h4>
                 <div className="slider" ref={wrap}>
                                 <HorizontalSwipe  id="search-page__list-filter1" className="list-filter slider-wrap" desktopScroll={true}>
-                                        <div  className="list-filter__item">
+                                        <div  className="list-filter__item _active">
                                             <LinkScroll
                                                 to='global-search-anchor'
                                                 spy={false}
@@ -35,7 +35,7 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => 
                                                     setCardClicked(8);
                                                 }}
                                             >
-                                                <span className="list-filter__control _active">Глобальный поиск</span>
+                                                <span className="list-filter__control">Глобальный поиск</span>
                                             </LinkScroll>
                                         </div>
                                         <div className="list-filter__item">
