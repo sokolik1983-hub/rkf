@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 import "./styles.scss";
 
@@ -61,14 +61,18 @@ const Counter = ({ counters, profileAlias }) => {
                 }
                 {
                     (!!counters.exhibitions_count || counters.exhibitions_count === 0) &&
-                    <div className="counter_component__block">
-                        <div className="counter_component__count">
-                            <p>{counters.exhibitions_count}</p>
+                    <NavLink exact to={`/exhibitions?Alias=${profileAlias}`} title="Мероприятия">
+                        <div className="counter_component__block">
+
+                            <div className="counter_component__count">
+                                <p>{counters.exhibitions_count}</p>
+                            </div>
+                            <div className="counter_component__name">
+                                мероприятий
+                            </div>
                         </div>
-                        <div className="counter_component__name">
-                            мероприятий
-                        </div>
-                    </div>
+                    </NavLink>
+
                 }
             </div>
         </div>
