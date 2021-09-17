@@ -251,7 +251,6 @@ const WidgetLogin = forwardRef(
                                                 {/*    </>*/}
                                                 {/*    }*/}
                                                 {/*</div>*/}
-
                                                 <ul className="widget-login__list">
                                                     {is_active_profile &&
                                                     <>

@@ -1,7 +1,6 @@
 .menu-component {
   padding: 10px !important;
   margin-bottom: 24px;
-
   &__modal {
     .Modal__inner {
       margin: 0 auto;
@@ -553,5 +552,24 @@
       transform: translateY(-10px);
       transition: opacity 0.2s, transform 0.2s;
     }
+  }
+}
+.docsinframe__inner {
+  @media (max-width: 1080px) {
+    width: 63%;
+    margin: 0 auto;
+  }
+  @media (max-width: 780px) {
+    width: 85%;
+  }
+  @media (max-width: 600px) {
+    width: 95%;
+  }
+  & .close-btn {
+    display: flex;
+    justify-content: end;
+    margin-right: -20px;
+    padding-top: 10px;
+    cursor: pointer;
   }
 }
