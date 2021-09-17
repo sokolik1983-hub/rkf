@@ -29,7 +29,7 @@ const DocsInFrame = ({...fedDetails}) => {
     return loading ?
         <Loading/> :
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.5.207/build/pdf.worker.min.js">
-            <div style={{height: "100vh"}} className="details-viewer container">
+            <div className="details-viewer container">
                 <Viewer fileUrl={link}/>
             </div>
         </Worker>

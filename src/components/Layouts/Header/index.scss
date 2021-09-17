@@ -946,7 +946,9 @@
       transform: scale(0.9);
     }
   }
-
+  & a.widget-login__item-link {
+      color: #3366FF;
+    }
   .login-link__icon,
   .registration-link__icon {
     vertical-align: middle;
