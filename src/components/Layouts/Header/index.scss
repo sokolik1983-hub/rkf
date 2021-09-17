@@ -705,6 +705,25 @@
     margin-top: 5px;
     height: 50px;
   }
+  &__inner {
+    & .close-btn {
+      padding-right: 5px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: -20px;
+    }
+    @media (max-width: 1080px) {
+      position: absolute;
+      bottom: 1px;
+      right: 100px;
+      top: auto;
+    }
+    @media (max-width: 600px) {
+      right: 50%;
+      transform: translateX(50%);
+      width: calc(100% - 32px);
+    }
+  }
   &.__noAuth {
     @media (max-width: 1080px) {
       width: 50%;
@@ -777,14 +796,7 @@
     overflow: hidden;
     width: 476px;
     @media (max-width: 1080px) {
-      bottom: 1px;
-      right: 100px;
-      top: auto;
-    }
-    @media (max-width: 600px) {
-      right: 50%;
-      transform: translateX(50%);
-      width: calc(100% - 32px);
+      position: static;
     }
   }
   &__userpic {

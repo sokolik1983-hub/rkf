@@ -29,12 +29,10 @@ const DocsInFrame = ({...fedDetails}) => {
     return loading ?
         <Loading/> :
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.5.207/build/pdf.worker.min.js">
-            <div className="details-viewer container">
+            <div style={{height: "100vh"}} className="details-viewer container">
                 <Viewer fileUrl={link}/>
             </div>
         </Worker>
-
-
 };
 
 export default React.memo(DocsInFrame);

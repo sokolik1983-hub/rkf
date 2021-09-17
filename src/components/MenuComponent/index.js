@@ -407,64 +407,71 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             handleClose={() => setOpenMenuComponent(false)}
                             bottomStyle
                         >
-                            <ul className="user-menu__list">
+                            <div className="user-menu__inner">
+                                <div className="close-btn">
+                                    <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
+                                    </svg>
+                                </div>
+                                <ul className="user-menu__list">
 
-                                {user !== 'nursery' &&
-                                <li className="user-menu__item">
-                                    <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
+                                    {user !== 'nursery' &&
+                                    <li className="user-menu__item">
+                                        <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
 
-                                </li>
-                                }
-                                {presidium[alias] &&
-                                <li className="user-menu__item">
-                                    <NavLink exact to="/" onClick={getPresidium} className="user-menu__link _presidium" title="Президиум">Президиум</NavLink>
+                                    </li>
+                                    }
+                                    {presidium[alias] &&
+                                    <li className="user-menu__item">
+                                        <NavLink exact to="/" onClick={getPresidium} className="user-menu__link _presidium" title="Президиум">Президиум</NavLink>
 
-                                </li>
-                                }
-                                <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link _public" title="Публикации">Публикации</NavLink>
-                                </li>
-                                <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
-                                </li>
-                                <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link _gallery" title="Фотогалерея">Фотогалерея</NavLink>
-                                </li>
-                                <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link _video" title="Фотогалерея">Видеозаписи</NavLink>
-                                </li>
-                                {showDetails &&
-                                <>
-                                    {fedFeesId && <li className="user-menu__item" onClick={() => showDoc(fedFeesId)}>
+                                    </li>
+                                    }
+                                    <li className="user-menu__item">
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link _public" title="Публикации">Публикации</NavLink>
+                                    </li>
+                                    <li className="user-menu__item">
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
+                                    </li>
+                                    <li className="user-menu__item">
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link _gallery" title="Фотогалерея">Фотогалерея</NavLink>
+                                    </li>
+                                    <li className="user-menu__item">
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link _video" title="Фотогалерея">Видеозаписи</NavLink>
+                                    </li>
+                                    {showDetails &&
+                                    <>
+                                        {fedFeesId && <li className="user-menu__item" onClick={() => showDoc(fedFeesId)}>
                                         <span className="menu-component__link _fees">
                                             Размеры членских взносов
                                         </span>
-                                    </li>}
-                                    {/* <li className="user-menu__item">
+                                        </li>}
+                                        {/* <li className="user-menu__item">
                                         <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
                                             Бланки
                                     </Link>
                                     </li> */}
-                                    {fedDetails &&
-                                    <li className="user-menu__item" onClick={() => showDoc(fedDetails)}>
+                                        {fedDetails &&
+                                        <li className="user-menu__item" onClick={() => showDoc(fedDetails)}>
                             <span className="menu-component__link _requisites">
                                 Реквизиты
                             </span>
 
-                                    </li>}
-                                </>
-                                }
-                                {isFederation &&
-                                <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link _documents" title="Статус документов">Статус документов</NavLink>
-                                </li>
-                                }
-                                <li className="user-menu__item">
-                                    <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link _club" title={name}>
-                                        {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
-                                    </NavLink>
-                                </li>
-                            </ul>
+                                        </li>}
+                                    </>
+                                    }
+                                    {isFederation &&
+                                    <li className="user-menu__item">
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link _documents" title="Статус документов">Статус документов</NavLink>
+                                    </li>
+                                    }
+                                    <li className="user-menu__item">
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link _club" title={name}>
+                                            {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </div>
                         </PopupModal>
 
                     </CSSTransition>

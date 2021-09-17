@@ -331,23 +331,31 @@
       display: none;
     }
   }
-
+  &__inner {
+    @media (max-width: 1080px) {
+      position: absolute;
+      right: 16px;
+      bottom: 1px;
+      width: calc(100% - 32px);
+      max-width: 476px;
+    }
+    & .close-btn {
+      padding-right: 5px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: -20px;
+    }
+  }
   &__list {
     list-style: none;
     @media (max-width: 1080px) {
-      position: absolute;
-      right: 22px;
-      bottom: 1px;
+      padding: 2px 0;
       z-index: 2;
-      width: 250px;
       background-color: #fff;
       box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
       border-radius: 6px;
     }
     @media (max-width: 1080px) {
-      width: calc(100% - 32px);
-      max-width: 476px;
-      right: 16px;
       &:before {
         margin: 10px 10px 12px;
         display: block;
