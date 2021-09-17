@@ -33,8 +33,6 @@ const DocsInFrame = ({...fedDetails}) => {
                 <Viewer fileUrl={link}/>
             </div>
         </Worker>
-
-
 };
 
 export default React.memo(DocsInFrame);

@@ -9,9 +9,9 @@ const PopupModal = ({ showModal, handleClose, children, bottomStyle }) => {
         ReactDOM.createPortal(
             <div className={(showModal ? "Modal-popup" : "Modal-popup--hidden") + " " + (bottomStyle ? "bottomStyle" : "") }>
                 <OutsideClickHandler onOutsideClick={handleClose}>
-                            <Container className="popup__content">
-                                {children}
-                            </Container>
+                    <Container className="popup__content">
+                        {children}
+                    </Container>
                 </OutsideClickHandler>
             </div>, document.body
         )

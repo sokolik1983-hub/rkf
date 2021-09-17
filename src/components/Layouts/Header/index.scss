@@ -705,6 +705,30 @@
     margin-top: 5px;
     height: 50px;
   }
+  &__inner {
+    & .close-btn {
+      padding-right: 5px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: -20px;
+      z-index: 99;
+    }
+    @media (max-width: 1080px) {
+      position: absolute;
+      bottom: 1px;
+      right: 100px;
+      top: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+    }
+    @media (max-width: 600px) {
+
+      right: auto;
+      width: calc(100% - 32px);
+    }
+  }
   &.__noAuth {
     @media (max-width: 1080px) {
       width: 50%;
@@ -777,14 +801,10 @@
     overflow: hidden;
     width: 476px;
     @media (max-width: 1080px) {
-      bottom: 1px;
-      right: 100px;
-      top: auto;
+      position: static;
     }
     @media (max-width: 600px) {
-      right: 50%;
-      transform: translateX(50%);
-      width: calc(100% - 32px);
+      width:100%;
     }
   }
   &__userpic {
@@ -926,7 +946,9 @@
       transform: scale(0.9);
     }
   }
-
+  & a.widget-login__item-link {
+      color: #3366FF;
+    }
   .login-link__icon,
   .registration-link__icon {
     vertical-align: middle;

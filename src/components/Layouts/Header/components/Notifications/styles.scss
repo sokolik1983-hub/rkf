@@ -7,6 +7,23 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
     @media (min-width: 560px) {
         position: relative;
     }
+    &__inner {
+        & .close-btn {
+            @media (max-width: 1080px) {
+                display: flex;
+                justify-content: end;
+                z-index: 99;
+                margin-right: -7px;
+                padding-top: 5px;
+                svg {
+                    z-index: 3;
+                }
+            }
+            @media (max-width: 600px) {
+                margin-right: 0px;
+            }
+        }
+    }
     &__icon {
         display: flex;
         flex-direction: column;
