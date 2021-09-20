@@ -146,7 +146,7 @@ const Notifications = forwardRef(
                     >
                         {isMobile
                         ?
-                            <PopupModal showModal={showPopupModal}
+                            <PopupModal showModal={open}
                                         handleClose={() => {
                                             setShowPopupModal(false);
                                         }}
