@@ -42,7 +42,6 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
         e.preventDefault();
         setShowZlineModal(true);
     };
-
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
