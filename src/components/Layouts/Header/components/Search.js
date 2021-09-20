@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import history from '../../../../utils/history';
-import useIsMobile from '../../../../utils/useIsMobile';
 
 const Search = ({ withFilters, hideSideMenu }) => {
     const [searchValue, setSearchValue] = useState('');
