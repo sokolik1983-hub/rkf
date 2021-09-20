@@ -40,7 +40,7 @@ const CardSpecialist = ({
     const isMobile700 = useIsMobile(700);
     const isSpecialist = searchTypeId === 3;
     const isJudge = searchTypeId === 4;
-    
+
     const onShowMoreClick = () => {
         (() => Request({
             url: isJudge
@@ -92,7 +92,7 @@ const CardSpecialist = ({
                             <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
                         </>
                         }
-                        <span className="card-specialist__sertificate">Лист судьи <span>{cert_number}</span></span>
+                        {/*<span className="card-specialist__sertificate">Лист судьи №<span>{cert_number}</span></span>*/}
                     </div>
 
                     {isMobile700 && <div className="card-specialist__contacts">
@@ -144,6 +144,8 @@ const CardSpecialist = ({
                                     )
                                 })
                                 }
+
+                                <span className="card-specialist__sertificate">Лист судьи №<span>{cert_number}</span></span>
                             </div>
                         </div>
                         }
