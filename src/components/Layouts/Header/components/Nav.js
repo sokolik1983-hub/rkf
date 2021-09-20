@@ -8,6 +8,7 @@ import { connectAuthVisible } from '../../../../pages/Login/connectors';
 import useIsMobile from '../../../../utils/useIsMobile';
 import MenuLink from './MenuLink';
 import ZlineModal from "../../../../components/ZlineModal";
+import {blockContent} from "../../../../utils/blockContent";
 
 const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen, setOpen }) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
@@ -42,6 +43,9 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
         e.preventDefault();
         setShowZlineModal(true);
     };
+    useEffect(() => {
+        blockContent(showZlineModal);
+    });
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
