@@ -11,7 +11,8 @@ import { NotificationsContext } from "app/context";
 import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
 import PopupModal from "../../../../PopupModal";
-import useIsMobile from "../../../../../utils/useIsMobile"
+import useIsMobile from "../../../../../utils/useIsMobile";
+import {blockContent} from "../../../../../utils/blockContent";
 
 import "./styles.scss";
 
@@ -49,7 +50,6 @@ const Notifications = forwardRef(
         const user_type = ls.get('user_info')?.user_type;
         const [showPopupModal, setShowPopupModal] = useState(false);
         const isMobile = useIsMobile(1080);
-
 
         const handlePopupClick = () => {
             setShowPopupModal(true);
@@ -127,6 +127,8 @@ const Notifications = forwardRef(
                 setOpen(false);
             }
         }
+
+        blockContent(open);
 
         return (
             <div className="Notifications" onClick={handlePopupClick}>
