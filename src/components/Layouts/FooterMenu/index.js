@@ -16,6 +16,7 @@ import UserMenu from '../UserMenu';
 import ZlineModal from '../../ZlineModal';
 
 import './footerMenu.scss';
+import {blockContent} from "../../../utils/blockContent";
 
 const FooterMenu = ({
     match,
@@ -106,6 +107,9 @@ const FooterMenu = ({
         setShowZlineModal(true);
         hideWidgetLoginPopup();
     };
+    useEffect(() => {
+        blockContent(showZlineModal);
+    });
     return (
         <>
             {isMobile1080 &&
