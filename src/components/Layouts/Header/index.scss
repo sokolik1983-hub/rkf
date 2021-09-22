@@ -47,12 +47,7 @@
     width: 0px;
     min-width: 0px;
     margin-right: 24px;
-    div {
-      display: flex;
-      align-items: center;
-    }
     &-control {
-      width: 0px;
       border-radius: 6px;
       background-color: transparent;
       font-weight: normal;
@@ -66,26 +61,23 @@
       display: flex;
       position: absolute;
       top: 56px;
-      left: 0;
+      left: 60px;
       border: 1px solid transparent;
+      width: calc(100% - 70px);
       &._open {
         background-color: #fff;
         border: 1px solid #ebf0f2;
         padding: 6px 5px 6px 5px;
-        width: 100%;
         transition: all 0.2s linear;
         box-shadow: 0 2px 10px rgba(51, 102, 255, 0.05), 0 4px 30px rgba(51, 102, 255, 0.1);
         @media (max-width: 1080px) {
-          border-radius: 0;
           transform: translateY(1px);
           z-index: 1;
         }
       }
       @media (max-width: 1080px) {
-        width: 100%;
         position: absolute;
         display: block;
-        left: 0;
         transform: translateY(-200px);
       }
       @media (max-width: 560px) {
@@ -107,11 +99,9 @@
     }
     &-submit {
       position: absolute;
-      width: 20px;
-      height: 20px;
-      top: 8.5px;
-      left: 85px;
       z-index: 100;
+      top: -17px;
+      left: 5px;
       svg {
         position: relative;
         top: 1px;
@@ -124,29 +114,16 @@
       &.__hide {
           display: block;
       }
-      @media (max-width: 1225px) {
-        left: 100px;
-      }
-      @media (max-width: 1080px) {
-        left: 80px;
-
-      }
-      @media (max-width: 560px) {
-        left: 70px;
-      }
     }
     &-btn {
-      padding-top: 32px;
-      font-size: 12px;
+      font-size: 13px;
+      line-height: 13px;
       color: #979797;
       text-align: center;
       z-index: 100;
       cursor: pointer;
-      position: relative;
-      @media (max-width: 1080px) {
-        margin-right: auto;
-        top: 1.5px;
-      }
+      position: absolute;
+      bottom: -23px;
       &._open {
         color: #3366FF;
       }
@@ -1064,7 +1041,6 @@
     cursor: not-allowed;
     svg {
       opacity: 0.5;
-      stroke: #979797;
       &:hover {
         fill: #90999e;
       }
@@ -1164,3 +1140,6 @@ span.position-relative {
   }
 }
 
+.search-icon__wrap {
+  position: relative;
+}
