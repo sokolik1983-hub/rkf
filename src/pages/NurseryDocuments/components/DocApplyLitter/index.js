@@ -192,7 +192,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
 
     return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
 
-         {/*{noChangeAlert && console.log('noChangeAlert') &&
+         {/*{noChangeAlert &&
              <Alert
                  {...(sendAlertEmptyProps)}
                  autoclose={2.5}
@@ -200,7 +200,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
                  onOk={() => setRedirect(`/kennel/${nurseryAlias}/documents`)}
              />
          }
-        {okAlert && console.log('okAlert') &&
+        {okAlert &&
             <Alert
                 {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
                 // title="Заявка отправлена на рассмотрение"
@@ -210,7 +210,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
             />
         }*/}
         {redirect && <Redirect to={redirect} />}
-        {errAlert && console.log('errAlert') &&
+        {errAlert &&
             <Alert
                 title="Ошибка отправки"
                 text={getErrorText(errAlert)}
