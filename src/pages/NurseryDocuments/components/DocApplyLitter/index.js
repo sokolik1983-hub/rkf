@@ -185,9 +185,14 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
 
     const comment = initial.rejected_comment && initial.rejected_comment.comment;
 
+    const showAlert = () => {
+        window.alert("Заявка отправлена на рассмотрение");
+        setRedirect(`/kennel/${nurseryAlias}/documents`);
+    }
+
     return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
 
-         {noChangeAlert &&
+         {/*{noChangeAlert && console.log('noChangeAlert') &&
              <Alert
                  {...(sendAlertEmptyProps)}
                  autoclose={2.5}
@@ -195,16 +200,17 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
                  onOk={() => setRedirect(`/kennel/${nurseryAlias}/documents`)}
              />
          }
-        {okAlert &&
+        {okAlert && console.log('okAlert') &&
             <Alert
                 {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
-                autoclose={2.5}
+                // title="Заявка отправлена на рассмотрение"
+                autoclose="false"
                 okButton="true"
                 onOk={() => setRedirect(`/kennel/${nurseryAlias}/documents`)}
             />
-        }
+        }*/}
         {redirect && <Redirect to={redirect} />}
-        {errAlert &&
+        {errAlert && console.log('errAlert') &&
             <Alert
                 title="Ошибка отправки"
                 text={getErrorText(errAlert)}
@@ -214,7 +220,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         }
         <div className="documents-page__right">
             <Form
-                onSuccess={e =>  e ? setOkAlert(false) : setNoChangeAlert(true)}
+                onSuccess={showAlert}
                 onError={e => console.log(e) || setErrAlert(true)}
                 action={apiEndpoint}
                 method={update || draft ? "PUT" : "POST"}
