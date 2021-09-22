@@ -21,7 +21,6 @@ const Search = ({ withFilters, hideSideMenu }) => {
     };
     const handleChecked = () => {
         setIsClicked(!isClicked);
-        console.log('ya rabotau', !isClicked)
     };
     const strokeColor = isClicked ? '#3366FF' : '#90999E';
 
