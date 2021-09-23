@@ -8,12 +8,17 @@ import { getHeaders } from "../../../../utils/request";
 import LightTooltip from "components/LightTooltip";
 import moment from "moment";
 import "moment/locale/ru";
+import DocsInFrame from "../../../DocsInFrame";
+import PopupModal from "../../../PopupModal";
+
 import './styles.scss';
 
 moment.locale('ru');
 
 const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, unsortedCategory, setModal, documentsToUpdate, setDocumentsToUpdate, editable }) => {
     const [category, setCategory] = useState({});
+    const [openDoc, setOpenDoc] = useState(false);
+    const [doc, setDoc] = useState(null)
     const initialCategory = category_id ? { id: category_id, name: category_name } : unsortedCategory;
     const categoriesToShow = categories.filter(category => category.editable !== false);
 
@@ -60,21 +65,22 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
             });
     };
 
+    const showDoc = (id, e) => {
+        e.preventDefault();
+        setOpenDoc(true);
+        setDoc(id);
+    }
+
     return <div className="DocumentItem container p-0 mb-4">
         <div className="row d-flex align-items-center flex-row" >
             <div className="col-5">
-                <Link
-                    to={`/docs/${id}`}
-                    target="_blank"
-                    className="d-flex align-items-center"
-                    rel="noopener noreferrer"
-                >
+                <a href="#" className="d-flex align-items-center" onClick={(e) => showDoc(id, e)}>
                     <SvgIcon icon={filePdf} size="default" />
                     <div className="d-flex flex-column">{name}<span className="DocumentItem__date">
                         {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}
                     </span>
                     </div>
-                </Link>
+                </a>
             </div>
             <div className="col-1">
                 <Share url={`//${window.location.host}/docs/${id}`} />
@@ -109,6 +115,14 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
                 </button>
             </div>
         </div>
+        <PopupModal
+            showModal={openDoc}
+            handleClose={() => setOpenDoc(false)}
+        >
+            <div className="docsinframe__inner">
+                <DocsInFrame fedDetails={doc}></DocsInFrame>
+            </div>
+        </PopupModal>
     </div>;
 };
 
