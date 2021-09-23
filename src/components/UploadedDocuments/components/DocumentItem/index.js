@@ -3,7 +3,6 @@ import Share from "components/Share";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf, trash } from "@progress/kendo-svg-icons";
 import { DropDownList } from '@progress/kendo-react-dropdowns';
-import { Link } from "react-router-dom";
 import { getHeaders } from "../../../../utils/request";
 import LightTooltip from "components/LightTooltip";
 import moment from "moment";
@@ -11,7 +10,7 @@ import "moment/locale/ru";
 import DocsInFrame from "../../../DocsInFrame";
 import PopupModal from "../../../PopupModal";
 
-import './styles.scss';
+import "./styles.scss";
 
 moment.locale('ru');
 

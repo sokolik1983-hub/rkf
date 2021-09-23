@@ -1,12 +1,11 @@
 import React, {useState} from "react";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf } from "@progress/kendo-svg-icons";
-import { Link } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ru";
 import DocsInFrame from "../../../DocsInFrame";
 import PopupModal from "../../../PopupModal";
-import './styles.scss';
+import "./styles.scss";
 
 moment.locale('ru');
 
