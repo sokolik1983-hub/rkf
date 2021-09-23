@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useContext } from "react";
+import React, { forwardRef, useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
@@ -124,12 +124,17 @@ const Notifications = forwardRef(
             }
         }
 
+        const notificationsRef = useRef();
+
         return (
             <div className="Notifications">
                 {isAuthenticated
                 && <>
                     <div className="Notifications__icon-wrap">
-                        <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick}>
+                        <div className={`Notifications__icon ${open ? ` _active` : ``}`}
+                             onClick={handleNotificationsClick}
+                             ref={notificationsRef}
+                        >
                             Уведомления
                         </div>
                         {showDot && <div className="Notifications__icon-dot" />}
@@ -144,16 +149,16 @@ const Notifications = forwardRef(
                         {isMobile
                         ?
                             <PopupModal showModal={open}
-                                        handleClose={() => {
-                                           setOpen(false);
+                                        handleClose={(e) => {
+                                            !notificationsRef.current.contains(e.target) && setOpen(false)
                                         }}
                             >
                                 <div className="Notifications__inner">
-                                    <div className="close-btn">
+                                    {/*<div className="close-btn">
                                         <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
                                         </svg>
-                                    </div>
+                                    </div>*/}
                                     <div className="Notifications__content">
                                         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
                                             <div className="Notifications__title">

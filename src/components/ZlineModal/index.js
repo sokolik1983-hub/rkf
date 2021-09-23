@@ -10,7 +10,7 @@ const ZlineModal = ({ showModal, handleClose, handleX, children, noBackdrop = fa
             <div className={(showModal ? 'Modal-zline' : 'Modal-zline--hidden') + (noBackdrop ? ' no-backdrop' : '') + (className ? ' ' + className : '')}>
                 <OutsideClickHandler onOutsideClick={handleClose}>
                     <div className="Modal-zline__inner">
-                        <div className="Modal-zline__close" onClick={handleX ? handleX : handleClose} />
+                        {/*<div className="Modal-zline__close" onClick={handleX ? handleX : handleClose} />*/}
                         <div className={'Modal-zline__body' + (headerName ? '' : ' noheader')}>
                             {!!headerName && <h3 className="Modal-zline__header">{headerName}</h3>}
                             {children}
