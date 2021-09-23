@@ -61,9 +61,9 @@
       display: flex;
       position: absolute;
       top: 56px;
-      left: 60px;
+      left: 0;
       border: 1px solid transparent;
-      width: calc(100% - 70px);
+      width: 100%;
       &._open {
         background-color: #fff;
         border: 1px solid #ebf0f2;
@@ -1033,22 +1033,26 @@
 
 }
 .header__nav-item-hover {
+  &.__hover {
+    .header__nav-item-link svg path, .header__nav-item-title {
+      fill: #3366ff;
+      color: #3366ff;
+    }
+  }
   ._disabled {
     opacity: 0.5;
     background-color: transparent;
     color: #979797 !important;
     cursor: not-allowed;
+
     svg {
       opacity: 0.5;
       &:hover {
         fill: #90999e;
       }
     }
-  }
-  &.__hover {
-    .header__nav-item-link svg path, .header__nav-item-title {
-      fill: #3366ff;
-      color: #3366ff;
+    svg path {
+      fill: #90999e!important;
     }
   }
 }
