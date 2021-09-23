@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
