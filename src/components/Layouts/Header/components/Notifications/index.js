@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useContext } from "react";
+import React, { forwardRef, useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
@@ -124,12 +124,17 @@ const Notifications = forwardRef(
             }
         }
 
+        const notificationsRef = useRef();
+
         return (
             <div className="Notifications">
                 {isAuthenticated
                 && <>
                     <div className="Notifications__icon-wrap">
-                        <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick}>
+                        <div className={`Notifications__icon ${open ? ` _active` : ``}`}
+                             onClick={handleNotificationsClick}
+                             ref={notificationsRef}
+                        >
                             Уведомления
                         </div>
                         {showDot && <div className="Notifications__icon-dot" />}
@@ -144,8 +149,8 @@ const Notifications = forwardRef(
                         {isMobile
                         ?
                             <PopupModal showModal={open}
-                                        handleClose={() => {
-                                           open ? setOpen(true) : setOpen(false)
+                                        handleClose={(e) => {
+                                            !notificationsRef.current.contains(e.target) && setOpen(false)
                                         }}
                             >
                                 <div className="Notifications__inner">
