@@ -160,8 +160,8 @@ const emptyLitterDeclarant = {
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        save: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/${alias}/documents/litter/${id}/declarant/form`),
-        next: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/${alias}/documents/litter/${id}/table/form`)
+        save: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/club/${alias}/documents/litter/${id}/declarant/form`),
+        next: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/club/${alias}/documents/litter/${id}/table/form`)
     },
     options: {
         federations: {

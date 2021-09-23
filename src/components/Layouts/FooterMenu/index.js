@@ -35,6 +35,8 @@ const FooterMenu = ({
     const [openUserMenu, setOpenUserMenu] = useState(false);
     const [fedInfo, setFedInfo] = useState(null);
 
+    const [userType, setUserType] = useState('')
+
     const isExhibitionPage = match.path === pathname;
 
     const isKennel = pathname.search('kennel') === 1 || user_type === 4;
@@ -91,6 +93,22 @@ const FooterMenu = ({
         if (alias) {
             setCanEdit(isAuthenticated && is_active_profile && profile_id === id);
         }
+    }, []);
+        const getClub = () => {
+            return Request({
+                url: '/api/Club/public/' + alias
+            }, data => {
+                console.log(data)
+                setUserType(data);
+                // setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+            }, error =>console.log(error));
+    };
+
+
+
+
+    useEffect(() => {
+        getClub()
     }, []);
 
     const hideSideMenu = () => {

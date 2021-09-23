@@ -50,7 +50,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
             url: endpointGetNurseryInfo + alias
         }, data => {
             if (data.user_type !== 4) {
-                history.replace(`/${alias}`);
+                history.replace(`/club/${alias}`);
             } else {
                 const legal_address = data.legal_address ? getAddressString(data.legal_address) : '';
                 const address = data.fact_address ? getAddressString(data.fact_address) : legal_address;
