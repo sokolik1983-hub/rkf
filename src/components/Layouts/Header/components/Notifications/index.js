@@ -11,7 +11,7 @@ import { NotificationsContext } from "app/context";
 import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
 import PopupModal from "../../../../PopupModal";
-import useIsMobile from "../../../../../utils/useIsMobile"
+import useIsMobile from "../../../../../utils/useIsMobile";
 
 import "./styles.scss";
 
@@ -47,13 +47,9 @@ const Notifications = forwardRef(
         const { notification } = useContext(NotificationsContext);
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
-        const [showPopupModal, setShowPopupModal] = useState(false);
         const isMobile = useIsMobile(1080);
 
 
-        const handlePopupClick = () => {
-            setShowPopupModal(true);
-        };
         useEffect(() => {
             if (isAuthenticated) {
                 getNotifications(currentCategory);
@@ -129,7 +125,7 @@ const Notifications = forwardRef(
         }
 
         return (
-            <div className="Notifications" onClick={handlePopupClick}>
+            <div className="Notifications">
                 {isAuthenticated
                 && <>
                     <div className="Notifications__icon-wrap">
@@ -147,9 +143,9 @@ const Notifications = forwardRef(
                     >
                         {isMobile
                         ?
-                            <PopupModal showModal={showPopupModal}
+                            <PopupModal showModal={open}
                                         handleClose={() => {
-                                            setShowPopupModal(false);
+                                           setOpen(false);
                                         }}
                             >
                                 <div className="Notifications__inner">

@@ -14,9 +14,9 @@ import { kennelNav } from '../../../pages/Nursery/config';
 import { userNav } from "../UserLayout/config";
 import UserMenu from '../UserMenu';
 import ZlineModal from '../../ZlineModal';
+import {blockContent} from "../../../utils/blockContent";
 
 import './footerMenu.scss';
-
 const FooterMenu = ({
     match,
     is_active_profile,
@@ -124,6 +124,9 @@ const FooterMenu = ({
         setShowZlineModal(true);
         hideWidgetLoginPopup();
     };
+    useEffect(() => {
+        blockContent(showZlineModal);
+    });
     return (
         <>
             {isMobile1080 &&

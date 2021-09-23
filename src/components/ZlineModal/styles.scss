@@ -38,6 +38,15 @@
   &>div {
     height: 100vh;
     min-width: 400px;
+
+    @media (max-width: 420px) {
+      min-width: 300px;
+    }
+
+    @media (max-width: 360px) {
+      width: 300px;
+
+    }
   }
 
   &__body {
