@@ -144,8 +144,8 @@ const Notifications = forwardRef(
                         {isMobile
                         ?
                             <PopupModal showModal={open}
-                                        handleClose={() => {
-                                           setOpen(false);
+                                        handleClose={(e) => {
+                                            !notificationsRef.current.contains(e.target) && setOpen(false)
                                         }}
                             >
                                 <div className="Notifications__inner">
