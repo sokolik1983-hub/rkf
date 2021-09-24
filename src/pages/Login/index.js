@@ -18,9 +18,9 @@ const LoginPage = ({ isAuthenticated, is_active_profile, user_type }) => {
         if (!is_active_profile && user_type === 4) return <Redirect to={'/kennel/activation'} />
 
         if (is_active_profile && user_type === 3) {
-            return <Redirect to={`/${alias}`} />
+            return <Redirect to={`/club/${alias}`} />
         } else if (is_active_profile && user_type === 5) {
-            return <Redirect to={`/${alias}`} />
+            return <Redirect to={`/club/${alias}`} />
         } else if (is_active_profile && user_type === 4) {
             return <Redirect to={`/kennel/${alias}`} />
         } else if (user_type === 1) {

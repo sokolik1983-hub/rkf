@@ -212,7 +212,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         }
         <div className="documents-page__right">
             <Form
-                onSuccess={e =>  e ? setOkAlert(false) : setNoChangeAlert(true)}
+                onSuccess={e => console.log('onSuccess')}
                 onError={e => console.log(e) || setErrAlert(true)}
                 action={apiEndpoint}
                 method={update || draft ? "PUT" : "POST"}
