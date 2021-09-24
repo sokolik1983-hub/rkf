@@ -15,8 +15,11 @@ import { userNav } from "../UserLayout/config";
 import UserMenu from '../UserMenu';
 import ZlineModal from '../../ZlineModal';
 import {blockContent} from "../../../utils/blockContent";
+import buildUserRoute from '../../../utils/buildUserRoute';
 
 import './footerMenu.scss';
+
+
 const FooterMenu = ({
     match,
     is_active_profile,
@@ -93,23 +96,36 @@ const FooterMenu = ({
         if (alias) {
             setCanEdit(isAuthenticated && is_active_profile && profile_id === id);
         }
+console.log(checkUrlAlias())
+        //
+        // (() => Request({
+        //     url: `/api/alias/info/${checkUrlAlias()}`
+        // }, data => {
+        //    console.log("data", checkUrlAlias)
+        // }, error => {
+        //     console.log(error.response);
+        // }))();
+
+        console.log("кто", buildUserRoute())
     }, []);
-        const getClub = () => {
-            return Request({
-                url: '/api/Club/public/' + alias
-            }, data => {
-                console.log(data)
-                setUserType(data);
-                // setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-            }, error =>console.log(error));
-    };
 
 
-
-
-    useEffect(() => {
-        getClub()
-    }, []);
+    // const getClub = () => {
+    //     return Request({
+    //         url: '/api/Club/public/' + alias
+    //     }, data => {
+    //         console.log(data)
+    //         setUserType(data);
+    //         // setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+    //     }, error =>console.log(error));
+    // };
+    //
+    //
+    //
+    //
+    // useEffect(() => {
+    //     getClub()
+    // }, []);
 
     const hideSideMenu = () => {
         setShowFilters({ isOpenFilters: false });
@@ -124,9 +140,11 @@ const FooterMenu = ({
         setShowZlineModal(true);
         hideWidgetLoginPopup();
     };
+
     useEffect(() => {
         blockContent(showZlineModal);
-    });
+    }, []);
+
     return (
         <>
             {isMobile1080 &&
