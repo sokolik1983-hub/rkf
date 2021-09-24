@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../Card";
 import {formatText} from "../../utils";
+
 import "./index.scss";
 
 
