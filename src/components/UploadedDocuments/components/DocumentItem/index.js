@@ -7,8 +7,7 @@ import { getHeaders } from "../../../../utils/request";
 import LightTooltip from "components/LightTooltip";
 import moment from "moment";
 import "moment/locale/ru";
-import DocsInFrame from "../../../DocsInFrame";
-import PopupModal from "../../../PopupModal";
+import Modal from "../../../Modal";
 
 import "./styles.scss";
 
@@ -17,7 +16,7 @@ moment.locale('ru');
 const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, unsortedCategory, setModal, documentsToUpdate, setDocumentsToUpdate, editable }) => {
     const [category, setCategory] = useState({});
     const [openDoc, setOpenDoc] = useState(false);
-    const [doc, setDoc] = useState(null)
+    const [url, setUrl] = useState('');
     const initialCategory = category_id ? { id: category_id, name: category_name } : unsortedCategory;
     const categoriesToShow = categories.filter(category => category.editable !== false);
 
@@ -64,10 +63,20 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
             });
     };
 
+    const get = () => {
+        if (isNaN(id) || !id)
+            return;
+        setUrl('');
+        fetch(`/api/document/publicdocument?id=${id}`)
+            .then(res => res.blob())
+            .then(data => URL.createObjectURL(data))
+            .then(url => setUrl(url));
+    }
+
     const showDoc = (id, e) => {
         e.preventDefault();
         setOpenDoc(true);
-        setDoc(id);
+        get();
     }
 
     return <div className="DocumentItem container p-0 mb-4">
@@ -114,14 +123,12 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
                 </button>
             </div>
         </div>
-        <PopupModal
+        <Modal
             showModal={openDoc}
             handleClose={() => setOpenDoc(false)}
         >
-            <div className="docsinframe__inner">
-                <DocsInFrame fedDetails={doc}></DocsInFrame>
-            </div>
-        </PopupModal>
+                <embed src={url}/>
+        </Modal >
     </div>;
 };
 

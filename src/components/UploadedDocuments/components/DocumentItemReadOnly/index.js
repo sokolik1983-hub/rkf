@@ -3,19 +3,30 @@ import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf } from "@progress/kendo-svg-icons";
 import moment from "moment";
 import "moment/locale/ru";
-import DocsInFrame from "../../../DocsInFrame";
-import PopupModal from "../../../PopupModal";
+import Modal from "../../../Modal";
 import "./styles.scss";
 
 moment.locale('ru');
 
 const DocumentItemReadOnly = ({ id, name, date_create }) => {
     const [openDoc, setOpenDoc] = useState(false);
-    const [doc, setDoc] = useState(null)
+    const [url, setUrl] = useState('');
+
+    const get = () => {
+        if (isNaN(id) || !id)
+            return;
+        setUrl('');
+        fetch(`/api/document/publicdocument?id=${id}`)
+            .then(res => res.blob())
+            .then(data => URL.createObjectURL(data))
+            .then(url => setUrl(url));
+    }
+
+
     const showDoc = (id, e) => {
         e.preventDefault();
         setOpenDoc(true);
-        setDoc(id);
+        get();
     }
     return <div className="mb-3">
         <a href="#" className="d-flex align-items-center" onClick={(e) => showDoc(id, e)}>
@@ -26,14 +37,12 @@ const DocumentItemReadOnly = ({ id, name, date_create }) => {
                 </span>
             </div>
         </a>
-        <PopupModal
+        <Modal
             showModal={openDoc}
             handleClose={() => setOpenDoc(false)}
         >
-            <div className="docsinframe__inner">
-                <DocsInFrame fedDetails={doc}></DocsInFrame>
-            </div>
-        </PopupModal>
+            <embed src={url}/>
+        </Modal>
     </div>;
 };
 
