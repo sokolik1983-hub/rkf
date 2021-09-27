@@ -69,7 +69,7 @@ const NurseryEdit = ({ history }) => {
         return newValues;
     };
 
-    const handleSuccess = (data, { alias }) => {
+    const handleSuccess = (data, { alias, name }) => {
         setShowAlert({
             title: "Информация сохранена!",
             autoclose: 2,
@@ -78,6 +78,7 @@ const NurseryEdit = ({ history }) => {
         let updatedUserInfo = {
             ...ls.get('user_info'),
             alias,
+            name,
         };
         ls.set('user_info', updatedUserInfo);
         history.push(`/kennel/${alias}`);

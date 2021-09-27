@@ -146,6 +146,13 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         if (data.address && data.address.postcode) data.address.postcode = data.address.postcode.replaceAll('_', '');
         if (data.birth_date) data.birth_date = moment(data.birth_date).format("YYYY-MM-DD");
 
+        let updatedUserInfo = {
+            ...ls.get('user_info'),
+            first_name: data.first_name,
+            last_name: data.last_name,
+        };
+        ls.set('user_info', updatedUserInfo);
+
         await Request({
             url: sections[type].url,
             method: 'PUT',
