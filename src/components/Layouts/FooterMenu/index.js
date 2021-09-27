@@ -112,7 +112,7 @@ const FooterMenu = ({
     return (
         <>
             {isMobile1080 &&
-                <div className='footer__menu'
+                <div className={`footer__menu${!isAuthenticated ? ' unregistered-user' : ''}`}
                     onClick={hideSideMenu}
                 >
                     <NavLink onClick={hideWidgetLoginPopup} className='footer__menu-link class-for-grid-block1' to='/'>
