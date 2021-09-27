@@ -384,7 +384,7 @@ export const clubNav = alias => {
             id: 1,
             exact: true,
             title: 'Оформление документов',
-            to: `/${alias}/documents`,
+            to: `/club/${alias}/documents`,
             icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="m24.7 10.9v7.2h50.3v64.1h7.2v-71.3h-57.5z" />
                 <path d="M17.8,89.1h52.7V22.7H17.8V89.1z M29.2,36.4H59V41H29.2V36.4z M29.2,47.9H59v4.6H29.2V47.9z M29.2,59.3H59v4.6H29.2V59.3z M29.2,70.8H59v4.6H29.2V70.8z" />
@@ -394,7 +394,7 @@ export const clubNav = alias => {
             id: 2,
             exact: true,
             title: 'Организационная информация',
-            to: `/${alias}/documents/responsible`,
+            to: `/club/${alias}/documents/responsible`,
             icon: <svg viewBox="0 0 510 510" xmlns="http://www.w3.org/2000/svg">
                 <path d="m255 0c-140.25 0-255 114.75-255 255s114.75 255 255 255 255-114.75 255-255-114.75-255-255-255zm25.5 382.5h-51v-153h51v153zm0-204h-51v-51h51v51z" />
             </svg>
@@ -403,7 +403,7 @@ export const clubNav = alias => {
             id: 3,
             exact: true,
             title: 'Клейма',
-            to: `/${alias}/documents/stamps`,
+            to: `/club/${alias}/documents/stamps`,
             icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <rect x="8.11" y="16.76" width="10.25" height="66.49" />
                 <rect x="38.61" y="16.76" width="13.59" height="66.49" />
@@ -416,7 +416,7 @@ export const clubNav = alias => {
             id: 4,
             exact: true,
             title: 'Проведение выставок',
-            to: `/${alias}/documents/exhibitions`,
+            to: `/club/${alias}/documents/exhibitions`,
             icon: <svg viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11.6443 15.7118L12.6695 14.0479L14.5196 13.4174L14.7245 11.4744L16.1164 10.1042L15.4543 8.26456L16.1164 6.42552L14.7245 5.0553L14.5196 3.11176L12.6695 2.48124L11.6449 0.817348L9.70601 1.05146L8.05847 0L6.41093 1.05146L4.47206 0.817348L3.44687 2.48124L1.59675 3.11176L1.39183 5.0553L0 6.42494L0.662052 8.26456L0 10.1036L1.39183 11.4738L1.59675 13.4168L3.44687 14.0479L4.47206 15.7112L6.41093 15.4771L8.05847 16.528L9.70543 15.4771L11.6443 15.7118ZM2.39133 8.26456C2.39133 5.13937 4.93386 2.59742 8.05847 2.59742C11.1831 2.59742 13.7256 5.13995 13.7256 8.26456C13.7256 11.3892 11.1831 13.9317 8.05847 13.9317C4.93386 13.9317 2.39133 11.3892 2.39133 8.26456Z" />
                 <path d="M8.05853 3.91162C5.65845 3.91162 3.70557 5.8645 3.70557 8.26459C3.70557 10.6647 5.65845 12.617 8.05853 12.617C10.4586 12.617 12.4115 10.6641 12.4115 8.26459C12.4115 5.8645 10.4586 3.91162 8.05853 3.91162Z" />
@@ -462,7 +462,7 @@ export const clubNav = alias => {
             id: 8,
             exact: true,
             title: 'Запись на очный прием',
-            to: `/${alias}/documents/bookform`,
+            to: `/club/${alias}/documents/bookform`,
             icon: <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path d="M116.59.1,53.05,63.63h63.54Z" />
                 <path d="M383.84,0H146.59V93.64H53V436.8H383.84V0ZM322.06,289.84H114.74v-30H322.06Zm0-63.74H114.74v-30H322.06Zm0-63.73H114.74v-30H322.06Z" />
@@ -474,7 +474,7 @@ export const clubNav = alias => {
             id: 9,
             exact: true,
             title: 'Оценка Федерации',
-            to: `/${alias}/documents/review`,
+            to: `/club/${alias}/documents/review`,
             icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="m37.97 36.86c-2.01-2.01-4.74-3.15-7.58-3.14-5.92 0-10.73 4.8-10.73 10.72s4.8 10.73 10.72 10.73 10.73-4.8 10.73-10.72c0-2.85-1.13-5.57-3.14-7.59z" />
                 <path d="m30.96 58.67h-1.14c-12.03 0.03-21.77 9.77-21.8 21.8v1.54c0 0.85 0.69 1.53 1.53 1.53h41.68c0.85 0 1.53-0.69 1.53-1.53v-1.54c-0.04-12.02-9.77-21.76-21.8-21.8z" />
@@ -485,7 +485,7 @@ export const clubNav = alias => {
             id: 10,
             exact: true,
             title: `Страница ${isFederation ? `федерации` : `клуба`}`,
-            to: `/${alias}`,
+            to: `/club/${alias}`,
             icon: <svg viewBox="0 0 512 412" xmlns="http://www.w3.org/2000/svg">
                 <path transform="translate(0 -50)" d="M497,50H15A15,15,0,0,0,0,65v45H512V65A15,15,0,0,0,497,50Z" />
                 <path transform="translate(0 -50)" d="m0 140v307a15 15 0 0 0 15 15h482a15 15 0 0 0 15-15v-307zm116 58.5a20 20 0 1 1-20 20 20 20 0 0 1 20-20zm-20 90h160a15 15 0 0 1 0 30h-160a15 15 0 0 1 0-30zm320 115h-320a15 15 0 0 1 0-30h320a15 15 0 0 1 0 30zm-110-100a20 20 0 1 1 20 20 20 20 0 0 1-20-20zm70 0a20 20 0 1 1 20 20 20 20 0 0 1-20-20zm40-70h-230a15 15 0 0 1 0-30h230a15 15 0 0 1 0 30z" />

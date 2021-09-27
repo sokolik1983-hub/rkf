@@ -94,9 +94,9 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                     </div>
                     <hr />
                     <div className="Card__links">
-                        <Link to={`/${clubAlias}/documents/litter/form`}>Подать заявление</Link>
-                        <Link to={`/${clubAlias}/documents/litter/status`}> Проверить статус документа</Link>
-                        <Link to={`/${clubAlias}/documents/litter/requests`}> Реестр заявок</Link>
+                        <Link to={`/club/${clubAlias}/documents/litter/form`}>Подать заявление</Link>
+                        <Link to={`/club/${clubAlias}/documents/litter/status`}> Проверить статус документа</Link>
+                        <Link to={`/club/${clubAlias}/documents/litter/requests`}> Реестр заявок</Link>
                     </div>
                 </Card>
                 <Card className={pedigree ? `` : `_inactive`}>
@@ -116,9 +116,9 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                     </div>
                     <hr />
                     <div className="Card__links">
-                        <Link to={`/${clubAlias}/documents/pedigree/form`}>Подать заявление</Link>
-                        <Link to={`/${clubAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
-                        <Link to={`/${clubAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
+                        <Link to={`/club/${clubAlias}/documents/pedigree/form`}>Подать заявление</Link>
+                        <Link to={`/club/${clubAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
+                        <Link to={`/club/${clubAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
                     </div>
                 </Card>
                 <Card className={litter ? `` : `_inactive`}>
@@ -138,21 +138,21 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                     <hr />
                     <div className="Card__link-columns">
                         <div>
-                            <Link to={`/${clubAlias}/documents/replace-pedigree/2/form`} className={replacePedigreeOld ? `` : `link__inactive`} >По внутренней родословной старого образца</Link>
-                            <Link to={`/${clubAlias}/documents/replace-pedigree/1/form`} className={replacePedigreeExportOld ? `` : `link__inactive`}>По экспортной родословной старого образца</Link>
-                            <Link to={`/${clubAlias}/documents/replace-pedigree/4/form`} className={replacePedigreeChangeOwner ? `` : `link__inactive`}>По заявлению при смене владельца</Link>
-                            <Link to={`/${clubAlias}/documents/replace-pedigree/7/form`} className={replacePedigreeDeclarantError ? `` : `link__inactive`}>Замена родословной по ошибке заявителя</Link>
+                            <Link to={`/club/${clubAlias}/documents/replace-pedigree/2/form`} className={replacePedigreeOld ? `` : `link__inactive`} >По внутренней родословной старого образца</Link>
+                            <Link to={`/club/${clubAlias}/documents/replace-pedigree/1/form`} className={replacePedigreeExportOld ? `` : `link__inactive`}>По экспортной родословной старого образца</Link>
+                            <Link to={`/club/${clubAlias}/documents/replace-pedigree/4/form`} className={replacePedigreeChangeOwner ? `` : `link__inactive`}>По заявлению при смене владельца</Link>
+                            <Link to={`/club/${clubAlias}/documents/replace-pedigree/7/form`} className={replacePedigreeDeclarantError ? `` : `link__inactive`}>Замена родословной по ошибке заявителя</Link>
                         </div>
                         <div>
-                            <Link to={`/${clubAlias}/documents/replace-pedigree/5/form`} className={replacePedigreeRkfFc1 ? `` : `link__inactive`} >По родословной выданной вне системы РКФ/FCI</Link>
-                            <Link to={`/${clubAlias}/documents/replace-pedigree/3/form`} className={replacePedigreeDuplicate ? `` : `link__inactive`} >По заявлению о выдаче дубликата</Link>
-                            <Link to={`/${clubAlias}/documents/replace-pedigree/6/form`} className={replacePedigreeForeignRegistration ? `` : `link__inactive`} >Регистрация иностранной родословной</Link>
+                            <Link to={`/club/${clubAlias}/documents/replace-pedigree/5/form`} className={replacePedigreeRkfFc1 ? `` : `link__inactive`} >По родословной выданной вне системы РКФ/FCI</Link>
+                            <Link to={`/club/${clubAlias}/documents/replace-pedigree/3/form`} className={replacePedigreeDuplicate ? `` : `link__inactive`} >По заявлению о выдаче дубликата</Link>
+                            <Link to={`/club/${clubAlias}/documents/replace-pedigree/6/form`} className={replacePedigreeForeignRegistration ? `` : `link__inactive`} >Регистрация иностранной родословной</Link>
                         </div>
                     </div>
                     <hr />
                     <div className="Card__link-columns">
                         <div>
-                            <Link to={`/${clubAlias}/documents/replace-pedigree/registry`}>Реестр заявок</Link>
+                            <Link to={`/club/${clubAlias}/documents/replace-pedigree/registry`}>Реестр заявок</Link>
                         </div>
                     </div>
                 </Card>
@@ -163,8 +163,8 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                     <hr />
                     <div className="Card__links">
                         <div>
-                            <Link to={`/${clubAlias}/documents/dysplasia/form`}>Подать заявление</Link>
-                            <Link to={`/${clubAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
+                            <Link to={`/club/${clubAlias}/documents/dysplasia/form`}>Подать заявление</Link>
+                            <Link to={`/club/${clubAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
                         </div>
                     </div>
                 </Card>
@@ -175,8 +175,8 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                     <hr />
                     <div className="Card__links">
                         <div>
-                            <Link to={`/${clubAlias}/documents/patella/form`}>Подать заявление</Link>
-                            <Link to={`/${clubAlias}/documents/patella/registry`}>Реестр заявок</Link>
+                            <Link to={`/club/${clubAlias}/documents/patella/form`}>Подать заявление</Link>
+                            <Link to={`/club/${clubAlias}/documents/patella/registry`}>Реестр заявок</Link>
                         </div>
                     </div>
                 </Card>
@@ -187,8 +187,8 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                     <hr />
                     <div className="Card__links">
                         <div>
-                            <Link to={`/${clubAlias}/documents/application/form`}>Подать заявление</Link>
-                            <Link to={`/${clubAlias}/documents/application/registry`}>Реестр заявок</Link>
+                            <Link to={`/club/${clubAlias}/documents/application/form`}>Подать заявление</Link>
+                            <Link to={`/club/${clubAlias}/documents/application/registry`}>Реестр заявок</Link>
                         </div>
                     </div>
                 </Card>
@@ -220,9 +220,9 @@ const StampCards = ({ clubAlias }) => {
             </p>
             <hr />
             <div className="Card__links">
-                <Link to={`/${clubAlias}/documents/stamps/add`}>Добавить клеймо</Link>
-                <Link to={`/${clubAlias}/documents/stamps/registry`} onClick={handleClick}>Подать заявку на регистрацию кода клейма</Link>
-                <Link to={`/${clubAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр заявок</Link>
+                <Link to={`/club/${clubAlias}/documents/stamps/add`}>Добавить клеймо</Link>
+                <Link to={`/club/${clubAlias}/documents/stamps/registry`} onClick={handleClick}>Подать заявку на регистрацию кода клейма</Link>
+                <Link to={`/club/${clubAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр заявок</Link>
             </div>
             {alert &&
                 <Alert
@@ -257,8 +257,8 @@ const ExhibitionsCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                         Для подачи заявки Вы должны указать место проведения выставки, ранг выставки, дату начала и окончания мероприятия и т.д.  После одобрения заявки со стороны выставочной комиссии РКФ выставка появится в календаре мероприятий. Данные, указанные в заявке могут быть изменены или дополнены в любое время.</p>
                     <hr />
                     <div className="Card__links">
-                        <Link to={`/${clubAlias}/documents/exhibitions/application/form`}>Подать заявку</Link>
-                        <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
+                        <Link to={`/club/${clubAlias}/documents/exhibitions/application/form`}>Подать заявку</Link>
+                        <Link to={`/club/${clubAlias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
                     </div>
                 </Card>
                 <Card className={exhibitionCancellation ? `` : `_inactive`}>
@@ -268,8 +268,8 @@ const ExhibitionsCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                         Здесь вы можете внести изменения в утверждённую выставку. После одобрения заявки со стороны выставочной комиссии РКФ внесённые изменения отобразятся в календаре мероприятий.</p>
                     <hr />
                     <div className="Card__links">
-                        <Link to={`/${clubAlias}/documents/exhibitions/cancellation/form`}>Подать заявку</Link>
-                        <Link to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}>Реестр заявок</Link>
+                        <Link to={`/club/${clubAlias}/documents/exhibitions/cancellation/form`}>Подать заявку</Link>
+                        <Link to={`/club/${clubAlias}/documents/exhibitions/cancellation/registry`}>Реестр заявок</Link>
                     </div>
                 </Card>
             </>
@@ -289,8 +289,8 @@ const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
             </p>
             <hr />
             <div className="Card__links">
-                <Link to={`/${clubAlias}/documents/responsible/form`}>Назначить ответственное лицо</Link>
-                <Link to={`/${clubAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
+                <Link to={`/club/${clubAlias}/documents/responsible/form`}>Назначить ответственное лицо</Link>
+                <Link to={`/club/${clubAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
         <Card className={checkMembership ? `` : `_inactive`}>
@@ -301,8 +301,8 @@ const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
             </p>
             <hr />
             <div className="Card__links">
-                <Link to={`/${clubAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
-                <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
+                <Link to={`/club/${clubAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
+                <Link to={`/club/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
             </div>
         </Card>
     </div>
@@ -336,12 +336,12 @@ const DocHome = ({ clubAlias }) => {
             </StickyBox>
         </aside>
         <Switch>
-            <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
-            <Route path='/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
-            <Route path='/:route/documents/exhibitions' component={() => <ExhibitionsCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} membershipPaid={membershipPaid} />} />
-            <Route path='/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/Club/club_federation' />} />
-            <Route path='/:route/documents/review' component={() => <BookformCard url='/api/Club/club_federation' />} />
-            <Route path='/:route/documents' component={() => <DocumentCards membershipPaid={membershipPaid} clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
+            <Route path='/club/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
+            <Route path='/club/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
+            <Route path='/club/:route/documents/exhibitions' component={() => <ExhibitionsCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} membershipPaid={membershipPaid} />} />
+            <Route path='/club/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/Club/club_federation' />} />
+            <Route path='/club/:route/documents/review' component={() => <BookformCard url='/api/Club/club_federation' />} />
+            <Route path='/club/:route/documents' component={() => <DocumentCards membershipPaid={membershipPaid} clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
             <Route component={LoadableNotFound} />
         </Switch>
     </div>
