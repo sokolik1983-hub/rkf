@@ -66,11 +66,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      & > div:first-child {
-        & > * {
-          line-height: 1;
-        }
-      }
+      
       & > div > div {
         display: flex;
       }
