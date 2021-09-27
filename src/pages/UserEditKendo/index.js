@@ -118,6 +118,16 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             }
         });
 
+    const setNameToLocalStorage = (data) => {
+        let updatedUserInfo = {
+            ...ls.get('user_info'),
+            first_name: data.first_name,
+            last_name: data.last_name,
+        };
+
+        ls.set('user_info', updatedUserInfo);
+    }
+
     const handleSuccess = () => {
         setSuccess(true);
         !success && setTimeout(() => {
@@ -153,6 +163,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }, () => {
             getInfo(type);
             handleSuccess();
+            setNameToLocalStorage(data);
         }, error => {
             handleError(error);
             setFormBusy(false);
