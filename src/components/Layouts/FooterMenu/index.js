@@ -15,8 +15,10 @@ import { userNav } from "../UserLayout/config";
 import UserMenu from '../UserMenu';
 import ZlineModal from '../../ZlineModal';
 import {blockContent} from "../../../utils/blockContent";
+import { checkAliasUrl } from '../../../utils/buildUserRoute';
 
 import './footerMenu.scss';
+
 const FooterMenu = ({
     match,
     is_active_profile,
@@ -40,44 +42,10 @@ const FooterMenu = ({
     const isKennel = pathname.search('kennel') === 1 || user_type === 4;
     const isUser = pathname.search('user') === 1 || user_type === 1;
 
-    const exceptionUrl =
-        pathname === '/organizations'
-        || pathname === '/exhibitions'
-        || pathname === '/search'
-        || pathname === '/base-search'
-        || pathname === ''
-        || pathname === '/'
-        || pathname === '/about'
-        || pathname === '/uploaded-documents'
-        || pathname === '/auth/login'
-        || pathname === '/auth/registration';
-
-    function checkUrlAlias() {
-        if (exceptionUrl) {
-            return alias ? alias ? !exceptionUrl : pathname : null;
-        } else if (pathname.search('kennel') === 1 || pathname.search('user') === 1) {
-            return pathname.split('/')[2];
-        }
-//Временное решение, избегаем поломки страницы, при кейсе, когда с физика заходишь в клуб.
-// При этом решении в меню футера ссылки будут вести на страницы физика, а не клуба не котором находишься
-// Последний else оставляем
-        else if (pathname.search('kennel') === -1 || pathname.search('user') === -1 ) {
-            if (isFederationAlias(pathname.split('/')[1])) {
-                return pathname.split('/')[1]
-            } else {
-                return alias || pathname.split('/')[1]
-            }
-        }
-///////////
-        else {
-            return pathname.split('/')[1];
-        }
-    }
-
     useEffect(() => {
-        if (isFederationAlias(checkUrlAlias() || alias)) {
+        if (isFederationAlias(checkAliasUrl(pathname, alias) || alias)) {
             (() => Request({
-                url: endpointGetClubInfo + (checkUrlAlias() || alias)
+                url: endpointGetClubInfo + (checkAliasUrl(pathname, alias) || alias)
             }, data => {
                 setFedInfo(data);
                 setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
@@ -93,6 +61,7 @@ const FooterMenu = ({
         }
     }, []);
 
+
     const hideSideMenu = () => {
         setShowFilters({ isOpenFilters: false });
         setIsOpen(false);
@@ -106,9 +75,16 @@ const FooterMenu = ({
         setShowZlineModal(true);
         hideWidgetLoginPopup();
     };
+
     useEffect(() => {
         blockContent(showZlineModal);
+    }, []);
+
+    useEffect(() => {
+        blockContent(showZlineModal);
+        console.log("checkAliasUrl(pathname)", checkAliasUrl(pathname, alias))
     });
+
     return (
         <>
             {isMobile1080 &&
@@ -138,12 +114,12 @@ const FooterMenu = ({
                     }
 
                     {
-                        <div onClick={hideWidgetLoginPopup} className={(checkUrlAlias() === null) ? 'more_btn-hide' : 'class-for-grid4'}>
-                            {isFederationAlias(checkUrlAlias() || alias)
+                        <div onClick={hideWidgetLoginPopup} className={(checkAliasUrl(pathname, alias) === null) ? 'more_btn-hide' : 'class-for-grid4'}>
+                            {isFederationAlias(checkAliasUrl(pathname, alias) || alias)
                                 ?
                                 <MenuComponent
                                     isExhibitionPage={isExhibitionPage}
-                                    alias={checkUrlAlias() || alias}
+                                    alias={checkAliasUrl(pathname, alias) || alias}
                                     name={fedInfo?.short_name || fedInfo?.name || 'Название федерации отсутствует'}
                                     isFederation={true}
                                 />
@@ -153,8 +129,8 @@ const FooterMenu = ({
                                         setOpenUserMenu={setOpenUserMenu}
                                         openUserMenu={openUserMenu}
                                         userNav={canEdit
-                                    ? kennelNav(checkUrlAlias() || alias) // Show NewsFeed menu item to current user only
-                                    : kennelNav(checkUrlAlias() || alias).filter(i => i.id !== 2)}
+                                    ? kennelNav(checkAliasUrl(pathname, alias) || alias) // Show NewsFeed menu item to current user only
+                                    : kennelNav(checkAliasUrl(pathname, alias) || alias).filter(i => i.id !== 2)}
                                     notificationsLength={notificationsLength}
                                 /> :
                                     isUser ?
@@ -163,8 +139,8 @@ const FooterMenu = ({
                                             setOpenUserMenu={setOpenUserMenu}
                                             openUserMenu={openUserMenu}
                                             userNav={canEdit
-                                            ? userNav(checkUrlAlias() || alias) // Show NewsFeed menu item to current user only
-                                            : userNav(checkUrlAlias() || alias).filter(i => i.id !== 2)}
+                                            ? userNav(checkAliasUrl(pathname, alias) || alias) // Show NewsFeed menu item to current user only
+                                            : userNav(checkAliasUrl(pathname, alias) || alias).filter(i => i.id !== 2)}
                                             notificationsLength={notificationsLength}
                                         />
                                         : <UserMenu
@@ -172,8 +148,8 @@ const FooterMenu = ({
                                             setOpenUserMenu={setOpenUserMenu}
                                             openUserMenu={openUserMenu}
                                             userNav={canEdit
-                                            ? clubNav(checkUrlAlias() || alias) // Show NewsFeed menu item to current user only
-                                            : clubNav(checkUrlAlias() || alias).filter(i => i.id !== 2)}
+                                            ? clubNav(checkAliasUrl(pathname, alias) || alias) // Show NewsFeed menu item to current user only
+                                            : clubNav(checkAliasUrl(pathname, alias) || alias).filter(i => i.id !== 2)}
                                             notificationsLength={notificationsLength}
                                         />}
                         </div>

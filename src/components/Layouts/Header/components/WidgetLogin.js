@@ -122,7 +122,7 @@ const WidgetLogin = forwardRef(
                                                             <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                                                             }
                                                             {(userType === 3 || userType === 5) &&
-                                                            <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
+                                                            <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
                                                             }
                                                             {userType === 4 &&
                                                             <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
@@ -164,7 +164,7 @@ const WidgetLogin = forwardRef(
                                                                         <Link to="/client" >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                                        <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
+                                                                        <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
                                                                     </li>
                                                                 </>
                                                                 }
@@ -224,7 +224,7 @@ const WidgetLogin = forwardRef(
                                                     <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                                                     }
                                                     {(userType === 3 || userType === 5) &&
-                                                    <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
+                                                    <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
                                                     }
                                                     {userType === 4 &&
                                                     <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
@@ -265,7 +265,7 @@ const WidgetLogin = forwardRef(
                                                                 <Link to="/client">Редактировать профиль</Link>
                                                             </li>
                                                             <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                                <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
+                                                                <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
                                                             </li>
                                                         </>
                                                         }
