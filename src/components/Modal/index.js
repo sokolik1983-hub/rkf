@@ -2,11 +2,12 @@ import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import OutsideClickHandler from "react-outside-click-handler";
 import {blockContent} from "../../utils/blockContent";
+
 import './styles.scss';
 
 const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, className, headerName}) => {
     useEffect(() => {
-            blockContent(showModal);
+        blockContent(showModal);
     });
     return (
         ReactDOM.createPortal(

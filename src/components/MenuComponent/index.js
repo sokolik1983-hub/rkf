@@ -386,11 +386,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                 handleClose={() => setOpenDoc(false)}
             >
                 <div className="docsinframe__inner">
-                    <div className="close-btn" onClick={() => setOpenDoc(false)}>
-                        <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
-                        </svg>
-                    </div>
                     <DocsInFrame fedDetails={doc}></DocsInFrame>
                 </div>
             </PopupModal>
@@ -420,17 +415,11 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             bottomStyle
                         >
                             <div className="user-menu__inner">
-                               {/* <div className="close-btn">
-                                    <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
-                                    </svg>
-                                </div>*/}
                                 <ul className="user-menu__list">
 
                                     {user !== 'nursery' &&
                                     <li className="user-menu__item">
                                         <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
-
                                     </li>
                                     }
                                     {presidium[alias] &&

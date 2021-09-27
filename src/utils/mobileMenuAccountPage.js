@@ -1,5 +1,3 @@
-import React from "react";
-
 const mobileMenuAccountPage = (place, elem, wrap) => {
     if(wrap) {
         const clickElemWidth = elem.getBoundingClientRect().width,

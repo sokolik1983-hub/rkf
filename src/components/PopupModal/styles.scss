@@ -14,5 +14,8 @@
   &--hidden {
     display: none;
   }
+  & .popup__content {
+    padding-top: 10px;
+  }
 }
 
