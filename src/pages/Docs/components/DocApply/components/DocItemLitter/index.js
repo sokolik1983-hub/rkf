@@ -69,6 +69,17 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         formik.setFieldValue('date_of_birth_litter', selectedDate);
     };
 
+    const handleButtonSavePuppy = (j) => {
+        setActivePuppy(activePuppy === j ? -1 : j)
+        sortPuppies(declarant.litters);
+    }
+
+    const sortPuppies = (puppies) => {
+        puppies.sort((a, b) => {
+            return parseFloat(a.stamp_number) - parseFloat(b.stamp_number);
+        })
+    }
+
     return <>
         {everkAlert &&
             <Alert
@@ -225,7 +236,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     />
                 </FormGroup>
                 {/*files*/}
-
                 <h4>Щенки</h4>
                 <FieldArray name={`litters`} render={({ push, remove }) => (<table>
                     <thead>
@@ -239,14 +249,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         </tr>
                     </thead>
                     <tbody>
-                        {declarant.litters && declarant.litters.map((puppy, j) =>
+                    {declarant.litters && declarant.litters.map((puppy, j) =>
                             <PuppyItem
                                 puppy={puppy}
                                 j={j}
                                 i={i}
                                 key={j}
                                 activePuppy={activePuppy}
-                                activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
+                                // activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
+                                activateClick={() => handleButtonSavePuppy(j)}
                                 deleteClick={(force = false) => {
                                     if (force || window.confirm("Удалить щенка?")) {
                                         remove(j); setActivePuppy(-1);
