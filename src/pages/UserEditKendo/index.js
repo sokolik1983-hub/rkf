@@ -163,7 +163,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }, () => {
             getInfo(type);
             handleSuccess();
-            setToLocalStorage(data);
+            setNameToLocalStorage(data);
         }, error => {
             handleError(error);
             setFormBusy(false);
