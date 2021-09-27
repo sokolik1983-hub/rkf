@@ -38,13 +38,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 setEverkAlert(true);
             })
             .catch(e => setEverkAlert(true));
+
     const clearEverkData = () => {
         if (!everkData) return;
         Object.keys(everkData).forEach(k => k !== 'id' && everkData[k] && formik.setFieldValue(`${k}`, ''));
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
-
+    console.log('getEverkData', filledEverk)
     const [init, setInit] = useState(false);
     useEffect(() => {
         if (!init && typeof (formik.values.stamp_code_id) !== 'number') {
