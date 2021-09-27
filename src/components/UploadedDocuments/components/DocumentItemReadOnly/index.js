@@ -29,7 +29,7 @@ const DocumentItemReadOnly = ({ id, name, date_create }) => {
         get();
     }
     return <div className="mb-3">
-        <a href="#" className="d-flex align-items-center" onClick={(e) => showDoc(id, e)}>
+        <a href="##" className="d-flex align-items-center" onClick={(e) => showDoc(id, e)}>
             <SvgIcon icon={filePdf} size="default" />
             <div className="d-flex flex-column">{name}
                 <span className="DocumentItem__date">
