@@ -24,9 +24,9 @@ import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import ApplicationRegistry from "../Application/ApplicationRegistry";
 import Banner from "../../../../components/Banner";
 import useIsMobile from "../../../../utils/useIsMobile";
+
 import "./index.scss";
-import HorizontalMenu from "../../../../components/HorizontalMenu";
-import {kennelNav} from "../../../NurseryDocuments/config";
+
 
 
 const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticated }) => {

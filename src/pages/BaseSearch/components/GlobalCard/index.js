@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card from "../../../../components/Card";
 import history from '../../../../utils/history';
 
 import './index.scss';
 
 const GlobalCard = ({cardClicked}) => {
-    const [stamp_code, setStampCode] = useState('');
-    const [status, setStatus] = useState(false);
+    // const [stamp_code, setStampCode] = useState('');
+    // const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [alert, setAlert] = useState(null);
+    // const [alert, setAlert] = useState(null);
     const [isClicked, setIsClicked] = useState(false);
     const [searchValue, setSearchValue] = useState('');
 
