@@ -6,7 +6,7 @@ export default function Card({children, className, lg, ...rest}) {
     return (
         <div
             className={classnames(
-                'Card 111',
+                'Card',
                 {[className]: className},
                 {'Card--lg': lg},
             )}
