@@ -32,7 +32,7 @@ const CopyrightInfo = ({ withSocials }) => {
                         <span>© 1991—{new Date().getFullYear()} СОКО РКФ.</span>
                         <Link to="/about" className="copyright-link">О RKF.Online</Link>
                     </div>
-                    <p>Политика обработки персональных данных</p>
+                    <div class='copyright-policy'>Политика обработки персональных данных</div>
                 </div>
             </Card>
             : <div className="copyright-info">
