@@ -60,8 +60,8 @@
         z-index: 99;
       }
     }
-    @media (max-width: 600px) {
-      width: calc(100% - 19px);
+    @media (max-width: 510px) {
+      width: calc(100% - 32px);
     }
   }
   &__list {
@@ -76,7 +76,8 @@
       border-radius: 6px;
     }
     @media (max-width: 1080px) {
-      width: calc(100% - 32px);
+      //width: calc(100% - 32px);
+      width: 100%;
       max-width: 476px;
       right: 16px;
       &:before {
@@ -90,6 +91,7 @@
       }
     }
     @media (max-width: 600px) {
+      width: 100%;
       &:before {
         background-size: 100% 80px;
       }
