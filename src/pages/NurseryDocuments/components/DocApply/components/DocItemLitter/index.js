@@ -75,6 +75,21 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         formik.setFieldValue('date_of_birth_litter', selectedDate);
     };
 
+    const handleButtonSavePuppy = (j) => {
+        setActivePuppy(activePuppy === j ? -1 : j)
+        sortPuppies(declarant.litters);
+    }
+
+    const sortPuppies = (puppies) => {
+        puppies.sort((a, b) => {
+            return validateStampNumber(a.stamp_number) - validateStampNumber(b.stamp_number);
+        })
+    }
+
+    const validateStampNumber = (number) => {
+        return number ? parseFloat(number) : 0;
+    }
+
     return <>
         {everkAlert &&
             <Alert
@@ -252,7 +267,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                                 i={i}
                                 key={j}
                                 activePuppy={activePuppy}
-                                activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
+                                activateClick={() => handleButtonSavePuppy(j)}
                                 deleteClick={(force = false) => {
                                     if (force || window.confirm("Удалить щенка?")) {
                                         remove(j); setActivePuppy(-1);
