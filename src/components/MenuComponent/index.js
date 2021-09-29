@@ -432,7 +432,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                         <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link _public" title="Публикации">Публикации</NavLink>
                                     </li>
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/club/${alias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
                                     </li>
                                     <li className="user-menu__item">
                                         <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link _gallery" title="Фотогалерея">Фотогалерея</NavLink>
