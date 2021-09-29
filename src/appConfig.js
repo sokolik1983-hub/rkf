@@ -297,7 +297,7 @@ const appRoutes = [
     },
     {
         exact: false,
-        path: '/club /:route/uploaded-documents/',
+        path: '/club/:route/uploaded-documents/',
         component: LoadableModules.LoadableClubUploadedDocuments
     },
     {
