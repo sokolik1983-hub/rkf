@@ -76,8 +76,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
     const sortPuppies = (puppies) => {
         puppies.sort((a, b) => {
-            return parseFloat(a.stamp_number) - parseFloat(b.stamp_number);
+            return validateStampNumber(a.stamp_number) - validateStampNumber(b.stamp_number);
         })
+    }
+
+    const validateStampNumber = (number) => {
+        return number ? parseFloat(number) : 0;
     }
 
     return <>
