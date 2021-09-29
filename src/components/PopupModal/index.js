@@ -6,13 +6,13 @@ import {blockContent} from "../../utils/blockContent";
 
 import "./styles.scss";
 
-const PopupModal = ({ showModal, handleClose, children, bottomStyle }) => {
+const PopupModal = ({ showModal, handleClose, children, bottomStyle, zIndexStyle }) => {
     useEffect(() => {
         blockContent(showModal);
     });
     return (
         ReactDOM.createPortal(
-            <div className={(showModal ? "Modal-popup" : "Modal-popup--hidden") + " " + (bottomStyle ? "bottomStyle" : "") }>
+            <div className={(showModal ? "Modal-popup" : "Modal-popup--hidden") + " " + (bottomStyle ? "bottomStyle" : "") + " " + (zIndexStyle ? "zIndexStyle" : "") }>
                 <OutsideClickHandler onOutsideClick={handleClose}>
                     <Container className="popup__content">
                         {children}
