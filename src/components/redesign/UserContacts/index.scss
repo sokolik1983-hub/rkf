@@ -112,6 +112,10 @@
 
     &-name:before {
       background-image: url("/static/icons/icon-name.svg");
+      width: 18px;
+      height: 18px;
+      background-size: contain;
+      margin: 2px 0 0 2px;
     }
 
     &-site:before {

@@ -86,12 +86,12 @@ const appRoutes = [
     },
     {
         exact: false,
-        path: '/exhibitions/:id/edit',
+        path: '/club/exhibitions/:id/edit',
         component: LoadableModules.LoadableExhibitionEdit
     },
     {
         exact: false,
-        path: '/exhibitions/:id',
+        path: '/club/exhibitions/:id',
         component: LoadableModules.LoadableExhibition
     },
     {
@@ -101,17 +101,17 @@ const appRoutes = [
     },
     {
         exact: false,
-        path: '/educationals/:id',
+        path: '/club/educationals/:id',
         component: LoadableModules.LoadableEducational
     },
     {
         exact: true,
-        path: '/news/:id/edit',
+        path: '/club/news/:id/edit',
         component: LoadableModules.LoadableNews
     },
     {
         exact: true,
-        path: '/news/:id',
+        path: '/club/news/:id',
         component: LoadableModules.LoadableNews
     },
     {
@@ -206,17 +206,17 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:id/gallery/:album?/edit',
+        path: '/club/:id/gallery/:album?/edit',
         component: LoadableModules.LoadableClubGalleryEdit
     },
     {
         exact: true,
-        path: '/:id/gallery/:album?',
+        path: '/club/:id/gallery/:album?',
         component: LoadableModules.LoadableClubGallery
     },
     {
         exact: true,
-        path: '/:id/video',
+        path: '/club/:id/video',
         component: LoadableModules.LoadableClubVideo
     },
     {
@@ -242,7 +242,7 @@ const appRoutes = [
 
     {
         exact: true,
-        path: '/:route/news',
+        path: '/club/:route/news',
         component: LoadableModules.LoadableClubNews
     },
     {
@@ -252,17 +252,17 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: ['/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?'],
+        path: ['/club/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?'],
         component: LoadableModules.LoadableNewsFeed
     },
     {
         exact: false,
-        path: '/:route/documents',
+        path: '/club/:route/documents',
         component: LoadableModules.LoadableDocs
     },
     {
         exact: true,
-        path: '/:route/document-status',
+        path: '/club/:route/document-status',
         component: LoadableModules.LoadableDocumentStatus
     },
     {
@@ -272,17 +272,17 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:route/document-status/:query',
+        path: '/club/:route/document-status/:query',
         component: LoadableModules.LoadableDocumentStatus
     },
     {
         exact: true,
-        path: '/docs/:id',
+        path: '/club/docs/:id',
         component: LoadableModules.LoadableDocumentsPage
     },
     {
         exact: true,
-        path: '/details-viewer/:id',
+        path: '/club/details-viewer/:id',
         component: LoadableModules.LoadableDetailsViewer
     },
     {
@@ -292,12 +292,12 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:route',
+        path: '/club/:route',
         component: LoadableModules.LoadableClubPage
     },
     {
         exact: false,
-        path: '/:route/uploaded-documents/',
+        path: '/club/:route/uploaded-documents/',
         component: LoadableModules.LoadableClubUploadedDocuments
     },
     {

@@ -1,5 +1,3 @@
-import React from "react";
-
 const mobileMenuSearchPage = (place, elem, wrap, userType) => {
     if(wrap){
         const clickElemWidth = elem.getBoundingClientRect().width,

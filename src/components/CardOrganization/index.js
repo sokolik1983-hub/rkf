@@ -27,7 +27,7 @@ const CardOrganization = ({ alias,
     breeds,
     site,
     setFilters }) => {
-    const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
+    const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/club/${alias}`;
 
     return (
         <Card className="card-organization">

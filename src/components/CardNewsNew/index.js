@@ -140,7 +140,7 @@ const CardNewsNew = forwardRef(({
                                             ? `/kennel/${alias}`
                                             : user_type === 1
                                                 ? `/user/${alias}`
-                                                : `/${alias}`}>
+                                                : `/club/${alias}`}>
                                         {user_type === 1 ? first_name + ' ' + last_name : name}
                                     </Link>
                                     <span className="CardNewsNew__left-mark">

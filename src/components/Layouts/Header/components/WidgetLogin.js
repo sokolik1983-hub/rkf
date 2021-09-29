@@ -111,11 +111,6 @@ const WidgetLogin = forwardRef(
                                                 bottomStyle
                                             >
                                                 <div className="widget-login__inner">
-                                                    {/*<div className="close-btn">
-                                                        <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
-                                                        </svg>
-                                                    </div>*/}
                                                     <div className="widget-login__content">
                                                         <div className="widget-login__userpic-wrap">
                                                             <div className={`widget-login__userpic${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
@@ -127,7 +122,7 @@ const WidgetLogin = forwardRef(
                                                             <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                                                             }
                                                             {(userType === 3 || userType === 5) &&
-                                                            <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
+                                                            <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
                                                             }
                                                             {userType === 4 &&
                                                             <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
@@ -169,7 +164,7 @@ const WidgetLogin = forwardRef(
                                                                         <Link to="/client" >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                                        <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
+                                                                        <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
                                                                     </li>
                                                                 </>
                                                                 }
@@ -229,7 +224,7 @@ const WidgetLogin = forwardRef(
                                                     <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                                                     }
                                                     {(userType === 3 || userType === 5) &&
-                                                    <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
+                                                    <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
                                                     }
                                                     {userType === 4 &&
                                                     <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
@@ -270,7 +265,7 @@ const WidgetLogin = forwardRef(
                                                                 <Link to="/client">Редактировать профиль</Link>
                                                             </li>
                                                             <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                                <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
+                                                                <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
                                                             </li>
                                                         </>
                                                         }
