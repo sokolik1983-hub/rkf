@@ -19,7 +19,7 @@
 
   &__item {
     &:not(:last-child) {
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
     .active{
       color: #3366FF!important;
@@ -178,6 +178,7 @@
 
   &__wrap {
     background-color: #fff;
+    padding: 10px;
 
     white-space: pre-wrap;
 
@@ -191,11 +192,7 @@
     }
 
     &-list {
-      list-style-position: inside;
-    }
-
-    &-item:not(:last-child) {
-      margin-bottom: 4px;
+      margin-left: 20px;
     }
   }
 

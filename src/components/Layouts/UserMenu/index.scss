@@ -100,7 +100,7 @@
   &__item {
     position: relative;
     &:not(:last-child) {
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       @media (max-width: 1080px) {
         margin-bottom: 30px;
       }
