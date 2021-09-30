@@ -37,7 +37,7 @@ const CardSpecialist = ({
     const [additionalEmails, setAdditionalEmails] = useState(null);
     const [moreData, setMoreData] = useState(false);
     const [isAllBreeder, setIsAllBreeder] = useState(false);
-    const isMobile700 = useIsMobile(700);
+    const isMobile550 = useIsMobile(550);
     const isSpecialist = searchTypeId === 3;
     const isJudge = searchTypeId === 4;
 
@@ -70,20 +70,21 @@ const CardSpecialist = ({
             <div className="card-specialist__wrap">
                 <div className="card-specialists__part card-specialists__part_top">
                     <span className="card-specialist__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
-                    {isMobile700 && <div className="card-specialist__names">
-                    <span className="card-specialist__name">
-                        {last_name}&nbsp;
-                        <br />
-                        {first_name + " " + second_name}
-                    </span>
-                        <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
-                    </div>}
 
                     <div className="card-specialist-inner">
-
                         <div className="card-specialist__info">
 
-                            {!isMobile700 &&
+                            {isMobile550 && <div className="card-specialist__names">
+                        <span className="card-specialist__name">
+                            {last_name}&nbsp;
+                            <br />
+                            {first_name + " " + second_name}
+                        </span>
+                                <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
+                            </div>
+                            }
+
+                            {!isMobile550 &&
                             <>
                                 <span className="card-specialist__name">
                                     {last_name}&nbsp;
@@ -91,61 +92,93 @@ const CardSpecialist = ({
                                     {first_name + " " + second_name}
                                 </span>
                                 <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
-                            </>
-                            }
+                            </> }
                         </div>
 
-                        {isMobile700 && <div className="card-specialist__contacts">
-                            <div>
-                                <h3>Контакты</h3>
-                                {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
-                                {additionalPhones && moreData && additionalPhones.map((phone, index) => {
-                                    return (
-                                        <span key={index} className="card-specialist__subtitle">
-                                        т. {phone}
-                                    </span>
-                                    )
-                                })}
 
-                                {email && <span className="card-specialist__subtitle">{email}</span>}
-                                {additionalEmails && moreData && additionalEmails.map((email, index) => {
-                                    return (
-                                        <span key={index}
-                                              className="card-specialist__subtitle">
-                                        {email}
-                                    </span>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                        }
 
                         <div className="card-specialist__content">
-                            {!isMobile700 && <div className="card-specialist__contacts">
+                            {!isMobile550 && <div className="card-specialist__contacts">
                                 <div>
-                                    <h3>Контакты</h3>
-                                    {phone && <span className="card-specialist__subtitle">т. {phone}</span>}
-                                    {additionalPhones && moreData && additionalPhones.map((phone, index) => {
-                                        return (
-                                            <span key={index}
-                                                  className="card-specialist__subtitle">
-                                            т. {phone}
+                                    {phone && <div className="card-specialist__subtitle">
+                                        <span className="card-specialist__contacts_bold">
+                                            Телефон:&nbsp;
                                         </span>
-                                        )
-                                    })}
+                                        <div>
+                                            <span>{phone}</span>
+                                            {additionalPhones && moreData && additionalPhones.map((phone, index) => {
+                                                return (
+                                                    <span key={index}>
+                                                    {phone}
+                                                </span>
+                                                )
+                                            })}
+                                        </div>
 
-                                    {email && <span className="card-specialist__subtitle">{email}</span>}
-                                    {additionalEmails && moreData && additionalEmails.map((email, index) => {
-                                        return (
-                                            <span key={index}
-                                                  className="card-specialist__subtitle">
-                                            {email}
+                                    </div>}
+
+
+                                    {email && <div className="card-specialist__subtitle">
+                                        <span className="card-specialist__contacts_bold">
+                                            E-mail:&nbsp;
                                         </span>
-                                        )
-                                    })
-                                    }
+                                        <div>
+                                            <span>{email}</span>
+                                            {additionalEmails && moreData && additionalEmails.map((email, index) => {
+                                                return (
+                                                    <span key={index}>
+                                                    {email}
+                                                </span>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>}
 
+
+                                    <div className="card-specialist__sertificate-block">
+                                        <span className="card-specialist__sertificate">Лист судьи №<span>{cert_number}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+
+                            {isMobile550 && <div className="card-specialist__contacts">
+                                <div className="card-specialist__sertificate-block">
                                     <span className="card-specialist__sertificate">Лист судьи №<span>{cert_number}</span></span>
+                                </div>
+                                <div className="card-specialist__bottom-block">
+                                    {phone && <div className="card-specialist__subtitle">
+                                        <span className="card-specialist__contacts_bold">
+                                            Телефон:&nbsp;
+                                        </span>
+                                        <div>
+                                            <span>{phone}</span>
+                                            {additionalPhones && moreData && additionalPhones.map((phone, index) => {
+                                                return (
+                                                    <span key={index}>
+                                                {phone}
+                                            </span>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>}
+
+                                    {email && <div className="card-specialist__subtitle">
+                                        <span className="card-specialist__contacts_bold">
+                                            E-mail:&nbsp;
+                                        </span>
+                                        <div>
+                                            <span>{email}</span>
+                                            {additionalEmails && moreData && additionalEmails.map((email, index) => {
+                                                return (
+                                                    <span key={index}
+                                                          className="card-specialist__subtitle">
+                                                {email}
+                                            </span>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>}
                                 </div>
                             </div>
                             }
