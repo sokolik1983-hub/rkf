@@ -34,6 +34,7 @@ const DndImageUpload = ({ callback, album_id }) => {
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [showAlertImg, setShowAlertImg] = useState(false);
 
 
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
@@ -47,7 +48,7 @@ const DndImageUpload = ({ callback, album_id }) => {
                 preview: URL.createObjectURL(file)
             })));
             if(rejectedFiles.length > 0) {
-                alert('Тип файла не поддерживается')
+                setShowAlertImg(true)
             }
         }
     });
@@ -148,6 +149,14 @@ const DndImageUpload = ({ callback, album_id }) => {
                 {!!files.length && <Button primary disabled={loading} onClick={onSubmit}>Загрузить {loading && <Loading centered={false} inline={true} />}</Button>}
                 {showAlert && <Alert {...showAlert} />}
             </div>
+            {showAlertImg &&
+            <Alert
+                text="Ошибка: формат файла не поддерживается, либо размер файла превышает 5 Мб, поддерживаемые форматы JPEG,JPG."
+                okButton={true}
+                autoclose={3.5}
+                onOk={() => setShowAlertImg(false)}
+            />
+            }
         </section>
     );
 }
