@@ -2,14 +2,14 @@
   //--background: fixed url("/static/images/rkf/sf_background.jpg"); // New Year BG
   --background: #f5f8ff; // Default BG
 }
-
+html.hidden-content {
+  overflow-y: hidden;
+}
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-body.hidden-content {
-  overflow: hidden;
-}
+
 h1,
 h2,
 h3,

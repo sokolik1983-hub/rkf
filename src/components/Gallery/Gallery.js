@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Link, useParams } from "react-router-dom";
 import Gallery from "react-grid-gallery";
 import { AddPhotoModal } from "./components/ImageUpload/AddPhotoModal";
 import GalleryAlbums from './components/GalleryAlbums';
 import { DEFAULT_IMG } from "../../appConfig";
+import {blockContent} from "../../utils/blockContent";
 import './styles.scss';
 
 
@@ -19,14 +20,15 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
     const onModalClose = () => {
         if (showModal && window.confirm("Закрыть?")) {
             setShowModal(false);
+            blockContent(false)
         }
     };
 
     const onImageAddSuccess = () => {
         setShowModal(false);
         getImages(1);
+        blockContent(false);
     };
-
     return (
         <div className="ReactGridGallery__wrap">
             {albums && !!albums.length && !isAlbum &&
