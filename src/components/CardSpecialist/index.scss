@@ -114,7 +114,6 @@
     flex: 40%;
     @media (max-width: 990px) {
       flex: 55%;
-      text-align: end;
     }
     @media (max-width: 550px) {
       margin-left: 0;
@@ -122,7 +121,6 @@
     }
   }
   &__rank {
-    display: flex;
     &-title {
       font-weight: 600;
       font-size: 16px;
@@ -164,7 +162,7 @@
   &__specialization {
     display: flex;
     align-items: center;
-      &-name {
+    &-name {
       font-size: 16px;
       font-weight: 600;
       color: #72839c;
@@ -178,8 +176,6 @@
     white-space: nowrap;
 
     &-block {
-      margin-top: 10px;
-
       @media (max-width: 550px) {
         margin-bottom: 10px;
       }
@@ -278,25 +274,15 @@
   }
   &__disciplines-inner {
     display: flex;
+    align-items: center;
     margin-bottom: 10px;
     flex: 40%;
     flex-wrap: wrap;
   }
-  &__disciplines-inner:first-child {
-    margin-bottom: 15px;
-  }
-  &__specialization-inner:not(:last-child) {
-    padding: 10px 0;
-  }
-  &__specialization-inner:first-child {
-    padding: 0;
-  }
-  &__specialization-inner:last-child {
-    padding-top: 10px;
-  }
   &__info {
     display: flex;
     flex-direction: column;
+    margin-right: 5px;
     flex: 20%;
     line-height: 24px;
     @media (max-width: 550px) {
@@ -444,7 +430,7 @@
     &_top {
       display: flex;
     }
-    &_bottom {
+    &_bottom._open {
       @media (max-width: 550px) {
         border-top: 1px solid #E5E5E5;
       }
@@ -452,20 +438,11 @@
   }
 }
 .card-specialist__specialization-inner {
-  border-bottom: 1px solid #E5E5E5;
-  &:last-child {
-    border: none;
-  }
   &.__hide {
     display: none;
   }
-}
 
-.card-specialist {
-  &__specialization-name,
-  &__disciplines &__content-title {
-    margin-right: 10px;
-  }
+
 
   &__bottom-block {
     display: flex;
@@ -473,3 +450,37 @@
     flex-wrap: wrap;
   }
 }
+
+.card-specialist {
+  &__specialization-name,
+  &__content-title,
+  &__content-title,
+  &__subtitle,
+  &__disciplines-inner{
+    margin: 0 10px 0 0;
+    font-size: 16px;
+    line-height: 18px;
+  }
+
+  &__rank,
+  &__disciplines,
+  &__specialization-name {
+    padding: 7px 0;
+  }
+
+}
+
+.card-specialists__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-bottom: 1px solid #E5E5E5;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.card-specialist__contacts .card-specialist__subtitle {
+  line-height: 24px;
+}
+

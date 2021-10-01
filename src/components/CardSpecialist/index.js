@@ -187,7 +187,7 @@ const CardSpecialist = ({
                     </div>
                 </div>
 
-                <div className="card-specialists__part card-specialists__part_bottom">
+                <div className={`card-specialists__part card-specialists__part_bottom ${moreData && '_open'}`}>
                     <div className="card-specialists__grid">
 
                         {isJudge && <div className="card-specialists__grid-item">
@@ -242,7 +242,7 @@ const CardSpecialist = ({
                         {disciplines.map((item, index) => {
                             return (
                                 <React.Fragment key={index}>
-                                    {!isSpecialist && <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
+                                    {!isSpecialist && <div className={!moreData && index >= 0 ? "card-specialists__section card-specialists__grid-item __hide" : "card-specialists__section card-specialists__grid-item "} key={index}>
                                         <div className="card-specialist__disciplines">
                                             <div className="card-specialist__disciplines-inner" style={{ flexDirection: 'row' }}>
                                                 <div className="card-specialist__content-title" >Дисциплины</div>
@@ -280,21 +280,24 @@ const CardSpecialist = ({
                         {!isSpecialist && additionalDisciplines
                         && additionalDisciplines.map((item, index) => {
                             return (
-                                <div className={!moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item "} key={index}>
+                                <div className={!moreData && index >= 0 ? "card-specialists__section card-specialists__section card-specialists__grid-item __hide" : "card-specialists__section card-specialists__grid-item "} key={index}>
                                     <div className="card-specialist__disciplines">
 
                                         <div className="card-specialist__disciplines-inner" style={{ flexDirection: 'row' }}>
                                             <div className="card-specialist__content-title" >Дисциплины</div>
-                                            {item?.disciplines?.map((item, index, arr) => {
-                                                return (
-                                                    <LightTooltip title={item.discipline_name || 'title'} enterDelay={100} leaveDelay={50} key={index}>
+                                            <div>
+                                                {item?.disciplines?.map((item, index, arr) => {
+                                                    return (
+                                                        <LightTooltip title={item.discipline_name || 'title'} enterDelay={100} leaveDelay={50} key={index}>
                                                             <span className="card-specialist__discipline">
                                                                 {item.discipline_short_name}
                                                                 {index < arr.length - 1 && ","}&nbsp;
                                                             </span>
-                                                    </LightTooltip>
-                                                )
-                                            })}
+                                                        </LightTooltip>
+                                                    )
+                                                })}
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -319,7 +322,7 @@ const CardSpecialist = ({
                         && additionalDisciplines.map((additionalDiscipline, index) => {
                             return (
                                 <React.Fragment key={index}>
-                                    <div className={!moreData && index > 0 ? "card-specialist__specialization-inner __hide" : "card-specialist__specialization-inner"}>
+                                    <div className={!moreData && index > 0 ? "card-specialists__section card-specialist__specialization-inner __hide" : "card-specialists__section card-specialist__specialization-inner"}>
                                         <div className="card-specialist__specialization">
                                             <p className="card-specialist__specialization-name">Специализация</p>
                                             <p className="card-specialist__subtitle">{additionalDiscipline.specialization}</p>
@@ -348,10 +351,10 @@ const CardSpecialist = ({
 
                                                     <div className="card-specialist__ranks">
                                                         { discipline?.rank &&
-                                                            <div className="card-specialist__rank">
-                                                                <span className="card-specialist__rank-title">Ранг</span>
-                                                                <span className="card-specialist__content-data">{ discipline.rank }</span>
-                                                            </div>
+                                                        <div className="card-specialist__rank">
+                                                            <span className="card-specialist__rank-title">Ранг</span>
+                                                            <span className="card-specialist__content-data">{ discipline.rank }</span>
+                                                        </div>
                                                         }
                                                     </div>
                                                 </div>
