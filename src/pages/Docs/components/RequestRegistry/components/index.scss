@@ -18,9 +18,10 @@
 
 .chip-list__wrap {
     display: flex;
-    @media (max-width: 990px) {
-        flex-direction: column;
-    }
+    flex-direction: column;
+    // @media (max-width: 990px) {
+    //     flex-direction: column;
+    // }
     .custom-checkbox {
         margin-left: 50px;
         margin-top: 3px;
