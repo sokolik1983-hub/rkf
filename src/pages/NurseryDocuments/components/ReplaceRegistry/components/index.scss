@@ -32,10 +32,9 @@
     // }
     .custom-checkbox {
         z-index: 8;
-        margin-left: 50px;
+        margin-left: 0px;
         margin-top: 3px;
         @media (max-width: 990px) {
-            margin-left: 0;
             z-index: 1;
         }
     }
