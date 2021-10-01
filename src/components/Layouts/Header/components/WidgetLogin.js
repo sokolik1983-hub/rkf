@@ -23,7 +23,8 @@ const WidgetLogin = forwardRef(
          footerNav,
          withFilters,
          setOpen,
-         open
+         open,
+         setBlock
      }, ref) => {
 
         const [showModal, setShowModal] = useState(false);
@@ -77,7 +78,10 @@ const WidgetLogin = forwardRef(
             <div
                 className={`widget-login class-for-grid-block3 ${login_page ? `active` : !isAuthenticated ? `__noAuth` : ''}`}
                 style={{ padding: 0}}
-                onClick={() => setOpen(!open)}
+                onClick={() => {
+                    setOpen(!open);
+                    setBlock(!open)
+                }}
             >
                 {isAuthenticated
                     ? <OutsideClickHandler onOutsideClick={() => setShowModal(false)}>

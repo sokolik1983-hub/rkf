@@ -45,7 +45,8 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
     };
     useEffect(() => {
         blockContent(showZlineModal);
-    });
+        return () => blockContent(false);
+    }, [showZlineModal]);
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?

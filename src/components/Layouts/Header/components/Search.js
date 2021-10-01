@@ -1,7 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import history from '../../../../utils/history';
 import PopupModal from "../../../PopupModal";
+import {blockContent} from "../../../../utils/blockContent";
 
 const Search = ({ withFilters, hideSideMenu }) => {
     const [searchValue, setSearchValue] = useState('');
@@ -30,6 +31,11 @@ const Search = ({ withFilters, hideSideMenu }) => {
     }
 
     const searchRef = useRef();
+
+    useEffect(() => {
+        blockContent(isClicked);
+        return () => blockContent(false);
+    }, [isClicked])
 
     return (
         <div className="form-search__wrap">
