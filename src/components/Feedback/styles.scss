@@ -45,6 +45,16 @@
     }
   }
 
+  &_modal_body {
+    padding: 10px;
+    :first-child{
+      margin-bottom: 24px;
+    }
+    :nth-child(2){
+      margin-bottom: 12px;
+    }
+  }
+
   .FormInput {
     margin-bottom: 8px;
 
@@ -160,10 +170,10 @@
 
   &__modal {
     .Modal__close {
-      width: 16px;
-      height: 16px;
-      top: 36px;
-      right: 27px !important;
+      width: 12px;
+      height: 12px;
+      top: 18px;
+      right: 12px;
       z-index: 1;
     }
 
@@ -179,12 +189,17 @@
   }
 
   &__modal__title {
+    display: flex;
+    align-items: center;
     font-weight: normal;
     font-size: 18px;
-    line-height: 23px;
-    padding-bottom: 11px;
-    border-bottom: 1px solid #E5E5E5;
-    margin-bottom: 8px;
+    line-height: 18px;
+    color: white;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    height: 50px;
+    width: 100%;
+    background: linear-gradient(to right, #4067AC, #5791F8);
   }
 }
 
@@ -203,8 +218,8 @@
       }
     }
     .Modal__close{
-      top: 14px;
-      right: 11px !important;
+      top: 18px;
+      right: 12px !important;
     }
   }
 }

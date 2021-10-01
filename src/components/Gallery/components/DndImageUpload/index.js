@@ -43,12 +43,23 @@ const DndImageUpload = ({ callback, album_id }) => {
 
     const { getRootProps, getInputProps, isDragActive} = useDropzone({
         accept: '.jpg, .jpeg',
+        maxSize: 20971520, // 20mb
         onDrop: (acceptedFiles, rejectedFiles) => {
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
             if(rejectedFiles.length > 0) {
+<<<<<<< HEAD
                 setShowAlertImg(true)
+=======
+                setShowAlert({
+                    text:"Ошибка: Формат файла не поддерживается, либо размер файла превышает 20Мб. Поддерживаемые форматы JPG, JPEG.",
+                    okButton: true,
+                    onOk:() => {
+                        setShowAlert(false);
+                    }
+                });
+>>>>>>> e9f55f9ed585ebb97f84e2c4fab6bb00d361e6bf
             }
         }
     });
