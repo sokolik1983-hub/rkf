@@ -638,7 +638,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       margin-left: auto;
       margin-top: -3px;
     }
@@ -647,7 +647,7 @@
       flex-direction: column;
       align-items: center;
       z-index: 100;
-      @media (max-width: 1080px) {
+      @media (max-width: 1079px) {
         margin-top: 5px;
         margin-left: 20px;
       }
