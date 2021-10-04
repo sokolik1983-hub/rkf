@@ -49,9 +49,6 @@ const DndImageUpload = ({ callback, album_id }) => {
                 preview: URL.createObjectURL(file)
             })));
             if(rejectedFiles.length > 0) {
-<<<<<<< HEAD
-                setShowAlertImg(true)
-=======
                 setShowAlert({
                     text:"Ошибка: Формат файла не поддерживается, либо размер файла превышает 20Мб. Поддерживаемые форматы JPG, JPEG.",
                     okButton: true,
@@ -59,7 +56,6 @@ const DndImageUpload = ({ callback, album_id }) => {
                         setShowAlert(false);
                     }
                 });
->>>>>>> e9f55f9ed585ebb97f84e2c4fab6bb00d361e6bf
             }
         }
     });
