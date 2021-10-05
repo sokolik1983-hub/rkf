@@ -113,31 +113,32 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
             <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className={`feedback__modal feedback_modal_popup`} >
                 <div className="feedback">
                     <h3 className="feedback__modal__title">Центр поддержки</h3>
-                    <p>В случае возникновения вопросов просим Вас ознакомиться с <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noopener noreferrer">Базой знаний РКФ</a></p>
-                    <br />
-                    <p>Если Вы не нашли интересующей Вас информации - напишите обращение в соответствующую кинологическую организацию:</p>
-                    <p>РФСС - <a href="mailto:support.rfss@rkf.online">support.rfss@rkf.online</a></p>
-                    <p>РФЛС - <a href="mailto:support.rfls@rkf.online">support.rfls@rkf.online</a></p>
-                    <p>РФОС - <a href="mailto:support.rfos@rkf.online">support.rfos@rkf.online</a></p>
-                    <table className="feedback__table">
-                        <tbody>
-                            <tr>
-                                <td>ОАНКОО/Фауна</td>
-                                <td style={{ textAlign: 'center' }}>&nbsp;-&nbsp;</td>
-                                <td><a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a></td>
-                            </tr>
-                            <tr>
-                                <td>ОАНКОО/Элита</td>
-                                <td style={{ textAlign: 'center', textIndent: '-3px' }}>&nbsp;-&nbsp;</td>
-                                <td><a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a></td>
-                            </tr>
-                            <tr>
-                                <td>ОАНКОО/РКК</td>
-                                <td style={{ textAlign: 'center', textIndent: '-16px' }}>&nbsp;-&nbsp;</td>
-                                <td><a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div className="feedback_modal_body">
+                        <p>В случае возникновения вопросов просим Вас ознакомиться с <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noopener noreferrer">Базой знаний РКФ</a></p>
+                        <p>Если Вы не нашли интересующей Вас информации - напишите обращение в соответствующую кинологическую организацию:</p>
+                        <p>РФСС - <a href="mailto:support.rfss@rkf.online">support.rfss@rkf.online</a></p>
+                        <p>РФЛС - <a href="mailto:support.rfls@rkf.online">support.rfls@rkf.online</a></p>
+                        <p>РФОС - <a href="mailto:support.rfos@rkf.online">support.rfos@rkf.online</a></p>
+                        <table className="feedback__table">
+                            <tbody>
+                                <tr>
+                                    <td>ОАНКОО/Фауна</td>
+                                    <td style={{ textAlign: 'center' }}>&nbsp;-&nbsp;</td>
+                                    <td><a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a></td>
+                                </tr>
+                                <tr>
+                                    <td>ОАНКОО/Элита</td>
+                                    <td style={{ textAlign: 'center', textIndent: '-3px' }}>&nbsp;-&nbsp;</td>
+                                    <td><a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a></td>
+                                </tr>
+                                <tr>
+                                    <td>ОАНКОО/РКК</td>
+                                    <td style={{ textAlign: 'center', textIndent: '-16px' }}>&nbsp;-&nbsp;</td>
+                                    <td><a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
                     {/*<h1>Форма обратной связи</h1>*/}
                     {/*<div className="feedback__inner">*/}
                     {/*    <div className="feedback__close" onClick={onModalClose} />*/}
