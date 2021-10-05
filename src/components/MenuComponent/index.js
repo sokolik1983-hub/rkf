@@ -12,6 +12,7 @@ import PopupModal from "../PopupModal";
 import DocsInFrame from "../DocsInFrame";
 
 import "./index.scss";
+import {blockContent} from "../../utils/blockContent";
 
 
 const presidium = {
@@ -213,13 +214,12 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, footerNav } ) => {
+const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, footerNav, openMenuComponent,  setOpenMenuComponent } ) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
-    const [openMenuComponent, setOpenMenuComponent] = useState(false);
     const [openDoc, setOpenDoc] = useState(false);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
@@ -378,6 +378,15 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
 
     const moreRef = useRef();
 
+    useEffect(() => {
+        if(showModal) {
+            blockContent(true)
+        } else {
+            blockContent(false)
+        }
+    }, [showModal])
+
+
 
     return (
         <>
@@ -403,12 +412,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                          Еще
                     </button>
                     }
-                    <CSSTransition
-                        in={openMenuComponent}
-                        timeout={350}
-                        classNames="user-menu__transition"
-                        unmountOnExit
-                    >
+
                         <PopupModal
                             showModal={openMenuComponent}
                             handleClose={(e) => !moreRef.current.contains(e.target) && setOpenMenuComponent(false)}
@@ -474,8 +478,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                 </ul>
                             </div>
                         </PopupModal>
-
-                    </CSSTransition>
                 </OutsideClickHandler>
             :
             <Card>

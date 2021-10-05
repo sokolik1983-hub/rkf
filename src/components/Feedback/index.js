@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from '../Modal';
 import { connect } from "react-redux";
 import Alert from 'components/Alert';
 // import { Form, SubmitButton, FormGroup, FormField } from '../Form';
 //import FormFile from '../Form/Field/FormFile';
 // import { feedbackFormConfig, reasons } from "./config";
+import {blockContent} from "../../utils/blockContent";
 
 import './styles.scss';
+
 
 const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
     const [showModal, setShowModal] = useState(false);
@@ -68,6 +70,13 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
         if (showModal) setShowModal(false);
     };
 
+    useEffect(() => {
+        if(showModal) {
+            blockContent(true)
+        } else {
+            blockContent(false)
+        }
+    }, [showModal])
 
     return (
         <>

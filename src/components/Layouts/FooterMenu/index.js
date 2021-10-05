@@ -35,8 +35,10 @@ const FooterMenu = ({
     const [showZlineModal, setShowZlineModal] = useState(false);
     const [open, setOpen] = useState(false);
     const [openUserMenu, setOpenUserMenu] = useState(false);
+    const [openMenuComponent, setOpenMenuComponent] = useState(false);
+    const [openFedMenu, setOpenFedMenu] = useState(false);
     const [fedInfo, setFedInfo] = useState(null);
-    const [block, setBlock] = useState(false);
+
 
     const isExhibitionPage = match.path === pathname;
 
@@ -69,19 +71,19 @@ const FooterMenu = ({
     };
     const hideWidgetLoginPopup = () => {
         setOpen(false);
-        setBlock(true)
     }
-
     const handleZlineClick = (e) => {
         e.preventDefault();
         hideWidgetLoginPopup();
         setShowZlineModal(true);
-        setBlock(true)
     };
-
     useEffect(() => {
-        blockContent(block);
-    }, [block])
+        if(showZlineModal || open || openUserMenu || openFedMenu || openMenuComponent) {
+            blockContent(true);
+        } else {
+            blockContent(false);
+        }
+    }, [showZlineModal, open, openUserMenu, openFedMenu, openMenuComponent]);
 
     return (
         <>
@@ -97,7 +99,7 @@ const FooterMenu = ({
                         {footerNav[5].image}
                         <span>{footerNav[5].title}</span>
                     </Link>
-                    {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} setOpen={setOpen} open={open} setBlock={setBlock}/>}
+                    {isAuthenticated && <WidgetLogin footerNav={footerNav[2]} setOpen={setOpen} open={open} />}
                     {!isAuthenticated &&
                         <>
                             <NavLink className='footer__menu-link class-for-grid-block6' to={footerNav[6].to}>
@@ -116,6 +118,8 @@ const FooterMenu = ({
                             {isFederationAlias(checkAliasUrl(pathname, alias) || alias)
                                 ?
                                 <MenuComponent
+                                    openMenuComponent={openMenuComponent}
+                                    setOpenMenuComponent={setOpenMenuComponent}
                                     isExhibitionPage={isExhibitionPage}
                                     alias={checkAliasUrl(pathname, alias) || alias}
                                     name={fedInfo?.short_name || fedInfo?.name || 'Название федерации отсутствует'}
@@ -140,7 +144,6 @@ const FooterMenu = ({
                                             notificationsLength={notificationsLength}
                                         />
                                         : <UserMenu
-                                            test={'3333'}
                                             setOpenUserMenu={setOpenUserMenu}
                                             openUserMenu={openUserMenu}
                                             userNav={canEdit

@@ -14,6 +14,7 @@ import PopupModal from "../../../../PopupModal";
 import useIsMobile from "../../../../../utils/useIsMobile";
 
 import "./styles.scss";
+import {blockContent} from "../../../../../utils/blockContent";
 
 const defaultCategories = [
     {
@@ -125,6 +126,14 @@ const Notifications = forwardRef(
         }
 
         const notificationsRef = useRef();
+
+        useEffect(() => {
+            if (open && isMobile) {
+                blockContent(true)
+            } else {
+                blockContent(false)
+            }
+        }, [open])
 
         return (
             <div className="Notifications">

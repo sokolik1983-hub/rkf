@@ -23,8 +23,7 @@ const WidgetLogin = forwardRef(
          footerNav,
          withFilters,
          setOpen,
-         open,
-         setBlock
+         open
      }, ref) => {
 
         const [showModal, setShowModal] = useState(false);
@@ -80,7 +79,6 @@ const WidgetLogin = forwardRef(
                 style={{ padding: 0}}
                 onClick={() => {
                     setOpen(!open);
-                    setBlock(!open)
                 }}
             >
                 {isAuthenticated
