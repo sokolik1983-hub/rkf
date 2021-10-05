@@ -412,7 +412,12 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                          Еще
                     </button>
                     }
-
+                    <CSSTransition
+                        in={openMenuComponent}
+                        timeout={350}
+                        classNames="user-menu__transition"
+                        unmountOnExit
+                    >
                         <PopupModal
                             showModal={openMenuComponent}
                             handleClose={(e) => !moreRef.current.contains(e.target) && setOpenMenuComponent(false)}
@@ -478,6 +483,8 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                 </ul>
                             </div>
                         </PopupModal>
+                    </CSSTransition>
+
                 </OutsideClickHandler>
             :
             <Card>
