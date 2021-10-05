@@ -21,6 +21,7 @@ const LoginAsUser = ({loginUserSuccess, history, closeModal}) => {
     return (
         <>
             <Form
+                onClick={() => console.log('forma')}
                 {...loginForm}
                 className="login-as-user__form"
                 onSuccess={onSuccess}
