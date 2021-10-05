@@ -583,6 +583,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
             }
             {showModal &&
                 <Modal
+                    iconName={'icon-presidium-white'}
                     headerName={alias === 'rfls' ? "" : "Президиум"}
                     className="menu-component__modal"
                     showModal={showModal} handleClose={() => setShowModal(false)}
