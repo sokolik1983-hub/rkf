@@ -582,11 +582,12 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
             </Card>
             }
             {showModal &&
-            <Modal
-                headerName={alias === 'rfls' ? "" : "Президиум"}
-                className="menu-component__modal"
-                showModal={showModal} handleClose={() => setShowModal(false)}
-                noBackdrop={true}>
+                <Modal
+                    iconName={'icon-presidium-white'}
+                    headerName={alias === 'rfls' ? "" : "Президиум"}
+                    className="menu-component__modal"
+                    showModal={showModal} handleClose={() => setShowModal(false)}
+                    noBackdrop={true}>
                     <div className="menu-component__wrap">
                         {
                             loading

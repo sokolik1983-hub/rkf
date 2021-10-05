@@ -28,6 +28,7 @@ const ModalDeleteDocument = ({ handleSuccess, handleError, getDocuments, documen
 
     return (
         <Modal
+            iconName={'delete-white'}
             className="delete-document-modal"
             showModal={true}
             handleClose={closeModal}

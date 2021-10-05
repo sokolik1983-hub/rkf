@@ -27,6 +27,7 @@ const PuppyItem = ({ formik, puppy, i, j, activePuppy, activateClick, deleteClic
             </td>
         </tr>
         <Modal
+            iconName={'puppy-white'}
             showModal={activePuppy === j}
             handleClose={() => activePuppy === j && activateClick()}
             handleX={() => activePuppy === j && (activateClick() || (allFielsEmpty(puppy) && deleteClick(true)))}
@@ -41,8 +42,8 @@ const PuppyItem = ({ formik, puppy, i, j, activePuppy, activateClick, deleteClic
                         style={{ alignSelf: 'flex-end', padding: '12px' }}
                     >Транслитерировать</Button>
                 </FormGroup>
-                <span className="DocItem__warning">Если данное поле не заполнено, транслитерация клички остается на усмотрение кинолога</span>
                 <FormField disabled={cantEdit} name={`litters[${j}].dog_name_lat`} label='Кличка латиницей (опционально)' />
+                <span className="DocItem__warning">Если данное поле не заполнено, транслитерация клички остается на усмотрение кинолога</span>
                 <FormGroup inline>
                     <FormField disabled={cantEdit} name={`litters[${j}].dog_color`} label='Окрас' />
                     <FormField disabled={cantEdit} name={`litters[${j}].dog_sex_type_id`} label='Пол' options={sexTypes} fieldType="reactSelect" placeholder="Выберите..." />
