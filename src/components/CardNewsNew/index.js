@@ -140,7 +140,9 @@ const CardNewsNew = forwardRef(({
                                             ? `/kennel/${alias}`
                                             : user_type === 1
                                                 ? `/user/${alias}`
-                                                : `/club/${alias}`}>
+                                                : user_type === 3 && alias !== 'rkf'
+                                                    ? `/club/${alias}`
+                                        : `/${alias}`}>
                                         {user_type === 1 ? first_name + ' ' + last_name : name}
                                     </Link>
                                     <span className="CardNewsNew__left-mark">
@@ -316,8 +318,11 @@ const CardNewsNew = forwardRef(({
                 <div className="CardNewsNew__left">
                     <Link to={user_type === 4
                         ? `/kennel/${alias}`
-                        : user_type === 1 ? `/user/${alias}`
-                            : `/${alias}`}
+                        : user_type === 1
+                            ? `/user/${alias}`
+                            : user_type === 3 && alias !== 'rkf'
+                                ? `/club/${alias}`
+                                : `/${alias}`}
                     >
                         <div className="CardNewsNew__left-logo" style={{
                             background: `url(${logo_link ?
@@ -330,7 +335,13 @@ const CardNewsNew = forwardRef(({
                     </Link>
                     <span className="CardNewsNew__left-name">
                         <span>
-                            <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                            <Link to={user_type === 4
+                                ? `/kennel/${alias}`
+                                : user_type === 1
+                                    ? `/user/${alias}`
+                                    : user_type === 3 && alias !== 'rkf'
+                                        ? `/club/${alias}`
+                                        : `/${alias}`}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                     <>
                                         <span>

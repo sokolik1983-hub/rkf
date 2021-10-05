@@ -20,6 +20,10 @@ import { connectClientClubAlias } from "./connectors";
 import reducer from "./reducer";
 import { useResourceAndStoreToRedux } from "../../shared/hooks";
 import injectReducer from "../../utils/injectReducer";
+
+import ls from 'local-storage';
+
+
 import "./styles.scss";
 
 
@@ -42,6 +46,9 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
         submitClubSocials,
         submitClubHeaderPicture;
     let clientErrors = {};
+
+    const { user_type, alias } = ls.get('user_info') || {};
+    const url = ( user_type === 3 && alias !== 'rkf') ? '/club' : ''
 
     useResourceAndStoreToRedux(endpointUrl, getClubSuccess);
 
@@ -189,7 +196,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             const isValid = !Object.keys(serverErrors).filter(key => Object.keys(serverErrors[key]).length).length;
             if (isValid && club_alias) {
                 unblock();
-                history.push(`/${club_alias}`);
+                history.push(`${url}/${club_alias}`);
             } else {
                 alert(Object.values(serverErrors)
                     .filter(e => Object.entries(e).length)
@@ -213,9 +220,9 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
                 </Disclaimer>
                 <Card className="ClubEditPage__about">
                     <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
-                        bindSubmitClubLogo={bindSubmitClubLogo}
-                        bindSubmitClubInfo={bindSubmitClubInfo}
-                        isFederation={is_federation}
+                              bindSubmitClubLogo={bindSubmitClubLogo}
+                              bindSubmitClubInfo={bindSubmitClubInfo}
+                              isFederation={is_federation}
                     />
                 </Card>
                 <Card className="ClubEditPage__schedule">
@@ -230,7 +237,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
                 <Card className="ClubEditPage__contacts">
                     <h3>Контакты</h3>
                     <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
-                        bindSubmitClubPhone={bindSubmitClubPhone}
+                                  bindSubmitClubPhone={bindSubmitClubPhone}
                     />
                 </Card>
                 <Card className="ClubEditPage__documents">

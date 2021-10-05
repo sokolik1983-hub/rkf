@@ -37,7 +37,7 @@ export const clubNav = alias => [
     {
         id: 4,
         title: 'Документы',
-        to: `/club/${alias}/uploaded-documents/`,
+        to: `/${alias}/uploaded-documents/`,
         exact: false,
         icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="m24.7 10.9v7.2h50.3v64.1h7.2v-71.3h-57.5z" />

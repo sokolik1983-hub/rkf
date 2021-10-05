@@ -80,10 +80,6 @@ const FooterMenu = ({
         blockContent(showZlineModal);
     }, []);
 
-    useEffect(() => {
-        blockContent(showZlineModal);
-        console.log("checkAliasUrl(pathname)", checkAliasUrl(pathname, alias))
-    });
 
     return (
         <>
