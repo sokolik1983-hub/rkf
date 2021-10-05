@@ -77,7 +77,6 @@ const WidgetLogin = forwardRef(
         const openClubEmailForm = () => {
             setShowModalEmailClub(true);
             setOpen(false);
-            console.log('funktsia otrabotala!')
         }
 
         return (
