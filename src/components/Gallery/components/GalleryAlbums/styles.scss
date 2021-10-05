@@ -74,9 +74,11 @@
             width: 92%;
         }
     }
+    &-btnFrame {
+        display: flex;
+        justify-content: center;
+    }
     &-button {
-        padding: 5px 15px;
-        float: right;
         margin-bottom: 20px;
     }
     .Form{
