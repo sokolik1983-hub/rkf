@@ -64,7 +64,7 @@ const ActionButton = ({
     leftIcon,
     rightIcon,
     history,
-    ...other,
+    ...other
 }) => {
 
     const handleClick = action ? () => history.push(action) : onClick;
