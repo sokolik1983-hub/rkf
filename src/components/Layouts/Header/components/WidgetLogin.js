@@ -27,6 +27,7 @@ const WidgetLogin = forwardRef(
      }, ref) => {
 
         const [showModal, setShowModal] = useState(false);
+        const [showModalEmailClub, setShowModalEmailClub] = useState(false);
 
         const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
         const name = ls.get('user_info') ? ls.get('user_info').name : '';
@@ -72,16 +73,22 @@ const WidgetLogin = forwardRef(
             });
         };
 
+        const openClubEmailForm = () => {
+            setShowModalEmailClub(true);
+            setOpen(false);
+        }
+
         return (
             <div
                 className={`widget-login class-for-grid-block3 ${login_page ? `active` : !isAuthenticated ? `__noAuth` : ''}`}
                 style={{ padding: 0}}
-                onClick={() => setOpen(!open)}
             >
                 {isAuthenticated
                     ? <OutsideClickHandler onOutsideClick={() => setShowModal(false)}>
                             <>
-                                <div className={`widget-login__wrap ${open ? `_login_open ` : ''}`}>
+                                <div className={`widget-login__wrap ${open ? `_login_open ` : ''}`} onClick={() => {
+                                    setOpen(!open);
+                                }}>
                                     {isMobile1080
                                         ? <div className={`widget-login__user-icon`}>
                                             {footerNav?.image}
@@ -192,8 +199,10 @@ const WidgetLogin = forwardRef(
                                                                 </>
                                                                 }
                                                                 {accountType === 5 && userType === 5 &&
-                                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                                    <span onClick={() => setShowModal(true)}>Войти в аккаунт клуба</span>
+                                                                <li className="widget-login__item" onClick={() => {
+                                                                    openClubEmailForm();
+                                                                }}>
+                                                                    <span>Войти в аккаунт клуба</span>
                                                                 </li>
                                                                 }
                                                                 {accountType === 5 && userType !== 5 &&
@@ -347,9 +356,9 @@ const WidgetLogin = forwardRef(
                     : <AuthButtons />
                 }
                 <Modal className="widget-login__modal"
-                       showModal={showModal}
-                       handleClose={() => setShowModal(false)}
-                       headerName={"Войти как клуб"}
+                    showModal={showModal}
+                    handleClose={() => setShowModal(false)}
+                    headerName={"Войти как клуб"}
                 >
                     <LoginAsUser history={history} closeModal={() => setShowModal(false)} />
                 </Modal>
