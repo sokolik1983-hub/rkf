@@ -26,3 +26,9 @@
 .Card__link._not-active {
   opacity: .5;
 }
+.Card__link {
+  color: #3366ff;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}

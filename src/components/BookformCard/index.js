@@ -138,10 +138,13 @@ const BookformCard = ({ url, distinction }) => {
             <p>В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
             <hr />
             <div className="Card__links">
-                <Link to={`/`}
-                    onClick={e => handleClick(e, null, 'federation')}
-                    className={`Card__link${!federation ? ' _not-active' : ''}`}
-                >Оценить работу {federation || 'Федерации'}</Link>
+                {/*<Link to={`/`}*/}
+                {/*    onClick={e => handleClick(e, null, 'federation')}*/}
+                {/*    className={`Card__link${!federation ? ' _not-active' : ''}`}*/}
+                {/*>Оценить работу {federation || 'Федерации'}</Link>*/}
+                <span className={`Card__link${!federation ? ' _not-active' : ''}`} onClick={e => handleClick(e, null, 'federation')}>
+                    Оценить работу {federation || 'Федерации'}
+                </span>
             </div>
         </Card>
         <Card>
@@ -150,10 +153,13 @@ const BookformCard = ({ url, distinction }) => {
             <p>В данном разделе Вы можете поделиться своими впечатлениями от взаимодействия со службой поддержки федерации.  Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
             <hr />
             <div className="Card__links">
-                <Link to={`/`}
-                    onClick={e => handleClick(e, null, 'support')}
-                    className={`Card__link${!federation ? ' _not-active' : ''}`}
-                >Оценить работу службы поддержки {federation || 'Федерации'}</Link>
+                {/*<Link to={`/`}*/}
+                {/*    onClick={e => handleClick(e, null, 'support')}*/}
+                {/*    className={`Card__link${!federation ? ' _not-active' : ''}`}*/}
+                {/*>Оценить работу службы поддержки {federation || 'Федерации'}</Link>*/}
+                <span className={`Card__link${!federation ? ' _not-active' : ''}`} onClick={e => handleClick(e, null, 'support')}>
+                    Оценить работу службы поддержки {federation || 'Федерации'}
+                </span>
             </div>
         </Card>
     </>;
