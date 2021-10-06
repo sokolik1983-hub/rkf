@@ -23,7 +23,6 @@ import ReplaceRegistry from "./components/ReplaceRegistry";
 import ReplacePedigree from "./components/ReplacePedigree";
 import Patella from "components/Patella";
 import PatellaRegistry from "components/PatellaRegistry";
-import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import Application from "./components/Application/Form";
 import ApplicationRegistry from "./components/Application/ApplicationRegistry";

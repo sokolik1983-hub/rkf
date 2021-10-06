@@ -11,7 +11,7 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
         & .close-btn {
             @media (max-width: 1080px) {
                 display: flex;
-                justify-content: end;
+                justify-content: flex-end;
                 z-index: 99;
                 margin-right: -7px;
                 padding-top: 5px;

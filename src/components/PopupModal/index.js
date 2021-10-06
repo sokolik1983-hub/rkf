@@ -1,8 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import OutsideClickHandler from "react-outside-click-handler";
 import Container from "../Layouts/Container";
-import {blockContent} from "../../utils/blockContent";
 
 import "./styles.scss";
 

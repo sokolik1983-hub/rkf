@@ -9,7 +9,6 @@ import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connec
 import history from "../../../../utils/history";
 import { Request } from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
-import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import PopupModal from "../../../PopupModal";
 
 const WidgetLogin = forwardRef(
@@ -27,7 +26,6 @@ const WidgetLogin = forwardRef(
      }, ref) => {
 
         const [showModal, setShowModal] = useState(false);
-        const [showModalEmailClub, setShowModalEmailClub] = useState(false);
 
         const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
         const name = ls.get('user_info') ? ls.get('user_info').name : '';
@@ -73,10 +71,6 @@ const WidgetLogin = forwardRef(
             });
         };
 
-        const openClubEmailForm = () => {
-            setShowModalEmailClub(true);
-            setOpen(false);
-        }
 
         return (
             <div
@@ -84,7 +78,7 @@ const WidgetLogin = forwardRef(
                 style={{ padding: 0}}
             >
                 {isAuthenticated
-                    ? <OutsideClickHandler onOutsideClick={() => setShowModal(false)}>
+                    ?
                             <>
                                 <div className={`widget-login__wrap ${open ? `_login_open ` : ''}`} onClick={() => {
                                     setOpen(!open);
@@ -199,10 +193,8 @@ const WidgetLogin = forwardRef(
                                                                 </>
                                                                 }
                                                                 {accountType === 5 && userType === 5 &&
-                                                                <li className="widget-login__item" onClick={() => {
-                                                                    openClubEmailForm();
-                                                                }}>
-                                                                    <span>Войти в аккаунт клуба</span>
+                                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    <span onClick={() => setShowModal(true)}>Войти в аккаунт клуба</span>
                                                                 </li>
                                                                 }
                                                                 {accountType === 5 && userType !== 5 &&
@@ -346,19 +338,16 @@ const WidgetLogin = forwardRef(
                                                     }
                                                 </ul>
                                             </div>
-
                                     }
-
-
                                 </CSSTransition>
                             </>
-                        </OutsideClickHandler>
                     : <AuthButtons />
                 }
                 <Modal className="widget-login__modal"
                     showModal={showModal}
                     handleClose={() => setShowModal(false)}
                     headerName={"Войти как клуб"}
+                       iconName={'enter-white'}
                 >
                     <LoginAsUser history={history} closeModal={() => setShowModal(false)} />
                 </Modal>
