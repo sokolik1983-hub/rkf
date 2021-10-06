@@ -9,3 +9,12 @@
     }
   }
 }
+.documents-card__link {
+  color: #3366ff;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.documents-card__link:hover{
+  text-decoration: underline;
+}
