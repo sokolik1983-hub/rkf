@@ -27,11 +27,11 @@ const FederationAssessment = () => {
                 <h3 className="documents-card__title">Оценка работы Федерации</h3>
                 <p className="documents-card__about">В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
                 <div className="documents-card__controls">
-                    {/*<Link*/}
-                    {/*    to="/"*/}
-                    {/*    className="documents-card__link"*/}
-                    {/*    onClick={e => handleClick(e, false)}*/}
-                    {/*>Оценить работу Федерации</Link>*/}
+                    {/*<Link
+                        to="/"
+                        className="documents-card__link"
+                        onClick={e => handleClick(e, false)}
+                    >Оценить работу Федерации</Link>*/}
                     <span className="documents-card__link" onClick={e => handleClick(e, false)}>
                         Оценить работу Федерации
                     </span>
@@ -42,11 +42,11 @@ const FederationAssessment = () => {
                 <h3 className="documents-card__title">Оценка работы службы поддержки Федерации</h3>
                 <p className="documents-card__about">В данном разделе Вы можете поделиться своими впечатлениями от взаимодействия со службой поддержки федерации.  Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
                 <div className="documents-card__controls">
-                    {/*<Link*/}
-                    {/*    to="/"*/}
-                    {/*    className="documents-card__link"*/}
-                    {/*    onClick={e => handleClick(e, true)}*/}
-                    {/*>Оценить работу службы поддержки Федерации</Link>*/}
+                   {/* <Link
+                        to=""
+                        className="documents-card__link"
+                        onClick={e => handleClick(e, true)}
+                    >Оценить работу службы поддержки Федерации</Link>*/}
                     <span className="documents-card__link" onClick={e => handleClick(e, true)}>
                         Оценить работу службы поддержки Федерации
                     </span>
