@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { Link, useParams } from "react-router-dom";
 import Gallery from "react-grid-gallery";
 import { AddPhotoModal } from "./components/ImageUpload/AddPhotoModal";

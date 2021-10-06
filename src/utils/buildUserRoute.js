@@ -36,6 +36,8 @@ export function buildUserRoute(userType) {
     case 5:
         console.log('Route Федерация')
         break;
+        default:
+            console.log('default')
 
     }
 }

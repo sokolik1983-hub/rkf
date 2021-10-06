@@ -82,7 +82,7 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
     return <div className="DocumentItem container p-0 mb-4">
         <div className="row d-flex align-items-center flex-row" >
             <div className="col-5">
-                <a href="#" className="d-flex align-items-center" onClick={(e) => showDoc(id, e)}>
+                <a href="/#" className="d-flex align-items-center" onClick={(e) => showDoc(id, e)}>
                     <SvgIcon icon={filePdf} size="default" />
                     <div className="d-flex flex-column">{name}<span className="DocumentItem__date">
                         {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}

@@ -7,7 +7,6 @@ import ZlineModal from "../ZlineModal";
 import Alert from "../Alert";
 import { Request } from "../../utils/request";
 import ls from "local-storage";
-import prezIcon from "local-storage";
 import "./index.scss";
 
 const feds = {
