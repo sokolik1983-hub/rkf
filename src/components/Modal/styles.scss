@@ -26,6 +26,8 @@
     max-height: calc(100vh - 80px);
     overflow-y: auto;
     min-width: 320px;
+    margin: 0 auto;
+    max-width: 900px;
   }
 
   &>div {
@@ -38,20 +40,28 @@
 
   &__body {
     height: 100%;
+    margin: 10px;
   }
-
-  &__header {    
+  &__main__header {
     display: flex;
     align-items: center;
+    height: 50px;
+    width: 100%;
+    background: linear-gradient(to right, #4067AC, #5791F8);
+  }
+
+  &__icon {
+    margin: 0 10px 0 16px;
+    top: 17px;
+    height: 18px;
+    width: 18px;
+  }
+
+  &__header {
     font-weight: normal;
     font-size: 18px;
     line-height: 18px;
     color: white;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    height: 50px;
-    width: 100%;
-    background: linear-gradient(to right, #4067AC, #5791F8);
   }
 
   &__close {
@@ -78,11 +88,13 @@
     }
 
     &-text {
+      position: absolute;
+      top: 12px;
+      right: 44px;
+      font-size: 14px;
       color: white;
       cursor: pointer;
-      float: right;
-
-      @media (min-width: 768px) {
+      @media (max-width: 700px) {
         display: none;
       }
     }

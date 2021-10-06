@@ -118,12 +118,12 @@ const CardSpecialist = ({
                                     </div>}
 
 
-                                    {email && <div className="card-specialist__subtitle">
+                                    <div className="card-specialist__subtitle">
                                         <span className="card-specialist__contacts_bold">
                                             E-mail:&nbsp;
                                         </span>
                                         <div>
-                                            <span>{email}</span>
+                                            <span>{email ? email : 'не указан'}</span>
                                             {additionalEmails && moreData && additionalEmails.map((email, index) => {
                                                 return (
                                                     <span key={index}>
@@ -132,7 +132,7 @@ const CardSpecialist = ({
                                                 )
                                             })}
                                         </div>
-                                    </div>}
+                                    </div>
 
 
                                     <div className="card-specialist__sertificate-block">
@@ -163,12 +163,12 @@ const CardSpecialist = ({
                                         </div>
                                     </div>}
 
-                                    {email && <div className="card-specialist__subtitle">
+                                    <div className="card-specialist__subtitle">
                                         <span className="card-specialist__contacts_bold">
                                             E-mail:&nbsp;
                                         </span>
                                         <div>
-                                            <span>{email}</span>
+                                            <span>{email ? email : 'не указан'}</span>
                                             {additionalEmails && moreData && additionalEmails.map((email, index) => {
                                                 return (
                                                     <span key={index}
@@ -178,7 +178,7 @@ const CardSpecialist = ({
                                                 )
                                             })}
                                         </div>
-                                    </div>}
+                                    </div>
                                 </div>
                             </div>
                             }

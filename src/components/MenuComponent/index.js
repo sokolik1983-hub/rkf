@@ -486,11 +486,11 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                     </CSSTransition>
 
                 </OutsideClickHandler>
-            :
-            <Card>
+                :
+                <Card>
                 <ul className="menu-component__list">
                 {user !== 'nursery' &&
-                    <li className="menu-component__item">
+                <li className="menu-component__item">
                         <NavLink
                             exact
                             to={`/exhibitions?Alias=${alias}`}
@@ -499,7 +499,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                         >Мероприятия</NavLink>
                     </li>
                 }
-                {presidium[alias] &&
+                    {presidium[alias] &&
                     <li className="menu-component__item">
                         <NavLink
                             exact
@@ -509,8 +509,8 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             title="Президиум"
                         >Президиум</NavLink>
                     </li>
-                }
-                <li className="menu-component__item">
+                    }
+                    <li className="menu-component__item">
                     <NavLink
                         exact
                         to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`}
@@ -542,7 +542,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                         title="Фотогалерея"
                     >Видеозаписи</NavLink>
                 </li>
-                {showDetails &&
+                    {showDetails &&
                     <>
                         {fedFeesId && <li className="menu-component__item" onClick={() => showDoc(fedFeesId)}>
                             <span className="menu-component__link _fees">
@@ -560,14 +560,14 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                         </Link>
                         </li> */}
                         {fedDetails && <li className="menu-component__item" onClick={() => showDoc(fedDetails)}>
-                            <span class="menu-component__link _requisites">
+                            <span className="menu-component__link _requisites">
                                 Реквизиты
                             </span>
 
                         </li>}
                     </>
-                }
-                {isFederation &&
+                    }
+                    {isFederation &&
                     <li className="menu-component__item">
                         <NavLink
                             exact
@@ -576,8 +576,8 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             title="Статус документов"
                         >Статус документов</NavLink>
                     </li>
-                }
-                <li className="menu-component__item">
+                    }
+                    <li className="menu-component__item">
                     <NavLink
                         exact
                         to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`}
@@ -592,6 +592,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
             }
             {showModal &&
                 <Modal
+                    iconName={'icon-presidium-white'}
                     headerName={alias === 'rfls' ? "" : "Президиум"}
                     className="menu-component__modal"
                     showModal={showModal} handleClose={() => setShowModal(false)}
