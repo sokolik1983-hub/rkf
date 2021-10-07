@@ -21,9 +21,11 @@ const Modal = ({open, onClose, title, children}) => (
                 </Toolbar>
             </AppBar>
         </div>
-        <DialogContent className="modal__content">
+        <div className='avatar__content'>
+            <DialogContent className="modal__content">
             {children}
-        </DialogContent>
+            </DialogContent>
+        </div>
     </Dialog>
 );
 

@@ -23,12 +23,6 @@
   }
   &__content  {
     padding: 16px;
-    overflow-y: auto;
-
-    .canvas {
-      transform: scale(0.6);
-    }
-
   }
   .MuiPaper-rounded {
     border-radius: 4px;
@@ -54,13 +48,11 @@
     padding-top: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    overflow-y: unset;
   }
 }
 .MuiDialog-root {
   z-index: 98 !important;
-}
-.avatar-editor__dropzone {
-  width: auto;
 }
 
 .avatar {
@@ -70,10 +62,10 @@
     background: linear-gradient(to right, #4067AC, #5791F8);
     margin-bottom: 20px;
 
-      .MuiToolbar-regular {
+    .MuiToolbar-regular {
         border-bottom: none;
-      }
     }
+  }
   &_icon {
     position: absolute;
     top: 6px;
@@ -115,8 +107,52 @@
       background: url(/static/icons/cross-gray-blue.svg) center no-repeat;
     }
   }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    overflow-y: unset;
+
+    .avatar-editor__dropzone {
+      @media (max-width: 500px){
+        transform: scale(0.95);
+        margin-top: 0;
+      }
+      @media (max-width: 450px){
+        transform: scale(0.85);
+        margin-top: -20px;
+      }
+      @media (max-width: 430px){
+        transform: scale(0.7);
+        margin-top: -40px;
+      }
+      @media (max-width: 400px){
+        transform: scale(0.6);
+        margin-top: -70px;
+      }
+    }
+    .avatar-editor__controls {
+      @media (max-width: 500px){
+        transform: scale(0.95);
+        margin-top: 0;
+      }
+      @media (max-width: 450px){
+        transform: scale(0.85);
+        margin-top: -20px;
+      }
+      @media (max-width: 430px){
+        transform: scale(0.7);
+        margin-top: -40px;
+      }
+      @media (max-width: 400px){
+        transform: scale(0.6);
+        margin-top: -70px;
+      }
+    }
+  }
 }
 .MuiDialog-paper {
+  overflow-y: unset !important;
   @media (max-width: 490px){
     margin: 16px;
   }
