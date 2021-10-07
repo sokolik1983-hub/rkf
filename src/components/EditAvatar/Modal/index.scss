@@ -1,4 +1,5 @@
 .modal {
+  margin-top: 60px;
   position: relative;
   &-close {
     width: 16px;
@@ -32,6 +33,8 @@
     color: #253c5e !important;
   }
   .MuiPaper-elevation4 {
+    border-top-right-radius: 4px!important;
+    border-top-left-radius: 4px!important;
     box-shadow: none !important;
     font-size: 18px !important;
     line-height: 1 !important;
@@ -60,7 +63,7 @@
     position: relative;
     height: 50px;
     background: linear-gradient(to right, #4067AC, #5791F8);
-    margin-bottom: 20px;
+    margin-bottom:20px;
 
     .MuiToolbar-regular {
         border-bottom: none;
@@ -109,6 +112,7 @@
   }
 
   &__content {
+    height: auto;
     display: flex;
     justify-content: center;
     overflow-y: unset;
@@ -156,4 +160,8 @@
   @media (max-width: 490px){
     margin: 16px;
   }
+}
+
+.MuiDialog-paperScrollPaper {
+  max-height: 100%!important;
 }
