@@ -299,7 +299,7 @@
       }
     }
   }
-  &__controls {
+  /*&__controls {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #e8e8e8;
@@ -327,7 +327,7 @@
         text-align: end;
       }
     }
-  }
+  }*/
   &__go-back {
     color: #72839c;
     cursor: pointer;
@@ -359,10 +359,9 @@
     line-height: 1;
     letter-spacing: 0.2px;
     transition: color 0.2s linear;
+    color: #36f;
     cursor: pointer;
-    &:hover {
-      color: #36f;
-    }
+
     &._disabled {
       color: #b9c1ce !important;
     }
@@ -474,9 +473,9 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border-bottom: 1px solid #E5E5E5;
+  //border-bottom: 1px solid #E5E5E5;
   &:last-child {
-    border-bottom: none;
+    //border-bottom: none;
   }
 }
 

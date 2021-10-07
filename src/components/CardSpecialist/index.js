@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Card from "../Card";
+import CardFooter from "../CardFooter"
 import Share from "../Share";
 import { DEFAULT_IMG } from "../../appConfig";
 import { Request } from "../../utils/request";
@@ -93,6 +94,10 @@ const CardSpecialist = ({
                                 </span>
                                 <span className="card-specialist__name-eng">{last_name_lat} {first_name_lat}</span>
                             </> }
+
+                            <div className="card-specialist__sertificate-block">
+                                <span className="card-specialist__sertificate">Лист судьи №<span>{cert_number}</span></span>
+                            </div>
                         </div>
 
 
@@ -133,19 +138,11 @@ const CardSpecialist = ({
                                             })}
                                         </div>
                                     </div>
-
-
-                                    <div className="card-specialist__sertificate-block">
-                                        <span className="card-specialist__sertificate">Лист судьи №<span>{cert_number}</span></span>
-                                    </div>
                                 </div>
                             </div>
                             }
 
                             {isMobile550 && <div className="card-specialist__contacts">
-                                <div className="card-specialist__sertificate-block">
-                                    <span className="card-specialist__sertificate">Лист судьи №<span>{cert_number}</span></span>
-                                </div>
                                 <div className="card-specialist__bottom-block">
                                     {phone && <div className="card-specialist__subtitle">
                                         <span className="card-specialist__contacts_bold">
@@ -371,15 +368,20 @@ const CardSpecialist = ({
                 </div>
             </div>
 
+            <div>
+                {!moreData && <span className="card-specialist__more" onClick={onShowMoreClick}>
+                    Подробнее...
+                </span>}
+                {moreData && <span className="card-specialist__more" onClick={() => setMoreData(!moreData)}>
+                    Скрыть
+                </span>}
+            </div>
+
             <div className={`card-specialist__controls`}>
-                <button disabled>Страница пользователя</button>
-                <Share url={`https://rkf.online`} />
-                <div>
-                    <>
-                        {!moreData && <span className="card-specialist__more" onClick={onShowMoreClick}> Полная информация</span>}
-                        {moreData && <span className="card-specialist__more" onClick={() => setMoreData(!moreData)}>Скрыть</span>}
-                    </>
-                </div>
+                <CardFooter
+                    id
+                    share_link="https://rkf.online"
+                />
             </div>
         </Card>
     )
