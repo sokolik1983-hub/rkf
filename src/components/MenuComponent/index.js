@@ -10,9 +10,9 @@ import { Request, getHeaders } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import PopupModal from "../PopupModal";
 import DocsInFrame from "../DocsInFrame";
+import {blockContent} from "../../utils/blockContent";
 
 import "./index.scss";
-import {blockContent} from "../../utils/blockContent";
 
 
 const presidium = {

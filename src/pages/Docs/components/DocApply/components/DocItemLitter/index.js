@@ -45,7 +45,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
-    console.log('getEverkData', filledEverk)
     const [init, setInit] = useState(false);
     useEffect(() => {
         if (!init && typeof (formik.values.stamp_code_id) !== 'number') {
