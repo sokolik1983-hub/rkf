@@ -73,7 +73,11 @@ const Search = ({ withFilters, hideSideMenu }) => {
                 <PopupModal
                     showModal={isClicked}
                     handleClose={(e) => {
-                    !searchRef.current.contains(e.target) && setIsClicked(false)
+                        if (!e?.target?.classList.contains('header__search-control')) {
+                            if (e?.target?.classList.contains('form-search__wrap')) {
+                                setIsClicked(false);
+                            }
+                        }
                     }}
                     zIndexStyle
                 >

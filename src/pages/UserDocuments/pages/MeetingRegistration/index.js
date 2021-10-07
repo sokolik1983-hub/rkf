@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
 import ZlineModal from "../../../../components/ZlineModal";
+// import { Link } from "react-router-dom";
 
 
 const MeetingRegistration = () => {
@@ -22,11 +22,12 @@ const MeetingRegistration = () => {
                 <p className="documents-card__about">В данном разделе Вы можете записаться на очный прием в офисе Вашей федерации. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе. При посещении офиса необходимо иметь с собой документ, удостоверяющий личность.</p>
                 <p className="documents-card__about">Отменить запись в Федерацию Вы можете в группе в Telegram по ссылке <a href="https://t.me/EntryRKFOnline" target="_blank" rel="noopener noreferrer">https://t.me/EntryRKFOnline</a></p>
                 <div className="documents-card__controls">
-                    <Link
+                    {/*<Link
                         to="/"
                         className="documents-card__link"
                         onClick={e => handleClick(e, false)}
-                    >Запись в Федерацию</Link>
+                    >Запись в Федерацию</Link>*/}
+                    <span className="documents-card__link" onClick={e => handleClick(e, false)}>Запись в Федерацию</span>
                 </div>
             </Card>
             <Card className="documents-card">
@@ -35,11 +36,12 @@ const MeetingRegistration = () => {
                 <p className="documents-card__about">В данном разделе Вы можете записаться на очный прием в офисе РКФ. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе. При посещении офиса необходимо иметь с собой документ, удостоверяющий личность.</p>
                 <p className="documents-card__about">Отменить запись в РКФ Вы можете в группе в Telegram по ссылке <a href="https://t.me/EntryRKFOnline" target="_blank" rel="noopener noreferrer">https://t.me/EntryRKFOnline</a></p>
                 <div className="documents-card__controls">
-                    <Link
+                    {/*<Link
                         to="/"
                         className="documents-card__link"
                         onClick={e => handleClick(e, true)}
-                    >Запись на услуги РКФ</Link>
+                    >Запись на услуги РКФ</Link>*/}
+                    <span className="documents-card__link" onClick={e => handleClick(e, true)}>Запись на услуги РКФ</span>
                 </div>
             </Card>
             {showModal && <ZlineModal showModal={showModal}

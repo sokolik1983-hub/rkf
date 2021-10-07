@@ -41,66 +41,78 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                 classNames="user-nav__transition"
                 unmountOnExit
             >
-                    {
-                        isMobile
-                            ?
-                            <PopupModal
-                                showModal={openUserMenu}
-                                handleClose={(e) => !moreRef.current.contains(e.target) && setOpenUserMenu(false)}
-                                bottomStyle
-                            >
-                                <div className="user-nav__inner">
-                                    {/*<div className="close-btn" onClick={() => setOpenUserMenu(false)}>
-                                        <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
-                                        </svg>
-                                    </div>*/}
-                                    <ul className="user-nav__list">
-                                        {userNav.map(navItem =>   <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
-                                                                      key={navItem.id}>
-                                                    <NavLink
-                                                        to={user_type === 3 && alias !== 'rkf' && navItem.title !== 'Мероприятия' ? `/club${navItem.to}` : navItem.to}
-                                                        exact={navItem.exact}
-                                                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                        onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
-                                                    >
-                                                        {navItem.icon}
-                                                        <span>{navItem.title}</span>
-                                                    </NavLink>
+                {
+                    isMobile
+                        ?
+                        <PopupModal
+                            showModal={openUserMenu}
+                            handleClose={(e) => !moreRef.current.contains(e.target) && setOpenUserMenu(false)}
+                            bottomStyle
+                        >
+                            <div className="user-nav__inner">
+                                {/*<div className="close-btn" onClick={() => setOpenUserMenu(false)}>
+                                    <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
+                                    </svg>
+                                </div>*/}
+                                <ul className="user-nav__list">
+                                    {userNav.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                            key={navItem.id}>
+                                            <NavLink
+                                                to={user_type === 3
+                                                    && alias !== 'rkf'
+                                                    && navItem.title !== 'Поиск по базе РКФ'
+                                                    && navItem.title !== 'Реквизиты и размеры взносов'
+                                                    && navItem.title !== 'Мероприятия'
+                                                    ? `/club${navItem.to}` : navItem.to}
+                                                exact={navItem.exact}
+                                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                            >
+                                                {navItem.icon}
+                                                <span>{navItem.title}</span>
+                                            </NavLink>
                                             {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
                                             <span
                                                 className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                                        {notificationsLength > 99 ? 99 : notificationsLength}
-                                                    </span>
+                                                {notificationsLength > 99 ? 99 : notificationsLength}
+                                            </span>
                                             }
-                                                </li>
-                                        )}
-                                    </ul>
-                                </div>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
 
-                            </PopupModal>
-                            :
-                            <ul className="user-nav__list">
-                                {userNav.map(navItem =>
-                                    <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`} key={navItem.id}>
-                                        <NavLink
-                                            to={user_type === 3 && alias !== 'rkf' && navItem.title !== 'Мероприятия' ? `/club${navItem.to}` : navItem.to}
-                                            exact={navItem.exact}
-                                            className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                            onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
-                                        >
-                                            {navItem.icon}
-                                            <span>{navItem.title}</span>
-                                        </NavLink>
-                                        {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
-                                        <span className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                        {notificationsLength > 99 ? 99 : notificationsLength}
-                                    </span>
-                                        }
-                                    </li>
-                                )}
-                            </ul>
-                    }
+                        </PopupModal>
+                        :
+                        <ul className="user-nav__list">
+                            {userNav.map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                key={navItem.id}>
+                                <NavLink
+                                    to={user_type === 3
+                                        && alias !== 'rkf'
+                                        && navItem.title !== 'Поиск по базе РКФ'
+                                        && navItem.title !== 'Реквизиты и размеры взносов'
+                                        && navItem.title !== 'Мероприятия'
+                                        ? `/club${navItem.to}` : navItem.to}
+                                    exact={navItem.exact}
+                                    className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                    onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                >
+                                    {navItem.icon}
+                                    <span>{navItem.title}</span>
+                                </NavLink>
+                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                <span
+                                    className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
+                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                </span>
+                                }
+                            </li>
+
+                            )}
+                        </ul>
+                }
                 </CSSTransition>
             {alert &&
             <Alert
