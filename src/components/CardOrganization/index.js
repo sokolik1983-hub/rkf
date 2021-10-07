@@ -10,24 +10,25 @@ import "./index.scss";
 
 
 const CardOrganization = ({ alias,
-    logo,
-    name,
-    user_type,
-    active_member,
-    active_rkf_user,
-    city_name,
-    city_id,
-    owner_name,
-    owner_position,
-    federation_name,
-    federation_alias,
-    content,
-    phones,
-    mails,
-    breeds,
-    site,
-    setFilters }) => {
-    const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
+                              logo,
+                              name,
+                              user_type,
+                              active_member,
+                              active_rkf_user,
+                              city_name,
+                              city_id,
+                              owner_name,
+                              owner_position,
+                              federation_name,
+                              federation_alias,
+                              content,
+                              phones,
+                              mails,
+                              breeds,
+                              site,
+                              setFilters }) => {
+    const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null :
+        (user_type === 3 && alias !== 'rkf') ? `/club/${alias}` : `/${alias}/`;
 
     return (
         <Card className="card-organization">
@@ -47,27 +48,27 @@ const CardOrganization = ({ alias,
                                     <div className="card-organization__name-inner">
                                     <Link to={url} className="card-organization__name" title={name || 'Название отсутствует'}>
                                         {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                            <>
+                                        <>
                                                 <span>
                                                     {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : ''}
                                                 </span>
-                                                &nbsp;
+                                            &nbsp;
                                             </>
                                         }
                                         <span>{name || 'Название отсутствует'}</span>
                                     </Link>
                                     <span className="card-organization__mark">
                                         {active_rkf_user &&
-                                            <ActiveUserMark/>
+                                        <ActiveUserMark/>
                                         }
                                         {active_member &&
-                                            <FederationChoiceMark/>
+                                        <FederationChoiceMark/>
                                         }
                                     </span>
                                     </div>
                                 </div>
                                 {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
-                                    <div className="card-organization__info-item">
+                                <div className="card-organization__info-item">
                                         <span>
                                             {federation_name && federation_alias ?
                                                 <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Федерация не указана'
@@ -83,31 +84,31 @@ const CardOrganization = ({ alias,
                             }} />
                             <span className="card-organization__name" title={name || 'Название отсутствует'}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                    <>
+                                <>
                                         <span>
-                                            {user_type === 3 
-                                                ? 'Клуб' 
-                                                : user_type === 4 
-                                                ? 'Питомник' : user_type === 5 
-                                                ? 'Федерация' : user_type === 7 
-                                                ? 'НКП' : ''
+                                            {user_type === 3
+                                                ? 'Клуб'
+                                                : user_type === 4
+                                                    ? 'Питомник' : user_type === 5
+                                                        ? 'Федерация' : user_type === 7
+                                                            ? 'НКП' : ''
                                             }
                                         </span>
-                                        &nbsp;
+                                    &nbsp;
                                     </>
                                 }
                                 <span>{name || 'Название отсутствует'}</span>
                             </span>
                             {active_rkf_user &&
-                                <ActiveUserMark/>
+                            <ActiveUserMark/>
                             }
                             {active_member &&
-                                <FederationChoiceMark/>
+                            <FederationChoiceMark/>
                             }
                         </p>
                     }
                     {city_name &&
-                        <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
+                    <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
                             {city_name}
                         </span>
                     }
@@ -125,27 +126,27 @@ const CardOrganization = ({ alias,
                         </span>
                     </div>
                     {user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
-                        <div className="card-organization__info-item">
+                    <div className="card-organization__info-item">
                             <span className="card-organization__subtitle">Телефон</span>&nbsp;
-                            <span>{phones.join(`, `)}</span>
+                        <span>{phones.join(`, `)}</span>
                         </div>
                     }
                     {user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
-                        <div className="card-organization__info-item">
+                    <div className="card-organization__info-item">
                             <span className="card-organization__subtitle">E-mail</span>&nbsp;
-                            <span>{mails.join(`, `)}</span>
+                        <span>{mails.join(`, `)}</span>
                         </div>
                     }
                     {user_type === 7 && site &&
-                        <div className="card-organization__info-item">
+                    <div className="card-organization__info-item">
                             <span className="card-organization__subtitle">Сайт</span>&nbsp;
-                            <a href={site.includes('http') ? site : `http://${site}`} target="_blank" rel="noopener noreferrer">{site}</a>
+                        <a href={site.includes('http') ? site : `http://${site}`} target="_blank" rel="noopener noreferrer">{site}</a>
                         </div>
                     }
                     {user_type === 4 && breeds && !!breeds.length &&
-                        <div className="card-organization__info-item">
+                    <div className="card-organization__info-item">
                             <span className="card-organization__subtitle">Породы</span>&nbsp;
-                            <span>{breeds.slice(0, 4).join(`, `)}</span>
+                        <span>{breeds.slice(0, 4).join(`, `)}</span>
                         </div>
                     }
                 </div>

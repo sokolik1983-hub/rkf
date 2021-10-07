@@ -184,6 +184,11 @@ const DocApply = ({ clubAlias, history, distinction }) => {
 
     const comment = initial.rejected_comment && initial.rejected_comment.comment;
 
+    const showAlert = () => {
+        window.alert("Заявка отправлена на рассмотрение");
+        setRedirect(`/club/${clubAlias}/documents`);
+    }
+
     return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
         <Alert
@@ -198,7 +203,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             {...(sendAlertEmptyProps)}
             autoclose={2.5}
             okButton="true"
-            onOk={() => setRedirect(`/${clubAlias}/documents`)}
+            onOk={() => setRedirect(`/club/${clubAlias}/documents`)}
         />
         }
         {redirect && <Redirect to={redirect} />}
@@ -212,7 +217,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         }
         <div className="documents-page__right">
             <Form
-                onSuccess={e =>  e ? setOkAlert(false) : setNoChangeAlert(true)}
+                onSuccess={showAlert}
                 onError={e => console.log(e) || setErrAlert(true)}
                 action={apiEndpoint}
                 method={update || draft ? "PUT" : "POST"}

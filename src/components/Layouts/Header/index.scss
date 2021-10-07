@@ -8,6 +8,8 @@
   width: 100%;
   height: 60px;
   padding: 5px 0;
+  display: flex;
+  justify-content: center;
   .click-guard {
     z-index: 0;
     top: 60px;
@@ -25,6 +27,8 @@
     display: flex;
     align-items: center;
     position: relative;
+    margin: 0;
+    margin-right: calc(-1 * (100vw - 100%));
     & *::selection {
       background: none;
     }
@@ -63,16 +67,29 @@
       top: 56px;
       left: 0;
       border: 1px solid transparent;
-      width: 100%;
+      width: 0;
+      &::placeholder {
+        transition: .2s;
+        color: transparent!important;
+      }
       &._open {
+        width: 100%;
+        z-index: 1000;
         background-color: #fff;
         border: 1px solid #ebf0f2;
-        padding: 6px 5px 6px 5px;
+        padding: 6px 5px 6px 20px;
         transition: all 0.2s linear;
         box-shadow: 0 2px 10px rgba(51, 102, 255, 0.05), 0 4px 30px rgba(51, 102, 255, 0.1);
+        &::placeholder {
+          color: #90999e!important;
+        }
+        &:focus::placeholder {
+          color: transparent!important;
+        }
         @media (max-width: 1080px) {
+          top: 55px;
           transform: translateY(1px);
-          z-index: 1;
+          z-index: 1000;
         }
       }
       @media (max-width: 1080px) {
@@ -122,8 +139,6 @@
       text-align: center;
       z-index: 100;
       cursor: pointer;
-      position: absolute;
-      bottom: -23px;
       &._open {
         color: #3366FF;
       }
@@ -627,7 +642,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       margin-left: auto;
       margin-top: -3px;
     }
@@ -636,7 +651,7 @@
       flex-direction: column;
       align-items: center;
       z-index: 100;
-      @media (max-width: 1080px) {
+      @media (max-width: 1079px) {
         margin-top: 5px;
         margin-left: 20px;
       }
@@ -690,7 +705,7 @@
       top: auto;
       display: flex;
       flex-direction: column;
-      align-items: end;
+      align-items: flex-end;
     }
     @media (max-width: 600px) {
 
@@ -723,10 +738,11 @@
       font-size: 13px;
       line-height: 16px;
     }
-    @media (max-width: 1080px) {
+    // @media (max-width: 1079px) {
+    //   top: -2px;
+    // }
+    @media (max-width: 1079px) {
       top: -2px;
-    }
-    @media (max-width: 1080px) {
       margin-left: 0;
       display: flex;
       align-items: center;
@@ -769,7 +785,7 @@
     border-radius: 5px;
     overflow: hidden;
     width: 476px;
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       position: static;
     }
     @media (max-width: 600px) {

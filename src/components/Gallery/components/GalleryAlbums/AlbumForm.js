@@ -16,10 +16,12 @@ const RenderFields = ({ fields }) => {
 };
 
 export const AddAlbum = ({ showModal, onModalClose, onSuccess }) => {
-    return <Modal showModal={showModal} handleClose={onModalClose} className="AddAlbum__modal" headerName = {"Создание альбома"}>
+    return <Modal showModal={showModal} handleClose={onModalClose} className="AddAlbum__modal" headerName = {"Создание альбома"} iconName={'addfolder'}>
         <Form {...addAlbumForm} onSuccess={onSuccess}>
             <RenderFields fields={addAlbumForm.fields} />
-            <SubmitButton className="btn-primary AddAlbum__modal-button">Создать альбом</SubmitButton>
+            <div className="AddAlbum__modal-btnFrame">
+                <SubmitButton className="btn-primary AddAlbum__modal-button">Создать альбом</SubmitButton>
+            </div>
         </Form>
     </Modal>
 };
@@ -33,7 +35,7 @@ export const EditAlbum = ({ onSuccess, album }) => {
         description
     };
 
-    return <Form {...editAlbumForm} initialValues={initialValues} onSuccess={onSuccess} className="EditAlbum">
+    return <Form {...editAlbumForm} initialValues={initialValues} onSuccess={onSuccess} className="EditAlbum" >
         <RenderFields fields={editAlbumForm.fields} />
         <SubmitButton className="btn-primary EditAlbum__button">Сохранить</SubmitButton>
     </Form>

@@ -191,7 +191,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     </HideIf>
                     <FormField disabled={update || filledEverk('owner_address_lat')} name={`declarants[${i}].owner_address_lat`} label='Адрес владельца латиницей' />
 
-                    <FormField disabled={update || filledEverk('dog_name_lat')} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей' />
+                    <FormField  name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей' />
 
                     <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG</h4>
                     <FormFile

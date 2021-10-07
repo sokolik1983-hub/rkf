@@ -98,7 +98,13 @@ const NewsFeedItem = forwardRef(({
                 <div className="NewsFeedItem__content">
                     <div className="NewsFeedItem__head" style={{margin: '0 10px 0 10px'}}>
                         <div className="NewsFeedItem__left">
-                            <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                            <Link to={user_type === 4
+                                ? `/kennel/${alias}`
+                                : user_type === 1
+                                    ? `/user/${alias}`
+                                    : user_type === 3 && alias !== 'rkf'
+                                        ? `/club/${alias}`
+                                        : `/${alias}`}>
                                 <div
                                     className="NewsFeedItem__left-logo"
                                     style={{background: `url(${logo_link ?
@@ -112,7 +118,13 @@ const NewsFeedItem = forwardRef(({
                             <span className="NewsFeedItem__left-name">
                                 {is_request_article ?
                                     <div>
-                                        <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                                        <Link to={user_type === 4
+                                            ? `/kennel/${alias}`
+                                            : user_type === 1
+                                                ? `/user/${alias}`
+                                                : user_type === 3 && alias !== 'rkf'
+                                                    ? `/club/${alias}`
+                                                    : `/${alias}`}>
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
                                         </Link>
                                         &nbsp;
@@ -127,7 +139,13 @@ const NewsFeedItem = forwardRef(({
                                                     &nbsp;
                                                 </>
                                             }
-                                            <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                                            <Link to={user_type === 4
+                                                ? `/kennel/${alias}`
+                                                : user_type === 1
+                                                    ? `/user/${alias}`
+                                                    : user_type === 3 && alias !== 'rkf'
+                                                        ? `/club/${alias}`
+                                                        : `/${alias}`}>
                                                 {user_type === 1 ? first_name + ' ' + last_name : name}
                                             </Link>
                                             {active_rkf_user &&
@@ -331,7 +349,13 @@ const NewsFeedItem = forwardRef(({
         <div className="NewsFeedItem__content">
             <div className="NewsFeedItem__head">
                 <div className="NewsFeedItem__left">
-                    <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                    <Link to={user_type === 4
+                        ? `/kennel/${alias}`
+                        : user_type === 1
+                            ? `/user/${alias}`
+                            : user_type === 3 && alias !== 'rkf'
+                                ? `/club/${alias}`
+                                : `/${alias}`}>
                         <div className="NewsFeedItem__left-logo" style={{
                             background: `url(${logo_link ?
                                 logo_link :
@@ -343,7 +367,13 @@ const NewsFeedItem = forwardRef(({
                     </Link>
                     <span className="NewsFeedItem__left-name">
                         <span>
-                            <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                            <Link to={user_type === 4
+                                ? `/kennel/${alias}`
+                                : user_type === 1
+                                    ? `/user/${alias}`
+                                    : user_type === 3 && alias !== 'rkf'
+                                        ? `/club/${alias}`
+                                        : `/${alias}`}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                     <>
                                         <span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>

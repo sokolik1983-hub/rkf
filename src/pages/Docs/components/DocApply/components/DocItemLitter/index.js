@@ -38,13 +38,13 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 setEverkAlert(true);
             })
             .catch(e => setEverkAlert(true));
+
     const clearEverkData = () => {
         if (!everkData) return;
         Object.keys(everkData).forEach(k => k !== 'id' && everkData[k] && formik.setFieldValue(`${k}`, ''));
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
-
     const [init, setInit] = useState(false);
     useEffect(() => {
         if (!init && typeof (formik.values.stamp_code_id) !== 'number') {
@@ -68,6 +68,21 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         const selectedDate = moment(date.value).format(`YYYY-MM-DD`)
         formik.setFieldValue('date_of_birth_litter', selectedDate);
     };
+
+    const handleButtonSavePuppy = (j) => {
+        setActivePuppy(activePuppy === j ? -1 : j)
+        sortPuppies(declarant.litters);
+    }
+
+    const sortPuppies = (puppies) => {
+        puppies.sort((a, b) => {
+            return validateStampNumber(a.stamp_number) - validateStampNumber(b.stamp_number);
+        })
+    }
+
+    const validateStampNumber = (number) => {
+        return number ? parseFloat(number) : 0;
+    }
 
     return <>
         {everkAlert &&
@@ -246,7 +261,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                                 i={i}
                                 key={j}
                                 activePuppy={activePuppy}
-                                activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
+                                activateClick={() => handleButtonSavePuppy(j)}
                                 deleteClick={(force = false) => {
                                     if (force || window.confirm("Удалить щенка?")) {
                                         remove(j); setActivePuppy(-1);

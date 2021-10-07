@@ -85,13 +85,23 @@ const appRoutes = [
         component: LoadableModules.LoadableExhibitions
     },
     {
-        exact: false,
+        exact: true,
         path: '/exhibitions/:id/edit',
         component: LoadableModules.LoadableExhibitionEdit
     },
     {
-        exact: false,
+        exact: true,
         path: '/exhibitions/:id',
+        component: LoadableModules.LoadableExhibition
+    },
+    {
+        exact: true,
+        path: '/club/exhibitions/:id/edit',
+        component: LoadableModules.LoadableExhibitionEdit
+    },
+    {
+        exact: true,
+        path: '/club/exhibitions/:id',
         component: LoadableModules.LoadableExhibition
     },
     {
@@ -100,7 +110,7 @@ const appRoutes = [
         component: LoadableModules.LoadableSpecialists
     },
     {
-        exact: false,
+        exact: true,
         path: '/educationals/:id',
         component: LoadableModules.LoadableEducational
     },
@@ -115,7 +125,22 @@ const appRoutes = [
         component: LoadableModules.LoadableNews
     },
     {
-        exact: false,
+        exact: true,
+        path: '/club/educationals/:id',
+        component: LoadableModules.LoadableEducational
+    },
+    {
+        exact: true,
+        path: '/club/news/:id/edit',
+        component: LoadableModules.LoadableNews
+    },
+    {
+        exact: true,
+        path: '/club/news/:id',
+        component: LoadableModules.LoadableNews
+    },
+    {
+        exact: true,
         path: '/reports',
         component: LoadableModules.LoadableReports
     },
@@ -220,6 +245,21 @@ const appRoutes = [
         component: LoadableModules.LoadableClubVideo
     },
     {
+        exact: true,
+        path: '/club/:id/gallery/:album?/edit',
+        component: LoadableModules.LoadableClubGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/club/:id/gallery/:album?',
+        component: LoadableModules.LoadableClubGallery
+    },
+    {
+        exact: true,
+        path: '/club/:id/video',
+        component: LoadableModules.LoadableClubVideo
+    },
+    {
         exact: false,
         path: '/kennel/:id/edit',
         component: LoadableModules.LoadableNurseryEdit
@@ -239,10 +279,14 @@ const appRoutes = [
         path: '/kennel/:id/video',
         component: LoadableModules.LoadableNurseryVideo
     },
-
     {
         exact: true,
         path: '/:route/news',
+        component: LoadableModules.LoadableClubNews
+    },
+    {
+        exact: true,
+        path: '/club/:route/news',
         component: LoadableModules.LoadableClubNews
     },
     {
@@ -252,8 +296,18 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: ['/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?'],
+        path: ['/club/:route/news-feed/:id?', '/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?'],
         component: LoadableModules.LoadableNewsFeed
+    },
+    {
+        exact: false,
+        path: '/club/:route/documents',
+        component: LoadableModules.LoadableDocs
+    },
+    {
+        exact: true,
+        path: '/club/:route/document-status',
+        component: LoadableModules.LoadableDocumentStatus
     },
     {
         exact: false,
@@ -287,6 +341,21 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/club/:route/document-status/:query',
+        component: LoadableModules.LoadableDocumentStatus
+    },
+    {
+        exact: true,
+        path: '/club/docs/:id',
+        component: LoadableModules.LoadableDocumentsPage
+    },
+    {
+        exact: true,
+        path: '/club/details-viewer/:id',
+        component: LoadableModules.LoadableDetailsViewer
+    },
+    {
+        exact: true,
         path: '/pedigree-viewer/:id',
         component: LoadableModules.LoadablePedigreeViewer
     },
@@ -298,6 +367,16 @@ const appRoutes = [
     {
         exact: false,
         path: '/:route/uploaded-documents/',
+        component: LoadableModules.LoadableClubUploadedDocuments
+    },
+    {
+        exact: true,
+        path: '/club/:route',
+        component: LoadableModules.LoadableClubPage
+    },
+    {
+        exact: false,
+        path: '/club/:route/uploaded-documents/',
         component: LoadableModules.LoadableClubUploadedDocuments
     },
     {
@@ -513,9 +592,9 @@ const footerNav = [
                 strokeLinejoin='round' />
             <path d='M5.78261 7.08694H16.2174' stroke='#979797' strokeWidth='1.32' strokeMiterlimit='10' />
             <path d='M5.78261 11H16.2174' stroke='#979797' strokeWidth='1.32' strokeMiterlimit='10'
-                strokeLinejoin='round' />
+                  strokeLinejoin='round' />
             <path d='M5.78261 14.9131H16.2174' stroke='#979797' strokeWidth='1.32' strokeMiterlimit='10'
-                strokeLinejoin='round' />
+                  strokeLinejoin='round' />
         </svg>
     },
     {
@@ -545,13 +624,13 @@ const footerNav = [
                 d='M10.5356 14.5215L13.0753 14.7096L19.7537 8.03118C20.4004 7.3845 20.4004 6.3263 19.7537 5.67962L19.3775 5.30337C18.7308 4.65669 17.6726 4.65669 17.0259 5.30337L10.3475 11.9818L10.5356 14.5215Z'
                 stroke='#8F989D' strokeWidth='1.32' strokeMiterlimit='10' strokeLinejoin='round' />
             <path d='M4.57434 4.82129H13.9806' stroke='#8F989D' strokeWidth='1.32' strokeMiterlimit='10'
-                strokeLinejoin='round' />
+                  strokeLinejoin='round' />
             <path d='M4.57434 8.38391H13.522' stroke='#8F989D' strokeWidth='1.32' strokeMiterlimit='10'
-                strokeLinejoin='round' />
+                  strokeLinejoin='round' />
             <path d='M4.57434 11.9465H10.3474' stroke='#8F989D' strokeWidth='1.32' strokeMiterlimit='10'
-                strokeLinejoin='round' />
+                  strokeLinejoin='round' />
             <path d='M4.57434 15.5092H8.24277' stroke='#8F989D' strokeWidth='1.32' strokeMiterlimit='10'
-                strokeLinejoin='round' />
+                  strokeLinejoin='round' />
         </svg>
 
     },
@@ -567,7 +646,7 @@ const footerNav = [
                 d='M14.7096 17.7255L20.6898 11.7367C20.7846 11.6419 20.8621 11.5213 20.9138 11.392C20.9655 11.2628 20.9914 11.1249 20.9914 10.987C20.9914 10.8491 20.9655 10.7113 20.9138 10.582C20.8621 10.4528 20.7846 10.3407 20.6898 10.2373L14.7096 4.24854'
                 stroke='#90999E' strokeWidth='1.32' strokeMiterlimit='10' strokeLinejoin='round' />
             <path d='M5.75659 10.9956H21' stroke='#90999E' strokeWidth='1.32' strokeMiterlimit='10'
-                strokeLinejoin='round' />
+                  strokeLinejoin='round' />
             <path
                 d='M21 6.56657V2.99052C21 2.72339 20.9483 2.4735 20.8449 2.23223C20.7415 1.99095 20.6036 1.77553 20.414 1.58595C20.2245 1.39638 20.009 1.25851 19.7678 1.15511C19.5265 1.0517 19.268 1 19.0095 1H2.99052C2.72339 1 2.4735 1.0517 2.23223 1.15511C1.98234 1.24989 1.76691 1.39638 1.58595 1.58595C1.39638 1.76691 1.24989 1.98234 1.15511 2.23223C1.06032 2.48212 1 2.72339 1 2.99052V19.0095C1 19.2766 1.0517 19.5265 1.15511 19.7678C1.25851 20.009 1.39638 20.2245 1.58595 20.414C1.77553 20.6036 1.99095 20.7415 2.23223 20.8449C2.4735 20.9483 2.73201 21 2.99052 21H19.0095C19.2766 21 19.5265 20.9483 19.7678 20.8449C20.009 20.7415 20.2245 20.6036 20.414 20.414C20.6036 20.2245 20.7415 20.009 20.8449 19.7678C20.9483 19.5265 21 19.268 21 19.0095V15.4334'
                 stroke='#90999E' strokeWidth='1.32' strokeLinejoin='round' />

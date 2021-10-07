@@ -26,3 +26,11 @@
 .Card__link._not-active {
   opacity: .5;
 }
+.Card__link {
+  color: #3366ff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.Card__link:hover{
+  text-decoration: underline;
+}

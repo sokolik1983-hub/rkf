@@ -12,6 +12,7 @@ import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
 import PopupModal from "../../../../PopupModal";
 import useIsMobile from "../../../../../utils/useIsMobile";
+import {blockContent} from "../../../../../utils/blockContent";
 
 import "./styles.scss";
 
@@ -103,7 +104,7 @@ const Notifications = forwardRef(
         const getNewsFeedLink = (noId = false) => {
             const buildUrl = (id = '') => user_type === 1
                 ? `/user/${alias}/news-feed/${id}`
-                : user_type === 3
+                : user_type === 3 || 5
                     ? `/${alias}/news-feed/${id}`
                     : `/kennel/${alias}/news-feed/${id}`;
             if (noId) return buildUrl();
@@ -125,6 +126,14 @@ const Notifications = forwardRef(
         }
 
         const notificationsRef = useRef();
+
+        useEffect(() => {
+            if (open && isMobile) {
+                blockContent(true)
+            } else {
+                blockContent(false)
+            }
+        }, [open])
 
         return (
             <div className="Notifications">

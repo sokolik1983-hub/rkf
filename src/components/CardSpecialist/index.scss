@@ -9,19 +9,15 @@
   &-inner {
     display: flex;
     flex-wrap: wrap;
-    @media (max-width: 700px) {
-      flex-wrap: nowrap;
-      flex-direction: column;
+    @media (max-width: 550px) {
+      display: block;
     }
   }
   &__rank-title {
-    margin-top: 10px;
-    line-height: 24px!important;
-    min-height: 50px;
+    margin-right: 10px;
   }
   &__disciplines {
     display: flex;
-    flex-direction: column;
     flex: 40%;
     text-align: left;
     color: #90999e;
@@ -29,8 +25,8 @@
     &.is_groups {
       flex: 40%;
       @media (max-width: 990px) {
-          -webkit-flex: 90% 1;
-          flex: 90% 1;
+        -webkit-flex: 90% 1;
+        flex: 90% 1;
       }
       & + .card-specialist__ranks {
         margin-bottom: 20px;
@@ -40,16 +36,16 @@
     @media (max-width: 990px) {
       flex: 90%;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 550px) {
       flex: 67%;
       padding-bottom: 10px;
       padding-right: 10px;
     }
   }
   &__wrap {
-    display: flex;
+    //display: flex;
     position: relative;
-    @media (max-width: 700px) {
+    @media (max-width: 550px) {
       flex-wrap: wrap;
     }
   }
@@ -66,15 +62,14 @@
   }
   &__photo {
     display: block;
-    min-height: 133px;
-    min-width: 133px;
-    max-height: 133px;
-    max-width: 133px;
+    min-height: 130px;
+    min-width: 130px;
+    max-height: 130px;
+    max-width: 130px;
     border-radius: 50%;
     background-repeat: no-repeat;
-    background-size: contain;
     background-size: cover;
-    margin: 10px 30px 10px 10px;
+    margin-right: 15px;
     @media (max-width: 990px) {
       min-height: 100px;
       min-width: 100px;
@@ -82,8 +77,8 @@
       max-width: 100px;
       margin: 0 30px 0 0;
     }
-    @media (max-width: 700px) {
-      margin: 30px 15px 10px 0;
+    @media (max-width: 550px) {
+      margin-right: 15px;
       flex: 30%;
     }
   }
@@ -91,14 +86,14 @@
     overflow: hidden;
     display: flex;
     flex: 40%;
-    flex-direction: column;
-    margin-top: 20px;
+    margin-top: 24px;
     width: calc(100% - 180px);
     @media (max-width: 990px) {
-      flex: 15%;
+      //flex: 10%;
     }
-    @media (max-width: 700px) {
-      display: none;
+    @media (max-width: 550px) {
+      width: calc(100% + 116px);
+      margin: 20px 0 20px -116px;
     }
     &-specialization {
       color: #72839c;
@@ -119,10 +114,8 @@
     flex: 40%;
     @media (max-width: 990px) {
       flex: 55%;
-      text-align: end;
-      margin-left: 10px;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 550px) {
       margin-left: 0;
       flex: 20%;
     }
@@ -137,6 +130,7 @@
     }
   }
   &__content-data {
+    line-height: 18px;
     color: #90999e;
   }
 
@@ -144,7 +138,7 @@
     display: flex;
     flex-direction: column;
     @media (max-width: 700px) {
-      margin-top: 35px;
+      margin-top: 15px;
       flex: 50%;
     }
   }
@@ -152,7 +146,6 @@
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
-    line-height: 24px;
     color: #253c5e;
     text-decoration: none;
     white-space: pre-wrap;
@@ -167,15 +160,27 @@
     }
   }
   &__specialization {
-    font-size: 16px;
-    font-weight: 600;
-    color: #72839c;
+    display: flex;
+    align-items: center;
+    &-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #72839c;
+    }
   }
-  &__sertificate {
+  &__sertificate,
+  &__contacts_bold {
     font-size: 16px;
     font-weight: 600;
     color: #72839c;
-    margin-top: 3px;
+    white-space: nowrap;
+
+    &-block {
+      @media (max-width: 550px) {
+        margin-bottom: 10px;
+      }
+    }
+
     span {
       font-weight: normal;
     }
@@ -214,32 +219,24 @@
     }
   }
   &__contacts {
-    margin-right: 10px;
+    align-items: flex-start;
+    font-style: normal;
+    font-size: 18px;
+    text-decoration: none;
+    color: #253c5e;
+
+    @media (max-width: 550px) {
+      width: 100%;
+    }
     h3 {
       font-weight: 600;
       color: #72839C;
       font-size: 17px;
       line-height: 28px;
-      @media (max-width: 600px) {
+      @media (max-width: 550px) {
         line-height: 20px;
       }
     }
-    @media (max-width: 990px) {
-      margin-top: 0;
-      flex: 0;
-    }
-    @media (max-width: 700px) {
-      margin-top: 15px;
-      flex: 100%;
-    }
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-style: normal;
-    font-size: 18px;
-    line-height: 24px;
-    text-decoration: none;
-    color: #253c5e;
     & > a {
       text-decoration: none;
       display: flex;
@@ -252,15 +249,20 @@
     }
   }
   &__subtitle {
-    display: block;
+    display: flex;
     font-weight: normal;
     font-size: 16px;
-    line-height: 27px;
+    line-height: 24px;
     letter-spacing: 0.2px;
     color: #90999e;
     white-space: pre-wrap;
-    @media (max-width: 600px) {
+    @media (max-width: 550px) {
       line-height: 20px;
+    }
+
+    & div {
+      display: flex;
+      flex-direction: column;
     }
     &._email {
       @media (min-width: 990px) {
@@ -272,28 +274,18 @@
   }
   &__disciplines-inner {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     margin-bottom: 10px;
     flex: 40%;
     flex-wrap: wrap;
   }
-  &__disciplines-inner:first-child {
-    margin-bottom: 15px;
-  }
-  &__specialization-inner:not(:last-child) {
-    padding: 10px 0;
-  }
-  &__specialization-inner:first-child {
-    padding: 0;
-  }
-  &__specialization-inner:last-child {
-    padding-top: 10px;
-  }
   &__info {
     display: flex;
     flex-direction: column;
-    flex: 40%;
-    @media (max-width: 700px) {
+    margin-right: 5px;
+    flex: 20%;
+    line-height: 24px;
+    @media (max-width: 550px) {
       margin-right: 100px;
     }
     @media (max-width: 425px) {
@@ -413,10 +405,6 @@
 .card-specialists__grid {
   width: 100%;
   margin-top: 10px;
-  //.card-specialist__content-title {
-  //  margin: 10px 0;
-  //  min-height: 50px;
-  //}
 }
 .custom-css-flex-width {
   flex: 40% 1;
@@ -427,14 +415,10 @@
   }
 }
 .card-specialist-inner {
-  width: 90%;
-  @media (max-width: 700px) {
-    width: 100%;
-  }
+  width: 100%;
 }
 .card-specialists {
   &__grid-item {
-    display: flex;
     &.__hide {
       display: none !important;
     }
@@ -442,9 +426,61 @@
       justify-content: space-between;
     }
   }
+  &__part {
+    &_top {
+      display: flex;
+    }
+    &_bottom._open {
+      @media (max-width: 550px) {
+        border-top: 1px solid #E5E5E5;
+      }
+    }
+  }
 }
 .card-specialist__specialization-inner {
   &.__hide {
     display: none;
   }
+
+
+
+  &__bottom-block {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }
+
+.card-specialist {
+  &__specialization-name,
+  &__content-title,
+  &__content-title,
+  &__subtitle,
+  &__disciplines-inner{
+    margin: 0 10px 0 0;
+    font-size: 16px;
+    line-height: 18px;
+  }
+
+  &__rank,
+  &__disciplines,
+  &__specialization-name {
+    padding: 7px 0;
+  }
+
+}
+
+.card-specialists__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-bottom: 1px solid #E5E5E5;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.card-specialist__contacts .card-specialist__subtitle {
+  line-height: 24px;
+}
+

@@ -9,7 +9,6 @@ import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connec
 import history from "../../../../utils/history";
 import { Request } from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
-import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import PopupModal from "../../../PopupModal";
 
 const WidgetLogin = forwardRef(
@@ -36,7 +35,6 @@ const WidgetLogin = forwardRef(
         const firstName = ls.get('user_info') ? ls.get('user_info').first_name : '';
         const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
         const isMobile1080 = useIsMobile(1080);
-
 
         const AuthButtons = () => {
             let path = history.location.pathname;
@@ -73,16 +71,18 @@ const WidgetLogin = forwardRef(
             });
         };
 
+
         return (
             <div
                 className={`widget-login class-for-grid-block3 ${login_page ? `active` : !isAuthenticated ? `__noAuth` : ''}`}
                 style={{ padding: 0}}
-                onClick={() => setOpen(!open)}
             >
                 {isAuthenticated
-                    ? <OutsideClickHandler onOutsideClick={() => setShowModal(false)}>
+                    ?
                             <>
-                                <div className={`widget-login__wrap ${open ? `_login_open ` : ''}`}>
+                                <div className={`widget-login__wrap ${open ? `_login_open ` : ''}`} onClick={() => {
+                                    setOpen(!open);
+                                }}>
                                     {isMobile1080
                                         ? <div className={`widget-login__user-icon`}>
                                             {footerNav?.image}
@@ -104,18 +104,13 @@ const WidgetLogin = forwardRef(
                                 >
                                     {
                                         isMobile1080
-                                        ?
+                                            ?
                                             <PopupModal
                                                 showModal={open}
                                                 handleClose={() => setShowModal(false)}
                                                 bottomStyle
                                             >
                                                 <div className="widget-login__inner">
-                                                    {/*<div className="close-btn">
-                                                        <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
-                                                        </svg>
-                                                    </div>*/}
                                                     <div className="widget-login__content">
                                                         <div className="widget-login__userpic-wrap">
                                                             <div className={`widget-login__userpic${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
@@ -126,7 +121,11 @@ const WidgetLogin = forwardRef(
                                                             {userType === 1 &&
                                                             <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                                                             }
-                                                            {(userType === 3 || userType === 5) &&
+                                                            {userType === 3  && alias !== 'rkf' &&
+                                                            <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
+                                                            }
+
+                                                            {(userType === 5 || alias === 'rkf') &&
                                                             <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
                                                             }
                                                             {userType === 4 &&
@@ -163,7 +162,17 @@ const WidgetLogin = forwardRef(
                                                                     </li>
                                                                 </>
                                                                 }
-                                                                {(userType === 3 || userType === 5) &&
+                                                                {userType === 3  && alias !== 'rkf' &&
+                                                                <>
+                                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        <Link to="/client" >Редактировать профиль</Link>
+                                                                    </li>
+                                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
+                                                                    </li>
+                                                                </>
+                                                                }
+                                                                { (userType === 5 || alias === 'rkf') &&
                                                                 <>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                         <Link to="/client" >Редактировать профиль</Link>
@@ -228,7 +237,10 @@ const WidgetLogin = forwardRef(
                                                     {userType === 1 &&
                                                     <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                                                     }
-                                                    {(userType === 3 || userType === 5) &&
+                                                    {userType === 3 && alias !== 'rkf' &&
+                                                    <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
+                                                    }
+                                                    {(userType === 5 || alias === 'rkf') &&
                                                     <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
                                                     }
                                                     {userType === 4 &&
@@ -264,10 +276,20 @@ const WidgetLogin = forwardRef(
                                                             </li>
                                                         </>
                                                         }
-                                                        {(userType === 3 || userType === 5) &&
+                                                        {userType === 3 && alias !== 'rkf' &&
                                                         <>
                                                             <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                 <Link to="/client">Редактировать профиль</Link>
+                                                            </li>
+                                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
+                                                            </li>
+                                                        </>
+                                                        }
+                                                        { (userType === 5 || alias === 'rkf') &&
+                                                        <>
+                                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                <Link to="/client" >Редактировать профиль</Link>
                                                             </li>
                                                             <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                 <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
@@ -284,12 +306,12 @@ const WidgetLogin = forwardRef(
                                                             </li>
                                                         </>
                                                         }
-                                                        {accountType === 5 && userType === 5 &&
+                                                        {accountType === 5 && (userType === 5 ||  alias === 'rkf') &&
                                                         <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                             <span onClick={() => setShowModal(true)}>Войти в аккаунт клуба</span>
                                                         </li>
                                                         }
-                                                        {accountType === 5 && userType !== 5 &&
+                                                        {accountType === 5 && userType !== 5 && alias !== 'rkf'  &&
                                                         <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                             <span onClick={logoutAsUser}>Выйти из аккаунта клуба</span>
                                                         </li>
@@ -316,19 +338,16 @@ const WidgetLogin = forwardRef(
                                                     }
                                                 </ul>
                                             </div>
-
                                     }
-
-
                                 </CSSTransition>
                             </>
-                        </OutsideClickHandler>
                     : <AuthButtons />
                 }
                 <Modal className="widget-login__modal"
                     showModal={showModal}
                     handleClose={() => setShowModal(false)}
                     headerName={"Войти как клуб"}
+                       iconName={'enter-white'}
                 >
                     <LoginAsUser history={history} closeModal={() => setShowModal(false)} />
                 </Modal>

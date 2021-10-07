@@ -10,6 +10,7 @@ import { Request, getHeaders } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import PopupModal from "../PopupModal";
 import DocsInFrame from "../DocsInFrame";
+import {blockContent} from "../../utils/blockContent";
 
 import "./index.scss";
 
@@ -213,13 +214,12 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, footerNav } ) => {
+const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, footerNav, openMenuComponent,  setOpenMenuComponent } ) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
-    const [openMenuComponent, setOpenMenuComponent] = useState(false);
     const [openDoc, setOpenDoc] = useState(false);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
@@ -378,6 +378,15 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
 
     const moreRef = useRef();
 
+    useEffect(() => {
+        if(showModal) {
+            blockContent(true)
+        } else {
+            blockContent(false)
+        }
+    }, [showModal])
+
+
 
     return (
         <>
@@ -386,11 +395,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                 handleClose={() => setOpenDoc(false)}
             >
                 <div className="docsinframe__inner">
-                    <div className="close-btn" onClick={() => setOpenDoc(false)}>
-                        <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
-                        </svg>
-                    </div>
                     <DocsInFrame fedDetails={doc}></DocsInFrame>
                 </div>
             </PopupModal>
@@ -420,17 +424,11 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             bottomStyle
                         >
                             <div className="user-menu__inner">
-                               {/* <div className="close-btn">
-                                    <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
-                                    </svg>
-                                </div>*/}
                                 <ul className="user-menu__list">
 
                                     {user !== 'nursery' &&
                                     <li className="user-menu__item">
                                         <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
-
                                     </li>
                                     }
                                     {presidium[alias] &&
@@ -443,7 +441,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                         <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link _public" title="Публикации">Публикации</NavLink>
                                     </li>
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/club/${alias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
                                     </li>
                                     <li className="user-menu__item">
                                         <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link _gallery" title="Фотогалерея">Фотогалерея</NavLink>
@@ -485,14 +483,14 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                 </ul>
                             </div>
                         </PopupModal>
-
                     </CSSTransition>
+
                 </OutsideClickHandler>
-            :
-            <Card>
+                :
+                <Card>
                 <ul className="menu-component__list">
                 {user !== 'nursery' &&
-                    <li className="menu-component__item">
+                <li className="menu-component__item">
                         <NavLink
                             exact
                             to={`/exhibitions?Alias=${alias}`}
@@ -501,7 +499,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                         >Мероприятия</NavLink>
                     </li>
                 }
-                {presidium[alias] &&
+                    {presidium[alias] &&
                     <li className="menu-component__item">
                         <NavLink
                             exact
@@ -511,8 +509,8 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             title="Президиум"
                         >Президиум</NavLink>
                     </li>
-                }
-                <li className="menu-component__item">
+                    }
+                    <li className="menu-component__item">
                     <NavLink
                         exact
                         to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`}
@@ -544,7 +542,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                         title="Фотогалерея"
                     >Видеозаписи</NavLink>
                 </li>
-                {showDetails &&
+                    {showDetails &&
                     <>
                         {fedFeesId && <li className="menu-component__item" onClick={() => showDoc(fedFeesId)}>
                             <span className="menu-component__link _fees">
@@ -562,14 +560,14 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                         </Link>
                         </li> */}
                         {fedDetails && <li className="menu-component__item" onClick={() => showDoc(fedDetails)}>
-                            <span class="menu-component__link _requisites">
+                            <span className="menu-component__link _requisites">
                                 Реквизиты
                             </span>
 
                         </li>}
                     </>
-                }
-                {isFederation &&
+                    }
+                    {isFederation &&
                     <li className="menu-component__item">
                         <NavLink
                             exact
@@ -578,8 +576,8 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             title="Статус документов"
                         >Статус документов</NavLink>
                     </li>
-                }
-                <li className="menu-component__item">
+                    }
+                    <li className="menu-component__item">
                     <NavLink
                         exact
                         to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`}
@@ -594,6 +592,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
             }
             {showModal &&
                 <Modal
+                    iconName={'icon-presidium-white'}
                     headerName={alias === 'rfls' ? "" : "Президиум"}
                     className="menu-component__modal"
                     showModal={showModal} handleClose={() => setShowModal(false)}

@@ -245,6 +245,9 @@
     width: 296px;
     min-width: 296px;
     margin-right: 16px;
+    @media (max-width: 1081px) {
+      display: none;
+    }
     @media (max-width: 990px) {
       margin-right: 0;
       width: 100%;

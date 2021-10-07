@@ -38,7 +38,7 @@ const idNumber = (name, o = null) => mixed().when(name, {
 })
 const lat = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей' })
 const latOptional = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей', excludeEmptyString: true })
-const file = () => string()/*() => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
+const file = () => string()/*() => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf',
         (async f => (f instanceof File) && [
             "image/png",
             "image/jpeg",

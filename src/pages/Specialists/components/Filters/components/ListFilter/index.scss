@@ -73,6 +73,7 @@
     align-items: center;
     @media (max-width: 600px) {
       font-size: 13px;
+      line-height: 14px;
     }
     &._active {
       border-bottom-color: #3366ff;

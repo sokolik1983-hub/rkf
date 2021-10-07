@@ -12,14 +12,13 @@ import { connectAuthVisible } from "./connectors";
 
 const LoginPage = ({ isAuthenticated, is_active_profile, user_type }) => {
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
-
     if (isAuthenticated) {
         if (!is_active_profile && user_type === 3) return <Redirect to={'/not-confirmed'} />
         if (!is_active_profile && user_type === 4) return <Redirect to={'/kennel/activation'} />
 
-        if (is_active_profile && user_type === 3) {
-            return <Redirect to={`/${alias}`} />
-        } else if (is_active_profile && user_type === 5) {
+        if (is_active_profile && user_type === 3 && alias !== 'rkf') {
+            return <Redirect to={`/club/${alias}`} />
+        } else if (is_active_profile && (user_type === 5 || alias === 'rkf')) {
             return <Redirect to={`/${alias}`} />
         } else if (is_active_profile && user_type === 4) {
             return <Redirect to={`/kennel/${alias}`} />

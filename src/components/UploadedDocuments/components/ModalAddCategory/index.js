@@ -7,6 +7,7 @@ const ModalAddCategory = ({ handleSuccess, handleError, getCategories, closeModa
 
     return (
         <Modal
+            iconName={'addfolder'}
             className="edit-category-modal"
             showModal={true}
             handleClose={closeModal}
