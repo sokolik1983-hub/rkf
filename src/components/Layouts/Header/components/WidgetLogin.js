@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, {forwardRef, useRef, useState} from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
@@ -35,6 +35,8 @@ const WidgetLogin = forwardRef(
         const firstName = ls.get('user_info') ? ls.get('user_info').first_name : '';
         const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
         const isMobile1080 = useIsMobile(1080);
+
+        const widgetLoginRef = useRef();
 
         const AuthButtons = () => {
             let path = history.location.pathname;
@@ -76,6 +78,7 @@ const WidgetLogin = forwardRef(
             <div
                 className={`widget-login class-for-grid-block3 ${login_page ? `active` : !isAuthenticated ? `__noAuth` : ''}`}
                 style={{ padding: 0}}
+                ref={widgetLoginRef}
             >
                 {isAuthenticated
                     ?
@@ -107,7 +110,9 @@ const WidgetLogin = forwardRef(
                                             ?
                                             <PopupModal
                                                 showModal={open}
-                                                handleClose={() => setShowModal(false)}
+                                                handleClose={(e) => {
+                                                    !widgetLoginRef.current.contains(e.target) && setOpen(false)
+                                                }}
                                                 bottomStyle
                                             >
                                                 <div className="widget-login__inner">

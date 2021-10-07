@@ -12,7 +12,6 @@ import { connectAuthVisible } from "./connectors";
 
 const LoginPage = ({ isAuthenticated, is_active_profile, user_type }) => {
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
-console.log(alias)
     if (isAuthenticated) {
         if (!is_active_profile && user_type === 3) return <Redirect to={'/not-confirmed'} />
         if (!is_active_profile && user_type === 4) return <Redirect to={'/kennel/activation'} />
