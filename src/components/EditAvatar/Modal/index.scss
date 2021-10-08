@@ -86,17 +86,6 @@
     line-height: 18px;
     color: white;
   }
-  &__closetext {
-    position: absolute;
-    top: 8px;
-    right: 34px;
-    font-size: 14px;
-    color: white;
-    cursor: pointer;
-    @media (max-width: 700px) {
-      display: none;
-    }
-  }
   &__close .modal-close {
     width: 12px;
     height: 12px;

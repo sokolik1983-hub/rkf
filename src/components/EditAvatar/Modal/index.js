@@ -16,7 +16,6 @@ const Modal = ({open, onClose, title, children}) => (
                 <Toolbar className="modal__title">
                     <div className='avatar_icon'></div>
                     <div className="avatar__title">{title}</div>
-                    <div className="avatar__closetext" onClick={onClose}>Закрыть</div>
                     <div className="avatar__close"><span className="modal-close" onClick={onClose}></span></div>
                 </Toolbar>
             </AppBar>
