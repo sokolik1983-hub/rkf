@@ -40,6 +40,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         (() => Request({
             url: endpointGetClubInfo + match.params.route
         }, data => {
+            console.log('data', data)
             if (data.user_type === 4) {
                 history.replace(`/kennel/${match.params.route}`);
             } else {

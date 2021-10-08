@@ -1,23 +1,55 @@
-import React, {memo, useState, useRef} from "react";
+import React, {memo, useState, useRef, useEffect} from "react";
 import {CSSTransition} from "react-transition-group";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import Alert from "../../Alert";
 import useIsMobile from "../../../utils/useIsMobile";
 import PopupModal from "../../PopupModal";
 import ls from 'local-storage';
+import {endpointGetClubInfo} from "../../../pages/Club/config";
 import "./index.scss";
+import {Request} from "../../../utils/request";
 
 
 const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
     const [alert, setAlert] = useState(false);
+    const [clubInfo, setClubInfo] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
     const isMobile = useIsMobile(1080);
     const { user_type, alias } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
     };
+    const location = useLocation();
+    console.log('111111', location.pathname);
+    console.log('222222', location.pathname.split('/'));
+
+    const newString = location.pathname.split('/')[2];
+    console.log('3333333', newString)
 
     const moreRef = useRef();
+
+    useEffect(() => {
+        (() => Request({
+            url: endpointGetClubInfo + newString
+        }, data => {
+            setClubInfo({...data})
+        }, error => {
+            console.log(error.response);
+            setError(error.response);
+            setLoading(false);
+        }))();
+        // return () => setNeedRequest(true);
+    }, []);
+
+
+    const onSubscriptionUpdate = (subscribed) => {
+        setClubInfo({
+            ...clubInfo,
+            subscribed: subscribed
+        })
+    }
 
     return (
         <div
