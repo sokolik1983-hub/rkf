@@ -32,6 +32,7 @@ export const addAlbumForm = {
     validationSchema: object().shape({
         name: string()
             .required('Введите название')
+            .max(50, 'Максимальное количество символов: 50')
     })
 };
 
