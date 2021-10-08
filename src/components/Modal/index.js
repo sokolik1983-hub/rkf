@@ -8,7 +8,7 @@ import './styles.scss';
 const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, className, headerName, iconName}) => {
     useEffect(() => {
         blockContent(showModal);
-    }, []);
+    }, [showModal]);
     return (
         ReactDOM.createPortal(
             <div className={(showModal ? 'Modal' : 'Modal--hidden') + (noBackdrop ? ' no-backdrop' : '') + (className ? ' ' + className : '')}>
