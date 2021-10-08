@@ -39,7 +39,7 @@ const GalleryAlbums = ({ albums, match, getAlbums, canEdit }) => {
                 </div>)
             }
         </div>
-        {<AddAlbum showModal={showModal} onModalClose={onModalClose} onSuccess={onAlbumAddSuccess} />}
+        <AddAlbum showModal={showModal} onModalClose={onModalClose} onSuccess={onAlbumAddSuccess} />
     </div>
 };
 
