@@ -10,9 +10,9 @@ import { Request, getHeaders } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import PopupModal from "../PopupModal";
 import DocsInFrame from "../DocsInFrame";
+import {blockContent} from "../../utils/blockContent";
 
 import "./index.scss";
-import {blockContent} from "../../utils/blockContent";
 
 
 const presidium = {
@@ -94,7 +94,6 @@ const presidium = {
 };
 
 const presidiumRfls = <>
-    <h4 className="menu-component__wrap-title">ПРЕЗИДИУМ РФЛС</h4>
     <table className="menu-component__table">
         <tbody>
             <tr>
@@ -593,7 +592,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
             {showModal &&
                 <Modal
                     iconName={'icon-presidium-white'}
-                    headerName={alias === 'rfls' ? "" : "Президиум"}
+                    headerName={alias === 'rfls' ? "Президиум РФЛС" : "Президиум"}
                     className="menu-component__modal"
                     showModal={showModal} handleClose={() => setShowModal(false)}
                     noBackdrop={true}>

@@ -1,4 +1,5 @@
 .modal {
+  margin-top: 60px;
   position: relative;
   &-close {
     width: 16px;
@@ -32,6 +33,8 @@
     color: #253c5e !important;
   }
   .MuiPaper-elevation4 {
+    border-top-right-radius: 4px!important;
+    border-top-left-radius: 4px!important;
     box-shadow: none !important;
     font-size: 18px !important;
     line-height: 1 !important;
@@ -48,8 +51,105 @@
     padding-top: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    overflow-y: unset;
   }
 }
 .MuiDialog-root {
   z-index: 98 !important;
+}
+
+.avatar {
+  &__header .MuiAppBar-colorPrimary {
+    position: relative;
+    height: 50px;
+    background: linear-gradient(to right, #4067AC, #5791F8);
+    margin-bottom:20px;
+
+    .MuiToolbar-regular {
+        border-bottom: none;
+    }
+  }
+  &_icon {
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    height: 18px;
+    width: 18px;
+    background: url(/static/icons/enter-white.svg) center no-repeat;
+  }
+  &__title {
+    position: absolute;
+    top: 5px;
+    left: 34px;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 18px;
+    color: white;
+  }
+  &__close .modal-close {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    background: url(/static/icons/cross_white.svg) center no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    &:hover {
+      background: url(/static/icons/cross-gray-blue.svg) center no-repeat;
+    }
+  }
+
+  &__content {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    overflow-y: unset;
+
+    .avatar-editor__dropzone {
+      @media (max-width: 500px){
+        transform: scale(0.95);
+        margin-top: 0;
+      }
+      @media (max-width: 450px){
+        transform: scale(0.85);
+        margin-top: -20px;
+      }
+      @media (max-width: 430px){
+        transform: scale(0.7);
+        margin-top: -40px;
+      }
+      @media (max-width: 400px){
+        transform: scale(0.6);
+        margin-top: -70px;
+      }
+    }
+    .avatar-editor__controls {
+      @media (max-width: 500px){
+        transform: scale(0.95);
+        margin-top: 0;
+      }
+      @media (max-width: 450px){
+        transform: scale(0.85);
+        margin-top: -20px;
+      }
+      @media (max-width: 430px){
+        transform: scale(0.7);
+        margin-top: -40px;
+      }
+      @media (max-width: 400px){
+        transform: scale(0.6);
+        margin-top: -70px;
+      }
+    }
+  }
+}
+.MuiDialog-paper {
+  overflow-y: unset !important;
+  @media (max-width: 490px){
+    margin: 16px;
+  }
+}
+.MuiDialog-paperScrollPaper {
+  max-height: 100%!important;
 }

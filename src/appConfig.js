@@ -85,22 +85,22 @@ const appRoutes = [
         component: LoadableModules.LoadableExhibitions
     },
     {
-        exact: false,
+        exact: true,
         path: '/exhibitions/:id/edit',
         component: LoadableModules.LoadableExhibitionEdit
     },
     {
-        exact: false,
+        exact: true,
         path: '/exhibitions/:id',
         component: LoadableModules.LoadableExhibition
     },
     {
-        exact: false,
+        exact: true,
         path: '/club/exhibitions/:id/edit',
         component: LoadableModules.LoadableExhibitionEdit
     },
     {
-        exact: false,
+        exact: true,
         path: '/club/exhibitions/:id',
         component: LoadableModules.LoadableExhibition
     },
@@ -110,7 +110,7 @@ const appRoutes = [
         component: LoadableModules.LoadableSpecialists
     },
     {
-        exact: false,
+        exact: true,
         path: '/educationals/:id',
         component: LoadableModules.LoadableEducational
     },
@@ -125,7 +125,7 @@ const appRoutes = [
         component: LoadableModules.LoadableNews
     },
     {
-        exact: false,
+        exact: true,
         path: '/club/educationals/:id',
         component: LoadableModules.LoadableEducational
     },
@@ -140,7 +140,7 @@ const appRoutes = [
         component: LoadableModules.LoadableNews
     },
     {
-        exact: false,
+        exact: true,
         path: '/reports',
         component: LoadableModules.LoadableReports
     },

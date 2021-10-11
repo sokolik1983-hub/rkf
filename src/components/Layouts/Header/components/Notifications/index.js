@@ -12,9 +12,9 @@ import Loading from "components/Loading";
 import { DEFAULT_IMG } from "appConfig";
 import PopupModal from "../../../../PopupModal";
 import useIsMobile from "../../../../../utils/useIsMobile";
+import {blockContent} from "../../../../../utils/blockContent";
 
 import "./styles.scss";
-import {blockContent} from "../../../../../utils/blockContent";
 
 const defaultCategories = [
     {

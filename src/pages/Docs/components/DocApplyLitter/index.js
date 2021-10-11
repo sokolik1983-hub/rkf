@@ -186,7 +186,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
 
     const showAlert = () => {
         window.alert("Заявка отправлена на рассмотрение");
-        setRedirect(`/${clubAlias}/documents`);
+        setRedirect(`/club/${clubAlias}/documents`);
     }
 
     return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
@@ -203,7 +203,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             {...(sendAlertEmptyProps)}
             autoclose={2.5}
             okButton="true"
-            onOk={() => setRedirect(`/${clubAlias}/documents`)}
+            onOk={() => setRedirect(`/club/${clubAlias}/documents`)}
         />
         }
         {redirect && <Redirect to={redirect} />}
