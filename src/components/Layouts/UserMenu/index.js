@@ -13,6 +13,7 @@ import {Request} from "../../../utils/request";
 const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
     const [alert, setAlert] = useState(false);
     const [clubInfo, setClubInfo] = useState(null);
+    const [menuBackground, setMenuBackground] = useState('/static/images/user-nav/user-nav-bg.png')
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const isMobile = useIsMobile(1080);
@@ -43,18 +44,20 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
         // return () => setNeedRequest(true);
     }, []);
 
+    console.log(clubInfo);
 
-    const onSubscriptionUpdate = (subscribed) => {
-        setClubInfo({
-            ...clubInfo,
-            subscribed: subscribed
-        })
-    }
+
+    useEffect(() => {
+        if(clubInfo) {
+            setMenuBackground(clubInfo.headliner_link)
+        }
+    }, [clubInfo])
+
+    console.log(menuBackground)
 
     return (
         <div
             className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
-
         >
                 {isMobile &&
                 <button onClick={() => setOpenUserMenu(!openUserMenu)}
@@ -87,6 +90,9 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                         <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
                                     </svg>
                                 </div>*/}
+                                <div className="testDiv">
+                                    { menuBackground && <img src={menuBackground} alt=""/> }
+                                </div>
                                 <ul className="user-nav__list">
                                     {userNav.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                             key={navItem.id}>
