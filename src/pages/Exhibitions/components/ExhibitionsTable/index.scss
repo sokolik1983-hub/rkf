@@ -1,4 +1,7 @@
 .exhibitions-table {
+  .k-widget.k-grid{
+    overflow-x: auto;
+  }
   &__details {
     h3 {
       font-size: 16px;
