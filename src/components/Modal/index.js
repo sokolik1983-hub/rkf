@@ -20,7 +20,6 @@ const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, 
                                  style={{background: `url(/static/icons/${iconName}.svg) center  no-repeat `}}>
                             </div>
                             <h3 className="Modal__header" >{headerName}</h3>
-                            <div className="Modal__close-text" onClick={handleClose}>Закрыть</div>
                             <div className="Modal__close" onClick={handleX ? handleX : handleClose} />
                         </div>
                         }
