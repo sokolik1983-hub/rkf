@@ -8,11 +8,14 @@ import ls from 'local-storage';
 import {endpointGetClubInfo} from "../../../pages/Club/config";
 import "./index.scss";
 import {Request} from "../../../utils/request";
+import {endpointGetUserInfo} from "../UserLayout/config";
 
 
 const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
     const [alert, setAlert] = useState(false);
+    const [state, setState] = useState(state)
     const [clubInfo, setClubInfo] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
     const [menuBackground, setMenuBackground] = useState('/static/images/user-nav/user-nav-bg.png')
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -22,38 +25,83 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
         e.preventDefault();
         setAlert(true);
     };
-    const location = useLocation();
-    console.log('111111', location.pathname);
-    console.log('222222', location.pathname.split('/'));
 
-    const newString = location.pathname.split('/')[2];
-    console.log('3333333', newString)
 
+    console.log('4444444', alias, user_type)
     const moreRef = useRef();
+    const location = useLocation();
+    let url =  location.pathname.split('/')[1];
+    let orgAlias = location.pathname.split('/')[2];
 
-    useEffect(() => {
-        (() => Request({
-            url: endpointGetClubInfo + newString
-        }, data => {
-            setClubInfo({...data})
-        }, error => {
-            console.log(error.response);
-            setError(error.response);
-            setLoading(false);
-        }))();
-        // return () => setNeedRequest(true);
-    }, []);
-
-    console.log(clubInfo);
-
-
-    useEffect(() => {
-        if(clubInfo) {
-            setMenuBackground(clubInfo.headliner_link)
+    const changeBackground = () => {
+        switch (user_type) {
+            case 3:
+            case 4:
+                switch (url) {
+                    case 'club':
+                    case 'kennel':
+                        console.log('мы на странице клуба или питомника');
+                        backgroundForPage(orgAlias, endpointGetClubInfo);
+                        break;
+                    default:
+                        console.log('ya zdes')
+                        backgroundForPage(alias, endpointGetClubInfo)
+                        break;
+                }
+            case 0:
+                switch (url) {
+                    case 'club':
+                    case 'kennel':
+                        console.log('мы на странице клуба или питомника');
+                        backgroundForPage(orgAlias, endpointGetClubInfo)
+                        break;
+                    default:
+                        backgroundForPage(alias, endpointGetUserInfo)
+                        break;
+                }
+            default:
+                switch (url) {
+                    case 'club':
+                    case 'kennel':
+                        console.log('мы на странице клуба или питомника');
+                        backgroundForPage(orgAlias, endpointGetClubInfo);
+                        break;
+                    default:
+                        break;
+                }
+                break;
         }
-    }, [clubInfo])
 
-    console.log(menuBackground)
+    }
+
+    const backgroundForPage =(orgAlias, request) => {
+           Request({
+                url: request + orgAlias
+            }, data => {
+               if(request === endpointGetClubInfo) {
+                   setClubInfo({...data})
+               } else if (request === endpointGetUserInfo) {
+                   setUserInfo({...data})
+               }
+            }, error => {
+                console.log(error.response);
+                setError(error.response);
+                setLoading(false);
+            })
+            // return () => setNeedRequest(true);
+    }
+
+    useEffect(() => {
+         if(clubInfo) {
+            setMenuBackground(clubInfo.headliner_link);
+        } else if(userInfo) {
+             setMenuBackground(userInfo.headliner_link);
+         }
+    }, [userInfo, clubInfo]);
+
+    useEffect(() => {
+        changeBackground();
+    }, [])
 
     return (
         <div
