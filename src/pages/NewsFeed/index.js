@@ -6,7 +6,11 @@ import NurseryLayout from "../../components/Layouts/NurseryLayout";
 import CategoriesList from "./components/CategoriesList";
 import MustRead from "./components/MustRead";
 import NewsList from "./components/NewsList";
+import { connectShowFilters } from '../../components/Layouts/connectors';
+
 import "./styles.scss";
+import StickyBox from "react-sticky-box";
+
 
 const user_type = ls.get('user_info').user_type;
 
@@ -23,19 +27,25 @@ const Layout = props => {
 };
 
 const Content = props => { //Дополнительные props берутся из Layout. Это неочевидно и лучше так не делать.
-    const {showMustRead, notificationUrlIndex, activeCategoryId} = props;
-
+    const {showMustRead, notificationUrlIndex, activeCategoryId, showFilter} = props;
     return (
         <div className="NewsFeed">
             <div className="NewsFeed-left">
                 <NewsList {...props} />
             </div>
-            <div className="NewsFeed-right">
-                <CategoriesList {...props} />
-                {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
-                    <MustRead {...props} notificationUrlIndex={notificationUrlIndex} />
-                }
-            </div>
+
+            <aside className={`exhibitions-page__filters exhibitions-filters${showFilter ? ' _open' : ''} `}>
+                <StickyBox offsetTop={60}>
+                        <>
+                            <div className={showFilter ? "NewsFeed-right" : 'NewsFeed-right hidden'}>
+                                <CategoriesList {...props} />
+                                {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
+                                <MustRead {...props} notificationUrlIndex={notificationUrlIndex} />
+                                }
+                            </div>
+                        </>
+                </StickyBox>
+            </aside>
         </div>
     );
 };
@@ -44,6 +54,8 @@ const NewsFeed = props => {
     const [activeCategoryId, setActiveCategoryId] = useState(1);
     const [showMustRead, setShowMustRead] = useState(false);
     const [notificationUrlIndex, setNotificationUrlIndex] = useState(null);
+    // const [showFilter, setShowFilter] = useState(props.isOpenFilters);
+
 
     useEffect(() => {
         setActiveCategoryId(props.match.params.id ? parseInt(props.match.params.id) : 1);
@@ -51,9 +63,11 @@ const NewsFeed = props => {
         setShowMustRead(!!props.match.params.id && parseInt(props.match.params.id) === 4);
     }, [props.match.params.id]);
 
+
     return (
         <Layout {...props} user_type={user_type}>
             <Content
+                showFilter={props.isOpenFilters}
                 activeCategoryId={activeCategoryId}
                 setActiveCategoryId={setActiveCategoryId}
                 showMustRead={showMustRead}
@@ -64,4 +78,4 @@ const NewsFeed = props => {
     )
 };
 
-export default memo(NewsFeed);
+export default connectShowFilters(memo(NewsFeed));

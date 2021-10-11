@@ -17,6 +17,11 @@
   }
   &-right {
     flex-grow: 1;
+    display: block;
+
+    &.hidden {
+      display: none;
+    }
     @media (min-width: 560px) {
       max-width: 250px;
     }
@@ -127,6 +132,9 @@
       background-image: url("/static/new-icons/subscriptions.svg");
     }
   }
+  //&-filters {
+  //  z-index: 9;
+  //}
   .Card {
     margin: 10px 0 16px 0;
     padding: 12px;
