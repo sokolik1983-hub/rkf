@@ -1,4 +1,6 @@
 .NurseryEdit {
+    padding-bottom: 60px;
+
     &__page-heading {
         font-weight: 600;
         font-size: 26px;
@@ -198,3 +200,33 @@
         border: 2px solid #ebf0f2;
     }
 }
+/*
+.EditPageButtons {
+    display: flex;
+    justify-content: center;
+    height: 60px;
+    background-color: #fff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+.NurseryEdit__submit {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 1184px;
+}
+.btn-primary {
+    color: #fff;
+    background: #00c48c;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 11px 36px;
+    cursor: pointer;
+    transition: background-color .2s linear;
+}*/
