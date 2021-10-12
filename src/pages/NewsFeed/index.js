@@ -7,9 +7,11 @@ import CategoriesList from "./components/CategoriesList";
 import MustRead from "./components/MustRead";
 import NewsList from "./components/NewsList";
 import { connectShowFilters } from '../../components/Layouts/connectors';
+import StickyBox from "react-sticky-box";
+import {blockContent} from "../../utils/blockContent";
 
 import "./styles.scss";
-import StickyBox from "react-sticky-box";
+
 
 
 const user_type = ls.get('user_info').user_type;
@@ -27,26 +29,29 @@ const Layout = props => {
 };
 
 const Content = props => { //Дополнительные props берутся из Layout. Это неочевидно и лучше так не делать.
-    const {showMustRead, notificationUrlIndex, activeCategoryId, showFilter} = props;
-    return (
-        <div className="NewsFeed">
-            <div className="NewsFeed-left">
-                <NewsList {...props} />
-            </div>
 
-            <aside className={`exhibitions-page__filters exhibitions-filters${showFilter ? ' _open' : ''} `}>
-                <StickyBox offsetTop={60}>
-                        <>
+    const {showMustRead, notificationUrlIndex, activeCategoryId, showFilter, setShowFilters} = props;
+
+    blockContent(showFilter)
+
+    return (
+        <>
+            <div className="NewsFeed">
+
+                <div className="NewsFeed-left">
+                    <NewsList {...props} />
+                </div>
+
+                <aside className={`notification-page__filters ${showFilter ? ' _open' : ''} `}>
                             <div className={showFilter ? "NewsFeed-right" : 'NewsFeed-right hidden'}>
-                                <CategoriesList {...props} />
+                                <CategoriesList {...props} setShowFilters={setShowFilters} />
                                 {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
-                                <MustRead {...props} notificationUrlIndex={notificationUrlIndex} />
+                                <MustRead {...props} notificationUrlIndex={notificationUrlIndex} setShowFilters={setShowFilters}/>
                                 }
                             </div>
-                        </>
-                </StickyBox>
-            </aside>
-        </div>
+                </aside>
+            </div>
+        </>
     );
 };
 
@@ -54,8 +59,6 @@ const NewsFeed = props => {
     const [activeCategoryId, setActiveCategoryId] = useState(1);
     const [showMustRead, setShowMustRead] = useState(false);
     const [notificationUrlIndex, setNotificationUrlIndex] = useState(null);
-    // const [showFilter, setShowFilter] = useState(props.isOpenFilters);
-
 
     useEffect(() => {
         setActiveCategoryId(props.match.params.id ? parseInt(props.match.params.id) : 1);
@@ -68,6 +71,7 @@ const NewsFeed = props => {
         <Layout {...props} user_type={user_type}>
             <Content
                 showFilter={props.isOpenFilters}
+                setShowFilters={props.setShowFilters}
                 activeCategoryId={activeCategoryId}
                 setActiveCategoryId={setActiveCategoryId}
                 showMustRead={showMustRead}

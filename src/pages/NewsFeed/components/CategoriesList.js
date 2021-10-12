@@ -2,11 +2,12 @@ import React from "react";
 import Card from "components/Card";
 import { categories } from "../config";
 
-const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead }) => {
+const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead, setShowFilters}) => {
     const isActive = (value) => activeCategoryId === value ? "NewsFeed__category-item active" : "NewsFeed__category-item";
 
     const handleCategoryClick = (id) => {
         setActiveCategoryId(id);
+        setShowFilters({ isOpenFilters: false });
         if (id === 4) {
             setShowMustRead(true);
         } else {
