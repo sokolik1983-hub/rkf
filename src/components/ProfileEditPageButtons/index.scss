@@ -7,11 +7,13 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  z-index: 9999;
+  z-index: 99;
   &__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0;
+    margin-right: calc(-1 * (100vw - 100%));
   }
   &__back {
     color: #253c5e !important;
