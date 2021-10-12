@@ -30,8 +30,7 @@ const CardSpecialist = ({
                             searchTypeId,
                             specialization,
                             opened_group_and_breed,
-                            ranks,
-                            url,
+                            ranks
                         }) => {
     const [additionalDisciplines, setAdditionalDisciplines] = useState(null);
     const [additionalGroups, setAdditionalGroups] = useState(null);
