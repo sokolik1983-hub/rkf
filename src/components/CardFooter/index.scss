@@ -1,11 +1,11 @@
 .CardFooter {
-
     &__controls {
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 20px;
         margin-bottom: 5px !important;
+
         &-left,
         &-right {
             display: flex;
@@ -26,44 +26,57 @@
                 }
             }
         }
+
         &-left {
-            // .k-i-heart-outline {
-            //   cursor: pointer;
-            // }
+             .k-i-heart-outline {
+               cursor: pointer;
+             }
             .colored-icon {
                 color: #FF6977 !important;
             }
+            .Share {
+                height: 18px;
+
+                & .ya-share2__popup {
+                    z-index: 1;
+                    right: -25px;
+                }
+
+                & .ya-share2__icon_more {
+                    height: 16px;
+                    background-color: white;
+
+                    &:after {
+                        width: 16px;
+                        height: 16px;
+                        top: 0;
+                        background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
+                        background-color: white;
+                    }
+
+                    &:hover:after {
+                        background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
+                        background-color: white;
+                    }
+                }
+
+
+                & .ya-share2__link {
+                    display: flex;
+                    align-items: center;
+                }
+            }
         }
+
         &-right {
             & > div {
                 margin-right: 0;
             }
         }
+
         &-center {
             display: flex;
             justify-content: center;
-        }
-        .Share {
-            right: -25px;
-            height: 18px;
-            .ya-share2__icon_more {
-                height: 16px;
-                background-color: white;
-                &:after {
-                    width: 16px;
-                    height: 16px;
-                    top: 0;
-                    background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
-                    background-color: white;
-                }
-                &:hover:after {
-                    background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
-                    background-color: white;
-                }
-            }
-            .ya-share2__popup.Ωya-share2__popup_direction_bottom.Ωya-share2__popup_list-direction_horizontal.Ωya-share2__popup_visible.ya-share2__popup_x-direction_left {
-                right: -25px;
-            }
         }
     }
 }

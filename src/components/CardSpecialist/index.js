@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Card from "../Card";
 import CardFooter from "../CardFooter"
 import Share from "../Share";
@@ -29,7 +30,8 @@ const CardSpecialist = ({
                             searchTypeId,
                             specialization,
                             opened_group_and_breed,
-                            ranks
+                            ranks,
+                            url,
                         }) => {
     const [additionalDisciplines, setAdditionalDisciplines] = useState(null);
     const [additionalGroups, setAdditionalGroups] = useState(null);
@@ -62,6 +64,7 @@ const CardSpecialist = ({
 
     return (
         <Card className="card-specialist">
+            <a name={id}></a>
             <div className="card-specialist__city"
                  onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
                  title={city_name}>
@@ -377,8 +380,8 @@ const CardSpecialist = ({
 
             <div className={`card-specialist__controls`}>
                 <CardFooter
-                    id
-                    share_link="https://rkf.online"
+                    id={id}
+                    share_link={`https://rkf.online/specialists?&SearchTypeId=${searchTypeId}#${id}`}
                 />
             </div>
         </Card>

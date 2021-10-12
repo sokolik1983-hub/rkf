@@ -4,13 +4,12 @@ import Share from "components/Share";
 
 import './index.scss';
 
-const CardFooter = (
-    id,
-    share_link,
-    is_liked,
-) => {
+const CardFooter = ({
+                        id,
+                        share_link,
+                        is_liked,
+                    }) => {
     const [isLiked, setIsLiked] = useState(is_liked);
-    console.log('id', id)
     // const [likesCount, setLikesCount] = useState(like_count);
 
     /*
