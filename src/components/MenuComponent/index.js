@@ -9,7 +9,6 @@ import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import PopupModal from "../PopupModal";
-import DocsInFrame from "../DocsInFrame";
 import {blockContent} from "../../utils/blockContent";
 
 import "./index.scss";
@@ -225,7 +224,8 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
     const isMobile = useIsMobile(1080);
     const showDetails = isFederation && alias !== 'rkf' && alias !== 'oankoo';
     const [doc, setDoc] = useState(null)
-
+    const [linkFeesId, setLinkFeesId] = useState('');
+    const [linkFedDetails, setLinkFedDetails] = useState('');
 
     useEffect(() => {
         if (showDetails) {
@@ -370,11 +370,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
         el.innerText = blankName;
     };
 
-    const showDoc = (id) => {
-        setOpenDoc(true);
-        setDoc(id);
-    }
-
     const moreRef = useRef();
 
     useEffect(() => {
@@ -385,18 +380,35 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
         }
     }, [showModal])
 
+    useEffect(() => {
+
+        if (fedFeesId) {
+            (() => Request({
+                url: `/api/document/document/public?id=${fedFeesId}`
+            }, data => {
+                setLinkFeesId(data);
+            }, error => {
+                console.log(error.response);
+                // history.replace('/404');
+            }))();
+        }
+
+        if (fedDetails) {
+            (() => Request({
+                url: `/api/document/document/public?id=${fedDetails}`
+            }, data => {
+                setLinkFedDetails(data);
+            }, error => {
+                console.log(error.response);
+                // history.replace('/404');
+            }))();
+        }
+    }, [fedDetails, fedFeesId]);
+
 
 
     return (
         <>
-            <PopupModal
-                showModal={openDoc}
-                handleClose={() => setOpenDoc(false)}
-            >
-                <div className="docsinframe__inner">
-                    <DocsInFrame fedDetails={doc}></DocsInFrame>
-                </div>
-            </PopupModal>
             {isMobile ?
                 <OutsideClickHandler onOutsideClick={() => setOpenMenuComponent(false)}>
                     {isMobile &&
@@ -450,21 +462,16 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                     </li>
                                     {showDetails &&
                                     <>
-                                        {fedFeesId && <li className="user-menu__item" onClick={() => showDoc(fedFeesId)}>
-                                        <span className="menu-component__link _fees">
+                                        {fedFeesId && <li className="user-menu__item" >
+                                        <a href={linkFeesId} target="_blank" rel="noopener noreferrer" className="menu-component__link _fees">
                                             Размеры членских взносов
-                                        </span>
+                                        </a>
                                         </li>}
-                                        {/* <li className="user-menu__item">
-                                        <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
-                                            Бланки
-                                    </Link>
-                                    </li> */}
                                         {fedDetails &&
-                                        <li className="user-menu__item" onClick={() => showDoc(fedDetails)}>
-                            <span className="menu-component__link _requisites">
-                                Реквизиты
-                            </span>
+                                        <li className="user-menu__item" >
+                                            <a href={linkFedDetails} target="_blank" rel="noopener noreferrer" className="menu-component__link _requisites">
+                                                Реквизиты
+                                            </a>
 
                                         </li>}
                                     </>
@@ -543,25 +550,16 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                 </li>
                     {showDetails &&
                     <>
-                        {fedFeesId && <li className="menu-component__item" onClick={() => showDoc(fedFeesId)}>
-                            <span className="menu-component__link _fees">
+                        {fedFeesId && <li className="menu-component__item">
+                            <a href={linkFeesId} target="_blank" rel="noopener noreferrer" className="menu-component__link _fees">
                                 Размеры членских взносов
-                                </span>
+                                </a>
                         </li>}
-                        {/* <li className="menu-component__item">
-                            <Link
-                                to="/"
-                                onClick={getBlanks}
-                                className="menu-component__link _blanks"
-                                title="Бланки"
-                            >
-                                Бланки
-                        </Link>
-                        </li> */}
-                        {fedDetails && <li className="menu-component__item" onClick={() => showDoc(fedDetails)}>
-                            <span className="menu-component__link _requisites">
+
+                        {fedDetails && <li className="menu-component__item">
+                            <a href={linkFedDetails} target="_blank" rel="noopener noreferrer" className="menu-component__link _requisites">
                                 Реквизиты
-                            </span>
+                            </a>
 
                         </li>}
                     </>
