@@ -18,7 +18,7 @@ const Counter = ({ counters, profileAlias }) => {
                         публикаций
                     </div>
                 </div>
-                <Link to={`${profileAlias}/gallery`}>
+                <Link to={`/${profileAlias}/gallery`}>
                     <div className="counter_component__block">
                         <div className="counter_component__count">
                             <p>{counters.photos_count}</p>
@@ -28,17 +28,17 @@ const Counter = ({ counters, profileAlias }) => {
                         </div>
                     </div>
                 </Link>
-                <Link to={`${profileAlias}/uploaded-documents`}>
+                <Link to={`/${profileAlias}/uploaded-documents`}>
                     <div className="counter_component__block">
                         <div className="counter_component__count">
                             <p>{counters.documents_count}</p>
                         </div>
                         <div className="counter_component__name">
                             документов
-                    </div>
+                        </div>
                     </div>
                 </Link>
-                <Link to={`${profileAlias}/video`}>
+                <Link to={`/${profileAlias}/video`}>
                     <div className="counter_component__block">
                         <div className="counter_component__count">
                             <p>{counters.videos_count}</p>
@@ -56,7 +56,7 @@ const Counter = ({ counters, profileAlias }) => {
                         </div>
                         <div className="counter_component__name">
                             пород
-                        </div>
+                        </div>/
                     </div>
                 }
                 {
