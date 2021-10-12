@@ -19,6 +19,7 @@ body {
 
 #wrap {
   top: 0;
+  width: calc(100vw - (100vw - 100%));
   min-height: 100%;
   background: var(--background);
   position: relative;
