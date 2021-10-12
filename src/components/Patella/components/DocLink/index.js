@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import Button from "components/Button";
-import Modal from "components/Modal";
-import Loading from "components/Loading";
+import React, { useState, useEffect } from "react";
+
 import "./index.scss";
 
 const DocLink = ({ docId, label, showLabel, profileType, download }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
-    const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
 
     const get = () => {
@@ -19,21 +16,17 @@ const DocLink = ({ docId, label, showLabel, profileType, download }) => {
         .then(url => setUrl(url));
     }
 
+    useEffect(() => {
+        if (docId) {
+            get()
+        }
+    }, [docId]);
+
+
     return <>
-        <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
-            {url ?
-                <>
-                    {download &&
-                        <a className="modal-download" target="_blank" rel="noopener noreferrer" href={url}>Скачать</a>
-                    }
-                    <embed src={url}/>
-                </> :
-                <Loading/>
-            }
-        </Modal>
         {!!docId && <div>
             <label>{showLabel ? label : "\u00a0"}</label>
-            <Button className="btn nomargin" onClick={e => {setShowModal(true); get();}}>Посмотреть</Button>
+            <a href={url} target="_blank" rel="noopener noreferrer" className="btn__look btn nomargin" >Посмотреть</a>
         </div>}
     </>;
 }
