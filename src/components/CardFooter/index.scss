@@ -44,6 +44,7 @@
             justify-content: center;
         }
         .Share {
+            right: -25px;
             height: 18px;
             .ya-share2__icon_more {
                 height: 16px;
@@ -59,6 +60,9 @@
                     background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
                     background-color: white;
                 }
+            }
+            .ya-share2__popup.Ωya-share2__popup_direction_bottom.Ωya-share2__popup_list-direction_horizontal.Ωya-share2__popup_visible.ya-share2__popup_x-direction_left {
+                right: -25px;
             }
         }
     }

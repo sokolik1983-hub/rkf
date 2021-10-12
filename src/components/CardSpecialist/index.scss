@@ -356,11 +356,14 @@
   }
   &__more {
     text-decoration: none;
+    display: inline-block;
+    font-weight: normal;
+    font-size: 16px;
     line-height: 1;
     letter-spacing: 0.2px;
-    transition: color 0.2s linear;
     color: #36f;
     cursor: pointer;
+    margin: 20px 0 10px;
 
     &._disabled {
       color: #b9c1ce !important;
@@ -369,7 +372,7 @@
       font-size: 15px;
     }
   }
-  .Share {
+  /*.Share {
     pointer-events: none;
     line-height: 20px;
     margin: 0 auto 0 16px;
@@ -398,7 +401,7 @@
         background: #fff url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
       }
     }
-  }
+  }*/
 }
 
 .card-specialists__grid {
@@ -473,9 +476,10 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  //border-bottom: 1px solid #E5E5E5;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E5E5E5;
   &:last-child {
-    //border-bottom: none;
+    border-bottom: none;
   }
 }
 

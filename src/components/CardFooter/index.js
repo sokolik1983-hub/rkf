@@ -41,7 +41,7 @@ const CardFooter = (
     // }
 
     return (
-        <div className="CardFooter__controls" style={{ margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px' }}>
+        <div className="CardFooter__controls" style={{ borderTop: '1px solid #e5e5e5', paddingTop: '15px' }}>
             <div className="CardFooter__controls-left">
                 <div>
                         <span

@@ -240,6 +240,17 @@ const CardSpecialist = ({
                             return (
                                 <React.Fragment key={index}>
                                     {!isSpecialist && <div className={!moreData && index >= 0 ? "card-specialists__section card-specialists__grid-item __hide" : "card-specialists__section card-specialists__grid-item "} key={index}>
+                                        <div className="card-specialist__ranks">
+                                            <div className="card-specialist__rank">
+                                                {item.rank &&
+                                                <>
+                                                    <span className="card-specialist__rank-title" >Ранг</span>
+                                                    <span className="card-specialist__content-data">{item.rank}</span>
+                                                </>
+                                                }
+                                            </div>
+                                        </div>
+
                                         <div className="card-specialist__disciplines">
                                             <div className="card-specialist__disciplines-inner" style={{ flexDirection: 'row' }}>
                                                 <div className="card-specialist__content-title" >Дисциплины</div>
@@ -257,17 +268,6 @@ const CardSpecialist = ({
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div className="card-specialist__ranks">
-                                            <div className="card-specialist__rank">
-                                                {item.rank &&
-                                                <>
-                                                    <span className="card-specialist__rank-title" >Ранг</span>
-                                                    <span className="card-specialist__content-data">{item.rank}</span>
-                                                </>
-                                                }
-                                            </div>
-                                        </div>
                                     </div>}
 
                                 </React.Fragment>
@@ -278,6 +278,17 @@ const CardSpecialist = ({
                         && additionalDisciplines.map((item, index) => {
                             return (
                                 <div className={!moreData && index >= 0 ? "card-specialists__section card-specialists__section card-specialists__grid-item __hide" : "card-specialists__section card-specialists__grid-item "} key={index}>
+                                    <div className="card-specialist__ranks">
+                                        <div className="card-specialist__rank">
+                                            {item.rank &&
+                                            <>
+                                                <span className="card-specialist__rank-title" >Ранг</span>
+                                                <span className="card-specialist__content-data">{item.rank}</span>
+                                            </>
+                                            }
+                                        </div>
+                                    </div>
+
                                     <div className="card-specialist__disciplines">
 
                                         <div className="card-specialist__disciplines-inner" style={{ flexDirection: 'row' }}>
@@ -294,21 +305,8 @@ const CardSpecialist = ({
                                                     )
                                                 })}
                                             </div>
-
                                         </div>
                                     </div>
-
-                                    <div className="card-specialist__ranks">
-                                        <div className="card-specialist__rank">
-                                            {item.rank &&
-                                            <>
-                                                <span className="card-specialist__rank-title" >Ранг</span>
-                                                <span className="card-specialist__content-data">{item.rank}</span>
-                                            </>
-                                            }
-                                        </div>
-                                    </div>
-
                                 </div>
                             )
                         })
@@ -328,6 +326,15 @@ const CardSpecialist = ({
                                         {additionalDiscipline?.disciplines?.map((discipline, index) => {
                                             return (
                                                 <div className="card-specialists__grid-item" key={index}>
+                                                    <div className="card-specialist__ranks">
+                                                        { discipline?.rank &&
+                                                        <div className="card-specialist__rank">
+                                                            <span className="card-specialist__rank-title">Ранг</span>
+                                                            <span className="card-specialist__content-data">{ discipline.rank }</span>
+                                                        </div>
+                                                        }
+                                                    </div>
+
                                                     <div className="card-specialist__disciplines" style={{ whiteSpace: "nowrap" }}>
                                                         {<div className="card-specialist__content-title">Дисциплины</div>}
 
@@ -344,15 +351,6 @@ const CardSpecialist = ({
                                                                 )
                                                             })}
                                                         </div>
-                                                    </div>
-
-                                                    <div className="card-specialist__ranks">
-                                                        { discipline?.rank &&
-                                                        <div className="card-specialist__rank">
-                                                            <span className="card-specialist__rank-title">Ранг</span>
-                                                            <span className="card-specialist__content-data">{ discipline.rank }</span>
-                                                        </div>
-                                                        }
                                                     </div>
                                                 </div>
                                             )
