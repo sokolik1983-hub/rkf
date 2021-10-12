@@ -56,7 +56,7 @@ const Counter = ({ counters, profileAlias }) => {
                         </div>
                         <div className="counter_component__name">
                             пород
-                        </div>/
+                        </div>
                     </div>
                 }
                 {
