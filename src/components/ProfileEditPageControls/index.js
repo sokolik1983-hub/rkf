@@ -9,7 +9,7 @@ import "./index.scss";
 
 
 const ProfileEditPageControls = () => {
-    const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
+    const alias = ls.get('user_info').alias;
 
     return (
     <div className="ProfileEditPageControls">
