@@ -7,7 +7,7 @@ const SubmitButton = ({ formik, className, onClick, children, ...restProps }) =>
     <Button
         type="submit"
         disabled={formik.isSubmitting}
-        className={`btn-submit${className ? ' ' + className : ''}`}
+        className={`ProfileEditPageControls__save${className ? ' ' + className : ''}`}
         onClick={onClick}
         {...restProps}
     >

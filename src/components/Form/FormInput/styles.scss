@@ -64,6 +64,8 @@
       padding: 11px 12px;
       border-width: 1px;
       border-color: #EBF0F2;
+      -webkit-text-fill-color: #90999E;
+      -webkit-opacity: 1;
       color: #90999E;
 
       &:hover {
@@ -103,6 +105,8 @@
     }
 
     .FormInput__error {
+      -webkit-text-fill-color: #FA5D50;
+      -webkit-opacity: 1;
       color: #FA5D50;
     }
 

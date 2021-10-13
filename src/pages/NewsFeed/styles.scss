@@ -7,7 +7,7 @@
     flex-direction: column-reverse;
   }
   &-left {
-    width: 600px;
+    width: 100%;
     margin-right: 16px;
     flex-shrink: 0;
     @media (max-width: 560px) {
@@ -17,12 +17,8 @@
   }
   &-right {
     flex-grow: 1;
-    @media (min-width: 560px) {
-      max-width: 250px;
-    }
     & > .Card {
       @media (min-width: 560px) {
-        max-width: 250px;
         min-width: 250px;
         position: fixed;
       }
@@ -145,3 +141,31 @@
     background-color: initial;
   }
 }
+.nursery-page {
+  position: relative;
+}
+.notification-page__filters {
+  width: 100%;
+  position: fixed;
+  top: 50px;
+  right: 0;
+  z-index: 9;
+  height: calc(100% - 60px);
+  padding: 16px 6px;
+  overflow-y: auto;
+  visibility: hidden;
+  transform: translateX(100%);
+  transition: all 0.2s ease-out;
+  box-shadow: 0 6px 12px rgba(51, 102, 255 , 0.12);
+  & .Card {
+    box-shadow: none;
+    width: 100%;
+  }
+  &._open {
+  visibility: visible;
+  transform: translateX(0);
+  background: white;
+  }
+}
+
+

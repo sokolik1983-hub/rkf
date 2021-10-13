@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, {memo, useEffect, useState} from "react";
+import {useLocation, useParams} from "react-router-dom";
 import ls from "local-storage";
 import StickyBox from "react-sticky-box";
 import Loading from "components/Loading";
@@ -19,9 +19,12 @@ import { endpointGetUserInfo, userNav } from "./config";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from "utils/useIsMobile";
+import {connectShowFilters} from "../../../components/Layouts/connectors"
+
 import "./index.scss";
 
-const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }) => {
+
+const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
@@ -31,6 +34,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
+    const [checkLink, setCheckLink] = useState(false);
     const { route: alias, id } = useParams();
     const isMobile = useIsMobile(1080);
 
@@ -94,11 +98,23 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
         })
     }
 
+    const link = useLocation();
+
+   function checkLinkUserPage() {
+        let checkLink = link.pathname.includes('news-feed');
+        setCheckLink(checkLink)
+    }
+
+    useEffect(() => {
+        checkLinkUserPage();
+    },[]);
+
     return loading ?
         <Loading /> :
         errorRedirect ?
             <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength}>
+            <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
+
                 <div className="user-page">
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
@@ -188,4 +204,4 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
             </Layout>
 };
 
-export default React.memo(connectAuthVisible(UserLayout));
+export default React.memo(connectAuthVisible(connectShowFilters(UserLayout)));

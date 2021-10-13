@@ -178,7 +178,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
             withFilters
             setNotificationsLength={setNotificationsLength}
         >
-            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
             <div className="exhibitions-page__wrap redesign">
                 <Container className="exhibitions-page content">
                     <Filters

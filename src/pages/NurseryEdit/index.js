@@ -5,12 +5,13 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Disclaimer from "../../components/Disclaimer";
 import { Form } from "../../components/Form";
-import SubmitButton from "../../components/Form/SubmitButton";
 import RenderFields from "./RenderFields";
 import Alert from "../../components/Alert";
 import { Request } from "../../utils/request";
 import { editForm, defaultValues } from './config';
+import ProfileEditPageControls from '../../components/ProfileEditPageControls';
 import './styles.scss';
+
 
 
 const NurseryEdit = ({ history }) => {
@@ -133,9 +134,7 @@ const NurseryEdit = ({ history }) => {
                             }}
                         />
 
-                        <div className={`NurseryEdit__submit${working ? ' working' : ''}`}>
-                            <SubmitButton className="btn-primary">Сохранить</SubmitButton>
-                        </div>
+                        <ProfileEditPageControls/>
                     </Form>
                 }
                 {showAlert && <Alert {...showAlert} />}

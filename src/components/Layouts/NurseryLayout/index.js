@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {memo, useEffect, useState} from "react";
 import { Redirect } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Loading from "components/Loading";
@@ -17,7 +17,11 @@ import useIsMobile from "utils/useIsMobile";
 import { BANNER_TYPES } from "appConfig";
 import Banner from "components/Banner";
 import BreedsList from "components/BreedsList";
+import ClickGuard from "../../ClickGuard";
+import {connectShowFilters} from "../../../components/Layouts/connectors"
+
 import "./index.scss";
+
 
 
 const getAddressString = addressObj => {
@@ -30,8 +34,7 @@ const getAddressString = addressObj => {
     return address;
 };
 
-
-const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthenticated, children }) => {
+const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
     const [nursery, setNursery] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -40,6 +43,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
     const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.route;
     const isMobile = useIsMobile(1080);
+
 
     useEffect(() => {
         (() => getNurserynfo())();
@@ -71,7 +75,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
         <Loading /> :
         error ?
             error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
-            <Layout setNotificationsLength={setNotificationsLength}>
+            <Layout setNotificationsLength={setNotificationsLength} withFilters>
                 <div className="redesign">
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
@@ -140,4 +144,4 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
             </Layout>
 };
 
-export default React.memo(connectAuthVisible(NurseryLayout));
+export default React.memo(connectAuthVisible(connectShowFilters(memo(NurseryLayout))));
