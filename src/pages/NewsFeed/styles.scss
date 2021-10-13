@@ -17,13 +17,8 @@
   }
   &-right {
     flex-grow: 1;
-    @media (min-width: 560px) {
-      max-width: 250px;
-    }
     & > .Card {
-      box-shadow: 0;
       @media (min-width: 560px) {
-        max-width: 250px;
         min-width: 250px;
         position: fixed;
       }
@@ -150,7 +145,7 @@
   position: relative;
 }
 .notification-page__filters {
-  width: 270px;
+  width: 100%;
   position: fixed;
   top: 50px;
   right: 0;

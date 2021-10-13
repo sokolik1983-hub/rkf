@@ -32,7 +32,7 @@ const Content = props => { //Дополнительные props берутся �
 
     const {showMustRead, notificationUrlIndex, activeCategoryId, showFilter, setShowFilters} = props;
 
-    blockContent(showFilter)
+    blockContent(showFilter);
 
     return (
         <>

@@ -19,8 +19,7 @@ import { endpointGetUserInfo, userNav } from "./config";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from "utils/useIsMobile";
-import ClickGuard from "../../ClickGuard";
-import {connectShowFilters, ConnectShowFilters} from "../../../components/Layouts/connectors"
+import {connectShowFilters} from "../../../components/Layouts/connectors"
 
 import "./index.scss";
 
@@ -115,7 +114,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         errorRedirect ?
             <Redirect to="/404" /> :
             <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
-                <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
+
                 <div className="user-page">
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
