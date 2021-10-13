@@ -9,7 +9,7 @@ import RenderFields from "./RenderFields";
 import Alert from "../../components/Alert";
 import { Request } from "../../utils/request";
 import { editForm, defaultValues } from './config';
-import ProfileEditPageButtons from '../../components/ProfileEditPageButtons';
+import ProfileEditPageControls from '../../components/ProfileEditPageControls';
 import './styles.scss';
 
 
@@ -134,12 +134,7 @@ const NurseryEdit = ({ history }) => {
                             }}
                         />
 
-                        {/*<div className="EditPageButtons">
-                            <div className={`NurseryEdit__submit${working ? ' working' : ''}`}>
-                                <SubmitButton className="btn-primary">Сохранить</SubmitButton>
-                            </div>
-                        </div>*/}
-                        <ProfileEditPageButtons handleSubmitForms='' />
+                        <ProfileEditPageControls/>
                     </Form>
                 }
                 {showAlert && <Alert {...showAlert} />}
