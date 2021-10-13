@@ -222,7 +222,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
     const isMobile = useIsMobile(1080);
-    const showDetails = isFederation && alias !== 'rkf' && alias !== 'oankoo';
+    const showDetails = isFederation && alias !== 'rkf' && alias !== 'rkf-online' && alias !== 'oankoo';
     const [doc, setDoc] = useState(null)
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
