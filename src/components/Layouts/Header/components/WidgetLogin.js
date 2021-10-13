@@ -81,7 +81,7 @@ const WidgetLogin = forwardRef(
         };
 
         const handleOutsideClick = (e) => {
-            !widgetLoginRef.current.contains(e.target) && setDesktop(false)
+            !widgetLoginRef.current?.contains(e.target) && setDesktop(false)
         }
         useEffect(() => {
             setOpen(desktop);
