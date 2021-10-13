@@ -317,10 +317,6 @@
   }
   &__controls {
     margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #e8e8e8;
-    display: flex;
-    justify-content: space-between;
   }
   &__show-all {
     text-decoration: none;
@@ -333,21 +329,6 @@
     }
     &._disabled {
       color: #b9c1ce !important;
-    }
-  }
-  .Share {
-    .ya-share2__icon_more {
-      height: 16px;
-      background-color: white;
-      &:after {
-        width: 16px;
-        height: 16px;
-        top: 0;
-        background: #fff url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
-      }
-      &:hover:after {
-        background: #fff url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
-      }
     }
   }
 }

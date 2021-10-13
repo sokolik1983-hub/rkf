@@ -5,11 +5,14 @@ import Card from "../Card";
 import Share from "../Share";
 import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import { DEFAULT_IMG } from "../../appConfig";
+import CardFooter from '../CardFooter';
 
 import "./index.scss";
 
 
-const CardOrganization = ({ alias,
+
+const CardOrganization = ({   id,
+                              alias,
                               logo,
                               name,
                               user_type,
@@ -154,28 +157,12 @@ const CardOrganization = ({ alias,
                     {content}
                 </p>
             </div>
+
             <div className="card-organization__controls">
-                {url ?
-                    <>
-                        <Link className="card-organization__show-all" to={url}>
-                            {user_type === 3
-                                ? 'Страница клуба'
-                                : user_type === 4
-                                    ? 'Страница питомника' : user_type === 5
-                                        ? 'Страница Федерации' : user_type === 7
-                                            ? 'Страница НКП' : ''
-                            }
-                        </Link>
-                        <Share url={`https://rkf.online${url}`} />
-                    </> :
-                    <span className="card-organization__show-all _disabled">{user_type === 3
-                        ? 'Страница клуба'
-                        : user_type === 4
-                            ? 'Страница питомника' : user_type === 5
-                                ? 'Страница Федерации' : user_type === 7
-                                    ? 'Страница НКП' : ''
-                    }</span>
-                }
+                <CardFooter
+                    id={id}
+                    share_link={`https://rkf.online${url}`}
+                />
             </div>
         </Card>
     )
