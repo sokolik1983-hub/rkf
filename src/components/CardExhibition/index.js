@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "../Card";
 import CardFooter from '../CardFooter';
-import Share from "../Share";
 import { ActiveUserMark, FederationChoiceMark } from "../Marks";
 import LightTooltip from "components/LightTooltip";
 import { DEFAULT_IMG } from "../../appConfig";
@@ -118,10 +117,13 @@ const CardExhibition = ({ id, title,
                     </div>
                 </div>
             </div>
-            <CardFooter
-                id={id}
-                share_link={`https://rkf.online/specialists?&SearchTypeId=${searchTypeId}#${id}`}
-            />
+
+            <div className={`card-exhibition__controls`}>
+                <CardFooter
+                    id={id}
+                    share_link={`https://rkf.online${url}`}
+                />
+            </div>
         </Card>
     );
 
