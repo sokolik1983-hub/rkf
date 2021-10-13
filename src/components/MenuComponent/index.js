@@ -221,6 +221,11 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
     const [openDoc, setOpenDoc] = useState(false);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
+
+    const [fedInfo, setFedInfo] = useState(null);
+    const [error, setError] = useState(null);
+    const [menuBackground, setMenuBackground] = useState('/static/images/user-nav/user-nav-bg.png');
+
     const isMobile = useIsMobile(1080);
     const showDetails = isFederation && alias !== 'rkf' && alias !== 'oankoo';
     const [doc, setDoc] = useState(null)
@@ -405,7 +410,25 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
         }
     }, [fedDetails, fedFeesId]);
 
+    useEffect(() => {
+        (() => Request({
+            url: `/api/Club/federation_base_info?alias=` + alias
+        }, data => {
+            setFedInfo(data);
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setError(error.response);
+            setLoading(false);
+        }))();
+        // return () => setNeedRequest(true);
+    }, []);
 
+    useEffect(() => {
+        (alias == 'rkf') ? setMenuBackground('/static/images/slider/1.jpg') : (fedInfo && setMenuBackground(fedInfo.header_picture_link))
+    }, [fedInfo]);
+
+    console.log('alias', alias)
 
     return (
         <>
@@ -435,6 +458,9 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             bottomStyle
                         >
                             <div className="user-menu__inner">
+                                <div className="banner-federation">
+                                    <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
+                                </div>
                                 <ul className="user-menu__list">
 
                                     {user !== 'nursery' &&
@@ -490,7 +516,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             </div>
                         </PopupModal>
                     </CSSTransition>
-
                 </OutsideClickHandler>
                 :
                 <Card>

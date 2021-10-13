@@ -332,11 +332,25 @@
   }
   &__inner {
     @media (max-width: 1080px) {
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
       position: absolute;
       right: 16px;
       bottom: 1px;
       width: calc(100% - 32px);
       max-width: 476px;
+      & .banner-federation {
+        margin: 10px;
+        max-height: 100px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & img {
+          width: 100%;
+        }
+      }
     }
     & .close-btn {
       padding-right: 5px;
@@ -350,20 +364,6 @@
     @media (max-width: 1080px) {
       padding: 2px 0;
       z-index: 2;
-      background-color: #fff;
-      box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
-      border-radius: 6px;
-    }
-    @media (max-width: 1080px) {
-      &:before {
-        margin: 10px 10px 12px;
-        display: block;
-        content: "";
-        height: 80px;
-        background-image: url("/static/images/user-nav/user-nav-bg.png");
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
     }
   }
 
