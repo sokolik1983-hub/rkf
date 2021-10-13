@@ -5,11 +5,14 @@ import Card from "../Card";
 import Share from "../Share";
 import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import { DEFAULT_IMG } from "../../appConfig";
+import CardFooter from '../CardFooter';
 
 import "./index.scss";
 
 
-const CardOrganization = ({ alias,
+
+const CardOrganization = ({   id,
+                              alias,
                               logo,
                               name,
                               user_type,
@@ -28,7 +31,7 @@ const CardOrganization = ({ alias,
                               site,
                               setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null :
-        (user_type === 3 && alias !== 'rkf') ? `/club/${alias}` : `/${alias}/`;
+        (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${alias}` : `/${alias}/`;
 
     return (
         <Card className="card-organization">
@@ -76,6 +79,11 @@ const CardOrganization = ({ alias,
                                         </span>
                                     </div>
                                 }
+                                {city_name &&
+                                    <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
+                                        {city_name}
+                                    </span>
+                                }
                             </div>
                         </div> :
                         <p className="card-organization__author">
@@ -107,11 +115,7 @@ const CardOrganization = ({ alias,
                             }
                         </p>
                     }
-                    {city_name &&
-                    <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
-                            {city_name}
-                        </span>
-                    }
+
                 </div>
                 <div className="card-organization__info">
                     <div className="card-organization__info-item">
@@ -154,28 +158,12 @@ const CardOrganization = ({ alias,
                     {content}
                 </p>
             </div>
+
             <div className="card-organization__controls">
-                {url ?
-                    <>
-                        <Link className="card-organization__show-all" to={url}>
-                            {user_type === 3
-                                ? 'Страница клуба'
-                                : user_type === 4
-                                    ? 'Страница питомника' : user_type === 5
-                                        ? 'Страница Федерации' : user_type === 7
-                                            ? 'Страница НКП' : ''
-                            }
-                        </Link>
-                        <Share url={`https://rkf.online${url}`} />
-                    </> :
-                    <span className="card-organization__show-all _disabled">{user_type === 3
-                        ? 'Страница клуба'
-                        : user_type === 4
-                            ? 'Страница питомника' : user_type === 5
-                                ? 'Страница Федерации' : user_type === 7
-                                    ? 'Страница НКП' : ''
-                    }</span>
-                }
+                <CardFooter
+                    id={id}
+                    share_link={`https://rkf.online${url}`}
+                />
             </div>
         </Card>
     )

@@ -147,6 +147,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                             <NavLink
                                                 to={user_type === 3
                                                     && alias !== 'rkf'
+                                                    && alias !== 'rkf-online'
                                                     && navItem.title !== 'Поиск по базе РКФ'
                                                     && navItem.title !== 'Реквизиты и размеры взносов'
                                                     && navItem.title !== 'Мероприятия'
@@ -177,6 +178,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 <NavLink
                                     to={user_type === 3
                                         && alias !== 'rkf'
+                                        && alias !== 'rkf-online'
                                         && navItem.title !== 'Поиск по базе РКФ'
                                         && navItem.title !== 'Реквизиты и размеры взносов'
                                         && navItem.title !== 'Мероприятия'

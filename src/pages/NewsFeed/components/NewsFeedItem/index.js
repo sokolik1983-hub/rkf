@@ -102,7 +102,7 @@ const NewsFeedItem = forwardRef(({
                                 ? `/kennel/${alias}`
                                 : user_type === 1
                                     ? `/user/${alias}`
-                                    : user_type === 3 && alias !== 'rkf'
+                                    : user_type === 3 && alias !== 'rkf'&& alias !== 'rkf-online'
                                         ? `/club/${alias}`
                                         : `/${alias}`}>
                                 <div
@@ -122,7 +122,7 @@ const NewsFeedItem = forwardRef(({
                                             ? `/kennel/${alias}`
                                             : user_type === 1
                                                 ? `/user/${alias}`
-                                                : user_type === 3 && alias !== 'rkf'
+                                                : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                                     ? `/club/${alias}`
                                                     : `/${alias}`}>
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
@@ -143,7 +143,7 @@ const NewsFeedItem = forwardRef(({
                                                 ? `/kennel/${alias}`
                                                 : user_type === 1
                                                     ? `/user/${alias}`
-                                                    : user_type === 3 && alias !== 'rkf'
+                                                    : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                                         ? `/club/${alias}`
                                                         : `/${alias}`}>
                                                 {user_type === 1 ? first_name + ' ' + last_name : name}
@@ -353,7 +353,7 @@ const NewsFeedItem = forwardRef(({
                         ? `/kennel/${alias}`
                         : user_type === 1
                             ? `/user/${alias}`
-                            : user_type === 3 && alias !== 'rkf'
+                            : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                 ? `/club/${alias}`
                                 : `/${alias}`}>
                         <div className="NewsFeedItem__left-logo" style={{
@@ -371,7 +371,7 @@ const NewsFeedItem = forwardRef(({
                                 ? `/kennel/${alias}`
                                 : user_type === 1
                                     ? `/user/${alias}`
-                                    : user_type === 3 && alias !== 'rkf'
+                                    : user_type === 3 && alias !== 'rkf'&& alias !== 'rkf-online'
                                         ? `/club/${alias}`
                                         : `/${alias}`}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&
