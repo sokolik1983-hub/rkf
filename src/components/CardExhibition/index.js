@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "../Card";
+import CardFooter from '../CardFooter';
 import Share from "../Share";
 import { ActiveUserMark, FederationChoiceMark } from "../Marks";
 import LightTooltip from "components/LightTooltip";
@@ -9,7 +10,7 @@ import { formatText } from "../../utils";
 import "./index.scss";
 
 
-const CardExhibition = ({ title,
+const CardExhibition = ({ id, title,
     city,
     city_id,
     club_name,
@@ -25,6 +26,7 @@ const CardExhibition = ({ title,
     active_rkf_user,
     active_member,
     setFilters,
+    searchTypeId,
     reports }) => (
         <Card className="card-exhibition">
             <div className="card-exhibition__wrap">
@@ -116,10 +118,10 @@ const CardExhibition = ({ title,
                     </div>
                 </div>
             </div>
-            <div className="card-exhibition__controls">
-                <Link className="card-exhibition__show-all" to={url}>Страница выставки</Link>
-                <Share url={`https://rkf.online${url}`} />
-            </div>
+            <CardFooter
+                id={id}
+                share_link={`https://rkf.online/specialists?&SearchTypeId=${searchTypeId}#${id}`}
+            />
         </Card>
     );
 
