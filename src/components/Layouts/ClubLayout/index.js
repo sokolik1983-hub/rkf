@@ -17,8 +17,7 @@ import { connectAuthVisible } from "pages/Login/connectors";
 import useIsMobile from "utils/useIsMobile";
 import { BANNER_TYPES } from "appConfig";
 import Banner from "components/Banner";
-import ClickGuard from "../../ClickGuard";
-import {connectShowFilters, ConnectShowFilters} from "../../../components/Layouts/connectors"
+import {connectShowFilters} from "../../../components/Layouts/connectors"
 
 import "./index.scss";
 
@@ -64,7 +63,6 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
             : notActiveProfile
                 ? <NotConfirmed />
                 : <Layout setNotificationsLength={setNotificationsLength} withFilters>
-                    <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">

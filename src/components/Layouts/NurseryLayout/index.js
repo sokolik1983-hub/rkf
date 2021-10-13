@@ -77,7 +77,6 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
             error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
             <Layout setNotificationsLength={setNotificationsLength} withFilters>
                 <div className="redesign">
-                    <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
