@@ -6,7 +6,13 @@ import NurseryLayout from "../../components/Layouts/NurseryLayout";
 import CategoriesList from "./components/CategoriesList";
 import MustRead from "./components/MustRead";
 import NewsList from "./components/NewsList";
+import { connectShowFilters } from '../../components/Layouts/connectors';
+import StickyBox from "react-sticky-box";
+import {blockContent} from "../../utils/blockContent";
+
 import "./styles.scss";
+
+
 
 const user_type = ls.get('user_info').user_type;
 
@@ -23,20 +29,29 @@ const Layout = props => {
 };
 
 const Content = props => { //Дополнительные props берутся из Layout. Это неочевидно и лучше так не делать.
-    const {showMustRead, notificationUrlIndex, activeCategoryId} = props;
+
+    const {showMustRead, notificationUrlIndex, activeCategoryId, showFilter, setShowFilters} = props;
+
+    blockContent(showFilter)
 
     return (
-        <div className="NewsFeed">
-            <div className="NewsFeed-left">
-                <NewsList {...props} />
+        <>
+            <div className="NewsFeed">
+
+                <div className="NewsFeed-left">
+                    <NewsList {...props} />
+                </div>
+
+                <aside className={`notification-page__filters ${showFilter ? ' _open' : ''} `}>
+                            <div className={showFilter ? "NewsFeed-right" : 'NewsFeed-right hidden'}>
+                                <CategoriesList {...props} setShowFilters={setShowFilters} />
+                                {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
+                                <MustRead {...props} notificationUrlIndex={notificationUrlIndex} setShowFilters={setShowFilters}/>
+                                }
+                            </div>
+                </aside>
             </div>
-            <div className="NewsFeed-right">
-                <CategoriesList {...props} />
-                {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
-                    <MustRead {...props} notificationUrlIndex={notificationUrlIndex} />
-                }
-            </div>
-        </div>
+        </>
     );
 };
 
@@ -51,9 +66,12 @@ const NewsFeed = props => {
         setShowMustRead(!!props.match.params.id && parseInt(props.match.params.id) === 4);
     }, [props.match.params.id]);
 
+
     return (
         <Layout {...props} user_type={user_type}>
             <Content
+                showFilter={props.isOpenFilters}
+                setShowFilters={props.setShowFilters}
                 activeCategoryId={activeCategoryId}
                 setActiveCategoryId={setActiveCategoryId}
                 showMustRead={showMustRead}
@@ -64,4 +82,4 @@ const NewsFeed = props => {
     )
 };
 
-export default memo(NewsFeed);
+export default connectShowFilters(memo(NewsFeed));

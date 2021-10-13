@@ -3,7 +3,7 @@ import { Checkbox } from "@progress/kendo-react-inputs";
 import "./index.scss";
 
 
-const MustRead = ({ setActiveCategoryId, notificationUrlIndex }) => {
+const MustRead = ({ setActiveCategoryId, notificationUrlIndex, setShowFilters }) => {
     const [isChecked, setIsChecked] = useState(notificationUrlIndex === 4 ? true : false);
 
     useEffect(() => {
@@ -16,6 +16,7 @@ const MustRead = ({ setActiveCategoryId, notificationUrlIndex }) => {
         if (!isChecked) {
             setIsChecked(true);
             setActiveCategoryId(5);
+            setShowFilters({ isOpenFilters: false });
         } else {
             setIsChecked(false);
             setActiveCategoryId(4);

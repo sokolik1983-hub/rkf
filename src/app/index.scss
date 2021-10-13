@@ -55,3 +55,10 @@ a.lnkText:active {
 input::placeholder {
   color: #757575 !important;
 }
+
+// добавление стилей для корректного отображения цвета в Сафари
+.k-textbox {
+  -webkit-text-fill-color: #495057;
+  -webkit-opacity: 1;
+  color: #495057;
+}
