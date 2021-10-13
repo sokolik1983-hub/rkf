@@ -79,6 +79,11 @@ const CardOrganization = ({   id,
                                         </span>
                                     </div>
                                 }
+                                {city_name &&
+                                    <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
+                                        {city_name}
+                                    </span>
+                                }
                             </div>
                         </div> :
                         <p className="card-organization__author">
@@ -110,11 +115,7 @@ const CardOrganization = ({   id,
                             }
                         </p>
                     }
-                    {city_name &&
-                    <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
-                            {city_name}
-                        </span>
-                    }
+
                 </div>
                 <div className="card-organization__info">
                     <div className="card-organization__info-item">
