@@ -179,7 +179,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                         <h4 className="caps">Информация о платеже</h4>
                     </div>
                     <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
-                    <FormGroup inline>
+                    <FormGroup inline className="dysp3">
                         <FormFile
                             name='payment_document'
                             label='Квитанция об оплате (PDF, JPEG, JPG)'
@@ -202,7 +202,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                         </div>
                         <FormField disabled={view || formik.values.payment_accept} name='payment_number' label='Номер платежного документа' />
                     </FormGroup>
-                    <FormGroup inline>
+                    <FormGroup inline className="dyspLast">
                         <FormField disabled={view || formik.values.payment_accept} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
                         <FormField disabled={view || formik.values.payment_accept} name='inn' label='ИНН (для юр. лиц)' />
                     </FormGroup>
