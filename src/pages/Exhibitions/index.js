@@ -7,7 +7,6 @@ import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ExhibitionsTable from "./components/ExhibitionsTable";
 import EducationalsTable from "./components/EducationalsTable";
-import ClickGuard from "../../components/ClickGuard";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";

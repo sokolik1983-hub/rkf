@@ -158,20 +158,19 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                         default:
                             break;
                     }
+                    break;
                 default:
                     switch (url) {
                         case 'club':
                             clubInfo && setNameInMenu(clubInfo.short_name);
-                            clubInfo && console.log('ya ne avtorizovan',clubInfo.short_name )
                             break;
                         case 'kennel':
                             clubInfo && setNameInMenu(clubInfo.name);
-                            clubInfo && console.log('ya ne avtorizovan',clubInfo.name )
                             break;
                         default:
                             break;
                     }
-                    break;
+                break;
             }
              clubInfo && setMenuBackground(clubInfo.headliner_link);
 

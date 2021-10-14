@@ -233,8 +233,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
 
-    // console.log('fedName', fedInfo)
-
     useEffect(() => {
         if (showDetails) {
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)

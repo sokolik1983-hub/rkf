@@ -17,7 +17,6 @@ import useIsMobile from "utils/useIsMobile";
 import { BANNER_TYPES } from "appConfig";
 import Banner from "components/Banner";
 import BreedsList from "components/BreedsList";
-import ClickGuard from "../../ClickGuard";
 import {connectShowFilters} from "../../../components/Layouts/connectors"
 
 import "./index.scss";
