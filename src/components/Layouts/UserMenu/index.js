@@ -29,8 +29,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     };
 
 
-
-    console.log('4444444----------', user_type)
     const moreRef = useRef();
     const location = useLocation();
     let url =  location.pathname.split('/')[1];
@@ -49,8 +47,13 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                         backgroundForPage(alias, endpointGetClubInfo)
                         break;
                 }
+                break;
             case 1:
                 switch (url) {
+                    case 'club':
+                    case 'kennel':
+                        backgroundForPage(orgAlias, endpointGetClubInfo);
+                        break;
                     case 'user':
                         backgroundForPage(orgAlias, endpointGetUserInfo)
                         break;
@@ -58,15 +61,18 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                         backgroundForPage(alias, endpointGetUserInfo)
                         break;
                 }
+                break;
             case 5:
                 switch (url) {
-                    case 'user':
-                        backgroundForPage(orgAlias, endpointGetUserInfo)
+                    case 'club':
+                    case 'kennel':
+                        backgroundForPage(orgAlias, endpointGetClubInfo);
                         break;
                     default:
                         backgroundForPage(alias, endpointGetUserInfo)
                         break;
                 }
+                break;
             default:
                 switch (url) {
                     case 'club':
@@ -78,17 +84,16 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                 }
                 break;
         }
-
     }
 
-    const backgroundForPage =(orgAlias, request) => {
+    const backgroundForPage =(orgAlias, request) => { //Получаем алиас юзеров разных типов и образец запроса на сервер от разных юзеров.
            Request({
                 url: request + orgAlias
             }, data => {
                if(request === endpointGetClubInfo) {
-                   setClubInfo({...data})
+                   setClubInfo({...data})  //Получаем инфу о клубе, питомнике
                } else if (request === endpointGetUserInfo) {
-                   setUserInfo({...data})
+                   setUserInfo({...data}) //Получаем инфу о физ. лице
                }
             }, error => {
                 console.log(error.response);

@@ -440,8 +440,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
 
     }, [fedInfo]);
 
-    console.log('alias', alias)
-
     return (
         <>
             {isMobile ?
