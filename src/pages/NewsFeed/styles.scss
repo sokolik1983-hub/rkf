@@ -161,6 +161,7 @@
     transform: translateX(100%);
     transition: all 0.2s ease-out;
     box-shadow: 0 6px 12px rgba(51, 102, 255 , 0.12);
+    background: white;
     & .Card {
       box-shadow: none;
       width: 100%;
@@ -168,7 +169,6 @@
     &._open {
       visibility: visible;
       transform: translateX(0);
-      background: white;
     }
   }
 }
