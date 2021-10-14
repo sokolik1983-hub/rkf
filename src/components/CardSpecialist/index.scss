@@ -120,14 +120,13 @@
     }
   }
 
-  &__rank {
-    &-title {
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 18px;
-      margin-bottom: 10px;
-      color: #72839c;
-    }
+  &__examiner,
+  &__rank-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    color: #72839c;
   }
 
   &__content-data {
@@ -395,7 +394,8 @@
 
   &__rank,
   &__disciplines,
-  &__specialization-name {
+  &__specialization-name,
+  &__examiner {
     padding: 7px 0;
   }
 
@@ -413,7 +413,8 @@
   &__specialization-name,
   &__content-title,
   &__subtitle,
-  &__disciplines-inner{
+  &__disciplines-inner,
+  &__examiner {
     margin: 0 10px 0 0;
     font-size: 16px;
     line-height: 18px;
