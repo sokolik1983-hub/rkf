@@ -99,7 +99,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
             />
         }
 
-        <Card>
+        <Card className="dysplasiaApplication">
             <Title />
             {formik.values.rejected_comment && <div className="alert alert-danger">{formik.values.rejected_comment}</div>}
             <div className="flex-row heading-row">
@@ -125,7 +125,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 />
             </FormGroup>
 
-            <FormGroup inline>
+            <FormGroup inline className="dysp">
                 <FormFile
                     name={`veterinary_contract_document`}
                     label='Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)'
@@ -144,14 +144,14 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 />}
             </FormGroup>
 
-            <FormGroup inline>
+            <FormGroup inline className="dyspSearch">
                 <FormField disabled={view || everk} name='pedigree_number' label='№ родословной собаки' />
                 {!everk && !view && <Button className='btn btn-primary' style={{ marginRight: '1em' }} onClick={e => getEverkData()}>Поиск</Button>}
                 <FormField disabled={view || everk} name='dog_name' label='Кличка собаки' />
                 {everk && !view && <Button className='btn btn-red' onClick={e => deleteClick()}>Удалить</Button>}
             </FormGroup>
 
-            <FormGroup inline>
+            <FormGroup inline className="dysp2">
                 <FormFile
                     name={`pedigree_document`}
                     label={view && !formik.values.pedigree_document_id ? '' : `Родословная (PDF, JPEG, JPG)`}

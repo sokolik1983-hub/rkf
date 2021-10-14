@@ -9,4 +9,22 @@
         margin-top: 10px;
         margin-left: 5px;
     }
+
+.dysplasiaApplication {
+    display: grid;
+}
+}
+.dysplasiaApplication .dysp div:first-child {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+.dysplasiaApplication .dyspSearch  {
+    display: grid;
+    grid-template-columns: 2.75fr 157px 2fr;
+    margin-top: 20px;
+    margin-bottom: 20px!important;
+}
+.dysplasiaApplication .dysp2 div:first-child {
+    display: grid;
+    grid-template-rows: 1.5fr 1fr;
 }
