@@ -225,12 +225,15 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
     const [fedInfo, setFedInfo] = useState(null);
     const [error, setError] = useState(null);
     const [menuBackground, setMenuBackground] = useState('/static/images/user-nav/user-nav-bg.png');
+    const [fedName, setFedName] = useState(null);
 
     const isMobile = useIsMobile(1080);
     const showDetails = isFederation && alias !== 'rkf' && alias !== 'rkf-online' && alias !== 'oankoo';
     const [doc, setDoc] = useState(null)
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
+
+    // console.log('fedName', fedInfo)
 
     useEffect(() => {
         if (showDetails) {
@@ -425,7 +428,16 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
     }, []);
 
     useEffect(() => {
-        (alias == 'rkf') ? setMenuBackground('/static/images/slider/1.jpg') : (fedInfo && setMenuBackground(fedInfo.header_picture_link))
+        if(fedInfo) {
+            if (alias == 'rkf') {
+                setMenuBackground('/static/images/slider/1.jpg');
+                setFedName('РКФ')
+            } else {
+                (fedInfo && setMenuBackground(fedInfo.header_picture_link));
+                setFedName(fedInfo.name)
+            }
+        }
+
     }, [fedInfo]);
 
     console.log('alias', alias)
@@ -461,6 +473,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                 <div className="banner-federation">
                                     <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
                                 </div>
+                                {fedName && <p className="user-menu__name">{fedName}</p>}
                                 <ul className="user-menu__list">
 
                                     {user !== 'nursery' &&

@@ -359,6 +359,10 @@
       margin-bottom: -20px;
     }
   }
+  &__name {
+    text-align: center;
+    font-size: 20px;
+  }
   &__list {
     list-style: none;
     @media (max-width: 1080px) {
