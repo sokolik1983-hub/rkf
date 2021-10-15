@@ -37,6 +37,8 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
     const alias = match.path.replace('/', '');
 
 
+
+
     useEffect(() => {
         (() => Request({
             url: `/api/Club/federation_base_info?alias=` + alias

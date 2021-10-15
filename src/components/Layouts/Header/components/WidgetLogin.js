@@ -11,7 +11,7 @@ import { Request } from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
 import PopupModal from "../../../PopupModal";
 import OutsideClickHandler from "react-outside-click-handler";
-import {blockContent} from "../../../../utils/blockContent";
+
 const WidgetLogin = forwardRef(
     ({
          isAuthenticated,

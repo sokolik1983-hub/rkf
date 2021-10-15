@@ -88,14 +88,12 @@
         }
         @media (max-width: 1080px) {
           top: 55px;
-          transform: translateY(1px);
           z-index: 1000;
         }
       }
       @media (max-width: 1080px) {
         position: absolute;
         display: block;
-        transform: translateY(-200px);
       }
       @media (max-width: 560px) {
         padding: 6px 0 6px 30px;

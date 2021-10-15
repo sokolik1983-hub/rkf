@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DEFAULT_IMG } from "../../appConfig";
 import { Request } from "../../utils/request";
 import { setFiltersToUrl } from "../../pages/Specialists/utils";
@@ -54,6 +54,15 @@ const CardSpecialist = ({
             console.log(error.response);
         }))();
     };
+
+    const checkRanks = section => {
+        for (let i = 0; i < section.length; i++) {
+            if (!!section[i].rank?.match(/E[X,x]/)) {
+                return true;
+            }
+        }
+    }
+
 
     return (
         <Card className="card-specialists">
@@ -190,14 +199,16 @@ const CardSpecialist = ({
                                         </>}
                                     </>}
 
-
                                     { additionalDisciplines && additionalDisciplines.map((item, index) => {
                                         return (
-                                            <div className={!moreData && index >= 0 ? "card-specialists__section card-specialists__section card-specialists__grid-item __hide" : "card-specialists__section card-specialists__grid-item "} key={index}>
+                                            <div className={!moreData && index >= 0 ?
+                                                "card-specialists__section card-specialists__section card-specialists__grid-item __hide" :
+                                                "card-specialists__section card-specialists__grid-item "}
+                                                 key={index}
+                                            >
 
                                                 { !isSpecialist && <>
                                                     <div className="card-specialists__ranks">
-
                                                         <div className="card-specialists__rank">
                                                             {item.rank &&
                                                             <div>
@@ -228,10 +239,16 @@ const CardSpecialist = ({
                                                 </> }
 
                                                 { isSpecialist &&
-                                                <div className="card-specialists__specialization">
-                                                    <p className="card-specialists__specialization-name">Специализация</p>
-                                                    <p className="card-specialists__subtitle">{ item.specialization }</p>
-                                                </div>
+                                                    <div className="card-specialists__specialization">
+                                                        <p className="card-specialists__specialization-name">Специализация</p>
+                                                        <p className="card-specialists__subtitle">{ item.specialization }</p>
+                                                    </div>
+                                                }
+
+                                                { isSpecialist && checkRanks(item?.disciplines) &&
+                                                    <div className="card-specialists__examiner">
+                                                        Экзаменатор
+                                                    </div>
                                                 }
 
                                                 { isSpecialist && item?.disciplines?.map((discipline, index) => {
