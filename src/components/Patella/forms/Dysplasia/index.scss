@@ -10,9 +10,8 @@
         margin-left: 5px;
     }
 
-
 }
-.dysplasiaApplication .dysp div:first-child {
+.dysplasiaApplication .xray_agreement div:first-child {
     display: grid;
     grid-template-rows: 2fr 1fr;
 
@@ -22,45 +21,47 @@
     grid-template-columns: 2.75fr 157px 2fr;
     margin-top: 20px;
     margin-bottom: 20px!important;
-    @media (max-width: 700px) {
-        display: inline-block;
-        width: 280px;
-
-        :first-child {
-            margin-right: 0!important;
-        }
-    }
 }
-.dysplasiaApplication .dysp2 div:first-child {
+.dysplasiaApplication .pedigree_agreement div:first-child {
     display: grid;
     grid-template-rows: 2fr 1fr;
 }
 
-
-//.dysplasiaApplication .dyspLast {
-//    display: grid;
-//}
-
-
-@media (max-width: 700px) {
+@media (max-width: 1079px) {
+    span {
+        display: block;
+    }
     .dysplasiaApplication {
-        a {
-           display: block;
-        }
-        .dysp {
+        .xray_agreement {
             display: block;
         }
-        .dysp2 {
+        .pedigree_agreement {
             display: block;
         }
-        .dyspLast {
+        .dyspSearch {
+            display: inline-block;
+            width: 100%;
+            :first-child {
+                margin-right: 0!important;
+            }
+            button {
+                width: 141px;
+            }
+        }
+        .dyspName {
             display: block;
             :first-child {
                 margin-right: 0!important;
             }
         }
-        .dysp3 {
+        .payment_receipt {
             display: block;
+        }
+        .DocItem__dysplasia-payment-wrap {
+            margin: 0!important;
+        }
+        .DocItem__dysplasia-payment {
+            width: 100%;
         }
     }
 }
