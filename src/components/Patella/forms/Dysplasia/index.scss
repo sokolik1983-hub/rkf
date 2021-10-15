@@ -3,10 +3,66 @@
         margin-left: 10px;
         margin-right: 16px;
     }
-    margin-top: 10px;
+    margin-top: 8px;
     height: 50px;
     .k-input {
         margin-top: 10px;
         margin-left: 5px;
     }
+
 }
+.dysplasiaApplication .xray_agreement div:first-child {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+
+}
+.dysplasiaApplication .dyspSearch  {
+    display: grid;
+    grid-template-columns: 2.75fr 157px 2fr;
+    margin-top: 20px;
+    margin-bottom: 20px!important;
+}
+.dysplasiaApplication .pedigree_agreement div:first-child {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+
+@media (max-width: 1079px) {
+    span {
+        display: block;
+    }
+    .dysplasiaApplication {
+        .xray_agreement {
+            display: block;
+        }
+        .pedigree_agreement {
+            display: block;
+        }
+        .dyspSearch {
+            display: inline-block;
+            width: 100%;
+            :first-child {
+                margin-right: 0!important;
+            }
+            button {
+                width: 141px;
+            }
+        }
+        .dyspName {
+            display: block;
+            :first-child {
+                margin-right: 0!important;
+            }
+        }
+        .payment_receipt {
+            display: block;
+        }
+        .DocItem__dysplasia-payment-wrap {
+            margin: 0!important;
+        }
+        .DocItem__dysplasia-payment {
+            width: 100%;
+        }
+    }
+}
+
