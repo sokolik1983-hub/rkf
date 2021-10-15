@@ -64,14 +64,16 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                             </div>
                             {setUserType(user, alias) === 'Федерация' && <div className="user-header__federation" style={{paddingTop: 0}}/>}
                             {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
-                                <Link to={`/${federationAlias}`} 
-                                        className={name.length > 50 
+                                <div className='user-header-link'>
+                                <Link to={`/${federationAlias}`}
+                                        className={name.length > 50
                                                         ? "user-header__federation long-bottom" 
                                                         : name.length > 30 
                                                         ? "user-header__federation middle-bottom" 
                                                         : "user-header__federation"}>
                                             {federationName}
                                 </Link>
+                                </div>
                             }
                             {
                                 canEdit &&
