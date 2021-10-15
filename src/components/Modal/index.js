@@ -5,7 +5,7 @@ import {blockContent} from "../../utils/blockContent";
 
 import './styles.scss';
 
-const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, className, headerName, iconName}) => {
+const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, className, headerName, iconName='menu-help-white'}) => {
     useEffect(() => {
         blockContent(showModal);
     }, [showModal]);
