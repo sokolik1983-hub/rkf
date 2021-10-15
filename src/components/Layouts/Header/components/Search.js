@@ -34,6 +34,7 @@ const Search = ({ withFilters, hideSideMenu }) => {
 
     useEffect(() => {
             blockContent(isClicked);
+        return () => blockContent(false);
 
     }, [isClicked])
 
