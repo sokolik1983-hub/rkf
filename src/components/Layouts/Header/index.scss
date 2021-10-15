@@ -139,6 +139,10 @@
       text-align: center;
       z-index: 100;
       cursor: pointer;
+      left: 50%;
+      transform: translateX(-50%);
+      position: absolute;
+      bottom: -15px;
       &._open {
         color: #3366FF;
       }

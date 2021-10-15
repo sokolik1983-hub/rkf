@@ -33,8 +33,8 @@ const Search = ({ withFilters, hideSideMenu }) => {
     const searchRef = useRef();
 
     useEffect(() => {
-        blockContent(isClicked);
-        return () => blockContent(false);
+            blockContent(isClicked);
+
     }, [isClicked])
 
     return (
