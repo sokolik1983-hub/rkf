@@ -7,7 +7,6 @@ import CategoriesList from "./components/CategoriesList";
 import MustRead from "./components/MustRead";
 import NewsList from "./components/NewsList";
 import { connectShowFilters } from '../../components/Layouts/connectors';
-import StickyBox from "react-sticky-box";
 import {blockContent} from "../../utils/blockContent";
 
 import "./styles.scss";
