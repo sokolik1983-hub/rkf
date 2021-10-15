@@ -186,9 +186,8 @@ const CardSpecialist = ({
                                         }) }
 
                                         { additionalContests && !!additionalContests.length && <>
-                                            { moreData &&
                                             <div className="card-specialists__content-title title-style">Выставочные
-                                                конкурсы</div> }
+                                                конкурсы</div>
                                             { additionalContests.map((item, index) => {
                                                     return (
                                                         <div
@@ -208,9 +207,7 @@ const CardSpecialist = ({
 
                                     { additionalDisciplines && additionalDisciplines.map((item, index) => {
                                         return (
-                                            <div className={ !moreData && index >= 0 ?
-                                                "card-specialists__section card-specialists__section card-specialists__grid-item __hide" :
-                                                "card-specialists__section card-specialists__grid-item " }
+                                            <div className="card-specialists__section card-specialists__grid-item"
                                                  key={ index }
                                             >
 
