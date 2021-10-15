@@ -55,9 +55,9 @@ const CardSpecialist = ({
         }))();
     };
 
-    const checkRanks = section => {
-        for (let i = 0; i < section.length; i++) {
-            if (!!section[i].rank?.match(/E[X,x]/)) {
+    const checkForExaminer = section => {
+        for (let item of section) {
+            if (item.for_judge_examiner) {
                 return true;
             }
         }
@@ -145,22 +145,22 @@ const CardSpecialist = ({
                     </div>
                 </div>
 
-                <div className={`card-specialists__part card-specialists__part_bottom ${moreData && '_open'}`}>
+                { moreData && <div className={ "card-specialists__part card-specialists__part_bottom _open" }>
                     <div className="card-specialists__grid">
                         <div className="card-specialists__grid-item">
                             <div className="card-specialists__disciplines is_groups">
-                                <div className={!moreData ? "card-specialists__disciplines-inner card-specialists__grid-item __hide" : ""}>
+                                <div>
 
                                     { ranks &&
                                     <div className="card-specialists__rank-wrap">
                                         <span className="card-specialists__rank-title">Ранг</span>
-                                        <span className="card-specialists__content-data">{ranks}</span>
+                                        <span className="card-specialists__content-data">{ ranks }</span>
                                     </div>
                                     }
 
                                     { isJudge && <>
                                         { <>
-                                            <div className="card-specialists__content-title title-style" >
+                                            <div className="card-specialists__content-title title-style">
                                                 Группа, номер стандарта, название породы
                                             </div>
 
@@ -169,11 +169,13 @@ const CardSpecialist = ({
                                                     { isAllBreeder ? 'ВСЕ ПОРОДЫ / ALL BREEDS' : opened_group_and_breed }
                                                 </span>
                                             </div>
-                                        </>}
+                                        </> }
 
                                         { additionalGroups && additionalGroups.map((item, index) => {
                                             return (
-                                                <div className={ !moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item " } key={ index }>
+                                                <div
+                                                    className={ !moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item " }
+                                                    key={ index }>
                                                     <div>
                                                     <span className="card-specialists__discipline">
                                                         { !isAllBreeder && item }
@@ -184,36 +186,49 @@ const CardSpecialist = ({
                                         }) }
 
                                         { additionalContests && !!additionalContests.length && <>
-                                            { moreData && <div className="card-specialists__content-title title-style">Выставочные конкурсы</div> }
+                                            { moreData &&
+                                            <div className="card-specialists__content-title title-style">Выставочные
+                                                конкурсы</div> }
                                             { additionalContests.map((item, index) => {
-                                                return (
-                                                    <div className={ !moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item" } key={ index }>
-                                                        <div>
+                                                    return (
+                                                        <div
+                                                            className={ !moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item" }
+                                                            key={ index }>
+                                                            <div>
                                                             <span className="card-specialists__discipline">
                                                                 { item }
                                                             </span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                )}
-                                            )}
-                                        </>}
-                                    </>}
+                                                    )
+                                                }
+                                            ) }
+                                        </> }
+                                    </> }
 
                                     { additionalDisciplines && additionalDisciplines.map((item, index) => {
                                         return (
-                                            <div className={!moreData && index >= 0 ?
+                                            <div className={ !moreData && index >= 0 ?
                                                 "card-specialists__section card-specialists__section card-specialists__grid-item __hide" :
-                                                "card-specialists__section card-specialists__grid-item "}
-                                                 key={index}
+                                                "card-specialists__section card-specialists__grid-item " }
+                                                 key={ index }
                                             >
 
                                                 { !isSpecialist && <>
+                                                    { item?.for_judge_examiner &&
+                                                        <div className="card-specialists__examiner">
+                                                            Экзаменатор
+                                                        </div>
+                                                    }
+
                                                     <div className="card-specialists__ranks">
                                                         <div className="card-specialists__rank">
-                                                            {item.rank &&
+                                                            { item.rank &&
                                                             <div>
-                                                                <span className="card-specialists__rank-title" >Ранг</span>
-                                                                <span className="card-specialists__content-data">{item.rank}</span>
+                                                                <span
+                                                                    className="card-specialists__rank-title">Ранг</span>
+                                                                <span
+                                                                    className="card-specialists__content-data">{ item.rank }</span>
                                                             </div>
                                                             }
                                                         </div>
@@ -221,70 +236,85 @@ const CardSpecialist = ({
 
                                                     <div className="card-specialists__disciplines">
                                                         <div className="card-specialists__disciplines-inner">
-                                                            <div className="card-specialists__content-title" >Дисциплины</div>
+                                                            <div
+                                                                className="card-specialists__content-title">Дисциплины
+                                                            </div>
                                                             <div>
-                                                                {item?.disciplines?.map((item, index, arr) => {
+                                                                { item?.disciplines?.map((item, index, arr) => {
                                                                     return (
-                                                                        <LightTooltip title={item.discipline_name || 'title'} enterDelay={100} leaveDelay={50} key={index}>
-                                                                            <span className="card-specialists__discipline">
-                                                                                {item.discipline_short_name}
-                                                                                {index < arr.length - 1 && ","}&nbsp;
+                                                                        <LightTooltip
+                                                                            title={ item.discipline_name || 'title' }
+                                                                            enterDelay={ 100 } leaveDelay={ 50 }
+                                                                            key={ index }>
+                                                                            <span
+                                                                                className="card-specialists__discipline">
+                                                                                { item.discipline_short_name }
+                                                                                { index < arr.length - 1 && "," }&nbsp;
                                                                             </span>
                                                                         </LightTooltip>
                                                                     )
-                                                                })}
+                                                                }) }
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </> }
 
                                                 { isSpecialist &&
-                                                    <div className="card-specialists__specialization">
-                                                        <p className="card-specialists__specialization-name">Специализация</p>
-                                                        <p className="card-specialists__subtitle">{ item.specialization }</p>
-                                                    </div>
+                                                <div className="card-specialists__specialization">
+                                                    <p className="card-specialists__specialization-name">Специализация</p>
+                                                    <p className="card-specialists__subtitle">{ item.specialization }</p>
+                                                </div>
                                                 }
 
-                                                { isSpecialist && checkRanks(item?.disciplines) &&
-                                                    <div className="card-specialists__examiner">
-                                                        Экзаменатор
-                                                    </div>
+                                                { checkForExaminer(item?.disciplines) &&
+                                                <div className="card-specialists__examiner">
+                                                    Экзаменатор
+                                                </div>
                                                 }
 
                                                 { isSpecialist && item?.disciplines?.map((discipline, index) => {
                                                     return (
-                                                        <div className="card-specialists__grid-item" key={index}>
+                                                        <div className="card-specialists__grid-item" key={ index }>
                                                             <div className="card-specialists__ranks">
                                                                 { discipline?.rank &&
                                                                 <div className="card-specialists__rank">
-                                                                    <span className="card-specialists__rank-title">Ранг</span>
-                                                                    <span className="card-specialists__content-data">{ discipline.rank }</span>
+                                                                    <span
+                                                                        className="card-specialists__rank-title">Ранг</span>
+                                                                    <span
+                                                                        className="card-specialists__content-data">{ discipline.rank }</span>
                                                                 </div>
                                                                 }
                                                             </div>
 
                                                             <div className="card-specialists__disciplines">
                                                                 <div className="card-specialists__disciplines-inner">
-                                                                    <div className="card-specialists__content-title">Дисциплины</div>
+                                                                    <div
+                                                                        className="card-specialists__content-title">Дисциплины
+                                                                    </div>
 
-                                                                    <div className="card-specialists__disciplines-inner">
+                                                                    <div
+                                                                        className="card-specialists__disciplines-inner">
 
-                                                                        {discipline?.disciplines?.map((discipline, index, arr) => {
+                                                                        { discipline?.disciplines?.map((discipline, index, arr) => {
                                                                             return (
-                                                                                <LightTooltip title={discipline.discipline_name || 'title'} enterDelay={100} leaveDelay={50} key={index}>
-                                                                                <span className="card-specialists__discipline">
-                                                                                    {discipline.discipline_short_name}
-                                                                                    {index < arr.length - 1 && ","}&nbsp;
+                                                                                <LightTooltip
+                                                                                    title={ discipline.discipline_name || 'title' }
+                                                                                    enterDelay={ 100 } leaveDelay={ 50 }
+                                                                                    key={ index }>
+                                                                                <span
+                                                                                    className="card-specialists__discipline">
+                                                                                    { discipline.discipline_short_name }
+                                                                                    { index < arr.length - 1 && "," }&nbsp;
                                                                                 </span>
                                                                                 </LightTooltip>
                                                                             )
-                                                                        })}
+                                                                        }) }
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     )
-                                                })}
+                                                }) }
                                             </div>
                                         )
                                     }) }
@@ -292,7 +322,7 @@ const CardSpecialist = ({
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> }
             </div>
 
             <div>
