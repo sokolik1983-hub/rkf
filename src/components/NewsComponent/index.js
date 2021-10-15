@@ -1,23 +1,19 @@
 import React, {useState, useEffect} from "react";
-import NewsCardNew from "../../components/CardNewsNew";
-import Placeholder from "../NewsCard/Placeholder";
-import Paginator from "../Paginator";
 import {Request} from "../../utils/request";
+import UserNews from "../Layouts/UserNews";
+
 import "./index.scss";
 
 
 const NewsComponent = ({alias, page, setPage, needRequest, setNeedRequest, canEdit}) => {
     const [news, setNews] = useState(null);
-    const [pagesCount, setPagesCount] = useState(1);
     const [isRequestEnd, setIsRequestEnd] = useState(false);
-    const newsPlaceholder = [0,1,2,3,4];
 
     const getNews = async page => {
         await Request({
             url: `/api/Article/public_v2?alias=${alias}&page=${page}&size=5`
         }, data => {
             setNews(data.articles);
-            setPagesCount(Math.ceil(data.articles_count / 5));
             setIsRequestEnd(true);
         }, error => {
             console.log(error.response);
@@ -28,23 +24,6 @@ const NewsComponent = ({alias, page, setPage, needRequest, setNeedRequest, canEd
         setNeedRequest(false);
     };
 
-    const deleteArticle = async id => {
-        if(window.confirm('Вы действительно хотите удалить эту новость?')) {
-            await Request({
-                    url: '/api/Article/' + id,
-                    method: 'DELETE'
-                }, () => setNeedRequest(true),
-                error => {
-                    console.log(error);
-                    alert('Новость не удалена');
-                });
-        }
-    };
-
-    const setNewsPage = page => {
-        setPage(page);
-        setNeedRequest(true);
-    };
 
     useEffect(() => {
         if(needRequest) (() => getNews(page))();
@@ -54,33 +33,15 @@ const NewsComponent = ({alias, page, setPage, needRequest, setNeedRequest, canEd
 
     return (
         <div className="news-component">
-            <ul className="news-component__list">
-                {news && news.length ?
-                    news.map(item =>
-                        <li className="news-component__item" key={item.id}>
-                            <NewsCardNew 
-                                {...item} 
-                                canEdit={canEdit} 
-                                onDelete={deleteArticle} 
-                                isFederation
-                            />
-                        </li>
-                    ) :
-                    newsPlaceholder.map(item =>
-                        <li className="news-component__item" key={item}>
-                            <Placeholder />
-                        </li>
-                    )
-                }
-            </ul>
-            {pagesCount > 1 &&
-                <Paginator
-                    pagesCount={pagesCount}
-                    currentPage={page}
-                    setPage={setNewsPage}
-                    scrollToTop={false}
-                />
-            }
+            <UserNews
+                canEdit={canEdit}
+                alias={alias}
+                needRequest={needRequest}
+                setNeedRequest={setNeedRequest}
+                profileInfo={news}
+                setProfileInfo={setNews}
+                isFederation={true}
+            />
         </div>
     )
 };

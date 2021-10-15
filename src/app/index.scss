@@ -7,7 +7,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+body.hidden {
+  overflow-y: hidden;
+}
+body.auto {
+  overflow-y: auto;
+}
 h1,
 h2,
 h3,
