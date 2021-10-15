@@ -276,31 +276,29 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     </SubmitButton>
                 </div>}
             </>
-            {showModal &&
-                <Modal
-                    className="ArticleCreateForm__modal"
-                    showModal={showModal}
-                    handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
-                    handleX={closeModal}
-                    headerName={modalType === 'video' ? 'Добавление видео' : 'Прикрепление файла'}
-                >
-                    {modalType === 'video' &&
-                        <AddVideoLink
-                            setVideoLink={addVideoLink}
-                            closeModal={closeModal}
-                        />
-                    }
-                    {modalType === 'pdf' &&
-                        <AttachFile
-                            documents={documents}
-                            categories={categories}
-                            setDocuments={setDocuments}
-                            setCategories={setCategories}
-                            closeModal={closeModal}
-                        />
-                    }
-                </Modal>
-            }
+            <Modal
+                className="ArticleCreateForm__modal"
+                showModal={showModal}
+                handleClose={closeModal}
+                handleX={closeModal}
+                headerName={modalType === 'video' ? 'Добавление видео' : 'Прикрепление файла'}
+            >
+                {modalType === 'video' &&
+                    <AddVideoLink
+                        setVideoLink={addVideoLink}
+                        closeModal={closeModal}
+                    />
+                }
+                {modalType === 'pdf' &&
+                    <AttachFile
+                        documents={documents}
+                        categories={categories}
+                        setDocuments={setDocuments}
+                        setCategories={setCategories}
+                        closeModal={closeModal}
+                    />
+                }
+            </Modal>
         </OutsideClickHandler>
     )
 };
