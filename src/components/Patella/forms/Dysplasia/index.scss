@@ -14,6 +14,9 @@
 .dysplasiaApplication .xray_agreement div:first-child {
     display: grid;
     grid-template-rows: 2fr 1fr;
+    @media (max-width: 1079px) {
+        display: flex;
+    }
 }
 .dysplasiaApplication .dyspSearch  {
     display: grid;
@@ -24,6 +27,10 @@
 .dysplasiaApplication .pedigree_agreement div:first-child {
     display: grid;
     grid-template-rows: 2fr 1fr;
+    @media (max-width: 1079px) {
+        display: flex;
+        grid-template-rows: none;
+    }
 }
 
 @media (max-width: 1079px) {
