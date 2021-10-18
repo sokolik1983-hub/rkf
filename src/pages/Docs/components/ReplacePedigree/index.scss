@@ -215,5 +215,20 @@
                 min-width: 100%;
             }
         }
+        .payInfo {
+            display: inline-block;
+            width: 100%;
+        }
+        .DocApply__payment {
+            min-width: 100%;
+            &-wrap {
+                margin: 0;
+                margin-bottom: 10px;
+            }
+        }
+        .paymentName_iin {
+            display: inline-block;
+            width: 100%;
+        }
     }
 }
