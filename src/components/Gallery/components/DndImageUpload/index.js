@@ -36,18 +36,16 @@ const DndImageUpload = ({ callback, album_id }) => {
     const [showAlert, setShowAlert] = useState(false);
     const [showAlertImg, setShowAlertImg] = useState(false);
 
-
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
-
-
 
     const { getRootProps, getInputProps, isDragActive} = useDropzone({
         accept: '.jpg, .jpeg',
         maxSize: 20971520, // 20mb
         onDrop: (acceptedFiles, rejectedFiles) => {
-            setFiles(acceptedFiles.map(file => Object.assign(file, {
+            const mappedAcc = acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
-            })));
+            }))
+            setFiles(curr => [...curr, ...mappedAcc])
             if(rejectedFiles.length > 0) {
                 setShowAlert({
                     text:"Ошибка: Формат файла не поддерживается, либо размер файла превышает 20Мб. Поддерживаемые форматы JPG, JPEG.",
@@ -59,7 +57,6 @@ const DndImageUpload = ({ callback, album_id }) => {
             }
         }
     });
-
 
     const style = useMemo(() => ({
         ...baseStyle,
@@ -130,6 +127,7 @@ const DndImageUpload = ({ callback, album_id }) => {
     useEffect(() => () => {
         files.forEach(file => URL.revokeObjectURL(file.preview));
     }, [files]);
+
 
     return (
         <section className="DndImageUpload__wrap">
