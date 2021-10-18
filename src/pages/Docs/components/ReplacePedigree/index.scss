@@ -156,4 +156,64 @@
             margin-left: 5px;
         }
     }
+    .fed_respFace {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /*.FormInput {
+            display: grid;
+            grid-template-rows: 1fr 2fr;
+        }*/
+    }
+    .stamp_codeAndNumber {
+        display: grid;
+        grid-template-columns: 50% 1fr 141px;
+    }
+    .breedAndName {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .persDataDoc_duplAppl {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        .FormInput {
+            display: grid;
+            grid-template-rows: 2.1fr 1fr;
+        }
+
+    }
+   .pedigree_doc_copy div:first-child {
+       display: grid;
+       grid-template-rows: 2.1fr 1fr;
+   }
+    @media (max-width: 1079px) {
+        .fed_respFace {
+            display: inline-block;
+            width: 100%;
+        }
+        .stamp_codeAndNumber {
+            display: inline-block;
+            width: 100%;
+            button {
+                width: 141px;
+            }
+        }
+        .FormInput {
+            margin-right: 0;
+        }
+        .breedAndName {
+            display: inline-block;
+            width: 100%;
+        }
+        .persDataDoc_duplAppl {
+            display: block;
+            div {
+            min-width: 100%;}
+        }
+        .pedigree_doc_copy  {
+            display: block;
+            div {
+                min-width: 100%;
+            }
+        }
+    }
 }

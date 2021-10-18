@@ -76,7 +76,7 @@ const component = ({ formik, view, update, options, alias }) => {
             />
         }
 
-        <FormGroup inline>
+        <FormGroup inline className="stamp_codeAndNumber">
             <FormField disabled={view || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code`} label={`Код клейма (<a href="/${alias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code`, e.toUpperCase())} />
             <FormField disabled={view || !!everkData} name={`stamp_number`} label='Номер клейма' placeholder="0000" />
             <HideIf cond={!!everkData || view}>
@@ -89,7 +89,7 @@ const component = ({ formik, view, update, options, alias }) => {
             </HideIf>
 
         </FormGroup>
-        <FormGroup inline>
+        <FormGroup inline className="breedAndName">
             <FormField disabled={view} name={`breed_id`} label='Порода' options={options.breeds} fieldType="reactSelect" placeholder="Выберите..." />
             <FormField disabled={view || !!everkData} name='dog_name' label='Кличка' />
         </FormGroup></>
