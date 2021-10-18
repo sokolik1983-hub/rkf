@@ -16,9 +16,11 @@ import ModalDeleteCategory from './components/ModalDeleteCategory';
 import ModalDeleteDocument from './components/ModalDeleteDocument';
 import { SvgIcon } from "@progress/kendo-react-common";
 import { plus } from "@progress/kendo-svg-icons";
+import { connectShowFilters } from "../Layouts/connectors";
+
 import './styles.scss';
 
-const UploadedDocuments = ({ canEdit, location, match }) => {
+const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFilters }) => {
     const [loaded, setLoaded] = useState(false);
     const alias = match.params.route;
     const [success, setSuccess] = useState(false);
@@ -128,7 +130,7 @@ const UploadedDocuments = ({ canEdit, location, match }) => {
                                 />
                             </Switch>
                         </div>
-                        <div className="UploadedDocuments-right">
+                        <div className={`UploadedDocuments-right${isOpenFilters ? ' _open' : ''}`}>
                             <Card>
                                 <CategoriesList
                                     canEdit={canEdit}
@@ -139,6 +141,8 @@ const UploadedDocuments = ({ canEdit, location, match }) => {
                                     getCategories={getCategories}
                                     activeCategoryId={activeCategoryId}
                                     homePage={homePage}
+                                    setShowFilters={setShowFilters}
+                                    isOpenFilters={isOpenFilters}
                                 />
                                 {canEdit && <>
                                     <hr className="UploadedDocuments__category-devider" />
@@ -223,4 +227,4 @@ const UploadedDocuments = ({ canEdit, location, match }) => {
     )
 };
 
-export default React.memo(connectAuthVisible(UploadedDocuments));
+export default React.memo(connectAuthVisible(connectShowFilters(UploadedDocuments)));

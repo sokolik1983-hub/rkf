@@ -76,7 +76,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
         <>
             {!pageLoaded && !nursery
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength}>
+                : <Layout setNotificationsLength={setNotificationsLength} withFilters>
                     <div className="redesign">
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">
