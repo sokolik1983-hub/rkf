@@ -427,7 +427,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
 
     useEffect(() => {
         if(fedInfo) {
-            if (alias == 'rkf') {
+            if (alias == 'rkf' || alias == 'rkf-online') {
                 setMenuBackground('/static/images/slider/1.jpg');
                 setFedName('РКФ')
             } else {
