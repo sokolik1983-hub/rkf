@@ -1,65 +1,46 @@
-const mobileMenuSearchPage = (place, elem, wrap, userType) => {
-    if(wrap){
-        const clickElemWidth = elem.getBoundingClientRect().width,
-            clientWidth = window.innerWidth,
-            sliderWrap = wrap.current.childNodes[0],
-            sliderWidth = wrap.current.getBoundingClientRect().width,
-            hiddenElemWidth = sliderWrap.querySelectorAll('div')[5].getBoundingClientRect().width,
-            lastElemWidth = sliderWrap.querySelectorAll('div')[6].getBoundingClientRect().width;
+const mobileMenuSearchPage = (place, elem, wrap) => {
+    const clientWidth = window.innerWidth,
+        clickElemWidth = elem.getBoundingClientRect().width,
+        sliderWrap = document.querySelector(".slider-wrap"),
+        sliderWidth = document.querySelector(".slider").getBoundingClientRect().width;
 
-        let width = 0,
-            position = 0;
+    console.log('4444444',wrap.current.childNodes[0])
 
-        if(clientWidth < 700) {
-            for (let i = 0; i < place-1; i++) {
-                width = width + sliderWrap.querySelectorAll('div')[i].getBoundingClientRect().width;
-            }
-            switch(place) {
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                    position = width - ((sliderWidth-clickElemWidth)/2);
-                    break;
-                case 7:
-                    if(userType === 3 || userType === 4 || userType === 5) {
-                        position = width - ((sliderWidth-clickElemWidth)/2);
-                    } else {
-                        position = width - hiddenElemWidth - ((sliderWidth-clickElemWidth)/2);
-                    }
-                    break;
-                case 8:
-                    if(userType === 3 || userType === 4 || userType === 5) {
-                        position = width + 16 - (sliderWidth - clickElemWidth);
-                    } else {
-                        position = width + 16 - hiddenElemWidth - (sliderWidth - clickElemWidth);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            for (let item of sliderWrap.querySelectorAll('div')) {
-                width = width + item.getBoundingClientRect().width;
-            }
-            switch(place) {
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                    if(userType === 3 || userType === 4 || userType === 5) {
-                        position = width - lastElemWidth - (sliderWidth - lastElemWidth) ;
-                    } else {
-                        position = width - hiddenElemWidth - (sliderWidth - lastElemWidth);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        sliderWrap.style.transform = `translateX(-${position}px)`;
+    let allDivs = wrap.current.childNodes[0].querySelectorAll('.list-filter__item');
+
+
+
+    let widthBeforeElems = 0,
+        widthAllElems = 0,
+        position = 0;
+
+    //Считаем общую длину слайдера
+    for( elem of allDivs) {
+        widthAllElems = widthAllElems + elem.getBoundingClientRect().width;
     }
+
+    // console.log('werty', widthAllElems)
+
+    //Считаем общую длину слайдера
+    // for (let item of wrap.current.children.childNodes) {if (item === elem) {break;} else {widthAllElems = widthAllElems +item.getBoundingClientRect().width}}
+
+    for (let i = 0; i < place-1; i++) {
+        widthBeforeElems = widthBeforeElems + allDivs[i].getBoundingClientRect().width;
+    }
+
+    let widthAfterElems = widthAllElems - widthBeforeElems - clickElemWidth/2;
+
+    console.log('11111',widthAfterElems)
+
+
+    if(widthBeforeElems < (wrap.current.clientWidth-clickElemWidth)/2)  {
+        position = 0;
+    } else if (widthAfterElems < (wrap.current.clientWidth-clickElemWidth)) {
+        position = widthAllElems - wrap.current.clientWidth;
+    } else {
+        position = widthBeforeElems - ((wrap.current.clientWidth - clickElemWidth)/2);
+    }
+    document.querySelector('.slider').style.transform = `translateX(-${position}px)`;
 }
 
 export default mobileMenuSearchPage;
