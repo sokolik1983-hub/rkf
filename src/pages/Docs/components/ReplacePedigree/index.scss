@@ -164,6 +164,10 @@
             grid-template-rows: 1fr 2fr;
         }*/
     }
+    .threeColumnInline {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
     .stamp_codeAndNumber {
         display: grid;
         grid-template-columns: 50% 1fr 141px;
