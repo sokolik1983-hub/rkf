@@ -212,13 +212,12 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, footerNav, openMenuComponent,  setOpenMenuComponent } ) => {
+const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, openMenuComponent,  setOpenMenuComponent } ) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
-    const [openDoc, setOpenDoc] = useState(false);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
 
@@ -229,7 +228,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
 
     const isMobile = useIsMobile(1080);
     const showDetails = isFederation && alias !== 'rkf' && alias !== 'rkf-online' && alias !== 'oankoo';
-    const [doc, setDoc] = useState(null)
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
 
@@ -427,7 +425,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
 
     useEffect(() => {
         if(fedInfo) {
-            if (alias == 'rkf' || alias == 'rkf-online') {
+            if (alias === 'rkf' || alias === 'rkf-online') {
                 setMenuBackground('/static/images/slider/1.jpg');
                 setFedName('РКФ')
             } else {

@@ -35,9 +35,6 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
         HelpdeskApiKey ? openHelpdesk() : setShowModal(true);
     };
 
-    const onModalClose = () => {
-        if (showModal) setShowModal(false);
-    };
 
     useEffect(() => {
         if(showModal) {
