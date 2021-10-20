@@ -51,6 +51,7 @@ const CardNewsNew = forwardRef(({
     picture_short_link,
     video_link,
     fact_city_name,
+    fact_city_id,
     canEdit,
     onDelete,
     handleSuccess,
@@ -158,8 +159,10 @@ const CardNewsNew = forwardRef(({
                                     </span>
                                     </div>
                                     {fact_city_name &&
-                                    <span className="CardNewsNew__city" title={fact_city_name}>
-                                        {fact_city_name}
+                                    <span className="CardNewsNew__city"
+                                          onClick={() => changeCityFilter([fact_city_id])}
+                                          title={fact_city_name}>
+                                          {fact_city_name}
                                     </span>
                                     }
                                 </div>
@@ -370,7 +373,9 @@ const CardNewsNew = forwardRef(({
                         <div>
                             {formatDateTime(create_date)}
                             {fact_city_name &&
-                                <span className="CardNewsNew__city" title={fact_city_name}>
+                                <span className="CardNewsNew__city"
+                                    onClick={() => changeCityFilter([fact_city_id])}
+                                    title={fact_city_name}>
                                     {fact_city_name}
                                 </span>
                             }
