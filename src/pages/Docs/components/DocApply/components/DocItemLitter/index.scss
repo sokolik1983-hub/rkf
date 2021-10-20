@@ -38,4 +38,12 @@
             margin-left: 5px;
         }
     }
+    .threeColumnInline {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
 }

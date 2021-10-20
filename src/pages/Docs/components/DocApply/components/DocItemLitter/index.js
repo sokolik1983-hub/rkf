@@ -106,7 +106,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     name="express"
                     label='Срочное изготовление'
                 />
-                <FormGroup inline>
+                <FormGroup inline className="threeColumnInline">
                     <Transliteratable disabled={update} name={`last_name`} label='Фамилия заводчика' />
                     <Transliteratable disabled={update} name={`first_name`} label='Имя заводчика' />
                     <FormField disabled={update} name={`second_name`} label='Отчество заводчика (не обязательное поле)' />
