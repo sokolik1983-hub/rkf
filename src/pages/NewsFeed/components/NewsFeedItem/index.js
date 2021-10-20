@@ -71,6 +71,8 @@ const NewsFeedItem = forwardRef(({
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
+    console.log('is_liked', is_liked)
+    console.log('like_count', like_count)
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100) || videoLink) setCanCollapse(true);
@@ -81,6 +83,8 @@ const NewsFeedItem = forwardRef(({
         const [collapsed, setCollapsed] = useState(false);
         const [isLiked, setIsLiked] = useState(is_liked);
         const [likesCount, setLikesCount] = useState(like_count);
+        console.log('isLiked', isLiked)
+        console.log('likesCount', likesCount)
 
         const handleLikeClick = async () => {
             await Request({

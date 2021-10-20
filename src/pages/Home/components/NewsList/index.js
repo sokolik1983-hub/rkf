@@ -35,6 +35,7 @@ const NewsList = ({isFullDate = true}) => {
         activeType: null,
         isAdvert: null
     });
+    console.log('news', news)
 
     const getNews = async (startElem, filters) => {
         setNewsLoading(true);

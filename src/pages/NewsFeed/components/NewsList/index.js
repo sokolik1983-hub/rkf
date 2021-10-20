@@ -16,6 +16,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const [hasMore, setHasMore] = useState(true);
     const profileId = ls.get('profile_id');
     const userAlias = ls.get('user_info').alias;
+    console.log('news', news)
 
     useEffect(() => {
         setLoading(true);
