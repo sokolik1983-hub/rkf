@@ -38,6 +38,18 @@
             margin-left: 5px;
         }
     }
+    .twoColumnInline, .twoColumnInlineFiles {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+    .twoColumnInlineFiles div:first-child {
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+    }
     .threeColumnInline {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -45,5 +57,16 @@
             display: inline-block;
             width: 100%;
         }
+    }
+    .threeColumnsSearch {
+        display: grid;
+        grid-template-columns: 3fr 1fr 5fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+    .birthDay span {
+        width: 100%;
     }
 }

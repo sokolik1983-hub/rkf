@@ -115,11 +115,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
                 </HideIf>
 
-                <FormGroup inline>
+                <FormGroup inline className="twoColumnInline">
                     <FormField disabled={update} name={`email`} label='Email заводчика' />
                     <Transliteratable disabled={update || filledEverk('address')} name={`address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)' />
                 </FormGroup>
-                <FormGroup inline>
+                <FormGroup inline className="threeColumnInline">
                     <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`stamp_code_id`} label={`Код клейма (<a href="/${alias}/documents/stamps/add">Добавить клеймо</a>)`} />
                     <HideIf cond={true || !!everkData || update}>
                         <Button onClick={e => {
@@ -133,7 +133,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                     </HideIf>
                     <FormField disabled={update} name={`breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..." />
-                    <div>
+                    <div className="birthDay">
                         <div>Дата рождения помета</div>
                         <UserDatePicker
                             onChange={handleDateChange}
@@ -179,19 +179,19 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <FormField disabled={update} fieldType="customCheckbox" name={`prefix`} label='Префикс' />
                     <FormField disabled={update} fieldType="customCheckbox" name={`suffix`} label='Суффикс' />
                 </HideIf>
-                <FormGroup inline>
+                <FormGroup inline className="twoColumnInline">
                     <FormField disabled={update} name={`instructor_nursery_owner_last_name`} label='Фамилия инструктора клуба / владельца питомника (опционально)' />
                     <FormField disabled={update} name={`instructor_nursery_owner_first_name`} label='Имя инструктора клуба / владельца питомника (опционально)' />
                 </FormGroup>
                 <FormField disabled={update} name={`instructor_nursery_owner_second_name`} label='Отчество инструктора клуба / владельца питомника (опционально)' />
 
-                <FormGroup inline>
+                <FormGroup inline className="twoColumnInline">
                     <FormField disabled={update} name={`hallmark_last_name`} label='Фамилия ответственного за клеймление' />
                     <FormField disabled={update} name={`hallmark_first_name`} label='Имя ответственного за клеймление' />
                 </FormGroup>
                 <FormField disabled={update} name={`hallmark_second_name`} label='Отчество ответственного за клеймление (опционально)' />
 
-                <FormGroup inline>
+                <FormGroup inline className="twoColumnInline">
                     <FormField disabled={update} name={`last_name_lat`} label='Фамилия заводчика латиницей' />
                     <FormField disabled={update} name={`first_name_lat`} label='Имя заводчика латиницей' />
                 </FormGroup>
@@ -202,7 +202,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
                 {/*files*/}
                 <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG</h4>
-                <FormGroup inline>
+                <FormGroup inline className="twoColumnInlineFiles">
                     <FormFile
                         name={`dog_mating_act`}
                         label='Акт вязки'
@@ -220,7 +220,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         distinction={distinction}
                     />
                 </FormGroup>
-                <FormGroup inline>
+                <FormGroup inline className="twoColumnInlineFiles">
                     <FormFile
                         name={`application_document`}
                         label={<>Заявление на регистрацию помета<br /><br /></>}

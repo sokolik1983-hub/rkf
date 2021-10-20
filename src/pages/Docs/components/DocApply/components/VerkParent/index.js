@@ -50,7 +50,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                 onOk={() => setEverkAlert(false)}
             />
         }
-    <FormGroup inline>
+    <FormGroup inline className="pedigreeNumber_search">
                 <FormField disabled={update || everk || filledEverk} name={`${who}_pedigree_number`} label={`Номер родословной ${whoRu}`}/>
                 <HideIf cond={update || declarant[`${who}_foreign`] || everk || filledEverk}>
                     <Button style={{marginRight: '16px'}} className="btn-primary" onClick={e => getEverk(who)} disabled={everk}>Поиск</Button>
