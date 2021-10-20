@@ -2,13 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Card from "../Card";
-import Share from "../Share";
 import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import { DEFAULT_IMG } from "../../appConfig";
 import CardFooter from '../CardFooter';
 
 import "./index.scss";
-
 
 
 const CardOrganization = ({   id,

@@ -1,11 +1,10 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 import Share from "components/Share";
 
 import './index.scss';
 
 const CardFooter = ({
-                        id,
                         share_link,
                         is_liked,
                     }) => {
