@@ -31,6 +31,7 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
 
     const handleClick = (e) => {
         e.preventDefault();
+        e.stopPropagation();
         HelpdeskApiKey ? openHelpdesk() : setShowModal(true);
     };
 
