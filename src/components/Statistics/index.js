@@ -79,7 +79,9 @@ const Statistics = ({ isAboutPage }) => {
                                         <span className={setLogoClassName(federation.federation_name)} />
                                         <span>{federation.federation_name}</span>
                                     </div>
-                                    <span className="federation-count">{federation.federation_clubs_count}</span>
+                                    <div className="federation-count__body">
+                                        <span className="federation-count">{federation.federation_clubs_count}</span>
+                                    </div>
                                 </div>
                             )}
                         </div>
