@@ -57,3 +57,67 @@
     cursor: pointer;
     background-color: rgba(0, 0, 0, .05);
 }
+.twoColumnInline, .twoColumnInlineFiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    @media (max-width: 1079px) {
+        display: inline-block;
+        width: 100%;
+    }
+}
+.twoColumnInlineFiles div:first-child {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+.threeColumnInline {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    @media (max-width: 1079px) {
+        display: inline-block;
+        width: 100%;
+        .DocItem__pedigree-calendar-wrap {
+            margin-right: 0;
+        }
+    }
+}
+.stampCodeNumber {
+    display: grid;
+    grid-template-columns: 1fr 1fr 141px;
+    @media (max-width: 1079px) {
+        display: inline-block;
+        width: 100%;
+        .btn {
+            width: 141px;
+        }
+    }
+}
+.emailAndAddress {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    :first-child {
+
+    }
+    @media (max-width: 1079px) {
+        display: inline-block;
+        width: 100%;
+    }
+}
+.DocItem__pedigree-calendar {
+    width: 100%;
+}
+.breed_name {
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr;
+    @media (max-width: 1079px) {
+        display: inline-block;
+        width: 100%;
+    }
+}
+.name_warning {
+    @media (max-width: 1079px) {
+        :first-child {
+            left: 0;
+            top: 0;
+        }
+    }
+}
