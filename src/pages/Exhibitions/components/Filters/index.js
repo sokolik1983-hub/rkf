@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
