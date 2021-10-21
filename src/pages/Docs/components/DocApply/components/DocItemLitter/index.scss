@@ -38,7 +38,7 @@
             margin-left: 5px;
         }
     }
-    .twoColumnInline, .twoColumnInlineFiles {
+    &__two-inline-columns, &__two-inline-columns_rows {
         display: grid;
         grid-template-columns: 1fr 1fr;
         @media (max-width: 1079px) {
@@ -46,11 +46,11 @@
             width: 100%;
         }
     }
-    .twoColumnInlineFiles div:first-child {
+    &__two-inline-columns_rows div:first-child {
         display: grid;
         grid-template-rows: 2fr 1fr;
     }
-    .threeColumnInline {
+    &__three-inline-columns {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         @media (max-width: 1079px) {
@@ -58,15 +58,15 @@
             width: 100%;
         }
     }
-    .threeColumnsSearch {
+/*    .threeColumnsSearch {
         display: grid;
         grid-template-columns: 3fr 1fr 5fr;
         @media (max-width: 1079px) {
             display: inline-block;
             width: 100%;
         }
-    }
-    .birthDay span {
+    }*/
+    &__birthday span {
         width: 100%;
     }
 }

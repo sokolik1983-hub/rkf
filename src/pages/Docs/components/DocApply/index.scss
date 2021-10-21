@@ -106,7 +106,7 @@
         background: transparent;
         color: #00c48c;
     }
-    .pedigreeNumber_search {
+    &__pedigree-number_search {
         display: grid;
         grid-template-columns: 3.2fr 0.8fr 5fr;
         button {

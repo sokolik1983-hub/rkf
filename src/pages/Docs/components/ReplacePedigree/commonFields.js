@@ -53,7 +53,7 @@ const component = ({ formik, view, update, options }) => {
         <div className="flex-row heading-row">
             <h4 className="caps">Информация о платеже</h4>
         </div>
-        <FormGroup inline className="payInfo">
+        <FormGroup inline className="DocApply__payment-receipt-wrap">
             <FormFile
                 name='payment_document'
                 label='Квитанция об оплате (PDF, JPEG, JPG)'
@@ -75,7 +75,7 @@ const component = ({ formik, view, update, options }) => {
             </div>
             <FormField disabled={view || formik.values.payment_document_accept} name='payment_number' label='Номер платежного документа' />
         </FormGroup>
-        <FormGroup inline className="paymentName_iin">
+        <FormGroup inline className="DocApply__payer-info-wrap">
             <FormField disabled={view || formik.values.payment_document_accept} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
             <FormField disabled={view || formik.values.payment_document_accept} name='inn' label='ИНН (для юр. лиц)' />
         </FormGroup>
