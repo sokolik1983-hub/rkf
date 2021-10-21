@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
@@ -55,7 +55,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
             setLoading(false);
         });
     }, [filters.Alias]);
-
 
     useEffect(() => {
         setOverflow(isOpenFilters);
@@ -144,7 +143,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                     />
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
-                                        onChange={filter => setFiltersToUrl(filter)}
+                                        onChange={(filter, asInitial) => setFiltersToUrl(filter, asInitial)}
                                         is_club_link={clubName && filters.Alias}
                                         clear_filter={clear_filter}
                                         range_clicked={range_clicked}
