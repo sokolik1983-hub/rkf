@@ -106,4 +106,15 @@
         background: transparent;
         color: #00c48c;
     }
+    &__pedigree-number_search {
+        display: grid;
+        grid-template-columns: 3.2fr 0.8fr 5fr;
+        button {
+            min-width: 141px;
+        }
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
 }
