@@ -1,7 +1,12 @@
 .declarants {
   max-width: 600px;
+  max-height: 400px;
   padding: 15px 24px 24px;
   background: #fff;
+  overflow: auto;
+  @media (max-width:350px) {
+    padding: 0;
+  }
   h2 {
     text-align: center;
     font-weight: normal;
@@ -87,6 +92,9 @@
       transform: translateY(-1rem);
       transition: opacity 0.1s linear 0.5s, transform 0.1s ease;
       padding: 0 1.2rem 1.2rem;
+      @media (max-width:350px) {
+        padding: 0;
+      }
       p {
         font-weight: 300;
         color: #61797c;
@@ -142,7 +150,10 @@
     }
   }
   .ShareButtons {
-    text-align: center;
+    text-align: right;
+    @media (max-width:350px) {
+      padding-bottom: 10px;
+    }
     &__link {
         svg {
             width: 24px;
@@ -170,4 +181,9 @@
     }
 }
 
+}
+.modal__body {
+  @media (max-width:350px) {
+    margin: 0 auto;
+  }
 }
