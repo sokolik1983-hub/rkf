@@ -38,4 +38,35 @@
             margin-left: 5px;
         }
     }
+    &__two-inline-columns, &__two-inline-columns_rows {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+    &__two-inline-columns_rows div:first-child {
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+    }
+    &__three-inline-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+/*    .threeColumnsSearch {
+        display: grid;
+        grid-template-columns: 3fr 1fr 5fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }*/
+    &__birthday span {
+        width: 100%;
+    }
 }
