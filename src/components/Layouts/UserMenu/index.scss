@@ -69,8 +69,13 @@
     }
   }
   &__alias-name {
-    margin: 0 auto 10px;
-    font-size: 20px;
+  display: flex;
+  width: 100%;
+    a {
+      margin: 0 auto 10px;
+      font-size: 20px;
+      text-decoration: none;
+    }
   }
   &__list {
     list-style: none;
