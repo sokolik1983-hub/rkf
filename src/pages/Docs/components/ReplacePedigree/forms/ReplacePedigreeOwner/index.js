@@ -51,7 +51,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             <h4 className="caps" style={{marginTop: '10px'}}>Добавление заявки</h4>
             <FormField disabled={update} className="inline-checkbox" fieldType="customCheckbox" name={`express`} label='Срочное изготовление'/>
         </div>
-        <FormGroup inline>
+        <FormGroup inline className="DocApply__federation-info">
         <FormField
             disabled
             options={options.federations}
@@ -71,7 +71,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         </FormGroup>
 
         <DogInfo.component {...{options, view, update, formik, alias}}/>
-        <FormGroup inline>
+        <FormGroup inline className="DocApply__pedigree-copy">
             <FormFile
                 name={`change_owner_application_document`}
                 label='Поле загрузки заявления на смену владельца (бланк 15) (PDF, JPEG, JPG)'
