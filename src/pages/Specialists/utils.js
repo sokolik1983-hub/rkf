@@ -18,7 +18,8 @@ const buildUrlParams = filters => {
                 key === 'BreedIds' ||
                 key === 'SpecializationIds' ||
                 key === 'DisciplineIds' ||
-                key === 'ContestIds'
+                key === 'ContestIds'||
+                key === 'RankIds'
             ) {
                 if (filters[key].length) {
                     params = params + filters[key].map(item => `${key}=${item}&`).join('');
@@ -67,10 +68,11 @@ export const getFiltersFromUrl = () => {
                 key === 'BreedIds' ||
                 key === 'SpecializationIds' ||
                 key === 'DisciplineIds' ||
-                key === 'ContestIds'
+                key === 'ContestIds' ||
+                key === 'RankIds'
             ) {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
-            } else if(key === 'SearchTypeId' || key === 'RankId' || key === 'ClassificationId') {
+            } else if(key === 'SearchTypeId' || key === 'ClassificationId') {
                 filtersFromUrl[key] = +value;
             } else {
                 filtersFromUrl[key] = value;
@@ -88,6 +90,7 @@ export const getFiltersFromUrl = () => {
 export const setFiltersToUrl = (filters, initial = false) => {
     const newFilters = getFiltersFromUrl() ? { ...getFiltersFromUrl(), ...filters } : filters;
     const targetUrl = (`/specialists${buildUrlParams(newFilters)}`);
+
     initial ? history.replace(targetUrl) : history.push(targetUrl);
 };
 
@@ -96,7 +99,7 @@ export const getEmptyFilters = () => ({
     CityIds: [],
     BreedGroupIds: [],
     BreedIds: [],
-    RankId: 0,
+    RankIds: [],
     ClassificationId: 0,
     SpecializationIds: [],
     DisciplineIds: [],
