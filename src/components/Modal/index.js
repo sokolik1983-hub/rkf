@@ -28,7 +28,6 @@ const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, 
                             {children}
                         </div>
                     </div>
-                    {/*<div className="Modal__close-text" onClick={handleClose}>Закрыть</div>*/}
                 </OutsideClickHandler>
             </div>, document.body
         )

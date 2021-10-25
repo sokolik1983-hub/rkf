@@ -11,20 +11,20 @@
     }
 
 }
-.dysplasiaApplication .xray_agreement div:first-child {
+.DocItem__xray-agreement-wrap div:first-child {
     display: grid;
     grid-template-rows: 2fr 1fr;
     @media (max-width: 1079px) {
         display: flex;
     }
 }
-.dysplasiaApplication .dyspSearch  {
+.DocItem__pedigree-number_search  {
     display: grid;
     grid-template-columns: 2.75fr 157px 2fr;
     margin-top: 20px;
     margin-bottom: 20px!important;
 }
-.dysplasiaApplication .pedigree_agreement div:first-child {
+.DocItem__pedigree-agreement-wrap div:first-child {
     display: grid;
     grid-template-rows: 2fr 1fr;
     @media (max-width: 1079px) {
@@ -37,17 +37,20 @@
     span {
         display: block;
     }
-    .dysplasiaApplication {
-        .xray_agreement {
+
+        .DocItem__xray-agreement-wrap {
             display: block;
             div {
                 min-width:100%;
             }
         }
-        .pedigree_agreement {
+        .DocItem__pedigree-agreement-wrap {
             display: block;
+            & div {
+                width: 100% !important;
+            }
         }
-        .dyspSearch {
+        .DocItem__pedigree-number_search {
             display: inline-block;
             width: 100%;
             :first-child {
@@ -57,13 +60,13 @@
                 width: 141px;
             }
         }
-        .dyspName {
+        .DocItem__payer-info-wrap {
             display: block;
             :first-child {
                 margin-right: 0!important;
             }
         }
-        .payment_receipt {
+        .DocItem__payment-receipt-wrap {
             display: block;
         }
         .DocItem__dysplasia-payment-wrap {
@@ -73,5 +76,4 @@
             width: 100%;
         }
     }
-}
 

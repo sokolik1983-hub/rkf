@@ -1,6 +1,6 @@
 import React, {memo, useState, useRef, useEffect} from "react";
 import {CSSTransition} from "react-transition-group";
-import {NavLink, useLocation} from "react-router-dom";
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import Alert from "../../Alert";
 import useIsMobile from "../../../utils/useIsMobile";
 import PopupModal from "../../PopupModal";
@@ -217,7 +217,23 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 <div className="testDiv">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                 </div>
-                                { nameInMenu && <p className="user-nav__alias-name">{nameInMenu}</p>}
+
+
+                                { nameInMenu && <div className="user-nav__alias-name">{user_type === 1 &&
+                                <Link to={`/user/${alias}`}>{nameInMenu}</Link>
+                                }
+                                    {user_type === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
+                                    <Link to={`/club/${alias}`}>{nameInMenu}</Link>
+                                    }
+
+                                    {(user_type === 5 || alias === 'rkf' || alias === 'rkf-online') &&
+                                    <Link to={`/${alias}`}>{nameInMenu}</Link>
+                                    }
+                                    {user_type === 4 &&
+                                    <Link to={`/kennel/${alias}`}>{nameInMenu}</Link>
+                                    }
+                                </div>}
+
                                 <ul className="user-nav__list">
                                     {userNav.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                             key={navItem.id}>

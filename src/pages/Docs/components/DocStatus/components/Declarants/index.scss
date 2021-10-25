@@ -1,7 +1,17 @@
 .declarants {
   max-width: 600px;
+  max-height: 370px;
   padding: 15px 24px 24px;
   background: #fff;
+  overflow: auto;
+  @media (max-width:350px) {
+    padding: 0;
+  }
+  h2 {
+    text-align: center;
+    font-weight: normal;
+    font-size: 24px;
+  }
   &__title {
     font-weight: 400;
     font-size: 18px;
@@ -82,6 +92,9 @@
       transform: translateY(-1rem);
       transition: opacity 0.1s linear 0.5s, transform 0.1s ease;
       padding: 0 1.2rem 1.2rem;
+      @media (max-width:350px) {
+        padding: 0;
+      }
       p {
         font-weight: 300;
         color: #61797c;
@@ -137,32 +150,63 @@
     }
   }
   .ShareButtons {
-    text-align: center;
-    &__link {
-        svg {
-            width: 24px;
-            height: 24px;
-            fill: #72839c !important;
-            &:hover {
-                fill: #3366ff !important;
-            }
-        }
+    text-align: right;
+    @media (max-width: 350px) {
+      padding-bottom: 10px;
     }
-    &__btn {
+
+    &__link {
+
+      &::before {
+        content:'';
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        fill: #72839c;
+        background: url(/static/icons/Vector.svg) no-repeat center / contain;
+        margin-right: 15px;
+
+        &:hover {
+          background: url(/static/icons/Vector_hover.svg) no-repeat center / contain;
+        }
+      }
+
+      &:link {
+        margin-left: 15px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 16px;
+        text-decoration: none;
+        color: #72839c;
+        &:hover {
+          color: #3366ff;
+        }
+      }
+    }
+
+      &__btn {
         margin-left: 20px;
         padding: 0;
         border: none;
         width: 24px;
         height: 24px;
-        svg {
-            width: 24px;
-            height: 24px;
-            fill: #72839c !important;
-            &:hover {
-                fill: #3366ff !important;
-            }
-        }
-    }
-}
 
+        svg {
+          width: 24px;
+          height: 24px;
+          fill: #72839c !important;
+
+          &:hover {
+            fill: #3366ff !important;
+          }
+        }
+      }
+    }
+  }
+
+.modal__body {
+  @media (max-width:350px) {
+    margin: 0 auto;
+  }
 }
