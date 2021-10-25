@@ -92,10 +92,6 @@ const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFil
                     ? <Loading />
                     : <div className="UploadedDocuments">
                         <div className="UploadedDocuments-left">
-                            {
-                                documents.map( document => document.link )
-                            }
-
                             <Switch>
                                 <Route
                                     exact={true}
