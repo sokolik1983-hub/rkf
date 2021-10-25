@@ -112,24 +112,6 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => 
                                 </LinkScroll>
 
                             </div>
-                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
-                            <div  className='list-filter__item'>
-                                <LinkScroll
-                                    to='check-status__letter'
-                                    spy={false}
-                                    smooth={true}
-                                    offset={-140}
-                                    duration={500}
-                                    className='search-page__link'
-                                    title='Информация о помётах'
-                                    onClick={(e) => {
-                                        handleClick(6, e);
-                                        setCardClicked(5);
-                                    }}
-                                >
-                                    <span className="list-filter__control">Информация о помётах</span>
-                                </LinkScroll>
-                            </div>}
                             <div  className="list-filter__item">
                                 <LinkScroll
                                     to='referee-search-anchor'
@@ -140,7 +122,7 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => 
                                     className='search-page__link'
                                     title='Поиск судьи'
                                     onClick={(e) => {
-                                        handleClick(7, e);
+                                        handleClick(6, e);
                                         setCardClicked(6);
                                     }}
                                 >
@@ -158,7 +140,7 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => 
                                     className='search-page__link'
                                     title='Поиск по объявлениям'
                                     onClick={(e) => {
-                                        handleClick(8, e);
+                                        handleClick(7, e);
                                         setCardClicked(7);
                                     }}
                                 >
@@ -166,6 +148,24 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => 
                                 </LinkScroll>
 
                             </div>
+                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
+                            <div  className='list-filter__item'>
+                                <LinkScroll
+                                    to='check-status__letter'
+                                    spy={false}
+                                    smooth={true}
+                                    offset={-140}
+                                    duration={500}
+                                    className='search-page__link'
+                                    title='Информация о помётах'
+                                    onClick={(e) => {
+                                        handleClick(8, e);
+                                        setCardClicked(5);
+                                    }}
+                                >
+                                    <span className="list-filter__control">Информация о помётах</span>
+                                </LinkScroll>
+                            </div>}
                         </HorizontalSwipe>
                     </div>
                 </div>

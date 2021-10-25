@@ -214,18 +214,15 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                         <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
                                     </svg>
                                 </div>*/}
-                                <div className="testDiv">
+                                <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                 </div>
-
-
                                 { nameInMenu && <div className="user-nav__alias-name">{user_type === 1 &&
                                 <Link to={`/user/${alias}`}>{nameInMenu}</Link>
                                 }
                                     {user_type === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
                                     <Link to={`/club/${alias}`}>{nameInMenu}</Link>
                                     }
-
                                     {(user_type === 5 || alias === 'rkf' || alias === 'rkf-online') &&
                                     <Link to={`/${alias}`}>{nameInMenu}</Link>
                                     }

@@ -1,46 +1,72 @@
-const mobileMenuSearchPage = (place, elem, wrap) => {
+const mobileMenuSearchPage = (place, elem, wrap, userType) => {
     const clientWidth = window.innerWidth,
         clickElemWidth = elem.getBoundingClientRect().width,
-        sliderWrap = document.querySelector(".slider-wrap"),
+        sliderWrap = document.querySelector("#search-page__list-filter1"),
+        allDivs = sliderWrap.querySelectorAll('div'),
         sliderWidth = document.querySelector(".slider").getBoundingClientRect().width;
-
-    console.log('4444444',wrap.current.childNodes[0])
-
-    let allDivs = wrap.current.childNodes[0].querySelectorAll('.list-filter__item');
 
 
 
     let widthBeforeElems = 0,
         widthAllElems = 0,
         position = 0;
-
-    //Считаем общую длину слайдера
-    for( elem of allDivs) {
-        widthAllElems = widthAllElems + elem.getBoundingClientRect().width;
-    }
-
-    // console.log('werty', widthAllElems)
-
-    //Считаем общую длину слайдера
-    // for (let item of wrap.current.children.childNodes) {if (item === elem) {break;} else {widthAllElems = widthAllElems +item.getBoundingClientRect().width}}
-
     for (let i = 0; i < place-1; i++) {
         widthBeforeElems = widthBeforeElems + allDivs[i].getBoundingClientRect().width;
     }
 
-    let widthAfterElems = widthAllElems - widthBeforeElems - clickElemWidth/2;
+    for (let item of sliderWrap.querySelectorAll('div')) {widthAllElems = widthAllElems + item.getBoundingClientRect().width}
 
-    console.log('11111',widthAfterElems)
+    let widthAfterElems = widthAllElems - clickElemWidth - widthBeforeElems;
 
+        switch(place) {
+            case 1:
+                position =  0;
+                break;
+            case 2:
+                if(widthBeforeElems > ((sliderWidth-clickElemWidth)/2)) {
+                    position =  (sliderWidth-clickElemWidth)/2 + 16;
+                }
+                break;
+            case 3:
+                if(clientWidth > 1000) {
+                    position = 0;
+                } else {
+                    if(widthBeforeElems > ((sliderWidth-clickElemWidth)/2) && widthAfterElems > ((sliderWidth-clickElemWidth)/2) ) {
+                        position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
+                    } else {
+                        position = widthBeforeElems + widthAfterElems - (sliderWidth-clickElemWidth);
+                    }
+                    break;
+                }
+                break;
+            case 4:
+            case 5:
+            case 6:
+                if(widthBeforeElems > ((sliderWidth-clickElemWidth)/2) && widthAfterElems > ((sliderWidth-clickElemWidth)/2) ) {
+                    position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
+                } else {
+                    position = widthBeforeElems + widthAfterElems - (sliderWidth-clickElemWidth);
+                }
+                break;
+            case 7:
+                if (userType === 3 || userType === 4 || userType === 5) {
+                    if(widthBeforeElems > ((sliderWidth-clickElemWidth)/2) && widthAfterElems > ((sliderWidth-clickElemWidth)/2) ) {
+                        position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
+                    } else {
+                        position = widthBeforeElems + widthAfterElems - (sliderWidth-clickElemWidth);
+                    }
+                } else {
+                    position = widthBeforeElems - (sliderWidth-clickElemWidth - 35);
+                }
+                break;
+            case 8:
+                position = widthBeforeElems - (sliderWidth-clickElemWidth - 35);
+                break;
+            default:
+                break;
+        }
 
-    if(widthBeforeElems < (wrap.current.clientWidth-clickElemWidth)/2)  {
-        position = 0;
-    } else if (widthAfterElems < (wrap.current.clientWidth-clickElemWidth)) {
-        position = widthAllElems - wrap.current.clientWidth;
-    } else {
-        position = widthBeforeElems - ((wrap.current.clientWidth - clickElemWidth)/2);
-    }
-    document.querySelector('.slider').style.transform = `translateX(-${position}px)`;
+    sliderWrap.style.transform = `translateX(-${position}px)`;
 }
 
 export default mobileMenuSearchPage;
