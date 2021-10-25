@@ -156,6 +156,7 @@
     }
 
     &__link {
+
       &::before {
         content:'';
         display: inline-block;
@@ -164,6 +165,7 @@
         fill: #72839c;
         background: url(/static/icons/Vector.svg) no-repeat center / contain;
         margin-right: 15px;
+
         &:hover {
           background: url(/static/icons/Vector_hover.svg) no-repeat center / contain;
         }
@@ -180,11 +182,6 @@
         &:hover {
           color: #3366ff;
         }
-        //&:before {
-        //  width: 10px;
-        //  height: 10px;
-        //  background: url("/static/icons/Vector.svg") center center/contain no-repeat;
-        //}
       }
     }
 

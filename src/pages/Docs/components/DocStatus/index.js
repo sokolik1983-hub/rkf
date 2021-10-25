@@ -48,11 +48,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
     }, [needUpdateTable]);
 
     useEffect(() => {
-        if(showModal) {
-            blockContent(true)
-        } else {
-            blockContent(false)
-        }
+        blockContent(showModal)
     }, [showModal])
 
     const rowClick = id => Request({

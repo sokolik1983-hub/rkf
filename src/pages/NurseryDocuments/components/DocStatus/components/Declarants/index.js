@@ -30,7 +30,6 @@ const Declarants = ({ id, distinction, needUpdateTable, setNeedUpdateTable }) =>
             {!declarants.length ?
                 <h2>Заявителей не найдено</h2> :
                 <>
-                    {/*<h2 className="declarants__title">Заявители</h2>*/}
                     <ul className="declarants__accardion">
                         {declarants.map(declarant =>
                             <li className="declarants__accardion-item" key={declarant.id}>
