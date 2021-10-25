@@ -8,7 +8,6 @@ import { getHeaders } from "../../../../utils/request";
 import LightTooltip from "components/LightTooltip";
 import moment from "moment";
 import "moment/locale/ru";
-import Modal from "../../../Modal";
 
 import "./styles.scss";
 
@@ -16,7 +15,6 @@ moment.locale('ru');
 
 const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, unsortedCategory, setModal, documentsToUpdate, setDocumentsToUpdate, editable }) => {
     const [category, setCategory] = useState({});
-    // const [openDoc, setOpenDoc] = useState(false);
     const [url, setUrl] = useState('');
     const initialCategory = category_id ? { id: category_id, name: category_name } : unsortedCategory;
     const categoriesToShow = categories.filter(category => category.editable !== false);
@@ -122,12 +120,6 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
                 </button>
             </div>
         </div>
-        {/*<Modal*/}
-        {/*    showModal={openDoc}*/}
-        {/*    handleClose={() => setOpenDoc(false)}*/}
-        {/*>*/}
-        {/*        <embed src={url}/>*/}
-        {/*</Modal >*/}
     </div>;
 };
 
