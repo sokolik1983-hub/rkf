@@ -226,7 +226,7 @@
 
    &__pedigree-copy div:first-child {
        display: grid;
-       grid-template-rows: 2.1fr 1fr;
+       grid-template-rows: 1fr 1fr;
    }
 
     @media (max-width: 1079px) {
@@ -257,6 +257,9 @@
 
             & div {
                 min-width: 100%;
+                &:last-of-type div {
+                    grid-template-rows: 1fr 1fr;
+                }
             }
         }
 
@@ -270,6 +273,12 @@
         &__payment-receipt-wrap {
             display: inline-block;
             width: 100%;
+            & div:first-of-type {
+                width: 100% !important;
+                & label {
+                    margin-bottom: 15px;
+                }
+            }
         }
 
         &__payment {
