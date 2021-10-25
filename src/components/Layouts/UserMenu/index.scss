@@ -157,23 +157,21 @@
     letter-spacing: .2px;
     color: #72839c !important;
     transition: color .2s linear;
-    display: flex;
-    flex-direction: row;
     svg {
       width: 20px;
       margin-right: 6px;
       fill: #72839c;
-      // vertical-align: middle;
+       vertical-align: middle;
       opacity: 1 !important;
       cursor: pointer !important;
       transition: fill .2s linear;
-      display: block;
+      display: inline-block;
     }
     span {
-      // vertical-align: middle;
+      vertical-align: middle;
       font-size: 16px;
       line-height: 20px;
-      display: block;
+      display: inline-block;
     }
     &:hover, &.active {
       color: #3366FF !important;
