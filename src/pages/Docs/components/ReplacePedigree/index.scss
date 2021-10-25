@@ -224,7 +224,7 @@
         grid-template-columns: 1fr 1fr;
     }
 
-   &__pedigree-copy div:first-child {
+   &__pedigree-copy, &__trunned-pedigree div:first-child {
        display: grid;
        grid-template-rows: 1fr 1fr;
    }
@@ -267,6 +267,18 @@
             display: block;
             & div {
                 min-width: 100%;
+                & :first-child {
+                   grid-template-rows: 1fr 1fr;
+                }
+            }
+        }
+        &__trunned-pedigree {
+            display: block;
+            & div {
+                min-width: 100%;
+                & :first-child {
+                    grid-template-rows: 2fr 1fr;
+                }
             }
         }
 

@@ -99,7 +99,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 />
 
             </FormGroup>
-            <div className="DocApply__pedigree-copy">
+            <div className="DocApply__trunned-pedigree">
             <FormFile
                 name={`truncated_pedigree_application_document`}
                 label='Поле загрузки заявления владельца о согласии на усеченную родословную если не подтвердится происхождение (PDF, JPEG, JPG)'

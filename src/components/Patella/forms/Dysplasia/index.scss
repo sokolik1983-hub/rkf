@@ -46,6 +46,9 @@
         }
         .DocItem__pedigree-agreement-wrap {
             display: block;
+            & div {
+                width: 100% !important;
+            }
         }
         .DocItem__pedigree-number_search {
             display: inline-block;
