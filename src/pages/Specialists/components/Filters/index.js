@@ -122,14 +122,6 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                 />
                             </> :
                             <>
-                                {filtersValue.SearchTypeId !== 3 &&
-                                    <ClassificationsFilter
-                                        events={filters.classification}
-                                        event_id={filtersValue.ClassificationId}
-                                        onChange={filter => setFiltersToUrl({ClassificationId: filter})}
-                                    />
-                                }
-
                                 {filtersValue.SearchTypeId === 3 &&
                                     <SpecializationsFilter
                                         types={filters.specializations}
@@ -138,16 +130,16 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                     />
                                 }
 
-                                <DisciplinesFilter
-                                    disciplines={filters.disciplines}
-                                    discipline_ids={filtersValue.DisciplineIds}
-                                    onChange={filter => setFiltersToUrl({DisciplineIds: filter})}
-                                />
-
                                 <RankFilter
                                     ranks={filters.ranks}
                                     ranks_ids={filtersValue.RankIds}
                                     onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                />
+
+                                <DisciplinesFilter
+                                    disciplines={filters.disciplines}
+                                    discipline_ids={filtersValue.DisciplineIds}
+                                    onChange={filter => setFiltersToUrl({DisciplineIds: filter})}
                                 />
                             </>
                         }
