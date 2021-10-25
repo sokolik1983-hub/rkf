@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../../../../components/Card';
 import { Link } from "react-router-dom";
+import { Request } from "../../../../utils/request";
+
 import './index.scss';
 
 const setPdfId = (array, docTypeNeeded) => {
@@ -14,7 +16,38 @@ const setPdfId = (array, docTypeNeeded) => {
 };
 
 const DetailsCard = ({ iconClassName, title, description, documents, isUserCard, docList, fedName }) => {
-    
+    const [requisitesLink, setRequisitesLink] = useState('');
+    const [amountСontributions, setAmountСontributions] = useState('');
+
+    useEffect(() => {
+        if(!isUserCard) {
+
+
+            if (documents[0]) {
+                (() => Request({
+                    url: `/api/document/document/public?id=${documents[0].document_id}`
+                }, data => {
+                    setRequisitesLink(data);
+                }, error => {
+                    console.log(error.response);
+                    // history.replace('/404');
+                }))();
+            }
+
+            if (documents[1]) {
+                (() => Request({
+                    url: `/api/document/document/public?id=${documents[1].document_id}`
+                }, data => {
+                    setAmountСontributions(data);
+                }, error => {
+                    console.log(error.response);
+                    // history.replace('/404');
+                }))();
+            }
+        }
+
+    }, [documents, docList])
+
     return (
         <Card className="details-card">
             <div className={`details-card__icon ${iconClassName}`} />
@@ -23,16 +56,29 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                 {description}
                 {isUserCard && <span style={{ display: 'inline-block' }}>Для просмотра реквизитов выберите одну из необходимых Федераций.</span>}
             </p>
-            {!isUserCard && documents?.map((document, i) => <Link
-                key={i}
-                to={`/details-viewer/${document.document_id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="details-card__link"
-                style={{ marginRight: '20px' }}
-            >
-                {document.document_type_id === 1 ? `Реквизиты` : `Размеры взносов в ${fedName}`}
-            </Link>)
+            {!isUserCard && <>
+                    <a
+                        href={`${requisitesLink}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='details-card__link'
+                        style={{ marginRight: '20px' }}
+                    >
+                      Реквизиты
+                    </a>
+
+                <a
+                    href={`${amountСontributions}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='details-card__link'
+                    style={{ marginRight: '20px' }}
+                >
+                    { `Размеры взносов в ${fedName}`}
+                </a>
+
+            </>
+
             }
             {isUserCard && <span className="details-card__user-link">
                 {docList?.map((doc, i) => <Link
