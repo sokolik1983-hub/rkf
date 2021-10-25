@@ -1,6 +1,6 @@
 import React from 'react';
 import { SvgIcon } from "@progress/kendo-react-common";
-import { file, copy } from "@progress/kendo-svg-icons";
+import { file, copy, hyperlinkOpen } from "@progress/kendo-svg-icons";
 import LightTooltip from "components/LightTooltip";
 import './index.scss';
 
@@ -53,7 +53,7 @@ const ShareButtons = ({ link, callback }) => {
     return <div className="ShareButtons">
         <LightTooltip title="Перейти по ссылке" enterDelay={200} leaveDelay={200}>
             <a className="ShareButtons__link" href={link} target="_blank" rel="noopener noreferrer">
-                <SvgIcon icon={file} size="default" />
+                Перейти по ссылке
             </a>
         </LightTooltip>
         <LightTooltip title="Копировать ссылку" enterDelay={200} leaveDelay={200}>
