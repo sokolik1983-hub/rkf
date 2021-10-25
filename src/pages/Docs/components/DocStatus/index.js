@@ -10,7 +10,7 @@ import Declarants from "./components/Declarants";
 import CustomCheckbox from "../../../../components/Form/CustomCheckbox";
 import moment from "moment";
 import CardMessage from "../../../../components/CardMessage";
-
+import { blockContent } from '../../../../utils/blockContent';
 import "./index.scss";
 
 
@@ -46,6 +46,10 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 setLoading(false);
             }))();
     }, [needUpdateTable]);
+
+    useEffect(() => {
+        blockContent(showModal)
+    }, [showModal])
 
     const rowClick = id => Request({
         url: distinction === 'pedigree'
@@ -207,7 +211,9 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 </div>
                 {showModal && <Modal
                     showModal={!!showModal}
+                    headerName={'Заявители'}
                     handleClose={() => setShowModal(false)}
+                    outsideClickHandler={() => setShowModal(false)}
                     noBackdrop={true}
                     hideCloseButton={true}
                     className="status-table__modal"
