@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import Share from "components/Share";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf, trash } from "@progress/kendo-svg-icons";
