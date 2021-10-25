@@ -13,7 +13,7 @@
 }
 .DocItem__xray-agreement-wrap div:first-child {
     display: grid;
-    grid-template-rows: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
     @media (max-width: 1079px) {
         display: flex;
     }
@@ -53,6 +53,7 @@
         .DocItem__pedigree-number_search {
             display: inline-block;
             width: 100%;
+            margin-top: 0;
             :first-child {
                 margin-right: 0!important;
             }
