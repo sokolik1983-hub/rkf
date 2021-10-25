@@ -1,6 +1,4 @@
 import React from 'react';
-import { SvgIcon } from "@progress/kendo-react-common";
-import { file, copy, hyperlinkOpen } from "@progress/kendo-svg-icons";
 import LightTooltip from "components/LightTooltip";
 import './index.scss';
 
@@ -58,7 +56,6 @@ const ShareButtons = ({ link, callback }) => {
         </LightTooltip>
         <LightTooltip title="Копировать ссылку" enterDelay={200} leaveDelay={200}>
             <button className="ShareButtons__btn" type="button" onClick={() => copyLink(link)} >
-                <SvgIcon icon={copy} size="default" />
             </button>
         </LightTooltip>
     </div>
