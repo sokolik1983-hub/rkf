@@ -32,7 +32,6 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
     const name = ls.get('user_info') ? ls.get('user_info').name : '';
     const logo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     const user_type = ls.get('user_info') ? ls.get('user_info').user_type : '';
-    console.log('blank-details comp')
 
     useEffect(() => {
         (() => Request({
