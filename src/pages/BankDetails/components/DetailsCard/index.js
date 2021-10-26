@@ -16,39 +16,38 @@ const setPdfId = (array, docTypeNeeded) => {
 };
 
 const DetailsCard = ({ iconClassName, title, description, documents, isUserCard, docList, fedName }) => {
-    const [linkFeesId, setLinkFeesId] = useState('');
-    const [linkFedDetails, setLinkFedDetails] = useState('');
-    useEffect(() => {
-        console.log("linkFeesId", linkFeesId)
-        console.log("linkFedDetails", linkFedDetails)
-        console.log("documents[0]", documents[0])
-        console.log("documents[1]", documents[1])
-    })
+    const [requisitesLink, setRequisitesLink] = useState('');
+    const [amountСontributions, setAmountСontributions] = useState('');
 
     useEffect(() => {
+        if(!isUserCard) {
 
-        if (documents[0]) {
-            (() => Request({
-                url: `/api/document/document/public?id=${documents[0].document_id}`
-            }, data => {
-                setLinkFeesId(data);
-            }, error => {
-                console.log(error.response);
-                // history.replace('/404');
-            }))();
+
+            if (documents[0]) {
+                (() => Request({
+                    url: `/api/document/document/public?id=${documents[0].document_id}`
+                }, data => {
+                    setRequisitesLink(data);
+                }, error => {
+                    console.log(error.response);
+                    // history.replace('/404');
+                }))();
+            }
+
+            if (documents[1]) {
+                (() => Request({
+                    url: `/api/document/document/public?id=${documents[1].document_id}`
+                }, data => {
+                    setAmountСontributions(data);
+                }, error => {
+                    console.log(error.response);
+                    // history.replace('/404');
+                }))();
+            }
         }
 
-        if (documents[1]) {
-            (() => Request({
-                url: `/api/document/document/public?id=${documents[1].document_id}`
-            }, data => {
-                setLinkFedDetails(data);
-            }, error => {
-                console.log(error.response);
-                // history.replace('/404');
-            }))();
-        }
-    }, [documents]);
+    }, [documents, docList])
+
     return (
         <Card className="details-card">
             <div className={`details-card__icon ${iconClassName}`} />
@@ -57,35 +56,48 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                 {description}
                 {isUserCard && <span style={{ display: 'inline-block' }}>Для просмотра реквизитов выберите одну из необходимых Федераций.</span>}
             </p>
-            {!isUserCard && documents?.map((document, i) => <a
-                key={i}
-                href={linkFedDetails}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="details-card__link"
-                style={{ marginRight: '20px' }}
-            >
-                {document.document_type_id === 1 ? `Реквизиты` : `Размеры взносов в ${fedName}`}
-            </a>)
+            {!isUserCard && <>
+                <a
+                    href={`${requisitesLink}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='details-card__link'
+                    style={{ marginRight: '20px' }}
+                >
+                    Реквизиты
+                </a>
+
+                <a
+                    href={`${amountСontributions}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='details-card__link'
+                    style={{ marginRight: '20px' }}
+                >
+                    { `Размеры взносов в ${fedName}`}
+                </a>
+
+            </>
+
             }
             {isUserCard && <span className="details-card__user-link">
-                {docList?.map((doc, i) => <a
+                {docList?.map((doc, i) => <Link
                     key={i}
-                    href={linkFedDetails}
+                    to={`/details-viewer/${setPdfId(doc.documents, 1)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="details-card__link"
                 >
                     {doc.organization_type === 6 ? 'Реквизиты Фауна' : doc.organization_type === 7 ? 'Реквизиты Элита' : 'Реквизиты РКК'}
-                </a>)}
-                {docList && <a
-                    href={linkFedDetails}
+                </Link>)}
+                {docList && <Link
+                    to={`/details-viewer/${setPdfId(docList[0].documents, 2) || setPdfId(docList[1].documents, 2) || setPdfId(docList[2].documents, 2)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="details-card__link"
                 >
                     Размеры взносов в ОАНКОО
-                </a>}
+                </Link>}
             </span>}
         </Card>
     );

@@ -7,7 +7,6 @@ import { getHeaders } from "../../../../utils/request";
 import LightTooltip from "components/LightTooltip";
 import moment from "moment";
 import "moment/locale/ru";
-import Modal from "../../../Modal";
 
 import "./styles.scss";
 
@@ -15,7 +14,6 @@ moment.locale('ru');
 
 const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, unsortedCategory, setModal, documentsToUpdate, setDocumentsToUpdate, editable }) => {
     const [category, setCategory] = useState({});
-    const [openDoc, setOpenDoc] = useState(false);
     const [url, setUrl] = useState('');
     const initialCategory = category_id ? { id: category_id, name: category_name } : unsortedCategory;
     const categoriesToShow = categories.filter(category => category.editable !== false);
@@ -73,16 +71,14 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
             .then(url => setUrl(url));
     }
 
-    const showDoc = (id, e) => {
-        e.preventDefault();
-        setOpenDoc(true);
+    useEffect(() => {
         get();
-    }
+    }, [])
 
-    return <div className="DocumentItem container p-0 mb-4">
+    return <div className="DocumentItem container p-0 mb-4" >
         <div className="row d-flex align-items-center flex-row" >
             <div className="col-5">
-                <a href="/#" className="d-flex align-items-center" onClick={(e) => showDoc(id, e)}>
+                <a href={url} target="_blank" className="d-flex align-items-center">
                     <SvgIcon icon={filePdf} size="default" />
                     <div className="d-flex flex-column">{name}<span className="DocumentItem__date">
                         {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}
@@ -123,12 +119,6 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
                 </button>
             </div>
         </div>
-        <Modal
-            showModal={openDoc}
-            handleClose={() => setOpenDoc(false)}
-        >
-                <embed src={url}/>
-        </Modal >
     </div>;
 };
 
