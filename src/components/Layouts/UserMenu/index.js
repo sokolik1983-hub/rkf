@@ -8,7 +8,9 @@ import ls from 'local-storage';
 import {endpointGetClubInfo} from "../../../pages/Club/config";
 import {Request} from "../../../utils/request";
 import {endpointGetUserInfo} from "../UserLayout/config";
-
+import changeBackground from "../../../utils/changeBgInMobileMenu";
+import nameInMobileMenu from "../../../utils/nameInMobileMenu";
+import {clubNav} from "../../../pages/Club/config";
 import "./index.scss";
 
 
@@ -28,63 +30,10 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
         setAlert(true);
     };
 
-
     const moreRef = useRef();
     const location = useLocation();
     let url =  location.pathname.split('/')[1];
     let orgAlias = location.pathname.split('/')[2];
-
-    const changeBackground = () => {
-        switch (user_type) {
-            case 3:
-            case 4:
-                switch (url) {
-                    case 'club':
-                    case 'kennel':
-                        backgroundForPage(orgAlias, endpointGetClubInfo);
-                        break;
-                    default:
-                        backgroundForPage(alias, endpointGetClubInfo)
-                        break;
-                }
-                break;
-            case 1:
-                switch (url) {
-                    case 'club':
-                    case 'kennel':
-                        backgroundForPage(orgAlias, endpointGetClubInfo);
-                        break;
-                    case 'user':
-                        backgroundForPage(orgAlias, endpointGetUserInfo)
-                        break;
-                    default:
-                        backgroundForPage(alias, endpointGetUserInfo)
-                        break;
-                }
-                break;
-            case 5:
-                switch (url) {
-                    case 'club':
-                    case 'kennel':
-                        backgroundForPage(orgAlias, endpointGetClubInfo);
-                        break;
-                    default:
-                        backgroundForPage(alias, endpointGetUserInfo)
-                        break;
-                }
-                break;
-            default:
-                switch (url) {
-                    case 'club':
-                    case 'kennel':
-                        backgroundForPage(orgAlias, endpointGetClubInfo);
-                        break;
-                    default:
-                        break;
-                }
-                break;
-        }
-    }
 
     const backgroundForPage =(orgAlias, request) => { //Получаем алиас юзеров разных типов и образец запроса на сервер от разных юзеров.
            Request({
@@ -104,81 +53,19 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     }
 
     useEffect(() => {
-            switch (user_type) {
-                case 1:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            userInfo && setMenuBackground(userInfo.headliner_link);
-                            userInfo && setNameInMenu(`${userInfo.personal_information.first_name} ${userInfo.personal_information.last_name}`);
-                            break;
-                    }
-                    break;
-                case 3:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            clubInfo && setMenuBackground(clubInfo.headliner_link);
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                    }
-                    break;
-                case 4:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            clubInfo && setMenuBackground(clubInfo.headliner_link);
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                    }
-                    break;
-                case 5:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                default:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            break;
-                    }
-                break;
-            }
-             clubInfo && setMenuBackground(clubInfo.headliner_link);
-
-    }, [userInfo, clubInfo]);
+        changeBackground(user_type, backgroundForPage, alias, orgAlias, url);
+    },[]);
 
     useEffect(() => {
-        changeBackground();
-    },[])
+        nameInMobileMenu(user_type,url,clubInfo, setNameInMenu, userInfo, setMenuBackground);
+    },[userInfo, clubInfo]);
+
+    const {...nav} = clubNav;
+    console.log('clubInfo', clubInfo);
+    console.log('userNav', userNav);
+
+
+
     return (
         <div
             className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
@@ -244,7 +131,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                                     && navItem.title !== 'Поиск по базе РКФ'
                                                     && navItem.title !== 'Реквизиты и размеры взносов'
                                                     && navItem.title !== 'Мероприятия'
-                                                    ? `/club${navItem.to}` : navItem.to}
+                                                    ? `/club${navItem.to}` : `/club${navItem.to}`}
                                                 exact={navItem.exact}
                                                 className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
                                                 onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
