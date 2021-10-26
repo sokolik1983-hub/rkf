@@ -77,11 +77,15 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                         bank_details
                     />}
 
-                    {user_type === 3 && isMobile &&
+                    { user_type === 1 && isMobile &&
+                    <HorizontalMenu menu={userNav(alias).filter(item => item.id !== 4 && item.id !== 3 && item.id !== 8)} />
+                    }
+
+                    { user_type === 3 && isMobile &&
                         <HorizontalMenu menu={clubNav(alias).filter(item => item.id !== 6 && item.id !== 10 && item.disabled !== true )} />
                     }
 
-                    {user_type === 4 && isMobile &&
+                    { user_type === 4 && isMobile &&
                         <HorizontalMenu menu={kennelNav(alias).filter(item => item.id !== 3 && item.id !== 7)} />
                     }
 
