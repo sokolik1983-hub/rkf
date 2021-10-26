@@ -39,6 +39,10 @@
         text-align: left;
         margin-bottom: 1rem;
         color: #212529;
+        @media (max-width: 820px) {
+            display: block;
+            overflow: scroll;
+        }
         td, th {
             padding: .75rem;
             vertical-align: top;
