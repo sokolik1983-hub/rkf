@@ -18,6 +18,7 @@ import { getFedInfo, mainFedList, oankooFedList } from "./config";
 import { connectAuthVisible } from "../../pages/Login/connectors";
 import Loading from "../../components/Loading";
 import useIsMobile from "../../utils/useIsMobile";
+import HorizontalMenu from "../../components/HorizontalMenu";
 import "./index.scss";
 
 const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, history }) => {
@@ -75,6 +76,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                         withShare={false}
                         bank_details
                     />}
+                    {user_type === 3 && isMobile && <HorizontalMenu menu={clubNav(alias).filter(item => item.id !== 6 && item.id !== 10 && item.disabled !== true )} />}
                     <div className="base-search__content-wrap">
                         {isMobile && user_type === 1 && <Card style={{ margin: '16px 0 16px 0', padding: '10px' }}>
                             <UserInfo
@@ -142,6 +144,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                                     {user_type === 3 && !isMobile &&  <UserMenu
                                         userNav={clubNav(alias)}
                                     />}
+
                                     {user_type === 4 && !isMobile && <UserMenu
                                         userNav={kennelNav(alias)}
                                     />}
