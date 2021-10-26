@@ -67,3 +67,18 @@ input::placeholder {
   -webkit-opacity: 1;
   color: #495057;
 }
+
+// добавление стилей для меню в таблице заявок
+.k-list .k-item,
+.k-list .k-item:focus,
+.k-list .k-item.k-state-focused,
+.k-list .k-item.k-state-focused:hover {
+  width: 100%;
+  padding: 0;
+  box-shadow: none;
+
+  & a,
+  & span {
+    padding: 0 16px;
+  }
+}
