@@ -505,7 +505,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                             <a href={linkFedDetails} target="_blank" rel="noopener noreferrer" className="menu-component__link _requisites">
                                                 Реквизиты
                                             </a>
-
                                         </li>}
                                     </>
                                     }

@@ -23,6 +23,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     const [nameInMenu, setNameInMenu] = useState(null)
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [routes, setRoutes] = useState(userNav);
     const isMobile = useIsMobile(1080);
     const { user_type, alias } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
@@ -60,11 +61,22 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
         nameInMobileMenu(user_type,url,clubInfo, setNameInMenu, userInfo, setMenuBackground);
     },[userInfo, clubInfo]);
 
-    const {...nav} = clubNav;
-    console.log('clubInfo', clubInfo);
-    console.log('userNav', userNav);
-
-
+    useEffect(()=> {
+        if(clubInfo) {
+            let clubInfoArray;
+            if(url === "kennel") {
+                   clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления" && item.title !== "Мероприятия");
+            } else {
+                clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+            }
+            clubInfoArray.forEach(item => {
+                if(item.title !== "Мероприятия") {
+                    item.to = `/${url}${item.to}`;
+                }
+            })
+            setRoutes(clubInfoArray);
+        }
+        }, [clubInfo])
 
     return (
         <div
@@ -122,16 +134,10 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 </div>}
 
                                 <ul className="user-nav__list">
-                                    {userNav.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                    {routes.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                             key={navItem.id}>
                                             <NavLink
-                                                to={user_type === 3
-                                                    && alias !== 'rkf'
-                                                    && alias !== 'rkf-online'
-                                                    && navItem.title !== 'Поиск по базе РКФ'
-                                                    && navItem.title !== 'Реквизиты и размеры взносов'
-                                                    && navItem.title !== 'Мероприятия'
-                                                    ? `/club${navItem.to}` : `/club${navItem.to}`}
+                                                to={navItem.to}
                                                 exact={navItem.exact}
                                                 className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
                                                 onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
