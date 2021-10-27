@@ -55,15 +55,7 @@ const CardSpecialist = ({
         }))();
     };
 
-    const checkForExaminer = section => {
-        for (let item of section) {
-            if (item.for_judge_examiner) {
-                return true;
-            }
-        }
-    }
-
-
+    
     return (
         <Card className="card-specialists">
             <div className="card-specialists__city"
@@ -257,21 +249,21 @@ const CardSpecialist = ({
                                                 </> }
 
                                                 { isSpecialist &&
-                                                <div className="card-specialists__specialization">
-                                                    <p className="card-specialists__specialization-name">Специализация</p>
-                                                    <p className="card-specialists__subtitle">{ item.specialization }</p>
-                                                </div>
-                                                }
-
-                                                { checkForExaminer(item?.disciplines) &&
-                                                <div className="card-specialists__examiner">
-                                                    Экзаменатор
-                                                </div>
+                                                    <div className="card-specialists__specialization">
+                                                        <p className="card-specialists__specialization-name">Специализация</p>
+                                                        <p className="card-specialists__subtitle">{ item.specialization }</p>
+                                                    </div>
                                                 }
 
                                                 { isSpecialist && item?.disciplines?.map((discipline, index) => {
                                                     return (
                                                         <div className="card-specialists__grid-item" key={ index }>
+                                                            { discipline?.for_judge_examiner &&
+                                                                <div className="card-specialists__examiner">
+                                                                    Экзаменатор
+                                                                </div>
+                                                            }
+
                                                             <div className="card-specialists__ranks">
                                                                 { discipline?.rank &&
                                                                 <div className="card-specialists__rank">
