@@ -15,9 +15,17 @@ const mobileMenuMoves = (place, elem) => {
 
     switch(place) {
         case 1:
-            position= 0;
+            position = 0;
             break;
         case 2:
+            if(widthBeforeElems < clickElemWidth) {
+                position = 0;
+            } else {
+                position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
+            }
+
+            console.log('11111111111',place)
+            break;
         case 3:
             position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
             console.log('11111111111',place)

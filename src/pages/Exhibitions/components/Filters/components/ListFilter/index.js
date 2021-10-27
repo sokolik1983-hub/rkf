@@ -21,8 +21,8 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
         if (type === 4 || (activeType === 4 && type !== 4)) {
             setFiltersToUrl({ CityIds: [] });
         }
-        if (clientWidth < 700) {
-            mobileMenuMoves(place, e.target)
+        if(clientWidth < 600) {
+            mobileMenuMoves(place, e.target);
         }
     };
 
@@ -65,7 +65,7 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
                             <div className="slider">
                                 <HorizontalSwipe id="slider-wrap1" className="slider-wrap">
                                     <div className={activeType === 0 ? ' _active' : ''} onClick={(e) => handleClick(0, e, 1)}>Все</div>
-                                    <div className={activeType === 1 ? ' _active' : ''} onClick={(e) => handleClick(1, e, 2)}>Выставочные1111111111 <br />1111111111 мероприятия</div>
+                                    <div className={activeType === 1 ? ' _active' : ''} onClick={(e) => handleClick(1, e, 2)}>Выставочные<br />мероприятия</div>
                                     <div className={activeType === 2 ? ' _active' : ''}  onClick={(e) => handleClick(2, e,  3)}>Племенные мероприятия</div>
                                     <div className={activeType === 3 ? ' _active' : '_disabled'}
                                          // onClick={(e) => handleClick(3, e, 4)}
