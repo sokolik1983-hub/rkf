@@ -6,13 +6,12 @@ const mobileMenuMoves = (place, elem) => {
              sliderWidth = document.querySelector(".slider").getBoundingClientRect().width;
 
 
+
     let widthBeforeElems = 0,
-        widthAllElems = 0,
         position = 0;
     for (let item of sliderWrap.querySelectorAll('div')) {if (item === elem) {break;} else {widthBeforeElems = widthBeforeElems +item.getBoundingClientRect().width}}
 
-    for (let item of sliderWrap.querySelectorAll('div')) {widthAllElems = widthAllElems + item.getBoundingClientRect().width}
-
+    console.log('widthBeforeElems', widthBeforeElems)
 
     switch(place) {
         case 1:
@@ -20,7 +19,8 @@ const mobileMenuMoves = (place, elem) => {
             break;
         case 2:
         case 3:
-            position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2)
+            position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
+            console.log('11111111111',place)
             break;
         case 4:
             position = widthBeforeElems - (sliderWidth - clickElemWidth);
@@ -29,6 +29,7 @@ const mobileMenuMoves = (place, elem) => {
             break;
     }
     sliderWrap.style.transform = `translateX(-${position}px)`;
+    console.log('position', position)
 }
 
 export default mobileMenuMoves;
