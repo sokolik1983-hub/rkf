@@ -259,7 +259,7 @@ const NewsFeedItem = forwardRef(({
                             />
                         }
                     </div>
-                    <div className="NewsFeedItem__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
+                    <div className="NewsFeedItem__show-all-wrap">
                         {is_request_article ?
                             <div className="NewsFeedItem__show-all">
                                 <Link to={redirect_link} target="_blank">Подробнее...</Link>
