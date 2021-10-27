@@ -36,6 +36,7 @@ const CardSpecialist = ({
     const [isAllBreeder, setIsAllBreeder] = useState(false);
     const isSpecialist = searchTypeId === 3;
     const isJudge = searchTypeId === 4;
+    const modifiedRanks = ranks?.split(',');
 
     const onShowMoreClick = () => {
         (() => Request({
@@ -55,7 +56,7 @@ const CardSpecialist = ({
         }))();
     };
 
-    
+
     return (
         <Card className="card-specialists">
             <div className="card-specialists__city"
@@ -146,7 +147,19 @@ const CardSpecialist = ({
                                     { ranks &&
                                     <div className="card-specialists__rank-wrap">
                                         <span className="card-specialists__rank-title">Ранг</span>
-                                        <span className="card-specialists__content-data">{ ranks }</span>
+                                        <span className="card-specialists__ranks-group">
+                                            { modifiedRanks.map((rank, index, arr) => {
+                                                return (
+                                                    <span
+                                                        className="card-specialists__rank"
+                                                        key={index}
+                                                    >
+                                                        { rank }
+                                                        { index < arr.length - 1 && "," }&nbsp;
+                                                    </span>
+                                                )
+                                            }) }
+                                        </span>
                                     </div>
                                     }
 
@@ -228,7 +241,7 @@ const CardSpecialist = ({
                                                             <div
                                                                 className="card-specialists__content-title">Дисциплины
                                                             </div>
-                                                            <div>
+                                                            <div className="card-specialists__disciplines-group">
                                                                 { item?.disciplines?.map((item, index, arr) => {
                                                                     return (
                                                                         <LightTooltip
