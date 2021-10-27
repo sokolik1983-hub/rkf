@@ -10,7 +10,8 @@ import {Request} from "../../../utils/request";
 import {endpointGetUserInfo} from "../UserLayout/config";
 import changeBackground from "../../../utils/changeBgInMobileMenu";
 import nameInMobileMenu from "../../../utils/nameInMobileMenu";
-import {clubNav} from "../../../pages/Club/config";
+import { clubNav } from "../../../pages/Club/config";
+import { kennelNav } from "../../../pages/Nursery/config";
 import "./index.scss";
 
 
@@ -30,6 +31,8 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
         e.preventDefault();
         setAlert(true);
     };
+
+
 
     const moreRef = useRef();
     const location = useLocation();
@@ -64,20 +67,20 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     useEffect(()=> {
         if(clubInfo) {
             let clubInfoArray;
-            if(url === "kennel") {
-                   clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления" && item.title !== "Мероприятия");
-            } else {
-                clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+            switch(url) {
+                case "kennel":
+                    clubInfoArray = kennelNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                    setRoutes(clubInfoArray);
+                    break;
+                case "club":
+                    clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                    setRoutes(clubInfoArray);
+                    break;
+                default:
+                    break;
             }
-            clubInfoArray.forEach(item => {
-                if(item.title !== "Мероприятия") {
-                    item.to = `/${url}${item.to}`;
-                }
-            })
-            setRoutes(clubInfoArray);
         }
-        }, [clubInfo])
-
+        }, [clubInfo, userInfo]);
     return (
         <div
             className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
