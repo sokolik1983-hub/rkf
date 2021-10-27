@@ -48,6 +48,7 @@
       min-width: 100%;
       max-height: 154px;
       max-width: none;
+      background-size: auto;
     }
   }
   &__content {
@@ -160,6 +161,14 @@
   &__author {
     @media (max-width: 820px) {
       margin-bottom: 2px;
+      a:first-of-type {
+        position: relative;
+        min-width: 100%;
+        img:first-of-type, img:last-of-type {
+          position: relative;
+          top: -15px;
+        }
+      }
     }
     display: flex;
     flex-direction: column;
@@ -179,6 +188,7 @@
       line-height: 20px;
       letter-spacing: 0.2px;
       color: #253c5e;
+
       &.card-exhibition__federation {
         display: none;
         color: #72839c;
@@ -198,7 +208,7 @@
         display: none;
       }
       & > a {
-        font-size: 14px;
+        font-size: 16px;
         line-height: 18px;
         overflow: hidden;
         p {
@@ -211,6 +221,10 @@
           display: block;
           overflow: visible;
           margin-left: 4px;
+          position: relative;
+          top: 13px;
+          left: -271px;
+          min-width: 240px;
         }
       }
     }
@@ -240,6 +254,10 @@
     max-height: 40px;
     overflow: hidden;
     color: #3366ff;
+    @media (max-width: 820px) {
+      position: relative;
+      top: -15px;
+    }
 
     span {
       color: #72839c;
@@ -255,6 +273,10 @@
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+    @media (max-width: 820px) {
+      width: 48px;
+      height: 48px;
+    }
   }
   &__info {
     display: flex;
