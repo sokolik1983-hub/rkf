@@ -42,12 +42,13 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     const handleChange = e => {
         const file = e.target.files[0];
 
-        if (file) {
+        if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
             setLoadFile(true);
         } else {
+            window.alert(`Размер изображения не должен превышать 20 мб`);
             formik.setFieldValue('file', '');
             setSrc('');
             setLoadFile(false);
