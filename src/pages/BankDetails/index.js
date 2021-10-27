@@ -65,6 +65,10 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
         });
     };
 
+
+
+
+
     return (loading ? <Loading /> :
         <Layout>
             <div className="redesign">
