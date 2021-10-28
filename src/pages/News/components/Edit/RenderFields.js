@@ -63,11 +63,12 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const handleChangeImg = e => {
         const file = e.target.files[0];
 
-        if (file) {
+        if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
         } else {
+            window.alert(`Размер изображения не должен превышать 20 мб`);
             formik.setFieldValue('file', '');
             setSrc('');
         }
