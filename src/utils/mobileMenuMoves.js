@@ -1,50 +1,34 @@
 
 
-const mobileMenuMoves = (place, elem) => {
-    const clickElemWidth = elem.getBoundingClientRect().width,
-             sliderWrap = document.querySelector(".slider-wrap"),
-             sliderWidth = document.querySelector(".slider").getBoundingClientRect().width;
+const mobileMenuMoves = (place, elem, wrap) => {
 
+    if(wrap) {
+        const clickElemWidth = elem.getBoundingClientRect().width,
+            sliderWrap = document.querySelector(".slider-wrap"),
+            allDivs = sliderWrap.querySelectorAll('div'),
+            sliderWidth = document.querySelector(".slider").getBoundingClientRect().width;
 
-
-    let widthBeforeElems = 0,
-        widthAfterElems=0,
-        widthAllElems=0,
-        position = 0;
-    for (let item of sliderWrap.querySelectorAll('div')) {if (item === elem) {break;} else {widthBeforeElems = widthBeforeElems +item.getBoundingClientRect().width}};
-    for (let item of sliderWrap.querySelectorAll('div')) {widthAllElems = widthAllElems +item.getBoundingClientRect().width};
-
-    widthAfterElems = (sliderWidth - clickElemWidth)/2;
-
-
-    console.log('widthBeforeElems',widthAfterElems, sliderWrap.querySelectorAll('div')[3].getBoundingClientRect().width)
-
-    switch(place) {
-        case 1:
+        let widthBeforeElems = 0,
+            widthAllElems = 0,
             position = 0;
-            break;
-        case 2:
-            if(widthBeforeElems < clickElemWidth) {
-                position = 0;
-            } else {
-                position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
-            }
-            break;
-        case 3:
-            if((sliderWidth - clickElemWidth)/2 > sliderWrap.querySelectorAll('div')[3].getBoundingClientRect().width) {
-                position = widthBeforeElems - (sliderWidth - clickElemWidth) + sliderWrap.querySelectorAll('div')[3].getBoundingClientRect().width;
-            } else {
-                position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
-            }
-            break;
-        case 4:
-            position = widthBeforeElems - (sliderWidth - clickElemWidth);
-            break;
-        default:
-            break;
+        for (let i = 0; i < place-1; i++) {
+            widthBeforeElems = widthBeforeElems + allDivs[i].getBoundingClientRect().width;
+        }
+
+        for (let item of sliderWrap.querySelectorAll('div')) {widthAllElems = widthAllElems + item.getBoundingClientRect().width}
+
+        let widthAfterElems = widthAllElems - clickElemWidth - widthBeforeElems;
+
+        if((sliderWidth - clickElemWidth)/2 > widthBeforeElems) {
+            position = 0;
+        } else if((sliderWidth - clickElemWidth)/2 > widthAfterElems) {
+            position = widthBeforeElems - (sliderWidth-clickElemWidth) + widthAfterElems;
+        } else {
+            position = widthBeforeElems - (sliderWidth-clickElemWidth)/2;
+        }
+
+        sliderWrap.style.transform = `translateX(-${position}px)`;
     }
-    sliderWrap.style.transform = `translateX(-${position}px)`;
-    console.log('position', position)
 }
 
 export default mobileMenuMoves;

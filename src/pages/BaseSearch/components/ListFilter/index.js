@@ -1,11 +1,11 @@
 import React, {useRef} from "react";
 import { Link as LinkScroll } from 'react-scroll';
 import HorizontalSwipe from "../../../../components/HorozintalSwipe";
-import mobileMenuSearchPage from "../../../../utils/mobileMenuSearchPage";
+import mobileMenuMoves from "../../../../utils/mobileMenuMoves";
 import "./index.scss";
 
 
-const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => {
+const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
     const wrap = useRef();
 
     const handleClick = (place, e) => {
@@ -13,8 +13,7 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated, isMobile }) => 
         const calendarButton = currentNode.querySelector('.list-filter__item._active');
         if(calendarButton) calendarButton.classList.remove('_active');
         e.target.closest('.list-filter__item').classList.add("_active");
-            mobileMenuSearchPage(place, e.target, wrap, userType)
-
+        mobileMenuMoves(place, e.target, wrap);
     }
     return (
             <div className="search-page__list-filter">
