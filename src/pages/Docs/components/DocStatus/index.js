@@ -91,7 +91,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <div className="club-documents-status__controls 11111111111111" style={{ position: 'relative', top: '10px' }}>
+            <div className="club-documents-status__controls" style={{ position: 'relative', top: '10px' }}>
                 <CustomCheckbox
                     id={'is_archive_pkg'}
                     label={'Архивные заявки'}
