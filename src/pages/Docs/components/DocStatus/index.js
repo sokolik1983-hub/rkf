@@ -24,6 +24,8 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
     const [isArchivePkg, setIsArchivePkg] = useState(false);
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
+    console.log('standardView', standardView)
+
     useEffect(() => {
         (() => Request({
             url: distinction === 'pedigree'
@@ -89,7 +91,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <div className="club-documents-status__controls" style={{ position: 'relative', top: '10px' }}>
+            <div className="club-documents-status__controls 11111111111111" style={{ position: 'relative', top: '10px' }}>
                 <CustomCheckbox
                     id={'is_archive_pkg'}
                     label={'Архивные заявки'}
@@ -129,9 +131,26 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 setExporting={setExporting}
                 fullScreen
             />
+                {showModal && <Modal
+                    showModal={!!showModal}
+                    headerName={'Заявители'}
+                    handleClose={() => setShowModal(false)}
+                    outsideClickHandler={() => setShowModal(false)}
+                    noBackdrop={true}
+                    hideCloseButton={true}
+                    className="status-table__modal"
+                >
+                    <Declarants
+                        id={showModal}
+                        distinction={distinction}
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        needUpdateTable={needUpdateTable}
+                    />
+                </Modal>}
+
         </Card> :
             <Card className="club-documents-status">
-                <div className="club-documents-status__head">
+                <div className="club-documents-status__head 222222222222">
                     <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                     &nbsp;/&nbsp;
                     {distinction === 'pedigree'
