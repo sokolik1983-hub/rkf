@@ -23,30 +23,15 @@ const mobileMenuSearchPage = (place, elem, wrap, userType) => {
                 position =  0;
                 break;
             case 2:
-                if(widthBeforeElems > ((sliderWidth-clickElemWidth)/2)) {
                     position =  (sliderWidth-clickElemWidth)/2 + 16;
-                }
                 break;
             case 3:
-                if(clientWidth > 1000) {
-                    position = 0;
-                } else {
-                    if(widthBeforeElems > ((sliderWidth-clickElemWidth)/2) && widthAfterElems > ((sliderWidth-clickElemWidth)/2) ) {
-                        position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
-                    } else {
-                        position = widthBeforeElems + widthAfterElems - (sliderWidth-clickElemWidth);
-                    }
+                position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
                     break;
-                }
-                break;
             case 4:
             case 5:
             case 6:
-                if(widthBeforeElems > ((sliderWidth-clickElemWidth)/2) && widthAfterElems > ((sliderWidth-clickElemWidth)/2) ) {
                     position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
-                } else {
-                    position = widthBeforeElems + widthAfterElems - (sliderWidth-clickElemWidth);
-                }
                 break;
             case 7:
                 if (userType === 3 || userType === 4 || userType === 5) {

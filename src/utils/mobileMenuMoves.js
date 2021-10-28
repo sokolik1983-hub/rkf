@@ -8,10 +8,16 @@ const mobileMenuMoves = (place, elem) => {
 
 
     let widthBeforeElems = 0,
+        widthAfterElems=0,
+        widthAllElems=0,
         position = 0;
-    for (let item of sliderWrap.querySelectorAll('div')) {if (item === elem) {break;} else {widthBeforeElems = widthBeforeElems +item.getBoundingClientRect().width}}
+    for (let item of sliderWrap.querySelectorAll('div')) {if (item === elem) {break;} else {widthBeforeElems = widthBeforeElems +item.getBoundingClientRect().width}};
+    for (let item of sliderWrap.querySelectorAll('div')) {widthAllElems = widthAllElems +item.getBoundingClientRect().width};
 
-    console.log('widthBeforeElems', widthBeforeElems)
+    widthAfterElems = (sliderWidth - clickElemWidth)/2;
+
+
+    console.log('widthBeforeElems',widthAfterElems, sliderWrap.querySelectorAll('div')[3].getBoundingClientRect().width)
 
     switch(place) {
         case 1:
@@ -23,12 +29,13 @@ const mobileMenuMoves = (place, elem) => {
             } else {
                 position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
             }
-
-            console.log('11111111111',place)
             break;
         case 3:
-            position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
-            console.log('11111111111',place)
+            if((sliderWidth - clickElemWidth)/2 > sliderWrap.querySelectorAll('div')[3].getBoundingClientRect().width) {
+                position = widthBeforeElems - (sliderWidth - clickElemWidth) + sliderWrap.querySelectorAll('div')[3].getBoundingClientRect().width;
+            } else {
+                position = widthBeforeElems - ((sliderWidth-clickElemWidth)/2);
+            }
             break;
         case 4:
             position = widthBeforeElems - (sliderWidth - clickElemWidth);
