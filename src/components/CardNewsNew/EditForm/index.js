@@ -74,7 +74,6 @@ const EditForm = ({ id, text, img, videoLink, documents, history, isAd, adBreedI
 
     return (
         <>
-            11111111111111111111111
             <Form
                 className="article-edit"
                 withLoading={true}
