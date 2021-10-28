@@ -24,6 +24,11 @@ const Contacts = ({ contacts, is_public, errors }) => {
         }
     };
 
+  const handleChange = (index) => {
+    contacts.map(elem => elem.is_main = false);
+    contacts[index].is_main = true
+  }
+
     return <Card className="Contacts">
         <h3>Контакты</h3>
 
@@ -46,6 +51,7 @@ const Contacts = ({ contacts, is_public, errors }) => {
                             <div className="Contacts__checkbox-wrap">
                                 <div>Основной</div>
                                 <FormField
+                                    onChange={() => handleChange(index)}
                                     name={`contacts[${index}].is_main`}
                                     fieldType="customCheckbox"
                                 />
