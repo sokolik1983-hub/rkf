@@ -94,6 +94,7 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                         ranks={filters.ranks}
                                         ranks_ids={filtersValue.RankIds}
                                         onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                        searchTypeId={filtersValue.SearchTypeId}
                                     />
                                 }
 
