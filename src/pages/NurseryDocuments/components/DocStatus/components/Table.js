@@ -140,7 +140,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
     const scrollCunt = () => {
         let count = scrollClose;
         count++;
-        return setScrollClose(count);
+        setScrollClose(count);
     };
 
     return (
