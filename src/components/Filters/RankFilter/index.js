@@ -5,7 +5,7 @@ import CustomFilterSelect from "../../CustomFilterSelect";
 import "./index.scss";
 
 
-const RankFilter = ({ranks = [], ranks_ids, onChange}) => {
+const RankFilter = ({ranks = [], ranks_ids, onChange, searchTypeId}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(true);
@@ -19,10 +19,13 @@ const RankFilter = ({ranks = [], ranks_ids, onChange}) => {
         onChange(options.map(option => option.value));
     };
 
+    const placeholder = `Начните вводить ${searchTypeId ? 'статус' : 'ранг'}`;
+    const noOptionsMessage = `${searchTypeId ? 'Статус' : 'Ранг'} не найден`;
+
     return (
         <Card className="ranks-filter">
             <div className="ranks-filter__head" onClick={() => setIsOpen(!isOpen)}>
-                <h5 className="ranks-filter__title">Ранги</h5>
+                <h5 className="ranks-filter__title">{searchTypeId ? 'Статус'  : 'Ранги'}</h5>
                 <span className={`ranks-filter__chevron${isOpen ? ' _dropdown_open' : ''}`}/>
             </div>
             <CSSTransition
@@ -34,8 +37,8 @@ const RankFilter = ({ranks = [], ranks_ids, onChange}) => {
                 <div className="ranks-filter__wrap">
                     <CustomFilterSelect
                         id="ranks"
-                        placeholder="Начните вводить ранг"
-                        noOptionsMessage="Ранг не найдена"
+                        placeholder={placeholder}
+                        noOptionsMessage={noOptionsMessage}
                         options={[...values, ...optionsNotInValues]}
                         values={values}
                         onChange={handleChange}
