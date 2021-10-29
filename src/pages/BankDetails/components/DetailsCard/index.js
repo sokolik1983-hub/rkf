@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from '../../../../components/Card';
 import { Link } from "react-router-dom";
 import { Request } from "../../../../utils/request";
@@ -57,15 +57,15 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                 {isUserCard && <span style={{ display: 'inline-block' }}>Для просмотра реквизитов выберите одну из необходимых Федераций.</span>}
             </p>
             {!isUserCard && <>
-                <a
-                    href={`${requisitesLink}`}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='details-card__link'
-                    style={{ marginRight: '20px' }}
-                >
-                    Реквизиты
-                </a>
+                    <a
+                        href={`${requisitesLink}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='details-card__link'
+                        style={{ marginRight: '20px' }}
+                    >
+                      Реквизиты
+                    </a>
 
                 <a
                     href={`${amountСontributions}`}
