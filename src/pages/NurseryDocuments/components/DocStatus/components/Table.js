@@ -28,7 +28,6 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal, scrollC
     const [open, setOpen] = useState(false);
     const { id, status_id, date_archive } = dataItem;
     const { route } = useParams();
-    console.log('workkkkkkkkkkkkk')
     const options = [
         {
             text: 'Подробнее',
@@ -141,9 +140,8 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
     const scrollCunt = () => {
         let count = scrollClose;
         count++;
-        console.log(count)
-        return setScrollClose(count)
-    }
+        return setScrollClose(count);
+    };
 
     return (
         <LocalizationProvider language="ru-RU">
