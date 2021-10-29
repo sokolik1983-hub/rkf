@@ -5,7 +5,9 @@
 .ya-share2 span:hover {
     color: #3366ff!important;
 }
-
+.ya-share2__popup {
+  z-index: 1!important;
+}
 .ya-share2_inited {
     display: inline-block!important;
 }
