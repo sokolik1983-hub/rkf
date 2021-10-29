@@ -37,7 +37,7 @@ export const newsArticleFormConfig = {
         },
         advert_type_id: {
             name: 'advert_type_id',
-            label: 'Категория объявления'
+            label: 'Категория Куплю/Продам'
         }
     }
 };
