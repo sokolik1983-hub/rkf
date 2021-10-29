@@ -60,7 +60,7 @@
   }
   .slick-slide {
     display: flex;
-    margin: 0 6px;
+    margin: 0 8px;
     @media (max-width: 1220px) {
       margin: 0 12px;
     }
@@ -109,7 +109,7 @@
 
   &.exhibitions-homepage {
     width: 1184px;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 0 auto;
     @media (max-width: 1250px) {
       width: 100%;
       padding: 0 24px;
