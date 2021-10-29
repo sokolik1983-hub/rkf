@@ -10,3 +10,7 @@ label.disabled {
 .btn.nomargin {
     margin-bottom: 0!important;
 }
+
+.hidden-label div:last-of-type label:last-of-type {
+    display: none;
+}
