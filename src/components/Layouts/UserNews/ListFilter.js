@@ -40,7 +40,7 @@ const ListFilter = ({ setFilters, setNeedRequest, isFederation }) => {
                             <span
                                 className={`ListFilter__item${activeType === 'advert' ? ' _active' : ''}`}
                                 onClick={() => handleClick('advert')}
-                            >Объявления</span>
+                            >Куплю/Продам</span>
                         </li>
                         {
                             isFederation && <li>
