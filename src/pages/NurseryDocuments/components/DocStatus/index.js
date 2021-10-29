@@ -130,6 +130,21 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                 setExporting={setExporting}
                 fullScreen
             />
+                {showModal && <Modal
+                    showModal={!!showModal}
+                    headerName={'Заявители'}
+                    handleClose={() => setShowModal(false)}
+                    noBackdrop={true}
+                    hideCloseButton={true}
+                    className="status-table__modal"
+                >
+                    <Declarants
+                        id={showModal}
+                        distinction={distinction}
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        needUpdateTable={needUpdateTable}
+                    />
+                </Modal>}
         </Card> :
             <Card className="nursery-documents-status">
                 <div className="nursery-documents-status__head">

@@ -11,6 +11,7 @@ import CustomCheckbox from "../../../../components/Form/CustomCheckbox";
 import moment from "moment";
 import CardMessage from "../../../../components/CardMessage";
 import { blockContent } from '../../../../utils/blockContent';
+
 import "./index.scss";
 
 
@@ -129,6 +130,23 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 setExporting={setExporting}
                 fullScreen
             />
+                {showModal && <Modal
+                    showModal={!!showModal}
+                    headerName={'Заявители'}
+                    handleClose={() => setShowModal(false)}
+                    outsideClickHandler={() => setShowModal(false)}
+                    noBackdrop={true}
+                    hideCloseButton={true}
+                    className="status-table__modal"
+                >
+                    <Declarants
+                        id={showModal}
+                        distinction={distinction}
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        needUpdateTable={needUpdateTable}
+                    />
+                </Modal>}
+
         </Card> :
             <Card className="club-documents-status">
                 <div className="club-documents-status__head">

@@ -15,6 +15,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
     const [isImageDelete, setIsImageDelete] = useState(false);
     const [showAlert, setShowAlert] = useState('');
 
+
     useEffect(() => {
         Request({
             url: apiBreedsEndpoint,
@@ -80,6 +81,8 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                 withLoading={true}
                 onSuccess={() => history.replace(`/news/${id}`)}
                 onError={onError}
+                isEditPage
+                history={history}
                 transformValues={transformValues}
                 initialValues={{
                     ...defaultValues,
