@@ -8,9 +8,11 @@ const CustomFilterSelect = ({options = [], values, onChange, placeholder, noOpti
     const [searchText, setSearchText] = useState('');
 
     const filterOptions = opts => opts.filter(option =>
-        ~option.label.toLowerCase().indexOf(searchText.toLowerCase()) ||
+        !!option.full_name ? (
+            ~option.label.toLowerCase().indexOf(searchText.toLowerCase()) ||
             ~option.full_name.toLowerCase().indexOf(searchText.toLowerCase())
-        );
+        ) : ~option.label.toLowerCase().indexOf(searchText.toLowerCase())
+    );
 
     const handleChange = option => {
         if(searchText) setSearchText('');
