@@ -155,7 +155,7 @@ const CardSpecialist = ({
                                                         key={index}
                                                     >
                                                         { rank }
-                                                        { index < arr.length - 1 && "," }&nbsp;
+                                                        { rank !== 'САС в России и за рубежом' && index < arr.length - 1 && "," }&nbsp;
                                                     </span>
                                                 )
                                             }) }
