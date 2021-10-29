@@ -74,6 +74,11 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                     break;
                 case "club":
                     clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                    clubInfoArray.forEach(item => {
+                        if(item.title !== "Мероприятия") {
+                            item.to = `/club${item.to}`
+                        }
+                    })
                     setRoutes(clubInfoArray);
                     break;
                 default:
