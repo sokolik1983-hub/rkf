@@ -11,6 +11,7 @@ import CustomCheckbox from "../../../../components/Form/CustomCheckbox";
 import moment from "moment";
 import CardMessage from "../../../../components/CardMessage";
 import { blockContent } from '../../../../utils/blockContent';
+
 import "./index.scss";
 
 
@@ -23,8 +24,6 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
     const [exporting, setExporting] = useState(false);
     const [isArchivePkg, setIsArchivePkg] = useState(false);
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
-
-    console.log('standardView', standardView)
 
     useEffect(() => {
         (() => Request({
@@ -150,7 +149,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
 
         </Card> :
             <Card className="club-documents-status">
-                <div className="club-documents-status__head 222222222222">
+                <div className="club-documents-status__head">
                     <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                     &nbsp;/&nbsp;
                     {distinction === 'pedigree'
