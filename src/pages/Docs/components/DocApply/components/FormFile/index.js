@@ -38,7 +38,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
 }}>
     <FormInput className="FormFile" name={`${name}_id`}>
             <label>{!!label ? label : "\u00a0"} {form && "("}{form && <a download={form.filename} href={form.href}>{form.linkText}</a>}{form && ")"}</label>
-<FormGroup inline>
+<FormGroup inline className="hidden-label">
     <HideIf cond={disabled || loading}>
                 <label htmlFor={`${name}_id`} disabled={!document_type_id} className={`btn nomargin btn-primary ${!document_type_id ? 'disabled' : ''}`}>
 <input className="hidden-file" id={`${name}_id`} name={name} disabled={!document_type_id} accept={accept} type="file"
