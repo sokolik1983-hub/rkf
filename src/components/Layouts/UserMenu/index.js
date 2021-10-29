@@ -84,6 +84,15 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                 default:
                     break;
             }
+            if (user_type === 3) {
+                clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                clubInfoArray.forEach(item => {
+                    if(item.title !== "Мероприятия") {
+                        item.to = `/club${item.to}`
+                    }
+                });
+                setRoutes(clubInfoArray);
+            }
         }
         }, [clubInfo, userInfo]);
     return (
