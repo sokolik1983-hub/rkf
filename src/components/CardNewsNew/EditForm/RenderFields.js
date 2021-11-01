@@ -89,7 +89,6 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     };
 
     const handleDeleteDocument = index => {
-        console.log('here');
         setDocs([...docs].filter((item, i) => i !== index));
     };
 
