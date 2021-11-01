@@ -30,10 +30,9 @@ const CardOrganization = ({
                               site,
                               setFilters
                           }) => {
-    // const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
-    //     (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
+    const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
+        (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
 
-    const url = false;
     return (
         <Card className="card-organization">
             <div className="card-organization__content">
@@ -57,102 +56,98 @@ const CardOrganization = ({
                                             <Link to={ url } className="card-organization__name"
                                                   title={ name || 'Название отсутствует' }>
                                                 { (user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                                <>
-                                                <span>
-                                                    { user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : '' }
-                                                </span>
-                                                    &nbsp;
-                                                </>
+                                                    <>
+                                                        <span>
+                                                            { user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : '' }
+                                                        </span>
+                                                            &nbsp;
+                                                    </>
                                                 }
 
                                                 <span>{ name || 'Название отсутствует' }</span>
                                             </Link>
 
                                             <span className="card-organization__mark">
-                                        { active_rkf_user &&
-                                        <ActiveUserMark/>
-                                        }
+                                                { active_rkf_user &&
+                                                    <ActiveUserMark/>
+                                                }
 
                                                 { active_member &&
                                                 <FederationChoiceMark/>
                                                 }
-                                    </span>
-
+                                            </span>
                                         </div>
                                     </div>
 
                                     { (user_type !== 0 && user_type !== 5 && user_type !== 7) &&
+                                        <div className="card-organization__info-item">
+                                            <span>
+                                                { federation_name && federation_alias ?
+                                                    <Link to={ `/${ federation_alias }` }>{ federation_name }</Link> : 'Федерация не указана'
+                                                }
+                                            </span>
 
-                                    <div className="card-organization__info-item">
-                                    <span>
-                                        { federation_name && federation_alias ?
-                                            <Link
-                                                to={ `/${ federation_alias }` }>{ federation_name }</Link> : 'Федерация не указана'
-                                        }
-                                    </span>
-
-                                        { city_name &&
-                                        <span className="card-organization__city" title={ city_name }
-                                              onClick={ () => setFilters ? setFilters({ city_ids: [city_id] }) : null }>
-                                            { city_name }
-                                        </span>
-                                        }
-                                    </div>
+                                            { city_name &&
+                                                <span className="card-organization__city" title={ city_name }
+                                                      onClick={ () => setFilters ? setFilters({ city_ids: [city_id] }) : null }>
+                                                    { city_name }
+                                                </span>
+                                            }
+                                        </div>
                                     }
                                 </div>
                                 <div>
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
-                                            <span
-                                                className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
+                                            <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
 
                                             <span>
-                            { owner_name ?
-                                url ?
-                                    <Link to={ url }>{ owner_name }</Link> :
-                                    owner_name :
-                                'Не указано'
-                            }
-                        </span>
+                                                { owner_name ?
+                                                    url ?
+                                                        <Link to={ url }>{ owner_name }</Link> :
+                                                        owner_name :
+                                                    'Не указано'
+                                                }
+                                            </span>
                                         </div>
 
                                         { user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
-                                        <div className="card-organization__info-item">
-                                            <span className="card-organization__subtitle">Телефон</span>&nbsp;
+                                            <div className="card-organization__info-item">
+                                                <span className="card-organization__subtitle">Телефон</span>&nbsp;
 
-                                            <span>{ phones.join(`, `) }</span>
-                                        </div>
+                                                <span>{ phones.join(`, `) }</span>
+                                            </div>
                                         }
 
                                         { user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
-                                        <div className="card-organization__info-item">
-                                            <span className="card-organization__subtitle">E-mail</span>&nbsp;
+                                            <div className="card-organization__info-item">
+                                                <span className="card-organization__subtitle">E-mail</span>&nbsp;
 
-                                            <span>{ mails.join(`, `) }</span>
-                                        </div>
+                                                <span>{ mails.join(`, `) }</span>
+                                            </div>
                                         }
 
                                         { user_type === 7 && site &&
-                                        <div className="card-organization__info-item">
-                                            <span className="card-organization__subtitle">Сайт</span>&nbsp;
+                                            <div className="card-organization__info-item">
+                                                <span className="card-organization__subtitle">Сайт</span>&nbsp;
 
-                                            <a href={ site.includes('http') ? site : `http://${ site }` }
-                                               target="_blank" rel="noopener noreferrer">{ site }</a>
-                                        </div>
+                                                <a href={ site.includes('http') ? site : `http://${ site }` }
+                                                   target="_blank" rel="noopener noreferrer">{ site }</a>
+                                            </div>
                                         }
 
                                         { user_type === 4 && breeds && !!breeds.length &&
-                                        <div className="card-organization__info-item">
-                                            <span className="card-organization__subtitle">Породы</span>&nbsp;
+                                            <div className="card-organization__info-item">
+                                                <span className="card-organization__subtitle">Породы</span>&nbsp;
 
-                                            <span>{ breeds.slice(0, 4).join(`, `) }</span>
-                                        </div>
+                                                <span>{ breeds.slice(0, 4).join(`, `) }</span>
+                                            </div>
                                         }
                                     </div>
 
-                                    <p className="card-organization__text">
+                                    <div className="card-organization__text">
                                         { content }
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </div> :
@@ -165,89 +160,86 @@ const CardOrganization = ({
                             <div className="card-organization__container">
                                 <div className="card-organization__heading">
                                     <span className="card-organization__name" title={ name || 'Название отсутствует' }>
-                                { (user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                <>
-                                        <span>
-                                            { user_type === 3
-                                                ? 'Клуб'
-                                                : user_type === 4
-                                                    ? 'Питомник' : user_type === 5
-                                                        ? 'Федерация' : user_type === 7
-                                                            ? 'НКП' : ''
-                                            }
-                                        </span>
-                                    &nbsp;
-                                </>
-                                }
+                                        { (user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
+                                            <>
+                                                <span>
+                                                    { user_type === 3
+                                                        ? 'Клуб'
+                                                        : user_type === 4
+                                                            ? 'Питомник' : user_type === 5
+                                                                ? 'Федерация' : user_type === 7
+                                                                    ? 'НКП' : ''
+                                                    }
+                                                </span>
+                                                &nbsp;
+                                            </>
+                                        }
 
                                         <span>{ name || 'Название отсутствует' }</span>
-                            </span>
+                                    </span>
 
                                     <div className="card-organization__icons">
-                                    { active_rkf_user &&
-                                        <ActiveUserMark/>
+                                        { active_rkf_user &&
+                                            <ActiveUserMark/>
                                         }
 
                                         { active_member &&
-                                        <FederationChoiceMark/>
+                                            <FederationChoiceMark/>
                                         }
                                     </div>
                                 </div>
 
-
-
                                 <div className="card-organization__info">
                                     <div className="card-organization__info-item">
-                                    <span
-                                        className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
+                                    <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
 
-                                        <span>
-                            { owner_name ?
-                                url ?
-                                    <Link to={ url }>{ owner_name }</Link> :
-                                    owner_name :
-                                'Не указано'
-                            }
-                        </span>
-                                    </div>
+                                    <span>
+                                        { owner_name ?
+                                            url ?
+                                                <Link to={ url }>{ owner_name }</Link> :
+                                                owner_name :
+                                            'Не указано'
+                                        }
+                                    </span>
+                                </div>
 
                                     { user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
-                                    <div className="card-organization__info-item">
-                                        <span className="card-organization__subtitle">Телефон</span>&nbsp;
+                                        <div className="card-organization__info-item">
+                                            <span className="card-organization__subtitle">Телефон</span>&nbsp;
 
-                                        <span>{ phones.join(`, `) }</span>
-                                    </div>
+                                            <span>{ phones.join(`, `) }</span>
+                                        </div>
                                     }
 
                                     { user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
-                                    <div className="card-organization__info-item">
-                                        <span className="card-organization__subtitle">E-mail</span>&nbsp;
+                                        <div className="card-organization__info-item">
+                                            <span className="card-organization__subtitle">E-mail</span>&nbsp;
 
-                                        <span>{ mails.join(`, `) }</span>
-                                    </div>
+                                            <span>{ mails.join(`, `) }</span>
+                                        </div>
                                     }
 
                                     { user_type === 7 && site &&
-                                    <div className="card-organization__info-item">
-                                        <span className="card-organization__subtitle">Сайт</span>&nbsp;
+                                        <div className="card-organization__info-item">
+                                            <span className="card-organization__subtitle">Сайт</span>&nbsp;
 
-                                        <a href={ site.includes('http') ? site : `http://${ site }` } target="_blank"
-                                           rel="noopener noreferrer">{ site }</a>
-                                    </div>
+                                            <a href={ site.includes('http') ? site : `http://${ site }` } target="_blank"
+                                               rel="noopener noreferrer">{ site }</a>
+                                        </div>
                                     }
 
                                     { user_type === 4 && breeds && !!breeds.length &&
-                                    <div className="card-organization__info-item">
-                                        <span className="card-organization__subtitle">Породы</span>&nbsp;
+                                        <div className="card-organization__info-item">
+                                            <span className="card-organization__subtitle">Породы</span>&nbsp;
 
-                                        <span>{ breeds.slice(0, 4).join(`, `) }</span>
-                                    </div>
+                                            <span>{ breeds.slice(0, 4).join(`, `) }</span>
+                                        </div>
                                     }
                                 </div>
 
-                                <p className="card-organization__text">
+                                <div className="card-organization__text">
                                     { content }
-                                </p>
+                                </div>
                             </div>
                         </div>
                     }
