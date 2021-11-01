@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import Button from "components/Button";
-import Modal from "components/Modal";
-import Loading from "components/Loading";
+import React, {useEffect, useState} from "react";
+
 import "./index.scss";
 
 const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
 
 const DocLink = ({ docId, label, showLabel, distinction }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
-    const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
-    const get = () => {
+
+    const getUrl = () => {
         if (isNaN(docId) || !docId)
             return;
         setUrl('');
@@ -20,13 +18,17 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
         .then(url => setUrl(url));
     }
 
+    useEffect(() => {
+        if (docId) {
+            getUrl()
+        }
+    }, [docId]);
+
+
     return <>
-        <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
-            {url ? <embed src={url}/> : <Loading/>}
-        </Modal>
         {!!docId && <div>
             <label>{showLabel ? label : "\u00a0"}</label>
-            <Button className="btn nomargin" onClick={e => {setShowModal(true); get();}}>Посмотреть</Button>
+            <a href={url} target="_blank" rel="noopener noreferrer" className="btn__look btn nomargin" >Посмотреть</a>
         </div>}
     </>;
 }

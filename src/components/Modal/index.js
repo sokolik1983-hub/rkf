@@ -5,7 +5,7 @@ import {blockContent} from "../../utils/blockContent";
 
 import './styles.scss';
 
-const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, className, headerName, iconName}) => {
+const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, className, headerName, iconName='default-modal-white'}) => {
     useEffect(() => {
         blockContent(showModal);
     }, [showModal]);
@@ -28,7 +28,6 @@ const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, 
                             {children}
                         </div>
                     </div>
-                    {/*<div className="Modal__close-text" onClick={handleClose}>Закрыть</div>*/}
                 </OutsideClickHandler>
             </div>, document.body
         )

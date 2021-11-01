@@ -17,6 +17,9 @@
     margin-bottom: 8px;
     padding-bottom: 8px;
     white-space: nowrap;
+    @media (max-width: 420px) {
+      flex-direction: column;
+    }
     &-title {
       font-weight: normal;
       font-size: 18px;

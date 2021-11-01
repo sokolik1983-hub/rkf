@@ -14,12 +14,13 @@
   max-width: 302px;
   @media (max-width: 1080px) {
     max-width: 100%;
+    width: 100%;
     position: fixed;
     top: 50px;
     right: 0;
     z-index: 99;
     padding: 16px;
-    height: calc(100% - 60px);
+    height: 100%;
     overflow-y: auto;
     visibility: hidden;
     transform: translateX(100%);
@@ -32,8 +33,9 @@
   }
   &__wrap {
     overflow: hidden;
-    @media (min-width: 990px) {
+    @media (max-width: 990px) {
       margin-bottom: 16px;
+      padding-bottom: 20px;
     }
     & .Card:first-child {
       margin-bottom: 16px;

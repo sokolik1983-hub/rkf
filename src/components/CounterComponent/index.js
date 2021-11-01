@@ -5,6 +5,7 @@ import "./styles.scss";
 
 const Counter = ({ counters, profileAlias }) => {
 
+    const alias = profileAlias.search('kennel') === 1 || profileAlias.search('user') === 1 ? profileAlias : `/${profileAlias}`
 
     return (
         !!counters &&
@@ -15,36 +16,36 @@ const Counter = ({ counters, profileAlias }) => {
                         <p>{counters.publications_count}</p>
                     </div>
                     <div className="counter_component__name">
-                        публикаций
+                        Публикации
                     </div>
                 </div>
-                <Link to={`/${profileAlias}/gallery`}>
+                <Link to={`${alias}/gallery`}>
                     <div className="counter_component__block">
                         <div className="counter_component__count">
                             <p>{counters.photos_count}</p>
                         </div>
                         <div className="counter_component__name">
-                            фото
+                            Фото
                         </div>
                     </div>
                 </Link>
-                <Link to={`/${profileAlias}/uploaded-documents`}>
+                <Link to={`${alias}/uploaded-documents`}>
                     <div className="counter_component__block">
                         <div className="counter_component__count">
                             <p>{counters.documents_count}</p>
                         </div>
                         <div className="counter_component__name">
-                            документов
+                            Документы
                         </div>
                     </div>
                 </Link>
-                <Link to={`/${profileAlias}/video`}>
+                <Link to={`${alias}/video`}>
                     <div className="counter_component__block">
                         <div className="counter_component__count">
                             <p>{counters.videos_count}</p>
                         </div>
                         <div className="counter_component__name">
-                            видео
+                            Видео
                         </div>
                     </div>
                 </Link>
@@ -55,8 +56,8 @@ const Counter = ({ counters, profileAlias }) => {
                             <p>{counters.breeds_count}</p>
                         </div>
                         <div className="counter_component__name">
-                            пород
-                        </div>/
+                            Породы
+                        </div>
                     </div>
                 }
                 {
@@ -68,7 +69,7 @@ const Counter = ({ counters, profileAlias }) => {
                                 <p>{counters.exhibitions_count}</p>
                             </div>
                             <div className="counter_component__name">
-                                мероприятий
+                                Мероприятия
                             </div>
                         </div>
                     </NavLink>

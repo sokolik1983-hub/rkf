@@ -13,11 +13,6 @@
     top: 0;
     right: 0;
     transform: translateX(110%);
-    @media (max-width: 560px) {
-      top: 60%;
-      left: 0;
-      transform: translateX(0);
-    }
   }
   &__header {
     position: relative;
@@ -44,8 +39,8 @@
     text-decoration: none;
     display: flex;
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
+    width: 63px;
+    height: 63px;
     border-radius: 50%;
     margin: 0 10px 0 0;
     background-position: center;
@@ -83,9 +78,6 @@
     }
     &-inner {
       position: relative;
-      @media (max-width: 560px) {
-        position: initial;
-    }
     }
   }
   &__active-member {
@@ -95,7 +87,7 @@
   &__city {
     position: relative;
     padding-left: 16px;
-    margin-left: 10px;
+    //margin-left: 10px;
     line-height: 20px;
     letter-spacing: 0.2px;
     color: #72839c;
@@ -120,10 +112,6 @@
         background: url("/static/icons/pin.svg") center no-repeat;
         background-size: contain;
       }
-    }
-    @media (max-width: 560px) {
-      margin: 0 0 10px 45px;
-      order: 2;
     }
   }
   &__subtitle {
@@ -171,11 +159,7 @@
     }
   }
   &__controls {
-    padding-top: 7px;
-    border-top: 1px solid #e8e8e8;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-top: 10px;
   }
   &__show-all {
     text-decoration: none;
@@ -188,21 +172,6 @@
     }
     &._disabled {
       color: #b9c1ce !important;
-    }
-  }
-  .Share {
-    .ya-share2__icon_more {
-      height: 16px;
-      background-color: white;
-      &:after {
-        width: 16px;
-        height: 16px;
-        top: 0;
-        background: #fff url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
-      }
-      &:hover:after {
-        background: #fff url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
-      }
     }
   }
 }

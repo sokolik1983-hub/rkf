@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
 import { setFiltersToUrl } from "../../../../utils";
-import "./index.scss";
 import mobileMenuMoves from "../../../../../../utils/mobileMenuMoves";
+
+import "./index.scss";
+
 
 const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExporting, exporting, setStandardView }) => {
     const clientWidth = window.innerWidth;
     const [activeType, setActiveType] = useState(0);
+    const wrap = useRef();
 
     useEffect(() => {
         setActiveType(+categoryId);
@@ -21,9 +24,7 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
         if (type === 4 || (activeType === 4 && type !== 4)) {
             setFiltersToUrl({ CityIds: [] });
         }
-        if (clientWidth < 600) {
-            mobileMenuMoves(place, e.target)
-        }
+        mobileMenuMoves(place, e.target, wrap);
     };
 
 
@@ -57,54 +58,17 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
 
                </div>
            </div>
-
             <HorizontalSwipe id="exhibitions-list-filter">
-                {
-                    (clientWidth < 600)
-                        ? (
-                            <div className="slider">
-                                <HorizontalSwipe id="slider-wrap" className="slider-wrap">
-                                    <div className={activeType === 0 ? ' _active' : ''} onClick={(e) => handleClick(0, e, 1)}>Все</div>
-                                    <div className={activeType === 1 ? ' _active' : ''} onClick={(e) => handleClick(1, e, 2)}>Выставочные мероприятия</div>
-                                    <div className={activeType === 2 ? ' _active' : ''}  onClick={(e) => handleClick(2, e,  3)}>Племенные мероприятия</div>
-                                    <div className={activeType === 3 ? ' _active' : '_disabled'}
-                                         // onClick={(e) => handleClick(3, e, 4)}
-                                    >Состязания и испытания <br /> рабочих качеств</div>
-                                </HorizontalSwipe>
-                            </div>
-                        ) : (<ul className="list-filter">
-                        <li className="list-filter__item">
-                        <span
-                            className={`list-filter__control${activeType === 0 ? ' _active' : ''}`}
-                            onClick={() => handleClick(0)}
-                        >Все</span>
-                        </li>
-                        <li className="list-filter__item">
-                        <span
-                            className={`list-filter__control${activeType === 1 ? ' _active' : ''}`}
-                            onClick={() => handleClick(1)}
-                        >Выставочные мероприятия</span>
-                        </li>
-                        <li className="list-filter__item">
-                        <span
-                            className={`list-filter__control${activeType === 2 ? ' _active' : ''}`}
-                            onClick={() => handleClick(2)}
-                        >Племенные мероприятия</span>
-                        </li>
-                        <li className="list-filter__item">
-                        <span
-                            className={`list-filter__control${activeType === 3 ? ' _active' : ' _disabled'}`}
-                            // onClick={() => handleClick(3)}
-                        >Состязания и испытания рабочих качеств</span>
-                        </li>
-                        {/* <li className="list-filter__item">
-                        <span
-                            className={`list-filter__control${activeType === 4 ? ' _active' : ''}`}
-                            onClick={() => handleClick(4)}
-                        >Обучение</span>
-                    </li> */}
-                    </ul>)
-                }
+                <div className="slider" ref={wrap}>
+                    <HorizontalSwipe id="slider-wrap1" className="slider-wrap">
+                         <div className={activeType === 0 ? ' _active' : ''} onClick={(e) => handleClick(0, e, 1)}>Все</div>
+                         <div className={activeType === 1 ? ' _active' : ''} onClick={(e) => handleClick(1, e, 2)}>Выставочные мероприятия</div>
+                         <div className={activeType === 2 ? ' _active' : ''}  onClick={(e) => handleClick(2, e,  3)}>Племенные мероприятия</div>
+                         <div className={activeType === 3 ? ' _active' : '_disabled'}
+                              // onClick={(e) => handleClick(3, e, 4)}
+                         >Состязания и испытания <br /> рабочих качеств</div>
+                    </HorizontalSwipe>
+                </div>
             </HorizontalSwipe>
         </div>
     )

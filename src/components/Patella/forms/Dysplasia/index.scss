@@ -3,10 +3,78 @@
         margin-left: 10px;
         margin-right: 16px;
     }
-    margin-top: 10px;
+    margin-top: 8px;
     height: 50px;
     .k-input {
         margin-top: 10px;
         margin-left: 5px;
     }
+
 }
+.DocItem__xray-agreement-wrap div:first-child {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    @media (max-width: 1079px) {
+        display: flex;
+    }
+}
+.DocItem__pedigree-number_search  {
+    display: grid;
+    grid-template-columns: 2.75fr 157px 2fr;
+    margin-top: 20px;
+    margin-bottom: 20px!important;
+}
+.DocItem__pedigree-agreement-wrap div:first-child {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    @media (max-width: 1079px) {
+        display: flex;
+        grid-template-rows: none;
+    }
+}
+
+@media (max-width: 1079px) {
+    span {
+        display: block;
+    }
+
+        .DocItem__xray-agreement-wrap {
+            display: block;
+            div {
+                min-width:100%;
+            }
+        }
+        .DocItem__pedigree-agreement-wrap {
+            display: block;
+            & div {
+                width: 100% !important;
+            }
+        }
+        .DocItem__pedigree-number_search {
+            display: inline-block;
+            width: 100%;
+            margin-top: 0;
+            :first-child {
+                margin-right: 0!important;
+            }
+            button {
+                width: 141px;
+            }
+        }
+        .DocItem__payer-info-wrap {
+            display: block;
+            :first-child {
+                margin-right: 0!important;
+            }
+        }
+        .DocItem__payment-receipt-wrap {
+            display: block;
+        }
+        .DocItem__dysplasia-payment-wrap {
+            margin: 0!important;
+        }
+        .DocItem__dysplasia-payment {
+            width: 100%;
+        }
+    }
+

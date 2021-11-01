@@ -1,18 +1,32 @@
-import React, {memo, useState} from "react";
+import React, {memo, useState, useEffect} from "react";
 import {CSSTransition} from "react-transition-group";
 import Card from "../../Card";
-import CustomCheckbox from "../../Form/CustomCheckbox";
+import CustomFilterSelect from "../../CustomFilterSelect";
 import "./index.scss";
 
 
-const RankFilter = ({ranks = [], rank_id, onChange}) => {
+const RankFilter = ({ranks = [], ranks_ids, onChange, searchTypeId}) => {
+    const [values, setValues] = useState([]);
+    const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(true);
 
+    useEffect(() => {
+        setOptionsNotInValues(ranks.filter(option => ranks_ids.indexOf(option.value) === -1));
+        setValues(ranks.filter(option => ranks_ids.indexOf(option.value) !== -1));
+    }, [ranks, ranks_ids]);
+
+    const handleChange = options => {
+        onChange(options.map(option => option.value));
+    };
+
+    const placeholder = `Начните вводить ${searchTypeId ? 'статус' : 'ранг'}`;
+    const noOptionsMessage = `${searchTypeId ? 'Статус' : 'Ранг'} не найден`;
+
     return (
-        <Card className="rank-filter">
-            <div className="rank-filter__head" onClick={() => setIsOpen(!isOpen)}>
-                <h5 className="rank-filter__title">Ранги</h5>
-                <span className={`rank-filter__chevron${isOpen ? ' _dropdown_open' : ''}`}/>
+        <Card className="ranks-filter">
+            <div className="ranks-filter__head" onClick={() => setIsOpen(!isOpen)}>
+                <h5 className="ranks-filter__title">{searchTypeId ? 'Статус'  : 'Ранги'}</h5>
+                <span className={`ranks-filter__chevron${isOpen ? ' _dropdown_open' : ''}`}/>
             </div>
             <CSSTransition
                 in={isOpen}
@@ -20,22 +34,15 @@ const RankFilter = ({ranks = [], rank_id, onChange}) => {
                 unmountOnExit
                 classNames="dropdown__filters"
             >
-                <div className="rank-filter__wrap">
-                    {ranks.length ?
-                        <ul className="rank-filter__list">
-                            {ranks.map(option =>
-                                <li className="rank-filter__item" key={`rank-${option.value}`}>
-                                    <CustomCheckbox
-                                        id={`rank-${option.value}`}
-                                        label={option.label}
-                                        checked={rank_id === option.value}
-                                        onChange={() => onChange(rank_id === option.value ? 0 : option.value)}
-                                    />
-                                </li>
-                            )}
-                        </ul> :
-                        <p className="rank-filter__no-options">Рангов не найдено</p>
-                    }
+                <div className="ranks-filter__wrap">
+                    <CustomFilterSelect
+                        id="ranks"
+                        placeholder={placeholder}
+                        noOptionsMessage={noOptionsMessage}
+                        options={[...values, ...optionsNotInValues]}
+                        values={values}
+                        onChange={handleChange}
+                    />
                 </div>
             </CSSTransition>
         </Card>

@@ -51,7 +51,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-align: right;
     &-control {
       position: relative;
@@ -139,14 +139,11 @@
       width: 100%;
     }
     &-inner {
-      position: relative;
+      position: initial;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
-      justify-content: space-between;
-      @media (max-width: 560px) {
-        position: initial;
-      }
+      flex-direction: column;
     }
     &-city {
       width: 100%;
@@ -176,8 +173,8 @@
     &-logo {
       display: flex;
       flex-shrink: 0;
-      width: 35px;
-      height: 35px;
+      width: 63px;
+      height: 63px;
       border-radius: 50%;
       margin: 0 10px 0 0;
     }
@@ -215,6 +212,7 @@
         line-height: 20px;
         color: #b9b9b9;
         display: flex;
+        margin-bottom: 2px;
         @media (max-width: 375px) {
           font-size: 14px;
         }
@@ -263,7 +261,7 @@
     letter-spacing: 0.2px;
     color: #72839c;
     white-space: nowrap;
-    margin-left: 8px;
+    cursor: pointer;
     &:before {
       content: "";
       position: absolute;
@@ -277,13 +275,13 @@
         height: 16px;
       }
     }
-    // &:hover {
-    //   color: #3366ff;
-    //   &:before {
-    //     background: url("/static/icons/pin.svg") center no-repeat;
-    //     background-size: contain;
-    //   }
-    // }
+     &:hover {
+       color: #3366ff;
+       &:before {
+         background: url("/static/icons/pin.svg") center no-repeat;
+         background-size: contain;
+       }
+     }
     @media (max-width: 560px) {
       display: block;
       text-align: left;
@@ -590,6 +588,7 @@
     }
   }
   .ya-share2__popup {
+    z-index: 0;
     right: -25px;
   }
 }

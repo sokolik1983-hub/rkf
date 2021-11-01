@@ -88,14 +88,12 @@
         }
         @media (max-width: 1080px) {
           top: 55px;
-          transform: translateY(1px);
           z-index: 1000;
         }
       }
       @media (max-width: 1080px) {
         position: absolute;
         display: block;
-        transform: translateY(-200px);
       }
       @media (max-width: 560px) {
         padding: 6px 0 6px 30px;
@@ -139,6 +137,10 @@
       text-align: center;
       z-index: 100;
       cursor: pointer;
+      left: 50%;
+      transform: translateX(-50%);
+      position: absolute;
+      bottom: -15px;
       &._open {
         color: #3366FF;
       }
@@ -200,9 +202,8 @@
       font-size: 12px;
       color: #979797;
       line-height: 0;
-      padding-top: 7px;
+      padding-top: 9px;
     }
-
     .open {
       svg path {
         fill: #3366ff;

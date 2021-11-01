@@ -16,9 +16,9 @@ const Authorization = ({ isAuthenticated, is_active_profile, user_type }) => {
         if (!is_active_profile && user_type === 3) return <Redirect to={'/not-confirmed'} />
         if (!is_active_profile && user_type === 4) return <Redirect to={'/kennel/activation'} />
 
-        if (is_active_profile && user_type === 3 && alias !== 'rkf') {
+        if (is_active_profile && user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') {
             return <Redirect to={`/club/${alias}`} />
-        } else if (is_active_profile && (user_type === 5 || alias === 'rkf')) {
+        } else if (is_active_profile && (user_type === 5 || alias === 'rkf' || alias === 'rkf-online')) {
             return <Redirect to={`/${alias}`} />
         } else if (is_active_profile && user_type === 4) {
             return <Redirect to={`/kennel/${alias}`} />

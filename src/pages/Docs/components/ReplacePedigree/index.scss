@@ -2,6 +2,7 @@
     .special .FormInput__input {
         width: 100%;
     }
+
     h3 {
         font-family: Source Sans Pro;
         font-style: normal;
@@ -11,9 +12,11 @@
         color: #253C5E;
         text-align: center;
     }
+
     .shadow {
         box-shadow: 0px 10px 20px rgba(51, 102, 255, 0.1);
     }
+
     .divider {
         background: #EBF0F2;
         width: 100%;
@@ -24,9 +27,11 @@
     & input, & .caps {
         text-transform: uppercase;
     }
+
     & .no-caps {
         text-transform: none;
     }
+
     .FormInput__custom-error, .FormInput__error {
         color: #FA5D50;
         position: absolute;
@@ -36,35 +41,48 @@
         white-space: nowrap;
         background-color: white;
     }
+
     .FormGroup .btn {
         align-self: flex-start;
         margin-bottom: 22px;
     }
+
     .FormGroup--inline {
         margin-bottom: 0;
     }
+
     .FormGroup--inline .btn {
         align-self: flex-end;
     }
+
     .red {
         //color: #FA5D50;
         color: #00c48c!important;
     }
+
     .hidden {
         display: none!important;
     }
+
     &.view {
         pointer-events: none;
         opacity: 0.75;
     }
+
     .FormInput {
         margin-bottom: 20px;
     }
+
     table {
         width: 100%;
         text-align: left;
         margin-bottom: 1rem;
         color: #212529;
+        @media (max-width: 820px) {
+            display: block;
+            overflow: scroll;
+        }
+
         td, th {
             padding: .75rem;
             vertical-align: top;
@@ -72,13 +90,16 @@
             font-weight: normal;
             color: #72839C;
         }
+
         thead th {
             vertical-align: bottom;
         }
+
         td {
             color: #253C5E;
         }
     }
+
     .alert {
         position: relative;
         padding: .75rem 1.25rem;
@@ -86,6 +107,7 @@
         border: 1px solid transparent;
         border-radius: .25rem;
     }
+
     .alert-danger {
         color: #721c24;
         background-color: #f8d7da;
@@ -96,28 +118,36 @@
         background-color: white;
         padding: 8px 14px;
     }
+
     .stage-controls .btn:first-child {
         margin-right: auto;
     }
+
     .stage-controls .btn:last-child {
         margin-right: 1em;
     }
+
     .stage-controls .btn-green.btn-light {
         background: transparent;
         color: #00c48c;
     }
+
     &.error {
         outline: 1px solid red;
     }
+
     .heading-row {
         justify-content: flex-start!important;
     }
+
     .heading-row * {
         margin-bottom: 0!important;
     }
+
     .heading-row h4 {
         margin-left: 0!important;
     }
+
     &__chevron {
         display: inline-block;
         vertical-align: middle;
@@ -126,34 +156,158 @@
         cursor: pointer;
         transform: rotate(0deg);
         transition: .2s transform;
+
         &.active {
             transform: rotate(-90deg);
         }
     }
+
     &.collapse {
         display: none;
     }
+
     &.active {
         display: table-row;
     }
+
     &.active .card {
         margin-bottom: 1em;
         margin-top: .5em;
     }
+
     .plus-button {
         position: relative;
         left: 7.5px;
     }
+
     &__payment {
         &-wrap {
             margin-left: 10px;
             margin-right: 16px;
         }
+
         margin-top: 10px;
         height: 50px;
         .k-input {
             margin-top: 10px;
             margin-left: 5px;
+        }
+    }
+
+    &__federation-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    &__personal-docs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .FormInput {
+            display: grid;
+            grid-template-rows: 2.1fr 1fr;
+        }
+    }
+
+    &__three-inline-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+
+    &__stamp-code_inline {
+        display: grid;
+        grid-template-columns: 50% 1fr 141px;
+    }
+
+    &__breed-name_inline {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+   &__pedigree-copy div:first-child, &__trunned-pedigree div:first-child {
+       display: grid;
+       grid-template-rows: 1fr 1fr;
+   }
+
+    @media (max-width: 1079px) {
+        &__federation-info {
+            display: inline-block;
+            width: 100%;
+        }
+
+        &__stamp-code_inline {
+            display: inline-block;
+            width: 100%;
+            & button {
+                width: 141px;
+            }
+        }
+
+        .FormInput {
+            margin-right: 0;
+        }
+
+        &__breed-name_inline {
+            display: inline-block;
+            width: 100%;
+        }
+
+        &__personal-docs {
+            display: block;
+
+            & div {
+                min-width: 100%;
+                &:last-of-type div {
+                    grid-template-rows: 1fr 1fr;
+                }
+            }
+        }
+
+        &__pedigree-copy  {
+            display: block;
+            & div {
+                min-width: 100%;
+                & :first-child {
+                   grid-template-rows: 1fr 1fr;
+                }
+            }
+        }
+        &__trunned-pedigree {
+            display: block;
+            & div {
+                min-width: 100%;
+                & :first-child {
+                    grid-template-rows: 2fr 1fr;
+                }
+            }
+        }
+
+        &__payment-receipt-wrap {
+            display: inline-block;
+            width: 100%;
+            & div:first-of-type {
+                width: 100% !important;
+                & label {
+                    margin-bottom: 15px;
+                }
+            }
+        }
+
+        &__payment {
+            min-width: 100%;
+            &-wrap {
+                margin: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        &__payer-info-wrap {
+            display: inline-block;
+            width: 100%;
         }
     }
 }

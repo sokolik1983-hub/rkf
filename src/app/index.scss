@@ -7,7 +7,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+body.hidden {
+  overflow-y: hidden;
+}
+body.auto {
+  overflow-y: auto;
+}
 h1,
 h2,
 h3,
@@ -54,4 +59,26 @@ a.lnkText:active {
 
 input::placeholder {
   color: #757575 !important;
+}
+
+// добавление стилей для корректного отображения цвета в Сафари
+.k-textbox {
+  -webkit-text-fill-color: #495057;
+  -webkit-opacity: 1;
+  color: #495057;
+}
+
+// добавление стилей для меню в таблице заявок
+.k-list .k-item,
+.k-list .k-item:focus,
+.k-list .k-item.k-state-focused,
+.k-list .k-item.k-state-focused:hover {
+  width: 100%;
+  padding: 0;
+  box-shadow: none;
+
+  & a,
+  & span {
+    padding: 0 16px;
+  }
 }

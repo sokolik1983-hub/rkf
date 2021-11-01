@@ -18,7 +18,8 @@ const buildUrlParams = filters => {
                 key === 'BreedIds' ||
                 key === 'SpecializationIds' ||
                 key === 'DisciplineIds' ||
-                key === 'ContestIds'
+                key === 'ContestIds'||
+                key === 'RankIds'
             ) {
                 if (filters[key].length) {
                     params = params + filters[key].map(item => `${key}=${item}&`).join('');
@@ -45,7 +46,7 @@ export const buildUrl = filters => {
 export const buildFiltersUrl = (filters, isFirstTime) => {
     return +filters.SearchTypeId === 4 ?
         `${endpointJudgesFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${filters.BreedGroupIds.map(b => `&BreedGroupIds=${b}`).join('')}&ReturnStaticFilters=${isFirstTime}&ReturnBreeds=true&ReturnCities=true` :
-        `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=${isFirstTime}`
+        `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=${isFirstTime}${filters.RankIds.map(rank => `&RankIds=${rank}`).join('')}${filters.DisciplineIds.map(discipline => `&DisciplineIds=${discipline}`).join('')}`
 };
 
 export const getFiltersFromUrl = () => {
@@ -67,10 +68,11 @@ export const getFiltersFromUrl = () => {
                 key === 'BreedIds' ||
                 key === 'SpecializationIds' ||
                 key === 'DisciplineIds' ||
-                key === 'ContestIds'
+                key === 'ContestIds' ||
+                key === 'RankIds'
             ) {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
-            } else if(key === 'SearchTypeId' || key === 'RankId' || key === 'ClassificationId') {
+            } else if(key === 'SearchTypeId' || key === 'ClassificationId') {
                 filtersFromUrl[key] = +value;
             } else {
                 filtersFromUrl[key] = value;
@@ -88,6 +90,7 @@ export const getFiltersFromUrl = () => {
 export const setFiltersToUrl = (filters, initial = false) => {
     const newFilters = getFiltersFromUrl() ? { ...getFiltersFromUrl(), ...filters } : filters;
     const targetUrl = (`/specialists${buildUrlParams(newFilters)}`);
+
     initial ? history.replace(targetUrl) : history.push(targetUrl);
 };
 
@@ -96,7 +99,7 @@ export const getEmptyFilters = () => ({
     CityIds: [],
     BreedGroupIds: [],
     BreedIds: [],
-    RankId: 0,
+    RankIds: [],
     ClassificationId: 0,
     SpecializationIds: [],
     DisciplineIds: [],

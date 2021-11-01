@@ -27,7 +27,7 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
         3: true,
         4: true
     });
-    
+
     const [filters, setFilters] = useState({
         regions: [],
         cities: [],
@@ -80,18 +80,21 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                             region_ids={filtersValue.RegionIds}
                             onChange={filter => setFiltersToUrl({RegionIds: filter})}
                         />
+
                         <CitiesFilter
                             cities={filters.cities}
                             city_ids={filtersValue.CityIds}
                             onChange={filter => setFiltersToUrl({CityIds: filter})}
                         />
+
                         {isJudges ?
                             <>
                                 {filtersValue.SearchTypeId !== 3 &&
                                     <RankFilter
                                         ranks={filters.ranks}
-                                        rank_id={filtersValue.RankId}
-                                        onChange={filter => setFiltersToUrl({RankId: filter})}
+                                        ranks_ids={filtersValue.RankIds}
+                                        onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                        searchTypeId={filtersValue.SearchTypeId}
                                     />
                                 }
 
@@ -106,11 +109,13 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                     breedGroupIds={filtersValue.BreedGroupIds}
                                     onChange={filter => setFiltersToUrl({BreedGroupIds: filter})}
                                 />
+
                                 <BreedsFilter
                                     breeds={filters.breeds}
                                     breed_ids={filtersValue.BreedIds}
                                     onChange={filter => setFiltersToUrl({BreedIds: filter})}
                                 />
+
                                 <ContestsFilter
                                     contests={filters.contests}
                                     contest_ids={filtersValue.ContestIds}
@@ -118,13 +123,6 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                 />
                             </> :
                             <>
-                                {filtersValue.SearchTypeId !== 3 &&
-                                    <ClassificationsFilter
-                                        events={filters.classification}
-                                        event_id={filtersValue.ClassificationId}
-                                        onChange={filter => setFiltersToUrl({ClassificationId: filter})}
-                                    />
-                                }
                                 {filtersValue.SearchTypeId === 3 &&
                                     <SpecializationsFilter
                                         types={filters.specializations}
@@ -132,6 +130,13 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                         onChange={filter => setFiltersToUrl({SpecializationIds: filter})}
                                     />
                                 }
+
+                                <RankFilter
+                                    ranks={filters.ranks}
+                                    ranks_ids={filtersValue.RankIds}
+                                    onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                />
+
                                 <DisciplinesFilter
                                     disciplines={filters.disciplines}
                                     discipline_ids={filtersValue.DisciplineIds}

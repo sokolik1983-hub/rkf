@@ -54,12 +54,10 @@ const ContactsComponent = ({full_name, legal_address, address, owner_position, o
         }
         <div className="contacts-component__block _site">
             <h5 className="contacts-component__block-title">Сайт</h5>
-            <p className="contacts-component__block-info">
                 {site ?
-                    <a href={site} target="_blank" rel="noopener noreferrer">{site}</a> :
+                    <a href={`http://${site}`} target="_blank" rel="noopener noreferrer" className="contacts-component__block-link">{site}</a> :
                     <span>-</span>
                 }
-            </p>
         </div>
         {work_time && !!work_time.length &&
             <div className="contacts-component__block _work">

@@ -319,6 +319,10 @@
   }
   .stage-controls.flex-row > * {
     margin-left: 1em;
+    @media (max-width: 1079px) {
+      margin-left: 0;
+    }
+
   }
   .FormFile {
     margin-bottom: 2em;

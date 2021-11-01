@@ -1,15 +1,30 @@
-import React, {memo, useState, useRef} from "react";
+import React, {memo, useState, useRef, useEffect} from "react";
 import {CSSTransition} from "react-transition-group";
-import {NavLink} from "react-router-dom";
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import Alert from "../../Alert";
 import useIsMobile from "../../../utils/useIsMobile";
 import PopupModal from "../../PopupModal";
 import ls from 'local-storage';
+import {endpointGetClubInfo} from "../../../pages/Club/config";
+import {Request} from "../../../utils/request";
+import {endpointGetUserInfo} from "../UserLayout/config";
+import changeBackground from "../../../utils/changeBgInMobileMenu";
+import nameInMobileMenu from "../../../utils/nameInMobileMenu";
+import { clubNav } from "../../../pages/Club/config";
+import { kennelNav } from "../../../pages/Nursery/config";
 import "./index.scss";
 
 
 const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
     const [alert, setAlert] = useState(false);
+    const [state, setState] = useState(state)
+    const [clubInfo, setClubInfo] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
+    const [menuBackground, setMenuBackground] = useState(null)
+    const [nameInMenu, setNameInMenu] = useState(null)
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [routes, setRoutes] = useState(userNav);
     const isMobile = useIsMobile(1080);
     const { user_type, alias } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
@@ -17,12 +32,72 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
         setAlert(true);
     };
 
-    const moreRef = useRef();
 
+
+    const moreRef = useRef();
+    const location = useLocation();
+    let url =  location.pathname.split('/')[1];
+    let orgAlias = location.pathname.split('/')[2];
+
+    const backgroundForPage =(orgAlias, request) => { //Получаем алиас юзеров разных типов и образец запроса на сервер от разных юзеров.
+           Request({
+                url: request + orgAlias
+            }, data => {
+               if(request === endpointGetClubInfo) {
+                   setClubInfo({...data})  //Получаем инфу о клубе, питомнике
+               } else if (request === endpointGetUserInfo) {
+                   setUserInfo({...data}) //Получаем инфу о физ. лице
+               }
+            }, error => {
+                console.log(error.response);
+                setError(error.response);
+                setLoading(false);
+            })
+            // return () => setNeedRequest(true);
+    }
+
+    useEffect(() => {
+        changeBackground(user_type, backgroundForPage, alias, orgAlias, url);
+    },[]);
+
+    useEffect(() => {
+        nameInMobileMenu(user_type,url,clubInfo, setNameInMenu, userInfo, setMenuBackground);
+    },[userInfo, clubInfo]);
+
+    useEffect(()=> {
+        if(clubInfo) {
+            let clubInfoArray;
+            switch(url) {
+                case "kennel":
+                    clubInfoArray = kennelNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                    setRoutes(clubInfoArray);
+                    break;
+                case "club":
+                    clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                    clubInfoArray.forEach(item => {
+                        if(item.title !== "Мероприятия") {
+                            item.to = `/club${item.to}`
+                        }
+                    })
+                    setRoutes(clubInfoArray);
+                    break;
+                default:
+                    break;
+            }
+            if (user_type === 3) {
+                clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                clubInfoArray.forEach(item => {
+                    if(item.title !== "Мероприятия") {
+                        item.to = `/club${item.to}`
+                    }
+                });
+                setRoutes(clubInfoArray);
+            }
+        }
+        }, [clubInfo, userInfo]);
     return (
         <div
             className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
-
         >
                 {isMobile &&
                 <button onClick={() => setOpenUserMenu(!openUserMenu)}
@@ -55,16 +130,28 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                         <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
                                     </svg>
                                 </div>*/}
+                                <div className="user-nav__bg-wrap">
+                                    { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
+                                </div>
+                                { nameInMenu && <div className="user-nav__alias-name">{user_type === 1 &&
+                                <Link to={`/user/${alias}`}>{nameInMenu}</Link>
+                                }
+                                    {user_type === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
+                                    <Link to={`/club/${alias}`}>{nameInMenu}</Link>
+                                    }
+                                    {(user_type === 5 || alias === 'rkf' || alias === 'rkf-online') &&
+                                    <Link to={`/${alias}`}>{nameInMenu}</Link>
+                                    }
+                                    {user_type === 4 &&
+                                    <Link to={`/kennel/${alias}`}>{nameInMenu}</Link>
+                                    }
+                                </div>}
+
                                 <ul className="user-nav__list">
-                                    {userNav.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                    {routes.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                             key={navItem.id}>
                                             <NavLink
-                                                to={user_type === 3
-                                                    && alias !== 'rkf'
-                                                    && navItem.title !== 'Поиск по базе РКФ'
-                                                    && navItem.title !== 'Реквизиты и размеры взносов'
-                                                    && navItem.title !== 'Мероприятия'
-                                                    ? `/club${navItem.to}` : navItem.to}
+                                                to={navItem.to}
                                                 exact={navItem.exact}
                                                 className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
                                                 onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
@@ -91,6 +178,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 <NavLink
                                     to={user_type === 3
                                         && alias !== 'rkf'
+                                        && alias !== 'rkf-online'
                                         && navItem.title !== 'Поиск по базе РКФ'
                                         && navItem.title !== 'Реквизиты и размеры взносов'
                                         && navItem.title !== 'Мероприятия'

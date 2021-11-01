@@ -69,7 +69,7 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
         return el === true;
     });
 
-    const url = ( user_type === 3 && alias !== 'rkf') ? '/club' : ''
+    const url = ( user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? '/club' : ''
 
     return <div className="documents-page__right">
         {!authorizedAccess

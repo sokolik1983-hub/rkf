@@ -48,7 +48,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
     let clientErrors = {};
 
     const { user_type, alias } = ls.get('user_info') || {};
-    const url = ( user_type === 3 && alias !== 'rkf') ? '/club' : ''
+    const url = ( user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? '/club' : ''
 
     useResourceAndStoreToRedux(endpointUrl, getClubSuccess);
 

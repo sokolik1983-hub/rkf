@@ -92,7 +92,6 @@ const NewsFeedItem = forwardRef(({
                 setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
             }, e => console.log(e.response));
         };
-
         return (
             <>
                 <div className="NewsFeedItem__content">
@@ -102,7 +101,7 @@ const NewsFeedItem = forwardRef(({
                                 ? `/kennel/${alias}`
                                 : user_type === 1
                                     ? `/user/${alias}`
-                                    : user_type === 3 && alias !== 'rkf'
+                                    : user_type === 3 && alias !== 'rkf'&& alias !== 'rkf-online'
                                         ? `/club/${alias}`
                                         : `/${alias}`}>
                                 <div
@@ -122,7 +121,7 @@ const NewsFeedItem = forwardRef(({
                                             ? `/kennel/${alias}`
                                             : user_type === 1
                                                 ? `/user/${alias}`
-                                                : user_type === 3 && alias !== 'rkf'
+                                                : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                                     ? `/club/${alias}`
                                                     : `/${alias}`}>
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
@@ -143,7 +142,7 @@ const NewsFeedItem = forwardRef(({
                                                 ? `/kennel/${alias}`
                                                 : user_type === 1
                                                     ? `/user/${alias}`
-                                                    : user_type === 3 && alias !== 'rkf'
+                                                    : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                                         ? `/club/${alias}`
                                                         : `/${alias}`}>
                                                 {user_type === 1 ? first_name + ' ' + last_name : name}
@@ -259,7 +258,7 @@ const NewsFeedItem = forwardRef(({
                             />
                         }
                     </div>
-                    <div className="NewsFeedItem__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
+                    <div className="NewsFeedItem__show-all-wrap">
                         {is_request_article ?
                             <div className="NewsFeedItem__show-all">
                                 <Link to={redirect_link} target="_blank">Подробнее...</Link>
@@ -272,7 +271,7 @@ const NewsFeedItem = forwardRef(({
                             </div>
                         }
                         {is_request_article &&
-                            <Share url={`https://rkf.online/news/${id}`} />
+                                <Share  url={`https://rkf.online/news/${id}`}/>
                         }
                     </div>
                     {(picture_link || video_link) &&
@@ -353,7 +352,7 @@ const NewsFeedItem = forwardRef(({
                         ? `/kennel/${alias}`
                         : user_type === 1
                             ? `/user/${alias}`
-                            : user_type === 3 && alias !== 'rkf'
+                            : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                 ? `/club/${alias}`
                                 : `/${alias}`}>
                         <div className="NewsFeedItem__left-logo" style={{
@@ -371,7 +370,7 @@ const NewsFeedItem = forwardRef(({
                                 ? `/kennel/${alias}`
                                 : user_type === 1
                                     ? `/user/${alias}`
-                                    : user_type === 3 && alias !== 'rkf'
+                                    : user_type === 3 && alias !== 'rkf'&& alias !== 'rkf-online'
                                         ? `/club/${alias}`
                                         : `/${alias}`}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&

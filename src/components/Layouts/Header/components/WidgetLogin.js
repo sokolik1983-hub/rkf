@@ -11,7 +11,7 @@ import { Request } from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
 import PopupModal from "../../../PopupModal";
 import OutsideClickHandler from "react-outside-click-handler";
-import {blockContent} from "../../../../utils/blockContent";
+
 const WidgetLogin = forwardRef(
     ({
          isAuthenticated,
@@ -81,7 +81,7 @@ const WidgetLogin = forwardRef(
         };
 
         const handleOutsideClick = (e) => {
-            !widgetLoginRef.current.contains(e.target) && setDesktop(false)
+            !widgetLoginRef.current?.contains(e.target) && setDesktop(false)
         }
         useEffect(() => {
             setOpen(desktop);
@@ -141,11 +141,11 @@ const WidgetLogin = forwardRef(
                                                             {userType === 1 &&
                                                             <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                                                             }
-                                                            {userType === 3  && alias !== 'rkf' &&
+                                                            {userType === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
                                                             <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
                                                             }
 
-                                                            {(userType === 5 || alias === 'rkf') &&
+                                                            {(userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
                                                             <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
                                                             }
                                                             {userType === 4 &&
@@ -182,7 +182,7 @@ const WidgetLogin = forwardRef(
                                                                     </li>
                                                                 </>
                                                                 }
-                                                                {userType === 3  && alias !== 'rkf' &&
+                                                                {userType === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
                                                                 <>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                         <Link to="/client" >Редактировать профиль</Link>
@@ -192,7 +192,7 @@ const WidgetLogin = forwardRef(
                                                                     </li>
                                                                 </>
                                                                 }
-                                                                { (userType === 5 || alias === 'rkf') &&
+                                                                { (userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
                                                                 <>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                         <Link to="/client" >Редактировать профиль</Link>
@@ -258,10 +258,10 @@ const WidgetLogin = forwardRef(
                                                         {userType === 1 &&
                                                         <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                                                         }
-                                                        {userType === 3 && alias !== 'rkf' &&
+                                                        {userType === 3 && alias !== 'rkf' && alias !== 'rkf-online' &&
                                                         <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
                                                         }
-                                                        {(userType === 5 || alias === 'rkf') &&
+                                                        {(userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
                                                         <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
                                                         }
                                                         {userType === 4 &&
@@ -297,7 +297,7 @@ const WidgetLogin = forwardRef(
                                                                 </li>
                                                             </>
                                                             }
-                                                            {userType === 3 && alias !== 'rkf' &&
+                                                            {userType === 3 && alias !== 'rkf' && alias !== 'rkf-online' &&
                                                             <>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                     <Link to="/client">Редактировать профиль</Link>
@@ -307,7 +307,7 @@ const WidgetLogin = forwardRef(
                                                                 </li>
                                                             </>
                                                             }
-                                                            { (userType === 5 || alias === 'rkf') &&
+                                                            { (userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
                                                             <>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                     <Link to="/client" >Редактировать профиль</Link>
@@ -327,12 +327,12 @@ const WidgetLogin = forwardRef(
                                                                 </li>
                                                             </>
                                                             }
-                                                            {accountType === 5 && (userType === 5 ||  alias === 'rkf') &&
+                                                            {accountType === 5 && (userType === 5 ||  alias === 'rkf' || alias === 'rkf-online') &&
                                                             <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                 <span onClick={() => setShowModal(true)}>Войти в аккаунт клуба</span>
                                                             </li>
                                                             }
-                                                            {accountType === 5 && userType !== 5 && alias !== 'rkf'  &&
+                                                            {accountType === 5 && userType !== 5 && alias !== 'rkf' && alias !== 'rkf-online' &&
                                                             <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                 <span onClick={logoutAsUser}>Выйти из аккаунта клуба</span>
                                                             </li>

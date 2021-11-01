@@ -29,7 +29,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 10px;
+      margin: 6px 10px 0;
     }
     .Share {
       height: 20px;
@@ -594,6 +594,8 @@
     }
   }
   .ya-share2__popup {
-    right: -25px;
+    right: -5px;
+    top: 210px!important;
+    z-index: 98;
   }
 }

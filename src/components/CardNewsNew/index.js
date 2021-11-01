@@ -51,6 +51,7 @@ const CardNewsNew = forwardRef(({
     picture_short_link,
     video_link,
     fact_city_name,
+    fact_city_id,
     canEdit,
     onDelete,
     handleSuccess,
@@ -140,7 +141,7 @@ const CardNewsNew = forwardRef(({
                                             ? `/kennel/${alias}`
                                             : user_type === 1
                                                 ? `/user/${alias}`
-                                                : user_type === 3 && alias !== 'rkf'
+                                                : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                                     ? `/club/${alias}`
                                         : `/${alias}`}>
                                         {user_type === 1 ? first_name + ' ' + last_name : name}
@@ -158,8 +159,10 @@ const CardNewsNew = forwardRef(({
                                     </span>
                                     </div>
                                     {fact_city_name &&
-                                    <span className="CardNewsNew__city" title={fact_city_name}>
-                                        {fact_city_name}
+                                    <span className="CardNewsNew__city"
+                                          onClick={() => changeCityFilter([fact_city_id])}
+                                          title={fact_city_name}>
+                                          {fact_city_name}
                                     </span>
                                     }
                                 </div>
@@ -320,7 +323,7 @@ const CardNewsNew = forwardRef(({
                         ? `/kennel/${alias}`
                         : user_type === 1
                             ? `/user/${alias}`
-                            : user_type === 3 && alias !== 'rkf'
+                            : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                 ? `/club/${alias}`
                                 : `/${alias}`}
                     >
@@ -339,7 +342,7 @@ const CardNewsNew = forwardRef(({
                                 ? `/kennel/${alias}`
                                 : user_type === 1
                                     ? `/user/${alias}`
-                                    : user_type === 3 && alias !== 'rkf'
+                                    : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                         ? `/club/${alias}`
                                         : `/${alias}`}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&
@@ -370,7 +373,9 @@ const CardNewsNew = forwardRef(({
                         <div>
                             {formatDateTime(create_date)}
                             {fact_city_name &&
-                                <span className="CardNewsNew__city" title={fact_city_name}>
+                                <span className="CardNewsNew__city"
+                                    onClick={() => changeCityFilter([fact_city_id])}
+                                    title={fact_city_name}>
                                     {fact_city_name}
                                 </span>
                             }

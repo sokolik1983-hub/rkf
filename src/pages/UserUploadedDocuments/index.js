@@ -63,7 +63,7 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout setNotificationsLength={setNotificationsLength}>
+            : <Layout setNotificationsLength={setNotificationsLength} withFilters>
                 <Container className="UserUploadedDocuments content">
                     <aside className="UserUploadedDocuments__left">
                         <StickyBox offsetTop={60}>

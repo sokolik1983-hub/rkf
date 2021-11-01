@@ -27,14 +27,16 @@ const Search = ({ withFilters, hideSideMenu }) => {
     const handleOutsideClick = (e) => {
         if (!e?.target?.classList.contains('__hide')) {
             setIsClicked(false);
+            setSearchValue('');
         }
     }
 
     const searchRef = useRef();
 
     useEffect(() => {
-        blockContent(isClicked);
+            blockContent(isClicked);
         return () => blockContent(false);
+
     }, [isClicked])
 
     return (

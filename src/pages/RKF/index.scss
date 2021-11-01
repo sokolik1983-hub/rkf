@@ -98,22 +98,32 @@
     display: flex;
     justify-content: space-between;
     @media (max-width: 990px) {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
   }
   &__left {
     .Card {
       padding: 10px;
     }
-    width: 266px;
-    min-width: 266px;
+    //width: 266px;
+    //min-width: 266px;
+    width: 300px;
+    min-width: 300px;
     margin-right: 15px;
     @media (max-width: 990px) {
       margin-right: 0;
-      display: flex;
+      //display: flex;
+      display: block;
       //flex-wrap: wrap;
+
       width: 100%;
       order: 1;
+      & > div {
+        min-width: 100%;
+        &:last-child {
+          margin-left: 0;
+        }
+      }
       .photo-component, .menu-component {
         display: none;
       }
@@ -141,6 +151,7 @@
         }
         &:nth-child(even) {
           margin-left: 0;
+          margin-bottom: 16px;
         }
       }
     }

@@ -8,6 +8,9 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
+    & .ya-share2__popup {
+      top: 77px;
+    }
   }
   ._no_share_name {
     top: 0;

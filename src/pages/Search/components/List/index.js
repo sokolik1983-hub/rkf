@@ -22,7 +22,7 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
             const endDate = dates[dates.length - 1];
             date = dates.length === 1
                 ? formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`))
-                : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) +
+                : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) + 
                 ' - ' + formatDateCommon(new Date(`${endDate.year}/${endDate.month}/${endDate.day}`));
         }
 

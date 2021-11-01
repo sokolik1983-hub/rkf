@@ -17,10 +17,12 @@ import { connectAuthVisible } from "pages/Login/connectors";
 import useIsMobile from "utils/useIsMobile";
 import { BANNER_TYPES } from "appConfig";
 import Banner from "components/Banner";
+import {connectShowFilters} from "../../../components/Layouts/connectors"
+
 import "./index.scss";
 
 
-const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthenticated, user, children }) => {
+const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthenticated, user, children, setShowFilters, isOpenFilters }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -60,7 +62,7 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
             ? <Redirect to="404" />
             : notActiveProfile
                 ? <NotConfirmed />
-                : <Layout setNotificationsLength={setNotificationsLength}>
+                : <Layout setNotificationsLength={setNotificationsLength} withFilters>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
@@ -96,7 +98,7 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
                                                     active_member={clubInfo.active_member}
                                                 />
                                             }
-                                            {!isMobile && <UserMenu userNav={canEdit
+                                            {!isMobile && <UserMenu  userNav={canEdit
                                                 ? clubNav(alias) // Show NewsFeed menu item to current user only
                                                 : clubNav(alias).filter(i => i.id !== 2)}
                                                        notificationsLength={notificationsLength}
@@ -126,4 +128,4 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
                 </Layout>
 };
 
-export default React.memo(connectAuthVisible(ClubLayout));
+export default React.memo(connectAuthVisible(connectShowFilters(ClubLayout)));

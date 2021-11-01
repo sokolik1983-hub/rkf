@@ -30,6 +30,9 @@
         width: 600px;
         margin-right: 16px;
         flex-shrink: 0;
+        @media (max-width: 1080px) {
+            width: 100%;
+        }
         @media (max-width: 560px) {
             width: auto;
             margin: 0;
@@ -40,16 +43,38 @@
     }
     &-right {
         flex-grow: 1;
-        @media (min-width: 560px) {
-            max-width: 250px;
-        }
-        & > .Card {
-            @media (min-width: 560px) {
-                position: fixed;
-                max-width: 250px;
-                min-width: 250px;
+        @media (max-width: 1080px) {
+            width: 100%;
+            position: fixed;
+            top: 50px;
+            right: 0;
+            z-index: 9;
+            height: calc(100% - 60px);
+            padding: 16px 6px;
+            overflow-y: auto;
+            visibility: hidden;
+            transform: translateX(100%);
+            transition: all 0.2s ease-out;
+            box-shadow: 0 6px 12px rgba(51, 102, 255 , 0.12);
+            background: white;
+            & .Card {
+                box-shadow: none;
+            }
+            &._open {
+                visibility: visible;
+                transform: translateX(0);
             }
         }
+        //@media (min-width: 560px) {
+        //    max-width: 250px;
+        //}
+        //& > .Card {
+        //    @media (min-width: 560px) {
+        //        position: fixed;
+        //        max-width: 250px;
+        //        min-width: 250px;
+        //    }
+        //}
     }
     &__category {
         &-item {
@@ -139,6 +164,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            @media (max-width: 1080px) {
+                justify-content: flex-start;
+            }
             &:hover {
                 cursor: pointer;
                 h3 {

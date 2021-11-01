@@ -13,6 +13,9 @@ import { SvgIcon } from "@progress/kendo-react-common";
 import { trash } from "@progress/kendo-svg-icons";
 import { acceptType } from "../../../../utils/checkImgType";
 import useIsMobile from "../../../../utils/useIsMobile";
+import { blockContent } from '../../../../utils/blockContent';
+import OutsideClickHandler from "react-outside-click-handler";
+import { useFocus } from '../../../../shared/hooks';
 
 
 const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete }) => {
@@ -21,6 +24,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const [advertTypes, setAdvertTypes] = useState([]);
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert } = formik.values;
     const isMobile = useIsMobile();
 
@@ -34,6 +38,10 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
             error => console.log(error.response)
         )
     }, []);
+
+    useEffect(() => {
+        blockContent(showModal)
+    }, [showModal])
 
     const handleChangeText = (e) => {
         let text = e.target.value;
@@ -55,11 +63,12 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const handleChangeImg = e => {
         const file = e.target.files[0];
 
-        if (file) {
+        if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
         } else {
+            window.alert(`Размер изображения не должен превышать 20 мб`);
             formik.setFieldValue('file', '');
             setSrc('');
         }
@@ -111,8 +120,12 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
         }
     };
 
+    const handleOutsideClick = () => {
+        !content && setBlured();
+    };
+
     return (
-        <>
+        <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className="article-edit__text">
                 <FormField
                     {...fields.content}
@@ -215,32 +228,31 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                     Обновить
                 </SubmitButton>
             </FormControls>
-            {showModal &&
-                <Modal
-                    className="article-edit__modal"
-                    showModal={showModal}
-                    handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
-                    handleX={closeModal}
-                    headerName={modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
-                >
-                    {modalType === 'video' &&
-                        <AddVideoLink
-                            setVideoLink={handleAddVideoLink}
-                            closeModal={closeModal}
-                        />
-                    }
-                    {modalType === 'pdf' &&
-                        <AttachFile
-                            documents={docs}
-                            setDocuments={setDocs}
-                            categories={categories}
-                            setCategories={setCategories}
-                            closeModal={closeModal}
-                        />
-                    }
-                </Modal>
-            }
-        </>
+            <Modal
+                className="article-edit__modal"
+                showModal={showModal}
+                handleClose={closeModal}
+                handleX={closeModal}
+                noBackdrop={true}
+                headerName={modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
+            >
+                {modalType === 'video' &&
+                    <AddVideoLink
+                        setVideoLink={handleAddVideoLink}
+                        closeModal={closeModal}
+                    />
+                }
+                {modalType === 'pdf' &&
+                    <AttachFile
+                        documents={docs}
+                        setDocuments={setDocs}
+                        categories={categories}
+                        setCategories={setCategories}
+                        closeModal={closeModal}
+                    />
+                }
+            </Modal>
+        </OutsideClickHandler>
     )
 };
 

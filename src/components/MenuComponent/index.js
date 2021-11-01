@@ -9,7 +9,6 @@ import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import PopupModal from "../PopupModal";
-import DocsInFrame from "../DocsInFrame";
 import {blockContent} from "../../utils/blockContent";
 
 import "./index.scss";
@@ -213,19 +212,24 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, footerNav, openMenuComponent,  setOpenMenuComponent } ) => {
+const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, openMenuComponent,  setOpenMenuComponent } ) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
-    const [openDoc, setOpenDoc] = useState(false);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
-    const isMobile = useIsMobile(1080);
-    const showDetails = isFederation && alias !== 'rkf' && alias !== 'oankoo';
-    const [doc, setDoc] = useState(null)
 
+    const [fedInfo, setFedInfo] = useState(null);
+    const [error, setError] = useState(null);
+    const [menuBackground, setMenuBackground] = useState('/static/images/user-nav/user-nav-bg.png');
+    const [fedName, setFedName] = useState(null);
+
+    const isMobile = useIsMobile(1080);
+    const showDetails = isFederation && alias !== 'rkf' && alias !== 'rkf-online' && alias !== 'oankoo';
+    const [linkFeesId, setLinkFeesId] = useState('');
+    const [linkFedDetails, setLinkFedDetails] = useState('');
 
     useEffect(() => {
         if (showDetails) {
@@ -370,11 +374,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
         el.innerText = blankName;
     };
 
-    const showDoc = (id) => {
-        setOpenDoc(true);
-        setDoc(id);
-    }
-
     const moreRef = useRef();
 
     useEffect(() => {
@@ -385,18 +384,60 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
         }
     }, [showModal])
 
+    useEffect(() => {
 
+        if (fedFeesId) {
+            (() => Request({
+                url: `/api/document/document/public?id=${fedFeesId}`
+            }, data => {
+                setLinkFeesId(data);
+            }, error => {
+                console.log(error.response);
+                // history.replace('/404');
+            }))();
+        }
+
+        if (fedDetails) {
+            (() => Request({
+                url: `/api/document/document/public?id=${fedDetails}`
+            }, data => {
+                setLinkFedDetails(data);
+            }, error => {
+                console.log(error.response);
+                // history.replace('/404');
+            }))();
+        }
+    }, [fedDetails, fedFeesId]);
+
+    useEffect(() => {
+        (() => Request({
+            url: `/api/Club/federation_base_info?alias=` + alias
+        }, data => {
+            setFedInfo(data);
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setError(error.response);
+            setLoading(false);
+        }))();
+        // return () => setNeedRequest(true);
+    }, []);
+
+    useEffect(() => {
+        if(fedInfo) {
+            if (alias === 'rkf' || alias === 'rkf-online') {
+                setMenuBackground('/static/images/slider/1.jpg');
+                setFedName('РКФ')
+            } else {
+                (fedInfo && setMenuBackground(fedInfo.header_picture_link));
+                setFedName(fedInfo.name)
+            }
+        }
+
+    }, [fedInfo]);
 
     return (
         <>
-            <PopupModal
-                showModal={openDoc}
-                handleClose={() => setOpenDoc(false)}
-            >
-                <div className="docsinframe__inner">
-                    <DocsInFrame fedDetails={doc}></DocsInFrame>
-                </div>
-            </PopupModal>
             {isMobile ?
                 <OutsideClickHandler onOutsideClick={() => setOpenMenuComponent(false)}>
                     {isMobile &&
@@ -423,6 +464,10 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             bottomStyle
                         >
                             <div className="user-menu__inner">
+                                <div className="banner-federation">
+                                    <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
+                                </div>
+                                {fedName && <p className="user-menu__name">{fedName}</p>}
                                 <ul className="user-menu__list">
 
                                     {user !== 'nursery' &&
@@ -450,22 +495,16 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                     </li>
                                     {showDetails &&
                                     <>
-                                        {fedFeesId && <li className="user-menu__item" onClick={() => showDoc(fedFeesId)}>
-                                        <span className="menu-component__link _fees">
+                                        {fedFeesId && <li className="user-menu__item" >
+                                        <a href={linkFeesId} target="_blank" rel="noopener noreferrer" className="menu-component__link _fees">
                                             Размеры членских взносов
-                                        </span>
+                                        </a>
                                         </li>}
-                                        {/* <li className="user-menu__item">
-                                        <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
-                                            Бланки
-                                    </Link>
-                                    </li> */}
                                         {fedDetails &&
-                                        <li className="user-menu__item" onClick={() => showDoc(fedDetails)}>
-                            <span className="menu-component__link _requisites">
-                                Реквизиты
-                            </span>
-
+                                        <li className="user-menu__item" >
+                                            <a href={linkFedDetails} target="_blank" rel="noopener noreferrer" className="menu-component__link _requisites">
+                                                Реквизиты
+                                            </a>
                                         </li>}
                                     </>
                                     }
@@ -483,7 +522,6 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             </div>
                         </PopupModal>
                     </CSSTransition>
-
                 </OutsideClickHandler>
                 :
                 <Card>
@@ -543,25 +581,16 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                 </li>
                     {showDetails &&
                     <>
-                        {fedFeesId && <li className="menu-component__item" onClick={() => showDoc(fedFeesId)}>
-                            <span className="menu-component__link _fees">
+                        {fedFeesId && <li className="menu-component__item">
+                            <a href={linkFeesId} target="_blank" rel="noopener noreferrer" className="menu-component__link _fees">
                                 Размеры членских взносов
-                                </span>
+                                </a>
                         </li>}
-                        {/* <li className="menu-component__item">
-                            <Link
-                                to="/"
-                                onClick={getBlanks}
-                                className="menu-component__link _blanks"
-                                title="Бланки"
-                            >
-                                Бланки
-                        </Link>
-                        </li> */}
-                        {fedDetails && <li className="menu-component__item" onClick={() => showDoc(fedDetails)}>
-                            <span className="menu-component__link _requisites">
+
+                        {fedDetails && <li className="menu-component__item">
+                            <a href={linkFedDetails} target="_blank" rel="noopener noreferrer" className="menu-component__link _requisites">
                                 Реквизиты
-                            </span>
+                            </a>
 
                         </li>}
                     </>

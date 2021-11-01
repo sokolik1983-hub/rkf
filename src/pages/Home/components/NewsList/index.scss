@@ -88,7 +88,6 @@
     }
   }
   &__no-news {
-    width: calc(100% - 266px);
     padding-top: 20px;
     text-align: center;
     margin-left: auto;
@@ -169,7 +168,7 @@
   }
   &__wrap {
     position: sticky;
-    top: 60px;
+    top: 15px;
     z-index: 2;
     background: #fff;
     padding: 10px 10px 0;
