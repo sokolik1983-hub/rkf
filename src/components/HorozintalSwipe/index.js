@@ -64,7 +64,6 @@ const HorizontalSwipe = ({id, className, children, desktopScroll}) => {
     };
 
     const onTouchMove = e => {
-        console.log("move")
         if(elem.scrollWidth > elem.clientWidth) {
             const x = Math.round(e.touches[0].clientX);
             calculateOffset(x)
