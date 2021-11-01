@@ -176,8 +176,7 @@ const CardSpecialist = ({
                                             </div>
                                         </> }
 
-                                        { additionalGroups && additionalGroups.map((item, index) => {
-                                            return (
+                                        { additionalGroups && additionalGroups.map((item, index) =>  (
                                                 <div
                                                     className={ !moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item " }
                                                     key={ index }>
@@ -188,7 +187,7 @@ const CardSpecialist = ({
                                                     </div>
                                                 </div>
                                             )
-                                        }) }
+                                        ) }
 
                                         { additionalContests && !!additionalContests.length && <>
                                             <div className="card-specialists__content-title title-style">Выставочные
@@ -268,8 +267,7 @@ const CardSpecialist = ({
                                                     </div>
                                                 }
 
-                                                { isSpecialist && item?.disciplines?.map((discipline, index) => {
-                                                    return (
+                                                { isSpecialist && item?.disciplines?.map((discipline, index) =>  (
                                                         <div className="card-specialists__grid-item" key={ index }>
                                                             { discipline?.for_judge_examiner &&
                                                                 <div className="card-specialists__examiner">
@@ -316,7 +314,7 @@ const CardSpecialist = ({
                                                             </div>
                                                         </div>
                                                     )
-                                                }) }
+                                                ) }
                                             </div>
                                         )
                                     }) }

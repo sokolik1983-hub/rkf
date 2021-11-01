@@ -5,7 +5,7 @@ import "./styles.scss";
 
 const Counter = ({ counters, profileAlias }) => {
 
-    const alias = profileAlias.search('kennel') === 1 ||  profileAlias.search('user') === 1? profileAlias : `/${profileAlias}`
+    const alias = profileAlias.search('kennel') === 1 || profileAlias.search('user') === 1 ? profileAlias : `/${profileAlias}`
 
     return (
         !!counters &&

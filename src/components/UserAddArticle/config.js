@@ -28,8 +28,8 @@ export const newsArticleFormConfig = {
         },
         advert_breed_id1: {
             name: 'advert_breed_id',
-            label: 'Порода11111111',
-            placeholder: 'Порода22222222',
+            label: 'Порода',
+            placeholder: 'Порода',
         },
         advert_cost: {
             name: 'advert_cost',

@@ -12,7 +12,7 @@ const DocumentItemReadOnly = ({ id, name, date_create }) => {
     const [openDoc, setOpenDoc] = useState(false);
     const [url, setUrl] = useState('');
 
-    const get = () => {
+    const getUrl = () => {
         if (isNaN(id) || !id)
             return;
         setUrl('');
@@ -26,7 +26,7 @@ const DocumentItemReadOnly = ({ id, name, date_create }) => {
     const showDoc = (id, e) => {
         e.preventDefault();
         setOpenDoc(true);
-        get();
+        getUrl();
     }
     return <div className="mb-3">
         <a href="##" className="d-flex align-items-center" onClick={(e) => showDoc(id, e)}>

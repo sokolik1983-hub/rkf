@@ -62,7 +62,6 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                         target='_blank'
                         rel='noopener noreferrer'
                         className='details-card__link'
-                        style={{ marginRight: '20px' }}
                     >
                       Реквизиты
                     </a>
@@ -72,7 +71,6 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                     target='_blank'
                     rel='noopener noreferrer'
                     className='details-card__link'
-                    style={{ marginRight: '20px' }}
                 >
                     { `Размеры взносов в ${fedName}`}
                 </a>
