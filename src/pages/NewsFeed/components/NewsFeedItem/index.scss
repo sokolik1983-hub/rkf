@@ -593,9 +593,20 @@
       }
     }
   }
-  .ya-share2__popup {
-    right: -5px;
-    top: 210px!important;
-    z-index: 98;
+  .ya-share2 {
+    &__popup {
+      right: -5px;
+      top: 210px !important;
+      z-index: 98;
+    }
+    &__badge {
+      margin-top: 4px;
+      background: rgba(0, 0, 0, 0.0);
+    }
+  }
+}
+.NewsFeed {
+  ul {
+    margin-bottom: 0!important;
   }
 }
