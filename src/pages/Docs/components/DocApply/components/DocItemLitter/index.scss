@@ -60,11 +60,11 @@
         display: grid;
         grid-template-rows: 2fr 1fr;
         & div:first-of-type div div:first-child{
-            display: table-caption;
+            //display: table-caption;
         }
         @media (max-width: 1079px) {
             grid-template-rows: 1fr 1fr;
-            min-width: 100% !important;
+            //min-width: 100% !important;
         }
     }
 
