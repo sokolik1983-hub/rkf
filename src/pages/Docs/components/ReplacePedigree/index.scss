@@ -221,6 +221,9 @@
     &__stamp-code_inline {
         display: grid;
         grid-template-columns: 50% 1fr 141px;
+        button {
+            align-self: flex-end!important;
+        }
     }
 
     &__breed-name_inline {
@@ -260,7 +263,7 @@
             display: block;
 
             & div {
-                min-width: 100%;
+                width: 100%;
                 &:last-of-type div {
                     grid-template-rows: 1fr 1fr;
                 }
@@ -270,7 +273,7 @@
         &__pedigree-copy  {
             display: block;
             & div {
-                min-width: 100%;
+                width: 100%;
                 & :first-child {
                    grid-template-rows: 1fr 1fr;
                 }
@@ -290,7 +293,7 @@
             display: inline-block;
             width: 100%;
             & div:first-of-type {
-                width: 100% !important;
+                width: 100%;
                 & label {
                     margin-bottom: 15px;
                 }
