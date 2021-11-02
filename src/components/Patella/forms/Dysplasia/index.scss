@@ -11,11 +11,15 @@
     }
 
 }
-.DocItem__xray-agreement-wrap div:first-child {
+.DocItem__xray-agreement-wrap {
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    @media (max-width: 1079px) {
-        display: flex;
+    grid-template-columns: 1fr 1fr;
+    div:first-child {
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+        @media (max-width: 1079px) {
+            display: flex;
+        }
     }
 }
 .DocItem__pedigree-number_search  {
@@ -24,12 +28,16 @@
     margin-top: 20px;
     margin-bottom: 20px!important;
 }
-.DocItem__pedigree-agreement-wrap div:first-child {
+.DocItem__pedigree-agreement-wrap {
     display: grid;
-    grid-template-rows: 2fr 1fr;
-    @media (max-width: 1079px) {
-        display: flex;
-        grid-template-rows: none;
+    grid-template-columns: 1fr 1fr;
+    div:first-child {
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+        @media (max-width: 1079px) {
+            display: flex;
+            grid-template-rows: none;
+        }
     }
 }
 
@@ -41,13 +49,13 @@
         .DocItem__xray-agreement-wrap {
             display: block;
             div {
-                min-width:100%;
+                //min-width:100%;
             }
         }
         .DocItem__pedigree-agreement-wrap {
             display: block;
             & div {
-                width: 100% !important;
+                //width: 100% !important;
             }
         }
         .DocItem__pedigree-number_search {
