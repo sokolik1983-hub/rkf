@@ -8,7 +8,7 @@ import "./styles.scss";
 
 moment.locale('ru');
 
-const DocumentItemReadOnly = ({ id, name, date_create,link }) => {
+const DocumentItemReadOnly = ({ id, name, date_create, link }) => {
     const [openDoc, setOpenDoc] = useState(false);
     const [url, setUrl] = useState('');
 
