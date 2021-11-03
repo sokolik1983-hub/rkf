@@ -40,6 +40,10 @@
         }
     }
 }
+.DocItem__payment-receipt-wrap {
+    display: grid;
+    grid-template-columns: 2fr 1fr 49%;
+}
 
 @media (max-width: 1079px) {
     span {
