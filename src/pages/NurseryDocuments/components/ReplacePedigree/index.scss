@@ -161,3 +161,16 @@
         }
     }
 }
+.mode-documents-wrap {
+    @media (max-width: 1079px) {
+        display: grid;
+        grid-template-columns: 1fr;
+        label {
+            left: 300px;
+            bottom: 70px;
+        }
+        div:last-child a {
+            max-width:141px;
+        }
+    }
+}

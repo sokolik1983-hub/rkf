@@ -43,9 +43,9 @@
     .FormGroup--inline {
         margin-bottom: 0;
     }
-    //.FormGroup--inline .btn {
-    //    align-self: flex-end;
-    //}
+    .FormGroup--inline .btn {
+        align-self: flex-end!important;
+    }
     .red {
         //color: #FA5D50;
         color: #00c48c!important;
@@ -123,6 +123,11 @@
         @media (max-width: 1079px) {
             display: inline-block;
             min-width: 100%;
+        }
+    }
+    &__foreign-pedigree {
+        @media (max-width: 1079px) {
+            display: grid;
         }
     }
 }

@@ -96,6 +96,9 @@
     &__stamp-inline {
         display: grid;
         grid-template-columns: 1fr 1fr 141px;
+        .btn {
+            align-self: flex-end!important;
+        }
         @media (max-width: 1079px) {
             display: inline-block;
             width: 100%;
