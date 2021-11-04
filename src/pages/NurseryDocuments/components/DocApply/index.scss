@@ -43,9 +43,9 @@
     .FormGroup--inline {
         margin-bottom: 0;
     }
-    //.FormGroup--inline .btn {
-    //    align-self: flex-end;
-    //}
+    .FormGroup--inline .btn {
+        align-self: flex-end!important;
+    }
     .red {
         //color: #FA5D50;
         color: #00c48c!important;
@@ -110,4 +110,29 @@
         background: transparent;
         color: #00c48c;
     }
+    &__pedigree-number_search {
+        //display: grid;
+        //grid-template-columns: 3.2fr 0.8fr 5fr;
+        button {
+            min-width: 141px;
+        }
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+    &__two-inline-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            min-width: 100%;
+        }
+    }
+    &__foreign-pedigree {
+        @media (max-width: 1079px) {
+            display: grid;
+        }
+    }
 }
+
