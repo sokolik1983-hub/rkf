@@ -111,9 +111,6 @@
     &__owner-mail-inline {
         display: grid;
         grid-template-columns: 1fr 2fr;
-        :first-child {
-
-        }
         @media (max-width: 1079px) {
             display: inline-block;
             width: 100%;

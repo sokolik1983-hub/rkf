@@ -120,7 +120,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     </div>}
                     <input type="hidden" name={`id`} />
                     <input type="hidden" name={`declarant_uid`} />
-                    <FormGroup inline>
+                    <FormGroup inline className="DocItem__stamp-inline">
                         {/*<FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма (<a href="/kennel/${alias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>*/}
                         <FormField disabled={update || !!everkData || formik.values.foreign_owner} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())} />
                         <FormField disabled={update || !!everkData} name={`stamp_number`} label='Номер клейма' placeholder="0000" />
@@ -148,7 +148,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         }}
                         label='Для иностранного владельца'
                     />
-                    <FormGroup inline>
+                    <FormGroup inline className="DocItem__three-inline-columns">
                         <Transliteratable disabled={update || (nurseryData.owner_last_name && !formik.values.foreign_owner)} name={`owner_last_name`} label='Фамилия владельца' />
                         <Transliteratable disabled={update || (nurseryData.owner_first_name && !formik.values.foreign_owner)} name={`owner_first_name`} label='Имя владельца' />
                         <FormField disabled={update || (nurseryData.owner_second_name && !formik.values.foreign_owner)} name={`owner_second_name`} label='Отчество владельца (опционально)' />
@@ -156,13 +156,13 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <HideIf cond={!declarant.owner_last_name.includes(' ')}>
                         <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
                     </HideIf>
-                    <FormGroup inline>
-                        <FormField style={{ maxWidth: '32%' }} disabled={update} name={`email`} label='Email владельца' />
+                    <FormGroup inline className="DocItem__owner-mail-inline">
+                        <FormField disabled={update} name={`email`} label='Email владельца' />
 
                         <Transliteratable disabled={update || filledEverk('owner_address')} name={`owner_address`} label='Адрес владельца (Индекс, город, улица, дом, строение, кв./офис)' />
                     </FormGroup>
-                    <FormGroup inline>
-                        <FormField disabled={update} name={`breed_id`} style={{ maxWidth: '50%' }} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..." />
+                    <FormGroup inline className="DocItem__dog-name-inline">
+                        <FormField disabled={update} name={`breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..." />
                         <FormField disabled={update || filledEverk('dog_name')} name={`dog_name`} label='Кличка собаки' />
                         <Button
                             className="btn-primary"
@@ -170,7 +170,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             style={{ alignSelf: 'flex-end', padding: '12px' }}
                         >Транслитерировать</Button>
                     </FormGroup>
-                    <FormGroup inline>
+                    <FormGroup inline className="DocItem__three-inline-columns">
                         <div className="DocItem__pedigree-nursery-wrap">
                             <div>Дата рождения собаки</div>
                             <UserDatePicker
@@ -210,7 +210,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         checkboxCaption='Иностранная производительница'
                     />
 
-                    <FormGroup inline>
+                    <FormGroup inline className="DocItem__three-inline-columns">
                         <FormField disabled={update} name={`breeder_last_name`} label='Фамилия заводчика' />
                         <FormField disabled={update} name={`breeder_first_name`} label='Имя заводчика' />
                         <FormField disabled={update} name={`breeder_second_name`} label='Отчество заводчика (опционально)' />
@@ -229,7 +229,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         onChange={e => { formik.handleChange(e); formik.setFieldValue(`litter_or_request_number`, '') }}
                     />
 
-                    <FormGroup inline>
+                    <FormGroup inline className="DocItem__two-inline-columns">
                         <FormField disabled={update} name={`owner_last_name_lat`} label='Фамилия владельца латиницей' />
                         <FormField disabled={update} name={`owner_first_name_lat`} label='Имя владельца латиницей' />
                     </FormGroup>
@@ -237,11 +237,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
                     </HideIf>
                     <FormField disabled={update || filledEverk('owner_address_lat')} name={`owner_address_lat`} label='Адрес владельца латиницей' />
-                    <span className="DocItem__pedigree-warning">Если данное поле не заполнено, транслитерация клички остается на усмотрение кинолога</span>
-                    <FormField  name={`dog_name_lat`} label='Кличка собаки латиницей' />
-
+                    <div className="DocItem__name-warning-wrap">
+                        <span className="DocItem__pedigree-warning">Если данное поле не заполнено, транслитерация клички остается на усмотрение кинолога</span>
+                        <FormField  name={`dog_name_lat`} label='Кличка собаки латиницей' />
+                    </div>
                     <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG</h4>
-                    <FormGroup inline>
+                    <FormGroup inline className="DocItem__two-inline-columns_rows">
                         <FormFile
                             name={`biometric_card_document`}
                             label={<>Метрика щенка<br /><br /></>}
