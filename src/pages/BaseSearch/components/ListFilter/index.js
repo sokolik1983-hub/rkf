@@ -1,8 +1,9 @@
-import React, {useRef} from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link as LinkScroll } from 'react-scroll';
 import HorizontalSwipe from "../../../../components/HorozintalSwipe";
 import mobileMenuMoves from "../../../../utils/mobileMenuMoves";
 import "./index.scss";
+import scrollMenuMoves from "../../../../utils/scrollMenuMoves";
 
 
 const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
@@ -15,6 +16,38 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
         e.target.closest('.list-filter__item').classList.add("_active");
         mobileMenuMoves(place, e.target, wrap);
     }
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+
+    const handleScroll = () => {
+        const position = document.body.getBoundingClientRect().top;
+        setScrollPosition(position);
+    };
+
+    const scrollMenuMoves = (position, wrap) => {
+        if(wrap) {
+            let allDivs = document.querySelectorAll('.Card');
+            allDivs.forEach((item, index) => {
+                if(item.getBoundingClientRect().top < 220 && item.getBoundingClientRect().top > 200 ) {
+                    let place = index;
+                    mobileMenuMoves(place);
+                };
+            });
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    useEffect(()=> {
+        scrollMenuMoves(scrollPosition, wrap);
+    },[scrollPosition]);
+
+
     return (
             <div className="search-page__list-filter">
                     <h4 className="list-filter__title">Сервисы</h4>

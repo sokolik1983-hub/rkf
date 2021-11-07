@@ -27,8 +27,41 @@ const mobileMenuMoves = (place, elem, wrap) => {
             position = widthBeforeElems - (sliderWidth-clickElemWidth)/2;
         }
 
+
+
         sliderWrap.style.transform = `translateX(-${position}px)`;
-    }
+    } else if(place) {
+        const sliderWrap = document.querySelector(".slider-wrap"),
+            allDivs = sliderWrap.querySelectorAll('div'),
+            sliderWidth = document.querySelector(".slider").getBoundingClientRect().width,
+            requestElem = allDivs[place].getBoundingClientRect().width;
+        console.log('requestElem', requestElem)
+        console.log('place', place)
+
+        let widthBeforeElems = 0,
+            widthAllElems = 0,
+            position = 0;
+        for (let i = 0; i < place-1; i++) {
+            widthBeforeElems = widthBeforeElems + allDivs[i].getBoundingClientRect().width;
+        }
+
+        for (let item of sliderWrap.querySelectorAll('div')) {widthAllElems = widthAllElems + item.getBoundingClientRect().width}
+
+        let widthAfterElems = widthAllElems - requestElem - widthBeforeElems;
+
+        if((sliderWidth - requestElem)/2 > widthBeforeElems) {
+            position = 0;
+        } else if((sliderWidth - requestElem)/2 > widthAfterElems) {
+            position = widthBeforeElems - (sliderWidth-requestElem) + widthAfterElems;
+        } else {
+            position = widthBeforeElems - (sliderWidth-requestElem)/2;
+        }
+
+
+
+        sliderWrap.style.transform = `translateX(-${position}px)`;
+
+    };
 }
 
 export default mobileMenuMoves;
