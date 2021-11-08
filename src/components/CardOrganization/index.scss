@@ -60,7 +60,7 @@
     display: block;
     overflow: hidden;
     @media (max-width: 560px) {
-      font-size: 14px;
+       font-size: 14px;
     }
     span:first-child {
       color: #72839c;
@@ -87,12 +87,15 @@
   &__city {
     position: relative;
     padding-left: 16px;
-    margin-left: 20px;
+    //margin-left: 10px;
     line-height: 20px;
     letter-spacing: 0.2px;
     color: #72839c;
     white-space: nowrap;
     cursor: pointer;
+    @media (max-width: 560px) {
+      font-size: 14px;
+    }
     &:before {
       content: "";
       position: absolute;
