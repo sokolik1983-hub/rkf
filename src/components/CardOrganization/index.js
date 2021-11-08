@@ -68,6 +68,19 @@ const CardOrganization = ({   id,
                                     </span>
                                     </div>
                                 </div>
+
+                                {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
+                                <div className="card-organization__info-item">
+                                        <span>
+                                            {federation_name && federation_alias ?
+                                                <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Федерация не указана'
+                                            }
+                                        </span>
+                                </div>
+                                }
+                                {city_name &&
+                                <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
+                                        {city_name}
                                     </span>
 
                         </div>
