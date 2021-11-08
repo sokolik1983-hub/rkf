@@ -153,11 +153,13 @@ const CardOrganization = ({   id,
                     }
                 </div>
             </div>
-
+            <p className="card-organization__text">
+                {content}
+            </p>
             <div className="card-organization__controls">
                 <CardFooter
                     id={id}
-                    share_link={ `https://rkf.online${url}` }
+                    share_link={`https://rkf.online${url}`}
                 />
             </div>
         </Card>
