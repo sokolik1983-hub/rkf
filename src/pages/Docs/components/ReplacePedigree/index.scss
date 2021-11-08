@@ -49,6 +49,9 @@
 
     .FormGroup--inline {
         margin-bottom: 0;
+        @media (max-width: 1079px) {
+            height: min-content;
+        }
     }
 
     //.FormGroup--inline .btn {
