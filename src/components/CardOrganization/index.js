@@ -61,10 +61,8 @@ const CardOrganization = ({   id,
                                     <span className="card-organization__mark">
                                         {active_rkf_user &&
                                         }
-
                                     </div>
                                 </div>
-
                                     </span>
                                 </div>
 
