@@ -2,15 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Card from "../Card";
-import { ActiveUserMark, FederationChoiceMark } from "../Marks";
+import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import { DEFAULT_IMG } from "../../appConfig";
 import CardFooter from '../CardFooter';
 
 import "./index.scss";
 
 
-const CardOrganization = ({
-                              id,
+const CardOrganization = ({   id,
                               alias,
                               logo,
                               name,
@@ -28,24 +27,22 @@ const CardOrganization = ({
                               mails,
                               breeds,
                               site,
-                              setFilters
-                          }) => {
-    const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
-        (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
+                              setFilters }) => {
+    const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null :
+        (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${alias}` : `/${alias}/`;
 
     return (
         <Card className="card-organization">
             <div className="card-organization__content">
                 <div className="card-organization__header">
-                    { url ?
+                    {url ?
                         <div className="card-organization__author">
-
                             <Link
-                                to={ url }
-                                className={ `card-organization__logo ${ user_type === 3 || user_type === 4 ? `item-card__logo--club` : `` }` }
-                                style={ {
+                                to={url}
+                                className={`card-organization__logo ${ user_type === 3 || user_type === 4 ? `item-card__logo--club` : `` }`}
+                                style={{
                                     backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`
-                                } }
+                                }}
                             />
 
                             <div className="card-organization__conteiner">
@@ -248,8 +245,8 @@ const CardOrganization = ({
 
             <div className="card-organization__controls">
                 <CardFooter
-                    id={ id }
-                    share_link={ `https://rkf.online${ url }` }
+                    id={id}
+                    share_link={ `https://rkf.online${url}` }
                 />
             </div>
         </Card>
