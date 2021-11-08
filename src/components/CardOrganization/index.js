@@ -56,28 +56,15 @@ const CardOrganization = ({   id,
                                             &nbsp;
                                             </>
                                         }
-
                                         <span>{name || 'Название отсутствует'}</span>
                                     </Link>
-                                        <span className="card-organization__mark">
+                                    <span className="card-organization__mark">
                                         {active_rkf_user &&
                                         }
-                                            {active_member &&
-                                            <FederationChoiceMark/>
+
                                     </div>
                                 </div>
 
-                                <div className="card-organization__info">
-                                    <div className="card-organization__info-item">
-                                    <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
-
-                                    <span>
-                                        { owner_name ?
-                                            url ?
-                                                <Link to={ url }>{ owner_name }</Link> :
-                                                owner_name :
-                                            'Не указано'
-                                        }
                                     </span>
                                 </div>
 
