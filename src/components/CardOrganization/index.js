@@ -156,6 +156,7 @@ const CardOrganization = ({   id,
                     {content}
                 </p>
             </div>
+
             <div className="card-organization__controls">
                 <CardFooter
                     id={id}
