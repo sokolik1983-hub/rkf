@@ -51,6 +51,7 @@
     margin-bottom: 10px;
   }
   &__media {
+    margin-top: 5px;
     & > div + div {
       margin-top: 3px;
     }
@@ -321,6 +322,7 @@
     word-wrap: break-word;
     transition: height 0.2s linear;
     margin-bottom: 0 !important;
+    padding-top: 5px;
     &._disabled {
       margin-bottom: 10px !important;
     }
