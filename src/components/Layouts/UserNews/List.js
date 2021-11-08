@@ -3,6 +3,7 @@ import CardNewsNew from "../../CardNewsNew";
 
 
 const List = ({list, className, isFullDate = true, removable, onAdClose, onDelete, first_name, last_name, canEdit}) => {
+    console.log('list', list)
     return (
     <div className={`list${className ? ' ' + className : ''}`}>
         <ul className="list__content">
@@ -32,6 +33,7 @@ const List = ({list, className, isFullDate = true, removable, onAdClose, onDelet
                         onDelete={onDelete}
                         first_name={first_name}
                         last_name={last_name}
+                        color={item.advert_color}
                     />
                 </li>
             )}
