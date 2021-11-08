@@ -141,9 +141,9 @@ const CardOrganization = ({   id,
                     }
                     {user_type === 7 && site &&
                     <div className="card-organization__info-item">
-                        <span className="card-organization__subtitle">Сайт</span>&nbsp;
+                            <span className="card-organization__subtitle">Сайт</span>&nbsp;
                         <a href={site.includes('http') ? site : `http://${site}`} target="_blank" rel="noopener noreferrer">{site}</a>
-                </div>
+                        </div>
                     }
                     {user_type === 4 && breeds && !!breeds.length &&
                     <div className="card-organization__info-item">
