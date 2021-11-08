@@ -114,7 +114,41 @@ const CardOrganization = ({   id,
                             }
                         </p>
                     }
-
+                </div>
+                <div className="card-organization__info">
+                    <div className="card-organization__info-item">
+                        <span className="card-organization__subtitle">{owner_position || 'Контактное лицо'}</span>&nbsp;
+                        <span>
+                            {owner_name ?
+                                url ?
+                                    <Link to={url}>{owner_name}</Link> :
+                                    owner_name :
+                                'Не указано'
+                            }
+                        </span>
+                    </div>
+                    {user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
+                    <div className="card-organization__info-item">
+                        <span className="card-organization__subtitle">Телефон</span>&nbsp;
+                        <span>{phones.join(`, `)}</span>
+                    </div>
+                    }
+                    {user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
+                    <div className="card-organization__info-item">
+                        <span className="card-organization__subtitle">E-mail</span>&nbsp;
+                        <span>{mails.join(`, `)}</span>
+                    </div>
+                    }
+                    {user_type === 7 && site &&
+                    <div className="card-organization__info-item">
+                        <span className="card-organization__subtitle">Сайт</span>&nbsp;
+                        <a href={site.includes('http') ? site : `http://${site}`} target="_blank" rel="noopener noreferrer">{site}</a>
+                    </div>
+                    }
+                    {user_type === 4 && breeds && !!breeds.length &&
+                    <div className="card-organization__info-item">
+                        <span className="card-organization__subtitle">Породы</span>&nbsp;
+                        <span>{breeds.slice(0, 4).join(`, `)}</span>
                         </div>
                     }
                 </div>
