@@ -60,7 +60,12 @@ const CardOrganization = ({   id,
                                     </Link>
                                     <span className="card-organization__mark">
                                         {active_rkf_user &&
+                                        <ActiveUserMark/>
                                         }
+                                        {active_member &&
+                                        <FederationChoiceMark/>
+                                        }
+                                    </span>
                                     </div>
                                 </div>
                                     </span>
