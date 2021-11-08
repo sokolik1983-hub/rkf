@@ -70,7 +70,7 @@ const CardNewsNew = forwardRef(({
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
-    const userName = ls.get('user_info') && ls.get('user_info').name;
+    const userName = ls.get('user_info') ? ls.get('user_info').name : '';
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
