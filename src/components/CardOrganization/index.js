@@ -39,60 +39,12 @@ const CardOrganization = ({   id,
                         <div className="card-organization__author">
                             <Link
                                 to={url}
-                                className={`card-organization__logo ${ user_type === 3 || user_type === 4 ? `item-card__logo--club` : `` }`}
+                                className={`card-organization__logo ${user_type === 3 || user_type === 4 ? `item-card__logo--club` : ``}`}
                                 style={{
-                                    backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`
+                                    backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
                                 }}
                             />
-
-                            <div className="card-organization__conteiner">
-                                <div className="card-organization__name-wrap">
-                                    <div>
-                                        <div className="card-organization__name-inner">
-
-                                            <Link to={ url } className="card-organization__name"
-                                                  title={ name || 'Название отсутствует' }>
-                                                { (user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                                    <>
-                                                        <span>
-                                                            { user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : '' }
-                                                        </span>
-                                                            &nbsp;
-                                                    </>
-                                                }
-
-                                                <span>{ name || 'Название отсутствует' }</span>
-                                            </Link>
-
-                                            <span className="card-organization__mark">
-                                                { active_rkf_user &&
-                                                    <ActiveUserMark/>
-                                                }
-
-                                                { active_member &&
-                                                <FederationChoiceMark/>
-                                                }
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    { (user_type !== 0 && user_type !== 5 && user_type !== 7) &&
-                                        <div className="card-organization__info-item">
-                                            <span>
-                                                { federation_name && federation_alias ?
-                                                    <Link to={ `/${ federation_alias }` }>{ federation_name }</Link> : 'Федерация не указана'
-                                                }
-                                            </span>
-
-                                            { city_name &&
-                                                <span className="card-organization__city" title={ city_name }
-                                                      onClick={ () => setFilters ? setFilters({ city_ids: [city_id] }) : null }>
-                                                    { city_name }
-                                                </span>
-                                            }
-                                        </div>
-                                    }
-                                </div>
+                            <div className="card-organization__name-wrap">
                                 <div>
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
