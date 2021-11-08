@@ -20,6 +20,7 @@
       }
   }
   &__media {
+    margin-top: 5px;
     & > div + div {
       margin-top: 3px;
     }
@@ -292,6 +293,7 @@
     }
   }
   &__text-wrap {
+    padding-top: 10px;
     max-height: 100px;
     overflow: hidden;
     &._collapsed {
@@ -314,7 +316,7 @@
     word-wrap: break-word;
     transition: height 0.2s linear;
     margin-bottom: 0 !important;
-    padding-top: 20px;
+    padding-top: 5px;
     &._disabled {
       margin-bottom: 10px !important;
     }
