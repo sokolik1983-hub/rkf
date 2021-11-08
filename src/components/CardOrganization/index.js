@@ -155,7 +155,7 @@ const CardOrganization = ({   id,
             </div>
 
                 <p className="card-organization__text">
-                {content}
+                    {content}
                 </p>
             <div className="card-organization__controls">
                 <CardFooter
