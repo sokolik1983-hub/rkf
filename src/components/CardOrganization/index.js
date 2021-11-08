@@ -129,15 +129,15 @@ const CardOrganization = ({   id,
                     </div>
                     {user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
                     <div className="card-organization__info-item">
-                        <span className="card-organization__subtitle">Телефон</span>&nbsp;
+                            <span className="card-organization__subtitle">Телефон</span>&nbsp;
                         <span>{phones.join(`, `)}</span>
-                    </div>
+                        </div>
                     }
                     {user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
                     <div className="card-organization__info-item">
-                        <span className="card-organization__subtitle">E-mail</span>&nbsp;
+                            <span className="card-organization__subtitle">E-mail</span>&nbsp;
                         <span>{mails.join(`, `)}</span>
-                    </div>
+                        </div>
                     }
                     {user_type === 7 && site &&
                     <div className="card-organization__info-item">
