@@ -82,6 +82,38 @@ const CardOrganization = ({   id,
                                 <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
                                         {city_name}
                                     </span>
+                                }
+                            </div>
+                        </div> :
+                        <p className="card-organization__author">
+                            <span className="card-organization__logo" style={{
+                                backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
+                            }} />
+                            <span className="card-organization__name" title={name || 'Название отсутствует'}>
+                                {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
+                                <>
+                                        <span>
+                                            {user_type === 3
+                                                ? 'Клуб'
+                                                : user_type === 4
+                                                    ? 'Питомник' : user_type === 5
+                                                        ? 'Федерация' : user_type === 7
+                                                            ? 'НКП' : ''
+                                            }
+                                        </span>
+                                    &nbsp;
+                                </>
+                                }
+                                <span>{name || 'Название отсутствует'}</span>
+                            </span>
+                            {active_rkf_user &&
+                            <ActiveUserMark/>
+                            }
+                            {active_member &&
+                            <FederationChoiceMark/>
+                            }
+                        </p>
+                    }
 
                         </div>
                     }
