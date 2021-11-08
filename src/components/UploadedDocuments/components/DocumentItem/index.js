@@ -22,7 +22,6 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
         setCategory(initialCategory);
     }, []);
 
-
     const handleCategoryChange = ({ target }) => {
         const { value } = target;
         setCategory(value);
