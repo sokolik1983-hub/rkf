@@ -50,7 +50,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 <h4 className="caps" style={{ marginTop: '10px' }}>Добавление заявки</h4>
                 <FormField disabled={update} className="inline-checkbox" fieldType="customCheckbox" name={`express`} label='Срочное изготовление' />
             </div>
-            <FormGroup inline>
+            <FormGroup inline className="DocApply__federation-info">
                 <FormField
                     disabled
                     options={options.federations}
@@ -69,19 +69,19 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 />
             </FormGroup>
 
-            <FormGroup inline>
+            <FormGroup inline className="DocApply__three-inline-columns">
                 <FormField disabled={view} name='breed_id' label='Порода' options={options.breeds} fieldType="reactSelect" placeholder="Выберите..." />
                 <FormField disabled={view} name='dog_name' label='Кличка' />
                 <FormField disabled={view} name='owner_name' label='ФИО владельца' />
             </FormGroup>
 
-            <FormGroup inline>
+            <FormGroup inline className="DocApply__three-inline-columns">
                 <FormField disabled={view || chip_number} name='stamp_code' placeholder="XXX" label='Код клейма' />
                 <FormField disabled={view || chip_number} name='stamp_number' placeholder="" label='Номер клейма' />
                 <FormField disabled={view || stamp_code || stamp_number} name='chip_number' placeholder="" label='ЧИП' />
             </FormGroup>
 
-            <FormGroup inline>
+            <FormGroup inline className="DocApply__personal-docs">
                 <FormFile
                     name={`personal_data_document`}
                     label='Соглашение на обработку персональных данных (PDF, JPEG, JPG)'
@@ -99,6 +99,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 />
 
             </FormGroup>
+            <div className="DocApply__pedigree-copy">
             <FormFile
                 name={`application_verk_statement_document`}
                 label='Поле загрузки заявления на выписку ВЕРК (бланк 14) (PDF, JPEG, JPG)'
@@ -106,6 +107,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 disabled={view}
                 document_type_id={32}
             />
+            </div>
 
             <FormGroup>
                 <br />

@@ -220,7 +220,7 @@
 
     &__stamp-code_inline {
         display: grid;
-        grid-template-columns: 50% 1fr 141px;
+        grid-template-columns: 1.36fr 1fr 141px;
         button {
             align-self: flex-end!important;
         }
@@ -239,10 +239,12 @@
            grid-template-rows: 1fr 1fr;
        }
    }
+
     &__payment-receipt-wrap {
         display: grid;
         grid-template-columns: 2fr 1fr 49%;
     }
+
     @media (max-width: 1079px) {
         &__federation-info {
             display: inline-block;
@@ -286,6 +288,7 @@
                 }
             }
         }
+
         &__trunned-pedigree {
             display: block;
             & div {
