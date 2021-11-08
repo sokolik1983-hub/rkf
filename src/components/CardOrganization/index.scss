@@ -4,7 +4,7 @@
     position: initial;
     @media (max-width: 560px) {
       position: relative;
-    }
+  }
   }
   &__mark {
     display: flex;
@@ -60,7 +60,7 @@
     display: block;
     overflow: hidden;
     @media (max-width: 560px) {
-       font-size: 14px;
+        font-size: 14px;
     }
     span:first-child {
       color: #72839c;
