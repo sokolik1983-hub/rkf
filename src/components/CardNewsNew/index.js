@@ -18,6 +18,7 @@ import EditForm from "./EditForm";
 // import { Request } from "utils/request";
 
 import "./index.scss";
+import CardFooter from '../CardFooter';
 
 const CardNewsNew = forwardRef(({
     id,
@@ -400,9 +401,13 @@ const CardNewsNew = forwardRef(({
             </div>
         </div>
         <div className="CardNewsNew__controls">
-            <div className="CardNewsNew__controls-center">
+            <CardFooter
+                id={id}
+                share_link={`https://rkf.online/news/${id}`}
+            />
+            {/*<div className="CardNewsNew__controls-center">
                 <Share url={`https://rkf.online/news/${id}`} />
-            </div>
+            </div>*/}
         </div>
     </>;
 

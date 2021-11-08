@@ -60,6 +60,9 @@
                     }
                 }
 
+                & .ya-share2__item_more.ya-share2__badge {
+                    background: none!important;
+                }
 
                 & .ya-share2__link {
                     display: flex;
@@ -79,4 +82,5 @@
             justify-content: center;
         }
     }
+
 }
