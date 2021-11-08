@@ -6,28 +6,3 @@
     position: relative;
     top: -34px;
 }
-
-.modal__body {
-  min-width: auto;
-}
-
-.puppy-modal-content {
-
-  .FormGroup--inline {
-
-    .btn {
-
-      @media (max-width: 1280px) {
-        align-self: unset !important;
-      }
-    }
-
-    .RSInput__value-container {
-      min-width: 100px;
-    }
-
-    @media (max-width: 1280px) {
-      flex-direction: column;
-    }
-  }
-}

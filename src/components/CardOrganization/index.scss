@@ -1,14 +1,11 @@
 .card-organization {
   padding: 10px;
-
   &__content {
     position: initial;
-
     @media (max-width: 560px) {
       position: relative;
     }
   }
-
   &__mark {
     display: flex;
     align-items: center;
@@ -17,14 +14,12 @@
     right: 0;
     transform: translateX(110%);
   }
-
   &__header {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-
     @media (max-width: 560px) {
       flex-direction: column;
       align-items: flex-start;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Share from "components/Share";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { filePdf, fileWord, trash } from "@progress/kendo-svg-icons";
+import { filePdf, trash } from "@progress/kendo-svg-icons";
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 import { getHeaders } from "../../../../utils/request";
 import LightTooltip from "components/LightTooltip";
@@ -12,7 +12,7 @@ import "./styles.scss";
 
 moment.locale('ru');
 
-const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, unsortedCategory, setModal, documentsToUpdate, setDocumentsToUpdate, editable, link}) => {
+const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, unsortedCategory, setModal, documentsToUpdate, setDocumentsToUpdate, editable }) => {
     const [category, setCategory] = useState({});
     const [url, setUrl] = useState('');
     const initialCategory = category_id ? { id: category_id, name: category_name } : unsortedCategory;
@@ -22,9 +22,6 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
         setCategory(initialCategory);
     }, []);
 
-    const iconFile = () => {
-        return link===null?fileWord:filePdf
-    }
 
     const handleCategoryChange = ({ target }) => {
         const { value } = target;
@@ -83,7 +80,7 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
         <div className="row d-flex align-items-center flex-row" >
             <div className="col-5">
                 <a href={url} target="_blank" rel="noopener noreferrer" className="d-flex align-items-center">
-                    <SvgIcon icon={iconFile()} size="default" />
+                    <SvgIcon icon={filePdf} size="default" />
                     <div className="d-flex flex-column">{name}<span className="DocumentItem__date">
                         {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}
                     </span>

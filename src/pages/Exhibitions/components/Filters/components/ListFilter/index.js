@@ -60,7 +60,7 @@ const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExportin
            </div>
             <HorizontalSwipe id="exhibitions-list-filter">
                 <div className="slider" ref={wrap}>
-                    <HorizontalSwipe id="slider-wrap" className="slider-wrap">
+                    <HorizontalSwipe id="slider-wrap1" className="slider-wrap">
                          <div className={activeType === 0 ? ' _active' : ''} onClick={(e) => handleClick(0, e, 1)}>Все</div>
                          <div className={activeType === 1 ? ' _active' : ''} onClick={(e) => handleClick(1, e, 2)}>Выставочные мероприятия</div>
                          <div className={activeType === 2 ? ' _active' : ''}  onClick={(e) => handleClick(2, e,  3)}>Племенные мероприятия</div>
