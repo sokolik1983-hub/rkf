@@ -68,7 +68,6 @@ const CardOrganization = ({   id,
                                     </span>
                                     </div>
                                 </div>
-
                                 {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
                                 <div className="card-organization__info-item">
                                         <span>
@@ -76,10 +75,10 @@ const CardOrganization = ({   id,
                                                 <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Федерация не указана'
                                             }
                                         </span>
-                                </div>
+                                    </div>
                                 }
                                 {city_name &&
-                                <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
+                                    <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
                                         {city_name}
                                     </span>
                                 }
@@ -102,7 +101,7 @@ const CardOrganization = ({   id,
                                             }
                                         </span>
                                     &nbsp;
-                                </>
+                                    </>
                                 }
                                 <span>{name || 'Название отсутствует'}</span>
                             </span>
@@ -114,6 +113,7 @@ const CardOrganization = ({   id,
                             }
                         </p>
                     }
+
                 </div>
                 <div className="card-organization__info">
                     <div className="card-organization__info-item">
@@ -143,19 +143,20 @@ const CardOrganization = ({   id,
                     <div className="card-organization__info-item">
                         <span className="card-organization__subtitle">Сайт</span>&nbsp;
                         <a href={site.includes('http') ? site : `http://${site}`} target="_blank" rel="noopener noreferrer">{site}</a>
-                    </div>
+                </div>
                     }
                     {user_type === 4 && breeds && !!breeds.length &&
                     <div className="card-organization__info-item">
-                        <span className="card-organization__subtitle">Породы</span>&nbsp;
+                            <span className="card-organization__subtitle">Породы</span>&nbsp;
                         <span>{breeds.slice(0, 4).join(`, `)}</span>
                         </div>
                     }
                 </div>
             </div>
-            <p className="card-organization__text">
+
+                <p className="card-organization__text">
                 {content}
-            </p>
+                </p>
             <div className="card-organization__controls">
                 <CardFooter
                     id={id}
