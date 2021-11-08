@@ -17,6 +17,7 @@ import ModalDeleteDocument from './components/ModalDeleteDocument';
 import { SvgIcon } from "@progress/kendo-react-common";
 import { plus } from "@progress/kendo-svg-icons";
 import { connectShowFilters } from "../Layouts/connectors";
+import {blockContent} from "../../utils/blockContent";
 
 import './styles.scss';
 
@@ -81,6 +82,11 @@ const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFil
                 setError(false);
             }, 5000);
         }
+    };
+
+    const closeModal = () => {
+        setModal({});
+        blockContent(false)
     };
 
     return (!loaded
@@ -191,7 +197,7 @@ const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFil
                         handleError={handleError}
                         handleSuccess={handleSuccess}
                         getCategories={getCategories}
-                        closeModal={() => setModal({})}
+                        closeModal={closeModal}
                     />
                 }
                 {
@@ -202,7 +208,7 @@ const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFil
                         getCategories={getCategories}
                         categoryId={modal.categoryId}
                         categoryName={modal.categoryName}
-                        closeModal={() => setModal({})}
+                        closeModal={closeModal}
                     />
                 }
                 {
@@ -211,7 +217,7 @@ const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFil
                         handleSuccess={handleSuccess}
                         getCategories={getCategories}
                         categoryId={modal.categoryId}
-                        closeModal={() => setModal({})}
+                        closeModal={closeModal}
                     />
                 }
                 {
@@ -220,7 +226,7 @@ const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFil
                         handleSuccess={handleSuccess}
                         getDocuments={getDocuments}
                         documentId={modal.documentId}
-                        closeModal={() => setModal({})}
+                        closeModal={closeModal}
                     />
                 }
             </>
