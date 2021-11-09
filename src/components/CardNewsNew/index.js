@@ -289,30 +289,11 @@ const CardNewsNew = forwardRef(({
                 </div>
             }
             {/* {videoLink && <p className={`CardNewsNew__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
-            <div className="CardNewsNew__controls" style={{ margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px' }}>
-                <div className="CardNewsNew__controls-left">
-                    <div>
-                        <span
-                            className={`k-icon ${isLiked
-                                ? ' k-i-heart colored-icon'
-                                : ' k-i-heart-outline'}`}
-                        // onClick={handleLikeClick}
-                        />
-                        {/* <span>{likesCount}</span> */}
-                        <span>0</span>
-                    </div>
-                    <div>
-                        <span className="k-icon k-i-comment" />
-                        <span>0</span>
-                    </div>
-                    <Share url={`https://rkf.online/news/${id}`} />
-                </div>
-                <div className="CardNewsNew__controls-right">
-                    <div>
-                        <span className="k-icon k-i-preview" />
-                        <span>0</span>
-                    </div>
-                </div>
+            <div className="CardNewsNew__controls">
+                <CardFooter
+                    id={id}
+                    share_link={`https://rkf.online/news/${id}`}
+                />
             </div>
         </>
     };

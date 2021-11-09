@@ -1,5 +1,8 @@
 .CardNewsNew {
   padding: 10px 0 10px 0 !important;
+  //padding: 10px !important;
+  //margin-bottom: 16px;
+  position: relative;
   &__wrap {
     &.is_closed {
       .CardNewsNew__controls,
@@ -592,5 +595,9 @@
   .ya-share2__popup {
     z-index: 0;
     right: -25px;
+  }
+  .CardFooter__controls {
+    width: 100%;
+    margin: 0 10px;
   }
 }
