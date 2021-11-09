@@ -24,8 +24,12 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    &.active {
+      border-bottom: 1px solid #3366ff;
+    }
   }
 }
+
 .list-filter {
   user-select: none;
   list-style: none;
@@ -35,6 +39,9 @@
     border-bottom: 2px solid transparent;
     &._active {
       border-bottom: 2px solid #3366ff;
+    }
+    a.active {
+      color: red;
     }
   }
   &.slider-wrap {

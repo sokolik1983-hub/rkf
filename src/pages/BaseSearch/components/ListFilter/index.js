@@ -17,35 +17,36 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
         mobileMenuMoves(place, e.target, wrap);
     }
 
-    const [scrollPosition, setScrollPosition] = useState(0);
-
-    const handleScroll = () => {
-        const position = document.body.getBoundingClientRect().top;
-        setScrollPosition(position);
-    };
-
-    const scrollMenuMoves = (position, wrap) => {
-        if(wrap) {
-            let allDivs = document.querySelectorAll('.Card');
-            allDivs.forEach((item, index) => {
-                if(item.getBoundingClientRect().top < 220 && item.getBoundingClientRect().top > 200 ) {
-                    let place = index;
-                    mobileMenuMoves(place);
-                };
-            });
-        }
-    }
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-    useEffect(()=> {
-        scrollMenuMoves(scrollPosition, wrap);
-    },[scrollPosition]);
+    // const [scrollPosition, setScrollPosition] = useState(0);
+    //
+    // const handleScroll = () => {
+    //     const position = document.body.getBoundingClientRect().top;
+    //     setScrollPosition(position);
+    // };
+    //
+    // const scrollMenuMoves = (position, wrap) => {
+    //     if(wrap) {
+    //         let allLinks = document.querySelectorAll('.list-filter__item');
+    //         let allDivs = document.querySelectorAll('.Card');
+    //         allDivs.forEach((item, index) => {
+    //             if(item.getBoundingClientRect().top < 200 && item.getBoundingClientRect().top > 180 ) {
+    //                 allLinks.forEach(item => item.classList.remove('_active'));
+    //                 allLinks[index].classList.add('_active');
+    //             };
+    //         });
+    //     }
+    // }
+    //
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll, { passive: true });
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // }, []);
+    //
+    // useEffect(()=> {
+    //     scrollMenuMoves(scrollPosition, wrap);
+    // },[scrollPosition]);
 
 
     return (
@@ -56,11 +57,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                         <HorizontalSwipe  id="search-page__list-filter1" className="list-filter slider-wrap" desktopScroll={true}>
                             <div  className="list-filter__item _active">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='global-search-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
                                     offset={-210}
-                                    duration={500}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Глобальный поиск'
                                     onClick={(e) => {
@@ -73,11 +75,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='found-info-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Информация о найденных собаках'
                                     onClick={(e) => {
@@ -92,11 +95,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='check-status-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Статус документов'
                                     onClick={(e) => {
@@ -110,11 +114,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='check-registration-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Регистрационные данные собаки'
                                     onClick={(e) => {
@@ -128,11 +133,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='stamp-search-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Поиск клуба/питомника'
                                     onClick={(e) => {
@@ -146,11 +152,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div  className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='referee-search-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Поиск судьи'
                                     onClick={(e) => {
@@ -164,11 +171,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div  className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='publication-search-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Поиск по объявлениям'
                                     onClick={(e) => {
@@ -183,11 +191,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
                             <div  className='list-filter__item'>
                                 <LinkScroll
+                                    activeClass='active'
                                     to='check-status__letter'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Информация о помётах'
                                     onClick={(e) => {
