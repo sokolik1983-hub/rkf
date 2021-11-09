@@ -16,9 +16,9 @@ import { formatDateTime } from "utils/datetime";
 import { DEFAULT_IMG } from "appConfig";
 import EditForm from "./EditForm";
 // import { Request } from "utils/request";
-
-import "./index.scss";
 import CardFooter from '../CardFooter';
+import "./index.scss";
+
 
 const CardNewsNew = forwardRef(({
     id,
