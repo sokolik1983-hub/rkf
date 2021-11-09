@@ -57,7 +57,7 @@ const CardOrganization = ({
                                         <div className="card-organization__name-inner">
 
                                             <Link to={ url } className="card-organization__name"
-                                                  title={ userName || 'Название отсутствует' }>
+                                                  title={ name || userName || 'Название отсутствует' }>
                                                 { (user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
                                                     <>
                                                         <span>
