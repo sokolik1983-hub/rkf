@@ -11,8 +11,8 @@ const RankFilter = ({ranks = [], ranks_ids, onChange, searchTypeId}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
-        setOptionsNotInValues(ranks.filter(option => ranks_ids.indexOf(option.value) === -1));
-        setValues(ranks.filter(option => ranks_ids.indexOf(option.value) !== -1));
+        setOptionsNotInValues(ranks.filter(option => ranks_ids?.indexOf(option.value) === -1));
+        setValues(ranks.filter(option => ranks_ids?.indexOf(option.value) !== -1));
     }, [ranks, ranks_ids]);
 
     const handleChange = options => {

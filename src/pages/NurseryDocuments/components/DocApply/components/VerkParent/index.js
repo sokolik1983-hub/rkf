@@ -50,7 +50,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                 onOk={() => setEverkAlert(false)}
             />
         }
-    <FormGroup inline>
+    <FormGroup inline className="DocApply__pedigree-number_search">
                 <FormField disabled={update || everk || filledEverk} name={`${who}_pedigree_number`} label={`Номер родословной ${whoRu}`}/>
                 <HideIf cond={update || declarant[`${who}_foreign`] || everk || filledEverk}>
                     <Button style={{marginRight: '16px'}} className="btn-primary" onClick={e => getEverk(who)} disabled={everk}>Поиск</Button>
@@ -66,7 +66,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                 placeholder={declarant[`${who}_foreign`] ? 'Введите кличку' : 'Кличка заполняется автоматически по номеру родословной'}
             />
             </FormGroup>
-    <FormGroup inline>
+    <FormGroup inline className="DocApply__two-inline-columns">
             <HideIf cond={everk || filledEverk}>
                 <FormField
                     disabled={update}

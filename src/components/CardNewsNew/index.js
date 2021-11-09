@@ -71,6 +71,7 @@ const CardNewsNew = forwardRef(({
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
+    const userName = ls.get('user_info') ? ls.get('user_info').name : '';
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
@@ -145,7 +146,7 @@ const CardNewsNew = forwardRef(({
                                                 : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                                     ? `/club/${alias}`
                                         : `/${alias}`}>
-                                        {user_type === 1 ? first_name + ' ' + last_name : name}
+                                        {user_type === 1 ? first_name + ' ' + last_name : userName}
                                     </Link>
                                     <span className="CardNewsNew__left-mark">
                                         <span>
@@ -362,7 +363,7 @@ const CardNewsNew = forwardRef(({
                                             &nbsp;
                                     </>
                                 }
-                                {user_type === 1 ? first_name + ' ' + last_name : name}
+                                {user_type === 1 ? first_name + ' ' + last_name : userName}
                             </Link>
                             {active_rkf_user &&
                                 <ActiveUserMark />
