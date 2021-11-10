@@ -146,7 +146,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
 
             <FormGroup inline className="DocItem__pedigree-number_search">
                 <FormField disabled={view || everk} name='pedigree_number' label='№ родословной собаки' />
-                {!everk && !view && <Button className='btn btn-primary' style={{ marginRight: '1em' }} onClick={e => getEverkData()}>Поиск</Button>}
+                {!everk && !view && <Button className='btn btn-primary' style={{ marginRight: '1em', alignSelf: 'flex-end'  }} onClick={e => getEverkData()}>Поиск</Button>}
                 <FormField disabled={view || everk} name='dog_name' label='Кличка собаки' />
                 {everk && !view && <Button className='btn btn-red' onClick={e => deleteClick()}>Удалить</Button>}
             </FormGroup>

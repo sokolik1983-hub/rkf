@@ -49,7 +49,7 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
     return <>
 <Card>
     <Title/>
-        <FormGroup inline>
+        <FormGroup inline className="DocApply__two-inline-columns">
         <FormField
             disabled
             options={options.federations}
@@ -73,7 +73,7 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
             label={`Ответственное лицо (<a href="/kennel/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
             placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
         {/*<FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />*/}
-        <FormGroup inline>
+        <FormGroup inline className="DocApply__two-inline-columns">
             <FormField
                 disabled
                 name='phone'

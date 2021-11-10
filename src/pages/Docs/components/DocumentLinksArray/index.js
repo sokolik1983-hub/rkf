@@ -31,10 +31,12 @@ const DocumentLinksArray = ({ documents, editable, onRemove }) => {
             {!!documents?.length &&
                 documents.map(d => {
                     return <div className="DocumentLinksArray__item" key={d.id}>
-                        <div onClick={() => handleClick(d.id)}>
-                            <SvgIcon icon={file} size="default" />
-                            <div className="DocumentLinksArray__item-name" >{d.name}</div>
-                        </div>
+                        <button
+                            className="btn nomargin"
+                            type="button"
+                            onClick={() => handleClick(d.id)}
+                        >Посмотреть
+                        </button>
                         {editable && !d.accept && <button
                             className="DocumentLinksArray__delete-btn"
                             type="button"

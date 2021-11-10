@@ -84,7 +84,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                 default:
                     break;
             }
-            if (user_type === 3) {
+            if (user_type === 3 && url !== 'kennel') {
                 clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
                 clubInfoArray.forEach(item => {
                     if(item.title !== "Мероприятия") {
@@ -177,6 +177,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 key={navItem.id}>
                                 <NavLink
                                     to={user_type === 3
+                                        && url === 'club'
                                         && alias !== 'rkf'
                                         && alias !== 'rkf-online'
                                         && navItem.title !== 'Поиск по базе РКФ'
