@@ -24,12 +24,19 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    &.active {
-      border-bottom: 1px solid #3366ff;
-    }
+    position: relative;
+  }
+  &__link.active:before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    bottom: -7px;
+    background-color: #3366ff;
+    height: 2px;
+    width: calc(100% + 30px);
+    display: block;
   }
 }
-
 .list-filter {
   user-select: none;
   list-style: none;
@@ -37,9 +44,6 @@
   li  {
     padding: 10px 10px 8px 10px;
     border-bottom: 2px solid transparent;
-    &._active {
-      border-bottom: 2px solid #3366ff;
-    }
     a.active {
       color: red;
     }
@@ -61,9 +65,6 @@
       display: flex;
       align-items: center;
       border-bottom: 2px solid transparent;
-      &._active {
-        border-bottom: 2px solid #3366ff;
-      }
     }
   }
   div {

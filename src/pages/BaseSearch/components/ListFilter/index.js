@@ -13,41 +13,8 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
         const currentNode = wrap.current;
         const calendarButton = currentNode.querySelector('.list-filter__item._active');
         if(calendarButton) calendarButton.classList.remove('_active');
-        e.target.closest('.list-filter__item').classList.add("_active");
         mobileMenuMoves(place, e.target, wrap);
     }
-
-    // const [scrollPosition, setScrollPosition] = useState(0);
-    //
-    // const handleScroll = () => {
-    //     const position = document.body.getBoundingClientRect().top;
-    //     setScrollPosition(position);
-    // };
-    //
-    // const scrollMenuMoves = (position, wrap) => {
-    //     if(wrap) {
-    //         let allLinks = document.querySelectorAll('.list-filter__item');
-    //         let allDivs = document.querySelectorAll('.Card');
-    //         allDivs.forEach((item, index) => {
-    //             if(item.getBoundingClientRect().top < 200 && item.getBoundingClientRect().top > 180 ) {
-    //                 allLinks.forEach(item => item.classList.remove('_active'));
-    //                 allLinks[index].classList.add('_active');
-    //             };
-    //         });
-    //     }
-    // }
-    //
-    // useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll, { passive: true });
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, []);
-    //
-    // useEffect(()=> {
-    //     scrollMenuMoves(scrollPosition, wrap);
-    // },[scrollPosition]);
-
 
     return (
             <div className="search-page__list-filter">
@@ -150,6 +117,25 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                                 </LinkScroll>
 
                             </div>
+                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
+                            <div  className='list-filter__item'>
+                                <LinkScroll
+                                    activeClass='active'
+                                    to='check-status__letter'
+                                    spy={true}
+                                    smooth={true}
+                                    offset={-170}
+                                    duration={200}
+                                    className='search-page__link'
+                                    title='Информация о помётах'
+                                    onClick={(e) => {
+                                        handleClick(8, e);
+                                        setCardClicked(5);
+                                    }}
+                                >
+                                    <span className="list-filter__control">Информация о помётах</span>
+                                </LinkScroll>
+                            </div>}
                             <div  className="list-filter__item">
                                 <LinkScroll
                                     activeClass='active'
@@ -186,27 +172,7 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                                 >
                                     <span className="list-filter__control">Поиск по <br /> объявлениям</span>
                                 </LinkScroll>
-
                             </div>
-                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
-                            <div  className='list-filter__item'>
-                                <LinkScroll
-                                    activeClass='active'
-                                    to='check-status__letter'
-                                    spy={true}
-                                    smooth={true}
-                                    offset={-170}
-                                    duration={200}
-                                    className='search-page__link'
-                                    title='Информация о помётах'
-                                    onClick={(e) => {
-                                        handleClick(8, e);
-                                        setCardClicked(5);
-                                    }}
-                                >
-                                    <span className="list-filter__control">Информация о помётах</span>
-                                </LinkScroll>
-                            </div>}
                         </HorizontalSwipe>
                     </div>
                 </div>
