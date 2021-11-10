@@ -26,11 +26,6 @@ export const newsArticleFormConfig = {
             closeMenuOnSelect: true,
             optionsEndpoint: '/api/dog/Breed'
         },
-        advert_breed_id1: {
-            name: 'advert_breed_id',
-            label: 'Порода',
-            placeholder: 'Порода',
-        },
         advert_cost: {
             name: 'advert_cost',
             label: 'Стоимость (руб.)'
