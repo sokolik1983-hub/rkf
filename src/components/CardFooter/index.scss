@@ -36,7 +36,6 @@
             }
             .Share {
                 height: 18px;
-
                 & .ya-share2__popup {
                     z-index: 0;
                     right: -25px;
@@ -60,6 +59,11 @@
                     }
                 }
 
+                & .ya-share2__badge.ya-share2__badge_more {
+                    background: none!important;
+                    width: 16px!important;
+                    height: 16px!important;
+                }
 
                 & .ya-share2__link {
                     display: flex;
@@ -79,4 +83,5 @@
             justify-content: center;
         }
     }
+
 }

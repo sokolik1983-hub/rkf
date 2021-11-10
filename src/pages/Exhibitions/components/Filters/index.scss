@@ -42,6 +42,10 @@
     }
     & .Card {
       padding: 10px;
+
+      &.ranks-filter {
+        padding-bottom: 30px;
+      }
     }
   }
   h4,
