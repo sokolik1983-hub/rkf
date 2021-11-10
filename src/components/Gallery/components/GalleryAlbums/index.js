@@ -8,9 +8,7 @@ const GalleryAlbums = ({ albums, match, getAlbums, canEdit }) => {
     const [showModal, setShowModal] = useState(false);
 
     const onModalClose = () => {
-        if (showModal && window.confirm("Закрыть?")) {
-            setShowModal(false);
-        }
+        showModal && setShowModal(false);
     };
 
     const onAlbumAddSuccess = () => {
