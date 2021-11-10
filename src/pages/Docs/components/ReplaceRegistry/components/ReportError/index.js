@@ -1,33 +1,11 @@
 import React, { useState } from "react";
 import { Form, SubmitButton, FormGroup, FormField } from 'components/Form';
 import FormFile from 'components/Form/Field/FormFile';
-import { object, string } from "yup";
+import { object, string, mixed } from "yup";
 import Alert from 'components/Alert';
 import Modal from 'components/Modal';
 import './styles.scss';
 
-const config = {
-    action: '/api/requests/replace_pedigree_request/replacepedigreerequest/error',
-    format: "multipart/form-data",
-    fields: {
-        error_message: {
-            name: 'error_message',
-            label: 'Сообщение',
-            type: 'text',
-            fieldType: 'textarea',
-            placeholder: "Введите ваше сообщение"
-        },
-        document: {
-            name: 'document',
-            type: 'file',
-            accept: '.jpg, .jpeg, .pdf'
-        }
-    },
-    validationSchema: object().shape({
-        error_message: string()
-            .required('Поле не может быть пустым')
-    })
-};
 
 const ReportErrorForm = ({ id, setIsOpen, setNeedUpdateTable }) => {
     const [errorAlert, setErrorAlert] = useState(false);
@@ -41,6 +19,36 @@ const ReportErrorForm = ({ id, setIsOpen, setNeedUpdateTable }) => {
         setNeedUpdateTable(prevState => !prevState);
         setSuccessAlert(true);
     };
+
+    const config = {
+        action: '/api/requests/replace_pedigree_request/replacepedigreerequest/error',
+        format: "multipart/form-data",
+        fields: {
+            error_message: {
+                name: 'error_message',
+                label: 'Сообщение',
+                type: 'text',
+                fieldType: 'textarea',
+                placeholder: "Введите ваше сообщение"
+            },
+            document: {
+                name: 'document',
+                type: 'file',
+                accept: '.jpg, .jpeg, .pdf'
+            }
+        },
+        validationSchema: object().shape({
+            document: mixed().test('fileSize', "File Size is too large", value => {
+                const sizeInBytes = 20971520; //20MB
+                return value.size <= sizeInBytes ? value.size <= sizeInBytes :
+                    setErrorAlert(true);
+            }),
+            error_message: string()
+                .required('Поле не может быть пустым')
+        })
+
+    };
+
     const { fields } = config;
     const initialValues = {
         error_message: '',
@@ -60,7 +68,7 @@ const ReportErrorForm = ({ id, setIsOpen, setNeedUpdateTable }) => {
             <FormGroup>
                 <FormField {...fields.error_message} />
                 <div className="FormInput">
-                    <label htmlFor="document">Прикрепите файл (JPEG, JPG, PDF)</label>
+                    <label htmlFor="document">Прикрепите файл (JPEG, JPG или PDF, размером не более 20 мб)</label>
                     <FormFile {...fields.document} />
                 </div>
             </FormGroup>
@@ -79,9 +87,9 @@ const ReportErrorForm = ({ id, setIsOpen, setNeedUpdateTable }) => {
         {errorAlert &&
             <Alert
                 title="Ошибка!"
-                text={errorText}
-                autoclose={2}
-                onOk={() => { setErrorAlert(false); setIsOpen(false); }}
+                text={"Формат файла не поддерживается, либо размер файла превышает 20Мб"}
+                autoclose={3}
+                onOk={() => { setErrorAlert(false);}}
             />
         }
     </div>
