@@ -1,5 +1,6 @@
 .calendar-filter__range {
   &-wrap {
+    width: 320px;
     display: flex;
     justify-content: space-between;
   }
@@ -10,7 +11,7 @@
   &-text {
     font-size: 16px;
     display: flex;
-    width: 165px;
+    width: 200px;
     justify-content: space-between;
     &._search_range {
       width: 160px;
@@ -28,4 +29,9 @@
 .k-picker-wrap.k-state-focused {
   border-color: #80bdff !important;
   box-shadow: 0 0 5px 2px #80bdff !important;
+}
+.calendar-filter {
+  &__controls {
+    width: 320px;
+  }
 }
