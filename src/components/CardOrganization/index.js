@@ -7,7 +7,6 @@ import { DEFAULT_IMG } from "../../appConfig";
 import CardFooter from '../CardFooter';
 
 import "./index.scss";
-import ls from 'local-storage';
 
 
 const CardOrganization = ({
@@ -34,8 +33,6 @@ const CardOrganization = ({
     const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
         (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
 
-    const userName = ls.get('user_info') ? ls.get('user_info').name : '';
-
     return (
         <Card className="card-organization">
             <div className="card-organization__content">
@@ -57,7 +54,7 @@ const CardOrganization = ({
                                         <div className="card-organization__name-inner">
 
                                             <Link to={ url } className="card-organization__name"
-                                                  title={ name || userName || 'Название отсутствует' }>
+                                                  title={ name || 'Название отсутствует' }>
                                                 { (user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
                                                     <>
                                                         <span>
@@ -67,7 +64,7 @@ const CardOrganization = ({
                                                     </>
                                                 }
 
-                                                <span>{ name || userName || 'Название отсутствует' }</span>
+                                                <span>{ name || 'Название отсутствует' }</span>
                                             </Link>
 
                                             <span className="card-organization__mark">
@@ -162,7 +159,7 @@ const CardOrganization = ({
 
                             <div className="card-organization__container">
                                 <div className="card-organization__heading">
-                                    <span className="card-organization__name" title={ name || userName || 'Название отсутствует' }>
+                                    <span className="card-organization__name" title={ name || 'Название отсутствует' }>
                                         { (user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
                                             <>
                                                 <span>
@@ -178,7 +175,7 @@ const CardOrganization = ({
                                             </>
                                         }
 
-                                        <span>{ name || userName || 'Название отсутствует' }</span>
+                                        <span>{ name || 'Название отсутствует' }</span>
                                     </span>
 
                                     <div className="card-organization__icons">
