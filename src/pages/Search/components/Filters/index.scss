@@ -1,7 +1,5 @@
 .search-page__filters {
   &-wrap {
-    //max-height: calc(100vh - 66px);
-    //overflow-y: auto;
     @media (max-width: 990px) {
       max-height: calc(100vh - 50px);
     }
