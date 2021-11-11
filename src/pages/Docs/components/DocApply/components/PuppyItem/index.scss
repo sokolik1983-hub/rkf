@@ -1,6 +1,16 @@
+.Modal__body {
+  @media (max-width: 1280px){
+    min-width: auto;
+  }
+}
+
 .puppy-modal-content {
     margin-top: 20px;
+  @media (max-width: 1280px) and (min-width: 801px) {
+
+  }
 }
+
 .DocItem__warning {
     color: #FA5D50;
     position: relative;
@@ -9,6 +19,7 @@
 
 .modal__body {
   min-width: auto;
+
 }
 
 .puppy-modal-content {
@@ -28,6 +39,10 @@
 
     @media (max-width: 1280px) {
       flex-direction: column;
+      
+      .FormInput {
+        width: 100%;
+      }
     }
   }
 }
