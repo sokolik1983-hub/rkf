@@ -1,6 +1,6 @@
 .calendar-filter__range {
   &-wrap {
-    width: 320px;
+    width: 280px;
     display: flex;
     justify-content: space-between;
   }
@@ -11,7 +11,7 @@
   &-text {
     font-size: 16px;
     display: flex;
-    width: 200px;
+    width: 160px;
     justify-content: space-between;
     &._search_range {
       width: 160px;
@@ -32,6 +32,6 @@
 }
 .calendar-filter {
   &__controls {
-    width: 320px;
+    width: 280px;
   }
 }
