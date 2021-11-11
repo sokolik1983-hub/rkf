@@ -143,9 +143,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
     }
 
     const onModalClose = () => {
-        if (showModal && window.confirm("Закрыть?")) {
-            setShowModal(false);
-        }
+       showModal && setShowModal(false);
     };
 
     const onImageAddSuccess = () => {
