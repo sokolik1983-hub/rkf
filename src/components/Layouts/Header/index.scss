@@ -1021,6 +1021,9 @@
     }
   }
   &__modal {
+    .Modal__body {
+      min-width: unset;
+    }
     & > div {
       max-width: 600px;
     }
