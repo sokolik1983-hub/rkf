@@ -200,6 +200,7 @@
       background: url("/static/images/slider/slider-button.svg") center no-repeat;
       background-size: cover;
       transform: rotate(90deg);
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
       &.opened {
         transform: rotate(-90deg);
