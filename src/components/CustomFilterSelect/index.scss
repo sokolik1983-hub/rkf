@@ -50,7 +50,7 @@
     list-style: none;
     margin-top: 8px;
     &-item {
-      display: inline-block;
+      display: inline-block!important;
       padding: 4px;
       background-color: #e8e8e8;
       border-radius: 2px;
@@ -61,6 +61,7 @@
       }
       span {
         vertical-align: middle;
+        display: inline-block;
       }
       button {
         padding: 0;
