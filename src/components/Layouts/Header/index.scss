@@ -199,10 +199,12 @@
       transform: scale(1);
     }
     span {
-      font-size: 12px;
+      position: relative;
+      font-size: 13px;
       color: #979797;
       line-height: 0;
       padding-top: 9px;
+      top: 2px;
     }
     .open {
       svg path {
@@ -294,7 +296,7 @@
       cursor: pointer;
       @media (max-width: 1080px) {
         position: relative;
-        top: 1.5px;
+        top: 2px;
       }
       &._open {
         color: #3366FF;
@@ -634,7 +636,7 @@
         }
       }
       span {
-        font-size: 12px;
+        font-size: 13px;
         color: #979797;
       }
     }
