@@ -20,7 +20,7 @@ const PuppyItem = ({ formik, puppy, i, j, activePuppy, activateClick, deleteClic
             <td onClick={activateClick} className="no-caps">{sex}</td>
             <td onClick={activateClick}>{puppy.stamp_number}</td>
             <td onClick={activateClick}>
-                <img className={`DocItem__chevron`} src="/static/icons/pen-gray.svg" alt="" />
+                <img className={`DocItem__chevron`} src="/static/icons/pen-gray.svg" alt="" onClick={activateClick} />
             </td>
             <td>
                 <DeleteButton onClick={e => deleteClick()} />
