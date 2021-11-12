@@ -35,6 +35,7 @@ Modal__body {
 
         @media (max-width: 1280px) {
             flex-direction: column;
+            gap: 20px;
 
             .FormInput {
                 width: 100%;
