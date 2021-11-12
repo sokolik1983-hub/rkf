@@ -13,6 +13,7 @@
         vertical-align: middle;
         width: 1em;
         height: 1em;
+        margin: 5px;
         cursor: pointer;
         transform: rotate(0deg);
         transition: .2s transform;
@@ -42,6 +43,12 @@
     }
     &__pedigree-nursery-wrap {
         margin-right: 16px;
+        span {
+            width: 100%;
+        }
+        @media (max-width: 1079px) {
+            margin: 0;
+        }
     }
     &__pedigree-nursery-calendar {
         margin-top: 10px;
@@ -49,6 +56,55 @@
         .k-input {
             margin-top: 10px;
             margin-left: 5px;
+        }
+    }
+    &__three-inline-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+            .DocItem__pedigree-calendar-wrap {
+                margin-right: 0;
+            }
+        }
+    }
+    &__stamp-inline {
+        display: grid;
+        grid-template-columns: 1fr 1fr 141px;
+        .btn {
+            align-self: flex-end!important;
+        }
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+            .btn {
+                width: 141px;
+            }
+        }
+    }
+    &__owner-mail-inline {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+    &__dog-name-inline {
+        display: grid;
+        grid-template-columns: 2fr 3fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+    &__name-warning-wrap {
+        @media (max-width: 1079px) {
+            :first-child {
+                left: 0;
+                top: 0;
+            }
         }
     }
 }

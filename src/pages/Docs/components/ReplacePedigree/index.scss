@@ -41,6 +41,12 @@
         white-space: nowrap;
         background-color: white;
     }
+    .FormGroup {
+       .flex-row{
+           margin-top: 5px;
+       }
+    }
+
 
     .FormGroup .btn {
         align-self: flex-start;
@@ -49,10 +55,9 @@
 
     .FormGroup--inline {
         margin-bottom: 0;
-    }
-
-    .FormGroup--inline .btn {
-        align-self: flex-end;
+        @media (max-width: 1079px) {
+            height: min-content;
+        }
     }
 
     .red {
@@ -153,6 +158,7 @@
         vertical-align: middle;
         width: 1em;
         height: 1em;
+        margin: 5px;
         cursor: pointer;
         transform: rotate(0deg);
         transition: .2s transform;
@@ -205,7 +211,7 @@
 
         .FormInput {
             display: grid;
-            grid-template-rows: 2.1fr 1fr;
+            grid-template-rows: 1.3fr 1fr;
         }
     }
 
@@ -220,7 +226,10 @@
 
     &__stamp-code_inline {
         display: grid;
-        grid-template-columns: 50% 1fr 141px;
+        grid-template-columns: 1.36fr 1fr 141px;
+        button {
+            align-self: flex-end!important;
+        }
     }
 
     &__breed-name_inline {
@@ -228,10 +237,19 @@
         grid-template-columns: 1fr 1fr;
     }
 
-   &__pedigree-copy div:first-child, &__trunned-pedigree div:first-child {
-       display: grid;
-       grid-template-rows: 1fr 1fr;
+   &__pedigree-copy {
+        display: grid;
+       grid-template-columns: 1fr 1fr;
+       div:first-child, &__trunned-pedigree div:first-child {
+           display: grid;
+           grid-template-rows: 1fr 1fr;
+       }
    }
+
+    &__payment-receipt-wrap {
+        display: grid;
+        grid-template-columns: 2fr 1fr 49%;
+    }
 
     @media (max-width: 1079px) {
         &__federation-info {
@@ -260,7 +278,7 @@
             display: block;
 
             & div {
-                min-width: 100%;
+                width: 100%;
                 &:last-of-type div {
                     grid-template-rows: 1fr 1fr;
                 }
@@ -270,16 +288,17 @@
         &__pedigree-copy  {
             display: block;
             & div {
-                min-width: 100%;
+                width: 100%;
                 & :first-child {
                    grid-template-rows: 1fr 1fr;
                 }
             }
         }
+
         &__trunned-pedigree {
             display: block;
             & div {
-                min-width: 100%;
+                width: 100%;
                 & :first-child {
                     grid-template-rows: 2fr 1fr;
                 }
@@ -290,7 +309,7 @@
             display: inline-block;
             width: 100%;
             & div:first-of-type {
-                width: 100% !important;
+                width: 100%;
                 & label {
                     margin-bottom: 15px;
                 }

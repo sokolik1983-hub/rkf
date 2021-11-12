@@ -80,7 +80,7 @@ const component = ({ formik, view, update, options }) => {
             <FormField disabled={view || formik.values.payment_document_accept} name='inn' label='ИНН (для юр. лиц)' />
         </FormGroup>
         <FieldArray name={`documents`} render={({ push, remove }) => (<>
-            {formik.values.documents && formik.values.documents.map((doc, j) => <FormGroup inline key={j}>
+            {formik.values.documents && formik.values.documents.map((doc, j) => <FormGroup className="mode-documents-wrap" inline key={j}>
                 <input type="hidden" name={`documents[${j}].id`} />
                 <FormField disabled={view || doc.document_accept} options={options.doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`documents[${j}].document_type_id`} />
                 <HideIf>

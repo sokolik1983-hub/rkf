@@ -18,7 +18,7 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
     };
 
     const onModalClose = () => {
-        if (showModal && window.confirm("Закрыть?")) {
+        if (showModal) {
             setShowModal(false);
             blockContent(false)
         }
