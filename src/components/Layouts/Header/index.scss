@@ -1023,6 +1023,11 @@
   &__modal {
     .Modal__body {
       min-width: unset;
+      padding: 10px;
+    }
+    .btn-primary {
+      display: flex;
+      margin: auto;
     }
     & > div {
       max-width: 600px;
