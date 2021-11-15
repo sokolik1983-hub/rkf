@@ -117,7 +117,7 @@ const Header = ({
 
                             </div>
                             <span style={{ color: isOpenFilters && '#3366ff', width: '50px' }}>
-                                {window.location.href.match(/uploaded-documents/) ?
+                                { pathname.match (/uploaded-documents/) ?
                                          (isOpenFilters ? 'Закрыть' : 'Категории') :
                                          (isOpenFilters ? 'Закрыть' : 'Фильтр')
                                 }
