@@ -7,7 +7,7 @@ import { filePdf } from "@progress/kendo-svg-icons";
 import Lightbox from "react-images";
 import moment from "moment";
 import ls from "local-storage";
-
+import Modal from "../Modal";
 import Card from "components/Card";
 import Share from "components/Share";
 import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
@@ -17,6 +17,7 @@ import { DEFAULT_IMG } from "appConfig";
 import EditForm from "./EditForm";
 // import { Request } from "utils/request";
 import CardFooter from '../CardFooter';
+
 import "./index.scss";
 
 
@@ -397,13 +398,13 @@ const CardNewsNew = forwardRef(({
             <div className={`CardNewsNew__wrap${is_closed_advert ? ' is_closed' : ''}`}>
                 {isEditing ? <EditItem /> : <ViewItem />}
                 {showPhoto &&
-                    <Lightbox
-                        images={[{ src: picture_link }]}
-                        isOpen={showPhoto}
-                        onClose={() => setShowPhoto(false)}
-                        backdropClosesModal={true}
-                        showImageCount={false}
-                    />
+                    <Modal handleClose={() => setShowPhoto(false)}>
+                        <Lightbox
+                            images={[{ src: picture_link }]}
+                            isOpen={showPhoto}
+                            showImageCount={false}
+                        />
+                    </Modal>
                 }
             </div>
         </Card>
