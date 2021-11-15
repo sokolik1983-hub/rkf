@@ -23,6 +23,8 @@ import {
 import { Request, getHeaders } from "../../../../../utils/request";
 import { years } from "./config";
 import "./index.scss";
+import {acceptType} from "../../../../../utils/checkImgType";
+import Alert from "../../../../../components/Alert";
 
 
 const CheckMembershipForm = ({ clubAlias, history, status }) => {
@@ -55,6 +57,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
         inn: '',
         documents: []
     });
+    const [showAlert, setShowAlert] = useState(false);
 
     const editable = !status || status === 'edit';
     const isView = status === 'view' || status === 'edit';
@@ -181,7 +184,10 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
 
     const onAdd = (e, doc_type) => {
         const { newState } = e;
-        if (status === 'edit') {
+
+        if (newState && newState.find(item => item.size > 20000000)) {
+            setShowAlert(true);
+        } else if (status === 'edit') {
             (values.documents?.length + newState.length) > 10
                 ? setDocumentsOverflow(true)
                 : formProps.onChange(`${doc_type}`, { value: newState })
@@ -273,7 +279,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                 </div>
                                                 <div>
                                                     <div>
-                                                        Документ для подтверждения вносимых изменений
+                                                        Документ для подтверждения вносимых изменений3424
                                                     </div>
                                                     <div className="application-form__file">
                                                         {!isView ? <Field
@@ -534,6 +540,13 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                     }
                 </Fade>
             </NotificationGroup>
+            {showAlert &&
+            <Alert
+                text="Размер изображения не должен превышать 20 мб"
+                okButton={true}
+                onOk={() => setShowAlert(false)}
+            />
+            }
         </div >
     )
 };
