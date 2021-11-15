@@ -28,3 +28,16 @@
     }
   }
 }
+.Modal__body {
+  .btn, .k-button {
+    @media (max-width: 990px) {
+      width: 154px;
+      height: 38px;
+    }
+  }
+  .k-button, .btn-danger {
+    @media (max-width: 990px) {
+      background-color: #00C48C!important;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import ModalDeletePage from "../../components/ModalDeletePage";
 import {Request} from "../../../../utils/request";
 import {formatDateTime} from "../../../../utils/datetime";
 import "./index.scss";
+import { blockContent } from '../../../../utils/blockContent';
 
 
 const DeletePage = () => {
@@ -115,7 +116,13 @@ const DeletePage = () => {
                         </>
             }
             {showModal &&
-                <ModalDeletePage closeModal={() => setShowModal(false)} updateInfo={getDate}/>
+                <ModalDeletePage
+                    closeModal={() => {
+                        setShowModal(false);
+                        blockContent(false)}
+                    }
+                    updateInfo={getDate}
+                />
             }
             {alert && <Alert {...alert} />}
         </div>
