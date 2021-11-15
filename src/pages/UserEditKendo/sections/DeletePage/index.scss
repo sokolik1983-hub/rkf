@@ -6,8 +6,25 @@
     b {
       color: #72839c;
     }
+    @media (max-width: 990px) {
+      display: none;
+    }
+    &__mobile {
+      display: none;
+      line-height: 20px;
+      text-align: center;
+      margin: 50px 0 !important;
+      @media (max-width: 990px) {
+        display: block;
+      }
+    }
   }
   .k-form-buttons {
     justify-content: center;
+  }
+  .k-button {
+    @media (max-width: 990px) {
+      background-color: #00C48C!important;
+    }
   }
 }
