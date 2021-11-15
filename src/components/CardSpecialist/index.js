@@ -146,7 +146,7 @@ const CardSpecialist = ({
 
                                     { ranks &&
                                     <div className="card-specialists__rank-wrap">
-                                        <span className="card-specialists__rank-title">Ранг</span>
+                                        <span className="card-specialists__rank-title">Статус</span>
                                         <span className="card-specialists__ranks-group">
                                             { modifiedRanks.map((rank, index, arr) => {
                                                 return (
