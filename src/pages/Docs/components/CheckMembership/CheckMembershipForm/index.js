@@ -279,7 +279,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                 </div>
                                                 <div>
                                                     <div>
-                                                        Документ для подтверждения вносимых изменений3424
+                                                        Документ для подтверждения вносимых изменений
                                                     </div>
                                                     <div className="application-form__file">
                                                         {!isView ? <Field
