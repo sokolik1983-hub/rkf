@@ -51,6 +51,7 @@ const CardNewsNew = forwardRef(({
     active_member,
     dog_color,
     dog_age,
+    dog_sex_type_id,
     active_rkf_user,
     picture_link,
     picture_short_link,
@@ -88,6 +89,17 @@ const CardNewsNew = forwardRef(({
         const [collapsed, setCollapsed] = useState(false);
         const [isLiked, setIsLiked] = useState(is_liked);
         // const [likesCount, setLikesCount] = useState(like_count);
+
+        switch (dog_sex_type_id) {
+            case 1:
+                dog_sex_type_id = 'Кобель';
+                break;
+            case 2:
+                dog_sex_type_id = 'Сука';
+                break;
+            default:
+                break;
+        }
 
         // const handleLikeClick = () => {
         //     if (isLiked) {
@@ -234,7 +246,9 @@ const CardNewsNew = forwardRef(({
                         {
                             dog_age && <div>Возраст: {dog_age}</div>
                         }
-
+                        {
+                            dog_sex_type_id && <div>Пол: {dog_sex_type_id}</div>
+                        }
                         <div className="CardNewsNew__ad-price">
                             <div>
                                 <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'}</span>

@@ -34,7 +34,7 @@ export const newsArticleFormConfig = {
             type: 'select',
             isMulti: false,
             closeMenuOnSelect: true,
-            optionsEndpoint: 'api/dog/Breed/sex_types'
+            optionsEndpoint: '/api/dog/Breed/sex_types'
         },
         dog_color: {
             name: 'dog_color',
