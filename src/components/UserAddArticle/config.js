@@ -26,8 +26,18 @@ export const newsArticleFormConfig = {
             closeMenuOnSelect: true,
             optionsEndpoint: '/api/dog/Breed'
         },
-        advert_color: {
-            name: 'advert_color',
+        dog_sex_type_id: {
+            name: 'dog_sex_type_id',
+            label: 'Пол',
+            placeholder: 'Пол',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            isMulti: false,
+            closeMenuOnSelect: true,
+            optionsEndpoint: 'api/dog/Breed/sex_types'
+        },
+        dog_color: {
+            name: 'dog_color',
             label: 'Окрас',
             placeholder: 'Окрас',
         },
