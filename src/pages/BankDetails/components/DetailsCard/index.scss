@@ -77,5 +77,9 @@
             transition: all .2s linear;
             color: #3366ff;
         }
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
 }
