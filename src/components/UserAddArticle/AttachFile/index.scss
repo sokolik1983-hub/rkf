@@ -59,6 +59,9 @@
       margin-right: 10px;
       flex-shrink: 0;
     }
+    @media (max-width: 480px) {
+      max-width: 285px;
+    }
   }
   &__category {
     display: flex;
@@ -115,6 +118,9 @@
       svg {
         fill: #3366ff !important;
       }
+    }
+    @media (max-width: 480px){
+      max-width: 285px;
     }
   }
   &__document {
