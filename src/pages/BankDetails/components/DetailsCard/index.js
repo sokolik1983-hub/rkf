@@ -25,7 +25,7 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
 
             if (documents[0]) {
                 (() => Request({
-                    url: `/api/document/document/public?id=${documents[0].document_id}`
+                    url: `/api/document/document/public?id=${documents[1].document_id}`
                 }, data => {
                     setRequisitesLink(data);
                 }, error => {
@@ -36,7 +36,7 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
 
             if (documents[1]) {
                 (() => Request({
-                    url: `/api/document/document/public?id=${documents[1].document_id}`
+                    url: `/api/document/document/public?id=${documents[0].document_id}`
                 }, data => {
                     setAmountСontributions(data);
                 }, error => {

@@ -60,6 +60,7 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                                         id={'city_id'}
                                         name={'address.city_id'}
                                         label={'Город'}
+                                        placeholder={'Город'}
                                         component={FormComboBox}
                                         textField={'name'}
                                         data={cities}
@@ -84,19 +85,47 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
 
                             <div className="form-row">
                                 <div className="form-group col-md-8">
-                                    <Field id="street_name" name={'address.street_name'} label={'Улица'} component={FormInput} maxLength="50" validator={value => lengthValidator(value, 50)} />
+                                    <Field
+                                        id="street_name"
+                                        name={'address.street_name'}
+                                        label={'Улица'}
+                                        component={FormInput}
+                                        maxLength="50"
+                                        validator={value => lengthValidator(value, 50)}
+                                        placeholder={'Улица'} />
                                 </div>
                             </div>
 
-                            <div className="form-row">
+                            <div className="form-row form-row__house">
                                 <div className="form-group col-md-4">
-                                    <Field id="house_name" name={'address.house_name'} label={'Дом'} component={FormInput} maxLength="20" validator={value => lengthValidator(value, 20)} />
+                                    <Field
+                                        id="house_name"
+                                        name={'address.house_name'}
+                                        label={'Дом'}
+                                        component={FormInput}
+                                        maxLength="20"
+                                        validator={value => lengthValidator(value, 20)}
+                                        placeholder={'Дом'} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="building_name" name={'address.building_name'} label={'Строение'} component={FormInput} maxLength="20" validator={value => lengthValidator(value, 20)} />
+                                    <Field
+                                        id="building_name"
+                                        name={'address.building_name'}
+                                        label={'Строение'}
+                                        component={FormInput}
+                                        maxLength="20"
+                                        validator={value => lengthValidator(value, 20)}
+                                        placeholder={'Строение'} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="flat_name" name={'address.flat_name'} label={'Квартира'} component={FormInput} maxLength="20" validator={value => lengthValidator(value, 20)} />
+                                    <Field
+                                        id="flat_name"
+                                        name={'address.flat_name'}
+                                        label={'Квартира'}
+                                        component={FormInput}
+                                        maxLength="20"
+                                        validator={value => lengthValidator(value, 20)}
+                                        placeholder={'Квартира'} />
                                 </div>
                             </div>
 
