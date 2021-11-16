@@ -49,6 +49,8 @@ const CardNewsNew = forwardRef(({
     first_name,
     last_name,
     active_member,
+    dog_color,
+    dog_age,
     active_rkf_user,
     picture_link,
     picture_short_link,
@@ -76,6 +78,8 @@ const CardNewsNew = forwardRef(({
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
+
+        console.log('dog_color', dog_color)
 
     }, []);
 
@@ -221,8 +225,16 @@ const CardNewsNew = forwardRef(({
                     {is_advert && <div className="CardNewsNew__ad">
                         <p className="CardNewsNew__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
+
                             <span>№{advert_code}</span>
                         </p>
+                        {
+                            dog_color && <div>Окрас: {dog_color}</div>
+                        }
+                        {
+                            dog_age && <div>Возраст: {dog_age}</div>
+                        }
+
                         <div className="CardNewsNew__ad-price">
                             <div>
                                 <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'}</span>

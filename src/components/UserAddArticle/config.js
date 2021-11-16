@@ -41,6 +41,11 @@ export const newsArticleFormConfig = {
             label: 'Окрас',
             placeholder: 'Окрас',
         },
+        dog_age: {
+            name: 'dog_age',
+            label: 'Возраст',
+            placeholder: 'Возраст',
+        },
         advert_cost: {
             name: 'advert_cost',
             label: 'Стоимость (руб.)'

@@ -82,15 +82,16 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                         advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
                         advert_number_of_puppies: isAd && !isMating ? number().typeError('Поле не может быть пустым') : '',
                         advert_type_id: isAd ? number().nullable().required('Выберите категорию') : '',
-                        advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : '',
-                        dog_color: isAd ? string().required('Поле не может быть пустым') : ''
+                        advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : ''
                     })}
                 initialValues={{
                     advert_breed_id: '',
                     advert_cost: '',
                     advert_number_of_puppies: '',
                     advert_type_id: '',
-                    dog_color: ''
+                    dog_color: '',
+                    dog_sex_type_id: '',
+                    dog_age: ''
                 }}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}
