@@ -40,7 +40,7 @@
   &__body {
     height: 100%;
     margin: 10px;
-    min-width: 590px;
+    min-width: auto;
     @media (max-width: 800px){
       min-width: auto;
       td:nth-child(4) {

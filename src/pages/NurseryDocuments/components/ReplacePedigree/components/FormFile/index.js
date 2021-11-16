@@ -33,8 +33,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, document_type_id,
     return <div style={{
     display: 'flex',
     flexDirection: 'column',
-    marginRight: '16px',
-    width: wide ? '100%' : 'calc(50% - 16px)'
+    marginRight: '16px'
 }}>
     <FormInput className="FormFile" name={`${name}_id`}>
             <label>{!!label ? label : "\u00a0"} {form && "("}{form && <a download={form.filename} href={form.href}>{form.linkText}</a>}{form && ")"}</label>

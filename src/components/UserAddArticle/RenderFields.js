@@ -30,10 +30,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     const [modalType, setModalType] = useState('');
     const { focus, setFocused, setBlured } = useFocus(false);
     const isMobile = useIsMobile();
-    // const [dogSex, setDogSex] = useState([]);
-    console.log('fields', fields);
-    // console.log('dogSex', dogSex);
-
 
     const { content, file } = formik.values;
 
@@ -43,7 +39,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             error => console.log(error.response)
         )
     }, []);
-
     const handleChange = e => {
         const file = e.target.files[0];
 
@@ -232,8 +227,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
-                        <FormField {...fields.dog_sex_type_id} />
-                        <FormField {...fields.dog_color} />
+                        <FormField {...fields.advert_breed_id1} />
                         <CustomNumber {...fields.advert_cost} maxLength={10} />
                         {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
                     </FormGroup>

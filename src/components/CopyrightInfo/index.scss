@@ -21,6 +21,10 @@
     // display: inline;
     text-align: justify;
     text-align-last: justify;
+    @media (min-width: 990px) and (max-width: 1079px) {
+      text-align: center;
+      text-align-last: center;
+    }
   }
 
   &-link {

@@ -41,7 +41,7 @@ const UserActionControls = ({ subscribed_id, subscribed, member, onSubscriptionU
     }
 
     return <section className="UserActionControls">
-        <button disabled>Написать сообщение</button>
+        <button disabled className="UserActionControls__message-btn">Написать сообщение</button>
         <div style={{ display: 'flex' }}>
             <button
                 className="UserActionControls__subscribe-btn"

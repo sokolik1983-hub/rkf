@@ -87,7 +87,6 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                         documentsToUpdate={documentsToUpdate}
                         setDocumentsToUpdate={setDocumentsToUpdate}
                         editable={editable}
-                        link={d.link}
                     />)
                 : <div className="DocumentItem container p-0">
                     <div className="d-flex flex-column align-items-start">

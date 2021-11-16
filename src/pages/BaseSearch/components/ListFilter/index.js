@@ -1,8 +1,9 @@
-import React, {useRef} from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link as LinkScroll } from 'react-scroll';
 import HorizontalSwipe from "../../../../components/HorozintalSwipe";
 import mobileMenuMoves from "../../../../utils/mobileMenuMoves";
 import "./index.scss";
+import scrollMenuMoves from "../../../../utils/scrollMenuMoves";
 
 
 const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
@@ -12,9 +13,9 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
         const currentNode = wrap.current;
         const calendarButton = currentNode.querySelector('.list-filter__item._active');
         if(calendarButton) calendarButton.classList.remove('_active');
-        e.target.closest('.list-filter__item').classList.add("_active");
         mobileMenuMoves(place, e.target, wrap);
     }
+
     return (
             <div className="search-page__list-filter">
                     <h4 className="list-filter__title">Сервисы</h4>
@@ -23,11 +24,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                         <HorizontalSwipe  id="search-page__list-filter1" className="list-filter slider-wrap" desktopScroll={true}>
                             <div  className="list-filter__item _active">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='global-search-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
                                     offset={-210}
-                                    duration={500}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Глобальный поиск'
                                     onClick={(e) => {
@@ -40,11 +42,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='found-info-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Информация о найденных собаках'
                                     onClick={(e) => {
@@ -59,11 +62,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='check-status-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Статус документов'
                                     onClick={(e) => {
@@ -77,11 +81,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='check-registration-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Регистрационные данные собаки'
                                     onClick={(e) => {
@@ -95,11 +100,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='stamp-search-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Поиск клуба/питомника'
                                     onClick={(e) => {
@@ -111,13 +117,33 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                                 </LinkScroll>
 
                             </div>
+                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
+                            <div  className='list-filter__item'>
+                                <LinkScroll
+                                    activeClass='active'
+                                    to='check-status__letter'
+                                    spy={true}
+                                    smooth={true}
+                                    offset={-170}
+                                    duration={200}
+                                    className='search-page__link'
+                                    title='Информация о помётах'
+                                    onClick={(e) => {
+                                        handleClick(8, e);
+                                        setCardClicked(5);
+                                    }}
+                                >
+                                    <span className="list-filter__control">Информация о помётах</span>
+                                </LinkScroll>
+                            </div>}
                             <div  className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='referee-search-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Поиск судьи'
                                     onClick={(e) => {
@@ -131,11 +157,12 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                             </div>
                             <div  className="list-filter__item">
                                 <LinkScroll
+                                    activeClass='active'
                                     to='publication-search-anchor'
-                                    spy={false}
+                                    spy={true}
                                     smooth={true}
-                                    offset={-140}
-                                    duration={500}
+                                    offset={-170}
+                                    duration={200}
                                     className='search-page__link'
                                     title='Поиск по объявлениям'
                                     onClick={(e) => {
@@ -145,26 +172,7 @@ const ListFilter = ({ setCardClicked, userType, isAuthenticated}) => {
                                 >
                                     <span className="list-filter__control">Поиск по <br /> объявлениям</span>
                                 </LinkScroll>
-
                             </div>
-                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
-                            <div  className='list-filter__item'>
-                                <LinkScroll
-                                    to='check-status__letter'
-                                    spy={false}
-                                    smooth={true}
-                                    offset={-140}
-                                    duration={500}
-                                    className='search-page__link'
-                                    title='Информация о помётах'
-                                    onClick={(e) => {
-                                        handleClick(8, e);
-                                        setCardClicked(5);
-                                    }}
-                                >
-                                    <span className="list-filter__control">Информация о помётах</span>
-                                </LinkScroll>
-                            </div>}
                         </HorizontalSwipe>
                     </div>
                 </div>

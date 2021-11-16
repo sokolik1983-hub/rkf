@@ -7,7 +7,7 @@ import { filePdf } from "@progress/kendo-svg-icons";
 import Lightbox from "react-images";
 import moment from "moment";
 import ls from "local-storage";
-
+import Modal from "../Modal";
 import Card from "components/Card";
 import Share from "components/Share";
 import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
@@ -16,8 +16,10 @@ import { formatDateTime } from "utils/datetime";
 import { DEFAULT_IMG } from "appConfig";
 import EditForm from "./EditForm";
 // import { Request } from "utils/request";
+import CardFooter from '../CardFooter';
 
 import "./index.scss";
+
 
 const CardNewsNew = forwardRef(({
     id,
@@ -288,30 +290,11 @@ const CardNewsNew = forwardRef(({
                 </div>
             }
             {/* {videoLink && <p className={`CardNewsNew__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
-            <div className="CardNewsNew__controls" style={{ margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px' }}>
-                <div className="CardNewsNew__controls-left">
-                    <div>
-                        <span
-                            className={`k-icon ${isLiked
-                                ? ' k-i-heart colored-icon'
-                                : ' k-i-heart-outline'}`}
-                        // onClick={handleLikeClick}
-                        />
-                        {/* <span>{likesCount}</span> */}
-                        <span>0</span>
-                    </div>
-                    <div>
-                        <span className="k-icon k-i-comment" />
-                        <span>0</span>
-                    </div>
-                    <Share url={`https://rkf.online/news/${id}`} />
-                </div>
-                <div className="CardNewsNew__controls-right">
-                    <div>
-                        <span className="k-icon k-i-preview" />
-                        <span>0</span>
-                    </div>
-                </div>
+            <div className="CardNewsNew__controls">
+                <CardFooter
+                    id={id}
+                    share_link={`https://rkf.online/news/${id}`}
+                />
             </div>
         </>
     };
@@ -401,9 +384,13 @@ const CardNewsNew = forwardRef(({
             </div>
         </div>
         <div className="CardNewsNew__controls">
-            <div className="CardNewsNew__controls-center">
+            <CardFooter
+                id={id}
+                share_link={`https://rkf.online/news/${id}`}
+            />
+            {/*<div className="CardNewsNew__controls-center">
                 <Share url={`https://rkf.online/news/${id}`} />
-            </div>
+            </div>*/}
         </div>
     </>;
 
@@ -412,13 +399,13 @@ const CardNewsNew = forwardRef(({
             <div className={`CardNewsNew__wrap${is_closed_advert ? ' is_closed' : ''}`}>
                 {isEditing ? <EditItem /> : <ViewItem />}
                 {showPhoto &&
-                    <Lightbox
-                        images={[{ src: picture_link }]}
-                        isOpen={showPhoto}
-                        onClose={() => setShowPhoto(false)}
-                        backdropClosesModal={true}
-                        showImageCount={false}
-                    />
+                    <Modal handleClose={() => setShowPhoto(false)}>
+                        <Lightbox
+                            images={[{ src: picture_link }]}
+                            isOpen={showPhoto}
+                            showImageCount={false}
+                        />
+                    </Modal>
                 }
             </div>
         </Card>

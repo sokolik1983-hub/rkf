@@ -1,6 +1,13 @@
+.Modal__body {
+    @media (max-width: 1280px){
+        min-width: auto;
+    }
+}
+
 .puppy-modal-content {
     margin-top: 20px;
 }
+
 .DocItem__warning {
     color: #FA5D50;
     position: relative;
@@ -8,26 +15,32 @@
 }
 
 .modal__body {
-  min-width: auto;
+    min-width: auto;
+
 }
 
 .puppy-modal-content {
 
-  .FormGroup--inline {
+    .FormGroup--inline {
 
-    .btn {
+        .btn {
 
-      @media (max-width: 1280px) {
-        align-self: unset !important;
-      }
+            @media (max-width: 1280px) {
+                align-self: unset !important;
+            }
+        }
+
+        .RSInput__value-container {
+            min-width: 100px;
+        }
+
+        @media (max-width: 1280px) {
+            flex-direction: column;
+            gap: 20px;
+
+            .FormInput {
+                width: 100%;
+            }
+        }
     }
-
-    .RSInput__value-container {
-      min-width: 100px;
-    }
-
-    @media (max-width: 1280px) {
-      flex-direction: column;
-    }
-  }
 }

@@ -66,7 +66,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                 placeholder={declarant[`${who}_foreign`] ? 'Введите кличку' : 'Кличка заполняется автоматически по номеру родословной'}
             />
             </FormGroup>
-    <FormGroup inline>
+    <FormGroup inline className="DocApply__two-inline-columns">
             <HideIf cond={everk || filledEverk}>
                 <FormField
                     disabled={update}

@@ -1,5 +1,6 @@
 .CardNewsNew {
   padding: 10px 0 10px 0 !important;
+  position: relative;
   &__wrap {
     &.is_closed {
       .CardNewsNew__controls,
@@ -20,7 +21,6 @@
       }
   }
   &__media {
-    margin-top: 5px;
     & > div + div {
       margin-top: 3px;
     }
@@ -293,7 +293,6 @@
     }
   }
   &__text-wrap {
-    padding-top: 10px;
     max-height: 100px;
     overflow: hidden;
     &._collapsed {
@@ -316,7 +315,7 @@
     word-wrap: break-word;
     transition: height 0.2s linear;
     margin-bottom: 0 !important;
-    padding-top: 5px;
+    padding-top: 20px;
     &._disabled {
       margin-bottom: 10px !important;
     }
@@ -592,5 +591,9 @@
   .ya-share2__popup {
     z-index: 0;
     right: -25px;
+  }
+  .CardFooter__controls {
+    width: 100%;
+    margin: 0 10px;
   }
 }
