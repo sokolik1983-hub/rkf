@@ -73,7 +73,7 @@
     background-size: cover;
     background-repeat: no-repeat;
 
-    @media (max-width: 560px) {
+    @media (max-width: 700px) {
       width: 83px;
       height: 83px;
     }
@@ -109,6 +109,10 @@
         display: flex;
         align-items: center;
         margin-bottom: 5px;
+
+        @media (max-width: 700px) {
+          display: block;
+        }
       }
     }
 
@@ -131,6 +135,11 @@
     color: #72839c;
     white-space: nowrap;
     cursor: pointer;
+
+    @media (max-width: 700px) {
+      display: block;
+      margin: 3px 0 2px 0;
+    }
 
     &:before {
       content: "";
