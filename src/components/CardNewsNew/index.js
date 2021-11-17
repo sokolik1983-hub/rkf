@@ -40,7 +40,6 @@ const CardNewsNew = forwardRef(({
     advert_breed_id,
     advert_breed_name,
     advert_code,
-    advert_color,
     advert_cost,
     advert_number_of_puppies,
     advert_type_name,
