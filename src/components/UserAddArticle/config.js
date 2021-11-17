@@ -26,6 +26,26 @@ export const newsArticleFormConfig = {
             closeMenuOnSelect: true,
             optionsEndpoint: '/api/dog/Breed'
         },
+        dog_sex_type_id: {
+            name: 'dog_sex_type_id',
+            label: 'Пол',
+            placeholder: 'Пол',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            isMulti: false,
+            closeMenuOnSelect: true,
+            optionsEndpoint: '/api/dog/Breed/sex_types'
+        },
+        dog_color: {
+            name: 'dog_color',
+            label: 'Окрас',
+            placeholder: 'Окрас',
+        },
+        dog_age: {
+            name: 'dog_age',
+            label: 'Возраст',
+            placeholder: 'Возраст',
+        },
         advert_cost: {
             name: 'advert_cost',
             label: 'Стоимость (руб.)'

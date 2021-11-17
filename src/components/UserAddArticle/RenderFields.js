@@ -39,6 +39,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             error => console.log(error.response)
         )
     }, []);
+
     const handleChange = e => {
         const file = e.target.files[0];
 
@@ -227,6 +228,9 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
+                        <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
+                        <FormField {...fields.dog_color} />
+                        <FormField {...fields.dog_age} />
                         <CustomNumber {...fields.advert_cost} maxLength={10} />
                         {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
                     </FormGroup>
