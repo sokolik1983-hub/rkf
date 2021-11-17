@@ -63,6 +63,7 @@ const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setD
                 saveUrl="/api/requests/exhibition_request/clubexhibitionrequestdocument"
                 saveField="file"
                 multiple={false}
+                className="hide-spinner"
                 onBeforeUpload={e => onBeforeUpload(e)}
                 onStatusChange={e => onStatusChange(e, 'documents_upload')}
                 disabled={(docTypes && documentType === 0) || documentsOverflow}
