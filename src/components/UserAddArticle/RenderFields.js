@@ -228,7 +228,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
-                        <FormField {...fields.dog_sex_type_id} />
+                        <FormField className="input_padding" {...fields.dog_sex_type_id} />
                         <FormField {...fields.dog_color} />
                         <FormField {...fields.dog_age} />
                         <CustomNumber {...fields.advert_cost} maxLength={10} />
