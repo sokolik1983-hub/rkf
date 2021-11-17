@@ -288,12 +288,14 @@
         padding: 0 !important;
       }
     }
-    .input_padding {
-      & .FormInput__input {
-        padding: 0 !important;
-      }
-      & .css-kj6f9i-menu {
-        max-height: 70px!important;
+    .ArticleCreateForm {
+      &__input-sex {
+        & .FormInput__input {
+          padding: 0 !important;
+        }
+        & .css-kj6f9i-menu {
+          max-height: 70px!important;
+        }
       }
     }
     .css-shvkw9-control,
