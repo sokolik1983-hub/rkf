@@ -1,45 +1,55 @@
 .documents-page {
   background-color: #f5f8ff;
   min-height: 96vh;
+
   & + .Footer {
     display: none;
   }
+
   &__content {
     padding-bottom: 50px;
     @media (max-width: 560px) {
       padding-bottom: 16px;
     }
   }
+
   .mobile-only {
     @media (min-width: 991px) {
       display: none !important;
     }
   }
+
   .desktop-only {
     @media (max-width: 990px) {
       display: none !important;
     }
   }
+
   .menu-component {
     padding: 24px 32px !important;
     margin-bottom: 1em;
+
     &__title {
       font-size: 18px;
       line-height: 26px;
       margin-bottom: 6px;
     }
   }
+
   p {
     font-weight: normal;
   }
+
   hr {
     clear: both;
   }
+
   .Card {
     @media (max-width: 560px) {
       padding: 12px;
     }
   }
+
   &__icon {
     float: right;
     width: 145px;
@@ -50,49 +60,64 @@
       width: 100px;
       height: 100px;
     }
+
     &.litter-icon {
       background-image: url("/static/images/documents/litter-icon.svg");
     }
+
     &.pedigree-icon {
       background-image: url("/static/images/documents/pedigree-icon.svg");
     }
+
     &.puppy-icon {
       background-image: url("/static/images/documents/puppy-icon.svg");
     }
+
     &.replace-pedigree-icon {
       background-image: url("/static/images/documents/replace-pedigree-icon.svg");
     }
+
     &.dysplasia-icon {
       background-image: url("/static/images/documents/dysplasia-icon.svg");
     }
+
     &.patella-icon {
       background-image: url("/static/images/documents/patella-icon.svg");
     }
+
     &.declarants-icon {
       background-image: url("/static/images/documents/declarants-icon.svg");
     }
+
     &.stamps-icon {
       background-image: url("/static/images/documents/stamps-icon.svg");
     }
+
     &.membership-icon {
       background-image: url("/static/images/documents/membership-icon.svg");
     }
+
     &.registration-icon {
       background-image: url("/static/images/documents/registration-icon.svg");
     }
+
     &.exhibitions-icon {
       background-image: url("/static/images/documents/exhibitions-icon.svg");
     }
+
     &.cancellation-icon {
       background-image: url("/static/images/documents/cancellation-icon.svg");
     }
+
     &.federation-quality-icon {
       background-image: url("/static/images/documents/federation-quality-icon.svg");
     }
+
     &.federation-support-quality-icon {
       background-image: url("/static/images/documents/federation-support-quality-icon.svg");
     }
   }
+
   &__img {
     display: block;
     border-radius: 6px;
@@ -102,6 +127,7 @@
       margin-bottom: 12px;
     }
   }
+
   &__head {
     display: flex;
     align-items: center;
@@ -110,6 +136,7 @@
       display: block;
       margin-bottom: 24px;
     }
+
     &-info {
       margin-right: auto;
       @media (max-width: 768px) {
@@ -119,6 +146,7 @@
         margin-bottom: 12px;
       }
     }
+
     .btn {
       margin-left: 24px;
       white-space: nowrap;
@@ -136,6 +164,7 @@
       }
     }
   }
+
   &__title {
     text-align: center;
     margin: 12px 0;
@@ -144,6 +173,7 @@
       line-height: 1.2;
     }
   }
+
   .btn__blue {
     text-decoration: none;
     border: none;
@@ -167,17 +197,20 @@
       margin-top: 12px;
     }
   }
+
   &__payment {
     margin-bottom: 32px;
     @media (max-width: 990px) {
       margin-bottom: 24px;
     }
+
     &-info {
       margin-bottom: 24px;
       @media (max-width: 990px) {
         margin-bottom: 0;
       }
     }
+
     &-title {
       font-weight: 600;
       font-size: 14px;
@@ -187,6 +220,7 @@
       margin-bottom: 12px;
     }
   }
+
   &__additional {
     &-title {
       font-weight: 600;
@@ -197,6 +231,7 @@
       margin-bottom: 12px;
     }
   }
+
   &__address {
     margin-top: 12px;
     display: flex;
@@ -205,6 +240,7 @@
     @media (max-width: 990px) {
       display: block;
     }
+
     &-title {
       font-weight: 600;
       font-size: 14px;
@@ -213,9 +249,11 @@
       text-transform: uppercase;
       margin-bottom: 12px;
     }
+
     &-subtitle {
       margin: 24px 0 12px;
     }
+
     &-left {
       width: 45%;
       min-width: 45%;
@@ -225,22 +263,27 @@
         width: 100%;
       }
     }
+
     &-right {
       width: 100%;
     }
   }
+
   &__info {
     display: flex;
     justify-content: space-between;
+
     p {
       @media (min-width: 560px) {
         padding-right: 180px;
       }
     }
+
     @media (max-width: 990px) {
       display: block;
     }
   }
+
   &__left {
     width: 296px;
     min-width: 296px;
@@ -258,18 +301,22 @@
       min-width: 266px;
       & > div {
         width: 100%;
+
         &:not(:last-child) {
           margin-bottom: 12px;
         }
+
         &:nth-child(odd) {
           margin-right: 0;
         }
+
         &:nth-child(even) {
           margin-left: 0;
         }
       }
     }
   }
+
   &__right {
     width: 100%;
     order: 1;
@@ -277,28 +324,34 @@
       padding-bottom: 24px;
     }
   }
+
   &__map {
     img {
       background: #f3f4f4;
       max-height: 300px;
     }
+
     @media (max-width: 990px) {
       margin-top: 24px;
     }
+
     img {
       width: 100%;
       display: block;
     }
   }
+
   .flex-row {
     display: flex;
     justify-content: space-between !important;
     align-items: flex-start;
     flex-wrap: wrap;
     margin: 0 0 12px;
+
     & > div {
       margin: 12px;
     }
+
     @media (max-width: 1079px) {
       display: block;
       margin: 0 0 12px;
@@ -307,16 +360,19 @@
       }
     }
   }
+
   .Loading:not(.inline) {
     display: flex;
     align-items: center;
     min-height: 300px;
     position: static;
     transform: none;
+
     &__title {
       margin: 0 auto;
     }
   }
+
   .stage-controls.flex-row > * {
     margin-left: 1em;
     @media (max-width: 1079px) {
@@ -324,7 +380,33 @@
     }
 
   }
+
   .FormFile {
     margin-bottom: 2em;
+  }
+
+  .DocItem__two-inline-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 1079px) {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .DocItem__litter-payment-wrap {
+    display: grid;
+    grid-template-columns: 50% 1fr 1fr;
+    @media (max-width: 1079px){
+      display: block;
+      margin: 0;
+      width: 100%;
+    }
+  }
+  .FormInput__input {
+    @media (max-width: 1079px) {
+      width: 100%;
+    }
   }
 }
