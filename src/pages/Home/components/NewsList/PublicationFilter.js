@@ -26,7 +26,7 @@ const PublicationFilter = ({changeTypeFilters, activeType}) => (
                     className={`ListFilter__item${activeType === 'advert' ? ' _active' : ''}`}
                     onClick={() => changeTypeFilters('advert')}
                 >
-                    Объявления
+                    Куплю/Продам
                 </button>
             </li>
         </ul>

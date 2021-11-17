@@ -1,10 +1,21 @@
 .UserEdit {
   .ue-security {
+    .k-form-hint {
+      @media (max-width: 990px) {
+        display: none;
+      }
+    }
+    .k-button {
+      @media (max-width: 990px) {
+        margin: 20px auto 0!important;
+        background-color: #00C48C!important;
+      }
+    }
     &__row {
       display: flex;
-      align-items: flex-start;
+      flex-direction: column;
       .k-form-field {
-        margin-top: 0 !important;
+        margin-top: 15px !important;
       }
     }
     &__label {
@@ -12,7 +23,7 @@
       margin: 9px 0 0 !important;
       &-second {
         line-height: 20px;
-        margin: 9px 0 0 !important;
+        margin: 9px 0 -5px !important;
         color: #b9b9b9;
       }
     }

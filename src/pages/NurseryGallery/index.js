@@ -142,9 +142,9 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
         setShowModal(true);
     }
 
-    const onModalClose = () => {
-        if (showModal && window.confirm("Закрыть?")) {
-            setShowModal(false);
+    const onModalClose = (e) => {
+        if(!e.target.closest('.Alert')) {
+            showModal && setShowModal(false);
         }
     };
 
@@ -315,7 +315,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                 </Layout>
             }
             {showAlert && <Alert {...showAlert} />}
-            {showModal && <AddPhotoModal showModal={showModal} onModalClose={onModalClose} albumId={params.album} onSuccess={onImageAddSuccess} />}
+            {showModal && <AddPhotoModal showModal={showModal} onModalClose={(e) => onModalClose(e)} albumId={params.album} onSuccess={onImageAddSuccess} />}
         </>
     )
 };

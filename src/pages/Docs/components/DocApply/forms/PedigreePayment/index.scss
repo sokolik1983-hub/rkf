@@ -10,3 +10,23 @@
         margin-left: 5px;
     }
 }
+.DocItem__payment-receipt-wrap {
+    display: grid;
+    grid-template-columns: 2fr 1fr 49%;
+    @media (max-width: 1079px) {
+        display: inline-block;
+        width: 100%;
+        & div:nth-of-type(2) {
+            margin: 0;
+            span {
+                width: 100%;
+            }
+        }
+    }
+}
+.DocItem__payer-info-wrap {
+    @media (max-width: 1079px) {
+        display: inline-block;
+        width: 100%;
+    }
+}

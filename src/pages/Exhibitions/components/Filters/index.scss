@@ -33,6 +33,7 @@
   }
   &__wrap {
     overflow: hidden;
+    margin-bottom: 10px;
     @media (max-width: 990px) {
       margin-bottom: 16px;
       padding-bottom: 20px;
@@ -42,6 +43,10 @@
     }
     & .Card {
       padding: 10px;
+
+      &.ranks-filter {
+        padding-bottom: 30px;
+      }
     }
   }
   h4,

@@ -36,4 +36,34 @@
       opacity: .7;
     }
   }
+  &__three-inline-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    @media (max-width: 1079px) {
+      display: inline-block;
+      min-width: 100%;
+    }
+  }
+  &__two-inline-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    @media (max-width: 1079px) {
+      display: inline-block;
+      min-width: 100%;
+    }
+  }
+  &__four-inline-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    @media (max-width: 1079px) {
+      display: inline-block;
+      min-width: 100%;
+    }
+  }
+}
+
+.FormGroup--inline .FormInput {
+  @media (max-width: 1079px) {
+    margin-right: 0;
+  }
 }

@@ -47,10 +47,12 @@ const DocumentLinksArray = ({ documents }) => {
             {!!documents?.length &&
                 documents.map(d => {
                     return <div className="DocumentLinksArray__item" key={d.id}>
-                        <div onClick={() => handleClick(d.document_id)}>
-                            <SvgIcon icon={file} size="default" />
-                            <div className="DocumentLinksArray__item-name">{setDocumentName(d.document_type_id)}</div>
-                        </div>
+                        <button
+                            className="btn nomargin"
+                            type="button"
+                            onClick={() => handleClick(d.document_id)}
+                        >Посмотреть
+                        </button>
                     </div>
                 })
             }

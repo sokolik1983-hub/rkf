@@ -7,7 +7,6 @@ import { Link, Redirect, useParams } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
 import Alert from "../../components/Alert";
-// import UserBanner from "../../components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
@@ -18,8 +17,9 @@ import { connectAuthVisible } from "../Login/connectors";
 import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
 import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "../../appConfig";
-import "./index.scss";
 import ls from "local-storage";
+
+import "./index.scss";
 
 
 const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
@@ -153,9 +153,9 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
         setShowModal(true);
     };
 
-    const onModalClose = () => {
-        if (showModal && window.confirm("Закрыть?")) {
-            setShowModal(false);
+    const onModalClose = (e) => {
+        if(!e.target.closest('.Alert')) {
+            showModal && setShowModal(false);
         }
     };
 
@@ -293,7 +293,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                 {showModal &&
                                     <AddPhotoModal
                                         showModal={showModal}
-                                        onModalClose={onModalClose}
+                                        onModalClose={(e) => onModalClose(e)}
                                         albumId={params.album}
                                         onSuccess={onImageAddSuccess}
                                     />

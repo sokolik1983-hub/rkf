@@ -24,7 +24,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const [advertTypes, setAdvertTypes] = useState([]);
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const { focus, setFocused, setBlured } = useFocus(false);
+    const {blured,  setBlured } = useFocus(false);
     const { content, is_advert } = formik.values;
 
     useEffect(() => {

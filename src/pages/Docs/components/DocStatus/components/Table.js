@@ -24,7 +24,7 @@ const ArchiveCell = ({ dataItem }) => {
     return date_archive ? <td>{date_archive}</td> : count_request_archive ? <td>Есть заявки в архиве</td> : <td></td>;
 };
 
-const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
+const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal, scrollClose) => {
     const [open, setOpen] = useState(false);
     const { id, status_id, date_archive } = dataItem;
     const { route } = useParams();
@@ -136,6 +136,13 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         );
     };
 
+    const [scrollClose, setScrollClose] = useState(0);
+    const scrollCunt = () => {
+        let count = scrollClose;
+        count++;
+        setScrollClose(count);
+    };
+
     return (
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
@@ -149,8 +156,9 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
                         onRowClick={handleGridRowClick}
+                        onScroll={scrollCunt}
                         style={{ height: "700px", width: "auto", margin: "0 auto" }}>
-                        <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
+                        <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal, scrollClose)} />
                         <GridColumn field="status_value" cell={StatusCell} title="Статус" width={fullScreen ? '62px' : '61px'} />
                         <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '130px' : '118px'} columnMenu={ColumnMenu} />
                         <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '110px'} columnMenu={ColumnMenu} />

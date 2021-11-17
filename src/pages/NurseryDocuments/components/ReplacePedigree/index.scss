@@ -2,6 +2,7 @@
     .special .FormInput__input {
         width: 100%;
     }
+
     h3 {
         font-family: Source Sans Pro;
         font-style: normal;
@@ -11,9 +12,11 @@
         color: #253C5E;
         text-align: center;
     }
+
     .shadow {
         box-shadow: 0px 10px 20px rgba(51, 102, 255, 0.1);
     }
+
     .divider {
         background: #EBF0F2;
         width: 100%;
@@ -24,9 +27,11 @@
     & input, & .caps {
         text-transform: uppercase;
     }
+
     & .no-caps {
         text-transform: none;
     }
+
     .FormInput__custom-error, .FormInput__error {
         color: #FA5D50;
         position: absolute;
@@ -36,29 +41,36 @@
         white-space: nowrap;
         background-color: white;
     }
+
     .FormGroup .btn {
         align-self: flex-start;
         margin-bottom: 22px;
     }
+
     .FormGroup--inline {
         margin-bottom: 0;
+        @media (max-width: 1079px) {
+            height: min-content;
+        }
     }
-    .FormGroup--inline .btn {
-        align-self: flex-end;
-    }
+
     .red {
         color: #00c48c!important;
     }
+
     .hidden {
         display: none!important;
     }
+
     &.view {
         pointer-events: none;
         opacity: 0.75;
     }
+
     .FormInput {
         margin-bottom: 20px;
     }
+
     table {
         width: 100%;
         text-align: left;
@@ -68,6 +80,7 @@
             display: block;
             overflow: scroll;
         }
+
         td, th {
             padding: .75rem;
             vertical-align: top;
@@ -75,13 +88,16 @@
             font-weight: normal;
             color: #72839C;
         }
+
         thead th {
             vertical-align: bottom;
         }
+
         td {
             color: #253C5E;
         }
     }
+
     .alert {
         position: relative;
         padding: .75rem 1.25rem;
@@ -89,6 +105,7 @@
         border: 1px solid transparent;
         border-radius: .25rem;
     }
+
     .alert-danger {
         color: #721c24;
         background-color: #f8d7da;
@@ -99,33 +116,42 @@
         background-color: white;
         padding: 8px 14px;
     }
+
     .stage-controls .btn:first-child {
         margin-right: auto;
     }
+
     .stage-controls .btn:last-child {
         margin-right: 1em;
     }
+
     .stage-controls .btn-green.btn-light {
         background: transparent;
         color: #00c48c;
     }
+
     &.error {
         outline: 1px solid red;
     }
+
     .heading-row {
         justify-content: flex-start!important;
     }
+
     .heading-row * {
         margin-bottom: 0!important;
     }
+
     .heading-row h4 {
         margin-left: 0!important;
     }
+
     &__chevron {
         display: inline-block;
         vertical-align: middle;
         width: 1em;
         height: 1em;
+        margin: 5px;
         cursor: pointer;
         transform: rotate(0deg);
         transition: .2s transform;
@@ -133,20 +159,25 @@
             transform: rotate(-90deg);
         }
     }
+
     &.collapse {
         display: none;
     }
+
     &.active {
         display: table-row;
     }
+
     &.active .card {
         margin-bottom: 1em;
         margin-top: .5em;
     }
+
     .plus-button {
         position: relative;
         left: 7.5px;
     }
+
     &__nursery-payment {
         &-wrap {
             margin-left: 10px;
@@ -158,6 +189,149 @@
         .k-input {
             margin-top: 10px;
             margin-left: 5px;
+        }
+    }
+
+    &__three-inline-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+
+    &__stamp-code_inline {
+        display: grid;
+        grid-template-columns: 1.36fr 1fr 141px;
+        button {
+            align-self: flex-end!important;
+        }
+    }
+
+    &__breed-name_inline {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    &__federation-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    &__personal-docs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .FormInput {
+            display: grid;
+            grid-template-rows: 1.3fr 1fr;
+        }
+    }
+
+    &__pedigree-copy {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        div:first-child, &__trunned-pedigree div:first-child {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+        }
+    }
+
+    &__payment-receipt-wrap {
+        display: grid;
+        grid-template-columns: 2fr 1fr 49%;
+    }
+
+    @media (max-width: 1079px) {
+        &__federation-info {
+            display: inline-block;
+            width: 100%;
+        }
+
+        &__stamp-code_inline {
+            display: inline-block;
+            width: 100%;
+            & button {
+                width: 141px;
+            }
+        }
+
+        .FormInput {
+            margin-right: 0;
+        }
+
+        &__breed-name_inline {
+            display: inline-block;
+            width: 100%;
+        }
+
+        &__personal-docs {
+            display: block;
+
+            & div {
+                width: 100%;
+                &:last-of-type div {
+                    grid-template-rows: 1fr 1fr;
+                }
+            }
+        }
+
+        &__pedigree-copy  {
+            display: block;
+            & div {
+                width: 100%;
+                & :first-child {
+                    grid-template-rows: 1fr 1fr;
+                }
+            }
+        }
+
+        &__trunned-pedigree {
+            display: block;
+            & div {
+                width: 100%;
+                & :first-child {
+                    grid-template-rows: 2fr 1fr;
+                }
+            }
+        }
+
+        &__payment-receipt-wrap {
+            display: inline-block;
+            width: 100%;
+            & div:first-of-type {
+                width: 100%;
+                & label {
+                    margin-bottom: 15px;
+                }
+            }
+        }
+
+        &__nursery-payment {
+            min-width: 100%;
+            &-wrap {
+                margin: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        &__payer-info-wrap {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+}
+.mode-documents-wrap {
+    @media (max-width: 1079px) {
+        display: grid;
+        grid-template-columns: 1fr;
+        label {
+            left: 300px;
+            bottom: 70px;
+        }
+        div:last-child a {
+            max-width:141px;
         }
     }
 }

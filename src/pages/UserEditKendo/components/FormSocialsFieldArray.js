@@ -34,6 +34,9 @@ const FormSocialsFieldArray = (fieldArrayRenderProps) => {
                 </div>
                 <div className="form-group col-12 col-md-6">
                     <div className="form-row">
+                        <div className="col-10 col-md-12">
+                            <Field name={`${id}[${index}].site`} placeholder="Введите ссылку на страницу" component={FormInput} maxLength="150" validator={valueValidator} />
+                        </div>
                         <div className="form-group col-1 d-block d-sm-none About__custom-plus">
                             {index === value.length - 1 && index < 4 && <div onClick={() => handleAdd(index)}>
                                 <span
@@ -42,9 +45,6 @@ const FormSocialsFieldArray = (fieldArrayRenderProps) => {
                                         : "k-icon k-i-plus-circle k-icon-disabled"}
                                 />
                             </div>}
-                        </div>
-                        <div className="col-10 col-md-12">
-                            <Field name={`${id}[${index}].site`} placeholder="Введите ссылку на страницу" component={FormInput} maxLength="150" validator={valueValidator} />
                         </div>
                         {index > 0 && <div className="form-group col-1 d-block d-sm-none About__custom-trash">
                             <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />

@@ -61,7 +61,7 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
             });
     };
 
-    const get = () => {
+    const getUrl = () => {
         if (isNaN(id) || !id)
             return;
         setUrl('');
@@ -72,7 +72,7 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
     }
 
     useEffect(() => {
-        get();
+        getUrl();
     }, [])
 
     return <div className="DocumentItem container p-0 mb-4" >

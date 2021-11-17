@@ -1,10 +1,11 @@
 .news-component {
   &__header-wrap {
     background: #fff;
+    margin-bottom: 16px;
     padding: 10px 10px 0;
     border-radius: 6px;
     position: sticky;
-    top: 60px;
+    top: 15px;
     z-index: 1;
     @media (max-width: 560px) {
       top: 30px;
@@ -33,7 +34,7 @@
         }
         span {
           display: block;
-          padding: 0 6px 10px;
+          padding: 10px 6px;
           border-bottom: 2px solid transparent;
           font-weight: 600;
           font-size: 16px;
@@ -51,7 +52,6 @@
       }
     }
     .news-component__title {
-      padding: 0;
       span {
         font-weight: normal;
         text-transform: none;
@@ -63,19 +63,18 @@
   }
   &__header {
     border-bottom: 1px solid #e8e8e8;
-    display: flex;
     align-items: baseline;
     @media (max-width: 560px) {
       display: block;
     }
   }
   &__title {
-    padding-left: 12px;
-    font-weight: normal;
     font-size: 18px;
+    font-weight: 400;
+    color: #253C5E;
+    border-bottom: 1px solid #e5e5e5;
     line-height: 24px;
-    display: inline-block;
-    margin-right: 10px;
+    padding-bottom: 10px;
   }
   .NewsList__filter {
     margin-bottom: 0;

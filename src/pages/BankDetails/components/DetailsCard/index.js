@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../../../../components/Card';
 import { Link } from "react-router-dom";
 import { Request } from "../../../../utils/request";
@@ -25,7 +25,7 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
 
             if (documents[0]) {
                 (() => Request({
-                    url: `/api/document/document/public?id=${documents[0].document_id}`
+                    url: `/api/document/document/public?id=${documents[1].document_id}`
                 }, data => {
                     setRequisitesLink(data);
                 }, error => {
@@ -36,7 +36,7 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
 
             if (documents[1]) {
                 (() => Request({
-                    url: `/api/document/document/public?id=${documents[1].document_id}`
+                    url: `/api/document/document/public?id=${documents[0].document_id}`
                 }, data => {
                     setAmountСontributions(data);
                 }, error => {
@@ -57,22 +57,20 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                 {isUserCard && <span style={{ display: 'inline-block' }}>Для просмотра реквизитов выберите одну из необходимых Федераций.</span>}
             </p>
             {!isUserCard && <>
-                <a
-                    href={`${requisitesLink}`}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='details-card__link'
-                    style={{ marginRight: '20px' }}
-                >
-                    Реквизиты
-                </a>
+                    <a
+                        href={`${requisitesLink}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='details-card__link'
+                    >
+                      Реквизиты
+                    </a>
 
                 <a
                     href={`${amountСontributions}`}
                     target='_blank'
                     rel='noopener noreferrer'
                     className='details-card__link'
-                    style={{ marginRight: '20px' }}
                 >
                     { `Размеры взносов в ${fedName}`}
                 </a>

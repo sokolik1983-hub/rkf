@@ -177,7 +177,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             !videoLink && focus &&
                             <CustomCheckbox
                                 id="ad"
-                                label="Объявление"
+                                label="Куплю/Продам"
                                 className="ArticleCreateForm__ad"
                                 checked={isAd}
                                 onChange={() => {

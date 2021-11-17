@@ -50,37 +50,39 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                 </div>
                             </div>
 
-                            <div className="form-row">
-                                <div className="form-group col-md-6">
-                                    <Field
-                                        id="birth_date"
-                                        name={'birth_date'}
-                                        label={'Дата рождения'}
-                                        min={new Date('1900')}
-                                        max={today}
-                                        component={FormDatePicker}
-                                    />
+                            <section className="form-row__wrap">
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <Field
+                                            id="birth_date"
+                                            name={'birth_date'}
+                                            label={'Дата рождения'}
+                                            min={new Date('1900')}
+                                            max={today}
+                                            component={FormDatePicker}
+                                        />
+                                    </div>
+                                    <div className="form-group col-md-6 no-label-field">
+                                        <Field
+                                            id={'birth_date_visibility_status_id'}
+                                            name={'birth_date_visibility_status_id'}
+                                            component={FormDropDownList}
+                                            data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="form-group col-md-6 no-label-field">
-                                    <Field
-                                        id={'birth_date_visibility_status_id'}
-                                        name={'birth_date_visibility_status_id'}
-                                        component={FormDropDownList}
-                                        data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
-                                    />
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <Field
+                                            id={'sex_type_id'}
+                                            name={'sex_type_id'}
+                                            label={'Пол'}
+                                            component={FormDropDownList}
+                                            data={[{ text: 'Не выбран', value: '', id: null }, { text: 'Мужской', value: 1, id: 1 }, { text: 'Женский', value: 2, id: 2 },]}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="form-row">
-                                <div className="form-group col-md-6">
-                                    <Field
-                                        id={'sex_type_id'}
-                                        name={'sex_type_id'}
-                                        label={'Пол'}
-                                        component={FormDropDownList}
-                                        data={[{ text: 'Не выбран', value: '', id: null }, { text: 'Мужской', value: 1, id: 1 }, { text: 'Женский', value: 2, id: 2 },]}
-                                    />
-                                </div>
-                            </div>
+                            </section>
                         </fieldset>
                         <div className="k-form-buttons text-center">
                             <button

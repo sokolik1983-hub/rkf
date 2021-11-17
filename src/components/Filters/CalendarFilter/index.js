@@ -11,11 +11,11 @@ const CalendarFilter = ({date_from, onChange, is_club_link, clear_filter, range_
         setDay(date);
     };
 
-    const firstFilterSet = useRef(true);
+    const firstFilterSet = useRef(null);
 
     const setInitialClubLinkFilter = (firstChange) => {
         onChange({
-            DateFrom: '2020-01-01',
+            DateFrom: `${new Date().getFullYear() - 1}-01-01`,
             DateTo: formatDateToString(new Date(new Date().getFullYear() + 3, 0, 0)),
         }, firstFilterSet.current || firstChange);
 

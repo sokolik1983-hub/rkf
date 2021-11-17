@@ -17,10 +17,10 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
         setShowModal(true);
     };
 
-    const onModalClose = () => {
-        if (showModal && window.confirm("Закрыть?")) {
+    const onModalClose = (e) => {
+        if (showModal && (!e.target.closest('.Alert'))) {
             setShowModal(false);
-            blockContent(false)
+            blockContent(false);
         }
     };
 
@@ -74,7 +74,7 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
             {showModal &&
                 <AddPhotoModal
                     showModal={showModal}
-                    onModalClose={onModalClose}
+                    onModalClose={(e) => onModalClose(e)}
                     albumId={params.album}
                     onSuccess={onImageAddSuccess}
                 />

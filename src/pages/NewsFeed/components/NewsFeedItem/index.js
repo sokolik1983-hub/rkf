@@ -92,7 +92,6 @@ const NewsFeedItem = forwardRef(({
                 setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
             }, e => console.log(e.response));
         };
-
         return (
             <>
                 <div className="NewsFeedItem__content">
@@ -272,7 +271,7 @@ const NewsFeedItem = forwardRef(({
                             </div>
                         }
                         {is_request_article &&
-                            <Share url={`https://rkf.online/news/${id}`} />
+                                <Share  url={`https://rkf.online/news/${id}`}/>
                         }
                     </div>
                     {(picture_link || video_link) &&

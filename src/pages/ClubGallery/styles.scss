@@ -249,3 +249,16 @@
         }
     }
 }
+@media (max-width: 1080px) {
+    .edit-gallery__wrap {
+        .ReactGridGallery_tile-icon-bar div {
+            visibility: visible!important;
+            &:after {
+                content: 'Выбрать';
+                position: absolute;
+                color: #fff;
+                -webkit-text-stroke: .5px grey;
+            }
+        }
+    }
+}

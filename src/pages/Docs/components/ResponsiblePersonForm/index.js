@@ -81,21 +81,21 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
                     initialValues={initialValues}
                     className="responsible-person__form"
                 >
-                    <FormGroup inline>
+                    <FormGroup inline className="responsible-person__three-inline-columns">
                         <FormField {...ResponsibleFormConfig.fields.last_name} />
                         <FormField {...ResponsibleFormConfig.fields.first_name} />
                         <FormField {...ResponsibleFormConfig.fields.second_name} />
                     </FormGroup>
-                    <FormGroup inline>
+                    <FormGroup inline className="responsible-person__two-inline-columns">
                         <FormField {...ResponsibleFormConfig.fields.phone} />
                         <FormField {...ResponsibleFormConfig.fields.email} />
                     </FormGroup>
-                    <FormGroup inline>
+                    <FormGroup inline className="responsible-person__three-inline-columns">
                         <CustomNumber {...ResponsibleFormConfig.fields.index} />
                         <FormField {...ResponsibleFormConfig.fields.city_id} options={cities} />
                         <FormField {...ResponsibleFormConfig.fields.subscriber_mail} />
                     </FormGroup>
-                    <FormGroup inline>
+                    <FormGroup inline className="responsible-person__four-inline-columns">
                         <FormField {...ResponsibleFormConfig.fields.street} />
                         <FormField {...ResponsibleFormConfig.fields.house} />
                         <FormField {...ResponsibleFormConfig.fields.building} />

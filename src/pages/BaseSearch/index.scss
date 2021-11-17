@@ -101,5 +101,13 @@
         }
       }
     }
+    &__list-content {
+      padding: 155px 0;
+      display: flex;
+      justify-content: center;
+      img {
+        width: 200px;
+      }
+    }
   }
 }

@@ -55,7 +55,7 @@ const CardFooter = ({
                     <span className="k-icon k-i-comment" />
                     <span>0</span>
                 </div>
-                <Share url={share_link} />
+                <Share url={share_link}/>
             </div>
             <div className="CardFooter__controls-right">
                 <div>
