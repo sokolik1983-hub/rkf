@@ -292,6 +292,9 @@
       & .FormInput__input {
         padding: 0 !important;
       }
+      & .css-kj6f9i-menu {
+        max-height: 70px!important;
+      }
     }
     .css-shvkw9-control,
     .css-8rvjbo-control,
@@ -494,7 +497,4 @@
 
 .css-1ox0dji-singleValue {
   color: #72839C !important;
-}
-.input_padding .css-kj6f9i-menu {
-  max-height: 70px!important;
 }

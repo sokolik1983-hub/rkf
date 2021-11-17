@@ -79,9 +79,6 @@ const CardNewsNew = forwardRef(({
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
-
-        console.log('dog_color', dog_color)
-
     }, []);
 
     const ViewItem = () => {
