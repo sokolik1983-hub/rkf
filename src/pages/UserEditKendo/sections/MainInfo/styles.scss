@@ -3,9 +3,22 @@
         .form-row {
             .k-form-field {
                 margin-top: 0;
+
+            }
+            .k-form-hint {
+                @media (max-width: 990px) {
+                    display: none;
+                }
             }
             .no-label-field {
                 align-self: flex-end;
+            }
+            &__wrap {
+                display: flex;
+                justify-content: space-between;
+                .form-row {
+                    width: 50%;
+                }
             }
         }
     }
@@ -13,5 +26,9 @@
         text-transform: none !important;
         font-size: 18px !important;
         border-bottom: 1px solid #E5E5E5 !important;
+    }
+    .k-input,
+    .k-select {
+        background-color: white!important;
     }
 }

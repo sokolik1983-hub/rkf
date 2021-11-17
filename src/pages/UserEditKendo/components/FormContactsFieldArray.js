@@ -48,16 +48,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                 </div>
                 <div className="form-group col-12 col-md-4">
                     <div className="form-row">
-                        <div className="form-group col-1 d-block d-sm-none Contacts__custom-plus">
-                            {index === value.length - 1 && valuesArray.length < 3 && <div onClick={() => handleAdd(index)}>
-                                <span
-                                    className={valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid
-                                        ? "k-icon k-i-plus-circle"
-                                        : "k-icon k-i-plus-circle k-icon-disabled"}
-                                />
-                            </div>}
-                        </div>
-                        <div className="col-9 col-md-12">
+                        <div className="col-9 col-md-12 phone-number">
                             <Field
                                 name={`${id}[${index}].value`}
                                 mask={id === 'phones' ? '+7(000)000-00-00' : ''}
@@ -69,7 +60,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                                         : ""}
                             />
                         </div>
-                        <div className="form-group col-1 d-block d-sm-none">
+                        <div className="form-group col-1 d-none d-sm-none">
                             {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
                             <div className="Contacts__custom-checkbox">
                                 <Field
@@ -81,10 +72,27 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                                 />
                             </div>
                         </div>
-                        {index > 0 && <div className="form-group col-1 d-block d-sm-none Contacts__custom-trash">
-                            <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
-                        </div>
+                        {index > 0 &&
+                            <div className="form-group col-1 d-block d-sm-none Contacts__custom-trash">
+                                <span
+                                    onClick={() => handleRemove(item, id, index)}
+                                    className="k-icon k-i-trash"
+                                />
+                            </div>
                         }
+                        <div className="form-group col-1 d-block d-sm-none Contacts__custom-plus">
+                            {index === value.length - 1 && valuesArray.length < 3 &&
+                                <div onClick={() => handleAdd(index)}>
+                                    <span
+                                        className={valuesArray[index].value &&
+                                        valuesArray[index].value !== phoneMask &&
+                                        isArrayValid
+                                            ? "k-icon k-i-plus-circle"
+                                            : "k-icon k-i-plus-circle k-icon-disabled"}
+                                    />
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className="form-group col-md-4">

@@ -30,7 +30,7 @@ const PaymentFormFields = connect(({formik, update, view, options, alias, setRed
                 {/*<FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>*/}
                 <HideIf cond={formik.values.cash_payment}>
                 <h4 className="caps">Информация о платеже</h4>
-                    <FormGroup inline>
+                    <FormGroup inline className="DocItem__payment-receipt-wrap">
                         <FormFile
                             name='payment_document'
                             label='Квитанция об оплате (PDF, JPEG, JPG)'
@@ -53,7 +53,7 @@ const PaymentFormFields = connect(({formik, update, view, options, alias, setRed
                         </div>
                         <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                     </FormGroup>
-                    <FormGroup inline>
+                    <FormGroup inline className="DocItem__payer-info-wrap">
                         <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
                         <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='inn' label='ИНН (для юр. лиц)' />
                     </FormGroup>

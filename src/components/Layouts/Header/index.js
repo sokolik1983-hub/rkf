@@ -116,9 +116,10 @@ const Header = ({
                                 }
 
                             </div>
-                            <span style={{ color: isOpenFilters && '#3366ff', width: '45px' }}>
-                                {
-                                    isOpenFilters ? 'Закрыть' : 'Фильтр'
+                            <span style={{ color: isOpenFilters && '#3366ff', width: '50px' }}>
+                                { pathname.match (/uploaded-documents/) ?
+                                         (isOpenFilters ? 'Закрыть' : 'Категории') :
+                                         (isOpenFilters ? 'Закрыть' : 'Фильтр')
                                 }
                                 </span>
                         </div>

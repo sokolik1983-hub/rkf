@@ -3,10 +3,12 @@ import { Field } from "@progress/kendo-react-form";
 import FormUpload from "../FormUpload";
 import { getHeaders } from "../../../../../../../utils/request";
 import { DropDownList } from "@progress/kendo-react-dropdowns";
+import Alert from "../../../../../../../components/Alert";
 
 
 const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError, dataType }) => {
     const [documentType, setDocumentType] = useState(dataType === 'international' ? 99 : 0);
+    const [showAlert, setShowAlert] = useState(false);
 
     const onBeforeUpload = e => {
         e.headers = getHeaders(true);
@@ -14,7 +16,13 @@ const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setD
     };
 
     const onStatusChange = (event, name) => {
-        if (event.response && event.response.response) {
+        const { newState } = event;
+        if (newState && newState.find(item => item.size > 20000000)) {
+            setShowAlert(true);
+            handleError(event.response);
+            formRenderProps.onChange(name, { value: [] });
+            setDisableSubmit(false);
+        } else if (event.response && event.response.response) {
             const { result } = event.response.response;
             if (result) {
                 let newDocument = { name: result.name, document_id: result.id };
@@ -61,6 +69,14 @@ const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setD
                 autoUpload={true}
                 showFileList={false}
             />
+            {
+                showAlert && <Alert
+                    text="Размер загружаемого изображения не должен превышать 20Мб."
+                    okButton={true}
+                    onOk={() => setShowAlert(false)}
+                />
+            }
+
         </div>
     )
 };
