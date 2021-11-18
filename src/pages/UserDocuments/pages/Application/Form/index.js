@@ -26,6 +26,7 @@ import {
 
 import { PromiseRequest, Request, getHeaders } from "../../../../../utils/request";
 import ruMessages from "kendoMessages.json";
+import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
 
 import "./index.scss";
 
@@ -48,6 +49,10 @@ const Application = ({ alias, history, status, owner }) => {
     const [loaded, setLoaded] = useState(false);
     const [withoutBreed, setWithoutBreed] = useState(false);
     const [isCertificate, setIsCertificate] = useState(false);
+    const [requestId, setRequestId] = useState(0);
+    const [docId, setDocId] = useState(0);
+    const [payId, setPayId] = useState(0);
+
     const [initialValues, setInitialValues] = useState({
         declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         is_foreign_owner: false,
@@ -321,6 +326,10 @@ const Application = ({ alias, history, status, owner }) => {
         if (response) {
             const updatedNewState = newState.map(d => d.uid === affectedFiles[0].uid ? ({ ...d, id: response?.response?.result?.id }) : d);
             formProps.onChange(name, { value: updatedNewState });
+
+            name === 'application_document' ? setRequestId(response?.response?.result?.id,)
+                : name === 'documents' ? setDocId(response?.response?.result?.id,)
+                    : setPayId(response?.response?.result?.id,);
         } else {
             formProps.onChange(name, { value: newState });
         }
@@ -621,6 +630,11 @@ const Application = ({ alias, history, status, owner }) => {
                                                     !formRenderProps.valueGetter('application_document_id').length &&
                                                     <DocumentLink docId={values.application_document_id} />
                                                 }
+                                                <DocLink
+                                                    distinction='get_rkf_document'
+                                                    docId={requestId}
+                                                    showLabel={false}
+                                                />
                                             </div>
                                             : values?.application_document_id && <div className="application-form__file">
                                                 <p className="k-label">Заявочный лист</p>
@@ -631,25 +645,27 @@ const Application = ({ alias, history, status, owner }) => {
                                 </div>}
                                 <div className="application-form__content">
                                     <h4 className="application-form__title">Документы</h4>
-                                    {!!status && values && <DocumentLinksArray
-                                        documents={values.documents}
-                                        editable={editable}
-                                        onRemove={handleDocumentRemove}
-                                    />}
+                                    {!!status && values &&
+                                        <DocumentLinksArray
+                                            documents={values.documents}
+                                            editable={editable}
+                                            onRemove={handleDocumentRemove}
+                                        />
+                                    }
                                     {editable &&
                                         <div>
                                             При загрузке файлов постарайтесь&nbsp;
-                                    <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
+                                            <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
                                                 <>
                                                     <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="application-form__how-to-link"
                                                     >объединить их в один файл </a>
-                                                (PDF, JPEG, JPG)
+                                                    (PDF, JPEG, JPG)
                                                 </>
                                             </LightTooltip>.
-                                </div>
+                                        </div>
                                     }
 
                                     {editable &&
@@ -681,6 +697,11 @@ const Application = ({ alias, history, status, owner }) => {
                                             {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
                                                 Вы не можете добавить больше 20 документов
                                             </div>}
+                                            <DocLink
+                                                distinction='get_rkf_document'
+                                                docId={docId}
+                                                showLabel={false}
+                                            />
                                         </div>
                                     }
                                 </div>
@@ -715,6 +736,11 @@ const Application = ({ alias, history, status, owner }) => {
                                                     !formRenderProps.valueGetter('payment_document').length &&
                                                     <DocumentLink docId={values.payment_document_id} />
                                                 }
+                                                <DocLink
+                                                    distinction="get_rkf_document"
+                                                    docId={payId}
+                                                    showLabel={false}
+                                                />
                                             </div>
                                             : <div className="application-form__file">
                                                 <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
