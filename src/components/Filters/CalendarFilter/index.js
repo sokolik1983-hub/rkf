@@ -3,28 +3,11 @@ import {formatDateToString} from "../../../utils/datetime";
 import "./index.scss";
 
 
-const CalendarFilter = ({date_from, onChange, is_club_link, clear_filter, range_clicked, handleRangeReset}) => {
-    const [day, setDay] = useState(new Date(date_from));
+const CalendarFilter = ({onChange, is_club_link, clear_filter, range_clicked, handleRangeReset}) => {
     const [activeButton, setActiveButton] = useState(is_club_link && !clear_filter ? 'year' : null);
 
-    const setNewDate = date => {
-        setDay(date);
-    };
+    const day = new Date();
 
-    const firstFilterSet = useRef(null);
-
-    const setInitialClubLinkFilter = (firstChange) => {
-        onChange({
-            DateFrom: `${new Date().getFullYear() - 1}-01-01`,
-            DateTo: formatDateToString(new Date(new Date().getFullYear() + 3, 0, 0)),
-        }, firstFilterSet.current || firstChange);
-
-        firstFilterSet.current = false;
-    };
-
-    useEffect(() => {
-        activeButton === 'year' && !clear_filter && !range_clicked ? setInitialClubLinkFilter(Boolean(date_from)) : setNewDate(new Date(date_from));
-    }, [date_from]);
 
     const handleButtonClick = period => {
         if (period === 'day') {
