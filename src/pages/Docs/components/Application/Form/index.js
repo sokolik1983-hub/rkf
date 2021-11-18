@@ -49,9 +49,9 @@ const Application = ({ alias, history, status }) => {
     const [loaded, setLoaded] = useState(false);
     const [withoutBreed, setWithoutBreed] = useState(false);
     const [isCertificate, setIsCertificate] = useState(false);
-    const [idRequest, setIdRequest] = useState(0);
-    const [idDoc, setIdDoc] = useState(0);
-    const [idPay, setIdPay] = useState(0);
+    const [requestId, setRequestId] = useState(0);
+    const [docId, setDocId] = useState(0);
+    const [payId, setPayId] = useState(0);
 
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
@@ -343,9 +343,9 @@ const Application = ({ alias, history, status }) => {
             const updatedNewState = newState.map(d => d.uid === affectedFiles[0].uid ? ({ ...d, id: response?.response?.result?.id }) : d);
             formProps.onChange(name, { value: updatedNewState });
 
-            name === 'application_document' ? setIdRequest(response?.response?.result?.id,)
-                : name === 'documents' ? setIdDoc(response?.response?.result?.id,)
-                : setIdPay(response?.response?.result?.id,);
+            name === 'application_document' ? setRequestId(response?.response?.result?.id,)
+                : name === 'documents' ? setDocId(response?.response?.result?.id,)
+                : setPayId(response?.response?.result?.id,);
         } else {
             formProps.onChange(name, { value: newState });
         }
@@ -661,7 +661,7 @@ const Application = ({ alias, history, status }) => {
                                                         }
                                                         <DocLink
                                                             distinction="litter"
-                                                            docId={idRequest}
+                                                            docId={requestId}
                                                             showLabel={false}
                                                         />
                                                     </div>
@@ -724,12 +724,12 @@ const Application = ({ alias, history, status }) => {
                                                     {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
                                                         Вы не можете добавить больше 20 документов
                                                     </div>}
+                                                    <DocLink
+                                                        distinction="litter"
+                                                        docId={docId}
+                                                        showLabel={false}
+                                                    />
                                                 </div>
-                                                <DocLink
-                                                    distinction="litter"
-                                                    docId={idDoc}
-                                                    showLabel={false}
-                                                />
                                             </>
                                         }
                                     </div>
@@ -766,7 +766,7 @@ const Application = ({ alias, history, status }) => {
                                                     }
                                                     <DocLink
                                                         distinction="litter"
-                                                        docId={idPay}
+                                                        docId={payId}
                                                         showLabel={false}
                                                     />
                                                 </div>
