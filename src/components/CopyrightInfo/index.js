@@ -5,7 +5,7 @@ import useIsMobile from "utils/useIsMobile";
 import "./index.scss";
 
 const CopyrightInfo = ({ withSocials }) => {
-    const isMobile = useIsMobile(768);
+    const isMobile = useIsMobile();
 
     return isMobile ? null : (
         withSocials
