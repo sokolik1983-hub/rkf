@@ -323,6 +323,7 @@ const Application = ({ alias, history, status, owner }) => {
 
     const onStatusChange = (event, name) => {
         const { newState, affectedFiles, response } = event;
+
         if (response) {
             const updatedNewState = newState.map(d => d.uid === affectedFiles[0].uid ? ({ ...d, id: response?.response?.result?.id }) : d);
             formProps.onChange(name, { value: updatedNewState });

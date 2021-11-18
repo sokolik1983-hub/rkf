@@ -660,7 +660,7 @@ const Application = ({ alias, history, status }) => {
                                                             <DocumentLink docId={values.application_document_id} />
                                                         }
                                                         <DocLink
-                                                            distinction="litter"
+                                                            distinction="get_rkf_document"
                                                             docId={requestId}
                                                             showLabel={false}
                                                         />
@@ -725,7 +725,7 @@ const Application = ({ alias, history, status }) => {
                                                         Вы не можете добавить больше 20 документов
                                                     </div>}
                                                     <DocLink
-                                                        distinction="litter"
+                                                        distinction="get_rkf_document"
                                                         docId={docId}
                                                         showLabel={false}
                                                     />
@@ -765,7 +765,7 @@ const Application = ({ alias, history, status }) => {
                                                         <DocumentLink docId={values.payment_document_id} />
                                                     }
                                                     <DocLink
-                                                        distinction="litter"
+                                                        distinction="get_rkf_document"
                                                         docId={payId}
                                                         showLabel={false}
                                                     />
