@@ -77,9 +77,9 @@ const ExhibitionsComponent = ({ alias }) => {
                     exhibitions.map(exhibition => history.location.hash === '#kendo' ? <KendoCard key={exhibition.id} {...exhibition} /> : <ExhibitionCard key={exhibition.id} {...exhibition} />) :
                     Placeholders.map(item => <Placeholder key={item} />)
                 }
-                {alias && needBlock &&
-                    <div className="exhibition-card__additional-block" />
-                }
+                {/*{alias && needBlock &&*/}
+                {/*    <div className="exhibition-card__additional-block" />*/}
+                {/*}*/}
                 {!alias && exhibitions &&
                     <div className="exhibition-card exhibitions-homepage__show-more">
                         <img src="static/images/homepage/show-more.png" alt="" />
