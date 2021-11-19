@@ -22,7 +22,6 @@ const DocumentItemReadOnly = ({ id, name, date_create }) => {
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => setUrl(url));
-        console.log(url);
     };
 
     useEffect(()=>{
