@@ -109,6 +109,10 @@
         display: flex;
         align-items: center;
         margin-bottom: 5px;
+
+        @media (max-width: 700px) {
+          display: block;
+        }
       }
     }
 
@@ -125,12 +129,18 @@
   &__city {
     position: relative;
     padding-left: 16px;
-    margin-left: 20px;
+    margin-left: 10px;
     line-height: 20px;
     letter-spacing: 0.2px;
     color: #72839c;
     white-space: nowrap;
     cursor: pointer;
+
+    @media (max-width: 700px) {
+      display: block;
+      margin: 3px 0 2px 0;
+    }
+
 
     &:before {
       content: "";
