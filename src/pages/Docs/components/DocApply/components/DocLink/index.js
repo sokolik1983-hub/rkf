@@ -13,11 +13,11 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
             return;
         setUrl('');
         distinction !== 'get_rkf_document'?
-        fetch(`/api/requests/${distinction}_request/${up(distinction)}Document?id=` + docId, {headers})
+        fetch(`/api/requests/${distinction}_request/${up(distinction)}Document?id=${docId}`, {headers})
         .then(res => res.blob())
         .then(data => URL.createObjectURL(data))
         .then(url => setUrl(url))
-            : fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=` + docId, {headers})
+            : fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=${docId}`, {headers})
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => setUrl(url));
