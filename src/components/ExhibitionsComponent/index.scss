@@ -48,21 +48,15 @@
       margin: 0 0 0 -4px;
     }
   }
+  .slick-list {
+    @media (max-width: 768px) {
+      padding: 0 100px 0 0 !important;
+    }
+  }
   .slick-track {
     display: flex;
     align-items: stretch;
     margin: 0;
-    &:only-child {
-      position: relative;
-      margin-left: auto;
-      margin-right: auto;
-      @media (min-width: 1180px) {
-        padding-left: 15%;
-      }
-      @media (min-width: 1220px) {
-        padding-left: 11%;
-      }
-    }
   }
   .slick-slide {
     display: flex;
@@ -129,6 +123,7 @@
     }
     @media (max-width: 768px) {
       padding: 0 0 0 24px;
+      //max-height: 335px;
     }
     @media (max-width: 399px) {
       padding: 0 0 0 16px;
