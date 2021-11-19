@@ -13,8 +13,7 @@ const DocumentItemReadOnly = ({ id, name, date_create }) => {
     const [url, setUrl] = useState('');
 
     const getUrl = () => {
-        if (isNaN(id) || !id)
-            return;
+        if (isNaN(id) || !id) return;
 
         const headers = getHeaders();
         setUrl('');
@@ -30,7 +29,6 @@ const DocumentItemReadOnly = ({ id, name, date_create }) => {
 
     return (
         <div className="mb-3">
-
             <a
                 className="AdditionalDocumentField__link"
                 href={url}
