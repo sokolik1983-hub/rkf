@@ -25,6 +25,7 @@ import {
 import { PromiseRequest, Request } from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
+import DocLink from '../../DocApply/components/DocLink';
 import "./index.scss";
 
 
@@ -48,6 +49,10 @@ const Application = ({ alias, history, status }) => {
     const [loaded, setLoaded] = useState(false);
     const [withoutBreed, setWithoutBreed] = useState(false);
     const [isCertificate, setIsCertificate] = useState(false);
+    const [requestId, setRequestId] = useState(0);
+    const [docId, setDocId] = useState(0);
+    const [payId, setPayId] = useState(0);
+
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
         is_foreign_owner: false,
@@ -333,9 +338,14 @@ const Application = ({ alias, history, status }) => {
 
     const onStatusChange = (event, name) => {
         const { newState, affectedFiles, response } = event;
+
         if (response) {
             const updatedNewState = newState.map(d => d.uid === affectedFiles[0].uid ? ({ ...d, id: response?.response?.result?.id }) : d);
             formProps.onChange(name, { value: updatedNewState });
+
+            name === 'application_document' ? setRequestId(response?.response?.result?.id,)
+                : name === 'documents' ? setDocId(response?.response?.result?.id,)
+                : setPayId(response?.response?.result?.id,);
         } else {
             formProps.onChange(name, { value: newState });
         }
@@ -649,6 +659,11 @@ const Application = ({ alias, history, status }) => {
                                                             !formRenderProps.valueGetter('application_document_id').length &&
                                                             <DocumentLink docId={values.application_document_id} />
                                                         }
+                                                        <DocLink
+                                                            distinction="get_rkf_document"
+                                                            docId={requestId}
+                                                            showLabel={false}
+                                                        />
                                                     </div>
                                                     : values?.application_document_id && <div className="application-form__file">
                                                         <p className="k-label">Заявочный лист</p>
@@ -709,6 +724,11 @@ const Application = ({ alias, history, status }) => {
                                                     {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
                                                         Вы не можете добавить больше 20 документов
                                                     </div>}
+                                                    <DocLink
+                                                        distinction="get_rkf_document"
+                                                        docId={docId}
+                                                        showLabel={false}
+                                                    />
                                                 </div>
                                             </>
                                         }
@@ -744,6 +764,11 @@ const Application = ({ alias, history, status }) => {
                                                         !formRenderProps.valueGetter('payment_document').length &&
                                                         <DocumentLink docId={values.payment_document_id} />
                                                     }
+                                                    <DocLink
+                                                        distinction="get_rkf_document"
+                                                        docId={payId}
+                                                        showLabel={false}
+                                                    />
                                                 </div>
                                                 : <div className="application-form__file">
                                                     <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>

@@ -181,6 +181,18 @@
     background: #fff;
     width: 200px;
   }
+  &__file {
+    position: relative;
+    .btn {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      &__look {
+        position: absolute;
+        bottom: 40px;
+        left: 350px;
+      }
+    }
+  }
 }
 
 .club-documents-status__head {
