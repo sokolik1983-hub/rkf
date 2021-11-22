@@ -39,7 +39,7 @@ const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setD
 
     const onAdd = (event) => {
         const { newState } = event;
-        if (newState && newState.find(item => item.size > 20000000)) {
+        if (newState && newState.find(item => item.size > 20971520)) {
             setShowAlert(true);
         }
     }
