@@ -65,8 +65,9 @@
 .FormGroup--inline .FormInput {
   @media (max-width: 1079px) {
     margin-right: 0;
+    margin-bottom: 18px;
   }
-  label {
-    margin: 20px 0 2px 3px;
-  }
+  //label {
+  //  margin: 20px 0 2px 3px;
+  //}
 }
