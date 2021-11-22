@@ -79,7 +79,7 @@ const CardNewsNew = forwardRef(({
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
-        documents && !!documents.length && documents.map(d => getUrl(d.id));
+        documents && !!documents.length && documents.map(document => getUrl(document.id));
     }, []);
 
     const getUrl = (id) => {
