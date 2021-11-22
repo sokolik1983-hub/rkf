@@ -586,6 +586,10 @@
         text-decoration: none;
       }
     }
+    &__href {
+      text-decoration: none;
+      display: flex;
+    }
   }
   .ya-share2__popup {
     z-index: 0;
