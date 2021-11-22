@@ -153,8 +153,10 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
         setShowModal(true);
     };
 
-    const onModalClose = () => {
-        showModal && setShowModal(false);
+    const onModalClose = (e) => {
+        if(!e.target.closest('.Alert')) {
+            showModal && setShowModal(false);
+        }
     };
 
     const onImageAddSuccess = () => {
@@ -291,7 +293,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                 {showModal &&
                                     <AddPhotoModal
                                         showModal={showModal}
-                                        onModalClose={onModalClose}
+                                        onModalClose={(e) => onModalClose(e)}
                                         albumId={params.album}
                                         onSuccess={onImageAddSuccess}
                                     />

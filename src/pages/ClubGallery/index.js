@@ -143,8 +143,10 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
         setShowModal(true);
     };
 
-    const onModalClose = () => {
-      showModal && setShowModal(false);
+    const onModalClose = (e) => {
+        if(!e.target.closest('.Alert')) {
+            showModal && setShowModal(false);
+        }
     };
 
     const onImageAddSuccess = () => {
@@ -166,7 +168,6 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
             subscribed: subscribed
         })
     }
-
     return (
         <>
             {!pageLoaded && !clubInfo
@@ -309,7 +310,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                 </Layout>
             }
             {showAlert && <Alert {...showAlert} />}
-            {showModal && <AddPhotoModal showModal={showModal} onModalClose={onModalClose} albumId={params.album} onSuccess={onImageAddSuccess} />}
+            {showModal && <AddPhotoModal showModal={showModal} onModalClose={(e) => onModalClose(e)} albumId={params.album} onSuccess={onImageAddSuccess} />}
         </>
     )
 };

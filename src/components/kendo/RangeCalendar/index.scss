@@ -1,8 +1,11 @@
 .calendar-filter__range {
   &-wrap {
-    width: 280px;
+    width: 275px;
     display: flex;
     justify-content: space-between;
+    margin-right: auto;
+    margin-left: auto;
+    gap: 10px;
   }
   &-title {
     margin-top: 10px;
@@ -13,6 +16,8 @@
     display: flex;
     width: 160px;
     justify-content: space-between;
+    margin-right: auto;
+    margin-left: calc(50% - 138px);
     &._search_range {
       width: 160px;
     }
@@ -32,6 +37,8 @@
 }
 .calendar-filter {
   &__controls {
-    width: 280px;
+    width: 275px;
+    margin-right: auto;
+    margin-left: auto;
   }
 }

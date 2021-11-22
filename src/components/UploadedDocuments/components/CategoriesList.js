@@ -21,6 +21,7 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
 
     return <>
         <ul className="UploadedDocuments__inner-list">
+            <h3>Категории</h3>
             <li className={isActive(null)}>
                 <Link to={homePage} onClick={handleClick}>Все категории</Link>
             </li>

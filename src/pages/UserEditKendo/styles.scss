@@ -30,8 +30,9 @@
         @media (max-width: 990px) {
             width: 100%;
             min-width: auto;
-            margin: 16px 0 0;
+            margin: 0;
             & > div {
+                display: none;
                 position: static !important;
             }
         }
@@ -124,6 +125,9 @@
         .Card {
             padding: 12px !important;
         }
+        .k-form-buttons {
+            margin-top: unset!important;
+        }
     }
     .Card {
         margin: 10px 0 16px 0;
@@ -161,6 +165,11 @@
         }
     }
     button {
+        width: 154px;
+        height: 38px;
+
+        background: #3366FF!important;
+
         &:focus {
             outline: none;
         }

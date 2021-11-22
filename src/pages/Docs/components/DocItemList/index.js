@@ -98,7 +98,7 @@ const DocItemList = ({ formik, view, update, clubAlias, distinction, stampCodes,
         name="declarants"
         render={helpers => <>
             {redirect && <Redirect to={redirect} />}
-            <FormGroup inline>
+            <FormGroup inline className="DocItem__two-inline-columns">
                 <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..." />
                 {formik.values.folder_number && (distinction === "pedigree") && <FormField disabled name="folder_number" label='Номер папки' />}
             </FormGroup>
@@ -199,7 +199,7 @@ const DocItemList = ({ formik, view, update, clubAlias, distinction, stampCodes,
                     <h4>Информация о платеже</h4>
 
                     <HideIf cond={formik.values.cash_payment}>
-                        <FormGroup inline>
+                        <FormGroup inline className="DocItem__litter-payment-wrap">
                             <FormFile
                                 name='payment_document'
                                 label='Квитанция об оплате (PDF, JPEG, JPG)'
@@ -211,7 +211,7 @@ const DocItemList = ({ formik, view, update, clubAlias, distinction, stampCodes,
                             <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" required={false} />
                             <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                         </FormGroup>
-                        <FormGroup inline>
+                        <FormGroup inline className="DocItem__two-inline-columns">
                             <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
                             <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='inn' label='ИНН (для юр. лиц)' />
                         </FormGroup>

@@ -3,10 +3,12 @@
 const mobileMenuMoves = (place, elem, wrap) => {
 
     if(wrap) {
+        const node = wrap.current;
+
         const clickElemWidth = elem.getBoundingClientRect().width,
-            sliderWrap = document.querySelector(".slider-wrap"),
+            sliderWrap = node.querySelector(".slider-wrap"),
             allDivs = sliderWrap.querySelectorAll('div'),
-            sliderWidth = document.querySelector(".slider").getBoundingClientRect().width;
+            sliderWidth = node.getBoundingClientRect().width;
 
         let widthBeforeElems = 0,
             widthAllElems = 0,

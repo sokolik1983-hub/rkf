@@ -7,7 +7,7 @@ import { filePdf } from "@progress/kendo-svg-icons";
 import Lightbox from "react-images";
 import moment from "moment";
 import ls from "local-storage";
-
+import Modal from "../Modal";
 import Card from "components/Card";
 import Share from "components/Share";
 import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
@@ -17,6 +17,7 @@ import { DEFAULT_IMG } from "appConfig";
 import EditForm from "./EditForm";
 // import { Request } from "utils/request";
 import CardFooter from '../CardFooter';
+
 import "./index.scss";
 
 
@@ -47,6 +48,9 @@ const CardNewsNew = forwardRef(({
     first_name,
     last_name,
     active_member,
+    dog_color,
+    dog_age,
+    dog_sex_type_id,
     active_rkf_user,
     picture_link,
     picture_short_link,
@@ -74,7 +78,6 @@ const CardNewsNew = forwardRef(({
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
-
     }, []);
 
     const ViewItem = () => {
@@ -82,6 +85,17 @@ const CardNewsNew = forwardRef(({
         const [collapsed, setCollapsed] = useState(false);
         const [isLiked, setIsLiked] = useState(is_liked);
         // const [likesCount, setLikesCount] = useState(like_count);
+
+        switch (dog_sex_type_id) {
+            case 1:
+                dog_sex_type_id = 'Кобель';
+                break;
+            case 2:
+                dog_sex_type_id = 'Сука';
+                break;
+            default:
+                break;
+        }
 
         // const handleLikeClick = () => {
         //     if (isLiked) {
@@ -219,8 +233,18 @@ const CardNewsNew = forwardRef(({
                     {is_advert && <div className="CardNewsNew__ad">
                         <p className="CardNewsNew__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
+
                             <span>№{advert_code}</span>
                         </p>
+                        {
+                            dog_color && <div>Окрас: {dog_color}</div>
+                        }
+                        {
+                            dog_age && <div>Возраст: {dog_age}</div>
+                        }
+                        {
+                            dog_sex_type_id && <div>Пол: {dog_sex_type_id}</div>
+                        }
                         <div className="CardNewsNew__ad-price">
                             <div>
                                 <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'}</span>
@@ -397,13 +421,13 @@ const CardNewsNew = forwardRef(({
             <div className={`CardNewsNew__wrap${is_closed_advert ? ' is_closed' : ''}`}>
                 {isEditing ? <EditItem /> : <ViewItem />}
                 {showPhoto &&
-                    <Lightbox
-                        images={[{ src: picture_link }]}
-                        isOpen={showPhoto}
-                        onClose={() => setShowPhoto(false)}
-                        backdropClosesModal={true}
-                        showImageCount={false}
-                    />
+                    <Modal handleClose={() => setShowPhoto(false)}>
+                        <Lightbox
+                            images={[{ src: picture_link }]}
+                            isOpen={showPhoto}
+                            showImageCount={false}
+                        />
+                    </Modal>
                 }
             </div>
         </Card>

@@ -293,8 +293,8 @@
     }
   }
   &__text-wrap {
-    max-height: 100px;
     overflow: hidden;
+    padding-top: 20px;
     &._collapsed {
       height: auto;
       max-height: none;
@@ -315,7 +315,6 @@
     word-wrap: break-word;
     transition: height 0.2s linear;
     margin-bottom: 0 !important;
-    padding-top: 20px;
     &._disabled {
       margin-bottom: 10px !important;
     }

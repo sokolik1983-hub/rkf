@@ -15,6 +15,7 @@ import {formatText} from "../../../../utils";
 import {formatDateTime} from "../../../../utils/datetime";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
+import CardFooter from "../../../../components/CardFooter";
 import "./index.scss";
 
 
@@ -321,24 +322,11 @@ const NewsFeedItem = forwardRef(({
                     </div>
                 }
                 {/* {videoLink && <p className={`NewsFeedItem__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
-                <div className="NewsFeedItem__controls" style={{ margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px' }}>
-                    <div className="NewsFeedItem__controls-left">
-                        <div>
-                            <span className={`k-icon ${isLiked ? ' k-i-heart colored-icon' : ' k-i-heart-outline'}`} onClick={handleLikeClick} />
-                            <span>{likesCount}</span>
-                        </div>
-                        <div>
-                            <span className="k-icon k-i-comment" />
-                            <span>0</span>
-                        </div>
-                        <Share url={`https://rkf.online/news/${id}`} />
-                    </div>
-                    <div className="NewsFeedItem__controls-right">
-                        <div>
-                            <span className="k-icon k-i-preview" />
-                            <span>0</span>
-                        </div>
-                    </div>
+                <div className="NewsFeedItem__controls">
+                    <CardFooter
+                        id={ id }
+                        share_link={ `https://rkf.online/news/${id}` }
+                    />
                 </div>
             </>
         )
