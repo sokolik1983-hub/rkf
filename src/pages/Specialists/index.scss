@@ -1,6 +1,6 @@
 .specialists-page {
   display: flex;
-  @media (max-width: 990px) {
+  @media (max-width: 1079px) {
     display: block;
   }
   @media (max-width: 560px) {
@@ -15,13 +15,13 @@
   }
   &__mobile-only {
     display: none;
-    @media (max-width: 990px) {
+    @media (max-width: 1079px) {
       display: block;
     }
   }
   &__filters {
     margin: 0 16px 0 0;
-    @media (max-width: 990px) {
+    @media (max-width: 1079px) {
       margin: 0;
     }
   }
