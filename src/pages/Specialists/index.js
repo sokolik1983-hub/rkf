@@ -6,7 +6,6 @@ import Layout from "../../components/Layouts";
 import ClickGuard from "../../components/ClickGuard";
 import Container from "../../components/Layouts/Container";
 import SignUpModal from "../Educational/components/SignUpModal";
-// import SearchFilter from "./components/Filters/components/Search";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import SpecialistsList from "./components/SpecialistsList";
@@ -14,7 +13,6 @@ import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
 import {formatDateCommon} from "../../utils/datetime";
 import {Request} from "../../utils/request";
 import {connectShowFilters} from "../../components/Layouts/connectors";
-
 import "./index.scss";
 
 
@@ -104,8 +102,6 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
         }
     };
 
-
-
     useEffect(() => {
         if (url) {
             setListLoading(true);
@@ -119,7 +115,6 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
         <Layout withFilters>
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
             <div className="specialists-page__wrap redesign">
-
                 <Container className="specialists-page content">
                     <Filters
                         allBreeder={allBreeder}
@@ -128,9 +123,7 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
                         filtersValue={filters}
                     />
                     <div className="specialists-page__content">
-
                         <ListFilter searchTypeId={filters.SearchTypeId}/>
-                        {/*<SearchFilter StringFilter={filters.StringFilter} searchTypeId={parseInt(filters.SearchTypeId)} />*/}
                         {listLoading ?
                             <Loading centered={false} /> :
                             <SpecialistsList

@@ -4,7 +4,6 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Filters from "./components/Filters";
 import OrganizationsFilter from "./components/Filters/Organizations";
-// import SearchFilter from "./components/Filters/Search";
 import OrganizationsList from "./components/List";
 import {getFiltersFromUrl} from "./utils";
 import {connectShowFilters} from "../../components/Layouts/connectors";
@@ -32,9 +31,6 @@ const Organizations = ({history, isOpenFilters, setShowFilters}) => {
                     <Filters {...filtersValue} isOpenFilters={isOpenFilters}/>
                     <div className="organizations-page__content">
                         <OrganizationsFilter organization_type={filtersValue.organization_type}/>
-                        {/*{filtersValue.organization_type !== 5 &&*/}
-                        {/*    <SearchFilter string_filter={filtersValue.string_filter} isOrganizations />*/}
-                        {/*}*/}
                         <OrganizationsList {...filtersValue}/>
                     </div>
                 </Container>

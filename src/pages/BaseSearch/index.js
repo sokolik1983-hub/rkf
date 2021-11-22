@@ -57,7 +57,7 @@ const BaseSearch = ({isAuthenticated}) => {
         setCardClicked(0);
     };
 
-    useTimeOut(handleActiveReset, 2000);
+    useTimeOut(handleActiveReset, 2000);//Что это за хрень???
 
     return (
         <Layout>
@@ -78,19 +78,18 @@ const BaseSearch = ({isAuthenticated}) => {
                     <div className="base-search__content-wrap">
                         <div className="base-search__content">
                             <ListFilter
+                                cardClicked={cardClicked}
                                 setCardClicked={setCardClicked}
-                                userType={userType}
-                                isAuthenticated={isAuthenticated}
-                                isMobile={isMobile}
+                                isAuth={isAuthenticated && (userType === 3 || userType === 4 || userType === 5)}
                             />
                             <GlobalCard cardClicked={cardClicked} />
                             <FoundInfo cardClicked={cardClicked} />
                             <CheckStatus cardClicked={cardClicked} />
                             <CheckRegistration cardClicked={cardClicked} />
                             <StampSearch cardClicked={cardClicked} />
-
-                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) && <CheckLitterStatus cardClicked={cardClicked} />}
-
+                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
+                                <CheckLitterStatus cardClicked={cardClicked} />
+                            }
                             <RefereeSearch cardClicked={cardClicked} />
                             <PublicationSearch cardClicked={cardClicked} />
                             <div className="base-search__list-content">
