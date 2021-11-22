@@ -22,9 +22,9 @@ import {
 } from "../../../../../components/kendo/Form/validators";
 import { Request, getHeaders } from "../../../../../utils/request";
 import { years } from "./config";
-import "./index.scss";
-import {acceptType} from "../../../../../utils/checkImgType";
 import Alert from "../../../../../components/Alert";
+
+import "./index.scss";
 
 
 const CheckMembershipForm = ({ clubAlias, history, status }) => {
@@ -185,7 +185,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
     const onAdd = (e, doc_type) => {
         const { newState } = e;
 
-        if (newState && newState.find(item => item.size > 20000000)) {
+        if (newState && newState.find(item => item.size > 20971520)) {
             setShowAlert(true);
         } else if (status === 'edit') {
             (values.documents?.length + newState.length) > 10

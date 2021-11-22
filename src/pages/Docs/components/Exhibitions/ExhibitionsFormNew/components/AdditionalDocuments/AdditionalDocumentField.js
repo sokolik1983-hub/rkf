@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import {getHeaders} from "../../../../../../../utils/request";
+import {getHeaders} from '../../../../../../../utils/request';
 
 
 const AdditionalDocumentField = ({
