@@ -8,8 +8,10 @@ import { Request } from "../../utils/request";
 import { responsiveSliderConfig } from "../../appConfig";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./index.scss";
 import KendoCard from "../kendo/Card";
+import useIsMobile from "../../utils/useIsMobile";
+import "./index.scss";
+
 
 
 const Placeholders = [0, 1, 2, 3];
@@ -23,6 +25,8 @@ const ExhibitionsComponent = ({ alias }) => {
         : '/api/exhibitions/Exhibition/featured?ElementsCount=14';
 
     const history = useHistory();
+
+    const isMobile = useIsMobile(600);
 
     useEffect(() => {
         if (window.innerWidth > 1180) {
@@ -59,7 +63,7 @@ const ExhibitionsComponent = ({ alias }) => {
     if (isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
 
     return (
-        <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'}`}>
+        <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'} ${(exhibitions?.length === 1 && isMobile) ? 'exhibitions-component__one-slide' : ''}`}>
             <Slider
                 arrows={!!exhibitions}
                 infinite={false}
@@ -74,7 +78,9 @@ const ExhibitionsComponent = ({ alias }) => {
 
             >
                 {exhibitions ?
-                    exhibitions.map(exhibition => history.location.hash === '#kendo' ? <KendoCard key={exhibition.id} {...exhibition} /> : <ExhibitionCard key={exhibition.id} {...exhibition} />) :
+                    exhibitions.map(exhibition => history.location.hash === '#kendo'
+                        ? <KendoCard className={exhibitions.length === 0} key={exhibition.id} {...exhibition} />
+                        : <ExhibitionCard isOne={exhibitions.length === 1} key={exhibition.id} {...exhibition} />) :
                     Placeholders.map(item => <Placeholder key={item} />)
                 }
                 {/*{alias && needBlock &&*/}
