@@ -23,7 +23,7 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
         if(!isUserCard) {
 
 
-            if (documents[0]) {
+            if (documents[1]) {
                 (() => Request({
                     url: `/api/document/document/public?id=${documents[1].document_id}`
                 }, data => {
@@ -34,7 +34,7 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                 }))();
             }
 
-            if (documents[1]) {
+            if (documents[0]) {
                 (() => Request({
                     url: `/api/document/document/public?id=${documents[0].document_id}`
                 }, data => {
