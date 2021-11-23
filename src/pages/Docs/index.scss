@@ -395,7 +395,7 @@
     }
   }
 
-  .DocItem__litter-payment-wrap {
+  .FormGroup.FormGroup--inline.DocItem__litter-payment-wrap {
     display: grid;
     grid-template-columns: 50% 1fr 1fr;
     @media (max-width: 1079px){
