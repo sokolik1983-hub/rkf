@@ -33,7 +33,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
     const [notActiveProfile, setNotActiveProfile] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
     const alias = match.path.replace('/', '');
 
 

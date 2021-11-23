@@ -16,13 +16,7 @@ const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setD
     };
 
     const onStatusChange = (event, name) => {
-        const { newState } = event;
-        if (newState && newState.find(item => item.size > 20000000)) {
-            setShowAlert(true);
-            handleError(event.response);
-            formRenderProps.onChange(name, { value: [] });
-            setDisableSubmit(false);
-        } else if (event.response && event.response.response) {
+        if (event.response && event.response.response) {
             const { result } = event.response.response;
             if (result) {
                 let newDocument = { name: result.name, document_id: result.id };
@@ -42,6 +36,13 @@ const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setD
             setDocumentsOverflow(true);
         }
     };
+
+    const onAdd = (event) => {
+        const { newState } = event;
+        if (newState && newState.find(item => item.size > 20971520)) {
+            setShowAlert(true);
+        }
+    }
 
     return (
         <div className="AdditionalDocumentUpload">
@@ -63,6 +64,10 @@ const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setD
                 saveUrl="/api/requests/exhibition_request/clubexhibitionrequestdocument"
                 saveField="file"
                 multiple={false}
+                restrictions={{
+                    maxFileSize: 20000000,
+                }}
+                onAdd={e => onAdd(e)}
                 onBeforeUpload={e => onBeforeUpload(e)}
                 onStatusChange={e => onStatusChange(e, 'documents_upload')}
                 disabled={(docTypes && documentType === 0) || documentsOverflow}

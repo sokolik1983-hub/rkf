@@ -12,10 +12,15 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
         if (isNaN(docId) || !docId)
             return;
         setUrl('');
-        fetch(`/api/requests/${distinction}_request/${up(distinction)}Document?id=` + docId, {headers})
+        distinction !== 'get_rkf_document'?
+        fetch(`/api/requests/${distinction}_request/${up(distinction)}Document?id=${docId}`, {headers})
         .then(res => res.blob())
         .then(data => URL.createObjectURL(data))
-        .then(url => setUrl(url));
+        .then(url => setUrl(url))
+            : fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=${docId}`, {headers})
+            .then(res => res.blob())
+            .then(data => URL.createObjectURL(data))
+            .then(url => setUrl(url));
     }
 
     useEffect(() => {

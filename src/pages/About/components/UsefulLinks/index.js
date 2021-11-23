@@ -23,7 +23,7 @@ const UsefulLinks = () => {
         },
         {
             name: 'fci',
-            icon: 'static/images/about/fci_logo.png',
+            icon: 'static/images/about/FCI_logo.png',
             link: 'http://www.fci.be/en/',
             description: 'Международная Федерация кинологии',
         },

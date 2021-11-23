@@ -284,12 +284,20 @@
 
     .FormInput__input {
       padding: 7px 16px 7px 16px !important;
-
       &:first-child {
         padding: 0 !important;
       }
     }
-
+    .ArticleCreateForm {
+      &__input-sex {
+        & .FormInput__input {
+          padding: 0 !important;
+        }
+        & .css-kj6f9i-menu {
+          max-height: 70px!important;
+        }
+      }
+    }
     .css-shvkw9-control,
     .css-8rvjbo-control,
     .css-shvkw9-control {

@@ -69,13 +69,15 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest, setProfileInfo,
         }
     };
 
-    const closeAd = async (id, setIsOpenControls) => {
+    const closeAd = async (id) => {
         if (window.confirm('Вы действительно хотите закрыть объявление?')) {
             await Request({
                 url: endpointDeleteArticle,
                 method: 'PUT',
                 data: JSON.stringify({ "id": id, "is_closed_advert": true })
-            }, () => { setNeedRequest(true); setIsOpenControls(false) },
+            }, () => {
+                setNeedRequest(true);
+                },
                 error => {
                     console.log(error);
                     alert('Объявление не закрыто');

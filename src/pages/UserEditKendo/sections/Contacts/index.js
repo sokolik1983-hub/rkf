@@ -43,9 +43,9 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                                         </div>
                                         <div className="col-md-8">
                                             <Field
-                                                id={'address_visibility_status_id'}
-                                                name={'address_visibility_status_id'}
-                                                label={''}
+                                                id='address_visibility_status_id'
+                                                name='address_visibility_status_id'
+                                                label=''
                                                 component={FormDropDownList}
                                                 data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                             />
@@ -57,12 +57,12 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                             <div className="form-row">
                                 <div className="form-group col-md-8">
                                     <FormComboBox
-                                        id={'city_id'}
-                                        name={'address.city_id'}
-                                        label={'Город'}
-                                        placeholder={'Город'}
+                                        id='city_id'
+                                        name='address.city_id'
+                                        label='Город'
+                                        placeholder='Город'
                                         component={FormComboBox}
-                                        textField={'name'}
+                                        textField='name'
                                         data={cities}
                                         value={formRenderProps.valueGetter('address.city_id')}
                                         onChange={formRenderProps.onChange}
@@ -73,9 +73,9 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                                 <div className="form-group col-md-4">
                                     <Field
                                         id="postcode"
-                                        name={'address.postcode'}
-                                        label={'Индекс'}
-                                        hint={'Кол-во цифр: 6-7'}
+                                        name="address.postcode"
+                                        label="Индекс"
+                                        hint="Кол-во цифр: 6-7"
                                         mask="0000000"
                                         component={FormMaskedInput}
                                         validator={postcodeValidator}
@@ -87,12 +87,12 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                                 <div className="form-group col-md-8">
                                     <Field
                                         id="street_name"
-                                        name={'address.street_name'}
-                                        label={'Улица'}
+                                        name="address.street_name"
+                                        label="Улица"
                                         component={FormInput}
                                         maxLength="50"
                                         validator={value => lengthValidator(value, 50)}
-                                        placeholder={'Улица'} />
+                                        placeholder="Улица" />
                                 </div>
                             </div>
 
@@ -100,32 +100,32 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                                 <div className="form-group col-md-4">
                                     <Field
                                         id="house_name"
-                                        name={'address.house_name'}
-                                        label={'Дом'}
+                                        name="address.house_name"
+                                        label="Дом"
                                         component={FormInput}
                                         maxLength="20"
                                         validator={value => lengthValidator(value, 20)}
-                                        placeholder={'Дом'} />
+                                        placeholder="Дом" />
                                 </div>
                                 <div className="form-group col-md-4">
                                     <Field
                                         id="building_name"
-                                        name={'address.building_name'}
-                                        label={'Строение'}
+                                        name="address.building_name"
+                                        label="Строение"
                                         component={FormInput}
                                         maxLength="20"
                                         validator={value => lengthValidator(value, 20)}
-                                        placeholder={'Строение'} />
+                                        placeholder="Строение" />
                                 </div>
                                 <div className="form-group col-md-4">
                                     <Field
                                         id="flat_name"
-                                        name={'address.flat_name'}
-                                        label={'Квартира'}
+                                        name="address.flat_name"
+                                        label="Квартира"
                                         component={FormInput}
                                         maxLength="20"
                                         validator={value => lengthValidator(value, 20)}
-                                        placeholder={'Квартира'} />
+                                        placeholder="Квартира" />
                                 </div>
                             </div>
 
@@ -137,9 +137,9 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                                         </div>
                                         <div className="col-md-8">
                                             <Field
-                                                id={'phones_visibility_status_id'}
-                                                name={'phones_visibility_status_id'}
-                                                label={''}
+                                                id="phones_visibility_status_id"
+                                                name="phones_visibility_status_id"
+                                                label=""
                                                 component={FormDropDownList}
                                                 data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                             />
@@ -164,9 +164,9 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                                         </div>
                                         <div className="col-md-8">
                                             <Field
-                                                id={'mails_visibility_status_id'}
-                                                name={'mails_visibility_status_id'}
-                                                label={''}
+                                                id="mails_visibility_status_id"
+                                                name="mails_visibility_status_id"
+                                                label=""
                                                 component={FormDropDownList}
                                                 data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                             />
@@ -186,7 +186,7 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                         </fieldset>
                         <div className="k-form-buttons text-center">
                             <button
-                                type={'submit'}
+                                type="submit"
                                 className="k-button k-primary mx-auto"
                                 disabled={!formRenderProps.modified || !formRenderProps.valid || formBusy}
                             >Сохранить</button>
