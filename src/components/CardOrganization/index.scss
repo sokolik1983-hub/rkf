@@ -248,8 +248,10 @@
   }
 
   &__special-position {
-    @media (max-width: 700px) {
-      margin-left: -63px;
+    &_left {
+      @media (max-width: 700px) {
+        margin-left: -63px;
+      }
     }
   }
 }
