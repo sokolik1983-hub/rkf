@@ -106,7 +106,7 @@
   .ReactGridGallery {
     overflow: hidden;
     &_tile-viewport {
-      @media (min-width: 991px) {
+      @media (min-width: 1080px) {
         width: 88px !important;
         height: 88px !important;
       }
@@ -115,7 +115,7 @@
       position: relative;
       max-width: 280px;
       margin: auto;
-      @media (max-width: 990px) {
+      @media (max-width: 1080px) {
         min-height: auto;
         max-width: none;
       }
