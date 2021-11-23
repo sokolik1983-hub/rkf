@@ -1173,3 +1173,15 @@ span.position-relative {
 .search-icon__wrap {
   position: relative;
 }
+
+.map-link:before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  width: 12px;
+  height: 18px;
+  background: url(/static/icons/pin-gray.svg) 50%/cover no-repeat;
+  background-size: contain;
+}
+
+
