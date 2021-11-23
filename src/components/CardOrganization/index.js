@@ -48,7 +48,7 @@ const CardOrganization = ({
                                 } }
                             />
 
-                            <div className="card-organization__conteiner">
+                            <div className="card-organization__container">
                                 <div className="card-organization__name-wrap">
                                     <div>
                                         <div className="card-organization__name-inner">
@@ -96,7 +96,8 @@ const CardOrganization = ({
                                         </div>
                                     }
                                 </div>
-                                <div>
+
+                                <div className={ (user_type === 3 || user_type === 4) && 'card-organization__special-position'}>
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
@@ -152,7 +153,7 @@ const CardOrganization = ({
                             </div>
                         </div> :
 
-                        <div className="card-organization__author">
+                        <div className="card-organization__author card-organization__no-url">
                             <span className="card-organization__logo" style={ {
                                 backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`
                             } }/>
@@ -189,56 +190,58 @@ const CardOrganization = ({
                                     </div>
                                 </div>
 
-                                <div className="card-organization__info">
-                                    <div className="card-organization__info-item">
-                                    <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
+                                <div className={ (user_type === 3 || user_type === 4) && 'card-organization__special-position'}>
+                                    <div className="card-organization__info">
+                                        <div className="card-organization__info-item">
+                                            <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
 
-                                    <span>
-                                        { owner_name ?
-                                            url ?
-                                                <Link to={ url }>{ owner_name }</Link> :
-                                                owner_name :
-                                            'Не указано'
+                                            <span>
+                                                { owner_name ?
+                                                    url ?
+                                                        <Link to={ url }>{ owner_name }</Link> :
+                                                        owner_name :
+                                                    'Не указано'
+                                                }
+                                            </span>
+                                        </div>
+
+                                        { user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
+                                            <div className="card-organization__info-item">
+                                                <span className="card-organization__subtitle">Телефон</span>&nbsp;
+
+                                                <span>{ phones.join(`, `) }</span>
+                                            </div>
                                         }
-                                    </span>
-                                </div>
 
-                                    { user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
-                                        <div className="card-organization__info-item">
-                                            <span className="card-organization__subtitle">Телефон</span>&nbsp;
+                                        { user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
+                                            <div className="card-organization__info-item">
+                                                <span className="card-organization__subtitle">E-mail</span>&nbsp;
 
-                                            <span>{ phones.join(`, `) }</span>
-                                        </div>
-                                    }
+                                                <span>{ mails.join(`, `) }</span>
+                                            </div>
+                                        }
 
-                                    { user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
-                                        <div className="card-organization__info-item">
-                                            <span className="card-organization__subtitle">E-mail</span>&nbsp;
+                                        { user_type === 7 && site &&
+                                            <div className="card-organization__info-item">
+                                                <span className="card-organization__subtitle">Сайт</span>&nbsp;
 
-                                            <span>{ mails.join(`, `) }</span>
-                                        </div>
-                                    }
+                                                <a href={ site.includes('http') ? site : `http://${ site }` } target="_blank"
+                                                   rel="noopener noreferrer">{ site }</a>
+                                            </div>
+                                        }
 
-                                    { user_type === 7 && site &&
-                                        <div className="card-organization__info-item">
-                                            <span className="card-organization__subtitle">Сайт</span>&nbsp;
+                                        { user_type === 4 && breeds && !!breeds.length &&
+                                            <div className="card-organization__info-item">
+                                                <span className="card-organization__subtitle">Породы</span>&nbsp;
 
-                                            <a href={ site.includes('http') ? site : `http://${ site }` } target="_blank"
-                                               rel="noopener noreferrer">{ site }</a>
-                                        </div>
-                                    }
+                                                <span>{ breeds.slice(0, 4).join(`, `) }</span>
+                                            </div>
+                                        }
+                                    </div>
 
-                                    { user_type === 4 && breeds && !!breeds.length &&
-                                        <div className="card-organization__info-item">
-                                            <span className="card-organization__subtitle">Породы</span>&nbsp;
-
-                                            <span>{ breeds.slice(0, 4).join(`, `) }</span>
-                                        </div>
-                                    }
-                                </div>
-
-                                <div className="card-organization__text">
-                                    { content }
+                                    <div className="card-organization__text">
+                                        { content }
+                                    </div>
                                 </div>
                             </div>
                         </div>
