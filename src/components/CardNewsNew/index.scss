@@ -300,10 +300,6 @@
       max-height: none;
       min-height: 100px;
     }
-    @media (max-width: 560px) {
-      height: auto;
-      max-height: 100px;
-    }
   }
   &__text {
     font-style: normal;
