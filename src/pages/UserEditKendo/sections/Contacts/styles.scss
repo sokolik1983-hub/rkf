@@ -122,17 +122,17 @@
             margin-left: unset;
             margin-right: unset;
             .d-none, .d-block, .d-sm-none, .d-sm-block {
-                display: none!important;
+                display: none !important;
                 width: 20px;
             }
             .checkbox-before-description__delete {
                 @media (max-width: 560px){
-                    display: block!important;
+                    display: block !important;
                     margin: 0 10px;
                 }
             }
             .checkbox-after-description__main {
-                display: unset!important;
+                display: unset !important;
                 width: 30px;
                 margin-left: 15px;
                 .k-radio:checked::after {
@@ -146,15 +146,15 @@
 
                 }
                 @media (max-width: 560px) {
-                    display: none!important;
+                    display: none !important;
                 }
             }
             .checkbox-after-description__delete {
-                display: unset!important;
+                display: unset !important;
                 margin-left: 10px;
                 width: 30px;
                 @media (max-width: 560px) {
-                    display: none!important;
+                    display: none !important;
                 }
             }
             .Contacts__custom-plus__before {
@@ -189,7 +189,7 @@
                     }
                 }
                 @media (max-width: 560px) {
-                    display: flex!important;
+                    display: flex !important;
                     margin: 0 10px;
                     padding-top: 5px;
                 }
@@ -231,7 +231,7 @@
         &__custom-trash {
             padding-top: 4px;
             text-align: center;
-            margin-bottom: 5px!important;
+            margin-bottom: 5px !important;
             & > span {
                 max-width: 100%;
                 color: red;

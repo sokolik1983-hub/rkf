@@ -18,7 +18,7 @@
     &__right {
         width: 100%;
         @media (max-width: 560px) {
-            width: 100%!important;
+            width: 100% !important;
             margin-top: 0;
             padding-bottom: 1px;
         }
@@ -33,7 +33,7 @@
         min-width: 300px;
         margin: 0 16px 16px 0;
         @media (max-width: 1024px) {
-            display: none!important;
+            display: none !important;
             width: 100%;
             min-width: auto;
             margin: 0;
@@ -144,7 +144,7 @@
         }
         @media (min-width: 560px){
             .UserEdit__profile-label {
-                display: block!important;
+                display: block !important;
                 margin-top: 3px;
                 font-size: 18px;
                 color: #030404;
@@ -180,7 +180,7 @@
         width: 154px;
         height: 38px;
 
-        background: #3366FF!important;
+        background: #3366FF !important;
 
         &:focus {
             outline: none;
