@@ -24,7 +24,7 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
     const [alert, setAlert] = useState(null);
     const [videoFrame, setVideoFrame] = useState(null);
     const [isOpen, setIsOpen] = useStickyState(true, "is_video_gallery_open");
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => getVideo())();

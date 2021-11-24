@@ -100,6 +100,7 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                                 <span>База знаний</span>
                             </a>
                             <Feedback />
+                            <Link className="map-link" to="/clubs-map" target="_blank">Карта авторизованных клубов</Link>
                         </li>
                         <li className='header__nav-item __about'>
                             <NavLink to='/about' exact={false}>

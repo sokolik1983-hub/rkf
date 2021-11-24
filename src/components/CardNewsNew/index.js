@@ -1,24 +1,24 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
-import OutsideClickHandler from "react-outside-click-handler";
-import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { filePdf } from "@progress/kendo-svg-icons";
-import Lightbox from "react-images";
-import moment from "moment";
-import ls from "local-storage";
-import Modal from "../Modal";
-import Card from "components/Card";
-import Share from "components/Share";
-import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
-import { formatText } from "utils";
-import { formatDateTime } from "utils/datetime";
-import { DEFAULT_IMG } from "appConfig";
-import EditForm from "./EditForm";
-// import { Request } from "utils/request";
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import { SvgIcon } from '@progress/kendo-react-common';
+import { filePdf } from '@progress/kendo-svg-icons';
+import Lightbox from 'react-images';
+import moment from 'moment';
+import ls from 'local-storage';
+import Modal from '../Modal';
+import Card from 'components/Card';
+// import Share from 'components/Share';
+import { ActiveUserMark, FederationChoiceMark } from 'components/Marks';
+import { formatText } from 'utils';
+import { formatDateTime } from 'utils/datetime';
+import { DEFAULT_IMG } from 'appConfig';
+import EditForm from './EditForm';
+import { getHeaders } from '../../utils/request';
 import CardFooter from '../CardFooter';
 
-import "./index.scss";
+import './index.scss';
 
 
 const CardNewsNew = forwardRef(({
@@ -73,12 +73,24 @@ const CardNewsNew = forwardRef(({
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
+    const [docUrl, setDocUrl] = useState('');
     const ref = useRef(null);
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
+        documents && !!documents.length && documents.map(document => getUrl(document.id));
     }, []);
+
+    const getUrl = (id) => {
+        if (isNaN(id) || !id) return;
+        const headers = getHeaders();
+
+        fetch(`/api/document/publicdocument?id=${id}`, {headers})
+            .then(res => res.blob())
+            .then(data => URL.createObjectURL(data))
+            .then(url => setDocUrl(url));
+    };
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -294,18 +306,19 @@ const CardNewsNew = forwardRef(({
                     <ul className="CardNewsNew__documents-list">
                         {documents.map(d =>
                             <li className="DocumentItem" key={d.id}>
-                                <Link
-                                    to={`/docs/${d.id}`}
+                                <a
+                                    className="DocumentItem__href"
+                                    href={docUrl}
                                     target="_blank"
-                                    style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
                                     rel="noopener noreferrer"
                                 >
                                     <SvgIcon icon={filePdf} size="default" />
-                                    <div style={{ display: 'flex', flexDirection: 'column' }}>{d.name}<span className="DocumentItem__date">
-                                        {`Добавлено ${moment(d.create_date).format('D MMMM YYYY')} в ${moment(d.create_date).format('HH:mm')}`}
-                                    </span>
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>{d.name}
+                                        <span className="DocumentItem__date">
+                                            {`Добавлено ${moment(d.create_date).format('D MMMM YYYY')} в ${moment(d.create_date).format('HH:mm')}`}
+                                        </span>
                                     </div>
-                                </Link>
+                                </a>
                             </li>
                         )}
                     </ul>
