@@ -1,19 +1,31 @@
 .UserEdit {
     .About {
         .k-form-hint {
-            @media (max-width: 990px) {
+            @media (max-width: 1024px) {
                 display: none;
             }
             &__description {
-                @media (max-width: 990px) {
+                @media (max-width: 1024px) {
                     display: flex!important;
                     margin-bottom: 10px;
                 }
             }
         }
         .form-row {
+            justify-content: space-between;
             .k-form-field {
                 margin-top: 0;
+            }
+            .form-group:nth-child(2) {
+                min-width: 91%;
+            }
+            .form-group:nth-child(3) {
+                margin-left: auto;
+                min-width: 91%;
+            }
+            .col-md-7 {
+            flex: unset!important;
+            max-width: unset!important;
             }
         }
         &__custom-label {
@@ -23,12 +35,22 @@
         }
         &__custom-plus {
             display: flex;
-            align-items: flex-start;
+            //align-items: flex-start;
             justify-content: center;
-            padding-top: 7px;
-            margin-bottom: 5px!important;
+            //padding-top: 7px;
+            //margin-bottom: 5px!important;
+
+            width: 18px;
+            height: 18px;
+            padding: 0;
+            margin: 0;
+            flex: unset;
+            max-width: unset;
+
             span.k-i-plus-circle {
-                font-size: 24px;
+                width: 18px;
+                height: 18px;
+                font-size: 18px;
                 color: #007bff;
                 &:hover {
                     cursor: pointer;
@@ -51,10 +73,14 @@
             }
         }
         .FormEditorTextarea {
-            border-radius: 6px;
+            border-radius: 4px;
             &__counter {
                 color: #72839c;
             }
+            p > span, strong {
+                font-size: 16px!important;
+            }
+
         }
     }
 }
