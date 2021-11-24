@@ -83,6 +83,14 @@
       h3 {
         padding-bottom: 10px;
         border-bottom: 1px solid #e8e8e8;
+        a {
+          color: #72839c;
+          text-decoration: none;
+          &:hover {
+            color: #3366ff;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
