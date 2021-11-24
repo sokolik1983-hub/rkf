@@ -587,6 +587,11 @@
         text-decoration: none;
       }
     }
+    &__href {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
   }
   .ya-share2__popup {
     z-index: 0;
