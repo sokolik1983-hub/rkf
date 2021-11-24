@@ -19,19 +19,19 @@ import "./styles.scss";
 const defaultCategories = [
     {
         id: 2,
-        name: 'Новые',
+        name: 'Все новые',
         icon: '/static/new-icons/notifications/new.svg',
         count: 0
     },
     {
         id: 3,
-        name: 'Важные',
+        name: 'Все важные',
         icon: '/static/new-icons/notifications/required.svg',
         count: 0
     },
     {
         id: 4,
-        name: 'Заявки',
+        name: 'Все заявки',
         icon: '/static/new-icons/notifications/applications.svg',
         count: 0
     },
