@@ -58,7 +58,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
 
     useEffect(() => {
         changeBackground(user_type, backgroundForPage, alias, orgAlias, url);
-    },[]);
+    },[url, orgAlias]);
 
     useEffect(() => {
         nameInMobileMenu(user_type,url,clubInfo, setNameInMenu, userInfo, setMenuBackground);
