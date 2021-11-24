@@ -1,24 +1,24 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
-import OutsideClickHandler from "react-outside-click-handler";
-import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { filePdf } from "@progress/kendo-svg-icons";
-import Lightbox from "react-images";
-import moment from "moment";
-import ls from "local-storage";
-import Modal from "../Modal";
-import Card from "components/Card";
-import Share from "components/Share";
-import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
-import { formatText } from "utils";
-import { formatDateTime } from "utils/datetime";
-import { DEFAULT_IMG } from "appConfig";
-import EditForm from "./EditForm";
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import { SvgIcon } from '@progress/kendo-react-common';
+import { filePdf } from '@progress/kendo-svg-icons';
+import Lightbox from 'react-images';
+import moment from 'moment';
+import ls from 'local-storage';
+import Modal from '../Modal';
+import Card from 'components/Card';
+// import Share from 'components/Share';
+import { ActiveUserMark, FederationChoiceMark } from 'components/Marks';
+import { formatText } from 'utils';
+import { formatDateTime } from 'utils/datetime';
+import { DEFAULT_IMG } from 'appConfig';
+import EditForm from './EditForm';
 import { getHeaders } from '../../utils/request';
 import CardFooter from '../CardFooter';
 
-import "./index.scss";
+import './index.scss';
 
 
 const CardNewsNew = forwardRef(({
@@ -73,7 +73,7 @@ const CardNewsNew = forwardRef(({
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
-    const [docUrl, setDocUrl] = useState('')
+    const [docUrl, setDocUrl] = useState('');
     const ref = useRef(null);
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
