@@ -201,6 +201,28 @@
             }
         }
     }
+    &__inner-right .Card {
+        .UserEdit__inner-item.active {
+            .k-i-track-changes::before {
+                content: url('/static/icons/vector-blue.svg');
+            }
+            .k-i-lock::before {
+                content: url('/static/icons/security-blue.svg');
+            }
+            .k-i-trash::before {
+                content: url('/static/icons/trash-blue.svg');
+            }
+        }
+        .k-i-track-changes::before {
+            content: url('/static/icons/vector.svg');
+        }
+        .k-i-lock::before {
+            content: url('/static/icons/security.svg');
+        }
+        .k-i-trash::before {
+            content: url('/static/icons/trash.svg');
+        }
+    }
 }
 .header__filters {
     & > span {
