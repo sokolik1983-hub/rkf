@@ -8,7 +8,7 @@
                     width: 35%;
                     &:first-child {
                         width: 65%;
-                        padding-right: 20px;
+                        padding-right: 15px;
                     }
                 }
             }
@@ -20,7 +20,7 @@
                 .form-row {
                     width: 50%;
                     &:first-child {
-                        padding-right: 15px;
+                        padding-right: 10px;
                     }
                     &__house > div {
                         width: 29%;
@@ -35,9 +35,13 @@
                 display: none;
         }
         .phone-number {
+            flex: unset;
+            @media (max-width: 768px) {
+                max-width: 100%;
+                padding: 0 !important;
+            }
             @media (max-width: 560px) {
-                flex: unset;
-                max-width: 66%;
+                max-width: 70%;
                 padding: 0 !important;
             }
             &__description {
@@ -55,12 +59,18 @@
                     justify-content: flex-start;
                     width: 100%;
                     .form-group:nth-child(2) {
-                        max-width: 280px;
-                        padding: 0 20px 0 0;
+                        max-width: 40%;
+                        padding: 0 15px 0 0;
+                        @media (max-width: 768px) {
+                            max-width: 38%;
+                        }
                     }
                     .form-group:nth-child(3) {
-                        max-width: 280px;
+                        max-width: 40%;
                         padding: 0;
+                        @media (max-width: 768px) {
+                            max-width: 35%;
+                        }
                     }
                 }
                 @media (min-width: 1025px) {
@@ -80,12 +90,32 @@
             flex-wrap: unset;
             width: 50%;
             padding-right: 5px;
+            padding-left: 15px;
+            .col-md-4 {
+                width: 60px;
+                padding-left: 0;
+            }
+            .col-md-8 {
+                min-width: 150px;
+                @media (max-width: 768px) {
+                    min-width: 150px;
+                    margin-left: 20px;
+                    padding-left: 0;
+                }
+                @media (max-width: 560px) {
+                    margin-left: 5px;
+                    padding-left: 0;
+                }
+            }
             @media (max-width: 1024px) {
                 width: 46%;
                 padding-right: 15px;
             }
             & > div {
                 padding-right: 0;
+                @media (min-width: 1025px){
+                    padding-right: 5px;
+                }
             }
         }
         .form-row {
@@ -104,7 +134,7 @@
             .checkbox-after-description__main {
                 display: unset!important;
                 width: 30px;
-                margin-left: 20px;
+                margin-left: 15px;
                 .k-radio:checked::after {
                     content: "Основной";
                     position: absolute;
@@ -133,9 +163,9 @@
                 justify-content: center;
                 min-width: 30px;
                 padding: 7px 0 0 0;
-                margin: 0 10px 5px 0 !important;
+                margin: 0 5px 5px 0 !important;
                 span.k-i-plus-circle {
-                    font-size: 24px;
+                    font-size: 18px;
                     color: #007bff;
                     &:hover {
                         cursor: pointer;
