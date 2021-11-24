@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Field } from '@progress/kendo-react-form';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
 import FormContactsRadioButton from 'pages/UserEditKendo/components/FormContactsRadioButton';
 import { Error } from '@progress/kendo-react-labels';
-import { lengthValidator } from "../validators";
+import { lengthValidator } from '../validators';
 import { phoneMask } from 'pages/UserEditKendo/config';
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
-    const [radu] = useState()
     const { validationMessage, visited, id, value, onRemove, onPush, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
     const newItem = { "is_main": false, "value": "", "description": "" };
     const valuesArray = formRenderProps.valueGetter(id);
