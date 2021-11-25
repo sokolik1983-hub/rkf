@@ -293,10 +293,12 @@
     }
   }
   &__text-wrap {
+    height: 100px;
+    margin: 20px 10px 0;
     overflow: hidden;
-    padding-top: 20px;
-    &._collapsed {
+    &__collapsed {
       height: auto;
+      margin: 20px 10px 0;
       max-height: none;
       min-height: 100px;
     }

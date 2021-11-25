@@ -2,10 +2,7 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
-import { SvgIcon } from '@progress/kendo-react-common';
-import { filePdf } from '@progress/kendo-svg-icons';
 import Lightbox from 'react-images';
-import moment from 'moment';
 import ls from 'local-storage';
 import Modal from '../Modal';
 import Card from 'components/Card';
@@ -73,7 +70,6 @@ const CardNewsNew = forwardRef(({
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
-    const [docUrl, setDocUrl] = useState('');
     const ref = useRef(null);
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
@@ -84,7 +80,7 @@ const CardNewsNew = forwardRef(({
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
-        const [isLiked, setIsLiked] = useState(is_liked);
+        // const [isLiked, setIsLiked] = useState(is_liked);
         // const [likesCount, setLikesCount] = useState(like_count);
 
         switch (dog_sex_type_id) {
@@ -230,7 +226,7 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'CardNewsNew__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
+                <div className={!collapsed ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
                     {is_advert && <div className="CardNewsNew__ad">
                         <p className="CardNewsNew__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
