@@ -1,22 +1,21 @@
-import React, {memo, forwardRef, useEffect, useRef, useState} from "react";
-import OutsideClickHandler from "react-outside-click-handler";
-import {Link} from "react-router-dom";
-import {CSSTransition} from "react-transition-group";
-import Lightbox from "react-images";
+import React, {memo, forwardRef, useEffect, useRef, useState} from 'react';
+import OutsideClickHandler from 'react-outside-click-handler';
+import {Link} from 'react-router-dom';
+import {CSSTransition} from 'react-transition-group';
+import Lightbox from 'react-images';
 import {Chip} from '@progress/kendo-react-buttons';
-import {SvgIcon} from "@progress/kendo-react-common";
-import {filePdf} from "@progress/kendo-svg-icons";
-import moment from "moment";
-import Card from "../../../../components/Card";
-import Share from "../../../../components/Share";
-import {ActiveUserMark, FederationChoiceMark} from "../../../../components/Marks";
-import EditForm from "./EditForm";
-import {formatText} from "../../../../utils";
-import {formatDateTime} from "../../../../utils/datetime";
-import {Request} from "../../../../utils/request";
-import {DEFAULT_IMG} from "../../../../appConfig";
-import CardFooter from "../../../../components/CardFooter";
-import "./index.scss";
+import Card from '../../../../components/Card';
+import Share from '../../../../components/Share';
+import {ActiveUserMark, FederationChoiceMark} from '../../../../components/Marks';
+import EditForm from './EditForm';
+import {formatText} from '../../../../utils';
+import {formatDateTime} from '../../../../utils/datetime';
+import {Request} from '../../../../utils/request';
+import {DEFAULT_IMG} from '../../../../appConfig';
+import CardFooter from '../../../../components/CardFooter';
+import DocumentLink from '../DocumentLink';
+
+import './index.scss';
 
 
 const NewsFeedItem = forwardRef(({
@@ -300,22 +299,12 @@ const NewsFeedItem = forwardRef(({
                 {documents && !!documents.length &&
                     <div className="NewsFeedItem__documents" style={{ margin: '0 10px 0 10px' }}>
                         <ul className="NewsFeedItem__documents-list">
-                            {documents.map(d =>
-                                <li className="DocumentItem" key={d.id}>
-                                    <Link
-                                        to={`/docs/${d.id}`}
-                                        target="_blank"
-                                        className="d-flex align-items-center"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <SvgIcon icon={filePdf} size="default" />
-                                        <div className="d-flex flex-column">
-                                            {d.name}
-                                            <span className="DocumentItem__date">
-                                                {`Добавлено ${moment(d.create_date).format('D MMMM YYYY')} в ${moment(d.create_date).format('HH:mm')}`}
-                                            </span>
-                                        </div>
-                                    </Link>
+                            {documents.map(doc =>
+                                <li className="DocumentItem" key={doc.id}>
+                                    <DocumentLink
+                                        docId={doc.id}
+                                        document={doc}
+                                    />
                                 </li>
                             )}
                         </ul>

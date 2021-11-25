@@ -585,12 +585,17 @@
     a {
       &:hover {
         text-decoration: none;
+        color: #0056b3;
       }
     }
     &__href {
       display: flex;
       align-items: center;
       text-decoration: none;
+    }
+    &__name {
+      display: flex;
+      flex-direction: column;
     }
   }
   .ya-share2__popup {
