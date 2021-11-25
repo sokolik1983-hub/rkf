@@ -15,8 +15,8 @@ import { formatText } from 'utils';
 import { formatDateTime } from 'utils/datetime';
 import { DEFAULT_IMG } from 'appConfig';
 import EditForm from './EditForm';
-import { getHeaders } from '../../utils/request';
 import CardFooter from '../CardFooter';
+import DocumentLink from './DocumentLink';
 
 import './index.scss';
 
@@ -78,19 +78,8 @@ const CardNewsNew = forwardRef(({
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     useEffect(() => {
-        if ((ref.current && ref.current.clientHeight > 79)) setCanCollapse(true);
-        documents && !!documents.length && documents.map(document => getUrl(document.id));
+        if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
     }, []);
-
-    const getUrl = (id) => {
-        if (isNaN(id) || !id) return;
-        const headers = getHeaders();
-
-        fetch(`/api/document/publicdocument?id=${id}`, {headers})
-            .then(res => res.blob())
-            .then(data => URL.createObjectURL(data))
-            .then(url => setDocUrl(url));
-    };
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -241,7 +230,7 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap_collapsed'} style={{ margin: '0 10px 0 10px' }}>
+                <div className={!collapsed ? 'CardNewsNew__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
                     {is_advert && <div className="CardNewsNew__ad">
                         <p className="CardNewsNew__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
@@ -304,21 +293,12 @@ const CardNewsNew = forwardRef(({
                 documents && !!documents.length &&
                 <div className="CardNewsNew__documents" style={{ margin: '0 10px 0 10px' }}>
                     <ul className="CardNewsNew__documents-list">
-                        {documents.map(d =>
-                            <li className="DocumentItem" key={d.id}>
-                                <a
-                                    className="DocumentItem__href"
-                                    href={docUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <SvgIcon icon={filePdf} size="default" />
-                                    <div style={{ display: 'flex', flexDirection: 'column' }}>{d.name}
-                                        <span className="DocumentItem__date">
-                                            {`Добавлено ${moment(d.create_date).format('D MMMM YYYY')} в ${moment(d.create_date).format('HH:mm')}`}
-                                        </span>
-                                    </div>
-                                </a>
+                        {documents.map(doc =>
+                            <li className="DocumentItem" key={doc.id}>
+                                <DocumentLink
+                                    docId={doc.id}
+                                    document={doc}
+                                />
                             </li>
                         )}
                     </ul>
