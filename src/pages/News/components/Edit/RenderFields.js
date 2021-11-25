@@ -19,9 +19,10 @@ import { useFocus } from '../../../../shared/hooks';
 import CustomSelect from "react-select";
 
 
-const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete }) => {
+const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete, dogSex }) => {
     const [src, setSrc] = useState(imgSrc);
     const [sexId, setSex] = useState(imgSrc);
+    const [sexIdNumber, setSexIdNumber] = useState(dogSex)
     const [video, setVideo] = useState(videoLink);
     const [advertTypes, setAdvertTypes] = useState([]);
     const [modalType, setModalType] = useState('');
@@ -51,7 +52,6 @@ const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, do
         formik.setFieldValue('content', text);
         formik.setFieldValue('file', imgSrc);
         formik.setFieldValue('video_link', videoLink);
-        formik.setFieldValue('dog_sex_type_id', 2);
 
         Request({ url: '/api/article/article_ad_types' },
             data => setAdvertTypes(data.map(d => ({ text: d.name, value: d.id }))),
@@ -62,7 +62,7 @@ const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, do
 
     useEffect(() => {
         blockContent(showModal)
-    }, [showModal])
+    }, [showModal]);
 
     const handleChangeText = (e) => {
         let text = e.target.value;
@@ -147,7 +147,20 @@ const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, do
 
     const handleChange = (e) => {
         setSex(e);
+        switch (e.label) {
+            case 'Кобель':
+                setSexIdNumber(1)
+                break;
+            case 'Сука':
+                setSexIdNumber(2)
+                break;
+            default:
+                break;
+        }
     }
+    useEffect(() => {
+        formik.setFieldValue('dog_sex_type_id', sexIdNumber);
+    }, [sexIdNumber]);
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -243,12 +256,11 @@ const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, do
                     <FormGroup inline className="article-edit__ad">
                         <FormField {...fields.dog_color} />
                         <FormField {...fields.dog_age} />
-
                     </FormGroup>
                     <FormGroup>
                         <CustomSelect  value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
                     </FormGroup>
-                        <FormGroup inline className="article-edit__ad">
+                    <FormGroup inline className="article-edit__ad">
                         <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
                     </FormGroup>
                 </div>

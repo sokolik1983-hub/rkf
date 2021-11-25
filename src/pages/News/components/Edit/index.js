@@ -129,6 +129,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     isMating={isMating}
                     setIsMating={setIsMating}
                     setIsImageDelete={setIsImageDelete}
+                    dogSex={dogSex}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
