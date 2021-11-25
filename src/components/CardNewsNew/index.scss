@@ -235,7 +235,6 @@
   }
   &__right {
     display: flex;
-    padding-top: 6px;
     @media (max-width: 560px) {
       padding-top: 30px;
      }
@@ -295,7 +294,9 @@
   &__text-wrap {
     overflow: hidden;
     padding-top: 20px;
-    &._collapsed {
+    max-height: 100px;
+    &_collapsed {
+      padding-top: 20px;
       height: auto;
       max-height: none;
       min-height: 100px;

@@ -78,7 +78,7 @@ const CardNewsNew = forwardRef(({
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     useEffect(() => {
-        if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
+        if ((ref.current && ref.current.clientHeight > 79)) setCanCollapse(true);
         documents && !!documents.length && documents.map(document => getUrl(document.id));
     }, []);
 
@@ -241,7 +241,7 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'CardNewsNew__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
+                <div className={!collapsed ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap_collapsed'} style={{ margin: '0 10px 0 10px' }}>
                     {is_advert && <div className="CardNewsNew__ad">
                         <p className="CardNewsNew__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
