@@ -260,6 +260,29 @@
       right: 15px;
     }
   }
+  &__custom-select {
+    flex: 1 1;
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    .css-1pcexqc-container, .css-1pcexqc-container:hover {
+      & .css-bg1rzq-control, .css-1szy77t-control:hover  {
+        border-color: #EBF0F2;
+      }
+    }
+    input {
+      padding: 8px 6px 8px 14px!important;
+    }
+    .css-xo7z33-option {
+      background-color: #fff!important;
+      color: #000000!important;
+      cursor: pointer!important;
+    }
+    .css-xo7z33-option:hover {
+      background-color: #F6F7F7!important;
+    }
+  }
 }
 .k-upload .k-dropzone {
   @media (max-width:480px) {

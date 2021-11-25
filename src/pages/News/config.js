@@ -5,6 +5,7 @@ export const endpointEditNews = '/api/article/update'; //PUT
 export const endpointAddNewsPicture = '/api/Article/image'; //POST
 export const endpointDeleteNewsPicture = '/api/Article/image/'; // /id DELETE
 export const apiBreedsEndpoint = '/api/dog/Breed'; // GET Breeds
+export const apiSexEndpoint = '/api/dog/Breed/sex_types'; // GET Sex
 
 export const formConfig = {
     action: endpointEditNews,
@@ -20,12 +21,26 @@ export const formConfig = {
             name: 'advert_breed_id',
             fieldType: 'reactSelect',
             label: 'Порода',
-            placeholder: "Выберите породу"
+            placeholder: "Выберите породу",
+        },
+        dog_sex_type_id: {
+            name: 'dog_sex_type_id',
+            fieldType: 'reactSelect',
         },
         advert_cost: {
             name: 'advert_cost',
             label: 'Стоимость',
             placeholder: "Укажите стоимость"
+        },
+        dog_color: {
+            name: 'dog_color',
+            label: 'Окрас',
+            placeholder: "Окрас"
+        },
+        dog_age: {
+            name: 'dog_age',
+            label: 'Возраст',
+            placeholder: "Возраст"
         },
         advert_number_of_puppies: {
             name: 'advert_number_of_puppies',
@@ -86,4 +101,6 @@ export const defaultValues = {
     advert_type_id: '',
     content: '',
     file: '',
+    dog_color: '',
+    dog_age: '',
 };
