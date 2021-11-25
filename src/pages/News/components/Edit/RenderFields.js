@@ -16,17 +16,37 @@ import useIsMobile from "../../../../utils/useIsMobile";
 import { blockContent } from '../../../../utils/blockContent';
 import OutsideClickHandler from "react-outside-click-handler";
 import { useFocus } from '../../../../shared/hooks';
+import CustomSelect from "react-select";
 
 
-const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete }) => {
+const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete, dogSex }) => {
     const [src, setSrc] = useState(imgSrc);
+    const [sexId, setSex] = useState(imgSrc);
+    const [sexIdNumber, setSexIdNumber] = useState(dogSex)
     const [video, setVideo] = useState(videoLink);
     const [advertTypes, setAdvertTypes] = useState([]);
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
     const { focus, setFocused, setBlured } = useFocus(false);
-    const { content, is_advert } = formik.values;
+    const { content, is_advert, dog_sex_type_id } = formik.values;
     const isMobile = useIsMobile();
+
+    useEffect(() => {
+        switch (dog_sex_type_id) {
+            case 1:
+                setSex({
+                    'label': 'Кобель',
+                });
+                break;
+            case 2:
+                setSex({
+                    'label': 'Сука',
+                });
+                break;
+            default:
+                break;
+        }
+    },[])
 
     useEffect(() => {
         formik.setFieldValue('content', text);
@@ -35,13 +55,14 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
 
         Request({ url: '/api/article/article_ad_types' },
             data => setAdvertTypes(data.map(d => ({ text: d.name, value: d.id }))),
+
             error => console.log(error.response)
         )
     }, []);
 
     useEffect(() => {
         blockContent(showModal)
-    }, [showModal])
+    }, [showModal]);
 
     const handleChangeText = (e) => {
         let text = e.target.value;
@@ -123,6 +144,23 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const handleOutsideClick = () => {
         !content && setBlured();
     };
+
+    const handleChange = (e) => {
+        setSex(e);
+        switch (e.label) {
+            case 'Кобель':
+                setSexIdNumber(1)
+                break;
+            case 'Сука':
+                setSexIdNumber(2)
+                break;
+            default:
+                break;
+        }
+    }
+    useEffect(() => {
+        formik.setFieldValue('dog_sex_type_id', sexIdNumber);
+    }, [sexIdNumber]);
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -212,7 +250,17 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                     <FormGroup inline className="article-edit__ad">
                         <FormField {...fields.advert_breed_id} options={breeds} />
                         <FormField {...fields.advert_cost} />
+
                         {!isMating && <FormField {...fields.advert_number_of_puppies} />}
+                    </FormGroup>
+                    <FormGroup inline className="article-edit__ad">
+                        <FormField {...fields.dog_color} />
+                        <FormField {...fields.dog_age} />
+                        <div className="article-edit__custom-select">
+                            <label htmlFor="dog_sex_type_id">Пол</label>
+                            <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
+                        </div>
+
                     </FormGroup>
                     <FormGroup inline className="article-edit__ad">
                         <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
