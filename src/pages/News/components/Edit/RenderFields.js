@@ -256,9 +256,11 @@ const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, do
                     <FormGroup inline className="article-edit__ad">
                         <FormField {...fields.dog_color} />
                         <FormField {...fields.dog_age} />
-                    </FormGroup>
-                    <FormGroup>
-                        <CustomSelect  value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
+                        <div className="article-edit__custom-select">
+                            <label htmlFor="dog_sex_type_id">Пол</label>
+                            <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
+                        </div>
+
                     </FormGroup>
                     <FormGroup inline className="article-edit__ad">
                         <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
