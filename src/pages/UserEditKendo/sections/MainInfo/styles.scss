@@ -6,7 +6,7 @@
 
             }
             .k-form-hint {
-                @media (max-width: 990px) {
+                @media (max-width: 1024px) {
                     display: none;
                 }
             }
@@ -19,6 +19,15 @@
                 .form-row {
                     width: 50%;
                 }
+                @media (max-width: 990px){
+                    min-width: 230px;
+                }
+            }
+            .form-group {
+                @media (min-width: 560px){
+                    flex: unset;
+                    max-width: unset;
+                }
             }
         }
     }
@@ -29,6 +38,6 @@
     }
     .k-input,
     .k-select {
-        background-color: white!important;
+        background-color: white !important;
     }
 }

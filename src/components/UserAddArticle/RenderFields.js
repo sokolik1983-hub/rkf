@@ -121,6 +121,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
 
     const handleOutsideClick = () => {
         !content && setBlured();
+        setIsAd(false);
     };
 
     return (

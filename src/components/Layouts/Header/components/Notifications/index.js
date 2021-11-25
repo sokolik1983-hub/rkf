@@ -19,19 +19,19 @@ import "./styles.scss";
 const defaultCategories = [
     {
         id: 2,
-        name: 'Все новые',
+        name: 'Новые',
         icon: '/static/new-icons/notifications/new.svg',
         count: 0
     },
     {
         id: 3,
-        name: 'Все важные',
+        name: 'Важные',
         icon: '/static/new-icons/notifications/required.svg',
         count: 0
     },
     {
         id: 4,
-        name: 'Все заявки',
+        name: 'Заявки',
         icon: '/static/new-icons/notifications/applications.svg',
         count: 0
     },
@@ -127,6 +127,8 @@ const Notifications = forwardRef(
 
         const notificationsRef = useRef();
 
+        const newNotifications = (currentCategory === 3) ? 'Все важные' : (currentCategory === 2) ? 'Все новые' : 'Все заявки';
+
         useEffect(() => {
             if (open && isMobile) {
                 blockContent(true)
@@ -209,7 +211,7 @@ const Notifications = forwardRef(
                                                                 }
                                                             </div>
                                                             <div className="Notifications__list-see-all">
-                                                                <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
+                                                                <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>{newNotifications}</Link>
                                                             </div>
                                                         </div>
                                                     </>}
@@ -260,7 +262,7 @@ const Notifications = forwardRef(
                                                         }
                                                     </div>
                                                     <div className="Notifications__list-see-all">
-                                                        <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
+                                                        <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>{newNotifications}</Link>
                                                     </div>
                                                 </div>
                                             </>}

@@ -5,17 +5,17 @@ export const categories = [
         icon: 'NewsFeed__icon NewsFeed__icon--publications'
     },
     {
-        name: 'Все новые',
+        name: 'Новые',
         id: 7,
         icon: 'NewsFeed__icon NewsFeed__icon--new'
     },
     {
-        name: 'Все важные',
+        name: 'Важные',
         id: 4,
         icon: 'NewsFeed__icon NewsFeed__icon--required'
     },
     {
-        name: 'Все заявки',
+        name: 'Заявки',
         id: 6,
         icon: 'NewsFeed__icon NewsFeed__icon--applications'
     },
