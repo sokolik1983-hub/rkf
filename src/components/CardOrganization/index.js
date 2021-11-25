@@ -97,7 +97,6 @@ const CardOrganization = ({
                                     }
                                 </div>
 
-                                {/*<div className={ `card-organization__special-position${ (user_type === 3 || user_type === 4) ? '_left' : ''}` }>*/}
                                 <div className="card-organization__special-position_left">
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
@@ -191,7 +190,6 @@ const CardOrganization = ({
                                     </div>
                                 </div>
 
-                                {/*<div className={ `card-organization__special-position${ (user_type === 3 || user_type === 4) ? '_left' : ''}` }>*/}
                                 <div className="card-organization__special-position_left">
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
