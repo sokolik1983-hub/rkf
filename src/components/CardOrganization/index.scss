@@ -37,12 +37,13 @@
     }
   }
 
-  &__icons,
   &__heading {
     display: flex;
+    height: 75px;
   }
 
   &__icons {
+    display: flex;
     margin-left: 10px;
 
     & img {
@@ -200,10 +201,6 @@
         }
       }
     }
-  }
-
-  &__no-url &__info {
-    margin-top: 46px;
   }
 
   &__text {
