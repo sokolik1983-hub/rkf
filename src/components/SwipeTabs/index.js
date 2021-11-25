@@ -28,7 +28,7 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
                 enabled: true,
                 sticky: true
             }}
-            centerInsufficientSlides={true}
+            centerInsufficientSlides={false}
             centeredSlidesBounds={true}
             centeredSlides={true}
             activeIndex={activeTabIndex}
