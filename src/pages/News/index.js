@@ -89,12 +89,16 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                         <div className="news__item-body">
                             {isEdit && canEdit ?
                                 <Edit id={news.id}
+                                    advertTypeId={news.advert_type_id}
                                     text={news.content}
                                     img={news.picture_link || ''}
                                     videoLink={news.video_link || ''}
                                     documents={news.documents}
                                     isAd={news.is_advert}
                                     adBreedId={news.advert_breed_id}
+                                    dogSex={news.dog_sex_type_id}
+                                    dogColor={news.dog_color}
+                                    dogAge={news.dog_age}
                                     adCode={news.advert_code}
                                     adCost={news.advert_cost}
                                     adNumberOfPuppies={news.advert_number_of_puppies}

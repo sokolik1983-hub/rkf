@@ -1,19 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { connect, Field } from 'formik';
-import { ChipList } from '@progress/kendo-react-buttons';
+import {useState} from "react";
+import { ChipList} from '@progress/kendo-react-buttons';
 import Label from './Label';
 import Error from './Error';
 import './CustomChipList.scss';
 
-const CustomChipList = ({ formik, name, label, options, setIsMating }) => {
+const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeId }) => {
     const { setFieldValue, errors } = formik;
+    const [activeElem, setActiveElem] = useState((+advertTypeId));
+
     const handleChange = ({ value }) => {
-        setFieldValue(name, value || '');
-        if (value === 3) {
+        setFieldValue(name, value || advertTypeId);
+        if (value === 3 || advertTypeId === 3) {
             setIsMating(true);
         } else {
             setIsMating(false);
         }
+        setActiveElem(value);
     };
 
     return (
@@ -21,6 +25,7 @@ const CustomChipList = ({ formik, name, label, options, setIsMating }) => {
             <Label htmlFor={name} label={label} />
             <ChipList
                 data={options}
+                value={activeElem}
                 selection="single"
                 onChange={handleChange}
                 className="CustomChipList"
@@ -29,8 +34,6 @@ const CustomChipList = ({ formik, name, label, options, setIsMating }) => {
             <Error name={name} />
         </div>
     )
-
-
 }
 
 export default connect(CustomChipList);

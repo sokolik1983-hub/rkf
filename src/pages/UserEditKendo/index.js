@@ -259,6 +259,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     </div>
                                     <div className={`UserEdit__inner-right${isOpenFilters ? ' _open' : ''}`}>
                                         <Card>
+                                            <span className="d-none UserEdit__profile-label">Профиль</span>
                                             <ul className="UserEdit__inner-list">
                                                 {Object.keys(sections).map((type, key) => <div
                                                     className={sections[type].id === activeSection ? "UserEdit__inner-item active" : "UserEdit__inner-item"}

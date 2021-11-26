@@ -25,7 +25,7 @@ const OrganizationsFilter = ({organization_type }) => {
                     ? (
                         <div className="slider" ref={wrap}>
                             <HorizontalSwipe id="slider-wrap" className="slider-wrap">
-                                <div className={organization_type === 5 ? ' _active' : ''} onClick={(e) => handleClick(5, e, 1)}>РКФ и Федерации</div>
+                                <div className={organization_type === 5 ? ' _active' : ''} onClick={(e) => handleClick(5, e, 1)}>РКФ и федерации</div>
                                 <div className={organization_type === 3 ? ' _active' : ''} onClick={(e) => handleClick(3, e, 2)}>Клубы</div>
                                 <div className={organization_type === 4 ? ' _active' : ''}  onClick={(e) => handleClick(4, e,3 )}>Питомники</div>
                                 <div className={organization_type === 7 ? ' _active' : ''} onClick={(e) => handleClick(7, e, 4)}>НКП</div>
@@ -40,7 +40,7 @@ const OrganizationsFilter = ({organization_type }) => {
                                             className={`list-filter__control${organization_type === 5 ? ' _active' : ''}`}
                                             type="button"
                                             onClick={() => setFiltersToUrl({...getEmptyFilters(), organization_type: 5})}
-                                        >РКФ и Федерации</button>
+                                        >РКФ и федерации</button>
                                     </li>
                                     <li className="list-filter__item">
                                         <button

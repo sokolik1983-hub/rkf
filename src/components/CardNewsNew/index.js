@@ -1,24 +1,21 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
-import OutsideClickHandler from "react-outside-click-handler";
-import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { filePdf } from "@progress/kendo-svg-icons";
-import Lightbox from "react-images";
-import moment from "moment";
-import ls from "local-storage";
-import Modal from "../Modal";
-import Card from "components/Card";
-import Share from "components/Share";
-import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
-import { formatText } from "utils";
-import { formatDateTime } from "utils/datetime";
-import { DEFAULT_IMG } from "appConfig";
-import EditForm from "./EditForm";
-// import { Request } from "utils/request";
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import Lightbox from 'react-images';
+import ls from 'local-storage';
+import Modal from '../Modal';
+import Card from 'components/Card';
+// import Share from 'components/Share';
+import { ActiveUserMark, FederationChoiceMark } from 'components/Marks';
+import { formatText } from 'utils';
+import { formatDateTime } from 'utils/datetime';
+import { DEFAULT_IMG } from 'appConfig';
+import EditForm from './EditForm';
 import CardFooter from '../CardFooter';
+import DocumentLink from './DocumentLink';
 
-import "./index.scss";
+import './index.scss';
 
 
 const CardNewsNew = forwardRef(({
@@ -77,13 +74,13 @@ const CardNewsNew = forwardRef(({
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     useEffect(() => {
-        if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
+        if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
-        const [isLiked, setIsLiked] = useState(is_liked);
+        // const [isLiked, setIsLiked] = useState(is_liked);
         // const [likesCount, setLikesCount] = useState(like_count);
 
         switch (dog_sex_type_id) {
@@ -229,7 +226,7 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'CardNewsNew__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
+                <div className={!collapsed ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
                     {is_advert && <div className="CardNewsNew__ad">
                         <p className="CardNewsNew__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
@@ -292,20 +289,12 @@ const CardNewsNew = forwardRef(({
                 documents && !!documents.length &&
                 <div className="CardNewsNew__documents" style={{ margin: '0 10px 0 10px' }}>
                     <ul className="CardNewsNew__documents-list">
-                        {documents.map(d =>
-                            <li className="DocumentItem" key={d.id}>
-                                <Link
-                                    to={`/docs/${d.id}`}
-                                    target="_blank"
-                                    style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
-                                    rel="noopener noreferrer"
-                                >
-                                    <SvgIcon icon={filePdf} size="default" />
-                                    <div style={{ display: 'flex', flexDirection: 'column' }}>{d.name}<span className="DocumentItem__date">
-                                        {`Добавлено ${moment(d.create_date).format('D MMMM YYYY')} в ${moment(d.create_date).format('HH:mm')}`}
-                                    </span>
-                                    </div>
-                                </Link>
+                        {documents.map(doc =>
+                            <li className="DocumentItem" key={doc.id}>
+                                <DocumentLink
+                                    docId={doc.id}
+                                    document={doc}
+                                />
                             </li>
                         )}
                     </ul>

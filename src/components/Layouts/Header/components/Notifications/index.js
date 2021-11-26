@@ -127,6 +127,8 @@ const Notifications = forwardRef(
 
         const notificationsRef = useRef();
 
+        const newNotifications = currentCategory === 3 ? 'Все важные' : currentCategory === 2 ? 'Все новые' : 'Все заявки';
+
         useEffect(() => {
             if (open && isMobile) {
                 blockContent(true)
@@ -209,7 +211,7 @@ const Notifications = forwardRef(
                                                                 }
                                                             </div>
                                                             <div className="Notifications__list-see-all">
-                                                                <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
+                                                                <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>{newNotifications}</Link>
                                                             </div>
                                                         </div>
                                                     </>}
@@ -260,7 +262,7 @@ const Notifications = forwardRef(
                                                         }
                                                     </div>
                                                     <div className="Notifications__list-see-all">
-                                                        <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
+                                                        <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>{newNotifications}</Link>
                                                     </div>
                                                 </div>
                                             </>}
