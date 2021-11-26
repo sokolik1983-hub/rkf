@@ -291,7 +291,7 @@
     }
   }
   &__text-wrap {
-    height: 100px;
+    max-height: 108px;
     margin: 20px 10px 0;
     overflow: hidden;
     &__collapsed {
