@@ -89,6 +89,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                         <div className="news__item-body">
                             {isEdit && canEdit ?
                                 <Edit id={news.id}
+                                    advertTypeId={news.advert_type_id}
                                     text={news.content}
                                     img={news.picture_link || ''}
                                     videoLink={news.video_link || ''}
