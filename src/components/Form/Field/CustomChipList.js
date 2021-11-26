@@ -12,13 +12,13 @@ const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeI
 
     const handleChange = ({ value }) => {
         setFieldValue(name, value);
-        setIsMating(value===3);
+        setIsMating(value === 3);
         setActiveElem(value);
     };
 
     useEffect(() => {
-        setIsMating(advertTypeId===3);
-    }, []);
+        setIsMating(advertTypeId === 3);
+    }, [])
 
     return (
         <div className={`FormInput${errors[name] ? ' FormInput--error' : ''}`}>
