@@ -131,20 +131,9 @@ const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, do
     const handleOutsideClick = () => {
         !content && setBlured();
     };
-    setSexIdNumber(1)
     const handleChange = (e) => {
         setSex(e);
-
-        switch (e.label) {
-            case 'Кобель':
-                setSexIdNumber(1)
-                break;
-            case 'Сука':
-                setSexIdNumber(2)
-                break;
-            default:
-                break;
-        }
+        setSexIdNumber((e.label === 'Кобель') ? 1 : 2);
     }
     useEffect(() => {
         formik.setFieldValue('dog_sex_type_id', sexIdNumber);
