@@ -25,7 +25,7 @@ const FormUpload = fieldRenderProps => {
     const onChangeHandler = event => {
         event.newState[0].size < 10485760 ?
             fieldRenderProps.onChange({ value: event.newState }) :
-            window.alert('Максимальный размер файла - 10 мб');
+            window.alert("Формат файла не поддерживается, либо размер файла превышает 10Мб. Поддерживаемые форматы PDF, JPG, JPEG.");
             // setAlert(true); //решено использовать стандартный Alert.
     };
 
@@ -67,7 +67,8 @@ const FormUpload = fieldRenderProps => {
             }
             {alert &&
                 <Alert
-                    text="Максимальный размер файла - 10 мб"
+                    title="Ошибка добавления документа"
+                    text="Формат файла не поддерживается, либо размер файла превышает 10Мб. Поддерживаемые форматы PDF, JPG, JPEG."
                     autoclose={2}
                     onOk={() => setAlert(false)}
                 />

@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import moment from "moment";
-import { Form, Field, FormElement } from "@progress/kendo-react-form";
-import { Fade } from "@progress/kendo-react-animation";
-import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
-import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import Loading from "../../../../../components/Loading";
-import Card from "../../../../../components/Card";
-import LightTooltip from "../../../../../components/LightTooltip";
-import FormInput from "../../../../../components/kendo/Form/FormInput";
-import FormContactsCheckbox from "../../../../../components/kendo/Form/FormContactsCheckbox";
-import FormUpload from "./components/FormUpload";
-import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
-import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
-import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import { Form, Field, FormElement } from '@progress/kendo-react-form';
+import { Fade } from '@progress/kendo-react-animation';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
+import Loading from '../../../../../components/Loading';
+import Card from '../../../../../components/Card';
+import LightTooltip from '../../../../../components/LightTooltip';
+import FormInput from '../../../../../components/kendo/Form/FormInput';
+import FormContactsCheckbox from '../../../../../components/kendo/Form/FormContactsCheckbox';
+import FormUpload from './components/FormUpload';
+import FormDatePicker from '../../../../../components/kendo/Form/FormDatePicker';
+import FormDropDownList from '../../../../../components/kendo/Form/FormDropDownList';
+import FormTextArea from '../../../../../components/kendo/Form/FormTextArea';
 import FormComboBox from './components/FormComboBox';
-import DocumentLink from "../../DocumentLink";
-import DocumentLinksArray from "../../DocumentLinksArray";
+import DocumentLink from '../../DocumentLink';
+import DocumentLinksArray from '../../DocumentLinksArray';
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator, requiredWithTrimValidator,
     documentTypeRequired, innValidator, requiredValidator, nameValidator
-} from "../../../../../components/kendo/Form/validators";
-import { PromiseRequest, Request } from "../../../../../utils/request";
-import { getHeaders } from "../../../../../utils/request";
-import ruMessages from "../../../../../kendoMessages.json"
+} from '../../../../../components/kendo/Form/validators';
+import { PromiseRequest, Request } from '../../../../../utils/request';
+import { getHeaders } from '../../../../../utils/request';
+import ruMessages from '../../../../../kendoMessages.json';
 import DocLink from '../../DocApply/components/DocLink';
 import Alert from '../../../../../components/Alert';
 
@@ -734,8 +734,9 @@ const Application = ({ alias, history, status }) => {
                                                     }
                                                     {alert &&
                                                         <Alert
-                                                            text="Максимальный размер файла - 10 мб"
-                                                            autoclose={2}
+                                                            title="Ошибка добавления документа"
+                                                            text="Формат файла не поддерживается, либо размер файла превышает 10Мб. Поддерживаемые форматы PDF, JPG, JPEG."
+                                                            autoclose={3}
                                                             onOk={() => setAlert(false)}
                                                         />
                                                     }
