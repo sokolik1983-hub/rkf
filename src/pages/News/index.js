@@ -145,13 +145,13 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                 </>
                             }
                         </div>
-                        <div className="news__buttons">
-                            {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}
-                            {canEdit && !isEdit &&
-                                <button
-                                    className="edit-button" onClick={() => history.replace(`/news/${id}/edit`)}>Редактировать</button>
-                            }
-                        </div>
+                        {/*<div className="news__buttons">*/}
+                        {/*    {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}*/}
+                        {/*    {canEdit && !isEdit &&*/}
+                        {/*        <button*/}
+                        {/*            className="edit-button" onClick={() => history.replace(`/news/${id}/edit`)}>Редактировать</button>*/}
+                        {/*    }*/}
+                        {/*</div>*/}
                     </Card>
                 </Container>
             </Layout>
