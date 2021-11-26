@@ -12,7 +12,7 @@ const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeI
 
     const handleChange = ({ value }) => {
         setFieldValue(name, value || advertTypeId);
-        if (value === 3 || advertTypeId === 3) {
+        if (value === 3) {
             setIsMating(true);
         } else {
             setIsMating(false);
