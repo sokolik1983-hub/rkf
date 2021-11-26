@@ -132,7 +132,6 @@
   }
   &__left {
     display: flex;
-    height: 62px;
     overflow: hidden;
     flex-grow: 1;
     position: relative;
@@ -213,7 +212,7 @@
         line-height: 20px;
         color: #b9b9b9;
         display: flex;
-        margin-bottom: 2px;
+        margin-bottom: 5px;
         @media (max-width: 375px) {
           font-size: 14px;
         }
