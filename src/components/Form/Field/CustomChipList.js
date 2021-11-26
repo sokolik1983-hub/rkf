@@ -8,17 +8,17 @@ import './CustomChipList.scss';
 
 const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeId }) => {
     const { setFieldValue, errors } = formik;
-    const [activeElem, setActiveElem] = useState((+advertTypeId));
+    const [activeElem, setActiveElem] = useState(advertTypeId);
 
     const handleChange = ({ value }) => {
-        setFieldValue(name, value || advertTypeId);
-        if (value === 3 || advertTypeId === 3) {
-            setIsMating(true);
-        } else {
-            setIsMating(false);
-        }
+        setFieldValue(name, value);
+        setIsMating(value === 3);
         setActiveElem(value);
     };
+
+    useEffect(() => {
+        setIsMating(advertTypeId === 3);
+    }, [])
 
     return (
         <div className={`FormInput${errors[name] ? ' FormInput--error' : ''}`}>
