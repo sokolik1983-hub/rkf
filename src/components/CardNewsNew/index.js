@@ -74,7 +74,7 @@ const CardNewsNew = forwardRef(({
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     useEffect(() => {
-        if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
+        if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);
 
     const ViewItem = () => {
