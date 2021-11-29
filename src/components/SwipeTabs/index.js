@@ -13,6 +13,34 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
     const swiper = useRef(null);
 
     useEffect(() => {
+        const swiperProps = swiper.current.swiper;
+
+        if(swiperProps.size >= swiperProps.virtualSize) {
+            swiperProps.disable();
+        }
+
+        swiperProps.on('resize', newSwiper => {
+            console.log(newSwiper)
+            if(newSwiper.size < newSwiper.virtualSize) {
+
+                console.log(activeIndex, activeIndex);
+                newSwiper.enable();
+                newSwiper.slideTo(activeIndex);
+            } else {
+                newSwiper.setTranslate(0);
+                newSwiper.disable();
+            }
+        });
+
+        return () => swiperProps.destroy();
+    }, []);
+
+    useEffect(() => {
+        setActiveIndex(activeTabIndex !== -1 ? activeTabIndex : 0)
+    }, [activeTabIndex]);
+
+    useEffect(() => {
+        swiper.current.swiper.activeIndex = activeTabIndex;
         swiper.current.swiper.slideTo(activeIndex);
     }, [activeIndex]);
 
@@ -21,17 +49,14 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
             ref={swiper}
             className="swipe-tabs"
             modules={[FreeMode, Scrollbar]}
-            slidesPerView="auto"
-            watchOverflow={true}
-            slideToClickedSlide={true}
             freeMode={{
                 enabled: true,
                 sticky: true
             }}
-            centerInsufficientSlides={false}
+            slidesPerView="auto"
+            slideToClickedSlide={true}
             centeredSlidesBounds={true}
             centeredSlides={true}
-            activeIndex={activeTabIndex}
         >
             {items.map((item, i) =>
                 <SwiperSlide key={`tab-${i}`}>
@@ -42,6 +67,7 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
                             to={item.to}
                             spy={true}
                             smooth={true}
+                            isDynamic={true}
                             offset={item.offset}
                             duration={200}
                             onSetActive={() => setActiveIndex(i)}

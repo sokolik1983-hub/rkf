@@ -1,6 +1,7 @@
 .swipe-tabs {
   &__tab {
     display: block;
+    max-width: 288px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
@@ -24,5 +25,7 @@
   }
   .swiper-slide {
     width: auto;
+    height: auto;
+    display: flex;
   }
 }
