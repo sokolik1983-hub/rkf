@@ -158,6 +158,7 @@
       color: #72839c;
       font-weight: 600;
       display: block;
+      line-height: 26px;
     }
   }
 
@@ -196,27 +197,22 @@
   }
 
   &__city {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    margin: 4px 0;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 20px;
     letter-spacing: 0.2px;
     color: #72839c;
-    padding-left: 18px;
     white-space: nowrap;
     cursor: pointer;
-    z-index: 1;
+    vertical-align: bottom;
 
     &:before {
       content: "";
+      display: inline-block;
       width: 12px;
-      height: 16px;
+      height: 17px;
+      margin-right: 4px;
       background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
-      position: absolute;
-      margin-left: -15px;
-      top: 50%;
-      transform: translateY(-50%);
     }
 
     &:hover {
@@ -225,11 +221,6 @@
       &:before {
         background: url("/static/icons/pin.svg") center center/contain no-repeat;
       }
-    }
-
-    @media (max-width: 990px) {
-      font-size: 14px;
-      line-height: 18px;
     }
   }
 
@@ -390,14 +381,6 @@
     }
   }
 
-  &__bottom-block {
-    @media (max-width: 550px) {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-  }
-
   &__examiner {
     padding-bottom: 7px;
   }
@@ -462,3 +445,4 @@
     text-align: end;
   }
 }
+

@@ -19,11 +19,11 @@ const UsefulLinks = () => {
             name: 'rkfAcademy',
             icon: 'static/images/about/rkf_academy.png',
             link: 'RKF.ACADEMY',
-            description: 'Ообразовательный центр РКФ',
+            description: 'Образовательный центр РКФ',
         },
         {
             name: 'fci',
-            icon: 'static/images/about/fci_logo.png',
+            icon: 'static/images/about/FCI_logo.png',
             link: 'http://www.fci.be/en/',
             description: 'Международная Федерация кинологии',
         },

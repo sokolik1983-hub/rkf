@@ -22,7 +22,7 @@ const FormSocialsFieldArray = (fieldArrayRenderProps) => {
 
     return <>
         {
-            value.map((item, index) => <div className="form-row" key={index}>
+            value?.map((item, index) => <div className="form-row" key={index}>
                 <div className="form-group col-md-1 d-none d-sm-block About__custom-plus">
                     {index === value.length - 1 && index < 4 && <div onClick={() => handleAdd(index)}>
                         <span

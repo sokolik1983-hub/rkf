@@ -299,7 +299,7 @@
     }
   }
   &__text-wrap {
-    max-height: 108px;
+    max-height: 140px;
     overflow: hidden;
     &._collapsed {
       height: auto;
@@ -403,53 +403,14 @@
     }
   }
   &__controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 20px;
-    margin-bottom: 5px !important;
-    &-left,
-    &-right {
-      display: flex;
-      align-items: center;
-      & > div {
-        display: flex;
-        align-items: center;
-        margin-right: 30px;
-        color: #72839c;
-        span:first-child {
-          color: #b9b9b9;
-          font-size: 18px;
-          margin-right: 10px;
-          & + span {
-            font-size: 14px;
-            line-height: 18px;
-          }
-        }
-      }
-    }
-    &-left {
-      .k-i-heart-outline {
-        cursor: pointer;
-      }
-      .colored-icon {
-        color: #ff6977 !important;
-      }
-    }
-    &-right {
-      & > div {
-        margin-right: 0;
-      }
-    }
-    &-center {
-      display: flex;
-      justify-content: center;
-    }
+    margin: 0 10px;
     .Share {
       height: 18px;
+
       .ya-share2__icon_more {
         height: 16px;
         background-color: white;
+
         &:after {
           width: 16px;
           height: 16px;
@@ -457,6 +418,7 @@
           background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
           background-color: white;
         }
+
         &:hover:after {
           background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
           background-color: white;

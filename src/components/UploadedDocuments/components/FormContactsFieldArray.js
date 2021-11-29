@@ -36,7 +36,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
 
     return <>
         {
-            value.map((item, index) => <div className="form-row" key={index}>
+            value?.map((item, index) => <div className="form-row" key={index}>
                 <div className="form-group col-md-1 d-none d-sm-block Contacts__custom-plus">
                     {index === value.length - 1 && valuesArray.length < 3 && <div onClick={() => handleAdd(index)}>
                         <span

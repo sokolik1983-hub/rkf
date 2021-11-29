@@ -28,7 +28,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, setDocumentsOv
         }
     };
 
-    return (<div className="AdditionalDocumentUpload">z
+    return (<div className="AdditionalDocumentUpload">
         <Field
             id="documents_upload"
             name="documents_upload"

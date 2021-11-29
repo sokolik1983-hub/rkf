@@ -16,6 +16,7 @@ const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead
         window.scrollTo(0, 0);
     }
     return <Card>
+        <h3 className="NewsFeed__inner-name">Уведомления</h3>
         <ul className="NewsFeed__inner-list">
             {categories.map(({ id, name, icon, disabled }, key) => {
                 if (disabled) {
@@ -34,6 +35,7 @@ const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead
             }
             )}
         </ul>
+
     </Card>
 };
 
