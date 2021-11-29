@@ -45,7 +45,7 @@ export const buildUrl = filters => {
 
 export const buildFiltersUrl = (filters, isFirstTime) => {
     return +filters.SearchTypeId === 4 ?
-        `${endpointJudgesFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${filters.BreedGroupIds.map(b => `&BreedGroupIds=${b}`).join('')}&ReturnStaticFilters=${isFirstTime}&ReturnBreeds=true&ReturnCities=true` :
+        `${endpointJudgesFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${filters.BreedGroupIds.map(b => `&BreedGroupIds=${b}`).join('')}&ReturnStaticFilters=true&ReturnBreeds=true&ReturnCities=true` : //ReturnStaticFilters= должен использовать переменную "isFirstTime" сделали костыль, убрали оптимизацию запросов, нужно переделать
         `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=${isFirstTime}${filters.RankIds.map(rank => `&RankIds=${rank}`).join('')}${filters.DisciplineIds.map(discipline => `&DisciplineIds=${discipline}`).join('')}`
 };
 
