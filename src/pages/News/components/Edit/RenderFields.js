@@ -32,7 +32,7 @@ const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, do
     const isMobile = useIsMobile();
 
     useEffect(() => {
-        setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель1' : 'Сука1'}`});
+        setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель' : 'Сука'}`});
     },[])
 
     useEffect(() => {
