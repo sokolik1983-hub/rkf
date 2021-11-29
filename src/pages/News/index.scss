@@ -12,7 +12,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
     @media (max-width: 560px) {
       display: block;
       .btn {
@@ -24,9 +23,6 @@
     text-decoration: none;
     display: flex;
     align-items: center;
-    @media (max-width: 560px) {
-      margin-bottom: 24px;
-    }
   }
   &__item-body {
     h1 {
@@ -151,7 +147,7 @@
     .back-button {
       text-decoration: none;
       display: inline-block;
-      margin-top: 12px;
+      margin-bottom: 12px;
       padding: 0;
       border: none;
       font-weight: normal;

@@ -19,7 +19,7 @@ const UsefulLinks = () => {
             name: 'rkfAcademy',
             icon: 'static/images/about/rkf_academy.png',
             link: 'RKF.ACADEMY',
-            description: 'Ообразовательный центр РКФ',
+            description: 'Образовательный центр РКФ',
         },
         {
             name: 'fci',

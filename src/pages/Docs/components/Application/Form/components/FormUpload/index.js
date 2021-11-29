@@ -1,16 +1,20 @@
-import React from "react";
-import { FieldWrapper } from "@progress/kendo-react-form";
-import { Label, Error, Hint } from "@progress/kendo-react-labels";
-import { Upload } from "@progress/kendo-react-upload";
-import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import ruMessages from "../ruMessages.json";
-import "./styles.scss";
+import React, { useState } from 'react';
+import { FieldWrapper } from '@progress/kendo-react-form';
+import { Label, Error, Hint } from '@progress/kendo-react-labels';
+import { Upload } from '@progress/kendo-react-upload';
+import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
+import ruMessages from '../ruMessages.json';
+import Alert  from '../../../../../../../components/Alert'
+
+import './styles.scss';
 
 loadMessages(ruMessages, 'Application-ru');
 
 
 const FormUpload = fieldRenderProps => {
     const { valid, value, id, optional, label, hint, validationMessage, touched, fileFormats, ...others } = fieldRenderProps;
+
+    const [alert, setAlert] = useState(false)
 
     const showValidationMessage = touched && validationMessage;
     const showHint = !showValidationMessage && hint;
@@ -19,7 +23,10 @@ const FormUpload = fieldRenderProps => {
     const labelId = label ? `${id}_label` : '';
 
     const onChangeHandler = event => {
-        fieldRenderProps.onChange({ value: event.newState });
+        event.newState[0].size < 10485760 ?
+            fieldRenderProps.onChange({ value: event.newState }) :
+            window.alert("Формат файла не поддерживается, либо размер файла превышает 10Мб. Поддерживаемые форматы PDF, JPG, JPEG.");
+            // setAlert(true); //решено использовать стандартный Alert.
     };
 
     const onRemoveHandler = event => {
@@ -57,6 +64,14 @@ const FormUpload = fieldRenderProps => {
             }
             {showValidationMessage &&
                 <Error id={errorId}>{validationMessage}</Error>
+            }
+            {alert &&
+                <Alert
+                    title="Ошибка добавления документа"
+                    text="Формат файла не поддерживается, либо размер файла превышает 10Мб. Поддерживаемые форматы PDF, JPG, JPEG."
+                    autoclose={2}
+                    onOk={() => setAlert(false)}
+                />
             }
         </FieldWrapper>
     );
