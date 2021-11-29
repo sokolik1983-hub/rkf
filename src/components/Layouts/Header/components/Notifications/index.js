@@ -127,7 +127,7 @@ const Notifications = forwardRef(
 
         const notificationsRef = useRef();
 
-        const newNotifications = (currentCategory === 3) ? 'Все важные' : (currentCategory === 2) ? 'Все новые' : 'Все заявки';
+        const newNotifications = currentCategory === 3 ? 'Все важные' : currentCategory === 2 ? 'Все новые' : 'Все заявки';
 
         useEffect(() => {
             if (open && isMobile) {

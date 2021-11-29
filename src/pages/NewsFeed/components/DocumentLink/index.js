@@ -24,24 +24,24 @@ const DocumentLink = ({ docId, document }) => {
 
 
     return (
-        <>
-            {!!docId &&
-            <a
-                className="d-flex align-items-center"
-                href={url}
-                target="_blank"
-                rel="noreferrer noopener"
-            >
-                <SvgIcon icon={filePdf} size="default" />
-                <div className="d-flex flex-column">
-                    {document.name}
-                    <span className="DocumentItem__date">
-                        {`Добавлено ${moment(document.create_date).format("D MMMM YYYY")} в ${moment(document.create_date).format("HH:mm")}`}
-                    </span>
-                </div>
-            </a>
-            }
-        </>
+        !!docId &&
+        <a
+            className="d-flex align-items-center"
+            href={url}
+            target="_blank"
+            rel="noreferrer noopener"
+        >
+            <SvgIcon icon={filePdf} size="default" />
+            <div className="d-flex flex-column">
+                {document.name}
+                <span className="DocumentItem__date">
+                    {`Добавлено 
+                        ${moment(document.date_create).format("D MMMM YYYY")} в 
+                        ${moment(document.date_create).format("HH:mm")}`
+                    }
+                </span>
+            </div>
+        </a>
     );
 };
 

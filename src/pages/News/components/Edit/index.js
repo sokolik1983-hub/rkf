@@ -7,7 +7,7 @@ import { Request } from "../../../../utils/request";
 import "./index.scss";
 
 
-const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies, dogColor, dogAge, dogSex }) => {
+const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies, dogColor, dogAge, dogSex, advertTypeId }) => {
     const [breeds, setBreeds] = useState([]);
     const [sex, setSex] = useState([]);
     const [docs, setDocs] = useState(documents || []);
@@ -111,6 +111,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     dog_color: dogColor,
                     dog_age: dogAge,
                     dog_sex_type_id: dogSex,
+                    advert_type_id: advertTypeId,
                 }}
                 {...formConfig}
             >
@@ -130,6 +131,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     setIsMating={setIsMating}
                     setIsImageDelete={setIsImageDelete}
                     dogSex={dogSex}
+                    advertTypeId={advertTypeId}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
