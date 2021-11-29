@@ -211,6 +211,7 @@
         color: #b9b9b9;
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
         @media (max-width: 560px) {
          display: block;
         }
@@ -268,7 +269,7 @@
     letter-spacing: 0.2px;
     color: #72839c;
     white-space: nowrap;
-    margin-left: 8px;
+    //margin-left: 8px;
     &:before {
       content: "";
       position: absolute;
