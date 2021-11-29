@@ -79,12 +79,6 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     <p className="news__date">{formatDateTime(news.create_date)}</p>
                                 </div>
                             </Link>
-                            <div className="news__buttons">
-                                {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}
-                                {canEdit && !isEdit &&
-                                    <button className="edit-button" onClick={() => history.replace(`/news/${id}/edit`)}>Редактировать</button>
-                                }
-                            </div>
                         </div>
                         <div className="news__item-body">
                             {isEdit && canEdit ?
@@ -146,13 +140,13 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                 </>
                             }
                         </div>
-                        {/*<div className="news__buttons">*/}
-                        {/*    {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}*/}
-                        {/*    {canEdit && !isEdit &&*/}
-                        {/*        <button*/}
-                        {/*            className="edit-button" onClick={() => history.replace(`/news/${id}/edit`)}>Редактировать</button>*/}
-                        {/*    }*/}
-                        {/*</div>*/}
+                        <div className="news__buttons">
+                            {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}
+                            {canEdit && !isEdit &&
+                                <button
+                                    className="edit-button" onClick={() => history.replace(`/news/${id}/edit`)}>Редактировать</button>
+                            }
+                        </div>
                     </Card>
                 </Container>
             </Layout>
