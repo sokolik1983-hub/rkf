@@ -118,6 +118,11 @@ const CardExhibition = ({ id, title,
                 </div>
             </div>
 
+            <div className="card-exhibition__open-exhibition">
+                <Link to={url}>Подробнее...</Link>
+            </div>
+
+
             <div className={`card-exhibition__controls`}>
                 <CardFooter
                     id={id}
