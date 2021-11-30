@@ -433,21 +433,11 @@
     font-size: 16px;
     line-height: 1;
     letter-spacing: 0.2px;
-    color: #253c5e;
+    color: #36f;
     cursor: pointer;
-    margin: 10px 0;
-    &:hover {
-      color: #36f;
-    }
+    margin: 10px;
     &._disabled {
       display: none;
-    }
-    a {
-      color: #253c5e !important;
-      &:hover {
-        color: #36f !important;
-        text-decoration: none !important;
-      }
     }
   }
   &__modal {
