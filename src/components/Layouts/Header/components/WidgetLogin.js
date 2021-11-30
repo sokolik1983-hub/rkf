@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
 import Modal from "../../../Modal";
 import LoginAsUser from "./LoginAsUser";
-import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
+import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG, widgetLoginIcon } from "../../../../appConfig";
 import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connectors";
 import history from "../../../../utils/history";
 import { Request } from "../../../../utils/request";
@@ -175,6 +175,7 @@ const WidgetLogin = forwardRef(
                                                                 {userType === 1 &&
                                                                 <>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.editProfile}
                                                                         <Link to={`/user/${alias}/edit`} >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
@@ -185,6 +186,7 @@ const WidgetLogin = forwardRef(
                                                                 {userType === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
                                                                 <>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.editProfile}
                                                                         <Link to="/client" >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
@@ -194,7 +196,8 @@ const WidgetLogin = forwardRef(
                                                                 }
                                                                 { (userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
                                                                 <>
-                                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    <li className="widget-login__item widget-login__item--edit" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.editProfile}
                                                                         <Link to="/client" >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
@@ -205,6 +208,7 @@ const WidgetLogin = forwardRef(
                                                                 {userType === 4 &&
                                                                 <>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.editProfile}
                                                                         <Link to={`/kennel/${alias}/edit`} >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
@@ -290,6 +294,7 @@ const WidgetLogin = forwardRef(
                                                             {userType === 1 &&
                                                             <>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.editProfile}
                                                                     <Link to={`/user/${alias}/edit`}>Редактировать профиль</Link>
                                                                 </li>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
@@ -300,6 +305,7 @@ const WidgetLogin = forwardRef(
                                                             {userType === 3 && alias !== 'rkf' && alias !== 'rkf-online' &&
                                                             <>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.editProfile}
                                                                     <Link to="/client">Редактировать профиль</Link>
                                                                 </li>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
@@ -310,6 +316,7 @@ const WidgetLogin = forwardRef(
                                                             { (userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
                                                             <>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.editProfile}
                                                                     <Link to="/client" >Редактировать профиль</Link>
                                                                 </li>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
@@ -320,6 +327,7 @@ const WidgetLogin = forwardRef(
                                                             {userType === 4 &&
                                                             <>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.editProfile}
                                                                     <Link to={`/kennel/${alias}/edit`}>Редактировать профиль</Link>
                                                                 </li>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>

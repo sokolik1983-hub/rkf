@@ -897,8 +897,9 @@
     border-top: 1px solid #e8e8e8;
   }
   &__item {
-    position: relative;
-    //border-top: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    &
     a,
     span {
       text-decoration: none;
