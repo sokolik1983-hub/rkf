@@ -53,7 +53,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [showModal, setShowModal] = useState(false);
     const isMobile = useIsMobile(1080);
     const isEducational = parseInt(filters.CategoryId) === 4 ? true : false;
-    // const startDay = startDate.day() <=9 ? {'0'+startDate.day()} : startDate.day();
 
     useEffect(() => {
         const unListen = history.listen(() => {
