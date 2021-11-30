@@ -33,7 +33,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     };
 
 
-
     const moreRef = useRef();
     const location = useLocation();
     let url =  location.pathname.split('/')[1];
@@ -95,6 +94,33 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
             }
         }
         }, [clubInfo, userInfo]);
+
+    const getMeLink = (user_type) => {
+        switch (user_type) {
+            case 1:
+                return <Link onClick={closeLink} to={`/${url || 'user'}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+            case 3:
+                return <Link onClick={closeLink} to={`/${url || 'club'}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+            case 4:
+                return <Link onClick={closeLink} to={`/${url || 'kennel'}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+            case 5:
+                if(url === 'club' || url === 'kennel') {
+                    return <Link onClick={closeLink} to={`/${url}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+                }
+                break;
+            default:
+                if(url === 'club' || url === 'kennel') {
+                    return <Link onClick={closeLink} to={`/${url}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+                }
+                break;
+        };
+    };
+
+    const closeLink = (e) => {
+        if(location.pathname === e.target.getAttribute('href')) {
+            setOpenUserMenu(false);
+        }
+    };
     return (
         <div
             className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
@@ -133,18 +159,25 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                 </div>
-                                { nameInMenu && <div className="user-nav__alias-name">{user_type === 1 &&
-                                <Link to={`/user/${alias}`}>{nameInMenu}</Link>
-                                }
-                                    {user_type === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
-                                    <Link to={`/club/${alias}`}>{nameInMenu}</Link>
+                                { nameInMenu && <div className="user-nav__alias-name">
+                                    {
+                                        getMeLink(user_type)
                                     }
-                                    {(user_type === 5 || alias === 'rkf' || alias === 'rkf-online') &&
-                                    <Link to={`/${alias}`}>{nameInMenu}</Link>
-                                    }
-                                    {user_type === 4 &&
-                                    <Link to={`/kennel/${alias}`}>{nameInMenu}</Link>
-                                    }
+                                    {/*{user_type === 1 &&*/}
+                                    {/*<Link to={`/user/${alias}`}>{nameInMenu}</Link>*/}
+                                    {/*}*/}
+                                    {/*{user_type === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&*/}
+                                    {/*<Link to={`/club/${orgAlias || alias}`}>{nameInMenu}</Link>*/}
+                                    {/*}*/}
+                                    {/*{(user_type === 5 || alias === 'rkf' || alias === 'rkf-online') &&*/}
+                                    {/*<Link to={`/${alias}`}>{nameInMenu}</Link>*/}
+                                    {/*}*/}
+                                    {/*{(user_type === 4 && url === 'club')*/}
+                                    {/*    ?*/}
+                                    {/*<Link to={`/club/${orgAlias || alias}`}>{nameInMenu}</Link>*/}
+                                    {/*    :*/}
+                                    {/*<Link to={`/kennel/${orgAlias || alias}`}>{nameInMenu}</Link>*/}
+                                    {/*}*/}
                                 </div>}
 
                                 <ul className="user-nav__list">
