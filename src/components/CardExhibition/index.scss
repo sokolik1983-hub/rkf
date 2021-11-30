@@ -135,20 +135,24 @@
   &__reports {
     display: none;
     @media (max-width: 820px) {
-      display: block;
+      display: flex;
     }
     & > span {
-      font-size: 14px;
+      font-size: 16px;
+      line-height: 16px;
+      color: #90999E;
+      padding: 10px 0;
+      padding-right: 10px;
     }
     &_block {
       display: flex;
       text-align: left;
     }
     &_link {
-      padding-right: 8px;
+      padding: 9px 0;
+      padding-right: 10px;
       a {
-        background: url(/static/icons/icon-pdf.svg) no-repeat center/contain,
-          url(/static/icons/icon-pdf-blue.svg) no-repeat center/contain;
+        background: url("/static/icons/icon-pdf-blue.svg") no-repeat center/contain;
         width: 18px;
         height: 18px;
         display: inline-block;
@@ -237,8 +241,7 @@
   }
   &__subtitle_link {
     a {
-      background: url(/static/icons/icon-pdf.svg) no-repeat center/contain,
-        url(/static/icons/icon-pdf-blue.svg) no-repeat center/contain;
+      background: url(/static/icons/icon-pdf-blue.svg) no-repeat center/contain;
       width: 20px;
       height: 20px;
       display: inline-block;
@@ -330,9 +333,7 @@
       }
     }
   }
-  &__controls {
-    margin-top: 10px;
-  }
+
   &__show-all {
     text-decoration: none;
     line-height: 1;
@@ -353,7 +354,7 @@
       color: #36f;
     }
     @media (max-width: 820px) {
-      margin: 10px 0;
+      margin: 7px 0;
     }
   }
   &__footer-links {
