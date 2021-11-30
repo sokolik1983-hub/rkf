@@ -356,6 +356,10 @@
       margin: 10px 0;
     }
   }
+  &__footer-links {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 .ya-share2__badge {
   background: rgba(0, 0, 0, 0.0)!important;
