@@ -899,7 +899,12 @@
   &__item {
     display: flex;
     align-items: center;
-    &
+    &:hover {
+      background-color: whitesmoke;
+      svg {
+        stroke: #3366ff;
+      }
+    }
     a,
     span {
       text-decoration: none;
@@ -909,14 +914,13 @@
       font-size: 16px;
       line-height: 20px;
       display: block;
-      padding: 7px 10px;
+      padding: 7px 10px 7px 10px;
       transition: all 0.2s linear;
       cursor: pointer;
       @media (max-width: 1080px) {
         line-height: 20px;
       }
       &:hover {
-        background-color: whitesmoke;
         color: #3366ff;
       }
     }

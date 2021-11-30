@@ -179,6 +179,7 @@ const WidgetLogin = forwardRef(
                                                                         <Link to={`/user/${alias}/edit`} >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.lk}
                                                                         <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
                                                                     </li>
                                                                 </>
@@ -190,6 +191,7 @@ const WidgetLogin = forwardRef(
                                                                         <Link to="/client" >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.lk}
                                                                         <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
                                                                     </li>
                                                                 </>
@@ -201,6 +203,7 @@ const WidgetLogin = forwardRef(
                                                                         <Link to="/client" >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.lk}
                                                                         <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
                                                                     </li>
                                                                 </>
@@ -212,23 +215,27 @@ const WidgetLogin = forwardRef(
                                                                         <Link to={`/kennel/${alias}/edit`} >Редактировать профиль</Link>
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.lk}
                                                                         <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
                                                                     </li>
                                                                 </>
                                                                 }
                                                                 {accountType === 5 && userType === 5 &&
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.exitInClub}
                                                                     <span onClick={() => setShowModal(true)}>Войти в аккаунт клуба</span>
                                                                 </li>
                                                                 }
                                                                 {accountType === 5 && userType !== 5 &&
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.exitInClub}
                                                                     <span onClick={logoutAsUser}>Выйти из аккаунта клуба</span>
                                                                 </li>
                                                                 }
                                                             </>
                                                             }
                                                             <li className="widget-login__item widget-login__item--logout" onClick={() => setOpen(false)}>
+                                                                {widgetLoginIcon.exit}
                                                                 <Link to="/" onClick={logOutUser}>Выход</Link>
                                                             </li>
 
@@ -298,6 +305,7 @@ const WidgetLogin = forwardRef(
                                                                     <Link to={`/user/${alias}/edit`}>Редактировать профиль</Link>
                                                                 </li>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.lk}
                                                                     <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
                                                                 </li>
                                                             </>
@@ -309,6 +317,7 @@ const WidgetLogin = forwardRef(
                                                                     <Link to="/client">Редактировать профиль</Link>
                                                                 </li>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.lk}
                                                                     <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
                                                                 </li>
                                                             </>
@@ -320,6 +329,7 @@ const WidgetLogin = forwardRef(
                                                                     <Link to="/client" >Редактировать профиль</Link>
                                                                 </li>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.lk}
                                                                     <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
                                                                 </li>
                                                             </>
@@ -331,23 +341,27 @@ const WidgetLogin = forwardRef(
                                                                     <Link to={`/kennel/${alias}/edit`}>Редактировать профиль</Link>
                                                                 </li>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.lk}
                                                                     <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
                                                                 </li>
                                                             </>
                                                             }
                                                             {accountType === 5 && (userType === 5 ||  alias === 'rkf' || alias === 'rkf-online') &&
                                                             <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                {widgetLoginIcon.exitInClub}
                                                                 <span onClick={() => setShowModal(true)}>Войти в аккаунт клуба</span>
                                                             </li>
                                                             }
                                                             {accountType === 5 && userType !== 5 && alias !== 'rkf' && alias !== 'rkf-online' &&
                                                             <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                {widgetLoginIcon.exitInClub}
                                                                 <span onClick={logoutAsUser}>Выйти из аккаунта клуба</span>
                                                             </li>
                                                             }
                                                         </>
                                                         }
                                                         <li className="widget-login__item widget-login__item--logout" onClick={() => setOpen(false)}>
+                                                            {widgetLoginIcon.exit}
                                                             <Link to="/" onClick={logOutUser}>Выход</Link>
                                                         </li>
 
