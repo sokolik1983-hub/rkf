@@ -21,7 +21,6 @@ const CardOrganization = ({
                               city_id,
                               owner_name,
                               owner_position,
-                              organization_type,
                               federation_name,
                               federation_alias,
                               content,
