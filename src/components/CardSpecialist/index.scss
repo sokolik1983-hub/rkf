@@ -22,10 +22,9 @@
   }
 
   &__disciplines {
+    padding: 7px 0;
     text-align: left;
     color: #90999e;
-    padding-right: 40px;
-    white-space: nowrap;
 
     &.is_groups {
       & + .card-specialist__ranks {
@@ -125,7 +124,6 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 18px;
-    margin-bottom: 10px;
     color: #72839c;
   }
 
@@ -159,16 +157,23 @@
       color: #72839c;
       font-weight: 600;
       display: block;
+      line-height: 26px;
     }
   }
 
   &__specialization {
     display: flex;
-    align-items: center;
+    padding-bottom: 7px;
+
     &-name {
+      margin-right: 10px;
       font-size: 16px;
       font-weight: 600;
       color: #72839c;
+    }
+
+    & .card-specialists__subtitle {
+      line-height: 24px;
     }
   }
 
@@ -191,27 +196,22 @@
   }
 
   &__city {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    margin: 4px 0;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 20px;
     letter-spacing: 0.2px;
     color: #72839c;
-    padding-left: 18px;
     white-space: nowrap;
     cursor: pointer;
-    z-index: 1;
+    vertical-align: bottom;
 
     &:before {
       content: "";
+      display: inline-block;
       width: 12px;
-      height: 16px;
+      height: 17px;
+      margin-right: 4px;
       background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
-      position: absolute;
-      margin-left: -15px;
-      top: 50%;
-      transform: translateY(-50%);
     }
 
     &:hover {
@@ -220,11 +220,6 @@
       &:before {
         background: url("/static/icons/pin.svg") center center/contain no-repeat;
       }
-    }
-
-    @media (max-width: 990px) {
-      font-size: 14px;
-      line-height: 18px;
     }
   }
 
@@ -294,10 +289,8 @@
 
   &__disciplines-inner {
     display: flex;
-    align-items: center;
     margin-bottom: 10px;
     flex: 40%;
-    flex-wrap: wrap;
   }
 
   &__info {
@@ -354,9 +347,12 @@
 
   &__grid {
     width: 100%;
-    margin-top: 10px;
 
     &-item {
+      &:first-child {
+        padding-top: 0;
+      }
+
       &.__hide {
         display: none !important;
       }
@@ -384,33 +380,21 @@
     }
   }
 
-  &__bottom-block {
-    @media (max-width: 550px) {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-  }
-
-  &__rank,
-  &__disciplines,
-  &__specialization-name,
   &__examiner {
-    padding: 7px 0;
+    padding-bottom: 7px;
   }
 
   &__section {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-bottom: 8px;
+    padding: 8px 0;
     border-bottom: 1px solid #E5E5E5;
     &:last-child {
       border-bottom: none;
     }
   }
 
-  &__specialization-name,
   &__content-title,
   &__subtitle,
   &__disciplines-inner,
@@ -423,6 +407,31 @@
   & &__contacts &__subtitle {
     line-height: 24px;
     white-space: nowrap;
+  }
+
+  &__rank-wrap {
+    display: flex;
+    align-items: flex-start;
+
+    & .card-specialists__rank-title {
+      line-height: 24px;
+    }
+  }
+
+  &__ranks-group {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 270px;
+  }
+
+  &__rank {
+    white-space: nowrap;
+  }
+
+  &__disciplines-group {
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 18px;
   }
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import YandexShare from 'react-yandex-share';
 import './index.scss';
 
@@ -15,10 +15,10 @@ const Share = ({ url, className }) => {
   //   return () => el.removeEventListener("mouseenter", hoverListener);
   // }, []);
 
-  return <span className={`Share ${url ? 'has-url' : ''} ${className}`}><YandexShare
-    theme={{ lang: 'ru', services: 'vkontakte,facebook,odnoklassniki,viber,whatsapp,telegram', limit: 0 }}
+  return <div className={`Share ${url ? 'has-url' : ''} ${className}`}><YandexShare
+    theme={{ lang: 'ru', services: 'vkontakte,facebook,odnoklassniki,viber,whatsapp,telegram', limit: 0 , popupPosition: 'outer', popupDirection: 'auto'}}
     content={{ url: url || window.location.href }}
-  /></span>;
+  /></div>;
 }
 
-export default Share
+export default Share;

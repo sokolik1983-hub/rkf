@@ -1,7 +1,17 @@
 .declarants {
   max-width: 600px;
+  max-height: 370px;
   padding: 15px 24px 24px;
   background: #fff;
+  overflow: auto;
+  @media (max-width:350px) {
+    padding: 0;
+  }
+  h2 {
+    text-align: center;
+    font-weight: normal;
+    font-size: 24px;
+  }
   &__title {
     font-weight: 400;
     font-size: 18px;
@@ -82,6 +92,9 @@
       transform: translateY(-1rem);
       transition: opacity 0.1s linear 0.5s, transform 0.1s ease;
       padding: 0 1.2rem 1.2rem;
+      @media (max-width:350px) {
+        padding: 0;
+      }
       p {
         font-weight: 300;
         color: #61797c;
@@ -128,41 +141,133 @@
         opacity 500ms cubic-bezier(0.74, 0.23, 0.2, 1) 0ms;
     }
   }
-  .report-error {
-    color: #253c5e !important;
-    text-decoration: underline;
-    &:hover {
-      text-decoration: none;
-      cursor: pointer;
+
+  .ShareButtons__inner {
+    display: flex;
+    justify-content: space-around;
+    @media (max-width:480px) {
+      flex-direction: column;
+      padding-bottom: 25px;
     }
-  }
-  .ShareButtons {
-    text-align: center;
-    &__link {
-        svg {
-            width: 24px;
-            height: 24px;
-            fill: #72839c !important;
-            &:hover {
-                fill: #3366ff !important;
-            }
+
+    .ShareButtons {
+      margin: 10px 0px auto;
+      text-align: center;
+      @media (max-width:480px) {
+      }
+
+      &__link {
+        &::before {
+          content:'';
+          position: absolute;
+          top: 5px;
+          left: -15px;
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          background: url(/static/icons/href.svg) no-repeat center / contain;
         }
-    }
-    &__btn {
-        margin-left: 20px;
+
+        &:hover::before {
+            background: url(/static/icons/href_hover.svg) no-repeat center / contain;
+        }
+
+        &:link {
+          position: relative;
+          margin-left: 15px;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 16px;
+          text-decoration: none;
+          color: #72839c;
+
+          &:hover {
+            color: #3366ff;
+          }
+          @media (max-width:480px) {
+            line-height: 60px
+          }
+        }
+      }
+
+      &__btn {
+        position: relative;
+        top: 7px;
+        margin-left: 15px;
         padding: 0;
         border: none;
-        width: 24px;
-        height: 24px;
-        svg {
-            width: 24px;
-            height: 24px;
-            fill: #72839c !important;
-            &:hover {
-                fill: #3366ff !important;
-            }
+        width: 165px;
+        height: 12px;
+        background: url(/static/icons/copy.svg) no-repeat left / contain;
+
+        &:hover {
+          background: url(/static/icons/copy_hover.svg) no-repeat left / contain;
+
+          &::after {;
+            color: #3366ff;
+          }
         }
+
+        &::after {
+          position: relative;
+          content:'Копировать ссылку';
+          top:-7px;
+          left: 3px;
+          white-space: nowrap;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 16px;
+          text-decoration: none;
+          color: #72839c;
+        }
+        @media (max-width:480px) {
+          margin-bottom: 25px;
+        }
+      }
     }
+    .report-error {
+      position: relative;
+      top:17px;
+      margin-left: 5px;
+      padding: 0;
+      border: none;
+      width: 155px;
+      height: 12px;
+      background: url(/static/icons/error.svg) no-repeat left / contain;
+
+      &:hover {
+        background: url(/static/icons/error_hover.svg) no-repeat left / contain;
+
+        &::after {;
+          color: #3366ff;
+        }
+      }
+
+      &::after {
+        position: relative;
+        content:'Сообщить об ошибке';
+        top:-7px;
+        left: 12px;
+        white-space: nowrap;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 16px;
+        text-decoration: none;
+        color: #72839c;
+      }
+      @media (max-width:480px) {
+        top: 8px;
+        margin: auto;
+      }
+    }
+  }
 }
 
+.modal__body {
+  @media (max-width:350px) {
+    margin: 0 auto;
+  }
 }

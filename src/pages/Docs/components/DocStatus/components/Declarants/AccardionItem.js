@@ -59,7 +59,7 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
                         <span>Статус: </span>
                         {status}
                         &nbsp;
-                        {isReportable && <span className="report-error" onClick={() => setIsNestedOpen(!isNestedOpen)}>сообщить об ошибке</span>}
+                        {/*{isReportable && <span className="report-error" onClick={() => setIsNestedOpen(!isNestedOpen)}>сообщить об ошибке</span>}*/}
                     </p>
                     {isReportable && <div className={`accordion-nested-item${isNestedOpen ? ' accordion-nested-item--opened' : ''}`}>
                         <div className="accordion-nested-item__inner">
@@ -72,7 +72,10 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
                         </div>
                     </div>}
                     {count_time && <p><span>До получения родословной осталось: </span>{formatCountTime(count_time)}</p>}
-                    {pedigree_link && <ShareButtons link={pedigree_link} />}
+                    <div className='ShareButtons__inner'>
+                        {pedigree_link && <ShareButtons link={pedigree_link} />}
+                        {isReportable && <button className="report-error" onClick={() => setIsNestedOpen(!isNestedOpen)}></button>}
+                    </div>
                     {dearchiving_allowed && <div className="accordion-item__extract-wrap"><button
                         className="accordion-item__extract"
                         onClick={(e) => handleExtract(e, id)}

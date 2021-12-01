@@ -175,10 +175,28 @@
       resize: none;
     }
   }
+  .k-file-validation-message.k-text-success:before {
+    content: 'Файл успешно загружен';
+    position: absolute;
+    background: #fff;
+    width: 200px;
+  }
   &__without-breed {
     padding-top: 33px;
     @media (max-width: 560px) {
       padding-top: 0;
+    }
+  }
+  &__file {
+    position: relative;
+    .btn {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      &__look {
+        position: absolute;
+        bottom: 40px;
+        left: 350px;
+      }
     }
   }
 }

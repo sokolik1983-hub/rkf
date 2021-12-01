@@ -16,7 +16,7 @@
             color: #72839c !important;
             &:hover {
                 background-color: #36f !important;
-                color: white !important;
+                color: white!important;
             }
         }
     }
@@ -26,6 +26,9 @@
     &__subscribe-text {
         &._subscribed {
             position: relative;
+            @media (max-width: 1079px) {
+                padding-right: 21px;
+            }
             &:before {
                 content: "";
                 position: absolute;
@@ -53,6 +56,11 @@
         &:hover {
             opacity: 0.8;
             transition: all 0.2s linear;
+        }
+    }
+    &__message-btn {
+        @media (max-width: 1079px) {
+            padding-right: 32px;
         }
     }
 }

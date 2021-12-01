@@ -37,10 +37,13 @@ function Form({
     children,
     bindSubmitForm,
     noEnter = false,
-    resetForm = false
+    resetForm = false,
+    isEditPage,
+    history
 }) {
     const [loading, setLoading] = useState(false);
     const isMultipartData = format === "multipart/form-data";
+
 
     const formatData = useCallback((values) => {
         const data = transformValues(values);
@@ -49,7 +52,6 @@ function Form({
             :
             JSON.stringify(data);
     });
-
     const onSubmit = async (values, actions) => {
         setLoading(true);
 
@@ -59,6 +61,7 @@ function Form({
             if (bindSubmitForm) bindSubmitForm.getErrors({});
             actions.setSubmitting(false);
             if (resetForm) actions.resetForm(initialValues);
+            if (isEditPage) history.goBack();
         };
         const onRequestError = (error) => {
             setLoading(false);

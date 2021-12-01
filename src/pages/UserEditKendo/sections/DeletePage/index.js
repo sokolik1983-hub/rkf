@@ -6,6 +6,7 @@ import ModalDeletePage from "../../components/ModalDeletePage";
 import {Request} from "../../../../utils/request";
 import {formatDateTime} from "../../../../utils/datetime";
 import "./index.scss";
+import { blockContent } from '../../../../utils/blockContent';
 
 
 const DeletePage = () => {
@@ -75,6 +76,12 @@ const DeletePage = () => {
                             безвозвратно удалена в течение 30 календарных дней. <br/>
                             Все размещенные Вами данные будут утеряны.
                         </p>
+                        <p className="ue-delete-page__describe__mobile">
+                            При нажатии на кнопку "Удалить"<br/>
+                            Ваша страница будет безвозвратно удалена<br/>
+                            в течение 30 календарных дней. <br/>
+                            Все размещенные Вами данные будут утеряны.
+                        </p>
                         <div className="k-form-buttons">
                             <Button className="btn btn-danger" type="button" onClick={() => setShowModal(true)}>
                                 Удалить
@@ -109,7 +116,13 @@ const DeletePage = () => {
                         </>
             }
             {showModal &&
-                <ModalDeletePage closeModal={() => setShowModal(false)} updateInfo={getDate}/>
+                <ModalDeletePage
+                    closeModal={() => {
+                        setShowModal(false);
+                        blockContent(false)}
+                    }
+                    updateInfo={getDate}
+                />
             }
             {alert && <Alert {...alert} />}
         </div>

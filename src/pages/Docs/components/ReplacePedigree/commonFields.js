@@ -53,7 +53,7 @@ const component = ({ formik, view, update, options }) => {
         <div className="flex-row heading-row">
             <h4 className="caps">Информация о платеже</h4>
         </div>
-        <FormGroup inline>
+        <FormGroup inline className="DocApply__payment-receipt-wrap">
             <FormFile
                 name='payment_document'
                 label='Квитанция об оплате (PDF, JPEG, JPG)'
@@ -75,12 +75,12 @@ const component = ({ formik, view, update, options }) => {
             </div>
             <FormField disabled={view || formik.values.payment_document_accept} name='payment_number' label='Номер платежного документа' />
         </FormGroup>
-        <FormGroup inline>
+        <FormGroup inline className="DocApply__payer-info-wrap">
             <FormField disabled={view || formik.values.payment_document_accept} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
             <FormField disabled={view || formik.values.payment_document_accept} name='inn' label='ИНН (для юр. лиц)' />
         </FormGroup>
         <FieldArray name={`documents`} render={({ push, remove }) => (<>
-            {formik.values.documents && formik.values.documents.map((doc, j) => <FormGroup inline key={j}>
+            {formik.values.documents && formik.values.documents.map((doc, j) => <FormGroup className="mode-documents-wrap" inline key={j}>
                 <input type="hidden" name={`documents[${j}].id`} />
                 <FormField disabled={view || doc.document_accept} options={options.doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`documents[${j}].document_type_id`} />
                 <HideIf>

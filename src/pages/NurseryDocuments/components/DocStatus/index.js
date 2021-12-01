@@ -13,6 +13,7 @@ import CardMessage from "../../../../components/CardMessage";
 
 
 import "./index.scss";
+import { blockContent } from '../../../../utils/blockContent';
 
 const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
     const [loading, setLoading] = useState(true);
@@ -47,6 +48,10 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                 setLoading(false);
             }))();
     }, [needUpdateTable]);
+
+    useEffect(() => {
+        blockContent(showModal)
+    }, [showModal])
 
     const rowClick = id => Request({
         url: distinction === 'pedigree' ?
@@ -125,6 +130,21 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                 setExporting={setExporting}
                 fullScreen
             />
+                {showModal && <Modal
+                    showModal={!!showModal}
+                    headerName={'Заявители'}
+                    handleClose={() => setShowModal(false)}
+                    noBackdrop={true}
+                    hideCloseButton={true}
+                    className="status-table__modal"
+                >
+                    <Declarants
+                        id={showModal}
+                        distinction={distinction}
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        needUpdateTable={needUpdateTable}
+                    />
+                </Modal>}
         </Card> :
             <Card className="nursery-documents-status">
                 <div className="nursery-documents-status__head">
@@ -209,6 +229,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                 </div>
                 {showModal && <Modal
                     showModal={!!showModal}
+                    headerName={'Заявители'}
                     handleClose={() => setShowModal(false)}
                     noBackdrop={true}
                     hideCloseButton={true}

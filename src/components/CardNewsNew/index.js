@@ -1,24 +1,19 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
-import OutsideClickHandler from "react-outside-click-handler";
-import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { filePdf } from "@progress/kendo-svg-icons";
-import Lightbox from "react-images";
-import moment from "moment";
-import ls from "local-storage";
-
-import Card from "components/Card";
-import Share from "components/Share";
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import Lightbox from 'react-images';
+import ls from 'local-storage';
+import Modal from '../Modal';
+import Card from 'components/Card';
+import { ActiveUserMark, FederationChoiceMark } from 'components/Marks';
+import { formatText } from 'utils';
+import { formatDateTime } from 'utils/datetime';
+import { DEFAULT_IMG } from 'appConfig';
+import EditForm from './EditForm';
 import CardFooter from '../CardFooter';
-import { ActiveUserMark, FederationChoiceMark } from "components/Marks";
-import { formatText } from "utils";
-import { formatDateTime } from "utils/datetime";
-import { DEFAULT_IMG } from "appConfig";
-import EditForm from "./EditForm";
-// import { Request } from "utils/request";
-
-import "./index.scss";
+import DocumentLink from './DocumentLink';
+import './index.scss';
 
 const CardNewsNew = forwardRef(({
     id,
@@ -47,11 +42,15 @@ const CardNewsNew = forwardRef(({
     first_name,
     last_name,
     active_member,
+    dog_color,
+    dog_age,
+    dog_sex_type_id,
     active_rkf_user,
     picture_link,
     picture_short_link,
     video_link,
     fact_city_name,
+    fact_city_id,
     canEdit,
     onDelete,
     handleSuccess,
@@ -72,13 +71,26 @@ const CardNewsNew = forwardRef(({
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     useEffect(() => {
-        if ((ref.current && ref.current.clientHeight > 100)) setCanCollapse(true);
+        if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
 
+        // const [isLiked, setIsLiked] = useState(is_liked);
+        // const [likesCount, setLikesCount] = useState(like_count);
+
+        switch (dog_sex_type_id) {
+            case 1:
+                dog_sex_type_id = 'Кобель';
+                break;
+            case 2:
+                dog_sex_type_id = 'Сука';
+                break;
+            default:
+                break;
+        }
 
         return <>
             <div className="CardNewsNew__content">
@@ -133,8 +145,10 @@ const CardNewsNew = forwardRef(({
                                     </span>
                                     </div>
                                     {fact_city_name &&
-                                    <span className="CardNewsNew__city" title={fact_city_name}>
-                                        {fact_city_name}
+                                    <span className="CardNewsNew__city"
+                                          onClick={() => changeCityFilter([fact_city_id])}
+                                          title={fact_city_name}>
+                                          {fact_city_name}
                                     </span>
                                     }
                                 </div>
@@ -186,12 +200,22 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'CardNewsNew__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
+                <div className={!collapsed ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
                     {is_advert && <div className="CardNewsNew__ad">
                         <p className="CardNewsNew__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
+
                             <span>№{advert_code}</span>
                         </p>
+                        {
+                            dog_color && <div>Окрас: {dog_color}</div>
+                        }
+                        {
+                            dog_age && <div>Возраст: {dog_age}</div>
+                        }
+                        {
+                            dog_sex_type_id && <div>Пол: {dog_sex_type_id}</div>
+                        }
                         <div className="CardNewsNew__ad-price">
                             <div>
                                 <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'}</span>
@@ -239,20 +263,12 @@ const CardNewsNew = forwardRef(({
                 documents && !!documents.length &&
                 <div className="CardNewsNew__documents" style={{ margin: '0 10px 0 10px' }}>
                     <ul className="CardNewsNew__documents-list">
-                        {documents.map(d =>
-                            <li className="DocumentItem" key={d.id}>
-                                <Link
-                                    to={`/docs/${d.id}`}
-                                    target="_blank"
-                                    style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
-                                    rel="noopener noreferrer"
-                                >
-                                    <SvgIcon icon={filePdf} size="default" />
-                                    <div style={{ display: 'flex', flexDirection: 'column' }}>{d.name}<span className="DocumentItem__date">
-                                        {`Добавлено ${moment(d.create_date).format('D MMMM YYYY')} в ${moment(d.create_date).format('HH:mm')}`}
-                                    </span>
-                                    </div>
-                                </Link>
+                        {documents.map(doc =>
+                            <li className="DocumentItem" key={doc.id}>
+                                <DocumentLink
+                                    docId={doc.id}
+                                    document={doc}
+                                />
                             </li>
                         )}
                     </ul>
@@ -262,10 +278,11 @@ const CardNewsNew = forwardRef(({
             <div className="CardNewsNew__controls">
                 <CardFooter
                     id={id}
-                    url={`https://rkf.online/news/${id}`}
                     is_liked={is_liked}
                     like_count={like_count}
                     likesOn={true}
+                    share_link={`https://rkf.online/news/${id}`}
+                    type="news"
                 />
             </div>
         </>
@@ -329,7 +346,9 @@ const CardNewsNew = forwardRef(({
                         <div>
                             {formatDateTime(create_date)}
                             {fact_city_name &&
-                                <span className="CardNewsNew__city" title={fact_city_name}>
+                                <span className="CardNewsNew__city"
+                                    onClick={() => changeCityFilter([fact_city_id])}
+                                    title={fact_city_name}>
                                     {fact_city_name}
                                 </span>
                             }
@@ -354,9 +373,14 @@ const CardNewsNew = forwardRef(({
             </div>
         </div>
         <div className="CardNewsNew__controls">
-            <div className="CardNewsNew__controls-center">
-                <Share url={`https://rkf.online/news/${id}`} />
-            </div>
+            <CardFooter
+                id={id}
+                is_liked={is_liked}
+                like_count={like_count}
+                likesOn={true}
+                share_link={`https://rkf.online/news/${id}`}
+                type="news"
+            />
         </div>
     </>;
 
@@ -365,13 +389,13 @@ const CardNewsNew = forwardRef(({
             <div className={`CardNewsNew__wrap${is_closed_advert ? ' is_closed' : ''}`}>
                 {isEditing ? <EditItem /> : <ViewItem />}
                 {showPhoto &&
-                    <Lightbox
-                        images={[{ src: picture_link }]}
-                        isOpen={showPhoto}
-                        onClose={() => setShowPhoto(false)}
-                        backdropClosesModal={true}
-                        showImageCount={false}
-                    />
+                    <Modal handleClose={() => setShowPhoto(false)}>
+                        <Lightbox
+                            images={[{ src: picture_link }]}
+                            isOpen={showPhoto}
+                            showImageCount={false}
+                        />
+                    </Modal>
                 }
             </div>
         </Card>

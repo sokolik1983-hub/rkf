@@ -6,8 +6,32 @@
     b {
       color: #72839c;
     }
+    @media (max-width: 1024px) {
+      display: none;
+    }
+    &__mobile {
+      display: none;
+      line-height: 20px;
+      text-align: center;
+      margin: 26px 0 !important;
+      @media (max-width: 1024px) {
+        display: block;
+      }
+    }
   }
   .k-form-buttons {
     justify-content: center;
+  }
+  .k-button {
+      background-color: #00C48C !important;
+  }
+}
+.Modal__body {
+  .btn, .k-button {
+      width: 154px;
+      height: 38px;
+  }
+  .k-button, .btn-danger {
+      background-color: #00C48C !important;
   }
 }

@@ -36,6 +36,7 @@ const CardSpecialist = ({
     const [isAllBreeder, setIsAllBreeder] = useState(false);
     const isSpecialist = searchTypeId === 3;
     const isJudge = searchTypeId === 4;
+    const modifiedRanks = ranks?.split(',');
 
     const onShowMoreClick = () => {
         (() => Request({
@@ -55,23 +56,9 @@ const CardSpecialist = ({
         }))();
     };
 
-    const checkForExaminer = section => {
-        for (let item of section) {
-            if (item.for_judge_examiner) {
-                return true;
-            }
-        }
-    }
-
 
     return (
         <Card className="card-specialists">
-            <div className="card-specialists__city"
-                 onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
-                 title={city_name}>
-                {city_name}
-            </div>
-
             <div className="card-specialists__wrap">
                 <div className="card-specialists__part card-specialists__part_top">
                     <span className="card-specialists__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
@@ -89,6 +76,12 @@ const CardSpecialist = ({
                                 <span className="card-specialists__name-eng">
                                     {last_name_lat} {first_name_lat}
                                 </span>
+                            </div>
+
+                            <div className="card-specialists__city"
+                                 onClick={() => setFiltersToUrl({ CityIds: [city_id] })}
+                                 title={city_name}>
+                                {city_name}
                             </div>
 
                             <div className="card-specialists__sertificate-block">
@@ -153,8 +146,20 @@ const CardSpecialist = ({
 
                                     { ranks &&
                                     <div className="card-specialists__rank-wrap">
-                                        <span className="card-specialists__rank-title">Ранг</span>
-                                        <span className="card-specialists__content-data">{ ranks }</span>
+                                        <span className="card-specialists__rank-title">Статус</span>
+                                        <span className="card-specialists__ranks-group">
+                                            { modifiedRanks.map((rank, index, arr) => {
+                                                return (
+                                                    <span
+                                                        className="card-specialists__rank"
+                                                        key={index}
+                                                    >
+                                                        { rank }
+                                                        { rank !== 'САС в России и за рубежом' && index < arr.length - 1 && "," }&nbsp;
+                                                    </span>
+                                                )
+                                            }) }
+                                        </span>
                                     </div>
                                     }
 
@@ -171,8 +176,7 @@ const CardSpecialist = ({
                                             </div>
                                         </> }
 
-                                        { additionalGroups && additionalGroups.map((item, index) => {
-                                            return (
+                                        { additionalGroups && additionalGroups.map((item, index) =>  (
                                                 <div
                                                     className={ !moreData && index >= 0 ? "card-specialists__grid-item __hide" : "card-specialists__grid-item " }
                                                     key={ index }>
@@ -183,7 +187,7 @@ const CardSpecialist = ({
                                                     </div>
                                                 </div>
                                             )
-                                        }) }
+                                        ) }
 
                                         { additionalContests && !!additionalContests.length && <>
                                             <div className="card-specialists__content-title title-style">Выставочные
@@ -213,9 +217,9 @@ const CardSpecialist = ({
 
                                                 { !isSpecialist && <>
                                                     { item?.for_judge_examiner &&
-                                                        <div className="card-specialists__examiner">
-                                                            Экзаменатор
-                                                        </div>
+                                                    <div className="card-specialists__examiner">
+                                                        Экзаменатор
+                                                    </div>
                                                     }
 
                                                     <div className="card-specialists__ranks">
@@ -236,7 +240,7 @@ const CardSpecialist = ({
                                                             <div
                                                                 className="card-specialists__content-title">Дисциплины
                                                             </div>
-                                                            <div>
+                                                            <div className="card-specialists__disciplines-group">
                                                                 { item?.disciplines?.map((item, index, arr) => {
                                                                     return (
                                                                         <LightTooltip
@@ -263,15 +267,14 @@ const CardSpecialist = ({
                                                 </div>
                                                 }
 
-                                                { checkForExaminer(item?.disciplines) &&
-                                                <div className="card-specialists__examiner">
-                                                    Экзаменатор
-                                                </div>
-                                                }
-
-                                                { isSpecialist && item?.disciplines?.map((discipline, index) => {
-                                                    return (
+                                                { isSpecialist && item?.disciplines?.map((discipline, index) =>  (
                                                         <div className="card-specialists__grid-item" key={ index }>
+                                                            { discipline?.for_judge_examiner &&
+                                                            <div className="card-specialists__examiner">
+                                                                Экзаменатор
+                                                            </div>
+                                                            }
+
                                                             <div className="card-specialists__ranks">
                                                                 { discipline?.rank &&
                                                                 <div className="card-specialists__rank">
@@ -311,7 +314,7 @@ const CardSpecialist = ({
                                                             </div>
                                                         </div>
                                                     )
-                                                }) }
+                                                ) }
                                             </div>
                                         )
                                     }) }
@@ -342,3 +345,4 @@ const CardSpecialist = ({
 };
 
 export default React.memo(CardSpecialist);
+

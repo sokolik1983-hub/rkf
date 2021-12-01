@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { pencil, trash } from "@progress/kendo-svg-icons";
 import { blockContent } from "../../../utils/blockContent";
-import {selectIsOpenFilters} from "../../Layouts/selectors";
 
 
 const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homePage, setShowFilters, isOpenFilters }) => {
@@ -22,6 +21,7 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
 
     return <>
         <ul className="UploadedDocuments__inner-list">
+            <h3>Категории</h3>
             <li className={isActive(null)}>
                 <Link to={homePage} onClick={handleClick}>Все категории</Link>
             </li>

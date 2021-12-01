@@ -1,5 +1,5 @@
 .user-page {
-  @media (max-width: 990px) {
+  @media (max-width: 1080px) {
     min-height: calc(100vh - 108px);
   }
   & + .Footer {
@@ -8,13 +8,13 @@
   &__content {
     display: flex;
     justify-content: space-between;
-    @media (max-width: 990px) {
+    @media (max-width: 1080px) {
       display: block;
     }
   }
   &__right {
     width: calc(100% - 316px);
-    @media (max-width: 990px) {
+    @media (max-width: 1080px) {
       width: 100%;
       margin-top: 0;
       padding-bottom: 1px;
@@ -25,7 +25,7 @@
     min-width: 300px;
     margin: 0 16px 0 0;
     padding-bottom: 16px;
-    @media (max-width: 990px) {
+    @media (max-width: 1080px) {
       width: 100%;
       min-width: auto;
       margin-right: 0;

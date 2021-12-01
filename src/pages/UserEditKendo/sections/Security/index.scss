@@ -1,10 +1,42 @@
 .UserEdit {
   .ue-security {
-    &__row {
-      display: flex;
-      align-items: flex-start;
-      .k-form-field {
-        margin-top: 0 !important;
+    .k-form-hint {
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    }
+    .k-button {
+      background-color: #00C48C !important;
+      margin: 15px 0 0 !important;
+      @media (max-width: 767px) {
+        margin: 20px auto 0 !important;
+      }
+    }
+    .k-form {
+      .ue-security__row.form-row {
+        display: flex;
+        flex-direction: column;
+        @media (min-width: 561px) {
+          flex-direction: unset;
+          & > div:nth-child(1) {
+            flex: unset;
+            max-width: unset;
+          }
+          & > div:nth-child(2) {
+            flex: unset;
+            max-width: 35%;
+          }
+          & > div:nth-child(3) {
+            flex: unset;
+            max-width: 65%;
+            & > div {
+              margin-top: 0 !important;
+            }
+          }
+        }
+        .k-form-field {
+          margin-top: 15px !important;
+        }
       }
     }
     &__label {
@@ -12,18 +44,24 @@
       margin: 9px 0 0 !important;
       &-second {
         line-height: 20px;
-        margin: 9px 0 0 !important;
+        margin: 9px 0 -5px !important;
         color: #b9b9b9;
       }
     }
     .k-form:not(:last-child) {
-      margin-bottom: 32px;
+      margin-bottom: 15px;
     }
     .k-form:last-child {
       .ue-security__label {
         margin-right: 10px !important;
         margin-bottom: 0 !important;
       }
+    }
+    .k-form-legend {
+      margin-bottom: 5px !important;
+    }
+    .form-row > div {
+      width: 100% !important;
     }
   }
 }

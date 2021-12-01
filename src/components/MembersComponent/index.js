@@ -14,7 +14,7 @@ const MembersComponent = ({members}) => (
         <ul className="members-component__list">
             {members.map(item =>
                 <li className="members-component__item" key={item.id}>
-                    <Link to={item.alias} className="members-component__link">
+                    <Link to={`/${item.alias}`} className="members-component__link">
                         <div className="members-component__link-avatar"
                              style={{background: `url(${item.avatar_link || DEFAULT_IMG.clubAvatar}) no-repeat center`}}
                         />

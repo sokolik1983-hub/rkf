@@ -56,7 +56,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
         });
     }, [filters.Alias]);
 
-
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -144,7 +143,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                     />
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
-                                        onChange={filter => setFiltersToUrl(filter)}
+                                        onChange={(filter, asInitial) => setFiltersToUrl(filter, asInitial)}
                                         is_club_link={clubName && filters.Alias}
                                         clear_filter={clear_filter}
                                         range_clicked={range_clicked}

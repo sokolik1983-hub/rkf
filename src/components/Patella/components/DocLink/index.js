@@ -6,7 +6,7 @@ const DocLink = ({ docId, label, showLabel, profileType, download }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const [url, setUrl] = useState('');
 
-    const get = () => {
+    const getUrl = () => {
         if (isNaN(docId) || !docId)
             return;
         setUrl('');
@@ -18,7 +18,7 @@ const DocLink = ({ docId, label, showLabel, profileType, download }) => {
 
     useEffect(() => {
         if (docId) {
-            get()
+            getUrl()
         }
     }, [docId]);
 

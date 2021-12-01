@@ -16,7 +16,7 @@ const DocTableItem = ({date_created, statuses, status_id, id, last_name, first_n
         <td onClick={activateClick}>{[last_name, first_name, second_name].filter(f=>f).join(' ')}</td>
         <td onClick={activateClick}>{email}</td>
         <td onClick={activateClick}>{documents ? documents.length + docConst : docConst}</td>
-        <td><img className={`DocItem__chevron`} src="/static/icons/pen-gray.svg" alt=""/></td>
+        <td><img className={`DocItem__chevron`} src="/static/icons/pen-gray.svg" alt="" onClick={activateClick} /></td>
         <td>
         {/*<img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" alt=""/>*/}
         <DeleteButton onClick={e => onDelete(e)} />

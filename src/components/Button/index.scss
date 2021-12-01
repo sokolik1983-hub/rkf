@@ -128,6 +128,17 @@ a.btn-simple,
 .btn-condensed {
     padding-left: 8px;
     padding-right: 8px;
+    @media (max-width: 1079px) {
+        margin: 0;
+        display: block;
+        width: 100%;
+        margin-bottom: 10px
+    ;
+        :last-child {
+            margin-bottom: 0;
+        }
+
+    }
 }
 
 .btn-light {

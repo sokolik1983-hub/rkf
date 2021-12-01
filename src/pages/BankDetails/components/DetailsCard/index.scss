@@ -71,10 +71,15 @@
     &__link {
         text-decoration: none;
         color: #72839C;
+        margin-right: 20px;
 
         &:hover {
             transition: all .2s linear;
             color: #3366ff;
+        }
+
+        &:last-child {
+            margin-right: 0;
         }
     }
 }

@@ -22,6 +22,8 @@ import {
 } from "../../../../../components/kendo/Form/validators";
 import { Request, getHeaders } from "../../../../../utils/request";
 import { years } from "./config";
+import Alert from "../../../../../components/Alert";
+
 import "./index.scss";
 
 
@@ -55,6 +57,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
         inn: '',
         documents: []
     });
+    const [showAlert, setShowAlert] = useState(false);
 
     const editable = !status || status === 'edit';
     const isView = status === 'view' || status === 'edit';
@@ -181,7 +184,10 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
 
     const onAdd = (e, doc_type) => {
         const { newState } = e;
-        if (status === 'edit') {
+
+        if (newState && newState.find(item => item.size > 20971520)) {
+            setShowAlert(true);
+        } else if (status === 'edit') {
             (values.documents?.length + newState.length) > 10
                 ? setDocumentsOverflow(true)
                 : formProps.onChange(`${doc_type}`, { value: newState })
@@ -534,6 +540,13 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                     }
                 </Fade>
             </NotificationGroup>
+            {showAlert &&
+            <Alert
+                text="Размер изображения не должен превышать 20 мб"
+                okButton={true}
+                onOk={() => setShowAlert(false)}
+            />
+            }
         </div >
     )
 };

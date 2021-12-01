@@ -27,6 +27,7 @@ const Search = ({ withFilters, hideSideMenu }) => {
     const handleOutsideClick = (e) => {
         if (!e?.target?.classList.contains('__hide')) {
             setIsClicked(false);
+            setSearchValue('');
         }
     }
 

@@ -284,12 +284,14 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                                             </div>
                                                         }
                                                     >
-                                                        <Gallery
-                                                            items={images}
-                                                            match={match}
-                                                            backdropClosesModal={true}
-                                                            onSelectImage={onSelectImage}
-                                                        />
+                                                        <div className="edit-gallery__wrap">
+                                                            <Gallery
+                                                                items={images}
+                                                                match={match}
+                                                                backdropClosesModal={true}
+                                                                onSelectImage={onSelectImage}
+                                                            />
+                                                        </div>
                                                     </InfiniteScroll>
                                                 </>
                                             }

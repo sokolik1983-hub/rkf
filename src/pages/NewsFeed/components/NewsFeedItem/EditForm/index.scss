@@ -253,16 +253,29 @@
   }
   &__modal {
     & > div {
-      max-width: 550px;
+      max-width: 600px;
     }
     .Modal__body {
       padding: 12px;
+      min-width: auto;
+
+      .k-file-validation-message.k-text-success:before {
+        content: 'Файл успешно загружен';
+        position: absolute;
+        background: #fff;
+        width: 200px;
+      }
     }
     .Modal__close {
-      width: 14px;
-      height: 14px;
-      top: 14px;
-      right: 12px;
+      width: 12px;
+      height: 12px;
+      top: 18px;
+      right: 15px;
     }
+  }
+}
+.k-upload .k-dropzone {
+  @media (max-width:480px) {
+    flex-direction: column;
   }
 }

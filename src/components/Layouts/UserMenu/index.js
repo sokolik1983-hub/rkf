@@ -1,6 +1,6 @@
 import React, {memo, useState, useRef, useEffect} from "react";
 import {CSSTransition} from "react-transition-group";
-import {NavLink, useLocation} from "react-router-dom";
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import Alert from "../../Alert";
 import useIsMobile from "../../../utils/useIsMobile";
 import PopupModal from "../../PopupModal";
@@ -8,7 +8,10 @@ import ls from 'local-storage';
 import {endpointGetClubInfo} from "../../../pages/Club/config";
 import {Request} from "../../../utils/request";
 import {endpointGetUserInfo} from "../UserLayout/config";
-
+import changeBackground from "../../../utils/changeBgInMobileMenu";
+import nameInMobileMenu from "../../../utils/nameInMobileMenu";
+import { clubNav } from "../../../pages/Club/config";
+import { kennelNav } from "../../../pages/Nursery/config";
 import "./index.scss";
 
 
@@ -21,6 +24,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     const [nameInMenu, setNameInMenu] = useState(null)
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [routes, setRoutes] = useState(userNav);
     const isMobile = useIsMobile(1080);
     const { user_type, alias } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
@@ -33,58 +37,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     const location = useLocation();
     let url =  location.pathname.split('/')[1];
     let orgAlias = location.pathname.split('/')[2];
-
-    const changeBackground = () => {
-        switch (user_type) {
-            case 3:
-            case 4:
-                switch (url) {
-                    case 'club':
-                    case 'kennel':
-                        backgroundForPage(orgAlias, endpointGetClubInfo);
-                        break;
-                    default:
-                        backgroundForPage(alias, endpointGetClubInfo)
-                        break;
-                }
-                break;
-            case 1:
-                switch (url) {
-                    case 'club':
-                    case 'kennel':
-                        backgroundForPage(orgAlias, endpointGetClubInfo);
-                        break;
-                    case 'user':
-                        backgroundForPage(orgAlias, endpointGetUserInfo)
-                        break;
-                    default:
-                        backgroundForPage(alias, endpointGetUserInfo)
-                        break;
-                }
-                break;
-            case 5:
-                switch (url) {
-                    case 'club':
-                    case 'kennel':
-                        backgroundForPage(orgAlias, endpointGetClubInfo);
-                        break;
-                    default:
-                        backgroundForPage(alias, endpointGetUserInfo)
-                        break;
-                }
-                break;
-            default:
-                switch (url) {
-                    case 'club':
-                    case 'kennel':
-                        backgroundForPage(orgAlias, endpointGetClubInfo);
-                        break;
-                    default:
-                        break;
-                }
-                break;
-        }
-    }
 
     const backgroundForPage =(orgAlias, request) => { //Получаем алиас юзеров разных типов и образец запроса на сервер от разных юзеров.
            Request({
@@ -104,81 +56,71 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     }
 
     useEffect(() => {
-            switch (user_type) {
-                case 1:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            userInfo && setMenuBackground(userInfo.headliner_link);
-                            userInfo && setNameInMenu(`${userInfo.personal_information.first_name} ${userInfo.personal_information.last_name}`);
-                            break;
-                    }
-                    break;
-                case 3:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            clubInfo && setMenuBackground(clubInfo.headliner_link);
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                    }
-                    break;
-                case 4:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            clubInfo && setMenuBackground(clubInfo.headliner_link);
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                    }
-                    break;
-                case 5:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                default:
-                    switch (url) {
-                        case 'club':
-                            clubInfo && setNameInMenu(clubInfo.short_name);
-                            break;
-                        case 'kennel':
-                            clubInfo && setNameInMenu(clubInfo.name);
-                            break;
-                        default:
-                            break;
-                    }
-                break;
-            }
-             clubInfo && setMenuBackground(clubInfo.headliner_link);
-
-    }, [userInfo, clubInfo]);
+        changeBackground(user_type, backgroundForPage, alias, orgAlias, url);
+    },[url, orgAlias]);
 
     useEffect(() => {
-        changeBackground();
-    },[])
+        nameInMobileMenu(user_type,url,clubInfo, setNameInMenu, userInfo, setMenuBackground);
+    },[userInfo, clubInfo]);
+
+    useEffect(()=> {
+        if(clubInfo) {
+            let clubInfoArray;
+            switch(url) {
+                case "kennel":
+                    clubInfoArray = kennelNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                    setRoutes(clubInfoArray);
+                    break;
+                case "club":
+                    clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                    clubInfoArray.forEach(item => {
+                        if(item.title !== "Мероприятия") {
+                            item.to = `/club${item.to}`
+                        }
+                    })
+                    setRoutes(clubInfoArray);
+                    break;
+                default:
+                    break;
+            }
+            if (user_type === 3 && url !== 'kennel') {
+                clubInfoArray = clubNav(clubInfo.club_alias).filter(item => item.title !== "Уведомления");
+                clubInfoArray.forEach(item => {
+                    if(item.title !== "Мероприятия") {
+                        item.to = `/club${item.to}`
+                    }
+                });
+                setRoutes(clubInfoArray);
+            }
+        }
+        }, [clubInfo, userInfo]);
+
+    const getMeLink = (user_type) => {
+        switch (user_type) {
+            case 1:
+                return <Link onClick={closeLink} to={`/${url || 'user'}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+            case 3:
+                return <Link onClick={closeLink} to={`/${url || 'club'}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+            case 4:
+                return <Link onClick={closeLink} to={`/${url || 'kennel'}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+            case 5:
+                if(url === 'club' || url === 'kennel') {
+                    return <Link onClick={closeLink} to={`/${url}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+                }
+                break;
+            default:
+                if(url === 'club' || url === 'kennel') {
+                    return <Link onClick={closeLink} to={`/${url}${'/'}${orgAlias || alias}`}>{nameInMenu}</Link>;
+                }
+                break;
+        };
+    };
+
+    const closeLink = (e) => {
+        if(location.pathname === e.target.getAttribute('href')) {
+            setOpenUserMenu(false);
+        }
+    };
     return (
         <div
             className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
@@ -214,21 +156,35 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                         <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
                                     </svg>
                                 </div>*/}
-                                <div className="testDiv">
+                                <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                 </div>
-                                { nameInMenu && <p className="user-nav__alias-name">{nameInMenu}</p>}
+                                { nameInMenu && <div className="user-nav__alias-name">
+                                    {
+                                        getMeLink(user_type)
+                                    }
+                                    {/*{user_type === 1 &&*/}
+                                    {/*<Link to={`/user/${alias}`}>{nameInMenu}</Link>*/}
+                                    {/*}*/}
+                                    {/*{user_type === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&*/}
+                                    {/*<Link to={`/club/${orgAlias || alias}`}>{nameInMenu}</Link>*/}
+                                    {/*}*/}
+                                    {/*{(user_type === 5 || alias === 'rkf' || alias === 'rkf-online') &&*/}
+                                    {/*<Link to={`/${alias}`}>{nameInMenu}</Link>*/}
+                                    {/*}*/}
+                                    {/*{(user_type === 4 && url === 'club')*/}
+                                    {/*    ?*/}
+                                    {/*<Link to={`/club/${orgAlias || alias}`}>{nameInMenu}</Link>*/}
+                                    {/*    :*/}
+                                    {/*<Link to={`/kennel/${orgAlias || alias}`}>{nameInMenu}</Link>*/}
+                                    {/*}*/}
+                                </div>}
+
                                 <ul className="user-nav__list">
-                                    {userNav.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                    {routes.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                             key={navItem.id}>
                                             <NavLink
-                                                to={user_type === 3
-                                                    && alias !== 'rkf'
-                                                    && alias !== 'rkf-online'
-                                                    && navItem.title !== 'Поиск по базе РКФ'
-                                                    && navItem.title !== 'Реквизиты и размеры взносов'
-                                                    && navItem.title !== 'Мероприятия'
-                                                    ? `/club${navItem.to}` : navItem.to}
+                                                to={navItem.to}
                                                 exact={navItem.exact}
                                                 className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
                                                 onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
@@ -254,6 +210,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 key={navItem.id}>
                                 <NavLink
                                     to={user_type === 3
+                                        && url === 'club'
                                         && alias !== 'rkf'
                                         && alias !== 'rkf-online'
                                         && navItem.title !== 'Поиск по базе РКФ'

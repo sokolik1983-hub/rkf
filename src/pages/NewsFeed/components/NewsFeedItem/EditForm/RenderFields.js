@@ -13,6 +13,9 @@ import LightTooltip from "components/LightTooltip";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf, trash, youtube } from "@progress/kendo-svg-icons";
 import moment from "moment";
+import { blockContent } from '../../../../../utils/blockContent';
+import OutsideClickHandler from "react-outside-click-handler";
+import { useFocus } from '../../../../../shared/hooks';
 
 
 const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete }) => {
@@ -21,6 +24,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const [advertTypes, setAdvertTypes] = useState([]);
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert } = formik.values;
 
     useEffect(() => {
@@ -33,6 +37,10 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
             error => console.log(error.response)
         )
     }, []);
+
+    useEffect(() => {
+        blockContent(showModal)
+    }, [showModal])
 
     const handleChangeText = (e) => {
         let text = e.target.value;
@@ -90,8 +98,12 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
         setShowModal(false);
     };
 
+    const handleOutsideClick = () => {
+        !content && setBlured();
+    };
+
     return (
-        <>
+        <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className="article-edit__text">
                 <FormField
                     {...fields.content}
@@ -214,32 +226,31 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                     Сохранить
                 </SubmitButton>
             </FormControls>
-            {showModal &&
-                <Modal
-                    className="article-edit__modal"
-                    showModal={showModal}
-                    handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
-                    handleX={closeModal}
-                    headerName={modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
-                >
-                    {modalType === 'video' &&
-                        <AddVideoLink
-                            setVideoLink={handleAddVideoLink}
-                            closeModal={closeModal}
-                        />
-                    }
-                    {modalType === 'pdf' &&
-                        <AttachFile
-                            documents={docs}
-                            setDocuments={setDocs}
-                            categories={categories}
-                            setCategories={setCategories}
-                            closeModal={closeModal}
-                        />
-                    }
-                </Modal>
-            }
-        </>
+            <Modal
+                className="article-edit__modal"
+                showModal={showModal}
+                handleClose={closeModal}
+                handleX={closeModal}
+                noBackdrop={true}
+                headerName={modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
+            >
+                {modalType === 'video' &&
+                    <AddVideoLink
+                        setVideoLink={handleAddVideoLink}
+                        closeModal={closeModal}
+                    />
+                }
+                {modalType === 'pdf' &&
+                    <AttachFile
+                        documents={docs}
+                        setDocuments={setDocs}
+                        categories={categories}
+                        setCategories={setCategories}
+                        closeModal={closeModal}
+                    />
+                }
+            </Modal>
+        </OutsideClickHandler>
     )
 };
 

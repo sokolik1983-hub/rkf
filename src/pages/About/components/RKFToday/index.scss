@@ -1,0 +1,109 @@
+.rkf-today-block {
+    padding: 27px 0 39px;
+    text-align: center;
+
+    @media (max-width: 700px) {
+        padding: 18px 0 14px;
+    }
+
+    &__heading {
+        margin-bottom: 30px;
+
+        @media (max-width: 700px) {
+            margin-bottom: 12px;
+        }
+    }
+
+    &__text {
+        margin-bottom: 28px;
+        font-size: 18px;
+        line-height: 20px;
+
+        @media (max-width: 700px) {
+            font-size: 15px;
+            line-height: 18px;
+        }
+    }
+
+    &__little-heading {
+        margin-bottom: 30px;
+
+        @media (max-width: 700px) {
+            margin-bottom: 18px;
+        }
+    }
+
+    &__members {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        @media (max-width: 1080px) {
+            justify-content: space-around;
+        }
+    }
+
+    &__member {
+        width: 212px;
+
+        @media (max-width: 1080px) {
+            width: 300px;
+            margin-bottom: 21px;
+        }
+
+        @media (max-width: 820px) {
+            width: 206px;
+        }
+
+        @media (max-width: 700px) {
+            width: 212px;
+        }
+
+        @media (max-width: 445px) {
+            margin: 15px auto;
+        }
+
+        &-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 91px;
+            height: 91px;
+            margin: 0 auto 5px;
+
+            @media (max-width: 700px) {
+                width: 75px;
+                height: 75px;
+            }
+
+            & img {
+                width: 91px;
+                height: 91px;
+                background-size: cover;
+
+                @media (max-width: 700px) {
+                    width: 75px;
+                    height: 75px;
+                }
+            }
+        }
+
+        &-name {
+            max-width: 212px;
+            margin: 0 auto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 18px;
+
+            @media (max-width: 700px) {
+                font-size: 13px;
+                line-height: 15px;
+            }
+
+            &_bold {
+                font-weight: 600;
+            }
+        }
+    }
+}

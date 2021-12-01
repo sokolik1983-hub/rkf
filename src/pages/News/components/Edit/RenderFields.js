@@ -13,16 +13,27 @@ import { SvgIcon } from "@progress/kendo-react-common";
 import { trash } from "@progress/kendo-svg-icons";
 import { acceptType } from "../../../../utils/checkImgType";
 import useIsMobile from "../../../../utils/useIsMobile";
+import { blockContent } from '../../../../utils/blockContent';
+import OutsideClickHandler from "react-outside-click-handler";
+import { useFocus } from '../../../../shared/hooks';
+import CustomSelect from "react-select";
 
 
-const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete }) => {
+const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete, dogSex, advertTypeId }) => {
     const [src, setSrc] = useState(imgSrc);
+    const [sexId, setSex] = useState(imgSrc);
+    const [sexIdNumber, setSexIdNumber] = useState(dogSex)
     const [video, setVideo] = useState(videoLink);
     const [advertTypes, setAdvertTypes] = useState([]);
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const { content, is_advert } = formik.values;
+    const { focus, setFocused, setBlured } = useFocus(false);
+    const { content, is_advert, dog_sex_type_id } = formik.values;
     const isMobile = useIsMobile();
+
+    useEffect(() => {
+        setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель' : 'Сука'}`});
+    },[])
 
     useEffect(() => {
         formik.setFieldValue('content', text);
@@ -31,9 +42,14 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
 
         Request({ url: '/api/article/article_ad_types' },
             data => setAdvertTypes(data.map(d => ({ text: d.name, value: d.id }))),
+
             error => console.log(error.response)
         )
     }, []);
+
+    useEffect(() => {
+        blockContent(showModal)
+    }, [showModal]);
 
     const handleChangeText = (e) => {
         let text = e.target.value;
@@ -55,11 +71,12 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const handleChangeImg = e => {
         const file = e.target.files[0];
 
-        if (file) {
+        if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
         } else {
+            window.alert(`Размер изображения не должен превышать 20 мб`);
             formik.setFieldValue('file', '');
             setSrc('');
         }
@@ -111,8 +128,19 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
         }
     };
 
+    const handleOutsideClick = () => {
+        !content && setBlured();
+    };
+    const handleChange = (e) => {
+        setSex(e);
+        setSexIdNumber((e.label === 'Кобель') ? 1 : 2);
+    }
+    useEffect(() => {
+        formik.setFieldValue('dog_sex_type_id', sexIdNumber);
+    }, [sexIdNumber]);
+
     return (
-        <>
+        <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className="article-edit__text">
                 <FormField
                     {...fields.content}
@@ -199,10 +227,20 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                     <FormGroup inline className="article-edit__ad">
                         <FormField {...fields.advert_breed_id} options={breeds} />
                         <FormField {...fields.advert_cost} />
+
                         {!isMating && <FormField {...fields.advert_number_of_puppies} />}
                     </FormGroup>
                     <FormGroup inline className="article-edit__ad">
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
+                        <FormField {...fields.dog_color} />
+                        <FormField {...fields.dog_age} />
+                        <div className="article-edit__custom-select">
+                            <label htmlFor="dog_sex_type_id">Пол</label>
+                            <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
+                        </div>
+
+                    </FormGroup>
+                    <FormGroup inline className="article-edit__ad">
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} advertTypeId={advertTypeId}/>
                     </FormGroup>
                 </div>
             }
@@ -215,32 +253,31 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                     Обновить
                 </SubmitButton>
             </FormControls>
-            {showModal &&
-                <Modal
-                    className="article-edit__modal"
-                    showModal={showModal}
-                    handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
-                    handleX={closeModal}
-                    headerName={modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
-                >
-                    {modalType === 'video' &&
-                        <AddVideoLink
-                            setVideoLink={handleAddVideoLink}
-                            closeModal={closeModal}
-                        />
-                    }
-                    {modalType === 'pdf' &&
-                        <AttachFile
-                            documents={docs}
-                            setDocuments={setDocs}
-                            categories={categories}
-                            setCategories={setCategories}
-                            closeModal={closeModal}
-                        />
-                    }
-                </Modal>
-            }
-        </>
+            <Modal
+                className="article-edit__modal"
+                showModal={showModal}
+                handleClose={closeModal}
+                handleX={closeModal}
+                noBackdrop={true}
+                headerName={modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
+            >
+                {modalType === 'video' &&
+                    <AddVideoLink
+                        setVideoLink={handleAddVideoLink}
+                        closeModal={closeModal}
+                    />
+                }
+                {modalType === 'pdf' &&
+                    <AttachFile
+                        documents={docs}
+                        setDocuments={setDocs}
+                        categories={categories}
+                        setCategories={setCategories}
+                        closeModal={closeModal}
+                    />
+                }
+            </Modal>
+        </OutsideClickHandler>
     )
 };
 

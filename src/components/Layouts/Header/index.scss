@@ -188,7 +188,7 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin: 2px 0 0 16px;
+    margin: 2px 0 0 11px;
     position: relative;
     cursor: pointer;
     z-index: 100;
@@ -199,10 +199,12 @@
       transform: scale(1);
     }
     span {
-      font-size: 12px;
+      position: relative;
+      font-size: 13px;
       color: #979797;
       line-height: 0;
       padding-top: 9px;
+      top: 2px;
     }
     .open {
       svg path {
@@ -294,7 +296,7 @@
       cursor: pointer;
       @media (max-width: 1080px) {
         position: relative;
-        top: 1.5px;
+        top: 2px;
       }
       &._open {
         color: #3366FF;
@@ -634,7 +636,7 @@
         }
       }
       span {
-        font-size: 12px;
+        font-size: 13px;
         color: #979797;
       }
     }
@@ -895,8 +897,14 @@
     border-top: 1px solid #e8e8e8;
   }
   &__item {
-    position: relative;
-    //border-top: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    &:hover {
+      background-color: whitesmoke;
+      svg {
+        stroke: #3366ff;
+      }
+    }
     a,
     span {
       text-decoration: none;
@@ -906,14 +914,13 @@
       font-size: 16px;
       line-height: 20px;
       display: block;
-      padding: 7px 10px;
+      padding: 7px 10px 7px 10px;
       transition: all 0.2s linear;
       cursor: pointer;
       @media (max-width: 1080px) {
         line-height: 20px;
       }
       &:hover {
-        background-color: whitesmoke;
         color: #3366ff;
       }
     }
@@ -1021,6 +1028,14 @@
     }
   }
   &__modal {
+    .Modal__body {
+      min-width: unset;
+      padding: 10px;
+    }
+    .btn-primary {
+      display: flex;
+      margin: auto;
+    }
     & > div {
       max-width: 600px;
     }
@@ -1163,3 +1178,15 @@ span.position-relative {
 .search-icon__wrap {
   position: relative;
 }
+
+.map-link:before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  width: 13px;
+  height: 20px;
+  background: url(/static/icons/pin-gray-thin.svg) 50%/cover no-repeat;
+  background-size: contain;
+}
+
+

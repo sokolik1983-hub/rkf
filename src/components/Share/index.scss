@@ -5,7 +5,9 @@
 .ya-share2 span:hover {
     color: #3366ff!important;
 }
-
+.ya-share2__popup {
+  z-index: 1!important;
+}
 .ya-share2_inited {
     display: inline-block!important;
 }
@@ -26,7 +28,7 @@
         display: inline-block;
         width: 16px;
         height: 16px;
-        background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
+        background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50%/contain;
         background-color: white;
         vertical-align: middle;
         position: absolute;

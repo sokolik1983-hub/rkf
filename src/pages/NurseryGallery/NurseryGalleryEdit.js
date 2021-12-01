@@ -263,7 +263,9 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                                 </div>
                                                             }
                                                         >
-                                                            <Gallery items={images} match={match} backdropClosesModal={true} onSelectImage={onSelectImage} />
+                                                            <div className="edit-gallery__wrap">
+                                                                <Gallery items={images} match={match} backdropClosesModal={true} onSelectImage={onSelectImage} />
+                                                            </div>
                                                         </InfiniteScroll>
                                                     </>
                                                 }

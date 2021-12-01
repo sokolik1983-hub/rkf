@@ -43,9 +43,6 @@
     .FormGroup--inline {
         margin-bottom: 0;
     }
-    .FormGroup--inline .btn {
-        align-self: flex-end;
-    }
     .red {
         //color: #FA5D50;
         color: #00c48c!important;
@@ -65,6 +62,10 @@
         text-align: left;
         margin-bottom: 1rem;
         color: #212529;
+        @media (max-width: 820px) {
+            display: block;
+            overflow: scroll;
+        }
         td, th {
             padding: .75rem;
             vertical-align: top;

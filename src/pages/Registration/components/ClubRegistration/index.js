@@ -26,7 +26,7 @@ const ClubRegistration = () => {
     };
 
     const onModalClose = () => {
-        if (showModal && window.confirm("Закрыть?")) {
+        if (showModal) {
             setShowModal(false);
             setActiveClub(null);
         }

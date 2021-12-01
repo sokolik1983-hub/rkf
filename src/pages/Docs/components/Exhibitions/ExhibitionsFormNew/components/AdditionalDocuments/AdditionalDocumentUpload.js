@@ -3,10 +3,12 @@ import { Field } from "@progress/kendo-react-form";
 import FormUpload from "../FormUpload";
 import { getHeaders } from "../../../../../../../utils/request";
 import { DropDownList } from "@progress/kendo-react-dropdowns";
+import Alert from "../../../../../../../components/Alert";
 
 
 const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setDocumentsOverflow, setDisableSubmit, formRenderProps, handleError, dataType }) => {
     const [documentType, setDocumentType] = useState(dataType === 'international' ? 99 : 0);
+    const [showAlert, setShowAlert] = useState(false);
 
     const onBeforeUpload = e => {
         e.headers = getHeaders(true);
@@ -35,6 +37,13 @@ const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setD
         }
     };
 
+    const onAdd = (event) => {
+        const { newState } = event;
+        if (newState && newState.find(item => item.size > 20971520)) {
+            setShowAlert(true);
+        }
+    }
+
     return (
         <div className="AdditionalDocumentUpload">
             {docTypes &&
@@ -55,12 +64,24 @@ const AdditionalDocumentUpload = ({ documents, docTypes, documentsOverflow, setD
                 saveUrl="/api/requests/exhibition_request/clubexhibitionrequestdocument"
                 saveField="file"
                 multiple={false}
+                restrictions={{
+                    maxFileSize: 20000000,
+                }}
+                onAdd={e => onAdd(e)}
                 onBeforeUpload={e => onBeforeUpload(e)}
                 onStatusChange={e => onStatusChange(e, 'documents_upload')}
                 disabled={(docTypes && documentType === 0) || documentsOverflow}
                 autoUpload={true}
                 showFileList={false}
             />
+            {
+                showAlert && <Alert
+                    text="Размер загружаемого изображения не должен превышать 20Мб."
+                    okButton={true}
+                    onOk={() => setShowAlert(false)}
+                />
+            }
+
         </div>
     )
 };

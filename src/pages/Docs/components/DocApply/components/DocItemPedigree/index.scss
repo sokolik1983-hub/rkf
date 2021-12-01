@@ -2,15 +2,19 @@
     &.error {
         outline: 1px solid red;
     }
+
     .heading-row {
         justify-content: flex-start!important;
     }
+
     .heading-row * {
         margin-bottom: 0!important;
     }
+
     &__chevron {
         display: inline-block;
         vertical-align: middle;
+        margin: 5px;
         width: 1em;
         height: 1em;
         cursor: pointer;
@@ -20,26 +24,32 @@
             transform: rotate(-90deg);
         }
     }
+
     &.collapse {
         display: none;
     }
+
     &.active {
         display: table-row;
     }
+
     &.active .card {
         margin-bottom: 1em;
         margin-top: .5em;
     }
+
     .plus-button {
         position: relative;
         left: 7.5px;
     }
+
     &__pedigree-warning {
         color: #FA5D50;
         position: relative;
         top: 24px;
         left: 220px;
     }
+
     &__pedigree-calendar {
         margin-top: 10px;
         height: 50px;
@@ -51,9 +61,82 @@
             margin-right: 16px;
         }
     }
+
+    &__two-inline-columns, &__two-inline-columns_rows {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+
+    &__two-inline-columns_rows div:first-child {
+        display: grid;
+        grid-template-rows: 1.3fr 1fr;
+    }
+
+    &__three-inline-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+            .DocItem__pedigree-calendar-wrap {
+                margin-right: 0;
+            }
+        }
+    }
+
+    &__stamp-inline {
+        display: grid;
+        grid-template-columns: 1fr 1fr 141px;
+        .btn {
+            align-self: flex-end!important;
+        }
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+            .btn {
+                width: 141px;
+            }
+        }
+    }
+
+    &__owner-mail-inline {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+
+    &__dog-name-inline {
+        display: grid;
+        grid-template-columns: 2fr 3fr 1fr;
+        @media (max-width: 1079px) {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+
+    &__name-warning-wrap {
+        @media (max-width: 1079px) {
+            :first-child {
+                left: 0;
+                top: 0;
+            }
+        }
+    }
 }
 
 .DocItem.table:hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, .05);
+}
+
+
+.DocItem__pedigree-calendar {
+    width: 100%;
 }

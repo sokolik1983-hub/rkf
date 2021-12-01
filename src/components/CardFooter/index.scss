@@ -38,9 +38,8 @@
             }
             .Share {
                 height: 18px;
-
                 & .ya-share2__popup {
-                    z-index: 1;
+                    z-index: 0;
                     right: -25px;
                 }
 
@@ -62,10 +61,19 @@
                     }
                 }
 
+                & .ya-share2__badge.ya-share2__badge_more {
+                    background: none!important;
+                    width: 16px!important;
+                    height: 16px!important;
+                }
 
                 & .ya-share2__link {
                     display: flex;
                     align-items: center;
+                }
+
+                & .ya-share2__list.ya-share2__list_direction_horizontal {
+                    margin: 0;
                 }
             }
         }
@@ -81,4 +89,5 @@
             justify-content: center;
         }
     }
+
 }

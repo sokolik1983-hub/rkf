@@ -39,15 +39,17 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             error => console.log(error.response)
         )
     }, []);
+
     const handleChange = e => {
         const file = e.target.files[0];
 
-        if (file) {
+        if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
             setLoadFile(true);
         } else {
+            window.alert(`Размер изображения не должен превышать 20 мб`);
             formik.setFieldValue('file', '');
             setSrc('');
             setLoadFile(false);
@@ -119,6 +121,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
 
     const handleOutsideClick = () => {
         !content && setBlured();
+        setIsAd(false);
     };
 
     return (
@@ -176,7 +179,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             !videoLink && focus &&
                             <CustomCheckbox
                                 id="ad"
-                                label="Объявление"
+                                label="Куплю/Продам"
                                 className="ArticleCreateForm__ad"
                                 checked={isAd}
                                 onChange={() => {
@@ -226,6 +229,9 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
+                        <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
+                        <FormField {...fields.dog_color} />
+                        <FormField {...fields.dog_age} />
                         <CustomNumber {...fields.advert_cost} maxLength={10} />
                         {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
                     </FormGroup>

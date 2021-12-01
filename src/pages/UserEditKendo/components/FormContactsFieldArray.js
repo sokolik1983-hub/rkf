@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import { Field } from '@progress/kendo-react-form';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
 import FormContactsRadioButton from 'pages/UserEditKendo/components/FormContactsRadioButton';
 import { Error } from '@progress/kendo-react-labels';
-import { lengthValidator } from "../validators";
+import { lengthValidator } from '../validators';
 import { phoneMask } from 'pages/UserEditKendo/config';
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
@@ -36,8 +36,8 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
 
     return <>
         {
-            value.map((item, index) => <div className="form-row" key={index}>
-                <div className="form-group col-md-1 d-none d-sm-block Contacts__custom-plus">
+            value?.map((item, index) => <div className="form-row phone-number__wrapper" key={index}>
+                <div className="form-group col-md-1 d-none d-sm-block Contacts__custom-plus__before">
                     {index === value.length - 1 && valuesArray.length < 3 && <div onClick={() => handleAdd(index)}>
                         <span
                             className={valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid
@@ -48,16 +48,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                 </div>
                 <div className="form-group col-12 col-md-4">
                     <div className="form-row">
-                        <div className="form-group col-1 d-block d-sm-none Contacts__custom-plus">
-                            {index === value.length - 1 && valuesArray.length < 3 && <div onClick={() => handleAdd(index)}>
-                                <span
-                                    className={valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid
-                                        ? "k-icon k-i-plus-circle"
-                                        : "k-icon k-i-plus-circle k-icon-disabled"}
-                                />
-                            </div>}
-                        </div>
-                        <div className="col-9 col-md-12">
+                        <div className="col-9 col-md-12 phone-number">
                             <Field
                                 name={`${id}[${index}].value`}
                                 mask={id === 'phones' ? '+7(000)000-00-00' : ''}
@@ -69,7 +60,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                                         : ""}
                             />
                         </div>
-                        <div className="form-group col-1 d-block d-sm-none">
+                        <div className="form-group col-1 d-none d-sm-none checkbox-before-description__main">
                             {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
                             <div className="Contacts__custom-checkbox">
                                 <Field
@@ -81,16 +72,39 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                                 />
                             </div>
                         </div>
-                        {index > 0 && <div className="form-group col-1 d-block d-sm-none Contacts__custom-trash">
-                            <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
-                        </div>
+                        {index > 0 &&
+                            <div className="form-group col-1 d-block d-sm-none Contacts__custom-trash checkbox-before-description__delete">
+                                <span
+                                    onClick={() => handleRemove(item, id, index)}
+                                    className="k-icon k-i-trash"
+                                />
+                            </div>
                         }
+                        <div className="form-group col-1 d-block d-sm-none Contacts__custom-plus__after">
+                            {index === value.length - 1 && valuesArray.length < 3 &&
+                                <div onClick={() => handleAdd(index)}>
+                                    <span
+                                        className={valuesArray[index].value &&
+                                        valuesArray[index].value !== phoneMask &&
+                                        isArrayValid
+                                            ? "k-icon k-i-plus-circle"
+                                            : "k-icon k-i-plus-circle k-icon-disabled"}
+                                    />
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
-                <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].description`} placeholder="Описание" maxLength="50" component={FormInput} validator={value => lengthValidator(value, 50)} />
+                <div className="form-group col-md-4 phone-number__description">
+                    <Field
+                        name={`${id}[${index}].description`}
+                        placeholder="Описание"
+                        maxLength="50"
+                        component={FormInput}
+                        validator={value => lengthValidator(value, 50)}
+                    />
                 </div>
-                <div className="form-group col-md-2 d-none d-sm-block">
+                <div className="form-group col-md-2 d-none d-sm-block checkbox-after-description__main">
                     {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
                     <div className="Contacts__custom-checkbox">
                         <Field
@@ -102,7 +116,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                         />
                     </div>
                 </div>
-                {index > 0 && <div className="form-group col-md-1 d-none d-sm-block Contacts__custom-trash">
+                {index > 0 && <div className="form-group col-md-1 d-none d-sm-block Contacts__custom-trash checkbox-after-description__delete">
                     <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
                 </div>
                 }

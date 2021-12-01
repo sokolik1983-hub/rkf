@@ -1,26 +1,13 @@
-import React, {memo, useEffect, useState} from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import {formatDateToString} from "../../../utils/datetime";
 import "./index.scss";
 
 
-const CalendarFilter = ({date_from, onChange, is_club_link, clear_filter, range_clicked, handleRangeReset}) => {
-    const [day, setDay] = useState(new Date(date_from));
+const CalendarFilter = ({onChange, is_club_link, clear_filter, range_clicked, handleRangeReset}) => {
     const [activeButton, setActiveButton] = useState(is_club_link && !clear_filter ? 'year' : null);
 
-    const setNewDate = date => {
-        setDay(date);
-    };
+    const day = new Date();
 
-    const setInitialClubLinkFilter = () => {
-        onChange({
-            DateFrom: formatDateToString(new Date(day.getFullYear(), 0, 1)),
-            DateTo: formatDateToString(new Date(day.getFullYear() + 1, 0, 0))
-        });
-    };
-
-    useEffect(() => {
-        activeButton === 'year' && !clear_filter && !range_clicked ? setInitialClubLinkFilter() : setNewDate(new Date(date_from));
-    }, [date_from]);
 
     const handleButtonClick = period => {
         if (period === 'day') {

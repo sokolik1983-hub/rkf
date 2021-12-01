@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import Alert from "../../../../components/Alert";
 import { Form } from "../../../../components/Form";
 import RenderFields from "./RenderFields";
-import { formConfig, defaultValues, apiBreedsEndpoint } from "../../config";
+import { formConfig, defaultValues, apiBreedsEndpoint, apiSexEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
 import "./index.scss";
 
 
-const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies }) => {
+const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies, dogColor, dogAge, dogSex, advertTypeId }) => {
     const [breeds, setBreeds] = useState([]);
+    const [sex, setSex] = useState([]);
     const [docs, setDocs] = useState(documents || []);
     const [categories, setCategories] = useState(null);
     const [isMating, setIsMating] = useState(false);
@@ -25,7 +26,16 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
         ), e => console.log(e));
     }, []);
 
+    useEffect(() => {
+        Request({
+            url: apiSexEndpoint,
+            method: "GET"
+        }, data => setSex(data.map(m => ({ label: m.name }))
+        ),      e => console.log(e));
+    }, []);
+
     const transformValues = values => {
+
         const {
             content,
             is_advert,
@@ -34,6 +44,9 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             advert_number_of_puppies,
             advert_type_id,
             video_link,
+            dog_color,
+            dog_age,
+            dog_sex_type_id,
             file
         } = values;
 
@@ -49,6 +62,9 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             id,
             is_advert,
             advert_breed_id: is_advert ? advert_breed_id : '',
+            dog_sex_type_id: is_advert  ? dog_sex_type_id : '',
+            dog_color: dog_color ? dog_color : '',
+            dog_age: dog_age ? dog_age : '',
             advert_cost: is_advert ? advert_cost : '',
             advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : '',
             advert_type_id: is_advert ? advert_type_id : '',
@@ -80,6 +96,8 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                 withLoading={true}
                 onSuccess={() => history.replace(`/news/${id}`)}
                 onError={onError}
+                isEditPage
+                history={history}
                 transformValues={transformValues}
                 initialValues={{
                     ...defaultValues,
@@ -89,13 +107,18 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     advert_number_of_puppies: adNumberOfPuppies,
                     content: text,
                     img: img,
-                    video_link: videoLink
+                    video_link: videoLink,
+                    dog_color: dogColor,
+                    dog_age: dogAge,
+                    dog_sex_type_id: dogSex,
+                    advert_type_id: advertTypeId,
                 }}
                 {...formConfig}
             >
                 <RenderFields
                     fields={formConfig.fields}
                     breeds={breeds}
+                    sex={sex}
                     text={text}
                     imgSrc={img}
                     videoLink={videoLink}
@@ -107,6 +130,8 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     isMating={isMating}
                     setIsMating={setIsMating}
                     setIsImageDelete={setIsImageDelete}
+                    dogSex={dogSex}
+                    advertTypeId={advertTypeId}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
