@@ -34,8 +34,6 @@ const CardOrganization = ({
     const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
         (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
 
-    console.log(user_type);
-
     return (
         <Card className="card-organization">
             <div className="card-organization__content">
