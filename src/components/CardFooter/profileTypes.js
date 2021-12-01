@@ -26,6 +26,11 @@ const profileTypes = {
             methodToAdd: '/api/nationalbreedclub/add_like_to_nbc',
             methodToRemove: '/api/nationalbreedclub/remove_like_from_nbc',
         },
+    },
+    exhibitions: {
+        profileId: 'exhibition_id',
+        methodToAdd: '/api/exhibitions/exhibition/add_like_to_exhibition',
+        methodToRemove: '/api/exhibitions/exhibition/remove_like_from_exhibition',
     }
 };
 

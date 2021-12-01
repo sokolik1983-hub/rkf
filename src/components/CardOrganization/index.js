@@ -254,10 +254,10 @@ const CardOrganization = ({
             <div className="card-organization__controls">
                 <CardFooter
                     id={ id }
+                    share_link={ `https://rkf.online${ url }` }
                     is_liked={is_liked}
                     like_count={like_count}
                     likesOn={true}
-                    share_link={ `https://rkf.online${ url }` }
                     type="organizations"
                     userType={user_type}
                 />
