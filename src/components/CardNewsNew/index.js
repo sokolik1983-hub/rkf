@@ -78,9 +78,6 @@ const CardNewsNew = forwardRef(({
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
 
-        // const [isLiked, setIsLiked] = useState(is_liked);
-        // const [likesCount, setLikesCount] = useState(like_count);
-
         switch (dog_sex_type_id) {
             case 1:
                 dog_sex_type_id = 'Кобель';

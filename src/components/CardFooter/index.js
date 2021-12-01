@@ -14,26 +14,35 @@ const CardFooter = ({
                         like_count,
                         likesOn,
                         type,
+                        userType,
                     }) => {
-    console.log('profileTypes', profileTypes)
-    console.log('profileTypes', profileTypes[type].methodToAdd)
+    // console.log('profileTypes', profileTypes)
+    // console.log('profileTypes', profileTypes[type].methodToAdd)
+    console.log('type', type)
+    console.log('prType', profileTypes[type])
 
     const [isLiked, setIsLiked] = useState(is_liked);
     const [likesCount, setLikesCount] = useState(like_count);
     console.log('is_liked', is_liked)
     console.log('like_count', like_count)
-    // const typey = profileType;
-    const urlToAdd =  profileTypes[type].methodToAdd;
-    const urlToRemove = profileTypes[type].methodToRemove;
 
+    const organizationType = userType === 4 ? 'kennels' : userType === 7 ? 'nbc' : 'federationsAndClubs';
+    console.log('organizationType', organizationType)
+
+    const profileType = (!userType && userType !== 0) ? profileTypes[type]
+        : (type === 'organizations' ? profileTypes[type][organizationType] : '');
+    console.log('profileType', profileType)
+
+    const typeId = profileType.profileId;
+    console.log('typeId', typeId)
+    console.log('!!userType', userType)
 
     const handleLikeClick = async () => {
         if (likesOn) {
             await Request({
-                // url: isLiked ? '/api/article/remove_like_from_article/' : '/api/article/add_like_to_article/',
-                url: isLiked ? profileTypes[type].methodToAdd : profileTypes[type].methodToRemove,
+                url: !isLiked ? profileType.methodToAdd : profileType.methodToRemove,
                 method: isLiked ? 'PUT' : 'POST',
-                data: JSON.stringify({article_id: id})
+                data: JSON.stringify({[typeId]: id})
             }, () => {
                 setIsLiked(!isLiked);
                 setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
