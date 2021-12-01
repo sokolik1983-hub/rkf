@@ -21,6 +21,7 @@ const CardOrganization = ({
                               city_id,
                               owner_name,
                               owner_position,
+                              organization_type,
                               federation_name,
                               federation_alias,
                               content,
@@ -32,6 +33,8 @@ const CardOrganization = ({
                           }) => {
     const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
         (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
+
+    console.log(user_type);
 
     return (
         <Card className="card-organization">
@@ -97,7 +100,7 @@ const CardOrganization = ({
                                     }
                                 </div>
 
-                                <div className="card-organization__special-position_left">
+                                <div className={ `card-organization__special-position_left${ user_type === 0 || user_type === 5 || user_type === 7 ? `__fed` : `` }` }>
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
@@ -190,7 +193,7 @@ const CardOrganization = ({
                                     </div>
                                 </div>
 
-                                <div className="card-organization__special-position_left">
+                                <div className={ `card-organization__special-position_left${ user_type === 0 || user_type === 5 || user_type === 7 ? `__fed` : `` }` }>
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
