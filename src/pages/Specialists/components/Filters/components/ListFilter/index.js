@@ -1,33 +1,30 @@
-import React, {memo, useRef} from "react";
-import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
+import React, {memo, useMemo} from "react";
+import SwipeTabs from "../../../../../../components/SwipeTabs";
 import {setFiltersToUrl, getEmptyFilters} from "../../../../utils";
-import mobileMenuMoves from "../../../../../../utils/mobileMenuMoves";
 import "./index.scss";
 
 
 const ListFilter = ({searchTypeId}) => {
-    const clientWidth = window.innerWidth;
-    const wrap = useRef();
-
-    const handleClick = (type, e, place) => {
-        const calendarButton = document.getElementsByClassName('specialists-calendar__button active')[0];
-        if(calendarButton) calendarButton.classList.remove('active');
-        setFiltersToUrl({...getEmptyFilters(), SearchTypeId: type});
-        mobileMenuMoves(place, e.target, wrap);
-    };
+    const tabItems = useMemo(() => {
+        return [
+            {title: 'По породам', search_type: 4},
+            {title: 'По служебным и игровым дисциплинам', search_type: 1},
+            {title: 'По охотничьим дисциплинам', search_type: 2},
+            {title: 'Специалисты', search_type: 3}
+        ];
+    }, []);
 
     return (
         <div className="specialists-page__list-filter">
             <h4 className="list-filter__title">Судьи и специалисты</h4>
-                <div className="slider" ref={wrap}>
-                    <HorizontalSwipe id="slider-wrap1" className="slider-wrap">
-                        <div className={searchTypeId === 4 ? ' _active' : ''} onClick={(e) => handleClick(4, e, 1)}>По породам</div>
-                        <div className={searchTypeId === 1 ? ' _active' : ''} onClick={(e) => handleClick(1, e, 2)}>По служебным и {(clientWidth < 600) && <br /> } игровым дисциплинам</div>
-                        <div className={searchTypeId === 2 ? ' _active' : ''}  onClick={(e) => handleClick(2, e, 3)}>По охотничьим {(clientWidth < 600) && <br /> } дисциплинам</div>
-                        <div className={searchTypeId === 3 ? ' _active' : ''} onClick={(e) => handleClick(3, e, 4)}>Специалисты</div>
-                    </HorizontalSwipe>
-                </div>
-
+            <SwipeTabs
+                items={tabItems}
+                activeTabIndex={tabItems.findIndex(item => item.search_type === searchTypeId)}
+                onChange={({search_type}) => setFiltersToUrl({
+                    ...getEmptyFilters(),
+                    SearchTypeId: search_type
+                })}
+            />
         </div>
     )
 };
