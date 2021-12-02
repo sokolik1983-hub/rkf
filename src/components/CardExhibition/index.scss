@@ -325,9 +325,6 @@
       }
     }
   }
-  &__controls {
-    margin-top: 10px;
-  }
   &__show-all {
     text-decoration: none;
     line-height: 1;
@@ -340,6 +337,10 @@
     &._disabled {
       color: #b9c1ce !important;
     }
+  }
+
+  &__controls {
+    margin-top: 10px;
   }
 }
 .ya-share2__badge {

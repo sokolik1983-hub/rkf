@@ -6,6 +6,7 @@ import { ActiveUserMark, FederationChoiceMark } from "../Marks";
 import LightTooltip from "components/LightTooltip";
 import { DEFAULT_IMG } from "../../appConfig";
 import { formatText } from "../../utils";
+
 import "./index.scss";
 
 

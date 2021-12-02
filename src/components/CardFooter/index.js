@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import Share from 'components/Share';
 import { Request } from '../../utils/request';
-// import processingLikes from './utils/likes/processingLikes';
 import profileTypes from './profileTypes';
 
 import './index.scss';
@@ -16,26 +15,17 @@ const CardFooter = ({
                         type,
                         userType,
                     }) => {
-    // console.log('profileTypes', profileTypes)
-    // console.log('profileTypes', profileTypes[type].methodToAdd)
-    console.log('type', type)
-    console.log('prType', profileTypes[type])
-
     const [isLiked, setIsLiked] = useState(is_liked);
     const [likesCount, setLikesCount] = useState(like_count);
-    console.log('is_liked', is_liked)
-    console.log('like_count', like_count)
 
     const organizationType = userType === 4 ? 'kennels' : userType === 7 ? 'nbc' : 'federationsAndClubs';
-    console.log('organizationType', organizationType)
+    const judgesType = userType === 4 ? 'byBreed' : 'onWorkingQualities';
 
     const profileType = (!userType && userType !== 0) ? profileTypes[type]
-        : (type === 'organizations' ? profileTypes[type][organizationType] : '');
-    console.log('profileType', profileType)
+        : (type === 'organizations' ? profileTypes[type][organizationType]
+            : type === 'judges' ? profileTypes[type][judgesType] : '');
 
-    const typeId = profileType.profileId;
-    console.log('typeId', typeId)
-    console.log('!!userType', userType)
+    const typeId = profileType?.profileId;
 
     const handleLikeClick = async () => {
         if (likesOn) {
@@ -46,9 +36,6 @@ const CardFooter = ({
             }, () => {
                 setIsLiked(!isLiked);
                 setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
-
-                console.log('new isLiked', isLiked)
-                console.log('new likesCount', likesCount)
             }, e => console.log(e.response));
         }
     }

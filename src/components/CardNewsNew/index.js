@@ -372,10 +372,10 @@ const CardNewsNew = forwardRef(({
         <div className="CardNewsNew__controls">
             <CardFooter
                 id={id}
+                share_link={`https://rkf.online/news/${id}`}
                 is_liked={is_liked}
                 like_count={like_count}
                 likesOn={true}
-                share_link={`https://rkf.online/news/${id}`}
                 type="news"
             />
         </div>
