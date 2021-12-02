@@ -10,7 +10,9 @@ export function checkAliasUrl(pathname, alias) {
         || pathname === '/about'
         || pathname === '/uploaded-documents'
         || pathname === '/auth/login'
-        || pathname === '/auth/registration';
+        || pathname === '/auth/registration'
+        || pathname === '/specialists';
+
 
 
     if (exceptionUrl) {
