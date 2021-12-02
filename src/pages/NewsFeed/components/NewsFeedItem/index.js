@@ -393,7 +393,7 @@ const NewsFeedItem = forwardRef(({
 
     return (
         <Card className={`NewsFeedItem${is_request_article ? ' is-request-article' : ''}`}>
-            <div className={`NewsFeedItem__wrap${is_closed_advert ? ' is_closed' : ''}`}>
+            <div className={`NewsFeedItem__wrap${is_closed_advert ? ' is_closed' : is_read  ? ' is_read' : '' }`}>
                 {isEditing ? <EditItem /> : <ViewItem />}
                 {showPhoto &&
                     <Lightbox

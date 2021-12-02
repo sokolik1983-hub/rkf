@@ -92,7 +92,7 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                             }
                         </li>
                         )}
-                        <li className='widget-login__item popup-menu'
+                        <li className='widget-login__item widget-login__item--menu popup-menu'
                             onClick={() => setIsOpen(false)}>
                             <a href='https://help.rkf.online/ru/knowledge_base/art/146/cat/3/'
                                 target='_blank'

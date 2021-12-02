@@ -83,18 +83,7 @@ const CardExhibition = ({
                             <p className="card-exhibition__federation">Федерация не указана</p>
                         }
                     </div>
-                    {reports && reports.length > 0 &&
-                        <div className="card-exhibition__reports">
-                            <span>Отчет</span>
-                            <div className="card-exhibition__reports_block">
-                                {reports.map((rep, index) =>
-                                    <div className="card-exhibition__reports_link" key={index}>
-                                        <a target="_blank" rel="noopener noreferrer" href={rep.link} title={rep.report_type_name} />
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    }
+
                     <div className="card-exhibition__info">
                         <div>
                             <span className="card-exhibition__subtitle">Дата проведения</span>
@@ -124,6 +113,23 @@ const CardExhibition = ({
                 </div>
             </div>
 
+            <div className="card-exhibition__footer-links">
+                <div className="card-exhibition__open-exhibition">
+                    <Link to={url}>Подробнее...</Link>
+                </div>
+                {reports && reports.length > 0 &&
+                <div className="card-exhibition__reports">
+                    <span>Отчет</span>
+                    <div className="card-exhibition__reports_block">
+                        {reports.map((rep, index) =>
+                            <div className="card-exhibition__reports_link" key={index}>
+                                <a target="_blank" rel="noopener noreferrer" href={rep.link} title={rep.report_type_name} />
+                            </div>
+                        )}
+                    </div>
+                </div>
+                }
+            </div>
             <div className={`card-exhibition__controls`}>
                 <CardFooter
                     id={id}

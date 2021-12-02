@@ -1,77 +1,70 @@
-import React, {useEffect, useRef, useState} from "react";
-import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
-import { setFiltersToUrl } from "../../../../utils";
-import mobileMenuMoves from "../../../../../../utils/mobileMenuMoves";
-
+import React, {memo, useMemo} from "react";
+import SwipeTabs from "../../../../../../components/SwipeTabs";
+import {setFiltersToUrl} from "../../../../utils";
 import "./index.scss";
 
 
-const ListFilter = ({ categoryId, exhibitionsForTable, standardView, setExporting, exporting, setStandardView }) => {
+const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardView, exporting, setExporting}) => {
     const clientWidth = window.innerWidth;
-    const [activeType, setActiveType] = useState(0);
-    const wrap = useRef();
+    const tabItems = useMemo(() => {
+        return [
+            {title: 'Все', type: 0},
+            {title: 'Выставочные', type: 1},
+            {title: 'Племенные', type: 2},
+            {title: 'Состязания и испытания рабочих качеств', type: 3, disabled: true}
+        ];
+    }, []);
 
-    useEffect(() => {
-        setActiveType(+categoryId);
-    }, [categoryId]);
-
-    const handleClick = (type, e, place) => {
+    const handleClick = ({type}) => {
         const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
-        setFiltersToUrl({ CategoryId: type });
+        setFiltersToUrl({CategoryId: type});
 
-        if (type === 4 || (activeType === 4 && type !== 4)) {
-            setFiltersToUrl({ CityIds: [] });
+        if (type === 3) {
+            setFiltersToUrl({CityIds: []});
         }
-        mobileMenuMoves(place, e.target, wrap);
     };
-
-
 
     return (
         <div className="exhibitions-page__list-filter">
-           <div className="exhibitions-page__title-inner">
-                   <h4 className="list-filter__title">Мероприятия</h4>
-                   {
-                       (clientWidth < 560) ? (<button className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')} onClick={() => setStandardView(!standardView)}>
-                       </button>) : ''
-                   }
-
-               <div className="exhibitions-page__controls">
-                   {!!exhibitionsForTable.length && !standardView &&
-                   <div className="exhibitions-page__downloadBtn-wrap">
+            <div className="exhibitions-page__title-inner">
+                <h4 className="list-filter__title">Мероприятия</h4>
+                {clientWidth < 560 &&
+                    <button
+                        className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')}
+                        onClick={() => setStandardView(!standardView)}
+                    />
+                }
+                <div className="exhibitions-page__controls">
+                    {!!exhibitionsForTable.length && !standardView &&
+                        <div className="exhibitions-page__downloadBtn-wrap">
+                            <button
+                                className="exhibitions-page__control exhibitions-page__control--downloadIcon"
+                                onClick={() => setExporting(true)}
+                                disabled={exporting}
+                            >
+                                Скачать PDF
+                            </button>
+                        </div>
+                    }
+                   {clientWidth > 560 &&
                        <button
-                           className="exhibitions-page__control exhibitions-page__control--downloadIcon"
-                           onClick={() => setExporting(true)}
-                           disabled={exporting}
+                           className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')}
+                           onClick={() => setStandardView(!standardView)}
                        >
-                           Скачать PDF
-                       </button>
-                   </div>
-                   }
-                   {
-                       (clientWidth > 560) ? (<button className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')} onClick={() => setStandardView(!standardView)}>
                            {standardView ? 'Переключиться на табличный вид' : 'Вернуться к стандартному просмотру'}
-                       </button>) : ''
+                       </button>
                    }
-
-               </div>
-           </div>
-            <HorizontalSwipe id="exhibitions-list-filter">
-                <div className="slider" ref={wrap}>
-                    <HorizontalSwipe id="slider-wrap1" className="slider-wrap">
-                         <div className={activeType === 0 ? ' _active' : ''} onClick={(e) => handleClick(0, e, 1)}>Все</div>
-                         <div className={activeType === 1 ? ' _active' : ''} onClick={(e) => handleClick(1, e, 2)}>Выставочные</div>
-                         <div className={activeType === 2 ? ' _active' : ''}  onClick={(e) => handleClick(2, e,  3)}>Племенные</div>
-                         <div className={activeType === 3 ? ' _active' : '_disabled'}
-                              // onClick={(e) => handleClick(3, e, 4)}
-                         >Состязания и испытания рабочих качеств</div>
-                    </HorizontalSwipe>
                 </div>
-            </HorizontalSwipe>
+            </div>
+            <SwipeTabs
+                items={tabItems}
+                activeTabIndex={tabItems.findIndex(item => item.type === +categoryId)}
+                onChange={item => handleClick(item)}
+            />
         </div>
-    )
+    );
 };
 
-export default React.memo(ListFilter);
+export default memo(ListFilter);
