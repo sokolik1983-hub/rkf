@@ -36,6 +36,9 @@
     }
   }
   &__wrap {
+    &.is_read {
+      opacity: 0.6;
+    }
     &.is_closed {
       .NewsFeedItem__controls,
       .NewsFeedItem__photo,
