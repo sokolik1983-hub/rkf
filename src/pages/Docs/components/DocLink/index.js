@@ -21,7 +21,11 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
 
     return <>
         <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
-            {url ? <embed src={url}/> : <Loading/>}
+        {/*    /!*{url ? (<embed src={url} type={['image/jpeg','application/pdf']}/> ) : <Loading/>}*!/*/}
+        {/*    /!*<embed src={url}/>*!/*/}
+            {url ? <object data={url} type={'image/jpeg'}> </object> : <Loading/>}
+            {/*{url ? <embed src={url}/> : type={'image/jpeg'}<Loading/>}*/}
+        
         </Modal>
         {!!docId && <div className="FormInput">
             <label>{showLabel ? label : "\u00a0"}</label>
