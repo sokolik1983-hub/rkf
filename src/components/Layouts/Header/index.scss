@@ -909,6 +909,7 @@
       background-color: whitesmoke;
       svg {
         stroke: #3366ff;
+        stroke-width: 0.5;
       }
     }
     a,
@@ -946,6 +947,7 @@
     }
   }
   & a.widget-login__item-link {
+      padding-left: 0;
       color: #3366FF;
     }
   .login-link__icon,
