@@ -96,28 +96,29 @@ const BaseSearch = ({isAuthenticated}) => {
                                 <img src="/static/images/news/no-news-small.png" alt="Организаций больше нет" />
                             </div>
                         </div>
-                        <Aside className="base-search__info">
+                        {!isMobile && <Aside className="base-search__info">
                             <StickyBox offsetTop={60}>
                                 <div className="base-search__info-inner">
                                     {!isMobile && clubData ?
-                                        <UserMenu userNav={clubNav(clubData.club_alias)} /> :
+                                        <UserMenu userNav={clubNav(clubData.club_alias)}/> :
                                         nurseryData ?
-                                            <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
+                                            <UserMenu userNav={kennelNav(nurseryData.alias)}/> :
                                             <>
-                                                <Statistics />
+                                                <Statistics/>
                                                 <Banner type={11}/>
                                                 <Card className="base-search__map-wrap">
-                                                    <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
+                                                    <h3><Link className="base-search__map-title" to="/clubs-map">Карта
+                                                        авторизованных клубов</Link></h3>
                                                     <div className="base-search__map">
-                                                        <ClubsMap />
+                                                        <ClubsMap/>
                                                     </div>
                                                 </Card>
                                             </>
                                     }
-                                    <CopyrightInfo withSocials={true} />
+                                    <CopyrightInfo withSocials={true}/>
                                 </div>
                             </StickyBox>
-                        </Aside>
+                        </Aside>}
                     </div>
                 </Container>
             </div>
