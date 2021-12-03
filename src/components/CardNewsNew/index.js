@@ -6,7 +6,6 @@ import Lightbox from 'react-images';
 import ls from 'local-storage';
 import Modal from '../Modal';
 import Card from 'components/Card';
-// import Share from 'components/Share';
 import { ActiveUserMark, FederationChoiceMark } from 'components/Marks';
 import { formatText } from 'utils';
 import { formatDateTime } from 'utils/datetime';
@@ -14,9 +13,7 @@ import { DEFAULT_IMG } from 'appConfig';
 import EditForm from './EditForm';
 import CardFooter from '../CardFooter';
 import DocumentLink from './DocumentLink';
-
 import './index.scss';
-
 
 const CardNewsNew = forwardRef(({
     id,
@@ -80,8 +77,6 @@ const CardNewsNew = forwardRef(({
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
-        // const [isLiked, setIsLiked] = useState(is_liked);
-        // const [likesCount, setLikesCount] = useState(like_count);
 
         switch (dog_sex_type_id) {
             case 1:
@@ -93,30 +88,6 @@ const CardNewsNew = forwardRef(({
             default:
                 break;
         }
-
-        // const handleLikeClick = () => {
-        //     if (isLiked) {
-        //         Request({
-        //             url: `/api/article/remove_like_from_article/`,
-        //             method: 'PUT',
-        //             data: JSON.stringify({ article_id: id })
-        //         },
-        //             () => {
-        //                 setIsLiked(!isLiked);
-        //                 setLikesCount(likesCount - 1);
-        //             }, e => console.log(e.response));
-        //     } else {
-        //         Request({
-        //             url: `/api/article/add_like_to_article/`,
-        //             method: 'POST',
-        //             data: JSON.stringify({ article_id: id })
-        //         },
-        //             () => {
-        //                 setIsLiked(!isLiked);
-        //                 setLikesCount(likesCount + 1);
-        //             }, e => console.log(e.response));
-        //     }
-        // }
 
         return <>
             <div className="CardNewsNew__content">
@@ -305,6 +276,10 @@ const CardNewsNew = forwardRef(({
                 <CardFooter
                     id={id}
                     share_link={`https://rkf.online/news/${id}`}
+                    is_liked={is_liked}
+                    like_count={like_count}
+                    likesOn={true}
+                    type="news"
                 />
             </div>
         </>
@@ -398,10 +373,11 @@ const CardNewsNew = forwardRef(({
             <CardFooter
                 id={id}
                 share_link={`https://rkf.online/news/${id}`}
+                is_liked={is_liked}
+                like_count={like_count}
+                likesOn={true}
+                type="news"
             />
-            {/*<div className="CardNewsNew__controls-center">
-                <Share url={`https://rkf.online/news/${id}`} />
-            </div>*/}
         </div>
     </>;
 
