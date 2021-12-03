@@ -292,11 +292,11 @@
   }
   &__text-wrap {
     max-height: 140px;
-    margin: 20px 10px 0;
+    margin: 10px 10px 0;
     overflow: hidden;
     &__collapsed {
       height: auto;
-      margin: 20px 10px 0;
+      margin: 10px 10px 0;
       max-height: none;
       min-height: 100px;
     }
