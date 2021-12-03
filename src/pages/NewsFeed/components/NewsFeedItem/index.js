@@ -10,7 +10,6 @@ import {ActiveUserMark, FederationChoiceMark} from '../../../../components/Marks
 import EditForm from './EditForm';
 import {formatText} from '../../../../utils';
 import {formatDateTime} from '../../../../utils/datetime';
-import {Request} from '../../../../utils/request';
 import {DEFAULT_IMG} from '../../../../appConfig';
 import CardFooter from '../../../../components/CardFooter';
 import DocumentLink from '../DocumentLink';
@@ -79,19 +78,7 @@ const NewsFeedItem = forwardRef(({
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
-        const [isLiked, setIsLiked] = useState(is_liked);
-        const [likesCount, setLikesCount] = useState(like_count);
 
-        const handleLikeClick = async () => {
-            await Request({
-                url: isLiked ? '/api/article/remove_like_from_article/' : '/api/article/add_like_to_article/',
-                method: isLiked ? 'PUT' : 'POST',
-                data: JSON.stringify({article_id: id})
-            }, () => {
-                setIsLiked(!isLiked);
-                setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
-            }, e => console.log(e.response));
-        };
         return (
             <>
                 <div className="NewsFeedItem__content">
@@ -315,6 +302,10 @@ const NewsFeedItem = forwardRef(({
                     <CardFooter
                         id={ id }
                         share_link={ `https://rkf.online/news/${id}` }
+                        is_liked={is_liked}
+                        like_count={like_count}
+                        likesOn={true}
+                        type="news"
                     />
                 </div>
             </>

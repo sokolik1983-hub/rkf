@@ -6,27 +6,33 @@ import { ActiveUserMark, FederationChoiceMark } from "../Marks";
 import LightTooltip from "components/LightTooltip";
 import { DEFAULT_IMG } from "../../appConfig";
 import { formatText } from "../../utils";
+
 import "./index.scss";
 
 
-const CardExhibition = ({ id, title,
-    city,
-    city_id,
-    club_name,
-    club_alias,
-    club_logo,
-    date,
-    photo,
-    url,
-    ranks,
-    federation_name,
-    federation_link,
-    user,
-    active_rkf_user,
-    active_member,
-    setFilters,
-    searchTypeId,
-    reports }) => (
+const CardExhibition = ({
+                            id,
+                            title,
+                            city,
+                            city_id,
+                            club_name,
+                            club_alias,
+                            club_logo,
+                            date,
+                            photo,
+                            url,
+                            ranks,
+                            federation_name,
+                            federation_link,
+                            user,
+                            active_rkf_user,
+                            active_member,
+                            setFilters,
+                            searchTypeId,
+                            reports,
+                            is_liked,
+                            like_count,
+                        }) => (
         <Card className="card-exhibition">
             <div className="card-exhibition__wrap">
                 <Link className="card-exhibition__photo" to={url} style={{ backgroundImage: `url(${photo || DEFAULT_IMG.exhibitionPicture})` }} />
@@ -128,6 +134,10 @@ const CardExhibition = ({ id, title,
                 <CardFooter
                     id={id}
                     share_link={`https://rkf.online${url}`}
+                    is_liked={is_liked}
+                    like_count={like_count}
+                    likesOn={true}
+                    type="exhibitions"
                 />
             </div>
         </Card>
