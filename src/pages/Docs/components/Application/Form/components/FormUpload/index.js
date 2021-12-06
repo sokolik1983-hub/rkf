@@ -65,14 +65,14 @@ const FormUpload = fieldRenderProps => {
             {showValidationMessage &&
                 <Error id={errorId}>{validationMessage}</Error>
             }
-            {alert &&
-                <Alert
-                    title="Ошибка добавления документа"
-                    text="Формат файла не поддерживается, либо размер файла превышает 10Мб. Поддерживаемые форматы PDF, JPG, JPEG."
-                    autoclose={2}
-                    onOk={() => setAlert(false)}
-                />
-            }
+            {/*{alert &&*/}
+            {/*    <Alert*/}
+            {/*        title="Ошибка добавления документа"*/}
+            {/*        text="Формат файла не поддерживается, либо размер файла превышает 10Мб. Поддерживаемые форматы PDF, JPG, JPEG."*/}
+            {/*        autoclose={2}*/}
+            {/*        onOk={() => setAlert(false)}*/}
+            {/*    />*/}
+            {/*}*/}
         </FieldWrapper>
     );
 };
