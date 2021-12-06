@@ -62,15 +62,15 @@ const CardExhibition = ({
                             <div className="card-exhibition__club-logo" style={{
                                 backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                             }} />
-                            <p className="card-exhibition__club-name">
+                            <div className="card-exhibition__club-name">
                                 {(user === 3 || user === 4 || user === 5) &&
                                     <>
                                         <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
                                     &nbsp;
                                 </>
                                 }
-                                {club_name}
-                            </p>
+                                <span>{club_name}</span>
+                            </div>
                             {active_rkf_user &&
                                 <ActiveUserMark />
                             }
@@ -78,10 +78,14 @@ const CardExhibition = ({
                                 <FederationChoiceMark />
                             }
                         </Link>
+                        <div className="card-exhibition__federation-wrap">
                         {federation_name && federation_link ?
-                            <Link to={federation_link} className="card-exhibition__federation">{federation_name}</Link> :
-                            <p className="card-exhibition__federation">Федерация не указана</p>
+
+                                <Link to={federation_link} className="card-exhibition__federation">{federation_name}</Link> :
+                                <p className="card-exhibition__federation">Федерация не указана</p>
+
                         }
+                        </div>
                     </div>
 
                     <div className="card-exhibition__info">
