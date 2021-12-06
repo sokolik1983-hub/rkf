@@ -910,6 +910,9 @@
       svg {
         stroke: #3366ff;
         stroke-width: 0.5;
+        & > path {
+          fill: #3366ff;
+        }
       }
     }
     a,
