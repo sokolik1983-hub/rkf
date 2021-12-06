@@ -63,13 +63,23 @@ const CardExhibition = ({
                                 backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                             }} />
                             <div className="card-exhibition__club-name">
+                                <div>
                                 {(user === 3 || user === 4 || user === 5) &&
                                     <>
                                         <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
                                     &nbsp;
                                 </>
                                 }
-                                <span>{club_name}</span>
+                                <a>{club_name}</a>
+                                </div>
+                                <div className="card-exhibition__federation-wrap">
+                                    {federation_name && federation_link ?
+
+                                        <Link to={federation_link} className="card-exhibition__federation">{federation_name}</Link> :
+                                        <p className="card-exhibition__federation">Федерация не указана</p>
+
+                                    }
+                                </div>
                             </div>
                             {active_rkf_user &&
                                 <ActiveUserMark />
@@ -78,14 +88,7 @@ const CardExhibition = ({
                                 <FederationChoiceMark />
                             }
                         </Link>
-                        <div className="card-exhibition__federation-wrap">
-                        {federation_name && federation_link ?
 
-                                <Link to={federation_link} className="card-exhibition__federation">{federation_name}</Link> :
-                                <p className="card-exhibition__federation">Федерация не указана</p>
-
-                        }
-                        </div>
                     </div>
 
                     <div className="card-exhibition__info">
