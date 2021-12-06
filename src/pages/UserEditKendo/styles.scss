@@ -151,6 +151,11 @@
                 border-bottom: 1px solid #E5E5E5;
             }
         }
+        .k-form-buttons.text-center > button {
+            width: 154px;
+            height: 38px;
+            background: #3366FF !important;
+        }
     }
     .k-notification-group {
         right: 8px;
@@ -176,15 +181,8 @@
             }
         }
     }
-    button {
-        width: 154px;
-        height: 38px;
-
-        background: #3366FF !important;
-
-        &:focus {
+    button:focus {
             outline: none;
-        }
     }
     .user-nav__button {
         border-radius: 50%;
