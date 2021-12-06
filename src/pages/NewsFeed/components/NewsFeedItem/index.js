@@ -113,9 +113,8 @@ const NewsFeedItem = forwardRef(({
                                                     : `/${alias}`}>
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
                                         </Link>
-                                        &nbsp;
                                         <span>{formatDateTime(create_date)}</span>
-                                        <p>{formatText(content)}</p>
+                                        <p className="NewsFeedItem__left-name_text">{formatText(content)}</p>
                                     </div> :
                                     <>
                                         <span>

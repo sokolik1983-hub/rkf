@@ -37,14 +37,14 @@ const NotificationItem = ({ article_id, id, profile_name, short_content, create_
                 </Link>
             </div>
             <div className="NotificationItem__content">
-                {/* <div className="NotificationItem__header">
-                    <Link to={profileLink} className="NotificationItem_link" onClick={() => setOpen(false)}>{profile_name}</Link>
-                    <span>{`, ${formatDate(create_date)}`}</span>
-                </div> */}
                 <div className="NotificationItem__body">
-                    <Link to={profileLink} className="NotificationItem_link" onClick={() => setOpen(false)}>{profile_name}</Link>
-                    <span>{`, ${formatDate(create_date)}`}</span>&nbsp;
-                    {short_content}
+                    <div className="NotificationItem__body-header">
+                        <Link to={profileLink} className="NotificationItem_link" onClick={() => setOpen(false)}>{profile_name}</Link>
+                        <span>{`, ${formatDate(create_date)}`}</span>
+                    </div>
+                    <div className="NotificationItem__body-text">
+                        {short_content}
+                    </div>
                 </div>
             </div>
         </div>

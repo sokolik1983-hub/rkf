@@ -190,6 +190,10 @@
       @media (min-width: 560px) {
         width: calc(100% - 70px);
       }
+      &_text {
+        position: relative;
+        left: -70px;
+      }
       a {
         font-weight: normal;
         font-size: 18px;
@@ -206,6 +210,7 @@
       }
       p {
         margin-bottom: 0 !important;
+        margin-top: 10px!important;
       }
       div {
         font-weight: normal;
@@ -215,14 +220,16 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
-        @media (max-width: 560px) {
-         display: block;
-        }
+
         span {
           color: #72839c;
           @media (max-width: 560px) {
             display: block;
           }
+        }
+
+        a {
+          margin-bottom: 10px;
         }
       }
       & > span {
