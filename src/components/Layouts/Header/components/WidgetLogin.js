@@ -182,6 +182,10 @@ const WidgetLogin = forwardRef(
                                                                         {widgetLoginIcon.lk}
                                                                         <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
                                                                     </li>
+                                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.lp}
+                                                                        <Link to={`/user/${alias}`}>Страница пользователя</Link>
+                                                                    </li>
                                                                 </>
                                                                 }
                                                                 {userType === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
@@ -193,6 +197,10 @@ const WidgetLogin = forwardRef(
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                         {widgetLoginIcon.lk}
                                                                         <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
+                                                                    </li>
+                                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.lp}
+                                                                        <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>Страница клуба</Link>
                                                                     </li>
                                                                 </>
                                                                 }
@@ -206,6 +214,10 @@ const WidgetLogin = forwardRef(
                                                                         {widgetLoginIcon.lk}
                                                                         <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
                                                                     </li>
+                                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.lp}
+                                                                        <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>Страница федерации</Link>
+                                                                    </li>
                                                                 </>
                                                                 }
                                                                 {userType === 4 &&
@@ -217,6 +229,10 @@ const WidgetLogin = forwardRef(
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                         {widgetLoginIcon.lk}
                                                                         <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
+                                                                    </li>
+                                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                        {widgetLoginIcon.lp}
+                                                                        <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>Страница питомника</Link>
                                                                     </li>
                                                                 </>
                                                                 }
@@ -308,6 +324,10 @@ const WidgetLogin = forwardRef(
                                                                     {widgetLoginIcon.lk}
                                                                     <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
                                                                 </li>
+                                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.lp}
+                                                                    <Link to={`/user/${alias}`}>Страница пользователя</Link>
+                                                                </li>
                                                             </>
                                                             }
                                                             {userType === 3 && alias !== 'rkf' && alias !== 'rkf-online' &&
@@ -319,6 +339,10 @@ const WidgetLogin = forwardRef(
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                     {widgetLoginIcon.lk}
                                                                     <Link to={`/club/${alias}/documents/`}>Личный кабинет</Link>
+                                                                </li>
+                                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.lp}
+                                                                    <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>Страница клуба</Link>
                                                                 </li>
                                                             </>
                                                             }
@@ -332,6 +356,10 @@ const WidgetLogin = forwardRef(
                                                                     {widgetLoginIcon.lk}
                                                                     <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
                                                                 </li>
+                                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.lp}
+                                                                    <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>Страница федерации</Link>
+                                                                </li>
                                                             </>
                                                             }
                                                             {userType === 4 &&
@@ -343,6 +371,10 @@ const WidgetLogin = forwardRef(
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                     {widgetLoginIcon.lk}
                                                                     <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
+                                                                </li>
+                                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                                    {widgetLoginIcon.lp}
+                                                                    <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>Страница федерации</Link>
                                                                 </li>
                                                             </>
                                                             }
