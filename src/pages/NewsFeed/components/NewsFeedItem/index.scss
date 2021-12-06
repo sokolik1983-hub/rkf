@@ -220,9 +220,7 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
-        //@media (max-width: 560px) {
-        // display: block;
-        //}
+
         span {
           color: #72839c;
           @media (max-width: 560px) {
@@ -335,7 +333,6 @@
     margin-bottom: 0 !important;
     &._disabled {
       margin-bottom: 10px !important;
-      //margin-left: 12%;
     }
     * {
       max-width: 100% !important;
