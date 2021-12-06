@@ -163,21 +163,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                     {
                                         getMeLink(user_type)
                                     }
-                                    {/*{user_type === 1 &&*/}
-                                    {/*<Link to={`/user/${alias}`}>{nameInMenu}</Link>*/}
-                                    {/*}*/}
-                                    {/*{user_type === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&*/}
-                                    {/*<Link to={`/club/${orgAlias || alias}`}>{nameInMenu}</Link>*/}
-                                    {/*}*/}
-                                    {/*{(user_type === 5 || alias === 'rkf' || alias === 'rkf-online') &&*/}
-                                    {/*<Link to={`/${alias}`}>{nameInMenu}</Link>*/}
-                                    {/*}*/}
-                                    {/*{(user_type === 4 && url === 'club')*/}
-                                    {/*    ?*/}
-                                    {/*<Link to={`/club/${orgAlias || alias}`}>{nameInMenu}</Link>*/}
-                                    {/*    :*/}
-                                    {/*<Link to={`/kennel/${orgAlias || alias}`}>{nameInMenu}</Link>*/}
-                                    {/*}*/}
                                 </div>}
 
                                 <ul className="user-nav__list">
