@@ -1114,6 +1114,7 @@
     & .widget-login__item {
       &.popup-menu {
         @media (max-width: 1080px) {
+          display: block;
           border-top: 1px solid #e8e8e8;
           a {
             color: #72839c;
