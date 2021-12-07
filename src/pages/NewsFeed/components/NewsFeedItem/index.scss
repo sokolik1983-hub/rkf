@@ -211,6 +211,7 @@
       p {
         margin-bottom: 0 !important;
         margin-top: 10px!important;
+        color: #72839C;
       }
       div {
         font-weight: normal;
@@ -292,13 +293,6 @@
         height: 16px;
       }
     }
-    // &:hover {
-    //   color: #3366ff;
-    //   &:before {
-    //     background: url("/static/icons/pin.svg") center no-repeat;
-    //     background-size: contain;
-    //   }
-    // }
     @media (max-width: 560px) {
       display: block;
       text-align: left;
