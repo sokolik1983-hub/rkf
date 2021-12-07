@@ -63,7 +63,7 @@ const CardExhibition = ({
                                 backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                             }} />
                             <div className="card-exhibition__club-name">
-                                <div>
+                                <div className="card-exhibition__club-name_link">
                                 {(user === 3 || user === 4 || user === 5) &&
                                     <>
                                         <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
