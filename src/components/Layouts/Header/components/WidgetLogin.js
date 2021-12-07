@@ -374,7 +374,7 @@ const WidgetLogin = forwardRef(
                                                                 </li>
                                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                                     {widgetLoginIcon.lp}
-                                                                    <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>Страница федерации</Link>
+                                                                    <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>Страница питомника</Link>
                                                                 </li>
                                                             </>
                                                             }
