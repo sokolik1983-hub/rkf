@@ -47,7 +47,7 @@ const ExhibitionInfo = ({
 
     return (
         <>
-            <Card className="exhibition-info">
+            <Card className="exhibition-info two">
                 <div className="exhibition-info__left">
                     <h4 className="exhibition-info__title">Информация о мероприятии</h4>
                     {dates &&
@@ -88,15 +88,6 @@ const ExhibitionInfo = ({
                     }
                 </div>
             </Card>
-            <Card className="exhibition-info">
-                <div className="exhibition-page__description">
-                    <h4 className="exhibition-page__description-title">Описание</h4>
-                    {description ?
-                        <p dangerouslySetInnerHTML={{ __html: description }} /> :
-                        <p>Описание отсутствует</p>
-                    }
-                </div>
-            </Card>
             <Card className="exhibition-info two">
                 <div className="exhibition-page__description">
                     <h4 className="exhibition-page__description-title">Судьи</h4>
@@ -105,6 +96,26 @@ const ExhibitionInfo = ({
                 <div className="exhibition-page__description">
                     <h4 className="exhibition-page__description-title">Комментарий</h4>
                     {comments && <p>{comments}</p>}
+                </div>
+            </Card>
+            <Card className="exhibition-info two">
+                <div className="exhibition-page__description">
+                    <h4 className="exhibition-page__description-title">Описание</h4>
+                    {description ?
+                        <p dangerouslySetInnerHTML={{ __html: description }} /> :
+                        <p>Описание отсутствует</p>
+                    }
+                </div>
+                <div className="exhibition-page__description">
+                    <h4 className="exhibition-page__documents-title">Документы</h4>
+                    {documents_links && !!documents_links.length ?
+                        documents_links.map(doc => (
+                            <p className="exhibition-documents__doc" key={doc.id}>
+                                <a href={doc.url} target="__blank">{doc.name}</a>
+                            </p>
+                        )) :
+                        <p className="exhibition-documents__doc">Документы отсутствуют</p>
+                    }
                 </div>
             </Card>
             <Card className="exhibition-info">
@@ -129,19 +140,7 @@ const ExhibitionInfo = ({
                     </p>
                 </div>
             </Card>
-            <Card className="exhibition-info">
-                <div className="exhibition-page__documents">
-                    <h4 className="exhibition-page__documents-title">Документы</h4>
-                    {documents_links && !!documents_links.length ?
-                        documents_links.map(doc => (
-                            <p className="exhibition-documents__doc" key={doc.id}>
-                                <a href={doc.url} target="__blank">{doc.name}</a>
-                            </p>
-                        )) :
-                        <p className="exhibition-documents__doc">Документы отсутствуют</p>
-                    }
-                </div>
-            </Card>
+
         </>
     )
 };

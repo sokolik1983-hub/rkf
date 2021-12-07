@@ -2,12 +2,17 @@
   &.two { display: flex; flex-direction: row; }
   &.two >* { width: 50% }
   &:not(:first-child) {
-    margin-top: 12px;
+    //margin-top: 12px;
+    border-bottom: 1px solid #E5E5E5;
   }
   display: flex;
   justify-content: space-between;
   font-weight: 400;
   overflow: hidden;
+  width: 98%;
+  margin: 0 auto;
+  box-shadow: none;
+  border-radius: 0;
   @media (max-width: 990px) {
     display: block;
   }

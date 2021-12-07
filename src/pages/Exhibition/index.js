@@ -251,8 +251,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         </div>
                                     </div>
                                 </Card>
-                                <Card className="exhibition-page__payment-info">
-                                    <div className="exhibition-page__payment">
+                                <div className="exhibition-page__payment-info">
+                                    <Card className="exhibition-page__payment">
                                         <h4 className="exhibition-page__payment-title">Реквизиты для оплаты</h4>
                                         <PropertyP name="Получатель платежа" value={club_legal_name} />
                                         <PropertyP name="ИНН" value={inn} />
@@ -260,15 +260,15 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         <PropertyP name="Банк" value={bank_name} />
                                         <PropertyP name="БИК" value={bic} />
                                         <PropertyP name="Расчетный счет" value={account_number} />
-                                    </div>
-                                    <div className="exhibition-page__additional">
+                                    </Card>
+                                    <Card className="exhibition-page__additional">
                                         <h4 className="exhibition-page__additional-title">Дополнительная информация</h4>
                                         {additional_info ?
                                             <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: additional_info }} /> :
                                             <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
                                         }
-                                    </div>
-                                </Card>
+                                    </Card>
+                                </div>
                                 {isMobile && <div style={{ marginTop: '16px' }}>
                                     <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                 </div>}
