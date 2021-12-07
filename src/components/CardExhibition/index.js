@@ -81,12 +81,14 @@ const CardExhibition = ({
                                     }
                                 </div>
                             </div>
+                            <div className="card-exhibition__club-marks">
                             {active_rkf_user &&
                                 <ActiveUserMark />
                             }
                             {active_member &&
                                 <FederationChoiceMark />
                             }
+                            </div>
                         </Link>
 
                     </div>
