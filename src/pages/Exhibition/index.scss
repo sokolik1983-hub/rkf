@@ -20,14 +20,14 @@
     }
   }
   .mobile-only {
-    @media (min-width: 991px) {
+    @media (min-width: 1080px) {
       display: none !important;
     }
   }
   .desktop-only {
     width: 98%;
     margin: 0 auto;
-    @media (max-width: 990px) {
+    @media (max-width: 1079px) {
       display: none !important;
     }
   }
@@ -215,7 +215,7 @@
   &__info {
     display: flex;
     justify-content: space-between;
-    @media (max-width: 990px) {
+    @media (max-width: 1079px) {
       display: block;
     }
   }
@@ -229,7 +229,7 @@
     @media (max-width: 1080px) {
       display: none;
     }
-    @media (max-width: 990px) {
+    @media (max-width: 1079px) {
       margin-right: 0;
       display: flex;
       flex-wrap: wrap;
@@ -264,7 +264,7 @@
     }
     &-inner {
       overflow: hidden;
-      @media (max-width: 990px) {
+      @media (max-width: 1079px) {
         .user-header,
         .user-gallery__wrap {
           display: none;
@@ -350,5 +350,42 @@
       border-radius: 6px;
       box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
     }
+  }
+  &__back-button_wrap {
+     background: var(--background);
+     @media (min-width: 1080px) {
+       display: none;
+     }
+   }
+  &__back-button {
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 0;
+    border: none;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    position: relative;
+    align-self: flex-end;
+    padding-left: 12px;
+    color: #3366ff;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 0;
+      height: 10px;
+      width: 6px;
+      background: url("/static/icons/chevron_right-blue.svg") center no-repeat;
+      transform: scaleX(-1);
+    }
+  }
+}
+
+.copyright-wrap {
+  @media (max-width: 1079px) {
+    display: none;
   }
 }

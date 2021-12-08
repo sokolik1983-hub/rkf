@@ -189,6 +189,9 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                         
                                         <CopyrightInfo withSocials={true} />
                                         <div className="mobile-only">
+                                            <div className="exhibition-page__back-button_wrap">
+                                                <button className="exhibition-page__back-button" onClick={() => history.goBack()}>Назад</button>
+                                            </div>
                                             <div className="exhibition-page__title-wrap">
                                                 <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                                 {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
@@ -200,7 +203,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                             </aside>
                             <div className="exhibition-page__right">
                                 <div className="desktop-only">
-                                    <button className="btn-backward" onClick={() => history.goBack()}>Назад</button>
                                     <div className="exhibition-page__title-wrap">
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                         {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
