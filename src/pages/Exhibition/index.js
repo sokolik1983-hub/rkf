@@ -138,21 +138,22 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             <aside className="exhibition-page__left">
                                 <StickyBox offsetTop={60}>
                                     <div className="exhibition-page__left-inner">
-                                        <div className="mobile-only">
-                                            <UserHeader
-                                                canEdit={canEdit}
-                                                isAuthenticated={isAuthenticated}
-                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                logo={club_avatar}
-                                                name={display_name || club_fact_name || 'Название клуба отсутствует'}
-                                                alias={club_alias}
-                                                profileId={id}
-                                                federationName={federation_name}
-                                                federationAlias={federation_alias}
-                                                active_member={active_member}
-                                                active_rkf_user={active_rkf_user}
-                                            />
-                                        </div>
+                                       {/*<button className="btn-backward" onClick={() => history.goBack()}>Назад</button>*/}
+                                        {/*<div className="mobile-only">*/}
+                                        {/*    <UserHeader*/}
+                                        {/*        canEdit={canEdit}*/}
+                                        {/*        isAuthenticated={isAuthenticated}*/}
+                                        {/*        user={match.params.route !== 'rkf-online' ? 'club' : ''}*/}
+                                        {/*        logo={club_avatar}*/}
+                                        {/*        name={display_name || club_fact_name || 'Название клуба отсутствует'}*/}
+                                        {/*        alias={club_alias}*/}
+                                        {/*        profileId={id}*/}
+                                        {/*        federationName={federation_name}*/}
+                                        {/*        federationAlias={federation_alias}*/}
+                                        {/*        active_member={active_member}*/}
+                                        {/*        active_rkf_user={active_rkf_user}*/}
+                                        {/*    />*/}
+                                        {/*</div>*/}
                                         <UserHeader
                                             canEdit={canEdit}
                                             isAuthenticated={isAuthenticated}
@@ -269,13 +270,13 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         }
                                     </Card>
                                 </div>
-                                {isMobile && <div style={{ marginTop: '16px' }}>
-                                    <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
-                                </div>}
-                                {isMobile &&  <UserPhotoGallery
-                                            alias={club_alias}
-                                            pageLink={`/${club_alias}/gallery`}
-                                        />}
+                                {/*{isMobile && <div style={{ marginTop: '16px' }}>*/}
+                                {/*    <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />*/}
+                                {/*</div>}*/}
+                                {/*{isMobile &&  <UserPhotoGallery*/}
+                                {/*            alias={club_alias}*/}
+                                {/*            pageLink={`/${club_alias}/gallery`}*/}
+                                {/*        />}*/}
                                        
                             </div>
                         </div>

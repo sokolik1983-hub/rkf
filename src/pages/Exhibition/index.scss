@@ -207,6 +207,9 @@
     }
     &-right {
       width: 100%;
+      @media(max-width: 1079px) {
+        width: 50%;
+      }
     }
   }
   &__info {
@@ -222,6 +225,9 @@
     margin-right: 16px;
     @media (max-width: 1220px) {
       margin-right: 24px;
+    }
+    @media (max-width: 1080px) {
+      display: none;
     }
     @media (max-width: 990px) {
       margin-right: 0;
@@ -305,6 +311,9 @@
     img {
       background: #f3f4f4;
       max-height: 300px;
+    }
+    @media (max-width: 1079px) {
+      margin-top: 0;
     }
     @media (max-width: 990px) {
       margin-top: 24px;
