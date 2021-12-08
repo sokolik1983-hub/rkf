@@ -63,6 +63,7 @@ const CardNewsNew = forwardRef(({
     user_type,
     member = false,
     isFederation,
+    dog_city
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -73,6 +74,8 @@ const CardNewsNew = forwardRef(({
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);
+
+    console.log('dog_city', dog_city)
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -204,6 +207,9 @@ const CardNewsNew = forwardRef(({
 
                             <span>№{advert_code}</span>
                         </p>
+                        {
+                            dog_city && <div>Город: {dog_city}</div>
+                        }
                         {
                             dog_color && <div>Окрас: {dog_color}</div>
                         }

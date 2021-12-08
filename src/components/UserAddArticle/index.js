@@ -92,7 +92,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     advert_type_id: '',
                     dog_color: '',
                     dog_sex_type_id: '',
-                    dog_age: ''
+                    dog_age: '',
+                    dog_city: ''
                 }}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}
