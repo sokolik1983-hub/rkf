@@ -13,6 +13,7 @@ import {formatDateTime} from '../../../../utils/datetime';
 import {DEFAULT_IMG} from '../../../../appConfig';
 import CardFooter from '../../../../components/CardFooter';
 import DocumentLink from '../DocumentLink';
+import { Request } from "utils/request";
 
 import './index.scss';
 
@@ -75,6 +76,15 @@ const NewsFeedItem = forwardRef(({
         if ((ref.current && ref.current.clientHeight > 100) || videoLink) setCanCollapse(true);
     }, []);
 
+    const handleItemClick = async ({ target }) => {
+        await Request({
+            url: ` /api/article/mark_articles_read?articleIds=${id}`,
+            method: 'POST'
+        }, error => {
+            console.log(error);
+        });
+    }
+
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
@@ -114,7 +124,7 @@ const NewsFeedItem = forwardRef(({
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
                                         </Link>
                                         <span>{formatDateTime(create_date)}</span>
-                                        <p className="NewsFeedItem__left-name_text">{formatText(content)}</p>
+                                        <p className={`NewsFeedItem__left-name_text ${!is_read && " --bold" }`}>{formatText(content)}</p>
                                     </div> :
                                     <>
                                         <span>
@@ -246,7 +256,7 @@ const NewsFeedItem = forwardRef(({
                     </div>
                     <div className="NewsFeedItem__show-all-wrap">
                         {is_request_article ?
-                            <div className="NewsFeedItem__show-all">
+                            <div className="NewsFeedItem__show-all" onClick={handleItemClick}>
                                 <Link to={redirect_link} target="_blank">Подробнее...</Link>
                             </div> :
                             <div
