@@ -33,7 +33,7 @@ const checkUrl = (url) => {
         return <span>{url}</span>;
     }
 };
-const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
+const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_profile }) => {
     const isMobile = useIsMobile(1080);
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
@@ -200,6 +200,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             </aside>
                             <div className="exhibition-page__right">
                                 <div className="desktop-only">
+                                    <button className="btn-backward" onClick={() => history.goBack()}>Назад</button>
                                     <div className="exhibition-page__title-wrap">
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                         {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
