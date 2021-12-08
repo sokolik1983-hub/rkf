@@ -118,7 +118,7 @@ const ExhibitionInfo = ({
                     }
                 </div>
             </Card>
-            <Card className="exhibition-info">
+{/*            <Card className="exhibition-info">
                 <div className="exhibition-page__schedule">
                     <h4 className="exhibition-page__schedule-title">Расписание</h4>
                     <p className="exhibition-documents__doc">
@@ -139,7 +139,7 @@ const ExhibitionInfo = ({
                         }
                     </p>
                 </div>
-            </Card>
+            </Card>*/}
 
         </>
     )

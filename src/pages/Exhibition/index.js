@@ -135,6 +135,9 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                 <div className="exhibition-page redesign">
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
+                            <div className="exhibition-page__back-button_wrap">
+                                <button className="exhibition-page__back-button" onClick={() => history.goBack()}>Назад</button>
+                            </div>
                             <aside className="exhibition-page__left">
                                 <StickyBox offsetTop={60}>
                                     <div className="exhibition-page__left-inner">
@@ -188,10 +191,9 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                         />}
                                         
                                         <CopyrightInfo withSocials={true} />
+
                                         <div className="mobile-only">
-                                            <div className="exhibition-page__back-button_wrap">
-                                                <button className="exhibition-page__back-button" onClick={() => history.goBack()}>Назад</button>
-                                            </div>
+
                                             <div className="exhibition-page__title-wrap">
                                                 <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                                 {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}

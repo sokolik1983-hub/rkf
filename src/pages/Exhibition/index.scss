@@ -236,6 +236,9 @@
       width: 100%;
       min-width: auto;
       padding-bottom: 12px;
+      background-color: #FFFFFF;
+      box-shadow: 0 4px 4px rgba(120, 153, 255, 0.1);
+      border-radius: 5px;
       & > div {
         width: 100%;
         &:nth-child(odd) {
