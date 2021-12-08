@@ -240,7 +240,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     margin="1cm"
                                     paperSize={["297mm", "210mm"]}
                                     pageTemplate={() => <PdfPageTemplate
-                                        title={distinction === 'litter' ? 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА' : 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'}
+                                        title={distinction === 'litter' ? 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА' : distinction === 'metrics' ? 'Метрики щенка' : 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'}
                                     />}
                                 >
                                     {litterGridForExport}
@@ -279,7 +279,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     margin="1cm"
                                     paperSize={["297mm", "210mm"]}
                                     pageTemplate={() => <PdfPageTemplate
-                                        title={distinction === 'litter' ? 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА' : 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'}
+                                        title={distinction === 'litter' ? 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА' : distinction === 'metrics' ? 'Метрики щенка' : 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'}
                                     />}
                                 >
                                     {breedGreedForExport}
