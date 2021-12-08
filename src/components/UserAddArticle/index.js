@@ -11,6 +11,7 @@ import "./index.scss";
 
 const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInfo }) => {
     const [isAd, setIsAd] = useState(false);
+    const [isCheckedAddTypes, setIsCheckedAddTypes] = useState(false);
     const [isMust, setIsMust] = useState(false);
     const [videoLink, setVideoLink] = useState('');
     const [documents, setDocuments] = useState([]);
@@ -23,7 +24,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
     
     const transformValues = values => {
-        if (isAd) {
+        if (isAd || isCheckedAddTypes) {
             return {
                 ...values,
                 advert_number_of_puppies: isMating ? `` : +values.advert_number_of_puppies,
@@ -103,6 +104,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     logo={logo}
                     isAd={isAd}
                     setIsAd={setIsAd}
+                    isCheckedAddTypes={isCheckedAddTypes}
+                    setIsCheckedAddTypes={setIsCheckedAddTypes}
                     isMust={isMust}
                     setIsMust={setIsMust}
                     videoLink={videoLink}

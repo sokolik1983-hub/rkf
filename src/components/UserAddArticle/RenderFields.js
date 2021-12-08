@@ -23,7 +23,7 @@ import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile, isFederation, isMust, setIsMust }) => {
+const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile, isFederation, isMust, setIsMust, setIsCheckedAddTypes, isCheckedAddTypes }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -189,10 +189,30 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                                     } else if (!isAd) {
                                         setIsAd(true);
                                         setIsMust(false);
+                                        setIsCheckedAddTypes(false);
                                     }
                                 }}
                             />
                         }
+                            {
+                                !videoLink && focus &&
+                                <CustomCheckbox
+                                    id="ad1"
+                                    label="Объявление"
+                                    className="ArticleCreateForm__ad"
+                                    checked={isCheckedAddTypes}
+                                    onChange={() => {
+                                        if (isCheckedAddTypes) {
+                                            setIsCheckedAddTypes(false);
+                                            setIsMust(false);
+                                        } else if (!isCheckedAddTypes) {
+                                            setIsCheckedAddTypes(true);
+                                            setIsMust(false);
+                                            setIsAd(false);
+                                        }
+                                    }}
+                                />
+                            }
                         {
                             isFederation && focus &&
                             <CustomCheckbox
@@ -225,7 +245,22 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             {isAd && focus &&
                 <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value < 4)} setIsMating={setIsMating} />
+                    </FormGroup>
+                    <FormGroup className="ArticleCreateForm__advert">
+                        <FormField {...fields.advert_breed_id} />
+                        <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
+                        <FormField {...fields.dog_color} />
+                        <FormField {...fields.dog_age} />
+                        <CustomNumber {...fields.advert_cost} maxLength={10} />
+                        {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
+                    </FormGroup>
+                </div>
+            }
+            {isCheckedAddTypes && focus &&
+                <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
+                    <FormGroup inline>
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value > 3 )} setIsMating={setIsMating} />
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
