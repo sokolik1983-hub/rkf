@@ -16,7 +16,7 @@ import CopyrightInfo from "../../components/CopyrightInfo";
 import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
-import RefereeSearch from "./components/RefereeSearch";
+// import RefereeSearch from "./components/RefereeSearch";
 import TopComponent from "../../components/TopComponent";
 import UserMenu from "../../components/Layouts/UserMenu";
 import Banner from "../../components/Banner";
@@ -90,7 +90,7 @@ const BaseSearch = ({isAuthenticated}) => {
                             {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
                                 <CheckLitterStatus cardClicked={cardClicked} />
                             }
-                            <RefereeSearch cardClicked={cardClicked} />
+                            {/*<RefereeSearch cardClicked={cardClicked} />*/}
                             <PublicationSearch cardClicked={cardClicked} />
                             <div className="base-search__list-content">
                                 <img src="/static/images/news/no-news-small.png" alt="Организаций больше нет" />
