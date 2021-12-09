@@ -85,28 +85,19 @@ const NewsFeedItem = forwardRef(({
         checkedAll && isControlCheckedAll && setIsChecked(true);
         isControlCheckedAll && setIsChecked(true);
         !isControlCheckedAll && !checkedAll && setIsChecked(false);
-    }, [checkedAll, isControlCheckedAll]);
 
-    useEffect(() => {
-        handleCheckedItemsIds(id, !isChecked);
-
-    }, [isChecked])
+        }, [checkedAll, isControlCheckedAll]);
 
     const handleCheck = () => {
-        console.log('id', id)
         if (!isChecked) {
             setIsChecked(true);
-            handleCheckedItemsIds(id, true);
+            handleCheckedItemsIds(id, 'add');
 
         } else {
             setIsChecked(false);
-            handleCheckedItemsIds(id, false);
+            handleCheckedItemsIds(id, 'remove');
             unsetCheckedAll();
         }
-
-        handleCheckedItemsIds(id, !isChecked);
-
-            //TODO: допилить массив айдишников
     };
 
     const ViewItem = () => {

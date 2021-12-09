@@ -19,7 +19,10 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const userAlias = ls.get('user_info').alias;
     const [checkedItemsIds, setCheckedItemsIds] = useState([]);
     const [checkedAll, setCheckedAll] = useState(false)
-    const [isControlCheckedAll, setIsControlCheckedAll] = useState(false)
+    const [isControlCheckedAll, setIsControlCheckedAll] = useState(false);
+
+    const allItemsIds = [];
+    news.map(n => allItemsIds.push(n.id));
 
     useEffect(() => {
         setLoading(true);
@@ -118,19 +121,18 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         });
     };
 
-    const handleCheckedItemsIds = (id, isChecked) => {
-        console.log('handleCheckedItemsIds', id, isChecked)
-
+    const handleCheckedItemsIds = (id, action) => {
         const newCheckedItemsIds = [...checkedItemsIds];
-        isChecked
-            ? checkedItemsIds.indexOf(id) === -1 && newCheckedItemsIds.push(id)
-            : checkedItemsIds.indexOf(id) !== -1 && newCheckedItemsIds.splice(checkedItemsIds.indexOf(id));
 
+        action === 'add'
+            ? checkedItemsIds.indexOf(id) === -1 && newCheckedItemsIds.push(id)
+            : checkedItemsIds.indexOf(id) !== -1 && newCheckedItemsIds.splice(checkedItemsIds.indexOf(id), 1);
 
         setCheckedItemsIds(newCheckedItemsIds);
     }
 
     useEffect(() => {
+
         console.log('final checkedItemsIds', checkedItemsIds)
     }, [checkedItemsIds])
 
@@ -139,6 +141,12 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         !isControlCheckedAll ? setIsControlCheckedAll(true) && setCheckedAll(true) : setIsControlCheckedAll(false);
         isControlCheckedAll && all && setCheckedAll(false);
         !isControlCheckedAll && all && setCheckedAll(true);
+
+        console.log('isControlCheckedAll', isControlCheckedAll)
+        console.log('checkedAll', checkedAll)
+
+        !checkedAll || (checkedAll && !isControlCheckedAll)
+            ? setCheckedItemsIds(allItemsIds) : setCheckedItemsIds([]);
     }
 
     const unsetCheckedAll = () => {
@@ -153,7 +161,6 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             <>
                 <ControlMenu
                     isControlCheckedAll={isControlCheckedAll}
-                    // checkedItems={checkedItemsIds}
                     handleCheckAll={handleCheckAll}
                 />
 
