@@ -103,7 +103,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     }
 
     useEffect(() => {
-        (() => getExhibition())();
+        getExhibition();
     }, []);
 
     const { club_information,
