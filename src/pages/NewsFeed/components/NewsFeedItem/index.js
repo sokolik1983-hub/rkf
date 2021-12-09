@@ -64,16 +64,50 @@ const NewsFeedItem = forwardRef(({
     is_request_article,
     member = false,
     must_read,
-    is_read
+    is_read,
+    checkedAll,
+    handleCheckedItemsIds,
+    unsetCheckedAll,
+    isControlCheckedAll,
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
+    const [isChecked, setIsChecked] = useState(checkedAll);
+
     const ref = useRef(null);
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100) || videoLink) setCanCollapse(true);
     }, []);
+
+    useEffect(() => {
+        checkedAll && isControlCheckedAll && setIsChecked(true);
+        isControlCheckedAll && setIsChecked(true);
+        !isControlCheckedAll && !checkedAll && setIsChecked(false);
+    }, [checkedAll, isControlCheckedAll]);
+
+    useEffect(() => {
+        handleCheckedItemsIds(id, !isChecked);
+
+    }, [isChecked])
+
+    const handleCheck = () => {
+        console.log('id', id)
+        if (!isChecked) {
+            setIsChecked(true);
+            handleCheckedItemsIds(id, true);
+
+        } else {
+            setIsChecked(false);
+            handleCheckedItemsIds(id, false);
+            unsetCheckedAll();
+        }
+
+        handleCheckedItemsIds(id, !isChecked);
+
+            //TODO: допилить массив айдишников
+    };
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -161,7 +195,8 @@ const NewsFeedItem = forwardRef(({
                                     onClick={() => handleUnsubscribe(profile_id)}
                                 />
                             }
-                            {must_read &&
+                            {/* закоментированно до показа заказчику */}
+                            {/*{must_read &&
                                 <Chip
                                     text={is_read ? `Прочитано` : `Отметить как прочитанное`}
                                     value="chip"
@@ -170,7 +205,7 @@ const NewsFeedItem = forwardRef(({
                                     disabled={is_read}
                                     className={'must-read__chip'}
                                 />
-                            }
+                            }*/}
                             {canEdit && profileId === profile_id && alias === userAlias &&
                                 <div className="NewsFeedItem__head-control">
                                     <button
@@ -208,6 +243,17 @@ const NewsFeedItem = forwardRef(({
                                     }
                                 </div>
                             }
+
+                            <div className="NewsFeedItem__control-checkbox">
+                                <label className="NewsFeedItem__control-checkbox-label">
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => handleCheck()}
+                                        checked={isChecked}
+                                    />
+                                    <span> </span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div className={!collapsed ? 'NewsFeedItem__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>

@@ -7,6 +7,7 @@ import NewsFeedItem from "../NewsFeedItem";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import "./styles.scss";
+import ControlMenu from "../ControlMenu";
 
 
 const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
@@ -16,6 +17,9 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const [hasMore, setHasMore] = useState(true);
     const profileId = ls.get('profile_id');
     const userAlias = ls.get('user_info').alias;
+    const [checkedItemsIds, setCheckedItemsIds] = useState([]);
+    const [checkedAll, setCheckedAll] = useState(false)
+    const [isControlCheckedAll, setIsControlCheckedAll] = useState(false)
 
     useEffect(() => {
         setLoading(true);
@@ -114,36 +118,80 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         });
     };
 
+    const handleCheckedItemsIds = (id, isChecked) => {
+        console.log('handleCheckedItemsIds', id, isChecked)
+
+        const newCheckedItemsIds = [...checkedItemsIds];
+        isChecked
+            ? checkedItemsIds.indexOf(id) === -1 && newCheckedItemsIds.push(id)
+            : checkedItemsIds.indexOf(id) !== -1 && newCheckedItemsIds.splice(checkedItemsIds.indexOf(id));
+
+
+        setCheckedItemsIds(newCheckedItemsIds);
+    }
+
+    useEffect(() => {
+        console.log('final checkedItemsIds', checkedItemsIds)
+    }, [checkedItemsIds])
+
+    const handleCheckAll = (all = false) => {
+        !checkedAll ? setCheckedAll(true) : setCheckedAll(false);
+        !isControlCheckedAll ? setIsControlCheckedAll(true) && setCheckedAll(true) : setIsControlCheckedAll(false);
+        isControlCheckedAll && all && setCheckedAll(false);
+        !isControlCheckedAll && all && setCheckedAll(true);
+    }
+
+    const unsetCheckedAll = () => {
+        setIsControlCheckedAll(false);
+    }
+
     return loading
+
         ? <Loading centered={false} />
         : news
-            ? <InfiniteScroll
-                dataLength={news.length}
-                next={getNextNews}
-                hasMore={hasMore}
-                loader={<Loading centered={false} />}
-                endMessage={
-                    <div className="NewsList__no-news">
-                        <h4>Публикаций больше нет</h4>
-                        <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
+            ?
+            <>
+                <ControlMenu
+                    isControlCheckedAll={isControlCheckedAll}
+                    // checkedItems={checkedItemsIds}
+                    handleCheckAll={handleCheckAll}
+                />
+
+                <InfiniteScroll
+                    dataLength={news.length}
+                    next={getNextNews}
+                    hasMore={hasMore}
+                    loader={<Loading centered={false} />}
+                    endMessage={
+                        <div className="NewsList__no-news">
+                            <h4>Публикаций больше нет</h4>
+                            <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
+                        </div>
+                    }
+                >
+                    <div>
+                        {news.map(n =>
+                            <NewsFeedItem
+                                key={n.id}
+                                {...n}
+                                canEdit={canEdit}
+                                profileId={profileId}
+                                deleteNewsItem={deleteNewsItem}
+                                onAdClose={onAdClose}
+                                handleSuccess={handleSuccess}
+                                userAlias={userAlias}
+                                handleUnsubscribe={handleUnsubscribe}
+                                handleHaveRead={handleHaveRead}
+                                handleCheckedItemsIds={handleCheckedItemsIds}
+                                checkedAll={checkedAll}
+                                unsetCheckedAll={unsetCheckedAll}
+                                isControlCheckedAll={isControlCheckedAll}
+                            />
+                        )}
                     </div>
-                }
-            >
-                {news.map(n =>
-                    <NewsFeedItem
-                        key={n.id}
-                        {...n}
-                        canEdit={canEdit}
-                        profileId={profileId}
-                        deleteNewsItem={deleteNewsItem}
-                        onAdClose={onAdClose}
-                        handleSuccess={handleSuccess}
-                        userAlias={userAlias}
-                        handleUnsubscribe={handleUnsubscribe}
-                        handleHaveRead={handleHaveRead}
-                    />
-                )}
-            </InfiniteScroll>
+
+                </InfiniteScroll>
+            </>
             : <Card>
                 <div className="NewsList__no-news">
                     <h4>Публикации не найдены</h4>
