@@ -65,7 +65,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         skip: 0, take: 50,
         sort: []
     });
-console.log("distinction",distinction )
     let filteredDocuments = isArchive ? documents : documents?.filter(doc => doc.status_id !== 8);
 
     useEffect(() => {

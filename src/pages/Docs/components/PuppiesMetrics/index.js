@@ -4,7 +4,7 @@ import Card from "../../../../components/Card";
 import PuppiesTable from "./components/Table";
 import {Request} from "../../../../utils/request";
 import "./index.scss";
-import Table from "../RequestRegistry/components/Table";
+import Table from "./components/Table";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
 import {Link} from "react-router-dom";
 import {DEFAULT_IMG} from "../../../../appConfig";
@@ -15,13 +15,11 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
     const [loading, setLoading] = useState(true);
     const [puppies, setPuppies] = useState(null);
     const [exporting, setExporting] = useState(false);
-    const [standardView, setStandardView] = useState(true);
     const document_id = window.location.href.split('=')[1];
 
-    console.log("documents", puppies)
     useEffect(() => {
         (() => Request({
-            url: '/api/requests/LitterRequest/register_of_metrics'
+            url: '/api/document/documentdog/puppy_cards_registry'
         },
         data => {
             setPuppies(data.sort(function (a, b) {
@@ -40,50 +38,16 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
         }))();
     }, []);
 
+
     return loading ?
-        <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-                <div className="club-documents-status__controls" style={{ position: 'relative', top: '20px' }}>
-                    {document_id && <button
-                        className="club-documents-status__control club-documents-status__control--resetIcon"
-                    >
-                        <Link to={`/${clubAlias}/documents/${distinction === 'pedigree' ? `pedigree` : `litter`}/requests`}>
-                            Вернуться к списку
-                        </Link>
-                    </button>}
-                    <button
-                        className="club-documents-status__control club-documents-status__control--downloadIcon"
-                        onClick={() => setExporting(true)}
-                        disabled={exporting}
-                        style={{ zIndex: '2' }}
-                    >
-                        Скачать PDF
-                    </button>
-                    <button
-                        className="club-documents-status__control club-documents-status__control--tableIcon"
-                        onClick={() => setStandardView(true)}
-                        style={{ zIndex: '2' }}
-                    >
-                        Уменьшить таблицу
-                    </button>
-                </div>
-                <Table
-                    documents={puppies}
-                    distinction={distinction}
-                    exporting={exporting}
-                    setExporting={setExporting}
-                    fullScreen
-                />
-            </Card>
-            :
+        <Loading /> :
             <Card className="club-documents-status">
-                <div className="club-documents-status__head">
+                <div className="club-documents-status__head" style={{marginBottomm: "20px"}}>
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    {distinction === 'pedigree'
-                        ? 'Оформление родословной'
-                        : distinction === 'metrics' ? 'Метрики щенка'
-                            : 'Заявление на регистрацию помета'}
+                     Метрики щенка
                 </div>
+
                 {puppies && !!puppies.length ? <div className="_request_registry_wrap">
                         <div className="club-documents-status__controls _request_registry">
                             {document_id && <button
@@ -93,21 +57,14 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
                                     Вернуться к списку
                                 </Link>
                             </button>}
-                            <button
-                                className="club-documents-status__control club-documents-status__control--downloadIcon"
-                                onClick={() => setExporting(true)}
-                                disabled={exporting}
-                                style={{ zIndex: '2' }}
-                            >
-                                Скачать PDF
-                            </button>
-                            <button
-                                style={{ zIndex: '2' }}
-                                className="club-documents-status__control club-documents-status__control--tableIcon"
-                                onClick={() => setStandardView(false)}
-                            >
-                                Увеличить таблицу
-                            </button>
+
+                            {/*<button*/}
+                            {/*    style={{ zIndex: '2' }}*/}
+                            {/*    className="club-documents-status__control club-documents-status__control--tableIcon"*/}
+                            {/*    onClick={() => setStandardView(false)}*/}
+                            {/*>*/}
+                            {/*    Увеличить таблицу*/}
+                            {/*</button>*/}
                         </div>
                         <Table
                             documents={puppies}
