@@ -51,6 +51,11 @@ export const newsArticleFormConfig = {
             label: 'Окрас',
             placeholder: 'Окрас',
         },
+        dog_name: {
+            name: 'dog_name',
+            label: 'Кличка',
+            placeholder: 'Кличка',
+        },
         dog_age: {
             name: 'dog_age',
             label: 'Возраст',

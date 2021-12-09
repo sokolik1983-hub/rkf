@@ -46,6 +46,7 @@ const CardNewsNew = forwardRef(({
     dog_age,
     dog_sex_type_id,
     dog_city,
+    dog_name,
     active_rkf_user,
     picture_link,
     picture_short_link,
@@ -208,6 +209,9 @@ const CardNewsNew = forwardRef(({
                         </p>
                         {
                             dog_color && <div>Окрас: {dog_color}</div>
+                        }
+                        {
+                            dog_name && <div>Кличка собаки: {dog_name}</div>
                         }
                         {
                             dog_city.name && <div>Место потери: {dog_city.name}</div>
