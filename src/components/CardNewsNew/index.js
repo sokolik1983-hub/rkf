@@ -45,6 +45,7 @@ const CardNewsNew = forwardRef(({
     dog_color,
     dog_age,
     dog_sex_type_id,
+    dog_city,
     active_rkf_user,
     picture_link,
     picture_short_link,
@@ -62,8 +63,7 @@ const CardNewsNew = forwardRef(({
     like_count,
     user_type,
     member = false,
-    isFederation,
-    dog_city
+    isFederation
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -75,7 +75,6 @@ const CardNewsNew = forwardRef(({
         if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);
 
-    console.log('dog_city', dog_city)
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -208,10 +207,10 @@ const CardNewsNew = forwardRef(({
                             <span>№{advert_code}</span>
                         </p>
                         {
-                            dog_city && <div>Город: {dog_city}</div>
+                            dog_color && <div>Окрас: {dog_color}</div>
                         }
                         {
-                            dog_color && <div>Окрас: {dog_color}</div>
+                            dog_city.name && <div>Место потери: {dog_city.name}</div>
                         }
                         {
                             dog_age && <div>Возраст: {dog_age}</div>

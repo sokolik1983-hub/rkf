@@ -33,7 +33,6 @@ const List = ({list, className, isFullDate = true, removable, onAdClose, onDelet
                         onDelete={onDelete}
                         first_name={first_name}
                         last_name={last_name}
-                        dog_city={item.dog_city}
                     />
                 </li>
             )}
