@@ -47,15 +47,14 @@ const ClubsMap = ({ fullScreen }) => {
     //         await Request({
     //             url: `/api/club/get_yandex_maps_coordinates?CityId=${lastCity}`
     //         }, data => {
-    //             // setCities(data);
-    //         }, error => {
-    //             console.log(error.response);
-    //             if (error.response) alert(`Ошибка: ${error.response.status}`);
+    //             // setTargetCoords(data);
     //         });
-    //         console.log(targetCity);
+    //         console.log(targetCoords);
     //     })();
     // },[targetCity, setTargetCity])
+
     console.log('targetCoords', targetCoords);
+    console.log('targetCity', targetCity);
 
     return (
         <>
