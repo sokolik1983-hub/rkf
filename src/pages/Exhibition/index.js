@@ -33,7 +33,7 @@ const checkUrl = (url) => {
         return <span>{url}</span>;
     }
 };
-const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
+const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_profile }) => {
     const isMobile = useIsMobile(1080);
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
@@ -135,24 +135,28 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                 <div className="exhibition-page redesign">
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
+                            <div className="exhibition-page__back-button_wrap">
+                                <button className="exhibition-page__back-button" onClick={() => history.goBack()}>Назад</button>
+                            </div>
                             <aside className="exhibition-page__left">
                                 <StickyBox offsetTop={60}>
                                     <div className="exhibition-page__left-inner">
-                                        <div className="mobile-only">
-                                            <UserHeader
-                                                canEdit={canEdit}
-                                                isAuthenticated={isAuthenticated}
-                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                logo={club_avatar}
-                                                name={display_name || club_fact_name || 'Название клуба отсутствует'}
-                                                alias={club_alias}
-                                                profileId={id}
-                                                federationName={federation_name}
-                                                federationAlias={federation_alias}
-                                                active_member={active_member}
-                                                active_rkf_user={active_rkf_user}
-                                            />
-                                        </div>
+                                       {/*<button className="btn-backward" onClick={() => history.goBack()}>Назад</button>*/}
+                                        {/*<div className="mobile-only">*/}
+                                        {/*    <UserHeader*/}
+                                        {/*        canEdit={canEdit}*/}
+                                        {/*        isAuthenticated={isAuthenticated}*/}
+                                        {/*        user={match.params.route !== 'rkf-online' ? 'club' : ''}*/}
+                                        {/*        logo={club_avatar}*/}
+                                        {/*        name={display_name || club_fact_name || 'Название клуба отсутствует'}*/}
+                                        {/*        alias={club_alias}*/}
+                                        {/*        profileId={id}*/}
+                                        {/*        federationName={federation_name}*/}
+                                        {/*        federationAlias={federation_alias}*/}
+                                        {/*        active_member={active_member}*/}
+                                        {/*        active_rkf_user={active_rkf_user}*/}
+                                        {/*    />*/}
+                                        {/*</div>*/}
                                         <UserHeader
                                             canEdit={canEdit}
                                             isAuthenticated={isAuthenticated}
@@ -187,7 +191,9 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         />}
                                         
                                         <CopyrightInfo withSocials={true} />
+
                                         <div className="mobile-only">
+
                                             <div className="exhibition-page__title-wrap">
                                                 <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                                 {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
@@ -251,8 +257,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         </div>
                                     </div>
                                 </Card>
-                                <Card className="exhibition-page__payment-info">
-                                    <div className="exhibition-page__payment">
+                                <div className="exhibition-page__payment-info">
+                                    <Card className="exhibition-page__payment">
                                         <h4 className="exhibition-page__payment-title">Реквизиты для оплаты</h4>
                                         <PropertyP name="Получатель платежа" value={club_legal_name} />
                                         <PropertyP name="ИНН" value={inn} />
@@ -260,22 +266,22 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         <PropertyP name="Банк" value={bank_name} />
                                         <PropertyP name="БИК" value={bic} />
                                         <PropertyP name="Расчетный счет" value={account_number} />
-                                    </div>
-                                    <div className="exhibition-page__additional">
+                                    </Card>
+                                    <Card className="exhibition-page__additional">
                                         <h4 className="exhibition-page__additional-title">Дополнительная информация</h4>
                                         {additional_info ?
                                             <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: additional_info }} /> :
                                             <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
                                         }
-                                    </div>
-                                </Card>
-                                {isMobile && <div style={{ marginTop: '16px' }}>
-                                    <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
-                                </div>}
-                                {isMobile &&  <UserPhotoGallery
-                                            alias={club_alias}
-                                            pageLink={`/${club_alias}/gallery`}
-                                        />}
+                                    </Card>
+                                </div>
+                                {/*{isMobile && <div style={{ marginTop: '16px' }}>*/}
+                                {/*    <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />*/}
+                                {/*</div>}*/}
+                                {/*{isMobile &&  <UserPhotoGallery*/}
+                                {/*            alias={club_alias}*/}
+                                {/*            pageLink={`/${club_alias}/gallery`}*/}
+                                {/*        />}*/}
                                        
                             </div>
                         </div>
