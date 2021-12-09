@@ -87,19 +87,23 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
             new Date(dateEnd).getDate() + dayTimer
         ).toISOString() : null;
 
-    useEffect(() => {
-        (() => Request({
+    const getExhibition = async() => {
+        setLoading(true);
+
+        await Request({
             url: endpointGetExhibition + exhibitionId
         }, data => {
             setExhibition(data);
-            setLoading(false);
         }, error => {
             console.log(error.response);
             setIsError(true);
-            setLoading(false);
-        }))();
+        });
 
-      
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        getExhibition();
     }, []);
 
     const { club_information,
@@ -125,7 +129,19 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
         account_number,
         active_member,
         active_rkf_user,
+        subscribed
     } = club_information;
+
+    const onSubscriptionUpdate = (subscribed) => {
+        setExhibition({
+            ...exhibition,
+            club_information: {
+                ...club_information,
+                subscribed: subscribed
+            }
+        })
+    }
+
 
     return isError
         ? <PageNotFound />
@@ -164,11 +180,14 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                             logo={club_avatar}
                                             name={display_name || club_fact_name || 'Название клуба отсутствует'}
                                             alias={club_alias}
-                                            profileId={id}
+                                            profileId={club_information.profile_id}
+                                            subscribed_id={profile_id}
                                             federationName={federation_name}
                                             federationAlias={federation_alias}
                                             active_member={active_member}
                                             active_rkf_user={active_rkf_user}
+                                            subscribed={subscribed}
+                                            onSubscriptionUpdate={onSubscriptionUpdate}
                                         />
                                         {!isMobile && isFederationAlias(club_alias) ?
                                             <MenuComponent
