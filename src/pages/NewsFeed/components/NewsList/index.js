@@ -33,6 +33,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         await Request({
             url: `/api/article/articles_feed?profile_id=${profileId}&start_element=${startElement}&size=10&filter_type=${activeCategoryId}`
         }, data => {
+            console.log('data', data)
             setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
 
             if (!data || data.articles?.length < 10) {
@@ -132,18 +133,15 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     }
 
     useEffect(() => {
-
         console.log('final checkedItemsIds', checkedItemsIds)
     }, [checkedItemsIds])
 
     const handleCheckAll = (all = false) => {
         !checkedAll ? setCheckedAll(true) : setCheckedAll(false);
         !isControlCheckedAll ? setIsControlCheckedAll(true) && setCheckedAll(true) : setIsControlCheckedAll(false);
+
         isControlCheckedAll && all && setCheckedAll(false);
         !isControlCheckedAll && all && setCheckedAll(true);
-
-        console.log('isControlCheckedAll', isControlCheckedAll)
-        console.log('checkedAll', checkedAll)
 
         !checkedAll || (checkedAll && !isControlCheckedAll)
             ? setCheckedItemsIds(allItemsIds) : setCheckedItemsIds([]);
@@ -162,6 +160,9 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                 <ControlMenu
                     isControlCheckedAll={isControlCheckedAll}
                     handleCheckAll={handleCheckAll}
+                    selectedItemsIds={checkedItemsIds}
+                    categoryId={activeCategoryId}
+                    updateNews={getNews}
                 />
 
                 <InfiniteScroll

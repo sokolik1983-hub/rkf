@@ -26,8 +26,7 @@ export const categories = [
     },
     {
         name: 'Архив',
-        id: 99,
+        id: 9,
         icon: 'NewsFeed__icon NewsFeed__icon--archive',
-        disabled: true
     }
 ];

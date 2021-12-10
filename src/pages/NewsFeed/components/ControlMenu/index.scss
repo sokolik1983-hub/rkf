@@ -71,6 +71,14 @@
                 background-image: url(/static/new-icons/trash.svg)
             }
         }
+
+        &_disabled {
+            opacity: 0.5;
+
+            &:hover {
+                cursor: no-drop;
+            }
+        }
     }
 
     &__checkbox-label {
