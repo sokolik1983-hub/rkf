@@ -55,14 +55,12 @@ console.log("documents", documents)
                     className="club-documents-status__control club-documents-status__control--downloadIcon"
                     onClick={() => setExporting(true)}
                     disabled={exporting}
-                    style={{ zIndex: '2' }}
                 >
                     Скачать PDF
                 </button>
                 <button
                     className="club-documents-status__control club-documents-status__control--tableIcon"
                     onClick={() => setStandardView(true)}
-                    style={{ zIndex: '2' }}
                 >
                     Уменьшить таблицу
                 </button>
@@ -98,12 +96,10 @@ console.log("documents", documents)
                             className="club-documents-status__control club-documents-status__control--downloadIcon"
                             onClick={() => setExporting(true)}
                             disabled={exporting}
-                            style={{ zIndex: '2' }}
                         >
                             Скачать PDF
                             </button>
                         <button
-                            style={{ zIndex: '2' }}
                             className="club-documents-status__control club-documents-status__control--tableIcon"
                             onClick={() => setStandardView(false)}
                         >
