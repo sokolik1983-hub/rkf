@@ -99,7 +99,7 @@ const CardOrganization = ({
                                     }
                                 </div>
 
-                                <div className={ `card-organization__special-position_left${ user_type === 0 || user_type === 5 || user_type === 7 ? `__fed` : `` }` }>
+                                <div className={ `card-organization__special-position_left${ user_type === 0 || user_type === 5 || user_type === 7 ? "__fed" : "" }` }>
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;

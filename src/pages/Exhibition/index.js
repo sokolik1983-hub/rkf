@@ -152,27 +152,11 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
                             <div className="exhibition-page__back-button_wrap">
-                                <button className="exhibition-page__back-button" onClick={() => history.goBack()}>Назад</button>
+                                <Link className="exhibition-page__back-button" to="/exhibitions">Назад</Link>
                             </div>
                             <aside className="exhibition-page__left">
                                 <StickyBox offsetTop={60}>
                                     <div className="exhibition-page__left-inner">
-                                       {/*<button className="btn-backward" onClick={() => history.goBack()}>Назад</button>*/}
-                                        {/*<div className="mobile-only">*/}
-                                        {/*    <UserHeader*/}
-                                        {/*        canEdit={canEdit}*/}
-                                        {/*        isAuthenticated={isAuthenticated}*/}
-                                        {/*        user={match.params.route !== 'rkf-online' ? 'club' : ''}*/}
-                                        {/*        logo={club_avatar}*/}
-                                        {/*        name={display_name || club_fact_name || 'Название клуба отсутствует'}*/}
-                                        {/*        alias={club_alias}*/}
-                                        {/*        profileId={id}*/}
-                                        {/*        federationName={federation_name}*/}
-                                        {/*        federationAlias={federation_alias}*/}
-                                        {/*        active_member={active_member}*/}
-                                        {/*        active_rkf_user={active_rkf_user}*/}
-                                        {/*    />*/}
-                                        {/*</div>*/}
                                         <UserHeader
                                             canEdit={canEdit}
                                             isAuthenticated={isAuthenticated}
@@ -258,9 +242,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                 })
                                             : ''
                                     }
-                                      
-
-
 
                                         <br />
                                         <h4 className="exhibition-page__address-title">Дополнительная информация</h4>
