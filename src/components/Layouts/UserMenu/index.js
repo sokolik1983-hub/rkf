@@ -10,10 +10,11 @@ import {Request} from "../../../utils/request";
 import {endpointGetUserInfo} from "../UserLayout/config";
 import changeBackground from "../../../utils/changeBgInMobileMenu";
 import nameInMobileMenu from "../../../utils/nameInMobileMenu";
-// import { clubNav } from "../../../pages/Club/config";
-import {clubNav} from "../../../pages/Docs/config";
+import { clubNav } from "../../../pages/Club/config";
+import {clubNav as clubNavDocs} from "../../../pages/Docs/config";
 import { kennelNav } from "../../../pages/Nursery/config";
 import "./index.scss";
+
 
 
 const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
@@ -161,6 +162,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                 </div>
                                 {location.pathname.split('/')[2] != "documents" && location.pathname.split('/')[3] != "documents" ? <>{
+                                    //location.pathname.search
                                     nameInMenu && <div className="user-nav__alias-name">
                                     {
                                         getMeLink(user_type)
@@ -205,7 +207,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                     </>
                                     :
                                     <ul className="user-nav__list">
-                                    {clubNav(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                    {clubNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                                                  key={navItem.id}>
                                             <NavLink
                                                 to={user_type === 3
