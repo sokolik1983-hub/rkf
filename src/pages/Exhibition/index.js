@@ -152,7 +152,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
                             <div className="exhibition-page__back-button_wrap">
-                                <button className="exhibition-page__back-button" onClick={() => history.goBack()}>Назад</button>
+                                <Link className="exhibition-page__back-button" onClick={() => history.goBack()}>Назад</Link>
                             </div>
                             <aside className="exhibition-page__left">
                                 <StickyBox offsetTop={60}>
