@@ -6,27 +6,33 @@ import { ActiveUserMark, FederationChoiceMark } from "../Marks";
 import LightTooltip from "components/LightTooltip";
 import { DEFAULT_IMG } from "../../appConfig";
 import { formatText } from "../../utils";
+
 import "./index.scss";
 
 
-const CardExhibition = ({ id, title,
-    city,
-    city_id,
-    club_name,
-    club_alias,
-    club_logo,
-    date,
-    photo,
-    url,
-    ranks,
-    federation_name,
-    federation_link,
-    user,
-    active_rkf_user,
-    active_member,
-    setFilters,
-    searchTypeId,
-    reports }) => (
+const CardExhibition = ({
+                            id,
+                            title,
+                            city,
+                            city_id,
+                            club_name,
+                            club_alias,
+                            club_logo,
+                            date,
+                            photo,
+                            url,
+                            ranks,
+                            federation_name,
+                            federation_link,
+                            user,
+                            active_rkf_user,
+                            active_member,
+                            setFilters,
+                            searchTypeId,
+                            reports,
+                            is_liked,
+                            like_count,
+                        }) => (
         <Card className="card-exhibition">
             <div className="card-exhibition__wrap">
                 <Link className="card-exhibition__photo" to={url} style={{ backgroundImage: `url(${photo || DEFAULT_IMG.exhibitionPicture})` }} />
@@ -77,18 +83,7 @@ const CardExhibition = ({ id, title,
                             <p className="card-exhibition__federation">Федерация не указана</p>
                         }
                     </div>
-                    {reports && reports.length > 0 &&
-                        <div className="card-exhibition__reports">
-                            <span>Отчет</span>
-                            <div className="card-exhibition__reports_block">
-                                {reports.map((rep, index) =>
-                                    <div className="card-exhibition__reports_link" key={index}>
-                                        <a target="_blank" rel="noopener noreferrer" href={rep.link} title={rep.report_type_name} />
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    }
+
                     <div className="card-exhibition__info">
                         <div>
                             <span className="card-exhibition__subtitle">Дата проведения</span>
@@ -118,10 +113,31 @@ const CardExhibition = ({ id, title,
                 </div>
             </div>
 
+            <div className="card-exhibition__footer-links">
+                <div className="card-exhibition__open-exhibition">
+                    <Link to={url}>Подробнее...</Link>
+                </div>
+                {reports && reports.length > 0 &&
+                <div className="card-exhibition__reports">
+                    <span>Отчет</span>
+                    <div className="card-exhibition__reports_block">
+                        {reports.map((rep, index) =>
+                            <div className="card-exhibition__reports_link" key={index}>
+                                <a target="_blank" rel="noopener noreferrer" href={rep.link} title={rep.report_type_name} />
+                            </div>
+                        )}
+                    </div>
+                </div>
+                }
+            </div>
             <div className={`card-exhibition__controls`}>
                 <CardFooter
                     id={id}
                     share_link={`https://rkf.online${url}`}
+                    is_liked={is_liked}
+                    like_count={like_count}
+                    likesOn={true}
+                    type="exhibitions"
                 />
             </div>
         </Card>

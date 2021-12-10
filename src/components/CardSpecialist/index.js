@@ -25,7 +25,9 @@ const CardSpecialist = ({
                             email,
                             searchTypeId,
                             opened_group_and_breed,
-                            ranks
+                            ranks,
+                            is_liked,
+                            like_count,
                         }) => {
     const [additionalDisciplines, setAdditionalDisciplines] = useState(null);
     const [additionalGroups, setAdditionalGroups] = useState(null);
@@ -338,6 +340,11 @@ const CardSpecialist = ({
                 <CardFooter
                     id={id}
                     share_link={`https://rkf.online/specialists?&SearchTypeId=${searchTypeId}#${id}`}
+                    is_liked={is_liked}
+                    like_count={like_count}
+                    likesOn={true}
+                    type="judges"
+                    userType={searchTypeId}
                 />
             </div>
         </Card>

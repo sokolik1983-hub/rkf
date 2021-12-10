@@ -10,25 +10,27 @@ import "./index.scss";
 
 
 const CardOrganization = ({
-                              id,
-                              alias,
-                              logo,
-                              name,
-                              user_type,
-                              active_member,
-                              active_rkf_user,
-                              city_name,
-                              city_id,
-                              owner_name,
-                              owner_position,
-                              federation_name,
-                              federation_alias,
-                              content,
-                              phones,
-                              mails,
-                              breeds,
-                              site,
-                              setFilters
+                            id,
+                            alias,
+                            logo,
+                            name,
+                            user_type,
+                            active_member,
+                            active_rkf_user,
+                            city_name,
+                            city_id,
+                            owner_name,
+                            owner_position,
+                            federation_name,
+                            federation_alias,
+                            content,
+                            phones,
+                            mails,
+                            breeds,
+                            site,
+                            setFilters,
+                            is_liked,
+                            like_count,
                           }) => {
     const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
         (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
@@ -97,7 +99,7 @@ const CardOrganization = ({
                                     }
                                 </div>
 
-                                <div className="card-organization__special-position_left">
+                                <div className={ `card-organization__special-position_left${ user_type === 0 || user_type === 5 || user_type === 7 ? "__fed" : "" }` }>
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
@@ -190,7 +192,7 @@ const CardOrganization = ({
                                     </div>
                                 </div>
 
-                                <div className="card-organization__special-position_left">
+                                <div className={ `card-organization__special-position_left${ user_type === 0 || user_type === 5 || user_type === 7 ? `__fed` : `` }` }>
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
@@ -253,6 +255,11 @@ const CardOrganization = ({
                 <CardFooter
                     id={ id }
                     share_link={ `https://rkf.online${ url }` }
+                    is_liked={is_liked}
+                    like_count={like_count}
+                    likesOn={true}
+                    type="organizations"
+                    userType={user_type}
                 />
             </div>
         </Card>

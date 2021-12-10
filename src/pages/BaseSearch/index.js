@@ -16,7 +16,7 @@ import CopyrightInfo from "../../components/CopyrightInfo";
 import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
-import RefereeSearch from "./components/RefereeSearch";
+// import RefereeSearch from "./components/RefereeSearch";
 import TopComponent from "../../components/TopComponent";
 import UserMenu from "../../components/Layouts/UserMenu";
 import Banner from "../../components/Banner";
@@ -90,34 +90,35 @@ const BaseSearch = ({isAuthenticated}) => {
                             {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
                                 <CheckLitterStatus cardClicked={cardClicked} />
                             }
-                            <RefereeSearch cardClicked={cardClicked} />
+                            {/*<RefereeSearch cardClicked={cardClicked} />*/}
                             <PublicationSearch cardClicked={cardClicked} />
                             <div className="base-search__list-content">
                                 <img src="/static/images/news/no-news-small.png" alt="Организаций больше нет" />
                             </div>
                         </div>
-                        <Aside className="base-search__info">
+                        {!isMobile && <Aside className="base-search__info">
                             <StickyBox offsetTop={60}>
                                 <div className="base-search__info-inner">
                                     {!isMobile && clubData ?
-                                        <UserMenu userNav={clubNav(clubData.club_alias)} /> :
+                                        <UserMenu userNav={clubNav(clubData.club_alias)}/> :
                                         nurseryData ?
-                                            <UserMenu userNav={kennelNav(nurseryData.alias)} /> :
+                                            <UserMenu userNav={kennelNav(nurseryData.alias)}/> :
                                             <>
-                                                <Statistics />
+                                                <Statistics/>
                                                 <Banner type={11}/>
                                                 <Card className="base-search__map-wrap">
-                                                    <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
+                                                    <h3><Link className="base-search__map-title" to="/clubs-map">Карта
+                                                        авторизованных клубов</Link></h3>
                                                     <div className="base-search__map">
-                                                        <ClubsMap />
+                                                        <ClubsMap/>
                                                     </div>
                                                 </Card>
                                             </>
                                     }
-                                    <CopyrightInfo withSocials={true} />
+                                    <CopyrightInfo withSocials={true}/>
                                 </div>
                             </StickyBox>
-                        </Aside>
+                        </Aside>}
                     </div>
                 </Container>
             </div>

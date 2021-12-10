@@ -40,6 +40,10 @@
         &.global-search {
             background-image: url("/static/images/base_search/global-search.svg");
             background-size: 134px 121px;
+            @media (max-width: 560px) {
+                width: 95px;
+                background-size: contain;
+            }
         }
     }
     //&__default-content {

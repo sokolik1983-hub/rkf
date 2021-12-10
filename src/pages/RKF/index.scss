@@ -1,5 +1,4 @@
 .rkf-page {
-  background-color: #F5F8FF;
   @media (max-width: 990px) {
     padding-bottom: 24px;
   }
@@ -158,6 +157,9 @@
   }
   &__right {
     width: 100%;
+    @media (min-width: 990px) and (max-width: 1100px) {
+      width: 68%;
+     }
     .news-card__text img {
       display: none;
     }

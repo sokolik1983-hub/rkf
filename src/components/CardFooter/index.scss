@@ -1,10 +1,13 @@
 .CardFooter {
+    width: 100%;
+    padding-top: 6px;
+    border-top: 1px solid #e8e8e8;
+
     &__controls {
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 20px;
-        margin-bottom: 5px !important;
 
         &-left,
         &-right {
@@ -28,7 +31,8 @@
         }
 
         &-left {
-             .k-i-heart-outline {
+             .k-i-heart-outline,
+             .colored-icon {
                cursor: pointer;
              }
             .colored-icon {

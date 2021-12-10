@@ -228,10 +228,6 @@
     }
   }
 
-  &__controls {
-    margin-top: 10px;
-  }
-
   &__show-all {
     text-decoration: none;
     line-height: 1;
@@ -256,6 +252,10 @@
     &_left {
       @media (max-width: 700px) {
         margin-left: -63px;
+        &__fed {
+          margin-left: -63px;
+          margin-top: -15px;
+        }
       }
     }
   }

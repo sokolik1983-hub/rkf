@@ -10,10 +10,10 @@ import {ActiveUserMark, FederationChoiceMark} from '../../../../components/Marks
 import EditForm from './EditForm';
 import {formatText} from '../../../../utils';
 import {formatDateTime} from '../../../../utils/datetime';
-import {Request} from '../../../../utils/request';
 import {DEFAULT_IMG} from '../../../../appConfig';
 import CardFooter from '../../../../components/CardFooter';
 import DocumentLink from '../DocumentLink';
+import { Request } from "utils/request";
 
 import './index.scss';
 
@@ -76,22 +76,19 @@ const NewsFeedItem = forwardRef(({
         if ((ref.current && ref.current.clientHeight > 100) || videoLink) setCanCollapse(true);
     }, []);
 
+    const handleItemClick = async () => {
+        await Request({
+            url: ` /api/article/mark_articles_read?articleIds=${id}`,
+            method: 'POST'
+        }, error => {
+            console.log(error);
+        });
+    }
+
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
-        const [isLiked, setIsLiked] = useState(is_liked);
-        const [likesCount, setLikesCount] = useState(like_count);
 
-        const handleLikeClick = async () => {
-            await Request({
-                url: isLiked ? '/api/article/remove_like_from_article/' : '/api/article/add_like_to_article/',
-                method: isLiked ? 'PUT' : 'POST',
-                data: JSON.stringify({article_id: id})
-            }, () => {
-                setIsLiked(!isLiked);
-                setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
-            }, e => console.log(e.response));
-        };
         return (
             <>
                 <div className="NewsFeedItem__content">
@@ -126,9 +123,8 @@ const NewsFeedItem = forwardRef(({
                                                     : `/${alias}`}>
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
                                         </Link>
-                                        &nbsp;
                                         <span>{formatDateTime(create_date)}</span>
-                                        <p>{formatText(content)}</p>
+                                        <p className={`NewsFeedItem__left-name_text${!is_read && " --bold" }`}>{formatText(content)}</p>
                                     </div> :
                                     <>
                                         <span>
@@ -260,7 +256,7 @@ const NewsFeedItem = forwardRef(({
                     </div>
                     <div className="NewsFeedItem__show-all-wrap">
                         {is_request_article ?
-                            <div className="NewsFeedItem__show-all">
+                            <div className="NewsFeedItem__show-all" onClick={handleItemClick}>
                                 <Link to={redirect_link} target="_blank">Подробнее...</Link>
                             </div> :
                             <div
@@ -315,6 +311,10 @@ const NewsFeedItem = forwardRef(({
                     <CardFooter
                         id={ id }
                         share_link={ `https://rkf.online/news/${id}` }
+                        is_liked={is_liked}
+                        like_count={like_count}
+                        likesOn={true}
+                        type="news"
                     />
                 </div>
             </>
@@ -402,7 +402,7 @@ const NewsFeedItem = forwardRef(({
 
     return (
         <Card className={`NewsFeedItem${is_request_article ? ' is-request-article' : ''}`}>
-            <div className={`NewsFeedItem__wrap${is_closed_advert ? ' is_closed' : ''}`}>
+            <div className={`NewsFeedItem__wrap${is_closed_advert ? ' is_closed' : is_read  ? ' is_read' : '' }`}>
                 {isEditing ? <EditItem /> : <ViewItem />}
                 {showPhoto &&
                     <Lightbox

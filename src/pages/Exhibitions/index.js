@@ -79,7 +79,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                         const endDate = exhibition.dates[exhibition.dates.length - 1];
                         exhibition.date = exhibition.dates.length === 1
                             ? formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`))
-                            : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) +
+                            :  (isMobile ? ((startDate.day <= 9) ? '0' + startDate.day : startDate.day) : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`))) +
                             ' - ' + formatDateCommon(new Date(`${endDate.year}/${endDate.month}/${endDate.day}`));
                     }
                     exhibition.club_string = `Клуб ${exhibition.club_name}, ${exhibition.federation_name ? 'Федерация ' + exhibition.federation_name + ', ' : ''}${exhibition.city}`;
