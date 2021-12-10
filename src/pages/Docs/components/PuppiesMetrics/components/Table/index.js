@@ -67,26 +67,26 @@ const Table = ({ documents, height,  fullScreen }) => {
                                     onDataStateChange={handleGridDataChange}
                                     style={{ height: height ? height : "700px", width: "auto", margin: "0 auto" }}>
 
-                                    <GridColumn field="date_create" title="Создана" width={fullScreen ? '99px' : '80px'}
+                                    <GridColumn field="date_create" title="Создана" width={fullScreen ? '90px' : '80px'}
                                                 columnMenu={ColumnMenu} />
 
 
-                                    <GridColumn field="barcode" title="Трек-номер заявки на регистрацию помета"
-                                                width={fullScreen ? '160px' : '120px'} columnMenu={ColumnMenu}
+                                    <GridColumn field="barcode" title="Метрики щенка"
+                                                width={fullScreen ? '140px' : '120px'} columnMenu={ColumnMenu}
                                                  />
 
-                                    <GridColumn field="request_barcode" title="Трек-номерк щенячьей карты"
-                                                width={fullScreen ? '150px' : '120px'} columnMenu={ColumnMenu}
+                                    <GridColumn field="request_barcode" title="Трек-номер заявки на регистрацию помета"
+                                                width={fullScreen ? '190px' : '120px'} columnMenu={ColumnMenu}
                                                 cell={(props) =>  CopyCell(props, handleSuccess)} />
 
                                     <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '112px'}
                                                 columnMenu={ColumnMenu} />
 
                                     <GridColumn field="stamp" title="Клеймо"
-                                                width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
+                                                width={fullScreen ? '90px' : '120px'} columnMenu={ColumnMenu} />
 
                                     <GridColumn field="pedigree_link" title="Скачать"
-                                                width={fullScreen ? '120px' : '110px'} columnMenu={ColumnMenu}
+                                                width={fullScreen ? '90px' : '110px'} columnMenu={ColumnMenu}
                                      />
                                 </Grid>
 

@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import Loading from "../../../../components/Loading";
 import Card from "../../../../components/Card";
-import PuppiesTable from "./components/Table";
 import {Request} from "../../../../utils/request";
-import "./index.scss";
-import Table from "./components/Table";
+import PuppiesTable from "./components/Table";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
 import {Link} from "react-router-dom";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import moment from "moment";
+
+import "./index.scss";
 
 
 const PuppiesMetrics = ({history, clubAlias, distinction}) => {
@@ -42,7 +42,7 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
     return loading ?
         <Loading /> :
             <Card className="club-documents-status">
-                <div className="club-documents-status__head" style={{marginBottomm: "20px"}}>
+                <div className="club-documents-status__head --puppies">
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
                      Метрики щенка
@@ -66,7 +66,7 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
                             {/*    Увеличить таблицу*/}
                             {/*</button>*/}
                         </div>
-                        <Table
+                        <PuppiesTable
                             documents={puppies}
                             distinction={distinction}
                             exporting={exporting}
