@@ -56,7 +56,7 @@ const ControlMenu = ({
                     <span className="control-menu__item-icon control-menu__item-icon_select-all-reed"> </span>
                     <span className="control-menu__item-text">
                         <span>
-                            Отметить все
+                            Отметить
                         </span>
                         <span>
                             прочитанным
