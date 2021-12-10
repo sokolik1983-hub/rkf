@@ -193,6 +193,9 @@
       &_text {
         position: relative;
         left: -70px;
+        &.--bold {
+          font-weight: 600;
+        }
       }
       a {
         font-weight: normal;

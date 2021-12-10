@@ -19,7 +19,7 @@ const ListFilter = ({cardClicked, setCardClicked, isAuth}) => {
 
         items = [
             ...items,
-            {title: 'Поиск судьи', card_number: 6, to: 'referee-search-anchor', offset: -190},
+            // {title: 'Поиск судьи', card_number: 6, to: 'referee-search-anchor', offset: -190},
             {title: 'Поиск по объявлениям', card_number: 7, to: 'publication-search-anchor', offset: -190}
         ];
 
