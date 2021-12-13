@@ -19,6 +19,8 @@ const UserDocuments = ({history, match, is_active_profile, isAuthenticated}) => 
 
     return (
         <Layout className="user-documents">
+            <div className="container user-documents__horizontal-menu">
+        </div>
             <Switch>
 
                 {/*Здесь страницы без меню*/}
