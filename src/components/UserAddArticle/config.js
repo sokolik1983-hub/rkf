@@ -34,7 +34,7 @@ export const newsArticleFormConfig = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: true,
-            optionsEndpoint: '/api/city/0'
+            optionsEndpoint: '/api/city/0',
         },
         dog_sex_type_id: {
             name: 'dog_sex_type_id',

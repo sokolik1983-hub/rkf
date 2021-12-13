@@ -76,6 +76,7 @@ const CardNewsNew = forwardRef(({
         if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);
 
+    console.log('1111111111111',dog_city)
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -214,7 +215,7 @@ const CardNewsNew = forwardRef(({
                             dog_name && <div>Кличка собаки: {dog_name}</div>
                         }
                         {
-                            dog_city.name && <div>Место потери: {dog_city.name}</div>
+                            dog_city[0] && <div>Место потери: {dog_city[0].name}</div>
                         }
                         {
                             dog_age && <div>Возраст: {dog_age}</div>

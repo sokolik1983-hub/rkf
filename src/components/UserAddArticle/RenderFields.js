@@ -23,7 +23,7 @@ import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile, isFederation, isMust, setIsMust, setIsCheckedAddTypes, isCheckedAddTypes }) => {
+const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile, isFederation, isMust, setIsMust, setIsCheckedAddTypes, isCheckedAddTypes}) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -263,14 +263,33 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                         <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value > 3 )} setIsMating={setIsMating} />
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
-                        <FormField {...fields.advert_breed_id} />
+                        <div className="ArticleCreateForm__inputs-wrap">
+                            <FormField className="ArticleCreateForm__input-breedId" {...fields.advert_breed_id} />
+                            <FormField className="ArticleCreateForm__input-city" {...fields.dog_city} />
+                            <CustomCheckbox
+                                label="Метис"
+                                className="ArticleCreateForm__ad"
+                                checked={isCheckedAddTypes}
+                                onChange={() => {
+                                    if (isCheckedAddTypes) {
+                                        setIsCheckedAddTypes(false);
+                                        setIsMust(false);
+                                    } else if (!isCheckedAddTypes) {
+                                        setIsCheckedAddTypes(true);
+                                        setIsMust(false);
+                                        setIsAd(false);
+                                    }
+                                }}
+                            />
+                        </div>
+
+
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
                         <FormField {...fields.dog_color} />
                         <FormField {...fields.dog_name} />
                         <FormField {...fields.dog_age} />
-                        <FormField {...fields.dog_city} />
-                        <CustomNumber {...fields.advert_cost} maxLength={10} />
-                        {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
+                        {/*<CustomNumber {...fields.advert_cost} maxLength={10} />*/}
+                        {/*{!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}*/}
                     </FormGroup>
                 </div>
             }

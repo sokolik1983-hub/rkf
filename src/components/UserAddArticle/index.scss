@@ -464,6 +464,14 @@
       }
     }
   }
+  &__inputs-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__input-city, &__input-breedId {
+    width: 40%;
+  }
 }
 
 #advert_breed_id {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { number, object, string } from "yup";
 import Card from "../Card";
 import Alert from "../Alert";
@@ -22,14 +22,32 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
-    
+
+
     const transformValues = values => {
+        const newArr = [];
+        values.dog_city && values.dog_city.forEach((item, i) => {
+            let obj = {
+                id: item,
+                name: `example-${i}`
+            }
+            newArr.push(obj);
+        });
+
+        values.dog_city = newArr;
+
+        console.log('newArr', newArr);
+        console.log('values.dog_city', values.dog_city);
+        console.log('documents', documents);
+
+
         if (isAd || isCheckedAddTypes) {
             return {
                 ...values,
                 advert_number_of_puppies: isMating ? `` : +values.advert_number_of_puppies,
                 is_advert: true,
-                documents
+                documents,
+                newArr
             }
         } else {
             return {
@@ -38,6 +56,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 video_link: values.video_link || '',
                 documents,
                 is_must_read: isMust,
+                newArr
             }
         }
     };
