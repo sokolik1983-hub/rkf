@@ -20,12 +20,14 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const [checkedItemsIds, setCheckedItemsIds] = useState([]);
     const [checkedAll, setCheckedAll] = useState(false)
     const [isControlCheckedAll, setIsControlCheckedAll] = useState(false);
+    const [clearChecks, setClearChecks] = useState(false);
 
     const allItemsIds = [];
     news.map(n => allItemsIds.push(n.id));
 
     useEffect(() => {
         setLoading(true);
+        setCheckedItemsIds([]);
         (() => getNews(1, true))();
     }, [activeCategoryId]);
 
@@ -33,7 +35,6 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         await Request({
             url: `/api/article/articles_feed?profile_id=${profileId}&start_element=${startElement}&size=10&filter_type=${activeCategoryId}`
         }, data => {
-            console.log('data', data)
             setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
 
             if (!data || data.articles?.length < 10) {
@@ -43,6 +44,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             }
 
             setLoading(false);
+            setClearChecks(false);
         }, error => {
             console.log(error.response);
             setLoading(false);
@@ -151,6 +153,11 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         setIsControlCheckedAll(false);
     }
 
+    const unsetAllChecks = () => {
+        setClearChecks(true);
+        setCheckedItemsIds([]);
+    }
+
     return loading
 
         ? <Loading centered={false} />
@@ -163,6 +170,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                     selectedItemsIds={checkedItemsIds}
                     categoryId={activeCategoryId}
                     updateNews={getNews}
+                    unsetAllChecks={unsetAllChecks}
                 />
 
                 <InfiniteScroll
@@ -194,6 +202,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                                 checkedAll={checkedAll}
                                 unsetCheckedAll={unsetCheckedAll}
                                 isControlCheckedAll={isControlCheckedAll}
+                                clearChecks={clearChecks}
                             />
                         )}
                     </div>

@@ -9,22 +9,22 @@ const ControlMenu = ({
                         selectedItemsIds,
                         categoryId,
                         updateNews,
+                        unsetAllChecks,
                      }) => {
-
-    // console.log(selectedItemsIds.map((id, i) => `${i !== 0 && '&'}articleIds=${id}`).join(''))
-    // console.log(selectedItemsIds.map((id, i) => `articleIds=${id}&`).join(''))
 
     const moveNotifications = async (method) => {
         console.log('////      ', `/api/article/${method}?${selectedItemsIds.map(id => `articleIds=${id}&`).join('')}`)
 
         await Request({
-            url: `/api/article/${method}?${selectedItemsIds.map(id => `articleIds=${id}&`).join('')}`,
+            url: `/api/article/${method}?${selectedItemsIds.map(id => `articleIds=${id}`).join('')}`,
             method: 'POST',
         }, data => {
             console.log('data', data)
 
             console.log('success')
             updateNews(1, true);
+            // handleCheckAll();
+            unsetAllChecks();
 
             // setLoading(false);
         }, error => {

@@ -70,6 +70,7 @@ const NewsFeedItem = forwardRef(({
     handleCheckedItemsIds,
     unsetCheckedAll,
     isControlCheckedAll,
+    clearChecks,
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -86,8 +87,8 @@ const NewsFeedItem = forwardRef(({
         checkedAll && isControlCheckedAll && setIsChecked(true);
         isControlCheckedAll && setIsChecked(true);
         !isControlCheckedAll && !checkedAll && setIsChecked(false);
-
-        }, [checkedAll, isControlCheckedAll]);
+        clearChecks && setIsChecked(false);
+    }, [checkedAll, isControlCheckedAll, clearChecks]);
 
     const handleCheck = () => {
         if (!isChecked) {
