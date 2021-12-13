@@ -144,6 +144,8 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
         formik.setFieldValue('is_halfbreed', isHalfBreed);
     }, [isHalfBreed]);
 
+
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
@@ -285,8 +287,8 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <div className="ArticleCreateForm__inputs-wrap">
-                            <FormField className="ArticleCreateForm__input-breedId" {...fields.advert_breed_id} />
-                            <FormField className={`ArticleCreateForm__input-city ${isHalfBreed && 'disabled'}`} {...fields.dog_city} />
+                            <FormField className={`ArticleCreateForm__input-city`} {...fields.dog_city} />
+                            <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                             <CustomCheckbox
                                 id="isHalfBreed_checkbox"
                                 label="Метис"

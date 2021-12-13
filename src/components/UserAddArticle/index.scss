@@ -473,7 +473,7 @@
   &__input-city, &__input-breedId {
     width: 40%;
   }
-  &__input-city.disabled {
+  &__input-breedId.disabled {
     opacity: .5;
     cursor: not-allowed;
     pointer-events: none;

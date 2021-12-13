@@ -37,6 +37,7 @@ const CardNewsNew = forwardRef(({
     advert_cost,
     advert_number_of_puppies,
     advert_type_name,
+    advert_type_id,
     is_closed_advert,
     history,
     first_name,
@@ -72,8 +73,6 @@ const CardNewsNew = forwardRef(({
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
-
-    console.log('is_advert', is_advert);
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
@@ -221,9 +220,9 @@ const CardNewsNew = forwardRef(({
                         {
                             dog_name && <div>Кличка собаки: {dog_name}</div>
                         }
-                        {/*{*/}
-                        {/*    dog_city && <div>Место потери: {dog_city}</div>*/}
-                        {/*}*/}
+                        {
+                            dog_city[0] && <div>Место потери: {dog_city[0].name}</div>
+                        }
 
                         {
                             dog_age && <div>Возраст: {dog_age}</div>
@@ -233,8 +232,13 @@ const CardNewsNew = forwardRef(({
                         }
                         <div className="CardNewsNew__ad-price">
                             <div>
-                                <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'}</span>
-                                <span>Кол-во щенков: {advert_number_of_puppies}</span>
+                                {
+                                    (advert_type_id < 4) &&
+                                    <div>
+                                        <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'} </span>
+                                        <span>Кол-во щенков: {advert_number_of_puppies} </span>
+                                    </div>
+                                }
                                 {advert_type_name && <span>Категория: {advert_type_name}</span>}
                             </div>
                             {is_closed_advert && <div className="CardNewsNew__ad-inactive" >Объявление не активно</div>}
