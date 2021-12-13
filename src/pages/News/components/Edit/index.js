@@ -7,7 +7,7 @@ import { Request } from "../../../../utils/request";
 import "./index.scss";
 
 
-const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies, dogColor, dogAge, dogSex, advertTypeId, advertCategoryId }) => {
+const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies, dogColor, dogAge, dogSex, advertTypeId, advertCategoryId, isHalfBreed}) => {
     const [breeds, setBreeds] = useState([]);
     const [sex, setSex] = useState([]);
     const [docs, setDocs] = useState(documents || []);
@@ -48,7 +48,8 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             dog_color,
             dog_age,
             dog_sex_type_id,
-            file
+            file,
+            is_halfbreed
         } = values;
 
         const documents = docs.map(item => {
@@ -65,6 +66,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             advert_breed_id: is_advert ? advert_breed_id : '',
             advert_category_id: is_advert ? advert_category_id : '',
             dog_sex_type_id: is_advert  ? dog_sex_type_id : '',
+            is_halfbreed: is_advert  ? is_halfbreed : '',
             dog_color: dog_color ? dog_color : '',
             dog_age: dog_age ? dog_age : '',
             advert_cost: is_advert ? advert_cost : '',
@@ -115,6 +117,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     dog_sex_type_id: dogSex,
                     advert_type_id: advertTypeId,
                     advert_category_id: advertCategoryId,
+                    is_halfBreed: isHalfBreed,
                 }}
                 {...formConfig}
             >
@@ -136,6 +139,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     dogSex={dogSex}
                     advertTypeId={advertTypeId}
                     advertCategoryId={advertCategoryId}
+                    isHalfBreed={isHalfBreed}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

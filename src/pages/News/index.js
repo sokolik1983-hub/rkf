@@ -87,6 +87,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                 <Edit id={news.id}
                                     advertTypeId={news.advert_type_id}
                                     advertCategoryId={news.advert_category_id}
+                                      isHalfBreed={news.is_halfbreed}
                                     text={news.content}
                                     img={news.picture_link || ''}
                                     videoLink={news.video_link || ''}

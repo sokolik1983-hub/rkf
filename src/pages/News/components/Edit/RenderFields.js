@@ -17,6 +17,7 @@ import { blockContent } from '../../../../utils/blockContent';
 import OutsideClickHandler from "react-outside-click-handler";
 import { useFocus } from '../../../../shared/hooks';
 import CustomSelect from "react-select";
+import CustomCheckbox from "../../../../components/Form/CustomCheckbox";
 
 
 const RenderFields = ({ fields,
@@ -36,7 +37,8 @@ const RenderFields = ({ fields,
                           setIsImageDelete,
                           dogSex,
                           advertTypeId,
-                          advertCategoryId }) => {
+                          advertCategoryId,
+                          isHalfBreed}) => {
     const [src, setSrc] = useState(imgSrc);
     const [sexId, setSex] = useState(imgSrc);
     const [sexIdNumber, setSexIdNumber] = useState(dogSex)
@@ -44,6 +46,8 @@ const RenderFields = ({ fields,
     const [advertTypes, setAdvertTypes] = useState([]);
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [isHalfBreedEdit, setIsHalfBreedEdit] = useState(isHalfBreed);
+
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id } = formik.values;
     const isMobile = useIsMobile();
@@ -158,6 +162,19 @@ const RenderFields = ({ fields,
         formik.setFieldValue('dog_sex_type_id', sexIdNumber);
     }, [sexIdNumber]);
 
+    const handleChangeHalfBreed = () => {
+        if (isHalfBreedEdit) {
+            setIsHalfBreedEdit(false);
+        } else if (!isHalfBreedEdit) {
+            setIsHalfBreedEdit(true);
+        }
+    };
+
+    useEffect(() => {
+        formik.setFieldValue('is_halfbreed', isHalfBreedEdit);
+        isHalfBreedEdit && formik.setFieldValue('advert_breed_id', '');
+    }, [isHalfBreedEdit]);
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className="article-edit__text">
@@ -249,7 +266,6 @@ const RenderFields = ({ fields,
                                 <FormGroup inline className="article-edit__ad">
                                     <FormField {...fields.advert_breed_id} options={breeds} />
                                     <FormField {...fields.advert_cost} />
-
                                     {!isMating && <FormField {...fields.advert_number_of_puppies} />}
                                 </FormGroup>
                                 <FormGroup inline className="article-edit__ad">
@@ -263,7 +279,24 @@ const RenderFields = ({ fields,
                             </div>
                             :
                             <div>
-                                22222222222222222222222222222222222222222
+                                <FormGroup inline className="article-edit__ad">
+                                     <CustomCheckbox
+                                         id="isHalfBreed_checkbox"
+                                         label="Метис"
+                                         className="ArticleCreateForm__ad"
+                                         checked={isHalfBreedEdit}
+                                         onChange={handleChangeHalfBreed}
+                                     />
+                                    <FormField className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'}`} {...fields.advert_breed_id} options={breeds} />
+                                </FormGroup>
+                                <FormGroup inline className="article-edit__ad">
+                                    <FormField {...fields.dog_color} />
+                                    <FormField {...fields.dog_age} />
+                                    <div className="article-edit__custom-select">
+                                        <label htmlFor="dog_sex_type_id">Пол</label>
+                                        <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
+                                    </div>
+                                </FormGroup>
                             </div>
                     }
                     <FormGroup inline className="article-edit__ad">

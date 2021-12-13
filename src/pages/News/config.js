@@ -69,26 +69,26 @@ export const formConfig = {
     validationSchema: object().shape({
         content: string().required('Поле не может быть пустым'),
         is_advert: boolean(),
-        advert_breed_id: number()
-            .when(['is_advert'], {
-                is: true,
-                then: number().required('Поле не может быть пустым'),
-                otherwise: number().notRequired(),
-            }),
-        advert_number_of_puppies: number()
-            .when(['is_advert'], {
-                is: true,
-                then: number().min(1, 'Значение не может быть меньше 1')
-                    .max(99, 'Значение не может быть больше 99')
-                    .typeError('Введите число'),
-                otherwise: number().notRequired(),
-            }),
-        advert_type_id: number()
-            .when(['is_advert'], {
-                is: true,
-                then: number().nullable().required('Выберите категорию'),
-                otherwise: number().notRequired(),
-            }),
+        // advert_breed_id: number()
+        //     .when(['is_advert'], {
+        //         is: true,
+        //         then: number().required('Поле не может быть пустым'),
+        //         otherwise: number().notRequired(),
+        //     }),
+        // advert_number_of_puppies: number()
+        //     .when(['is_advert'], {
+        //         is: true,
+        //         then: number().min(1, 'Значение не может быть меньше 1')
+        //             .max(99, 'Значение не может быть больше 99')
+        //             .typeError('Введите число'),
+        //         otherwise: number().notRequired(),
+        //     }),
+        // advert_type_id: number()
+        //     .when(['is_advert'], {
+        //         is: true,
+        //         then: number().nullable().required('Выберите категорию'),
+        //         otherwise: number().notRequired(),
+        //     }),
 
     })
 };

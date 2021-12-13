@@ -1,4 +1,9 @@
 .article-edit {
+  &__input-breedId.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
   &__text {
     margin-bottom: 16px;
     .FormInput {

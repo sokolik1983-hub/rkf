@@ -141,7 +141,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
 
     useEffect(() => {
         formik.setFieldValue('is_halfbreed', isHalfBreed);
-        isHalfBreed && formik.setFieldValue('advert_breed_id', null);
+        isHalfBreed && formik.setFieldValue('advert_breed_id', '');
     }, [isHalfBreed]);
 
     useEffect(() => {
