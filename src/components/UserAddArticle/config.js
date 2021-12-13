@@ -32,7 +32,7 @@ export const newsArticleFormConfig = {
             placeholder: 'Город',
             fieldType: 'reactSelectAsync',
             type: 'select',
-            isMulti: true,
+            isMulti: false,
             closeMenuOnSelect: true,
             optionsEndpoint: '/api/city/0',
         },

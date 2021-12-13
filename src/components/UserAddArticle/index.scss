@@ -290,6 +290,7 @@
     }
     .ArticleCreateForm {
       &__input-sex {
+        min-width: 120px;
         & .FormInput__input {
           padding: 0 !important;
         }
@@ -471,6 +472,11 @@
   }
   &__input-city, &__input-breedId {
     width: 40%;
+  }
+  &__input-city.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 }
 

@@ -25,29 +25,23 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
 
 
     const transformValues = values => {
-        const newArr = [];
-        values.dog_city && values.dog_city.forEach((item, i) => {
-            let obj = {
-                id: item,
-                name: `example-${i}`
-            }
-            newArr.push(obj);
-        });
 
-        values.dog_city = newArr;
-
-        console.log('newArr', newArr);
-        console.log('values.dog_city', values.dog_city);
-        console.log('documents', documents);
-
+        // const newArr = [];
+        // values.dog_city && values.dog_city.forEach((item, i) => {
+        //     let obj = {
+        //         id: item,
+        //     }
+        //     newArr.push(obj);
+        // });
+        //
+        // values.dog_city = newArr;
 
         if (isAd || isCheckedAddTypes) {
             return {
                 ...values,
                 advert_number_of_puppies: isMating ? `` : +values.advert_number_of_puppies,
                 is_advert: true,
-                documents,
-                newArr
+                documents
             }
         } else {
             return {
@@ -55,8 +49,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 file: values.file,
                 video_link: values.video_link || '',
                 documents,
-                is_must_read: isMust,
-                newArr
+                is_must_read: isMust
             }
         }
     };
@@ -113,7 +106,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     dog_sex_type_id: '',
                     dog_age: '',
                     dog_city: '',
-                    dog_name: '',
+                    dog_name: ''
                 }}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}

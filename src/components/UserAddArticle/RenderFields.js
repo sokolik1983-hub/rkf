@@ -23,13 +23,17 @@ import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile, isFederation, isMust, setIsMust, setIsCheckedAddTypes, isCheckedAddTypes}) => {
+const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile, isFederation, isMust, setIsMust, setIsCheckedAddTypes, isCheckedAddTypes, is_halfbreed}) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
+    const [isHalfBreed, setIsHalfBreed] = useState(false);
+    const [isCategoryId, setIsCategoryId] = useState(null);
     const { focus, setFocused, setBlured } = useFocus(false);
     const isMobile = useIsMobile();
+
+    console.log('isCategoryId', isCategoryId);
 
     const { content, file } = formik.values;
 
@@ -123,6 +127,22 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
         !content && setBlured();
         setIsAd(false);
     };
+
+    const handleChangeHalfBreed = () => {
+        if (isHalfBreed) {
+            setIsHalfBreed(false);
+        } else if (!isHalfBreed) {
+            setIsHalfBreed(true);
+        }
+    };
+
+    useEffect(() => {
+        formik.setFieldValue('advert category id', isCategoryId);
+    }, [isCategoryId]);
+
+    useEffect(() => {
+        formik.setFieldValue('is_halfbreed', isHalfBreed);
+    }, [isHalfBreed]);
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -245,13 +265,14 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             {isAd && focus &&
                 <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value < 4)} setIsMating={setIsMating} />
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value < 4)} setIsMating={setIsMating} setIsCategoryId={setIsCategoryId} />
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
                         <FormField {...fields.dog_color} />
                         <FormField {...fields.dog_age} />
+                        <FormField  {...fields.dog_city} />
                         <CustomNumber {...fields.advert_cost} maxLength={10} />
                         {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
                     </FormGroup>
@@ -260,34 +281,30 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             {isCheckedAddTypes && focus &&
                 <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value > 3 )} setIsMating={setIsMating} />
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value > 3 )} setIsMating={setIsMating} setIsCategoryId={setIsCategoryId} />
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <div className="ArticleCreateForm__inputs-wrap">
                             <FormField className="ArticleCreateForm__input-breedId" {...fields.advert_breed_id} />
-                            <FormField className="ArticleCreateForm__input-city" {...fields.dog_city} />
+                            <FormField className={`ArticleCreateForm__input-city ${isHalfBreed && 'disabled'}`} {...fields.dog_city} />
                             <CustomCheckbox
+                                id="isHalfBreed_checkbox"
                                 label="Метис"
                                 className="ArticleCreateForm__ad"
-                                checked={isCheckedAddTypes}
-                                onChange={() => {
-                                    if (isCheckedAddTypes) {
-                                        setIsCheckedAddTypes(false);
-                                        setIsMust(false);
-                                    } else if (!isCheckedAddTypes) {
-                                        setIsCheckedAddTypes(true);
-                                        setIsMust(false);
-                                        setIsAd(false);
-                                    }
-                                }}
+                                checked={isHalfBreed}
+                                onChange={handleChangeHalfBreed}
                             />
                         </div>
 
-
+                    <div className="ArticleCreateForm__inputs-wrap">
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
-                        <FormField {...fields.dog_color} />
-                        <FormField {...fields.dog_name} />
                         <FormField {...fields.dog_age} />
+                        <FormField {...fields.dog_name} />
+                        <FormField {...fields.dog_color} />
+                    </div>
+
+
+
                         {/*<CustomNumber {...fields.advert_cost} maxLength={10} />*/}
                         {/*{!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}*/}
                     </FormGroup>

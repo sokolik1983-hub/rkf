@@ -64,7 +64,8 @@ const CardNewsNew = forwardRef(({
     like_count,
     user_type,
     member = false,
-    isFederation
+    isFederation,
+    is_halfbreed
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -72,11 +73,11 @@ const CardNewsNew = forwardRef(({
     const ref = useRef(null);
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
+    console.log('is_advert', is_advert);
+
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);
-
-    console.log('1111111111111',dog_city)
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -203,20 +204,27 @@ const CardNewsNew = forwardRef(({
                 </div>
                 <div className={!collapsed ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
                     {is_advert && <div className="CardNewsNew__ad">
-                        <p className="CardNewsNew__ad-breed">
-                            <span>Порода: {advert_breed_name}</span>
+                        {
+                            is_halfbreed
+                                ?
+                                <div>Метис</div>
+                                :
+                                <p className="CardNewsNew__ad-breed">
+                                    <span>Порода: {advert_breed_name}</span>
 
-                            <span>№{advert_code}</span>
-                        </p>
+                                    <span>№{advert_code}</span>
+                                </p>
+                        }
                         {
                             dog_color && <div>Окрас: {dog_color}</div>
                         }
                         {
                             dog_name && <div>Кличка собаки: {dog_name}</div>
                         }
-                        {
-                            dog_city[0] && <div>Место потери: {dog_city[0].name}</div>
-                        }
+                        {/*{*/}
+                        {/*    dog_city && <div>Место потери: {dog_city}</div>*/}
+                        {/*}*/}
+
                         {
                             dog_age && <div>Возраст: {dog_age}</div>
                         }
