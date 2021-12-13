@@ -33,9 +33,9 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         (() => getNews(1, true))();
     }, [activeCategoryId]);
 
-    const getNews = async (startElement = 1, reset = false) => {
+    const getNews = async (startElement = 1, reset = false, elementsCount = 10) => {
         await Request({
-            url: `/api/article/articles_feed?profile_id=${profileId}&start_element=${startElement}&size=10&filter_type=${activeCategoryId}`
+            url: `/api/article/articles_feed?profile_id=${profileId}&start_element=${startElement}&size=${elementsCount}&filter_type=${activeCategoryId}`
         }, data => {
             setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
 
@@ -169,6 +169,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                     categoryId={activeCategoryId}
                     updateNews={getNews}
                     unsetAllChecks={unsetAllChecks}
+                    startElement={startElement}
                 />
 
                 <InfiniteScroll
