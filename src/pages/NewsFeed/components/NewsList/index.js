@@ -28,6 +28,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     useEffect(() => {
         setLoading(true);
         setCheckedItemsIds([]);
+        setStartElement(1);
         (() => getNews(1, true))();
     }, [activeCategoryId]);
 
