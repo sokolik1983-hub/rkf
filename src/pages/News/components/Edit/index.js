@@ -7,7 +7,7 @@ import { Request } from "../../../../utils/request";
 import "./index.scss";
 
 
-const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies, dogColor, dogAge, dogSex, advertTypeId }) => {
+const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies, dogColor, dogAge, dogSex, advertTypeId, advertCategoryId }) => {
     const [breeds, setBreeds] = useState([]);
     const [sex, setSex] = useState([]);
     const [docs, setDocs] = useState(documents || []);
@@ -43,6 +43,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             advert_cost,
             advert_number_of_puppies,
             advert_type_id,
+            advert_category_id,
             video_link,
             dog_color,
             dog_age,
@@ -62,6 +63,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             id,
             is_advert,
             advert_breed_id: is_advert ? advert_breed_id : '',
+            advert_category_id: is_advert ? advert_category_id : '',
             dog_sex_type_id: is_advert  ? dog_sex_type_id : '',
             dog_color: dog_color ? dog_color : '',
             dog_age: dog_age ? dog_age : '',
@@ -112,6 +114,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     dog_age: dogAge,
                     dog_sex_type_id: dogSex,
                     advert_type_id: advertTypeId,
+                    advert_category_id: advertCategoryId,
                 }}
                 {...formConfig}
             >
@@ -132,6 +135,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     setIsImageDelete={setIsImageDelete}
                     dogSex={dogSex}
                     advertTypeId={advertTypeId}
+                    advertCategoryId={advertCategoryId}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

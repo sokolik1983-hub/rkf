@@ -19,7 +19,24 @@ import { useFocus } from '../../../../shared/hooks';
 import CustomSelect from "react-select";
 
 
-const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete, dogSex, advertTypeId }) => {
+const RenderFields = ({ fields,
+                          breeds,
+                          sex,
+                          formik,
+                          text,
+                          imgSrc,
+                          videoLink,
+                          docs,
+                          setDocs,
+                          categories,
+                          setCategories,
+                          onCancel,
+                          isMating,
+                          setIsMating,
+                          setIsImageDelete,
+                          dogSex,
+                          advertTypeId,
+                          advertCategoryId }) => {
     const [src, setSrc] = useState(imgSrc);
     const [sexId, setSex] = useState(imgSrc);
     const [sexIdNumber, setSexIdNumber] = useState(dogSex)
@@ -30,6 +47,8 @@ const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, do
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id } = formik.values;
     const isMobile = useIsMobile();
+
+    console.log('22222222advertCategoryId', advertCategoryId)
 
     useEffect(() => {
         setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель' : 'Сука'}`});
@@ -224,21 +243,29 @@ const RenderFields = ({ fields, breeds, sex, formik, text, imgSrc, videoLink, do
             }
             {is_advert &&
                 <div className="article-edit__advert">
-                    <FormGroup inline className="article-edit__ad">
-                        <FormField {...fields.advert_breed_id} options={breeds} />
-                        <FormField {...fields.advert_cost} />
+                    {
+                        (advertCategoryId === 1) ?
+                            <div className="article-edit__wrap">
+                                <FormGroup inline className="article-edit__ad">
+                                    <FormField {...fields.advert_breed_id} options={breeds} />
+                                    <FormField {...fields.advert_cost} />
 
-                        {!isMating && <FormField {...fields.advert_number_of_puppies} />}
-                    </FormGroup>
-                    <FormGroup inline className="article-edit__ad">
-                        <FormField {...fields.dog_color} />
-                        <FormField {...fields.dog_age} />
-                        <div className="article-edit__custom-select">
-                            <label htmlFor="dog_sex_type_id">Пол</label>
-                            <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
-                        </div>
-
-                    </FormGroup>
+                                    {!isMating && <FormField {...fields.advert_number_of_puppies} />}
+                                </FormGroup>
+                                <FormGroup inline className="article-edit__ad">
+                                    <FormField {...fields.dog_color} />
+                                    <FormField {...fields.dog_age} />
+                                    <div className="article-edit__custom-select">
+                                        <label htmlFor="dog_sex_type_id">Пол</label>
+                                        <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
+                                    </div>
+                                </FormGroup>
+                            </div>
+                            :
+                            <div>
+                                22222222222222222222222222222222222222222
+                            </div>
+                    }
                     <FormGroup inline className="article-edit__ad">
                         <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} advertTypeId={advertTypeId}/>
                     </FormGroup>

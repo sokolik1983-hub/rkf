@@ -23,6 +23,8 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
     const id = match.params.id;
     const canEdit = isAuthenticated && news && profile_id === news.profile_id;
 
+    console.log('news', news);
+
     useEffect(() => {
         const isEditUrl = match.url.split('/')[3] === 'edit';
 
@@ -84,6 +86,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                             {isEdit && canEdit ?
                                 <Edit id={news.id}
                                     advertTypeId={news.advert_type_id}
+                                    advertCategoryId={news.advert_category_id}
                                     text={news.content}
                                     img={news.picture_link || ''}
                                     videoLink={news.video_link || ''}

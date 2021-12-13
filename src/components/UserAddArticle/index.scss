@@ -406,7 +406,6 @@
       border-radius: 6px;
     }
   }
-
   &__modal {
     &>div {
       max-width: 600px;
@@ -435,7 +434,6 @@
       right: 15px;
     }
   }
-
   &__documents {
     margin: 16px 0 12px;
 
@@ -485,6 +483,9 @@
       @media (max-width: 600px) {
         width: 245px;
         max-width: 245px;
+        label {
+          text-align: center;
+        }
       }
     }
   }
@@ -542,8 +543,9 @@
     }
   }
 }
-
-
 .css-1ox0dji-singleValue {
   color: #72839C !important;
+}
+#dog_city .css-kj6f9i-menu {
+  z-index: 2;
 }
