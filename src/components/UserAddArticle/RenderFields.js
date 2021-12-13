@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import getYouTubeID from "get-youtube-id";
 import { connect } from "formik";
 
@@ -29,11 +29,10 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
     const [isHalfBreed, setIsHalfBreed] = useState(false);
+    const [isTypeId, setIsTypeId] = useState(null);
     const [isCategoryId, setIsCategoryId] = useState(null);
     const { focus, setFocused, setBlured } = useFocus(false);
     const isMobile = useIsMobile();
-
-    console.log('isCategoryId', isCategoryId);
 
     const { content, file } = formik.values;
 
@@ -137,14 +136,17 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     };
 
     useEffect(() => {
-        formik.setFieldValue('advert category id', isCategoryId);
-    }, [isCategoryId]);
+        formik.setFieldValue('advert_type_id', isTypeId);
+    }, [isTypeId]);
 
     useEffect(() => {
         formik.setFieldValue('is_halfbreed', isHalfBreed);
+        isHalfBreed && formik.setFieldValue('advert_breed_id', null);
     }, [isHalfBreed]);
 
-
+    useEffect(() => {
+        formik.setFieldValue('advert_category_id', isCategoryId);
+    }, [isCategoryId]);
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -208,10 +210,12 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                                     if (isAd) {
                                         setIsAd(false);
                                         setIsMust(false);
+                                        setIsCategoryId(null);
                                     } else if (!isAd) {
                                         setIsAd(true);
                                         setIsMust(false);
                                         setIsCheckedAddTypes(false);
+                                        setIsCategoryId(1);
                                     }
                                 }}
                             />
@@ -227,10 +231,12 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                                         if (isCheckedAddTypes) {
                                             setIsCheckedAddTypes(false);
                                             setIsMust(false);
+                                            setIsCategoryId(false);
                                         } else if (!isCheckedAddTypes) {
                                             setIsCheckedAddTypes(true);
                                             setIsMust(false);
                                             setIsAd(false);
+                                            setIsCategoryId(2);
                                         }
                                     }}
                                 />
@@ -267,7 +273,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             {isAd && focus &&
                 <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value < 4)} setIsMating={setIsMating} setIsCategoryId={setIsCategoryId} />
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value < 4)} setIsMating={setIsMating} setIsTypeId={setIsTypeId} />
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
@@ -283,12 +289,12 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             {isCheckedAddTypes && focus &&
                 <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value > 3 )} setIsMating={setIsMating} setIsCategoryId={setIsCategoryId} />
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value > 3 )} setIsMating={setIsMating} setIsTypeId={setIsTypeId} />
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <div className="ArticleCreateForm__inputs-wrap">
                             <FormField className={`ArticleCreateForm__input-city`} {...fields.dog_city} />
-                            <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
+                            <FormField  defaultValue={33} className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                             <CustomCheckbox
                                 id="isHalfBreed_checkbox"
                                 label="Метис"
@@ -297,12 +303,11 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                                 onChange={handleChangeHalfBreed}
                             />
                         </div>
-
                     <div className="ArticleCreateForm__inputs-wrap">
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
-                        <FormField {...fields.dog_age} />
-                        <FormField {...fields.dog_name} />
-                        <FormField {...fields.dog_color} />
+                        <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
+                        <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
+                        <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
                     </div>
 
 

@@ -24,7 +24,7 @@ export const newsArticleFormConfig = {
             type: 'select',
             isMulti: false,
             closeMenuOnSelect: true,
-            optionsEndpoint: '/api/dog/Breed'
+            optionsEndpoint: '/api/dog/Breed',
         },
         dog_city: {
             name: 'dog_city',

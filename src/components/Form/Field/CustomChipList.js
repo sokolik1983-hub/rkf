@@ -6,7 +6,7 @@ import Label from './Label';
 import Error from './Error';
 import './CustomChipList.scss';
 
-const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeId, setIsCategoryId }) => {
+const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeId, setIsTypeId }) => {
     const { setFieldValue, errors } = formik;
     const [activeElem, setActiveElem] = useState(advertTypeId);
 
@@ -14,7 +14,7 @@ const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeI
         setFieldValue(name, value);
         setIsMating(value === 3);
         setActiveElem(value);
-        setIsCategoryId(value);
+        setIsTypeId(value);
     };
 
     useEffect(() => {
