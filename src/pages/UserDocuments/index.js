@@ -19,11 +19,6 @@ const UserDocuments = ({history, match, is_active_profile, isAuthenticated}) => 
 
     return (
         <Layout className="user-documents">
-
-
-            <div className="container user-documents__horizontal-menu">
-                { isMobile && <HorizontalMenu menu={userNav(userAlias).filter(item => item.id !== 4 && item.id !== 3 && item.id !== 8)} />}
-            </div>
             <Switch>
 
                 {/*Здесь страницы без меню*/}
