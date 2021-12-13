@@ -47,14 +47,16 @@ const Search = ({ withFilters, hideSideMenu }) => {
                     onSubmit={handleSubmit}
                     onClick={hideSideMenu}
                 >
-                    <input
-                        className={`header__search-control${isClicked ? ' _open' : ''}`}
-                        type='text'
-                        placeholder='Введите поисковой запрос'
-                        onChange={({ target }) => setSearchValue(target.value)}
-                        onClick={() => setIsClicked(true)}
-                        value={searchValue}
-                    />
+                    { isClicked &&
+                        <input
+                            className={ `header__search-control${ isClicked ? ' _open' : '' }` }
+                            type='text'
+                            placeholder='Введите поисковой запрос'
+                            onChange={ ({ target }) => setSearchValue(target.value) }
+                            onClick={ () => setIsClicked(true) }
+                            value={ searchValue }
+                        />
+                    }
 
 
                     <div className="search-icon__wrap" onClick={handleChecked}>
