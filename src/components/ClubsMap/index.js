@@ -15,8 +15,9 @@ const ClubsMap = ({ fullScreen }) => {
     const [regions, setRegions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [targetCity, setTargetCity] = useState([1121]);
+    const [targetZoom, setTargetZoom] = useState(10);
     const [targetRegion, setTargetRegion] = useState([41]);
-    const [targetCoords, setTargetCoords] = useState([55.76, 37.64]);
+    const [targetCoords, setTargetCoords] = useState([55.755819, 37.617644]);
 
     const getYandexCities = async () => {
         await Request({
@@ -43,44 +44,71 @@ const ClubsMap = ({ fullScreen }) => {
     useEffect(() => {
         setLoading(true);
         (async () => {
-            await getCities();
-            await getRegions();
             await getYandexCities();
+            await getRegions();
+            await getCities();
         })();
         setLoading(false);
     }, []);
 
+    useEffect(() => {
+        const lastRegion = targetRegion[targetCity.length - 1];
+        (async () => {
+            await Request({
+                url: `/api/club/get_yandex_maps_coordinates?RegionId=${lastRegion}`
+            }, data => {
+                setTargetCoords([data.geo_lat, data.geo_lon]);
+                setTargetZoom(8);
+            });
+        })();
+    }, [targetRegion, setTargetRegion]);
 
-    // useEffect(()=> {
-    //     const lastCity = targetCity[targetCity.length - 1];
-    //     (async () => {
-    //         await Request({
-    //             url: `/api/club/get_yandex_maps_coordinates?CityId=${lastCity}`
-    //         }, data => {
-    //             // setTargetCoords(data);
-    //         });
-    //         console.log(targetCoords);
-    //     })();
-    // },[targetCity, setTargetCity])
-
-
-    console.log('targetCoords', targetCoords);
-    console.log('targetCity', targetCity);
-    console.log('targetRegion', targetRegion);
-
+    useEffect(() => {
+        const lastCity = targetCity[targetCity.length - 1];
+        (async () => {
+            await Request({
+                url: `/api/club/get_yandex_maps_coordinates?CityId=${lastCity}`
+            }, data => {
+                setTargetCoords([data.geo_lat, data.geo_lon]);
+                setTargetZoom(11);
+            });
+        })();
+    }, [targetCity, setTargetCity]);
 
     const handleChangeCity = (event) => {
         setTargetCity([event[1] ? event[1] : event[0]]);
     };
     const handleChangeRegion = (event) => {
-        console.log('рррррррррррррегионы',event);
         setTargetRegion([event[1] ? event[1] : event[0]]);
     };
 
 
     return (
-        <div>
-            <Aside className={'organizations-page__left'}>
+        !!data.length && <YMaps>
+            <Map
+                defaultState={{ center: [55.76, 37.62], zoom: 10 }}
+                width='100%'
+                height={fullScreen ? `100vh` : `100%`}
+                state={{ center: targetCoords, zoom: targetZoom }}
+            >
+                <ObjectManager
+                    options={{
+                        clusterize: true,
+                        gridSize: 32,
+                        clusterDisableClickZoom: true,
+                        geoObjectOpenBalloonOnClick: true
+                    }}
+                    objects={{ preset: 'islands#greenDotIcon' }}
+                    clusters={{ preset: 'islands#greenClusterIcons' }}
+                    defaultFeatures={data}
+                    modules={[
+                        'objectManager.addon.objectsBalloon',
+                        'objectManager.addon.clustersBalloon',
+                        'objectManager.addon.objectsHint'
+                    ]}
+                />
+            </Map>
+            {fullScreen && <Aside className={'organizations-page__left'}>
                 <StickyBox offsetTop={60}>
                     <div className='organizations-page__filters'>
                         <RegionsFilter
@@ -95,34 +123,11 @@ const ClubsMap = ({ fullScreen }) => {
                             city_ids={targetCity}
                             onChange={handleChangeCity}
                         />
-
                         <CopyrightInfo withSocials={true} />
                     </div>
                 </StickyBox>
-            </Aside>
-            {!!data.length && <YMaps>
-                <Map defaultState={{ center: targetCoords, zoom: 10 }}
-                     width='100%'
-                     height={fullScreen ? `100vh` : `100%`}>
-                    <ObjectManager
-                        options={{
-                            clusterize: true,
-                            gridSize: 32,
-                            clusterDisableClickZoom: true,
-                            geoObjectOpenBalloonOnClick: true
-                        }}
-                        objects={{ preset: 'islands#greenDotIcon' }}
-                        clusters={{ preset: 'islands#greenClusterIcons' }}
-                        defaultFeatures={data}
-                        modules={[
-                            'objectManager.addon.objectsBalloon',
-                            'objectManager.addon.clustersBalloon',
-                            'objectManager.addon.objectsHint'
-                        ]}
-                    />
-                </Map>
-            </YMaps>}
-        </div>
+            </Aside>}
+        </YMaps>
     );
 };
 
