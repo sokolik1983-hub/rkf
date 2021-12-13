@@ -17,6 +17,11 @@
     p {
         margin-bottom: 5px;
     }
+    &__text_wrap {
+        @media (min-width: 1080px) {
+            display: flow-root;
+        }
+    }
     &__input {
         border: 1px solid lightgray;
         border-radius: 0.25rem;
