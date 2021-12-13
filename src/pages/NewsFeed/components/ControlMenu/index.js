@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
+import { Request } from "../../../../utils/request";
 
 import './index.scss';
-import { Request } from "../../../../utils/request";
 
 const ControlMenu = ({
                         isControlCheckedAll,
@@ -13,23 +13,14 @@ const ControlMenu = ({
                      }) => {
 
     const moveNotifications = async (method) => {
-        console.log('////      ', `/api/article/${method}?${selectedItemsIds.map(id => `articleIds=${id}&`).join('')}`)
-
         await Request({
             url: `/api/article/${method}?${selectedItemsIds.map(id => `articleIds=${id}`).join('')}`,
             method: 'POST',
         }, data => {
-            console.log('data', data)
-
-            console.log('success')
             updateNews(1, true);
-            // handleCheckAll();
             unsetAllChecks();
-
-            // setLoading(false);
         }, error => {
             console.log(error.response);
-            // setLoading(false);
         });
     };
 

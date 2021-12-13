@@ -6,8 +6,9 @@ import Card from "../../../../components/Card";
 import NewsFeedItem from "../NewsFeedItem";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
-import "./styles.scss";
 import ControlMenu from "../ControlMenu";
+
+import "./styles.scss";
 
 
 const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
@@ -134,10 +135,6 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
 
         setCheckedItemsIds(newCheckedItemsIds);
     }
-
-    useEffect(() => {
-        console.log('final checkedItemsIds', checkedItemsIds)
-    }, [checkedItemsIds])
 
     const handleCheckAll = (all = false) => {
         !checkedAll ? setCheckedAll(true) : setCheckedAll(false);
