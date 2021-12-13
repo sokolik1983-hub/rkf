@@ -57,7 +57,6 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         canEdit={false}
                         withShare={false}
                     />
-                    {/*{ isMobile && <HorizontalMenu menu={clubNav(clubAlias).filter(item => item.id !== 6 && item.id !== 10 && item.disabled !== true )} />}*/}
                     <Switch>
                         <Route
                             exact={true}

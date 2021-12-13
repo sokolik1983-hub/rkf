@@ -54,7 +54,6 @@ const Docs = ({ history }) => {
                     canEdit={false}
                     withShare={false}
                 />
-                {/*{ isMobile && <HorizontalMenu menu={kennelNav(nurseryAlias).filter(item => item.id !== 3 && item.id !== 7)} />}*/}
                 <Switch>
                     <Route
                         exact={true}
