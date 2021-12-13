@@ -247,9 +247,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                                             {album
                                                                 ? selectedImages.length
                                                                     ? <>Выбрано <strong>{selectedImages.length}</strong> из <strong>{album.count}</strong> фотографий</>
-                                                                    : <>
-                                                                        <strong>{album.count}</strong>&nbsp;{declension(album.count, ['фотография', 'фотографии', 'фотографий'])}
-                                                                    </>
+                                                                    : <><strong>{images.length}</strong>&nbsp;{declension(images.length, ['фотография', 'фотографии', 'фотографий'])}</>
                                                                 : null
                                                             }
                                                         </h4>
