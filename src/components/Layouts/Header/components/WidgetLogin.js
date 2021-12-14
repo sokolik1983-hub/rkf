@@ -184,7 +184,7 @@ const WidgetLogin = forwardRef(
                                                                     </li>
                                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
 
-                                                                        <Link to={`/user/${alias}`}> {widgetLoginIcon.profile}Страница пользователя</Link>
+                                                                        <Link to={`/user/${alias}`}>{widgetLoginIcon.profile}Страница пользователя</Link>
                                                                     </li>
                                                                 </>
                                                                 }
@@ -296,21 +296,6 @@ const WidgetLogin = forwardRef(
                                                         }
                                                     </div>
 
-                                                    {/*<div className="widget-login__button-wrap">*/}
-                                                    {/*    {is_active_profile &&*/}
-                                                    {/*    <>*/}
-                                                    {/*        {userType === 1 &&*/}
-                                                    {/*        <Link className="widget-login__button" to={`/user/${alias}/edit`} >Редактировать профиль</Link>*/}
-                                                    {/*        }*/}
-                                                    {/*        {(userType === 3 || userType === 5) &&*/}
-                                                    {/*        <Link className="widget-login__button" to="/client" >Редактировать профиль</Link>*/}
-                                                    {/*        }*/}
-                                                    {/*        {userType === 4 &&*/}
-                                                    {/*        <Link className="widget-login__button" to={`/kennel/${alias}/edit`} >Редактировать профиль</Link>*/}
-                                                    {/*        }*/}
-                                                    {/*    </>*/}
-                                                    {/*    }*/}
-                                                    {/*</div>*/}
                                                     <ul className="widget-login__list">
                                                         {is_active_profile &&
                                                         <>

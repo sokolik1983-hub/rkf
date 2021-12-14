@@ -87,19 +87,23 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
             new Date(dateEnd).getDate() + dayTimer
         ).toISOString() : null;
 
-    useEffect(() => {
-        (() => Request({
+    const getExhibition = async() => {
+        setLoading(true);
+
+        await Request({
             url: endpointGetExhibition + exhibitionId
         }, data => {
             setExhibition(data);
-            setLoading(false);
         }, error => {
             console.log(error.response);
             setIsError(true);
-            setLoading(false);
-        }))();
+        });
 
-      
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        getExhibition();
     }, []);
 
     const { club_information,
@@ -125,7 +129,19 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
         account_number,
         active_member,
         active_rkf_user,
+        subscribed
     } = club_information;
+
+    const onSubscriptionUpdate = (subscribed) => {
+        setExhibition({
+            ...exhibition,
+            club_information: {
+                ...club_information,
+                subscribed: subscribed
+            }
+        })
+    }
+
 
     return isError
         ? <PageNotFound />
@@ -136,27 +152,11 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
                             <div className="exhibition-page__back-button_wrap">
-                                <button className="exhibition-page__back-button" onClick={() => history.goBack()}>Назад</button>
+                                <Link className="exhibition-page__back-button" to="/exhibitions">Назад</Link>
                             </div>
                             <aside className="exhibition-page__left">
                                 <StickyBox offsetTop={60}>
                                     <div className="exhibition-page__left-inner">
-                                       {/*<button className="btn-backward" onClick={() => history.goBack()}>Назад</button>*/}
-                                        {/*<div className="mobile-only">*/}
-                                        {/*    <UserHeader*/}
-                                        {/*        canEdit={canEdit}*/}
-                                        {/*        isAuthenticated={isAuthenticated}*/}
-                                        {/*        user={match.params.route !== 'rkf-online' ? 'club' : ''}*/}
-                                        {/*        logo={club_avatar}*/}
-                                        {/*        name={display_name || club_fact_name || 'Название клуба отсутствует'}*/}
-                                        {/*        alias={club_alias}*/}
-                                        {/*        profileId={id}*/}
-                                        {/*        federationName={federation_name}*/}
-                                        {/*        federationAlias={federation_alias}*/}
-                                        {/*        active_member={active_member}*/}
-                                        {/*        active_rkf_user={active_rkf_user}*/}
-                                        {/*    />*/}
-                                        {/*</div>*/}
                                         <UserHeader
                                             canEdit={canEdit}
                                             isAuthenticated={isAuthenticated}
@@ -164,11 +164,14 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                             logo={club_avatar}
                                             name={display_name || club_fact_name || 'Название клуба отсутствует'}
                                             alias={club_alias}
-                                            profileId={id}
+                                            profileId={club_information.profile_id}
+                                            subscribed_id={profile_id}
                                             federationName={federation_name}
                                             federationAlias={federation_alias}
                                             active_member={active_member}
                                             active_rkf_user={active_rkf_user}
+                                            subscribed={subscribed}
+                                            onSubscriptionUpdate={onSubscriptionUpdate}
                                         />
                                         {!isMobile && isFederationAlias(club_alias) ?
                                             <MenuComponent
@@ -239,9 +242,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                 })
                                             : ''
                                     }
-                                      
-
-
 
                                         <br />
                                         <h4 className="exhibition-page__address-title">Дополнительная информация</h4>
