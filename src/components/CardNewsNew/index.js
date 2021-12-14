@@ -223,7 +223,6 @@ const CardNewsNew = forwardRef(({
                         {
                             dog_city[0] && <div>Место потери: {dog_city[0].name}</div>
                         }
-
                         {
                             dog_age && <div>Возраст: {dog_age}</div>
                         }

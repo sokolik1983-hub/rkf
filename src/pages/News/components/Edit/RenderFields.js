@@ -38,7 +38,9 @@ const RenderFields = ({ fields,
                           dogSex,
                           advertTypeId,
                           advertCategoryId,
-                          isHalfBreed}) => {
+                          isHalfBreed,
+                          dogCity
+}) => {
     const [src, setSrc] = useState(imgSrc);
     const [sexId, setSex] = useState(imgSrc);
     const [sexIdNumber, setSexIdNumber] = useState(dogSex)
@@ -52,7 +54,7 @@ const RenderFields = ({ fields,
     const { content, is_advert, dog_sex_type_id } = formik.values;
     const isMobile = useIsMobile();
 
-    console.log('22222222advertCategoryId', advertCategoryId)
+    console.log('formik', formik);
 
     useEffect(() => {
         setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель' : 'Сука'}`});
@@ -279,14 +281,17 @@ const RenderFields = ({ fields,
                             </div>
                             :
                             <div>
+                                {/*<CustomSelect value={"1111111111111"} options={cities} />*/}
+                                {/*<FormField className={`ArticleCreateForm__input-city`} {...fields.dog_city} />*/}
                                 <FormGroup inline className="article-edit__ad">
-                                     <CustomCheckbox
+                                    <CustomCheckbox
                                          id="isHalfBreed_checkbox"
                                          label="Метис"
                                          className="ArticleCreateForm__ad"
                                          checked={isHalfBreedEdit}
                                          onChange={handleChangeHalfBreed}
                                      />
+                                    {/*<FormField {...fields.advert_breed_id} options={breeds} />*/}
                                     <FormField className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'}`} {...fields.advert_breed_id} options={breeds} />
                                 </FormGroup>
                                 <FormGroup inline className="article-edit__ad">

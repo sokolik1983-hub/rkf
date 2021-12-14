@@ -23,18 +23,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
 
-
     const transformValues = values => {
-
-        // const newArr = [];
-        // values.dog_city && values.dog_city.forEach((item, i) => {
-        //     let obj = {
-        //         id: item,
-        //     }
-        //     newArr.push(obj);
-        // });
-        //
-        // values.dog_city = newArr;
 
         if (isAd || isCheckedAddTypes) {
             return {
@@ -105,7 +94,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     dog_color: '',
                     dog_sex_type_id: '',
                     dog_age: '',
-                    dog_city: '',
                     dog_name: ''
                 }}
                 {...newsArticleFormConfig}

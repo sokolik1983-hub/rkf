@@ -280,7 +280,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
                         <FormField {...fields.dog_color} />
                         <FormField {...fields.dog_age} />
-                        <FormField  {...fields.dog_city} />
                         <CustomNumber {...fields.advert_cost} maxLength={10} />
                         {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
                     </FormGroup>
@@ -293,8 +292,8 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     </FormGroup>
                     <FormGroup className="ArticleCreateForm__advert">
                         <div className="ArticleCreateForm__inputs-wrap">
-                            <FormField className={`ArticleCreateForm__input-city`} {...fields.dog_city} />
-                            <FormField  defaultValue={33} className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
+                            <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} />
+                            <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                             <CustomCheckbox
                                 id="isHalfBreed_checkbox"
                                 label="Метис"

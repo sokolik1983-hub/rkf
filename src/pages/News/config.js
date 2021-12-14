@@ -6,6 +6,7 @@ export const endpointAddNewsPicture = '/api/Article/image'; //POST
 export const endpointDeleteNewsPicture = '/api/Article/image/'; // /id DELETE
 export const apiBreedsEndpoint = '/api/dog/Breed'; // GET Breeds
 export const apiSexEndpoint = '/api/dog/Breed/sex_types'; // GET Sex
+export const apiCityEndpoint = '/api/city/0'; // GET Cities
 
 export const formConfig = {
     action: endpointEditNews,
@@ -22,6 +23,16 @@ export const formConfig = {
             fieldType: 'reactSelect',
             label: 'Порода',
             placeholder: "Выберите породу",
+        },
+        dog_city: {
+            name: 'dog_city',
+            label: 'Город',
+            placeholder: 'Город',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            isMulti: false,
+            closeMenuOnSelect: true,
+            optionsEndpoint: '/api/city/0',
         },
         dog_sex_type_id: {
             name: 'dog_sex_type_id',

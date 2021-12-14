@@ -23,8 +23,6 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
     const id = match.params.id;
     const canEdit = isAuthenticated && news && profile_id === news.profile_id;
 
-    console.log('news', news);
-
     useEffect(() => {
         const isEditUrl = match.url.split('/')[3] === 'edit';
 
@@ -87,7 +85,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                 <Edit id={news.id}
                                     advertTypeId={news.advert_type_id}
                                     advertCategoryId={news.advert_category_id}
-                                      isHalfBreed={news.is_halfbreed}
+                                    isHalfBreed={news.is_halfbreed}
                                     text={news.content}
                                     img={news.picture_link || ''}
                                     videoLink={news.video_link || ''}
@@ -95,6 +93,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     isAd={news.is_advert}
                                     adBreedId={news.advert_breed_id}
                                     dogSex={news.dog_sex_type_id}
+                                    dogCity={news.dog_city}
                                     dogColor={news.dog_color}
                                     dogAge={news.dog_age}
                                     adCode={news.advert_code}
