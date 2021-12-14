@@ -29,7 +29,10 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
                 date_create: moment(date_create).format('DD.MM.YY'),
                 date_of_birth_litter: moment(date_of_birth_litter).format('DD.MM.YY'),
                 ...rest
-            })));
+            }))
+
+
+            );
             setLoading(false);
         },
         error => {
@@ -37,8 +40,28 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
             setLoading(false);
         }))();
     }, []);
+    // const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
+// useEffect(() => {
+//     if(puppies) {
+//         puppies.forEach((pop, i) => {
+//             fetch(`/api/document/documentdog/puppy_card?id=${pop.id}`, {headers})
+//
+//                 .then(res => res.blob())
+//                 .then(data => URL.createObjectURL(data))
+//                 .then(url => console.log("url", url))
+//                 // .then(url => console.log(puppies[i]))
+//                 .then(url => puppies[i].pdf_link = url)
+//         })
+//     }
+//
+//         // fetch(`/api/document/documentdog/puppy_card?id=25`, {headers})
+//         //
+//         //     .then(res => res.blob())
+//         //     .then(data => URL.createObjectURL(data))
+//         //     .then(url => console.log("url", url))
+//     }, [])
 
-
+console.log("puppies", puppies)
     return loading ?
         <Loading /> :
             <Card className="club-documents-status">
