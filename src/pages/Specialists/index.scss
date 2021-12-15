@@ -104,6 +104,9 @@
     &:hover {
       color: #3366ff;
     }
+    &--tableIcon {
+      z-index: 100;
+    }
     &--tableIcon:before {
       content: "";
       width: 20px;
@@ -119,6 +122,9 @@
       display: inline-block;
       margin-right: 10px;
       background: url(/static/icons/backIcon.svg) no-repeat center / cover;
+    }
+    &--downloadIcon {
+      z-index: 100;
     }
     &--downloadIcon:before {
       content: "";
