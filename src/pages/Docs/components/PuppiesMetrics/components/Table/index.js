@@ -24,30 +24,7 @@ const Table = ({ documents, height,  fullScreen }) => {
         sort: []
     });
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
-    const  [pdf, setPdf] = useState('')
-    const  [pdfId, setPdfId] = useState('')
-// useEffect(() => {
-//     if(documents) {
-//         documents.forEach((pop, i) => {
-//             fetch(`/api/document/documentdog/puppy_card?id=${pop.id}`, {headers})
-//
-//                 .then(res => res.blob())
-//                 .then(data => URL.createObjectURL(data))
-//                 .then(url => console.log("url", url, documents))
-//                 // .then(url => console.log(puppies[i]))
-//                 .then(url => documents[i].pdf_link = url)
-//         })
-//     }
-
-        // fetch(`/api/document/documentdog/puppy_card?id=25`, {headers})
-        //
-        //     .then(res => res.blob())
-        //     .then(data => URL.createObjectURL(data))
-        //     .then(url => console.log("url", url))
-    // }, [])
-// console.log("documents in", documents)
-
-
+    const  [pdf, setPdf] = useState(null)
 
     const handleGridDataChange = (e) => {
         setGridData(e.data);
@@ -68,48 +45,24 @@ const Table = ({ documents, height,  fullScreen }) => {
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
     };
 
-const test = async (id) => {
-    console.log("target", id)
-    await fetch(`/api/document/documentdog/puppy_card?id=${id}`, {headers})
-        .then(res => res.blob())
-        .then(data => URL.createObjectURL(data))
-        .then(url => console.log(url))
+    const fetchPdf = (id) => {
+        console.log("target", id)
+      fetch(`/api/document/documentdog/puppy_card?id=${id}`, {headers})
+            .then(res => res.blob())
+            .then(data => URL.createObjectURL(data))
+            .then(url => console.log(url))
+            .then(url => setPdf(url))
 
 
-}
-    // const fetchPdfMemo = useCallback(
-    //     () => {
-    //         test(id)
-    //     }, [documents]
-    // )
+    }
 
-    // useEffect(() => {
-    //     fetch(`/api/document/documentdog/puppy_card?id=${pdfId}`, {headers})
-    //         .then(res => res.blob())
-    //         .then(data => URL.createObjectURL(data))
-    //         .then(url => setPdf(url))
-    //         .then(url => {
-    //             return url
-    //         })
-    // }, [])
-
-    const fetchPdf = async (props) => {
+    const renderPdfLink = (props) => {
         console.log("fetchPdf")
         const { dataItem } = props;
-
-        await test(dataItem.id)
-        // console.log("dataItem.id", dataItem.id)
-        // setPdfId(dataItem.id)
-        // fetch(`/api/document/documentdog/puppy_card?id=${dataItem.id}`, {headers})
-        //         .then(res => res.blob())
-        //         .then(data => URL.createObjectURL(data))
-        //         .then(url => setPdf(url))
-        //         .then(url => {
-        //             return url
-        //         })
+        fetchPdf(dataItem.id)
         return  <td>
-                    { <a className="pedigree-link" href={"data"} target="_blank" rel="noopener noreferrer">Посмотреть PDF</a> }
-            {/*{pdf ? <a className="pedigree-link" href={test(dataItem.id)} target="_blank" rel="noopener noreferrer">Посмотреть PDF</a> : <p>Загрузка...</p>}*/}
+                    { <a className="pedigree-link" href={"link"} target="_blank" rel="noopener noreferrer">Посмотреть PDF</a> }
+                    {/*{pdf ? <a className="pedigree-link" href={pdf} target="_blank" rel="noopener noreferrer">Посмотреть PDF</a> : <p>Загрузка...</p>}*/}
                 </td>
     }
 
@@ -152,7 +105,7 @@ const test = async (id) => {
                                                 width={'60px'} columnMenu={ColumnMenu} />
 
 
-                                    <GridColumn width={'60px'} field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} cell={fetchPdf} />
+                                    <GridColumn width={'60px'} field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} cell={renderPdfLink} />
                                 </Grid>
 
                             </>
