@@ -288,6 +288,13 @@
       background-color: #F6F7F7!important;
     }
   }
+  &__categories-wrap {
+    padding: 20px 0;
+    display: flex;
+    & .custom-checkbox {
+      margin-right: 20px;
+    }
+  }
 }
 .k-upload .k-dropzone {
   @media (max-width:480px) {

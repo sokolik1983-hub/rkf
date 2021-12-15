@@ -33,9 +33,6 @@ const Edit = ({ id,
     const [isImageDelete, setIsImageDelete] = useState(false);
     const [showAlert, setShowAlert] = useState('');
 
-    console.log('advertCategoryId', advertCategoryId);
-    // console.log('adBreedId', adBreedId, dogCity[0].id);
-
     useEffect(() => {
         Request({
             url: apiBreedsEndpoint,
@@ -170,23 +167,43 @@ const Edit = ({ id,
                 isEditPage
                 history={history}
                 transformValues={(advertCategoryId === 1) ? transformValues : transformValuesForOtherAdvert}
-                initialValues={{
-                    ...defaultValues,
-                    is_advert: isAd,
-                    advert_breed_id: adBreedId,
-                    advert_cost: adCost,
-                    advert_number_of_puppies: adNumberOfPuppies,
-                    content: text,
-                    img: img,
-                    video_link: videoLink,
-                    dog_color: dogColor,
-                    dog_age: dogAge,
-                    dog_sex_type_id: dogSex,
-                    dog_city: dogCity[0].id,
-                    advert_type_id: advertTypeId,
-                    advert_category_id: advertCategoryId,
-                    is_halfBreed: isHalfBreed,
-                }}
+                initialValues={
+                    (advertCategoryId === 1)
+                            ?
+                        {
+                            ...defaultValues,
+                            is_advert: isAd,
+                            advert_breed_id: adBreedId,
+                            advert_cost: adCost,
+                            advert_number_of_puppies: adNumberOfPuppies,
+                            content: text,
+                            img: img,
+                            video_link: videoLink,
+                            dog_color: dogColor,
+                            dog_age: dogAge,
+                            dog_sex_type_id: dogSex,
+                            advert_type_id: advertTypeId,
+                            advert_category_id: advertCategoryId,
+                            is_halfBreed: isHalfBreed,
+                        }
+                            :
+                        {
+                            ...defaultValues,
+                            is_advert: isAd,
+                            advert_breed_id: adBreedId,
+                            content: text,
+                            img: img,
+                            video_link: videoLink,
+                            dog_color: dogColor,
+                            dog_age: dogAge,
+                            dog_sex_type_id: dogSex,
+                            dog_city: dogCity[0].id,
+                            advert_type_id: advertTypeId,
+                            advert_category_id: advertCategoryId,
+                            is_halfBreed: isHalfBreed,
+                        }
+
+                }
                 {...formConfig}
             >
                 <RenderFields

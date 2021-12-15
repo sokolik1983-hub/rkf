@@ -53,9 +53,6 @@ const RenderFields = ({ fields,
     const { content, is_advert, dog_sex_type_id } = formik.values;
     const isMobile = useIsMobile();
 
-    console.log('fields', fields);
-    // console.log('dogCity', dogCity);
-
     useEffect(() => {
         setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель' : 'Сука'}`});
     },[])
@@ -67,7 +64,6 @@ const RenderFields = ({ fields,
 
         Request({ url: '/api/article/article_ad_types' },
             data => setAdvertTypes(data.map(d => ({ text: d.name, value: d.id }))),
-
             error => console.log(error.response)
         )
     }, []);
@@ -176,8 +172,6 @@ const RenderFields = ({ fields,
         formik.setFieldValue('dog_sex_type_id', sexIdNumber);
     }, [sexIdNumber]);
 
-
-
     useEffect(() => {
         formik.setFieldValue('is_halfbreed', isHalfBreedEdit);
         isHalfBreedEdit && formik.setFieldValue('advert_breed_id', '');
@@ -185,6 +179,24 @@ const RenderFields = ({ fields,
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+            <div className="article-edit__categories-wrap">
+                {
+                    <CustomCheckbox
+                        id="ad"
+                        label={(advertCategoryId === 1) ? "Куплю/Продам" : "Объявление"}
+                        className="ArticleCreateForm__ad"
+                        checked={true}
+                    />
+                }
+            </div>
+            <FormGroup inline className="article-edit__ad">
+                <CustomChipList
+                    {...fields.advert_type_id}
+                    options={(advertCategoryId === 1) ? (advertTypes?.filter(item => item.value < 4)) : (advertTypes?.filter(item => item.value > 3 ))}
+                    setIsMating={setIsMating}
+                    advertTypeId={advertTypeId}
+                />
+            </FormGroup>
             <div className="article-edit__text">
                 <FormField
                     {...fields.content}
@@ -316,9 +328,6 @@ const RenderFields = ({ fields,
                                 </FormGroup>
                             </div>
                     }
-                    <FormGroup inline className="article-edit__ad">
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} advertTypeId={advertTypeId}/>
-                    </FormGroup>
                 </div>
             }
             <FormControls className="article-edit__form-controls">
