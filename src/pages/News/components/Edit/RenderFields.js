@@ -171,7 +171,6 @@ const RenderFields = ({ fields,
     useEffect(() => {
         formik.setFieldValue('dog_sex_type_id', sexIdNumber);
     }, [sexIdNumber]);
-
     useEffect(() => {
         formik.setFieldValue('is_halfbreed', isHalfBreedEdit);
         isHalfBreedEdit && formik.setFieldValue('advert_breed_id', '');
@@ -303,7 +302,7 @@ const RenderFields = ({ fields,
                                     className={`ArticleCreateForm__input-city`}
                                     {...fields.dog_city}
                                 />
-                                <FormGroup inline className="article-edit__ad">
+                                <FormGroup inline className="article-edit__ad article-edit__halfbreed-wrap">
                                     <CustomCheckbox
                                          id="isHalfBreed_checkbox"
                                          label="Метис"

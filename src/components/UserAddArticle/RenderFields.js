@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect} from "react";
 import getYouTubeID from "get-youtube-id";
 import { connect } from "formik";
 
@@ -308,11 +308,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                         <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
                         <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
                     </div>
-
-
-
-                        {/*<CustomNumber {...fields.advert_cost} maxLength={10} />*/}
-                        {/*{!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}*/}
                     </FormGroup>
                 </div>
             }
