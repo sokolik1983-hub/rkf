@@ -23,7 +23,30 @@ import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile, isFederation, isMust, setIsMust, setIsCheckedAddTypes, isCheckedAddTypes, is_halfbreed}) => {
+const RenderFields = ({ fields,
+                          logo,
+                          formik,
+                          isAd,
+                          setIsAd,
+                          videoLink,
+                          setVideoLink,
+                          documents,
+                          categories,
+                          setDocuments,
+                          setCategories,
+                          isMating,
+                          setIsMating,
+                          setLoadFile,
+                          isFederation,
+                          isMust,
+                          setIsMust,
+                          setIsCheckedAddTypes,
+                          isCheckedAddTypes,
+                          is_halfbreed,
+                            focus,
+                            setFocused,
+                            setBlured
+                            }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -31,7 +54,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     const [isHalfBreed, setIsHalfBreed] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
     const [isCategoryId, setIsCategoryId] = useState(null);
-    const { focus, setFocused, setBlured } = useFocus(false);
     const isMobile = useIsMobile();
 
     const { content, file } = formik.values;

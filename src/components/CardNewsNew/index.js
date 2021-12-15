@@ -202,11 +202,13 @@ const CardNewsNew = forwardRef(({
                     </div>
                 </div>
                 <div className={!collapsed ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
+
                     {is_advert && <div className="CardNewsNew__ad">
+                        {advert_type_name && <span className="CardNewsNew__category-span">Категория: {advert_type_name}</span>}
                         {
                             is_halfbreed
                                 ?
-                                <div>Метис</div>
+                                <div className="CardNewsNew__ad-breed">Метис</div>
                                 :
                                 <p className="CardNewsNew__ad-breed">
                                     <span>Порода: {advert_breed_name}</span>
@@ -238,7 +240,7 @@ const CardNewsNew = forwardRef(({
                                         <span>Кол-во щенков: {advert_number_of_puppies} </span>
                                     </div>
                                 }
-                                {advert_type_name && <span>Категория: {advert_type_name}</span>}
+
                             </div>
                             {is_closed_advert && <div className="CardNewsNew__ad-inactive" >Объявление не активно</div>}
                         </div>

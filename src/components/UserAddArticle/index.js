@@ -7,6 +7,7 @@ import RenderFields from "./RenderFields";
 import { newsArticleFormConfig } from "./config";
 import ls from "local-storage";
 import "./index.scss";
+import {useFocus} from "../../shared/hooks";
 
 
 const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInfo }) => {
@@ -19,6 +20,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isMating, setIsMating] = useState(false);
     const [showAlert, setShowAlert] = useState('');
     const [loadFile, setLoadFile] = useState(false);
+    const { focus, setFocused, setBlured } = useFocus(false);
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
@@ -56,6 +58,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         setDocuments([]);
         setLoadFile(false);
         setNeedRequest(true);
+        setBlured();
     };
 
     const onError = e => {
@@ -121,6 +124,9 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     userPage={userPage}
                     setLoadFile = {setLoadFile}
                     isFederation={isFederation}
+                    focus={focus}
+                    setFocused={setFocused}
+                    setBlured={setBlured}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
