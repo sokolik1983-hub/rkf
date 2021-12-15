@@ -12,6 +12,7 @@ import { Request } from "../../utils/request";
 import { endpointGetNews } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
+import {login} from "@progress/kendo-svg-icons";
 
 
 const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
@@ -22,6 +23,8 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
     const [loading, setLoading] = useState(true);
     const id = match.params.id;
     const canEdit = isAuthenticated && news && profile_id === news.profile_id;
+
+   console.log('news', news);
 
     useEffect(() => {
         const isEditUrl = match.url.split('/')[3] === 'edit';
@@ -95,6 +98,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     dogSex={news.dog_sex_type_id}
                                     dogCity={news.dog_city}
                                     dogColor={news.dog_color}
+                                    dogName={news.dog_name}
                                     dogAge={news.dog_age}
                                     adCode={news.advert_code}
                                     adCost={news.advert_cost}

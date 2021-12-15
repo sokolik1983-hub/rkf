@@ -204,6 +204,9 @@
   }
   &__advert {
     margin: 8px 0 16px;
+    & #advert_breed_id>div {
+      z-index: 1;
+    }
   }
   &__ad {
     &:not(:last-child) {
@@ -299,7 +302,7 @@
     display: flex;
     flex-direction: column;
     & .FormInput {
-      width: 100%;
+      width: 40%;
     }
   }
 }

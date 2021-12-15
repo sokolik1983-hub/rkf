@@ -318,6 +318,7 @@ const RenderFields = ({ fields,
                                     />
                                 </FormGroup>
                                 <FormGroup inline className="article-edit__ad">
+                                    <FormField {...fields.dog_name} />
                                     <FormField {...fields.dog_color} />
                                     <FormField {...fields.dog_age} />
                                     <div className="article-edit__custom-select">
