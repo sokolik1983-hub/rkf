@@ -38,8 +38,7 @@ const RenderFields = ({ fields,
                           dogSex,
                           advertTypeId,
                           advertCategoryId,
-                          isHalfBreed,
-                          dogCity
+                          isHalfBreed
 }) => {
     const [src, setSrc] = useState(imgSrc);
     const [sexId, setSex] = useState(imgSrc);
@@ -54,7 +53,8 @@ const RenderFields = ({ fields,
     const { content, is_advert, dog_sex_type_id } = formik.values;
     const isMobile = useIsMobile();
 
-    console.log('formik', formik);
+    console.log('fields', fields);
+    // console.log('dogCity', dogCity);
 
     useEffect(() => {
         setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель' : 'Сука'}`});
@@ -160,17 +160,23 @@ const RenderFields = ({ fields,
         setSex(e);
         setSexIdNumber((e.label === 'Кобель') ? 1 : 2);
     }
-    useEffect(() => {
-        formik.setFieldValue('dog_sex_type_id', sexIdNumber);
-    }, [sexIdNumber]);
-
     const handleChangeHalfBreed = () => {
         if (isHalfBreedEdit) {
             setIsHalfBreedEdit(false);
         } else if (!isHalfBreedEdit) {
             setIsHalfBreedEdit(true);
+            formik.setFieldValue('advert_breed_id', '');
         }
     };
+    const handleChangeBreed = (e) => {
+        formik.setFieldValue('advert_breed_id', e.value);
+    }
+
+    useEffect(() => {
+        formik.setFieldValue('dog_sex_type_id', sexIdNumber);
+    }, [sexIdNumber]);
+
+
 
     useEffect(() => {
         formik.setFieldValue('is_halfbreed', isHalfBreedEdit);
@@ -281,8 +287,10 @@ const RenderFields = ({ fields,
                             </div>
                             :
                             <div>
-                                {/*<CustomSelect value={"1111111111111"} options={cities} />*/}
-                                {/*<FormField className={`ArticleCreateForm__input-city`} {...fields.dog_city} />*/}
+                                <FormField
+                                    className={`ArticleCreateForm__input-city`}
+                                    {...fields.dog_city}
+                                />
                                 <FormGroup inline className="article-edit__ad">
                                     <CustomCheckbox
                                          id="isHalfBreed_checkbox"
@@ -291,8 +299,12 @@ const RenderFields = ({ fields,
                                          checked={isHalfBreedEdit}
                                          onChange={handleChangeHalfBreed}
                                      />
-                                    {/*<FormField {...fields.advert_breed_id} options={breeds} />*/}
-                                    <FormField className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'}`} {...fields.advert_breed_id} options={breeds} />
+                                    <FormField
+                                        className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'}`}
+                                        {...fields.advert_breed_id}
+                                        options={breeds}
+                                        onChange={(e) => handleChangeBreed(e)}
+                                    />
                                 </FormGroup>
                                 <FormGroup inline className="article-edit__ad">
                                     <FormField {...fields.dog_color} />

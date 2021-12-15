@@ -34,6 +34,7 @@ const Edit = ({ id,
     const [showAlert, setShowAlert] = useState('');
 
     console.log('advertCategoryId', advertCategoryId);
+    // console.log('adBreedId', adBreedId, dogCity[0].id);
 
     useEffect(() => {
         Request({
@@ -99,8 +100,7 @@ const Edit = ({ id,
             documents
         };
     };
-
-    const transformValues1 = values => {
+    const transformValuesForOtherAdvert = values => {
 
         const {
             content,
@@ -130,10 +130,10 @@ const Edit = ({ id,
             content: content.replace(/<[^>]*>/g, ''),
             id,
             is_advert,
-            // advert_breed_id: is_advert ? advert_breed_id : '0',
+            advert_breed_id: is_advert ? advert_breed_id : '',
+            dog_city: is_advert  ? dog_city : '',
             advert_category_id: is_advert ? advert_category_id : '',
             dog_sex_type_id: dog_sex_type_id  ? dog_sex_type_id : '',
-            // dog_city: is_advert  ? dog_city : '',
             is_halfbreed: is_advert  ? is_halfbreed : '',
             dog_color: dog_color ? dog_color : '',
             dog_age: dog_age ? dog_age : '',
@@ -146,7 +146,6 @@ const Edit = ({ id,
             documents
         };
     };
-
     const onError = e => {
         if (e.response) {
             let errorText = e.response.data.errors
@@ -170,7 +169,7 @@ const Edit = ({ id,
                 onError={onError}
                 isEditPage
                 history={history}
-                transformValues={(advertCategoryId === 1) ? transformValues : transformValues1}
+                transformValues={(advertCategoryId === 1) ? transformValues : transformValuesForOtherAdvert}
                 initialValues={{
                     ...defaultValues,
                     is_advert: isAd,
@@ -183,7 +182,7 @@ const Edit = ({ id,
                     dog_color: dogColor,
                     dog_age: dogAge,
                     dog_sex_type_id: dogSex,
-                    dog_city: dogCity,
+                    dog_city: dogCity[0].id,
                     advert_type_id: advertTypeId,
                     advert_category_id: advertCategoryId,
                     is_halfBreed: isHalfBreed,
@@ -209,7 +208,6 @@ const Edit = ({ id,
                     advertTypeId={advertTypeId}
                     advertCategoryId={advertCategoryId}
                     isHalfBreed={isHalfBreed}
-                    dogCity={dogCity}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

@@ -26,7 +26,7 @@ export const formConfig = {
         },
         dog_city: {
             name: 'dog_city',
-            label: 'Город',
+            label: 'Место потери',
             placeholder: 'Город',
             fieldType: 'reactSelectAsync',
             type: 'select',
