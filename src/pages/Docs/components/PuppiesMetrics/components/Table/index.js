@@ -4,6 +4,7 @@ import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-gr
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
 import CopyCell from '../../../CopyCell';
+import PdfLinkCell from "../PdfLinkCell";
 
 import "./index.scss";
 
@@ -17,14 +18,12 @@ const ColumnMenu = (props) => {
 };
 
 
-const Table = ({ documents, height,  fullScreen }) => {
+const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
     const [success, setSuccess] = useState(false);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: []
     });
-    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
-    const  [pdf, setPdf] = useState(null)
 
     const handleGridDataChange = (e) => {
         setGridData(e.data);
@@ -44,27 +43,6 @@ const Table = ({ documents, height,  fullScreen }) => {
         const trProps = { style:  in_work };
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
     };
-
-    const fetchPdf = (id) => {
-        console.log("target", id)
-      fetch(`/api/document/documentdog/puppy_card?id=${id}`, {headers})
-            .then(res => res.blob())
-            .then(data => URL.createObjectURL(data))
-            .then(url => console.log(url))
-            .then(url => setPdf(url))
-
-
-    }
-
-    const renderPdfLink = (props) => {
-        console.log("fetchPdf")
-        const { dataItem } = props;
-        fetchPdf(dataItem.id)
-        return  <td>
-                    { <a className="pedigree-link" href={"link"} target="_blank" rel="noopener noreferrer">Посмотреть PDF</a> }
-                    {/*{pdf ? <a className="pedigree-link" href={pdf} target="_blank" rel="noopener noreferrer">Посмотреть PDF</a> : <p>Загрузка...</p>}*/}
-                </td>
-    }
 
     return (
         <div className="App">
@@ -105,7 +83,12 @@ const Table = ({ documents, height,  fullScreen }) => {
                                                 width={'60px'} columnMenu={ColumnMenu} />
 
 
-                                    <GridColumn width={'60px'} field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} cell={renderPdfLink} />
+                                    <GridColumn width={'60px'}
+                                                field="pedigree_link" title="Ссылка на эл. копию документа"
+                                                columnMenu={ColumnMenu}
+                                                // cell={renderPdfLink}
+                                                cell={(props) => PdfLinkCell(props)}
+                                    />
                                 </Grid>
 
                             </>
