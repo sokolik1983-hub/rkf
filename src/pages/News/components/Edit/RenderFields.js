@@ -48,6 +48,7 @@ const RenderFields = ({ fields,
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [isHalfBreedEdit, setIsHalfBreedEdit] = useState(isHalfBreed);
+    const [activeElem, setActiveElem] = useState(advertTypeId);
 
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id } = formik.values;
@@ -194,8 +195,15 @@ const RenderFields = ({ fields,
                     options={(advertCategoryId === 1) ? (advertTypes?.filter(item => item.value < 4)) : (advertTypes?.filter(item => item.value > 3 ))}
                     setIsMating={setIsMating}
                     advertTypeId={advertTypeId}
+                    activeElem={activeElem}
+                    setActiveElem={setActiveElem}
                 />
             </FormGroup>
+            {
+                !activeElem && <div className="article-edit__error-wrap">
+                    <div className="FormInput__error">Выберите категорию объявления.</div>
+                </div>
+            }
             <div className="article-edit__text">
                 <FormField
                     {...fields.content}
@@ -334,7 +342,7 @@ const RenderFields = ({ fields,
                 <button type="button" className="btn" onClick={onCancel}>Отмена</button>
                 <SubmitButton
                     type="submit"
-                    className={`article-edit__button${formik.isValid ? ' _active' : ''}`}
+                    className={`article-edit__button${(formik.isValid && activeElem) ? ' _active' : ''}`}
                 >
                     Обновить
                 </SubmitButton>

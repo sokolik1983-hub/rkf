@@ -24,8 +24,6 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
     const id = match.params.id;
     const canEdit = isAuthenticated && news && profile_id === news.profile_id;
 
-   console.log('news', news);
-
     useEffect(() => {
         const isEditUrl = match.url.split('/')[3] === 'edit';
 
@@ -96,7 +94,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     isAd={news.is_advert}
                                     adBreedId={news.advert_breed_id}
                                     dogSex={news.dog_sex_type_id}
-                                    dogCity={news.dog_city}
+                                    dogCity={(news.dog_city.length > 0) ? news.dog_city : null}
                                     dogColor={news.dog_color}
                                     dogName={news.dog_name}
                                     dogAge={news.dog_age}

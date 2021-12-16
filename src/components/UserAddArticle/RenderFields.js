@@ -42,18 +42,20 @@ const RenderFields = ({ fields,
                           setIsMust,
                           setIsCheckedAddTypes,
                           isCheckedAddTypes,
-                          is_halfbreed,
-                            focus,
-                            setFocused,
-                            setBlured
+                          focus,
+                          setFocused,
+                          setBlured,
+                          isCategoryId,
+                          setIsCategoryId,
+                          isHalfBreed,
+                          setIsHalfBreed
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
-    const [isHalfBreed, setIsHalfBreed] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
-    const [isCategoryId, setIsCategoryId] = useState(null);
+    const [activeElem, setActiveElem] = useState(null);
     const isMobile = useIsMobile();
 
     const { content, file } = formik.values;
@@ -238,6 +240,8 @@ const RenderFields = ({ fields,
                                         setIsMust(false);
                                         setIsCheckedAddTypes(false);
                                         setIsCategoryId(1);
+                                        setActiveElem(1);
+                                        setIsTypeId(1); //категория объявления по умолчанию(1-3) в категории 1
                                     }
                                 }}
                             />
@@ -259,6 +263,8 @@ const RenderFields = ({ fields,
                                             setIsMust(false);
                                             setIsAd(false);
                                             setIsCategoryId(2);
+                                            setActiveElem(4);
+                                            setIsTypeId(4);//категория объявления по умолчанию(4-6) в категории 2
                                         }
                                     }}
                                 />
@@ -295,8 +301,20 @@ const RenderFields = ({ fields,
             {isAd && focus &&
                 <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value < 4)} setIsMating={setIsMating} setIsTypeId={setIsTypeId} />
+                        <CustomChipList
+                            {...fields.advert_type_id}
+                            options={advertTypes?.filter(item => item.value < 4)}
+                            setIsMating={setIsMating}
+                            setIsTypeId={setIsTypeId}
+                            setActiveElem={setActiveElem}
+                            activeElem={activeElem}
+                        />
                     </FormGroup>
+                    {
+                        !activeElem && <div className="ArticleCreateForm__error-wrap">
+                            <div className="FormInput__error">Выберите категорию объявления.</div>
+                        </div>
+                    }
                     <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
@@ -310,8 +328,20 @@ const RenderFields = ({ fields,
             {isCheckedAddTypes && focus &&
                 <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes?.filter(item => item.value > 3 )} setIsMating={setIsMating} setIsTypeId={setIsTypeId} />
+                        <CustomChipList
+                            {...fields.advert_type_id}
+                            options={advertTypes?.filter(item => item.value > 3 )}
+                            setIsMating={setIsMating}
+                            setIsTypeId={setIsTypeId}
+                            setActiveElem={setActiveElem}
+                            activeElem={activeElem}
+                        />
                     </FormGroup>
+                    {
+                        !activeElem && <div className="ArticleCreateForm__error-wrap">
+                            <div className="FormInput__error">Выберите категорию объявления.</div>
+                        </div>
+                    }
                     <FormGroup className="ArticleCreateForm__advert">
                         <div className="ArticleCreateForm__inputs-wrap">
                             <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} />

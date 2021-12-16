@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Alert from "../../../../components/Alert";
 import { Form } from "../../../../components/Form";
 import RenderFields from "./RenderFields";
-import { formConfig, defaultValues, apiBreedsEndpoint, apiSexEndpoint, apiCityEndpoint } from "../../config";
+import { formConfig, formConfigSecondCat, defaultValues, apiBreedsEndpoint, apiSexEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
 import "./index.scss";
 
@@ -33,6 +33,8 @@ const Edit = ({ id,
     const [isMating, setIsMating] = useState(false);
     const [isImageDelete, setIsImageDelete] = useState(false);
     const [showAlert, setShowAlert] = useState('');
+
+    const currentCityId = (dogCity?.length > 0) ? dogCity[0].id : null;
 
     useEffect(() => {
         Request({
@@ -66,7 +68,7 @@ const Edit = ({ id,
             dog_color,
             dog_age,
             dog_sex_type_id,
-            // dog_city,
+            dog_city,
             file,
             // is_halfbreed
         } = values;
@@ -85,7 +87,7 @@ const Edit = ({ id,
             advert_breed_id: is_advert ? advert_breed_id : '',
             advert_category_id: is_advert ? advert_category_id : '',
             dog_sex_type_id: dog_sex_type_id  ? dog_sex_type_id : '',
-            // dog_city: is_advert  ? dog_city : '',
+            dog_city: dog_city  ? dog_city : '',
             // is_halfbreed: is_advert  ? is_halfbreed : '',
             dog_color: dog_color ? dog_color : '',
             dog_age: dog_age ? dog_age : '',
@@ -160,6 +162,10 @@ const Edit = ({ id,
         }
     };
 
+    useEffect(() => {
+
+    }, []);
+
     return (
         <>
             <Form
@@ -201,17 +207,17 @@ const Edit = ({ id,
                             dog_name: dogName,
                             dog_age: dogAge,
                             dog_sex_type_id: dogSex,
-                            dog_city: dogCity[0].id,
+                            dog_city: currentCityId,
                             advert_type_id: advertTypeId,
                             advert_category_id: advertCategoryId,
                             is_halfBreed: isHalfBreed,
                         }
-
                 }
                 {...formConfig}
+                {...formConfigSecondCat}
             >
                 <RenderFields
-                    fields={formConfig.fields}
+                    fields={(advertCategoryId === 1) ? formConfig.fields : formConfigSecondCat.fields}
                     breeds={breeds}
                     sex={sex}
                     text={text}

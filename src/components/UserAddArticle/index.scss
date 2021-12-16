@@ -502,6 +502,13 @@
     cursor: not-allowed;
     pointer-events: none;
   }
+  &__error-wrap {
+    position: relative;
+    & .FormInput__error {
+      top: -23px;
+      color: red;
+    }
+  }
 }
 
 #advert_breed_id {

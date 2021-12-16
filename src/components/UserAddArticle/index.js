@@ -20,7 +20,11 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isMating, setIsMating] = useState(false);
     const [showAlert, setShowAlert] = useState('');
     const [loadFile, setLoadFile] = useState(false);
+    const [isCategoryId, setIsCategoryId] = useState(null);
+    const [isHalfBreed, setIsHalfBreed] = useState(false);
     const { focus, setFocused, setBlured } = useFocus(false);
+
+    console.log('isCategoryId', isCategoryId)
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
@@ -82,13 +86,24 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 resetForm="true"
                 isMultipart
                 validationSchema={
+                    (isCategoryId === 1)
+                        ?
                     object().shape({
                         content: string().required('Поле не может быть пустым'),
                         advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
                         advert_number_of_puppies: isAd && !isMating ? number().typeError('Поле не может быть пустым') : '',
                         advert_type_id: isAd ? number().nullable().required('Выберите категорию') : '',
-                        // advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : ''
-                    })}
+                        advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : '',
+                    })
+                        :
+                        object().shape({
+                            content: string().required('Поле не может быть пустым'),
+                            dog_name: string().required('Поле не может быть пустым'),
+                            advert_breed_id: !isHalfBreed ? number().required('Укажите породу').typeError('Укажите породу') : '',
+                            advert_type_id: isCheckedAddTypes ? number().nullable().required('Выберите категорию') : '',
+                            dog_city: string().required('Поле не может быть пустым'),
+                        })
+                }
                 initialValues={{
                     advert_breed_id: '',
                     advert_cost: '',
@@ -127,6 +142,10 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     focus={focus}
                     setFocused={setFocused}
                     setBlured={setBlured}
+                    isCategoryId={isCategoryId}
+                    setIsCategoryId={setIsCategoryId}
+                    isHalfBreed={isHalfBreed}
+                    setIsHalfBreed={setIsHalfBreed}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
