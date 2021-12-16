@@ -64,11 +64,11 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
                                     onDataStateChange={handleGridDataChange}
                                     style={{ height: height ? height : "700px", width: "auto", margin: "0 auto" }}>
 
-                                    <GridColumn field="date_create" title="Создана" width={fullScreen ? '90px' : '80px'}
+                                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '90px' : '80px'}
                                                 columnMenu={ColumnMenu} />
 
 
-                                    <GridColumn field="barcode" title="Метрики щенка"
+                                    <GridColumn field="barcode" title="Номер метрики щенка"
                                                 width={'110px'} columnMenu={ColumnMenu}
                                                  />
 

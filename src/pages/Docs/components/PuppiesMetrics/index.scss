@@ -57,6 +57,18 @@
 
 .club-documents-status__head {
   &.--puppies {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
+  }
+
+  &.--puppies-update-button {
+    font-size: 16px;
+    border: none;
+
+    &:hover {
+      color: #36f;
+      cursor: pointer;
+    }
   }
 }

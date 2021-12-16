@@ -18,57 +18,76 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
     const document_id = window.location.href.split('=')[1];
 
     useEffect(() => {
-        (() => Request({
-            url: '/api/document/documentdog/puppy_cards_registry'
-        },
-        data => {
-            setPuppies(data.sort(function (a, b) {
-                return new Date(b.date_create) - new Date(a.date_create);
-            }).map(({ date_change, date_create, date_of_birth_litter, ...rest }) => ({
-                date_change: moment(date_change).format('DD.MM.YY'),
-                date_create: moment(date_create).format('DD.MM.YY'),
-                date_of_birth_litter: moment(date_of_birth_litter).format('DD.MM.YY'),
-                ...rest
-            }))
-
-
-            );
-            setLoading(false);
-        },
-        error => {
-            console.log(error.response);
-            setLoading(false);
-        }))();
+        getPuppiesCards();
     }, []);
-    // const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
-// useEffect(() => {
-//     if(puppies) {
-//         puppies.forEach((pop, i) => {
-//             fetch(`/api/document/documentdog/puppy_card?id=${pop.id}`, {headers})
-//
-//                 .then(res => res.blob())
-//                 .then(data => URL.createObjectURL(data))
-//                 .then(url => console.log("url", url))
-//                 // .then(url => console.log(puppies[i]))
-//                 .then(url => puppies[i].pdf_link = url)
-//         })
-//     }
-//
-//         // fetch(`/api/document/documentdog/puppy_card?id=25`, {headers})
-//         //
-//         //     .then(res => res.blob())
-//         //     .then(data => URL.createObjectURL(data))
-//         //     .then(url => console.log("url", url))
-//     }, [])
+
+    const getPuppiesCards = () => {
+        (() => Request({
+                url: '/api/document/documentdog/puppy_cards_registry'
+            },
+            data => {
+                setPuppies(data.sort(function (a, b) {
+                        return new Date(b.date_create) - new Date(a.date_create);
+                    }).map(({ date_change, date_create, date_of_birth_litter, ...rest }) => ({
+                        date_change: moment(date_change).format('DD.MM.YY'),
+                        date_create: moment(date_create).format('DD.MM.YY'),
+                        date_of_birth_litter: moment(date_of_birth_litter).format('DD.MM.YY'),
+                        ...rest
+                    }))
+
+
+                );
+                setLoading(false);
+            },
+            error => {
+                console.log(error.response);
+                setLoading(false);
+            }))();
+    }
+
+    const CheckUpdateNewMetrics = () => {
+        (() => Request({
+                url: '/api/document/documentdog/check_and_generate_puppy_cards'
+            },
+            data => {
+                console.log('new data', data);
+                console.log('new data l', data.length);
+                setLoading(false);
+
+                if (data.length) {
+                    window.alert(`Добавлено новых метрик щенка: ${data.length}.`)
+                    getPuppiesCards();
+                } else {
+                    window.alert('Новых метрик щенка не найдено.')
+                }
+            },
+            error => {
+                console.log(error.response);
+                setLoading(false);
+            }))();
+    }
+
+    const handleMetricsUpdate = () => {
+        CheckUpdateNewMetrics()
+    }
+
 
 console.log("puppies", puppies)
     return loading ?
         <Loading /> :
             <Card className="club-documents-status">
                 <div className="club-documents-status__head --puppies">
-                    <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
-                    &nbsp;/&nbsp;
-                     Метрики щенка
+                    <div>
+                        <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
+                        &nbsp;/&nbsp;
+                        Метрики щенка
+                    </div>
+
+                    <div className="club-documents-status__head --puppies-update-button"
+                         onClick={handleMetricsUpdate}
+                    >
+                        Обновить данные
+                    </div>
                 </div>
 
                 {puppies && !!puppies.length ? <div className="_request_registry_wrap">
