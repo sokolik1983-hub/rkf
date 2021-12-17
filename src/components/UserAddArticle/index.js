@@ -24,8 +24,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isHalfBreed, setIsHalfBreed] = useState(false);
     const { focus, setFocused, setBlured } = useFocus(false);
 
-    console.log('isCategoryId', isCategoryId)
-
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
 
@@ -99,9 +97,10 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                         object().shape({
                             content: string().required('Поле не может быть пустым'),
                             dog_name: string().required('Поле не может быть пустым'),
-                            advert_breed_id: !isHalfBreed ? number().required('Укажите породу').typeError('Укажите породу') : '',
+                            advert_breed_id: !isHalfBreed ? number().required('Укажите породу').typeError('Укажите пород') : '',
                             advert_type_id: isCheckedAddTypes ? number().nullable().required('Выберите категорию') : '',
-                            dog_city: string().required('Поле не может быть пустым'),
+                            dog_city: isCheckedAddTypes ? string().required('Укажите город').typeError('Укажите город') : '',
+                            dog_sex_type_id: isCheckedAddTypes ? number().required('Укажите пол').typeError('Укажите пол') : '',
                         })
                 }
                 initialValues={{
@@ -112,7 +111,9 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     dog_color: '',
                     dog_sex_type_id: '',
                     dog_age: '',
-                    dog_name: ''
+                    dog_name: '',
+                    dog_city: '',
+                    content: ''
                 }}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}

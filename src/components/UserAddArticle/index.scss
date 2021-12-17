@@ -27,6 +27,9 @@
       border-bottom: 1px solid #ebf0f2;
       border-radius: 0;
     }
+    .FormInput--error .FormInput__input {
+      border-bottom: 1px solid #FA5D50;
+    }
   }
 
   .custom-checkbox {
@@ -91,9 +94,9 @@
         margin: 0;
       }
     }
-
     .FormInput--error .FormInput__error {
-      display: none;
+      width: 100%;
+      text-align: right;
     }
   }
 

@@ -180,11 +180,10 @@ export const formConfigSecondCat = {
         advert_breed_id: number()
             .when(['is_halfbreed'], {
                 is: false,
-                then: number().required('Поле не может быть пустым'),
+                then: string().required('Поле не может быть пустым'),
                 otherwise: number().notRequired(),
             }),
         dog_city: number().required('Поле не может быть пустым')
-
     })
 };
 
@@ -198,4 +197,5 @@ export const defaultValues = {
     file: '',
     dog_color: '',
     dog_age: '',
+    dog_city: ''
 };
