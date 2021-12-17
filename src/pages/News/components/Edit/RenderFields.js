@@ -325,7 +325,8 @@ const RenderFields = ({ fields,
                                         {...fields.advert_breed_id}
                                         options={breeds}
                                         onChange={(e) => handleChangeBreed(e)}
-                                    />
+                                    >
+                                    </FormField>
                                 </FormGroup>
                                 <FormGroup inline className="article-edit__ad">
                                     <FormField {...fields.dog_name} />
