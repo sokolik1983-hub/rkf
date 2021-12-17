@@ -311,7 +311,18 @@
     position: relative;
     & .FormInput__error {
       top: -23px;
-      color: red;
+      color: #FA5D50;
+      &.select-breed {
+        top: -15px;
+      }
+    }
+  }
+  .error-input {
+    & #advert_breed_id {
+      & .RSInput__control {
+        border-color: #FA5D50;
+        border-width: 2px;
+      }
     }
   }
 }

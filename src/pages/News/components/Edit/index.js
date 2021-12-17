@@ -36,7 +36,6 @@ const Edit = ({ id,
     const [showAlert, setShowAlert] = useState('');
 
     const currentCityId = (dogCity?.length > 0) ? dogCity[0].id : null;
-
     const CategoryOneSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
         is_advert: boolean(),
@@ -62,7 +61,6 @@ const Edit = ({ id,
             }),
         advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : '',
     }); //Валидация для объявлений категории 1
-
     const CategoryTwoSchema = object().shape({
         content: string().required('Поле не может быть пустым'), //++
         dog_name: string().required('Поле не может быть пустым'),
@@ -76,6 +74,38 @@ const Edit = ({ id,
             }),
         dog_city: number().required('Поле не может быть пустым')
     }); //Валидация для объявлений категории 2
+    const initialValueCatOne = {
+        ...defaultValues,
+        is_advert: isAd,
+        advert_breed_id: adBreedId,
+        advert_cost: adCost,
+        advert_number_of_puppies: adNumberOfPuppies,
+        content: text,
+        img: img,
+        video_link: videoLink,
+        dog_color: dogColor,
+        dog_age: dogAge,
+        dog_sex_type_id: dogSex,
+        advert_type_id: advertTypeId,
+        advert_category_id: advertCategoryId,
+    }; //Initial Values для объявлений категории 1
+    const initialValueCatTwo = {
+        ...defaultValues,
+        is_advert: isAd,
+        advert_breed_id: adBreedId,
+        content: text,
+        img: img,
+        video_link: videoLink,
+        dog_color: dogColor,
+        dog_name: dogName,
+        dog_age: dogAge,
+        dog_sex_type_id: dogSex,
+        dog_city: currentCityId,
+        advert_type_id: advertTypeId,
+        advert_category_id: advertCategoryId,
+        is_halfBreed: isHalfBreed,
+    } //Initial Values для объявлений категории 2
+
 
     useEffect(() => {
         Request({
@@ -214,42 +244,7 @@ const Edit = ({ id,
                 history={history}
                 transformValues={(advertCategoryId === 1) ? transformValues : transformValuesForOtherAdvert}
                 validationSchema={(advertCategoryId === 1) ? CategoryOneSchema : CategoryTwoSchema}
-                initialValues={
-                    (advertCategoryId === 1)
-                            ?
-                        {
-                            ...defaultValues,
-                            is_advert: isAd,
-                            advert_breed_id: adBreedId,
-                            advert_cost: adCost,
-                            advert_number_of_puppies: adNumberOfPuppies,
-                            content: text,
-                            img: img,
-                            video_link: videoLink,
-                            dog_color: dogColor,
-                            dog_age: dogAge,
-                            dog_sex_type_id: dogSex,
-                            advert_type_id: advertTypeId,
-                            advert_category_id: advertCategoryId,
-                        }
-                            :
-                        {
-                            ...defaultValues,
-                            is_advert: isAd,
-                            advert_breed_id: adBreedId,
-                            content: text,
-                            img: img,
-                            video_link: videoLink,
-                            dog_color: dogColor,
-                            dog_name: dogName,
-                            dog_age: dogAge,
-                            dog_sex_type_id: dogSex,
-                            dog_city: currentCityId,
-                            advert_type_id: advertTypeId,
-                            advert_category_id: advertCategoryId,
-                            is_halfBreed: isHalfBreed,
-                        }
-                }
+                initialValues={(advertCategoryId === 1) ? initialValueCatOne : initialValueCatTwo}
                 {...formConfig}
                 {...formConfigSecondCat}
             >
@@ -272,6 +267,7 @@ const Edit = ({ id,
                     advertTypeId={advertTypeId}
                     advertCategoryId={advertCategoryId}
                     isHalfBreed={isHalfBreed}
+                    adBreedId={adBreedId}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

@@ -38,7 +38,8 @@ const RenderFields = ({ fields,
                           dogSex,
                           advertTypeId,
                           advertCategoryId,
-                          isHalfBreed
+                          isHalfBreed,
+                          adBreedId
 }) => {
     const [src, setSrc] = useState(imgSrc);
     const [sexId, setSex] = useState(imgSrc);
@@ -49,6 +50,9 @@ const RenderFields = ({ fields,
     const [showModal, setShowModal] = useState(false);
     const [isHalfBreedEdit, setIsHalfBreedEdit] = useState(isHalfBreed);
     const [activeElem, setActiveElem] = useState(advertTypeId);
+    const [breedValue, setBreedValue] = useState(adBreedId);
+
+    console.log('breedValue', breedValue);
 
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id } = formik.values;
@@ -165,10 +169,12 @@ const RenderFields = ({ fields,
         } else if (!isHalfBreedEdit) {
             setIsHalfBreedEdit(true);
             formik.setFieldValue('advert_breed_id', '');
+            setBreedValue(null);
         }
     };
     const handleChangeBreed = (e) => {
         formik.setFieldValue('advert_breed_id', e.value);
+        setBreedValue(e.value);
     }
 
     useEffect(() => {
@@ -321,12 +327,16 @@ const RenderFields = ({ fields,
                                          onChange={handleChangeHalfBreed}
                                      />
                                     <FormField
-                                        className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'}`}
+                                        className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'} ${(!isHalfBreedEdit && !breedValue) && 'error-input'}`}
                                         {...fields.advert_breed_id}
                                         options={breeds}
                                         onChange={(e) => handleChangeBreed(e)}
-                                    >
-                                    </FormField>
+                                    />
+                                        {
+                                            (!isHalfBreedEdit && !breedValue) && <div className="article-edit__error-wrap ">
+                                                <div className="FormInput__error select-breed">Поле не может быть пустым</div>
+                                            </div>
+                                        }
                                 </FormGroup>
                                 <FormGroup inline className="article-edit__ad">
                                     <FormField {...fields.dog_name} />
