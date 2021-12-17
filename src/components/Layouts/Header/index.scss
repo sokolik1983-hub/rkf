@@ -677,8 +677,26 @@
       margin-right: 18px;
       position: relative;
       top: 5px;
-      @media (max-width: 560px) {
-        display: none;
+      @media (max-width: 1079px) {
+        margin-right: 0;
+        top: 6px;
+
+        a {
+          display: flex;
+          text-decoration: none;
+          flex-direction: column;
+          svg {
+            margin: 0 auto;
+          }
+
+        }
+        //display: none;
+        span {
+          position: relative;
+          font-size: 13px;
+          color: #979797;
+          text-decoration: none;
+        }
       }
       &.login-page {
         margin-right: -18px;
