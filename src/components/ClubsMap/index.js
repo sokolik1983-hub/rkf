@@ -59,7 +59,6 @@ const ClubsMap = ({ fullScreen }) => {
             }, data => {
                 setTargetCoords([data.geo_lat, data.geo_lon]);
                 setTargetZoom(8);
-                console.log(targetCoords);
             });
         })();
         (async () => {
@@ -67,7 +66,6 @@ const ClubsMap = ({ fullScreen }) => {
             url: `/api/club/yandex_maps_filter?regionId=${lastRegion}`
         }, data => {
                 setCities(data.map(city => ({ 'value': city.id, 'label': city.name })));
-                console.log('regcity',cities);
             });
         })();
     }, [targetRegion, setTargetRegion]);
