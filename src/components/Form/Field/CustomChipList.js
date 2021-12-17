@@ -15,7 +15,6 @@ const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeI
         setFieldValue(name, value);
         setIsMating(value === 3);
         setActiveElem(value);
-        // setIsTypeId(value);
     };
 
     useEffect(() => {

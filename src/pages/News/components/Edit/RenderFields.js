@@ -58,8 +58,6 @@ const RenderFields = ({ fields,
     const { content, is_advert, dog_sex_type_id } = formik.values;
     const isMobile = useIsMobile();
 
-    console.log('fields', fields)
-
     useEffect(() => {
         setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель' : 'Сука'}`});
     },[])
