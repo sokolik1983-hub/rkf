@@ -94,7 +94,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     isAd={news.is_advert}
                                     adBreedId={news.advert_breed_id}
                                     dogSex={news.dog_sex_type_id}
-                                    dogCity={(news.dog_city.length > 0) ? news.dog_city : null}
+                                    dogCity={news.dog_city}
                                     dogColor={news.dog_color}
                                     dogName={news.dog_name}
                                     dogAge={news.dog_age}

@@ -5,6 +5,7 @@ import RenderFields from "./RenderFields";
 import { formConfig, formConfigSecondCat, defaultValues, apiBreedsEndpoint, apiSexEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
 import "./index.scss";
+import {boolean, number, object, string} from "yup";
 
 
 const Edit = ({ id,
@@ -68,7 +69,7 @@ const Edit = ({ id,
             dog_color,
             dog_age,
             dog_sex_type_id,
-            dog_city,
+            // dog_city,
             file,
             // is_halfbreed
         } = values;
@@ -87,7 +88,7 @@ const Edit = ({ id,
             advert_breed_id: is_advert ? advert_breed_id : '',
             advert_category_id: is_advert ? advert_category_id : '',
             dog_sex_type_id: dog_sex_type_id  ? dog_sex_type_id : '',
-            dog_city: dog_city  ? dog_city : '',
+            // dog_city: dog_city  ? dog_city : '',
             // is_halfbreed: is_advert  ? is_halfbreed : '',
             dog_color: dog_color ? dog_color : '',
             dog_age: dog_age ? dog_age : '',
@@ -162,10 +163,6 @@ const Edit = ({ id,
         }
     };
 
-    useEffect(() => {
-
-    }, []);
-
     return (
         <>
             <Form
@@ -176,6 +173,48 @@ const Edit = ({ id,
                 isEditPage
                 history={history}
                 transformValues={(advertCategoryId === 1) ? transformValues : transformValuesForOtherAdvert}
+                validationSchema={(advertCategoryId === 1)
+                ?
+                    object().shape({
+                        content: string().required('Поле не может быть пустым'),
+                        is_advert: boolean(),
+                        advert_breed_id: number()
+                            .when(['is_advert'], {
+                                is: true,
+                                then: number().required('Поле не может быть пустым'),
+                                otherwise: number().notRequired(),
+                            }),
+                        advert_number_of_puppies: number()
+                            .when(['is_advert'], {
+                                is: true,
+                                then: number().min(1, 'Значение не может быть меньше 1')
+                                    .max(99, 'Значение не может быть больше 99')
+                                    .typeError('Введите число'),
+                                otherwise: number().notRequired(),
+                            }),
+                        advert_type_id: number()
+                            .when(['is_advert'], {
+                                is: true,
+                                then: number().nullable().required('Выберите категорию'),
+                                otherwise: number().notRequired(),
+                            }),
+                        advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : '',
+                    })
+                    :
+                    object().shape({
+                        content: string().required('Поле не может быть пустым'), //++
+                        dog_name: string().required('Поле не может быть пустым'),
+                        dog_sex_type_id: string().required('Поле не может быть пустым'),
+                        is_advert: boolean(),
+                        advert_breed_id: number()
+                            .when(['is_halfbreed'], {
+                                is: false,
+                                then: number().required('Поле не может быть пустым'),
+                                otherwise: number().notRequired(),
+                            }),
+                        dog_city: number().required('Поле не может быть пустым')
+                    })
+                }
                 initialValues={
                     (advertCategoryId === 1)
                             ?
@@ -193,7 +232,6 @@ const Edit = ({ id,
                             dog_sex_type_id: dogSex,
                             advert_type_id: advertTypeId,
                             advert_category_id: advertCategoryId,
-                            is_halfBreed: isHalfBreed,
                         }
                             :
                         {

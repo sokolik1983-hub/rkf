@@ -82,31 +82,6 @@ export const formConfig = {
             label: 'Категория объявления'
         }
     },
-    validationSchema: object().shape({
-        content: string().required('Поле не может быть пустым'),
-        is_advert: boolean(),
-        advert_breed_id: number()
-            .when(['is_advert'], {
-                is: true,
-                then: number().required('Поле не может быть пустым'),
-                otherwise: number().notRequired(),
-            }),
-        advert_number_of_puppies: number()
-            .when(['is_advert'], {
-                is: true,
-                then: number().min(1, 'Значение не может быть меньше 1')
-                    .max(99, 'Значение не может быть больше 99')
-                    .typeError('Введите число'),
-                otherwise: number().notRequired(),
-            }),
-        advert_type_id: number()
-            .when(['is_advert'], {
-                is: true,
-                then: number().nullable().required('Выберите категорию'),
-                otherwise: number().notRequired(),
-            }),
-
-    })
 };
 export const formConfigSecondCat = {
     action: endpointEditNews,
@@ -171,20 +146,7 @@ export const formConfigSecondCat = {
             name: 'advert_type_id',
             label: 'Категория объявления'
         }
-    },
-    validationSchema: object().shape({
-        content: string().required('Поле не может быть пустым'),
-        dog_name: string().required('Поле не может быть пустым'),
-        dog_sex_type_id: string().required('Поле не может быть пустым'),
-        is_advert: boolean(),
-        advert_breed_id: number()
-            .when(['is_halfbreed'], {
-                is: false,
-                then: string().required('Поле не может быть пустым'),
-                otherwise: number().notRequired(),
-            }),
-        dog_city: number().required('Поле не может быть пустым')
-    })
+    }
 };
 
 export const defaultValues = {

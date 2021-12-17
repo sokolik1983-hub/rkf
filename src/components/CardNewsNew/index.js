@@ -206,13 +206,8 @@ const CardNewsNew = forwardRef(({
                     {is_advert && <div className="CardNewsNew__ad">
                         {advert_type_name && <span className="CardNewsNew__category-span">Категория: {advert_type_name}</span>}
                         {
-                            is_halfbreed
-                                ?
-                                <div className="CardNewsNew__ad-breed">Метис</div>
-                                :
                                 <p className="CardNewsNew__ad-breed">
-                                    <span>Порода: {advert_breed_name}</span>
-
+                                    <span>{is_halfbreed ? "Метис" : `Порода: ${advert_breed_name}`}</span>
                                     <span>№{advert_code}</span>
                                 </p>
                         }

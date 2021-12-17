@@ -103,18 +103,33 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                             dog_sex_type_id: isCheckedAddTypes ? number().required('Укажите пол').typeError('Укажите пол') : '',
                         })
                 }
-                initialValues={{
-                    advert_breed_id: '',
-                    advert_cost: '',
-                    advert_number_of_puppies: '',
-                    advert_type_id: '',
-                    dog_color: '',
-                    dog_sex_type_id: '',
-                    dog_age: '',
-                    dog_name: '',
-                    dog_city: '',
-                    content: ''
-                }}
+                initialValues={
+                (isCategoryId === 1)
+                    ?
+                    {
+                        advert_breed_id: '',
+                        advert_cost: '',
+                        advert_number_of_puppies: '',
+                        advert_type_id: '',
+                        dog_color: '',
+                        dog_sex_type_id: '',
+                        dog_age: '',
+                        content: ''
+                    }
+                :
+                    {
+                        advert_breed_id: '',
+                        advert_cost: '',
+                        advert_number_of_puppies: '',
+                        advert_type_id: '',
+                        dog_color: '',
+                        dog_sex_type_id: '',
+                        dog_age: '',
+                        dog_name: '',
+                        dog_city: '',
+                        content: ''
+                    }
+                }
                 {...newsArticleFormConfig}
                 transformValues={transformValues}
                 onSuccess={onSuccess}
