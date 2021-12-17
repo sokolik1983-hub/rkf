@@ -159,7 +159,6 @@ const Filters = ({
                                             </a>
                                         </div>
                                         <ActiveUserFilter
-                                            active_rkf_user={active_rkf_user}
                                             onChange={filter => setFiltersToUrl({not_activated: false, active_rkf_user: filter})}
                                         />
                                         <FederationChoiceFilter

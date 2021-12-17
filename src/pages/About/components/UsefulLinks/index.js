@@ -4,25 +4,25 @@ import './index.scss'
 const UsefulLinks = () => {
     const links = [
         {
-            name: 'rkfOrg',
+            name: 'RKF.ORG.RU',
             icon: '/static/images/header/rkf-logo-transparent.svg',
-            link: 'RKF.ORG.RU',
+            link: 'http://RKF.ORG.RU',
             description: 'Российская кинологическая организация',
         },
         {
-            name: 'helpRkf',
+            name: 'help.RKF.Online',
             icon: '/static/images/header/rkf-logo-transparent.svg',
-            link: 'help.rkf.online',
+            link: 'http://help.rkf.online',
             description: 'Портал поддержки пользователей',
         },
         {
-            name: 'rkfAcademy',
+            name: 'RKF.ACADEMY',
             icon: 'static/images/about/rkf_academy.png',
-            link: 'RKF.ACADEMY',
+            link: 'http://RKF.ACADEMY',
             description: 'Образовательный центр РКФ',
         },
         {
-            name: 'fci',
+            name: 'FCI',
             icon: 'static/images/about/FCI_logo.png',
             link: 'http://www.fci.be/en/',
             description: 'Международная Федерация кинологии',
@@ -45,7 +45,7 @@ const UsefulLinks = () => {
                                         <img src={item.icon} alt={item.name}/>
                                     </div>
                                     <div>
-                                        {item.link}
+                                        {item.name}
                                     </div>
                                 </a>
 

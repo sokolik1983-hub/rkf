@@ -25,6 +25,7 @@ const GlobalCard = ({cardClicked}) => {
     return (
         <Card id="global-search-anchor" className={cardClicked === 8 && `_active_card`}>
             <div className="search-form__icon global-search" />
+            <div className="search-form__text_wrap">
             <h3>ГЛОБАЛЬНЫЙ ПОИСК</h3>
             <p className="search-form__text">Для осуществления поиска по всему порталу РКФ.Онлайн, пожалуйста, введите необходимый поисковый запрос. После ввода нажмите на кнопку "Поиск".</p>
 
@@ -56,6 +57,7 @@ const GlobalCard = ({cardClicked}) => {
                         </button>
                     </div>
             </form>
+            </div>
 
         </Card>
     );

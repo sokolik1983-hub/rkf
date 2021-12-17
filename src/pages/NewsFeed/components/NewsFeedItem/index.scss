@@ -190,6 +190,7 @@
       @media (min-width: 560px) {
         width: calc(100% - 70px);
       }
+
       &_text {
         position: relative;
         left: -70px;
@@ -197,6 +198,7 @@
           font-weight: 600;
         }
       }
+
       a {
         font-weight: normal;
         font-size: 18px;
@@ -235,6 +237,7 @@
         a {
           margin-bottom: 10px;
         }
+
       }
       & > span {
         display: flex;

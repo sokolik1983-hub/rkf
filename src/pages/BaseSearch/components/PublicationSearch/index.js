@@ -120,6 +120,7 @@ const PublicationSearch = ({ cardClicked }) => {
     return (
         <Card className={`PublicationSearch ${cardClicked === 7 && `_active_card`}`} id="publication-search-anchor">
             <div className="search-form__icon publication-search" />
+            <div className="PublicationSearch__text_wrap">
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
             <p className="PublicationSearch__price">Цена руб.</p>
@@ -222,6 +223,7 @@ const PublicationSearch = ({ cardClicked }) => {
                     onOk={() => setAlert(false)}
                 />
             }
+            </div>
         </Card>
     );
 }
