@@ -28,7 +28,6 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
     const tableRef = useRef();
 
     useEffect(() => {
-        console.log('table!!!!!!', tableRef)
     }, [tableRef])
 
     const handleGridDataChange = (e) => {
@@ -51,12 +50,9 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
     };
 
     const handleOnPdfLoading = (action) => {
-        console.log('action', action)
-        if (action === 'add class') {
-            tableRef.current.classList.add('disabled');
-        } else {
+        action === 'add class' ?
+            tableRef.current.classList.add('disabled') :
             tableRef.current.classList.remove('disabled');
-        }
     }
 
     return (
@@ -66,11 +62,9 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
                     <div className={`chip-list__wrap _registry-wrap ${fullScreen ? `_full-registry-wrap` : ``}`}>
 
                     </div>
-                    {/*{console.log('isPdfLoading div', isPdfLoading)}*/}
                     {
                         documents &&
                             <div className="metrics-table" ref={tableRef}>
-                            {/*<div>*/}
                                 <Grid
                                     data={process(documents, gridData)}
                                     rowRender={rowRender}

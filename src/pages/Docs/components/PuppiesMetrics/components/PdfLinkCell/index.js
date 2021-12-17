@@ -12,8 +12,6 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     }
 
     const fetchPdf = (id) => {
-        console.log('id', id)
-
         fetch(`/api/document/documentdog/puppy_card?id=${id}`, {headers})
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
