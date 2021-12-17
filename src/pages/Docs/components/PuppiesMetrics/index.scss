@@ -53,6 +53,17 @@
       }
     }
   }
+
+  /*&__pdf-cell {
+
+    &.disabled:hover {
+      cursor: wait;
+    }
+
+    &.disabled .pedigree-link:hover {
+      pointer-events: none;
+    }
+  }*/
 }
 
 .club-documents-status__head {
@@ -86,5 +97,18 @@
     cursor: pointer;
     background: #234ED2FF;
   }
+}
+
+.metrics-table.disabled {
+    & .puppies-metrics__pdf-cell {
+      &:hover {
+        cursor: wait;
+      }
+
+      & .pedigree-link:hover {
+        pointer-events: none;
+      }
+    }
+
 }
 

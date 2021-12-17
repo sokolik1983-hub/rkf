@@ -1,35 +1,40 @@
 import React, {useEffect, useState, useRef} from 'react';
 
-const PdfLinkCell = ({ dataItem }) => {
+const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
 
-    const  [pdf, setPdf] = useState(null);
-    const [isClicked, setIsClicked] = useState(false);
+    const [pdf, setPdf] = useState(null);
 
     const linkRef = useRef();
-
-    useEffect(() => {
-        isClicked && fetchPdf(dataItem.id)
-    }, [isClicked])
 
     const autoClick = () => {
         linkRef.current && linkRef.current.click();
     }
 
     const fetchPdf = (id) => {
+        console.log('id', id)
+
         fetch(`/api/document/documentdog/puppy_card?id=${id}`, {headers})
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => {
-                setPdf(url); autoClick();
+                setPdf(url);
+                autoClick();
+                handleOnPdfLoading('remove class');
             })
+            .catch(error => handleOnPdfLoading('removeClass'))
+    }
+
+    const startPdfLoad = () => {
+        fetchPdf(dataItem.id);
+        handleOnPdfLoading('add class');
     }
 
     return (
-        <td>
+        <td className={`puppies-metrics__pdf-cell`}>
             {!pdf ?
-                <span className="pedigree-link"
-                      onClick={() => setIsClicked(true)}
+                <span className={ `pedigree-link`}
+                      onClick={startPdfLoad}
                 >
                     Посмотреть PDF
                 </span> :

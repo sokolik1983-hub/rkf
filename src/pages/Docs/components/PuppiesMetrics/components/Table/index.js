@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
@@ -25,6 +25,12 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
         sort: []
     });
 
+    const tableRef = useRef();
+
+    useEffect(() => {
+        console.log('table!!!!!!', tableRef)
+    }, [tableRef])
+
     const handleGridDataChange = (e) => {
         setGridData(e.data);
     }
@@ -44,6 +50,15 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
     };
 
+    const handleOnPdfLoading = (action) => {
+        console.log('action', action)
+        if (action === 'add class') {
+            tableRef.current.classList.add('disabled');
+        } else {
+            tableRef.current.classList.remove('disabled');
+        }
+    }
+
     return (
         <div className="App">
             <LocalizationProvider language="ru-RU">
@@ -51,9 +66,11 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
                     <div className={`chip-list__wrap _registry-wrap ${fullScreen ? `_full-registry-wrap` : ``}`}>
 
                     </div>
+                    {/*{console.log('isPdfLoading div', isPdfLoading)}*/}
                     {
                         documents &&
-                            <>
+                            <div className="metrics-table" ref={tableRef}>
+                            {/*<div>*/}
                                 <Grid
                                     data={process(documents, gridData)}
                                     rowRender={rowRender}
@@ -62,7 +79,8 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
                                     resizable
                                     {...gridData}
                                     onDataStateChange={handleGridDataChange}
-                                    style={{ height: height ? height : "700px", width: "auto", margin: "0 auto" }}>
+                                    style={{ height: height ? height : "700px", width: "auto", margin: "0 auto" }}
+                                    >
 
                                     <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '90px' : '80px'}
                                                 columnMenu={ColumnMenu} />
@@ -87,11 +105,11 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
                                                 field="pedigree_link" title="Ссылка на эл. копию документа"
                                                 columnMenu={ColumnMenu}
                                                 // cell={renderPdfLink}
-                                                cell={(props) => PdfLinkCell(props)}
+                                                cell={(props) => PdfLinkCell(props, handleOnPdfLoading)}
                                     />
                                 </Grid>
 
-                            </>
+                            </div>
                     }
                 </IntlProvider>
             </LocalizationProvider>
