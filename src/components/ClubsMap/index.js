@@ -65,7 +65,7 @@ const ClubsMap = ({ fullScreen }) => {
             await Request({
             url: `/api/club/yandex_maps_filter?regionId=${lastRegion}`
         }, data => {
-                setCities(data.map(city => ({ 'value': city.id, 'label': city.name })));
+                setCities(data);
             });
         })();
     }, [targetRegion, setTargetRegion]);
