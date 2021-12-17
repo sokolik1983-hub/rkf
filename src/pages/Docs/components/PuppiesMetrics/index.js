@@ -80,14 +80,24 @@ console.log("puppies", puppies)
                     <div>
                         <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                         &nbsp;/&nbsp;
-                        Метрики щенка
+                        Метрики&nbsp;щенка
                     </div>
 
-                    <div className="club-documents-status__head --puppies-update-button"
+                    <div className="club-documents-status --puppies-update-button"
                          onClick={handleMetricsUpdate}
                     >
-                        Обновить данные
+                        Обновить
                     </div>
+                </div>
+
+                <div className="Card Card--message">
+                    <h3>Уважаемые пользователи!</h3>
+
+                    <p>
+                        Если вы не находите в интерфейсе свои метрики, которые создаются по обработанным
+                        (выполненным) заявкам на регистрацию пометов, необходимо нажать на кнопку "Обновить",
+                        она находится в правой, верхней части интерфейса.
+                    </p>
                 </div>
 
                 {puppies && !!puppies.length ? <div className="_request_registry_wrap">
