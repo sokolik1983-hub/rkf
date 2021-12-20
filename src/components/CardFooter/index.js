@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 
+import { connectAuthVisible } from '../../pages/Login/connectors';
 import Share from 'components/Share';
 import { Request } from '../../utils/request';
 import profileTypes from './profileTypes';
 
 import './index.scss';
+
 
 const CardFooter = ({
                         id,
@@ -14,7 +16,7 @@ const CardFooter = ({
                         likesOn,
                         type,
                         userType,
-                        isAuthenticated
+                        isAuthenticated,
                     }) => {
     const [isLiked, setIsLiked] = useState(is_liked);
     const [likesCount, setLikesCount] = useState(like_count);
@@ -28,19 +30,21 @@ const CardFooter = ({
 
     const typeId = profileType?.profileId;
 
-    const handleLikeClick = async () => {if (!isAuthenticated) {
-        if (likesOn) {
+    const handleLikeClick = async () => {
+        if (likesOn && isAuthenticated) {
             await Request({
                 url: !isLiked ? profileType.methodToAdd : profileType.methodToRemove,
                 method: isLiked ? 'PUT' : 'POST',
-                data: JSON.stringify({[typeId]: id})
+                data: JSON.stringify({ [typeId]: id })
             }, () => {
                 setIsLiked(!isLiked);
                 setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
             }, e => console.log(e.response));
-        }} else {
-        alert('Необходимо авторизоваться');
-    }
+        }
+
+        if (!isAuthenticated) {
+            alert('Необходимо авторизоваться');
+        }
     }
 
     return (
@@ -74,4 +78,4 @@ const CardFooter = ({
     )
 };
 
-export default CardFooter;
+export default memo(connectAuthVisible(CardFooter));
