@@ -9,8 +9,6 @@ import './CustomChipList.scss';
 const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeId, setActiveElem, activeElem }) => {
     const { setFieldValue, errors } = formik;
 
-    console.log('activeElem', activeElem)
-
     const handleChange = ({ value }) => {
         setFieldValue(name, value);
         setIsMating(value === 3);

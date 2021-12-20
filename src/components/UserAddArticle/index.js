@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { number, object, string } from "yup";
+import {boolean, number, object, string} from "yup";
 import Card from "../Card";
 import Alert from "../Alert";
 import { Form } from "../Form";
@@ -8,6 +8,7 @@ import { newsArticleFormConfig } from "./config";
 import ls from "local-storage";
 import "./index.scss";
 import {useFocus} from "../../shared/hooks";
+import {defaultValues} from "../../pages/News/config";
 
 
 const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInfo }) => {
@@ -23,6 +24,45 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isCategoryId, setIsCategoryId] = useState(null);
     const [isHalfBreed, setIsHalfBreed] = useState(false);
     const { focus, setFocused, setBlured } = useFocus(false);
+
+
+    const CategoryOneSchema = object().shape({
+        content: string().required('Поле не может быть пустым'),
+        advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
+        advert_number_of_puppies: isAd && !isMating ? number().typeError('Поле не может быть пустым') : '',
+        advert_type_id: isAd ? number().nullable().required('Выберите категорию') : '',
+        advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : '',
+    }); //Валидация для объявлений категории 1
+    const CategoryTwoSchema = object().shape({
+        content: string().required('Поле не может быть пустым'),
+        dog_name: string().required('Поле не может быть пустым'),
+        advert_breed_id: !isHalfBreed ? number().required('Укажите породу').typeError('Укажите пород') : '',
+        advert_type_id: isCheckedAddTypes ? number().nullable().required('Выберите категорию') : '',
+        dog_city: isCheckedAddTypes ? string().required('Укажите город').typeError('Укажите город') : '',
+        dog_sex_type_id: isCheckedAddTypes ? number().required('Укажите пол').typeError('Укажите пол') : '',
+    }); //Валидация для объявлений категории 2
+    const initialValueCatOne = {
+        advert_breed_id: '',
+        advert_cost: '',
+        advert_number_of_puppies: '',
+        advert_type_id: '',
+        dog_color: '',
+        dog_sex_type_id: '',
+        dog_age: '',
+        content: ''
+    }; //Initial Values для объявлений категории 1
+    const initialValueCatTwo = {
+        advert_breed_id: '',
+        advert_cost: '',
+        advert_number_of_puppies: '',
+        advert_type_id: '',
+        dog_color: '',
+        dog_sex_type_id: '',
+        dog_age: '',
+        dog_name: '',
+        dog_city: '',
+        content: ''
+    } //Initial Values для объявлений категории 2
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
@@ -83,53 +123,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 className="ArticleCreateForm"
                 resetForm="true"
                 isMultipart
-                validationSchema={
-                    (isCategoryId === 1)
-                        ?
-                    object().shape({
-                        content: string().required('Поле не может быть пустым'),
-                        advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
-                        advert_number_of_puppies: isAd && !isMating ? number().typeError('Поле не может быть пустым') : '',
-                        advert_type_id: isAd ? number().nullable().required('Выберите категорию') : '',
-                        advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : '',
-                    })
-                        :
-                        object().shape({
-                            content: string().required('Поле не может быть пустым'),
-                            dog_name: string().required('Поле не может быть пустым'),
-                            advert_breed_id: !isHalfBreed ? number().required('Укажите породу').typeError('Укажите пород') : '',
-                            advert_type_id: isCheckedAddTypes ? number().nullable().required('Выберите категорию') : '',
-                            dog_city: isCheckedAddTypes ? string().required('Укажите город').typeError('Укажите город') : '',
-                            dog_sex_type_id: isCheckedAddTypes ? number().required('Укажите пол').typeError('Укажите пол') : '',
-                        })
-                }
-                initialValues={
-                (isCategoryId === 1)
-                    ?
-                    {
-                        advert_breed_id: '',
-                        advert_cost: '',
-                        advert_number_of_puppies: '',
-                        advert_type_id: '',
-                        dog_color: '',
-                        dog_sex_type_id: '',
-                        dog_age: '',
-                        content: ''
-                    }
-                :
-                    {
-                        advert_breed_id: '',
-                        advert_cost: '',
-                        advert_number_of_puppies: '',
-                        advert_type_id: '',
-                        dog_color: '',
-                        dog_sex_type_id: '',
-                        dog_age: '',
-                        dog_name: '',
-                        dog_city: '',
-                        content: ''
-                    }
-                }
+                validationSchema={(isCategoryId === 1) ? CategoryOneSchema : CategoryTwoSchema}
+                initialValues={(isCategoryId === 1) ? initialValueCatOne : initialValueCatTwo}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}
                 onSuccess={onSuccess}

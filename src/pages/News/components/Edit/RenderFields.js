@@ -52,8 +52,6 @@ const RenderFields = ({ fields,
     const [activeElem, setActiveElem] = useState(advertTypeId);
     const [breedValue, setBreedValue] = useState(adBreedId);
 
-    console.log('breedValue', breedValue);
-
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id } = formik.values;
     const isMobile = useIsMobile();
