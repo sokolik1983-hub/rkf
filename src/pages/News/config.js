@@ -101,7 +101,6 @@ export const formConfigSecondCat = {
         },
         dog_city: {
             name: 'dog_city',
-            label: 'Место потери',
             placeholder: 'Город',
             fieldType: 'reactSelectAsync',
             type: 'select',

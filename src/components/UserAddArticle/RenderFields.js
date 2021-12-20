@@ -18,7 +18,6 @@ import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
-import { useFocus } from "../../shared/hooks";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 
@@ -56,6 +55,7 @@ const RenderFields = ({ fields,
     const [modalType, setModalType] = useState('');
     const [isTypeId, setIsTypeId] = useState(null);
     const [activeElem, setActiveElem] = useState(null);
+    const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
 
     const { content, file } = formik.values;
@@ -171,6 +171,14 @@ const RenderFields = ({ fields,
     useEffect(() => {
         formik.setFieldValue('advert_category_id', isCategoryId);
     }, [isCategoryId]);
+
+    useEffect(() => {
+        if(activeElem === 4) {
+            setCityLabel('потери');
+        } else if(activeElem === 5) {
+            setCityLabel('нахождения');
+        }
+    }, [activeElem]);
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -344,7 +352,7 @@ const RenderFields = ({ fields,
                     }
                     <FormGroup className="ArticleCreateForm__advert">
                         <div className="ArticleCreateForm__inputs-wrap">
-                            <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} />
+                            <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`}/>
                             <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                             <CustomCheckbox
                                 id="isHalfBreed_checkbox"
@@ -356,7 +364,9 @@ const RenderFields = ({ fields,
                         </div>
                     <div className="ArticleCreateForm__inputs-wrap">
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
-                        <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
+                        <div className={(activeElem === 5) && 'ArticleCreateForm__age-wrap'}>
+                            <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
+                        </div>
                         <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
                         <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
                     </div>
