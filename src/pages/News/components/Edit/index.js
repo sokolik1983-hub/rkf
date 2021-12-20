@@ -4,8 +4,9 @@ import { Form } from "../../../../components/Form";
 import RenderFields from "./RenderFields";
 import { formConfig, formConfigSecondCat, defaultValues, apiBreedsEndpoint, apiSexEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
-import "./index.scss";
 import {boolean, number, object, string} from "yup";
+
+import "./index.scss";
 
 
 const Edit = ({ id,

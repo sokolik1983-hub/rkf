@@ -51,6 +51,7 @@ const RenderFields = ({ fields,
     const [isHalfBreedEdit, setIsHalfBreedEdit] = useState(isHalfBreed);
     const [activeElem, setActiveElem] = useState(advertTypeId);
     const [breedValue, setBreedValue] = useState(adBreedId);
+    const [cityLabel, setCityLabel] = useState('');
 
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id } = formik.values;
@@ -74,6 +75,14 @@ const RenderFields = ({ fields,
     useEffect(() => {
         blockContent(showModal)
     }, [showModal]);
+
+    useEffect(() => {
+        if(activeElem === 4) {
+            setCityLabel('потери');
+        } else if(activeElem === 5) {
+            setCityLabel('нахождения');
+        }
+    }, [activeElem]);
 
     const handleChangeText = (e) => {
         let text = e.target.value;
@@ -313,6 +322,7 @@ const RenderFields = ({ fields,
                                 <FormField
                                     className={`ArticleCreateForm__input-city`}
                                     {...fields.dog_city}
+                                    label={`Место ${cityLabel}`}
                                 />
                                 <FormGroup inline className="article-edit__ad article-edit__halfbreed-wrap">
                                     <CustomCheckbox
@@ -337,7 +347,9 @@ const RenderFields = ({ fields,
                                 <FormGroup inline className="article-edit__ad">
                                     <FormField {...fields.dog_name} />
                                     <FormField {...fields.dog_color} />
-                                    <FormField {...fields.dog_age} />
+                                    <div className={(activeElem === 5) && 'article-edit__age-wrap'}>
+                                        <FormField {...fields.dog_age} />
+                                    </div>
                                     <div className="article-edit__custom-select">
                                         <label htmlFor="dog_sex_type_id">Пол</label>
                                         <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>

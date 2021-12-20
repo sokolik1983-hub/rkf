@@ -325,6 +325,15 @@
       }
     }
   }
+  &__age-wrap {
+    position: relative;
+    &:before {
+      content: '(примерный)';
+      position: absolute;
+      top: 13px;
+      font-size: 11px;
+    }
+  }
 }
 .k-upload .k-dropzone {
   @media (max-width:480px) {

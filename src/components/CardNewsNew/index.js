@@ -72,11 +72,20 @@ const CardNewsNew = forwardRef(({
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
+    const [cityLabel, setCityLabel] = useState('');
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);
+
+    useEffect(() => {
+        if(advert_type_id === 4) {
+            setCityLabel('потери');
+        } else if(advert_type_id === 5) {
+            setCityLabel('нахождения');
+        }
+    }, [advert_type_id]);
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -218,10 +227,10 @@ const CardNewsNew = forwardRef(({
                             dog_name && <div>Кличка собаки: {dog_name}</div>
                         }
                         {
-                            dog_city[0] && <div>Место потери: {dog_city[0].name}</div>
+                            dog_city[0] && <div>Место {cityLabel}: {dog_city[0].name}</div>
                         }
                         {
-                            dog_age && <div>Возраст: {dog_age}</div>
+                            dog_age && <div>Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
                         }
                         {
                             dog_sex_type_id && <div>Пол: {dog_sex_type_id}</div>

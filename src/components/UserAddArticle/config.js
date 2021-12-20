@@ -28,7 +28,6 @@ export const newsArticleFormConfig = {
         },
         dog_city: {
             name: 'dog_city',
-            label: 'Город',
             placeholder: 'Город',
             fieldType: 'reactSelectAsync',
             type: 'select',

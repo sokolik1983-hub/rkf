@@ -6,9 +6,10 @@ import { Form } from "../Form";
 import RenderFields from "./RenderFields";
 import { newsArticleFormConfig } from "./config";
 import ls from "local-storage";
-import "./index.scss";
 import {useFocus} from "../../shared/hooks";
 import {defaultValues} from "../../pages/News/config";
+
+import "./index.scss";
 
 
 const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInfo }) => {
