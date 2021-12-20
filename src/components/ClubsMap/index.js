@@ -115,7 +115,7 @@ const ClubsMap = ({ fullScreen }) => {
                     ]}
                 />
             </Map>
-            {fullScreen && <Aside className={'organizations-page__left'}>
+            {fullScreen && <Aside className={'map-page__left'}>
                 <StickyBox offsetTop={60}>
                     <div className='map-page__filters'>
                         <RegionsFilter
