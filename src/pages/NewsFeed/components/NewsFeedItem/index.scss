@@ -411,6 +411,15 @@
         }
       }
     }
+
+    &-item-name {
+      color: #007bff;
+
+      &:hover {
+        color: #3366ff;
+        cursor: pointer;
+      }
+    }
   }
   &__controls {
     margin: 0 10px;
