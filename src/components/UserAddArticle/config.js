@@ -29,7 +29,6 @@ export const newsArticleFormConfig = {
         dog_city: {
             name: 'dog_city',
             placeholder: 'Город',
-            isMulti: false,
             fieldType: 'reactSelectAsync',
             type: 'select',
             closeMenuOnSelect: true,

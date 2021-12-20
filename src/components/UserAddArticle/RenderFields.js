@@ -372,7 +372,8 @@ const RenderFields = ({ fields,
                     </div>
                     </FormGroup>
                 </div>
-            }{isCheckedAddTypes && focus && (activeElem === 6) &&
+            }
+            {isCheckedAddTypes && focus && (activeElem === 6) &&
             <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                 <FormGroup inline>
                     <CustomChipList
