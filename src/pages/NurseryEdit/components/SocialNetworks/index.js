@@ -2,14 +2,11 @@ import React from "react";
 import { connect, FieldArray } from "formik";
 import { FormField, FormGroup } from "components/Form";
 import Button from "components/Button";
-import Card from "components/Card";
 import "./styles.scss";
 
 const SocialNetworks = ({ socials }) => {
 
-    return <Card className="SocialNetworks">
-        <h3>Социальные сети</h3>
-
+    return <div className="SocialNetworks">
         <FieldArray
             name="socials"
             render={arrayHelpers => (
@@ -17,12 +14,12 @@ const SocialNetworks = ({ socials }) => {
                     {socials.map((social, index) => (
                         <FormGroup inline key={index}>
                             <FormField
-                                label={'Ссылка'}
+                                label={'Социальная сеть'}
                                 placeholder={'Введите ссылку'}
                                 name={`socials[${index}].site`}
                             />
                             <FormField
-                                label={'Название'}
+                                // label={'Название'}
                                 placeholder="Введите название"
                                 name={`socials[${index}].description`}
                             />
@@ -37,12 +34,12 @@ const SocialNetworks = ({ socials }) => {
                                 site: '',
                                 description: '',
                                 social_network_type_id: 1
-                            })}>Добавить ссылку</Button>
+                            })}>Добавить социальную сеть</Button>
                     </div>
                 </div>
             )}
         />
-    </Card>
+    </div>
 };
 
 export default connect(SocialNetworks);

@@ -1,38 +1,46 @@
-import React from "react";
-import { connect, FieldArray } from "formik";
-import { FormField, FormGroup } from "components/Form";
-import Button from "components/Button";
-import Card from "components/Card";
-import "./styles.scss";
+import React from 'react';
+import { connect, FieldArray } from 'formik';
+import { FormField, FormGroup } from '../../../../components/Form';
+import Button from '../../../../components/Button';
+import SubmitButton from '../../../../components/Form/SubmitButton';
+import './styles.scss';
+
 
 const Schedule = ({ work_time }) => {
     const days = [{
         id: 1,
-        name: 'Пн'
+        name: 'Пн',
+        fullName: 'Понедельник'
     },
     {
         id: 2,
-        name: 'Вт'
+        name: 'Вт',
+        fullName: 'Вторник'
     },
     {
         id: 3,
-        name: 'Ср'
+        name: 'Ср',
+        fullName: 'Среда'
     },
     {
         id: 4,
-        name: 'Чт'
+        name: 'Чт',
+        fullName: 'Четверг'
     },
     {
         id: 5,
-        name: 'Пт'
+        name: 'Пт',
+        fullName: 'Пятница'
     },
     {
         id: 6,
-        name: 'Сб'
+        name: 'Сб',
+        fullName: 'Суббота'
     },
     {
         id: 7,
-        name: 'Вс'
+        name: 'Вс',
+        fullName: 'Воскресенье'
     }];
 
     const handleDayClick = (id, arrayHelpers) => {
@@ -50,9 +58,8 @@ const Schedule = ({ work_time }) => {
 
     }
 
-    return <Card className="Schedule">
+    return <div className="Schedule">
         <h3>График работы</h3>
-
         <FieldArray
             name="work_time"
             render={arrayHelpers => (
@@ -73,24 +80,25 @@ const Schedule = ({ work_time }) => {
                         .sort((a, b) => a.week_day_id - b.week_day_id)
                         .map((day, index) => (
                             <FormGroup inline key={index}>
-                                <div className="Schedule__day-name">{days.find(d => d.id === day.week_day_id).name}</div>
+                                <div className="Schedule__day-name">{days.find(d => d.id === day.week_day_id).fullName}</div>
                                 <FormField
                                     label={'Время работы с'}
                                     name={`work_time[${index}].time_from`}
                                     type="time"
                                 />
                                 <FormField
-                                    label={'Время работы до'}
+                                    label={'до'}
                                     name={`work_time[${index}].time_to`}
                                     type="time"
                                 />
-                                <Button className="btn Schedule__button-delete" onClick={() => arrayHelpers.remove(index)}>Удалить</Button>
+                                {/*<Button className="btn Schedule__button-delete" onClick={() => arrayHelpers.remove(index)}>Удалить</Button>*/}
                             </FormGroup>
                         ))}
                 </div>
             )}
         />
-    </Card>
+        <SubmitButton>Сохранить</SubmitButton>
+    </div>
 };
 
 export default connect(Schedule);
