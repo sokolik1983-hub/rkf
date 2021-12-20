@@ -3,6 +3,29 @@ import { object, string, number, array, boolean } from 'yup';
 const emptyFieldMsg = 'Поле не может быть пустым';
 const lat = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей' })
 
+export const sections = {
+    general: {
+        name: 'Основная информация',
+        id: 0,
+        icon: 'k-i-information'
+    },
+    contacts: {
+        name: 'Контакты',
+        id: 1,
+        icon: 'k-i-track-changes'
+    },
+    schedule: {
+        name: 'График работы',
+        id: 2,
+        icon: 'k-i-user'
+    },
+    delete: {
+        name: 'Удаление страницы',
+        id: 3,
+        icon: 'k-i-trash'
+    }
+};
+
 export const editForm = {
     method: 'PUT',
     action: '/api/nurseries/nursery/update_full',
