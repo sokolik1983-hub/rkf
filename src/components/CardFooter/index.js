@@ -14,6 +14,7 @@ const CardFooter = ({
                         likesOn,
                         type,
                         userType,
+                        isAuthenticated
                     }) => {
     const [isLiked, setIsLiked] = useState(is_liked);
     const [likesCount, setLikesCount] = useState(like_count);
@@ -27,7 +28,7 @@ const CardFooter = ({
 
     const typeId = profileType?.profileId;
 
-    const handleLikeClick = async () => {
+    const handleLikeClick = async () => {if (!isAuthenticated) {
         if (likesOn) {
             await Request({
                 url: !isLiked ? profileType.methodToAdd : profileType.methodToRemove,
@@ -37,7 +38,9 @@ const CardFooter = ({
                 setIsLiked(!isLiked);
                 setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
             }, e => console.log(e.response));
-        }
+        }} else {
+        alert('Необходимо авторизоваться');
+    }
     }
 
     return (
