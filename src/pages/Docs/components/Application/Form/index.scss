@@ -187,15 +187,10 @@
       padding-top: 6px;
       padding-bottom: 6px;
       &__look {
-        position: absolute;
-        bottom: 40px;
-        right: 30px;
-        @media (max-width: 560px) {
-          position: relative;
-          margin-top: 5px;
-          bottom: 0;
-          right: 0;
-        }
+        position: relative;
+        margin-top: 5px;
+        bottom: 0;
+        right: 0;
       }
     }
   }
