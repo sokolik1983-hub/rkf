@@ -20,6 +20,7 @@
         }
         &-title {
             margin-bottom: 3px;
+            color: #253C5E!important;
         }
     }
     &__text_wrap {
@@ -31,6 +32,7 @@
         position: relative;
         top: 15px;
         margin-top: 10px;
+        color: #253C5E!important;
         @media (max-width: 960px) {
             position: static;
             margin-top: 15px
