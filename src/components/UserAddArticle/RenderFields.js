@@ -20,6 +20,7 @@ import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
+import CustomSelect from "react-select";
 
 
 const RenderFields = ({ fields,
@@ -179,7 +180,6 @@ const RenderFields = ({ fields,
             setCityLabel('нахождения');
         }
     }, [activeElem]);
-
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
@@ -333,7 +333,7 @@ const RenderFields = ({ fields,
                     </FormGroup>
                 </div>
             }
-            {isCheckedAddTypes && focus &&
+            {isCheckedAddTypes && focus && (activeElem !== 6) &&
                 <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
                         <CustomChipList
@@ -352,7 +352,7 @@ const RenderFields = ({ fields,
                     }
                     <FormGroup className="ArticleCreateForm__advert">
                         <div className="ArticleCreateForm__inputs-wrap">
-                            <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`}/>
+                            <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={false}/>
                             <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                             <CustomCheckbox
                                 id="isHalfBreed_checkbox"
@@ -372,7 +372,47 @@ const RenderFields = ({ fields,
                     </div>
                     </FormGroup>
                 </div>
-            }
+            }{isCheckedAddTypes && focus && (activeElem === 6) &&
+            <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
+                <FormGroup inline>
+                    <CustomChipList
+                        {...fields.advert_type_id}
+                        options={advertTypes?.filter(item => item.value > 3 )}
+                        setIsMating={setIsMating}
+                        setIsTypeId={setIsTypeId}
+                        setActiveElem={setActiveElem}
+                        activeElem={activeElem}
+                    />
+                </FormGroup>
+                {
+                    !activeElem && <div className="ArticleCreateForm__error-wrap">
+                        <div className="FormInput__error">Выберите категорию объявления.</div>
+                    </div>
+                }
+                <FormGroup className="ArticleCreateForm__advert">
+                    <div className="ArticleCreateForm__inputs-wrap">
+                        <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={true}/>
+                        <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
+                        <CustomCheckbox
+                            id="isHalfBreed_checkbox"
+                            label="Метис"
+                            className="ArticleCreateForm__ad"
+                            checked={isHalfBreed}
+                            onChange={handleChangeHalfBreed}
+                        />
+                    </div>
+                    <div className="ArticleCreateForm__inputs-wrap">
+                        <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
+                        <div className={(activeElem === 5) && 'ArticleCreateForm__age-wrap'}>
+                            <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
+                        </div>
+                        <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
+                        <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
+                    </div>
+                </FormGroup>
+            </div>
+        }
+
             <>
                 {file &&
                     <div className="ImagePreview__wrap">

@@ -102,6 +102,8 @@ const CardNewsNew = forwardRef(({
                 break;
         }
 
+        console.log(dog_city.length)
+
         return <>
             <div className="CardNewsNew__content">
                 <div className="CardNewsNew__head" style={{ margin: '0 10px 0 10px' }}>
@@ -227,7 +229,7 @@ const CardNewsNew = forwardRef(({
                             dog_name && <div>Кличка собаки: {dog_name}</div>
                         }
                         {
-                            dog_city[0] && <div>Место {cityLabel}: {dog_city[0].name}</div>
+                            dog_city && <div>Место {cityLabel}: {dog_city.map((item, i) => (dog_city.length === (i + 1)) ? item.name : `${item.name}, `)}</div>
                         }
                         {
                             dog_age && <div>Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
