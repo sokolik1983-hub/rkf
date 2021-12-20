@@ -1,4 +1,9 @@
 .article-edit {
+  &__input-breedId.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
   &__text {
     margin-bottom: 16px;
     .FormInput {
@@ -199,6 +204,9 @@
   }
   &__advert {
     margin: 8px 0 16px;
+    & #advert_breed_id>div {
+      z-index: 1;
+    }
   }
   &__ad {
     &:not(:last-child) {
@@ -233,7 +241,9 @@
     background: #3366ff;
     opacity: 0.7;
     cursor: default;
+    pointer-events: none;
     &._active {
+      pointer-events: auto;
       opacity: 1;
       cursor: pointer;
     }
@@ -281,6 +291,38 @@
     }
     .css-xo7z33-option:hover {
       background-color: #F6F7F7!important;
+    }
+  }
+  &__categories-wrap {
+    padding: 20px 0;
+    display: flex;
+    & .custom-checkbox {
+      margin-right: 20px;
+    }
+  }
+  &__halfbreed-wrap {
+    display: flex;
+    flex-direction: column;
+    & .FormInput {
+      width: 40%;
+    }
+  }
+  &__error-wrap {
+    position: relative;
+    & .FormInput__error {
+      top: -23px;
+      color: #FA5D50;
+      &.select-breed {
+        top: -15px;
+      }
+    }
+  }
+  .error-input {
+    & #advert_breed_id {
+      & .RSInput__control {
+        border-color: #FA5D50;
+        border-width: 2px;
+      }
     }
   }
 }

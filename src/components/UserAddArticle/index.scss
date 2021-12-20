@@ -27,6 +27,9 @@
       border-bottom: 1px solid #ebf0f2;
       border-radius: 0;
     }
+    .FormInput--error .FormInput__input {
+      border-bottom: 1px solid #FA5D50;
+    }
   }
 
   .custom-checkbox {
@@ -91,9 +94,9 @@
         margin: 0;
       }
     }
-
     .FormInput--error .FormInput__error {
-      display: none;
+      width: 100%;
+      text-align: right;
     }
   }
 
@@ -281,7 +284,6 @@
 
   &__advert {
     color: #72839C;
-
     .FormInput__input {
       padding: 7px 16px 7px 16px !important;
       &:first-child {
@@ -290,12 +292,22 @@
     }
     .ArticleCreateForm {
       &__input-sex {
+        width: 130px;
         & .FormInput__input {
           padding: 0 !important;
         }
         & .css-kj6f9i-menu {
           max-height: 70px!important;
         }
+      }
+      &__input-age {
+        max-width: 90px;
+      }
+      &__input-name {
+        max-width: 245px;
+      }
+      &__input-color {
+        max-width: 245px;
       }
     }
     .css-shvkw9-control,
@@ -397,7 +409,6 @@
       border-radius: 6px;
     }
   }
-
   &__modal {
     &>div {
       max-width: 600px;
@@ -426,7 +437,6 @@
       right: 15px;
     }
   }
-
   &__documents {
     margin: 16px 0 12px;
 
@@ -464,6 +474,44 @@
       }
     }
   }
+  &__inputs-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+    & .FormInput {
+      margin-bottom: 15px;
+      @media (max-width: 600px) {
+        width: 245px;
+        max-width: 245px;
+        label {
+          text-align: center;
+        }
+      }
+    }
+  }
+  &__input-city, &__input-breedId {
+    width: 40%;
+  }
+  &__input-city {
+    & #dog_city {
+      padding: 0!important;
+    }
+  }
+  &__input-breedId.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  &__error-wrap {
+    position: relative;
+    & .FormInput__error {
+      top: -23px;
+      color: red;
+    }
+  }
 }
 
 #advert_breed_id {
@@ -496,7 +544,18 @@
 .k-chip-selected {
   background-color: #BFD3F7 !important;
 }
-
+@media (max-width: 600px) {
+  .k-selection-single {
+    flex-wrap: wrap;
+    justify-content: center;
+    & .k-chip {
+      margin: 10px;
+    }
+  }
+}
 .css-1ox0dji-singleValue {
   color: #72839C !important;
+}
+#dog_city .css-kj6f9i-menu {
+  z-index: 2;
 }

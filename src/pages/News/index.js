@@ -12,6 +12,7 @@ import { Request } from "../../utils/request";
 import { endpointGetNews } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
+import {login} from "@progress/kendo-svg-icons";
 
 
 const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
@@ -84,6 +85,8 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                             {isEdit && canEdit ?
                                 <Edit id={news.id}
                                     advertTypeId={news.advert_type_id}
+                                    advertCategoryId={news.advert_category_id}
+                                    isHalfBreed={news.is_halfbreed}
                                     text={news.content}
                                     img={news.picture_link || ''}
                                     videoLink={news.video_link || ''}
@@ -91,7 +94,9 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     isAd={news.is_advert}
                                     adBreedId={news.advert_breed_id}
                                     dogSex={news.dog_sex_type_id}
+                                    dogCity={news.dog_city}
                                     dogColor={news.dog_color}
+                                    dogName={news.dog_name}
                                     dogAge={news.dog_age}
                                     adCode={news.advert_code}
                                     adCost={news.advert_cost}
