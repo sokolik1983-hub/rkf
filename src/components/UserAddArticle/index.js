@@ -44,7 +44,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         advert_breed_id: !isHalfBreed ? number().required('Укажите породу').typeError('Укажите пород') : '',
         advert_type_id: isCheckedAddTypes ? number().nullable().required('Выберите категорию') : '',
         dog_city: (isCheckedAddTypes && activeElem === 6) ? array().of(number().required('Укажите город').typeError('Укажите город')) : number().required('Укажите город').typeError('Укажите город'),
-        // dog_city: lazy(val => (Array.isArray(val) ? array().of(string()) : string())),
         dog_sex_type_id: isCheckedAddTypes ? number().required('Укажите пол').typeError('Укажите пол') : '',
     }); //Валидация для объявлений категории 2
     const initialValueCatOne = {

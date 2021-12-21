@@ -250,8 +250,6 @@ const RenderFields = ({ fields,
                                         setIsMust(false);
                                         setIsCheckedAddTypes(false);
                                         setIsCategoryId(1);
-                                        // setActiveElem(1);
-                                        // setIsTypeId(1); //категория объявления по умолчанию(1-3) в категории 1
                                     }
                                 }}
                             />
@@ -273,8 +271,6 @@ const RenderFields = ({ fields,
                                             setIsMust(false);
                                             setIsAd(false);
                                             setIsCategoryId(2);
-                                            // setActiveElem(4);
-                                            // setIsTypeId(4);//категория объявления по умолчанию(4-6) в категории 2
                                         }
                                     }}
                                 />
