@@ -210,7 +210,7 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
+                <div className={(!collapsed && (advert_type_id < 1))  ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
 
                     {is_advert && <div className="CardNewsNew__ad">
                         {advert_type_name && <span className="CardNewsNew__category-span">Категория: {advert_type_name}</span>}
@@ -227,7 +227,7 @@ const CardNewsNew = forwardRef(({
                             dog_name && <div>Кличка собаки: {dog_name}</div>
                         }
                         {
-                            dog_city[0] && <div>Место {cityLabel}: {dog_city[0].name}</div>
+                            dog_city && (advert_type_id > 1)  && <div>Место {cityLabel}: {dog_city.map((item, i) => (dog_city.length === (i + 1)) ? item.name : `${item.name}, `)}</div>
                         }
                         {
                             dog_age && <div>Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
@@ -258,7 +258,10 @@ const CardNewsNew = forwardRef(({
                     {
                         <div className={`CardNewsNew__show-all${!canCollapse ? ' _disabled' : ''}`}
                             onClick={() => canCollapse && setCollapsed(!collapsed)}>
-                            {!collapsed ? 'Подробнее...' : 'Свернуть'}
+                            {
+                                (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
+                            }
+
                         </div>
                     }
                 </div>
