@@ -28,7 +28,7 @@ export const getEmptyFilters = () => ({
     federation_ids: [],
     city_ids: [],
     breed_ids: [],
-    active_rkf_user: true,
+    active_rkf_user: false,
     activated: true,
     active_member: false,
     not_activated: false
