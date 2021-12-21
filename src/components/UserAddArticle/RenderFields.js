@@ -48,14 +48,16 @@ const RenderFields = ({ fields,
                           isCategoryId,
                           setIsCategoryId,
                           isHalfBreed,
-                          setIsHalfBreed
+                          setIsHalfBreed,
+                          activeElem,
+                            setActiveElem,
+                          setIsTypeId,
+                            isTypeId
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
-    const [isTypeId, setIsTypeId] = useState(null);
-    const [activeElem, setActiveElem] = useState(null);
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
 
@@ -171,7 +173,7 @@ const RenderFields = ({ fields,
 
     useEffect(() => {
         formik.setFieldValue('advert_category_id', isCategoryId);
-    }, [isCategoryId]);
+    }, [isCategoryId, activeElem]);
 
     useEffect(() => {
         if(activeElem === 4) {
@@ -248,8 +250,8 @@ const RenderFields = ({ fields,
                                         setIsMust(false);
                                         setIsCheckedAddTypes(false);
                                         setIsCategoryId(1);
-                                        setActiveElem(1);
-                                        setIsTypeId(1); //категория объявления по умолчанию(1-3) в категории 1
+                                        // setActiveElem(1);
+                                        // setIsTypeId(1); //категория объявления по умолчанию(1-3) в категории 1
                                     }
                                 }}
                             />
@@ -271,8 +273,8 @@ const RenderFields = ({ fields,
                                             setIsMust(false);
                                             setIsAd(false);
                                             setIsCategoryId(2);
-                                            setActiveElem(4);
-                                            setIsTypeId(4);//категория объявления по умолчанию(4-6) в категории 2
+                                            // setActiveElem(4);
+                                            // setIsTypeId(4);//категория объявления по умолчанию(4-6) в категории 2
                                         }
                                     }}
                                 />

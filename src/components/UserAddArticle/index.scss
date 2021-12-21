@@ -2,11 +2,11 @@
   padding: 10px !important;
   margin-bottom: 24px !important;
 
-  @media (max-width: 700px) {
+  @media (max-width: 750px) {
     padding: 0 10px 0 10px;
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 750px) {
     margin-bottom: 12px !important;
   }
 
@@ -35,7 +35,7 @@
   .custom-checkbox {
     margin-left: 20px;
 
-    @media(max-width: 500px) {
+    @media(max-width: 750px) {
       margin-left: 7px !important;
       margin-top: 15px;
 
@@ -51,7 +51,7 @@
 
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 750px) {
       position: relative;
       top: -4px;
       left: -8px;
@@ -80,7 +80,7 @@
         height: auto !important;
       }
 
-      @media (max-width: 560px) {
+      @media (max-width: 750px) {
         width: 100%;
         font-size: 14px;
       }
@@ -90,7 +90,7 @@
       flex-grow: 1;
       margin: 0 0 0 12px;
 
-      @media (max-width: 700px) {
+      @media (max-width: 750px) {
         margin: 0;
       }
     }
@@ -112,7 +112,7 @@
   &__controls {
     align-items: center;
 
-    @media (max-width: 700px) {
+    @media (max-width: 750px) {
       position: relative;
       top: -1px;
     }
@@ -123,12 +123,12 @@
       flex-direction: row;
       margin-top: 5px;
 
-      @media (max-width: 700px) {
+      @media (max-width: 750px) {
         margin-left: 0;
         padding-left: 0;
       }
 
-      @media(max-width: 500px) {
+      @media(max-width: 750px) {
         flex-wrap: wrap;
       }
     }
@@ -136,7 +136,7 @@
     &>* {
       margin-right: 25px;
 
-      @media (max-width: 700px) {
+      @media (max-width: 750px) {
         margin-right: 15px;
       }
     }
@@ -251,7 +251,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
-    @media(max-width: 500px) {
+    @media(max-width: 750px) {
       justify-content: flex-start;
     }
 
@@ -268,7 +268,7 @@
     align-items: center;
     margin-top: 20px;
 
-    @media (max-width: 700px) {
+    @media (max-width: 750px) {
       margin-top: 0;
     }
   }
@@ -276,7 +276,7 @@
   &__ad-wrap {
     display: flex;
 
-    @media(max-width: 500px) {
+    @media(max-width: 750px) {
       flex-basis: 100%;
       flex-direction: column;
     }
@@ -285,7 +285,7 @@
   &__advert {
     color: #72839C;
     .FormInput__input {
-      padding: 7px 16px 7px 16px !important;
+      padding: 7px 10px 7px 10px !important;
       &:first-child {
         padding: 0 !important;
       }
@@ -345,7 +345,7 @@
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
     margin: 0 auto;
 
-    @media (max-width: 700px) {
+    @media (max-width: 750px) {
       margin-bottom: 10px;
     }
 
@@ -379,7 +379,7 @@
   .ClientAvatar {
     align-self: flex-start;
 
-    @media (max-width: 700px) {
+    @media (max-width: 750px) {
       display: none;
     }
   }
@@ -478,12 +478,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media (max-width: 600px) {
+    @media (max-width: 750px) {
       flex-direction: column;
     }
     & .FormInput {
       margin-bottom: 15px;
-      @media (max-width: 600px) {
+      @media (max-width: 750px) {
         width: 245px;
         max-width: 245px;
         label {
@@ -553,7 +553,7 @@
 .k-chip-selected {
   background-color: #BFD3F7 !important;
 }
-@media (max-width: 600px) {
+@media (max-width: 750px) {
   .k-selection-single {
     flex-wrap: wrap;
     justify-content: center;

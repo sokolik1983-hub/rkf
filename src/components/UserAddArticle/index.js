@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {boolean, number, object, string} from "yup";
+import {boolean, number, object, string, array, lazy} from "yup";
 import Card from "../Card";
 import Alert from "../Alert";
 import { Form } from "../Form";
@@ -25,7 +25,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isCategoryId, setIsCategoryId] = useState(null);
     const [isHalfBreed, setIsHalfBreed] = useState(false);
     const { focus, setFocused, setBlured } = useFocus(false);
-
+    const [activeElem, setActiveElem] = useState(null);
+    const [isTypeId, setIsTypeId] = useState(null);
 
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
@@ -42,7 +43,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_name: string().required('Поле не может быть пустым'),
         advert_breed_id: !isHalfBreed ? number().required('Укажите породу').typeError('Укажите пород') : '',
         advert_type_id: isCheckedAddTypes ? number().nullable().required('Выберите категорию') : '',
-        dog_city: isCheckedAddTypes ? string().required('Укажите город').typeError('Укажите город') : '',
+        dog_city: (isCheckedAddTypes && activeElem === 6) ? array().of(number().required('Укажите город').typeError('Укажите город')) : number().required('Укажите город').typeError('Укажите город'),
+        // dog_city: lazy(val => (Array.isArray(val) ? array().of(string()) : string())),
         dog_sex_type_id: isCheckedAddTypes ? number().required('Укажите пол').typeError('Укажите пол') : '',
     }); //Валидация для объявлений категории 2
     const initialValueCatOne = {
@@ -104,6 +106,9 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         setDocuments([]);
         setLoadFile(false);
         setNeedRequest(true);
+        setActiveElem(null);
+        setIsAd(false);
+        setIsCheckedAddTypes(false);
         setBlured();
     };
 
@@ -161,6 +166,10 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     setIsCategoryId={setIsCategoryId}
                     isHalfBreed={isHalfBreed}
                     setIsHalfBreed={setIsHalfBreed}
+                    activeElem={activeElem}
+                    setActiveElem={setActiveElem}
+                    isTypeId={isTypeId}
+                    setIsTypeId={setIsTypeId}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
