@@ -40,7 +40,7 @@ const NewsList = ({isFullDate = true}) => {
         setNewsLoading(true);
 
         await Request({
-                url: `${endpointGetNews}?start_element=${startElem}${filters.cities.map(id => `&fact_city_ids=${id}`).join('')}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
+                url: `${endpointGetNews}?start_element=${startElem}${filters.cities.map(id => `&fact_city_ids=${id}`).join('')}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert + '&advert_category_id=2' : ''}`
             }, data => {
                 if (data.articles.length) {
                     const modifiedNews = data.articles.map(article => {
@@ -97,10 +97,12 @@ const NewsList = ({isFullDate = true}) => {
         setActiveType(type);
         let newFilters = {};
 
-        if (type !== 'all') {
-            newFilters = {...newsFilter, isAdvert: type === 'advert'};
-        } else {
+        if (type === 'all') {
             newFilters = {...newsFilter, isAdvert: null};
+        } else if ( type === 'news') {
+            newFilters = {...newsFilter, isAdvert: false};
+        } else if (type === 'advert' || type === 'articles') {
+            newFilters = {...newsFilter, isAdvert: true, advert_category_id: 1};
         }
 
         setStartElement(1);
