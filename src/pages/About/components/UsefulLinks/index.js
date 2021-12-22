@@ -6,7 +6,7 @@ const UsefulLinks = () => {
         {
             name: 'RKF.ORG.RU',
             icon: '/static/images/header/rkf-logo-transparent.svg',
-            link: 'http://RKF.ORG.RU',
+            link: 'http://rkf.org.ru',
             description: 'Российская кинологическая организация',
         },
         {
@@ -18,7 +18,7 @@ const UsefulLinks = () => {
         {
             name: 'RKF.ACADEMY',
             icon: 'static/images/about/rkf_academy.png',
-            link: 'http://RKF.ACADEMY',
+            link: 'http://rkf.academy',
             description: 'Образовательный центр РКФ',
         },
         {
