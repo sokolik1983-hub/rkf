@@ -192,26 +192,31 @@ const RenderFields = ({ fields,
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-            <div className="article-edit__categories-wrap">
-                {
-                    <CustomCheckbox
-                        id="ad"
-                        label={(advertCategoryId === 1) ? "Куплю/Продам" : "Объявление"}
-                        className="ArticleCreateForm__ad"
-                        checked={true}
-                    />
-                }
-            </div>
-            <FormGroup inline className="article-edit__ad">
-                <CustomChipList
-                    {...fields.advert_type_id}
-                    options={(advertCategoryId === 1) ? (advertTypes?.filter(item => item.value < 4)) : (advertTypes?.filter(item => item.value > 3 ))}
-                    setIsMating={setIsMating}
-                    advertTypeId={advertTypeId}
-                    activeElem={activeElem}
-                    setActiveElem={setActiveElem}
-                />
-            </FormGroup>
+            {
+                (advertTypeId !== null) &&
+                <>
+                    <div className="article-edit__categories-wrap">
+                        {
+                            <CustomCheckbox
+                                id="ad"
+                                label={(advertCategoryId === 1) ? "Куплю/Продам" : "Объявление"}
+                                className="ArticleCreateForm__ad"
+                                checked={true}
+                            />
+                        }
+                    </div>
+                    <FormGroup inline className="article-edit__ad">
+                        <CustomChipList
+                            {...fields.advert_type_id}
+                            options={(advertCategoryId === 1) ? (advertTypes?.filter(item => item.value < 4)) : (advertTypes?.filter(item => item.value > 3 ))}
+                            setIsMating={setIsMating}
+                            advertTypeId={advertTypeId}
+                            activeElem={activeElem}
+                            setActiveElem={setActiveElem}
+                        />
+                    </FormGroup>
+                </>
+            }
             {
                 !activeElem && <div className="article-edit__error-wrap">
                     <div className="FormInput__error">Выберите категорию объявления.</div>
@@ -363,7 +368,7 @@ const RenderFields = ({ fields,
                 <button type="button" className="btn" onClick={onCancel}>Отмена</button>
                 <SubmitButton
                     type="submit"
-                    className={`article-edit__button${(formik.isValid && activeElem) ? ' _active' : ''}`}
+                    className={`article-edit__button${(formik.isValid) ? ' _active' : ''}`}
                 >
                     Обновить
                 </SubmitButton>

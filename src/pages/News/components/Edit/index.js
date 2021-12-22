@@ -37,6 +37,10 @@ const Edit = ({ id,
     const [showAlert, setShowAlert] = useState('');
 
     const currentCityId = (dogCity?.length > 0) ? dogCity[0].id : null;
+
+    const CategoryNullSchema = object().shape({
+        content: string().required('Поле не может быть пустым'),
+    }); //Валидация для обычных новостей
     const CategoryOneSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
         is_advert: boolean(),
@@ -73,7 +77,13 @@ const Edit = ({ id,
                 then: number().required('Поле не может быть пустым'),
                 otherwise: number().notRequired(),
             }),
-        dog_city: number().required('Поле не может быть пустым')
+        dog_city: number().required('Поле не может быть пустым'),
+        advert_type_id: number()
+            .when(['is_advert'], {
+                is: true,
+                then: number().nullable().required('Выберите категорию'),
+                otherwise: number().notRequired(),
+            }),
     }); //Валидация для объявлений категории 2
     const initialValueCatOne = {
         ...defaultValues,
@@ -106,6 +116,10 @@ const Edit = ({ id,
         advert_category_id: advertCategoryId,
         is_halfBreed: isHalfBreed,
     } //Initial Values для объявлений категории 2
+    const initialValueCatNull = {
+        ...defaultValues,
+        content: text
+    }; //Initial Values для обычных новостей
 
 
     useEffect(() => {
@@ -218,6 +232,32 @@ const Edit = ({ id,
             documents
         };
     };
+    const transformValuesForCatNull = values => {
+
+        const {
+            content,
+            is_advert,
+            video_link,
+            file,
+        } = values;
+
+        const documents = docs.map(item => {
+            return {
+                id: item.id,
+                name: item.name
+            }
+        });
+
+        return {
+            content: content.replace(/<[^>]*>/g, ''),
+            id,
+            is_advert,
+            image: isImageDelete ? file : '',
+            is_image_delete: isImageDelete,
+            video_link: video_link || '',
+            documents
+        };
+    };
     const onError = e => {
         if (e.response) {
             let errorText = e.response.data.errors
@@ -241,9 +281,9 @@ const Edit = ({ id,
                 onError={onError}
                 isEditPage
                 history={history}
-                transformValues={(advertCategoryId === 1) ? transformValues : transformValuesForOtherAdvert}
-                validationSchema={(advertCategoryId === 1) ? CategoryOneSchema : CategoryTwoSchema}
-                initialValues={(advertCategoryId === 1) ? initialValueCatOne : initialValueCatTwo}
+                transformValues={(advertCategoryId === 1) ? transformValues : (advertCategoryId === 2) ? transformValuesForOtherAdvert : transformValuesForCatNull}
+                validationSchema={(advertCategoryId === 1) ? CategoryOneSchema : (advertCategoryId === 2) ? CategoryTwoSchema : CategoryNullSchema}
+                initialValues={(advertCategoryId === 1) ? initialValueCatOne : (advertCategoryId === 2) ? initialValueCatTwo : initialValueCatNull}
                 {...formConfig}
                 {...formConfigSecondCat}
             >
