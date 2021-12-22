@@ -12,7 +12,11 @@
     p {
         margin-bottom: 20px;
     }
-
+    &__text_wrap {
+        @media (min-width: 1080px) {
+            display: flow-root;
+        }
+    }
     &__wrap-with_but{
         display: flex;
         align-items: center;
@@ -25,13 +29,13 @@
     }
 
     &__text{
-        margin-bottom: 5px;
+        margin-bottom: 20px;
     }
     &__icon {
         float: right;
         width: 145px;
         height: 145px;
-        margin: 0 0 10px 10px;
+        margin: 0 0 10px 40px;
         background: url("/static/images/news/empty_list.png") center center/contain no-repeat;
         @media (max-width: 560px) {
             width: 100px;

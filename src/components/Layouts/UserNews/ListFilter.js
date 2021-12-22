@@ -12,9 +12,11 @@ const ListFilter = ({ setFilters, setNeedRequest, isFederation }) => {
         } else if (type === 'is_must_read') {
             setFilters({ is_must_read: true });
         } else if (type === 'advert') {
-            setFilters({ is_advert: true });
+            setFilters({ is_advert: true, advert_category_id: 1 });
         } else if (type === 'news') {
             setFilters({ is_advert: false });
+        } else if ( type === 'articles') {
+            setFilters({ is_advert: true, advert_category_id: 2 });
         }
         setNeedRequest(true);
     };
@@ -41,6 +43,12 @@ const ListFilter = ({ setFilters, setNeedRequest, isFederation }) => {
                                 className={`ListFilter__item${activeType === 'advert' ? ' _active' : ''}`}
                                 onClick={() => handleClick('advert')}
                             >Куплю/Продам</span>
+                        </li>
+                        <li>
+                            <span
+                                className={`ListFilter__item${activeType === 'articles' ? ' _active' : ''}`}
+                                onClick={() => handleClick('articles')}
+                            >Объявления</span>
                         </li>
                         {
                             isFederation && <li>

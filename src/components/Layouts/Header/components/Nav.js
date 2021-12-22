@@ -92,14 +92,20 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                             }
                         </li>
                         )}
-                        <li className='widget-login__item widget-login__item--menu popup-menu'
+                        <li className='widget-login__item widget-login__item--menu popup-menu knowledge_base'
                             onClick={() => setIsOpen(false)}>
                             <a href='https://help.rkf.online/ru/knowledge_base/art/146/cat/3/'
                                 target='_blank'
                                 rel='noopener noreferrer'>
                                 <span>База знаний</span>
                             </a>
+                        </li>
+                        <li className='widget-login__item widget-login__item--menu popup-menu support-center'
+                            onClick={() => setIsOpen(false)}>
                             <Feedback />
+                        </li>
+                        <li className='widget-login__item widget-login__item--menu popup-menu auth-clubs'
+                            onClick={() => setIsOpen(false)}>
                             <Link className="map-link" to="/clubs-map" target="_blank">Карта авторизованных клубов</Link>
                         </li>
                         <li className='header__nav-item __about'>

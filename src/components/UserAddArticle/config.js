@@ -24,7 +24,15 @@ export const newsArticleFormConfig = {
             type: 'select',
             isMulti: false,
             closeMenuOnSelect: true,
-            optionsEndpoint: '/api/dog/Breed'
+            optionsEndpoint: '/api/dog/Breed',
+        },
+        dog_city: {
+            name: 'dog_city',
+            placeholder: 'Город',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            closeMenuOnSelect: true,
+            optionsEndpoint: '/api/city/0',
         },
         dog_sex_type_id: {
             name: 'dog_sex_type_id',
@@ -40,6 +48,11 @@ export const newsArticleFormConfig = {
             name: 'dog_color',
             label: 'Окрас',
             placeholder: 'Окрас',
+        },
+        dog_name: {
+            name: 'dog_name',
+            label: 'Кличка',
+            placeholder: 'Кличка',
         },
         dog_age: {
             name: 'dog_age',

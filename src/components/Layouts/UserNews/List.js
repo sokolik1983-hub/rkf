@@ -2,7 +2,8 @@ import React from "react";
 import CardNewsNew from "../../CardNewsNew";
 
 
-const List = ({list, className, isFullDate = true, removable, onAdClose, onDelete, first_name, last_name, canEdit}) => {
+const List = (props) => {
+    const {list, className, isFullDate = true, removable, onAdClose, onDelete, first_name, last_name, canEdit} = props;
 
     return (
     <div className={`list${className ? ' ' + className : ''}`}>

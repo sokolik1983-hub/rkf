@@ -37,6 +37,7 @@ const CardNewsNew = forwardRef(({
     advert_cost,
     advert_number_of_puppies,
     advert_type_name,
+    advert_type_id,
     is_closed_advert,
     history,
     first_name,
@@ -45,6 +46,8 @@ const CardNewsNew = forwardRef(({
     dog_color,
     dog_age,
     dog_sex_type_id,
+    dog_city,
+    dog_name,
     active_rkf_user,
     picture_link,
     picture_short_link,
@@ -63,16 +66,26 @@ const CardNewsNew = forwardRef(({
     user_type,
     member = false,
     isFederation,
+    is_halfbreed
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
+    const [cityLabel, setCityLabel] = useState('');
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);
+
+    useEffect(() => {
+        if(advert_type_id === 4) {
+            setCityLabel('потери');
+        } else if(advert_type_id === 5) {
+            setCityLabel('нахождения');
+        }
+    }, [advert_type_id]);
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -197,27 +210,41 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
-                    {is_advert && <div className="CardNewsNew__ad">
-                        <p className="CardNewsNew__ad-breed">
-                            <span>Порода: {advert_breed_name}</span>
+                <div className={(!collapsed && (advert_type_id < 1))  ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
 
-                            <span>№{advert_code}</span>
-                        </p>
+                    {is_advert && <div className="CardNewsNew__ad">
+                        {advert_type_name && <span className="CardNewsNew__category-span">Категория: {advert_type_name}</span>}
+                        {
+                                <p className="CardNewsNew__ad-breed">
+                                    <span>{is_halfbreed ? "Метис" : `Порода: ${advert_breed_name}`}</span>
+                                    <span>№{advert_code}</span>
+                                </p>
+                        }
                         {
                             dog_color && <div>Окрас: {dog_color}</div>
                         }
                         {
-                            dog_age && <div>Возраст: {dog_age}</div>
+                            dog_name && <div>Кличка собаки: {dog_name}</div>
+                        }
+                        {
+                            dog_city && (advert_type_id > 1)  && <div>Место {cityLabel}: {dog_city.map((item, i) => (dog_city.length === (i + 1)) ? item.name : `${item.name}, `)}</div>
+                        }
+                        {
+                            dog_age && <div>Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
                         }
                         {
                             dog_sex_type_id && <div>Пол: {dog_sex_type_id}</div>
                         }
                         <div className="CardNewsNew__ad-price">
                             <div>
-                                <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'}</span>
-                                <span>Кол-во щенков: {advert_number_of_puppies}</span>
-                                {advert_type_name && <span>Категория: {advert_type_name}</span>}
+                                {
+                                    (advert_type_id < 4) &&
+                                    <div>
+                                        <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'} </span>
+                                        <span>Кол-во щенков: {advert_number_of_puppies} </span>
+                                    </div>
+                                }
+
                             </div>
                             {is_closed_advert && <div className="CardNewsNew__ad-inactive" >Объявление не активно</div>}
                         </div>
@@ -231,7 +258,10 @@ const CardNewsNew = forwardRef(({
                     {
                         <div className={`CardNewsNew__show-all${!canCollapse ? ' _disabled' : ''}`}
                             onClick={() => canCollapse && setCollapsed(!collapsed)}>
-                            {!collapsed ? 'Подробнее...' : 'Свернуть'}
+                            {
+                                (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
+                            }
+
                         </div>
                     }
                 </div>
