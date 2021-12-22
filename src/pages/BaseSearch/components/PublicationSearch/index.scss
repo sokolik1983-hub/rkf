@@ -1,15 +1,16 @@
 .PublicationSearch {
     &__filters {
         display: flex;
-        width: calc(100% - 35px);
+        width: calc(100% - 32px);
         @media (max-width: 1079px) and (min-width: 561px) {
-            width: calc(100% - 220px);
+            width: calc(100% - 217px);
         }
         @media (max-width: 560px) {
             flex-direction: column;
         }
         & > div {
-            width: 50%;
+            //width: 50%;
+            flex-grow: 1;
             @media (max-width: 560px) {
                 width: 100%;
                 padding: 0;
