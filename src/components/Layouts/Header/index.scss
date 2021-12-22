@@ -1143,8 +1143,6 @@
     & .widget-login__item {
       &.popup-menu {
         @media (max-width: 1080px) {
-          display: block;
-          border-top: 1px solid #e8e8e8;
           a {
             color: #72839c;
             border-left: 2px solid transparent;
@@ -1157,25 +1155,31 @@
           a:hover, span:hover {
             color: #72839C!important;
           }
-          a:first-child:before {
-            content: '';
-            background: url("/static/icons/base_of_knowledge.svg") no-repeat center/cover;
-            width: 14px;
-            height: 14px;
-            position: absolute;
-            left: 32px;
-            bottom: 12px;
-          }
-          a:nth-child(2):before {
-            content: '';
-            background: url("/static/icons/support_center.svg") no-repeat center/cover;
-            width: 14px;
-            height: 14px;
-            position: absolute;
-            left: 32px;
-            bottom: 12px;
+
+          &.knowledge_base {
+            border-top: 1px solid #e8e8e8;
+            a:before {
+              content: '';
+              background: url("/static/icons/base_of_knowledge.svg") no-repeat center/cover;
+              width: 14px;
+              height: 14px;
+              position: absolute;
+              left: 32px;
+              bottom: 12px;
+            }
           }
 
+          &.support-center {
+            a:before {
+              content: '';
+              background: url("/static/icons/support_center.svg") no-repeat center/cover;
+              width: 14px;
+              height: 14px;
+              position: absolute;
+              left: 32px;
+              bottom: 12px;
+            }
+          }
         }
         @media (max-width: 1080px) {
           a {
