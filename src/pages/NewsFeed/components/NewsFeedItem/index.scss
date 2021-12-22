@@ -198,7 +198,11 @@
           font-weight: 600;
         }
       }
-
+      &_textfalse {
+        position: relative;
+        left: -70px;
+      }
+      
       a {
         font-weight: normal;
         font-size: 18px;
