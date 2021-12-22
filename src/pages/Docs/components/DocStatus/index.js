@@ -154,6 +154,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                     &nbsp;/&nbsp;
                     {distinction === 'pedigree'
                         ? 'Оформление родословной'
+                        : distinction === 'metrics' ? 'Метрики щенка'
                         : 'Заявление на регистрацию помета'}
                 </div>
                 <div className="club-documents-status__table">

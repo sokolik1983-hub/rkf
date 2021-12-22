@@ -129,7 +129,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <DocRegistry history={history} distinction="pedigree" />}
                         />
                         <Route exact={true} path='/club/:route/documents/puppy/metrics' component={() =>
-                            <PuppiesMetrics clubAlias={clubAlias} history={history} />}
+                            <PuppiesMetrics clubAlias={clubAlias} history={history} distinction='metrics' />}
                         />
                         <Route exact={true} path='/club/:route/documents/puppy/metrics/:id/print' component={() =>
                             <PuppyMetrics history={history} />}
@@ -289,7 +289,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <DocRegistry history={history} distinction="pedigree" />}
                         />
                         <Route exact={true} path='/:route/documents/puppy/metrics' component={() =>
-                            <PuppiesMetrics clubAlias={clubAlias} history={history} />}
+                            <PuppiesMetrics clubAlias={clubAlias} history={history} distinction='metrics'/>}
                         />
                         <Route exact={true} path='/:route/documents/puppy/metrics/:id/print' component={() =>
                             <PuppyMetrics history={history} />}

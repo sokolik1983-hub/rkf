@@ -152,7 +152,8 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                     &nbsp;/&nbsp;
                     {distinction === 'pedigree'
                         ? 'Оформление родословной'
-                        : 'Заявление на регистрацию помета'}
+                        : distinction === 'metrics' ? 'Метрики щенка'
+                            : 'Заявление на регистрацию помета'}
                 </div>
                 <div className="nursery-documents-status__table">
                     {documents && !!documents.length
