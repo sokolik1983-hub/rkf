@@ -46,7 +46,7 @@ const ClubsMap = ({ fullScreen }) => {
         (async () => {
             await getYandexCities();
             await getRegions();
-            setTargetRegion([42])
+            await getCities();
         })();
         setLoading(false);
     }, []);
@@ -83,12 +83,10 @@ const ClubsMap = ({ fullScreen }) => {
     }, [targetCity]);
 
     const handleChangeCity = (event) => {
-        const target = (event.length > 0 ? [event[1] ? event[1] : event[0]]:[0])
-        setTargetCity(target);
+        setTargetCity([event[1] ? event[1] : event[0]]);
     };
     const handleChangeRegion = (event) => {
-        const target = (event.length > 0 ? [event[1] ? event[1] : event[0]]:[42])
-        setTargetRegion(target);
+        setTargetRegion([event[1] ? event[1] : event[0]]);
     };
 
 
