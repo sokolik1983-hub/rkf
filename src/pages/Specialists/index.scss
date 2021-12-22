@@ -105,7 +105,7 @@
       color: #3366ff;
     }
     &--tableIcon {
-      z-index: 100;
+      z-index: 99;
     }
     &--tableIcon:before {
       content: "";
@@ -124,7 +124,7 @@
       background: url(/static/icons/backIcon.svg) no-repeat center / cover;
     }
     &--downloadIcon {
-      z-index: 100;
+      z-index: 99;
     }
     &--downloadIcon:before {
       content: "";

@@ -144,7 +144,7 @@
         color: #3366FF;
       }
       &--tableIcon {
-        z-index: 100;
+        z-index: 99;
       }
       &--tableIcon:before {
         content: '';
@@ -155,7 +155,7 @@
         background: url(/static/icons/full-screen.svg) no-repeat center / cover;
       }
       &--downloadIcon {
-        z-index: 100;
+        z-index: 99;
       }
       &--downloadIcon:before {
         content: '';
