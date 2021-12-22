@@ -21,7 +21,15 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest, setProfileInfo,
         setLoading(true);
 
         await Request({
-            url: `${endpointGetNews}?alias=${alias}&start_element=${startElem}${filters?.is_must_read ? '&is_must_read=' + filters.is_must_read : filters ? '&is_advert=' + filters.is_advert + '&advert_category_id=' + filters.advert_category_id : ''}`
+            url: `${endpointGetNews}?alias=${alias}&start_element=
+            ${startElem}${filters?.is_must_read ? '&is_must_read=' + filters.is_must_read : filters 
+                ?
+                (filters.is_advert) ?
+                    '&is_advert=' + filters.is_advert + '&advert_category_id=' + filters.advert_category_id
+                    :
+                    '&is_advert=' + filters.is_advert
+                : 
+                ''}`
         },
             data => {
                 if (data.articles.length) {
