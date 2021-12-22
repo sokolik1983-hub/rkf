@@ -1,0 +1,21 @@
+.metrics-doc-page {
+    min-height: 96vh;
+
+    &__content {
+        //max-width: 80%;
+        padding-top: 76px;
+    }
+
+    &__heading {}
+
+    &__iframe {
+        min-height: 80vh;
+
+
+        &-wrap {
+            width: 80%;
+            min-height: 80vh;
+            margin: 0 auto;
+        }
+    }
+}
