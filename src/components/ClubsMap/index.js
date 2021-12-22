@@ -68,7 +68,7 @@ const ClubsMap = ({ fullScreen }) => {
                 setCities(data);
             });
         })();
-    }, [targetRegion, setTargetRegion]);
+    }, [targetRegion]);
 
     useEffect(() => {
         const lastCity = targetCity[targetCity.length - 1];
@@ -80,7 +80,7 @@ const ClubsMap = ({ fullScreen }) => {
                 setTargetZoom(11);
             });
         })();
-    }, [targetCity, setTargetCity]);
+    }, [targetCity]);
 
     const handleChangeCity = (event) => {
         setTargetCity([event[1] ? event[1] : event[0]]);
