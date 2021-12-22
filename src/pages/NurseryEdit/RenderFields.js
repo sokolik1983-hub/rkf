@@ -1,20 +1,35 @@
 import React, { useState } from "react";
 import { connect } from "formik";
 import { FormField, FormGroup } from "components/Form";
-import ActiveImageWrapper from "components/ActiveImageWrapper";
-import { DEFAULT_IMG } from "appConfig";
 import Transliteratable from "./components/Transliteratable"; // TODO: move to Form folder
 import Contacts from './components/Contacts';
 import Documents from './components/Documents';
 import SocialNetworks from './components/SocialNetworks';
 import Schedule from './components/Schedule';
 import Card from "components/Card";
-import EditAvatar from "../../components/EditAvatar";
 import { Request } from "utils/request";
-import { editForm } from "./config";
+import { editForm, sections } from './config';
+import StickyBox from 'react-sticky-box';
+import SubmitButton from '../../components/Form/SubmitButton';
+// import DeletePage from '../UserEditKendo/sections/DeletePage';
 
-const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
-    const [modalType, setModalType] = useState('');
+const RenderFields = ({
+      isOpenFilters,
+      setShowFilters,
+      formik,
+      streetTypes,
+      houseTypes,
+      flatTypes,
+      working,
+      handleError,
+      setWorking,
+      coOwner
+}) => {
+    const [formModified, setFormModified] = useState(false);
+    const [activeSection, setActiveSection] = useState(0);
+    // const [visibilityStatuses, setVisibilityStatuses] = useState([]);
+    // const [formBusy, setFormBusy] = useState(false);
+    // const [cities, setCities] = useState([]);
 
     const handleUpload = (file, isLogo) => {
         setWorking(true);
@@ -62,84 +77,137 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
     } = address;
 
     const {
-        banner_link,
-        logo_link,
         contacts,
         documents,
         socials,
         work_time
     } = formik.values;
 
-    return (
-        <>
-            <Card>
-                <FormField {...alias} />
-                <div className="NurseryEdit__main-info">
-                    <div className="NurseryEdit__main-info-left">
-                        <h3>Логотип</h3>
-                        <div
-                            style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.clubAvatar})` }}
-                            className="NurseryEdit__main-info-logo"
-                            onClick={() => setModalType('edit')}
-                        >
-                        </div>
-                        <span style={{cursor: 'pointer', color: '#36f'}} onClick={() => setModalType('edit')}>Изменить</span>
-                        {modalType && <EditAvatar
-                            setModalType={setModalType}
-                            avatar={logo_link}
-                        />}
-                    </div>
-                    <div className="NurseryEdit__main-info-right">
-                        <h3>Общая информация</h3>
+    const handleSectionSwitch = (id) => {
+        if (formModified) {
+            window.confirm('Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны.') && setActiveSection(id);
+        } else {
+            setActiveSection(id);
+        }
+        setShowFilters({ isOpenFilters: false });
+    };
+    const handleSubmit = async (data, type) => {
+        // setFormBusy(true);
+        // if (data.social_networks) data.social_networks = data.social_networks.filter(i => i.site !== '');
+        // if (data.mails) data.mails = data.mails.filter(i => i.value !== '');
+        // if (data.phones) data.phones = data.phones.filter(i => i.value !== '' && i.value !== phoneMask);
+        // if (data.address && data.address.postcode) data.address.postcode = data.address.postcode.replaceAll('_', '');
+        // if (data.birth_date) data.birth_date = moment(data.birth_date).format("YYYY-MM-DD");
+        //
+        // await Request({
+        //     url: sections[type].url,
+        //     method: 'PUT',
+        //     data: JSON.stringify(data)
+        // }, () => {
+        //     getInfo(type);
+        //     handleSuccess();
+        //     setNameToLocalStorage(data);
+        // }, error => {
+        //     handleError(error);
+        //     setFormBusy(false);
+        // });
+    };
+
+    const renderSection = (section) => {
+        switch (section) {
+            case 0:
+                return <Card>
+                    <h3>Основная информация</h3>
+                    <FormField {...alias} />
+                    <div className="NurseryEdit__main-info">
                         <Transliteratable {...name} />
                         <FormField {...name_lat} />
                         <FormField {...description} />
                         <FormField {...web_site} />
-                        <FormGroup inline>
-                            <FormField {...co_owner_last_name} disabled={!!coOwner.lastName} />
-                            <FormField {...co_owner_first_name} disabled={!!coOwner.firstName} />
-                            <FormField {...co_owner_second_name} disabled={!!coOwner.secondName} />
-                        </FormGroup>
+                        <FormField {...co_owner_last_name} disabled={!!coOwner.lastName} />
+                        <FormField {...co_owner_first_name} disabled={!!coOwner.firstName} />
+                        <FormField {...co_owner_second_name} disabled={!!coOwner.secondName} />
                         <FormField {...co_owner_mail} disabled={!!coOwner.mail} />
                     </div>
-                </div>
-            </Card>
-            <Card>
-                <h3>Адрес питомника</h3>
-                <FormGroup inline>
-                    <FormField {...city_id} className="nursery-activation__select" />
-                    <FormField {...postcode} />
-                </FormGroup>
-                <FormGroup inline>
-                    <FormField {...street_type_id} options={streetTypes} />
-                    <FormField {...street_name} />
-                </FormGroup>
-                <FormGroup inline>
-                    <FormField {...house_type_id} options={houseTypes} />
-                    <FormField {...house_name} />
-                </FormGroup>
-                <FormGroup inline>
-                    <FormField {...flat_type_id} options={flatTypes} />
-                    <FormField {...flat_name} />
-                </FormGroup>
-            </Card>
+                    <Documents documents={documents} />
+                    <SocialNetworks socials={socials} />
+                    <SubmitButton>Сохранить</SubmitButton>
+                    {formik.errors && !!Object.keys(formik.errors).length
+                        && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
+                    {working && <div className="NurseryEdit__is-valid">Идёт загрузка файла...</div>}
 
-            <Contacts contacts={contacts} is_public={is_public} errors={formik.errors} />
-            <Documents documents={documents} />
-            <SocialNetworks socials={socials} />
-            <Schedule work_time={work_time} />
+                </Card>;
+            case 1:
+                return <Card>
+                    <h3>Контакты</h3>
+                    <FormGroup inline>
+                        <FormField {...city_id} className="nursery-activation__select" />
+                        <FormField {...postcode} />
+                    </FormGroup>
+                    <FormGroup inline>
+                        <FormField {...street_name} />
+                        <FormField {...house_name} />
+                        <FormField {...flat_name} />
+                    </FormGroup>
+                    <Contacts
+                        contacts={contacts}
+                        is_public={is_public}
+                        errors={formik.errors}
+                        // setFormModified={setFormModified}
+                        // visibilityStatuses={visibilityStatuses}
+                        // handleSubmit={handleSubmit}
+                        // formBusy={formBusy}
+                    />
+                    <SubmitButton>Сохранить</SubmitButton>
+                    {formik.errors && !!Object.keys(formik.errors).length
+                        && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
+                    {working && <div className="NurseryEdit__is-valid">Идёт загрузка файла...</div>}
 
-            <Card className="NurseryEdit__banner-wrap">
-                <ActiveImageWrapper onChangeFunc={file => handleUpload(file, false)} requestUrl={'/'} >
-                    <div
-                        style={{ backgroundImage: `url(${banner_link ? banner_link : DEFAULT_IMG.clubAvatar})` }} className="NurseryEdit__banner" />
-                </ActiveImageWrapper>
-            </Card>
+                </Card>;
+            case 2:
+                return <Card>
+                    <Schedule
+                        work_time={work_time}
+                        // setFormModified={setFormModified}
+                        // handleSubmit={handleSubmit}
+                        // handleError={handleError}
+                        // formBusy={formBusy}
+                    />
+                </Card>;
+            case 3:
+                return
+                // <DeletePage updateInfo={getInfo} />;
+            default:
+                return <div>Not Found</div>;
+        }
+    };
 
-            {formik.errors && !!Object.keys(formik.errors).length
-                && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
-            {working && <div className="NurseryEdit__is-valid">Идёт загрузка файла...</div>}
-        </>
+
+
+    return (
+        <div className='NurseryEdit__inner'>
+            <div className='NurseryEdit__inner-left'>
+                {renderSection(activeSection)}
+            </div>
+            <div className={`NurseryEdit__inner-right${isOpenFilters ? ' _open' : ''}`}>
+                <StickyBox offsetTop={60}>
+                    <Card>
+                        <span className='NurseryEdit__profile-label'>Профиль</span>
+                        <ul className='NurseryEdit__inner-list'>
+                            {Object.keys(sections).map((type, key) => <div
+                                    className={sections[type].id === activeSection ? 'NurseryEdit__inner-item active' : 'NurseryEdit__inner-item'}
+                                    key={key}
+                                    onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                                >
+                                    <span className={`k-icon k-icon-32 ${sections[type].icon}`} />
+                                    <li>{sections[type].name}</li>
+                                </div>
+                            )}
+                        </ul>
+                    </Card>
+                </StickyBox>
+            </div>
+        </div>
     )
 };
 

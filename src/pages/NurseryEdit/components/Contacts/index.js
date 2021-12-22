@@ -2,7 +2,6 @@ import React from "react";
 import { connect, FieldArray } from "formik";
 import { FormField, FormGroup } from "components/Form";
 import Button from "components/Button";
-import Card from "components/Card";
 import "./styles.scss";
 
 const Contacts = ({ contacts, is_public, errors }) => {
@@ -29,9 +28,7 @@ const Contacts = ({ contacts, is_public, errors }) => {
     contacts[index].is_main = true;
   }
 
-    return <Card className="Contacts">
-        <h3>Контакты</h3>
-
+    return <div className="Contacts">
         <FieldArray
             name="contacts"
             render={arrayHelpers => (
@@ -83,7 +80,7 @@ const Contacts = ({ contacts, is_public, errors }) => {
                 </div>
             )}
         />
-    </Card>
+    </div>
 };
 
 export default connect(Contacts);
