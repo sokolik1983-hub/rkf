@@ -1,55 +1,4 @@
 .Schedule {
-  width: 100%;
-  h3 {
-    margin-bottom: 35px!important;
-  }
-
-  .FormGroup {
-    display: grid;
-    grid-template-columns:20% 45% 30%;
-    .FormInput {
-      padding: 0;
-      margin: 0;
-      white-space: nowrap;
-      align-items: center;
-      label {
-        margin-right: 20px;
-        width: unset;
-        &[for="work_time[0].time_to"] {
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-        &[for="work_time[1].time_to"] {
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-        &[for="work_time[2].time_to"] {
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-        &[for="work_time[3].time_to"] {
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-        &[for="work_time[4].time_to"] {
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-        &[for="work_time[5].time_to"] {
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-        &[for="work_time[6].time_to"] {
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-      }
-      &__input[type="time"] {
-        padding: 9px 20px 5px 20px;
-      }
-    }
-  }
-
   &__button-delete {
     padding: 7px 14px;
     border-color: #fa5d50;
@@ -69,7 +18,7 @@
   &__days {
     display: flex;
     list-style: none;
-    margin: 12px 0 33px;
+    margin: 12px 0;
     &-item {
       &:not(:last-child) {
         margin-right: 12px;
