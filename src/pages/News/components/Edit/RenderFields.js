@@ -215,13 +215,14 @@ const RenderFields = ({ fields,
                             setActiveElem={setActiveElem}
                         />
                     </FormGroup>
+                    {
+                        !activeElem && <div className="article-edit__error-wrap">
+                            <div className="FormInput__error">Выберите категорию объявления.</div>
+                        </div>
+                    }
                 </>
             }
-            {
-                !activeElem && <div className="article-edit__error-wrap">
-                    <div className="FormInput__error">Выберите категорию объявления.</div>
-                </div>
-            }
+
             <div className="article-edit__text">
                 <FormField
                     {...fields.content}
