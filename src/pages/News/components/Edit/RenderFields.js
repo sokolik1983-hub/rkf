@@ -39,7 +39,9 @@ const RenderFields = ({ fields,
                           advertTypeId,
                           advertCategoryId,
                           isHalfBreed,
-                          adBreedId
+                          adBreedId,
+                          currentCityId,
+                            cities
 }) => {
     const [src, setSrc] = useState(imgSrc);
     const [sexId, setSex] = useState(imgSrc);
@@ -52,9 +54,10 @@ const RenderFields = ({ fields,
     const [activeElem, setActiveElem] = useState(advertTypeId);
     const [breedValue, setBreedValue] = useState(adBreedId);
     const [cityLabel, setCityLabel] = useState('');
+    const [currentCities, setCurrentCities] = useState(currentCityId);
 
     const { focus, setFocused, setBlured } = useFocus(false);
-    const { content, is_advert, dog_sex_type_id } = formik.values;
+    const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
     const isMobile = useIsMobile();
 
     useEffect(() => {
@@ -189,6 +192,11 @@ const RenderFields = ({ fields,
         formik.setFieldValue('is_halfbreed', isHalfBreedEdit);
         isHalfBreedEdit && formik.setFieldValue('advert_breed_id', '');
     }, [isHalfBreedEdit]);
+
+    const handleCitySelect = (e) => {
+        setCurrentCities(e);
+        formik.setFieldValue('dog_city', e.map(m => m.value));
+    }
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -325,11 +333,23 @@ const RenderFields = ({ fields,
                             </div>
                             :
                             <div>
-                                <FormField
-                                    className={`ArticleCreateForm__input-city`}
-                                    {...fields.dog_city}
-                                    label={`Место ${cityLabel}`}
-                                />
+                                {
+                                    advert_type_id !== 6 ?
+                                    <FormField
+                                        className={`ArticleCreateForm__input-city`}
+                                        {...fields.dog_city}
+                                        label={`Место ${cityLabel}`}
+                                    />
+                                        :
+                                    <CustomSelect
+                                        value={currentCities}
+                                        placeholder={'Выберите город'}
+                                        label={'Город'}
+                                        options={cities ? cities : []}
+                                        isMulti={true}
+                                        onChange={handleCitySelect}
+                                    />
+                                }
                                 <FormGroup inline className="article-edit__ad article-edit__halfbreed-wrap">
                                     <CustomCheckbox
                                          id="isHalfBreed_checkbox"

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Alert from "../../../../components/Alert";
 import { Form } from "../../../../components/Form";
 import RenderFields from "./RenderFields";
-import { formConfig, formConfigSecondCat, defaultValues, apiBreedsEndpoint, apiSexEndpoint } from "../../config";
+import { formConfig, formConfigSecondCat, defaultValues, apiBreedsEndpoint, apiSexEndpoint, apiCityEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
 import {boolean, number, object, string} from "yup";
 
@@ -35,8 +35,15 @@ const Edit = ({ id,
     const [isMating, setIsMating] = useState(false);
     const [isImageDelete, setIsImageDelete] = useState(false);
     const [showAlert, setShowAlert] = useState('');
+    const [cities, setCities] = useState(null);
 
-    const currentCityId = (dogCity?.length > 0) ? dogCity[0].id : null;
+
+    const currentCityId = (advertTypeId !==6)
+        ?
+        (dogCity?.length > 0) ? dogCity[0].id : null
+        :
+        dogCity?.map(m => ({ value: m.id, label: m.name }));
+
 
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
@@ -127,6 +134,16 @@ const Edit = ({ id,
             url: apiBreedsEndpoint,
             method: "GET"
         }, data => setBreeds(data
+            .filter(f => typeof f.id === 'number' && f.id !== 1)
+            .map(m => ({ value: m.id, label: m.name }))
+        ), e => console.log(e));
+    }, []);
+
+    useEffect(() => {
+        Request({
+            url: apiCityEndpoint,
+            method: "GET"
+        }, data => setCities(data
             .filter(f => typeof f.id === 'number' && f.id !== 1)
             .map(m => ({ value: m.id, label: m.name }))
         ), e => console.log(e));
@@ -272,6 +289,8 @@ const Edit = ({ id,
         }
     };
 
+
+
     return (
         <>
             <Form
@@ -307,6 +326,8 @@ const Edit = ({ id,
                     advertCategoryId={advertCategoryId}
                     isHalfBreed={isHalfBreed}
                     adBreedId={adBreedId}
+                    currentCityId={currentCityId}
+                    cities={cities}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

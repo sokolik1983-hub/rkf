@@ -207,6 +207,12 @@
     & #advert_breed_id>div {
       z-index: 1;
     }
+    .css-1pcexqc-container {
+      margin-bottom: 32px;
+    }
+    .css-kj6f9i-menu {
+      z-index: 99;
+    }
   }
   &__ad {
     &:not(:last-child) {
