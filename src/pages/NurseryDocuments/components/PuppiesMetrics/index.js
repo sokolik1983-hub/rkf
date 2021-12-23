@@ -9,7 +9,7 @@ import "./index.scss";
 const PuppiesMetrics = ({history, nurseryAlias}) => {
     const [loading, setLoading] = useState(true);
     const [puppies, setPuppies] = useState(null);
-
+console.log('nursery PuppiesMetrics')
     useEffect(() => {
         (() => Request({
             url: '/api/requests/NurseryLitterRequest/register_of_metrics'

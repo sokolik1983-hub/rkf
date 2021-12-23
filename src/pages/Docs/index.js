@@ -132,7 +132,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <PuppiesMetrics clubAlias={clubAlias} history={history} distinction='metrics' />}
                         />
                         <Route exact={true} path='/club/:route/documents/puppy/metrics/:id/print' component={() =>
-                            <PuppyMetrics history={history} />}
+                            <PuppiesMetrics history={history} />}
                         />
                         <Route exact={true} path='/club/:route/documents/stamps/add' component={() =>
                             <AddStamp history={history} />}
@@ -292,7 +292,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <PuppiesMetrics clubAlias={clubAlias} history={history} distinction='metrics'/>}
                         />
                         <Route exact={true} path='/:route/documents/puppy/metrics/:id/print' component={() =>
-                            <PuppyMetrics history={history} />}
+                            <PuppiesMetrics history={history} />}
                         />
                         <Route exact={true} path='/:route/documents/stamps/add' component={() =>
                             <AddStamp history={history} />}

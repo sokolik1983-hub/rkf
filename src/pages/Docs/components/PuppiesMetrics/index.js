@@ -16,7 +16,8 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
     const [puppies, setPuppies] = useState(null);
     const [exporting, setExporting] = useState(false);
     const document_id = window.location.href.split('=')[1];
-
+console.log('club PuppiesMetrics')
+console.log('distinction', distinction)
     useEffect(() => {
         getPuppiesCards();
     }, []);

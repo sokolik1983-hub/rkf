@@ -35,6 +35,7 @@ const PuppyMetrics = ({ history }) => {
     const date = new Date(date_of_birth);
     const monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
 
+    console.log('eregerg!!!!!')
     useEffect(() => {
         setLoading(true);
         Request({
@@ -195,7 +196,7 @@ const PuppyMetrics = ({ history }) => {
                             }
                         </span>
                         {!left_for_review && <div style={{paddingLeft: '400px'}}>(указать причину переосмотра)</div>}
-                        
+
                     </p>
 
                     <p>
