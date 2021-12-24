@@ -39,7 +39,9 @@ const RenderFields = ({ fields,
                           advertTypeId,
                           advertCategoryId,
                           isHalfBreed,
-                          adBreedId
+                          adBreedId,
+                          currentCityId,
+                            cities
 }) => {
     const [src, setSrc] = useState(imgSrc);
     const [sexId, setSex] = useState(imgSrc);
@@ -52,9 +54,10 @@ const RenderFields = ({ fields,
     const [activeElem, setActiveElem] = useState(advertTypeId);
     const [breedValue, setBreedValue] = useState(adBreedId);
     const [cityLabel, setCityLabel] = useState('');
+    const [currentCities, setCurrentCities] = useState(currentCityId);
 
     const { focus, setFocused, setBlured } = useFocus(false);
-    const { content, is_advert, dog_sex_type_id } = formik.values;
+    const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
     const isMobile = useIsMobile();
 
     useEffect(() => {
@@ -190,33 +193,44 @@ const RenderFields = ({ fields,
         isHalfBreedEdit && formik.setFieldValue('advert_breed_id', '');
     }, [isHalfBreedEdit]);
 
+    const handleCitySelect = (e) => {
+        setCurrentCities(e);
+        formik.setFieldValue('dog_city', e.map(m => m.value));
+    }
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-            <div className="article-edit__categories-wrap">
-                {
-                    <CustomCheckbox
-                        id="ad"
-                        label={(advertCategoryId === 1) ? "Куплю/Продам" : "Объявление"}
-                        className="ArticleCreateForm__ad"
-                        checked={true}
-                    />
-                }
-            </div>
-            <FormGroup inline className="article-edit__ad">
-                <CustomChipList
-                    {...fields.advert_type_id}
-                    options={(advertCategoryId === 1) ? (advertTypes?.filter(item => item.value < 4)) : (advertTypes?.filter(item => item.value > 3 ))}
-                    setIsMating={setIsMating}
-                    advertTypeId={advertTypeId}
-                    activeElem={activeElem}
-                    setActiveElem={setActiveElem}
-                />
-            </FormGroup>
             {
-                !activeElem && <div className="article-edit__error-wrap">
-                    <div className="FormInput__error">Выберите категорию объявления.</div>
-                </div>
+                (advertTypeId !== null) &&
+                <>
+                    <div className="article-edit__categories-wrap">
+                        {
+                            <CustomCheckbox
+                                id="ad"
+                                label={(advertCategoryId === 1) ? "Куплю/Продам" : "Объявление"}
+                                className="ArticleCreateForm__ad"
+                                checked={true}
+                            />
+                        }
+                    </div>
+                    <FormGroup inline className="article-edit__ad">
+                        <CustomChipList
+                            {...fields.advert_type_id}
+                            options={(advertCategoryId === 1) ? (advertTypes?.filter(item => item.value < 4)) : (advertTypes?.filter(item => item.value > 3 ))}
+                            setIsMating={setIsMating}
+                            advertTypeId={advertTypeId}
+                            activeElem={activeElem}
+                            setActiveElem={setActiveElem}
+                        />
+                    </FormGroup>
+                    {
+                        !activeElem && <div className="article-edit__error-wrap">
+                            <div className="FormInput__error">Выберите категорию объявления.</div>
+                        </div>
+                    }
+                </>
             }
+
             <div className="article-edit__text">
                 <FormField
                     {...fields.content}
@@ -319,11 +333,23 @@ const RenderFields = ({ fields,
                             </div>
                             :
                             <div>
-                                <FormField
-                                    className={`ArticleCreateForm__input-city`}
-                                    {...fields.dog_city}
-                                    label={`Место ${cityLabel}`}
-                                />
+                                {
+                                    advert_type_id !== 6 ?
+                                    <FormField
+                                        className={`ArticleCreateForm__input-city`}
+                                        {...fields.dog_city}
+                                        label={`Место ${cityLabel}`}
+                                    />
+                                        :
+                                    <CustomSelect
+                                        value={currentCities}
+                                        placeholder={'Выберите город'}
+                                        label={'Город'}
+                                        options={cities ? cities : []}
+                                        isMulti={true}
+                                        onChange={handleCitySelect}
+                                    />
+                                }
                                 <FormGroup inline className="article-edit__ad article-edit__halfbreed-wrap">
                                     <CustomCheckbox
                                          id="isHalfBreed_checkbox"
@@ -363,7 +389,7 @@ const RenderFields = ({ fields,
                 <button type="button" className="btn" onClick={onCancel}>Отмена</button>
                 <SubmitButton
                     type="submit"
-                    className={`article-edit__button${(formik.isValid && activeElem) ? ' _active' : ''}`}
+                    className={`article-edit__button${(formik.isValid) ? ' _active' : ''}`}
                 >
                     Обновить
                 </SubmitButton>
