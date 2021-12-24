@@ -7,10 +7,14 @@
             gap:3%;
             row-gap: 24px;
             margin-bottom: 24px;
+            @media (max-width: 768px) {
+                grid-template-columns: 20% 68% 5%;
+            }
         }
         .FormInput--text {
             & > label {
                 grid-column: 1 / 2;
+                width: 100%;
             }
             & > input {
                 grid-column: 2 / 3;
@@ -65,16 +69,8 @@
         justify-content: start;
         min-height: 5px;
         margin: 0 85px;
-        .btn + .btn {
-            @media (min-width: 768px) {
-                margin: 0 0 0 12px;
-            }
-        }
-        .btn {
-            @media (max-width: 768px) {
-                width: 100%;
-                margin: 0 0 12px;
-            }
+        @media (max-width: 768px) {
+            margin: 0 80px;
         }
     }
     .FormGroup--inline {
