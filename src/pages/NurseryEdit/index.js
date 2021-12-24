@@ -1,60 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import ls from 'local-storage';
 import Loading from '../../components/Loading';
 import Layout from '../../components/Layouts';
 import Container from '../../components/Layouts/Container';
-import { Form } from '../../components/Form';
+import {Form} from '../../components/Form';
 import RenderFields from './RenderFields';
 import Alert from '../../components/Alert';
-import { Request } from '../../utils/request';
-import { editForm, defaultValues } from './config';
+import {Request} from '../../utils/request';
+import {editForm, defaultValues} from './config';
 import UserHeader from './components/UserHeader';
 import CopyrightInfo from '../../components/CopyrightInfo';
 import StickyBox from 'react-sticky-box';
-import useIsMobile from 'utils/useIsMobile';
-import UserMenu from 'components/Layouts/UserMenu';
-// import Card from 'components/Card';
-import { endpointGetNurseryInfo, kennelNav } from '../../components/Layouts/NurseryLayout/config';
-import { Redirect } from 'react-router-dom';
+import useIsMobile from '../../utils/useIsMobile';
+import UserMenu from '../../components/Layouts/UserMenu';
+import {endpointGetNurseryInfo, kennelNav} from '../../components/Layouts/NurseryLayout/config';
+import {Redirect} from 'react-router-dom';
 import ClickGuard from '../../components/ClickGuard';
-// import moment from 'moment';
 import BreedsList from '../../components/BreedsList';
-import { connectAuthVisible } from '../Login/connectors';
-import { connectShowFilters } from "../../components/Layouts/connectors";
+import {connectAuthVisible} from '../Login/connectors';
+import {connectShowFilters} from "../../components/Layouts/connectors";
 
 import './styles.scss';
 
 
 const NurseryEdit = ({
-    history,
-    profile_id,
-    is_active_profile,
-    isAuthenticated,
-    isOpenFilters,
-    setShowFilters,
-    match,
-}) => {
+                         history,
+                         profile_id,
+                         is_active_profile,
+                         isAuthenticated,
+                         isOpenFilters,
+                         setShowFilters,
+                         match,
+                     }) => {
     const [initialValues, setInitialValues] = useState(defaultValues);
     const [nursery, setNursery] = useState(null);
     const [loading, setLoading] = useState(true);
     const [streetTypes, setStreetTypes] = useState([]);
     const [houseTypes, setHouseTypes] = useState([]);
     const [flatTypes, setFlatTypes] = useState([]);
-    // const [loaded, setLoaded] = useState(false);
     const [working, setWorking] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [notificationsLength, setNotificationsLength] = useState(0);
-    // const [userInfo, setUserInfo] = useState({});
-    // const [needRequest, setNeedRequest] = useState(true);
-
-    // const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
-    // const [errorMessage, setErrorMessage] = useState(false);
-    // const [errorRedirect, setErrorRedirect] = useState(false);
 
-
-    const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
+    const PromiseRequest = url => new Promise((res, rej) => Request({url}, res, rej));
     const isMobile = useIsMobile(1080);
     const alias = match.params.id;
 
@@ -63,21 +53,6 @@ const NurseryEdit = ({
             .then(() => setLoading(true))
             .catch(e => handleError(e));
     }, []);
-
-    // const getUser = async needUpdateAvatar => {
-    //     await Request({
-    //         url: endpointGetNurseryInfo + alias
-    //     }, data => {
-    //         if (needUpdateAvatar) {
-    //             ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
-    //         }
-    //         setUserInfo(data);
-    //         setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
-    //     }, error => {
-    //         console.log(error.response);
-    //         setError(error.response);
-    //     });
-    // };
 
     useEffect(() => {
         (() => Request({
@@ -90,7 +65,7 @@ const NurseryEdit = ({
                 const address = data.fact_address ? getAddressString(data.fact_address) : legal_address;
                 const city_name = data.fact_address ? data.fact_address.city_name : data.legal_address ? data.legal_address.city_name : '';
 
-                setNursery({ ...data, legal_address, address, city: { name: city_name } });
+                setNursery({...data, legal_address, address, city: {name: city_name}});
                 setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
                 setLoading(false);
             }
@@ -99,7 +74,6 @@ const NurseryEdit = ({
             setError(error.response);
             setLoading(false);
         }))();
-        // return () => setNeedRequest(true);
     }, [alias]);
 
     const getInfo = () => PromiseRequest('/api/nurseries/nursery/nursery_edit_information')
@@ -125,10 +99,10 @@ const NurseryEdit = ({
     const getAddresses = () => PromiseRequest('/api/Address/all_address_types')
         .then(data => {
             if (data) {
-                const { street_types, house_types, flat_types } = data;
-                setStreetTypes(street_types.map(item => ({ value: item.id, label: item.name })));
-                setHouseTypes(house_types.map(item => ({ value: item.id, label: item.name })));
-                setFlatTypes(flat_types.map(item => ({ value: item.id, label: item.name })));
+                const {street_types, house_types, flat_types} = data;
+                setStreetTypes(street_types.map(item => ({value: item.id, label: item.name})));
+                setHouseTypes(house_types.map(item => ({value: item.id, label: item.name})));
+                setFlatTypes(flat_types.map(item => ({value: item.id, label: item.name})));
             }
         });
 
@@ -143,7 +117,7 @@ const NurseryEdit = ({
     };
 
     const transformValues = values => {
-        const newValues = { ...values };
+        const newValues = {...values};
         delete newValues.banner;
         delete newValues.logo;
         newValues.is_public = !newValues.is_public; // Backend workaround
@@ -151,7 +125,7 @@ const NurseryEdit = ({
         return newValues;
     };
 
-    const handleSuccess = (data, { alias, name }) => {
+    const handleSuccess = (data, {alias, name}) => {
         setShowAlert({
             title: 'Информация сохранена!',
             autoclose: 2,
@@ -191,13 +165,12 @@ const NurseryEdit = ({
     }
 
 
-
     return (loading
-            ? <Loading />
+            ? <Loading/>
             : error ?
-            <Redirect to="404" /> :
+                <Redirect to="404"/> :
                 <Layout withFilters setNotificationsLength={setNotificationsLength}>
-                    <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
+                    <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
                     <div className='NurseryEdit__wrap'>
                         <Container className='NurseryEdit content'>
                             <aside className='NurseryEdit__left'>
@@ -214,19 +187,19 @@ const NurseryEdit = ({
                                         isAuthenticated={isAuthenticated}
                                     />
                                     {nursery.breeds && !!nursery.breeds.length &&
-                                        <BreedsList breeds={nursery.breeds} />
+                                        <BreedsList breeds={nursery.breeds}/>
                                     }
                                     {!isMobile && <UserMenu userNav={canEdit
                                         ? kennelNav(alias)
                                         : kennelNav(alias).filter(i => i.id !== 2)}
                                                             notificationsLength={notificationsLength}
                                     />}
-                                    <CopyrightInfo withSocials={true} />
+                                    <CopyrightInfo withSocials={true}/>
                                 </StickyBox>
                             </aside>
                             <div className="NurseryEdit__right">
                                 {loading
-                                    ? <Loading />
+                                    ? <Loading/>
                                     : <Form
                                         {...editForm}
                                         initialValues={initialValues}
@@ -235,25 +208,25 @@ const NurseryEdit = ({
                                         onError={handleError}
                                         className="NurseryEdit__form"
                                         withLoading={true}
-                                        >
-                                            <RenderFields
-                                                isOpenFilters={isOpenFilters}
-                                                setShowFilters={setShowFilters}
-                                                streetTypes={streetTypes}
-                                                houseTypes={houseTypes}
-                                                flatTypes={flatTypes}
-                                                working={working}
-                                                handleError={handleError}
-                                                setWorking={setWorking}
-                                                coOwner={{
-                                                    lastName: initialValues.co_owner_last_name,
-                                                    firstName: initialValues.co_owner_first_name,
-                                                    secondName: initialValues.co_owner_second_name,
-                                                    mail: initialValues.co_owner_mail
-                                                }}
-                                                randomKeyGenerator={randomKeyGenerator}
-                                            />
-                                        </Form>
+                                    >
+                                        <RenderFields
+                                            isOpenFilters={isOpenFilters}
+                                            setShowFilters={setShowFilters}
+                                            streetTypes={streetTypes}
+                                            houseTypes={houseTypes}
+                                            flatTypes={flatTypes}
+                                            working={working}
+                                            handleError={handleError}
+                                            setWorking={setWorking}
+                                            coOwner={{
+                                                lastName: initialValues.co_owner_last_name,
+                                                firstName: initialValues.co_owner_first_name,
+                                                secondName: initialValues.co_owner_second_name,
+                                                mail: initialValues.co_owner_mail
+                                            }}
+                                            randomKeyGenerator={randomKeyGenerator}
+                                        />
+                                    </Form>
                                 }
                                 {showAlert && <Alert {...showAlert} />}
                             </div>

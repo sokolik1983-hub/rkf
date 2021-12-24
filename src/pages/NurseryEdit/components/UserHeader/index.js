@@ -1,17 +1,31 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Card from "components/Card";
-import Alert from "components/Alert";
-import { DEFAULT_IMG } from "appConfig";
-import { ActiveUserMark, FederationChoiceMark } from "../../../../components/Marks";
-import Share from "components/Share";
-import UserActionControls from "components/UserActionControls";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Card from '../../../../components/Card';
+import Alert from '../../../../components/Alert';
+import { DEFAULT_IMG } from 'appConfig';
+import { ActiveUserMark, FederationChoiceMark } from '../../../../components/Marks';
+import Share from '../../../../components/Share';
+import UserActionControls from '../../../../components/UserActionControls';
 
-import "./index.scss";
+import './index.scss';
 
 
-const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, onSubscriptionUpdate, federationName, federationAlias, isFederation = false, active_rkf_user, active_member, isAuthenticated, canEdit }) => {
-
+const UserHeader = ({
+                        user,
+                        logo,
+                        name,
+                        alias,
+                        profileId,
+                        subscribed,
+                        member,
+                        onSubscriptionUpdate,
+                        federationName,
+                        federationAlias,
+                        active_rkf_user,
+                        active_member,
+                        isAuthenticated,
+                        canEdit
+}) => {
     const [shareAlert, setShareAlert] = useState(false);
     const shareOk = () => setShareAlert(false);
 
@@ -24,6 +38,8 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
             return 'Клуб';
         }
     };
+
+
     return (
         <Card className="user-header">
             <div className="user-header__logo-wrap">
@@ -56,17 +72,16 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                             {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
                                 <div className='user-header-link'>
                                 <Link to={`/${federationAlias}`}
-                                        className={name.length > 50
-                                                        ? "user-header__federation long-bottom" 
-                                                        : name.length > 30 
-                                                        ? "user-header__federation middle-bottom" 
-                                                        : "user-header__federation"}>
-                                            {federationName}
+                                    className={name.length > 50
+                                        ? "user-header__federation long-bottom"
+                                        : name.length > 30
+                                        ? "user-header__federation middle-bottom"
+                                        : "user-header__federation"}>
+                                    {federationName}
                                 </Link>
                                 </div>
                             }
-                            {
-                                canEdit &&
+                            {canEdit &&
                                 <Link
                                     to={`/${setUserType(user, alias) === 'Питомник' ? "kennel" : "client"}/${alias}/edit`}
                                     className="widget-login__button"
@@ -74,8 +89,8 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                                     Редактировать профиль
                                 </Link>
                             }
-                            {
-                                !canEdit && isAuthenticated && <>
+                            {!canEdit && isAuthenticated &&
+                                <>
                                     <UserActionControls
                                         userType={3}
                                         subscribed_id={profileId}
@@ -97,7 +112,6 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                     onOk={shareOk}
                 />
             }
-
         </Card>
     )
 };

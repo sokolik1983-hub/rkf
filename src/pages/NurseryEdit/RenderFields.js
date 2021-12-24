@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { connect } from 'formik';
-import { FormField, FormGroup } from '../../components/Form';
-import Transliteratable from './components/Transliteratable'; // TODO: move to Form folder
+import React, {useState} from 'react';
+import {connect} from 'formik';
+import {FormField, FormGroup} from '../../components/Form';
+import Transliteratable from './components/Transliteratable';
 import Contacts from './components/Contacts';
 import Documents from './components/Documents';
 import SocialNetworks from './components/SocialNetworks';
 import Schedule from './components/Schedule';
 import Card from '../../components/Card';
-import { editForm, sections } from './config';
+import {editForm, sections} from './config';
 import StickyBox from 'react-sticky-box';
 import SubmitButton from '../../components/Form/SubmitButton';
 
 
 const RenderFields = ({
-      isOpenFilters,
-      setShowFilters,
-      formik,
-      working,
-      coOwner,
-      randomKeyGenerator,
-}) => {
+                          isOpenFilters,
+                          setShowFilters,
+                          formik,
+                          working,
+                          coOwner,
+                          randomKeyGenerator,
+                      }) => {
     const [activeSection, setActiveSection] = useState(0);
 
     const {
@@ -53,7 +53,7 @@ const RenderFields = ({
 
     const handleSectionSwitch = (id) => {
         setActiveSection(id);
-        setShowFilters({ isOpenFilters: false });
+        setShowFilters({isOpenFilters: false});
     };
 
 
@@ -62,7 +62,8 @@ const RenderFields = ({
             case 0:
                 return <Card>
                     <h3>Основная информация</h3>
-                    <a className="support-link" href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/" target="_blank" rel="noopener noreferrer">
+                    <a className="support-link" href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
+                       target="_blank" rel="noopener noreferrer">
                         Инструкция по редактированию профиля
                     </a>
                     <FormField {...alias} />
@@ -71,13 +72,13 @@ const RenderFields = ({
                         <FormField {...name_lat} />
                         <FormField {...description} />
 
-                        <FormField {...co_owner_last_name} disabled={!!coOwner.lastName} />
-                        <FormField {...co_owner_first_name} disabled={!!coOwner.firstName} />
-                        <FormField {...co_owner_second_name} disabled={!!coOwner.secondName} />
-                        <FormField {...co_owner_mail} disabled={!!coOwner.mail} />
+                        <FormField {...co_owner_last_name} disabled={!!coOwner.lastName}/>
+                        <FormField {...co_owner_first_name} disabled={!!coOwner.firstName}/>
+                        <FormField {...co_owner_second_name} disabled={!!coOwner.secondName}/>
+                        <FormField {...co_owner_mail} disabled={!!coOwner.mail}/>
                     </div>
-                    <Documents documents={documents} />
-                    <SocialNetworks socials={socials} />
+                    <Documents documents={documents}/>
+                    <SocialNetworks socials={socials}/>
                     <SubmitButton>Сохранить</SubmitButton>
                     {formik.errors && !!Object.keys(formik.errors).length
                         && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
@@ -89,7 +90,7 @@ const RenderFields = ({
                     <h3>Контакты</h3>
                     <div className='nursery__contacts__address'>
                         <FormGroup inline>
-                            <FormField {...city_id} className="nursery-activation__select" />
+                            <FormField {...city_id} className="nursery-activation__select"/>
                             <FormField {...postcode} />
                         </FormGroup>
                         <FormGroup inline>
@@ -115,7 +116,7 @@ const RenderFields = ({
                 </Card>;
             case 2:
                 return <Card>
-                    <Schedule work_time={work_time} />
+                    <Schedule work_time={work_time}/>
                 </Card>;
             case 3:
                 return <Card>
@@ -133,7 +134,6 @@ const RenderFields = ({
                 return <div>Not Found</div>;
         }
     };
-
 
 
     return (

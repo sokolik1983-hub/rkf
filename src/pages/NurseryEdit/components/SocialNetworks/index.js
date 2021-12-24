@@ -1,9 +1,9 @@
-import React from "react";
-import { connect, FieldArray } from "formik";
-import { FormField, FormGroup } from "components/Form";
-import Button from "components/Button";
+import React from 'react';
+import { connect, FieldArray } from 'formik';
+import { FormField, FormGroup } from '../../../../components/Form';
+import Button from '../../../../components/Button';
 
-import "./styles.scss";
+import './styles.scss';
 
 
 const SocialNetworks = ({ socials }) => {
