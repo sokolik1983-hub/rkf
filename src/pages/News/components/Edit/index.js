@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Alert from "../../../../components/Alert";
 import { Form } from "../../../../components/Form";
 import RenderFields from "./RenderFields";
-import { formConfig, formConfigSecondCat, defaultValues, apiBreedsEndpoint, apiSexEndpoint } from "../../config";
+import { formConfig, formConfigSecondCat, defaultValues, apiBreedsEndpoint, apiSexEndpoint, apiCityEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
 import {boolean, number, object, string} from "yup";
 
@@ -35,8 +35,19 @@ const Edit = ({ id,
     const [isMating, setIsMating] = useState(false);
     const [isImageDelete, setIsImageDelete] = useState(false);
     const [showAlert, setShowAlert] = useState('');
+    const [cities, setCities] = useState(null);
 
-    const currentCityId = (dogCity?.length > 0) ? dogCity[0].id : null;
+
+    const currentCityId = (advertTypeId !==6)
+        ?
+        (dogCity?.length > 0) ? dogCity[0].id : null
+        :
+        dogCity?.map(m => ({ value: m.id, label: m.name }));
+
+
+    const CategoryNullSchema = object().shape({
+        content: string().required('Поле не может быть пустым'),
+    }); //Валидация для обычных новостей
     const CategoryOneSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
         is_advert: boolean(),
@@ -73,7 +84,13 @@ const Edit = ({ id,
                 then: number().required('Поле не может быть пустым'),
                 otherwise: number().notRequired(),
             }),
-        dog_city: number().required('Поле не может быть пустым')
+        dog_city: number().required('Поле не может быть пустым'),
+        advert_type_id: number()
+            .when(['is_advert'], {
+                is: true,
+                then: number().nullable().required('Выберите категорию'),
+                otherwise: number().notRequired(),
+            }),
     }); //Валидация для объявлений категории 2
     const initialValueCatOne = {
         ...defaultValues,
@@ -106,6 +123,10 @@ const Edit = ({ id,
         advert_category_id: advertCategoryId,
         is_halfBreed: isHalfBreed,
     } //Initial Values для объявлений категории 2
+    const initialValueCatNull = {
+        ...defaultValues,
+        content: text
+    }; //Initial Values для обычных новостей
 
 
     useEffect(() => {
@@ -113,6 +134,16 @@ const Edit = ({ id,
             url: apiBreedsEndpoint,
             method: "GET"
         }, data => setBreeds(data
+            .filter(f => typeof f.id === 'number' && f.id !== 1)
+            .map(m => ({ value: m.id, label: m.name }))
+        ), e => console.log(e));
+    }, []);
+
+    useEffect(() => {
+        Request({
+            url: apiCityEndpoint,
+            method: "GET"
+        }, data => setCities(data
             .filter(f => typeof f.id === 'number' && f.id !== 1)
             .map(m => ({ value: m.id, label: m.name }))
         ), e => console.log(e));
@@ -218,6 +249,32 @@ const Edit = ({ id,
             documents
         };
     };
+    const transformValuesForCatNull = values => {
+
+        const {
+            content,
+            is_advert,
+            video_link,
+            file,
+        } = values;
+
+        const documents = docs.map(item => {
+            return {
+                id: item.id,
+                name: item.name
+            }
+        });
+
+        return {
+            content: content.replace(/<[^>]*>/g, ''),
+            id,
+            is_advert,
+            image: isImageDelete ? file : '',
+            is_image_delete: isImageDelete,
+            video_link: video_link || '',
+            documents
+        };
+    };
     const onError = e => {
         if (e.response) {
             let errorText = e.response.data.errors
@@ -232,6 +289,8 @@ const Edit = ({ id,
         }
     };
 
+
+
     return (
         <>
             <Form
@@ -241,9 +300,9 @@ const Edit = ({ id,
                 onError={onError}
                 isEditPage
                 history={history}
-                transformValues={(advertCategoryId === 1) ? transformValues : transformValuesForOtherAdvert}
-                validationSchema={(advertCategoryId === 1) ? CategoryOneSchema : CategoryTwoSchema}
-                initialValues={(advertCategoryId === 1) ? initialValueCatOne : initialValueCatTwo}
+                transformValues={(advertCategoryId === 1) ? transformValues : (advertCategoryId === 2) ? transformValuesForOtherAdvert : transformValuesForCatNull}
+                validationSchema={(advertCategoryId === 1) ? CategoryOneSchema : (advertCategoryId === 2) ? CategoryTwoSchema : CategoryNullSchema}
+                initialValues={(advertCategoryId === 1) ? initialValueCatOne : (advertCategoryId === 2) ? initialValueCatTwo : initialValueCatNull}
                 {...formConfig}
                 {...formConfigSecondCat}
             >
@@ -267,6 +326,8 @@ const Edit = ({ id,
                     advertCategoryId={advertCategoryId}
                     isHalfBreed={isHalfBreed}
                     adBreedId={adBreedId}
+                    currentCityId={currentCityId}
+                    cities={cities}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
