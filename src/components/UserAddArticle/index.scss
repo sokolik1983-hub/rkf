@@ -492,7 +492,7 @@
       }
     }
   }
-  &__input-city, &__input-breedId {
+  &__input-breedId,  &__input-city{
     width: 40%;
   }
   &__input-city {
@@ -509,7 +509,12 @@
     position: relative;
     & .FormInput__error {
       top: -23px;
-      color: red;
+      color: #FA5D50;
+    }
+    & .FormInput__error-city {
+      position: absolute;
+      top: -20px;
+      color: #FA5D50;
     }
   }
   &__age-wrap {
@@ -519,6 +524,18 @@
       position: absolute;
       top: 13px;
       font-size: 11px;
+    }
+  }
+  &__city-select-wrap {
+    position: relative;
+    width: 40%;
+    & .custom-checkbox {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    & .ArticleCreateForm__input-city {
+      width: 100%;
     }
   }
 }

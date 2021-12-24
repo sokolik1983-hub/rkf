@@ -66,7 +66,8 @@ const CardNewsNew = forwardRef(({
     user_type,
     member = false,
     isFederation,
-    is_halfbreed
+    is_halfbreed,
+    is_all_cities
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -74,6 +75,8 @@ const CardNewsNew = forwardRef(({
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
+
+    console.log('is_all_cities', is_all_cities)
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
@@ -227,7 +230,11 @@ const CardNewsNew = forwardRef(({
                             dog_name && <div>Кличка собаки: {dog_name}</div>
                         }
                         {
-                            dog_city && (advert_type_id > 1)  && <div>Место {cityLabel}: {dog_city.map((item, i) => (dog_city.length === (i + 1)) ? item.name : `${item.name}, `)}</div>
+                            (!is_all_cities && dog_city && (advert_type_id > 1))
+                                ?
+                                <div>Место {cityLabel}: {dog_city.map((item, i) => (dog_city.length === (i + 1)) ? item.name : `${item.name}, `)}</div>
+                                :
+                                <span>Все города</span>
                         }
                         {
                             dog_age && <div>Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>

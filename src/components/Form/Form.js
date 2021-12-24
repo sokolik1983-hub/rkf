@@ -39,7 +39,8 @@ function Form({
     noEnter = false,
     resetForm = false,
     isEditPage,
-    history
+    history,
+    setValue
 }) {
     const [loading, setLoading] = useState(false);
     const isMultipartData = format === "multipart/form-data";
@@ -97,7 +98,6 @@ function Form({
             validationSchema={validationSchema}
             render={({ handleSubmit, submitForm, errors }) => {
                 if (bindSubmitForm) bindSubmitForm.submit(submitForm, errors);
-
                 return withLoading && loading ?
                     <Loading centered={false} /> :
                     <form

@@ -50,9 +50,11 @@ const RenderFields = ({ fields,
                           isHalfBreed,
                           setIsHalfBreed,
                           activeElem,
-                            setActiveElem,
+                          setActiveElem,
                           setIsTypeId,
-                            isTypeId
+                          isTypeId,
+                          isAllCities,
+                          setIsAllCities
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -60,6 +62,7 @@ const RenderFields = ({ fields,
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
+
 
     const { content, file } = formik.values;
 
@@ -162,6 +165,14 @@ const RenderFields = ({ fields,
         }
     };
 
+    const handleChangeAllCities = () => {
+        if (isAllCities) {
+            setIsAllCities(false);
+        } else if (!isAllCities) {
+            setIsAllCities(true);
+        }
+    };
+
     useEffect(() => {
         formik.setFieldValue('advert_type_id', isTypeId);
     }, [isTypeId]);
@@ -182,6 +193,12 @@ const RenderFields = ({ fields,
             setCityLabel('нахождения');
         }
     }, [activeElem]);
+
+    useEffect(() => {
+        formik.setFieldValue('is_all_cities', isAllCities);
+        isAllCities && formik.setFieldValue('dog_city', []);
+    }, [isAllCities]);
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
@@ -390,7 +407,21 @@ const RenderFields = ({ fields,
                 }
                 <FormGroup className="ArticleCreateForm__advert">
                     <div className="ArticleCreateForm__inputs-wrap">
-                        <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={true}/>
+                        <div className="ArticleCreateForm__city-select-wrap">
+                            <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={true} />
+                            <CustomCheckbox
+                                id="isAllCities__checkbox"
+                                label="Все города"
+                                className="ArticleCreateForm__ad"
+                                checked={isAllCities}
+                                onChange={handleChangeAllCities}
+                            />
+                            {
+                                !isAllCities && <div className="ArticleCreateForm__error-wrap">
+                                    <div className="FormInput__error-city">Выберите город</div>
+                                </div>
+                            }
+                        </div>
                         <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                         <CustomCheckbox
                             id="isHalfBreed_checkbox"

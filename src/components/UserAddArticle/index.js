@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {boolean, number, object, string, array, lazy} from "yup";
 import Card from "../Card";
 import Alert from "../Alert";
@@ -26,7 +26,11 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isHalfBreed, setIsHalfBreed] = useState(false);
     const { focus, setFocused, setBlured } = useFocus(false);
     const [activeElem, setActiveElem] = useState(null);
+    const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
+    const [values, setValue] = useState(1);
+
+    console.log('values', values);
 
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
@@ -43,7 +47,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_name: string().required('Поле не может быть пустым'),
         advert_breed_id: !isHalfBreed ? number().required('Укажите породу').typeError('Укажите пород') : '',
         advert_type_id: isCheckedAddTypes ? number().nullable().required('Выберите категорию') : '',
-        dog_city: (isCheckedAddTypes && activeElem === 6) ? array().of(number().required('Укажите город').typeError('Укажите город')) : number().required('Укажите город').typeError('Укажите город'),
+        dog_city: (isCheckedAddTypes && activeElem === 6 && !isAllCities) ? array().of(number().required('Укажите город').typeError('Укажите город')) : (isAllCities) ? '' : number().required('Укажите город').typeError('Укажите город'),
         dog_sex_type_id: isCheckedAddTypes ? number().required('Укажите пол').typeError('Укажите пол') : '',
     }); //Валидация для объявлений категории 2
     const initialValueCatOne = {
@@ -137,6 +141,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 transformValues={transformValues}
                 onSuccess={onSuccess}
                 onError={onError}
+                setValue={setValue}
             >
                 <RenderFields
                     fields={newsArticleFormConfig.fields}
@@ -169,6 +174,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     setActiveElem={setActiveElem}
                     isTypeId={isTypeId}
                     setIsTypeId={setIsTypeId}
+                    isAllCities={isAllCities}
+                    setIsAllCities={setIsAllCities}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
