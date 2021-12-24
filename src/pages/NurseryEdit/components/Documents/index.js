@@ -2,25 +2,27 @@ import React from "react";
 import { connect, FieldArray } from "formik";
 import { FormField, FormGroup } from "components/Form";
 import Button from "components/Button";
-
+import Card from "components/Card";
 import "./styles.scss";
-
 
 const Documents = ({ documents }) => {
 
-    return <div className="Documents">
+    return <Card className="Documents">
+        <h3>Ссылки на документы</h3>
+
         <FieldArray
             name="documents"
             render={arrayHelpers => (
                 <div>
                     {documents.map(({ contact_type_id }, index) => (
-                        <FormGroup key={index}>
+                        <FormGroup inline key={index}>
                             <FormField
                                 label={'Ссылка на документ'}
                                 placeholder={'Введите ссылку на документ'}
                                 name={`documents[${index}].url`}
                             />
                             <FormField
+                                label={'Название'}
                                 placeholder="Введите название"
                                 name={`documents[${index}].name`}
                             />
@@ -29,20 +31,17 @@ const Documents = ({ documents }) => {
                     ))}
                     <div className="Documents__buttons-wrap">
                         <Button
-                            className={`btn-green Documents__button-add ${(arrayHelpers.form.values.documents.length > 0) && 'btn-mini'}`}
-                            onClick={() => {
-                                arrayHelpers.push({
-                                    id: null,
-                                    name: '',
-                                    url: ''
-                                });
-                                console.log(arrayHelpers);
-                            }}>Добавить ссылку на документ</Button>
+                            className="btn-green Documents__button-add"
+                            onClick={() => arrayHelpers.push({
+                                id: null,
+                                name: '',
+                                url: ''
+                            })}>Добавить ссылку</Button>
                     </div>
                 </div>
             )}
         />
-    </div>
+    </Card>
 };
 
 export default connect(Documents);
