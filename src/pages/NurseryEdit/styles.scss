@@ -286,6 +286,21 @@
         .k-form-buttons {
             margin-top: unset!important;
         }
+        .ProfileEditPageControls__save {
+            display: block;
+            margin: 0 auto;
+            padding: 0;
+            width: 154px;
+            height: 38px;
+            background: #3366FF;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 20px;
+            color: #FFFFFF;
+            &:hover {
+                box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+            }
+        }
     }
     .Card {
         margin: 0 0 16px 0;
@@ -396,22 +411,15 @@
         }
     }
     &__is-valid {
+        display: flex;
+        justify-content: center;
         text-align: right;
         color: red;
     }
 }
-.ProfileEditPageControls__save {
-    display: block;
-    margin: 0 auto;
-    padding: 0;
-    width: 154px;
-    height: 38px;
-    background: #3366FF;
-    border-radius: 4px;
-    font-size: 16px;
-    line-height: 20px;
-    color: #FFFFFF;
-    &:hover {
-        box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+.header__filters {
+    @media (min-width: 561px) {
+        display: none;
     }
 }
+

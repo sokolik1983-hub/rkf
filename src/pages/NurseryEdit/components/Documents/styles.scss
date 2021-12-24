@@ -10,6 +10,9 @@
             @media (max-width: 768px) {
                 grid-template-columns: 20% 68% 5%;
             }
+            @media (max-width: 1024px) {
+                grid-template-columns: 13.5% 76% 5%;
+            }
         }
         .FormInput--text {
             & > label {
