@@ -1,6 +1,6 @@
 import React, {memo, useEffect, useRef, useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react/swiper-react.js";
-import {FreeMode, Scrollbar} from "swiper";
+import {FreeMode} from "swiper";
 import "swiper/modules/free-mode/free-mode.scss";
 import "swiper/modules/scrollbar/scrollbar.scss";
 import "swiper/swiper.scss";
@@ -71,7 +71,6 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
                         </LinkScroll> :
                         <span
                             className={`swipe-tabs__tab${activeTabIndex === i ? ' _active' : item.disabled ? ' _disabled' : ''}`}
-                            // disabled={item.disabled} нельзя, иначе свайп не работает
                             onClick={() => {
                                 if(!item.disabled) {
                                     onChange(item);

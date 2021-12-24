@@ -25,7 +25,7 @@ const Search = ({ withFilters, hideSideMenu }) => {
     const searchTitle = isClicked ? 'Закрыть' : 'Поиск';
 
     const handleOutsideClick = (e) => {
-        if (!e?.target?.classList?.contains('__hide')) {
+        if (!e?.target.classList.contains('__hide')) {
             setIsClicked(false);
             setSearchValue('');
         }
@@ -58,7 +58,6 @@ const Search = ({ withFilters, hideSideMenu }) => {
                         />
                     }
 
-
                     <div className="search-icon__wrap" onClick={handleChecked}>
                         <button type='submit'
                                 className={isClicked ? 'header__search-submit __hide' : 'header__search-submit'}
@@ -77,8 +76,8 @@ const Search = ({ withFilters, hideSideMenu }) => {
                 <PopupModal
                     showModal={isClicked}
                     handleClose={(e) => {
-                        if (!e?.target?.classList?.contains('header__search-control')) {
-                            if (e?.target?.classList?.contains('form-search__wrap')) {
+                        if (!e?.target.classList.contains('header__search-control')) {
+                            if (e?.target.classList.contains('form-search__wrap')) {
                                 setIsClicked(false);
                             }
                         }

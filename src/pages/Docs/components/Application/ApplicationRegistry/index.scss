@@ -143,6 +143,9 @@
       &:hover {
         color: #3366FF;
       }
+      &--tableIcon {
+        z-index: 99;
+      }
       &--tableIcon:before {
         content: '';
         width: 17px;
@@ -150,6 +153,9 @@
         display: inline-block;
         margin-right: 10px;
         background: url(/static/icons/full-screen.svg) no-repeat center / cover;
+      }
+      &--downloadIcon {
+        z-index: 99;
       }
       &--downloadIcon:before {
         content: '';
