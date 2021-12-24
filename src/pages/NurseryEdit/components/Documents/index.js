@@ -2,7 +2,9 @@ import React from "react";
 import { connect, FieldArray } from "formik";
 import { FormField, FormGroup } from "components/Form";
 import Button from "components/Button";
+
 import "./styles.scss";
+
 
 const Documents = ({ documents }) => {
 
@@ -19,7 +21,6 @@ const Documents = ({ documents }) => {
                                 name={`documents[${index}].url`}
                             />
                             <FormField
-                                // label={'Название'}
                                 placeholder="Введите название"
                                 name={`documents[${index}].name`}
                             />
@@ -28,12 +29,15 @@ const Documents = ({ documents }) => {
                     ))}
                     <div className="Documents__buttons-wrap">
                         <Button
-                            className="btn-green Documents__button-add"
-                            onClick={() => arrayHelpers.push({
-                                id: null,
-                                name: '',
-                                url: ''
-                            })}>Добавить ссылку на документ</Button>
+                            className={`btn-green Documents__button-add ${(arrayHelpers.form.values.documents.length > 0) && 'btn-mini'}`}
+                            onClick={() => {
+                                arrayHelpers.push({
+                                    id: null,
+                                    name: '',
+                                    url: ''
+                                });
+                                console.log(arrayHelpers);
+                            }}>Добавить ссылку на документ</Button>
                     </div>
                 </div>
             )}

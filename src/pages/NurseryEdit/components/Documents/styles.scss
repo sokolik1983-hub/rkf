@@ -1,23 +1,70 @@
 .Documents {
+    .FormGroup {
+        position: relative;
+        .FormInput {
+            display: grid;
+            grid-template-columns: 17% 72% 5%;
+            gap:3%;
+            row-gap: 24px;
+            margin-bottom: 24px;
+        }
+        .FormInput--text {
+            & > label {
+                grid-column: 1 / 2;
+            }
+            & > input {
+                grid-column: 2 / 3;
+            }
+        }
+        .Documents__button-delete {
+            position: absolute;
+            right: 10px;
+            top: 65px;
+        }
+    }
+    .btn-mini {
+        position: absolute;
+        top: -52px;
+        height: 18px;
+        width: 18px;
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+        border: none;
+        border-radius: 50%;
+        background: url("/static/icons/add-blue.svg") no-repeat center / contain;
+    }
     &__button-delete {
-        padding: 7px 14px;
-        border-color: #fa5d50;
-        background: #fa5d50;
-        color: white;
+        padding: 0;
+        margin: 9px 0;
+        width: 15px;
+        height: 18px;
+        cursor: pointer;
+        font-size: 0;
+        background: url('/static/icons/delete-red.svg');
+        background-size: cover;
+        border: none;
         &:hover {
             box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
         }
     }
     &__button-add {
+        margin:0 auto 15px;
+        width: 240px;
+        white-space: nowrap;
         padding: 7px 14px;
         &:hover {
             box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
         }
     }
+
     &__buttons-wrap {
+        position: relative;
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-end;
+        justify-content: start;
+        min-height: 5px;
+        margin: 0 85px;
         .btn + .btn {
             @media (min-width: 768px) {
                 margin: 0 0 0 12px;

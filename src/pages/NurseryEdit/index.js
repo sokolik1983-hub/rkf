@@ -8,7 +8,7 @@ import RenderFields from './RenderFields';
 import Alert from '../../components/Alert';
 import { Request } from '../../utils/request';
 import { editForm, defaultValues } from './config';
-import UserHeader from '../../components/redesign/UserHeader';
+import UserHeader from './components/UserHeader';
 import CopyrightInfo from '../../components/CopyrightInfo';
 import StickyBox from 'react-sticky-box';
 import useIsMobile from 'utils/useIsMobile';
@@ -179,13 +179,17 @@ const NurseryEdit = ({
             });
         }
     };
-    // console.log('initialValues', initialValues);
-    // console.log('canEdit', canEdit);
-    // console.log('isAuthenticated', isAuthenticated);
-    // console.log('is_active_profile', is_active_profile);
-    // console.log('profile_id', profile_id);
-    // console.log('nursery', nursery);
-    // console.log('match', match);
+    const randomKeyGenerator = () => {
+        const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        let word = ''
+        for (let i = 0; i < 15; i++) {
+            word += letters.charAt(Math.floor(Math.random() * letters.length))
+        }
+        return (word.substr(0, 5) +
+            '-' + word.substr(5, 5) +
+            '-' + word.substr(10, 5)).toUpperCase()
+    }
+
 
 
     return (loading
@@ -247,6 +251,7 @@ const NurseryEdit = ({
                                                     secondName: initialValues.co_owner_second_name,
                                                     mail: initialValues.co_owner_mail
                                                 }}
+                                                randomKeyGenerator={randomKeyGenerator}
                                             />
                                         </Form>
                                 }

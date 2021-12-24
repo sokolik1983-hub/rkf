@@ -170,7 +170,7 @@
             padding-bottom: 1px;
         }
         @media (max-width: 1024px) {
-            width: calc(100% - 230px);
+            width: calc(100% - 160px);
             margin-top: 0;
             padding-bottom: 1px;
         }
@@ -186,19 +186,53 @@
             display: flex;
             align-items: baseline;
             color: #72839c;
-            .k-icon-32 {
-                font-size: 20px;
+            .k-i-track-changes {
+                &:before {
+                    content: url("/static/icons/contacts.svg");
+                }
+            }
+            .k-i-user {
+                &:before {
+                    content: url("/static/icons/shedule.svg");
+                }
+            }
+            .k-i-trash {
+                &:before {
+                    content: url("/static/icons/delete-variant.svg");
+                    height: 18px;
+                }
             }
             .k-icon {
+                height: 18px;
                 position: relative;
                 top: 2px;
+                font-size: 20px;
             }
             &:hover {
                 color: #3366ff;
                 transition: all 0.2s linear;
+                & .k-i-user {
+                    content: url("/static/icons/shedule-blue.svg");
+                }
+                & .k-i-track-changes {
+                    content: url("/static/icons/contacts-blue.svg");
+                }
+                & .k-i-trash {
+                    content: url("/static/icons/delete-variant-blue.svg");
+                }
             }
+
             &.active {
                 color: #3366ff;
+                & .k-i-user {
+                    content: url("/static/icons/shedule-blue.svg");
+                }
+                & .k-i-track-changes {
+                    content: url("/static/icons/contacts-blue.svg");
+                }
+                & .k-i-trash {
+                    content: url("/static/icons/delete-variant-blue.svg");
+                }
             }
         }
         &-list {
@@ -217,12 +251,21 @@
                 margin-top: 0 !important;
                 h3 {
                     margin-top: 3px;
-                    margin-bottom: 16px;
+                    margin-bottom: 10px;
                     font-size: 18px;
                     line-height: 24px;
                     font-weight: normal;
                     color: #030404;
 
+                    border-bottom: 1px solid #E5E5E5;
+                }
+                .support-link {
+                    display: block;
+                    margin-bottom: 12px;
+                    padding-bottom: 8px;
+                    text-align: end;
+                    text-decoration: none;
+                    color: #3366FF;
                     border-bottom: 1px solid #E5E5E5;
                 }
             }
@@ -277,6 +320,29 @@
         div {
             font-weight: normal;
         }
+        .nursery-page__delete {
+            display: flex;
+            flex-direction: column;
+            min-height: 160px;
+            p {
+                text-align: center;
+                margin: 25px auto 40px;
+            };
+            .button-delete__disable {
+                width: 155px;
+                height: 38px;
+                padding: 0;
+                align-self: center;
+                font-size: 16px;
+                line-height: 20px;
+                text-align: center;
+                vertical-align: center;
+                color: #FFFFFF;
+                background: #D6D6D6;
+                border: 1px solid #D6D6D6;
+                border-radius: 4px;
+            }
+        }
 
         @media (max-width: 560px) {
             padding: 16px;
@@ -292,7 +358,9 @@
         }
     }
     .FormInput {
-        display: flex;
+        display: grid;
+        grid-template-columns: 17% 80%;
+        gap:3%;
         margin-bottom: 24px;
         justify-content: space-between;
         flex-flow: unset;
@@ -303,7 +371,7 @@
             display: flex;
             flex-direction: row;
             align-items: flex-end;
-            width: 80%;
+            width: 100%;
             height: 38px;
             border-width: 2px;
         }
@@ -312,15 +380,20 @@
         }
         .AliasInput {
             display: flex;
-            align-items: end;
             flex-direction: column;
-            width: 80%;
+            width: 100%;
+            & > span {
+                margin-bottom: 3px;
+                margin-left: 2px;
+            }
             .FormInput__input{
                 width: 100%;
+
             }
         }
         label {
             width: 115px;
+            text-align: right;
             line-height: 16px;
             @media (max-width: 768px) {
                 white-space: normal;
@@ -334,89 +407,22 @@
                 top: 14px;
             }
         }
+        &--select > div:nth-child(2) {
+            display: block;
+            height: 42px;
+            > div {
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+        }
+        input[name='address.postcode'] {
+            height: 42px;
+        }
     }
-    //.FormGroup {
-    //    margin-bottom: 24px;
-    //    .FormInput {
-    //        margin-bottom: 0;
-    //        @media (max-width: 768px) {
-    //            width: 100%;
-    //            margin: 0 0 18px;
-    //        }
-    //    }
-    //    @media (max-width: 768px) {
-    //        margin-bottom: 12px;
-    //        flex-flow: column;
-    //    }
-    //}
-    //fieldset {
-    //    padding: 0;
-    //    margin: 0;
-    //    border: none;
-    //}
-    //&__submit {
-    //    display: flex;
-    //    align-items: center;
-    //    justify-content: flex-end;
-    //    margin: 24px 8px;
-    //    &.working {
-    //        pointer-events: none;
-    //        opacity: 0.75;
-    //    }
-    //}
     &__is-valid {
         text-align: right;
         color: red;
-    }
-    //
-    //&__main-info {
-    //    display: flex;
-    //    flex-direction: column;
-    //    @media (max-width: 560px) {
-    //        display: block;
-    //    }
-    //    #city_id:active {
-    //        padding: 0;
-    //        border: 2px solid #ebf0f2;
-    //    }
-    //}
-}
-.Documents,
-.SocialNetworks {
-    &__buttons-wrap {
-        justify-content: center;
-    }
-    &__button-add {
-        margin-bottom: 24px;
-        width: 240px;
-        white-space: nowrap;
-    }
-
-    .FormGroup {
-        display: grid;
-        grid-template-columns: 17% 80% ;
-        grid-template-rows: 40px 40px;
-        gap:3%;
-        row-gap: 24px;
-        margin-bottom: 24px;
-        .FormInput--text:nth-child(1) {
-            grid-column: 1 / 3;
-            margin: 0;
-        }
-        .Documents__button-delete {
-            grid-row: 2 / 3;
-        }
-        .SocialNetworks__button-delete {
-            grid-row: 2 / 3;
-        }
-        .FormInput--text:nth-child(2) {
-            margin: 0;
-            width: 100%;
-            grid-column: 2 / 3;
-            > input {
-                width: 100%;
-            }
-        }
     }
 }
 .ProfileEditPageControls__save {
@@ -427,8 +433,10 @@
     height: 38px;
     background: #3366FF;
     border-radius: 4px;
-
     font-size: 16px;
     line-height: 20px;
     color: #FFFFFF;
+    &:hover {
+        box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+    }
 }

@@ -1,64 +1,175 @@
-.Contacts {
-    &__button-delete {
-        padding: 7px 14px;
-        border-color: #fa5d50;
-        background: #fa5d50;
-        color: white;
-        &:hover {
-            box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
-        }
-    }
-    &__button-add {
-        padding: 7px 14px;
-        &:hover {
-            box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
-        }
-        &.disabled {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-    }
-    &__buttons-wrap {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        .btn + .btn {
-            @media (min-width: 768px) {
-                margin: 0 0 0 12px;
-            }
-        }
-        .btn {
-            @media (max-width: 768px) {
-                width: 100%;
-                margin: 0 0 12px;
-            }
-        }
-    }
-    .FormGroup--inline {
-        align-items: flex-end;
-        @media (max-width: 768px) {
-            padding: 8px;
-            box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
-        }
-    }
-    &__checkbox-wrap {
-        margin-right: 16px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        @media (max-width: 768px) {
-            flex-direction: row;
-            align-items: initial;
+.nursery__contacts {
+    &__address {
+        .FormGroup {
             margin: 0;
-        }
-        & > div {
-            margin: 0 0 16px 0;
-            @media (max-width: 768px) {
-                margin: 0 16px 16px 0;
+            width: 100%;
+            .FormInput > div {
+                width: 100%;
+            }
+            &--inline:nth-child(1) {
+                display: grid;
+                grid-template-columns: 58.5% 40%;
+                grid-template-rows: 75px;
+                .FormInput--select {
+                    display: block;
+                    flex-direction: column;
+                    align-items: start;
+                    width: 100%!important;
+                }
+            }
+            &--inline:nth-child(2) {
+                display: grid;
+                grid-template-columns: 58.5% 19% 19%;
+            }
+            .FormInput--text {
+                display: block;
+                width: 100%;
+                flex-direction: column;
+                align-items: start;
+            }
+            label {
+                white-space: nowrap;
+                margin: 0 0 5px 0;
+                padding: 0;
+            }
+            input {
+                width: 100%;
             }
         }
-        .custom-checkbox__label {
-            height: 26px;
+    }
+    &__contacts {
+        margin-bottom: 15px;
+        .Contacts {
+            h4 {
+                margin-bottom: 15px;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 20px;
+                color: #253C5E;
+            }
+            label[for="is_public"] {
+                width: 100%;
+                &:before,
+                &:after {
+                    position: absolute;
+                    top: -1px;
+                }
+                &:after {
+                    top: 0;
+                }
+            }
+            .FormGroup {
+                display: grid;
+                grid-template-columns: 5% 28% 43% 9% 5%;
+                grid-template-rows: 55px;
+                gap: 3%;
+                .FormInput__input {
+                    width: 100%;
+                }
+                .FormInput--text {
+                    display: block;
+                    margin: 0;
+                    &:nth-child(1) {
+                        grid-column: 2 / 3;
+                    }
+                }
+            }
+            .FormInput{
+                display: inline-block;
+            }
+            .btn-mini {
+                position: absolute;
+                top: -43px;
+                height: 18px;
+                width: 18px;
+                margin: 0;
+                padding: 0;
+                font-size: 0;
+                border: none;
+                border-radius: 50%;
+                background: url("/static/icons/add-blue.svg") no-repeat center / contain;
+            }
+            &__button-delete {
+                padding: 0;
+                margin: 9px 0;
+                width: 15px;
+                height: 18px;
+                cursor: pointer;
+                font-size: 0;
+                background: url('/static/icons/delete-red.svg');
+                background-size: cover;
+                border: none;
+                &:hover {
+                    box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+                }
+            }
+            &__button-add {
+                margin: 0 auto;
+                padding: 7px 14px;
+                width: 170px;
+                &:hover {
+                    box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+                }
+                &.disabled {
+                    opacity: 0.7;
+                    pointer-events: none;
+                }
+            }
+            &__buttons-wrap {
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: start;
+                min-height: 5px;
+                margin: 0 15px 15px 15px;
+                .btn + .btn {
+                    @media (min-width: 768px) {
+                        margin: 0 0 0 12px;
+                    }
+                }
+                .btn {
+                    @media (max-width: 768px) {
+                        width: 100%;
+                        margin: 0 0 12px;
+                    }
+                }
+            }
+            &__checkbox-wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                @media (max-width: 768px) {
+                    flex-direction: row;
+                    align-items: initial;
+                    margin: 0;
+                }
+                & > div {
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 13px;
+                    line-height: 16px;
+                    text-align: center;
+
+                    color: #B9B9B9;
+                    position: relative;
+                    top: -10px;
+                    @media (max-width: 768px) {
+                    }
+                }
+                .custom-checkbox__label {
+                    height: 26px;
+                    width: 18px;
+                    padding: 0;
+                }
+            }
+        }
+    }
+    .FormInput {
+        label {
+            text-align: left!important;
         }
     }
 }
+
+

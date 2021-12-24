@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect, FieldArray } from 'formik';
 import { FormField, FormGroup } from '../../../../components/Form';
-import Button from '../../../../components/Button';
 import SubmitButton from '../../../../components/Form/SubmitButton';
+
 import './styles.scss';
 
 
@@ -91,7 +91,6 @@ const Schedule = ({ work_time }) => {
                                     name={`work_time[${index}].time_to`}
                                     type="time"
                                 />
-                                {/*<Button className="btn Schedule__button-delete" onClick={() => arrayHelpers.remove(index)}>Удалить</Button>*/}
                             </FormGroup>
                         ))}
                 </div>
