@@ -364,7 +364,7 @@ const RenderFields = ({ fields,
                                         label={`Место ${cityLabel}`}
                                     />
                                         :
-                                        <>
+                                        <div className="article-edit__city-input-wrap">
                                             <CustomCheckbox
                                                 id="isAllCities__checkbox"
                                                 label="Все города"
@@ -372,16 +372,23 @@ const RenderFields = ({ fields,
                                                 checked={isAllCitiesEdit}
                                                 onChange={handleChangeAllCities}
                                             />
+                                            <label htmlFor="cities-input">Город</label>
                                             <CustomSelect
+                                                id="cities-input"
                                                 value={currentCities}
                                                 placeholder={'Выберите город'}
-                                                label={'Город'}
                                                 options={cities ? cities : []}
                                                 isMulti={true}
                                                 onChange={handleCitySelect}
-                                                className={`article-edit__input-breedId ${(isAllCitiesEdit) && 'disabled'}`}
+                                                className={`article-edit__input-breedId ${(isAllCitiesEdit) && 'disabled'} ${(currentCities?.length === 0 && !isAllCitiesEdit) && 'error-field' }`}
                                             />
-                                        </>
+                                            {
+                                                (currentCities?.length === 0 && !isAllCitiesEdit) && <div className="article-edit__error-wrap ">
+                                                    <div className="FormInput__error select-city">Выберите город</div>
+                                                </div>
+                                            }
+
+                                        </div>
                                 }
                                 <FormGroup inline className="article-edit__ad article-edit__halfbreed-wrap">
                                     <CustomCheckbox
@@ -392,6 +399,7 @@ const RenderFields = ({ fields,
                                          onChange={handleChangeHalfBreed}
                                      />
                                     <FormField
+                                        id=""
                                         className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'} ${(!isHalfBreedEdit && !breedValue) && 'error-input'}`}
                                         {...fields.advert_breed_id}
                                         options={breeds}

@@ -213,6 +213,16 @@
     .css-kj6f9i-menu {
       z-index: 99;
     }
+    & .custom-checkbox {
+      margin-bottom: 5px;
+    }
+    .error-field {
+      & .css-bg1rzq-control {
+        border-color: #FA5D50;
+        border-radius: 6px;
+        border-width: 2px;
+      }
+    }
   }
   &__ad {
     &:not(:last-child) {
@@ -312,6 +322,9 @@
     & .FormInput {
       width: 40%;
     }
+    & #advert_breed_id {
+      margin-bottom: 5px;
+    }
   }
   &__error-wrap {
     position: relative;
@@ -320,6 +333,9 @@
       color: #FA5D50;
       &.select-breed {
         top: -15px;
+      }
+      &.select-city {
+        top: -30px;
       }
     }
   }
@@ -338,6 +354,11 @@
       position: absolute;
       top: 13px;
       font-size: 11px;
+    }
+  }
+  &__city-input-wrap {
+    & .css-1hwfws3 {
+      padding: 7px 8px 6px;
     }
   }
 }
