@@ -526,6 +526,22 @@
       font-size: 11px;
     }
   }
+  &__textarea-wrap {
+    .FormInput {
+      .FormInput__error {
+        display: none;
+      }
+    }
+    .FormInput._textarea_focus {
+      .FormInput__error {
+        display: block;
+        font-size: 15px;
+        right: 200px;
+        bottom: 2px;
+        width: 0;
+      }
+    }
+  }
   &__city-select-wrap {
     position: relative;
     width: 40%;
