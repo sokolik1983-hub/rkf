@@ -57,7 +57,7 @@ const RenderFields = ({ fields,
     const [breedValue, setBreedValue] = useState(adBreedId);
     const [cityLabel, setCityLabel] = useState('');
     const [currentCities, setCurrentCities] = useState(currentCityId);
-    const [isAllCities1, setIsAllCities1] = useState(isAllCities);
+    const [isAllCitiesEdit, setIsAllCitiesEdit] = useState(isAllCities);
 
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
@@ -202,11 +202,11 @@ const RenderFields = ({ fields,
     }
 
     const handleChangeAllCities = () => {
-        if (isAllCities1) {
-            setIsAllCities1(false);
+        if (isAllCitiesEdit) {
+            setIsAllCitiesEdit(false);
             formik.setFieldValue('is_all_cities', false);
-        } else if (!isAllCities1) {
-            setIsAllCities1(true);
+        } else if (!isAllCitiesEdit) {
+            setIsAllCitiesEdit(true);
             formik.setFieldValue('is_all_cities', true);
             setCurrentCities('');
         }
@@ -367,7 +367,7 @@ const RenderFields = ({ fields,
                                                 id="isAllCities__checkbox"
                                                 label="Все города"
                                                 className="ArticleCreateForm__ad"
-                                                checked={isAllCities1}
+                                                checked={isAllCitiesEdit}
                                                 onChange={handleChangeAllCities}
                                             />
                                             <CustomSelect
@@ -377,7 +377,7 @@ const RenderFields = ({ fields,
                                                 options={cities ? cities : []}
                                                 isMulti={true}
                                                 onChange={handleCitySelect}
-                                                className={`article-edit__input-breedId ${(isAllCities1) && 'disabled'}`}
+                                                className={`article-edit__input-breedId ${(isAllCitiesEdit) && 'disabled'}`}
                                             />
                                         </>
                                 }
