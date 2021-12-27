@@ -82,7 +82,7 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
             }
         </div>
         {showModal && showModal.type === 'addVideo' &&
-            <AddVideoModal showModal={showModal} setShowModal={setShowModal} onSuccess={onVideoAddSuccess} onModalClose={(e) => onModalClose(e)}/>
+            <AddVideoModal showModal={showModal} setShowModal={setShowModal} onSuccess={onVideoAddSuccess} onModalClose={onModalClose}/>
         }
         {showModal && showModal.type === 'openVideo' &&
             <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
