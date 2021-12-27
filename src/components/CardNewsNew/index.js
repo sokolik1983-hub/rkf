@@ -76,8 +76,6 @@ const CardNewsNew = forwardRef(({
     const [cityLabel, setCityLabel] = useState('');
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
-    console.log('is_all_cities', is_all_cities)
-
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
     }, []);

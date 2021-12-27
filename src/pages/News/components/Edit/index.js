@@ -4,7 +4,7 @@ import { Form } from "../../../../components/Form";
 import RenderFields from "./RenderFields";
 import { formConfig, formConfigSecondCat, defaultValues, apiBreedsEndpoint, apiSexEndpoint, apiCityEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
-import {boolean, number, object, string} from "yup";
+import {boolean, number, object, string, array} from "yup";
 
 import "./index.scss";
 
@@ -26,7 +26,8 @@ const Edit = ({ id,
                   advertTypeId,
                   advertCategoryId,
                   isHalfBreed,
-                  dogCity
+                  dogCity,
+                isAllCities
     }) => {
     const [breeds, setBreeds] = useState([]);
     const [sex, setSex] = useState([]);
@@ -36,7 +37,7 @@ const Edit = ({ id,
     const [isImageDelete, setIsImageDelete] = useState(false);
     const [showAlert, setShowAlert] = useState('');
     const [cities, setCities] = useState(null);
-
+    const [liveAdvertId, setLiveAdvertId] = useState(advertTypeId);
 
     const currentCityId = (advertTypeId !==6)
         ?
@@ -84,7 +85,16 @@ const Edit = ({ id,
                 then: number().required('Поле не может быть пустым'),
                 otherwise: number().notRequired(),
             }),
-        dog_city: number().required('Поле не может быть пустым'),
+        dog_city: (liveAdvertId === 6)
+            ?
+            array()
+            .when(['is_all_cities'], {
+                is: false,
+                then: array().nullable().required('Выберите категорию'),
+                otherwise: array().notRequired(),
+            })
+            :
+            number().required('Поле не может быть пустым'),
         advert_type_id: number()
             .when(['is_advert'], {
                 is: true,
@@ -122,6 +132,7 @@ const Edit = ({ id,
         advert_type_id: advertTypeId,
         advert_category_id: advertCategoryId,
         is_halfBreed: isHalfBreed,
+        is_all_cities: isAllCities
     } //Initial Values для объявлений категории 2
     const initialValueCatNull = {
         ...defaultValues,
@@ -171,9 +182,7 @@ const Edit = ({ id,
             dog_color,
             dog_age,
             dog_sex_type_id,
-            // dog_city,
             file,
-            // is_halfbreed
         } = values;
 
         const documents = docs.map(item => {
@@ -218,7 +227,8 @@ const Edit = ({ id,
             dog_sex_type_id,
             dog_city,
             file,
-            is_halfbreed
+            is_halfbreed,
+            is_all_cities
         } = values;
 
         const documents = docs.map(item => {
@@ -237,6 +247,7 @@ const Edit = ({ id,
             advert_category_id: is_advert ? advert_category_id : '',
             dog_sex_type_id: dog_sex_type_id  ? dog_sex_type_id : '',
             is_halfbreed: is_advert  ? is_halfbreed : '',
+            is_all_cities: is_all_cities ? is_all_cities : '',
             dog_color: dog_color ? dog_color : '',
             dog_name: dog_name ? dog_name : '',
             dog_age: dog_age ? dog_age : '',
@@ -325,9 +336,11 @@ const Edit = ({ id,
                     advertTypeId={advertTypeId}
                     advertCategoryId={advertCategoryId}
                     isHalfBreed={isHalfBreed}
+                    isAllCities={isAllCities}
                     adBreedId={adBreedId}
                     currentCityId={currentCityId}
                     cities={cities}
+                    setLiveAdvertId={setLiveAdvertId}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

@@ -500,7 +500,7 @@
       padding: 0!important;
     }
   }
-  &__input-breedId.disabled {
+  &__input-breedId.disabled, &__input-city.disabled {
     opacity: .5;
     cursor: not-allowed;
     pointer-events: none;

@@ -101,7 +101,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     adCode={news.advert_code}
                                     adCost={news.advert_cost}
                                     adNumberOfPuppies={news.advert_number_of_puppies}
-                                    history={history}
+                                    history={history} isAllCities={news.is_all_cities}
                                 /> :
                                 <>
                                     {news.advert_breed_id &&

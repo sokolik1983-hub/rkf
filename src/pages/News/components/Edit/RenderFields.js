@@ -41,7 +41,9 @@ const RenderFields = ({ fields,
                           isHalfBreed,
                           adBreedId,
                           currentCityId,
-                            cities
+                          cities,
+                          isAllCities,
+                          setLiveAdvertId
 }) => {
     const [src, setSrc] = useState(imgSrc);
     const [sexId, setSex] = useState(imgSrc);
@@ -55,6 +57,7 @@ const RenderFields = ({ fields,
     const [breedValue, setBreedValue] = useState(adBreedId);
     const [cityLabel, setCityLabel] = useState('');
     const [currentCities, setCurrentCities] = useState(currentCityId);
+    const [isAllCities1, setIsAllCities1] = useState(isAllCities);
 
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
@@ -170,7 +173,7 @@ const RenderFields = ({ fields,
     const handleChange = (e) => {
         setSex(e);
         setSexIdNumber((e.label === 'Кобель') ? 1 : 2);
-    }
+    };
     const handleChangeHalfBreed = () => {
         if (isHalfBreedEdit) {
             setIsHalfBreedEdit(false);
@@ -183,7 +186,7 @@ const RenderFields = ({ fields,
     const handleChangeBreed = (e) => {
         formik.setFieldValue('advert_breed_id', e.value);
         setBreedValue(e.value);
-    }
+    };
 
     useEffect(() => {
         formik.setFieldValue('dog_sex_type_id', sexIdNumber);
@@ -197,6 +200,24 @@ const RenderFields = ({ fields,
         setCurrentCities(e);
         formik.setFieldValue('dog_city', e.map(m => m.value));
     }
+
+    const handleChangeAllCities = () => {
+        if (isAllCities1) {
+            setIsAllCities1(false);
+            formik.setFieldValue('is_all_cities', false);
+        } else if (!isAllCities1) {
+            setIsAllCities1(true);
+            formik.setFieldValue('is_all_cities', true);
+            setCurrentCities('');
+        }
+    };
+
+    useEffect(() => {
+        setLiveAdvertId(advert_type_id);
+        if(advert_type_id === 4 || advert_type_id === 5) {
+            formik.setFieldValue('is_all_cities', false);
+        }
+    }, [advert_type_id]);
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -341,14 +362,24 @@ const RenderFields = ({ fields,
                                         label={`Место ${cityLabel}`}
                                     />
                                         :
-                                    <CustomSelect
-                                        value={currentCities}
-                                        placeholder={'Выберите город'}
-                                        label={'Город'}
-                                        options={cities ? cities : []}
-                                        isMulti={true}
-                                        onChange={handleCitySelect}
-                                    />
+                                        <>
+                                            <CustomCheckbox
+                                                id="isAllCities__checkbox"
+                                                label="Все города"
+                                                className="ArticleCreateForm__ad"
+                                                checked={isAllCities1}
+                                                onChange={handleChangeAllCities}
+                                            />
+                                            <CustomSelect
+                                                value={currentCities}
+                                                placeholder={'Выберите город'}
+                                                label={'Город'}
+                                                options={cities ? cities : []}
+                                                isMulti={true}
+                                                onChange={handleCitySelect}
+                                                className={`article-edit__input-breedId ${(isAllCities1) && 'disabled'}`}
+                                            />
+                                        </>
                                 }
                                 <FormGroup inline className="article-edit__ad article-edit__halfbreed-wrap">
                                     <CustomCheckbox

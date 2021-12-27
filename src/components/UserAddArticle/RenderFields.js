@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import getYouTubeID from "get-youtube-id";
-import { connect } from "formik";
+import {connect} from "formik";
 
 import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
@@ -408,7 +408,8 @@ const RenderFields = ({ fields,
                 <FormGroup className="ArticleCreateForm__advert">
                     <div className="ArticleCreateForm__inputs-wrap">
                         <div className="ArticleCreateForm__city-select-wrap">
-                            <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={true} />
+
+                            <FormField className={`ArticleCreateForm__input-city ${isAllCities && 'disabled'}`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={true} />
                             <CustomCheckbox
                                 id="isAllCities__checkbox"
                                 label="Все города"
@@ -416,11 +417,6 @@ const RenderFields = ({ fields,
                                 checked={isAllCities}
                                 onChange={handleChangeAllCities}
                             />
-                            {
-                                !isAllCities && <div className="ArticleCreateForm__error-wrap">
-                                    <div className="FormInput__error-city">Выберите город</div>
-                                </div>
-                            }
                         </div>
                         <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                         <CustomCheckbox
