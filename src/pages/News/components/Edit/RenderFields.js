@@ -199,7 +199,7 @@ const RenderFields = ({ fields,
     const handleCitySelect = (e) => {
         setCurrentCities(e);
         formik.setFieldValue('dog_city', e.map(m => m.value));
-    }
+    };
 
     const handleChangeAllCities = () => {
         if (isAllCitiesEdit) {
@@ -216,6 +216,8 @@ const RenderFields = ({ fields,
         setLiveAdvertId(advert_type_id);
         if(advert_type_id === 4 || advert_type_id === 5) {
             formik.setFieldValue('is_all_cities', false);
+        } else if (advert_type_id === 6) {
+            formik.setFieldValue('dog_city', []);
         }
     }, [advert_type_id]);
 
@@ -420,7 +422,11 @@ const RenderFields = ({ fields,
                 <button type="button" className="btn" onClick={onCancel}>Отмена</button>
                 <SubmitButton
                     type="submit"
-                    className={`article-edit__button${(formik.isValid) ? ' _active' : ''}`}
+                    className={`article-edit__button${(advert_type_id === 6) 
+                        ?
+                        ((formik.isValid && (currentCities?.length > 0 || isAllCitiesEdit)) ? ' _active' : '') 
+                        :
+                        (formik.isValid ? ' _active' : '')  }`}
                 >
                     Обновить
                 </SubmitButton>
