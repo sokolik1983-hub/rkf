@@ -5,6 +5,7 @@ import Search from './components/Search';
 import Nav from './components/Nav';
 import WidgetLogin from './components/WidgetLogin';
 import Notifications from './components/Notifications';
+import Feedback from '../../Feedback';
 import { connectShowFilters } from '../connectors';
 import { connectAuthVisible } from 'pages/Login/connectors';
 import useIsMobile from '../../../utils/useIsMobile';
@@ -77,7 +78,11 @@ const Header = ({
                         </div>
                     </>
                     }
-
+                    {!isAuthenticated && isMobile &&
+                    <div className={`header__widgets--feedback${login_page ? ' __hidden' : ''}`}>
+                        <Feedback isMainNav={true} title={'Поддержка'}/>
+                    </div>
+                    }
                     {isMobile ?
                         <div className={withFilters || pathname === '/'
                             ?

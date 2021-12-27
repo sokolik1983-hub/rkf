@@ -56,6 +56,7 @@ const CheckStatus = ({cardClicked}) => {
 
     return <Card className={`check-status ${cardClicked === 2 && `_active_card`}`} id="check-status-anchor">
         <div className="check-status__icon" />
+        <div className="check-status__text_wrap">
         <h3>Статус документов</h3>
         <p>Для отслеживания статуса изготовления документов по заявкам на замену и изготовление
         родословных, а также  регистрацию помета и др. документов введите 13-значный трек-номер в поле и нажмите кнопку "Поиск".
@@ -141,6 +142,7 @@ const CheckStatus = ({cardClicked}) => {
                 onOk={() => setAlert(false)}
             />
         }
+        </div>
     </Card>
 };
 

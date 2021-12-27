@@ -1,0 +1,15 @@
+.map-page__left {
+  display: flex;
+  position: absolute;
+  top: 55px;
+  left: 0;
+  z-index: 1;
+}
+.Card {
+  .custom-select__values {
+    display: none;
+  }
+}
+.regions-filter {
+     margin-bottom: -5px;
+}

@@ -33,13 +33,13 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
         <Swiper
             ref={swiperRef}
             className="swipe-tabs"
-            modules={[FreeMode, Scrollbar]}
+            modules={[FreeMode]}
             freeMode={{
                 enabled: true,
                 sticky: true
             }}
             slidesPerView="auto"
-            initialSlide={activeTabIndex !== -1 ? activeTabIndex : 0}
+            initialSlide={activeIndex}
             centeredSlidesBounds={true}
             centeredSlides={true}
             onResize={swiper => {
@@ -69,9 +69,8 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
                         >
                             {item.title}
                         </LinkScroll> :
-                        <button
+                        <span
                             className={`swipe-tabs__tab${activeTabIndex === i ? ' _active' : item.disabled ? ' _disabled' : ''}`}
-                            type="button"
                             // disabled={item.disabled} нельзя, иначе свайп не работает
                             onClick={() => {
                                 if(!item.disabled) {
@@ -81,7 +80,7 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
                             }}
                         >
                             {item.title}
-                        </button>
+                        </span>
                     }
                 </SwiperSlide>
             )}

@@ -1,0 +1,157 @@
+.control-menu {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    z-index: 5;
+    top: 60px;
+    height: 56px;
+    margin-bottom: 16px;
+    padding: 0 15px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: rgba(51, 102, 255, 0.05) 0px 2px 10px 0px, rgba(51, 102, 255, 0.1) 0px 4px 30px 0px;
+
+    &__items {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @media (max-width: 700px) {
+            justify-content: flex-start;
+            overflow-x: auto;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        min-height: 30px;
+        font-size: 15px;
+        line-height: 16px;
+
+        @media (max-width: 700px) {
+            margin-right: 30px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        & input {
+            display: none;
+        }
+
+        &-text {
+            max-width: 116px;
+            white-space: nowrap;
+
+            & span {
+                display: block;
+            }
+        }
+
+        &-icon {
+            display: inline-block;
+            margin-right: 9px;
+            background-repeat: no-repeat;
+
+            &_select-all-reed {
+                width: 20px;
+                height: 19px;
+                background-image: url(/static/new-icons/envelope.svg)
+            }
+
+            &_move-to-archive {
+                width: 20px;
+                height: 16px;
+                background-image: url(/static/new-icons/directory.svg)
+            }
+
+            &_delete {
+                width: 14px;
+                height: 18px;
+                background-image: url(/static/new-icons/trash.svg)
+            }
+        }
+
+        &_disabled {
+            opacity: 0.5;
+
+            &:hover {
+                cursor: no-drop;
+            }
+        }
+    }
+
+    &__checkbox-label {
+        margin: 0 !important;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__checkbox-label>input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+
+    &__checkbox-label>span {
+        display: inline-flex;
+        align-items: center;
+        user-select: none;
+    }
+
+    &__checkbox-label>span::before {
+        content: '';
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        flex-grow: 0;
+        border: 1px solid #CED4DA;
+        border-radius: 3px;
+        margin-right: 9px;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    &__checkbox-label>input:not(:disabled):not(:checked)+span:hover::before {
+        border-color: #b3d7ff;
+    }
+
+    &__checkbox-label>input:not(:disabled):active+span::before {
+        background-color: #b3d7ff;
+        border-color: #b3d7ff;
+    }
+
+    &__checkbox-label>input:focus+span::before {
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    &__checkbox-label>input:focus:not(:checked)+span::before {
+        border-color: #80bdff;
+    }
+
+    &__checkbox-label>input:checked+span::before {
+        border-color: #007BFF;
+        background-color: #007BFF;
+        background-image: url(/static/new-icons/check_mark.svg);
+    }
+
+    &__checkbox-label>input:disabled+span::before {
+        background-color: #e9ecef;
+    }
+}

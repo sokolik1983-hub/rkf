@@ -73,7 +73,7 @@
   width: 100%;
     a {
       margin: 0 auto 10px;
-      font-size: 20px;
+      font-size: 16px;
       text-decoration: none;
     }
   }
@@ -177,7 +177,7 @@
     }
     &:hover, &.active {
       color: #3366FF !important;
-      svg {
+      svg,path {
         fill: #3366FF;
       }
     }
@@ -185,9 +185,9 @@
       color: #72839c !important;
       cursor: default;
       opacity: .5;
-      svg {
+      svg,path {
         fill: #72839c !important;
-        cursor: default;
+        cursor: default!important;
       }
     }
   }

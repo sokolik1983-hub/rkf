@@ -187,9 +187,10 @@
       padding-top: 6px;
       padding-bottom: 6px;
       &__look {
-        position: absolute;
-        bottom: 40px;
-        left: 350px;
+        position: relative;
+        margin-top: 5px;
+        bottom: 0;
+        right: 0;
       }
     }
   }
