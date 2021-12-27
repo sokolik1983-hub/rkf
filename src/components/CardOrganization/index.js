@@ -106,9 +106,7 @@ const CardOrganization = ({
 
                                             <span>
                                                 { owner_name ?
-                                                    url ?
-                                                        <Link to={ url }>{ owner_name }</Link> :
-                                                        owner_name :
+                                                    owner_name :
                                                     'Не указано'
                                                 }
                                             </span>
