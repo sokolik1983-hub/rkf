@@ -346,13 +346,21 @@
     }
     .FormInput {
         display: grid;
-        grid-template-columns: 17% 80%;
-        gap:3%;
+        grid-template-columns: 19% 79%;
+        gap:10px;
         margin-bottom: 24px;
         justify-content: space-between;
         flex-flow: unset;
         align-items: center;
         position: relative;
+        @media (max-width: 1024px) {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+        }
+        @media (max-width: 560px) {
+
+        }
         &__input,
         &__input:disabled {
             display: flex;
@@ -379,19 +387,35 @@
             }
         }
         label {
-            width: 115px;
             text-align: right;
             line-height: 16px;
-            @media (max-width: 768px) {
+            grid-column: 1 / 2;
+            margin-bottom: 0;
+            @media (max-width: 1024px) {
+                display: block;
+                text-align: left;
                 white-space: normal;
             }
             &[for="description"]{
                 position: relative;
                 top: -80px;
+                @media (max-width: 1024px) {
+                    top: 0;
+                }
             }
             &[for="alias"]{
+                white-space: nowrap;
                 position: relative;
                 top: 14px;
+                @media (max-width: 1220px) {
+                    white-space: unset;
+                }
+                @media (max-width: 1024px) {
+                    margin-bottom: 8px;
+                }
+                @media (max-width: 560px) {
+                    top: 0;
+                }
             }
         }
         &--select > div:nth-child(2) {
@@ -405,9 +429,6 @@
         }
         input[name='address.postcode'] {
             height: 42px;
-        }
-        @media (max-width: 1024px) {
-            display: flex;
         }
     }
     &__is-valid {

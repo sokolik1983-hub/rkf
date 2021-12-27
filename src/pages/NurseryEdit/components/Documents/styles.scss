@@ -3,8 +3,8 @@
         position: relative;
         .FormInput {
             display: grid;
-            grid-template-columns: 17% 72% 5%;
-            gap:3%;
+            grid-template-columns: 19% 71% 6%;
+            gap:10px;
             row-gap: 24px;
             margin-bottom: 24px;
             @media (max-width: 1024px) {
@@ -71,10 +71,8 @@
         flex-wrap: wrap;
         justify-content: start;
         min-height: 5px;
-        margin: 0 85px;
-        @media (max-width: 768px) {
-            margin: 0 80px;
-        }
+        width: 80%;
+        margin: 0 auto;
     }
     .FormGroup--inline {
         align-items: flex-end;
