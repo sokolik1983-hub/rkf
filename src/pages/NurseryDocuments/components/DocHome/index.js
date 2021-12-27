@@ -137,7 +137,6 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess, membershipPaid }) => {
                     <hr />
                     <div className="Card__links">
                          <Link to={`/kennel/${nurseryAlias}/documents/puppy/metrics`}>Реестр метрик</Link>
-                        {/*<span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>*/}
                     </div>
                 </Card>
                 <Card className={statusAllLinks ? `` : `_inactive`}>

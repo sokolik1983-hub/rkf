@@ -30,7 +30,11 @@ const MetricsDocPage = () => {
                     <div className="metrics-doc-page__iframe-wrap">
                         <iframe className="metrics-doc-page__iframe"
                                 src={ docUrl }
-                                title="metrics_document">
+                                title="metrics_document"
+                                allow="fullscreen"
+                                scrolling="yes"
+                        >
+                            Ваш браузер не поддерживает фреймы
                         </iframe>
                     </div>
                 </div>

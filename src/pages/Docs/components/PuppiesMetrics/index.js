@@ -16,8 +16,7 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
     const [puppies, setPuppies] = useState(null);
     const [exporting, setExporting] = useState(false);
     const document_id = window.location.href.split('=')[1];
-console.log('club PuppiesMetrics')
-console.log('distinction', distinction)
+
     useEffect(() => {
         getPuppiesCards();
     }, []);
@@ -51,8 +50,6 @@ console.log('distinction', distinction)
                 url: '/api/document/documentdog/check_and_generate_puppy_cards'
             },
             data => {
-                console.log('new data', data);
-                console.log('new data l', data.length);
                 setLoading(false);
 
                 if (data.length) {
