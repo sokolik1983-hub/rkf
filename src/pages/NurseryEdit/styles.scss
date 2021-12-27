@@ -9,6 +9,11 @@
     @media (max-width: 560px) {
         display: block;
     }
+    &__main-info > div:nth-child(2){
+        @media (max-width: 1024px) {
+            display: none;
+        }
+    }
     &__left {
         width: 300px;
         min-width: 300px;
@@ -347,8 +352,7 @@
     .FormInput {
         display: grid;
         grid-template-columns: 19% 79%;
-        gap:10px;
-        margin-bottom: 24px;
+        margin-bottom: 15px;
         justify-content: space-between;
         flex-flow: unset;
         align-items: center;
@@ -357,9 +361,6 @@
             display: flex;
             flex-direction: column;
             align-items: start;
-        }
-        @media (max-width: 560px) {
-
         }
         &__input,
         &__input:disabled {
@@ -372,14 +373,18 @@
         }
         #description{
             height: 227px;
+            @media (max-width: 768px) {
+                height: 160px;
+            }
         }
         .AliasInput {
             display: flex;
             flex-direction: column;
             width: 100%;
             & > span {
-                margin-bottom: 3px;
+                margin-bottom: 5px;
                 margin-left: 2px;
+                color: #979797;
             }
             .FormInput__input{
                 width: 100%;
@@ -390,11 +395,13 @@
             text-align: right;
             line-height: 16px;
             grid-column: 1 / 2;
-            margin-bottom: 0;
+            margin-bottom: 5px;
+            overflow: hidden;
             @media (max-width: 1024px) {
                 display: block;
                 text-align: left;
                 white-space: normal;
+                margin-left: 2px;
             }
             &[for="description"]{
                 position: relative;
@@ -411,7 +418,7 @@
                     white-space: unset;
                 }
                 @media (max-width: 1024px) {
-                    margin-bottom: 8px;
+                    top: 5px;
                 }
                 @media (max-width: 560px) {
                     top: 0;

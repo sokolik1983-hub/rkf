@@ -95,8 +95,8 @@ const RenderFields = ({
                         </FormGroup>
                         <FormGroup inline>
                             <FormField {...street_name} />
-                            <FormField {...house_name} />
-                            <FormField {...flat_name} />
+                            <FormField {...house_name} label={"Дом"}/>
+                            <FormField {...flat_name} label={"Пом."}/>
                         </FormGroup>
                     </div>
                     <Contacts
