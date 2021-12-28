@@ -29,9 +29,9 @@ const MetricsDocPage = () => {
         <Layout>
             <div className="metrics-doc-page">
                 <div className="metrics-doc-page__content">
-                    <div className="metrics-doc-page__iframe-wrap">
-                        {
-                            !isMobileDeviseType ?
+                    {
+                        !isMobileDeviseType ?
+                            <div className="metrics-doc-page__iframe-wrap">
                                 <iframe className="metrics-doc-page__iframe"
                                         src={ docUrl }
                                         title="metrics_document"
@@ -39,17 +39,27 @@ const MetricsDocPage = () => {
                                         scrolling="yes"
                                 >
                                     Ваш браузер не поддерживает фреймы
-                                </iframe> :
-                                <div className="metrics-doc-page__link-wrap">
-                                    <a
-                                        className="metrics-doc-page__link"
-                                        href={ docUrl }
-                                    >
-                                        ссыль
-                                    </a>
+                                </iframe>
+                            </div> :
+
+                            <div className="metrics-doc-page__mobile-block mobile-block">
+                                <div className="mobile-block__heading">
+                                    Ссылка на отсканированный документ
                                 </div>
-                        }
-                    </div>
+
+                                <div className="mobile-block__icon">
+                                </div>
+
+                                <a
+                                    className="mobile-block__button"
+                                    href={ docUrl }
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Открыть
+                                </a>
+                            </div>
+                    }
                 </div>
             </div>
         </Layout>
