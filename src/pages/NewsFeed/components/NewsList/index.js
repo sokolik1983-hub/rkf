@@ -22,6 +22,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const [checkedAll, setCheckedAll] = useState(false)
     const [isControlCheckedAll, setIsControlCheckedAll] = useState(false);
     const [clearChecks, setClearChecks] = useState(false);
+    const [isUnreadMessages, setIsUnreadMessages] = useState(false);
 
     const allItemsIds = [];
     news.map(n => allItemsIds.push(n.id));
@@ -29,6 +30,11 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     useEffect(() => {
         setLoading(true);
         setCheckedItemsIds([]);
+        setCheckedAll(false);
+        setIsControlCheckedAll(false);
+        setClearChecks(false);
+        setIsUnreadMessages(false);
+
         setStartElement(1);
         (() => getNews(1, true))();
     }, [activeCategoryId]);
@@ -134,6 +140,9 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             : checkedItemsIds.indexOf(id) !== -1 && newCheckedItemsIds.splice(checkedItemsIds.indexOf(id), 1);
 
         setCheckedItemsIds(newCheckedItemsIds);
+        checkReadability(newCheckedItemsIds);
+
+        (newCheckedItemsIds.length === news.length) && setIsControlCheckedAll(true);
     }
 
     const handleCheckAll = (all = false) => {
@@ -156,6 +165,19 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         setCheckedItemsIds([]);
     }
 
+    const checkReadability = (ids) => {
+        let unReadMessages = [];
+
+        ids.forEach(id => {
+            news.forEach(n => {
+                (n.id === id && n.is_read === false) &&
+                unReadMessages.push(id)
+            })
+        })
+
+        unReadMessages.length ? setIsUnreadMessages(true) : setIsUnreadMessages(false);
+    }
+
     return loading
 
         ? <Loading centered={false} />
@@ -164,6 +186,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             <>
                 <ControlMenu
                     isControlCheckedAll={isControlCheckedAll}
+                    isControlReadAllOn={isUnreadMessages}
                     handleCheckAll={handleCheckAll}
                     selectedItemsIds={checkedItemsIds}
                     categoryId={activeCategoryId}
