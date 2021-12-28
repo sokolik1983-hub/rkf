@@ -1,10 +1,18 @@
-.map-page__left {
+.map-page__right {
   display: flex;
   position: absolute;
+  width: auto;
   top: 55px;
-  left: 0;
+  right: 0;
   z-index: 1;
 }
+
+.custom-select {
+  @media (max-width: 1079px) {
+    width: 228px;
+  }
+}
+
 .Card {
   .custom-select__values {
     display: none;
