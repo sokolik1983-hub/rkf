@@ -6,8 +6,10 @@ import CitiesFilter from '../Filters/CitiesFilter';
 import RegionsFilter from '../Filters/RegionsFilter';
 import CopyrightInfo from '../CopyrightInfo';
 import Aside from '../../components/Layouts/Aside';
+import useIsMobile from "../../utils/useIsMobile";
 
 import './style.scss';
+
 
 const ClubsMap = ({ fullScreen }) => {
     const [data, setData] = useState([]);
@@ -18,6 +20,8 @@ const ClubsMap = ({ fullScreen }) => {
     const [targetZoom, setTargetZoom] = useState(10);
     const [targetRegion, setTargetRegion] = useState([41]);
     const [targetCoords, setTargetCoords] = useState([55.755819, 37.617644]);
+
+    const isMobile = useIsMobile(1080);
 
     const getYandexCities = async () => {
         await Request({
@@ -118,12 +122,14 @@ const ClubsMap = ({ fullScreen }) => {
                             regions={regions}
                             region_ids={targetRegion}
                             onChange={handleChangeRegion}
+                            startOpen={!isMobile}
                         />
                         <CitiesFilter
                             loading={loading}
                             cities={cities}
                             city_ids={targetCity}
                             onChange={handleChangeCity}
+                            startOpen={!isMobile}
                         />
                         <CopyrightInfo withSocials={true} />
                     </div>

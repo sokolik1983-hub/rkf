@@ -6,10 +6,10 @@ import CustomFilterSelect from "../../CustomFilterSelect";
 import "./index.scss";
 
 
-const CitiesFilter = ({cities, city_ids, onChange, loading = false, withOpenButton = true}) => {
+const CitiesFilter = ({cities, city_ids, onChange, loading = false, withOpenButton = true, startOpen = true}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(startOpen);
 
     useEffect(() => {
         setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
