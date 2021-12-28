@@ -185,17 +185,17 @@ const RenderFields = ({ fields,
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
-                <FormGroup className="ArticleCreateForm__wrap">
+                <FormGroup className="ArticleCreateForm__wrap ArticleCreateForm__textarea-wrap">
                     <ClientAvatar size={40} avatar={logo || DEFAULT_IMG.clubAvatar} />
-                    <FormField
-                        {...fields.content}
-                        onChange={handleKeyDown}
-                        onFocus={setFocused}
-                        maxLength="1000"
-                        value={content ? content : ''}
-                        rows={content ? addRow() : focus ? "3" : "1"}
-                        className={focus ? `_textarea_focus` : ``}
-                    />
+                        <FormField
+                            {...fields.content}
+                            onChange={handleKeyDown}
+                            onFocus={setFocused}
+                            maxLength="1000"
+                            value={content ? content : ''}
+                            rows={content ? addRow() : focus ? "3" : "1"}
+                            className={focus ? `_textarea_focus` : ``}
+                        />
                 </FormGroup>
                 <div className="ArticleCreateForm__controls-wrap">
                     <FormControls className={`ArticleCreateForm__controls ${focus ? ' _focus' : ''}`}>
