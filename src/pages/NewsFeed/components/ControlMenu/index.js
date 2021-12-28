@@ -4,13 +4,14 @@ import { Request } from "../../../../utils/request";
 import './index.scss';
 
 const ControlMenu = ({
-                        isControlCheckedAll,
-                        handleCheckAll,
-                        selectedItemsIds,
-                        categoryId,
-                        updateNews,
-                        unsetAllChecks,
-                        startElement,
+                         isControlCheckedAll,
+                         isControlReadAllOn,
+                         handleCheckAll,
+                         selectedItemsIds,
+                         categoryId,
+                         updateNews,
+                         unsetAllChecks,
+                         startElement,
                      }) => {
 
     const [elementsCount, setElementsCount] = useState(startElement + 9);
@@ -48,7 +49,7 @@ const ControlMenu = ({
                 </div>
 
                 <div
-                    className={`control-menu__item ${!selectedItemsIds.length && 'control-menu__item_disabled'}`}
+                    className={`control-menu__item ${((!selectedItemsIds.length && !isControlReadAllOn) || !isControlReadAllOn) && 'control-menu__item_disabled'}`}
                     onClick={() => moveNotifications('mark_articles_read')}
                 >
                     <span className="control-menu__item-icon control-menu__item-icon_select-all-reed"> </span>
@@ -70,17 +71,17 @@ const ControlMenu = ({
 
                     <span className="control-menu__item-text">
                          {categoryId !== 9
-                            ?
-                                <>
-                                    <span>Переместить</span>
-                                    <span>в архив</span>
-                                </>
-                            :
-                                <>
-                                    <span>Восстановить</span>
-                                    <span>из архива</span>
-                                </>
-                        }
+                             ?
+                             <>
+                                 <span>Переместить</span>
+                                 <span>в архив</span>
+                             </>
+                             :
+                             <>
+                                 <span>Восстановить</span>
+                                 <span>из архива</span>
+                             </>
+                         }
                     </span>
                 </div>
 
