@@ -95,6 +95,10 @@
         }
         @media (max-width: 768px) {
             justify-content: end;
+            width: 73%;
+        }
+        @media (max-width: 560px) {
+            width: 73%
         }
     }
     .FormGroup--inline {
