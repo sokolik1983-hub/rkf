@@ -36,7 +36,6 @@ const Documents = ({ documents }) => {
                                     name: '',
                                     url: ''
                                 });
-                                console.log(arrayHelpers);
                             }}>Добавить ссылку на документ</Button>
                     </div>
                 </div>

@@ -55,7 +55,6 @@ const Schedule = ({ work_time }) => {
                 time_to: '18:00:00'
             });
         }
-
     }
 
     return <div className="Schedule">

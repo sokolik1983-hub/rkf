@@ -39,7 +39,6 @@ const Contacts = ({contacts, is_public, errors, randomKeyGenerator}) => {
     const handleChange = (index) => {
         contacts.map(elem => elem.is_main = false);
         contacts[index].is_main = true;
-        console.log(index);
     };
 
 

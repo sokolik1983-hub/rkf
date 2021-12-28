@@ -70,7 +70,6 @@ const NurseryEdit = ({
                 setLoading(false);
             }
         }, error => {
-            console.log(error.response);
             setError(error.response);
             setLoading(false);
         }))();
@@ -153,6 +152,7 @@ const NurseryEdit = ({
             });
         }
     };
+
     const randomKeyGenerator = () => {
         const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
         let word = ''
