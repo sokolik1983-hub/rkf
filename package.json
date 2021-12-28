@@ -226,4 +226,5 @@
         "prettier": "^1.18.2"
     },
     "proxy": "http://dev.uep24.ru/"
+
 }
