@@ -17,7 +17,7 @@ const RequestRegistry = ({ history, distinction }) => {
     const [exporting, setExporting] = useState(false);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
-console.log("documents", documents)
+
     useEffect(() => {
         (() => Request({
             url: distinction === 'pedigree' ?

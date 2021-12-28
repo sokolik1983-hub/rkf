@@ -70,7 +70,6 @@ const PuppiesMetrics = ({history, clubAlias, distinction}) => {
     }
 
 
-console.log("puppies", puppies)
     return loading ?
         <Loading /> :
             <Card className="club-documents-status">
