@@ -63,6 +63,8 @@ const RenderFields = ({ fields,
     const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
     const isMobile = useIsMobile();
 
+    console.log('currentCities', currentCities);
+
     useEffect(() => {
         setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель' : 'Сука'}`});
     },[])
@@ -355,14 +357,21 @@ const RenderFields = ({ fields,
                                 </FormGroup>
                             </div>
                             :
-                            <div>
+                            <div className="article-edit__inner-add-inputs">
                                 {
                                     advert_type_id !== 6 ?
-                                    <FormField
-                                        className={`ArticleCreateForm__input-city`}
-                                        {...fields.dog_city}
-                                        label={`Место ${cityLabel}`}
-                                    />
+                                    <div className="article-edit__city-select-wrap">
+                                        <FormField
+                                            className={`ArticleCreateForm__input-city ${(!formik.values.dog_city || formik.values.dog_city.length === 0) && 'error-field'}`}
+                                            {...fields.dog_city}
+                                            label={`Место ${cityLabel}`}
+                                        />
+                                        {
+                                            (!formik.values.dog_city || formik.values.dog_city.length === 0) && <div className="article-edit__error-wrap ">
+                                                <div className="FormInput__error select-city">Выберите город</div>
+                                            </div>
+                                        }
+                                    </div>
                                         :
                                         <div className="article-edit__city-input-wrap">
                                             <CustomCheckbox
@@ -372,18 +381,20 @@ const RenderFields = ({ fields,
                                                 checked={isAllCitiesEdit}
                                                 onChange={handleChangeAllCities}
                                             />
-                                            <label htmlFor="cities-input">Город</label>
-                                            <CustomSelect
-                                                id="cities-input"
-                                                value={currentCities}
-                                                placeholder={'Выберите город'}
-                                                options={cities ? cities : []}
-                                                isMulti={true}
-                                                onChange={handleCitySelect}
-                                                className={`article-edit__input-breedId ${(isAllCitiesEdit) && 'disabled'} ${(currentCities?.length === 0 && !isAllCitiesEdit) && 'error-field' }`}
-                                            />
+                                            <div>
+                                                <label className="article-edit__city-label" htmlFor="cities-input">Город</label>
+                                                <CustomSelect
+                                                    id="cities-input"
+                                                    value={currentCities}
+                                                    placeholder={'Выберите город'}
+                                                    options={cities ? cities : []}
+                                                    isMulti={true}
+                                                    onChange={handleCitySelect}
+                                                    className={`article-edit__input-breedId ${(isAllCitiesEdit) && 'disabled'} ${(!currentCities && !isAllCitiesEdit) && 'error-field' }`}
+                                                />
+                                            </div>
                                             {
-                                                (currentCities?.length === 0 && !isAllCitiesEdit) && <div className="article-edit__error-wrap ">
+                                                (!currentCities && !isAllCitiesEdit) && <div className="article-edit__error-wrap ">
                                                     <div className="FormInput__error select-city">Выберите город</div>
                                                 </div>
                                             }
@@ -406,9 +417,8 @@ const RenderFields = ({ fields,
                                         onChange={(e) => handleChangeBreed(e)}
                                     />
                                         {
-                                            (!isHalfBreedEdit && !breedValue) && <div className="article-edit__error-wrap ">
-                                                <div className="FormInput__error select-breed">Поле не может быть пустым</div>
-                                            </div>
+                                            (!isHalfBreedEdit && !breedValue) &&
+                                            <div className="FormInput__error select-error">Поле не может быть пустым</div>
                                         }
                                 </FormGroup>
                                 <FormGroup inline className="article-edit__ad">
