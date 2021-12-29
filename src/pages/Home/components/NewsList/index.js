@@ -137,7 +137,10 @@ const NewsList = ({isFullDate = true}) => {
 
     return (
         <div className="NewsList">
-            {news && (activeType === 'articles' || !!news.length) &&
+            {
+                console.log('activeType', activeType)
+            }
+            {news && (activeType === 'articles' || activeType === 'advert' || !!news.length) &&
                 <InfiniteScroll
                     dataLength={news.length}
                     next={getNextNews}
