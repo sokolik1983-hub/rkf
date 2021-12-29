@@ -9,29 +9,34 @@ import CardFooter from '../CardFooter';
 import "./index.scss";
 
 
-const CardOrganization = ({
-                            id,
-                            alias,
-                            logo,
-                            name,
-                            user_type,
-                            active_member,
-                            active_rkf_user,
-                            city_name,
-                            city_id,
-                            owner_name,
-                            owner_position,
-                            federation_name,
-                            federation_alias,
-                            content,
-                            phones,
-                            mails,
-                            breeds,
-                            site,
-                            setFilters,
-                            is_liked,
-                            like_count,
-                          }) => {
+const CardOrganization = (props) => {
+
+    const {
+        id,
+        alias,
+        logo,
+        name,
+        user_type,
+        active_member,
+        active_rkf_user,
+        city_name,
+        city_id,
+        owner_name,
+        owner_position,
+        federation_name,
+        federation_alias,
+        content,
+        phones,
+        mails,
+        breeds,
+        site,
+        setFilters,
+        is_liked,
+        like_count,
+    } = props;
+
+    console.log('props', props)
+
     const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
         (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
 
