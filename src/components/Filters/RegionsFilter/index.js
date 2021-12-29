@@ -11,6 +11,7 @@ const RegionsFilter = ({regions = [], region_ids, onChange, loading = false, sta
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(startOpen);
 
+
     useEffect(() => {
         setOptionsNotInValues(regions.filter(option => region_ids?.indexOf(option.value) === -1));
         setValues(regions.filter(option => region_ids?.indexOf(option.value) !== -1));

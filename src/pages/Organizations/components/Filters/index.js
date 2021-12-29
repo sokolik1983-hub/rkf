@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Aside from "../../../../components/Layouts/Aside";
 import Card from "../../../../components/Card";
@@ -22,10 +22,14 @@ import {
     endpointGetFederations,
     endpointGetKennelBreeds,
     endpointGetKennelsCities,
-    endpointGetNKPBreeds
+    endpointGetNKPBreeds,
+    endpointGetRegions
 } from "../../config";
 import {getEmptyFilters, setFiltersToUrl} from "../../utils";
 import "./index.scss";
+import RegionsFilter from "../../../../components/Filters/RegionsFilter";
+import {getInitialFilters} from "../../../Specialists/utils";
+
 
 
 const Filters = ({
@@ -37,12 +41,14 @@ const Filters = ({
     not_activated,
     active_member,
     active_rkf_user,
-    isOpenFilters
+    isOpenFilters,
+    filtersValue
 }) => {
     const [loading, setLoading] = useState(true);
     const [federations, setFederations] = useState([]);
     const [cities, setCities] = useState([]);
     const [breeds, setBreeds] = useState([]);
+    const [regions, setRegions] = useState([]);
 
     const getBreeds = async () => {
         await Request({
@@ -78,6 +84,18 @@ const Filters = ({
         });
     };
 
+    const getRegions = async () => {
+        await Request({
+            url: endpointGetRegions
+        }, data => {
+            setRegions(data.sort((a, b) => a.id - b.id));
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        });
+    };
+
+
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -90,6 +108,7 @@ const Filters = ({
 
             if (organization_type === 3 || organization_type === 4) {
                 await getFederations();
+                await getRegions();
                 await getCities();
             }
 
@@ -195,6 +214,13 @@ const Filters = ({
                                     breed_ids={breed_ids}
                                     onChange={filter => setFiltersToUrl({breed_ids: filter})}
                                 />
+                            }
+                            {(organization_type === 3 || organization_type === 4) &&
+                                    <RegionsFilter
+                                        regions={regions}
+                                        region_ids={filtersValue.RegionIds}
+                                        onChange={filter => setFiltersToUrl({RegionIds: filter})}
+                                    />
                             }
                             {(organization_type === 3 || organization_type === 4) &&
                                 <CitiesFilter

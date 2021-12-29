@@ -5,7 +5,7 @@ export const buildUrlParams = filters => {
 
     Object.keys(filters).forEach(key => {
         if (filters[key] || key === 'activated' || key === 'active_rkf_user') {
-            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids') {
+            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'RegionIds') {
                 if (filters[key].length) {
                     params += filters[key].map(id => `${key}=${id}&`).join('');
                 }
@@ -23,6 +23,7 @@ export const buildUrlParams = filters => {
 };
 
 export const getEmptyFilters = () => ({
+    RegionIds: [],
     organization_type: 3,
     string_filter: '',
     federation_ids: [],

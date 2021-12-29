@@ -9,20 +9,26 @@ import {endpointGetOrganizations} from "../../config";
 import "./index.scss";
 
 
-const OrganizationsList = ({
-    organization_type,
-    string_filter,
-    federation_ids,
-    city_ids,
-    breed_ids,
-    activated,
-    not_activated,
-    active_member,
-    active_rkf_user
-}) => {
+const OrganizationsList = (props) => {
+    const {
+        organization_type,
+        string_filter,
+        federation_ids,
+        city_ids,
+        breed_ids,
+        activated,
+        not_activated,
+        active_member,
+        active_rkf_user,
+        RegionIds
+    } = props;
     const [org, setOrg] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
+
+    console.log("city_ids", city_ids);
+    console.log("RegionIds", RegionIds);
+    console.log("federation_ids", federation_ids);
 
     const getOrganizations = async startElem => {
         await Request({
@@ -36,6 +42,7 @@ const OrganizationsList = ({
                 not_activated,
                 active_member,
                 active_rkf_user,
+                RegionIds,
                 start_element: startElem
             })}`
         }, data => {
@@ -60,7 +67,7 @@ const OrganizationsList = ({
     useEffect(() => {
         (() => getOrganizations(1))();
         setStartElement(1);
-    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member]);
+    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member, RegionIds]);
 
     const getNextOrganizations = () => {
         if(org.length) {

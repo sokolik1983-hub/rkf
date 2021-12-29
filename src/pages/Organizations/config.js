@@ -4,3 +4,4 @@ export const endpointGetNKPBreeds = '/api/nationalbreedclub/cards_breeds';
 export const endpointGetKennelsCities = '/api/nurseries/Nursery/cards_cities';
 export const endpointGetClubsCities = '/api/Club/cards_cities';
 export const endpointGetOrganizations = '/api/club/organizations_cards';
+export const endpointGetRegions = 'api/city/article_regions';
