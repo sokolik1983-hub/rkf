@@ -1,7 +1,9 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useState, useRef} from 'react';
+import useIsMobile from '../../../../../../utils/useIsMobile';
 
 const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
+    const isMobile = useIsMobile(900);
 
     const [pdf, setPdf] = useState(null);
 
@@ -34,7 +36,7 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
                 <span className={ `pedigree-link`}
                       onClick={startPdfLoad}
                 >
-                    Посмотреть PDF
+                    {!isMobile ? 'Посмотреть' : ''} PDF
                 </span> :
 
                 <a className="pedigree-link"
@@ -43,7 +45,7 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
                    rel="noopener noreferrer"
                    ref={linkRef}
                 >
-                    Посмотреть PDF
+                    {!isMobile ? 'Посмотреть' : ''} PDF
                 </a>
             }
         </td>
