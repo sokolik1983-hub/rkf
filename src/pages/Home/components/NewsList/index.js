@@ -181,12 +181,6 @@ const NewsList = ({isFullDate = true}) => {
                     </ul>
                 </InfiniteScroll>
             }
-            {(!news || !news.length) && !newsLoading &&
-                <div className="NewsList__no-news">
-                    <h4>Публикации не найдены</h4>
-                    <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены"/>
-                </div>
-            }
             <NewsFilters
                 loading={filtersLoading}
                 cities={cities}
