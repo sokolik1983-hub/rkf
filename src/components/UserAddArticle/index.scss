@@ -491,10 +491,12 @@
         }
       }
     }
-    & .custom-checkbox {
-      width: 245px;
-      top: -25px;
-      left: 0;
+    @media (max-width: 750px) {
+      & .custom-checkbox {
+        width: 245px;
+        top: -25px;
+        left: 0;
+      }
     }
   }
   &__input-breedId,  &__input-city{
