@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import useIsMobile from '../../../../../../utils/useIsMobile';
 
 const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
@@ -6,8 +6,13 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     const isMobile = useIsMobile(900);
 
     const [pdf, setPdf] = useState(null);
+    const [newTab, setNewTab] = useState(null);
 
     const linkRef = useRef();
+
+    useEffect(() => {
+        if (pdf && isMobile) newTab.location.href = pdf;
+    }, [pdf])
 
     const autoClick = () => {
         linkRef.current && linkRef.current.click();
@@ -28,6 +33,7 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     const startPdfLoad = () => {
         fetchPdf(dataItem.id);
         handleOnPdfLoading('add class');
+        isMobile && setNewTab(window.open(`${pdf}` , '_blank'));
     }
 
     return (
