@@ -195,7 +195,7 @@ const PuppyMetrics = ({ history }) => {
                             }
                         </span>
                         {!left_for_review && <div style={{paddingLeft: '400px'}}>(указать причину переосмотра)</div>}
-                        
+
                     </p>
 
                     <p>

@@ -175,7 +175,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                     margin="1cm"
                     paperSize={["297mm", "210mm"]}
                     pageTemplate={() => <PdfPageTemplate
-                        title={distinction === "litter" ? "ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА" : "ОФОРМЛЕНИЕ РОДОСЛОВНОЙ"}
+                        title={distinction === 'litter' ? 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА' : distinction === 'metrics' ? 'Метрики щенка' : 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'}
                     />}
                 >
                     {gridForExport}
