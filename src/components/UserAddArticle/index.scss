@@ -491,6 +491,13 @@
         }
       }
     }
+    @media (max-width: 750px) {
+      & .custom-checkbox {
+        width: 245px;
+        top: -25px;
+        left: 0;
+      }
+    }
   }
   &__input-breedId,  &__input-city{
     width: 40%;
@@ -549,9 +556,17 @@
       position: absolute;
       top: 0;
       right: 0;
+      @media (max-width: 600px) {
+        top: 60px;
+      }
     }
     & .ArticleCreateForm__input-city {
       width: 100%;
+    }
+    @media (max-width: 600px) {
+      width: 245px;
+      max-width: 245px;
+      padding-bottom: 20px;
     }
   }
 }
@@ -599,5 +614,5 @@
   color: #72839C !important;
 }
 #dog_city .css-kj6f9i-menu {
-  z-index: 2;
+  z-index: 3;
 }
