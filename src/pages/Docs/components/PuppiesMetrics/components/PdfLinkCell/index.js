@@ -33,7 +33,7 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     const startPdfLoad = () => {
         fetchPdf(dataItem.id);
         handleOnPdfLoading('add class');
-        isMobile && setNewTab(window.open(`${pdf}` , '_blank'));
+        isMobile && setNewTab(window.open('' , '_blank'));
     }
 
     return (
