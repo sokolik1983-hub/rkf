@@ -103,15 +103,15 @@
     }
 
     &-address:before {
-      background-image: url("/static/icons/ico-pointer.svg");
+      background-image: url("/static/icons/ico-pointer2.svg");
     }
 
     &-owner:before {
-      background-image: url("/static/icons/owner.svg");
+      background-image: url("/static/icons/owner2.svg");
     }
 
     &-name:before {
-      background-image: url("/static/icons/icon-name.svg");
+      background-image: url("/static/icons/icon-name2.svg");
       width: 18px;
       height: 18px;
       background-size: contain;
@@ -119,11 +119,11 @@
     }
 
     &-site:before {
-      background-image: url("/static/icons/ico-web.svg");
+      background-image: url("/static/icons/ico-web2.svg");
     }
 
     &-email:not(:empty):before {
-      background-image: url("/static/icons/ico-contact-email.svg");
+      background-image: url("/static/icons/ico-contact-email2.svg");
     }
 
     &-email p,
@@ -136,7 +136,7 @@
     }
 
     &-phone:not(:empty):before {
-      background-image: url("/static/icons/ico-contact-phone.svg");
+      background-image: url("/static/icons/ico-contact-phone2.svg");
     }
 
     &-socials:before {
