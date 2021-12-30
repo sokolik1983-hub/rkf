@@ -19,5 +19,10 @@
   }
 }
 .regions-filter {
-     margin-bottom: -5px;
+  margin-bottom: -5px;
+  &__title {
+    @media (max-width: 1079px) {
+      padding-right: 5px;
+    }
+  }
 }
