@@ -77,13 +77,14 @@ const RenderFields = ({
                         <FormField {...co_owner_second_name} disabled={!!coOwner.secondName}/>
                         <FormField {...co_owner_mail} disabled={!!coOwner.mail}/>
                     </div>
+                    <FormGroup inline>
+                        <FormField {...web_site} />
+                    </FormGroup>
                     <Documents documents={documents}/>
-                    <SocialNetworks socials={socials}/>
                     <SubmitButton>Сохранить</SubmitButton>
                     {formik.errors && !!Object.keys(formik.errors).length
                         && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
                     {working && <div className="NurseryEdit__is-valid">Идёт загрузка файла...</div>}
-
                 </Card>;
             case 1:
                 return <Card className="nursery__contacts">
@@ -105,14 +106,11 @@ const RenderFields = ({
                         errors={formik.errors}
                         randomKeyGenerator={randomKeyGenerator}
                     />
-                    <FormGroup inline>
-                        <FormField {...web_site} />
-                    </FormGroup>
+                    <SocialNetworks socials={socials}/>
                     <SubmitButton>Сохранить</SubmitButton>
                     {formik.errors && !!Object.keys(formik.errors).length
                         && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
                     {working && <div className="NurseryEdit__is-valid">Идёт загрузка файла...</div>}
-
                 </Card>;
             case 2:
                 return <Card>

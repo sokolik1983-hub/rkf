@@ -253,7 +253,7 @@
         }
         &-right {
             flex-grow: 1;
-            @media (max-width: 560px) {
+            @media (max-width: 680px) {
                 position: fixed;
                 width: 300px;
                 top: 62px;
@@ -348,6 +348,12 @@
                 border-bottom: 1px solid #E5E5E5;
             }
         }
+    }
+    .FormGroup--inline {
+        margin-bottom: 0;
+    }
+    .FormInput__error {
+        bottom: -10px;
     }
     .FormInput {
         display: grid;
@@ -446,7 +452,7 @@
     }
 }
 .header__filters {
-    @media (min-width: 561px) {
+    @media (min-width: 681px) {
         display: none;
     }
 }

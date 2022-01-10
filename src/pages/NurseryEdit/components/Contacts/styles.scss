@@ -65,13 +65,13 @@
             }
             label[for="is_public"] {
                 width: 100%;
-                &:before,
-                &:after {
-                    position: absolute;
-                    top: -1px;
+                &:before {
+                    height: 18px;
+                    width: 18px;
+                    top: 0;
                 }
                 &:after {
-                    top: 0;
+                    top: 2px;
                 }
             }
             .FormGroup {
