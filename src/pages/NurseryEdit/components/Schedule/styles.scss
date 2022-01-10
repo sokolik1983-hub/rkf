@@ -202,6 +202,7 @@
       &__input[type="time"] {
         width: 120px;
         padding: 9px 15px 5px 15px;
+        align-items: center;
         @media (max-width: 560px) {
           min-width: 90px;
           padding: 9px 5px 5px 5px;
