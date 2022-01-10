@@ -45,6 +45,7 @@ let unblock;
 const ClubEditPage = ({
                           club_alias,
                           club_id,
+                          profile_id,
                           is_federation,
                           is_active_profile,
                           isAuthenticated,
@@ -96,7 +97,7 @@ const ClubEditPage = ({
                 history.replace(`/kennel/${alias}`);
             } else {
                 setClub({ ...data});
-                setCanEdit(isAuthenticated && is_active_profile && club_id === data.id);
+                setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
                 setLoading(false);
             }
         }, error => {
@@ -108,6 +109,8 @@ const ClubEditPage = ({
     }, [alias]);
 
     console.log('club', club)
+    console.log('canEdit', canEdit)
+
 
     useEffect(() => {
         unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
@@ -288,9 +291,6 @@ const ClubEditPage = ({
                                         canEdit={canEdit}
                                         isAuthenticated={isAuthenticated}
                                     />
-                                    {/*{nursery.breeds && !!nursery.breeds.length &&*/}
-                                    {/*    <BreedsList breeds={nursery.breeds} />*/}
-                                    {/*}*/}
                                     {!isMobile && <UserMenu userNav={canEdit
                                         ? clubNav(alias)
                                         : clubNav(alias).filter(i => i.id !== 2)}
