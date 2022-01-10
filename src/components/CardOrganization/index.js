@@ -35,8 +35,6 @@ const CardOrganization = (props) => {
         like_count,
     } = props;
 
-    console.log('props', props)
-
     const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
         (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
 

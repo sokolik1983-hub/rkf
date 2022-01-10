@@ -20,15 +20,15 @@ const OrganizationsList = (props) => {
         not_activated,
         active_member,
         active_rkf_user,
-        RegionIds
+        region_ids
     } = props;
     const [org, setOrg] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
 
-    console.log("city_ids", city_ids);
-    console.log("RegionIds", RegionIds);
-    console.log("federation_ids", federation_ids);
+    // console.log("city_ids", city_ids);
+    // console.log("RegionIds", RegionIds);
+    // console.log("federation_ids", federation_ids);
 
     const getOrganizations = async startElem => {
         await Request({
@@ -42,7 +42,7 @@ const OrganizationsList = (props) => {
                 not_activated,
                 active_member,
                 active_rkf_user,
-                RegionIds,
+                region_ids,
                 start_element: startElem
             })}`
         }, data => {
@@ -67,7 +67,7 @@ const OrganizationsList = (props) => {
     useEffect(() => {
         (() => getOrganizations(1))();
         setStartElement(1);
-    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member, RegionIds]);
+    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member, region_ids]);
 
     const getNextOrganizations = () => {
         if(org.length) {

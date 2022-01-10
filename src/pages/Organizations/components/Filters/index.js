@@ -218,8 +218,8 @@ const Filters = ({
                             {(organization_type === 3 || organization_type === 4) &&
                                     <RegionsFilter
                                         regions={regions}
-                                        region_ids={filtersValue.RegionIds}
-                                        onChange={filter => setFiltersToUrl({RegionIds: filter})}
+                                        region_ids={filtersValue.region_ids}
+                                        onChange={filter => setFiltersToUrl({region_ids: filter})}
                                     />
                             }
                             {(organization_type === 3 || organization_type === 4) &&

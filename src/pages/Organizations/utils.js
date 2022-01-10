@@ -3,9 +3,11 @@ import history from "../../utils/history";
 export const buildUrlParams = filters => {
     let params = '';
 
+    console.log('111111111111', filters);
+
     Object.keys(filters).forEach(key => {
         if (filters[key] || key === 'activated' || key === 'active_rkf_user') {
-            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids') {
+            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'region_ids') {
                 if (filters[key].length) {
                     params += filters[key].map(id => `${key}=${id}&`).join('');
                 }
@@ -23,7 +25,7 @@ export const buildUrlParams = filters => {
 };
 
 export const getEmptyFilters = () => ({
-    RegionIds: [],
+    region_ids: [],
     organization_type: 3,
     string_filter: '',
     federation_ids: [],
@@ -46,7 +48,7 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids') {
+            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'region_ids') {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else if(key === 'activated' || key === 'active_member' || key === 'not_activated' || key === 'active_rkf_user') {
                 filtersFromUrl[key] = value === 'true';
