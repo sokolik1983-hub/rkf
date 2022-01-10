@@ -137,7 +137,7 @@ const NewsList = ({isFullDate = true}) => {
 
     return (
         <div className="NewsList">
-            {news && (activeType === 'articles' || !!news.length) &&
+            {news && (activeType === 'articles' || activeType === 'advert' || activeType === 'news' || activeType === 'all' || !!news.length) &&
                 <InfiniteScroll
                     dataLength={news.length}
                     next={getNextNews}
@@ -180,6 +180,12 @@ const NewsList = ({isFullDate = true}) => {
                         ))}
                     </ul>
                 </InfiniteScroll>
+            }
+            {(!news || !news.length) && !newsLoading &&
+                <div className="NewsList__no-news">
+                    <h4>Публикации не найдены</h4>
+                    <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены"/>
+                </div>
             }
             <NewsFilters
                 loading={filtersLoading}

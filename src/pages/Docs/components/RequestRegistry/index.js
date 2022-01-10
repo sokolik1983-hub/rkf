@@ -77,10 +77,11 @@ const RequestRegistry = ({ history, distinction }) => {
             <Card className="club-documents-status">
                 <div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${alias}/documents`}>Личный кабинет</Link>
-                &nbsp;/&nbsp;
-                {distinction === 'pedigree'
-                        ? 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'
-                        : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
+                    &nbsp;/&nbsp;
+                    {distinction === 'pedigree'
+                        ? 'Оформление родословной'
+                        : distinction === 'metrics' ? 'Метрики щенка'
+                            : 'Заявление на регистрацию помета'}
                 </div>
                 {documents && !!documents.length ? <div className="_request_registry_wrap">
                     <div className="club-documents-status__controls _request_registry">
