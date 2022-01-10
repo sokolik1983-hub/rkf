@@ -125,6 +125,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
             setOpenUserMenu(false);
         }
     };
+
     return (
         <div
             className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
@@ -195,6 +196,12 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                     <ul className="user-nav__list">
                                     {clubNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                                                  key={navItem.id}>
+                                            {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                                <span
+                                                    className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
+                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                </span>
+                                            }
                                             <NavLink
                                                 to={user_type === 3
                                                 && url === 'club'
@@ -211,12 +218,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                                 {navItem.icon}
                                                 <span>{navItem.title}</span>
                                             </NavLink>
-                                            {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
-                                                <span
-                                                    className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                    {notificationsLength > 99 ? 99 : notificationsLength}
-                                </span>
-                                            }
                                         </li>
 
                                     )}
@@ -248,7 +249,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 </span>
                                                         }
                                                     </li>
-
                                                 )}
                                             </ul>
                                         ) : user_type === 1 && (<ul className="user-nav__list">
