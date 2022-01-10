@@ -224,5 +224,5 @@
         "node-sass": "^4.14.1",
         "prettier": "^1.18.2"
     },
-    "proxy": "https://stage.uep24.ru"
+    "proxy": "http://dev.uep24.ru"
 }
