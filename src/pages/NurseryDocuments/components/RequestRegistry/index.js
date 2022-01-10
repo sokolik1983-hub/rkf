@@ -75,9 +75,10 @@ const RequestRegistry = ({ history, distinction }) => {
                 <div className="nursery-documents-status__head">
                     <Link className="btn-backward" to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
                 &nbsp;/&nbsp;
-                {distinction === 'pedigree'
-                        ? 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'
-                        : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
+                    {distinction === 'pedigree'
+                        ? 'Оформление родословной'
+                        : distinction === 'metrics' ? 'Метрики щенка'
+                            : 'Заявление на регистрацию помета'}
                 </div>
                 {documents && !!documents.length ?
                     <div>
