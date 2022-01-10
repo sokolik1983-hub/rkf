@@ -1,4 +1,9 @@
 .article-edit {
+  &__input-breedId.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
   &__text {
     margin-bottom: 16px;
     .FormInput {
@@ -21,7 +26,8 @@
   &__controls {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-end!important;
+    border-bottom: 1px solid transparent!important;
     margin-bottom: 16px;
     & > *:not(:last-child) {
       margin-right: 10px;
@@ -199,12 +205,32 @@
   }
   &__advert {
     margin: 8px 0 16px;
+    & #advert_breed_id>div {
+      z-index: 1;
+    }
+    .css-1pcexqc-container {
+      margin-bottom: 32px;
+    }
+    .css-kj6f9i-menu {
+      z-index: 99;
+    }
+    & .custom-checkbox {
+      margin-bottom: 5px;
+    }
+    .error-field {
+      & .css-bg1rzq-control, .css-shvkw9-control {
+        border-color: #FA5D50;
+        border-radius: 6px;
+        border-width: 2px;
+      }
+    }
   }
   &__ad {
+    width: 100%;
     &:not(:last-child) {
       margin-bottom: 24px;
     }
-    @media (max-width: 767px) {
+    @media (max-width: 1023px) {
       flex-direction: column;
       align-items: normal;
       &:not(:last-child) {
@@ -233,7 +259,9 @@
     background: #3366ff;
     opacity: 0.7;
     cursor: default;
+    pointer-events: none;
     &._active {
+      pointer-events: auto;
       opacity: 1;
       cursor: pointer;
     }
@@ -281,6 +309,144 @@
     }
     .css-xo7z33-option:hover {
       background-color: #F6F7F7!important;
+    }
+  }
+  &__categories-wrap {
+    padding: 20px 0;
+    display: flex;
+    & .custom-checkbox {
+      margin-right: 20px;
+    }
+  }
+  &__halfbreed-wrap {
+    padding-left: 20px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    @media (max-width: 1023px) {
+      width: 100%;
+      padding-left: 0;
+    }
+    & .error-input {
+      & .css-shvkw9-control {
+        border-color: #FA5D50;
+        border-width: 2px;
+      }
+    }
+    & .FormInput--error .FormInput__error {
+      bottom: 14px;
+      height: 0;
+    }
+    & .select-error {
+      bottom: 14px;
+      height: 0;
+      color: #FA5D50;
+    }
+    & .FormInput {
+      width: 100%;
+    }
+    & #advert_breed_id {
+      margin-bottom: 5px;
+    }
+    & .custom-checkbox {
+      margin-bottom: 0;
+      position: absolute;
+      top: -25px;
+    }
+  }
+  &__error-wrap {
+    position: relative;
+    & .FormInput__error {
+      top: -23px;
+      color: #FA5D50;
+      &.select-breed, &.select-city  {
+        top: -30px;
+      }
+    }
+  }
+  .error-input {
+    & #advert_breed_id {
+      & .RSInput__control {
+        border-color: #FA5D50;
+        border-width: 2px;
+      }
+    }
+  }
+  &__age-wrap {
+    position: relative;
+    &:before {
+      content: '(примерный)';
+      position: absolute;
+      top: 13px;
+      font-size: 11px;
+    }
+  }
+  &__city-input-wrap {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    margin-bottom: 32px;
+    @media (max-width: 1023px) {
+      width: 100%;
+    }
+    & .custom-checkbox {
+      position: absolute;
+      top: -25px;
+    }
+    & .css-1hwfws3 {
+      padding: 8px 8px 8px;
+    }
+    & .css-bg1rzq-control {
+      border-color: #EBF0F2;
+      border-radius: 6px;
+      max-height: 51px;
+    }
+    & .article-edit__city-label {
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: normal;
+      font-style: normal;
+      color: #253c5e;
+      margin-bottom: 8px;
+    }
+    & #cities-input {
+      margin-top: 8px;
+      & .css-151xaom-placeholder {
+        color: #cccccc;
+      }
+    }
+    & .css-151xaom-placeholder {
+      font-size: 16px;
+      line-height: 16px;
+    }
+  }
+  &__inner-add-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    & .FormInput--select {
+      width: 40%;
+    }
+    @media (max-width: 1023px) {
+      flex-direction: column;
+    }
+  }
+  &__city-select-wrap {
+    width: 40%;
+    position: relative;
+    @media (max-width: 1023px) {
+      width: 100%;
+    }
+    & .FormInput--select {
+      width: 100%;
+    }
+    & .article-edit__error-wrap {
+      .FormInput__error.select-city {
+          top: -55px;
+      }
     }
   }
 }

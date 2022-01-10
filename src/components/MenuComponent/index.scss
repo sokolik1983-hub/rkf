@@ -23,9 +23,6 @@
     }
     .active{
       color: #3366FF!important;
-      &::before{
-        background: url("/static/icons/eventsIcon-blue.svg") no-repeat center/contain!important;
-      }
     }
   }
 
@@ -71,66 +68,94 @@
     }
 
     &._documents:before {
-      background: url("/static/icons/documentsIcon.svg") no-repeat center / contain,
-        url("/static/icons/documentsIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/documentsIcon2.svg") no-repeat center / contain,
+        url("/static/icons/documentsIcon2-blue.svg") no-repeat center / contain;
     }
 
-    &._documents:hover:before {
-      background: url("/static/icons/documentsIcon-blue.svg") no-repeat center / contain;
+    &._documents:hover:before{
+      background: url("/static/icons/documentsIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._documents.active:before{
+      background: url("/static/icons/documentsIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._gallery:before {
-      background: url("/static/icons/galleryIcon.svg") no-repeat center / contain,
-        url("/static/icons/galleryIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/galleryIcon2.svg") no-repeat center / contain,
+        url("/static/icons/galleryIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._gallery:hover:before {
-      background: url("/static/icons/galleryIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/galleryIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._gallery.active:before{
+      background: url("/static/icons/galleryIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._video:before {
-      background: url("/static/icons/icon-youtube.svg") no-repeat center / contain,
-        url("/static/icons/icon-youtube-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-youtube2.svg") no-repeat center / contain,
+      url("/static/icons/icon-youtube2-blue.svg") no-repeat center / contain;
     }
 
     &._video:hover:before {
-      background: url("/static/icons/icon-youtube-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-youtube2-blue.svg") no-repeat center / contain;
+    }
+
+    &._video.active:before {
+      background: url("/static/icons/icon-youtube2-blue.svg") no-repeat center / contain;
     }
 
     &._events:before {
-      background: url("/static/icons/eventsIcon.svg") no-repeat center / contain,
-        url("/static/icons/eventsIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/eventsIcon2.svg") no-repeat center / contain,
+    url("/static/icons/eventsIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._events:hover:before {
-      background: url("/static/icons/eventsIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/eventsIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._events.active:before{
+      background: url("/static/icons/eventsIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._public:before {
-      background: url("/static/icons/publicIcon.svg") no-repeat center / contain,
-        url("/static/icons/publicIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/publicIcon2.svg") no-repeat center / contain,
+        url("/static/icons/publicIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._public:hover:before {
-      background: url("/static/icons/publicIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/publicIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._public.active:before{
+      background: url("/static/icons/publicIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._club:before {
-      background: url("/static/icons/clubIcon.svg") no-repeat center / contain,
-        url("/static/icons/clubIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/clubIcon2.svg") no-repeat center / contain,
+        url("/static/icons/clubIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._club:hover:before {
-      background: url("/static/icons/clubIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/clubIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._club.active:before{
+      background: url("/static/icons/clubIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._fees:before {
-      background: url("/static/icons/icon-fees.svg") no-repeat top -2px center / contain,
-        url("/static/icons/icon-fees-blue.svg") no-repeat top -2px center / contain;
+      background: url("/static/icons/icon-fees2.svg") no-repeat top -2px center / contain,
+        url("/static/icons/icon-fees2-blue.svg") no-repeat top -2px center / contain;
     }
 
     &._fees:hover:before {
-      background: url("/static/icons/icon-fees-blue.svg") no-repeat top -2px center / contain;
+      background: url("/static/icons/icon-fees2-blue.svg") no-repeat top -2px center / contain;
+    }
+
+    &._fees.active:before{
+      background: url("/static/icons/icon-fees2-blue.svg") no-repeat center / contain;
     }
 
     &._blanks:before {
@@ -142,24 +167,36 @@
       background: url("/static/icons/icon-blanks-blue.svg") no-repeat center / contain;
     }
 
+    &._blanks.active:before {
+      background: url("/static/icons/icon-blanks-blue.svg") no-repeat center / contain;
+    }
+
     &._requisites:before {
-      background: url("/static/icons/icon-requisites.svg") no-repeat center / contain,
-        url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-requisites2.svg") no-repeat center / contain,
+        url("/static/icons/icon-requisites2-blue.svg") no-repeat center / contain;
     }
     &._requisites, &._fees {
       cursor: pointer;
     }
     &._requisites:hover:before {
-      background: url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-requisites2-blue.svg") no-repeat center / contain;
+    }
+
+    &._requisites.active:before {
+      background: url("/static/icons/icon-requisites2-blue.svg") no-repeat center / contain;
     }
 
     &._presidium:before {
-      background: url("/static/icons/icon-presidium.svg") no-repeat center / contain,
-        url("/static/icons/icon-presidium-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-presidium2.svg") no-repeat center / contain,
+        url("/static/icons/icon-presidium2-blue.svg") no-repeat center / contain;
     }
 
     &._presidium:hover:before {
-      background: url("/static/icons/icon-presidium-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-presidium2-blue.svg") no-repeat center / contain;
+    }
+
+    &._requisites.active:before {
+      background: url("/static/icons/icon-presidium2-blue.svg") no-repeat center / contain;
     }
   }
 
@@ -361,7 +398,7 @@
   }
   &__name {
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
   }
   &__list {
     list-style: none;
@@ -385,9 +422,6 @@
     }
     .active{
       color: #3366FF!important;
-      &::before{
-        background: url("/static/icons/eventsIcon-blue.svg") no-repeat center/contain!important;
-      }
     }
 
   }
@@ -431,66 +465,94 @@
       top: 4px;
     }
     &._documents:before {
-      background: url("/static/icons/documentsIcon.svg") no-repeat center / contain,
-      url("/static/icons/documentsIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/documentsIcon2.svg") no-repeat center / contain,
+      url("/static/icons/documentsIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._documents:hover:before {
-      background: url("/static/icons/documentsIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/documentsIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._documents.active:before{
+      background: url("/static/icons/documentsIcon2-blue.svg") no-repeat center / contain!important;
     }
 
     &._gallery:before {
-      background: url("/static/icons/galleryIcon.svg") no-repeat center / contain,
-      url("/static/icons/galleryIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/galleryIcon2.svg") no-repeat center / contain,
+      url("/static/icons/galleryIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._gallery:hover:before {
-      background: url("/static/icons/galleryIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/galleryIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._gallery.active:before{
+      background: url("/static/icons/galleryIcon2-blue.svg") no-repeat center / contain!important;
     }
 
     &._video:before {
-      background: url("/static/icons/icon-youtube.svg") no-repeat center / contain,
-      url("/static/icons/icon-youtube-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-youtube2.svg") no-repeat center / contain,
+      url("/static/icons/icon-youtube2-blue.svg") no-repeat center / contain;
     }
 
     &._video:hover:before {
-      background: url("/static/icons/icon-youtube-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-youtube2-blue.svg") no-repeat center / contain;
+    }
+
+    &._video.active:before {
+      background: url("/static/icons/icon-youtube2-blue.svg") no-repeat center / contain;
     }
 
     &._events:before {
-      background: url("/static/icons/eventsIcon.svg") no-repeat center / contain,
-      url("/static/icons/eventsIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/eventsIcon2.svg") no-repeat center / contain,
+      url("/static/icons/eventsIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._events:hover:before {
-      background: url("/static/icons/eventsIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/eventsIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._events.active:before {
+      background: url("/static/icons/eventsIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._public:before {
-      background: url("/static/icons/publicIcon.svg") no-repeat center / contain,
-      url("/static/icons/publicIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/publicIcon2.svg") no-repeat center / contain,
+      url("/static/icons/publicIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._public:hover:before {
-      background: url("/static/icons/publicIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/publicIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._public.active:before {
+      background: url("/static/icons/publicIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._club:before {
-      background: url("/static/icons/clubIcon.svg") no-repeat center / contain,
-      url("/static/icons/clubIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/clubIcon2.svg") no-repeat center / contain,
+      url("/static/icons/clubIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._club:hover:before {
-      background: url("/static/icons/clubIcon-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/clubIcon2-blue.svg") no-repeat center / contain;
+    }
+
+    &._club.active:before {
+      background: url("/static/icons/clubIcon2-blue.svg") no-repeat center / contain;
     }
 
     &._fees:before {
-      background: url("/static/icons/icon-fees.svg") no-repeat top -2px center / contain,
-      url("/static/icons/icon-fees-blue.svg") no-repeat top -2px center / contain;
+      background: url("/static/icons/icon-fees2.svg") no-repeat top -2px center / contain,
+      url("/static/icons/icon-fees2-blue.svg") no-repeat top -2px center / contain;
     }
 
     &._fees:hover:before {
-      background: url("/static/icons/icon-fees-blue.svg") no-repeat top -2px center / contain;
+      background: url("/static/icons/icon-fees2-blue.svg") no-repeat top -2px center / contain;
+    }
+
+    &._fees.active:before {
+      background: url("/static/icons/icon-fees2-blue.svg") no-repeat top -2px center / contain;
     }
 
     &._blanks:before {
@@ -502,22 +564,34 @@
       background: url("/static/icons/icon-blanks-blue.svg") no-repeat center / contain;
     }
 
+    &._blanks.active:before {
+      background: url("/static/icons/icon-blanks-blue.svg") no-repeat center / contain;
+    }
+
     &._requisites:before {
-      background: url("/static/icons/icon-requisites.svg") no-repeat center / contain,
-      url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-requisites2.svg") no-repeat center / contain,
+      url("/static/icons/icon-requisites2-blue.svg") no-repeat center / contain;
     }
 
     &._requisites:hover:before {
-      background: url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-requisites2-blue.svg") no-repeat center / contain;
+    }
+
+    &._requisites.active:before {
+      background: url("/static/icons/icon-requisites2-blue.svg") no-repeat center / contain;
     }
 
     &._presidium:before {
-      background: url("/static/icons/icon-presidium.svg") no-repeat center / contain,
-      url("/static/icons/icon-presidium-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-presidium2.svg") no-repeat center / contain,
+      url("/static/icons/icon-presidium2-blue.svg") no-repeat center / contain;
     }
 
     &._presidium:hover:before {
-      background: url("/static/icons/icon-presidium-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-presidium2-blue.svg") no-repeat center / contain;
+    }
+
+    &._presidium.active:before {
+      background: url("/static/icons/icon-presidium2-blue.svg") no-repeat center / contain;
     }
 
 

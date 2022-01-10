@@ -1,5 +1,5 @@
 :root {
-  --background: fixed url("/static/images/rkf/sf_background.jpg"); // New Year BG
+  --background: fixed url("/static/images/rkf/sf_background-min.jpg"); // New Year BG
   //--background: #f5f8ff; // Default BG
 }
 
@@ -81,4 +81,8 @@ input::placeholder {
   & span {
     padding: 0 16px;
   }
+}
+
+.ymaps-2-1-79-map-copyrights-promo {
+  display: none;
 }

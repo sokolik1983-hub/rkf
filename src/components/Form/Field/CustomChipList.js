@@ -6,9 +6,8 @@ import Label from './Label';
 import Error from './Error';
 import './CustomChipList.scss';
 
-const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeId }) => {
+const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeId, setActiveElem, activeElem }) => {
     const { setFieldValue, errors } = formik;
-    const [activeElem, setActiveElem] = useState(advertTypeId);
 
     const handleChange = ({ value }) => {
         setFieldValue(name, value);
@@ -18,7 +17,7 @@ const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeI
 
     useEffect(() => {
         setIsMating(advertTypeId === 3);
-    }, [])
+    }, []);
 
     return (
         <div className={`FormInput${errors[name] ? ' FormInput--error' : ''}`}>

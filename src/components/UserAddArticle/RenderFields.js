@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import getYouTubeID from "get-youtube-id";
-import { connect } from "formik";
+import {connect} from "formik";
 
 import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
@@ -18,18 +18,51 @@ import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
-import { useFocus } from "../../shared/hooks";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
+import CustomSelect from "react-select";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile, isFederation, isMust, setIsMust }) => {
+const RenderFields = ({ fields,
+                          logo,
+                          formik,
+                          isAd,
+                          setIsAd,
+                          videoLink,
+                          setVideoLink,
+                          documents,
+                          categories,
+                          setDocuments,
+                          setCategories,
+                          isMating,
+                          setIsMating,
+                          setLoadFile,
+                          isFederation,
+                          isMust,
+                          setIsMust,
+                          setIsCheckedAddTypes,
+                          isCheckedAddTypes,
+                          focus,
+                          setFocused,
+                          setBlured,
+                          isCategoryId,
+                          setIsCategoryId,
+                          isHalfBreed,
+                          setIsHalfBreed,
+                          activeElem,
+                          setActiveElem,
+                          setIsTypeId,
+                          isTypeId,
+                          isAllCities,
+                          setIsAllCities
+                            }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
-    const { focus, setFocused, setBlured } = useFocus(false);
+    const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
+
 
     const { content, file } = formik.values;
 
@@ -124,20 +157,62 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
         setIsAd(false);
     };
 
+    const handleChangeHalfBreed = () => {
+        if (isHalfBreed) {
+            setIsHalfBreed(false);
+        } else if (!isHalfBreed) {
+            setIsHalfBreed(true);
+        }
+    };
+
+    const handleChangeAllCities = () => {
+        if (isAllCities) {
+            setIsAllCities(false);
+        } else if (!isAllCities) {
+            setIsAllCities(true);
+        }
+    };
+
+    useEffect(() => {
+        formik.setFieldValue('advert_type_id', isTypeId);
+    }, [isTypeId]);
+
+    useEffect(() => {
+        formik.setFieldValue('is_halfbreed', isHalfBreed);
+        isHalfBreed && formik.setFieldValue('advert_breed_id', '');
+    }, [isHalfBreed]);
+
+    useEffect(() => {
+        formik.setFieldValue('advert_category_id', isCategoryId);
+    }, [isCategoryId, activeElem]);
+
+    useEffect(() => {
+        if(activeElem === 4) {
+            setCityLabel('потери');
+        } else if(activeElem === 5) {
+            setCityLabel('нахождения');
+        }
+    }, [activeElem]);
+
+    useEffect(() => {
+        formik.setFieldValue('is_all_cities', isAllCities);
+        isAllCities && formik.setFieldValue('dog_city', []);
+    }, [isAllCities]);
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
-                <FormGroup className="ArticleCreateForm__wrap">
+                <FormGroup className="ArticleCreateForm__wrap ArticleCreateForm__textarea-wrap">
                     <ClientAvatar size={40} avatar={logo || DEFAULT_IMG.clubAvatar} />
-                    <FormField
-                        {...fields.content}
-                        onChange={handleKeyDown}
-                        onFocus={setFocused}
-                        maxLength="1000"
-                        value={content ? content : ''}
-                        rows={content ? addRow() : focus ? "3" : "1"}
-                        className={focus ? `_textarea_focus` : ``}
-                    />
+                        <FormField
+                            {...fields.content}
+                            onChange={handleKeyDown}
+                            onFocus={setFocused}
+                            maxLength="1000"
+                            value={content ? content : ''}
+                            rows={content ? addRow() : focus ? "3" : "1"}
+                            className={focus ? `_textarea_focus` : ``}
+                        />
                 </FormGroup>
                 <div className="ArticleCreateForm__controls-wrap">
                     <FormControls className={`ArticleCreateForm__controls ${focus ? ' _focus' : ''}`}>
@@ -186,13 +261,37 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                                     if (isAd) {
                                         setIsAd(false);
                                         setIsMust(false);
+                                        setIsCategoryId(null);
                                     } else if (!isAd) {
                                         setIsAd(true);
                                         setIsMust(false);
+                                        setIsCheckedAddTypes(false);
+                                        setIsCategoryId(1);
                                     }
                                 }}
                             />
                         }
+                            {
+                                !videoLink && focus &&
+                                <CustomCheckbox
+                                    id="ad1"
+                                    label="Объявление"
+                                    className="ArticleCreateForm__ad"
+                                    checked={isCheckedAddTypes}
+                                    onChange={() => {
+                                        if (isCheckedAddTypes) {
+                                            setIsCheckedAddTypes(false);
+                                            setIsMust(false);
+                                            setIsCategoryId(false);
+                                        } else if (!isCheckedAddTypes) {
+                                            setIsCheckedAddTypes(true);
+                                            setIsMust(false);
+                                            setIsAd(false);
+                                            setIsCategoryId(2);
+                                        }
+                                    }}
+                                />
+                            }
                         {
                             isFederation && focus &&
                             <CustomCheckbox
@@ -225,8 +324,20 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             {isAd && focus &&
                 <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
+                        <CustomChipList
+                            {...fields.advert_type_id}
+                            options={advertTypes?.filter(item => item.value < 4)}
+                            setIsMating={setIsMating}
+                            setIsTypeId={setIsTypeId}
+                            setActiveElem={setActiveElem}
+                            activeElem={activeElem}
+                        />
                     </FormGroup>
+                    {
+                        !activeElem && <div className="ArticleCreateForm__error-wrap">
+                            <div className="FormInput__error">Выберите категорию объявления.</div>
+                        </div>
+                    }
                     <FormGroup className="ArticleCreateForm__advert">
                         <FormField {...fields.advert_breed_id} />
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
@@ -237,6 +348,97 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     </FormGroup>
                 </div>
             }
+            {isCheckedAddTypes && focus && (activeElem !== 6) &&
+                <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
+                    <FormGroup inline>
+                        <CustomChipList
+                            {...fields.advert_type_id}
+                            options={advertTypes?.filter(item => item.value > 3 )}
+                            setIsMating={setIsMating}
+                            setIsTypeId={setIsTypeId}
+                            setActiveElem={setActiveElem}
+                            activeElem={activeElem}
+                        />
+                    </FormGroup>
+                    {
+                        !activeElem && <div className="ArticleCreateForm__error-wrap">
+                            <div className="FormInput__error">Выберите категорию объявления.</div>
+                        </div>
+                    }
+                    <FormGroup className="ArticleCreateForm__advert">
+                        <div className="ArticleCreateForm__inputs-wrap">
+                            <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={false}/>
+                            <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
+                            <CustomCheckbox
+                                id="isHalfBreed_checkbox"
+                                label="Метис"
+                                className="ArticleCreateForm__ad"
+                                checked={isHalfBreed}
+                                onChange={handleChangeHalfBreed}
+                            />
+                        </div>
+                    <div className="ArticleCreateForm__inputs-wrap">
+                        <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
+                        <div className={(activeElem === 5) && 'ArticleCreateForm__age-wrap'}>
+                            <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
+                        </div>
+                        <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
+                        <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
+                    </div>
+                    </FormGroup>
+                </div>
+            }
+            {isCheckedAddTypes && focus && (activeElem === 6) &&
+            <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
+                <FormGroup inline>
+                    <CustomChipList
+                        {...fields.advert_type_id}
+                        options={advertTypes?.filter(item => item.value > 3 )}
+                        setIsMating={setIsMating}
+                        setIsTypeId={setIsTypeId}
+                        setActiveElem={setActiveElem}
+                        activeElem={activeElem}
+                    />
+                </FormGroup>
+                {
+                    !activeElem && <div className="ArticleCreateForm__error-wrap">
+                        <div className="FormInput__error">Выберите категорию объявления.</div>
+                    </div>
+                }
+                <FormGroup className="ArticleCreateForm__advert">
+                    <div className="ArticleCreateForm__inputs-wrap">
+                        <div className="ArticleCreateForm__city-select-wrap">
+
+                            <FormField className={`ArticleCreateForm__input-city ${isAllCities && 'disabled'}`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={true} />
+                            <CustomCheckbox
+                                id="isAllCities__checkbox"
+                                label="Все города"
+                                className="ArticleCreateForm__ad"
+                                checked={isAllCities}
+                                onChange={handleChangeAllCities}
+                            />
+                        </div>
+                        <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
+                        <CustomCheckbox
+                            id="isHalfBreed_checkbox"
+                            label="Метис"
+                            className="ArticleCreateForm__ad"
+                            checked={isHalfBreed}
+                            onChange={handleChangeHalfBreed}
+                        />
+                    </div>
+                    <div className="ArticleCreateForm__inputs-wrap">
+                        <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
+                        <div className={(activeElem === 5) && 'ArticleCreateForm__age-wrap'}>
+                            <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
+                        </div>
+                        <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
+                        <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
+                    </div>
+                </FormGroup>
+            </div>
+        }
+
             <>
                 {file &&
                     <div className="ImagePreview__wrap">

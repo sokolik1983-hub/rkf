@@ -15,7 +15,7 @@ import { userNav } from "../UserLayout/config";
 import UserMenu from '../UserMenu';
 import ZlineModal from '../../ZlineModal';
 import {blockContent} from "../../../utils/blockContent";
-import { checkAliasUrl } from '../../../utils/buildUserRoute';
+import { checkAliasUrl } from '../../../utils/checkAliasUrl';
 
 import './footerMenu.scss';
 

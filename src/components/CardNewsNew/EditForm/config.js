@@ -36,6 +36,7 @@ export const formConfig = {
             name: 'content',
             fieldType: 'textarea',
             placeholder: 'Напишите что-нибудь...',
+
         },
         file: {
             name: 'file',

@@ -53,4 +53,60 @@
       }
     }
   }
+
+
 }
+
+.club-documents-status__head {
+  &.--puppies {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    @media (max-width: 560px) {
+      align-items: center;
+      padding-bottom: 4px;
+    }
+  }
+}
+
+.club-documents-status.--puppies-update-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  height: 32px;
+  margin-left: 10px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #fff;
+  background: #2e5ce8;
+  border-radius: 4px;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    background: #234ED2FF;
+  }
+}
+
+.metrics-table {
+  &.disabled {
+    & .puppies-metrics__pdf-cell {
+      &:hover {
+        cursor: wait;
+      }
+
+      & .pedigree-link:hover {
+        pointer-events: none;
+      }
+    }
+  }
+
+  & table {
+    width: 100%!important;
+  }
+}
+
+
+

@@ -1,5 +1,11 @@
 .exhibition-info {
-  &.two { display: flex; flex-direction: row; }
+  &.two {
+    display: flex;
+    flex-direction: row;
+    @media (max-width: 990px) {
+      display: block;
+    }
+  }
   &.two >* { min-width: 50% }
   &:not(:first-child) {
     border-bottom: 1px solid #E5E5E5;

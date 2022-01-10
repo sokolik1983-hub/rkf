@@ -40,7 +40,17 @@ const NewsList = ({isFullDate = true}) => {
         setNewsLoading(true);
 
         await Request({
-                url: `${endpointGetNews}?start_element=${startElem}${filters.cities.map(id => `&fact_city_ids=${id}`).join('')}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
+                url: `${endpointGetNews}?start_element=
+                ${startElem}${filters.cities.map(id => `&fact_city_ids=${id}`).join('')}
+                ${filters.activeType ? `&${filters.activeType}=true` : ''}
+                ${filters.isAdvert !== null 
+                    ? 
+                    filters.isAdvert 
+                        ? 
+                        '&is_advert=' + filters.isAdvert +'&advert_category_id=' + filters.advert_category_id 
+                        :
+                        '&is_advert=false' 
+                    : ''}`
             }, data => {
                 if (data.articles.length) {
                     const modifiedNews = data.articles.map(article => {
@@ -97,10 +107,14 @@ const NewsList = ({isFullDate = true}) => {
         setActiveType(type);
         let newFilters = {};
 
-        if (type !== 'all') {
-            newFilters = {...newsFilter, isAdvert: type === 'advert'};
-        } else {
+        if (type === 'all') {
             newFilters = {...newsFilter, isAdvert: null};
+        } else if ( type === 'news') {
+            newFilters = {...newsFilter, isAdvert: false};
+        } else if (type === 'advert') {
+            newFilters = {...newsFilter, isAdvert: true, advert_category_id: 1};
+        } else if(type === 'articles') {
+            newFilters = {...newsFilter, isAdvert: true, advert_category_id: 2};
         }
 
         setStartElement(1);
@@ -123,7 +137,7 @@ const NewsList = ({isFullDate = true}) => {
 
     return (
         <div className="NewsList">
-            {news && !!news.length &&
+            {news && (activeType === 'articles' || activeType === 'advert' || activeType === 'news' || activeType === 'all' || !!news.length) &&
                 <InfiniteScroll
                     dataLength={news.length}
                     next={getNextNews}
@@ -166,12 +180,6 @@ const NewsList = ({isFullDate = true}) => {
                         ))}
                     </ul>
                 </InfiniteScroll>
-            }
-            {(!news || !news.length) && !newsLoading &&
-                <div className="NewsList__no-news">
-                    <h4>Публикации не найдены</h4>
-                    <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены"/>
-                </div>
             }
             <NewsFilters
                 loading={filtersLoading}

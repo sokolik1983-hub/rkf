@@ -341,6 +341,9 @@
       justify-content: space-between;
     }
     &-breed {
+      margin: 10px 0!important;
+    }
+    &-breed {
       span:first-child {
         white-space: nowrap;
         overflow: hidden;
@@ -394,6 +397,15 @@
         &:before {
           background: url("/static/icons/icon-pdf-blue.svg") no-repeat center/contain;
         }
+      }
+    }
+
+    &-item-name {
+      color: #007bff;
+
+      &:hover {
+        color: #3366ff;
+        cursor: pointer;
       }
     }
   }

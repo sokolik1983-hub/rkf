@@ -9,7 +9,7 @@ import DocApply from "./components/DocApply";
 import DocApplyLitter from "./components/DocApplyLitter";
 import DocHome from "./components/DocHome";
 import NurseryDocumentsStatus from "./components/DocStatus";
-import PuppiesMetrics from "./components/PuppiesMetrics";
+import PuppiesMetrics from "../Docs/components/PuppiesMetrics";
 import ResponsiblePersonForm from "./components/ResponsiblePersonForm";
 import ResponsivePersonTable from "./components/ResponsiblePersonTable";
 import DocRegistry from "./components/Print/DocRegistry";
@@ -145,10 +145,10 @@ const Docs = ({ history }) => {
                         <DocRegistry history={history} distinction="pedigree" />}
                     />
                     <Route exact={true} path='/kennel/:route/documents/puppy/metrics' component={() =>
-                        <PuppiesMetrics nurseryAlias={nurseryAlias} history={history} />}
+                        <PuppiesMetrics nurseryAlias={nurseryAlias} history={history} distinction='metrics' />}
                     />
                     <Route exact={true} path='/kennel/:route/documents/puppy/metrics/:id/print' component={() =>
-                        <PuppyMetrics history={history} />}
+                        <PuppiesMetrics history={history} />}
                     />
                     {/*<Route exact={true} path='/kennel/:route/documents/stamps/add' component={() =>
                             <AddStamp history={history} />}

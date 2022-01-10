@@ -33,7 +33,6 @@ const DocumentsPage = ({ history, match }) => {
         (() => Request({
             url: `/api/document/document/public?id=${documentId}`
         }, data => {
-            console.log('data', data);
             setLink(data);
             setLoading(false);
         }, error => {
