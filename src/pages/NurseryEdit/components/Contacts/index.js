@@ -51,7 +51,7 @@ const Contacts = ({contacts, is_public, errors, randomKeyGenerator}) => {
                     <h4>Телефон</h4>
                     {contacts.map(({contact_type_id}, index) => (
                         (contact_type_id === 1) &&
-                        <FormGroup key={randomKeyGenerator()}>
+                        <FormGroup key={index}>
                             <FormField
                                 placeholder={'Введите номер телефона'}
                                 name={`contacts[${index}].value`}
@@ -99,7 +99,7 @@ const Contacts = ({contacts, is_public, errors, randomKeyGenerator}) => {
                     <h4>E-mail</h4>
                     {contacts.map(({contact_type_id}, index) => (
                         (contact_type_id !== 1) &&
-                        <FormGroup key={randomKeyGenerator()}>
+                        <FormGroup key={index}>
                             <FormField
                                 placeholder={'Введите e-mail'}
                                 name={`contacts[${index}].value`}
