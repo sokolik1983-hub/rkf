@@ -26,10 +26,6 @@ const OrganizationsList = (props) => {
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
 
-    // console.log("city_ids", city_ids);
-    // console.log("RegionIds", RegionIds);
-    // console.log("federation_ids", federation_ids);
-
     const getOrganizations = async startElem => {
         await Request({
             url: `${endpointGetOrganizations}${buildUrlParams({

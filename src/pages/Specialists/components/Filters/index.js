@@ -28,8 +28,6 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
         4: true
     });
 
-    console.log('filtersValue', filtersValue)
-
     const [filters, setFilters] = useState({
         regions: [],
         cities: [],
@@ -70,8 +68,6 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
-
-    console.log('filtersValue.RegionIds', filtersValue.RegionIds)
 
     return (
         <aside className={`specialists-page__filters specialists-filters${isOpenFilters ? ' _open' : ''}`}>

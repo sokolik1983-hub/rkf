@@ -3,8 +3,6 @@ import history from "../../utils/history";
 export const buildUrlParams = filters => {
     let params = '';
 
-    console.log('111111111111', filters);
-
     Object.keys(filters).forEach(key => {
         if (filters[key] || key === 'activated' || key === 'active_rkf_user') {
             if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'region_ids') {
