@@ -20,12 +20,18 @@ const setLSCities = citiesIds => {
     filters.cities = citiesIds;
     localStorage.setItem('FiltersValues', JSON.stringify(filters));
 };
+const setLSRegions = regionIds => {
+    let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
+    filters.regions = regionIds;
+    localStorage.setItem('FiltersValues', JSON.stringify(filters));
+};
 
 
 const NewsList = ({isFullDate = true}) => {
     const [activeType, setActiveType] = useState('all');
     const [news, setNews] = useState([]);
     const [cities, setCities] = useState([]);
+    const [regions, setRegions] = useState([]);
     const [filtersLoading, setFiltersLoading] = useState(true);
     const [newsLoading, setNewsLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
@@ -96,6 +102,24 @@ const NewsList = ({isFullDate = true}) => {
         })();
     }, []);
 
+    useEffect(() => {
+        (async () => {
+            await Request({url: 'api/city/article_regions'},
+                data => {
+                    if(data) {
+                        setRegions(data);
+                    }
+                },
+                error => {
+                    console.log(error.response);
+                });
+
+            setFiltersLoading(false);
+
+            await getNews(1, newsFilter);
+        })();
+    }, []);
+
     const getNextNews = () => {
         if (hasMore) {
             setStartElement(startElement + 10);
@@ -135,9 +159,16 @@ const NewsList = ({isFullDate = true}) => {
         (() => getNews(1, {...newsFilter, cities: citiesIds}))();
     };
 
+    const changeRegionFilter = regionIds => {
+        setLSRegions(regionIds);
+        setNewsFilter({...newsFilter, regions: regionIds});
+        setStartElement(1);
+        (() => getNews(1, {...newsFilter, regions: regionIds}))();
+    };
+
     return (
         <div className="NewsList">
-            {news && (activeType === 'articles' || activeType === 'advert' || activeType === 'news' || activeType === 'all' || !!news.length) &&
+            {news && !!news.length &&
                 <InfiniteScroll
                     dataLength={news.length}
                     next={getNextNews}
@@ -190,12 +221,14 @@ const NewsList = ({isFullDate = true}) => {
             <NewsFilters
                 loading={filtersLoading}
                 cities={cities}
+                regions={regions}
                 startElement={startElement}
                 activeType={activeType}
                 newsFilter={newsFilter}
                 changeOrganizationFilters={changeOrganizationFilters}
                 changeTypeFilters={changeTypeFilters}
                 changeCityFilter={changeCityFilter}
+                changeRegionFilter={changeRegionFilter}
             />
         </div>
     )
