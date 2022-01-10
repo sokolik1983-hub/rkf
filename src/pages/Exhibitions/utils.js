@@ -36,8 +36,6 @@ export const buildUrl = filter => {
     filter = filter || {};
     const params = buildUrlParams(filter);
 
-    console.log('params', params)
-
     if (parseInt(filter.CategoryId) === 4) {
         return endpointGetEducationals + params;
     } else {
