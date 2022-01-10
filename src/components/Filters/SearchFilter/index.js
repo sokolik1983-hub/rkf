@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, { useMemo, useState } from "react";
 import history from '../../../utils/history';
+import SwipeTabs from "../../../components/SwipeTabs";
+
 import  "./index.scss"
 
 
-const SearchFilter = ({filtersValue}) => {
+const SearchFilter = ({filtersValue, searchTypeId = 1}) => {
     const [searchValue, setSearchValue] = useState(filtersValue.string_filter);
 
     const handleSubmit = e => {
@@ -11,15 +13,26 @@ const SearchFilter = ({filtersValue}) => {
         history.push(`/search?string_filter=${searchValue.trim()}&search_type=8`);
     };
 
+    const tabItems = useMemo(() => {
+        return [
+            {title: 'Организации', search_type: 1},
+            {title: 'Мероприятия', search_type: 2},
+            {title: 'Публикации', search_type: 3},
+            {title: 'Специалисты', search_type: 4}
+        ];
+    }, []);
+
     return (
         <div className="search-page__content-filter">
             <h3 className="search-page__filters-title">Результаты поиска по запросу:</h3>
+
             <form onSubmit={handleSubmit}>
                 <input type='text'
                        className="search-page__content-input"
                        onChange={({ target }) => setSearchValue(target.value)}
                        value={searchValue}
                 />
+
                 <button className="search-page__content-btn" type='submit'>
                     <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
                         <path
@@ -30,6 +43,14 @@ const SearchFilter = ({filtersValue}) => {
                     </svg>
                 </button>
             </form>
+
+            <div className="search-page__horizontal-menu">
+                <SwipeTabs
+                    items={tabItems}
+                    activeTabIndex={tabItems.findIndex(item => item.search_type === searchTypeId)}
+                    onChange={({search_type}) => 1}
+                />
+            </div>
         </div>
     )
 }

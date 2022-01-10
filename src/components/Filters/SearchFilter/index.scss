@@ -1,26 +1,45 @@
 .search-page {
   &__content {
     &-filter {
-      padding: 10px;
+      padding: 10px 10px 0;
       margin-bottom: 16px;
       border-radius: 6px;
       background-color: white;
       box-shadow: 0 6px 12px rgba(51, 102, 255, 0.12);
+
       input {
         padding-left: 5px;
         height: 32px;
         width: 230px;
         border: 1px solid #ebf0f2;
       }
+
+      & .swiper-slide {
+        color: red;
+      }
+
+      & .swiper-slide > span {
+
+        margin: 0 10px;
+        padding: 10px 0;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
     }
+
     &-btn {
       margin-left: 10px;
       padding: 0;
       border: none;
       line-height: 1;
+
       svg {
         padding-top: 5px;
       }
     }
+
+
   }
 }
