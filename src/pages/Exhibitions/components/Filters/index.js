@@ -3,6 +3,7 @@ import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
 import BreedsFilter from "../../../../components/Filters/BreedsFilter";
+import RegionsFilter from "../../../../components/Filters/RegionsFilter";
 import RanksFilter from "../../../../components/Filters/RanksFilter";
 import TypeFilter from "../../../../components/Filters/TypeFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
@@ -26,11 +27,13 @@ import ls from "local-storage";
 
 import "./index.scss";
 
+
 const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user, notificationsLength, isEducational }) => {
     const [ranks, setRanks] = useState([]);
     const [types, setTypes] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [breeds, setBreeds] = useState([]);
+    const [regionLabels, setRegionLabels] = useState([]);
     const [cities, setCities] = useState({ exhibitionCities: [], educationalCities: [] });
     const [loading, setLoading] = useState(true);
     const [clear_filter, setClearFilter] = useState(false);
@@ -46,6 +49,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
             setRanks(data[0].ranks);
             setTypes(data[0].types);
             setBreeds(data[0].breeds.filter(item => item.value !== 1));
+            setRegionLabels(data[0].regions.filter(item => item.label !== 1));
             setLoading(false);
             window.scrollTo(0, 0);
             setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
@@ -163,6 +167,11 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                     onChange={filter => setFiltersToUrl({ BreedIds: filter })}
                                     is_club_link={clubName && filters.Alias}
                                 />}
+                            <RegionsFilter
+                                regions={regionLabels}
+                                region_ids={filters.RegionIds}
+                                onChange={filter => setFiltersToUrl({RegionIds: filter})}
+                            />
                             <CitiesFilter
                                 cities={isEducational ? cities.educationalCities : cities.exhibitionCities}
                                 city_ids={filters.CityIds}
