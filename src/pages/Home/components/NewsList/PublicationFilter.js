@@ -1,44 +1,28 @@
-import React, {memo} from "react";
+import React, {memo, useMemo} from "react";
+import SwipeTabs from "../../../../components/SwipeTabs";
+import "./index.scss";
 
+const PublicationFilter = ({changeTypeFilters, activeType}) => {
+    const tabItems = useMemo(() => {
+        return [
+            {title: 'Все', activeType: 'all' },
+            {title: 'Новости', activeType: 'news'},
+            {title: 'Куплю/Продам', activeType: 'advert'},
+            {title: 'Объявления', activeType: 'articles'}
+        ];
+    }, [changeTypeFilters, activeType]);
 
-const PublicationFilter = ({changeTypeFilters, activeType}) => (
-    <div className="publicFilter__wrap">
-        <h3>Публикации</h3>
-        <ul className="publicFilter">
-            <li>
-                <button
-                    className={`ListFilter__item${activeType === 'all' ? ' _active' : ''}`}
-                    onClick={() => changeTypeFilters('all')}
-                >
-                    Все
-                </button>
-            </li>
-            <li>
-                <button
-                    className={`ListFilter__item${activeType === 'news' ? ' _active' : ''}`}
-                    onClick={() => changeTypeFilters('news')}
-                >
-                    Новости
-                </button>
-            </li>
-            <li>
-                <button
-                    className={`ListFilter__item${activeType === 'advert' ? ' _active' : ''}`}
-                    onClick={() => changeTypeFilters('advert')}
-                >
-                    Куплю/Продам
-                </button>
-            </li>
-            <li>
-                <button
-                    className={`ListFilter__item${activeType === 'articles' ? ' _active' : ''}`}
-                    onClick={() => changeTypeFilters('articles')}
-                >
-                    Объявления
-                </button>
-            </li>
-        </ul>
-    </div>
-);
+    return (
+            <div className="publicFilter__wrap">
+                <h3>Публикации</h3>
+                <SwipeTabs
+                    items={tabItems}
+                    activeTabIndex={tabItems.findIndex(item => item.activeType === activeType)}
+                    onChange={({activeType}) => changeTypeFilters(activeType)}
+                />
+            </div>
+    );
+}
+
 
 export default memo(PublicationFilter);
