@@ -15,12 +15,12 @@
     top: 60px;
   }
   &__nav-item svg {
-    margin-right: 6px;
+    margin-right: 10px;
     margin-top: 0;
     vertical-align: middle;
     @media (max-width: 1080px) {
-      height: 19px;
-      width: 19px;
+      height: 21px;
+      width: 21px;
     }
   }
   &__content {
@@ -455,8 +455,16 @@
         }
       }
       &.__about {
-        border-top: 1px solid #e8e8e8;
-        margin-left: -2px;
+        overflow: hidden;
+        max-width: 100%;
+        &::before {
+          content: '';
+          display: block;
+          height: 1px;
+          width: 100%;
+          background-color: #e8e8e8;
+          margin-left: 10px;
+        }
         a {
           span {
             margin-left: 2px;
@@ -1131,7 +1139,7 @@
     font-weight: 400;
     color: #253C5E;
     border-bottom: 1px solid #e5e5e5;
-    line-height: 24px;
+    line-height: 100%;
     padding-bottom: 10px;
     margin-left: 10px;
   }
@@ -1169,21 +1177,64 @@
             }
           }
 
+          &.rkf-org {
+            // border-top: 1px solid #e8e8e8;
+            a:before {
+              content: '';
+              background: url("/static/icons/icon-rkforg.svg") no-repeat center/cover;
+              width: 22px;
+              height: 23px;
+              position: absolute;
+              left: 32px;
+              background-size: cover;
+            }
+            overflow: hidden;
+            max-width: 100%;
+            position: relative;
+            &::after {
+              content: '';
+              display: block;
+              height: 1px;
+              width: 100%;
+              background-color: #e8e8e8;
+              margin-left: 10px;
+              position: absolute;
+              top: 0;
+            }
+          }
+
+          &.rkf-online a:before {
+            content: '';
+            background: url("/static/icons/icon-rkfonline.svg") no-repeat center/cover;
+            width: 22px;
+            height: 23px;
+            position: absolute;
+            left: 32px;
+          }
+
+          &.rkf-academy a:before {
+            content: '';
+            background: url("/static/icons/icon-rkfacademy.png") no-repeat center/cover;
+            width: 22px;
+            height: 24px;
+            position: absolute;
+            left: 32px;
+          }
+
           &.support-center {
             a:before {
               content: '';
               background: url("/static/icons/support_center.svg") no-repeat center/cover;
-              width: 14px;
-              height: 14px;
+              width: 21px;
+              height: 21px;
               position: absolute;
               left: 32px;
-              bottom: 12px;
             }
           }
         }
         @media (max-width: 1080px) {
           a {
-            padding: 10px 34px;
+            padding: 10px 42px;
           }
           a:first-child:before, a:nth-child(2):before {
             left: 10px;
@@ -1219,14 +1270,39 @@ span.position-relative {
   position: relative;
 }
 
-.map-link:before {
+.auth-clubs .map-link:before {
   content: "";
   position: absolute;
   left: 10px;
-  width: 13px;
-  height: 20px;
+  width: 21px;
+  height: 21px;
   background: url(/static/icons/pin-gray-thin.svg) 50%/cover no-repeat;
   background-size: contain;
+}
+
+.header__nav-socials {
+  padding: 25px 15px;
+  display: flex;
+  align-items: center;
+  a {
+    margin-right: 23px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  overflow: hidden;
+  max-width: 100%;
+  position: relative;
+  &::before {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: #e8e8e8;
+    left: 10px;
+    position: absolute;
+    top: 0;
+  }
 }
 
 

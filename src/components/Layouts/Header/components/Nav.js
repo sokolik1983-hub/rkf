@@ -23,6 +23,27 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
         }
     };
 
+    const links = [
+        {
+            name: 'RKF.org.ru',
+            icon: '/static/images/header/rkf-logo-transparent.svg',
+            link: 'http://rkf.org.ru',
+            class: 'rkf-org',
+        },
+        {
+            name: 'HelpRKF.Online',
+            icon: '/static/images/header/rkf-logo-transparent.svg',
+            link: 'http://help.rkf.online',
+            class: 'rkf-online',
+        },
+        {
+            name: 'RKF.Academy',
+            icon: '/static/images/about/rkf_academy.png',
+            link: 'http://rkf.academy',
+            class: 'rkf-academy',
+        },
+    ];
+
     useEffect(() => {
         setOverflow(isOpen);
         window.addEventListener('resize', () => setOverflow(isOpen));
@@ -92,23 +113,15 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                             }
                         </li>
                         )}
-                        <li className='widget-login__item widget-login__item--menu popup-menu knowledge_base'
+                        {/* <li className='widget-login__item widget-login__item--menu popup-menu knowledge_base'
                             onClick={() => setIsOpen(false)}>
                             <a href='https://help.rkf.online/ru/knowledge_base/art/146/cat/3/'
                                 target='_blank'
                                 rel='noopener noreferrer'>
                                 <span>База знаний</span>
                             </a>
-                        </li>
-                        <li className='widget-login__item widget-login__item--menu popup-menu support-center'
-                            onClick={() => setIsOpen(false)}>
-                            <Feedback />
-                        </li>
-                        <li className='widget-login__item widget-login__item--menu popup-menu auth-clubs'
-                            onClick={() => setIsOpen(false)}>
-                            <Link className="map-link" to="/clubs-map" target="_blank">Карта авторизованных клубов</Link>
-                        </li>
-                        <li className='header__nav-item __about'>
+                        </li> */}
+                         <li className='header__nav-item __about'>
                             <NavLink to='/about' exact={false}>
                                 <svg width="19" height="19" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M8.2516 7.74301C7.97133 7.74301 7.74301 7.96834 7.74301 8.2516V13.7484C7.74301 14.0287 7.96834 14.257 8.2516 14.257H13.7484C14.0239 14.257 14.252 14.0289 14.2476 13.7479L14.2474 13.7389H14.2475V8.2516C14.2475 7.97133 14.0222 7.74301 13.7389 7.74301H8.2516ZM6.61093 8.2516C6.61093 7.3366 7.35264 6.61093 8.2516 6.61093H13.7389C14.6539 6.61093 15.3796 7.35264 15.3796 8.2516V13.7348C15.3914 14.6498 14.6506 15.3891 13.7484 15.3891H8.2516C7.3366 15.3891 6.61093 14.6474 6.61093 13.7484V8.2516Z" fill="#8F989D" />
@@ -142,6 +155,55 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                                 <span>O RKF.Online</span>
                             </NavLink>
                         </li>
+                        <li className='widget-login__item widget-login__item--menu popup-menu auth-clubs'
+                            onClick={() => setIsOpen(false)}>
+                            <Link className="map-link" to="/clubs-map" target="_blank">Карта авторизованных клубов</Link>
+                        </li>
+                        <li className='widget-login__item widget-login__item--menu popup-menu support-center'
+                            onClick={() => setIsOpen(false)}>
+                            <Feedback />
+                        </li>
+
+                        {/* <li className='widget-login__item widget-login__item--menu popup-menu knowledge_base'
+                            onClick={() => setIsOpen(false)}>
+                            <a href='https://help.rkf.online/ru/knowledge_base/art/146/cat/3/'
+                                target='_blank'
+                                rel='noopener noreferrer'>
+                                <span>База знаний</span>
+                            </a>
+                        </li> */}
+                        
+                        {links.map(item => {
+                            return (
+                                <li className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
+                                    onClick={() => setIsOpen(false)}>
+                                    <a
+                                        href={item.link}
+                                        target='_blank'
+                                        rel='noopener noreferrer'>
+                                        <span>{item.name}</span>
+                                    </a>
+                                </li>
+                            )
+                        })}
+                        <li className='header__nav-socials'>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/">
+                                <img src="/static/icons/social/facebook-grey.svg" alt="" />
+                            </a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed">
+                                <img src="/static/icons/social/vk-grey.svg" alt="" />
+                            </a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig">
+                                <img src="/static/icons/social/youtube-grey.svg" alt="" />
+                            </a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/">
+                                <img src="/static/icons/social/instagram-grey.svg" alt="" />
+                            </a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial">
+                                <img src="/static/icons/social/telegram-grey.svg" alt="" />
+                            </a>
+                        </li>
+
                         {/*{!isAuthenticated && <li className="header__nav-item"><Feedback /></li>}*/}
                     </ul>
                 </>
