@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {withRouter} from "react-router";
 import {compose} from "redux";
-// import ClubInfo from "./components/ClubInfo";
-// import EditPageButtons from "./components/EditPageButtons";
-// import ClubHeaderPicture from "./components/ClubHeaderPicture";
-// import ClubSchedule from "./components/ClubSchedule";
-// import ClubSocial from "./components/ClubSocial";
-// import ClubLegalInfo from "./components/ClubLegalInfo";
-// import ClubBankInfo from "./components/ClubBankInfo";
-// import ClubContacts from "./components/ClubContacts";
-// import ClubDocuments from "./components/ClubDocuments";
-// import Disclaimer from "../../components/Disclaimer";
-// import Card from "../../components/Card";
+import ClubInfo from "./components/ClubInfo";
+import EditPageButtons from "./components/EditPageButtons";
+import ClubHeaderPicture from "./components/ClubHeaderPicture";
+import ClubSchedule from "./components/ClubSchedule";
+import ClubSocial from "./components/ClubSocial";
+import ClubLegalInfo from "./components/ClubLegalInfo";
+import ClubBankInfo from "./components/ClubBankInfo";
+import ClubContacts from "./components/ClubContacts";
+import ClubDocuments from "./components/ClubDocuments";
+import Disclaimer from "../../components/Disclaimer";
+import Card from "../../components/Card";
 import AuthOrLogin from "../Login/components/AuthOrLogin";
 import Header from "../../components/Layouts/Header";
 import Container from "../../components/Layouts/Container";
@@ -28,7 +28,7 @@ import "./styles.scss";
 
 import {Redirect} from "react-router-dom";
 import {Request} from '../../utils/request';
-import { Form } from '../../components/Form';
+import {Form} from '../../components/Form';
 import StickyBox from "react-sticky-box";
 import useIsMobile from '../../utils/useIsMobile';
 import UserMenu from '../../components/Layouts/UserMenu';
@@ -114,10 +114,10 @@ const ClubEditPage = ({
     console.log('canEdit', canEdit)
 
 
-    useEffect(() => {
-        unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
-        return () => unblock();
-    }, []);
+    // useEffect(() => {
+    //     unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
+    //     return () => unblock();
+    // }, []);
 
     const bindSubmitClubAlias = {
         submit: (submitFunc, errors) => {
@@ -213,10 +213,6 @@ const ClubEditPage = ({
         }
     };
 
-    const bindSubmitClubHeaderPicture = (submitFormFunction) => {
-        submitClubHeaderPicture = submitFormFunction;
-    };
-
     const handleSubmitForms = () => {
         const submitFunctions = [
             submitClubAlias,
@@ -278,9 +274,9 @@ const ClubEditPage = ({
                 <Redirect to="404"/> :
                 <Layout withFilters setNotificationsLength={setNotificationsLength}>
                     <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
-                    <div className='NurseryEdit__wrap'>
-                        <Container className='NurseryEdit content'>
-                            <aside className='NurseryEdit__left'>
+                    <div className='ClubEdit__wrap'>
+                        <Container className='ClubEdit content'>
+                            <aside className='ClubEdit__left'>
                                 <StickyBox offsetTop={60}>
                                     <UserHeader
                                         user="club"
@@ -301,32 +297,77 @@ const ClubEditPage = ({
                                     <CopyrightInfo withSocials={true}/>
                                 </StickyBox>
                             </aside>
-                            <div className="NurseryEdit__right">
-                                    {loading
-                                        ? <Loading />
-                                        : <Form
-                                            //{...editForm}
-                                            // initialValues={initialValues}
-                                            // transformValues={transformValues}
-                                            // onSuccess={handleSuccess}
-                                            // onError={handleError}
-                                            className="NurseryEdit__form"
-                                            withLoading={true}
-                                        >
-                                            <RenderFields
-                                                isOpenFilters={isOpenFilters}
-                                                setShowFilters={setShowFilters}
-                                                //streetTypes={streetTypes}
-                                                //houseTypes={houseTypes}
-                                                //flatTypes={flatTypes}
-                                                //working={working}
-                                                //handleError={handleError}
-                                                //setWorking={setWorking}
-                                                //randomKeyGenerator={randomKeyGenerator}
+                            <div className="ClubEdit__right">
+                                {loading
+                                    ? <Loading/>
+                                    : <Form
+                                        //{...editForm}
+                                        // initialValues={initialValues}
+                                        // transformValues={transformValues}
+                                        // onSuccess={handleSuccess}
+                                        // onError={handleError}
+                                        className="ClubEdit__form"
+                                        withLoading={true}
+                                    >
+                                        <RenderFields
+                                            isOpenFilters={isOpenFilters}
+                                            setShowFilters={setShowFilters}
+                                            //streetTypes={streetTypes}
+                                            //houseTypes={houseTypes}
+                                            //flatTypes={flatTypes}
+                                            //working={working}
+                                            //handleError={handleError}
+                                            //setWorking={setWorking}
+                                            //randomKeyGenerator={randomKeyGenerator}
+                                        />
+                                    </Form>
+                                }
+                                {/*{showAlert && <Alert {...showAlert} />}*/}
+                                {loading
+                                    ? <Loading/>
+                                    : <div>
+                                        <h2>Личный кабинет</h2>
+                                        <Disclaimer>
+                                            <a className="Disclaimer__support-link"
+                                               href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
+                                               target="_blank"
+                                               rel="noopener noreferrer">
+                                                Инструкция по редактированию профиля
+                                            </a>
+                                        </Disclaimer>
+                                        <Card className="ClubEditPage__about">
+                                            <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
+                                                      // bindSubmitClubLogo={bindSubmitClubLogo}
+                                                      bindSubmitClubInfo={bindSubmitClubInfo}
+                                                      isFederation={is_federation}
                                             />
-                                        </Form>
-                                    }
-                                    {/*{showAlert && <Alert {...showAlert} />}*/}
+                                        </Card>
+                                        {/*<Card className="ClubEditPage__schedule">*/}
+                                        {/*    <ClubSchedule bindSubmitForm={bindSubmitClubSchedule}/>*/}
+                                        {/*</Card>*/}
+                                        <Card className="ClubEditPage__legal">
+                                            <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo}/>
+                                        </Card>
+                                        <Card className="ClubEditPage__bank">
+                                            <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo}/>
+                                        </Card>
+                                        <Card className="ClubEditPage__contacts">
+                                            <h3>Контакты</h3>
+                                            <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
+                                                          bindSubmitClubPhone={bindSubmitClubPhone}
+                                            />
+                                        </Card>
+                                        <Card className="ClubEditPage__documents">
+                                            <h3>Ссылки на документы</h3>
+                                            <ClubDocuments bindSubmitForm={bindSubmitClubDocuments}/>
+                                        </Card>
+                                        <Card className="ClubEditPage__socials">
+                                            <h3>Социальные сети</h3>
+                                            <ClubSocial bindSubmitForm={bindSubmitClubSocials}/>
+                                        </Card>
+                                        <EditPageButtons handleSubmitForms={handleSubmitForms}/>
+                                    </div>
+                                }
                             </div>
                         </Container>
                     </div>
