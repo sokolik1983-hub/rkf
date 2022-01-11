@@ -349,6 +349,16 @@
                             content: url("/static/icons/schedule.svg");
                         }
                     }
+                    .icon-legal {
+                        &:before {
+                            content: url("/static/icons/legal.svg");
+                        }
+                    }
+                    .icon-bank {
+                        &:before {
+                            content: url("/static/icons/bank.svg");
+                        }
+                    }
 
                     .icon-trash {
                         &:before {
@@ -380,6 +390,14 @@
                             content: url("/static/icons/schedule-blue.svg");
                         }
 
+                        & .icon-legal {
+                            content: url("/static/icons/legal-blue.svg");
+                        }
+
+                        & .icon-bank {
+                            content: url("/static/icons/bank-blue.svg");
+                        }
+
                         & .icon-trash {
                             content: url("/static/icons/delete-variant-blue.svg");
                         }
@@ -398,6 +416,14 @@
 
                         & .icon-schedule {
                             content: url("/static/icons/schedule-blue.svg");
+                        }
+
+                        & .icon-legal {
+                            content: url("/static/icons/legal-blue.svg");
+                        }
+
+                        & .icon-bank {
+                            content: url("/static/icons/bank-blue.svg");
                         }
 
                         & .icon-trash {

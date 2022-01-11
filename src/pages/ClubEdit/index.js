@@ -114,10 +114,10 @@ const ClubEditPage = ({
     console.log('canEdit', canEdit)
 
 
-    // useEffect(() => {
-    //     unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
-    //     return () => unblock();
-    // }, []);
+    useEffect(() => {
+        unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
+        return () => unblock();
+    }, []);
 
     const bindSubmitClubAlias = {
         submit: (submitFunc, errors) => {
