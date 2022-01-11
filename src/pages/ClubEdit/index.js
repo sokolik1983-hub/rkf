@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router";
-import { compose } from "redux";
+import React, {useEffect, useState} from "react";
+import {withRouter} from "react-router";
+import {compose} from "redux";
 // import ClubInfo from "./components/ClubInfo";
 // import EditPageButtons from "./components/EditPageButtons";
 // import ClubHeaderPicture from "./components/ClubHeaderPicture";
@@ -15,10 +15,10 @@ import { compose } from "redux";
 import AuthOrLogin from "../Login/components/AuthOrLogin";
 import Header from "../../components/Layouts/Header";
 import Container from "../../components/Layouts/Container";
-import { defaultReduxKey, endpointUrl } from "./config";
-import { connectClientClubAlias } from "./connectors";
+import {defaultReduxKey, endpointUrl} from "./config";
+import {connectClientClubAlias} from "./connectors";
 import reducer from "./reducer";
-import { useResourceAndStoreToRedux } from "../../shared/hooks";
+import {useResourceAndStoreToRedux} from "../../shared/hooks";
 import injectReducer from "../../utils/injectReducer";
 
 import ls from 'local-storage';
@@ -27,18 +27,20 @@ import ls from 'local-storage';
 import "./styles.scss";
 
 import {Redirect} from "react-router-dom";
-import { Request } from '../../utils/request';
+import {Request} from '../../utils/request';
+import { Form } from '../../components/Form';
 import StickyBox from "react-sticky-box";
 import useIsMobile from '../../utils/useIsMobile';
 import UserMenu from '../../components/Layouts/UserMenu';
 import UserHeader from './components/UserHeader';
+import RenderFields from './RenderFields'
 import CopyrightInfo from '../../components/CopyrightInfo';
 import ClickGuard from '../../components/ClickGuard';
 import Loading from '../../components/Loading';
 import Layout from '../../components/Layouts';
-import { endpointGetClubInfo, clubNav } from '../../components/Layouts/ClubLayout/config';
-import { connectAuthVisible } from '../Login/connectors';
-import { connectShowFilters } from "../../components/Layouts/connectors";
+import {endpointGetClubInfo, clubNav} from '../../components/Layouts/ClubLayout/config';
+import {connectAuthVisible} from '../Login/connectors';
+import {connectShowFilters} from "../../components/Layouts/connectors";
 
 let unblock;
 
@@ -53,10 +55,10 @@ const ClubEditPage = ({
                           getClubSuccess,
                           isOpenFilters,
                           setShowFilters,
-}) => {
-    console.log('club_id',club_id)
-    console.log('isAuthenticated',isAuthenticated)
-    console.log('is_active_profile',is_active_profile)
+                      }) => {
+    console.log('club_id', club_id)
+    console.log('isAuthenticated', isAuthenticated)
+    console.log('is_active_profile', is_active_profile)
     //Всё это один большой костыль! Предполагается это исправить, когда будет 1 форма вместо 10
     let [serverErrors, setErrors] = useState({});
     let [isSubmit, setIsSubmit] = useState(false);
@@ -84,8 +86,8 @@ const ClubEditPage = ({
         submitClubHeaderPicture;
     let clientErrors = {};
 
-    const { user_type, alias } = ls.get('user_info') || {};
-    const url = ( user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? '/club' : ''
+    const {user_type, alias} = ls.get('user_info') || {};
+    const url = (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? '/club' : ''
 
     useResourceAndStoreToRedux(endpointUrl, getClubSuccess);
 
@@ -96,7 +98,7 @@ const ClubEditPage = ({
             if (data.user_type !== 3) {
                 history.replace(`/kennel/${alias}`);
             } else {
-                setClub({ ...data});
+                setClub({...data});
                 setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
                 setLoading(false);
             }
@@ -123,7 +125,7 @@ const ClubEditPage = ({
             clientErrors.alias = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({ ...prevObj, alias: errors }));
+            setErrors(prevObj => ({...prevObj, alias: errors}));
         }
     };
 
@@ -137,7 +139,7 @@ const ClubEditPage = ({
             clientErrors.info = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({ ...prevObj, info: errors }));
+            setErrors(prevObj => ({...prevObj, info: errors}));
         }
     };
 
@@ -147,7 +149,7 @@ const ClubEditPage = ({
             clientErrors.schedule = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({ ...prevObj, schedule: errors }));
+            setErrors(prevObj => ({...prevObj, schedule: errors}));
         }
     };
 
@@ -157,7 +159,7 @@ const ClubEditPage = ({
             clientErrors.legalInfo = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({ ...prevObj, legalInfo: errors }));
+            setErrors(prevObj => ({...prevObj, legalInfo: errors}));
         }
     };
 
@@ -167,7 +169,7 @@ const ClubEditPage = ({
             clientErrors.bankInfo = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({ ...prevObj, bankInfo: errors }));
+            setErrors(prevObj => ({...prevObj, bankInfo: errors}));
         }
     };
 
@@ -177,7 +179,7 @@ const ClubEditPage = ({
             clientErrors.email = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({ ...prevObj, email: errors }));
+            setErrors(prevObj => ({...prevObj, email: errors}));
         }
     };
 
@@ -187,7 +189,7 @@ const ClubEditPage = ({
             clientErrors.phone = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({ ...prevObj, phone: errors }));
+            setErrors(prevObj => ({...prevObj, phone: errors}));
         }
     };
 
@@ -197,7 +199,7 @@ const ClubEditPage = ({
             clientErrors.documents = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({ ...prevObj, documents: errors }));
+            setErrors(prevObj => ({...prevObj, documents: errors}));
         }
     };
 
@@ -207,7 +209,7 @@ const ClubEditPage = ({
             clientErrors.socials = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({ ...prevObj, socials: errors }));//подумать, где вызвать
+            setErrors(prevObj => ({...prevObj, socials: errors}));//подумать, где вызвать
         }
     };
 
@@ -271,11 +273,11 @@ const ClubEditPage = ({
 
     return (
         loading
-            ? <Loading />
+            ? <Loading/>
             : error ?
-                <Redirect to="404" /> :
+                <Redirect to="404"/> :
                 <Layout withFilters setNotificationsLength={setNotificationsLength}>
-                    <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
+                    <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
                     <div className='NurseryEdit__wrap'>
                         <Container className='NurseryEdit content'>
                             <aside className='NurseryEdit__left'>
@@ -296,42 +298,36 @@ const ClubEditPage = ({
                                         : clubNav(alias).filter(i => i.id !== 2)}
                                                             notificationsLength={notificationsLength}
                                     />}
-                                    <CopyrightInfo withSocials={true} />
+                                    <CopyrightInfo withSocials={true}/>
                                 </StickyBox>
                             </aside>
-                            {/*<div className="NurseryEdit__right">*/}
-                            {/*    {loading*/}
-                            {/*        ? <Loading />*/}
-                            {/*        : <Form*/}
-                            {/*            {...editForm}*/}
-                            {/*            initialValues={initialValues}*/}
-                            {/*            transformValues={transformValues}*/}
-                            {/*            onSuccess={handleSuccess}*/}
-                            {/*            onError={handleError}*/}
-                            {/*            className="NurseryEdit__form"*/}
-                            {/*            withLoading={true}*/}
-                            {/*        >*/}
-                            {/*            <RenderFields*/}
-                            {/*                isOpenFilters={isOpenFilters}*/}
-                            {/*                setShowFilters={setShowFilters}*/}
-                            {/*                streetTypes={streetTypes}*/}
-                            {/*                houseTypes={houseTypes}*/}
-                            {/*                flatTypes={flatTypes}*/}
-                            {/*                working={working}*/}
-                            {/*                handleError={handleError}*/}
-                            {/*                setWorking={setWorking}*/}
-                            {/*                coOwner={{*/}
-                            {/*                    lastName: initialValues.co_owner_last_name,*/}
-                            {/*                    firstName: initialValues.co_owner_first_name,*/}
-                            {/*                    secondName: initialValues.co_owner_second_name,*/}
-                            {/*                    mail: initialValues.co_owner_mail*/}
-                            {/*                }}*/}
-                            {/*                randomKeyGenerator={randomKeyGenerator}*/}
-                            {/*            />*/}
-                            {/*        </Form>*/}
-                            {/*    }*/}
-                            {/*    {showAlert && <Alert {...showAlert} />}*/}
-                            {/*</div>*/}
+                            <div className="NurseryEdit__right">
+                                    {loading
+                                        ? <Loading />
+                                        : <Form
+                                            //{...editForm}
+                                            // initialValues={initialValues}
+                                            // transformValues={transformValues}
+                                            // onSuccess={handleSuccess}
+                                            // onError={handleError}
+                                            className="NurseryEdit__form"
+                                            withLoading={true}
+                                        >
+                                            <RenderFields
+                                                isOpenFilters={isOpenFilters}
+                                                setShowFilters={setShowFilters}
+                                                //streetTypes={streetTypes}
+                                                //houseTypes={houseTypes}
+                                                //flatTypes={flatTypes}
+                                                //working={working}
+                                                //handleError={handleError}
+                                                //setWorking={setWorking}
+                                                //randomKeyGenerator={randomKeyGenerator}
+                                            />
+                                        </Form>
+                                    }
+                                    {/*{showAlert && <Alert {...showAlert} />}*/}
+                            </div>
                         </Container>
                     </div>
                 </Layout>
@@ -386,7 +382,7 @@ const ClubEditPage = ({
 
 const ClubEdit = props => (
     <AuthOrLogin>
-        <Header />
+        <Header/>
         <ClubEditPage {...props} />
     </AuthOrLogin>
 );
