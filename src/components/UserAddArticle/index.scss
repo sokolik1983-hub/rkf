@@ -284,12 +284,32 @@
 
   &__advert {
     color: #72839C;
+    &.BuySell {
+      display: grid;
+      grid-template-areas:
+            "breed cost puppies"
+            "color sex age";
+      grid-template-columns: 60% 18% 18%;
+      gap: 0 10px;
+      .FormInput__input {
+        padding: 7px 10px 7px 10px !important;
+        &:first-child {
+          padding: 0 !important;
+        }
+      }
+    }
+    /*display: grid;
+    grid-template-areas:
+            "breed cost puppies"
+            "color sex age";
+    grid-template-columns: 60% 20% 20%;
+    gap: 5px;
     .FormInput__input {
       padding: 7px 10px 7px 10px !important;
       &:first-child {
         padding: 0 !important;
       }
-    }
+    }*/
     .ArticleCreateForm {
       &__input-sex {
         width: 130px;
@@ -308,6 +328,28 @@
       }
       &__input-color {
         max-width: 245px;
+      }
+
+      &__input-breed_new {
+        grid-area: breed;
+      }
+      &__input-sex_new {
+        grid-area: sex;
+        & .FormInput__input {
+          padding: 0 !important;
+        }
+      }
+      &__input-color_new {
+        grid-area: color;
+      }
+      &__input-age_new {
+        grid-area: age;
+      }
+      &__input-cost_new {
+        grid-area: cost;
+      }
+      &__input-puppies_new {
+        grid-area: puppies;
       }
     }
     .css-shvkw9-control,

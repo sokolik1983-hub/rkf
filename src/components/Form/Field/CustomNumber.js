@@ -4,14 +4,14 @@ import Error from './Error';
 import Label from './Label';
 
 const CustomNumber = (props) => {
-    const {formik, name, maxLength} = props;
+    const {formik, name, maxLength, cName} = props;
 
     const handleChange = ({ target }) => {
         formik.setFieldValue(name, target.value.replace(/\D/g, ''));
     }
 
     return (
-        <div className={`FormInput${formik.errors[name] ? ' FormInput--error' : ''}`}>
+        <div className={`FormInput${cName ? cName : formik.errors[name] ? ' FormInput--error'  : ''}`}>
             <Label htmlFor={name} label={props.label} />
             <Field
                 value={getIn(formik.values, name)}
