@@ -18,7 +18,6 @@ const getLSRegions = () => {
     const filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
     return filters.regions || [];
 };
-
 const setLSCities = citiesIds => {
     let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
     filters.cities = citiesIds;
@@ -52,7 +51,9 @@ const NewsList = ({isFullDate = true}) => {
 
         await Request({
                 url: `${endpointGetNews}?start_element=
-                ${startElem}${filters.cities.map(id => `&fact_city_ids=${id}`).join('')}
+                ${startElem}
+                ${filters.cities.length > 0 ? filters.cities.map(id => `&fact_city_ids=${id}`).join('') : ''}
+                ${filters.regions.length > 0 ? filters.regions.map(id => `&fact_region_ids=${id}`).join('') : ''}
                 ${filters.activeType ? `&${filters.activeType}=true` : ''}
                 ${filters.isAdvert !== null 
                     ? 
@@ -165,7 +166,6 @@ const NewsList = ({isFullDate = true}) => {
     };
 
     const changeRegionFilter = regionIds => {
-        console.log('regionIds', regionIds)
         setLSRegions(regionIds);
         setNewsFilter({...newsFilter, regions: regionIds});
         setStartElement(1);
