@@ -163,6 +163,11 @@
             display: flex;
             align-items: baseline;
             color: #72839c;
+            .k-i-information {
+                &:before {
+                    content: url("/static/icons/info.svg");
+                }
+            }
             .k-i-track-changes {
                 &:before {
                     content: url("/static/icons/contacts.svg");
@@ -170,7 +175,7 @@
             }
             .k-i-user {
                 &:before {
-                    content: url("/static/icons/shedule.svg");
+                    content: url("/static/icons/schedule.svg");
                 }
             }
             .k-i-trash {
@@ -183,13 +188,16 @@
                 height: 18px;
                 position: relative;
                 top: 2px;
-                font-size: 20px;
+                font-size: 18px;
             }
             &:hover {
                 color: #3366ff;
                 transition: all 0.2s linear;
+                .k-i-information {
+                    content: url("/static/icons/info-blue.svg");
+                }
                 & .k-i-user {
-                    content: url("/static/icons/shedule-blue.svg");
+                    content: url("/static/icons/schedule-blue.svg");
                 }
                 & .k-i-track-changes {
                     content: url("/static/icons/contacts-blue.svg");
@@ -201,8 +209,11 @@
 
             &.active {
                 color: #3366ff;
+                .k-i-information {
+                    content: url("/static/icons/info-blue.svg");
+                }
                 & .k-i-user {
-                    content: url("/static/icons/shedule-blue.svg");
+                    content: url("/static/icons/schedule-blue.svg");
                 }
                 & .k-i-track-changes {
                     content: url("/static/icons/contacts-blue.svg");
