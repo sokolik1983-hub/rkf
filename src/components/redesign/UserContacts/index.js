@@ -224,12 +224,13 @@ const UserContacts = ({
                     </div>
                 }
             </Collapse>
-            {!!counters &&
-                <Counter counters = {counters} profileAlias = {profileAlias}/>
-            }
             {!isHidden &&
                 <a className={`user-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>
             }
+            {!!counters &&
+                <Counter counters = {counters} profileAlias = {profileAlias}/>
+            }
+
         </Card>
     );
 };
