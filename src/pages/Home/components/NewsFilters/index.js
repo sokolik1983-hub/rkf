@@ -22,7 +22,6 @@ const NewsFilters = ({
     isOpenFilters,
     regions
 }) => {
-    console.log('newsFilter', newsFilter);
     return (
         <aside className={`news-filters${isOpenFilters ? ' _open' : ''}`}>
             <ClickGuard

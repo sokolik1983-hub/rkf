@@ -14,6 +14,10 @@ const getLSCities = () => {
     const filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
     return filters.cities || [];
 };
+const getLSRegions = () => {
+    const filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
+    return filters.regions || [];
+};
 
 const setLSCities = citiesIds => {
     let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
@@ -38,6 +42,7 @@ const NewsList = ({isFullDate = true}) => {
     const [hasMore, setHasMore] = useState(true);
     const [newsFilter, setNewsFilter] = useState({
         cities: getLSCities(),
+        regions: getLSRegions(),
         activeType: null,
         isAdvert: null
     });
@@ -160,6 +165,7 @@ const NewsList = ({isFullDate = true}) => {
     };
 
     const changeRegionFilter = regionIds => {
+        console.log('regionIds', regionIds)
         setLSRegions(regionIds);
         setNewsFilter({...newsFilter, regions: regionIds});
         setStartElement(1);
