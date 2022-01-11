@@ -32,6 +32,10 @@
             padding: 10px !important;
         }
         .user-header {
+            padding: 0!important;
+            &__content {
+                padding: 10px;
+            }
             &__container {
                 display: flex;
                 width: 100%;
@@ -45,13 +49,13 @@
                 align-items: normal;
             }
             &__logo-wrap {
-                padding: 35px 16px;
+                padding: 10px;
             }
             &__logo {
                 width: 100%;
                 min-width: 162px;
-                height: 190px;
-                margin: 10px auto 20px;
+                height: 158px;
+                margin: auto;
                 background-repeat: no-repeat;
                 background-position: 50%;
                 background-size: contain;
