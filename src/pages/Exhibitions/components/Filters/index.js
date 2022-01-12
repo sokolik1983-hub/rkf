@@ -48,8 +48,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
     const [range_clicked, setRangeClicked] = useState(false);
     const isMobile = useIsMobile(1080);
 
-    console.log('currentExhibCities', currentExhibCities);
-
     useEffect(() => {
         Promise.all([
             PromiseRequest({ url: `${endpointExhibitionsFilters}${filters.Alias ? '?Alias=' + filters.Alias : ''}` }),
