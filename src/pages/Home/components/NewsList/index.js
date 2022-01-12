@@ -4,7 +4,7 @@ import Loading from "../../../../components/Loading";
 import CardNewsNew from "../../../../components/CardNewsNew";
 import NewsFilters from "../NewsFilters";
 import PublicationFilter from "./PublicationFilter";
-import {endpointGetNews} from "../../config";
+import {endpointGetNews, endpointNewsCity} from "../../config";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import "./index.scss";
@@ -172,9 +172,20 @@ const NewsList = ({isFullDate = true}) => {
         (() => getNews(1, {...newsFilter, regions: regionIds}))();
     };
 
+    useEffect(() => {
+        const currentRegions = getLSRegions();
+        (() => Request({
+            url: `${endpointNewsCity}?${currentRegions.map(reg => `regionIds=${reg}`).join('&')}`
+        }, data => {
+            setCities(data);
+        },error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        }))();
+    }, [newsFilter.regions])
+
     return (
         <div className="NewsList">
-            {news && !!news.length &&
                 <InfiniteScroll
                     dataLength={news.length}
                     next={getNextNews}
@@ -217,13 +228,6 @@ const NewsList = ({isFullDate = true}) => {
                         ))}
                     </ul>
                 </InfiniteScroll>
-            }
-            {(!news || !news.length) && !newsLoading &&
-                <div className="NewsList__no-news">
-                    <h4>Публикации не найдены</h4>
-                    <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены"/>
-                </div>
-            }
             <NewsFilters
                 loading={filtersLoading}
                 cities={cities}

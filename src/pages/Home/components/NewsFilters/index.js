@@ -9,8 +9,6 @@ import RegionsFilter from "../../../../components/Filters/RegionsFilter";
 
 import "./index.scss";
 
-
-
 const NewsFilters = ({
     loading,
     cities,
