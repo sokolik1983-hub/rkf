@@ -28,7 +28,7 @@ import {
 import {getEmptyFilters, setFiltersToUrl} from "../../utils";
 import "./index.scss";
 import RegionsFilter from "../../../../components/Filters/RegionsFilter";
-import {getInitialFilters} from "../../../Specialists/utils";
+
 
 
 
@@ -42,7 +42,8 @@ const Filters = ({
     active_member,
     active_rkf_user,
     isOpenFilters,
-    filtersValue
+    filtersValue,
+    region_ids,
 }) => {
     const [loading, setLoading] = useState(true);
     const [federations, setFederations] = useState([]);
@@ -95,7 +96,6 @@ const Filters = ({
         });
     };
 
-
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -119,6 +119,17 @@ const Filters = ({
             setLoading(false);
         })();
     }, [organization_type]);
+
+    useEffect(() => {
+        (() => Request({
+            url: `${endpointGetClubsCities}?${region_ids.map(reg => `regionIds=${reg}`).join('&')}`
+        }, data => {
+            setCities(data);
+        },error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        }))();
+    }, [region_ids]);
 
     return (
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
