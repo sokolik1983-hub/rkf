@@ -7,6 +7,8 @@ import {endpointUrl, defaultReduxKey} from "./config";
 import injectReducer from "../../../../utils/injectReducer";
 import reducer from "./reducer";
 
+import './style.scss'
+
 
 const ClientLegalInfoProxy = ({legal_information_id, getLegalInfoSuccess, bindSubmitForm}) => {
     const url = `${endpointUrl}/${legal_information_id}`;
@@ -20,7 +22,7 @@ const ClientLegalInfoProxy = ({legal_information_id, getLegalInfoSuccess, bindSu
     useResourceAndStoreToRedux(url, getLegalInfoSuccess);
 
     return (
-        <div>
+        <div className='LegalInfo__wrap'>
             <h3>Юридическая информация</h3>
             <UpdateLegalInfoForm bindSubmitForm={bindSubmitForm}/>
         </div>

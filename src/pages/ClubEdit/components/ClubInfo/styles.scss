@@ -1,21 +1,67 @@
-.ClientClubInfo {
-  display: flex;
-  .FormInput textarea {
-    resize: vertical;
-  }
-  .FormGroup > span {
-    align-self: center;
-    margin-top: 32px;
-    margin-right: 16px;
-    font-weight: 400;
-  }
-  .alias-name {
-    max-width: 100%;
-    overflow: hidden;
-  }
-}
 .ClientClubAlias {
-  ul {
-    list-style: none;
-  }
+    .FormInput {
+        display: grid;
+        grid-template-columns: 115px 100fr;
+        grid-template-rows: 38px 38px;
+        gap: 10px;
+        row-gap: 0;
+
+        label[for="alias_name"] {
+            grid-row: 2 / 3;
+            grid-column: 1 / 2;
+            margin: auto 0;
+            font-size: 0;
+            line-height: 16px;
+            text-align: right;
+            color: #253C5E;
+
+            &:before {
+                content: "Адрес страницы";
+                font-size: 16px;
+            }
+
+        }
+
+        ul {
+            list-style: none;
+            grid-row: 1 / 2;
+            grid-column: 2 / 3;
+            &:after {
+                content: "(допускаются цифры, латинские буквы и нижнее подчеркивание)";
+                position: relative;
+                top: 40px;
+                font-size: 14px;
+            }
+        }
+
+        input {
+            grid-row: 2 / 3;
+            grid-column: 2 / 3;
+        }
+    }
+}
+.ClientClubInfo {
+    .FormInput {
+        display: grid;
+        grid-template-columns: 115px 100fr;
+        gap: 10px;
+        align-items: center;
+        margin: 0 0 20px 0;
+        padding: 0;
+        input {
+            width: 100%;
+            padding: 5px 10px;
+        }
+        label {
+            padding: 0;
+            margin: 0;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: right;
+            color: #253C5E;
+            &[for="description"] {
+                margin-bottom: 100%;
+            }
+        }
+    }
 }

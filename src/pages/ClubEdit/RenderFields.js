@@ -1,9 +1,15 @@
 import React, {useState} from 'react';
-import {connect} from "formik";
+import {connect} from 'formik';
 import Card from '../../components/Card';
-import StickyBox from "react-sticky-box";
+import StickyBox from 'react-sticky-box';
 import {editForm, sections} from './config';
-import ClubInfo from "./components/ClubInfo";
+import ClubInfo from './components/ClubInfo';
+import ClubSchedule from './components/ClubSchedule';
+import ClubLegalInfo from './components/ClubLegalInfo';
+import ClubBankInfo from './components/ClubBankInfo';
+import ClubContacts from './components/ClubContacts';
+import ClubDocuments from './components/ClubDocuments';
+import ClubSocial from './components/ClubSocial';
 
 
 const RenderFields = ({
@@ -11,7 +17,6 @@ const RenderFields = ({
                           setShowFilters,
                           formik,
                           working,
-                          coOwner,
                           randomKeyGenerator,
                       }) => {
     const [activeSection, setActiveSection] = useState(0);
@@ -24,7 +29,7 @@ const RenderFields = ({
     const renderSection = (section) => {
         switch (section) {
             case 0:
-                return <Card>
+                return <Card className='MainInfo'>
                     <h3>Основная информация</h3>
                     <a className="support-link"
                        href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
@@ -33,34 +38,43 @@ const RenderFields = ({
                     >Инструкция по редактированию профиля
                     </a>
                     {/*<FormField {...alias} />*/}
-                    <div className="ClubEdit__main-info">
                         <ClubInfo
                             // bindSubmitClubAlias={bindSubmitClubAlias}
                             // bindSubmitClubInfo={bindSubmitClubInfo}
                             // isFederation={is_federation}
                         />
-                    </div>
+                        <ClubDocuments
+                            // bindSubmitForm={bindSubmitClubDocuments}
+                        />
                 </Card>;
             case 1:
-                return <Card>
+                return <Card className='Contacts'>
                     <h3>Контакты</h3>
-                    <div className="ClubEdit__contacts">
-                    </div>
+                        <ClubContacts
+                            // bindSubmitClubEmail={bindSubmitClubEmail}
+                            // bindSubmitClubPhone={bindSubmitClubPhone}
+                        />
+                        {/*<ClubSocial*/}
+                        {/*    // bindSubmitForm={bindSubmitClubSocials}*/}
+                        {/*/>*/}
                 </Card>;
             case 2:
-                return <Card>
-                    <h3>График работы</h3>
-                    {/*<Schedule work_time={work_time} />*/}
+                return <Card className='Schedule'>
+                    <ClubSchedule
+                        // bindSubmitForm={bindSubmitClubSchedule}
+                    />
                 </Card>;
             case 3:
-                return <Card>
-                    <h3>Юридическая информация</h3>
-
+                return <Card className='LegalInfo'>
+                    <ClubLegalInfo
+                        // bindSubmitForm={bindSubmitClubLegalInfo}
+                    />
                 </Card>;
             case 4:
-                return <Card>
-                    <h3>Банковская информация</h3>
-
+                return <Card className='BankInfo'>
+                    <ClubBankInfo
+                        // bindSubmitForm={bindSubmitClubBankInfo}
+                    />
                 </Card>;
             case 5:
                 return <Card>

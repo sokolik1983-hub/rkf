@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Form, FormField, FormGroup} from "../../../../components/Form";
 import {Request} from "../../../../utils/request";
 import {connectClubScheduleForm} from "../../connectors";
-import "./index.scss";
+
+import "./style.scss";
 
 
 const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
@@ -36,6 +37,7 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
         if (work_time.length) {
             setSelectedDays(work_time.reduce((acc, curr) => [...acc, curr.week_day_id], []));
         }
+        console.log(days)
     }, [work_time, days]);
 
     const handleDayClick = id => {
@@ -113,7 +115,7 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
                     {selectedDays.map(id => (
                         <FormGroup inline key={id}>
                             <span className="club-schedule__form-day">
-                                {days.find(day => day.id === id).short_name}
+                                {days.find(day => day.id === id).name}
                             </span>
                             <FormField
                                 name={`time_from_${id}`}
@@ -123,7 +125,7 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
                             />
                             <FormField
                                 name={`time_to_${id}`}
-                                label="Время работы до"
+                                label="до"
                                 type="time"
                                 validate={handleValidate}
                             />
