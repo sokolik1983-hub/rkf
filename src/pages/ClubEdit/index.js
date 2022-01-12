@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {withRouter} from "react-router";
 import {compose} from "redux";
-import ClubInfo from "./components/ClubInfo";
+
 import EditPageButtons from "./components/EditPageButtons";
-import ClubHeaderPicture from "./components/ClubHeaderPicture";
 import ClubSchedule from "./components/ClubSchedule";
 import ClubSocial from "./components/ClubSocial";
 import ClubLegalInfo from "./components/ClubLegalInfo";
 import ClubBankInfo from "./components/ClubBankInfo";
 import ClubContacts from "./components/ClubContacts";
 import ClubDocuments from "./components/ClubDocuments";
-import Disclaimer from "../../components/Disclaimer";
 import Card from "../../components/Card";
 import AuthOrLogin from "../Login/components/AuthOrLogin";
 import Header from "../../components/Layouts/Header";
@@ -46,7 +44,6 @@ let unblock;
 
 const ClubEditPage = ({
                           club_alias,
-                          club_id,
                           profile_id,
                           is_federation,
                           is_active_profile,
@@ -56,10 +53,6 @@ const ClubEditPage = ({
                           isOpenFilters,
                           setShowFilters,
                       }) => {
-    console.log('club_id', club_id)
-    console.log('isAuthenticated', isAuthenticated)
-    console.log('is_active_profile', is_active_profile)
-    //Всё это один большой костыль! Предполагается это исправить, когда будет 1 форма вместо 10
     let [serverErrors, setErrors] = useState({});
     let [isSubmit, setIsSubmit] = useState(false);
     let [querysCount, setQuerysCount] = useState(0);
@@ -110,10 +103,6 @@ const ClubEditPage = ({
         // return () => setNeedRequest(true);
     }, [alias]);
 
-    console.log('club', club)
-    console.log('canEdit', canEdit)
-
-
     useEffect(() => {
         unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
         return () => unblock();
@@ -127,10 +116,6 @@ const ClubEditPage = ({
         getErrors: (errors) => {
             setErrors(prevObj => ({...prevObj, alias: errors}));
         }
-    };
-
-    const bindSubmitClubLogo = (submitFormFunction) => {
-        submitClubLogo = submitFormFunction;
     };
 
     const bindSubmitClubInfo = {
@@ -297,77 +282,56 @@ const ClubEditPage = ({
                                     <CopyrightInfo withSocials={true}/>
                                 </StickyBox>
                             </aside>
-                            <div className="ClubEdit__right">
-                                {loading
-                                    ? <Loading/>
-                                    : <Form
-                                        //{...editForm}
-                                        // initialValues={initialValues}
-                                        // transformValues={transformValues}
-                                        // onSuccess={handleSuccess}
-                                        // onError={handleError}
-                                        className="ClubEdit__form"
-                                        withLoading={true}
-                                    >
-                                        <RenderFields
-                                            isOpenFilters={isOpenFilters}
-                                            setShowFilters={setShowFilters}
-                                            //streetTypes={streetTypes}
-                                            //houseTypes={houseTypes}
-                                            //flatTypes={flatTypes}
-                                            //working={working}
-                                            //handleError={handleError}
-                                            //setWorking={setWorking}
-                                            //randomKeyGenerator={randomKeyGenerator}
-                                        />
-                                    </Form>
-                                }
+                            <div className="ClubEdit__inner-left">
+                                {/*<Form*/}
+                                {/*    //{...editForm}*/}
+                                {/*    // initialValues={initialValues}*/}
+                                {/*    // transformValues={transformValues}*/}
+                                {/*    // onSuccess={handleSuccess}*/}
+                                {/*    // onError={handleError}*/}
+                                {/*    className="ClubEdit__form"*/}
+                                {/*    withLoading={true}*/}
+                                {/*>*/}
+                                    <RenderFields
+                                        isOpenFilters={isOpenFilters}
+                                        setShowFilters={setShowFilters}
+                                        //streetTypes={streetTypes}
+                                        //houseTypes={houseTypes}
+                                        //flatTypes={flatTypes}
+                                        //working={working}
+                                        //handleError={handleError}
+                                        //setWorking={setWorking}
+                                        //randomKeyGenerator={randomKeyGenerator}
+                                    />
+                                {/*</Form>*/}
                                 {/*{showAlert && <Alert {...showAlert} />}*/}
-                                {loading
-                                    ? <Loading/>
-                                    : <div>
-                                        <h2>Личный кабинет</h2>
-                                        <Disclaimer>
-                                            <a className="Disclaimer__support-link"
-                                               href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
-                                               target="_blank"
-                                               rel="noopener noreferrer">
-                                                Инструкция по редактированию профиля
-                                            </a>
-                                        </Disclaimer>
-                                        <Card className="ClubEditPage__about">
-                                            <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
-                                                      // bindSubmitClubLogo={bindSubmitClubLogo}
-                                                      bindSubmitClubInfo={bindSubmitClubInfo}
-                                                      isFederation={is_federation}
-                                            />
-                                        </Card>
-                                        {/*<Card className="ClubEditPage__schedule">*/}
-                                        {/*    <ClubSchedule bindSubmitForm={bindSubmitClubSchedule}/>*/}
-                                        {/*</Card>*/}
-                                        <Card className="ClubEditPage__legal">
-                                            <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo}/>
-                                        </Card>
-                                        <Card className="ClubEditPage__bank">
-                                            <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo}/>
-                                        </Card>
-                                        <Card className="ClubEditPage__contacts">
-                                            <h3>Контакты</h3>
-                                            <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
-                                                          bindSubmitClubPhone={bindSubmitClubPhone}
-                                            />
-                                        </Card>
-                                        <Card className="ClubEditPage__documents">
-                                            <h3>Ссылки на документы</h3>
-                                            <ClubDocuments bindSubmitForm={bindSubmitClubDocuments}/>
-                                        </Card>
-                                        <Card className="ClubEditPage__socials">
-                                            <h3>Социальные сети</h3>
-                                            <ClubSocial bindSubmitForm={bindSubmitClubSocials}/>
-                                        </Card>
-                                        <EditPageButtons handleSubmitForms={handleSubmitForms}/>
-                                    </div>
-                                }
+                                <Card className="ClubEditPage__about">
+
+                                </Card>
+                                {/*<Card className="ClubEditPage__schedule">*/}
+                                {/*    <ClubSchedule bindSubmitForm={bindSubmitClubSchedule}/>*/}
+                                {/*</Card>*/}
+                                <Card className="ClubEditPage__legal">
+                                    <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo}/>
+                                </Card>
+                                <Card className="ClubEditPage__bank">
+                                    <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo}/>
+                                </Card>
+                                <Card className="ClubEditPage__contacts">
+                                    <h3>Контакты</h3>
+                                    <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
+                                                  bindSubmitClubPhone={bindSubmitClubPhone}
+                                    />
+                                </Card>
+                                <Card className="ClubEditPage__documents">
+                                    <h3>Ссылки на документы</h3>
+                                    <ClubDocuments bindSubmitForm={bindSubmitClubDocuments}/>
+                                </Card>
+                                <Card className="ClubEditPage__socials">
+                                    <h3>Социальные сети</h3>
+                                    <ClubSocial bindSubmitForm={bindSubmitClubSocials}/>
+                                </Card>
+                                <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                             </div>
                         </Container>
                     </div>
@@ -430,4 +394,4 @@ const ClubEdit = props => (
 
 // const withReducer = injectReducer({ key: defaultReduxKey, reducer: reducer });
 
-export default compose( /*withRouter, withReducer,*/ connectClientClubAlias)(React.memo(connectShowFilters(connectAuthVisible(/*ClubEditPage*/ClubEdit))));
+export default compose(withRouter, /*withReducer,*/ connectClientClubAlias)(React.memo(connectShowFilters(connectAuthVisible(/*ClubEditPage*/ClubEdit))));

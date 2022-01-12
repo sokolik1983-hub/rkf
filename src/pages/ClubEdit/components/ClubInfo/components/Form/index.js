@@ -23,8 +23,7 @@ const ClubInfoForm = ({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) => {
     };
 
     return (
-        <div style={{flex: 2}}>
-            <h3>Общая информация</h3>
+        <div>
             <Form
                 method={"PUT"}
                 action={'/api/Club'}
