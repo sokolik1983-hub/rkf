@@ -466,8 +466,18 @@
           margin-left: 10px;
         }
         a {
+          padding-left: 40px;
           span {
             margin-left: 2px;
+          }
+          &::before {
+            content: '';
+            background: url("/static/icons/icon-rkfabout.svg") no-repeat center/cover;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: 12px;
+            background-size: cover;
           }
         }
 
@@ -489,7 +499,6 @@
           }
         }
         @media (max-width: 1080px) {
-          //flex-direction: column;
           padding: 10px 10px;
           white-space: nowrap;
           border-left: 2px solid transparent;
@@ -698,7 +707,6 @@
           }
 
         }
-        //display: none;
         span {
           position: relative;
           font-size: 13px;
@@ -769,9 +777,6 @@
       font-size: 13px;
       line-height: 16px;
     }
-    // @media (max-width: 1079px) {
-    //   top: -2px;
-    // }
     @media (max-width: 1079px) {
       top: -2px;
       margin-left: 0;
@@ -1041,9 +1046,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    @media (max-width: 1080px) {
-      //margin-left: -5px;
-    }
     & span {
       vertical-align: middle;
       padding-top: 4px;
@@ -1178,7 +1180,6 @@
           }
 
           &.rkf-org {
-            // border-top: 1px solid #e8e8e8;
             a:before {
               content: '';
               background: url("/static/icons/icon-rkforg.svg") no-repeat center/cover;
