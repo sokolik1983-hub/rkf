@@ -83,9 +83,9 @@ const ExhibitionsComponent = ({ alias }) => {
                         : <ExhibitionCard isOne={exhibitions.length === 1} key={exhibition.id} {...exhibition} />) :
                     Placeholders.map(item => <Placeholder key={item} />)
                 }
-                {/*{alias && needBlock &&*/}
-                {/*    <div className="exhibition-card__additional-block" />*/}
-                {/*}*/}
+                {alias && needBlock &&
+                    <div className="exhibition-card__additional-block" />
+                }
                 {!alias && exhibitions &&
                     <div className="exhibition-card exhibitions-homepage__show-more">
                         <img src="static/images/homepage/show-more.png" alt="" />
