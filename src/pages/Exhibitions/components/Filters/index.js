@@ -96,14 +96,16 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
     };
 
     useEffect(() => {
-        (() => Request({
-            url: `${endpointExhibitionsFilters}?${currentExhibCities.map(reg => `RegionIds=${reg}`).join('&')}`
-        }, data => {
-            setExhibitionCities(data.cities);
-        },error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-        }))();
+        if(currentExhibCities && currentExhibCities.length > 0){
+            (() => Request({
+                url: `${endpointExhibitionsFilters}?${currentExhibCities.map(reg => `RegionIds=${reg}`).join('&')}`
+            }, data => {
+                setExhibitionCities(data.cities);
+            },error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+            }))();
+        }
     }, [currentExhibCities]);
 
     return (
