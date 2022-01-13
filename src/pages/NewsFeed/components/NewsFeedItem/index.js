@@ -71,7 +71,7 @@ const NewsFeedItem = forwardRef(({
     unsetCheckedAll,
     isControlCheckedAll,
     clearChecks,
-}) => {
+}, NewsFeedItemRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);

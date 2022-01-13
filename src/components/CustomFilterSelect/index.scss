@@ -47,6 +47,7 @@
     color: #ccc;
   }
   &__values {
+    display: block!important;
     list-style: none;
     margin-top: 8px;
     &-item {
