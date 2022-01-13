@@ -26,7 +26,7 @@
       height: 20px;
       left: 0;
       top: 2px;
-      background: url("/static/icons/pin-gray.svg") no-repeat center / contain;
+      background: url("/static/icons/pin-gray-thin.svg") no-repeat center / contain;
     }
   }
   &__disabled {
@@ -63,9 +63,7 @@
     &._describe {
       display: block;
       &:before {
-        width: 26px;
-        height: 18px;
-        background: url("/static/icons/icon-about.svg") no-repeat center / contain;
+        background: url("/static/icons/icon-about2.svg") no-repeat center / contain;
       }
       & > *:last-child {
         display: block;
