@@ -68,7 +68,7 @@ const CardNewsNew = forwardRef(({
     isFederation,
     is_halfbreed,
     is_all_cities
-}) => {
+}, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
