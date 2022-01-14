@@ -131,8 +131,7 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                     <p>Метрика щенка автоматически формируется на основании данных, указанных при регистрации помета. Формирование документа на основании данных, предоставленных другой кинологической организацией может быть реализован посредством ввода кода клейма собаки. ФИО владельца собаки могут быть указаны заявителем в разделе редактирования метрики щенка.</p>
                     <hr />
                     <div className="Card__links">
-                        {/* <Link to={`/${clubAlias}/documents/puppy/metrics`}>Реестр метрик</Link> */}
-                        <span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>
+                         <Link to={`/club/${clubAlias}/documents/puppy/metrics`}>Реестр метрик</Link>
                     </div>
                 </Card>
                 <Card className={statusAllLinks ? `` : `_inactive`}>

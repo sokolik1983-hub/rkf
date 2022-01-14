@@ -105,12 +105,7 @@ const CardOrganization = ({
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
 
                                             <span>
-                                                { owner_name ?
-                                                    url ?
-                                                        <Link to={ url }>{ owner_name }</Link> :
-                                                        owner_name :
-                                                    'Не указано'
-                                                }
+                                                { owner_name || 'Не указано' }
                                             </span>
                                         </div>
 
@@ -198,12 +193,7 @@ const CardOrganization = ({
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
 
                                             <span>
-                                                { owner_name ?
-                                                    url ?
-                                                        <Link to={ url }>{ owner_name }</Link> :
-                                                        owner_name :
-                                                    'Не указано'
-                                                }
+                                                { owner_name || 'Не указано' }
                                             </span>
                                         </div>
 

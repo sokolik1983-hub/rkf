@@ -1,15 +1,29 @@
-.map-page__left {
+.map-page__right {
   display: flex;
   position: absolute;
+  width: auto;
   top: 55px;
-  left: 0;
+  right: 0;
   z-index: 1;
 }
-.Card {
-  .custom-select__values {
-    display: none;
+
+.map-page__filters .custom-select {
+  @media (max-width: 1079px) {
+    width: 228px;
+  }
+}
+.map-page__filters {
+  .Card {
+    .custom-select__values {
+      display: none;
+    }
   }
 }
 .regions-filter {
-     margin-bottom: -5px;
+  margin-bottom: -5px;
+  &__title {
+    @media (max-width: 1079px) {
+      padding-right: 5px;
+    }
+  }
 }

@@ -6,6 +6,7 @@ import getYoutubeTitle from 'get-youtube-title';
 import { PromiseRequest } from 'utils/request';
 import { DEFAULT_IMG } from "../../appConfig";
 import getYouTubeID from 'get-youtube-id';
+import {blockContent} from "../../utils/blockContent";
 import './styles.scss';
 
 const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, handleDeleteVideo, handleError, canEdit, alias, isClub = false }) => {
@@ -15,6 +16,13 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
     const handleAddVideo = () => {
         setShowModal({ type: 'addVideo' });
     }
+
+    const onModalClose = (e) => {
+        if (showModal && (!e.target.closest('.Alert'))) {
+            setShowModal(false);
+            blockContent(false);
+        }
+    };
 
     const onVideoAddSuccess = link => {
         const id = getYouTubeID(link);
@@ -74,7 +82,7 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
             }
         </div>
         {showModal && showModal.type === 'addVideo' &&
-            <AddVideoModal showModal={showModal} setShowModal={setShowModal} onSuccess={onVideoAddSuccess} />
+            <AddVideoModal showModal={showModal} setShowModal={setShowModal} onSuccess={onVideoAddSuccess} onModalClose={onModalClose}/>
         }
         {showModal && showModal.type === 'openVideo' &&
             <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">

@@ -201,24 +201,36 @@
     }
     &__inner-right .Card {
         .UserEdit__inner-item.active {
+            .k-i-information::before {
+                content: url('/static/icons/information2-blue.svg');
+            }
             .k-i-track-changes::before {
-                content: url('/static/icons/vector-blue.svg');
+                content: url('/static/icons/vector2-blue.svg');
             }
             .k-i-lock::before {
-                content: url('/static/icons/security-blue.svg');
+                content: url('/static/icons/security2-blue.svg');
             }
             .k-i-trash::before {
-                content: url('/static/icons/trash-blue.svg');
+                content: url('/static/icons/trash2-blue.svg');
+            }
+            .k-i-user::before {
+                content: url('/static/icons/user2-blue.svg');
             }
         }
+        .k-i-information::before {
+            content: url('/static/icons/information2.svg');
+        }
         .k-i-track-changes::before {
-            content: url('/static/icons/vector.svg');
+            content: url('/static/icons/vector2.svg');
         }
         .k-i-lock::before {
-            content: url('/static/icons/security.svg');
+            content: url('/static/icons/security2.svg');
         }
         .k-i-trash::before {
-            content: url('/static/icons/trash.svg');
+            content: url('/static/icons/trash2.svg');
+        }
+        .k-i-user::before {
+            content: url('/static/icons/user2.svg');
         }
     }
 }

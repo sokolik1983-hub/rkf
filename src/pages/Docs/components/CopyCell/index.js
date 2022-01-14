@@ -19,8 +19,24 @@ const CopyCell = ({ dataItem }, callback) => {
                 });
         }
     };
+
     return <td style={{ padding: '0.75rem 5px', textAlign: 'center' }}>
-        {dataItem.barcode && <div className="CopyCell">
+        {dataItem.request_barcode ? <div className="CopyCell">
+            <LightTooltip title="Копировать трек-номер" enterDelay={200} leaveDelay={200}>
+                <button
+                    style={{ display: 'block' }}
+                    className="CopyCell__btn"
+                    type="button"
+                    onClick={() => handleCopyBarcode(dataItem.request_barcode)}
+                >
+                    {dataItem.request_barcode}
+                </button>
+            </LightTooltip>
+        </div>
+
+        :
+
+        <div className="CopyCell">
             <LightTooltip title="Копировать трек-номер" enterDelay={200} leaveDelay={200}>
                 <button
                     style={{ display: 'block' }}
@@ -31,7 +47,8 @@ const CopyCell = ({ dataItem }, callback) => {
                     {dataItem.barcode}
                 </button>
             </LightTooltip>
-        </div>}
+        </div>
+        }
     </td>
 };
 

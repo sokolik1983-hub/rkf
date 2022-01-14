@@ -271,3 +271,9 @@ export const LoadableNurseryUploadedDocuments = Loadable({
     loader: () => import('./pages/NurseryUploadedDocuments'),
     loading: Loading
 });
+
+
+export const LoadableMetricsDocPage = Loadable({
+    loader: () => import('./pages/MetricsDocPage'),
+    loading: Loading
+});

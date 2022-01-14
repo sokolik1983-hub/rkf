@@ -1,131 +1,111 @@
-import React, {PureComponent} from "react";
-import {compose} from "redux";
-import {orderBy} from "lodash";
-import * as Table from "reactabular-table";
-import * as sort from "sortabular";
-import * as search from "searchtabular";
-import * as resolve from "table-resolver";
-import PrimaryControls from "../PrimaryControls";
-import {paginate, Paginator} from "../Pagination";
-import Modal from "../../../../../../components/Modal";
-import AddOwnerForm from "../AddOwnerForm";
-import {getTableColumns} from "./config";
+import React, { useState, useRef, useEffect } from 'react';
+import { process } from '@progress/kendo-data-query';
+import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
+import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
+import kendoMessages from 'kendoMessages.json';
+import CopyCell from '../../../CopyCell';
+import PdfLinkCell from "../PdfLinkCell";
+
 import "./index.scss";
 
+loadMessages(kendoMessages, 'ru-RU');
 
-class PuppiesTable extends PureComponent {
-    state = {
-        searchQuery: {},
-        searchColumn: 'all',
-        sortingColumns: null,
-        pagination: {page: 1, perPage: 50},
-        clubAlias: this.props.clubAlias,
-        rows: this.props.puppies,
-        columns: null,
-        showModal: false,
-        puppyId: null
-    };
 
-    componentDidMount() {
-        this.setState({columns: this.getColumns()});
-    };
+const ColumnMenu = (props) => {
+    return <div>
+        <GridColumnMenuFilter {...props} expanded={true} />
+    </div>
+};
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({rows: nextProps.puppies});
-    };
 
-    getColumns = () => {
-        const sortable = sort.sort({
-            getSortingColumns: () => this.state.sortingColumns || [],
-            onSort: selectedColumn => this.setState({
-                sortingColumns: sort.byColumn({
-                    sortingColumns: this.state.sortingColumns,
-                    selectedColumn
-                })
-            }),
-            strategy: sort.strategies.byProperty
-        });
+const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
+    const [success, setSuccess] = useState(false);
+    const [gridData, setGridData] = useState({
+        skip: 0, take: 50,
+        sort: []
+    });
 
-        return getTableColumns(this.state.sortingColumns, sortable, this.state.clubAlias, data => this.setState(data));
-    };
+    const tableRef = useRef();
 
-    onSelect = page => {
-        const pages = Math.ceil(this.state.rows.length / this.state.pagination.perPage);
-
-        this.setState({ pagination: { ...this.state.pagination, page: Math.min(Math.max(page, 1), pages) } });
-    };
-
-    onPerPage = value => this.setState({pagination: {...this.state.pagination, perPage: parseInt(value, 10) || 5}});
-
-    onColumnChange = searchColumn => this.setState({searchColumn});
-
-    onSearch = query => this.setState({searchQuery: query});
-
-    render() {
-        const {columns, rows, sortingColumns, pagination, searchQuery, searchColumn} = this.state;
-
-        if (!columns) return null;
-
-        const sortedRows = sort.sorter({
-            columns: columns,
-            sortingColumns: sortingColumns,
-            sort: orderBy,
-            strategy: sort.strategies.byProperty
-        })(rows);
-
-        const paginated = compose(
-            paginate(pagination),
-            search.highlighter({columns: columns, matches: search.matches, query: searchQuery}),
-            search.multipleColumns({columns: columns, query: searchQuery}),
-            resolve.resolve({
-                columns: columns,
-                method: (extra) => compose(
-                    resolve.byFunction('cell.resolve')(extra),
-                    resolve.nested(extra)
-                )
-            })
-        )(sortedRows);
-
-        return (
-            <>
-                <PrimaryControls
-                    className="puppies-table__controls"
-                    perPage={pagination.perPage}
-                    column={searchColumn}
-                    query={searchQuery}
-                    columns={columns}
-                    rows={paginated.rows}
-                    onPerPage={this.onPerPage}
-                    onColumnChange={this.onColumnChange}
-                    onSearch={this.onSearch}
-                />
-
-                <Table.Provider className="puppies-table__table" columns={columns}>
-                    <Table.Header headerRows={resolve.headerRows({columns: columns})} />
-                    <Table.Body rows={paginated.rows} rowKey="id" />
-                </Table.Provider>
-
-                <Paginator
-                    className="puppies-table__pagination"
-                    pagination={pagination}
-                    pages={paginated.amount}
-                    onSelect={this.onSelect}
-                />
-
-                {this.state.showModal &&
-                    <Modal
-                        showModal={this.state.showModal}
-                        handleClose={() => this.setState({showModal: false})}
-                        noBackdrop={true}
-                        hideCloseButton={true}
-                        className="puppies-table__modal"
-                    >
-                        <AddOwnerForm puppyId={this.state.puppyId} setState={data => this.setState(data)}/>
-                    </Modal>
-                }
-            </>
-        )
+    const handleGridDataChange = (e) => {
+        setGridData(e.data);
     }
-}
 
-export default PuppiesTable;
+    const handleSuccess = (message) => {
+        setSuccess({ status: true, message: message });
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+    };
+
+    const rowRender = (trElement, props) => {
+
+        const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
+
+        const trProps = { style:  in_work };
+        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+    };
+
+    const handleOnPdfLoading = (action) => {
+        action === 'add class' ?
+            tableRef.current.classList.add('disabled') :
+            tableRef.current.classList.remove('disabled');
+    }
+
+    return (
+        <div className="App">
+            <LocalizationProvider language="ru-RU">
+                <IntlProvider locale={'ru'}>
+                    <div className={`chip-list__wrap _registry-wrap ${fullScreen ? `_full-registry-wrap` : ``}`}>
+
+                    </div>
+                    {
+                        documents &&
+                            <div className="metrics-table" ref={tableRef}>
+                                <Grid
+                                    data={process(documents, gridData)}
+                                    rowRender={rowRender}
+                                    pageable
+                                    sortable
+                                    resizable
+                                    {...gridData}
+                                    onDataStateChange={handleGridDataChange}
+                                    style={{ height: height ? height : "700px", width: "auto", margin: "0 auto" }}
+                                    >
+
+                                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '90px' : '80px'}
+                                                columnMenu={ColumnMenu} />
+
+
+                                    <GridColumn field="barcode" title="Номер метрики щенка"
+                                                width={'110px'} columnMenu={ColumnMenu}
+                                                 />
+
+                                    <GridColumn field="request_barcode" title="Трек-номер заявки на регистрацию помета"
+                                                width={'120px'} columnMenu={ColumnMenu}
+                                                cell={(props) =>  CopyCell(props, handleSuccess)} />
+
+                                    <GridColumn field="dog_name" title="Кличка" width={'70px'}
+                                                columnMenu={ColumnMenu} />
+
+                                    <GridColumn field="stamp" title="Клеймо"
+                                                width={'60px'} columnMenu={ColumnMenu} />
+
+
+                                    <GridColumn width={'60px'}
+                                                field="pedigree_link" title="Ссылка на эл. копию документа"
+                                                columnMenu={ColumnMenu}
+                                                cell={(props) => PdfLinkCell(props, handleOnPdfLoading)}
+                                    />
+                                </Grid>
+
+                            </div>
+                    }
+                </IntlProvider>
+            </LocalizationProvider>
+
+        </div>
+    )
+};
+
+export default Table;

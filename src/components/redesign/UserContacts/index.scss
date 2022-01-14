@@ -61,6 +61,7 @@
       .ReactCollapse--collapse {
         min-height: 175px;
         transition: height 500ms;
+        margin-bottom: -15px;
 
         @media (max-width: 440px) {
           min-height: 115px;
@@ -103,15 +104,15 @@
     }
 
     &-address:before {
-      background-image: url("/static/icons/ico-pointer.svg");
+      background-image: url("/static/icons/ico-pointer2.svg");
     }
 
     &-owner:before {
-      background-image: url("/static/icons/owner.svg");
+      background-image: url("/static/icons/owner2.svg");
     }
 
     &-name:before {
-      background-image: url("/static/icons/icon-name.svg");
+      background-image: url("/static/icons/icon-name2.svg");
       width: 18px;
       height: 18px;
       background-size: contain;
@@ -119,11 +120,11 @@
     }
 
     &-site:before {
-      background-image: url("/static/icons/ico-web.svg");
+      background-image: url("/static/icons/ico-web2.svg");
     }
 
     &-email:not(:empty):before {
-      background-image: url("/static/icons/ico-contact-email.svg");
+      background-image: url("/static/icons/ico-contact-email2.svg");
     }
 
     &-email p,
@@ -136,7 +137,7 @@
     }
 
     &-phone:not(:empty):before {
-      background-image: url("/static/icons/ico-contact-phone.svg");
+      background-image: url("/static/icons/ico-contact-phone2.svg");
     }
 
     &-socials:before {
@@ -194,9 +195,9 @@
       display: block;
       width: 44px;
       height: 40px;
-      position: absolute;
-      right: calc(50% - 22px);
-      bottom: -12px;
+      position: relative;
+      left: calc(50% - 22px);
+      bottom: -20px;
       background: url("/static/images/slider/slider-button.svg") center no-repeat;
       background-size: cover;
       transform: rotate(90deg);
