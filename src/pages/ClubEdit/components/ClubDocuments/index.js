@@ -11,31 +11,24 @@ import reducer from "./reducer";
 
 const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
-    const btnStyle = {
-        display: 'flex',
-        padding: '6px 0',
-        color: '#3366FF',
-        flex: '1 0'
-    };
 
     if (!visibility && bindSubmitForm) {
         bindSubmitForm.submit(null, {});
     }
 
     return (
-        <div>
+        <>
             <ClientDocumentList />
             {visibility &&
                 <ClubDocumentsForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
             }
             <Button
-                style={btnStyle}
-                className="btn-transparent"
+                className={visibility ? 'delete-mini' : "add-mini"}
                 onClick={toggleVisibility}
             >
                 {visibility ? 'Удалить' : '+ Добавить документ'}
             </Button>
-        </div>
+        </>
     )
 };
 

@@ -6,7 +6,7 @@ const {fields} = clubClubDocumentsConfig;
 
 
 const RenderFields = ({isUpdate}) => (
-    <FormGroup inline>
+    <FormGroup className='ClubDocs' inline >
         <FormField {...fields.url} isUrl={true}/>
         <FormField {...fields.name}/>
     </FormGroup>

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {connect} from 'formik';
 import StickyBox from 'react-sticky-box';
 import Card from '../../components/Card';
-import {editForm, sections} from './config';
+import {sections} from './config';
 import ClubInfo from './components/ClubInfo';
 import ClubSchedule from './components/ClubSchedule';
 import ClubLegalInfo from './components/ClubLegalInfo';
@@ -16,18 +16,18 @@ import {SvgSelector} from "./icons";
 
 const RenderFields = ({
         isOpenFilters,
-        setShowFilters,
         is_federation,
-        bindSubmitClubAlias,
+        setShowFilters,
+        handleSubmitForms,
         bindSubmitClubInfo,
+        bindSubmitClubEmail,
+        bindSubmitClubAlias,
+        bindSubmitClubPhone,
+        bindSubmitClubSocials,
+        bindSubmitClubBankInfo,
         bindSubmitClubSchedule,
         bindSubmitClubLegalInfo,
-        bindSubmitClubBankInfo,
-        bindSubmitClubEmail,
-        bindSubmitClubPhone,
         bindSubmitClubDocuments,
-        bindSubmitClubSocials,
-        handleSubmitForms,
 }) => {
     const [activeSection, setActiveSection] = useState(0);
 
@@ -81,6 +81,9 @@ const RenderFields = ({
                     <ClubLegalInfo
                         bindSubmitForm={bindSubmitClubLegalInfo}
                     />
+                    <button className="button-save__disable" disabled="disabled">
+                        Сохранить
+                    </button>
                 </Card>;
             case 4:
                 return <Card className='BankInfo'>
@@ -122,7 +125,6 @@ const RenderFields = ({
                                     key={key}
                                     onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                 >
-                                    {/*<span className={`k-icon k-icon-32 ${sections[type].icon}`}/>*/}
                                     <SvgSelector icon={sections[type].icon} />
                                     <li>{sections[type].name}</li>
                                 </div>

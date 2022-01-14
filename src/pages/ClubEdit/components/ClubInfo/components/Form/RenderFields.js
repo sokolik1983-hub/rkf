@@ -6,23 +6,23 @@ import {clubInfoFormConfig} from "../../config";
 
 const {fields} = clubInfoFormConfig;
 
-// const regexp = RegExp('https?://.*');
+const regexp = RegExp('https?://.*');
 
-// const checkUrl = (e, formik) => {
-//     if (!regexp.test(e.target.value)) {
-//         alert('Адрес сайта должен начинаться с "http://" либо "https://"');
-//         formik.values.site = '';
-//     }
-// };
+const checkUrl = (e, formik) => {
+    if (!regexp.test(e.target.value)) {
+        alert('Адрес сайта должен начинаться с "http://" либо "https://"');
+        formik.values.site = '';
+    }
+};
 
 const RenderFields = ({formik}) => (
         <FormGroup>
             <FormField {...fields.name}/>
             <FormField {...fields.description}/>
+            <FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>
             {/*<h4>Фактический адрес клуба</h4>*/}
             {/*<FormField {...fields.city_id}/>*/}
             {/*<FormField {...fields.address}/>*/}
-            {/*<FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>*/}
         </FormGroup>
 );
 

@@ -2,18 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {withRouter, Redirect} from 'react-router-dom';
 import {compose} from 'redux';
 import StickyBox from 'react-sticky-box';
-// import ClubSchedule from "./components/ClubSchedule";
-// import ClubSocial from "./components/ClubSocial";
-// import ClubLegalInfo from "./components/ClubLegalInfo";
-// import ClubBankInfo from "./components/ClubBankInfo";
-// import ClubContacts from "./components/ClubContacts";
-// import ClubDocuments from "./components/ClubDocuments";
-// import Card from "../../components/Card";
-// import {Form} from '../../components/Form';
 import {defaultReduxKey, endpointUrl} from './config';
 import {connectClientClubAlias} from './connectors';
 import reducer from './reducer';
-// import EditPageButtons from './components/EditPageButtons';
 import UserHeader from './components/UserHeader';
 import RenderFields from './RenderFields'
 import AuthOrLogin from '../Login/components/AuthOrLogin';
@@ -33,34 +24,38 @@ import useIsMobile from '../../utils/useIsMobile';
 import {Request} from '../../utils/request';
 import ls from 'local-storage';
 
-import "./styles.scss";
+import './styles.scss';
 
 
 let unblock;
 
 const ClubEditPage = ({
-          club_alias,
-          profile_id,
-          is_federation,
-          is_active_profile,
-          isAuthenticated,
-          history,
-          getClubSuccess,
-          isOpenFilters,
-          setShowFilters,
+        history,
+        club_alias,
+        profile_id,
+        is_federation,
+        isOpenFilters,
+        getClubSuccess,
+        setShowFilters,
+        isAuthenticated,
+        is_active_profile,
 }) => {
+
+    const [notificationsLength, setNotificationsLength] = useState(0);
+    const [queryCount, setQueryCount] = useState(0);
     const [serverErrors, setErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
-    const [queryCount, setQueryCount] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [canEdit, setCanEdit] = useState(false);
+    const [error, setError] = useState(false);
     const [club, setClub] = useState(null);
 
 
     const isMobile = useIsMobile(1080);
+    const {user_type, alias} = ls.get('user_info') || {};
+    const url = (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? '/club' : ''
 
+    let clientErrors = {};
     let submitClubAlias,
         submitClubInfo,
         submitClubSchedule,
@@ -69,12 +64,7 @@ const ClubEditPage = ({
         submitClubEmail,
         submitClubPhone,
         submitClubDocuments,
-        submitClubSocials
-
-    let clientErrors = {};
-
-    const {user_type, alias} = ls.get('user_info') || {};
-    const url = (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? '/club' : ''
+        submitClubSocials;
 
     useResourceAndStoreToRedux(endpointUrl, getClubSuccess);
 
@@ -274,71 +264,25 @@ const ClubEditPage = ({
                                 </StickyBox>
                             </aside>
                             <div className="ClubEdit__inner-left">
-                                    <RenderFields
-                                        isOpenFilters={isOpenFilters}
-                                        setShowFilters={setShowFilters}
-                                        is_federation={is_federation}
-                                        bindSubmitClubAlias={bindSubmitClubAlias}
-                                        bindSubmitClubInfo={bindSubmitClubInfo}
-                                        bindSubmitClubSchedule={bindSubmitClubSchedule}
-                                        bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
-                                        bindSubmitClubBankInfo={bindSubmitClubBankInfo}
-                                        bindSubmitClubEmail={bindSubmitClubEmail}
-                                        bindSubmitClubPhone={bindSubmitClubPhone}
-                                        bindSubmitClubDocuments={bindSubmitClubDocuments}
-                                        bindSubmitClubSocials={bindSubmitClubSocials}
-                                        handleSubmitForms={handleSubmitForms}
-                                    />
+                                <RenderFields
+                                    isOpenFilters={isOpenFilters}
+                                    setShowFilters={setShowFilters}
+                                    is_federation={is_federation}
+                                    bindSubmitClubAlias={bindSubmitClubAlias}
+                                    bindSubmitClubInfo={bindSubmitClubInfo}
+                                    bindSubmitClubSchedule={bindSubmitClubSchedule}
+                                    bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
+                                    bindSubmitClubBankInfo={bindSubmitClubBankInfo}
+                                    bindSubmitClubEmail={bindSubmitClubEmail}
+                                    bindSubmitClubPhone={bindSubmitClubPhone}
+                                    bindSubmitClubDocuments={bindSubmitClubDocuments}
+                                    bindSubmitClubSocials={bindSubmitClubSocials}
+                                    handleSubmitForms={handleSubmitForms}
+                                />
                             </div>
                         </Container>
                     </div>
                 </Layout>
-
-
-        // <Container className="content">
-        //     <div className="ClubEditPage">
-        //         <h2>Личный кабинет</h2>
-        //         <Disclaimer>
-        //             <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/" target="_blank" rel="noopener noreferrer">
-        //                 Инструкция по редактированию профиля
-        //             </a>
-        //         </Disclaimer>
-        //         <Card className="ClubEditPage__about">
-        //             <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
-        //                       bindSubmitClubLogo={bindSubmitClubLogo}
-        //                       bindSubmitClubInfo={bindSubmitClubInfo}
-        //                       isFederation={is_federation}
-        //             />
-        //         </Card>
-        //         <Card className="ClubEditPage__schedule">
-        //             <ClubSchedule bindSubmitForm={bindSubmitClubSchedule} />
-        //         </Card>
-        //         <Card className="ClubEditPage__legal">
-        //             <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo} />
-        //         </Card>
-        //         <Card className="ClubEditPage__bank">
-        //             <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo} />
-        //         </Card>
-        //         <Card className="ClubEditPage__contacts">
-        //             <h3>Контакты</h3>
-        //             <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
-        //                           bindSubmitClubPhone={bindSubmitClubPhone}
-        //             />
-        //         </Card>
-        //         <Card className="ClubEditPage__documents">
-        //             <h3>Ссылки на документы</h3>
-        //             <ClubDocuments bindSubmitForm={bindSubmitClubDocuments} />
-        //         </Card>
-        //         <Card className="ClubEditPage__socials">
-        //             <h3>Социальные сети</h3>
-        //             <ClubSocial bindSubmitForm={bindSubmitClubSocials} />
-        //         </Card>
-        //         <Card className="ClubEditPage__head-picture">
-        //             <ClubHeaderPicture bindSubmitForm={bindSubmitClubHeaderPicture} club_id={club_id} />
-        //         </Card>
-        //         <EditPageButtons handleSubmitForms={handleSubmitForms} />
-        //     </div>
-        // </Container>
     )
 };
 
@@ -349,6 +293,6 @@ const ClubEdit = props => (
     </AuthOrLogin>
 );
 
-const withReducer = injectReducer({ key: defaultReduxKey, reducer: reducer });
+const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
 
 export default compose(withRouter, withReducer, connectClientClubAlias)(React.memo(connectShowFilters(connectAuthVisible(/*ClubEditPage*/ClubEdit))));

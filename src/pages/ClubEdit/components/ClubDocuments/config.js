@@ -11,12 +11,11 @@ export const clubClubDocumentsConfig = {
     fields: {
         name: {
             name: 'name',
-            label: 'Название',
             placeholder: 'Название документа',
         },
         url: {
             name: 'url',
-            label: 'Ссылка',
+            label: 'Ссылка на документы',
         },
     },
     validationSchema: object().shape({

@@ -9,12 +9,12 @@ const ClientClubInfo = ({
                             bindSubmitClubInfo,
                             isFederation
 }) => (
-    <div>
+    <>
         {!isFederation && <ClubAlias bindSubmitForm={bindSubmitClubAlias} />}
         <div className="ClientClubInfo">
             <UpdateClubInfoForm bindSubmitForm={bindSubmitClubInfo} />
         </div>
-    </div>
+    </>
 );
 
 export default React.memo(ClientClubInfo);
