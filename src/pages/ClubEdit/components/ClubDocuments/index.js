@@ -33,7 +33,7 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
                 className="btn-transparent"
                 onClick={toggleVisibility}
             >
-                {visibility ? 'Отмена' : '+ Добавить документ'}
+                {visibility ? 'Удалить' : '+ Добавить документ'}
             </Button>
         </div>
     )

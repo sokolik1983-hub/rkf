@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from 'formik';
-import Card from '../../components/Card';
 import StickyBox from 'react-sticky-box';
+import Card from '../../components/Card';
 import {editForm, sections} from './config';
 import ClubInfo from './components/ClubInfo';
 import ClubSchedule from './components/ClubSchedule';
@@ -10,15 +10,25 @@ import ClubBankInfo from './components/ClubBankInfo';
 import ClubContacts from './components/ClubContacts';
 import ClubDocuments from './components/ClubDocuments';
 import ClubSocial from './components/ClubSocial';
+import EditPageButtons from "./components/EditPageButtons";
+import {SvgSelector} from "./icons";
 
 
 const RenderFields = ({
-                          isOpenFilters,
-                          setShowFilters,
-                          formik,
-                          working,
-                          randomKeyGenerator,
-                      }) => {
+        isOpenFilters,
+        setShowFilters,
+        is_federation,
+        bindSubmitClubAlias,
+        bindSubmitClubInfo,
+        bindSubmitClubSchedule,
+        bindSubmitClubLegalInfo,
+        bindSubmitClubBankInfo,
+        bindSubmitClubEmail,
+        bindSubmitClubPhone,
+        bindSubmitClubDocuments,
+        bindSubmitClubSocials,
+        handleSubmitForms,
+}) => {
     const [activeSection, setActiveSection] = useState(0);
 
     const handleSectionSwitch = (id) => {
@@ -37,44 +47,47 @@ const RenderFields = ({
                        rel="noopener noreferrer"
                     >Инструкция по редактированию профиля
                     </a>
-                    {/*<FormField {...alias} />*/}
-                        <ClubInfo
-                            // bindSubmitClubAlias={bindSubmitClubAlias}
-                            // bindSubmitClubInfo={bindSubmitClubInfo}
-                            // isFederation={is_federation}
-                        />
-                        <ClubDocuments
-                            // bindSubmitForm={bindSubmitClubDocuments}
-                        />
+                    <ClubInfo
+                        bindSubmitClubAlias={bindSubmitClubAlias}
+                        bindSubmitClubInfo={bindSubmitClubInfo}
+                        isFederation={is_federation}
+                    />
+                    <ClubDocuments
+                        bindSubmitForm={bindSubmitClubDocuments}
+                    />
+                    <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                 </Card>;
             case 1:
                 return <Card className='Contacts'>
                     <h3>Контакты</h3>
-                        <ClubContacts
-                            // bindSubmitClubEmail={bindSubmitClubEmail}
-                            // bindSubmitClubPhone={bindSubmitClubPhone}
-                        />
-                        {/*<ClubSocial*/}
-                        {/*    // bindSubmitForm={bindSubmitClubSocials}*/}
-                        {/*/>*/}
+                    <ClubContacts
+                        bindSubmitClubEmail={bindSubmitClubEmail}
+                        bindSubmitClubPhone={bindSubmitClubPhone}
+                    />
+                    <ClubSocial
+                        bindSubmitForm={bindSubmitClubSocials}
+                    />
+                    <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                 </Card>;
             case 2:
                 return <Card className='Schedule'>
                     <ClubSchedule
-                        // bindSubmitForm={bindSubmitClubSchedule}
+                        bindSubmitForm={bindSubmitClubSchedule}
                     />
+                    <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                 </Card>;
             case 3:
                 return <Card className='LegalInfo'>
                     <ClubLegalInfo
-                        // bindSubmitForm={bindSubmitClubLegalInfo}
+                        bindSubmitForm={bindSubmitClubLegalInfo}
                     />
                 </Card>;
             case 4:
                 return <Card className='BankInfo'>
                     <ClubBankInfo
-                        // bindSubmitForm={bindSubmitClubBankInfo}
+                        bindSubmitForm={bindSubmitClubBankInfo}
                     />
+                    <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                 </Card>;
             case 5:
                 return <Card>
@@ -109,7 +122,8 @@ const RenderFields = ({
                                     key={key}
                                     onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                 >
-                                    <span className={`k-icon k-icon-32 ${sections[type].icon}`}/>
+                                    {/*<span className={`k-icon k-icon-32 ${sections[type].icon}`}/>*/}
+                                    <SvgSelector icon={sections[type].icon} />
                                     <li>{sections[type].name}</li>
                                 </div>
                             )}

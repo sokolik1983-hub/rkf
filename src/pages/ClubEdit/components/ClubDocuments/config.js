@@ -11,8 +11,8 @@ export const clubClubDocumentsConfig = {
     fields: {
         name: {
             name: 'name',
-            label: 'Название'
-
+            label: 'Название',
+            placeholder: 'Название документа',
         },
         url: {
             name: 'url',

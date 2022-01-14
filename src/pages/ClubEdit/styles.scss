@@ -332,102 +332,20 @@
                     align-items: baseline;
                     color: #72839c;
 
-                    .icon-information {
-                        &:before {
-                            content: url("/static/icons/info.svg");
-                        }
-                    }
-
-                    .icon-contacts {
-                        &:before {
-                            content: url("/static/icons/contacts.svg");
-                        }
-                    }
-
-                    .icon-schedule {
-                        &:before {
-                            content: url("/static/icons/schedule.svg");
-                        }
-                    }
-                    .icon-legal {
-                        &:before {
-                            content: url("/static/icons/legal.svg");
-                        }
-                    }
-                    .icon-bank {
-                        &:before {
-                            content: url("/static/icons/bank.svg");
-                        }
-                    }
-
-                    .icon-trash {
-                        &:before {
-                            content: url("/static/icons/delete-variant.svg");
-                            height: 18px;
-                        }
-                    }
-
-                    .k-icon {
+                    svg {
                         height: 18px;
                         position: relative;
                         top: 2px;
                         font-size: 20px;
                     }
 
-                    &:hover {
-                        color: #3366ff;
-                        transition: all 0.2s linear;
-
-                        & .icon-information {
-                            content: url("/static/icons/info-blue.svg");
-                        }
-
-                        & .icon-contacts {
-                            content: url("/static/icons/contacts-blue.svg");
-                        }
-
-                        & .icon-schedule {
-                            content: url("/static/icons/schedule-blue.svg");
-                        }
-
-                        & .icon-legal {
-                            content: url("/static/icons/legal-blue.svg");
-                        }
-
-                        & .icon-bank {
-                            content: url("/static/icons/bank-blue.svg");
-                        }
-
-                        & .icon-trash {
-                            content: url("/static/icons/delete-variant-blue.svg");
-                        }
-                    }
-
+                    &:hover,
                     &.active {
                         color: #3366ff;
-
-                        & .icon-information {
-                            content: url("/static/icons/info-blue.svg");
-                        }
-
-                        & .icon-contacts {
-                            content: url("/static/icons/contacts-blue.svg");
-                        }
-
-                        & .icon-schedule {
-                            content: url("/static/icons/schedule-blue.svg");
-                        }
-
-                        & .icon-legal {
-                            content: url("/static/icons/legal-blue.svg");
-                        }
-
-                        & .icon-bank {
-                            content: url("/static/icons/bank-blue.svg");
-                        }
-
-                        & .icon-trash {
-                            content: url("/static/icons/delete-variant-blue.svg");
+                        transition: all 0.2s linear;
+                        & > svg > path,
+                        & > svg > g > path {
+                            fill: #3366ff;
                         }
                     }
                 }

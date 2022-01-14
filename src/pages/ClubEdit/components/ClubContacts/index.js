@@ -15,14 +15,14 @@ const ClientClubContactsProxy = ({getClubContactsListSuccess, club_id, bindSubmi
 
     return loading ?
         <Loading /> :
-        <div style={{alignItems: 'flex-start'}} className="flex-row">
-            <div style={{marginBottom: 24}} className="flex-col">
+        <div className="contacts__wrap">
+            <div className="contacts__email">
                 <ClientContactList
                     contactType={CONTACT_TYPES.email}
                     bindSubmitForm={bindSubmitClubEmail}
                 />
             </div>
-            <div className="flex-col">
+            <div className="contacts__phone">
                 <ClientContactList
                     contactType={CONTACT_TYPES.phone}
                     bindSubmitForm={bindSubmitClubPhone}

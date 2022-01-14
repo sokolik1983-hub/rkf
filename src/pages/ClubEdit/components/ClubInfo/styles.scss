@@ -60,8 +60,11 @@
             text-align: right;
             color: #253C5E;
             &[for="description"] {
-                margin-bottom: 100%;
+                margin-bottom: auto;
             }
+        }
+        textarea {
+            height: 227px;
         }
     }
 }

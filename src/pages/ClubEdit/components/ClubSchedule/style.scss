@@ -29,6 +29,13 @@
             min-width: 100px;
             padding: 7px 10px 5px;
         }
+        &__error {
+            font-size: 12px;
+            line-height: 12px;
+            top: 42px;
+            bottom: 0;
+            right: 0;
+        }
     }
     .club-schedule {
         &__controls {

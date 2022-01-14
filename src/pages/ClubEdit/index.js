@@ -1,62 +1,57 @@
-import React, {useEffect, useState} from "react";
-import {withRouter} from "react-router";
-import {compose} from "redux";
-
-import EditPageButtons from "./components/EditPageButtons";
-import ClubSchedule from "./components/ClubSchedule";
-import ClubSocial from "./components/ClubSocial";
-import ClubLegalInfo from "./components/ClubLegalInfo";
-import ClubBankInfo from "./components/ClubBankInfo";
-import ClubContacts from "./components/ClubContacts";
-import ClubDocuments from "./components/ClubDocuments";
-import Card from "../../components/Card";
-import AuthOrLogin from "../Login/components/AuthOrLogin";
-import Header from "../../components/Layouts/Header";
-import Container from "../../components/Layouts/Container";
-import {defaultReduxKey, endpointUrl} from "./config";
-import {connectClientClubAlias} from "./connectors";
-import reducer from "./reducer";
-import {useResourceAndStoreToRedux} from "../../shared/hooks";
-import injectReducer from "../../utils/injectReducer";
-
-import ls from 'local-storage';
-
-
-import "./styles.scss";
-
-import {Redirect} from "react-router-dom";
-import {Request} from '../../utils/request';
-import {Form} from '../../components/Form';
-import StickyBox from "react-sticky-box";
-import useIsMobile from '../../utils/useIsMobile';
-import UserMenu from '../../components/Layouts/UserMenu';
+import React, {useEffect, useState} from 'react';
+import {withRouter, Redirect} from 'react-router-dom';
+import {compose} from 'redux';
+import StickyBox from 'react-sticky-box';
+// import ClubSchedule from "./components/ClubSchedule";
+// import ClubSocial from "./components/ClubSocial";
+// import ClubLegalInfo from "./components/ClubLegalInfo";
+// import ClubBankInfo from "./components/ClubBankInfo";
+// import ClubContacts from "./components/ClubContacts";
+// import ClubDocuments from "./components/ClubDocuments";
+// import Card from "../../components/Card";
+// import {Form} from '../../components/Form';
+import {defaultReduxKey, endpointUrl} from './config';
+import {connectClientClubAlias} from './connectors';
+import reducer from './reducer';
+// import EditPageButtons from './components/EditPageButtons';
 import UserHeader from './components/UserHeader';
 import RenderFields from './RenderFields'
+import AuthOrLogin from '../Login/components/AuthOrLogin';
+import {connectAuthVisible} from '../Login/connectors';
+import {endpointGetClubInfo, clubNav} from '../../components/Layouts/ClubLayout/config';
+import {connectShowFilters} from '../../components/Layouts/connectors';
+import Header from '../../components/Layouts/Header';
+import UserMenu from '../../components/Layouts/UserMenu';
+import Container from '../../components/Layouts/Container';
 import CopyrightInfo from '../../components/CopyrightInfo';
 import ClickGuard from '../../components/ClickGuard';
 import Loading from '../../components/Loading';
 import Layout from '../../components/Layouts';
-import {endpointGetClubInfo, clubNav} from '../../components/Layouts/ClubLayout/config';
-import {connectAuthVisible} from '../Login/connectors';
-import {connectShowFilters} from "../../components/Layouts/connectors";
+import {useResourceAndStoreToRedux} from '../../shared/hooks';
+import injectReducer from '../../utils/injectReducer';
+import useIsMobile from '../../utils/useIsMobile';
+import {Request} from '../../utils/request';
+import ls from 'local-storage';
+
+import "./styles.scss";
+
 
 let unblock;
 
 const ClubEditPage = ({
-                          club_alias,
-                          profile_id,
-                          is_federation,
-                          is_active_profile,
-                          isAuthenticated,
-                          history,
-                          getClubSuccess,
-                          isOpenFilters,
-                          setShowFilters,
-                      }) => {
-    let [serverErrors, setErrors] = useState({});
-    let [isSubmit, setIsSubmit] = useState(false);
-    let [querysCount, setQuerysCount] = useState(0);
-
+          club_alias,
+          profile_id,
+          is_federation,
+          is_active_profile,
+          isAuthenticated,
+          history,
+          getClubSuccess,
+          isOpenFilters,
+          setShowFilters,
+}) => {
+    const [serverErrors, setErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [queryCount, setQueryCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [notificationsLength, setNotificationsLength] = useState(0);
@@ -67,7 +62,6 @@ const ClubEditPage = ({
     const isMobile = useIsMobile(1080);
 
     let submitClubAlias,
-        submitClubLogo,
         submitClubInfo,
         submitClubSchedule,
         submitClubLegalInfo,
@@ -75,8 +69,8 @@ const ClubEditPage = ({
         submitClubEmail,
         submitClubPhone,
         submitClubDocuments,
-        submitClubSocials,
-        submitClubHeaderPicture;
+        submitClubSocials
+
     let clientErrors = {};
 
     const {user_type, alias} = ls.get('user_info') || {};
@@ -100,7 +94,6 @@ const ClubEditPage = ({
             setError(error.response);
             setLoading(false);
         }))();
-        // return () => setNeedRequest(true);
     }, [alias]);
 
     useEffect(() => {
@@ -201,7 +194,6 @@ const ClubEditPage = ({
     const handleSubmitForms = () => {
         const submitFunctions = [
             submitClubAlias,
-            submitClubLogo,
             submitClubInfo,
             submitClubSchedule,
             submitClubLegalInfo,
@@ -210,7 +202,6 @@ const ClubEditPage = ({
             submitClubPhone,
             submitClubDocuments,
             submitClubSocials,
-            submitClubHeaderPicture
         ];
         const validSubmitFunctions = submitFunctions.filter(func => !!func).map(func => func());
 
@@ -225,7 +216,7 @@ const ClubEditPage = ({
 
             if (isValid) {
                 setIsSubmit(true);
-                setQuerysCount(querysCount = validSubmitFunctions.length);
+                setQueryCount(validSubmitFunctions.length);
             } else {
                 alert('Заполните все обязятельные поля формы');
             }
@@ -235,7 +226,7 @@ const ClubEditPage = ({
     };
 
     useEffect(() => {
-        if (isSubmit && Object.keys(serverErrors).length === querysCount - 2) {// "-2" -это 2 запроса с картинками, которые не обрабатываются
+        if (isSubmit && Object.keys(serverErrors).length === queryCount - 2) {// "-2" -это 2 запроса с картинками, которые не обрабатываются
             const isValid = !Object.keys(serverErrors).filter(key => Object.keys(serverErrors[key]).length).length;
             if (isValid && club_alias) {
                 unblock();
@@ -247,7 +238,7 @@ const ClubEditPage = ({
                     .join('\n'));
                 setIsSubmit(false);
                 setErrors({});
-                setQuerysCount(0);
+                setQueryCount(0);
             }
         }
     }, [serverErrors]);
@@ -286,39 +277,18 @@ const ClubEditPage = ({
                                     <RenderFields
                                         isOpenFilters={isOpenFilters}
                                         setShowFilters={setShowFilters}
-                                        //streetTypes={streetTypes}
-                                        //houseTypes={houseTypes}
-                                        //flatTypes={flatTypes}
-                                        //working={working}
-                                        //handleError={handleError}
-                                        //setWorking={setWorking}
-                                        //randomKeyGenerator={randomKeyGenerator}
+                                        is_federation={is_federation}
+                                        bindSubmitClubAlias={bindSubmitClubAlias}
+                                        bindSubmitClubInfo={bindSubmitClubInfo}
+                                        bindSubmitClubSchedule={bindSubmitClubSchedule}
+                                        bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
+                                        bindSubmitClubBankInfo={bindSubmitClubBankInfo}
+                                        bindSubmitClubEmail={bindSubmitClubEmail}
+                                        bindSubmitClubPhone={bindSubmitClubPhone}
+                                        bindSubmitClubDocuments={bindSubmitClubDocuments}
+                                        bindSubmitClubSocials={bindSubmitClubSocials}
+                                        handleSubmitForms={handleSubmitForms}
                                     />
-                                {/*<Card className="ClubEditPage__schedule">*/}
-                                {/*    <ClubSchedule bindSubmitForm={bindSubmitClubSchedule}/>*/}
-                                {/*</Card>*/}
-                                {/*<Card className="ClubEditPage__legal">*/}
-                                {/*    <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo}/>*/}
-                                {/*</Card>*/}
-                                {/*<Card className="ClubEditPage__bank">*/}
-                                {/*    <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo}/>*/}
-                                {/*</Card>*/}
-                                {/*<Card className="ClubEditPage__contacts">*/}
-                                {/*    <h3>Контакты</h3>*/}
-                                {/*    <ClubContacts */}
-                                {/*        bindSubmitClubEmail={bindSubmitClubEmail}*/}
-                                {/*        bindSubmitClubPhone={bindSubmitClubPhone}*/}
-                                {/*    />*/}
-                                {/*</Card>*/}
-                                {/*<Card className="ClubEditPage__documents">*/}
-                                {/*    <h3>Ссылки на документы</h3>*/}
-                                {/*    <ClubDocuments bindSubmitForm={bindSubmitClubDocuments}/>*/}
-                                {/*</Card>*/}
-                                {/*<Card className="ClubEditPage__socials">*/}
-                                {/*    <h3>Социальные сети</h3>*/}
-                                {/*    <ClubSocial bindSubmitForm={bindSubmitClubSocials}/>*/}
-                                {/*</Card>*/}
-                                <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                             </div>
                         </Container>
                     </div>

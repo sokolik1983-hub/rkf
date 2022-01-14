@@ -23,6 +23,9 @@ export const clubLegalInfoFormConfig = {
         address: {
             name: 'address',
             label: 'Юридический адрес',
+            fieldType: 'textarea',
+            rows: 2,
+            maxLength: '300'
         },
         inn: {
             name: 'inn',
