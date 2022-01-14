@@ -15,18 +15,19 @@ const Alert = ({
     const ref = React.useRef(null);
     const auto = autoclose ? Number(autoclose) === autoclose ? autoclose : 1 : false;
     const [time, setTime] = React.useState(null);
+    const [showModal, setShowModal] = useState(true);
+
     const timer = (f, t) => {
         (time != null) && clearTimeout(time);
         setTime(setTimeout(f, t));
     }
     React.useEffect(() => {!time && auto && onOk && timer(okClick, 500 + auto * 1000)});
-    
+
     const okClick = () => {
         ref.current && ref.current.classList.add("exit");
         onOk && timer(onOk, 500);
         setShowModal(false);
     }
-    const [showModal, setShowModal] = useState(true);
 
     useEffect(() => {
         if(showModal) {

@@ -126,7 +126,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="test" title="test" />
         <GridColumn field="status_name" title="Статаус" />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
         <GridColumn field="date_change" title="Изменение статуса" columnMenu={ColumnMenu} />
@@ -137,8 +136,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         <GridColumn field="count_of_litter" title="Щенков" columnMenu={ColumnMenu} />
         <GridColumn field="breed" title="Порода" columnMenu={ColumnMenu} />
         <GridColumn field="stamp_code" title="Клеймо" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp" title="Клеймо1" columnMenu={ColumnMenu} />
-        {/*{distinction  === 'metrics' &&   <GridColumn field="stamp1" title="Клейм1о" columnMenu={ColumnMenu} />}*/}
         <GridColumn field="dog_father_name" title="Производитель (кличка)" columnMenu={ColumnMenu} />
         <GridColumn field="dog_mother_name" title="Производительница (кличка)" columnMenu={ColumnMenu} />
         <GridColumn field="count_of_documents" title="Док-в" columnMenu={ColumnMenu} />
@@ -154,7 +151,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="test" title="test" headerClassName="custom-font-size" columnMenu={ColumnMenu}/>
         <GridColumn width="40px" className="custom-font-size" field="status_value" title=" " />
         <GridColumn field="date_create" headerClassName="custom-font-size" className="custom-font-size" title="Дата создания" columnMenu={ColumnMenu} />
         <GridColumn field={`${distinction}_request_id`} headerClassName="custom-font-size" className="custom-font-size" title="№ пакета" columnMenu={ColumnMenu} />
@@ -163,12 +159,8 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         <GridColumn field="dog_name" headerClassName="custom-font-size" className="custom-font-size" title="Кличка" columnMenu={ColumnMenu} />
         <GridColumn field="breed" headerClassName="custom-font-size" className="custom-font-size" title="Порода" columnMenu={ColumnMenu} />
         <GridColumn field="stamp_number" headerClassName="custom-font-size" className="custom-font-size" title="Клеймо" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp" headerClassName="custom-font-size" className="custom-font-size" title="Клеймо1" columnMenu={ColumnMenu} />
-        {/*{distinction  === 'metrics' &&   <GridColumn field="stamp" headerClassName="custom-font-size" className="custom-font-size" title="1Клеймо" columnMenu={ColumnMenu} />}*/}
         <GridColumn field="barcode" headerClassName="custom-font-size" className="custom-font-size" title="Трек-номер" columnMenu={ColumnMenu} />
-        {/*<GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} />*/}
-        {/*<GridColumn field="date_archive" title="Архивировано" columnMenu={ColumnMenu}*/}
-        {/*    cell={props => ArchiveCell(props)} />*/}
+
     </Grid>;
     const rowRender = (trElement, props) => {
         const status = props.dataItem.status_id;
@@ -236,7 +228,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                         margin: "0 auto",
                                         textAlign: 'center'
                                     }}>
-                                    <GridColumn field="test" cell={StatusCell} title="test" width={'60px'} />
                                     <GridColumn field="status_value" cell={StatusCell} title="Статус" width={'60px'} />
                                     <GridColumn field="date_create" title="Создана" width={fullScreen ? '99px' : '80px'}
                                         columnMenu={ColumnMenu} />
@@ -249,9 +240,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
 
                                     <GridColumn field="stamp" title="Клеймо" width={fullScreen ? '88px' : '55px'}
                                         columnMenu={ColumnMenu} />
-                                    {/*{distinction  === 'metrics' &&  <GridColumn field="stamp1" title="1Клеймо"*/}
-                                    {/*                                          width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />}*/}
-                                    <GridColumn field="nursery_name" title="Питомник" width={fullScreen ? 'auto' : '80px'}
+
                                         columnMenu={ColumnMenu} cell={props => TextCell(props, 'nursery_name')} />
                                     <GridColumn field="date_of_birth_litter" title="Дата рождения помёта"
                                         width={fullScreen ? '99px' : '80px'} columnMenu={ColumnMenu} />
@@ -304,8 +293,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     {...gridData}
                                     onDataStateChange={handleGridDataChange}
                                     style={{ height: height ? height : "700px", width: "auto", margin: "0 auto" }}>
-                                    <GridColumn field="test" cell={StatusCell} title="test"
-                                                width={fullScreen ? '62px' : '61px'} />
+
 
                                     <GridColumn field="status_value" cell={StatusCell} title="Статус"
                                         width={fullScreen ? '62px' : '61px'} />
@@ -324,11 +312,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                         columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed')} />
                                     <GridColumn field="stamp_number" title="Клеймо"
                                         width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
-                                    <GridColumn field="stamp" title="Клеймо1"
-                                                width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
 
-                                    {/*{distinction  === 'metrics' &&  <GridColumn field="stamp1" title="1Клеймо"*/}
-                                    {/*                                          width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />}*/}
                                     <GridColumn field="barcode" title="Трек-номер"
                                         width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu}
                                         cell={(props) => CopyCell(props, handleSuccess)} />

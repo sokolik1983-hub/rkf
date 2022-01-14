@@ -27,9 +27,6 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
 
     const tableRef = useRef();
 
-    useEffect(() => {
-    }, [tableRef])
-
     const handleGridDataChange = (e) => {
         setGridData(e.data);
     }
@@ -98,7 +95,6 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
                                     <GridColumn width={'60px'}
                                                 field="pedigree_link" title="Ссылка на эл. копию документа"
                                                 columnMenu={ColumnMenu}
-                                                // cell={renderPdfLink}
                                                 cell={(props) => PdfLinkCell(props, handleOnPdfLoading)}
                                     />
                                 </Grid>
