@@ -58,10 +58,11 @@ const CardExhibition = ({
                     </div>
                     <div className="card-exhibition__author">
                         <span className="card-exhibition__subtitle">Организатор</span>
-                        <Link to={`/${club_alias}`}>
-                            <div className="card-exhibition__club-logo" style={{
+                        {/*<Link to={`/${club_alias}`}>*/}
+                        <div className="card-exhibition__author-wrap">
+                            <Link className="card-exhibition__club-logo" style={{
                                 backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
-                            }} />
+                            }} to={`/${club_alias}`} />
                             <div className="card-exhibition__club-name">
                                 <div className="card-exhibition__club-name_link">
                                 {(user === 3 || user === 4 || user === 5) &&
@@ -70,7 +71,7 @@ const CardExhibition = ({
                                     &nbsp;
                                 </>
                                 }
-                                <a>{club_name}</a>
+                                    <Link to={`/${club_alias}`}>{club_name}</Link>
                                 </div>
                                 <div className="card-exhibition__federation-wrap">
                                     {federation_name && federation_link ?
@@ -89,7 +90,8 @@ const CardExhibition = ({
                                 <FederationChoiceMark />
                             }
                             </div>
-                        </Link>
+                        {/*</Link>*/}
+                        </div>
 
                     </div>
 
