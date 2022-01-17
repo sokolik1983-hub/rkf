@@ -23,7 +23,6 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
         if(!isUserCard) {
 
             documents.forEach(document => {
-
                     if (document.document_type_id === 2) {
                         (() => Request({
                             url: `/api/document/document/public?id=${document.document_id}`
@@ -33,7 +32,6 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                             console.log(error.response);
                             // history.replace('/404');
                         }))();
-                        console.log(document.document_id)
                     }
 
                      if (document.document_type_id === 1) {
