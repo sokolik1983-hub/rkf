@@ -68,7 +68,7 @@ const CardNewsNew = forwardRef(({
     isFederation,
     is_halfbreed,
     is_all_cities
-}) => {
+}, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
@@ -228,9 +228,9 @@ const CardNewsNew = forwardRef(({
                             dog_name && <div>Кличка собаки: {dog_name}</div>
                         }
                         {
-                            (!is_all_cities && dog_city && (advert_type_id > 1))
+                            !is_all_cities && dog_city && (advert_type_id > 1)
                                 ?
-                                <div>Место {cityLabel}: {dog_city.map((item, i) => (dog_city.length === (i + 1)) ? item.name : `${item.name}, `)}</div>
+                                <div>Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
                                 :
                                 <span>Все города</span>
                         }

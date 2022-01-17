@@ -10,7 +10,7 @@ const PublicationFilter = ({changeTypeFilters, activeType}) => {
             {title: 'Куплю/Продам', activeType: 'advert'},
             {title: 'Объявления', activeType: 'articles'}
         ];
-    }, [changeTypeFilters, activeType]);
+    }, []);
 
     return (
             <div className="publicFilter__wrap">
