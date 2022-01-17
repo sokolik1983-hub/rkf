@@ -42,10 +42,12 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                              console.log(error.response);
                              // history.replace('/404');
                          }))();
+                         console.log(1)
                      }
                 }
             )
         }
+
 
     }, [documents, docList])
 
