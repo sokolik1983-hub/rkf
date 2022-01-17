@@ -28,18 +28,19 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                         (() => Request({
                             url: `/api/document/document/public?id=${document.document_id}`
                         }, data => {
-                            setRequisitesLink(data);
+                            setAmountСontributions(data);
                         }, error => {
                             console.log(error.response);
                             // history.replace('/404');
                         }))();
+                        console.log(document.document_id)
                     }
 
                      if (document.document_type_id === 1) {
                          (() => Request({
                              url: `/api/document/document/public?id=${document.document_id}`
                          }, data => {
-                             setAmountСontributions(data);
+                             setRequisitesLink(data);
                          }, error => {
                              console.log(error.response);
                              // history.replace('/404');
