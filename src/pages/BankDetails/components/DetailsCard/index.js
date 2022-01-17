@@ -21,29 +21,30 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
 
     useEffect(() => {
         if(!isUserCard) {
+            documents.forEach(document => {
+                    if (document.document_type_id === 2) {
+                        (() => Request({
+                            url: `/api/document/document/public?id=${document.document_id}`
+                        }, data => {
+                            setRequisitesLink(data);
+                        }, error => {
+                            console.log(error.response);
+                            // history.replace('/404');
+                        }))();
+                    }
 
-
-            if (documents[1]) {
-                (() => Request({
-                    url: `/api/document/document/public?id=${documents[1].document_id}`
-                }, data => {
-                    setRequisitesLink(data);
-                }, error => {
-                    console.log(error.response);
-                    // history.replace('/404');
-                }))();
-            }
-
-            if (documents[0]) {
-                (() => Request({
-                    url: `/api/document/document/public?id=${documents[0].document_id}`
-                }, data => {
-                    setAmountСontributions(data);
-                }, error => {
-                    console.log(error.response);
-                    // history.replace('/404');
-                }))();
-            }
+                     if (document.document_type_id === 1) {
+                         (() => Request({
+                             url: `/api/document/document/public?id=${document.document_id}`
+                         }, data => {
+                             setAmountСontributions(data);
+                         }, error => {
+                             console.log(error.response);
+                             // history.replace('/404');
+                         }))();
+                     }
+                }
+            )
         }
 
     }, [documents, docList])
