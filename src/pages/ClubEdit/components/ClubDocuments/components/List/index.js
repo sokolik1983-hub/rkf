@@ -11,21 +11,21 @@ const ClientDocumentList = ({
         club_id,
         listIds,
         editable,
-        setDocs,
         getClubDocumentsListSuccess,
 }) => {
     const url = getlistUrl + String(club_id);
     const {loading} = useResourceAndStoreToRedux(url, getClubDocumentsListSuccess);
 
-    return loading ?
-        <Loading/> :
+    return (
         <div className="ClientDocumentList">
-            {listIds.map(id => <ListDocument
-                setDocs={setDocs}
-                editable={editable}
-                key={id}
-                id={id}/>)}
+            {loading ?
+                <Loading/> :
+                listIds.map(id => <ListDocument
+                    editable={editable}
+                    key={id}
+                    id={id} />)}
         </div>
+    )
 };
 
 export default connectListDocument(React.memo(ClientDocumentList));

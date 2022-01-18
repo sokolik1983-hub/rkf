@@ -22,27 +22,15 @@ const ClientClubContactListItem = ({clubContact, updateClubContactSuccess, delet
 
     return (
         <Form
-            className="ClientClubContactListItem"
+            className="ClientClubListItem"
             action={'/api/clubs/Contact'}
             onSuccess={onUpdateSuccess}
             method="PUT"
             initialValues={clubContact}
         >
-            <RenderFields disabled={!visibility} isUpdate isMaskedTel={type === 'phone'} />
-            {!visibility &&
-                <Button
-                    className="ClientClubContactListItem__edit"
-                    onClick={toggleVisibility}
-                >
-                    Изменить
-                </Button>
-            }
-            {visibility &&
-                <div className="ClientClubContactListItem__controls">
-                    <SubmitButton className="btn-green">Сохранить</SubmitButton>
-                    <Button className="btn-transparent btn-condensed" onClick={setInvisible}>Отменить</Button>
+            <RenderFields isMaskedTel={type === 'phone'} />
+                <div className="ClientClubListItem__controls">
                     <DeleteButton
-                        className="btn-transparent btn-condensed"
                         onDeleteSuccess={onDeleteSuccess}
                         windowed
                         actionUrl={`${ENDPOINT_URL}/${clubContact.id}`}
@@ -50,7 +38,6 @@ const ClientClubContactListItem = ({clubContact, updateClubContactSuccess, delet
                         Удалить
                     </DeleteButton>
                 </div>
-            }
         </Form>
     )
 };

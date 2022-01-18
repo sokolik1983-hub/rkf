@@ -7,15 +7,23 @@ import {connectListSocial} from "../../connectors";
 import "./styles.scss";
 
 
-const ClientSocialList = ({listIds, getClubSocialListSuccess, club_id, editable}) => {
+const ClientSocialList = ({
+        listIds,
+        club_id,
+        editable,
+        getClubSocialListSuccess,
+}) => {
     const url = getlistUrl + String(club_id);
     const {loading} = useResourceAndStoreToRedux(url, getClubSocialListSuccess);
     
     return (
-        <div className="ClientSocialList">
+        <div className="ClientClubList">
             {loading ?
                 <Loading/> :
-                listIds.map(id => <ListSocial editable={editable} key={id} id={id} />)}
+                listIds.map(id => <ListSocial
+                    editable={editable}
+                    key={id}
+                    id={id} />)}
         </div>
     )
 };

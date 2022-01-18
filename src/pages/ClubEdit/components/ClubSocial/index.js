@@ -11,26 +11,19 @@ import reducer from "./reducer";
 
 const ClientClubSocialProxy = ({bindSubmitForm}) => {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
-    const btnStyle = {
-        display: 'flex',
-        padding: '6px 0',
-        color: '#3366FF',
-        flex: '1 0'
-    };
     
     if (!visibility) {
         bindSubmitForm.submit(null, {});
     }
 
     return (
-        <div>
+        <div className='contacts__social'>
             <ClientSocialList />
             {visibility &&
                 <ClubSocialForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
             }
             <Button
-                style={btnStyle}
-                className="btn-transparent"
+                className={visibility ? 'delete-mini' : false ? "add-max" : "add-mini"}
                 onClick={toggleVisibility}
             >
                 {visibility ? 'Отмена' : '+ Добавить ссылку'}

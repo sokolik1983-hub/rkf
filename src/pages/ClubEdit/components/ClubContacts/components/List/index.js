@@ -10,14 +10,6 @@ import "./styles.scss";
 
 const {Provider} = ContactTypeContext;
 
-const btnStyle = {
-    display: 'flex',
-    padding: '6px 0',
-    color: '#3366FF',
-    flex: '1 0'
-};
-
-
 const ClientContactList = props => {
     const { contactType, bindSubmitForm } = props;
     const { visibility, toggleVisibility, setInvisible } = useVisibility(false);
@@ -29,7 +21,7 @@ const ClientContactList = props => {
 
     return (
         <Provider value={{ contactType }}>
-            <div className="ClientContactList">
+            <div className="ClientClubList">
                 {listIds.map(id => (
                     <ListContact key={id} id={id} type={contactType.type} />
                 ))}
@@ -37,7 +29,7 @@ const ClientContactList = props => {
                     <ClubContactsForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
                 }
                 {!visibility &&
-                    <Button style={btnStyle} className="btn-transparent" onClick={toggleVisibility}>
+                    <Button className="add-mini" onClick={toggleVisibility}>
                         {`+ Добавить ${contactType.label}`}
                     </Button>
                 }

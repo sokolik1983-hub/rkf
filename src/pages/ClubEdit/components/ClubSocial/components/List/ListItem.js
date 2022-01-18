@@ -1,9 +1,7 @@
 import React from "react";
 import {Form} from "../../../../../../components/Form";
 import DeleteButton from "../../../../../../components/DeleteButton";
-import Dropdown from "../../../../../../components/Dropdown";
 import RenderFields from "../Form/RenderFields";
-import ClubListSocial from "./ListSocial";
 import {useVisibility} from "../../../../../../shared/hooks";
 import {connectClientClubListItem} from "../../connectors";
 import {clubClubSocialConfig, endpointUrl} from "../../config";
@@ -30,29 +28,22 @@ const ClientClubListItem = ({clubSocial, updateClubSocialSuccess, deleteClubSoci
     
     return (
         <div className="ClientClubListItem">
-            {visibility ?
                 <Form
                     action={clubClubSocialConfig.formAction}
                     onSuccess={onUpdateSuccess}
                     method="PUT"
                     initialValues={filterObj(clubSocial, 'social_network_type_id')}
                 >
-                    <RenderFields isUpdate />
-                </Form> :
-                <ClubListSocial {...clubSocial} />
-            }
+                    <RenderFields />
+                </Form>
             <div className="ClientClubListItem__controls">
-                {visibility &&
-                    <button className="btn" onClick={toggleVisibility}>Отмена</button>
-                }
-                <Dropdown position="right" closeOnClick={true}>
-                    <button onClick={toggleVisibility}>Изменить</button>
-                    <DeleteButton
-                        onDeleteSuccess={onDeleteSuccess}
-                        windowed
-                        actionUrl={`${endpointUrl}/${clubSocial.id}`}
-                    >Удалить</DeleteButton>
-                </Dropdown>
+                <DeleteButton
+                    onDeleteSuccess={onDeleteSuccess}
+                    windowed
+                    actionUrl={`${endpointUrl}/${clubSocial.id}`}
+                >
+                    Удалить
+                </DeleteButton>
             </div>
         </div>
     )

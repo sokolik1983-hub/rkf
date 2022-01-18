@@ -58,7 +58,7 @@ const RenderFields = ({
                     <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                 </Card>;
             case 1:
-                return <Card className='Contacts'>
+                return <Card className='contacts'>
                     <h3>Контакты</h3>
                     <ClubContacts
                         bindSubmitClubEmail={bindSubmitClubEmail}
