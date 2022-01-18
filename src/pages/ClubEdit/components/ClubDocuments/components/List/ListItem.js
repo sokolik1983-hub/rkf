@@ -26,7 +26,7 @@ function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClub
                     method="PUT"
                     initialValues={clubDocument}
                 >
-                    <RenderFields isUpdate />
+                    <RenderFields />
                 </Form>
             <div className="ClientClubListItem__controls">
                 <DeleteButton

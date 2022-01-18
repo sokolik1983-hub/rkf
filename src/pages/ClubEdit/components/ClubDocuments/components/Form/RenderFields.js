@@ -5,7 +5,7 @@ import {clubClubDocumentsConfig} from "../../config";
 const {fields} = clubClubDocumentsConfig;
 
 
-const RenderFields = ({isUpdate}) => (
+const RenderFields = () => (
     <FormGroup className='ClubDocs' inline >
         <FormField {...fields.url} isUrl={true}/>
         <FormField {...fields.name}/>

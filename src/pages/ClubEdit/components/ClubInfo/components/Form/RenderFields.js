@@ -16,14 +16,18 @@ const checkUrl = (e, formik) => {
 };
 
 const RenderFields = ({formik}) => (
-        <FormGroup>
+    <>
+        <FormGroup className='info'>
             <FormField {...fields.name}/>
             <FormField {...fields.description}/>
             <FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>
-            {/*<h4>Фактический адрес клуба</h4>*/}
-            {/*<FormField {...fields.city_id}/>*/}
-            {/*<FormField {...fields.address}/>*/}
         </FormGroup>
+        <FormGroup className='address'>
+            <FormField {...fields.city_id}/>
+            <FormField {...fields.address}/>
+        </FormGroup>
+
+    </>
 );
 
 export default connect(React.memo(RenderFields));

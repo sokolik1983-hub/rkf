@@ -170,6 +170,9 @@
     }
 
     .Form {
+        .FormGroup.address {
+            display: none;
+        }
         .FormGroup.ClubDocs {
             flex-direction: column;
 

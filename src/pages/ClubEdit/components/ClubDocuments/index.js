@@ -23,7 +23,7 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
                 <ClubDocumentsForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
             }
             <Button
-                className={visibility ? 'delete-mini' : "add-mini"}
+                className={visibility ? 'delete-mini' : false ? "add-max" : "add-mini"}
                 onClick={toggleVisibility}
             >
                 {visibility ? 'Удалить' : '+ Добавить документ'}

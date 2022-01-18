@@ -7,14 +7,24 @@ import {getlistUrl} from "../../config";
 import "./styles.scss";
 
 
-const ClientDocumentList = ({listIds, getClubDocumentsListSuccess, club_id, editable}) => {
+const ClientDocumentList = ({
+        club_id,
+        listIds,
+        editable,
+        setDocs,
+        getClubDocumentsListSuccess,
+}) => {
     const url = getlistUrl + String(club_id);
     const {loading} = useResourceAndStoreToRedux(url, getClubDocumentsListSuccess);
 
     return loading ?
         <Loading/> :
         <div className="ClientDocumentList">
-            {listIds.map(id => <ListDocument editable={editable} key={id} id={id}/>)}
+            {listIds.map(id => <ListDocument
+                setDocs={setDocs}
+                editable={editable}
+                key={id}
+                id={id}/>)}
         </div>
 };
 
