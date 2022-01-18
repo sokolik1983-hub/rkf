@@ -278,7 +278,8 @@
 
     @media(max-width: 750px) {
       flex-basis: 100%;
-      flex-direction: column;
+      //flex-direction: column;
+      gap: 20px;
     }
   }
 
@@ -291,6 +292,15 @@
             "color sex age";
       grid-template-columns: 60% 18% 18%;
       gap: 0 10px;
+      @media (max-width: 750px) {
+        grid-template-areas:
+            "breed breed"
+            "sex age"
+            "color color"
+            "cost cost"
+            "puppies puppies";
+        grid-template-columns: 48% 48%;
+      }
       .FormInput__input {
         padding: 7px 10px 7px 10px !important;
         &:first-child {
@@ -337,6 +347,9 @@
         grid-area: sex;
         & .FormInput__input {
           padding: 0 !important;
+        }
+        & .css-kj6f9i-menu {
+          max-height: 70px!important;
         }
       }
       &__input-color_new {
@@ -646,9 +659,14 @@
 @media (max-width: 750px) {
   .k-selection-single {
     flex-wrap: wrap;
-    justify-content: center;
+    //justify-content: space-between;
     & .k-chip {
-      margin: 10px;
+      //margin: 10px;
+      min-width: 100px;
+      gap: 15px;
+      .k-chip-content {
+        flex: none;
+      }
     }
   }
 }
