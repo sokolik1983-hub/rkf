@@ -7,10 +7,8 @@ import RenderFields from "./RenderFields";
 import { newsArticleFormConfig } from "./config";
 import ls from "local-storage";
 import {useFocus} from "../../shared/hooks";
-import {defaultValues} from "../../pages/News/config";
 
 import "./index.scss";
-// import {useLocation} from "react-router-dom";
 
 
 const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInfo}) => {
@@ -30,8 +28,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
     const [values, setValue] = useState(1);
-/*    const { pathname } = useLocation();
-    const {user_type } = ls.get('user_info') || {};*/
 
 
     const CategoryNullSchema = object().shape({
@@ -77,7 +73,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
-    // const isUser = pathname.search('user') === 1 || user_type === 1;
 
     const transformValues = values => {
 
