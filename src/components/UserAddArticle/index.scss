@@ -161,8 +161,8 @@
       display: inline-block;
       width: 20px;
       height: 20px;
-      background: url("/static/icons/client/attach-image.svg") no-repeat center / cover,
-        url("/static/icons/client/attach-image-active.svg") no-repeat center / cover;
+      background: url("/static/icons/client/attach-image2.svg") no-repeat center / cover,
+        url("/static/icons/client/attach-image2-active.svg") no-repeat center / cover;
       position: absolute;
       top: 50%;
       left: 0;
@@ -173,7 +173,7 @@
       color: #3366ff;
 
       &:before {
-        background: url("/static/icons/client/attach-image-active.svg") no-repeat center / cover;
+        background: url("/static/icons/client/attach-image2-active.svg") no-repeat center / cover;
       }
     }
   }
@@ -194,8 +194,8 @@
       display: inline-block;
       height: 22px;
       width: 24px;
-      background: url("/static/icons/icon-youtube-add-article.svg") no-repeat center / cover,
-        url("/static/icons/icon-youtube-add-article-blue.svg") no-repeat center / cover;
+      background: url("/static/icons/icon-youtube-add-article2.svg") no-repeat center / cover,
+        url("/static/icons/icon-youtube-add-article2-blue.svg") no-repeat center / cover;
       position: absolute;
       background-size: contain;
       top: 50%;
@@ -207,7 +207,7 @@
       color: #3366ff;
 
       &:before {
-        background: url("/static/icons/icon-youtube-add-article-blue.svg") no-repeat center / cover;
+        background: url("/static/icons/icon-youtube-add-article2-blue.svg") no-repeat center / cover;
         background-size: contain;
       }
     }
@@ -218,7 +218,7 @@
       color: #72839c !important;
 
       &:before {
-        background: url("/static/icons/icon-youtube-add-article.svg") no-repeat center / cover !important;
+        background: url("/static/icons/icon-youtube-add-article2.svg") no-repeat center / cover !important;
         background-size: contain;
       }
     }
@@ -229,8 +229,8 @@
     padding: 0 0 0 20px;
 
     &:before {
-      background: url("/static/icons/icon-pdf.svg") no-repeat center / contain,
-        url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-pdf2.svg") no-repeat center / contain,
+        url("/static/icons/icon-pdf2-blue.svg") no-repeat center / contain;
       height: 22px;
       width: 24px;
       position: absolute;
@@ -241,7 +241,7 @@
 
     &:hover {
       &:before {
-        background: url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
+        background: url("/static/icons/icon-pdf2-blue.svg") no-repeat center / contain;
       }
     }
   }

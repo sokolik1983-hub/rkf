@@ -20,7 +20,6 @@ import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
-import CustomSelect from "react-select";
 
 
 const RenderFields = ({ fields,
@@ -166,11 +165,7 @@ const RenderFields = ({ fields,
     };
 
     const handleChangeAllCities = () => {
-        if (isAllCities) {
-            setIsAllCities(false);
-        } else if (!isAllCities) {
-            setIsAllCities(true);
-        }
+        setIsAllCities(!isAllCities);
     };
 
     useEffect(() => {

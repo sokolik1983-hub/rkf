@@ -41,14 +41,14 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         content: string().required('Поле не может быть пустым'),
         advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
         advert_number_of_puppies: isAd && !isMating ? number().typeError('Поле не может быть пустым') : '',
-        advert_type_id: isAd ? number().nullable().required('Выберите категорию') : '',
+        advert_type_id: isAd ? number().required('Выберите категорию') : '',
         advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : '',
     }); //Валидация для объявлений категории 1
     const CategoryTwoSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
         dog_name: string().required('Поле не может быть пустым'),
         advert_breed_id: !isHalfBreed ? number().required('Укажите породу').typeError('Укажите пород') : '',
-        advert_type_id: isCheckedAddTypes ? number().nullable().required('Выберите категорию') : '',
+        advert_type_id: isCheckedAddTypes ? number().required('Выберите категорию') : '',
         dog_city: (activeElem === 6) ? array().required('Укажите город').typeError('Укажите город') : number().required('Укажите город').typeError('Укажите город'),
         dog_sex_type_id: isCheckedAddTypes ? number().required('Укажите пол').typeError('Укажите пол') : '',
     }); //Валидация для объявлений категории 2
