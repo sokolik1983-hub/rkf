@@ -316,7 +316,7 @@
       grid-template-areas:
         "city2 city2 breed2 breed2"
         "sex2 age2 name2 color2";
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 24% 24% 24% 24%;
       gap: 0 10px;
       @media (max-width: 750px) {
         grid-template-areas:
@@ -678,9 +678,7 @@
 @media (max-width: 750px) {
   .k-selection-single {
     flex-wrap: wrap;
-    //justify-content: space-between;
     & .k-chip {
-      //margin: 10px;
       min-width: 100px;
       gap: 15px;
       .k-chip-content {
