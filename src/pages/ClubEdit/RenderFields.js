@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {connect} from 'formik';
 import StickyBox from 'react-sticky-box';
 import Card from '../../components/Card';
 import {sections} from './config';
@@ -118,10 +117,10 @@ const RenderFields = ({
             <div className={`ClubEdit__inner-right${isOpenFilters ? ' _open' : ''}`}>
                 <StickyBox offsetTop={60}>
                     <Card>
-                        <span className='club-menu__profile-label'>Профиль</span>
-                        <ul className='club-menu__inner-list'>
+                        <span className='ClubEdit__profile-label'>Профиль</span>
+                        <ul className='ClubEdit__inner-list'>
                             {Object.keys(sections).map((type, key) => <div
-                                    className={sections[type].id === activeSection ? 'club-menu__inner-item active' : 'club-menu__inner-item'}
+                                    className={sections[type].id === activeSection ? 'ClubEdit__inner-item active' : 'ClubEdit__inner-item'}
                                     key={key}
                                     onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                 >
@@ -137,4 +136,4 @@ const RenderFields = ({
     );
 }
 
-export default connect(React.memo(RenderFields));
+export default React.memo(RenderFields);

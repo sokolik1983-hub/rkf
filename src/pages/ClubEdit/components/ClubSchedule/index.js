@@ -37,7 +37,6 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
         if (work_time.length) {
             setSelectedDays(work_time.reduce((acc, curr) => [...acc, curr.week_day_id], []));
         }
-        console.log(days)
     }, [work_time, days]);
 
     const handleDayClick = id => {

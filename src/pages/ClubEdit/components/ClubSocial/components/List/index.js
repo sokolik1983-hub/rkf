@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Loading from "../../../../../../components/Loading";
 import ListSocial from "./ListItem";
 import {useResourceAndStoreToRedux} from "../../../../../../shared/hooks";
@@ -11,18 +11,27 @@ const ClientSocialList = ({
         listIds,
         club_id,
         editable,
+        triggerRef,
+        checkForDelete,
+        setTriggerLoad,
         getClubSocialListSuccess,
 }) => {
     const url = getlistUrl + String(club_id);
     const {loading} = useResourceAndStoreToRedux(url, getClubSocialListSuccess);
+
+    useEffect(()=>{
+        !loading && setTriggerLoad(true)
+    },[loading])
+
     
     return (
-        <div className="ClientClubList">
+        <div className="ClientClubList" ref={triggerRef}>
             {loading ?
                 <Loading/> :
                 listIds.map(id => <ListSocial
                     editable={editable}
                     key={id}
+                    checkForDelete={checkForDelete}
                     id={id} />)}
         </div>
     )

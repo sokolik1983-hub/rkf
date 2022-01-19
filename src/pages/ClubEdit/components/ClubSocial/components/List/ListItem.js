@@ -7,7 +7,12 @@ import {connectClientClubListItem} from "../../connectors";
 import {clubClubSocialConfig, endpointUrl} from "../../config";
 
 
-const ClientClubListItem = ({clubSocial, updateClubSocialSuccess, deleteClubSocialSuccess}) => {
+const ClientClubListItem = ({
+        clubSocial,
+        checkForDelete,
+        updateClubSocialSuccess,
+        deleteClubSocialSuccess
+}) => {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
     
     const onUpdateSuccess = values => {
@@ -25,6 +30,11 @@ const ClientClubListItem = ({clubSocial, updateClubSocialSuccess, deleteClubSoci
                 return obj;
             }, {});
     };
+
+    const successDelete = () => {
+        checkForDelete();
+        onDeleteSuccess();
+    }
     
     return (
         <div className="ClientClubListItem">
@@ -38,7 +48,7 @@ const ClientClubListItem = ({clubSocial, updateClubSocialSuccess, deleteClubSoci
                 </Form>
             <div className="ClientClubListItem__controls">
                 <DeleteButton
-                    onDeleteSuccess={onDeleteSuccess}
+                    onDeleteSuccess={successDelete}
                     windowed
                     actionUrl={`${endpointUrl}/${clubSocial.id}`}
                 >

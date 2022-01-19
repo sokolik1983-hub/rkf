@@ -152,6 +152,25 @@
             }
         }
 
+        .add-max {
+            display: block;
+            margin: 20px auto;
+            min-width: 155px;
+            height: 38px;
+            padding: 0;
+            align-self: center;
+            font-size: 16px;
+            line-height: 20px;
+            color: #FFFFFF;
+            text-align: center;
+            vertical-align: center;
+            background: #00C48C;
+            border-color: #00C48C;
+            &:hover {
+                box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+            }
+        }
+
         .add-mini {
             position: relative;
             bottom: 53px;
@@ -164,6 +183,9 @@
             border: none;
             border-radius: 50%;
             background: url("/static/icons/add-blue.svg") no-repeat center / contain;
+            &:hover {
+                box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+            }
             @media (max-width: 760px) {
                 top: -107px;
             }
@@ -183,6 +205,22 @@
             background: url('/static/icons/delete-red.svg');
             background-size: cover;
             border: none;
+            &:hover {
+                box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+            }
+        }
+
+        .ProfileEditPageControls__save {
+            position: relative;
+            left: 35px;
+            height: 18px;
+            width: 18px;
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+            border: none;
+            border-radius: 50%;
+            background: url("/static/icons/done-arrow-green.svg") no-repeat center / contain;
             &:hover {
                 box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
             }
