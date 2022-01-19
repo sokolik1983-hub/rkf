@@ -29,9 +29,9 @@ const ClientSocialList = ({
             {loading ?
                 <Loading/> :
                 listIds.map(id => <ListSocial
+                    checkForDelete={checkForDelete}
                     editable={editable}
                     key={id}
-                    checkForDelete={checkForDelete}
                     id={id} />)}
         </div>
     )

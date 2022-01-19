@@ -197,6 +197,25 @@
         }
     }
 
+    .add-max {
+        display: block;
+        margin: 20px auto;
+        min-width: 155px;
+        height: 38px;
+        padding: 0;
+        align-self: center;
+        font-size: 16px;
+        line-height: 20px;
+        color: #FFFFFF;
+        text-align: center;
+        vertical-align: center;
+        background: #00C48C;
+        border-color: #00C48C;
+        &:hover {
+            box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+        }
+    }
+
     .add-mini {
         position: relative;
         bottom: 55px;

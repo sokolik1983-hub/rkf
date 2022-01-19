@@ -9,6 +9,9 @@
     @media (max-width: 560px) {
       margin-bottom: 12px;
     }
+    &__link {
+      text-decoration: none;
+    }
     &__img {
       height: 250px;
       background-repeat: no-repeat;

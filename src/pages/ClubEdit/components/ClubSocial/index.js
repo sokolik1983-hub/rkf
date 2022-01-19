@@ -11,7 +11,6 @@ import reducer from "./reducer";
 
 const ClientClubSocialProxy = ({bindSubmitForm}) => {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
-
     const [triggerButton, setTriggerButton] = useState(false);
     const [triggerLoad, setTriggerLoad] = useState(false);
     const [triggerDell, setTriggerDell] = useState(false);
@@ -38,7 +37,7 @@ const ClientClubSocialProxy = ({bindSubmitForm}) => {
 
     return (
         <div className="contacts__social">
-            <ClientSocialList triggerRef={triggerRef} setTriggerLoad={setTriggerLoad} checkForDelete={checkForDelete}/>
+            <ClientSocialList triggerRef={triggerRef} setTriggerLoad={setTriggerLoad} checkForDelete={checkForDelete} />
             {visibility &&
                 <ClubSocialForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
             }

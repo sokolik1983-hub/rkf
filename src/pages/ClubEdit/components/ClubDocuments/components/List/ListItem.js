@@ -6,7 +6,12 @@ import {useVisibility} from "../../../../../../shared/hooks";
 import {connectClientClubListItem} from "../../connectors";
 
 
-function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClubDocumentSuccess}) {
+function ClientClubListItem({
+        clubDocument,
+        checkForDelete,
+        updateClubDocumentSuccess,
+        deleteClubDocumentSuccess,
+}) {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
 
     const onUpdateSuccess = (values) => {
@@ -17,6 +22,10 @@ function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClub
     const onDeleteSuccess = () => {
         deleteClubDocumentSuccess({ id: clubDocument.id });
     };
+    const successDelete = () => {
+        checkForDelete();
+        onDeleteSuccess();
+    }
 
     return (
         <div className="ClientClubListItem">
@@ -30,7 +39,7 @@ function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClub
                 </Form>
             <div className="ClientClubListItem__controls">
                 <DeleteButton
-                    onDeleteSuccess={onDeleteSuccess}
+                    onDeleteSuccess={successDelete}
                     windowed
                     actionUrl={`/api/clubs/ClubDocument/${clubDocument.id}`}
                 >

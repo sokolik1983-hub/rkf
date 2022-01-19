@@ -7,7 +7,7 @@ import {DEFAULT_IMG} from '../../../../appConfig';
 import UserActionControls from '../../../../components/UserActionControls';
 import {ActiveUserMark, FederationChoiceMark} from '../../../../components/Marks';
 
-import './index.scss';
+import './style.scss';
 
 
 const UserHeader = ({
@@ -70,7 +70,9 @@ const UserHeader = ({
                                 </div>
                             </div>
                             <div className="user-header__container">
-                                <h3 className="user-header__name">{name}</h3>
+                                <h3 className="user-header__name">
+                                    <Link className="user-header__link" to={`/${alias}`}>{name}</Link>
+                                </h3>
                                 <Share/>
                             </div>
                             {setUserType(user, alias) === 'Федерация' &&

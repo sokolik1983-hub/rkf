@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {compose} from "redux";
 import Button from "../../../../components/Button";
 import ClientDocumentList from "./components/List";
@@ -11,22 +11,40 @@ import reducer from "./reducer";
 
 const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
+    const [triggerButton, setTriggerButton] = useState(false);
+    const [triggerLoad, setTriggerLoad] = useState(false);
+    const [triggerDell, setTriggerDell] = useState(false);
+    const triggerRef = useRef();
+
+    const checkForDelete = () => {
+        setTriggerDell(!triggerDell)
+    }
 
     if (!visibility && bindSubmitForm) {
         bindSubmitForm.submit(null, {});
     }
 
+    useEffect(()=> {
+        triggerLoad &&
+        triggerRef.current.innerHTML.length <= 70 && setTriggerButton(true);
+    })
+
+    useEffect(()=> {
+        triggerLoad &&
+        triggerRef.current.innerHTML.length < 1400 && setTriggerButton(true);
+    },[triggerDell])
+
     return (
         <>
-            <ClientDocumentList />
+            <ClientDocumentList triggerRef={triggerRef} setTriggerLoad={setTriggerLoad} checkForDelete={checkForDelete} />
             {visibility &&
                 <ClubDocumentsForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
             }
             <Button
-                className={visibility ? 'delete-mini' : false ? "add-max" : "add-mini"}
+                className={visibility ? 'delete-mini' : triggerButton ? "add-max" : "add-mini"}
                 onClick={toggleVisibility}
             >
-                {visibility ? 'Удалить' : '+ Добавить документ'}
+                {visibility ? '' : 'Добавить документ'}
             </Button>
         </>
     )
