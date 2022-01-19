@@ -11,7 +11,6 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     const linkRef = useRef();
 
     useEffect(() => {
-        // if (pdf && isMobile) newTab.location.href = pdf;
         if (pdf) newTab.location.href = pdf;
     }, [pdf]);
 
