@@ -177,7 +177,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                                 to={navItem.to}
                                                 exact={navItem.exact}
                                                 className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                                             >
                                                 {navItem.icon}
                                                 <span>{navItem.title}</span>
@@ -213,7 +213,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                                     ? `/club${navItem.to}` : navItem.to}
                                                 exact={navItem.exact}
                                                 className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                                             >
                                                 {navItem.icon}
                                                 <span>{navItem.title}</span>
@@ -237,7 +237,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                                                 ? `/club${navItem.to}` : navItem.to}
                                                             exact={navItem.exact}
                                                             className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                            onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                                            onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                                                         >
                                                             {navItem.icon}
                                                             <span>{navItem.title}</span>
@@ -265,7 +265,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                                             ? `/club${navItem.to}` : navItem.to}
                                                         exact={navItem.exact}
                                                         className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                        onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                                        onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                                                     >
                                                         {navItem.icon}
                                                         <span>{navItem.title}</span>
