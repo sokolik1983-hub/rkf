@@ -7,7 +7,6 @@ import RenderFields from "./RenderFields";
 import { newsArticleFormConfig } from "./config";
 import ls from "local-storage";
 import {useFocus} from "../../shared/hooks";
-import {defaultValues} from "../../pages/News/config";
 
 import "./index.scss";
 
@@ -29,6 +28,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
     const [values, setValue] = useState(1);
+
 
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
