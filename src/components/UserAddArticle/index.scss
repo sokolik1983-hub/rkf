@@ -278,21 +278,65 @@
 
     @media(max-width: 750px) {
       flex-basis: 100%;
-      flex-direction: column;
+      gap: 20px;
     }
   }
 
   &__advert {
     color: #72839C;
-    .FormInput__input {
-      padding: 7px 10px 7px 10px !important;
-      &:first-child {
-        padding: 0 !important;
+    label {
+      margin-left: 1px;
+    }
+    &.BuySell {
+      display: grid;
+      grid-template-areas:
+            "breed cost puppies"
+            "color sex age";
+      grid-template-columns: 61.5% 18% 18%;
+      gap: 0 10px;
+      @media (max-width: 750px) {
+        grid-template-areas:
+            "breed breed"
+            "sex age"
+            "color color"
+            "cost cost"
+            "puppies puppies";
+        grid-template-columns: 48% 48%;
+      }
+      .FormInput__input {
+        padding: 7px 10px 7px 10px !important;
+        &:first-child {
+          padding: 0 !important;
+        }
+      }
+    }
+
+    &.Ads {
+      display: grid;
+      grid-template-areas:
+        "city2 city2 breed2 breed2"
+        "sex2 age2 name2 color2";
+      grid-template-columns: 24% 24% 24% 24%;
+      gap: 0 10px;
+      @media (max-width: 750px) {
+        grid-template-areas:
+            "city2 city2"
+            "breed2 breed2"
+            "sex2 age2"
+            "name2 name2"
+            "color2 color2";
+        grid-template-columns: 48% 48%;
+      }
+      .FormInput__input {
+        padding: 7px 10px 7px 10px !important;
+        &:first-child {
+          padding: 0 !important;
+        }
       }
     }
     .ArticleCreateForm {
       &__input-sex {
-        width: 130px;
+        grid-area: sex2;
         & .FormInput__input {
           padding: 0 !important;
         }
@@ -301,13 +345,52 @@
         }
       }
       &__input-age {
-        max-width: 90px;
+        grid-area: age2;
       }
       &__input-name {
-        max-width: 245px;
+        grid-area: name2;
       }
       &__input-color {
-        max-width: 245px;
+        grid-area: color2;
+      }
+
+      &__input-breed_new {
+        grid-area: breed;
+      }
+      &__input-sex_new {
+        grid-area: sex;
+        & .FormInput__input {
+          padding: 0 !important;
+        }
+        & .css-kj6f9i-menu {
+          max-height: 70px!important;
+        }
+      }
+      &__input-color_new {
+        grid-area: color;
+      }
+      &__input-age_new {
+        grid-area: age;
+      }
+      &__input-cost_new {
+        grid-area: cost;
+      }
+      &__input-puppies_new {
+        grid-area: puppies;
+      }
+      &__breed-select-wrap {
+        position: relative;
+        grid-area: breed2;
+        & .custom-checkbox {
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: auto;
+          margin: 0;
+        }
+      }
+      &__age-wrap {
+        grid-area: age2;
       }
     }
     .css-shvkw9-control,
@@ -500,7 +583,7 @@
     }
   }
   &__input-breedId,  &__input-city{
-    width: 40%;
+    width: 100%;
   }
   &__input-city {
     & #dog_city {
@@ -551,22 +634,13 @@
   }
   &__city-select-wrap {
     position: relative;
-    width: 40%;
+    grid-area: city2;
     & .custom-checkbox {
       position: absolute;
       top: 0;
       right: 0;
-      @media (max-width: 600px) {
-        top: 60px;
-      }
-    }
-    & .ArticleCreateForm__input-city {
-      width: 100%;
-    }
-    @media (max-width: 600px) {
-      width: 245px;
-      max-width: 245px;
-      padding-bottom: 20px;
+      left: auto;
+      margin: 0;
     }
   }
 }
@@ -604,9 +678,12 @@
 @media (max-width: 750px) {
   .k-selection-single {
     flex-wrap: wrap;
-    justify-content: center;
     & .k-chip {
-      margin: 10px;
+      min-width: 100px;
+      gap: 15px;
+      .k-chip-content {
+        flex: none;
+      }
     }
   }
 }
