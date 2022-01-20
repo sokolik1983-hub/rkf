@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
-import {compose} from "redux";
-import Button from "../../../../components/Button";
-import ClubSocialForm from "./components/Form";
-import ClientSocialList from "./components/List";
-import {useVisibility} from "../../../../shared/hooks";
-import {defaultReduxKey} from "./config";
-import injectReducer from "../../../../utils/injectReducer";
-import reducer from "./reducer";
+import React, {useEffect, useRef, useState} from 'react';
+import {compose} from 'redux';
+import Button from '../../../../components/Button';
+import ClubSocialForm from './components/Form';
+import ClientSocialList from './components/List';
+import {useVisibility} from '../../../../shared/hooks';
+import {defaultReduxKey} from './config';
+import injectReducer from '../../../../utils/injectReducer';
+import reducer from './reducer';
 
 
 const ClientClubSocialProxy = ({bindSubmitForm}) => {

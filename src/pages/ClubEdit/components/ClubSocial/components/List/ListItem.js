@@ -1,10 +1,10 @@
-import React from "react";
-import {Form} from "../../../../../../components/Form";
-import DeleteButton from "../../../../../../components/DeleteButton";
-import RenderFields from "../Form/RenderFields";
-import {useVisibility} from "../../../../../../shared/hooks";
-import {connectClientClubListItem} from "../../connectors";
-import {clubClubSocialConfig, endpointUrl} from "../../config";
+import React from 'react';
+import {Form} from '../../../../../../components/Form';
+import DeleteButton from '../../../../../../components/DeleteButton';
+import RenderFields from '../Form/RenderFields';
+import {useVisibility} from '../../../../../../shared/hooks';
+import {connectClientClubListItem} from '../../connectors';
+import {clubClubSocialConfig, endpointUrl} from '../../config';
 
 
 const ClientClubListItem = ({
@@ -42,7 +42,7 @@ const ClientClubListItem = ({
                     action={clubClubSocialConfig.formAction}
                     onSuccess={onUpdateSuccess}
                     method="PUT"
-                    initialValues={filterObj(clubSocial, 'social_network_type_id')}
+                    initialValues={filterObj(clubSocial, "social_network_type_id")}
                 >
                     <RenderFields />
                 </Form>

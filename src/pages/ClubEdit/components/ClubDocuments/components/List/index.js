@@ -1,10 +1,11 @@
-import React, {useEffect} from "react";
-import Loading from "../../../../../../components/Loading";
-import ListDocument from "./ListItem";
-import {useResourceAndStoreToRedux} from "../../../../../../shared/hooks";
-import {connectListDocument} from "../../connectors";
-import {getlistUrl} from "../../config";
-import "./styles.scss";
+import React, {useEffect} from 'react';
+import Loading from '../../../../../../components/Loading';
+import ListDocument from './ListItem';
+import {useResourceAndStoreToRedux} from '../../../../../../shared/hooks';
+import {connectListDocument} from '../../connectors';
+import {getlistUrl} from '../../config';
+
+import './styles.scss';
 
 
 const ClientDocumentList = ({

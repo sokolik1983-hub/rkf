@@ -9,8 +9,8 @@ import ClubBankInfo from './components/ClubBankInfo';
 import ClubContacts from './components/ClubContacts';
 import ClubDocuments from './components/ClubDocuments';
 import ClubSocial from './components/ClubSocial';
-import EditPageButtons from "./components/EditPageButtons";
-import {SvgSelector} from "./icons";
+import EditPageButtons from './components/EditPageButtons';
+import {SvgSelector} from './icons';
 
 
 const RenderFields = ({
@@ -38,7 +38,7 @@ const RenderFields = ({
     const renderSection = (section) => {
         switch (section) {
             case 0:
-                return <Card className='MainInfo'>
+                return <Card className="MainInfo">
                     <h3>Основная информация</h3>
                     <a className="support-link"
                        href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
@@ -57,7 +57,7 @@ const RenderFields = ({
                     <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                 </Card>;
             case 1:
-                return <Card className='contacts'>
+                return <Card className="contacts">
                     <h3>Контакты</h3>
                     <ClubContacts
                         bindSubmitClubEmail={bindSubmitClubEmail}
@@ -69,14 +69,14 @@ const RenderFields = ({
                     <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                 </Card>;
             case 2:
-                return <Card className='Schedule'>
+                return <Card className="Schedule">
                     <ClubSchedule
                         bindSubmitForm={bindSubmitClubSchedule}
                     />
                     <EditPageButtons handleSubmitForms={handleSubmitForms}/>
                 </Card>;
             case 3:
-                return <Card className='LegalInfo'>
+                return <Card className="LegalInfo">
                     <ClubLegalInfo
                         bindSubmitForm={bindSubmitClubLegalInfo}
                     />
@@ -85,7 +85,7 @@ const RenderFields = ({
                     </button>
                 </Card>;
             case 4:
-                return <Card className='BankInfo'>
+                return <Card className="BankInfo">
                     <ClubBankInfo
                         bindSubmitForm={bindSubmitClubBankInfo}
                     />
@@ -94,7 +94,7 @@ const RenderFields = ({
             case 5:
                 return <Card>
                     <h3>Удаление страницы</h3>
-                    <div className='ClubEdit__delete'>
+                    <div className="ClubEdit__delete">
                         <p>
                             Удаление Профиля Клуба недоступно
                         </p>
@@ -110,17 +110,17 @@ const RenderFields = ({
 
 
     return (
-        <div className='ClubEdit__inner'>
-            <div className='ClubEdit__inner-left'>
+        <div className="ClubEdit__inner">
+            <div className="ClubEdit__inner-left">
                 {renderSection(activeSection)}
             </div>
-            <div className={`ClubEdit__inner-right${isOpenFilters ? ' _open' : ''}`}>
+            <div className={`ClubEdit__inner-right${isOpenFilters ? " _open" : ""}`}>
                 <StickyBox offsetTop={60}>
                     <Card>
-                        <span className='ClubEdit__profile-label'>Профиль</span>
-                        <ul className='ClubEdit__inner-list'>
+                        <span className="ClubEdit__profile-label">Профиль</span>
+                        <ul className="ClubEdit__inner-list">
                             {Object.keys(sections).map((type, key) => <div
-                                    className={sections[type].id === activeSection ? 'ClubEdit__inner-item active' : 'ClubEdit__inner-item'}
+                                    className={sections[type].id === activeSection ? "ClubEdit__inner-item active" : "ClubEdit__inner-item"}
                                     key={key}
                                     onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                 >

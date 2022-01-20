@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
-import {compose} from "redux";
-import Button from "../../../../components/Button";
-import ClientDocumentList from "./components/List";
-import ClubDocumentsForm from "./components/Form";
-import {useVisibility} from "../../../../shared/hooks";
-import {defaultReduxKey} from "./config";
-import injectReducer from "../../../../utils/injectReducer";
-import reducer from "./reducer";
+import React, {useEffect, useRef, useState} from 'react';
+import {compose} from 'redux';
+import Button from '../../../../components/Button';
+import ClientDocumentList from './components/List';
+import ClubDocumentsForm from './components/Form';
+import {useVisibility} from '../../../../shared/hooks';
+import {defaultReduxKey} from './config';
+import injectReducer from '../../../../utils/injectReducer';
+import reducer from './reducer';
 
 
 const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
@@ -41,10 +41,10 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
                 <ClubDocumentsForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
             }
             <Button
-                className={visibility ? 'delete-mini' : triggerButton ? "add-max" : "add-mini"}
+                className={visibility ? "delete-mini" : triggerButton ? "add-max" : "add-mini"}
                 onClick={toggleVisibility}
             >
-                {visibility ? '' : 'Добавить документ'}
+                {visibility ? "" : "Добавить документ"}
             </Button>
         </>
     )

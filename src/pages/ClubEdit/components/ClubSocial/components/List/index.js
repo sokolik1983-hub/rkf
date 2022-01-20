@@ -1,10 +1,11 @@
-import React, {useEffect} from "react";
-import Loading from "../../../../../../components/Loading";
-import ListSocial from "./ListItem";
-import {useResourceAndStoreToRedux} from "../../../../../../shared/hooks";
-import {getlistUrl} from "../../config";
-import {connectListSocial} from "../../connectors";
-import "./styles.scss";
+import React, {useEffect} from 'react';
+import Loading from '../../../../../../components/Loading';
+import ListSocial from './ListItem';
+import {useResourceAndStoreToRedux} from '../../../../../../shared/hooks';
+import {getlistUrl} from '../../config';
+import {connectListSocial} from '../../connectors';
+
+import './styles.scss';
 
 
 const ClientSocialList = ({

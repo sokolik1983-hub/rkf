@@ -1,9 +1,9 @@
-import React from "react";
-import {Form} from "../../../../../../components/Form";
-import DeleteButton from "../../../../../../components/DeleteButton";
-import RenderFields from "../../components/Form/RenderFields";
-import {useVisibility} from "../../../../../../shared/hooks";
-import {connectClientClubListItem} from "../../connectors";
+import React from 'react';
+import {Form} from '../../../../../../components/Form';
+import DeleteButton from '../../../../../../components/DeleteButton';
+import RenderFields from '../../components/Form/RenderFields';
+import {useVisibility} from '../../../../../../shared/hooks';
+import {connectClientClubListItem} from '../../connectors';
 
 
 function ClientClubListItem({
@@ -30,7 +30,7 @@ function ClientClubListItem({
     return (
         <div className="ClientClubListItem">
                 <Form
-                    action={'/api/clubs/ClubDocument'}
+                    action={"/api/clubs/ClubDocument"}
                     onSuccess={onUpdateSuccess}
                     method="PUT"
                     initialValues={clubDocument}
