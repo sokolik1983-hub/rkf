@@ -44,7 +44,8 @@ const RenderFields = ({
                        href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
                        target="_blank"
                        rel="noopener noreferrer"
-                    >Инструкция по редактированию профиля
+                    >
+                        Инструкция по редактированию профиля
                     </a>
                     <ClubInfo
                         bindSubmitClubAlias={bindSubmitClubAlias}
@@ -54,7 +55,9 @@ const RenderFields = ({
                     <ClubDocuments
                         bindSubmitForm={bindSubmitClubDocuments}
                     />
-                    <EditPageButtons handleSubmitForms={handleSubmitForms}/>
+                    <EditPageButtons
+                        handleSubmitForms={handleSubmitForms}
+                    />
                 </Card>;
             case 1:
                 return <Card className="contacts">
@@ -62,25 +65,33 @@ const RenderFields = ({
                     <ClubContacts
                         bindSubmitClubEmail={bindSubmitClubEmail}
                         bindSubmitClubPhone={bindSubmitClubPhone}
+                        bindSubmitClubInfo={bindSubmitClubInfo}
                     />
                     <ClubSocial
                         bindSubmitForm={bindSubmitClubSocials}
                     />
-                    <EditPageButtons handleSubmitForms={handleSubmitForms}/>
+                    <EditPageButtons
+                        handleSubmitForms={handleSubmitForms}
+                    />
                 </Card>;
             case 2:
                 return <Card className="Schedule">
                     <ClubSchedule
                         bindSubmitForm={bindSubmitClubSchedule}
                     />
-                    <EditPageButtons handleSubmitForms={handleSubmitForms}/>
+                    <EditPageButtons
+                        handleSubmitForms={handleSubmitForms}
+                    />
                 </Card>;
             case 3:
                 return <Card className="LegalInfo">
                     <ClubLegalInfo
                         bindSubmitForm={bindSubmitClubLegalInfo}
                     />
-                    <button className="button-save__disable" disabled="disabled">
+                    <button
+                        className="button-save__disable"
+                        disabled="disabled"
+                    >
                         Сохранить
                     </button>
                 </Card>;
@@ -89,7 +100,9 @@ const RenderFields = ({
                     <ClubBankInfo
                         bindSubmitForm={bindSubmitClubBankInfo}
                     />
-                    <EditPageButtons handleSubmitForms={handleSubmitForms}/>
+                    <EditPageButtons
+                        handleSubmitForms={handleSubmitForms}
+                    />
                 </Card>;
             case 5:
                 return <Card>
@@ -98,7 +111,10 @@ const RenderFields = ({
                         <p>
                             Удаление Профиля Клуба недоступно
                         </p>
-                        <button className="button-delete__disable" disabled="disabled">
+                        <button
+                            className="button-delete__disable"
+                            disabled="disabled"
+                        >
                             Удалить
                         </button>
                     </div>

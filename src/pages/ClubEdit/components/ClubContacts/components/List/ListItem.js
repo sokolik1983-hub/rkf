@@ -1,14 +1,19 @@
-import React from "react";
-import Button from "../../../../../../components/Button";
-import DeleteButton from "../../../../../../components/DeleteButton";
-import {Form, SubmitButton} from "../../../../../../components/Form";
-import RenderFields from "../../components/Form/RenderFields";
-import {useVisibility} from "../../../../../../shared/hooks";
-import {connectClientClubContactListItem} from "../../connectors";
-import {ENDPOINT_URL} from "../../config";
+import React from 'react';
+import DeleteButton from '../../../../../../components/DeleteButton';
+import {Form} from '../../../../../../components/Form';
+import RenderFields from '../../components/Form/RenderFields';
+import {useVisibility} from '../../../../../../shared/hooks';
+import {connectClientClubContactListItem} from '../../connectors';
+import {ENDPOINT_URL} from '../../config';
 
 
-const ClientClubContactListItem = ({clubContact, updateClubContactSuccess, deleteClubContactSuccess, type}) => {
+const ClientClubContactListItem = ({
+        type,
+        clubContact,
+        checkForDelete,
+        updateClubContactSuccess,
+        deleteClubContactSuccess,
+}) => {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
 
     const onUpdateSuccess = values => {
@@ -20,18 +25,24 @@ const ClientClubContactListItem = ({clubContact, updateClubContactSuccess, delet
         deleteClubContactSuccess({...clubContact});
     };
 
+    const successDelete = () => {
+        checkForDelete();
+        onDeleteSuccess();
+    }
+
+
     return (
         <Form
             className="ClientClubListItem"
-            action={'/api/clubs/Contact'}
+            action={"/api/clubs/Contact"}
             onSuccess={onUpdateSuccess}
             method="PUT"
             initialValues={clubContact}
         >
-            <RenderFields isMaskedTel={type === 'phone'} />
+            <RenderFields isMaskedTel={type === "phone"} />
                 <div className="ClientClubListItem__controls">
                     <DeleteButton
-                        onDeleteSuccess={onDeleteSuccess}
+                        onDeleteSuccess={successDelete}
                         windowed
                         actionUrl={`${ENDPOINT_URL}/${clubContact.id}`}
                     >

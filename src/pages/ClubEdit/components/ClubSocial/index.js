@@ -37,9 +37,16 @@ const ClientClubSocialProxy = ({bindSubmitForm}) => {
 
     return (
         <div className="contacts__social">
-            <ClientSocialList triggerRef={triggerRef} setTriggerLoad={setTriggerLoad} checkForDelete={checkForDelete} />
+            <ClientSocialList
+                triggerRef={triggerRef}
+                setTriggerLoad={setTriggerLoad}
+                checkForDelete={checkForDelete}
+            />
             {visibility &&
-                <ClubSocialForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
+                <ClubSocialForm
+                    hideForm={setInvisible}
+                    bindSubmitForm={bindSubmitForm}
+                />
             }
             {triggerLoad &&
                 <Button
@@ -47,7 +54,8 @@ const ClientClubSocialProxy = ({bindSubmitForm}) => {
                     onClick={toggleVisibility}
                 >
                     {visibility ? "Отмена" : "Добавить ссылку"}
-                </Button>}
+                </Button>
+            }
         </div>
     )
 };

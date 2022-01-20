@@ -6,7 +6,12 @@ import "./styles.scss";
 const EditPageButtons = ({handleSubmitForms}) => (
     <div className="Submit-button">
             {handleSubmitForms &&
-                <button className="Submit-button__save" onClick={handleSubmitForms}>Сохранить</button>
+                <button
+                    className="Submit-button__save"
+                    onClick={handleSubmitForms}
+                >
+                    Сохранить
+                </button>
             }
     </div>
 );

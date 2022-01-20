@@ -26,7 +26,9 @@ const ClientClubContactsProxy = ({
         <Loading /> :
         <div className="contacts__wrap">
             <div className="contacts__address">
-                <UpdateClubInfoForm bindSubmitForm={bindSubmitClubInfo} />
+                <UpdateClubInfoForm
+                    bindSubmitForm={bindSubmitClubInfo}
+                />
             </div>
             <div className="contacts__email">
                 <ClientContactList

@@ -263,7 +263,7 @@ const ClubEditPage = ({
                                     <CopyrightInfo withSocials={true}/>
                                 </StickyBox>
                             </aside>
-                            <div className="ClubEdit__inner-left">
+                            <div className="ClubEdit__inner">
                                 <RenderFields
                                     isOpenFilters={isOpenFilters}
                                     setShowFilters={setShowFilters}
