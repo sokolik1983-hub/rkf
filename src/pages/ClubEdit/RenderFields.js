@@ -136,9 +136,11 @@ const RenderFields = ({
                         <span className="ClubEdit__profile-label">Профиль</span>
                         <ul className="ClubEdit__inner-list">
                             {Object.keys(sections).map((type, key) => <div
-                                    className={sections[type].id === activeSection ? "ClubEdit__inner-item active" : "ClubEdit__inner-item"}
+                                    className={sections[type].id === activeSection ?
+                                        "ClubEdit__inner-item active" : "ClubEdit__inner-item"}
                                     key={key}
-                                    onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                                    onClick={() => activeSection !== sections[type].id &&
+                                        handleSectionSwitch(sections[type].id)}
                                 >
                                     <SvgSelector icon={sections[type].icon} />
                                     <li>{sections[type].name}</li>
