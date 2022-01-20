@@ -265,19 +265,20 @@ const ClubEditPage = ({
                             </aside>
                             <div className="ClubEdit__inner">
                                 <RenderFields
+                                    is_federation={is_federation}
                                     isOpenFilters={isOpenFilters}
                                     setShowFilters={setShowFilters}
-                                    is_federation={is_federation}
-                                    bindSubmitClubAlias={bindSubmitClubAlias}
+                                    handleSubmitForms={handleSubmitForms}
                                     bindSubmitClubInfo={bindSubmitClubInfo}
-                                    bindSubmitClubSchedule={bindSubmitClubSchedule}
-                                    bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
-                                    bindSubmitClubBankInfo={bindSubmitClubBankInfo}
+                                    bindSubmitClubAlias={bindSubmitClubAlias}
                                     bindSubmitClubEmail={bindSubmitClubEmail}
                                     bindSubmitClubPhone={bindSubmitClubPhone}
-                                    bindSubmitClubDocuments={bindSubmitClubDocuments}
                                     bindSubmitClubSocials={bindSubmitClubSocials}
-                                    handleSubmitForms={handleSubmitForms}
+                                    bindSubmitClubSchedule={bindSubmitClubSchedule}
+                                    bindSubmitClubBankInfo={bindSubmitClubBankInfo}
+                                    setNotificationsLength={setNotificationsLength}
+                                    bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
+                                    bindSubmitClubDocuments={bindSubmitClubDocuments}
                                 />
                             </div>
                         </Container>

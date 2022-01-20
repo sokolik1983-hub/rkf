@@ -135,7 +135,8 @@ const RenderFields = ({
                     <Card>
                         <span className="ClubEdit__profile-label">Профиль</span>
                         <ul className="ClubEdit__inner-list">
-                            {Object.keys(sections).map((type, key) => <div
+                            {Object.keys(sections).map((type, key) =>
+                                <div
                                     className={sections[type].id === activeSection ?
                                         "ClubEdit__inner-item active" : "ClubEdit__inner-item"}
                                     key={key}
