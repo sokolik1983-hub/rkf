@@ -91,7 +91,6 @@ const NewsFeedItem = forwardRef(({
     }, [checkedAll, isControlCheckedAll, clearChecks]);
 
     useEffect(() => {
-
         checkedAll && handleCheck();
     }, [checkedAll]);
 
