@@ -237,11 +237,8 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                         columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed')} />
                                     <GridColumn field="stamp_code" title="Клеймо" width={fullScreen ? '88px' : '55px'}
                                         columnMenu={ColumnMenu} />
-
                                     <GridColumn field="stamp" title="Клеймо" width={fullScreen ? '88px' : '55px'}
                                         columnMenu={ColumnMenu} />
-
-                                        columnMenu={ColumnMenu} cell={props => TextCell(props, 'nursery_name')} />
                                     <GridColumn field="date_of_birth_litter" title="Дата рождения помёта"
                                         width={fullScreen ? '99px' : '80px'} columnMenu={ColumnMenu} />
                                     <GridColumn field="breeder_full_name" title="Заводчик"
@@ -294,7 +291,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     onDataStateChange={handleGridDataChange}
                                     style={{ height: height ? height : "700px", width: "auto", margin: "0 auto" }}>
 
-
                                     <GridColumn field="status_value" cell={StatusCell} title="Статус"
                                         width={fullScreen ? '62px' : '61px'} />
                                     <GridColumn field="date_create" title="Создана" width={fullScreen ? '99px' : '80px'}
@@ -312,7 +308,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                         columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed')} />
                                     <GridColumn field="stamp_number" title="Клеймо"
                                         width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
-
                                     <GridColumn field="barcode" title="Трек-номер"
                                         width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu}
                                         cell={(props) => CopyCell(props, handleSuccess)} />
