@@ -20,7 +20,20 @@
         width: 500px;
         left: calc(50% - 250px);
     }
-    
+
+    &__wrap {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background: rgba(0, 0, 0, 0.7);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
     &__title {
         font-family: Source Sans Pro;
         font-style: normal;
@@ -56,16 +69,4 @@
     &__cross svg {
         position: absolute;
     }
-}
-.wrap {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    background: rgba(0, 0, 0, 0.7);
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
 }
