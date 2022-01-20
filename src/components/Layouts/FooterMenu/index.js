@@ -160,7 +160,13 @@ const FooterMenu = ({
                     setShowZlineModal(false);
                 }}
             >
-                <iframe src={'https://zline.me/widgets/registration-for-service?id=33'} title='unique_iframe' />
+                <iframe
+                    title="unique_iframe"
+                    src={process.env.NODE_ENV === 'production' ?
+                        'https://zline.me/widgets/registration-for-service?id=33' :
+                        'http://zsdev.uep24.ru/widgets/registration-for-service?id=94'
+                    }
+                />
             </ZlineModal>
         </>
     );
