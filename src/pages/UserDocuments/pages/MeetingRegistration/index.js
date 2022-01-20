@@ -10,7 +10,10 @@ const MeetingRegistration = () => {
 
     const handleClick = (e, isRKF) => {
         e.preventDefault();
-        setIframeLink(`https://zline.me/widgets/registration-for-service?id=${isRKF ? '18' : '19'}`);
+        setIframeLink(process.env.NODE_ENV === 'production' ?
+            `https://zline.me/widgets/registration-for-service?id=${isRKF ? '18' : '19'}` :
+            'http://zsdev.uep24.ru/widgets/registration-for-service?id=94'
+        );
         setShowModal(true);
     };
 
