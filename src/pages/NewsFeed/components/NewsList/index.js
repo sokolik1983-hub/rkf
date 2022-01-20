@@ -46,6 +46,8 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             setIsControlCheckedAll(false);
             setClearChecks(false);
             setCheckedAll(false);
+            setCheckedItemsIds([]);
+            setIsUnreadMessages(false);
 
             setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
 
@@ -180,6 +182,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
 
         unReadMessages.length ? setIsUnreadMessages(true) : setIsUnreadMessages(false);
     }
+
 
     return loading
 
