@@ -35,18 +35,27 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
     },[triggerDell])
 
     return (
-        <>
-            <ClientDocumentList triggerRef={triggerRef} setTriggerLoad={setTriggerLoad} checkForDelete={checkForDelete} />
+        <div className="MainInfo__documents">
+            <ClientDocumentList
+                triggerRef={triggerRef}
+                setTriggerLoad={setTriggerLoad}
+                checkForDelete={checkForDelete}
+            />
             {visibility &&
-                <ClubDocumentsForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
+                <ClubDocumentsForm
+                    hideForm={setInvisible}
+                    bindSubmitForm={bindSubmitForm}
+                />
             }
             <Button
-                className={visibility ? "delete-mini" : triggerButton ? "add-max" : "add-mini"}
+                className={visibility ? "delete-mini"
+                    : triggerButton ? "add-max"
+                        : "add-mini"}
                 onClick={toggleVisibility}
             >
                 {visibility ? "" : "Добавить документ"}
             </Button>
-        </>
+        </div>
     )
 };
 
