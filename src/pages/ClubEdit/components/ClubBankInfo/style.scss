@@ -1,4 +1,5 @@
 .BankInfo {
+
     .FormInput {
         display: grid;
         grid-template-columns: 115px 100fr;
@@ -6,12 +7,20 @@
         gap: 10px;
         align-items: center;
         margin-bottom: 20px;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 100fr;
+            grid-template-rows: 16px 38px;
+        }
+
         input {
             padding: 5px 10px;
+
             &:focus {
                 padding: 5px 10px;
             }
         }
+
         label {
             padding: 0;
             margin: 0;
@@ -19,6 +28,10 @@
             line-height: 16px;
             text-align: right;
             color: #253C5E;
+
+            @media (max-width: 768px) {
+                text-align: left;
+            }
         }
     }
 }

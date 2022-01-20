@@ -12,6 +12,7 @@
         display: block;
     }
 
+
     &__left {
         width: 300px;
         min-width: 300px;
@@ -210,9 +211,60 @@
         &-left {
             margin-right: 16px;
             width: 100%;
+            @media (max-width: 680px) {
+                margin-right: 0;
+            }
+            .ClubEdit__delete {
+                display: flex;
+                flex-direction: column;
+                min-height: 125px;
+
+                @media (max-width: 560px) {
+                    margin: 120px auto!important;
+                    padding: 0!important;
+                    max-width: 400px;
+                    h3 {
+                        background: linear-gradient(90deg, #4067AC 0%, #5791F8 100%);
+                        border-radius: 5px 5px 0 0;
+                        padding-top: 14px ;
+                        padding-bottom: 14px;
+                        padding-left: 14px;
+                        font-size: 18px!important;
+                        line-height: 18px!important;
+                        color: #FFFFFF!important;
+                    }
+                }
+
+                p {
+                    text-align: center;
+                    margin: 25px auto 40px;
+
+                    @media (max-width: 768px) {
+                        margin: 80px auto 100px;
+                    }
+                };
+
+                .button-delete__disable {
+                    width: 155px;
+                    height: 38px;
+                    padding: 0;
+                    align-self: center;
+                    font-size: 16px;
+                    line-height: 20px;
+                    text-align: center;
+                    vertical-align: center;
+                    color: #FFFFFF;
+                    background: #D6D6D6;
+                    border: 1px solid #D6D6D6;
+                    border-radius: 4px;
+                    @media (max-width: 560px) {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
 
             .Card {
-                margin: 0 0 16px 0!important;
+                margin: 0 0 16px 0;
                 padding: 10px;
                 h3 {
                     margin-top: 3px;
@@ -233,29 +285,7 @@
                     color: #3366FF;
                     border-bottom: 1px solid #E5E5E5;
                 }
-                .ClubEdit__delete {
-                    display: flex;
-                    flex-direction: column;
-                    min-height: 125px;
-                    p {
-                        text-align: center;
-                        margin: 25px auto 40px;
-                    };
-                    .button-delete__disable {
-                        width: 155px;
-                        height: 38px;
-                        padding: 0;
-                        align-self: center;
-                        font-size: 16px;
-                        line-height: 20px;
-                        text-align: center;
-                        vertical-align: center;
-                        color: #FFFFFF;
-                        background: #D6D6D6;
-                        border: 1px solid #D6D6D6;
-                        border-radius: 4px;
-                    }
-                }
+
                 .Submit-button__save {
                     display: block;
                     margin: 0 auto;

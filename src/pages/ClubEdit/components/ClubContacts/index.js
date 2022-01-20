@@ -30,16 +30,16 @@ const ClientClubContactsProxy = ({
                     bindSubmitForm={bindSubmitClubInfo}
                 />
             </div>
-            <div className="contacts__email">
-                <ClientContactList
-                    contactType={CONTACT_TYPES.email}
-                    bindSubmitForm={bindSubmitClubEmail}
-                />
-            </div>
             <div className="contacts__phone">
                 <ClientContactList
                     contactType={CONTACT_TYPES.phone}
                     bindSubmitForm={bindSubmitClubPhone}
+                />
+            </div>
+            <div className="contacts__email">
+                <ClientContactList
+                    contactType={CONTACT_TYPES.email}
+                    bindSubmitForm={bindSubmitClubEmail}
                 />
             </div>
         </div>

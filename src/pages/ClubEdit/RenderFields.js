@@ -105,19 +105,17 @@ const RenderFields = ({
                     />
                 </Card>;
             case 5:
-                return <Card>
+                return <Card className="ClubEdit__delete">
                     <h3>Удаление страницы</h3>
-                    <div className="ClubEdit__delete">
-                        <p>
-                            Удаление Профиля Клуба недоступно
-                        </p>
-                        <button
-                            className="button-delete__disable"
-                            disabled="disabled"
-                        >
-                            Удалить
-                        </button>
-                    </div>
+                    <p>
+                        Удаление Профиля Клуба недоступно
+                    </p>
+                    <button
+                        className="button-delete__disable"
+                        disabled="disabled"
+                    >
+                        Удалить
+                    </button>
                 </Card>
             default:
                 return <div>Not Found</div>;
