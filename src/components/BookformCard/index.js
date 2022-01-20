@@ -92,7 +92,19 @@ const BookformCard = ({ url, distinction }) => {
     const handleClick = (e, isRKF, destination) => {
         e.preventDefault();
         if (!destination) {
-            setIframeLink(isRKF ? RKF : (federation === 'РФСС' && RFSS) || (federation === 'РФОС' && RFOS) || (federation === 'РФЛС' && RFLS) || (federation === 'ОАНКОО/Элита' && ELITA) || (federation === 'ОАНКОО/Фауна' && FAUNA) || (federation === 'ОАНКОО/РКК' && RKK));
+            let frameLink = 'http://zsdev.uep24.ru/widgets/registration-for-service?id=94';
+
+            if(process.env.NODE_ENV === 'production') {
+                frameLink = isRKF ? RKF :
+                    federation === 'РФСС' ? RFSS :
+                    federation === 'РФОС' ? RFOS :
+                    federation === 'РФЛС' ? RFLS :
+                    federation === 'ОАНКОО/Элита' ? ELITA :
+                    federation === 'ОАНКОО/Фауна' ? FAUNA :
+                    federation === 'ОАНКОО/РКК' ? RKK : '';
+            }
+
+            setIframeLink(frameLink);
             setShowZlineModal(true);
         } else {
             if (federation) {
@@ -134,6 +146,7 @@ const BookformCard = ({ url, distinction }) => {
                     </span>
                 </div>
             </div>
+
         </Card>
     </>;
 
