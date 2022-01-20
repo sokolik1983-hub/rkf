@@ -295,14 +295,13 @@
 
         &-right {
             flex-grow: 1;
-            @media (max-width: 560px) {
+            @media (max-width: 680px) {
                 position: fixed;
                 width: 300px;
                 top: 62px;
                 right: 0;
                 z-index: 99;
                 padding: 16px;
-                height: 200px;
                 overflow-y: auto;
                 border-radius: 5px 0 0 5px;
                 transform: translateX(100%);
@@ -311,11 +310,13 @@
                 &._open {
                     padding: 10px 16px 16px 16px;
                     transform: translateX(0);
-
                     .Card {
                         margin: 0 !important;
                         padding: 0 !important;
                         box-shadow: none;
+                        span {
+                            display: none;
+                        }
                     }
                 }
             }
@@ -333,13 +334,14 @@
                 @media (max-width: 560px) {
                     padding: 16px;
                 }
-                @media (min-width: 560px) {
-                    .club-menu__profile-label {
+                @media (min-width: 680px) {
+                    .ClubEdit__profile-label {
                         display: block !important;
                         margin-top: 3px;
                         font-size: 18px;
                         color: #030404;
                         border-bottom: 1px solid #E5E5E5;
+
                     }
                 }
             }
@@ -381,5 +383,10 @@
                 }
             }
         }
+    }
+}
+.header__filters {
+    @media (min-width: 681px) {
+        display: none;
     }
 }

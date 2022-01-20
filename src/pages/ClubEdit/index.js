@@ -289,7 +289,6 @@ const ClubEditPage = ({
 
 const ClubEdit = props => (
     <AuthOrLogin>
-        <Header/>
         <ClubEditPage {...props} />
     </AuthOrLogin>
 );
