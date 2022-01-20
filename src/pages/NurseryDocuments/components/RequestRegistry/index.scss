@@ -198,7 +198,14 @@
         border-bottom: 1px solid rgba(33, 37, 41, 0.125);
         text-align: center;
       }
-    }  
+    }
+    
+    @media (max-width: 900px) {
+      .App {
+        position: relative;
+        top: 40px;
+      }
+    }
   }
   .k-grid {
     font-size: 14px;
