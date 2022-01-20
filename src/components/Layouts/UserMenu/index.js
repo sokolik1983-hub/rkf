@@ -11,8 +11,12 @@ import {endpointGetUserInfo} from "../UserLayout/config";
 import changeBackground from "../../../utils/changeBgInMobileMenu";
 import nameInMobileMenu from "../../../utils/nameInMobileMenu";
 import { clubNav } from "../../../pages/Club/config";
+import {clubNav as clubNavDocs} from "../../../pages/Docs/config";
 import { kennelNav } from "../../../pages/Nursery/config";
+import {kennelNav as kennelNavDocs} from "../../../pages/NurseryDocuments/config";
+import {userNav as userNavDocs} from "../../../pages/UserDocuments/config.js";
 import "./index.scss";
+
 
 
 const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
@@ -121,6 +125,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
             setOpenUserMenu(false);
         }
     };
+
     return (
         <div
             className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
@@ -159,13 +164,13 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                 </div>
-                                { nameInMenu && <div className="user-nav__alias-name">
+                                {!(location.pathname.search("documents") > -1)? <> {
+                                    nameInMenu && <div className="user-nav__alias-name">
                                     {
                                         getMeLink(user_type)
                                     }
                                 </div>}
-
-                                <ul className="user-nav__list">
+                                    <ul className="user-nav__list">
                                     {routes.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                             key={navItem.id}>
                                             <NavLink
@@ -186,6 +191,96 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                         </li>
                                     )}
                                 </ul>
+                                    </>
+                                    : user_type === 3 ?
+                                    <ul className="user-nav__list">
+                                    {clubNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                                                 key={navItem.id}>
+                                            {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                                <span
+                                                    className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
+                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                </span>
+                                            }
+                                            <NavLink
+                                                to={user_type === 3
+                                                && url === 'club'
+                                                && alias !== 'rkf'
+                                                && alias !== 'rkf-online'
+                                                && navItem.title !== 'Поиск по базе РКФ'
+                                                && navItem.title !== 'Реквизиты и размеры взносов'
+                                                && navItem.title !== 'Мероприятия'
+                                                    ? `/club${navItem.to}` : navItem.to}
+                                                exact={navItem.exact}
+                                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                            >
+                                                {navItem.icon}
+                                                <span>{navItem.title}</span>
+                                            </NavLink>
+                                        </li>
+
+                                    )}
+                                    </ul>
+                                    : user_type === 4 ? (
+                                            <ul className="user-nav__list">
+                                                {kennelNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                                                                        key={navItem.id}>
+                                                        <NavLink
+                                                            to={user_type === 3
+                                                            && url === 'club'
+                                                            && alias !== 'rkf'
+                                                            && alias !== 'rkf-online'
+                                                            && navItem.title !== 'Поиск по базе РКФ'
+                                                            && navItem.title !== 'Реквизиты и размеры взносов'
+                                                            && navItem.title !== 'Мероприятия'
+                                                                ? `/club${navItem.to}` : navItem.to}
+                                                            exact={navItem.exact}
+                                                            className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                            onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                                        >
+                                                            {navItem.icon}
+                                                            <span>{navItem.title}</span>
+                                                        </NavLink>
+                                                        {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                                            <span
+                                                                className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
+                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                </span>
+                                                        }
+                                                    </li>
+                                                )}
+                                            </ul>
+                                        ) : user_type === 1 && (<ul className="user-nav__list">
+                                            {userNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                                                                      key={navItem.id}>
+                                                    <NavLink
+                                                        to={user_type === 3
+                                                        && url === 'club'
+                                                        && alias !== 'rkf'
+                                                        && alias !== 'rkf-online'
+                                                        && navItem.title !== 'Поиск по базе РКФ'
+                                                        && navItem.title !== 'Реквизиты и размеры взносов'
+                                                        && navItem.title !== 'Мероприятия'
+                                                            ? `/club${navItem.to}` : navItem.to}
+                                                        exact={navItem.exact}
+                                                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                        onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                                    >
+                                                        {navItem.icon}
+                                                        <span>{navItem.title}</span>
+                                                    </NavLink>
+                                                    {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                                        <span
+                                                            className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
+                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                </span>
+                                                    }
+                                                </li>
+
+                                            )}
+                                        </ul>)
+                                    }
                             </div>
 
                         </PopupModal>

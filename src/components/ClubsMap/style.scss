@@ -7,15 +7,16 @@
   z-index: 1;
 }
 
-.custom-select {
+.map-page__filters .custom-select {
   @media (max-width: 1079px) {
     width: 228px;
   }
 }
-
-.Card {
-  .custom-select__values {
-    display: none;
+.map-page__filters {
+  .Card {
+    .custom-select__values {
+      display: none;
+    }
   }
 }
 .regions-filter {
