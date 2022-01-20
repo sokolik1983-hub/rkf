@@ -31,12 +31,7 @@
     &-item {
       display: flex;
       align-items: center;
-      margin-top: 10px;
-      &:nth-child(4),
-      &:nth-child(5) {
-        border-bottom: 1px solid #e5e5e5;
-        padding-bottom: 10px;
-      }
+      margin-top: 15px;
       &.disabled {
         pointer-events: none;
         color: #b9b9b9;
@@ -55,6 +50,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          line-height: 20px;
         }
       }
       & > a {
@@ -100,7 +96,7 @@
     &-name {
       font-size: 18px!important;
       border-bottom: 1px solid #e5e5e5;
-      line-height: 24px!important;
+      line-height: 18px!important;
       padding-bottom: 10px;
     }
     &-list {
