@@ -56,9 +56,6 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             }
 
             setLoading(false);
-
-            // unsetCheckedAll();
-            // unsetAllChecks();
         }, error => {
             console.log(error.response);
             setLoading(false);
