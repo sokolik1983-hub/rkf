@@ -214,24 +214,26 @@
             @media (max-width: 680px) {
                 margin-right: 0;
             }
+
             .ClubEdit__delete {
                 display: flex;
                 flex-direction: column;
                 min-height: 125px;
 
                 @media (max-width: 560px) {
-                    margin: 120px auto!important;
-                    padding: 0!important;
+                    margin: 120px auto !important;
+                    padding: 0 !important;
                     max-width: 400px;
+
                     h3 {
                         background: linear-gradient(90deg, #4067AC 0%, #5791F8 100%);
                         border-radius: 5px 5px 0 0;
-                        padding-top: 14px ;
+                        padding-top: 14px;
                         padding-bottom: 14px;
                         padding-left: 14px;
-                        font-size: 18px!important;
-                        line-height: 18px!important;
-                        color: #FFFFFF!important;
+                        font-size: 18px !important;
+                        line-height: 18px !important;
+                        color: #FFFFFF !important;
                     }
                 }
 
@@ -242,7 +244,8 @@
                     @media (max-width: 768px) {
                         margin: 80px auto 100px;
                     }
-                };
+                }
+            ;
 
                 .button-delete__disable {
                     width: 155px;
@@ -266,6 +269,7 @@
             .Card {
                 margin: 0 0 16px 0;
                 padding: 10px;
+
                 h3 {
                     margin-top: 3px;
                     margin-bottom: 10px;
@@ -297,10 +301,12 @@
                     font-size: 16px;
                     line-height: 20px;
                     color: #FFFFFF;
+
                     &:hover {
                         box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
                     }
                 }
+
                 .button-save__disable {
                     display: block;
                     width: 155px;
@@ -325,6 +331,7 @@
 
         &-right {
             flex-grow: 1;
+
             @media (max-width: 680px) {
                 position: fixed;
                 width: 300px;
@@ -337,13 +344,16 @@
                 transform: translateX(100%);
                 transition: all 0.2s ease-out;
                 background: #fff;
+
                 &._open {
                     padding: 10px 16px 16px 16px;
                     transform: translateX(0);
+
                     .Card {
                         margin: 0 !important;
                         padding: 0 !important;
                         box-shadow: none;
+
                         span {
                             display: none;
                         }
@@ -358,12 +368,15 @@
                     min-width: 230px;
                 }
             }
+
             .Card {
                 min-width: 230px;
                 padding: 10px !important;
+
                 @media (max-width: 560px) {
                     padding: 16px;
                 }
+
                 @media (min-width: 680px) {
                     .ClubEdit__profile-label {
                         display: block !important;
@@ -405,6 +418,7 @@
                     &.active {
                         color: #3366ff;
                         transition: all 0.2s linear;
+
                         & > svg > path,
                         & > svg > g > path {
                             fill: #3366ff;
@@ -415,7 +429,19 @@
         }
     }
 }
+
 .header__filters {
+    & > span {
+        font-size: 0;
+
+        &::before {
+            display: block;
+            padding-top: .5px;
+            font-size: 13px;
+            content: "Разделы";
+        }
+    }
+
     @media (min-width: 681px) {
         display: none;
     }
