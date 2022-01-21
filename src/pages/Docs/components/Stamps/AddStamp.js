@@ -72,7 +72,11 @@ const AddStamp = ({ history }) => {
                 <Alert
                     text="Код клейма успешно добавлен"
                     autoclose={3}
-                    onOk={() => setSuccessAlert(false)}
+                    onOk={() => {
+                        setSuccessAlert(false);
+                        history.goBack();
+                    }}
+                    // to={history.goBack()}
                 />
             }
             {errorAlert &&
