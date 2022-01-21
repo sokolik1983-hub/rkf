@@ -1,5 +1,10 @@
 .club-documents-status {
   margin-bottom: 0 !important;
+  &__controls {
+    position: relative;
+    top: 20px;
+    margin-bottom: 45px;
+  }
   &__head {
     font-size: 24px;
     line-height: 32px;
@@ -147,6 +152,7 @@
   ._request_registry {
     position: relative;
     top: 18px;
+    margin-bottom: 0;
     @media (max-width: 1135px) {
       margin-top: 33px;
       top: -25px;
