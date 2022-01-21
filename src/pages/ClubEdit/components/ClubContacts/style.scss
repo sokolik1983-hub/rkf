@@ -63,6 +63,10 @@
                     padding: 5px 10px;
                 }
 
+                textarea {
+                    resize: vertical;
+                }
+
                 &--select > div > div {
                     padding: 0;
                 }

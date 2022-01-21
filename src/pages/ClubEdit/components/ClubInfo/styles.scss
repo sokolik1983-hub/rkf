@@ -126,6 +126,7 @@
 
             textarea {
                 height: 227px;
+                resize: vertical;
                 @media (max-width: 820px) {
                     grid-row: 2 / 3;
                     grid-column: 1 / 3;

@@ -52,7 +52,11 @@
 
             textarea {
                 margin-bottom: auto;
+                resize: vertical;
             }
         }
+    }
+    .button-save__disable {
+        margin-top: 77px!important;
     }
 }

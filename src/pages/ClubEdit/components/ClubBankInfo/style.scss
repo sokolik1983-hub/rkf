@@ -1,5 +1,9 @@
 .BankInfo {
 
+    .FormGroup {
+        margin-top: 20px;
+    }
+
     .FormInput {
         display: grid;
         grid-template-columns: 115px 100fr;
@@ -32,6 +36,11 @@
             @media (max-width: 768px) {
                 text-align: left;
             }
+        }
+    }
+    .Submit-button {
+        &__save {
+            margin-top: 45px!important;
         }
     }
 }
