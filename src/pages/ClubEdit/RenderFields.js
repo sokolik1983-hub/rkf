@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
 import StickyBox from 'react-sticky-box';
-import Card from '../../components/Card';
 import {sections} from './config';
-import ClubInfo from './components/ClubInfo';
-import ClubSchedule from './components/ClubSchedule';
-import ClubLegalInfo from './components/ClubLegalInfo';
-import ClubBankInfo from './components/ClubBankInfo';
-import ClubContacts from './components/ClubContacts';
-import ClubDocuments from './components/ClubDocuments';
-import ClubSocial from './components/ClubSocial';
-import EditPageButtons from './components/EditPageButtons';
 import {SvgSelector} from './icons';
+import Card from '../../components/Card';
+import ClubDelete from './components/ClubRightMenu/ClubDelete';
+import ClubBank from './components/ClubRightMenu/ClubBank';
+import ClubDefault from './components/ClubRightMenu/ClubDefault';
+import ClubLegal from './components/ClubRightMenu/ClubLegal';
+import ClubScheduleCard from './components/ClubRightMenu/ClubSchedule';
+import ClubContactsCard from './components/ClubRightMenu/ClubContacts';
+import ClubMain from './components/ClubRightMenu/ClubMain';
 
 
 const RenderFields = ({
@@ -38,87 +37,39 @@ const RenderFields = ({
     const renderSection = (section) => {
         switch (section) {
             case 0:
-                return <Card className="MainInfo">
-                    <h3>Основная информация</h3>
-                    <a className="support-link"
-                       href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                    >
-                        Инструкция по редактированию профиля
-                    </a>
-                    <ClubInfo
-                        bindSubmitClubAlias={bindSubmitClubAlias}
-                        bindSubmitClubInfo={bindSubmitClubInfo}
-                        isFederation={is_federation}
-                    />
-                    <ClubDocuments
-                        bindSubmitForm={bindSubmitClubDocuments}
-                    />
-                    <EditPageButtons
-                        handleSubmitForms={handleSubmitForms}
-                    />
-                </Card>;
+                return <ClubMain
+                    is_federation={is_federation}
+                    handleSubmitForms={handleSubmitForms}
+                    bindSubmitClubInfo={bindSubmitClubInfo}
+                    bindSubmitClubAlias={bindSubmitClubAlias}
+                    bindSubmitClubDocuments={bindSubmitClubDocuments}
+                />
             case 1:
-                return <Card className="contacts">
-                    <h3>Контакты</h3>
-                    <ClubContacts
-                        bindSubmitClubEmail={bindSubmitClubEmail}
-                        bindSubmitClubPhone={bindSubmitClubPhone}
-                        bindSubmitClubInfo={bindSubmitClubInfo}
-                    />
-                    <ClubSocial
-                        bindSubmitForm={bindSubmitClubSocials}
-                    />
-                    <EditPageButtons
-                        handleSubmitForms={handleSubmitForms}
-                    />
-                </Card>;
+                return <ClubContactsCard
+                    handleSubmitForms={handleSubmitForms}
+                    bindSubmitClubInfo={bindSubmitClubInfo}
+                    bindSubmitClubPhone={bindSubmitClubPhone}
+                    bindSubmitClubEmail={bindSubmitClubEmail}
+                    bindSubmitClubSocials={bindSubmitClubSocials}
+                />
             case 2:
-                return <Card className="Schedule">
-                    <ClubSchedule
-                        bindSubmitForm={bindSubmitClubSchedule}
-                    />
-                    <EditPageButtons
-                        handleSubmitForms={handleSubmitForms}
-                    />
-                </Card>;
+                return <ClubScheduleCard
+                    handleSubmitForms={handleSubmitForms}
+                    bindSubmitClubSchedule={bindSubmitClubSchedule}
+                />
             case 3:
-                return <Card className="LegalInfo">
-                    <ClubLegalInfo
-                        bindSubmitForm={bindSubmitClubLegalInfo}
-                    />
-                    <button
-                        className="button-save__disable"
-                        disabled="disabled"
-                    >
-                        Сохранить
-                    </button>
-                </Card>;
+                return <ClubLegal
+                    bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
+                />
             case 4:
-                return <Card className="BankInfo">
-                    <ClubBankInfo
-                        bindSubmitForm={bindSubmitClubBankInfo}
-                    />
-                    <EditPageButtons
-                        handleSubmitForms={handleSubmitForms}
-                    />
-                </Card>;
+                return <ClubBank
+                    handleSubmitForms={handleSubmitForms}
+                    bindSubmitClubBankInfo={bindSubmitClubBankInfo}
+                />
             case 5:
-                return <Card className="ClubEdit__delete">
-                    <h3>Удаление страницы</h3>
-                    <p>
-                        Удаление Профиля Клуба недоступно
-                    </p>
-                    <button
-                        className="button-delete__disable"
-                        disabled="disabled"
-                    >
-                        Удалить
-                    </button>
-                </Card>
+                return <ClubDelete />
             default:
-                return <div>Not Found</div>;
+                return <ClubDefault />
         }
     };
 

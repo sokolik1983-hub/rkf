@@ -11,7 +11,6 @@ import AuthOrLogin from '../Login/components/AuthOrLogin';
 import {connectAuthVisible} from '../Login/connectors';
 import {endpointGetClubInfo, clubNav} from '../../components/Layouts/ClubLayout/config';
 import {connectShowFilters} from '../../components/Layouts/connectors';
-import Header from '../../components/Layouts/Header';
 import UserMenu from '../../components/Layouts/UserMenu';
 import Container from '../../components/Layouts/Container';
 import CopyrightInfo from '../../components/CopyrightInfo';
