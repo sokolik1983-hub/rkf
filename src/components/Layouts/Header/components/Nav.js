@@ -14,6 +14,7 @@ import {blockContent} from "../../../../utils/blockContent";
 const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen, setOpen}) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
     const isMobile = useIsMobile(1080);
+    const apiKey = localStorage.getItem('apikey');
 
     const links = [
         {
@@ -36,8 +37,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
         },
     ];
 
-    const menuTitle = isOpen ? 'Закрыть' : 'Меню';
-    const strokeColor = isOpen ? '#3366FF' : '#90999E';
+    const strokeColor = isOpen ? '#3366FF' : '#90999E'; //добавить класс и прописать это в стилях!
 
     const setOverflow = isOpen => {
         if (window.innerWidth <= 1080) {
@@ -98,7 +98,9 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
                                 </svg>
                             }
                         </div>
-                        <span className={isOpen ? 'header__nav-menu _open' : 'header__nav-menu'}>{menuTitle}</span>
+                        <span className={isOpen ? 'header__nav-menu _open' : 'header__nav-menu'}>
+                            {isOpen ? 'Закрыть' : 'Меню'}
+                        </span>
                     </div>
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>
                         <h3 className='headerPopupH3'>Меню</h3>
@@ -201,15 +203,15 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
                 handleClose={() => {
                     setShowZlineModal(false);
                     if(!isMobile) {
-                        setOpen(false)
+                        setOpen(false);
                     }
                 }}
             >
                 <iframe
                     title="unique_iframe"
                     src={process.env.NODE_ENV === 'production' ?
-                        'https://zline.me/widgets/registration-for-service?id=33' :
-                        'http://zsdev.uep24.ru/widgets/registration-for-service?id=94'
+                        `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
+                        `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
                     }
                 />
             </ZlineModal>

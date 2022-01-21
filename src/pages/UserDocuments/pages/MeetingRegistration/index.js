@@ -7,12 +7,13 @@ import ZlineModal from "../../../../components/ZlineModal";
 const MeetingRegistration = () => {
     const [showModal, setShowModal] = useState(false);
     const [iframeLink, setIframeLink] = useState('');
+    const apiKey = localStorage.getItem('apikey');
 
     const handleClick = (e, isRKF) => {
         e.preventDefault();
         setIframeLink(process.env.NODE_ENV === 'production' ?
-            `https://zline.me/widgets/registration-for-service?id=${isRKF ? '18' : '19'}` :
-            'http://zsdev.uep24.ru/widgets/registration-for-service?id=94'
+            `https://zline.me/widgets/registration-for-service?id=${isRKF ? '18' : '19'}${apiKey ? '&ak=' + apiKey : ''}` :
+            `http://zsdev.uep24.ru/widgets/registration-for-service?id=94${apiKey ? '&ak=' + apiKey : ''}`
         );
         setShowModal(true);
     };
