@@ -3,13 +3,13 @@ import StickyBox from 'react-sticky-box';
 import {sections} from './config';
 import {SvgSelector} from './icons';
 import Card from '../../components/Card';
-import ClubDelete from './components/ClubRightMenu/ClubDelete';
+import ClubMain from './components/ClubRightMenu/ClubMain';
 import ClubBank from './components/ClubRightMenu/ClubBank';
-import ClubDefault from './components/ClubRightMenu/ClubDefault';
 import ClubLegal from './components/ClubRightMenu/ClubLegal';
+import ClubDelete from './components/ClubRightMenu/ClubDelete';
+import ClubDefault from './components/ClubRightMenu/ClubDefault';
 import ClubScheduleCard from './components/ClubRightMenu/ClubSchedule';
 import ClubContactsCard from './components/ClubRightMenu/ClubContacts';
-import ClubMain from './components/ClubRightMenu/ClubMain';
 
 
 const RenderFields = ({
@@ -86,8 +86,9 @@ const RenderFields = ({
                         <ul className="ClubEdit__inner-list">
                             {Object.keys(sections).map((type, key) =>
                                 <div
-                                    className={sections[type].id === activeSection ?
-                                        "ClubEdit__inner-item active" : "ClubEdit__inner-item"}
+                                    className={sections[type].id === activeSection
+                                        ? "ClubEdit__inner-item active"
+                                        : "ClubEdit__inner-item"}
                                     key={key}
                                     onClick={() => activeSection !== sections[type].id &&
                                         handleSectionSwitch(sections[type].id)}
