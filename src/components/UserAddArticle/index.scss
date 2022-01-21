@@ -68,13 +68,17 @@
     align-items: center;
     flex-grow: 1;
 
+    .FormGroup--inline {
+      margin-bottom: 25px;
+    }
+
     #content {
       border: 0;
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
       letter-spacing: 0.2px;
-      padding: 7px 7px 7px 0;
+      padding: 7px 7px 7px 10px;
 
       &:empty {
         height: auto !important;
@@ -118,7 +122,7 @@
     }
 
     &._focus {
-      margin-left: 43px;
+      margin-left: 60px;
       display: flex;
       flex-direction: row;
       margin-top: 5px;
@@ -284,8 +288,10 @@
 
   &__advert {
     color: #72839C;
+    margin-bottom: 15px;
     label {
       margin-left: 1px;
+      margin-bottom: 3px;
     }
     &.BuySell {
       display: grid;
@@ -301,12 +307,15 @@
             "color color"
             "cost cost"
             "puppies puppies";
-        grid-template-columns: 48% 48%;
+        grid-template-columns: 48.5% 48.5%;
       }
       .FormInput__input {
         padding: 7px 10px 7px 10px !important;
         &:first-child {
           padding: 0 !important;
+        }
+        &::placeholder {
+          color: #CCC!important;
         }
       }
     }
@@ -325,12 +334,15 @@
             "sex2 age2"
             "name2 name2"
             "color2 color2";
-        grid-template-columns: 48% 48%;
+        grid-template-columns: 48.5% 48.5%;
       }
       .FormInput__input {
         padding: 7px 10px 7px 10px !important;
         &:first-child {
           padding: 0 !important;
+        }
+        &::placeholder {
+          color: #CCC!important;
         }
       }
     }
@@ -393,6 +405,14 @@
         grid-area: age2;
       }
     }
+    .FormInput__error {
+      padding: 0;
+      bottom: -18px;
+    }
+    .FormInput {
+      margin-bottom: 18px;
+    }
+
     .css-shvkw9-control,
     .css-8rvjbo-control,
     .css-shvkw9-control {
@@ -433,7 +453,7 @@
     }
 
     &.active {
-      background: #007bff;
+      background: #36f;
       box-shadow: 0 4px 8px rgba(51, 102, 255, 0.3);
       opacity: 1;
       cursor: pointer;
@@ -600,6 +620,7 @@
     & .FormInput__error {
       top: -23px;
       color: #FA5D50;
+      padding: 0;
     }
     & .FormInput__error-city {
       position: absolute;
@@ -612,7 +633,7 @@
     &:before {
       content: '(примерный)';
       position: absolute;
-      top: 13px;
+      right: 0;
       font-size: 11px;
     }
   }

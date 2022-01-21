@@ -38,7 +38,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
         advert_number_of_puppies: isAd && !isMating ? number().typeError('Поле не может быть пустым') : '',
         advert_type_id: isAd ? number().required('Выберите категорию') : '',
-        advert_cost: isAd ? number().required('Введите цифры.').typeError('Введите цифры.') : '',
+        advert_cost: isAd ? number().required('Введите сумму.').typeError('Введите сумму.') : '',
     }); //Валидация для объявлений категории 1
     const CategoryTwoSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
