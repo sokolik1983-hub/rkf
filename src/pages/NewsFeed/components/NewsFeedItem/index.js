@@ -90,6 +90,10 @@ const NewsFeedItem = forwardRef(({
         clearChecks && setIsChecked(false);
     }, [checkedAll, isControlCheckedAll, clearChecks]);
 
+    useEffect(() => {
+        checkedAll && handleCheck();
+    }, [checkedAll]);
+
     const handleCheck = () => {
         if (!isChecked) {
             setIsChecked(true);
@@ -250,7 +254,7 @@ const NewsFeedItem = forwardRef(({
                                 <label className="NewsFeedItem__control-checkbox-label">
                                     <input
                                         type="checkbox"
-                                        onChange={() => handleCheck()}
+                                        onChange={handleCheck}
                                         checked={isChecked}
                                     />
                                     <span> </span>

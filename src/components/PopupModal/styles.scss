@@ -7,6 +7,7 @@
   height: 100vh;
   width: 100%;
   z-index: 999;
+  transform: translateY(0);
   &.bottomStyle {
     top: auto;
     bottom: 60px;
