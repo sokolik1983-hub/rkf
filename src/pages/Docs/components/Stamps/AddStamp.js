@@ -76,7 +76,6 @@ const AddStamp = ({ history }) => {
                         setSuccessAlert(false);
                         history.goBack();
                     }}
-                    // to={history.goBack()}
                 />
             }
             {errorAlert &&
