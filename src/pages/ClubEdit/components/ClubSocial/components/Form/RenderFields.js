@@ -1,6 +1,6 @@
-import React from "react";
-import {FormField, FormGroup} from "../../../../../../components/Form";
-import { clubClubSocialConfig } from "../../config";
+import React from 'react';
+import { clubClubSocialConfig } from '../../config';
+import {FormField, FormGroup} from '../../../../../../components/Form';
 
 
 const {fields} = clubClubSocialConfig;

@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import Loading from '../../../../../../components/Loading';
 import ListSocial from './ListItem';
-import {useResourceAndStoreToRedux} from '../../../../../../shared/hooks';
 import {getlistUrl} from '../../config';
 import {connectListSocial} from '../../connectors';
+import Loading from '../../../../../../components/Loading';
+import {useResourceAndStoreToRedux} from '../../../../../../shared/hooks';
 
 import './styles.scss';
 
@@ -22,7 +22,7 @@ const ClientSocialList = ({
 
     useEffect(()=>{
         !loading && setTriggerLoad(true)
-    },[loading])
+    },[loading]);
 
     
     return (
