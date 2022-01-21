@@ -49,7 +49,7 @@
                     content: "(допускаются цифры, латинские буквы и нижнее подчеркивание)";
                     position: relative;
                     display: block;
-                    top: 40px;
+                    top: 45px;
                     font-size: 12px;
                     line-height: 12px;
                     color: #90999E;
@@ -143,6 +143,14 @@
             font-size: 16px;
             line-height: 20px;
             color: #253C5E;
+
+            @media (min-width: 821px) {
+                display: block;
+                width: 115px;
+                text-align: right;
+                margin-bottom: -35px;
+
+            }
         }
 
         label {

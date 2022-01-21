@@ -1,10 +1,15 @@
-import React from "react";
-import {connectClubPublicLink} from "../../connectors";
-import "./styles.scss";
+import React from 'react';
+import {connectClubPublicLink} from '../../connectors';
+
+import './styles.scss';
 
 
-const EditPageButtons = ({handleSubmitForms}) => (
-    <div className="Submit-button">
+const EditPageButtons = ({
+        handleSubmitForms
+}) => {
+
+    return (
+        <div className="Submit-button">
             {handleSubmitForms &&
                 <button
                     className="Submit-button__save"
@@ -13,7 +18,8 @@ const EditPageButtons = ({handleSubmitForms}) => (
                     Сохранить
                 </button>
             }
-    </div>
-);
+        </div>
+    )
+};
 
 export default connectClubPublicLink(React.memo(EditPageButtons));

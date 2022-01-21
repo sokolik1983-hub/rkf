@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import Loading from '../../../../../../components/Loading';
 import ListDocument from './ListItem';
-import {useResourceAndStoreToRedux} from '../../../../../../shared/hooks';
-import {connectListDocument} from '../../connectors';
 import {getlistUrl} from '../../config';
+import {connectListDocument} from '../../connectors';
+import Loading from '../../../../../../components/Loading';
+import {useResourceAndStoreToRedux} from '../../../../../../shared/hooks';
 
 import './styles.scss';
 
@@ -21,8 +21,8 @@ const ClientDocumentList = ({
     const {loading} = useResourceAndStoreToRedux(url, getClubDocumentsListSuccess);
 
     useEffect(()=>{
-        !loading && setTriggerLoad(true)
-    },[loading])
+        !loading && setTriggerLoad(true);
+    },[loading]);
 
 
     return (

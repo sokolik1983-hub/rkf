@@ -176,7 +176,7 @@ const ClubEditPage = ({
             clientErrors.socials = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({...prevObj, socials: errors}));//подумать, где вызвать
+            setErrors(prevObj => ({...prevObj, socials: errors}));
         }
     };
 

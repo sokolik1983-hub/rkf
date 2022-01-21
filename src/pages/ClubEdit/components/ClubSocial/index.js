@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {compose} from 'redux';
-import Button from '../../../../components/Button';
+import reducer from './reducer';
+import {defaultReduxKey} from './config';
 import ClubSocialForm from './components/Form';
 import ClientSocialList from './components/List';
+import Button from '../../../../components/Button';
 import {useVisibility} from '../../../../shared/hooks';
-import {defaultReduxKey} from './config';
 import injectReducer from '../../../../utils/injectReducer';
-import reducer from './reducer';
 
 
 const ClientClubSocialProxy = ({bindSubmitForm}) => {
@@ -17,7 +17,7 @@ const ClientClubSocialProxy = ({bindSubmitForm}) => {
     const triggerRef = useRef();
 
     const checkForDelete = () => {
-        setTriggerDell(!triggerDell)
+        setTriggerDell(!triggerDell);
     }
 
     if (!visibility) {
@@ -27,12 +27,12 @@ const ClientClubSocialProxy = ({bindSubmitForm}) => {
     useEffect(()=> {
         triggerLoad &&
             triggerRef.current.innerHTML.length <= 70 && setTriggerButton(true);
-    })
+    },[[], visibility]);
 
     useEffect(()=> {
         triggerLoad &&
             triggerRef.current.innerHTML.length < 1400 && setTriggerButton(true);
-    },[triggerDell])
+    },[triggerDell]);
 
 
     return (
@@ -50,10 +50,16 @@ const ClientClubSocialProxy = ({bindSubmitForm}) => {
             }
             {triggerLoad &&
                 <Button
-                    className={visibility ? "delete-mini" : triggerButton ? "add-max" : "add-mini"}
+                    className={visibility
+                        ? "delete-mini"
+                        : triggerButton
+                            ? "add-max"
+                            : "add-mini"}
                     onClick={toggleVisibility}
                 >
-                    {visibility ? "Отмена" : "Добавить ссылку"}
+                    {visibility
+                        ? ""
+                        : "Добавить ссылку"}
                 </Button>
             }
         </div>

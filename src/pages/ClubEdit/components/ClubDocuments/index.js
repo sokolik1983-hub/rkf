@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {compose} from 'redux';
-import Button from '../../../../components/Button';
-import ClientDocumentList from './components/List';
-import ClubDocumentsForm from './components/Form';
-import {useVisibility} from '../../../../shared/hooks';
-import {defaultReduxKey} from './config';
-import injectReducer from '../../../../utils/injectReducer';
 import reducer from './reducer';
+import {defaultReduxKey} from './config';
+import ClubDocumentsForm from './components/Form';
+import ClientDocumentList from './components/List';
+import Button from '../../../../components/Button';
+import {useVisibility} from '../../../../shared/hooks';
+import injectReducer from '../../../../utils/injectReducer';
 
 
 const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
@@ -17,7 +17,7 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
     const triggerRef = useRef();
 
     const checkForDelete = () => {
-        setTriggerDell(!triggerDell)
+        setTriggerDell(!triggerDell);
     }
 
     if (!visibility && bindSubmitForm) {
@@ -27,12 +27,13 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
     useEffect(()=> {
         triggerLoad &&
         triggerRef.current.innerHTML.length <= 70 && setTriggerButton(true);
-    })
+    },[[], visibility]);
 
     useEffect(()=> {
         triggerLoad &&
         triggerRef.current.innerHTML.length < 1400 && setTriggerButton(true);
-    },[triggerDell])
+    },[triggerDell]);
+
 
     return (
         <div className="MainInfo__documents">
@@ -48,12 +49,16 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
                 />
             }
             <Button
-                className={visibility ? "delete-mini"
-                    : triggerButton ? "add-max"
+                className={visibility
+                    ? "delete-mini"
+                    : triggerButton
+                        ? "add-max"
                         : "add-mini"}
                 onClick={toggleVisibility}
             >
-                {visibility ? "" : "Добавить документ"}
+                {visibility
+                    ? ""
+                    : "Добавить документ"}
             </Button>
         </div>
     )

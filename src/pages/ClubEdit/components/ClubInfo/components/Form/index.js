@@ -1,12 +1,16 @@
-import React from "react";
-import ls from "local-storage";
-import {Form} from "../../../../../../components/Form";
-import RenderFields from "./RenderFields";
-import {connectClubInfoForm} from "../../../../connectors";
-import {clubInfoFormConfig} from "../../config";
+import React from 'react';
+import ls from 'local-storage';
+import RenderFields from './RenderFields';
+import {clubInfoFormConfig} from '../../config';
+import {Form} from '../../../../../../components/Form';
+import {connectClubInfoForm} from '../../../../connectors';
 
 
-const ClubInfoForm = ({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) => {
+const ClubInfoForm = ({
+        clubInfo,
+        clubInfoUpdateSuccess,
+        bindSubmitForm,
+}) => {
     const transformValues = values => {
         let newValues = {...values};
 
@@ -22,11 +26,12 @@ const ClubInfoForm = ({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) => {
         ls.set('user_info', { ...ls.get('user_info'), name: values.name });
     };
 
+
     return (
         <div>
             <Form
-                method={"PUT"}
-                action={'/api/Club'}
+                method="PUT"
+                action={"/api/Club"}
                 validationSchema={clubInfoFormConfig.validationSchema}
                 onSuccess={onSuccess}
                 initialValues={clubInfo}

@@ -1,7 +1,7 @@
 import React from 'react';
+import Card from '../../../../components/Card';
 import ClubSchedule from '../ClubSchedule';
 import EditPageButtons from '../EditPageButtons';
-import Card from '../../../../components/Card';
 
 const ClubScheduleCard = ({
         bindSubmitClubSchedule,

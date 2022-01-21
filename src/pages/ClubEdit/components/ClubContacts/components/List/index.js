@@ -2,9 +2,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import Button from '../../../../../../components/Button';
 import ListContact from './ListItem';
 import ClubContactsForm from '../Form';
-import {useVisibility} from '../../../../../../shared/hooks';
-import {connectContactsList} from '../../connectors';
 import {ContactTypeContext} from '../../context';
+import {connectContactsList} from '../../connectors';
+import {useVisibility} from '../../../../../../shared/hooks';
 
 import './styles.scss';
 
@@ -20,16 +20,16 @@ const ClientContactList = props => {
     const triggerRef = useRef();
 
     const checkForDelete = () => {
-        setTriggerDell(!triggerDell)
+        setTriggerDell(!triggerDell);
     }
 
     useEffect(()=> {
         triggerRef.current.innerHTML.length <= 50 && setTriggerButton(true);
-    })
+    },[[], visibility]);
 
     useEffect(()=> {
         triggerRef.current.innerHTML.length < 650 && setTriggerButton(true);
-    },[triggerDell])
+    },[triggerDell]);
     
     if (!visibility && bindSubmitForm) {
         bindSubmitForm.submit(null, {});
@@ -57,7 +57,9 @@ const ClientContactList = props => {
                 }
                 {!visibility &&
                     <Button
-                        className={triggerButton ? "add-max" :"add-mini"}
+                        className={triggerButton
+                            ? "add-max"
+                            :"add-mini"}
                         onClick={toggleVisibility}
                     >
                         {`Добавить ${contactType.label}`}

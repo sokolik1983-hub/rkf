@@ -22,6 +22,7 @@ const ClientClubContactsProxy = ({
     const url = getlistUrl + String(club_id);
     const {loading} = useResourceAndStoreToRedux(url, getClubContactsListSuccess);
 
+
     return loading ?
         <Loading /> :
         <div className="contacts__wrap">
