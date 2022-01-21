@@ -239,14 +239,14 @@ const ClubEditPage = ({
                 <Redirect to="404"/> :
                 <Layout withFilters setNotificationsLength={setNotificationsLength}>
                     <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
-                    <div className='ClubEdit__wrap'>
-                        <Container className='ClubEdit content'>
-                            <aside className='ClubEdit__left'>
+                    <div className="ClubEdit__wrap">
+                        <Container className="ClubEdit content">
+                            <aside className="ClubEdit__left">
                                 <StickyBox offsetTop={60}>
                                     <UserHeader
                                         user="club"
                                         logo={club.logo_link}
-                                        name={club.title || 'Имя отсутствует'}
+                                        name={club.title || "Имя отсутствует"}
                                         alias={alias}
                                         profileId={club.id}
                                         federationName={club.federation_name}
