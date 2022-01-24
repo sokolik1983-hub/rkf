@@ -16,26 +16,32 @@ const SocialNetworks = ({ socials }) => {
                     {socials.map((social, index) => (
                         <FormGroup key={index}>
                             <FormField
-                                label={'Социальная сеть'}
-                                placeholder={'Введите ссылку'}
+                                label="Социальная сеть"
+                                placeholder="Введите ссылку"
                                 name={`socials[${index}].site`}
                             />
                             <FormField
                                 placeholder="Введите название"
                                 name={`socials[${index}].description`}
                             />
-                            <Button className="btn SocialNetworks__button-delete" onClick={() => arrayHelpers.remove(index)}>Удалить</Button>
+                            <Button
+                                className="btn SocialNetworks__button-delete"
+                                onClick={() => arrayHelpers.remove(index)}
+                            >
+                            </Button>
                         </FormGroup>
                     ))}
                     <div className="SocialNetworks__buttons-wrap">
                         <Button
-                            className={`btn-green SocialNetworks__button-add ${(arrayHelpers.form.values.socials.length > 0) && 'btn-mini'}`}
+                            className={`btn-green SocialNetworks__button-add ${(arrayHelpers.form.values.socials.length > 0) && "btn-mini"}`}
                             onClick={() => arrayHelpers.push({
                                 id: null,
-                                site: '',
-                                description: '',
+                                site: "",
+                                description: "",
                                 social_network_type_id: 1
-                            })}>Добавить социальную сеть</Button>
+                            })}>
+                            Добавить социальную сеть
+                        </Button>
                     </div>
                 </div>
             )}

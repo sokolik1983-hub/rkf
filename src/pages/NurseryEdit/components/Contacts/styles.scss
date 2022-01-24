@@ -1,4 +1,4 @@
-.nursery__contacts {
+.nursery-contacts {
     &__address {
         .FormGroup {
             margin: 0;
@@ -130,10 +130,10 @@
                 width: 15px;
                 height: 18px;
                 cursor: pointer;
-                font-size: 0;
                 background: url('/static/icons/delete-red.svg');
                 background-size: cover;
                 border: none;
+                transition: all 0.2s linear;
                 &:hover {
                     box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
                 }
@@ -147,6 +147,7 @@
                 margin: 0 auto;
                 padding: 7px 14px;
                 width: 170px;
+                transition: all 0.2s linear;
                 &:hover {
                     box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
                 }

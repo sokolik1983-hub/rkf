@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { DEFAULT_IMG } from 'appConfig';
 import Card from '../../../../components/Card';
 import Alert from '../../../../components/Alert';
-import { DEFAULT_IMG } from 'appConfig';
-import { ActiveUserMark, FederationChoiceMark } from '../../../../components/Marks';
 import Share from '../../../../components/Share';
 import UserActionControls from '../../../../components/UserActionControls';
+import { ActiveUserMark, FederationChoiceMark } from '../../../../components/Marks';
 
-import './index.scss';
+import './style.scss';
 
 
 const UserHeader = ({
@@ -34,8 +34,10 @@ const UserHeader = ({
             return 'Федерация';
         } else if (user === 'nursery') {
             return 'Питомник';
-        } else {
+        } else if (user === 'club'){
             return 'Клуб';
+        } else {
+            return 'Физическое лицо';
         }
     };
 
@@ -50,7 +52,7 @@ const UserHeader = ({
             <div className="user-header__content">
                 <div className="user-header__info">
                     <div className="user-header__wrap">
-                        <div style={{ width: '100%' }}>
+                        <div>
                             <div className="user-header__user-wrap">
                                 <p className="user-header__user">
                                     {setUserType(user, alias)}
@@ -68,9 +70,15 @@ const UserHeader = ({
                                 <h3 className="user-header__name">{name}</h3>
                                 <Share />
                             </div>
-                            {setUserType(user, alias) === 'Федерация' && <div className="user-header__federation" style={{paddingTop: 0}}/>}
-                            {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
-                                <div className='user-header-link'>
+                            {setUserType(user, alias) === "Федерация" && <div className="user-header__federation" />}
+                            {federationName
+                                && federationAlias
+                                && alias !== "rkf"
+                                && alias !== "rfss"
+                                && alias !== "rfls"
+                                && alias !== "rfos"
+                                && alias !== "oankoo"
+                                && <div className="user-header-link">
                                 <Link to={`/${federationAlias}`}
                                     className={name.length > 50
                                         ? "user-header__federation long-bottom"
@@ -83,9 +91,10 @@ const UserHeader = ({
                             }
                             {canEdit &&
                                 <Link
-                                    to={`/${setUserType(user, alias) === 'Питомник' ? "kennel" : "client"}/${alias}/edit`}
-                                    className="widget-login__button"
-                                    style={{marginTop: "20px"}}>
+                                    to={`/${setUserType(user, alias) === 'Питомник' 
+                                        ? "kennel" 
+                                        : "client"}/${alias}/edit`}
+                                    className="widget-login__button">
                                     Редактировать профиль
                                 </Link>
                             }

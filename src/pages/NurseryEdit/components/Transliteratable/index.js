@@ -3,7 +3,7 @@ import { connect } from 'formik';
 import { FormField } from '../../../../components/Form';
 import transliterate from '../../../../utils/transliterate';
 
-import './index.scss';
+import './style.scss';
 
 
 const translate = (field, formik, value) => formik.setFieldValue(`${field}_lat`,transliterate(value));

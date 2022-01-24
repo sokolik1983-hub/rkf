@@ -18,7 +18,8 @@ import {Redirect} from 'react-router-dom';
 import ClickGuard from '../../components/ClickGuard';
 import BreedsList from '../../components/BreedsList';
 import {connectAuthVisible} from '../Login/connectors';
-import {connectShowFilters} from "../../components/Layouts/connectors";
+import {connectShowFilters} from '../../components/Layouts/connectors';
+import randomKeyGenerator from '../../utils/randomKeyGenerator'
 
 import './styles.scss';
 
@@ -153,16 +154,16 @@ const NurseryEdit = ({
         }
     };
 
-    const randomKeyGenerator = () => {
-        const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
-        let word = ''
-        for (let i = 0; i < 15; i++) {
-            word += letters.charAt(Math.floor(Math.random() * letters.length))
-        }
-        return (word.substr(0, 5) +
-            '-' + word.substr(5, 5) +
-            '-' + word.substr(10, 5)).toUpperCase()
-    }
+    // const randomKeyGenerator = () => {
+    //     const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
+    //     let word = ''
+    //     for (let i = 0; i < 15; i++) {
+    //         word += letters.charAt(Math.floor(Math.random() * letters.length))
+    //     }
+    //     return (word.substr(0, 5) +
+    //         '-' + word.substr(5, 5) +
+    //         '-' + word.substr(10, 5)).toUpperCase()
+    // }
 
 
     return (loading
