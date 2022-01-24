@@ -19,9 +19,9 @@ const ContactsPage = ({
         randomKeyGenerator,
 }) => {
     return (
-        <Card className="nursery__contacts">
+        <Card className="nursery-contacts">
             <h3>Контакты</h3>
-            <div className="nursery__contacts__address">
+            <div className="nursery-contacts__address">
                 <FormGroup inline>
                     <FormField {...city_id} className="nursery-activation__select"/>
                     <FormField {...postcode} />
