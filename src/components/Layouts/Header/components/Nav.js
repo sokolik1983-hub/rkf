@@ -1,27 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { mainNav } from '../../../../appConfig';
-import Feedback from '../../../Feedback';
-import ClickGuard from '../../../ClickGuard';
-import NavSublist from './NavSublist';
-import { connectAuthVisible } from '../../../../pages/Login/connectors';
-import useIsMobile from '../../../../utils/useIsMobile';
-import MenuLink from './MenuLink';
+import React, {memo, useEffect, useState} from "react";
+import {Link, NavLink} from "react-router-dom";
+import {mainNav} from "../../../../appConfig";
+import Feedback from "../../../Feedback";
+import ClickGuard from "../../../ClickGuard";
+import NavSublist from "./NavSublist";
+import {connectAuthVisible} from "../../../../pages/Login/connectors";
+import useIsMobile from "../../../../utils/useIsMobile";
+import MenuLink from "./MenuLink";
 import ZlineModal from "../../../../components/ZlineModal";
 import {blockContent} from "../../../../utils/blockContent";
 
-const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen, setOpen }) => {
+
+const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen, setOpen}) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
-
     const isMobile = useIsMobile(1080);
-
-    const setOverflow = (isOpen) => {
-        if (window.innerWidth <= 1080) {
-            document.body.style.overflow = isOpen ? 'hidden' : '';
-        } else if (window.innerWidth > 1080 && isOpen) {
-            document.body.style.overflow = '';
-        }
-    };
+    const apiKey = localStorage.getItem('apikey');
 
     const links = [
         {
@@ -44,11 +37,22 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
         },
     ];
 
+    const strokeColor = isOpen ? '#3366FF' : '#90999E'; //добавить класс и прописать это в стилях!
+
+    const setOverflow = isOpen => {
+        if (window.innerWidth <= 1080) {
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        } else if (window.innerWidth > 1080 && isOpen) {
+            document.body.style.overflow = '';
+        }
+    };
+
     useEffect(() => {
         setOverflow(isOpen);
-        window.addEventListener('resize', () => setOverflow(isOpen));
-        return () => window.removeEventListener('resize', () => setOverflow(isOpen));
 
+        window.addEventListener('resize', () => setOverflow(isOpen));
+
+        return () => window.removeEventListener('resize', () => setOverflow(isOpen));
     }, [isOpen]);
 
     useEffect(() => {
@@ -57,29 +61,29 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
         }
     }, [isOpenFilters]);
 
-    const menuTitle = isOpen ? 'Закрыть' : 'Меню';
-    const strokeColor = isOpen ? '#3366FF' : '#90999E';
+    useEffect(() => {
+        blockContent(showZlineModal);
 
-    const handleZlineClick = (e) => {
+        return () => blockContent(false);
+    }, [showZlineModal]);
+
+    const handleZlineClick = e => {
         e.preventDefault();
         setShowZlineModal(true);
     };
-    useEffect(() => {
-        blockContent(showZlineModal);
-        return () => blockContent(false);
-    }, [showZlineModal]);
+
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
                 <>
-                    <ClickGuard value={isOpen}
-                        callback={() => setIsOpen(false)} />
-
-                    <div className={'header__nav-burger'}
+                    <ClickGuard value={isOpen} callback={() => setIsOpen(false)} />
+                    <div
+                        className="header__nav-burger"
                         onClick={() => {
                             setIsOpen(!isOpen);
                             needChangeIsOpen(!isOpen);
-                        }}>
+                        }}
+                    >
                         <div>
                             {
                                 isOpen ? <svg width='20' height='20' viewBox='0 0 20 20' fill='none'
@@ -94,24 +98,27 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                                 </svg>
                             }
                         </div>
-                        <span className={isOpen ? 'header__nav-menu _open' : 'header__nav-menu'}>{menuTitle}</span>
+                        <span className={isOpen ? 'header__nav-menu _open' : 'header__nav-menu'}>
+                            {isOpen ? 'Закрыть' : 'Меню'}
+                        </span>
                     </div>
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>
                         <h3 className='headerPopupH3'>Меню</h3>
-                        {mainNav.map((navItem, i, arr) => <li className='header__nav-item' key={navItem.id}>
-                            {navItem.children ?
-                                <NavSublist setIsOpen={setIsOpen} navItem={navItem} /> :
-                                <NavLink
-                                    to={navItem.to}
-                                    exact={navItem.exact}
-                                    className={navItem.disabled ? '_disabled' : ''}
-                                    onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
-                                >
-                                    {navItem.image}
-                                    <span>{navItem.name}</span>
-                                </NavLink>
-                            }
-                        </li>
+                        {mainNav.map((navItem, i, arr) =>
+                            <li className='header__nav-item' key={navItem.id}>
+                                {navItem.children ?
+                                    <NavSublist setIsOpen={setIsOpen} navItem={navItem} /> :
+                                    <NavLink
+                                        to={navItem.to}
+                                        exact={navItem.exact}
+                                        className={navItem.disabled ? '_disabled' : ''}
+                                        onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
+                                    >
+                                        {navItem.image}
+                                        <span>{navItem.name}</span>
+                                    </NavLink>
+                                }
+                            </li>
                         )}
                         <li className='header__nav-item __about'>
                             <NavLink to='/about' exact={false}>
@@ -126,19 +133,17 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                             onClick={() => setIsOpen(false)}>
                             <Feedback />
                         </li>                        
-                        {links.map(item => {
-                            return (
-                                <li className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
-                                    onClick={() => setIsOpen(false)}>
-                                    <a
-                                        href={item.link}
-                                        target='_blank'
-                                        rel='noopener noreferrer'>
-                                        <span>{item.name}</span>
-                                    </a>
-                                </li>
-                            )
-                        })}
+                        {links.map(item =>
+                            <li className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
+                                onClick={() => setIsOpen(false)}>
+                                <a
+                                    href={item.link}
+                                    target='_blank'
+                                    rel='noopener noreferrer'>
+                                    <span>{item.name}</span>
+                                </a>
+                            </li>
+                        )}
                         <li className='header__nav-socials'>
                             <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/">
                                 <img src="/static/icons/social/facebook-grey.svg" alt="" />
@@ -161,15 +166,15 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                 :
                 <>
                     <ul className={`header__nav-list--desktop ${isAuthenticated ? ` _uthenticated` : ``}`}>
-                        {mainNav.map(navItem => {
-                            return (
-                                <li className='header__nav-item--desktop' key={navItem.id}>
-                                    <MenuLink  {...navItem} />
-                                </li>
-                            );
-                        })}
+                        {mainNav.map(navItem =>
+                            <li className='header__nav-item--desktop' key={navItem.id}>
+                                <MenuLink  {...navItem} />
+                            </li>
+                        )}
                         {!isMobile &&
-                            <li className='header__nav-item--desktop Feedback'><Feedback isMainNav title='Поддержка' /></li>
+                            <li className='header__nav-item--desktop Feedback'>
+                                <Feedback isMainNav title='Поддержка' />
+                            </li>
                         }
                     </ul>
                     <Link to="" className='header__nav-item--desktop recording' onClick={e => handleZlineClick(e)}>
@@ -193,18 +198,25 @@ const Nav = ({ isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOp
                     </Link>
                 </>
             }
-            <ZlineModal showModal={showZlineModal}
+            <ZlineModal
+                showModal={showZlineModal}
                 handleClose={() => {
                     setShowZlineModal(false);
                     if(!isMobile) {
-                        setOpen(false)
+                        setOpen(false);
                     }
                 }}
             >
-                <iframe src={'https://zline.me/widgets/registration-for-service?id=33'} title="unique_iframe" />
+                <iframe
+                    title="unique_iframe"
+                    src={process.env.NODE_ENV === 'production' ?
+                        `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
+                        `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
+                    }
+                />
             </ZlineModal>
         </nav>
     );
 };
 
-export default React.memo(connectAuthVisible(Nav));
+export default memo(connectAuthVisible(Nav));
