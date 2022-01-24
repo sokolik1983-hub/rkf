@@ -7,22 +7,22 @@ export const sections = {
     general: {
         name: 'Основная информация',
         id: 0,
-        icon: 'k-i-information'
+        icon: 'icon-information'
     },
     contacts: {
         name: 'Контакты',
         id: 1,
-        icon: 'k-i-track-changes'
+        icon: 'icon-contacts'
     },
     schedule: {
         name: 'График работы',
         id: 2,
-        icon: 'k-i-user'
+        icon: 'icon-schedule'
     },
     delete: {
         name: 'Удаление страницы',
         id: 3,
-        icon: 'k-i-trash'
+        icon: 'icon-trash'
     }
 };
 

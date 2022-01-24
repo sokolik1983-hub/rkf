@@ -167,66 +167,26 @@
             display: flex;
             align-items: baseline;
             color: #72839c;
-            .k-i-information {
-                &:before {
-                    content: url("/static/icons/info.svg");
-                }
-            }
-            .k-i-track-changes {
-                &:before {
-                    content: url("/static/icons/contacts.svg");
-                }
-            }
-            .k-i-user {
-                &:before {
-                    content: url("/static/icons/schedule.svg");
-                }
-            }
-            .k-i-trash {
-                &:before {
-                    content: url("/static/icons/delete-variant.svg");
-                    height: 18px;
-                }
-            }
-            .k-icon {
+
+            svg {
                 height: 18px;
                 position: relative;
                 top: 2px;
-                font-size: 18px;
-            }
-            &:hover {
-                color: #3366ff;
-                transition: all 0.2s linear;
-                .k-i-information {
-                    content: url("/static/icons/info-blue.svg");
-                }
-                & .k-i-user {
-                    content: url("/static/icons/schedule-blue.svg");
-                }
-                & .k-i-track-changes {
-                    content: url("/static/icons/contacts-blue.svg");
-                }
-                & .k-i-trash {
-                    content: url("/static/icons/delete-variant-blue.svg");
-                }
+                font-size: 20px;
             }
 
+            &:hover,
             &.active {
                 color: #3366ff;
-                .k-i-information {
-                    content: url("/static/icons/info-blue.svg");
-                }
-                & .k-i-user {
-                    content: url("/static/icons/schedule-blue.svg");
-                }
-                & .k-i-track-changes {
-                    content: url("/static/icons/contacts-blue.svg");
-                }
-                & .k-i-trash {
-                    content: url("/static/icons/delete-variant-blue.svg");
+                transition: all 0.2s linear;
+
+                & > svg > path,
+                & > svg > g > path {
+                    fill: #3366ff;
                 }
             }
         }
+
         &-list {
             list-style: none;
             margin-bottom: 0;

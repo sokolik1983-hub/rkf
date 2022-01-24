@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from 'formik';
+import {SvgSelector} from './icons';
 import StickyBox from 'react-sticky-box';
 import Card from '../../components/Card';
 import {editForm, sections} from './config';
@@ -7,7 +8,8 @@ import Schedule from './components/Schedule';
 import MainPage from './components/MainPage';
 import DeletePage from './components/DeletePage';
 import DefaultPage from './components/DefaultPage';
-import ContactsPage from "./components/ContactsPage";
+import ContactsPage from './components/ContactsPage';
+
 
 
 const RenderFields = ({
@@ -116,7 +118,7 @@ const RenderFields = ({
                                     key={key}
                                     onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                 >
-                                    <span className={`k-icon k-icon-32 ${sections[type].icon}`}/>
+                                    <SvgSelector icon={sections[type].icon} />
                                     <li>{sections[type].name}</li>
                                 </div>
                             )}
