@@ -23,7 +23,9 @@ import {
     endpointGetKennelBreeds,
     endpointGetKennelsCities,
     endpointGetNKPBreeds,
-    endpointGetRegions
+    endpointGetRegions,
+    endpointGetClubRegions,
+    endpointGetNurseryRegions,
 } from "../../config";
 import {getEmptyFilters, setFiltersToUrl} from "../../utils";
 import "./index.scss";
@@ -64,14 +66,15 @@ const Filters = ({
     };
 
     const getCities = async () => {
-        await Request({
-            url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
-        }, data => {
-            setCities(data);
-        }, error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-        });
+        organization_type !== 7 &&
+            await Request({
+                url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
+            }, data => {
+                setCities(data);
+            }, error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+            });
     };
 
     const getFederations = async () => {
@@ -87,7 +90,7 @@ const Filters = ({
 
     const getRegions = async () => {
         await Request({
-            url: endpointGetRegions
+            url: organization_type === 3 ? endpointGetClubRegions : (organization_type === 4 ? endpointGetNurseryRegions : endpointGetRegions)
         }, data => {
             setRegions(data.sort((a, b) => a.id - b.id));
         }, error => {
@@ -130,6 +133,8 @@ const Filters = ({
             if (error.response) alert(`Ошибка: ${error.response.status}`);
         }))();
     }, [region_ids]);
+
+    console.log(organization_type)
 
     return (
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
