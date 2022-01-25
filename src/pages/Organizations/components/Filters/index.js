@@ -134,8 +134,6 @@ const Filters = ({
         }))();
     }, [region_ids]);
 
-    console.log(organization_type)
-
     return (
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox offsetTop={60}>
