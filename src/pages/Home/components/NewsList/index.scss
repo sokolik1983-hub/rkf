@@ -127,18 +127,26 @@
 .ListFilter__wrap .ListFilter li:nth-child(2){
   background: url('/static/icons/home-filters/cards-variant2.svg') left no-repeat;
 }
+.ListFilter__wrap .ListFilter .active:nth-child(2), .ListFilter__wrap .ListFilter li:nth-child(2):hover{
+  background: url('/static/icons/home-filters/cards-variant2-blue.svg') left no-repeat;
+}
 .ListFilter__wrap .ListFilter li:nth-child(3){
   background: url('/static/icons/home-filters/bank2.svg') left no-repeat;
 }
 .ListFilter__wrap .ListFilter .active:nth-child(3), .ListFilter__wrap .ListFilter li:nth-child(3):hover{
   background: url('/static/icons/home-filters/bank-blue2.svg') left no-repeat;
 }
-
-  .ListFilter__wrap .ListFilter li:nth-child(4){
+.ListFilter__wrap .ListFilter li:nth-child(4){
   background: url('/static/icons/home-filters/club2.svg') left no-repeat;
+}
+.ListFilter__wrap .ListFilter .active:nth-child(4), .ListFilter__wrap .ListFilter li:nth-child(4):hover{
+  background: url('/static/icons/home-filters/club2-blue.svg') left no-repeat;
 }
 .ListFilter__wrap .ListFilter li:nth-child(5){
   background: url('/static/icons/home-filters/nursery2.svg') left no-repeat;
+}
+.ListFilter__wrap .ListFilter .active:nth-child(5), .ListFilter__wrap .ListFilter li:nth-child(5):hover{
+  background: url('/static/icons/home-filters/nursery2-blue.svg') left no-repeat;
 }
 .ListFilter__wrap .ListFilter li:nth-child(6){
   background: url('/static/icons/home-filters/dog2.svg') left no-repeat;
