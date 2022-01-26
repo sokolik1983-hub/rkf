@@ -108,10 +108,7 @@ const CardOrganization = (props) => {
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
 
                                             <span>
-                                                { owner_name ?
-                                                    owner_name :
-                                                    'Не указано'
-                                                }
+                                                { owner_name || 'Не указано' }
                                             </span>
                                         </div>
 
@@ -199,10 +196,7 @@ const CardOrganization = (props) => {
                                             <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо' }</span>&nbsp;
 
                                             <span>
-                                                { owner_name ?
-                                                    owner_name :
-                                                    'Не указано'
-                                                }
+                                                { owner_name || 'Не указано' }
                                             </span>
                                         </div>
 

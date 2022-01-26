@@ -71,7 +71,7 @@ const NewsFeedItem = forwardRef(({
     unsetCheckedAll,
     isControlCheckedAll,
     clearChecks,
-}, ref1) => {
+}, NewsFeedItemRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
@@ -89,6 +89,10 @@ const NewsFeedItem = forwardRef(({
         !isControlCheckedAll && !checkedAll && setIsChecked(false);
         clearChecks && setIsChecked(false);
     }, [checkedAll, isControlCheckedAll, clearChecks]);
+
+    useEffect(() => {
+        checkedAll && handleCheck();
+    }, [checkedAll]);
 
     const handleCheck = () => {
         if (!isChecked) {
@@ -250,7 +254,7 @@ const NewsFeedItem = forwardRef(({
                                 <label className="NewsFeedItem__control-checkbox-label">
                                     <input
                                         type="checkbox"
-                                        onChange={() => handleCheck()}
+                                        onChange={handleCheck}
                                         checked={isChecked}
                                     />
                                     <span> </span>

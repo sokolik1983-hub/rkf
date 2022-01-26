@@ -43,6 +43,12 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         await Request({
             url: `/api/article/articles_feed?profile_id=${profileId}&start_element=${startElement}&size=${elementsCount}&filter_type=${activeCategoryId}`
         }, data => {
+            setIsControlCheckedAll(false);
+            setClearChecks(false);
+            setCheckedAll(false);
+            setCheckedItemsIds([]);
+            setIsUnreadMessages(false);
+
             setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
 
             if (!data || data.articles?.length < 10) {
@@ -52,7 +58,6 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             }
 
             setLoading(false);
-            setClearChecks(false);
         }, error => {
             console.log(error.response);
             setLoading(false);
@@ -177,6 +182,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
 
         unReadMessages.length ? setIsUnreadMessages(true) : setIsUnreadMessages(false);
     }
+
 
     return loading
 
