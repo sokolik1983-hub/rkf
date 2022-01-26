@@ -124,6 +124,7 @@ const Filters = ({
     }, [organization_type]);
 
     useEffect(() => {
+        organization_type !== 7 &&
         (() => Request({
             url: `${endpointGetClubsCities}?${region_ids.map(reg => `regionIds=${reg}`).join('&')}`
         }, data => {
