@@ -325,6 +325,7 @@
             vertical-align: center;
             background: #00C48C;
             border-color: #00C48C;
+            transition: all 0.2s linear;
 
             &:hover {
                 box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
@@ -343,6 +344,7 @@
             border: none;
             border-radius: 50%;
             background: url("/static/icons/add-blue.svg") no-repeat center / contain;
+            transition: all 0.2s linear;
 
             &:hover {
                 box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
@@ -372,6 +374,7 @@
             background: url('/static/icons/delete-red.svg');
             background-size: cover;
             border: none;
+            transition: all 0.2s linear;
 
             &:hover {
                 box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
@@ -406,6 +409,7 @@
                         background: url('/static/icons/delete-red.svg');
                         background-size: cover;
                         border: none;
+                        transition: all 0.2s linear;
 
                         &:hover {
                             box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);

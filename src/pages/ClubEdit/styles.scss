@@ -132,7 +132,7 @@
                 line-height: 24px;
                 letter-spacing: 0.2px;
                 color: #72839c;
-                transition: color 0.2s linear;
+                transition: all 0.2s linear;
                 position: relative;
 
                 &:hover {
@@ -301,6 +301,7 @@
                     font-size: 16px;
                     line-height: 20px;
                     color: #FFFFFF;
+                    transition: all 0.2s linear;
 
                     &:hover {
                         box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
@@ -406,6 +407,7 @@
                     display: flex;
                     align-items: baseline;
                     color: #72839c;
+                    transition: all 0.2s linear;
 
                     svg {
                         height: 18px;
