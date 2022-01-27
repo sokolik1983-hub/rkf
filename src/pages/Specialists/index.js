@@ -112,7 +112,6 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
         }
     }, [url, allBreeder]);
 
-    console.log(filters);
 
     return loading ?
         <Loading /> :
