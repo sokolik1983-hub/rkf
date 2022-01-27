@@ -11,7 +11,7 @@ const LikeFilter = ({changeIsPopular}) => {
     };
 
     return (
-        <div className="LikeFilter">
+        <div className="like-filter">
             <h3>Сортировка</h3>
             <CustomCheckbox
                 id="most-liked"
