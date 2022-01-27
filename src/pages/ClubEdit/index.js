@@ -24,6 +24,7 @@ import {Request} from '../../utils/request';
 import ls from 'local-storage';
 
 import './styles.scss';
+import MenuComponent from "../../components/MenuComponent";
 
 
 let unblock;
@@ -47,6 +48,7 @@ const ClubEditPage = ({
     const [loading, setLoading] = useState(true);
     const [canEdit, setCanEdit] = useState(false);
     const [error, setError] = useState(false);
+    const [isFed, setIsFed] = useState(false);
     const [club, setClub] = useState(null);
 
 
@@ -71,7 +73,20 @@ const ClubEditPage = ({
         (() => Request({
             url: endpointGetClubInfo + alias
         }, data => {
-            if (data.user_type !== 3) {
+            if (data.user_type === 5) {
+                (() => Request({
+                    url: `/api/Club/federation_base_info?alias=${alias}`
+                }, data => {
+                    setClub(data);
+                    setIsFed(true)
+                    setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+                    setLoading(false);
+                }, error => {
+                    console.log(error.response);
+                    setError(error.response);
+                    setLoading(false);
+                }))();
+            } else if (data.user_type !== 3) {
                 history.replace(`/kennel/${alias}`);
             } else {
                 setClub({...data});
@@ -244,20 +259,25 @@ const ClubEditPage = ({
                             <aside className="ClubEdit__left">
                                 <StickyBox offsetTop={60}>
                                     <UserHeader
-                                        user="club"
-                                        logo={club.logo_link}
-                                        name={club.title || "Имя отсутствует"}
+                                        user={isFed ? 'federation' : 'club'}
+                                        logo={isFed ? club.logo : club.logo_link}
+                                        name={isFed ? club.name : club.title || "Имя отсутствует"}
                                         alias={alias}
                                         profileId={club.id}
-                                        federationName={club.federation_name}
-                                        federationAlias={club.federation_alias}
+                                        federationName={!isFed && club.federation_name}
+                                        federationAlias={!isFed && club.federation_alias}
                                         canEdit={canEdit}
                                         isAuthenticated={isAuthenticated}
                                     />
-                                    {!isMobile && <UserMenu userNav={canEdit
+                                    {!isMobile && !isFed && <UserMenu userNav={canEdit
                                         ? clubNav(alias)
                                         : clubNav(alias).filter(i => i.id !== 2)}
                                                             notificationsLength={notificationsLength}
+                                    />}
+                                    {!isMobile && isFed && <MenuComponent
+                                        alias={alias}
+                                        name={club.name}
+                                        isFederation={true}
                                     />}
                                     <CopyrightInfo withSocials={true}/>
                                 </StickyBox>

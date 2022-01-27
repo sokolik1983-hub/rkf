@@ -55,7 +55,7 @@ const UserHeader = ({
             <div className="user-header__content">
                 <div className="user-header__info">
                     <div className="user-header__wrap">
-                        <div style={{width: '100%'}}>
+                        <div>
                             <div className="user-header__user-wrap">
                                 <p className="user-header__user">
                                     {setUserType(user, alias)}
@@ -76,7 +76,7 @@ const UserHeader = ({
                                 <Share/>
                             </div>
                             {setUserType(user, alias) === 'Федерация' &&
-                                <div className="user-header__federation" style={{paddingTop: 0}}/>}
+                                <div className="user-header__federation" />}
                             {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
                                 <div className='user-header-link'>
                                     <Link to={`/${federationAlias}`}
@@ -92,8 +92,7 @@ const UserHeader = ({
                             {canEdit &&
                                 <Link
                                     to={`/${setUserType(user, alias) === 'Питомник' ? "kennel" : "client"}/${alias}/edit`}
-                                    className="widget-login__button"
-                                    style={{marginTop: "20px"}}>
+                                    className="widget-login__button">
                                     Редактировать профиль
                                 </Link>
                             }
