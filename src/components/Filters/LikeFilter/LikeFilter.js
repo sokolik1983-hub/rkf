@@ -4,7 +4,7 @@ import './style.scss'
 
 
 const LikeFilter = ({is_popular, onChange}) => (
-    <div className="LikeFilter">
+    <div className="like-filter">
         <h3>Сортировка</h3>
         <CustomCheckbox
             id="most-liked"
