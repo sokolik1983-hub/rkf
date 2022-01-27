@@ -15,13 +15,20 @@ const checkUrl = (e, formik) => {
     }
 };
 
-const RenderFields = ({formik}) => (
+const RenderFields = ({formik, isFederation}) => (
     <div>
-        <FormGroup className="info">
-            <FormField {...fields.name}/>
-            <FormField {...fields.description}/>
-            <FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>
-        </FormGroup>
+        {isFederation
+            ? <FormGroup className="info">
+                <FormField {...fields.nameFed}/>
+                <FormField {...fields.descriptionFed}/>
+                <FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>
+            </FormGroup>
+            : <FormGroup className="info">
+                <FormField {...fields.name}/>
+                <FormField {...fields.description}/>
+                <FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>
+            </FormGroup>
+        }
         <FormGroup className="address">
             <FormField {...fields.city_id}/>
             <FormField {...fields.address}/>

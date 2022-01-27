@@ -67,7 +67,9 @@ const RenderFields = ({
                     bindSubmitClubBankInfo={bindSubmitClubBankInfo}
                 />
             case 5:
-                return <ClubDelete />
+                return <ClubDelete
+                    is_federation={is_federation}
+                />
             default:
                 return <ClubDefault />
         }

@@ -10,6 +10,7 @@ const ClubInfoForm = ({
         clubInfo,
         clubInfoUpdateSuccess,
         bindSubmitForm,
+        isFederation,
 }) => {
     const transformValues = values => {
         let newValues = {...values};
@@ -38,7 +39,9 @@ const ClubInfoForm = ({
                 transformValues={transformValues}
                 bindSubmitForm={bindSubmitForm}
             >
-                <RenderFields />
+                <RenderFields
+                    isFederation={isFederation}
+                />
             </Form>
         </div>
     )

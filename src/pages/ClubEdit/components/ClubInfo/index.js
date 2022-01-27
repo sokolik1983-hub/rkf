@@ -13,7 +13,10 @@ const ClientClubInfo = ({
     <div className="ClientClubInfo__wrap">
         {!isFederation && <ClubAlias bindSubmitForm={bindSubmitClubAlias} />}
         <div className="ClientClubInfo">
-            <UpdateClubInfoForm bindSubmitForm={bindSubmitClubInfo} />
+            <UpdateClubInfoForm
+                bindSubmitForm={bindSubmitClubInfo}
+                isFederation={isFederation}
+            />
         </div>
     </div>
 );
