@@ -18,8 +18,6 @@ import {PromiseRequest, Request} from "../../../../utils/request";
 import {
     endpointExhibitionsFilters,
     endpointEducationalsFilters,
-    endpointExhibitionsCities,
-    endpointGetExhibitions
 } from "../../config";
 import RangeCalendarExhibitions from "../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
@@ -32,7 +30,6 @@ import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
 import ls from "local-storage";
 
 import "./index.scss";
-import {endpointGetClubsCities} from "../../../Organizations/config";
 
 
 const Filters = ({
