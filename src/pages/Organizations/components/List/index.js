@@ -14,6 +14,7 @@ const OrganizationsList = ({
     string_filter,
     federation_ids,
     city_ids,
+    is_popular,
     breed_ids,
     activated,
     not_activated,
@@ -36,6 +37,7 @@ const OrganizationsList = ({
                 not_activated,
                 active_member,
                 active_rkf_user,
+                is_popular,
                 start_element: startElem
             })}`
         }, data => {
@@ -60,7 +62,7 @@ const OrganizationsList = ({
     useEffect(() => {
         (() => getOrganizations(1))();
         setStartElement(1);
-    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member]);
+    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member, is_popular]);
 
     const getNextOrganizations = () => {
         if(org.length) {

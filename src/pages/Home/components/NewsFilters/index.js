@@ -5,6 +5,7 @@ import ClickGuard from "../../../../components/ClickGuard";
 import ListFilter from "../NewsList/ListFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
+import LikeFilter from "../NewsList/LikeFilter";
 import "./index.scss";
 
 
@@ -15,7 +16,8 @@ const NewsFilters = ({
     changeOrganizationFilters,
     changeCityFilter,
     setShowFilters,
-    isOpenFilters
+    isOpenFilters,
+    changeIsPopular
 }) => (
     <aside className={`news-filters${isOpenFilters ? ' _open' : ''}`}>
         <ClickGuard
@@ -26,6 +28,9 @@ const NewsFilters = ({
             {loading ?
                 <Loading centered={false}/> :
                 <>
+                    <LikeFilter
+                        changeIsPopular={changeIsPopular}
+                    />
                     <ListFilter
                         changeFilter={changeOrganizationFilters}
                     />

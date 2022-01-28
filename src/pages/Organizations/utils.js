@@ -18,7 +18,6 @@ export const buildUrlParams = filters => {
     if (params.charAt(params.length - 1) === '&') {
         params = params.slice(0, -1);
     }
-
     return params ? `?${params}` : '';
 };
 
@@ -31,7 +30,8 @@ export const getEmptyFilters = () => ({
     active_rkf_user: false,
     activated: true,
     active_member: false,
-    not_activated: false
+    not_activated: false,
+    is_popular: false,
 });
 
 export const getFiltersFromUrl = () => {
