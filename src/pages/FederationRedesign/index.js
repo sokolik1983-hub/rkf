@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import StickyBox from "react-sticky-box";
-
 import NotConfirmed from "../NotConfirmed";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
-import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
@@ -22,6 +20,7 @@ import MenuComponent from "../../components/MenuComponent";
 import PhotoComponent from "../../components/PhotoComponent";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
+import UserBanner from "../../components/Layouts/UserBanner";
 
 import "./index.scss";
 
@@ -73,13 +72,14 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    {isMobile && !fedInfo.header_picture_link ? null : <Card className="club-page__content-banner">
-                                        {
-                                            fedInfo.header_picture_link
-                                                ? <div style={{ backgroundImage: `url(${fedInfo.header_picture_link}` }} />
-                                                : <div className="club-page__content-banner-inactive" />
-                                        }
-                                    </Card>}
+                                    {isMobile && !fedInfo.header_picture_link
+                                        ? null
+                                        : !isMobile
+                                        && <UserBanner
+                                            link={fedInfo.header_picture_link}
+                                            canEdit={canEdit}
+                                        />
+                                    }
                                     {isMobile && <>
                                         <UserHeader
                                             user={alias !== 'rkf-online' ? 'club' : ''}
