@@ -21,6 +21,14 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     const [needFilter, setNeedFilter] = useState(true);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
+    const [searchTabActiveName, setSearchTabActiveName] = useState(1);
+    const [isMenuChanges, setIsMenuChanges] = useState(false);
+
+
+    useEffect(() => {
+        !isMenuChanges && setSearchTabActiveName(filters.sort((a, b) => b.count - a.count)[0].name);
+        setIsMenuChanges(false);
+    }, [filters])
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -39,6 +47,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         await Request({
             url: buildSearchUrl(filtersValue, startElem, needCount, needFilter)
         }, data => {
+            console.log('data', data)
             let newFilters = [...filters];
 
             if(data.counts && data.counts.length) {
@@ -60,7 +69,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
 
                     return category;
                 });
-                setNeedCount(false);
+                setNeedCount(true);
             }
 
             if(data.filter) {
@@ -77,10 +86,11 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
             let results = [];
 
             Object.keys(data).forEach(key => {
-                if(data[key] && data[key].length && key !== 'counts') {
-                    results = [...results, ...data[key].map(item => ({...item, search_type: key}))];
+                if(data[key]?.result && data[key]?.result.length && key !== 'counts') {
+                    results = [...results, ...data[key].result.map(item => ({...item}))];
                 }
             });
+
 
             if (results.length) {
                 if (results.length < 10) {
@@ -103,12 +113,15 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     };
 
     useEffect(() => {
+        setSearchResult([]);
+
         if(filtersValue.string_filter && filtersValue.search_type) {
             (() => getSearchResults(1))();
         } else {
             setSearchResult([]);
             setHasMore(false);
         }
+
         setStartElement(1);
     }, [filtersValue]);
 
@@ -118,6 +131,13 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
             setStartElement(startElement + 10);
         }
     };
+
+    const handleActiveTypeChange = (tabActiveName) => {
+        setSearchResult([]);
+        setSearchTabActiveName(tabActiveName)
+        setIsMenuChanges(true);
+    }
+
 
     return (
         <Layout withFilters>
@@ -132,7 +152,13 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                     />
 
                     <div className="search-page__content">
-                        <SearchFilter filtersValue={filtersValue} />
+                        <SearchFilter
+                            filters={filters}
+                            filtersValue={filtersValue}
+                            filtersSearchType={filtersValue.search_type}
+                            searchTabActiveName={searchTabActiveName}
+                            handleActiveTypeChange={handleActiveTypeChange}
+                        />
                         <SearchList
                             filtersSearchType={filtersValue.search_type}
                             searchResult={searchResult}

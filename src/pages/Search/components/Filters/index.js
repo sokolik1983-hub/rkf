@@ -15,11 +15,18 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
 
+    const checkFilter = (filter) => {
+        // console.log('filter in filters', filter)
+        if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) return true
+    }
+
+
     return (
         <Aside className={`search-page__left${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox>
                 <div className="search-page__filters-wrap">
                     {filters.map(filter =>
+                        checkFilter(filter) &&
                         <Card key={filter.name}>
                             <Dropdown
                                 filtersValue={filtersValue}

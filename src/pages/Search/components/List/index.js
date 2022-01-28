@@ -12,6 +12,8 @@ import CardSpecialist from "../../../../components/CardSpecialist";
 
 
 const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
+    // console.log('filtersSearchType in list', filtersSearchType)
+    // console.log('searchResult in list', searchResult)
     const {dictionary} = useDictionary('rank_type');
 
     const getDate = dates => {
@@ -22,14 +24,14 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
             const endDate = dates[dates.length - 1];
             date = dates.length === 1
                 ? formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`))
-                : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) + 
+                : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) +
                 ' - ' + formatDateCommon(new Date(`${endDate.year}/${endDate.month}/${endDate.day}`));
         }
 
         return date;
     };
 
-    const getRanks = rank_ids => rank_ids.length ? getDictElementsArray(dictionary, rank_ids).join(', ') : 'Не указано';
+    const getRanks = rank_ids => rank_ids?.length ? getDictElementsArray(dictionary, rank_ids).join(', ') : 'Не указано';
 
     return (
         <div className="search-list">
@@ -46,12 +48,16 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                 }
             >
                 <ul className="search-list__content">
+                    {/*{searchResult.map(item => console.log('item', item) && (*/}
                     {searchResult.map(item => (
                         <li className="search-list__item" key={item.id}>
-                            {item.search_type === 'organizations' &&
+                            {/*{item.search_type === 'organizations' &&*/}
+                            {filtersSearchType.toString()[0] === '1' &&
                                 <CardOrganization {...item} />
                             }
-                            {item.search_type === 'exhibitions' &&
+
+                            {/*{item.search_type === 'exhibitions' &&*/}
+                            {filtersSearchType.toString()[0] === '3' &&
                                 <CardExhibition
                                     {...item}
                                     title={item.exhibition_name}
@@ -63,7 +69,9 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                                     reports = {item.reports_links}
                                 />
                             }
-                            {item.search_type === 'articles' &&
+                            {/*{item.search_type === 'articles' &&*/}
+                            {/*{console.log(filtersSearchType.toString()[0] === '2')}*/}
+                            {filtersSearchType.toString()[0] === '2' &&
                                 <CardNewsNew
                                     {...item}
                                     user={item.user_type}
@@ -81,14 +89,16 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                                     adAmount={item.advert_number_of_puppies}
                                 />
                             }
-                            {(item.search_type === 'exterior_judges' || item.search_type === 'specialists') &&
+
+                            {/*{(item.search_type === 'judges') &&*/}
+                            {filtersSearchType.toString()[0] === '4' &&
                                 <CardSpecialist
                                     {...item}
                                     searchTypeId={
                                         //Костыль, работающий от фильтров. Если надо будет одновременно выводить разные карточки, то это работать не будет
-                                        filtersSearchType === 10 ? 1 :
-                                        filtersSearchType === 11 ? 2 :
-                                        filtersSearchType === 12 ? 3 : 4
+                                        filtersSearchType === 401 ? 1 :
+                                        filtersSearchType === 402 ? 2 :
+                                        filtersSearchType === 403 ? 3 : 4
                                     }
                                 />
                             }

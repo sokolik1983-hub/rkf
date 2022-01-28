@@ -79,6 +79,11 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
                             }}
                         >
                             {item.title}
+                            {!!item.count &&
+                                <span className="swipe-tabs__tab-count">
+                                    {item.count}
+                                </span>
+                            }
                         </span>
                     }
                 </SwiperSlide>
