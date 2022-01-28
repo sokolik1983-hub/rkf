@@ -26,6 +26,7 @@ import {
     endpointGetRegions
 } from "../../config";
 import {getEmptyFilters, setFiltersToUrl} from "../../utils";
+import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
 import "./index.scss";
 import RegionsFilter from "../../../../components/Filters/RegionsFilter";
 
@@ -36,6 +37,7 @@ const Filters = ({
     organization_type,
     federation_ids,
     city_ids,
+    is_popular,
     breed_ids,
     activated,
     not_activated,
@@ -171,6 +173,10 @@ const Filters = ({
                                     Сбросить все параметры
                                 </button>
                             </Card>
+                            <LikeFilter
+                                is_popular={is_popular}
+                                onChange={filter => setFiltersToUrl({not_activated: false, is_popular: filter})}
+                            />
                             {(organization_type === 3 || organization_type === 4) &&
                                 <>
                                     <FederationsFilter

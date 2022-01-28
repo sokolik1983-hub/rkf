@@ -6,6 +6,7 @@ import ListFilter from "../NewsList/ListFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
 import RegionsFilter from "../../../../components/Filters/RegionsFilter";
+import LikeFilter from "../NewsList/LikeFilter";
 
 import "./index.scss";
 
@@ -18,37 +19,39 @@ const NewsFilters = ({
     changeRegionFilter,
     setShowFilters,
     isOpenFilters,
-    regions
-}) => {
-    return (
-        <aside className={`news-filters${isOpenFilters ? ' _open' : ''}`}>
-            <ClickGuard
-                value={isOpenFilters}
-                callback={() => setShowFilters({isOpenFilters: false})}
-            />
-            <StickyBox offsetTop={60}>
-                {loading ?
-                    <Loading centered={false}/> :
-                    <>
-                        <ListFilter
-                            changeFilter={changeOrganizationFilters}
-                        />
-                        <RegionsFilter
-                            regions={regions}
-                            region_ids={newsFilter.regions}
-                            onChange={changeRegionFilter}
-                        />
-                        <CitiesFilter
-                            withOpenButton={false}
-                            cities={cities}
-                            city_ids={newsFilter.cities}
-                            onChange={changeCityFilter}
-                        />
-                    </>
-                }
-            </StickyBox>
-        </aside>
-    )
-};
+    regions,
+    changeIsPopular
+}) => (
+    <aside className={`news-filters${isOpenFilters ? ' _open' : ''}`}>
+        <ClickGuard
+            value={isOpenFilters}
+            callback={() => setShowFilters({isOpenFilters: false})}
+        />
+        <StickyBox offsetTop={60}>
+            {loading ?
+                <Loading centered={false}/> :
+                <>
+                    <LikeFilter
+                        changeIsPopular={changeIsPopular}
+                    />
+                    <ListFilter
+                        changeFilter={changeOrganizationFilters}
+                    />
+                    <RegionsFilter
+                        regions={regions}
+                        region_ids={newsFilter.regions}
+                        onChange={changeRegionFilter}
+                    />
+                    <CitiesFilter
+                        withOpenButton={false}
+                        cities={cities}
+                        city_ids={newsFilter.cities}
+                        onChange={changeCityFilter}
+                    />
+                </>
+            }
+        </StickyBox>
+    </aside>
+);
 
 export default memo(connectShowFilters(NewsFilters));

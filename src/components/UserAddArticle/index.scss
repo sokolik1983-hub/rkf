@@ -68,13 +68,17 @@
     align-items: center;
     flex-grow: 1;
 
+    .FormGroup--inline {
+      margin-bottom: 25px;
+    }
+
     #content {
       border: 0;
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
       letter-spacing: 0.2px;
-      padding: 7px 7px 7px 0;
+      padding: 7px 7px 7px 10px;
 
       &:empty {
         height: auto !important;
@@ -118,7 +122,7 @@
     }
 
     &._focus {
-      margin-left: 43px;
+      margin-left: 60px;
       display: flex;
       flex-direction: row;
       margin-top: 5px;
@@ -161,8 +165,8 @@
       display: inline-block;
       width: 20px;
       height: 20px;
-      background: url("/static/icons/client/attach-image.svg") no-repeat center / cover,
-        url("/static/icons/client/attach-image-active.svg") no-repeat center / cover;
+      background: url("/static/icons/client/attach-image2.svg") no-repeat center / cover,
+        url("/static/icons/client/attach-image2-active.svg") no-repeat center / cover;
       position: absolute;
       top: 50%;
       left: 0;
@@ -173,7 +177,7 @@
       color: #3366ff;
 
       &:before {
-        background: url("/static/icons/client/attach-image-active.svg") no-repeat center / cover;
+        background: url("/static/icons/client/attach-image2-active.svg") no-repeat center / cover;
       }
     }
   }
@@ -194,8 +198,8 @@
       display: inline-block;
       height: 22px;
       width: 24px;
-      background: url("/static/icons/icon-youtube-add-article.svg") no-repeat center / cover,
-        url("/static/icons/icon-youtube-add-article-blue.svg") no-repeat center / cover;
+      background: url("/static/icons/icon-youtube-add-article2.svg") no-repeat center / cover,
+        url("/static/icons/icon-youtube-add-article2-blue.svg") no-repeat center / cover;
       position: absolute;
       background-size: contain;
       top: 50%;
@@ -207,7 +211,7 @@
       color: #3366ff;
 
       &:before {
-        background: url("/static/icons/icon-youtube-add-article-blue.svg") no-repeat center / cover;
+        background: url("/static/icons/icon-youtube-add-article2-blue.svg") no-repeat center / cover;
         background-size: contain;
       }
     }
@@ -218,7 +222,7 @@
       color: #72839c !important;
 
       &:before {
-        background: url("/static/icons/icon-youtube-add-article.svg") no-repeat center / cover !important;
+        background: url("/static/icons/icon-youtube-add-article2.svg") no-repeat center / cover !important;
         background-size: contain;
       }
     }
@@ -229,8 +233,8 @@
     padding: 0 0 0 20px;
 
     &:before {
-      background: url("/static/icons/icon-pdf.svg") no-repeat center / contain,
-        url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
+      background: url("/static/icons/icon-pdf2.svg") no-repeat center / contain,
+        url("/static/icons/icon-pdf2-blue.svg") no-repeat center / contain;
       height: 22px;
       width: 24px;
       position: absolute;
@@ -241,7 +245,7 @@
 
     &:hover {
       &:before {
-        background: url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
+        background: url("/static/icons/icon-pdf2-blue.svg") no-repeat center / contain;
       }
     }
   }
@@ -278,21 +282,73 @@
 
     @media(max-width: 750px) {
       flex-basis: 100%;
-      flex-direction: column;
+      gap: 20px;
     }
   }
 
   &__advert {
     color: #72839C;
-    .FormInput__input {
-      padding: 7px 10px 7px 10px !important;
-      &:first-child {
-        padding: 0 !important;
+    margin-bottom: 15px;
+    label {
+      margin-left: 1px;
+      margin-bottom: 3px;
+    }
+    &.BuySell {
+      display: grid;
+      grid-template-areas:
+            "breed cost puppies"
+            "color sex age";
+      grid-template-columns: 61.5% 18% 18%;
+      gap: 0 10px;
+      @media (max-width: 750px) {
+        grid-template-areas:
+            "breed breed"
+            "sex age"
+            "color color"
+            "cost cost"
+            "puppies puppies";
+        grid-template-columns: 48.5% 48.5%;
+      }
+      .FormInput__input {
+        padding: 7px 10px 7px 10px !important;
+        &:first-child {
+          padding: 0 !important;
+        }
+        &::placeholder {
+          color: #CCC!important;
+        }
+      }
+    }
+
+    &.Ads {
+      display: grid;
+      grid-template-areas:
+        "city2 city2 breed2 breed2"
+        "sex2 age2 name2 color2";
+      grid-template-columns: 24% 24% 24% 24%;
+      gap: 0 10px;
+      @media (max-width: 750px) {
+        grid-template-areas:
+            "city2 city2"
+            "breed2 breed2"
+            "sex2 age2"
+            "name2 name2"
+            "color2 color2";
+        grid-template-columns: 48.5% 48.5%;
+      }
+      .FormInput__input {
+        padding: 7px 10px 7px 10px !important;
+        &:first-child {
+          padding: 0 !important;
+        }
+        &::placeholder {
+          color: #CCC!important;
+        }
       }
     }
     .ArticleCreateForm {
       &__input-sex {
-        width: 130px;
+        grid-area: sex2;
         & .FormInput__input {
           padding: 0 !important;
         }
@@ -301,15 +357,62 @@
         }
       }
       &__input-age {
-        max-width: 90px;
+        grid-area: age2;
       }
       &__input-name {
-        max-width: 245px;
+        grid-area: name2;
       }
       &__input-color {
-        max-width: 245px;
+        grid-area: color2;
+      }
+
+      &__input-breed_new {
+        grid-area: breed;
+      }
+      &__input-sex_new {
+        grid-area: sex;
+        & .FormInput__input {
+          padding: 0 !important;
+        }
+        & .css-kj6f9i-menu {
+          max-height: 70px!important;
+        }
+      }
+      &__input-color_new {
+        grid-area: color;
+      }
+      &__input-age_new {
+        grid-area: age;
+      }
+      &__input-cost_new {
+        grid-area: cost;
+      }
+      &__input-puppies_new {
+        grid-area: puppies;
+      }
+      &__breed-select-wrap {
+        position: relative;
+        grid-area: breed2;
+        & .custom-checkbox {
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: auto;
+          margin: 0;
+        }
+      }
+      &__age-wrap {
+        grid-area: age2;
       }
     }
+    .FormInput__error {
+      padding: 0;
+      bottom: -18px;
+    }
+    .FormInput {
+      margin-bottom: 18px;
+    }
+
     .css-shvkw9-control,
     .css-8rvjbo-control,
     .css-shvkw9-control {
@@ -350,7 +453,7 @@
     }
 
     &.active {
-      background: #007bff;
+      background: #36f;
       box-shadow: 0 4px 8px rgba(51, 102, 255, 0.3);
       opacity: 1;
       cursor: pointer;
@@ -500,7 +603,7 @@
     }
   }
   &__input-breedId,  &__input-city{
-    width: 40%;
+    width: 100%;
   }
   &__input-city {
     & #dog_city {
@@ -517,6 +620,7 @@
     & .FormInput__error {
       top: -23px;
       color: #FA5D50;
+      padding: 0;
     }
     & .FormInput__error-city {
       position: absolute;
@@ -529,7 +633,7 @@
     &:before {
       content: '(примерный)';
       position: absolute;
-      top: 13px;
+      right: 0;
       font-size: 11px;
     }
   }
@@ -551,22 +655,13 @@
   }
   &__city-select-wrap {
     position: relative;
-    width: 40%;
+    grid-area: city2;
     & .custom-checkbox {
       position: absolute;
       top: 0;
       right: 0;
-      @media (max-width: 600px) {
-        top: 60px;
-      }
-    }
-    & .ArticleCreateForm__input-city {
-      width: 100%;
-    }
-    @media (max-width: 600px) {
-      width: 245px;
-      max-width: 245px;
-      padding-bottom: 20px;
+      left: auto;
+      margin: 0;
     }
   }
 }
@@ -604,9 +699,12 @@
 @media (max-width: 750px) {
   .k-selection-single {
     flex-wrap: wrap;
-    justify-content: center;
     & .k-chip {
-      margin: 10px;
+      min-width: 100px;
+      gap: 15px;
+      .k-chip-content {
+        flex: none;
+      }
     }
   }
 }

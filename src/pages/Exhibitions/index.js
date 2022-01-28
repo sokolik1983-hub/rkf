@@ -180,6 +180,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
             <div className="exhibitions-page__wrap redesign">
                 <Container className="exhibitions-page content">
                     <Filters
+                        IsPopular={filters.IsPopular}
                         filters={filters}
                         clubName={shorten(displayName)}
                         profileId={clubId}

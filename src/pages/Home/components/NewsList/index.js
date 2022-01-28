@@ -62,7 +62,8 @@ const NewsList = ({isFullDate = true}) => {
                         '&is_advert=' + filters.isAdvert +'&advert_category_id=' + filters.advert_category_id 
                         :
                         '&is_advert=false' 
-                    : ''}`
+                    : ''}
+                ${filters.is_popular ? '&is_popular='+ filters.is_popular : '&is_popular=false'}`
             }, data => {
                 if (data.articles.length) {
                     const modifiedNews = data.articles.map(article => {
@@ -184,6 +185,12 @@ const NewsList = ({isFullDate = true}) => {
         }))();
     }, [newsFilter.regions])
 
+    const changeIsPopular = mostLiked => {
+        setNewsFilter({...newsFilter, is_popular: mostLiked});
+        (() => getNews(1, {...newsFilter, is_popular: mostLiked}))();
+    };
+
+
     return (
         <div className="NewsList">
                 <InfiniteScroll
@@ -239,6 +246,7 @@ const NewsList = ({isFullDate = true}) => {
                 changeTypeFilters={changeTypeFilters}
                 changeCityFilter={changeCityFilter}
                 changeRegionFilter={changeRegionFilter}
+                changeIsPopular={changeIsPopular}
             />
         </div>
     )

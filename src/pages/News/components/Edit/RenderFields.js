@@ -63,7 +63,6 @@ const RenderFields = ({ fields,
     const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
     const isMobile = useIsMobile();
 
-    console.log('currentCities', currentCities);
 
     useEffect(() => {
         setSex({'label': `${(dog_sex_type_id === 1) ? 'Кобель' : 'Сука'}`});
@@ -410,7 +409,6 @@ const RenderFields = ({ fields,
                                          onChange={handleChangeHalfBreed}
                                      />
                                     <FormField
-                                        id=""
                                         className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'} ${(!isHalfBreedEdit && !breedValue) && 'error-input'}`}
                                         {...fields.advert_breed_id}
                                         options={breeds}

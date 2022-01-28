@@ -28,13 +28,30 @@ import UserMenu from "../../../../components/Layouts/UserMenu";
 import MenuComponent from "../../../../components/MenuComponent";
 import { connectAuthVisible } from "pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
+import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
 import ls from "local-storage";
 
 import "./index.scss";
 import {endpointGetClubsCities} from "../../../Organizations/config";
 
 
-const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user, notificationsLength, isEducational }) => {
+const Filters = ({
+        club,
+        logo,
+        filters,
+        setClub,
+        clubName,
+        profileId,
+        IsPopular,
+        active_member,
+        isOpenFilters,
+        isEducational,
+        federationName,
+        active_rkf_user,
+        isAuthenticated,
+        federationAlias,
+        notificationsLength
+}) => {
     const [ranks, setRanks] = useState([]);
     const [types, setTypes] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
@@ -182,6 +199,10 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                     />
                                 </div>
                             </Card>
+                            <LikeFilter
+                                is_popular={IsPopular}
+                                onChange={filter => setFiltersToUrl({ IsPopular: filter })}
+                            />
                             {parseInt(filters.CategoryId) === 4
                                 ? <FormatFilter
                                     format_ids={filters.TypeIds}

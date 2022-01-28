@@ -34,7 +34,6 @@ const List = (props) => {
                         onDelete={onDelete}
                         first_name={first_name}
                         last_name={last_name}
-
                     />
                 </li>
             )}

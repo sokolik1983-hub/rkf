@@ -89,7 +89,8 @@ export const getEmptyFilters = (alias = null) => ({
     PaymentFormTypeIds: [],
     CategoryId: 0,
     DateFrom: formatDateToString(new Date()),
-    DateTo: null
+    DateTo: null,
+    IsPopular: false,
 });
 
 export const getInitialFilters = () => {

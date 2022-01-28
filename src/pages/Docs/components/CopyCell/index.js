@@ -4,8 +4,6 @@ import "./styles.scss";
 
 const CopyCell = ({ dataItem }, callback) => {
 
-
-
     const handleCopyBarcode = (barcode) => {
         if (barcode) {
             navigator.clipboard.writeText(barcode)
