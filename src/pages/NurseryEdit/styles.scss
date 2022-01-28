@@ -3,17 +3,21 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 60px;
+
     a:hover {
         text-decoration: none;
     }
+
     @media (max-width: 560px) {
         display: block;
     }
-    &__main-info > div:nth-child(2){
+
+    &__main-info > div:nth-child(2) {
         @media (max-width: 1024px) {
             display: none;
         }
     }
+
     &__left {
         width: 300px;
         min-width: 300px;
@@ -28,29 +32,36 @@
                 position: static !important;
             }
         }
+
         .Card {
             padding: 10px !important;
         }
+
         .user-header {
-            padding: 0!important;
+            padding: 0 !important;
+
             &__content {
                 padding: 10px;
             }
+
             &__container {
                 display: flex;
                 width: 100%;
                 justify-content: space-between;
                 height: 22px;
             }
+
             &__info {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: normal;
             }
+
             &__logo-wrap {
                 padding: 10px;
             }
+
             &__logo {
                 width: 100%;
                 min-width: 162px;
@@ -61,12 +72,14 @@
                 background-size: contain;
                 border-radius: 0;
             }
+
             &__user {
                 font-weight: normal;
                 font-size: 16px;
                 line-height: 24px;
                 letter-spacing: 0.2px;
                 color: #72839c;
+
                 &-wrap {
                     position: relative;
                     margin-bottom: 10px;
@@ -83,6 +96,7 @@
                     }
                 }
             }
+
             &__name {
                 color: #36f;
                 font-weight: normal;
@@ -93,6 +107,7 @@
                 text-overflow: ellipsis;
                 margin-bottom: 0;
             }
+
             &__federation {
                 display: block;
                 margin-bottom: 0 !important;
@@ -105,12 +120,15 @@
                 color: #72839c;
                 transition: color 0.2s linear;
                 position: relative;
+
                 &:hover {
                     color: #3366ff;
                 }
             }
+
             &-link {
                 position: relative;
+
                 &::after {
                     content: '';
                     position: absolute;
@@ -122,6 +140,7 @@
                     background: #e8e8e8;
                 }
             }
+
             .btn-share {
                 margin-left: 8px;
                 width: 15px;
@@ -129,13 +148,16 @@
                 border: none;
                 background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
             }
+
             .ya-share2__icon_more {
                 height: 16px;
                 background-color: white;
+
                 &:after {
                     background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
                     background-color: white;
                 }
+
                 &:hover:after {
                     background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
                     background-color: white;
@@ -143,6 +165,7 @@
             }
         }
     }
+
     &__right {
         width: 100%;
         @media (max-width: 560px) {
@@ -155,6 +178,7 @@
             padding-bottom: 1px;
         }
     }
+
     &__inner {
         display: flex;
         width: 100%;
@@ -191,6 +215,7 @@
             list-style: none;
             margin-bottom: 0;
             margin-right: 10px;
+
             & li {
                 margin-left: 6px;
                 margin-top: 10px;
@@ -200,8 +225,10 @@
         &-left {
             margin-right: 16px;
             width: 100%;
+
             .Card {
                 margin-top: 0 !important;
+
                 h3 {
                     margin-top: 3px;
                     margin-bottom: 10px;
@@ -212,6 +239,7 @@
 
                     border-bottom: 1px solid #E5E5E5;
                 }
+
                 .support-link {
                     display: block;
                     margin-bottom: 12px;
@@ -222,10 +250,12 @@
                     border-bottom: 1px solid #E5E5E5;
                 }
             }
+
             .k-form {
                 max-width: none !important;
             }
         }
+
         &-right {
             flex-grow: 1;
             @media (max-width: 680px) {
@@ -244,6 +274,7 @@
                 &._open {
                     padding: 10px 16px 16px 16px;
                     transform: translateX(0);
+
                     .Card {
                         margin: 0 !important;
                         padding: 0 !important;
@@ -251,6 +282,7 @@
                     }
                 }
             }
+
             & > .Card {
                 @media (min-width: 561px) {
                     position: fixed;
@@ -259,13 +291,16 @@
                 }
             }
         }
+
         .Card {
             min-width: 230px;
             padding: 12px !important;
         }
+
         .k-form-buttons {
-            margin-top: unset!important;
+            margin-top: unset !important;
         }
+
         .ProfileEditPageControls__save {
             display: block;
             margin: 0 auto;
@@ -277,25 +312,32 @@
             font-size: 16px;
             line-height: 20px;
             color: #FFFFFF;
+
             &:hover {
                 box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
             }
         }
     }
+
     .Card {
         margin: 0 0 16px 0;
         padding: 25px;
+
         div {
             font-weight: normal;
         }
+
         .nursery-page__delete {
             display: flex;
             flex-direction: column;
             min-height: 160px;
+
             p {
                 text-align: center;
                 margin: 25px auto 40px;
-            };
+            }
+        ;
+
             .button-delete__disable {
                 width: 155px;
                 height: 38px;
@@ -311,10 +353,11 @@
                 border-radius: 4px;
             }
         }
+
         @media (max-width: 560px) {
             padding: 16px;
         }
-        @media (min-width: 560px){
+        @media (min-width: 560px) {
             .NurseryEdit__profile-label {
                 display: block !important;
                 margin-top: 3px;
@@ -324,13 +367,16 @@
             }
         }
     }
+
     .FormGroup--inline {
         margin-bottom: 0;
     }
+
     .FormInput__error {
         bottom: -3px;
         font-size: 12px;
     }
+
     .FormInput {
         display: grid;
         grid-template-columns: 19% 79%;
@@ -344,6 +390,7 @@
             flex-direction: column;
             align-items: start;
         }
+
         &__input,
         &__input:disabled {
             display: flex;
@@ -353,26 +400,31 @@
             height: 38px;
             border-width: 2px;
         }
-        #description{
+
+        #description {
             height: 227px;
             @media (max-width: 768px) {
                 height: 160px;
             }
         }
+
         .AliasInput {
             display: flex;
             flex-direction: column;
             width: 100%;
+
             & > span {
                 margin-bottom: 5px;
                 margin-left: 2px;
                 color: #979797;
             }
-            .FormInput__input{
+
+            .FormInput__input {
                 width: 100%;
 
             }
         }
+
         label {
             text-align: right;
             line-height: 16px;
@@ -385,14 +437,16 @@
                 white-space: normal;
                 margin-left: 2px;
             }
-            &[for="description"]{
+
+            &[for="description"] {
                 position: relative;
                 top: -80px;
                 @media (max-width: 1024px) {
                     top: 0;
                 }
             }
-            &[for="alias"]{
+
+            &[for="alias"] {
                 white-space: nowrap;
                 position: relative;
                 top: 14px;
@@ -407,19 +461,23 @@
                 }
             }
         }
+
         &--select > div:nth-child(2) {
             display: block;
             height: 42px;
+
             > div {
                 margin: 0;
                 padding: 0;
                 border: none;
             }
         }
+
         input[name='address.postcode'] {
             height: 42px;
         }
     }
+
     &__is-valid {
         display: flex;
         justify-content: center;
@@ -427,6 +485,7 @@
         color: red;
     }
 }
+
 .header__filters {
     @media (min-width: 681px) {
         display: none;
