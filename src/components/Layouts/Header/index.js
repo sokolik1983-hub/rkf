@@ -1,53 +1,51 @@
-import React, {useState} from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import Container from '../Container';
-import Search from './components/Search';
-import Nav from './components/Nav';
-import WidgetLogin from './components/WidgetLogin';
-import Notifications from './components/Notifications';
-import Feedback from '../../Feedback';
-import { connectShowFilters } from '../connectors';
-import { connectAuthVisible } from 'pages/Login/connectors';
-import useIsMobile from '../../../utils/useIsMobile';
+import React, {useState} from "react";
+import {Link, useLocation} from "react-router-dom";
+import Container from "../Container";
+import Search from "./components/Search";
+import Nav from "./components/Nav";
+import WidgetLogin from "./components/WidgetLogin";
+import Notifications from "./components/Notifications";
+import Feedback from "../../Feedback";
+import {connectShowFilters} from "../connectors";
+import {connectAuthVisible} from "../../../pages/Login/connectors";
+import useIsMobile from "../../../utils/useIsMobile";
+import "./index.scss";
 
-import './index.scss';
 
 const Header = ({
-                    isAuthenticated,
-                    withFilters,
-                    isOpenFilters,
-                    setShowFilters,
-                    login_page,
-                    setNotificationsLength,
-                    isOpen,
-                    setIsOpen
-                }) => {
-    const isMobile = useIsMobile(1080);
-    const { pathname } = useLocation();
+    isAuthenticated,
+    withFilters,
+    isOpenFilters,
+    setShowFilters,
+    login_page,
+    setNotificationsLength,
+    isOpen,
+    setIsOpen
+}) => {
     const [openWidgets, setOpenWidgets] = useState(false);
     const [open, setOpen] = useState(false);
+    const isMobile = useIsMobile(1080);
+    const {pathname} = useLocation();
 
-    const needChangeIsOpen = (valueIsOpen) => {
+    const needChangeIsOpen = valueIsOpen => {
         if (valueIsOpen) {
             setShowFilters({ isOpenFilters: false });
         }
     };
 
     const hideSideMenu = () => {
-        setShowFilters({ isOpenFilters: false });
+        setShowFilters({isOpenFilters: false});
         setIsOpen(false);
-        setOpen(false)
+        setOpen(false);
     };
 
-    const strokeColor = isOpenFilters ? '#3366FF' : '#90999E';
-
+    const strokeColor = isOpenFilters ? '#3366FF' : '#90999E'; //сделать класс и перенести это в стили!
 
     return (
-        <header className='header'>
-            <Container className='header__content'>
-
+        <header className="header">
+            <Container className="header__content">
                 {isMobile ?
-                    <div className='header__nav-wrap'>
+                    <div className="header__nav-wrap">
                         <Nav
                             isOpenFilters={isOpenFilters}
                             needChangeIsOpen={needChangeIsOpen}
@@ -56,41 +54,34 @@ const Header = ({
                             setIsOpen={setIsOpen}
                         />
                     </div> :
-                    <div><Link to='/' className='header__logo' /></div>
+                    <div><Link to='/' className="header__logo" /></div>
                 }
-
                 <Search hideSideMenu={hideSideMenu} withFilters={withFilters} />
-
-                {!isMobile
-                && <Nav isAuthenticated={isAuthenticated} setOpen={setOpen} />
+                {!isMobile &&
+                    <Nav isAuthenticated={isAuthenticated} setOpen={setOpen} />
                 }
                 <div className='header__widgets'>
                     {isAuthenticated &&
-                    <>
-                        {/*<div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>*/}
-                        {/*    <Feedback isMainNav={true}/>*/}
-                        {/*</div>*/}
-                        <div onClick={hideSideMenu} className='header__widgets-notifications-wrap'>
-                            <Notifications open={openWidgets}
-                                           setOpen={setOpenWidgets}
-                                           setNotificationsLength={setNotificationsLength}
-                            />
-                        </div>
-                    </>
+                        <>
+                            {/*<div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>*/}
+                            {/*    <Feedback isMainNav={true}/>*/}
+                            {/*</div>*/}
+                            <div onClick={hideSideMenu} className='header__widgets-notifications-wrap'>
+                                <Notifications open={openWidgets}
+                                               setOpen={setOpenWidgets}
+                                               setNotificationsLength={setNotificationsLength}
+                                />
+                            </div>
+                        </>
                     }
                     {!isAuthenticated && isMobile &&
-                    <div className={`header__widgets--feedback${login_page ? ' __hidden' : ''}`}>
-                        <Feedback isMainNav={true} title={'Поддержка'}/>
-                    </div>
+                        <div className={`header__widgets--feedback${login_page ? ' __hidden' : ''}`}>
+                            <Feedback isMainNav={true} title={'Поддержка'}/>
+                        </div>
                     }
                     {isMobile ?
-                        <div className={withFilters || pathname === '/'
-                            ?
-                            'header__filters' :
-                            'header__filters __hidden'}
-                             onClick={() => {
-                                 setShowFilters({ isOpenFilters: !isOpenFilters });
-                             }}>
+                        <div className={withFilters || pathname === '/' ? 'header__filters' : 'header__filters __hidden'}
+                             onClick={() => setShowFilters({ isOpenFilters: !isOpenFilters })}>
                             <div className={isOpenFilters ? 'open' : ''}>
                                 {
                                     isOpenFilters ? <svg className='no-scale' width='20' height='20' viewBox='0 0 20 20' fill='none'
@@ -119,21 +110,17 @@ const Header = ({
                                               strokeMiterlimit='10' />
                                     </svg>
                                 }
-
                             </div>
                             <span style={{ color: isOpenFilters && '#3366ff', width: '50px' }}>
-                                { pathname.match (/uploaded-documents/) ?
-                                         (isOpenFilters ? 'Закрыть' : 'Категории') :
-                                         (isOpenFilters ? 'Закрыть' : 'Фильтр')
+                                {pathname.match (/uploaded-documents/) ?
+                                     (isOpenFilters ? 'Закрыть' : 'Категории') :
+                                     (isOpenFilters ? 'Закрыть' : 'Фильтр')
                                 }
-                                </span>
+                            </span>
                         </div>
                         : <WidgetLogin login_page={login_page} setOpen={setOpen} open={open} />}
                 </div>
-
-
             </Container>
-
         </header>
     );
 };

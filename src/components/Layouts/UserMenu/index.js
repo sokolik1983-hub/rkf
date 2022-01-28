@@ -164,7 +164,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                 </div>
-                                {!(location.pathname.search("documents") > -1)? <> {
+                                {(!(location.pathname.search("documents") > -1) && !(location.pathname.search("bank-details") > -1))? <> {
                                     nameInMenu && <div className="user-nav__alias-name">
                                     {
                                         getMeLink(user_type)

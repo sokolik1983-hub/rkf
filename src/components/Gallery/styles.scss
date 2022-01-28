@@ -124,3 +124,18 @@
         }
     }
 }
+
+#lightboxBackdrop {
+    div > div > div {
+        &:first-child {
+            position: absolute;
+            right: 0;
+            top: -40px;
+        }
+        &:last-child {
+            position: absolute;
+            right: 0;
+            left: auto;
+        }
+    }
+}
