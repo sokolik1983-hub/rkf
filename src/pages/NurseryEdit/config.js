@@ -5,23 +5,23 @@ const lat = () => string().matches(/^[^а-я]+$/i, { message: 'Поле запо
 
 export const sections = {
     general: {
-        name: 'Основная информация',
         id: 0,
+        name: 'Основная информация',
         icon: 'icon-information'
     },
     contacts: {
-        name: 'Контакты',
         id: 1,
+        name: 'Контакты',
         icon: 'icon-contacts'
     },
     schedule: {
-        name: 'График работы',
         id: 2,
+        name: 'График работы',
         icon: 'icon-schedule'
     },
     delete: {
-        name: 'Удаление страницы',
         id: 3,
+        name: 'Удаление страницы',
         icon: 'icon-trash'
     }
 };

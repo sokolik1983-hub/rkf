@@ -4,7 +4,7 @@ import Card from '../../../../components/Card';
 const DeletePage = () => {
     return (
         <Card>
-            <div className='nursery-page__delete'>
+            <div className="nursery-page__delete">
                 <h3>Удаление страницы</h3>
                 <p>
                     Удаление Профиля Питомника недоступно

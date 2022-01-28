@@ -19,10 +19,10 @@ const Contacts = ({contacts, is_public, errors, randomKeyGenerator}) => {
         const {contacts} = errors;
         if (contacts) {
             if (type === 1 && contacts
-                .filter(c => c && (c.value === 'Введите номер телефона' || c.value === 'Формат номера: +7(999)999-99-99')).length) {
+                .filter(contacts => contacts && (contacts.value === 'Введите номер телефона' || contacts.value === 'Формат номера: +7(999)999-99-99')).length) {
                 return true;
             } else if (type === 2 && contacts
-                .filter(c => c && (c.value === 'Введите e-mail' || c.value === 'Неверный формат электронного адреса')).length) {
+                .filter(contacts => contacts && (contacts.value === 'Введите e-mail' || contacts.value === 'Неверный формат электронного адреса')).length) {
                 return true;
             } else {
                 return false;

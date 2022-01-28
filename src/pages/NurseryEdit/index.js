@@ -154,86 +154,75 @@ const NurseryEdit = ({
         }
     };
 
-    // const randomKeyGenerator = () => {
-    //     const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
-    //     let word = ''
-    //     for (let i = 0; i < 15; i++) {
-    //         word += letters.charAt(Math.floor(Math.random() * letters.length))
-    //     }
-    //     return (word.substr(0, 5) +
-    //         '-' + word.substr(5, 5) +
-    //         '-' + word.substr(10, 5)).toUpperCase()
-    // }
-
 
     return (loading
-            ? <Loading/>
-            : error ?
-                <Redirect to="404"/> :
-                <Layout withFilters setNotificationsLength={setNotificationsLength}>
-                    <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
-                    <div className='NurseryEdit__wrap'>
-                        <Container className='NurseryEdit content'>
-                            <aside className='NurseryEdit__left'>
-                                <StickyBox offsetTop={60}>
-                                    <UserHeader
-                                        user="nursery"
-                                        logo={nursery.logo_link}
-                                        name={nursery.name || 'Имя отсутствует'}
-                                        alias={alias}
-                                        profileId={nursery.id}
-                                        federationName={nursery.federation_name}
-                                        federationAlias={nursery.federation_alias}
-                                        canEdit={canEdit}
-                                        isAuthenticated={isAuthenticated}
-                                    />
-                                    {nursery.breeds && !!nursery.breeds.length &&
-                                        <BreedsList breeds={nursery.breeds}/>
-                                    }
-                                    {!isMobile && <UserMenu userNav={canEdit
-                                        ? kennelNav(alias)
-                                        : kennelNav(alias).filter(i => i.id !== 2)}
-                                                            notificationsLength={notificationsLength}
-                                    />}
-                                    <CopyrightInfo withSocials={true}/>
-                                </StickyBox>
-                            </aside>
-                            <div className="NurseryEdit__right">
-                                {loading
-                                    ? <Loading/>
-                                    : <Form
-                                        {...editForm}
-                                        initialValues={initialValues}
-                                        transformValues={transformValues}
-                                        onSuccess={handleSuccess}
-                                        onError={handleError}
-                                        className="NurseryEdit__form"
-                                        withLoading={true}
-                                    >
-                                        <RenderFields
-                                            isOpenFilters={isOpenFilters}
-                                            setShowFilters={setShowFilters}
-                                            streetTypes={streetTypes}
-                                            houseTypes={houseTypes}
-                                            flatTypes={flatTypes}
-                                            working={working}
-                                            handleError={handleError}
-                                            setWorking={setWorking}
-                                            coOwner={{
-                                                lastName: initialValues.co_owner_last_name,
-                                                firstName: initialValues.co_owner_first_name,
-                                                secondName: initialValues.co_owner_second_name,
-                                                mail: initialValues.co_owner_mail
-                                            }}
-                                            randomKeyGenerator={randomKeyGenerator}
-                                        />
-                                    </Form>
+        ? <Loading/>
+        : error ?
+            <Redirect to="404"/> :
+            <Layout withFilters setNotificationsLength={setNotificationsLength}>
+                <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
+                <div className="NurseryEdit__wrap">
+                    <Container className="NurseryEdit content">
+                        <aside className="NurseryEdit__left">
+                            <StickyBox offsetTop={60}>
+                                <UserHeader
+                                    user="nursery"
+                                    logo={nursery.logo_link}
+                                    name={nursery.name || "Имя отсутствует"}
+                                    alias={alias}
+                                    profileId={nursery.id}
+                                    federationName={nursery.federation_name}
+                                    federationAlias={nursery.federation_alias}
+                                    canEdit={canEdit}
+                                    isAuthenticated={isAuthenticated}
+                                />
+                                {nursery.breeds && !!nursery.breeds.length &&
+                                    <BreedsList breeds={nursery.breeds}/>
                                 }
-                                {showAlert && <Alert {...showAlert} />}
-                            </div>
-                        </Container>
-                    </div>
-                </Layout>
+                                {!isMobile && <UserMenu userNav={canEdit
+                                    ? kennelNav(alias)
+                                    : kennelNav(alias).filter(i => i.id !== 2)}
+                                                        notificationsLength={notificationsLength}
+                                />}
+                                <CopyrightInfo withSocials={true}/>
+                            </StickyBox>
+                        </aside>
+                        <div className="NurseryEdit__right">
+                            {loading
+                                ? <Loading/>
+                                : <Form
+                                    {...editForm}
+                                    initialValues={initialValues}
+                                    transformValues={transformValues}
+                                    onSuccess={handleSuccess}
+                                    onError={handleError}
+                                    className="NurseryEdit__form"
+                                    withLoading={true}
+                                >
+                                    <RenderFields
+                                        isOpenFilters={isOpenFilters}
+                                        setShowFilters={setShowFilters}
+                                        streetTypes={streetTypes}
+                                        houseTypes={houseTypes}
+                                        flatTypes={flatTypes}
+                                        working={working}
+                                        handleError={handleError}
+                                        setWorking={setWorking}
+                                        coOwner={{
+                                            lastName: initialValues.co_owner_last_name,
+                                            firstName: initialValues.co_owner_first_name,
+                                            secondName: initialValues.co_owner_second_name,
+                                            mail: initialValues.co_owner_mail
+                                        }}
+                                        randomKeyGenerator={randomKeyGenerator}
+                                    />
+                                </Form>
+                            }
+                            {showAlert && <Alert {...showAlert} />}
+                        </div>
+                    </Container>
+                </div>
+            </Layout>
     );
 };
 
