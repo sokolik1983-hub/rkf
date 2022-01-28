@@ -5,3 +5,5 @@ export const endpointGetKennelsCities = '/api/nurseries/Nursery/cards_cities';
 export const endpointGetClubsCities = '/api/Club/cards_cities';
 export const endpointGetOrganizations = '/api/club/organizations_cards';
 export const endpointGetRegions = 'api/city/article_regions';
+export const endpointGetClubRegions = 'api/Club/cards_regions';
+export const endpointGetNurseryRegions = 'api/nurseries/Nursery/cards_regions';

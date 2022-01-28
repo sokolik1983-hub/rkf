@@ -23,7 +23,9 @@ import {
     endpointGetKennelBreeds,
     endpointGetKennelsCities,
     endpointGetNKPBreeds,
-    endpointGetRegions
+    endpointGetRegions,
+    endpointGetClubRegions,
+    endpointGetNurseryRegions,
 } from "../../config";
 import {getEmptyFilters, setFiltersToUrl} from "../../utils";
 import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
@@ -66,14 +68,15 @@ const Filters = ({
     };
 
     const getCities = async () => {
-        await Request({
-            url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
-        }, data => {
-            setCities(data);
-        }, error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-        });
+        organization_type !== 7 &&
+            await Request({
+                url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
+            }, data => {
+                setCities(data);
+            }, error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+            });
     };
 
     const getFederations = async () => {
@@ -89,7 +92,7 @@ const Filters = ({
 
     const getRegions = async () => {
         await Request({
-            url: endpointGetRegions
+            url: organization_type === 3 ? endpointGetClubRegions : (organization_type === 4 ? endpointGetNurseryRegions : endpointGetRegions)
         }, data => {
             setRegions(data.sort((a, b) => a.id - b.id));
         }, error => {
@@ -123,6 +126,7 @@ const Filters = ({
     }, [organization_type]);
 
     useEffect(() => {
+        organization_type !== 7 &&
         (() => Request({
             url: `${endpointGetClubsCities}?${region_ids.map(reg => `regionIds=${reg}`).join('&')}`
         }, data => {
