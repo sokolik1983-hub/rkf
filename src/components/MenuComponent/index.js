@@ -475,7 +475,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                             handleClose={(e) => !moreRef.current.contains(e.target) && setOpenMenuComponent(false)}
                             bottomStyle
                         >
-                            {(location.pathname.search("documents") > -1) ? <>
+                            {((location.pathname.search("documents") > -1) || (location.pathname.search("bank-details") > -1))? <>
                             <div className="user-menu__inner">
                                 <div className="banner-federation">
                                     <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
