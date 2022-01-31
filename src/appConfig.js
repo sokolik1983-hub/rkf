@@ -811,7 +811,7 @@ const DEFAULT_IMG = {
     exhibitionPicture: '/static/images/exhibitions/default.png',
     authPicture: '/static/images/registration/banner.png',
     noImage: '/static/images/noimg/icon-no-image.svg',
-    noNews: '/static/images/news/no-news-small2.svg',
+    noNews: '/static/images/news/no-news-small.svg',
     emptyGallery: '/static/images/noimg/empty-gallery.png',
     emptyPhotoGallery: '/static/images/noimg/empty-photo-gallery.svg',
     emptyVideoGallery: '/static/images/noimg/empty-video-gallery.svg'
