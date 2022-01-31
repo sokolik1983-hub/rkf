@@ -49,7 +49,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
             handleError(error);
         });
     };
-
+    
     return <Card className="UploadedDocuments__category">
         <div className="row d-flex align-items-center">
             <div className="col-11">
@@ -97,7 +97,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     </div>
                 </div>
         }
-        {!documents.length && <div className="UploadedDocuments__category-placeholder">
+        {!(documents.filter(document => document.category_id === id)).length && <div className="UploadedDocuments__category-placeholder">
             <h4>Не добавлено ни одного документа</h4>
             <img src={DEFAULT_IMG.noNews} alt="" />
         </div>

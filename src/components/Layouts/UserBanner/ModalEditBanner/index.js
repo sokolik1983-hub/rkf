@@ -33,10 +33,11 @@ const ModalEditBanner = ({closeModal, updateInfo}) => {
                 closeModal();
                 if(isChanged) updateInfo();
             }}
-            headerName = {"Редактирование фото (поддерживаемые форматы: JPG и JPEG)"}
+            headerName = "Редактирование фото"
         >
             <div className="edit-banner-modal__content">
                 <div className="edit-banner-modal__content">
+
                     <LocalizationProvider language="ru-RU">
                         <IntlProvider locale="ru" >
                             <Upload
@@ -55,6 +56,7 @@ const ModalEditBanner = ({closeModal, updateInfo}) => {
                             />
                         </IntlProvider>
                     </LocalizationProvider>
+                    <p>поддерживаемые форматы: JPG и JPEG</p>
                     <div className="k-form-buttons">
                         <Button
                             primary={true}

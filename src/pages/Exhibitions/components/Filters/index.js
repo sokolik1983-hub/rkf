@@ -3,6 +3,7 @@ import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
 import BreedsFilter from "../../../../components/Filters/BreedsFilter";
+import RegionsFilter from "../../../../components/Filters/RegionsFilter";
 import RanksFilter from "../../../../components/Filters/RanksFilter";
 import TypeFilter from "../../../../components/Filters/TypeFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
@@ -13,8 +14,11 @@ import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
 import { isFederationAlias, setOverflow } from "../../../../utils";
 import Card from "../../../../components/Card";
-import { PromiseRequest } from "../../../../utils/request";
-import { endpointExhibitionsFilters, endpointEducationalsFilters } from "../../config";
+import {PromiseRequest, Request} from "../../../../utils/request";
+import {
+    endpointExhibitionsFilters,
+    endpointEducationalsFilters,
+} from "../../config";
 import RangeCalendarExhibitions from "../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
 import { clubNav } from "../../../Club/config";
@@ -26,6 +30,7 @@ import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
 import ls from "local-storage";
 
 import "./index.scss";
+
 
 const Filters = ({
         club,
@@ -48,7 +53,10 @@ const Filters = ({
     const [types, setTypes] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [breeds, setBreeds] = useState([]);
+    const [regionLabels, setRegionLabels] = useState([]);
     const [cities, setCities] = useState({ exhibitionCities: [], educationalCities: [] });
+    const [exhibitionCities, setExhibitionCities] = useState( []);
+    const [currentExhibCities, setCurrentExhibCities] = useState( []);
     const [loading, setLoading] = useState(true);
     const [clear_filter, setClearFilter] = useState(false);
     const [range_clicked, setRangeClicked] = useState(false);
@@ -60,9 +68,11 @@ const Filters = ({
             PromiseRequest({ url: `${endpointEducationalsFilters}${filters.Alias ? '?Alias=' + filters.Alias : ''}` })
         ]).then(data => {
             setCities({ exhibitionCities: data[0].cities, educationalCities: data[1].cities });
+            setExhibitionCities(data[0].cities);
             setRanks(data[0].ranks);
             setTypes(data[0].types);
             setBreeds(data[0].breeds.filter(item => item.value !== 1));
+            setRegionLabels(data[0].regions.filter(item => item.label !== 1));
             setLoading(false);
             window.scrollTo(0, 0);
             setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
@@ -93,6 +103,24 @@ const Filters = ({
             subscribed: subscribed
         })
     }
+
+    const handleChangeRegionFilter = (filter) => {
+        setFiltersToUrl({RegionIds: filter});
+        setCurrentExhibCities(filter);
+    };
+
+    useEffect(() => {
+        if(currentExhibCities && currentExhibCities.length > 0){
+            (() => Request({
+                url: `${endpointExhibitionsFilters}?${currentExhibCities.map(reg => `RegionIds=${reg}`).join('&')}`
+            }, data => {
+                setExhibitionCities(data.cities);
+            },error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+            }))();
+        }
+    }, [currentExhibCities]);
 
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
@@ -184,8 +212,13 @@ const Filters = ({
                                     onChange={filter => setFiltersToUrl({ BreedIds: filter })}
                                     is_club_link={clubName && filters.Alias}
                                 />}
+                            <RegionsFilter
+                                regions={regionLabels}
+                                region_ids={filters.RegionIds}
+                                onChange={filter => handleChangeRegionFilter(filter)}
+                            />
                             <CitiesFilter
-                                cities={isEducational ? cities.educationalCities : cities.exhibitionCities}
+                                cities={isEducational ? cities.educationalCities : exhibitionCities}
                                 city_ids={filters.CityIds}
                                 onChange={filter => setFiltersToUrl({ CityIds: filter })}
                                 is_club_link={clubName && filters.Alias}
