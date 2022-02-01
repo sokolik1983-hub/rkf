@@ -1,14 +1,19 @@
-import React from "react";
-import Button from "../../../../../../components/Button";
-import DeleteButton from "../../../../../../components/DeleteButton";
-import {Form, SubmitButton} from "../../../../../../components/Form";
-import RenderFields from "../../components/Form/RenderFields";
-import {useVisibility} from "../../../../../../shared/hooks";
-import {connectClientClubContactListItem} from "../../connectors";
-import {ENDPOINT_URL} from "../../config";
+import React from 'react';
+import DeleteButton from '../../../../../../components/DeleteButton';
+import {Form} from '../../../../../../components/Form';
+import RenderFields from '../../components/Form/RenderFields';
+import {useVisibility} from '../../../../../../shared/hooks';
+import {connectClientClubContactListItem} from '../../connectors';
+import {ENDPOINT_URL} from '../../config';
 
 
-const ClientClubContactListItem = ({clubContact, updateClubContactSuccess, deleteClubContactSuccess, type}) => {
+const ClientClubContactListItem = ({
+        type,
+        clubContact,
+        checkForDelete,
+        updateClubContactSuccess,
+        deleteClubContactSuccess,
+}) => {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
 
     const onUpdateSuccess = values => {
@@ -20,37 +25,30 @@ const ClientClubContactListItem = ({clubContact, updateClubContactSuccess, delet
         deleteClubContactSuccess({...clubContact});
     };
 
+    const successDelete = () => {
+        checkForDelete();
+        onDeleteSuccess();
+    }
+
+
     return (
         <Form
-            className="ClientClubContactListItem"
-            action={'/api/clubs/Contact'}
+            className="ClientClubListItem"
+            action={"/api/clubs/Contact"}
             onSuccess={onUpdateSuccess}
             method="PUT"
             initialValues={clubContact}
         >
-            <RenderFields disabled={!visibility} isUpdate isMaskedTel={type === 'phone'} />
-            {!visibility &&
-                <Button
-                    className="ClientClubContactListItem__edit"
-                    onClick={toggleVisibility}
-                >
-                    Изменить
-                </Button>
-            }
-            {visibility &&
-                <div className="ClientClubContactListItem__controls">
-                    <SubmitButton className="btn-green">Сохранить</SubmitButton>
-                    <Button className="btn-transparent btn-condensed" onClick={setInvisible}>Отменить</Button>
+            <RenderFields isMaskedTel={type === "phone"} />
+                <div className="ClientClubListItem__controls">
                     <DeleteButton
-                        className="btn-transparent btn-condensed"
-                        onDeleteSuccess={onDeleteSuccess}
+                        onDeleteSuccess={successDelete}
                         windowed
                         actionUrl={`${ENDPOINT_URL}/${clubContact.id}`}
                     >
                         Удалить
                     </DeleteButton>
                 </div>
-            }
         </Form>
     )
 };

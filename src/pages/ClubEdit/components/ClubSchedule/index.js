@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {Form, FormField, FormGroup} from "../../../../components/Form";
-import {Request} from "../../../../utils/request";
-import {connectClubScheduleForm} from "../../connectors";
-import "./index.scss";
+import React, {useEffect, useState} from 'react';
+import {Request} from '../../../../utils/request';
+import {connectClubScheduleForm} from '../../connectors';
+import {Form, FormField, FormGroup} from '../../../../components/Form';
+
+import './style.scss';
 
 
 const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
@@ -84,15 +85,16 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
         return {club_id, work_time};
     };
 
+
     return (
-        <>
+        <div className="Schedule__card">
             <h3>График работы</h3>
             {!!days.length &&
                 <ul className="club-schedule__controls">
                     {days.map(day => (
                         <li className="club-schedule__controls-item" key={day.id}>
                             <button
-                                className={`club-schedule__controls-btn${selectedDays.includes(day.id) ? ' _active' : ''}`}
+                                className={`club-schedule__controls-btn${selectedDays.includes(day.id) ? " _active" : ""}`}
                                 onClick={() => handleDayClick(day.id)}>
                                 {day.short_name}
                             </button>
@@ -113,7 +115,7 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
                     {selectedDays.map(id => (
                         <FormGroup inline key={id}>
                             <span className="club-schedule__form-day">
-                                {days.find(day => day.id === id).short_name}
+                                {days.find(day => day.id === id).name}
                             </span>
                             <FormField
                                 name={`time_from_${id}`}
@@ -123,7 +125,7 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
                             />
                             <FormField
                                 name={`time_to_${id}`}
-                                label="Время работы до"
+                                label="до"
                                 type="time"
                                 validate={handleValidate}
                             />
@@ -131,7 +133,7 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
                     ))}
                 </Form>
             }
-        </>
+        </div>
     )
 };
 

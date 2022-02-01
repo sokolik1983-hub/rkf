@@ -30,13 +30,10 @@ const ClubContactForm = ({club_id, addClubContactSuccess, hideForm, bindSubmitFo
             validationSchema={contactType.validationSchema}
             bindSubmitForm={bindSubmitForm}
         >
-            <RenderFields isMaskedTel={contactType.type === 'phone' ? true : false} />
-            <div>
-                <SubmitButton className="btn-green">Сохранить</SubmitButton>
-                <Button className="btn-transparent" onClick={hideForm}>
-                    Отменить
-                </Button>
-            </div>
+            <RenderFields isMaskedTel={contactType.type === 'phone'} />
+            <Button className="delete-mini" onClick={hideForm}>
+                Удалить
+            </Button>
         </Form>
     )
 };
