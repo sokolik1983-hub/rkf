@@ -5,6 +5,8 @@ import {Button} from "@progress/kendo-react-buttons";
 import Modal from "../../../../components/Modal";
 import {getHeaders} from "../../../../utils/request";
 import kendoMessages from 'kendoMessages.json';
+import { blockContent } from "../../../../utils/blockContent";
+
 import "./index.scss";
 
 
@@ -32,6 +34,7 @@ const ModalEditBanner = ({closeModal, updateInfo}) => {
             handleX={() => {
                 closeModal();
                 if(isChanged) updateInfo();
+                blockContent(false);
             }}
             headerName = "Редактирование фото"
         >
