@@ -8,7 +8,12 @@ import {setOverflow} from "../../../../utils";
 import "./index.scss";
 
 
-const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
+const Filters = ({
+                     isOpenFilters,
+                     filtersValue,
+                     filters,
+                     additionalFilters,
+}) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -16,8 +21,7 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
     }, [isOpenFilters]);
 
     const checkFilter = (filter) => {
-        // console.log('filter in filters', filter)
-        if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) return true
+        if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) return true;
     }
 
 

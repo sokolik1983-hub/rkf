@@ -12,8 +12,6 @@ import CardSpecialist from "../../../../components/CardSpecialist";
 
 
 const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
-    // console.log('filtersSearchType in list', filtersSearchType)
-    // console.log('searchResult in list', searchResult)
     const {dictionary} = useDictionary('rank_type');
 
     const getDate = dates => {
@@ -48,15 +46,12 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                 }
             >
                 <ul className="search-list__content">
-                    {/*{searchResult.map(item => console.log('item', item) && (*/}
                     {searchResult.map(item => (
                         <li className="search-list__item" key={item.id}>
-                            {/*{item.search_type === 'organizations' &&*/}
                             {filtersSearchType.toString()[0] === '1' &&
                                 <CardOrganization {...item} />
                             }
 
-                            {/*{item.search_type === 'exhibitions' &&*/}
                             {filtersSearchType.toString()[0] === '3' &&
                                 <CardExhibition
                                     {...item}
@@ -69,8 +64,6 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                                     reports = {item.reports_links}
                                 />
                             }
-                            {/*{item.search_type === 'articles' &&*/}
-                            {/*{console.log(filtersSearchType.toString()[0] === '2')}*/}
                             {filtersSearchType.toString()[0] === '2' &&
                                 <CardNewsNew
                                     {...item}
@@ -90,15 +83,14 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                                 />
                             }
 
-                            {/*{(item.search_type === 'judges') &&*/}
                             {filtersSearchType.toString()[0] === '4' &&
                                 <CardSpecialist
                                     {...item}
                                     searchTypeId={
                                         //Костыль, работающий от фильтров. Если надо будет одновременно выводить разные карточки, то это работать не будет
-                                        filtersSearchType === 401 ? 1 :
-                                        filtersSearchType === 402 ? 2 :
-                                        filtersSearchType === 403 ? 3 : 4
+                                        filtersSearchType === 401 ? 4 :
+                                        filtersSearchType === 402 ? 1 :
+                                        filtersSearchType === 403 ? 2 : 3
                                     }
                                 />
                             }

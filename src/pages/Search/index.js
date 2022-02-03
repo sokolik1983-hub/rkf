@@ -21,21 +21,21 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     const [needFilter, setNeedFilter] = useState(true);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
-    const [searchTabActiveName, setSearchTabActiveName] = useState(1);
+    const [searchTabActiveName, setSearchTabActiveName] = useState(null);
     const [isMenuChanges, setIsMenuChanges] = useState(false);
 
 
     useEffect(() => {
-        // console.log('filters was changed')
-        // console.log('filters in Search', filters)
-        // !isMenuChanges && setSearchTabActiveName(filters.sort((a, b) => b.count - a.count)[0].name);
+        filters.forEach(filter => {
+            if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) setSearchTabActiveName(filter.name);
+        });
+
         setIsMenuChanges(false);
     }, [filters])
 
     useEffect(() => {
-        console.log('searchTabActiveName was changed')
         setIsMenuChanges(false);
-    }, [searchTabActiveName])
+    }, [searchTabActiveName]);
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -54,7 +54,6 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         await Request({
             url: buildSearchUrl(filtersValue, startElem, needCount, needFilter)
         }, data => {
-            console.log('data', data)
             let newFilters = [...filters];
 
             if(data.counts && data.counts.length) {
@@ -140,9 +139,8 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     };
 
     const handleActiveTypeChange = (tabActiveName) => {
-        console.log('handleActiveTypeChange')
         setSearchResult([]);
-        setSearchTabActiveName(tabActiveName)
+        setSearchTabActiveName(tabActiveName);
         setIsMenuChanges(true);
     }
 

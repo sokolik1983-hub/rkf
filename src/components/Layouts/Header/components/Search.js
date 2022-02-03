@@ -8,18 +8,27 @@ const Search = ({ withFilters, hideSideMenu }) => {
     const [searchValue, setSearchValue] = useState('');
     const [isClicked, setIsClicked] = useState(false);
 
+    const getSearchTypeId = () => {
+        const url = window.location.href;
+
+        return !!url.match(/organizations/) ? 100 :
+                !!url.match(/exhibitions/) ? 300 :
+                !!url.match(/specialists/) ? 400 : 200;
+    }
+
     const handleSubmit = e => {
         e.preventDefault();
         if (searchValue) {
             setSearchValue('');
             setIsClicked(false);
-            history.push(`/search?string_filter=${searchValue.trim()}&search_type=8`);
+            history.push(`/search?string_filter=${searchValue.trim()}&search_type=${getSearchTypeId()}`);
         }
     };
 
     const handleChecked = () => {
         setIsClicked(!isClicked)
     };
+
     const strokeColor = isClicked ? '#3366FF' : '#90999E';
 
     const searchTitle = isClicked ? 'Закрыть' : 'Поиск';
