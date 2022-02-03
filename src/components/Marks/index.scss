@@ -1,13 +1,16 @@
 .mark {
   display: block;
-  width: 14px;
-  min-width: 14px;
+  width: 13px;
+  min-width: 13px;
   margin-left: 5px;
   &:first-child {
   margin-left: 0;
-  }  
+  }
+  &:only-child {
+    margin-left: 5px;
+  }
   &.active-user-mark {
-    width: 17px;
-    min-width: 17px;
+    width: 15px;
+    min-width: 15px;
   }
 }

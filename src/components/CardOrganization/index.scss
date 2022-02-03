@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    top: 0;
+    top: 4px;
     right: 0;
     transform: translateX(110%);
   }
@@ -158,7 +158,7 @@
       height: 17px;
       left: 0;
       top: 0;
-      background: url("/static/icons/pin-gray.svg") center no-repeat;
+      background: url("/static/icons/ico-pointer2.svg") center no-repeat;
       background-size: contain;
     }
 

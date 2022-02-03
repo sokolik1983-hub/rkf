@@ -1,39 +1,64 @@
-import React from "react";
-import {compose} from "redux";
-import Button from "../../../../components/Button";
-import ClientDocumentList from "./components/List";
-import ClubDocumentsForm from "./components/Form";
-import {useVisibility} from "../../../../shared/hooks";
-import {defaultReduxKey} from "./config";
-import injectReducer from "../../../../utils/injectReducer";
-import reducer from "./reducer";
+import React, {useEffect, useRef, useState} from 'react';
+import {compose} from 'redux';
+import reducer from './reducer';
+import {defaultReduxKey} from './config';
+import ClubDocumentsForm from './components/Form';
+import ClientDocumentList from './components/List';
+import Button from '../../../../components/Button';
+import {useVisibility} from '../../../../shared/hooks';
+import injectReducer from '../../../../utils/injectReducer';
 
 
 const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
-    const btnStyle = {
-        display: 'flex',
-        padding: '6px 0',
-        color: '#3366FF',
-        flex: '1 0'
-    };
+    const [triggerButton, setTriggerButton] = useState(false);
+    const [triggerLoad, setTriggerLoad] = useState(false);
+    const [triggerDell, setTriggerDell] = useState(false);
+    const triggerRef = useRef();
+
+    const checkForDelete = () => {
+        setTriggerDell(!triggerDell);
+    }
 
     if (!visibility && bindSubmitForm) {
         bindSubmitForm.submit(null, {});
     }
 
+    useEffect(()=> {
+        triggerLoad &&
+        triggerRef.current.innerHTML.length <= 70 && setTriggerButton(true);
+    },[[], visibility]);
+
+    useEffect(()=> {
+        triggerLoad &&
+        triggerRef.current.innerHTML.length < 1400 && setTriggerButton(true);
+    },[triggerDell]);
+
+
     return (
-        <div>
-            <ClientDocumentList />
+        <div className="MainInfo__documents">
+            <ClientDocumentList
+                triggerRef={triggerRef}
+                setTriggerLoad={setTriggerLoad}
+                checkForDelete={checkForDelete}
+            />
             {visibility &&
-                <ClubDocumentsForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
+                <ClubDocumentsForm
+                    hideForm={setInvisible}
+                    bindSubmitForm={bindSubmitForm}
+                />
             }
             <Button
-                style={btnStyle}
-                className="btn-transparent"
+                className={visibility
+                    ? "delete-mini"
+                    : triggerButton
+                        ? "add-max"
+                        : "add-mini"}
                 onClick={toggleVisibility}
             >
-                {visibility ? 'Отмена' : '+ Добавить документ'}
+                {visibility
+                    ? ""
+                    : "Добавить документ"}
             </Button>
         </div>
     )

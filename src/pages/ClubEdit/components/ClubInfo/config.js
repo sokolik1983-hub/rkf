@@ -10,9 +10,21 @@ export const clubInfoFormConfig = {
             label: "Название клуба",
             maxLength: '100'
         },
+        nameFed: {
+            name: "name",
+            label: "Название федерации",
+            maxLength: '100'
+        },
         description: {
             name: "description",
             label: "Краткая информация о клубе",
+            fieldType: 'textarea',
+            rows: 6,
+            maxLength: '1500'
+        },
+        descriptionFed: {
+            name: "description",
+            label: "Краткая информация о федерации",
             fieldType: 'textarea',
             rows: 6,
             maxLength: '1500'

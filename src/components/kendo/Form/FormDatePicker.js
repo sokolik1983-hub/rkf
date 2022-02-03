@@ -44,7 +44,7 @@ const FormDatePicker = fieldRenderProps => {
                             valid={valid}
                             id={id}
                             disabled={disabled}
-                            value={value ? new Date(moment(value).format('YYYY-MM-DD')) : null}
+                            value={value ? new Date(moment(value).format('YYYY.MM.DD')) : null}
                             className="FormDatePicker"
                             {...others}
                         />

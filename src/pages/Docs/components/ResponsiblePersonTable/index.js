@@ -29,7 +29,7 @@ const ResponsivePersonTable = ({ history }) => {
             await Request({
                 url: '/api/clubs/Declarant',
                 method: 'DELETE',
-                data: JSON.stringify({ id: id })
+                data: JSON.stringify(id)
             }, () => {
                 setDeclarants(declarants.filter(row => row.id !== id));
             }, error => {

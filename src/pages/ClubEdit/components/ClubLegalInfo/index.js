@@ -1,29 +1,33 @@
-import React from "react";
-import {compose} from "redux";
-import UpdateLegalInfoForm from "./components/Form";
-import {useResourceAndStoreToRedux} from "../../../../shared/hooks";
-import {connectLegalInfo} from "./connectors";
-import {endpointUrl, defaultReduxKey} from "./config";
-import injectReducer from "../../../../utils/injectReducer";
-import reducer from "./reducer";
+import React from 'react';
+import {compose} from 'redux';
+import reducer from './reducer';
+import {connectLegalInfo} from './connectors';
+import UpdateLegalInfoForm from './components/Form';
+import {endpointUrl, defaultReduxKey} from './config';
+import injectReducer from '../../../../utils/injectReducer';
+import {useResourceAndStoreToRedux} from '../../../../shared/hooks';
+
+import './style.scss'
 
 
-const ClientLegalInfoProxy = ({legal_information_id, getLegalInfoSuccess, bindSubmitForm}) => {
+const ClientLegalInfoProxy = ({
+        legal_information_id,
+        getLegalInfoSuccess,
+        bindSubmitForm,
+}) => {
+
     const url = `${endpointUrl}/${legal_information_id}`;
-
-    if(!legal_information_id){
-        return (
-            <div>Не задан идентификатор</div>
-        )
-    }
-
     useResourceAndStoreToRedux(url, getLegalInfoSuccess);
 
     return (
-        <div>
-            <h3>Юридическая информация</h3>
-            <UpdateLegalInfoForm bindSubmitForm={bindSubmitForm}/>
-        </div>
+        !legal_information_id
+            ? <div>Не задан идентификатор</div>
+            : <div className="LegalInfo__wrap">
+                <h3>Юридическая информация</h3>
+                <UpdateLegalInfoForm
+                    bindSubmitForm={bindSubmitForm}
+                />
+            </div>
     )
 };
 
