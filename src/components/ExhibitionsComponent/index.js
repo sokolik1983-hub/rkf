@@ -63,7 +63,7 @@ const ExhibitionsComponent = ({ alias }) => {
     if (isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
 
     return (
-        <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'} ${(exhibitions?.length === 1 && isMobile) ? 'exhibitions-component__one-slide' : ''}`}>
+        <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'} ${(exhibitions?.length === 1 && isMobile) ? 'exhibitions-component__one-slide' : ''} ${alias === 'rkf' && 'rkf_profile-slider'}`}>
             <Slider
                 arrows={!!exhibitions}
                 infinite={false}
@@ -75,7 +75,6 @@ const ExhibitionsComponent = ({ alias }) => {
                 touchThreshold={20}
                 variableWidth={true}
                 responsive={responsiveSliderConfig}
-
             >
                 {exhibitions ?
                     exhibitions.map(exhibition => history.location.hash === '#kendo'
@@ -83,9 +82,9 @@ const ExhibitionsComponent = ({ alias }) => {
                         : <ExhibitionCard isOne={exhibitions.length === 1} key={exhibition.id} {...exhibition} />) :
                     Placeholders.map(item => <Placeholder key={item} />)
                 }
-                {/*{alias && needBlock &&*/}
-                {/*    <div className="exhibition-card__additional-block" />*/}
-                {/*}*/}
+                {alias && alias !== 'rkf'  && needBlock &&
+                    <div className="exhibition-card__additional-block" />
+                }
                 {!alias && exhibitions &&
                     <div className="exhibition-card exhibitions-homepage__show-more">
                         <img src="static/images/homepage/show-more.png" alt="" />

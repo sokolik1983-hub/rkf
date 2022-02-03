@@ -1,6 +1,6 @@
 .user-description {
   position: relative;
-  padding: 10px 10px 24px !important;
+  padding: 10px;
   &__head {
     display: flex;
     justify-content: space-between;
@@ -26,7 +26,7 @@
       height: 20px;
       left: 0;
       top: 2px;
-      background: url("/static/icons/pin-gray.svg") no-repeat center / contain;
+      background: url("/static/icons/pin-gray-thin.svg") no-repeat center / contain;
     }
   }
   &__disabled {
@@ -51,11 +51,11 @@
       background-repeat: no-repeat;
       background-position: 50%;
     }
-    &._birthday:before {background-image: url("/static/icons/owner.svg")}
-    &._email:before {background-image: url("/static/icons/ico-contact-email.svg")}
-    &._phone:before {background-image: url("/static/icons/ico-contact-phone.svg")}
-    &._address:before {background-image: url("/static/icons/ico-pointer.svg")}
-    &._site:before {background-image: url("/static/icons/ico-web.svg")}
+    &._birthday:before {background-image: url("/static/icons/owner2.svg")}
+    &._email:before {background-image: url("/static/icons/ico-contact-email2.svg")}
+    &._phone:before {background-image: url("/static/icons/ico-contact-phone2.svg")}
+    &._address:before {background-image: url("/static/icons/ico-pointer2.svg")}
+    &._site:before {background-image: url("/static/icons/ico-web2.svg")}
     &._socials {
       display: block;
       &:before {background-image: url("/static/icons/social/network.svg")}
@@ -63,9 +63,7 @@
     &._describe {
       display: block;
       &:before {
-        width: 26px;
-        height: 18px;
-        background: url("/static/icons/icon-about.svg") no-repeat center / contain;
+        background: url("/static/icons/icon-about2.svg") no-repeat center / contain;
       }
       & > *:last-child {
         display: block;
@@ -87,11 +85,12 @@
   &__btn {
     border: none;
     padding: 0;
+    margin-top: -20px;
     width: 44px;
     height: 40px;
-    position: absolute;
-    right: calc(50% - 22px);
-    bottom: -12px;
+    position: relative;
+    left: calc(50% - 22px);
+    bottom: -25px;
     background: url("/static/images/slider/slider-button.svg") no-repeat center / cover;
     transform: rotate(90deg);
     transition: all .2s linear;

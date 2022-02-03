@@ -15,7 +15,7 @@ const buildUrlParams = filter => {
                 if (filter[key] > 0) {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
+            } else if (key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === 'RegionIds') {
                 if (filter[key].length) {
                     params = params + filter[key].map(r => `${key}=${r}&`).join('');
                 }
@@ -55,7 +55,7 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'CityIds' || key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
+            if (key === 'CityIds' || key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === 'RegionIds') {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else {
                 filtersFromUrl[key] = key === 'PageNumber' ? +value : value;
@@ -84,11 +84,13 @@ export const getEmptyFilters = (alias = null) => ({
     ClubIds: null,
     RankIds: [],
     BreedIds: [],
+    RegionIds: [],
     TypeIds: [],
     PaymentFormTypeIds: [],
     CategoryId: 0,
     DateFrom: formatDateToString(new Date()),
-    DateTo: null
+    DateTo: null,
+    IsPopular: false,
 });
 
 export const getInitialFilters = () => {

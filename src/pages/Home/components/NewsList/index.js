@@ -4,7 +4,7 @@ import Loading from "../../../../components/Loading";
 import CardNewsNew from "../../../../components/CardNewsNew";
 import NewsFilters from "../NewsFilters";
 import PublicationFilter from "./PublicationFilter";
-import {endpointGetNews} from "../../config";
+import {endpointGetNews, endpointNewsCity} from "../../config";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import "./index.scss";
@@ -14,10 +14,18 @@ const getLSCities = () => {
     const filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
     return filters.cities || [];
 };
-
+const getLSRegions = () => {
+    const filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
+    return filters.regions || [];
+};
 const setLSCities = citiesIds => {
     let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
     filters.cities = citiesIds;
+    localStorage.setItem('FiltersValues', JSON.stringify(filters));
+};
+const setLSRegions = regionIds => {
+    let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
+    filters.regions = regionIds;
     localStorage.setItem('FiltersValues', JSON.stringify(filters));
 };
 
@@ -26,12 +34,14 @@ const NewsList = ({isFullDate = true}) => {
     const [activeType, setActiveType] = useState('all');
     const [news, setNews] = useState([]);
     const [cities, setCities] = useState([]);
+    const [regions, setRegions] = useState([]);
     const [filtersLoading, setFiltersLoading] = useState(true);
     const [newsLoading, setNewsLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [newsFilter, setNewsFilter] = useState({
         cities: getLSCities(),
+        regions: getLSRegions(),
         activeType: null,
         isAdvert: null
     });
@@ -41,7 +51,9 @@ const NewsList = ({isFullDate = true}) => {
 
         await Request({
                 url: `${endpointGetNews}?start_element=
-                ${startElem}${filters.cities.map(id => `&fact_city_ids=${id}`).join('')}
+                ${startElem}
+                ${filters.cities.length > 0 ? filters.cities.map(id => `&fact_city_ids=${id}`).join('') : ''}
+                ${filters.regions.length > 0 ? filters.regions.map(id => `&fact_region_ids=${id}`).join('') : ''}
                 ${filters.activeType ? `&${filters.activeType}=true` : ''}
                 ${filters.isAdvert !== null 
                     ? 
@@ -50,7 +62,8 @@ const NewsList = ({isFullDate = true}) => {
                         '&is_advert=' + filters.isAdvert +'&advert_category_id=' + filters.advert_category_id 
                         :
                         '&is_advert=false' 
-                    : ''}`
+                    : ''}
+                ${filters.is_popular ? '&is_popular='+ filters.is_popular : '&is_popular=false'}`
             }, data => {
                 if (data.articles.length) {
                     const modifiedNews = data.articles.map(article => {
@@ -89,6 +102,24 @@ const NewsList = ({isFullDate = true}) => {
             error => {
                 console.log(error.response);
             });
+
+            setFiltersLoading(false);
+
+            await getNews(1, newsFilter);
+        })();
+    }, []);
+
+    useEffect(() => {
+        (async () => {
+            await Request({url: 'api/city/article_regions'},
+                data => {
+                    if(data) {
+                        setRegions(data);
+                    }
+                },
+                error => {
+                    console.log(error.response);
+                });
 
             setFiltersLoading(false);
 
@@ -135,9 +166,33 @@ const NewsList = ({isFullDate = true}) => {
         (() => getNews(1, {...newsFilter, cities: citiesIds}))();
     };
 
+    const changeRegionFilter = regionIds => {
+        setLSRegions(regionIds);
+        setNewsFilter({...newsFilter, regions: regionIds});
+        setStartElement(1);
+        (() => getNews(1, {...newsFilter, regions: regionIds}))();
+    };
+
+    useEffect(() => {
+        const currentRegions = getLSRegions();
+        (() => Request({
+            url: `${endpointNewsCity}?${currentRegions.map(reg => `regionIds=${reg}`).join('&')}`
+        }, data => {
+            setCities(data);
+        },error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        }))();
+    }, [newsFilter.regions])
+
+    const changeIsPopular = mostLiked => {
+        setNewsFilter({...newsFilter, is_popular: mostLiked});
+        (() => getNews(1, {...newsFilter, is_popular: mostLiked}))();
+    };
+
+
     return (
         <div className="NewsList">
-            {news && !!news.length &&
                 <InfiniteScroll
                     dataLength={news.length}
                     next={getNextNews}
@@ -180,22 +235,18 @@ const NewsList = ({isFullDate = true}) => {
                         ))}
                     </ul>
                 </InfiniteScroll>
-            }
-            {(!news || !news.length) && !newsLoading &&
-                <div className="NewsList__no-news">
-                    <h4>Публикации не найдены</h4>
-                    <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены"/>
-                </div>
-            }
             <NewsFilters
                 loading={filtersLoading}
                 cities={cities}
+                regions={regions}
                 startElement={startElement}
                 activeType={activeType}
                 newsFilter={newsFilter}
                 changeOrganizationFilters={changeOrganizationFilters}
                 changeTypeFilters={changeTypeFilters}
                 changeCityFilter={changeCityFilter}
+                changeRegionFilter={changeRegionFilter}
+                changeIsPopular={changeIsPopular}
             />
         </div>
     )

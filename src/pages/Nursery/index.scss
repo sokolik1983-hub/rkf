@@ -69,7 +69,8 @@
         }
       }
       & > .Card:not(.nursery-page__content-banner) {
-        margin-bottom: 16px !important;
+        padding: 10px;
+        margin-bottom: 20px !important;
       }
     }
     &-banner {

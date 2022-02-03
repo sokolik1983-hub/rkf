@@ -31,12 +31,7 @@
     &-item {
       display: flex;
       align-items: center;
-      margin-top: 10px;
-      &:nth-child(4),
-      &:nth-child(5) {
-        border-bottom: 1px solid #e5e5e5;
-        padding-bottom: 10px;
-      }
+      margin-top: 15px;
       &.disabled {
         pointer-events: none;
         color: #b9b9b9;
@@ -55,6 +50,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          line-height: 20px;
         }
       }
       & > a {
@@ -100,7 +96,7 @@
     &-name {
       font-size: 18px!important;
       border-bottom: 1px solid #e5e5e5;
-      line-height: 24px!important;
+      line-height: 18px!important;
       padding-bottom: 10px;
     }
     &-list {
@@ -108,28 +104,27 @@
     }
   }
   &__icon {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: contain;
     &--publications {
-      background-image: url("/static/new-icons/publications.svg");
+      background-image: url("/static/new-icons/publications2.svg");
     }
     &--new {
-      background-image: url("/static/new-icons/new.svg");
+      background-image: url("/static/new-icons/new2.svg");
     }
     &--required {
-      background-image: url("/static/new-icons/required.svg");
+      background-image: url("/static/new-icons/required2.svg");
     }
     &--applications {
-      background-image: url("/static/new-icons/applications.svg");
+      background-image: url("/static/new-icons/applications2.svg");
     }
     &--archive {
-      background-image: url("/static/new-icons/archive.svg");
+      background-image: url("/static/new-icons/archive2.svg");
     }
     &--subscriptions {
-      background-image: url("/static/new-icons/subscriptions.svg");
+      background-image: url("/static/new-icons/subscriptions2.svg");
     }
   }
   .Card {

@@ -92,9 +92,6 @@ const BaseSearch = ({isAuthenticated}) => {
                             }
                             {/*<RefereeSearch cardClicked={cardClicked} />*/}
                             <PublicationSearch cardClicked={cardClicked} />
-                            <div className="base-search__list-content">
-                                <img src="/static/images/news/no-news-small.png" alt="Организаций больше нет" />
-                            </div>
                         </div>
                         {!isMobile && <Aside className="base-search__info">
                             <StickyBox offsetTop={60}>

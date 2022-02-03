@@ -37,13 +37,14 @@ const ExhibitionsList = ({ exhibitions, isEducational, loading, getNextExhibitio
                                     setShowModal={setShowModal}
                                 />
                                 : <CardExhibition
-                                    {...item}
-                                    photo={item.picture_link}
-                                    ranks={item.rank_string}
-                                    user={item.user_type}
-                                    setFilters={city_id => setFiltersToUrl({ CityIds: [city_id] })}
-                                    reports={item.reports_links}
-                                />
+                                {...item}
+                                photo={item.picture_link}
+                                ranks={item.ranks.length ? item.ranks[0]?.name : item.rank_string}
+                                ranksFull={item.ranks.length ? (item.ranks[0]?.full_name ? item.ranks[0]?.full_name :  item.ranks[0]?.name) :  item.rank_string}
+                                user={item.user_type}
+                                setFilters={city_id => setFiltersToUrl({CityIds: [city_id]})}
+                                reports={item.reports_links}
+                            />
                         }
                     </li>
                 ))}

@@ -5,10 +5,12 @@ import {exhibitionInfoForm} from "../config";
 import {DEFAULT_IMG} from "../../../appConfig";
 import { acceptType } from "../../../utils/checkImgType";
 import Contacts from "./components/Contacts";
+import Alert from "../../../components/Alert";
 
 
 const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setInitialValues,}) => {
     const [avatarSrc, setAvatarSrc] = useState(avatar);
+    const [alert, setAlert] = useState(false);
     const [mapSrc, setMapSrc] = useState(map);
     const [docs, setDocs] = useState(documents);
     const [docField, setDocField] = useState(null);
@@ -43,7 +45,6 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
 
     const handleChangeImg = (e, type) => {
         const file = e.target.files[0];
-
         if (file) {
             formik.setFieldValue(type, file);
             type === 'avatar' ? setAvatarSrc(URL.createObjectURL(file)) : setMapSrc(URL.createObjectURL(file));
@@ -58,6 +59,10 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                 type === 'avatar' ? setAvatarSrc(avatar) : setMapSrc(map);
             }
         });
+        if(file && file.size > 20971520 ) {
+            setAlert(true);
+            type === 'avatar' ? setAvatarSrc(avatar) : setMapSrc(map);
+        }
     };
 
     const handleDeleteImg = type => {
@@ -276,6 +281,14 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                 <button type="button" className="btn btn-simple" onClick={onCancel}>Отмена</button>
                 <button type="submit" className="btn btn-simple">Обновить</button>
             </FormControls>
+            {alert &&
+                <Alert
+                    title="Внимание!"
+                    text="Размер изображения не должен превышать 20 мб."
+                    autoclose={5}
+                    onOk={() => setAlert(false)}
+                />
+            }
         </>
     )
 };

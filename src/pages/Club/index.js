@@ -6,7 +6,6 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
-import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
@@ -23,6 +22,8 @@ import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
+import UserBanner from "../../components/Layouts/UserBanner";
+
 import "./index.scss";
 
 
@@ -35,13 +36,19 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [loading, setLoading] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const isMobile = useIsMobile(1080);
+    const alias = match.params.route
 
     useEffect(() => {
-        (() => Request({
-            url: endpointGetClubInfo + match.params.route
+        (() => getClubInfo())();
+        return () => setNeedRequest(true);
+    }, [match]);
+
+    const getClubInfo = async () => {
+        await Request({
+            url: endpointGetClubInfo + alias
         }, data => {
             if (data.user_type === 4) {
-                history.replace(`/kennel/${match.params.route}`);
+                history.replace(`/kennel/${alias}`);
             } else {
                 setClubInfo(data);
                 setNotActiveProfile(isAuthenticated && !is_active_profile);
@@ -52,9 +59,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             console.log(error.response);
             setError(error.response);
             setLoading(false);
-        }))();
-        return () => setNeedRequest(true);
-    }, [match]);
+        });
+    }
 
     const onSubscriptionUpdate = (subscribed) => {
         setClubInfo({
@@ -74,16 +80,18 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    {isMobile && !clubInfo.headliner_link ? null : <Card className="club-page__content-banner">
-                                        {
-                                            clubInfo.is_active
-                                                ? <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
-                                                : <div className="club-page__content-banner-inactive" />
-                                        }
-                                    </Card>}
+                                    {isMobile && !clubInfo.headliner_link
+                                        ? null
+                                        : !isMobile
+                                        && <UserBanner
+                                            link={clubInfo.headliner_link}
+                                            canEdit={canEdit}
+                                            updateInfo={getClubInfo}
+                                        />
+                                    }
                                     {isMobile &&
                                         <UserHeader
-                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            user={alias !== 'rkf-online' ? 'club' : ''}
                                             logo={clubInfo.logo_link}
                                             name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                             alias={clubInfo.club_alias}
@@ -129,7 +137,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     }
                                     <UserNews
                                         canEdit={canEdit}
-                                        alias={match.params.route}
+                                        alias={alias}
                                         needRequest={needRequest}
                                         setNeedRequest={setNeedRequest}
                                         profileInfo={clubInfo}
@@ -141,7 +149,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
                                                 <UserHeader
-                                                    user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                    user={alias !== 'rkf-online' ? 'club' : ''}
                                                     logo={clubInfo.logo_link}
                                                     name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                     alias={clubInfo.club_alias}

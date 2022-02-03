@@ -1,12 +1,14 @@
-import React, {memo, useEffect, useState} from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Loading from "../../../../components/Loading";
-import CardOrganization from "../../../../components/CardOrganization";
-import {DEFAULT_IMG} from "../../../../appConfig";
-import {setFiltersToUrl, buildUrlParams} from "../../utils";
-import {Request} from "../../../../utils/request";
-import {endpointGetOrganizations} from "../../config";
-import "./index.scss";
+import React, {memo, useEffect, useState} from 'react';
+
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Loading from '../../../../components/Loading';
+import CardOrganization from '../../../../components/CardOrganization';
+import {DEFAULT_IMG} from '../../../../appConfig';
+import {setFiltersToUrl, buildUrlParams} from '../../utils';
+import {Request} from '../../../../utils/request';
+import {endpointGetOrganizations} from '../../config';
+
+import './index.scss';
 
 
 const OrganizationsList = ({
@@ -14,11 +16,13 @@ const OrganizationsList = ({
     string_filter,
     federation_ids,
     city_ids,
+    is_popular,
     breed_ids,
     activated,
     not_activated,
     active_member,
-    active_rkf_user
+    active_rkf_user,
+    region_ids,
 }) => {
     const [org, setOrg] = useState([]);
     const [hasMore, setHasMore] = useState(true);
@@ -36,6 +40,8 @@ const OrganizationsList = ({
                 not_activated,
                 active_member,
                 active_rkf_user,
+                region_ids,
+                is_popular,
                 start_element: startElem
             })}`
         }, data => {
@@ -60,7 +66,7 @@ const OrganizationsList = ({
     useEffect(() => {
         (() => getOrganizations(1))();
         setStartElement(1);
-    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member]);
+    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member, region_ids, is_popular]);
 
     const getNextOrganizations = () => {
         if(org.length) {

@@ -28,7 +28,7 @@ const Organizations = ({history, isOpenFilters, setShowFilters}) => {
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <div className="organizations-page__wrap">
                 <Container className="content organizations-page">
-                    <Filters {...filtersValue} isOpenFilters={isOpenFilters}/>
+                    <Filters filtersValue={filtersValue} {...filtersValue} isOpenFilters={isOpenFilters}/>
                     <div className="organizations-page__content">
                         <OrganizationsFilter organization_type={filtersValue.organization_type}/>
                         <OrganizationsList {...filtersValue}/>

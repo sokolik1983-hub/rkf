@@ -95,6 +95,7 @@ export const setFiltersToUrl = (filters, initial = false) => {
 };
 
 export const getEmptyFilters = () => ({
+    IsPopular: false,
     RegionIds: [],
     CityIds: [],
     BreedGroupIds: [],

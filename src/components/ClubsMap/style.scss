@@ -7,18 +7,19 @@
   z-index: 1;
 }
 
-.custom-select {
+.map-page__filters .custom-select {
   @media (max-width: 1079px) {
     width: 228px;
   }
 }
-
-.Card {
-  .custom-select__values {
-    display: none;
+.map-page__filters {
+  .Card {
+    .custom-select__values {
+      display: none;
+    }
   }
 }
-.regions-filter {
+.map-page__filters .regions-filter {
   margin-bottom: -5px;
   &__title {
     @media (max-width: 1079px) {

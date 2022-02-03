@@ -50,7 +50,7 @@ const ELITA = 'https://zline.me/widgets/registration-for-service?id=22';
 const FAUNA = 'https://zline.me/widgets/registration-for-service?id=21';
 const RKK = 'https://zline.me/widgets/registration-for-service?id=20';
 
-const BookformCard = ({ url, distinction }) => {
+const BookformCard = ({url, distinction}) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -60,6 +60,7 @@ const BookformCard = ({ url, distinction }) => {
     const [headerName, setHeaderName] = useState('');
     const [authorizedAccess, setAuthorizedAccess] = useState(true);
     const [showZlineModal, setShowZlineModal] = useState(false);
+    const apiKey = localStorage.getItem('apikey');
 
     const user_type = ls.get('user_info') ? ls.get('user_info').user_type : '';
 
@@ -92,7 +93,23 @@ const BookformCard = ({ url, distinction }) => {
     const handleClick = (e, isRKF, destination) => {
         e.preventDefault();
         if (!destination) {
-            setIframeLink(isRKF ? RKF : (federation === 'РФСС' && RFSS) || (federation === 'РФОС' && RFOS) || (federation === 'РФЛС' && RFLS) || (federation === 'ОАНКОО/Элита' && ELITA) || (federation === 'ОАНКОО/Фауна' && FAUNA) || (federation === 'ОАНКОО/РКК' && RKK));
+            let frameLink = 'http://zsdev.uep24.ru/widgets/registration-for-service?id=92';
+
+            if(process.env.NODE_ENV === 'production') {
+                frameLink = isRKF ? RKF :
+                    federation === 'РФСС' ? RFSS :
+                    federation === 'РФОС' ? RFOS :
+                    federation === 'РФЛС' ? RFLS :
+                    federation === 'ОАНКОО/Элита' ? ELITA :
+                    federation === 'ОАНКОО/Фауна' ? FAUNA :
+                    federation === 'ОАНКОО/РКК' ? RKK : '';
+            }
+
+            if(frameLink && apiKey) {
+                frameLink += `&ak=${apiKey}`
+            }
+
+            setIframeLink(frameLink);
             setShowZlineModal(true);
         } else {
             if (federation) {
@@ -134,6 +151,7 @@ const BookformCard = ({ url, distinction }) => {
                     </span>
                 </div>
             </div>
+
         </Card>
     </>;
 
