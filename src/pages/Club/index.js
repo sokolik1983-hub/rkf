@@ -36,13 +36,19 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [loading, setLoading] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const isMobile = useIsMobile(1080);
+    const alias = match.params.route
 
     useEffect(() => {
-        (() => Request({
-            url: endpointGetClubInfo + match.params.route
+        (() => getClubInfo())();
+        return () => setNeedRequest(true);
+    }, [match]);
+
+    const getClubInfo = async () => {
+        await Request({
+            url: endpointGetClubInfo + alias
         }, data => {
             if (data.user_type === 4) {
-                history.replace(`/kennel/${match.params.route}`);
+                history.replace(`/kennel/${alias}`);
             } else {
                 setClubInfo(data);
                 setNotActiveProfile(isAuthenticated && !is_active_profile);
@@ -53,9 +59,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             console.log(error.response);
             setError(error.response);
             setLoading(false);
-        }))();
-        return () => setNeedRequest(true);
-    }, [match]);
+        });
+    }
 
     const onSubscriptionUpdate = (subscribed) => {
         setClubInfo({
@@ -81,11 +86,12 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         && <UserBanner
                                             link={clubInfo.headliner_link}
                                             canEdit={canEdit}
+                                            updateInfo={getClubInfo}
                                         />
                                     }
                                     {isMobile &&
                                         <UserHeader
-                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            user={alias !== 'rkf-online' ? 'club' : ''}
                                             logo={clubInfo.logo_link}
                                             name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                             alias={clubInfo.club_alias}
@@ -131,7 +137,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     }
                                     <UserNews
                                         canEdit={canEdit}
-                                        alias={match.params.route}
+                                        alias={alias}
                                         needRequest={needRequest}
                                         setNeedRequest={setNeedRequest}
                                         profileInfo={clubInfo}
@@ -143,7 +149,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
                                                 <UserHeader
-                                                    user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                    user={alias !== 'rkf-online' ? 'club' : ''}
                                                     logo={clubInfo.logo_link}
                                                     name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                     alias={clubInfo.club_alias}

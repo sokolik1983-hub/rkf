@@ -39,7 +39,7 @@ const ModalEditBanner = ({closeModal, updateInfo}) => {
             handleX={() => {
                 closeModal();
                 if(isChanged) updateInfo();
-                blockContent();
+                blockContent(false);
             }}
             headerName = "Редактирование фото"
         >
