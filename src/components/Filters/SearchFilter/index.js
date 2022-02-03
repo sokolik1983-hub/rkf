@@ -5,16 +5,29 @@ import SwipeTabs from '../../../components/SwipeTabs';
 import  "./index.scss"
 
 
-const SearchFilter = ({filtersValue, filters, filtersSearchType, searchTabActiveName, handleActiveTypeChange}) => {
+const SearchFilter = ({
+                          filtersValue,
+                          filters,
+                          filtersSearchType,
+                          searchTabActiveName,
+                          handleActiveTypeChange,
+                          isMenuChanges,
+                    }) => {
     const [searchValue, setSearchValue] = useState(filtersValue.string_filter);
+    // console.log('searchTabActiveName in SearchFilter', searchTabActiveName)
+    // console.log('isMenuChanges in SearchFilter', isMenuChanges)
+    const additionalFilterInUrl = !!window.location.href.match(/search_type=\d{3}&/)
+
 
     const searchTabId = (searchTabActiveName === 'Кинологические организации' || searchTabActiveName === 'Организации') ? 1 :
                         searchTabActiveName === 'Мероприятия' ? 2 :
                         searchTabActiveName === 'Публикации' ? 3 : 4;
 
     useEffect(() => {
+        console.log('useEffect in SearchFilter')
+        console.log('searchTabActiveName in useEffect in SearchFilter', searchTabActiveName)
         filtersSearchType = searchTabId === 1 ? 100 : searchTabId === 2 ? 300 : searchTabId === 3 ? 200 : 400;
-        history.push(`/search?string_filter=${searchValue.trim()}&search_type=${filtersSearchType}`)
+        (!additionalFilterInUrl || (additionalFilterInUrl && isMenuChanges)) && history.push(`/search?string_filter=${searchValue.trim()}&search_type=${filtersSearchType}`)
     }, [searchTabActiveName])
 
     const handleSubmit = e => {

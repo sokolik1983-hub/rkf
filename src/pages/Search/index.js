@@ -26,9 +26,16 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
 
 
     useEffect(() => {
-        !isMenuChanges && setSearchTabActiveName(filters.sort((a, b) => b.count - a.count)[0].name);
+        // console.log('filters was changed')
+        // console.log('filters in Search', filters)
+        // !isMenuChanges && setSearchTabActiveName(filters.sort((a, b) => b.count - a.count)[0].name);
         setIsMenuChanges(false);
     }, [filters])
+
+    useEffect(() => {
+        console.log('searchTabActiveName was changed')
+        setIsMenuChanges(false);
+    }, [searchTabActiveName])
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -133,6 +140,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     };
 
     const handleActiveTypeChange = (tabActiveName) => {
+        console.log('handleActiveTypeChange')
         setSearchResult([]);
         setSearchTabActiveName(tabActiveName)
         setIsMenuChanges(true);
@@ -158,6 +166,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                             filtersSearchType={filtersValue.search_type}
                             searchTabActiveName={searchTabActiveName}
                             handleActiveTypeChange={handleActiveTypeChange}
+                            isMenuChanges={isMenuChanges}
                         />
                         <SearchList
                             filtersSearchType={filtersValue.search_type}
