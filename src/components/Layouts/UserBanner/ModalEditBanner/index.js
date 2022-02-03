@@ -5,6 +5,9 @@ import {Button} from "@progress/kendo-react-buttons";
 import Modal from "../../../../components/Modal";
 import {getHeaders} from "../../../../utils/request";
 import kendoMessages from 'kendoMessages.json';
+import {blockContent} from "../../../../utils/blockContent";
+import OutsideClickHandler from "react-outside-click-handler";
+
 import "./index.scss";
 
 
@@ -24,53 +27,61 @@ const ModalEditBanner = ({closeModal, updateInfo}) => {
         setIsChanged(true);
     };
 
+    const handleClose = () => {
+        closeModal();
+        blockContent();
+    }
+
     return (
         <Modal
             className="edit-banner-modal"
             showModal={true}
-            handleClose={() => null}
             handleX={() => {
                 closeModal();
                 if(isChanged) updateInfo();
+                blockContent();
             }}
             headerName = "Редактирование фото"
         >
-            <div className="edit-banner-modal__content">
+            <OutsideClickHandler onOutsideClick={handleClose}>
                 <div className="edit-banner-modal__content">
+                    <div className="edit-banner-modal__content">
 
-                    <LocalizationProvider language="ru-RU">
-                        <IntlProvider locale="ru" >
-                            <Upload
-                                batch={true}
-                                multiple={false}
-                                maxFileSize={10485760}
-                                restrictions={{
-                                    allowedExtensions: ['.jpg', '.jpeg']
+                        <LocalizationProvider language="ru-RU">
+                            <IntlProvider locale="ru" >
+                                <Upload
+                                    batch={true}
+                                    multiple={false}
+                                    maxFileSize={10485760}
+                                    restrictions={{
+                                        allowedExtensions: ['.jpg', '.jpeg']
+                                    }}
+                                    withCredentials={false}
+                                    defaultFiles={[]}
+                                    onBeforeUpload={onBeforeUpload}
+                                    onBeforeRemove={onBeforeRemove}
+                                    saveUrl="/api/headerpicture/full_v2"
+                                    removeUrl="/api/headerpicture/delete_v2"
+                                />
+                            </IntlProvider>
+                        </LocalizationProvider>
+                        <p>поддерживаемые форматы: JPG и JPEG</p>
+                        <div className="k-form-buttons">
+                            <Button
+                                primary={true}
+                                type="button"
+                                onClick={() => {
+                                    closeModal();
+                                    if(isChanged) updateInfo();
+                                    blockContent();
                                 }}
-                                withCredentials={false}
-                                defaultFiles={[]}
-                                onBeforeUpload={onBeforeUpload}
-                                onBeforeRemove={onBeforeRemove}
-                                saveUrl="/api/headerpicture/full_v2"
-                                removeUrl="/api/headerpicture/delete_v2"
-                            />
-                        </IntlProvider>
-                    </LocalizationProvider>
-                    <p>поддерживаемые форматы: JPG и JPEG</p>
-                    <div className="k-form-buttons">
-                        <Button
-                            primary={true}
-                            type="button"
-                            onClick={() => {
-                                closeModal();
-                                if(isChanged) updateInfo();
-                            }}
-                        >
-                            Закрыть
-                        </Button>
+                            >
+                                Закрыть
+                            </Button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </OutsideClickHandler>
         </Modal>
     )
 };
