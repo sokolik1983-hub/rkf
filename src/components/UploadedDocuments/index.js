@@ -22,8 +22,6 @@ import {blockContent} from "../../utils/blockContent";
 import './styles.scss';
 
 const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFilters }) => {
-    console.log(location, match);
-
     const [loaded, setLoaded] = useState(false);
     const alias = match.params.route;
     const [success, setSuccess] = useState(false);
@@ -45,7 +43,6 @@ const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFil
 
     const getCategories = () => PromiseRequest(`/api/document/publicdocument/category?alias=${alias}`)
         .then(data => {
-            console.log('getDocuments',data )
             if (data) {
                 setCategories(data);
             }
