@@ -301,6 +301,12 @@
             margin-top: unset !important;
         }
 
+        .k-notification-group {
+            position: absolute;
+            right: 1vh;
+            top: 80vh;
+        }
+
         .ProfileEditPageControls__save {
             display: block;
             margin: 0 auto;
