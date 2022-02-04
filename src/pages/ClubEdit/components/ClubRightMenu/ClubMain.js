@@ -5,6 +5,7 @@ import EditPageButtons from '../EditPageButtons';
 import Card from '../../../../components/Card';
 
 const ClubMain = ({
+        handleSuccess,
         is_federation,
         handleSubmitForms,
         bindSubmitClubInfo,
@@ -31,6 +32,7 @@ const ClubMain = ({
                 bindSubmitForm={bindSubmitClubDocuments}
             />
             <EditPageButtons
+                handleSuccess={handleSuccess}
                 handleSubmitForms={handleSubmitForms}
             />
         </Card>
