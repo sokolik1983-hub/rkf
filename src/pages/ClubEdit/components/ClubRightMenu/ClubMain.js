@@ -15,13 +15,6 @@ const ClubMain = ({
     return (
         <Card className="MainInfo">
             <h3>Основная информация</h3>
-            <a className="support-link"
-               href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
-               target="_blank"
-               rel="noopener noreferrer"
-            >
-                Инструкция по редактированию профиля
-            </a>
             <ClubInfo
                 bindSubmitClubAlias={bindSubmitClubAlias}
                 bindSubmitClubInfo={bindSubmitClubInfo}

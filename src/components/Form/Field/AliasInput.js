@@ -58,9 +58,9 @@ function FormField({ formik, fieldType, className, style, disabled, blockIfHasVa
             ) + ' alias-name'}
         >
             <Label htmlFor={fieldProps.name} label={`Адрес страницы (допускаются цифры, латинские буквы и нижнее подчеркивание)`} />
-            <ul>
-                <li>rkf.online/<strong>{formik.values.alias_name}</strong></li>
-            </ul>
+            {/*<ul>*/}
+            {/*    <li>rkf.online/<strong>{formik.values.alias_name}</strong></li>*/}
+            {/*</ul>*/}
             <Input
                 id={fieldProps.name}
                 className={'FormInput__input'}
