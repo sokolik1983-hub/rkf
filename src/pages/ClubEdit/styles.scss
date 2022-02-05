@@ -342,13 +342,13 @@
                 z-index: 99;
                 padding: 16px;
                 overflow-y: auto;
-                transform: translateX(100%);
+                right: -100%;
                 transition: all 0.2s ease-out;
                 background: #fff;
 
                 &._open {
                     padding: 10px 24px 16px;
-                    transform: translateX(0);
+                    right: 0;
                     @media (max-width: 560px) {
                         padding: 10px 16px 16px;
                     }

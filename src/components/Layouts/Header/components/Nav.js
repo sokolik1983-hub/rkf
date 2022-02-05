@@ -41,7 +41,10 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
 
     const setOverflow = isOpen => {
         if (window.innerWidth <= 1080) {
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+            document.body.style.overflow = isOpen || isOpenFilters ? 'hidden' : '';
+            if (window.innerWidth > 680 && isOpenFilters) {
+                document.body.style.overflow = '';
+            }
         } else if (window.innerWidth > 1080 && isOpen) {
             document.body.style.overflow = '';
         }

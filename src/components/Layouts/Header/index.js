@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import Container from "../Container";
 import Search from "./components/Search";
@@ -40,6 +40,22 @@ const Header = ({
     };
 
     const strokeColor = isOpenFilters ? '#3366FF' : '#90999E'; //сделать класс и перенести это в стили!
+
+    const setOverflowFilter = isOpenFilters => {
+        if (window.innerWidth <= 680) {
+            document.body.style.overflow = isOpenFilters || isOpen ? 'hidden' : '';
+        } else if (window.innerWidth > 680 && isOpenFilters) {
+            document.body.style.overflow = '';
+        }
+    };
+
+    useEffect(() => {
+        setOverflowFilter(isOpenFilters);
+
+        window.addEventListener('resize', () => setOverflowFilter(isOpenFilters));
+
+        return () => window.removeEventListener('resize', () => setOverflowFilter(isOpenFilters));
+    }, [isOpenFilters]);
 
     return (
         <header className="header">
