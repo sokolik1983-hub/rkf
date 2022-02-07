@@ -5,6 +5,7 @@ import EditPageButtons from '../EditPageButtons';
 import Card from '../../../../components/Card';
 
 const ClubMain = ({
+        handleSuccess,
         is_federation,
         handleSubmitForms,
         bindSubmitClubInfo,
@@ -15,13 +16,6 @@ const ClubMain = ({
     return (
         <Card className="MainInfo">
             <h3>Основная информация</h3>
-            <a className="support-link"
-               href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
-               target="_blank"
-               rel="noopener noreferrer"
-            >
-                Инструкция по редактированию профиля
-            </a>
             <ClubInfo
                 bindSubmitClubAlias={bindSubmitClubAlias}
                 bindSubmitClubInfo={bindSubmitClubInfo}
@@ -31,6 +25,7 @@ const ClubMain = ({
                 bindSubmitForm={bindSubmitClubDocuments}
             />
             <EditPageButtons
+                handleSuccess={handleSuccess}
                 handleSubmitForms={handleSubmitForms}
             />
         </Card>

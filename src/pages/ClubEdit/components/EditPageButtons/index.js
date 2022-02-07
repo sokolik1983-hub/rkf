@@ -5,7 +5,8 @@ import './styles.scss';
 
 
 const EditPageButtons = ({
-        handleSubmitForms
+        handleSubmitForms,
+        handleSuccess,
 }) => {
 
     return (
@@ -13,7 +14,10 @@ const EditPageButtons = ({
             {handleSubmitForms &&
                 <button
                     className="Submit-button__save"
-                    onClick={handleSubmitForms}
+                    onClick={()=> {
+                        handleSuccess();
+                        handleSubmitForms();
+                    }}
                 >
                     Сохранить
                 </button>
