@@ -5,6 +5,7 @@ import './styles.scss';
 
 const ZlineModal = ({ showModal, handleClose, handleX, children, noBackdrop = false, className, headerName }) => {
 
+
     return (
         ReactDOM.createPortal(
             <div className={(showModal ? 'Modal-zline' : 'Modal-zline--hidden') + (noBackdrop ? ' no-backdrop' : '') + (className ? ' ' + className : '')}>
