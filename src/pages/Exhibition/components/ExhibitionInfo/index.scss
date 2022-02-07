@@ -6,6 +6,14 @@
       display: block;
     }
   }
+  &.two.main-info {
+    .exhibition-info__right {
+      @media(min-width: 991px) {
+        display: flex;
+        justify-content: right;
+      }
+    }
+  }
   &.two >* { min-width: 50% }
   &:not(:first-child) {
     border-bottom: 1px solid #E5E5E5;

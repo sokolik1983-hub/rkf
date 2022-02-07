@@ -47,7 +47,7 @@ const ExhibitionInfo = ({
 
     return (
         <>
-            <Card className="exhibition-info two">
+            <Card className="exhibition-info two main-info">
                 <div className="exhibition-info__left">
                     <h4 className="exhibition-info__title">Информация о мероприятии</h4>
                     {dates &&
