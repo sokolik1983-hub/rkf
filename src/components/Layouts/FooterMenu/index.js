@@ -38,9 +38,8 @@ const FooterMenu = ({
     const [openMenuComponent, setOpenMenuComponent] = useState(false);
     const [openFedMenu, setOpenFedMenu] = useState(false);
     const [fedInfo, setFedInfo] = useState(null);
-
+    const apiKey = localStorage.getItem('apikey');
     const isExhibitionPage = match.path === pathname;
-
     const isKennel = pathname.search('kennel') === 1 || user_type === 4;
     const isUser = pathname.search('user') === 1 || user_type === 1;
 
@@ -63,19 +62,21 @@ const FooterMenu = ({
         }
     }, []);
 
-
     const hideSideMenu = () => {
         setShowFilters({ isOpenFilters: false });
         setIsOpen(false);
     };
+
     const hideWidgetLoginPopup = () => {
         setOpen(false);
-    }
+    };
+
     const handleZlineClick = (e) => {
         e.preventDefault();
         hideWidgetLoginPopup();
         setShowZlineModal(true);
     };
+
     useEffect(() => {
         if(showZlineModal || open || openUserMenu || openFedMenu || openMenuComponent) {
             blockContent(true);
@@ -159,11 +160,13 @@ const FooterMenu = ({
                     setShowZlineModal(false);
                 }}
             >
-                <iframe title="unique_iframe" src={process.env.NODE_ENV === 'production'
-                    ?
-                    'https://zline.me/widgets/registration-for-service?id=33'
-                    :
-                    'http://zsdev.uep24.ru/registration-for-service?id=33'}  />
+                <iframe
+                    title="unique_iframe"
+                    src={process.env.NODE_ENV === 'production' ?
+                        `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
+                        `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
+                    }
+                />
             </ZlineModal>
         </>
     );

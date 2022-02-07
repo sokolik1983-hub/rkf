@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import Card from "components/Card";
 import Alert from "components/Alert";
 import { DEFAULT_IMG } from "appConfig";
 import { ActiveUserMark, FederationChoiceMark } from "../../Marks";
 import Share from "components/Share";
 import UserActionControls from "components/UserActionControls";
+import { CSSTransition } from "react-transition-group";
+import LightTooltip from "../../LightTooltip";
+import { SvgIcon } from "@progress/kendo-react-common";
+import { pencil, trash } from "@progress/kendo-svg-icons";
+import EditAvatar from "../../EditAvatar";
+import ModalDeleteAvatar from "../../Layouts/UserInfo/ModalDeleteAvatar";
 
 import "./index.scss";
 
@@ -14,6 +19,8 @@ import "./index.scss";
 const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, onSubscriptionUpdate, federationName, federationAlias, isFederation = false, active_rkf_user, active_member, isAuthenticated, canEdit }) => {
 
     const [shareAlert, setShareAlert] = useState(false);
+    const [modalType, setModalType] = useState('');
+    const [hover, setHover] = useState(false);
     const shareOk = () => setShareAlert(false);
 
     const setUserType = (user, alias) => {
@@ -27,10 +34,55 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
     };
     return (
         <Card className="user-header">
-            <div className="user-header__logo-wrap">
-                <div className="user-header__logo" style={logo
-                    ? { backgroundImage: `url(${logo})` }
-                    : { backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`, borderRadius: '50%', border: '1px solid #c0d3f9', width: '100px' }} />
+            <div
+                className={logo ? "user-info__logo-wrap" : "user-info__logo-wrap empty"}
+                onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+            >
+                {canEdit &&
+                    <>
+                        <CSSTransition
+                            in={hover}
+                            timeout={350}
+                            classNames="user-info__transition"
+                            unmountOnExit
+                        >
+                            <LightTooltip
+                                title="Редактировать"
+                                enterDelay={200}
+                                leaveDelay={200}>
+                                <button
+                                    className="user-info__edit-btn"
+                                    type="button"
+                                    onClick={() => setModalType('edit')}
+                                >
+                                    <SvgIcon icon={pencil} size="default" />
+                                </button>
+                            </LightTooltip>
+                        </CSSTransition>
+                        {logo &&
+                            <CSSTransition
+                                in={hover}
+                                timeout={350}
+                                classNames="user-info__transition"
+                                unmountOnExit
+                            >
+                                <LightTooltip
+                                    title="Удалить"
+                                    enterDelay={200}
+                                    leaveDelay={200}>
+                                    <button
+                                        className="user-info__delete-btn"
+                                        type="button"
+                                        onClick={() => setModalType("delete")}
+                                    >
+                                        <SvgIcon icon={trash} size="default" />
+                                    </button>
+                                </LightTooltip>
+                            </CSSTransition>
+                        }
+                    </>
+                }
+                <img className="user-info__logo" src={logo ? logo : DEFAULT_IMG.userAvatar} alt="" />
             </div>
             <div className="user-header__content">
                 <div className="user-header__info">
@@ -82,9 +134,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                                         subscribed_id={profileId}
                                         subscribed={subscribed}
                                         member={member}
-                                        onSubscriptionUpdate={onSubscriptionUpdate}                                    
-                                        // onSuccess={onSuccess}
-                                    // onError={onError}
+                                        onSubscriptionUpdate={onSubscriptionUpdate}
                                     />
                                 </>
                             }
@@ -100,7 +150,15 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                     onOk={shareOk}
                 />
             }
-
+            {modalType === "edit" &&
+                <EditAvatar
+                setModalType={setModalType}
+                avatar={logo}
+                />}
+            {modalType === "delete" &&
+                <ModalDeleteAvatar
+                    closeModal={() => setModalType("")}
+                />}
         </Card>
     )
 };

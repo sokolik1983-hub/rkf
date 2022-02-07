@@ -20,7 +20,6 @@ import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
-import CustomSelect from "react-select";
 
 
 const RenderFields = ({ fields,
@@ -166,11 +165,7 @@ const RenderFields = ({ fields,
     };
 
     const handleChangeAllCities = () => {
-        if (isAllCities) {
-            setIsAllCities(false);
-        } else if (!isAllCities) {
-            setIsAllCities(true);
-        }
+        setIsAllCities(!isAllCities);
     };
 
     useEffect(() => {
@@ -338,13 +333,13 @@ const RenderFields = ({ fields,
                             <div className="FormInput__error">Выберите категорию объявления.</div>
                         </div>
                     }
-                    <FormGroup className="ArticleCreateForm__advert">
-                        <FormField {...fields.advert_breed_id} />
-                        <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
-                        <FormField {...fields.dog_color} />
-                        <FormField {...fields.dog_age} />
-                        <CustomNumber {...fields.advert_cost} maxLength={10} />
-                        {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
+                    <FormGroup className="ArticleCreateForm__advert BuySell">
+                        <FormField className="ArticleCreateForm__input-breed_new" {...fields.advert_breed_id} />
+                        <FormField className="ArticleCreateForm__input-sex_new" {...fields.dog_sex_type_id} />
+                        <FormField className="ArticleCreateForm__input-color_new" {...fields.dog_color} />
+                        <FormField className="ArticleCreateForm__input-age_new" {...fields.dog_age} />
+                        <CustomNumber cName={' ArticleCreateForm__input-cost_new'} {...fields.advert_cost} maxLength={10}  />
+                        {!isMating && <CustomNumber cName={' ArticleCreateForm__input-puppies_new'} {...fields.advert_number_of_puppies} />}
                     </FormGroup>
                 </div>
             }
@@ -365,9 +360,11 @@ const RenderFields = ({ fields,
                             <div className="FormInput__error">Выберите категорию объявления.</div>
                         </div>
                     }
-                    <FormGroup className="ArticleCreateForm__advert">
-                        <div className="ArticleCreateForm__inputs-wrap">
+                    <FormGroup className="ArticleCreateForm__advert Ads">
+                        <div className="ArticleCreateForm__city-select-wrap">
                             <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={false}/>
+                        </div>
+                        <div className="ArticleCreateForm__breed-select-wrap">
                             <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                             <CustomCheckbox
                                 id="isHalfBreed_checkbox"
@@ -377,17 +374,16 @@ const RenderFields = ({ fields,
                                 onChange={handleChangeHalfBreed}
                             />
                         </div>
-                    <div className="ArticleCreateForm__inputs-wrap">
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
-                        <div className={(activeElem === 5) && 'ArticleCreateForm__age-wrap'}>
+                        <div className={(activeElem === 5) ? 'ArticleCreateForm__age-wrap' : 'ArticleCreateForm__input-age'}>
                             <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
                         </div>
                         <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
                         <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
-                    </div>
                     </FormGroup>
                 </div>
             }
+
             {isCheckedAddTypes && focus && (activeElem === 6) &&
             <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                 <FormGroup inline>
@@ -405,10 +401,8 @@ const RenderFields = ({ fields,
                         <div className="FormInput__error">Выберите категорию объявления.</div>
                     </div>
                 }
-                <FormGroup className="ArticleCreateForm__advert">
-                    <div className="ArticleCreateForm__inputs-wrap">
+                <FormGroup className="ArticleCreateForm__advert Ads">
                         <div className="ArticleCreateForm__city-select-wrap">
-
                             <FormField className={`ArticleCreateForm__input-city ${isAllCities && 'disabled'}`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={true} />
                             <CustomCheckbox
                                 id="isAllCities__checkbox"
@@ -418,23 +412,22 @@ const RenderFields = ({ fields,
                                 onChange={handleChangeAllCities}
                             />
                         </div>
-                        <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
-                        <CustomCheckbox
-                            id="isHalfBreed_checkbox"
-                            label="Метис"
-                            className="ArticleCreateForm__ad"
-                            checked={isHalfBreed}
-                            onChange={handleChangeHalfBreed}
-                        />
-                    </div>
-                    <div className="ArticleCreateForm__inputs-wrap">
+                        <div className="ArticleCreateForm__breed-select-wrap">
+                            <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
+                            <CustomCheckbox
+                                id="isHalfBreed_checkbox"
+                                label="Метис"
+                                className="ArticleCreateForm__ad"
+                                checked={isHalfBreed}
+                                onChange={handleChangeHalfBreed}
+                            />
+                        </div>
                         <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
-                        <div className={(activeElem === 5) && 'ArticleCreateForm__age-wrap'}>
+                        <div className={(activeElem === 5) ? 'ArticleCreateForm__age-wrap' : 'ArticleCreateForm__input-age'}>
                             <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
                         </div>
                         <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
                         <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
-                    </div>
                 </FormGroup>
             </div>
         }

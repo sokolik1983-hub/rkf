@@ -14,6 +14,8 @@ import {formatDateCommon} from "../../utils/datetime";
 import {Request} from "../../utils/request";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import "./index.scss";
+import { setFiltersToUrl } from "./utils";
+import { log2 } from "pdfjs-dist/lib/core/core_utils";
 
 
 moment.locale('ru');
@@ -110,6 +112,7 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
         }
     }, [url, allBreeder]);
 
+
     return loading ?
         <Loading /> :
         <Layout withFilters>
@@ -123,7 +126,11 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
                         filtersValue={filters}
                     />
                     <div className="specialists-page__content">
-                        <ListFilter searchTypeId={filters.SearchTypeId}/>
+                        <ListFilter
+                            searchTypeId={filters.SearchTypeId}
+                            is_popular={filters.IsPopular}
+                            onChange={filters => setFiltersToUrl({ IsPopular: filters })}
+                        />
                         {listLoading ?
                             <Loading centered={false} /> :
                             <SpecialistsList

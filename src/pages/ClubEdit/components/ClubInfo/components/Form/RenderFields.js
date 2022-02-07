@@ -1,7 +1,7 @@
-import React from "react";
-import {connect} from "formik";
-import {FormField, FormGroup} from "../../../../../../components/Form";
-import {clubInfoFormConfig} from "../../config";
+import React from 'react';
+import {connect} from 'formik';
+import {clubInfoFormConfig} from '../../config';
+import {FormField, FormGroup} from '../../../../../../components/Form';
 
 
 const {fields} = clubInfoFormConfig;
@@ -15,17 +15,25 @@ const checkUrl = (e, formik) => {
     }
 };
 
-const RenderFields = ({formik}) => (
-    <>
-        <FormGroup>
-            <FormField {...fields.name}/>
-            <FormField {...fields.description}/>
+const RenderFields = ({formik, isFederation}) => (
+    <div>
+        {isFederation
+            ? <FormGroup className="info">
+                <FormField {...fields.nameFed}/>
+                <FormField {...fields.descriptionFed}/>
+                <FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>
+            </FormGroup>
+            : <FormGroup className="info">
+                <FormField {...fields.name}/>
+                <FormField {...fields.description}/>
+                <FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>
+            </FormGroup>
+        }
+        <FormGroup className="address">
+            <FormField {...fields.city_id}/>
+            <FormField {...fields.address}/>
         </FormGroup>
-        <h4>Фактический адрес клуба</h4>
-        <FormField {...fields.city_id}/>
-        <FormField {...fields.address}/>
-        <FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>
-    </>
+    </div>
 );
 
 export default connect(React.memo(RenderFields));

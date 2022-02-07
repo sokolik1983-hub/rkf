@@ -42,7 +42,7 @@ const CardNews = forwardRef(({
     last_name,
     active_member,
     active_rkf_user
-}) => {
+}, CardNewsRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     const [isOpenControls, setIsOpenControls] = useState(false);

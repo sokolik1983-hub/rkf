@@ -1,40 +1,26 @@
-import React, { useState } from "react";
-import { connect } from "formik";
-import { FormField, FormGroup } from "components/Form";
-import ActiveImageWrapper from "components/ActiveImageWrapper";
-import { DEFAULT_IMG } from "appConfig";
-import Transliteratable from "./components/Transliteratable"; // TODO: move to Form folder
-import Contacts from './components/Contacts';
-import Documents from './components/Documents';
-import SocialNetworks from './components/SocialNetworks';
+import React, {useState} from 'react';
+import {connect} from 'formik';
+import {SvgSelector} from './icons';
+import StickyBox from 'react-sticky-box';
+import Card from '../../components/Card';
+import {editForm, sections} from './config';
 import Schedule from './components/Schedule';
-import Card from "components/Card";
-import EditAvatar from "../../components/EditAvatar";
-import { Request } from "utils/request";
-import { editForm } from "./config";
+import MainPage from './components/MainPage';
+import DeletePage from './components/DeletePage';
+import DefaultPage from './components/DefaultPage';
+import ContactsPage from './components/ContactsPage';
 
-const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
-    const [modalType, setModalType] = useState('');
 
-    const handleUpload = (file, isLogo) => {
-        setWorking(true);
-        let data = new FormData();
-        data.append('file', file);
-        Request({
-            url: isLogo ? '/api/Avatar/full' : '/api/HeaderPicture/full',
-            method: "POST",
-            data: data,
-            isMultipart: true
-        },
-            data => {
-                // formik.setFieldValue(isLogo ? 'logo_link' : 'banner_link', data.avatar_link);
-                setWorking(false);
-            },
-            e => {
-                setWorking(false);
-                handleError(e);
-            });
-    };
+
+const RenderFields = ({
+        isOpenFilters,
+        setShowFilters,
+        formik,
+        working,
+        coOwner,
+        randomKeyGenerator,
+}) => {
+    const [activeSection, setActiveSection] = useState(0);
 
     const {
         alias,
@@ -53,93 +39,94 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
     const {
         postcode,
         city_id,
-        street_type_id,
         street_name,
-        house_type_id,
         house_name,
-        flat_type_id,
         flat_name
     } = address;
 
     const {
-        banner_link,
-        logo_link,
         contacts,
         documents,
         socials,
         work_time
     } = formik.values;
 
+    const handleSectionSwitch = (id) => {
+        setActiveSection(id);
+        setShowFilters({isOpenFilters: false});
+    };
+
+
+    const renderSection = (section) => {
+        switch (section) {
+            case 0:
+                return <MainPage
+                    name={name}
+                    alias={alias}
+                    formik={formik}
+                    coOwner={coOwner}
+                    working={working}
+                    name_lat={name_lat}
+                    web_site={web_site}
+                    documents={documents}
+                    description={description}
+                    co_owner_mail={co_owner_mail}
+                    co_owner_last_name={co_owner_last_name}
+                    co_owner_first_name={co_owner_first_name}
+                    co_owner_second_name={co_owner_second_name}
+                />
+            case 1:
+                return <ContactsPage
+                    formik={formik}
+                    city_id={city_id}
+                    socials={socials}
+                    working={working}
+                    contacts={contacts}
+                    postcode={postcode}
+                    flat_name={flat_name}
+                    is_public={is_public}
+                    house_name={house_name}
+                    street_name={street_name}
+                    randomKeyGenerator={randomKeyGenerator}
+                />
+            case 2:
+                return <Schedule
+                    work_time={work_time}
+                />
+            case 3:
+                return <DeletePage />
+            default:
+                return <DefaultPage />;
+        }
+    };
+
+
     return (
-        <>
-            <Card>
-                <FormField {...alias} />
-                <div className="NurseryEdit__main-info">
-                    <div className="NurseryEdit__main-info-left">
-                        <h3>Логотип</h3>
-                        <div
-                            style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.clubAvatar})` }}
-                            className="NurseryEdit__main-info-logo"
-                            onClick={() => setModalType('edit')}
-                        >
-                        </div>
-                        <span style={{cursor: 'pointer', color: '#36f'}} onClick={() => setModalType('edit')}>Изменить</span>
-                        {modalType && <EditAvatar
-                            setModalType={setModalType}
-                            avatar={logo_link}
-                        />}
-                    </div>
-                    <div className="NurseryEdit__main-info-right">
-                        <h3>Общая информация</h3>
-                        <Transliteratable {...name} />
-                        <FormField {...name_lat} />
-                        <FormField {...description} />
-                        <FormField {...web_site} />
-                        <FormGroup inline>
-                            <FormField {...co_owner_last_name} disabled={!!coOwner.lastName} />
-                            <FormField {...co_owner_first_name} disabled={!!coOwner.firstName} />
-                            <FormField {...co_owner_second_name} disabled={!!coOwner.secondName} />
-                        </FormGroup>
-                        <FormField {...co_owner_mail} disabled={!!coOwner.mail} />
-                    </div>
-                </div>
-            </Card>
-            <Card>
-                <h3>Адрес питомника</h3>
-                <FormGroup inline>
-                    <FormField {...city_id} className="nursery-activation__select" />
-                    <FormField {...postcode} />
-                </FormGroup>
-                <FormGroup inline>
-                    <FormField {...street_type_id} options={streetTypes} />
-                    <FormField {...street_name} />
-                </FormGroup>
-                <FormGroup inline>
-                    <FormField {...house_type_id} options={houseTypes} />
-                    <FormField {...house_name} />
-                </FormGroup>
-                <FormGroup inline>
-                    <FormField {...flat_type_id} options={flatTypes} />
-                    <FormField {...flat_name} />
-                </FormGroup>
-            </Card>
-
-            <Contacts contacts={contacts} is_public={is_public} errors={formik.errors} />
-            <Documents documents={documents} />
-            <SocialNetworks socials={socials} />
-            <Schedule work_time={work_time} />
-
-            <Card className="NurseryEdit__banner-wrap">
-                <ActiveImageWrapper onChangeFunc={file => handleUpload(file, false)} requestUrl={'/'} >
-                    <div
-                        style={{ backgroundImage: `url(${banner_link ? banner_link : DEFAULT_IMG.clubAvatar})` }} className="NurseryEdit__banner" />
-                </ActiveImageWrapper>
-            </Card>
-
-            {formik.errors && !!Object.keys(formik.errors).length
-                && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
-            {working && <div className="NurseryEdit__is-valid">Идёт загрузка файла...</div>}
-        </>
+        <div className="NurseryEdit__inner">
+            <div className="NurseryEdit__inner-left">
+                {renderSection(activeSection)}
+            </div>
+            <div className={`NurseryEdit__inner-right${isOpenFilters ? " _open" : ""}`}>
+                <StickyBox offsetTop={60}>
+                    <Card>
+                        <span className="NurseryEdit__profile-label">Профиль</span>
+                        <ul className="NurseryEdit__inner-list">
+                            {Object.keys(sections).map((type, key) => <div
+                                    className={sections[type].id === activeSection
+                                        ? "NurseryEdit__inner-item active"
+                                        : "NurseryEdit__inner-item"}
+                                    key={key}
+                                    onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                                >
+                                    <SvgSelector icon={sections[type].icon} />
+                                    <li>{sections[type].name}</li>
+                                </div>
+                            )}
+                        </ul>
+                    </Card>
+                </StickyBox>
+            </div>
+        </div>
     )
 };
 

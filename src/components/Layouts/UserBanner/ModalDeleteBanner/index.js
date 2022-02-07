@@ -3,6 +3,8 @@ import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import Alert from "../../../../components/Alert";
 import { Request } from "../../../../utils/request";
+import {blockContent} from "../../../../utils/blockContent";
+
 import "./index.scss";
 
 
@@ -41,8 +43,13 @@ const ModalDeleteBanner = ({ closeModal, updateInfo }) => {
         setLoading(false);
     };
 
+    const handleClose = () => {
+        closeModal();
+        blockContent();
+    }
+
     return (
-        <Modal className="delete-banner-modal" showModal={true} handleClose={closeModal} handleX={closeModal} headerName={"Удаление баннера"}>
+        <Modal className="delete-banner-modal" showModal={true} handleClose={handleClose} handleX={handleClose} headerName={"Удаление баннера"}>
             <div className="delete-banner-modal__content">
                 {loading ?
                     <Loading centered={false} /> :
@@ -55,7 +62,7 @@ const ModalDeleteBanner = ({ closeModal, updateInfo }) => {
                             <button
                                 className="btn btn-light"
                                 type="button"
-                                onClick={closeModal}
+                                onClick={handleClose}
                             >
                                 Отменить
                             </button>

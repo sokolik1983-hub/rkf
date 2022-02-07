@@ -1,31 +1,46 @@
-import React from "react";
-import {compose} from "redux";
-import Loading from "../../../../components/Loading";
-import ClientContactList from "./components/List";
-import {CONTACT_TYPES, defaultReduxKey, getlistUrl} from "./config";
-import injectReducer from "../../../../utils/injectReducer";
-import reducer from "./reducer";
-import {useResourceAndStoreToRedux} from "../../../../shared/hooks";
-import {connectContactsProxy} from "./connectors";
+import React from 'react';
+import {compose} from 'redux';
+import reducer from './reducer';
+import {connectContactsProxy} from './connectors';
+import ClientContactList from './components/List';
+import Loading from '../../../../components/Loading';
+import UpdateClubInfoForm from '../ClubInfo/components/Form';
+import injectReducer from '../../../../utils/injectReducer';
+import {CONTACT_TYPES, defaultReduxKey, getlistUrl} from './config';
+import {useResourceAndStoreToRedux} from '../../../../shared/hooks';
+
+import './style.scss'
 
 
-const ClientClubContactsProxy = ({getClubContactsListSuccess, club_id, bindSubmitClubEmail, bindSubmitClubPhone}) => {
+const ClientClubContactsProxy = ({
+        club_id,
+        bindSubmitClubInfo,
+        bindSubmitClubEmail,
+        bindSubmitClubPhone,
+        getClubContactsListSuccess,
+}) => {
     const url = getlistUrl + String(club_id);
     const {loading} = useResourceAndStoreToRedux(url, getClubContactsListSuccess);
 
+
     return loading ?
         <Loading /> :
-        <div style={{alignItems: 'flex-start'}} className="flex-row">
-            <div style={{marginBottom: 24}} className="flex-col">
-                <ClientContactList
-                    contactType={CONTACT_TYPES.email}
-                    bindSubmitForm={bindSubmitClubEmail}
+        <div className="contacts__wrap">
+            <div className="contacts__address">
+                <UpdateClubInfoForm
+                    bindSubmitForm={bindSubmitClubInfo}
                 />
             </div>
-            <div className="flex-col">
+            <div className="contacts__phone">
                 <ClientContactList
                     contactType={CONTACT_TYPES.phone}
                     bindSubmitForm={bindSubmitClubPhone}
+                />
+            </div>
+            <div className="contacts__email">
+                <ClientContactList
+                    contactType={CONTACT_TYPES.email}
+                    bindSubmitForm={bindSubmitClubEmail}
                 />
             </div>
         </div>

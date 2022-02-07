@@ -1,10 +1,10 @@
 .card-exhibition {
   padding: 10px !important;
   ._mobile {
-    @media (min-width: 820px) {
+    @media (min-width: 760px) {
       display: none;
     }
-    @media (max-width: 820px) {
+    @media (max-width: 760px) {
       .card-exhibition__city {
         display: block;
         margin-right: 4px;
@@ -20,6 +20,7 @@
         align-items: flex-start;
         font-size: 14px;
         line-height: 18px;
+        margin-bottom: 5px;
         color: #72839c;
       }
     }
@@ -33,14 +34,15 @@
   &__photo {
     text-decoration: none;
     display: block;
-    min-height: 162px;
+    min-height: 150px;
     min-width: 288px;
-    max-height: 162px;
+    max-height: 202px;
     max-width: 288px;
     margin-right: 10px;
+    margin-bottom: 5px;
     border-radius: 6px;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     background-position: 50%;
     cursor: pointer;
     @media (max-width: 620px) {
@@ -65,6 +67,10 @@
   }
 
   &__federation {
+    @media (min-width: 761px) {
+      display: none;
+    }
+    //display: none;
     text-decoration: none;
     color: #72839C;
   }
@@ -75,7 +81,7 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    @media (max-width: 820px) {
+    @media (max-width: 760px) {
       display: block;
     }
     & > div {
@@ -84,8 +90,11 @@
       align-items: flex-start;
       overflow: hidden;
       padding-right: 16px;
-      @media (max-width: 820px) {
+      @media (max-width: 760px) {
         padding-right: 0;
+      }
+      @media (min-width: 621px) and (max-width: 760px) {
+        margin-bottom: 10px;
       }
     }
   }
@@ -96,18 +105,15 @@
     line-height: 23px;
     color: #253c5e;
     text-decoration: none;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 100%;
+    white-space: normal;
     transition: color 0.2s linear;
     &:hover {
       color: #3366ff;
     }
-    @media (max-width: 820px) {
-      font-size: 15px;
-      line-height: 20px;
-      margin-bottom: 4px;
+    @media (max-width: 760px) {
+      font-size: 18px;
+      line-height: 22px;
+      margin-bottom: 6px;
       white-space: initial;
     }
   }
@@ -124,7 +130,7 @@
       content: "";
       width: 12px;
       height: 16px;
-      background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
+      background: url("/static/icons/ico-pointer2.svg") center center/contain no-repeat;
       position: absolute;
       left: 0;
       top: 50%;
@@ -136,7 +142,7 @@
         background: url("/static/icons/pin.svg") center center/contain no-repeat;
       }
     }
-    @media (max-width: 820px) {
+    @media (max-width: 760px) {
       display: none;
       font-size: 14px;
       line-height: 18px;
@@ -144,7 +150,7 @@
   }
   &__reports {
     display: none;
-    @media (max-width: 820px) {
+    @media (max-width: 760px) {
       display: flex;
     }
     & > span {
@@ -173,10 +179,11 @@
     }
   }
   &__author {
-    @media (max-width: 820px) {
+    @media (max-width: 760px) {
+      margin-bottom: 5px;
       a:first-of-type {
         position: relative;
-        align-items: flex-start;
+        align-items: center;
         img:first-of-type, img:last-of-type {
           position: relative;
         }
@@ -190,8 +197,7 @@
     line-height: 24px;
     text-decoration: none;
     color: #253c5e;
-    margin-bottom: 10px;
-    & > a {
+    &-wrap {
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -210,7 +216,7 @@
         }
       }
     }
-    @media (max-width: 820px) {
+    @media (max-width: 760px) {
       flex-direction: column;
       justify-content: space-between;
       font-size: 14px;
@@ -218,7 +224,7 @@
       .card-exhibition__subtitle {
         display: none;
       }
-      & > a {
+      &-wrap {
         font-size: 16px;
         line-height: 18px;
         overflow: hidden;
@@ -268,6 +274,9 @@
     }
     &_link {
       display: flex;
+      a {
+        text-decoration: none;
+      }
     }
   }
   &__club-logo {
@@ -280,18 +289,21 @@
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    @media (max-width: 820px) {
+    @media (max-width: 760px) {
       width: 48px;
       height: 48px;
     }
   }
   &__club-marks {
     display: flex;
-    align-self: flex-start;
+    position: relative;
+    @media (max-width: 760px) {
+      padding-bottom: 22px;
+    }
   }
   &__info {
     display: flex;
-    @media (max-width: 820px) {
+    @media (max-width: 760px) {
       display: none;
     }
     & > div {
@@ -362,19 +374,13 @@
       color: #b9c1ce !important;
     }
   }
-
-  &__controls {
-    margin-top: 10px;
-  }
   
   &__open-exhibition {
-    margin: 0 0 7px;
+    line-height: 18px;
+    margin: 0 0 5px;
     a {
       text-decoration: none;
       color: #36f;
-    }
-    @media (max-width: 820px) {
-      margin: 7px 0;
     }
   }
   &__footer-links {

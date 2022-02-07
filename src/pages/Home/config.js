@@ -1,4 +1,5 @@
 export const endpointGetNews = '/api/Article/public_all_v2';
+export const endpointNewsCity = 'api/city/article_cities';
 
 export const partners = [
     {

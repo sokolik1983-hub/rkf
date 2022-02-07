@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Aside from "../../../../components/Layouts/Aside";
 import Card from "../../../../components/Card";
@@ -22,27 +22,38 @@ import {
     endpointGetFederations,
     endpointGetKennelBreeds,
     endpointGetKennelsCities,
-    endpointGetNKPBreeds
+    endpointGetNKPBreeds,
+    endpointGetRegions,
+    endpointGetClubRegions,
+    endpointGetNurseryRegions,
 } from "../../config";
 import {getEmptyFilters, setFiltersToUrl} from "../../utils";
+import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
 import "./index.scss";
+import RegionsFilter from "../../../../components/Filters/RegionsFilter";
+
+
 
 
 const Filters = ({
     organization_type,
     federation_ids,
     city_ids,
+    is_popular,
     breed_ids,
     activated,
     not_activated,
     active_member,
     active_rkf_user,
-    isOpenFilters
+    isOpenFilters,
+    filtersValue,
+    region_ids,
 }) => {
     const [loading, setLoading] = useState(true);
     const [federations, setFederations] = useState([]);
     const [cities, setCities] = useState([]);
     const [breeds, setBreeds] = useState([]);
+    const [regions, setRegions] = useState([]);
 
     const getBreeds = async () => {
         await Request({
@@ -57,14 +68,15 @@ const Filters = ({
     };
 
     const getCities = async () => {
-        await Request({
-            url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
-        }, data => {
-            setCities(data);
-        }, error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-        });
+        organization_type !== 7 &&
+            await Request({
+                url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
+            }, data => {
+                setCities(data);
+            }, error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+            });
     };
 
     const getFederations = async () => {
@@ -72,6 +84,17 @@ const Filters = ({
             url: endpointGetFederations
         }, data => {
             setFederations(data.sort((a, b) => a.id - b.id));
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        });
+    };
+
+    const getRegions = async () => {
+        await Request({
+            url: organization_type === 3 ? endpointGetClubRegions : (organization_type === 4 ? endpointGetNurseryRegions : endpointGetRegions)
+        }, data => {
+            setRegions(data.sort((a, b) => a.id - b.id));
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -90,6 +113,7 @@ const Filters = ({
 
             if (organization_type === 3 || organization_type === 4) {
                 await getFederations();
+                await getRegions();
                 await getCities();
             }
 
@@ -100,6 +124,18 @@ const Filters = ({
             setLoading(false);
         })();
     }, [organization_type]);
+
+    useEffect(() => {
+        organization_type !== 7 &&
+        (() => Request({
+            url: `${endpointGetClubsCities}?${region_ids.map(reg => `regionIds=${reg}`).join('&')}`
+        }, data => {
+            setCities(data);
+        },error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        }))();
+    }, [region_ids]);
 
     return (
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
@@ -141,6 +177,10 @@ const Filters = ({
                                     Сбросить все параметры
                                 </button>
                             </Card>
+                            <LikeFilter
+                                is_popular={is_popular}
+                                onChange={filter => setFiltersToUrl({not_activated: false, is_popular: filter})}
+                            />
                             {(organization_type === 3 || organization_type === 4) &&
                                 <>
                                     <FederationsFilter
@@ -195,6 +235,13 @@ const Filters = ({
                                     breed_ids={breed_ids}
                                     onChange={filter => setFiltersToUrl({breed_ids: filter})}
                                 />
+                            }
+                            {(organization_type === 3 || organization_type === 4) &&
+                                    <RegionsFilter
+                                        regions={regions}
+                                        region_ids={filtersValue.region_ids}
+                                        onChange={filter => setFiltersToUrl({region_ids: filter})}
+                                    />
                             }
                             {(organization_type === 3 || organization_type === 4) &&
                                 <CitiesFilter

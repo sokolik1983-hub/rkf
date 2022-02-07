@@ -35,11 +35,19 @@ const AddStamp = ({ history }) => {
     const [errorAlert, setErrorAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
     const [successAlert, setSuccessAlert] = useState(false);
+    const [weightAlert, setWeightAlert] = useState(false);
+
     const handleSusccess = () => setSuccessAlert(true);
     const handleError = ({ response }) => {
         setErrorText(response ? Object.values(response.data.errors).join(', ') : '');
         setErrorAlert(true);
     };
+    const handleWeight = (e) => {
+        if (e.target.files[0].size > 20971520) {
+            e.target.value = '';
+            setWeightAlert(true);
+        }
+    }
 
     return <Card style={{ margin: 0 }}>
         <div className="club-documents-status__head">
@@ -61,6 +69,7 @@ const AddStamp = ({ history }) => {
                     />
                     <FormField
                         {...fields.stamp_code_document}
+                        onInput={handleWeight}
                     />
                 </div>
                 <FormField
@@ -72,7 +81,10 @@ const AddStamp = ({ history }) => {
                 <Alert
                     text="Код клейма успешно добавлен"
                     autoclose={3}
-                    onOk={() => setSuccessAlert(false)}
+                    onOk={() => {
+                        setSuccessAlert(false);
+                        history.goBack();
+                    }}
                 />
             }
             {errorAlert &&
@@ -81,6 +93,14 @@ const AddStamp = ({ history }) => {
                     text={errorText}
                     autoclose={3}
                     onOk={() => setErrorAlert(false)}
+                />
+            }
+            {weightAlert &&
+                <Alert
+                    title="Ошибка!"
+                    text="Размер файла не должен превышать 20 Мб"
+                    autoclose={3}
+                    onOk={()=> setWeightAlert(false)}
                 />
             }
         </div>

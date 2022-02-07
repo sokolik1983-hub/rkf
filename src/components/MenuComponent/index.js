@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
 
@@ -10,8 +10,12 @@ import { Request, getHeaders } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import PopupModal from "../PopupModal";
 import {blockContent} from "../../utils/blockContent";
+import {clubNav as clubNavDocs} from "../../pages/Docs/config";
+import ls from "local-storage";
+import Alert from "../Alert";
 
 import "./index.scss";
+
 
 
 const presidium = {
@@ -212,14 +216,20 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ( { alias, name, user, isFederation, noCard = false, history, openMenuComponent,  setOpenMenuComponent } ) => {
+const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFederation, noCard = false, history, openMenuComponent,  setOpenMenuComponent } ) => {
     const [showModal, setShowModal] = useState(false);
+    const [alert, setAlert] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
+    const { user_type, alias } = ls.get('user_info') || {};
+    const clickOnDisabledLink = e => {
+        e.preventDefault();
+        setAlert(true);
+    };
 
     const [fedInfo, setFedInfo] = useState(null);
     const [error, setError] = useState(null);
@@ -230,6 +240,8 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
     const showDetails = isFederation && alias !== 'rkf' && alias !== 'rkf-online' && alias !== 'oankoo';
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
+    const location = useLocation();
+    let url =  location.pathname.split('/')[1];
 
     useEffect(() => {
         if (showDetails) {
@@ -463,6 +475,43 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                             handleClose={(e) => !moreRef.current.contains(e.target) && setOpenMenuComponent(false)}
                             bottomStyle
                         >
+                            {((location.pathname.search("documents") > -1) || (location.pathname.search("bank-details") > -1))? <>
+                            <div className="user-menu__inner">
+                                <div className="banner-federation">
+                                    <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
+                                </div>
+                                {fedName && <p className="user-menu__name">{fedName}</p>}
+                                <ul className="user-menu__list">
+                                {clubNavDocs(alias).map(navItem =>  <li className={`user-menu__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                                                        key={navItem.id}>
+                                        {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                            <span
+                                                className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
+                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                </span>
+                                        }
+                                        <NavLink
+                                            to={user_type === 3
+                                            && url === 'club'
+                                            && alias !== 'rkf'
+                                            && alias !== 'rkf-online'
+                                            && navItem.title !== 'Поиск по базе РКФ'
+                                            && navItem.title !== 'Реквизиты и размеры взносов'
+                                            && navItem.title !== 'Мероприятия'
+                                                ? `/club${navItem.to}` : navItem.to}
+                                            exact={navItem.exact}
+                                            className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                            onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                        >
+                                            {navItem.icon}
+                                            <span>{navItem.title}</span>
+                                        </NavLink>
+                                    </li>
+
+                                )}
+                            </ul>
+                            </div>
+                            </> : <>
                             <div className="user-menu__inner">
                                 <div className="banner-federation">
                                     <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
@@ -520,6 +569,7 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                                     </li>
                                 </ul>
                             </div>
+                            </>}
                         </PopupModal>
                     </CSSTransition>
                 </OutsideClickHandler>
@@ -638,6 +688,14 @@ const MenuComponent = ( { alias, name, user, isFederation, noCard = false, histo
                         }
                     </div>
                 </Modal>
+            }
+            {alert &&
+                <Alert
+                    title="Внимание!"
+                    text="Раздел находится в разработке."
+                    autoclose={1.5}
+                    onOk={() => setAlert(false)}
+                />
             }
         </>
     )

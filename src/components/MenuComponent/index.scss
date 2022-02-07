@@ -403,6 +403,8 @@
   &__list {
     list-style: none;
     @media (max-width: 1080px) {
+      min-height: 337px;
+      height: auto;
       padding: 2px 0;
       z-index: 2;
       border-top: 1px solid #e8e8e8;
@@ -413,6 +415,7 @@
   &__item {
     @media (max-width: 1080px) {
       padding-left: 10px;
+      min-height: 29px;
     }
     &:not(:last-child) {
       margin-bottom: 8px;

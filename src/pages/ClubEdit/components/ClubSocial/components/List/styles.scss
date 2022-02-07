@@ -4,19 +4,11 @@
   margin-bottom: 16px;
   &__controls {
     margin-left: auto;
-    display: flex;
-    align-items: center;
-    & > .btn {
-      margin: 0 10px -8px 10px;
-    }
   }
 }
 .ClubSocial {
-  @media (min-width: 768px) {
     display: flex;
-  }
-  &__type,
-  &__description {
+  &__type, &__description {
     margin-right: 4px;
   }
   &__description {
