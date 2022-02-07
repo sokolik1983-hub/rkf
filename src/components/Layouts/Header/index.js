@@ -39,7 +39,7 @@ const Header = ({
         setOpen(false);
     };
 
-    const strokeColor = isOpenFilters ? '#3366FF' : '#90999E'; //сделать класс и перенести это в стили!
+    const strokeColor = isOpenFilters ? 'stroke-color__active' : 'stroke-color__inactive';
 
     const setOverflowFilter = isOpenFilters => {
         if (window.innerWidth <= 680) {
@@ -100,29 +100,29 @@ const Header = ({
                              onClick={() => setShowFilters({ isOpenFilters: !isOpenFilters })}>
                             <div className={isOpenFilters ? 'open' : ''}>
                                 {
-                                    isOpenFilters ? <svg className='no-scale' width='20' height='20' viewBox='0 0 20 20' fill='none'
+                                    isOpenFilters ? <svg className={`no-scale ${strokeColor}`} width='20' height='20' viewBox='0 0 20 20' fill='none'
                                                          xmlns='http://www.w3.org/2000/svg'>
-                                        <line y1='1' x1='1' x2='20' y2='20' stroke={strokeColor} strokeWidth='1.32' />
-                                        <line y1='20' x1='1' x2='20' y2='1' stroke={strokeColor} strokeWidth='1.32' />
-                                    </svg> : <svg width='20' height='18' viewBox='0 0 20 18' fill='none'
+                                        <line y1='1' x1='1' x2='20' y2='20' strokeWidth='1.32' />
+                                        <line y1='20' x1='1' x2='20' y2='1' strokeWidth='1.32' />
+                                    </svg> : <svg className={strokeColor} width='20' height='18' viewBox='0 0 20 18' fill='none'
                                                   xmlns='http://www.w3.org/2000/svg'>
-                                        <path d='M3.47827 12.6608V17.4434' stroke={strokeColor} strokeWidth='1.32'
+                                        <path d='M3.47827 12.6608V17.4434' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
-                                        <path d='M0 15.0521H3.47826' stroke={strokeColor} strokeWidth='1.32'
+                                        <path d='M0 15.0521H3.47826' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
-                                        <path d='M6.95654 15.0521H20' stroke={strokeColor} strokeWidth='1.32'
+                                        <path d='M6.95654 15.0521H20' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
-                                        <path d='M0 2.3913H6.08696' stroke={strokeColor} strokeWidth='1.32'
+                                        <path d='M0 2.3913H6.08696' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
-                                        <path d='M9.56519 2.3913H20' stroke={strokeColor} strokeWidth='1.32'
+                                        <path d='M9.56519 2.3913H20' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
-                                        <path d='M6.08691 0V4.78261' stroke={strokeColor} strokeWidth='1.32'
+                                        <path d='M6.08691 0V4.78261' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
-                                        <path d='M15.6522 6.33044V11.1131' stroke={strokeColor} strokeWidth='1.32'
+                                        <path d='M15.6522 6.33044V11.1131' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
-                                        <path d='M15.6522 8.72174H20' stroke={strokeColor} strokeWidth='1.32'
+                                        <path d='M15.6522 8.72174H20' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
-                                        <path d='M0 8.72174H12.1739' stroke={strokeColor} strokeWidth='1.32'
+                                        <path d='M0 8.72174H12.1739' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
                                     </svg>
                                 }
