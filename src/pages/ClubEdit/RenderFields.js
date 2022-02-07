@@ -10,6 +10,8 @@ import ClubDelete from './components/ClubRightMenu/ClubDelete';
 import ClubDefault from './components/ClubRightMenu/ClubDefault';
 import ClubScheduleCard from './components/ClubRightMenu/ClubSchedule';
 import ClubContactsCard from './components/ClubRightMenu/ClubContacts';
+import { Fade } from '@progress/kendo-react-animation';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 
 
 const RenderFields = ({
@@ -28,16 +30,25 @@ const RenderFields = ({
         bindSubmitClubDocuments,
 }) => {
     const [activeSection, setActiveSection] = useState(0);
+    const [success, setSuccess] = useState(false);
 
     const handleSectionSwitch = (id) => {
         setActiveSection(id);
         setShowFilters({isOpenFilters: false});
     };
 
+    const handleSuccess = () => {
+        setSuccess(true);
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+    };
+
     const renderSection = (section) => {
         switch (section) {
             case 0:
                 return <ClubMain
+                    handleSuccess={handleSuccess}
                     is_federation={is_federation}
                     handleSubmitForms={handleSubmitForms}
                     bindSubmitClubInfo={bindSubmitClubInfo}
@@ -46,6 +57,7 @@ const RenderFields = ({
                 />
             case 1:
                 return <ClubContactsCard
+                    handleSuccess={handleSuccess}
                     handleSubmitForms={handleSubmitForms}
                     bindSubmitClubInfo={bindSubmitClubInfo}
                     bindSubmitClubPhone={bindSubmitClubPhone}
@@ -54,6 +66,7 @@ const RenderFields = ({
                 />
             case 2:
                 return <ClubScheduleCard
+                    handleSuccess={handleSuccess}
                     handleSubmitForms={handleSubmitForms}
                     bindSubmitClubSchedule={bindSubmitClubSchedule}
                 />
@@ -63,6 +76,7 @@ const RenderFields = ({
                 />
             case 4:
                 return <ClubBank
+                    handleSuccess={handleSuccess}
                     handleSubmitForms={handleSubmitForms}
                     bindSubmitClubBankInfo={bindSubmitClubBankInfo}
                 />
@@ -103,6 +117,17 @@ const RenderFields = ({
                     </Card>
                 </StickyBox>
             </div>
+            <NotificationGroup>
+                <Fade enter={true} exit={true}>
+                    {success && <Notification
+                        type={{ style: 'success', icon: true }}
+                        closable={true}
+                        onClose={() => setSuccess(false)}
+                    >
+                        <span>Информация сохранена!</span>
+                    </Notification>}
+                </Fade>
+            </NotificationGroup>
         </div>
     );
 }

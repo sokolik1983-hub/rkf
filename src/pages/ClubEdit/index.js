@@ -12,6 +12,7 @@ import {connectAuthVisible} from '../Login/connectors';
 import {endpointGetClubInfo, clubNav} from '../../components/Layouts/ClubLayout/config';
 import {connectShowFilters} from '../../components/Layouts/connectors';
 import UserMenu from '../../components/Layouts/UserMenu';
+import MenuComponent from '../../components/MenuComponent';
 import Container from '../../components/Layouts/Container';
 import CopyrightInfo from '../../components/CopyrightInfo';
 import ClickGuard from '../../components/ClickGuard';
@@ -24,7 +25,6 @@ import {Request} from '../../utils/request';
 import ls from 'local-storage';
 
 import './styles.scss';
-import MenuComponent from "../../components/MenuComponent";
 
 
 let unblock;
@@ -53,8 +53,7 @@ const ClubEditPage = ({
 
 
     const isMobile = useIsMobile(1080);
-    const {user_type, alias} = ls.get('user_info') || {};
-    const url = (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? '/club' : ''
+    const {alias} = ls.get('user_info') || {};
 
     let clientErrors = {};
     let submitClubAlias,
@@ -234,7 +233,6 @@ const ClubEditPage = ({
             const isValid = !Object.keys(serverErrors).filter(key => Object.keys(serverErrors[key]).length).length;
             if (isValid && club_alias) {
                 unblock();
-                history.push(`${url}/${club_alias}`);
             } else {
                 alert(Object.values(serverErrors)
                     .filter(e => Object.entries(e).length)
