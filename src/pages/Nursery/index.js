@@ -48,6 +48,11 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
     const isMobile = useIsMobile(1080);
 
     useEffect(() => {
+        (() => getNurseryInfo())();
+        return () => setNeedRequest(true);
+    }, [match]);
+
+    const getNurseryInfo = () => {
         (() => Request({
             url: endpointGetNurseryInfo + alias
         }, data => {
@@ -68,7 +73,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
             setLoading(false);
         }))();
         return () => setNeedRequest(true);
-    }, [alias]);
+    }
 
     const onSubscriptionUpdate = (subscribed) => {
         setNursery({
@@ -85,13 +90,14 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                 <div className="redesign">
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
-                            <div className="nursery-page__content">
+                            <div className="nursery-page__content 222">
                                 {isMobile && !nursery.headliner_link
                                     ? null
                                     : !isMobile
                                     && <UserBanner
                                         link={nursery.headliner_link}
                                         canEdit={canEdit}
+                                        updateInfo={getNurseryInfo}
                                     />
                                 }
                                 {isMobile &&
