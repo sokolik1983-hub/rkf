@@ -79,9 +79,6 @@ const Header = ({
                 <div className='header__widgets'>
                     {isAuthenticated &&
                         <>
-                            {/*<div className={`header__widgets--feedback${login_page ? ' login-page' : ''}`}>*/}
-                            {/*    <Feedback isMainNav={true}/>*/}
-                            {/*</div>*/}
                             <div onClick={hideSideMenu} className='header__widgets-notifications-wrap'>
                                 <Notifications open={openWidgets}
                                                setOpen={setOpenWidgets}
