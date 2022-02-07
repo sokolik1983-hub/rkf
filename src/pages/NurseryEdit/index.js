@@ -43,6 +43,7 @@ const NurseryEdit = ({
     const [showAlert, setShowAlert] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [notificationsLength, setNotificationsLength] = useState(0);
+    const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
 
     const PromiseRequest = url => new Promise((res, rej) => Request({url}, res, rej));
@@ -126,18 +127,16 @@ const NurseryEdit = ({
     };
 
     const handleSuccess = (data, {alias, name}) => {
-        setShowAlert({
-            title: 'Информация сохранена!',
-            autoclose: 2,
-            onOk: () => setShowAlert(false)
-        });
+        setSuccess(true);
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
         let updatedUserInfo = {
             ...ls.get('user_info'),
             alias,
             name
         };
         ls.set('user_info', updatedUserInfo);
-        history.push(`/kennel/${alias}`);
     };
 
     const handleError = e => {
@@ -197,9 +196,11 @@ const NurseryEdit = ({
                                     onSuccess={handleSuccess}
                                     onError={handleError}
                                     className="NurseryEdit__form"
-                                    withLoading={true}
+                                    withLoading={false}
                                 >
                                     <RenderFields
+                                        success={success}
+                                        setSuccess={setSuccess}
                                         isOpenFilters={isOpenFilters}
                                         setShowFilters={setShowFilters}
                                         streetTypes={streetTypes}

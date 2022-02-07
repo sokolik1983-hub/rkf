@@ -301,6 +301,12 @@
             margin-top: unset !important;
         }
 
+        .k-notification-group {
+            position: absolute;
+            right: 1vh;
+            top: 80vh;
+        }
+
         .ProfileEditPageControls__save {
             display: block;
             margin: 0 auto;
@@ -487,6 +493,17 @@
 }
 
 .header__filters {
+    & > span {
+        font-size: 0;
+
+        &::before {
+            display: block;
+            padding-top: .5px;
+            font-size: 13px;
+            content: "Разделы";
+        }
+    }
+
     @media (min-width: 681px) {
         display: none;
     }
