@@ -142,7 +142,7 @@ const CardExhibition = ({
             <div className={`card-exhibition__controls`}>
                 <CardFooter
                     id={id}
-                    share_link={`https://rkf.online${url}`}
+                    share_link={window.location.host !== 'rkf.online' ? `https://rkf.online${url}` : `https://stage.uep24.ru${url}`}
                     is_liked={is_liked}
                     like_count={like_count}
                     likesOn={true}
