@@ -97,9 +97,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      span:first-child {
-        width: 100%;
-      }
     }
     &-count {
       display: flex;
@@ -126,6 +123,7 @@
       cursor: pointer;
       transition: all .2s linear;
       max-width: 250px;
+      width: 100%;
       &:hover {
         color: #3366ff;
       }
