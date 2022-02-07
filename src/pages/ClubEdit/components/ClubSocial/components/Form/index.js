@@ -1,11 +1,17 @@
-import React from "react";
-import {FormFormikEnhanced} from "../../../../../../components/Form";
-import RenderFields from "./RenderFields";
-import {connectSocialFrom} from "../../connectors";
-import {clubClubSocialConfig} from "../../config";
+import React from 'react';
+import RenderFields from './RenderFields';
+import {clubClubSocialConfig} from '../../config';
+import {connectSocialFrom} from '../../connectors';
+import {FormFormikEnhanced} from '../../../../../../components/Form';
 
 
-const ClubSocialForm = ({club_id, addClubSocialSuccess, initialValues, hideForm, bindSubmitForm}) => {
+const ClubSocialForm = ({
+        club_id,
+        addClubSocialSuccess,
+        initialValues,
+        hideForm,
+        bindSubmitForm,
+}) => {
     const transformValues = values => ({...values, club_id, social_network_type_id: 1});
     
     const onSuccess = data => {

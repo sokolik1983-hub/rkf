@@ -31,11 +31,13 @@ export const clubClubContactsConfig = {
     action: ENDPOINT_URL,
     fields: {
         value: {
-            name: 'value'
+            name: 'value',
+            placeholder: 'Email адрес',
         },
         description: {
             name: 'description',
-            label: 'Описание'
+            label: 'Описание',
+            placeholder: 'Описание',
         },
         contact_type_id: {
             name: 'contact_type_id',

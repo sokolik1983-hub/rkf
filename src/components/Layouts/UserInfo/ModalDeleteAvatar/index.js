@@ -4,6 +4,8 @@ import Modal from "../../../../components/Modal";
 import Alert from "../../../../components/Alert";
 import { Request } from "../../../../utils/request";
 import ls from "local-storage";
+import {blockContent} from "../../../../utils/blockContent";
+
 import "./index.scss";
 
 
@@ -44,8 +46,13 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo }) => {
         setLoading(false);
     };
 
+    const handleClose = () => {
+        closeModal();
+        blockContent();
+    }
+
     return (
-        <Modal className="delete-avatar-modal" showModal={true} handleClose={closeModal} handleX={closeModal} headerName={"Удаление аватара"}>
+        <Modal className="delete-avatar-modal" showModal={true} handleClose={handleClose} handleX={handleClose} headerName={"Удаление аватара"}>
             <div className="delete-avatar-modal__content">
                 {loading ?
                     <Loading centered={false} /> :
@@ -58,7 +65,7 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo }) => {
                             <button
                                 className="btn btn-light"
                                 type="button"
-                                onClick={closeModal}
+                                onClick={handleClose}
                             >
                                 Отменить
                             </button>

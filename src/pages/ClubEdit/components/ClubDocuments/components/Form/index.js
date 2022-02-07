@@ -1,11 +1,17 @@
-import React from "react";
-import {Form} from "../../../../../../components/Form";
-import RenderFields from "./RenderFields";
-import {connectDocumentFrom} from "../../connectors";
-import {clubClubDocumentsConfig} from "../../config";
+import React from 'react';
+import RenderFields from './RenderFields';
+import {clubClubDocumentsConfig} from '../../config';
+import {connectDocumentFrom} from '../../connectors';
+import {Form} from '../../../../../../components/Form';
 
 
-const ClubDocumentForm = ({club_id, addClubDocumentSuccess, initialValues, hideForm, bindSubmitForm}) => {
+const ClubDocumentForm = ({
+        club_id,
+        addClubDocumentSuccess,
+        initialValues,
+        hideForm,
+        bindSubmitForm,
+}) => {
     const transformValues = values => ({...values, club_id});
 
     const onSuccess = data => {
@@ -16,6 +22,7 @@ const ClubDocumentForm = ({club_id, addClubDocumentSuccess, initialValues, hideF
     if(!initialValues) {
         initialValues = {name: '', url: ''}
     }
+
 
     return (
         <Form
