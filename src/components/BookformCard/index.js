@@ -188,6 +188,7 @@ const BookformCard = ({url, distinction}) => {
         </Card>
     </>;
 
+
     return loading ?
         <Loading /> :
         <div className="documents-page__right">
