@@ -492,7 +492,19 @@
     }
 }
 
+
 .header__filters {
+    & > span {
+        font-size: 0;
+
+        &::before {
+            display: block;
+            padding-top: .5px;
+            font-size: 13px;
+            content: "Разделы";
+        }
+    }
+
     @media (min-width: 681px) {
         display: none;
     }
