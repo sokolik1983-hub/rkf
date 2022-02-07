@@ -90,7 +90,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                 <div className="redesign">
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
-                            <div className="nursery-page__content 222">
+                            <div className="nursery-page__content">
                                 {isMobile && !nursery.headliner_link
                                     ? null
                                     : !isMobile
