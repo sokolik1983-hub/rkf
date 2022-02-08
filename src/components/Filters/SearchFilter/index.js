@@ -21,6 +21,10 @@ const SearchFilter = ({
                         searchTabActiveName === 'Публикации' ? 3 : 4;
 
     useEffect(() => {
+        setSearchValue(filtersValue.string_filter);
+    }, [filtersValue.string_filter])
+
+    useEffect(() => {
         filtersSearchType = searchTabId === 1 ? 100 : searchTabId === 2 ? 300 : searchTabId === 3 ? 200 : 400;
         (!additionalFilterInUrl || (additionalFilterInUrl && isMenuChanges)) &&
             history.push(`/search?string_filter=${searchValue.trim()}&search_type=${filtersSearchType}`)
