@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {NavLink, useHistory, useLocation} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
 
@@ -447,8 +447,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
         }
 
     }, [fedInfo]);
-
-    console.log('url', url);
 
     return (
         <>
