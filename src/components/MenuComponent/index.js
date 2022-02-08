@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useHistory, useLocation} from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
 
@@ -448,6 +448,8 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
 
     }, [fedInfo]);
 
+    console.log('url', url);
+
     return (
         <>
             {isMobile ?
@@ -580,7 +582,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                         <NavLink
                             exact
-                            to={`/exhibitions?Alias=${alias}`}
+                            to={`/exhibitions?Alias=${url}`}
                             className="menu-component__link _events"
                             title="Мероприятия"
                         >Мероприятия</NavLink>
@@ -600,7 +602,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                     <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`}
+                        to={user === 'nursery' ? `/kennel/${alias}/news` : `/${url}/news`}
                         className="menu-component__link _public"
                         title="Публикации"
                     >Публикации</NavLink>
@@ -608,7 +610,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`}
+                        to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${url}/uploaded-documents/`}
                         className="menu-component__link _documents"
                         title="Документы"
                     >Документы</NavLink>
@@ -616,7 +618,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`}
+                        to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${url}/gallery`}
                         className="menu-component__link _gallery"
                         title="Фотогалерея"
                     >Фотогалерея</NavLink>
@@ -624,7 +626,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`}
+                        to={user === 'nursery' ? `/kennel/${alias}/video` : `/${url}/video`}
                         className="menu-component__link _video"
                         title="Фотогалерея"
                     >Видеозаписи</NavLink>
@@ -649,7 +651,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                     <li className="menu-component__item">
                         <NavLink
                             exact
-                            to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`}
+                            to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${url}/document-status`}
                             className="menu-component__link _documents"
                             title="Статус документов"
                         >Статус документов</NavLink>
@@ -658,7 +660,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                     <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`}
+                        to={user === 'nursery' ? `/kennel/${alias}` : `/${url}`}
                         className="menu-component__link _club"
                         title={name}
                     >
