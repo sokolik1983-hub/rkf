@@ -256,7 +256,7 @@ const CardNewsNew = forwardRef(({
                     </div>}
                     <p className={`CardNewsNew__text${!canCollapse ? ' _disabled' : ''}`}
                         ref={ref}
-                        dangerouslySetInnerHTML={{ __html: formatText(content) }}
+                        dangerouslySetInnerHTML={content && { __html: formatText(content) }}
                     />
                 </div>
                 <div className="CardNewsNew__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
