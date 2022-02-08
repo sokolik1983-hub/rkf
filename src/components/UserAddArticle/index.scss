@@ -428,10 +428,19 @@
       color: #72839C;
 
       &._desktop {
-        margin-left: 50px;
+        margin-left: 60px;
       }
       .FormGroup--inline {
         margin-bottom: 18px;
+        .k-chip-list .k-chip {
+          height: 33px;
+          min-width: 100px;
+          box-sizing: border-box;
+          .k-chip-content, .k-chip-label {
+            line-height: 18px;
+            text-align: center;
+          }
+        }
       }
     }
   }
