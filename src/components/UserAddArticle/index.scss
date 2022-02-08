@@ -309,6 +309,13 @@
             "puppies puppies";
         grid-template-columns: 48.5% 48.5%;
       }
+      @media (min-width: 751px) {
+        &.isMating {
+          grid-template-areas:
+            "breed cost cost"
+            "color sex age";
+        }
+      }
       .FormInput__input {
         padding: 7px 10px 7px 10px !important;
         &:first-child {

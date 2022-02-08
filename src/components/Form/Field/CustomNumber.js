@@ -14,8 +14,6 @@ const CustomNumber = (props) => {
     }
 
     return (
-        // <div className={`FormInput${cName ? cName : formik.errors[name] ? ' FormInput--error'  : ''}`}>
-        //
         <div className={`FormInput${cName && cName} ${document.querySelector('.BuySell .ArticleCreateForm__input-cost_new .FormInput__error') && formik.errors[name] ? ' FormInput--error'  : ''}`}>
         <Label htmlFor={name} label={props.label} />
             <Field
