@@ -243,12 +243,14 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const location = useLocation();
     let url =  location.pathname.split('/')[1];
 
+    console.log('1111111111111', linkFeesId, linkFedDetails);
+
     useEffect(() => {
         if (showDetails) {
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({
-                url: `/api/federation/federation_documents?Alias=${alias}`
+                url: `/api/federation/federation_documents?Alias=${url}`
             }, data => {
                 setFedFeesId(data[0]?.documents?.filter(i => i.document_type_id === 2)[0].document_id);
                 setFedDetails(data[0]?.documents?.filter(i => i.document_type_id === 1)[0].document_id);
@@ -257,7 +259,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 history.replace('/');
             }))();
         }
-    }, [alias]);
+    }, [url]);
 
     // const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
@@ -269,12 +271,12 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     };
 
     const showPresidium = () => {
-        if (alias === 'rfls') {
+        if (url === 'rfls') {
             return presidiumRfls
         } else {
             return <>
                 <ol className="menu-component__wrap-list">
-                    {presidium[alias].members.map((member, i) =>
+                    {presidium[url].members.map((member, i) =>
                         <li className="menu-component__wrap-item" key={i}>{member}</li>
                     )}
                 </ol>
@@ -523,7 +525,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                                         <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
                                     </li>
                                     }
-                                    {presidium[alias] &&
+                                    {isFederation &&
                                     <li className="user-menu__item">
                                         <NavLink exact to="/" onClick={getPresidium} className="user-menu__link _presidium" title="Президиум">Президиум</NavLink>
 
@@ -584,7 +586,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                         >Мероприятия</NavLink>
                     </li>
                 }
-                    {presidium[alias] &&
+                    {isFederation &&
                     <li className="menu-component__item">
                         <NavLink
                             exact
