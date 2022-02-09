@@ -44,56 +44,44 @@ const RenderFields = ({
         }, 3000);
     };
 
-    const renderSection = (section) => {
-        switch (section) {
-            case 0:
-                return <ClubMain
-                    handleSuccess={handleSuccess}
-                    is_federation={is_federation}
-                    handleSubmitForms={handleSubmitForms}
-                    bindSubmitClubInfo={bindSubmitClubInfo}
-                    bindSubmitClubAlias={bindSubmitClubAlias}
-                    bindSubmitClubDocuments={bindSubmitClubDocuments}
-                />
-            case 1:
-                return <ClubContactsCard
-                    handleSuccess={handleSuccess}
-                    handleSubmitForms={handleSubmitForms}
-                    bindSubmitClubInfo={bindSubmitClubInfo}
-                    bindSubmitClubPhone={bindSubmitClubPhone}
-                    bindSubmitClubEmail={bindSubmitClubEmail}
-                    bindSubmitClubSocials={bindSubmitClubSocials}
-                />
-            case 2:
-                return <ClubScheduleCard
-                    handleSuccess={handleSuccess}
-                    handleSubmitForms={handleSubmitForms}
-                    bindSubmitClubSchedule={bindSubmitClubSchedule}
-                />
-            case 3:
-                return <ClubLegal
-                    bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
-                />
-            case 4:
-                return <ClubBank
-                    handleSuccess={handleSuccess}
-                    handleSubmitForms={handleSubmitForms}
-                    bindSubmitClubBankInfo={bindSubmitClubBankInfo}
-                />
-            case 5:
-                return <ClubDelete
-                    is_federation={is_federation}
-                />
-            default:
-                return <ClubDefault />
-        }
-    };
-
 
     return (
         <div className="ClubEdit__inner">
             <div className="ClubEdit__inner-left">
-                {renderSection(activeSection)}
+                {activeSection === 0 ? <ClubMain
+                        handleSuccess={handleSuccess}
+                        is_federation={is_federation}
+                        handleSubmitForms={handleSubmitForms}
+                        bindSubmitClubInfo={bindSubmitClubInfo}
+                        bindSubmitClubAlias={bindSubmitClubAlias}
+                        bindSubmitClubDocuments={bindSubmitClubDocuments}
+                    /> :
+                    activeSection === 1 ? <ClubContactsCard
+                        handleSuccess={handleSuccess}
+                        handleSubmitForms={handleSubmitForms}
+                        bindSubmitClubInfo={bindSubmitClubInfo}
+                        bindSubmitClubPhone={bindSubmitClubPhone}
+                        bindSubmitClubEmail={bindSubmitClubEmail}
+                        bindSubmitClubSocials={bindSubmitClubSocials}
+                    /> :
+                    activeSection === 2 ? <ClubScheduleCard
+                        handleSuccess={handleSuccess}
+                        handleSubmitForms={handleSubmitForms}
+                        bindSubmitClubSchedule={bindSubmitClubSchedule}
+                    /> :
+                    activeSection === 3 ? <ClubLegal
+                        bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
+                    /> :
+                    activeSection === 4 ? <ClubBank
+                        handleSuccess={handleSuccess}
+                        handleSubmitForms={handleSubmitForms}
+                        bindSubmitClubBankInfo={bindSubmitClubBankInfo}
+                    /> :
+                    activeSection === 5 ? <ClubDelete
+                        is_federation={is_federation}
+                    /> :
+                    <ClubDefault />
+                }
             </div>
             <div className={`ClubEdit__inner-right${isOpenFilters ? " _open" : ""}`}>
                 <StickyBox offsetTop={60}>

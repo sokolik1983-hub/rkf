@@ -21,14 +21,14 @@ const ClientContactList = props => {
 
     const checkForDelete = () => {
         setTriggerDell(!triggerDell);
-    }
+    };
 
     useEffect(()=> {
-        triggerRef.current.innerHTML.length <= 50 && setTriggerButton(true);
-    },[[], visibility]);
+        visibility && triggerRef.current.innerHTML.length <= 50 && setTriggerButton(true);
+    },[visibility]);
 
     useEffect(()=> {
-        triggerRef.current.innerHTML.length < 650 && setTriggerButton(true);
+        triggerDell && triggerRef.current.innerHTML.length < 650 && setTriggerButton(true);
     },[triggerDell]);
     
     if (!visibility && bindSubmitForm) {
