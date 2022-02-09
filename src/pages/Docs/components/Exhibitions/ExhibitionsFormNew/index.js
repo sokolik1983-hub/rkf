@@ -479,7 +479,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                 formRenderProps={formRenderProps}
                                                 editable={editable}
                                                 status={status}
-                                                dataType={'international'}
+                                                dataType="international"
                                                 docTypes={[{ text: 'Интернациональная', value: 99 }]}
                                             />
                                         }
@@ -492,7 +492,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                 handleError={handleError}
                                                 editable={editable}
                                                 status={status}
-                                                dataType={'ranksIds'}
+                                                dataType="ranksIds"
                                             />
                                         }
                                         {ncpIds && !!ncpIds.length &&
@@ -504,7 +504,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                 handleError={handleError}
                                                 editable={editable}
                                                 status={status}
-                                                dataType={'ncpIds'}
+                                                dataType="ncpIds"
                                             />
                                         }
                                         {editable &&

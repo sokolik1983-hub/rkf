@@ -20,7 +20,7 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
     const [activeTab, setActiveTab] = useState('individual');
 
     return isAuthenticated ?
-        <Redirect to={'/'} /> :
+        <Redirect to="/" /> :
         <Layout login_page>
             <AuthLayout className="registration-page">
                 <Card>

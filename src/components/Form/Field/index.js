@@ -70,7 +70,7 @@ function FormField({ fieldType, className, style, disabled, readOnly, blockIfHas
                         title="Формат ссылки: https://website.com"
                         pattern="https?://.*"
                         type="url"
-                        className={'FormInput__input'}
+                        className="FormInput__input"
                         disabled={disabled || (fieldProps.value && blockIfHasValue)}
                         {...fieldProps}
                     />

@@ -192,13 +192,19 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    @media (max-width: 900px) {
+      .App {
+        position: relative;
+        top: 40px;
+      }
+    }
     .k-grid {
       font-size: 16px;
       & td {
         border-bottom: 1px solid rgba(33, 37, 41, 0.125);
         text-align: center;
       }
-    }  
+    }
   }
   .k-grid {
     font-size: 14px;

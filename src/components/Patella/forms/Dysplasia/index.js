@@ -91,7 +91,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
     return <>
         {everkAlert &&
             <Alert
-                title={"Ошибка"}
+                title="Ошибка"
                 text="Номер родословной не найден в базе ВЕРК."
                 autoclose={false}
                 okButton={true}
@@ -214,7 +214,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 <DocLink
                     profileType={config.profileType}
                     docId={formik.values.certificate_document_id}
-                    label={''}
+                    label=""
                     showLabel={false}
                 />
             </>}

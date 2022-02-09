@@ -28,7 +28,7 @@ const ModalDeleteCategory = ({ handleSuccess, handleError, getCategories, catego
 
     return (
         <Modal
-            iconName={'delete-white'}
+            iconName="delete-white"
             className="delete-category-modal"
             showModal={true}
             handleClose={closeModal}

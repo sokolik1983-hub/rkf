@@ -49,7 +49,7 @@ const Contacts = ({ contacts, errors }) => {
                                     />
                             }
                             <FormField
-                                label={'Описание'}
+                                label="Описание"
                                 placeholder="Введите описание"
                                 name={`contacts[${index}].description`}
                             />

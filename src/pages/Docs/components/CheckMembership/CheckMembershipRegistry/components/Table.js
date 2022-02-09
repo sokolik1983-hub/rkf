@@ -160,8 +160,8 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
     return (
         <>
             <LocalizationProvider language="ru-RU">
-                <IntlProvider locale={'ru'}>
-                    <div className={'user-documents-status__filters-wrap'}>
+                <IntlProvider locale="ru">
+                    <div className="user-documents-status__filters-wrap">
                         <div className="chip-list__wrap">
                             <ChipList
                                 selection="single"

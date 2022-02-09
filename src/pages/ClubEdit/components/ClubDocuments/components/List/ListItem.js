@@ -1,14 +1,17 @@
-import React from "react";
-import {Form} from "../../../../../../components/Form";
-import DeleteButton from "../../../../../../components/DeleteButton";
-import Dropdown from "../../../../../../components/Dropdown";
-import ClubListDocument from "./ListDocument";
-import RenderFields from "../../components/Form/RenderFields";
-import {useVisibility} from "../../../../../../shared/hooks";
-import {connectClientClubListItem} from "../../connectors";
+import React from 'react';
+import {Form} from '../../../../../../components/Form';
+import DeleteButton from '../../../../../../components/DeleteButton';
+import RenderFields from '../../components/Form/RenderFields';
+import {useVisibility} from '../../../../../../shared/hooks';
+import {connectClientClubListItem} from '../../connectors';
 
 
-function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClubDocumentSuccess}) {
+function ClientClubListItem({
+        clubDocument,
+        checkForDelete,
+        updateClubDocumentSuccess,
+        deleteClubDocumentSuccess,
+}) {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
 
     const onUpdateSuccess = (values) => {
@@ -19,33 +22,29 @@ function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClub
     const onDeleteSuccess = () => {
         deleteClubDocumentSuccess({ id: clubDocument.id });
     };
+    const successDelete = () => {
+        checkForDelete();
+        onDeleteSuccess();
+    }
 
     return (
         <div className="ClientClubListItem">
-            {visibility ?
                 <Form
-                    action={'/api/clubs/ClubDocument'}
+                    action={"/api/clubs/ClubDocument"}
                     onSuccess={onUpdateSuccess}
                     method="PUT"
                     initialValues={clubDocument}
                 >
-                    <RenderFields isUpdate />
-                </Form> :
-                <ClubListDocument {...clubDocument} />
-            }
+                    <RenderFields />
+                </Form>
             <div className="ClientClubListItem__controls">
-                {visibility &&
-                    <button className="btn" onClick={toggleVisibility}>Отмена</button>
-                }
-                <Dropdown position="right" closeOnClick={true}>
-                    <DeleteButton
-                        onDeleteSuccess={onDeleteSuccess}
-                        windowed
-                        actionUrl={`/api/clubs/ClubDocument/${clubDocument.id}`}
-                    >
-                        Удалить
-                    </DeleteButton>
-                </Dropdown>
+                <DeleteButton
+                    onDeleteSuccess={successDelete}
+                    windowed
+                    actionUrl={`/api/clubs/ClubDocument/${clubDocument.id}`}
+                >
+                    Удалить
+                </DeleteButton>
             </div>
         </div>
     )

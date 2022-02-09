@@ -189,7 +189,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
     return (
         <div className="App">
             <LocalizationProvider language="ru-RU">
-                <IntlProvider locale={'ru'}>
+                <IntlProvider locale="ru">
                     <div className={`chip-list__wrap _registry-wrap ${fullScreen ? `_full-registry-wrap` : ``}`}>
                         <ChipList
                             selection="single"
@@ -197,8 +197,8 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                             onChange={handleDropDownChange}
                         />
                         <CustomCheckbox
-                            id={'is_archive'}
-                            label={'Архивные заявки'}
+                            id="is_archive"
+                            label="Архивные заявки"
                             checked={isArchive}
                             onChange={() => setIsArchive(!isArchive)}
                         />
@@ -228,7 +228,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                         margin: "0 auto",
                                         textAlign: 'center'
                                     }}>
-                                    <GridColumn field="status_value" cell={StatusCell} title="Статус" width={'60px'} />
+                                    <GridColumn field="status_value" cell={StatusCell} title="Статус" width="60px" />
                                     <GridColumn field="date_create" title="Создана" width={fullScreen ? '99px' : '80px'}
                                         columnMenu={ColumnMenu} />
                                     <GridColumn field="date_change" title="Изменение статуса"
@@ -237,11 +237,8 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                         columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed')} />
                                     <GridColumn field="stamp_code" title="Клеймо" width={fullScreen ? '88px' : '55px'}
                                         columnMenu={ColumnMenu} />
-
                                     <GridColumn field="stamp" title="Клеймо" width={fullScreen ? '88px' : '55px'}
                                         columnMenu={ColumnMenu} />
-
-                                        columnMenu={ColumnMenu} cell={props => TextCell(props, 'nursery_name')} />
                                     <GridColumn field="date_of_birth_litter" title="Дата рождения помёта"
                                         width={fullScreen ? '99px' : '80px'} columnMenu={ColumnMenu} />
                                     <GridColumn field="breeder_full_name" title="Заводчик"
@@ -294,7 +291,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     onDataStateChange={handleGridDataChange}
                                     style={{ height: height ? height : "700px", width: "auto", margin: "0 auto" }}>
 
-
                                     <GridColumn field="status_value" cell={StatusCell} title="Статус"
                                         width={fullScreen ? '62px' : '61px'} />
                                     <GridColumn field="date_create" title="Создана" width={fullScreen ? '99px' : '80px'}
@@ -312,7 +308,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                         columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed')} />
                                     <GridColumn field="stamp_number" title="Клеймо"
                                         width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
-
                                     <GridColumn field="barcode" title="Трек-номер"
                                         width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu}
                                         cell={(props) => CopyCell(props, handleSuccess)} />

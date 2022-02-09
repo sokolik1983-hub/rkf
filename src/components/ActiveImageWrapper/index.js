@@ -88,7 +88,7 @@ function ActiveImageWrapper({
                 setState({
                     ...state,
                     inputValue: '',
-                });    
+                });
             }
         });
     };
@@ -173,9 +173,6 @@ function ActiveImageWrapper({
                         Удалить
                     </Button>
                 }
-                {/* {state.imagePreview &&
-                    <Button className="btn-simple" disabled={state.loading} onClick={onSubmit}>Заменить</Button>
-                } */}
             </div>
         </>
     )

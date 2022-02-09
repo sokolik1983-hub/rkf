@@ -33,8 +33,8 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                 return (
                     <FormElement style={{ maxWidth: 550 }} >
                         <Prompt when={formRenderProps.modified} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
-                        <fieldset className={'k-form-fieldset'}>
-                            <legend className={'k-form-legend'}>Контакты</legend>
+                        <fieldset className="k-form-fieldset">
+                            <legend className="k-form-legend">Контакты</legend>
                             <div className="form-row">
                                 <div className="form-group col-md-8">
                                     <div className="row">

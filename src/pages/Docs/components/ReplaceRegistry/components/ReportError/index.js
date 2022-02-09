@@ -87,7 +87,7 @@ const ReportErrorForm = ({ id, setIsOpen, setNeedUpdateTable }) => {
         {errorAlert &&
             <Alert
                 title="Ошибка!"
-                text={"Формат файла не поддерживается, либо размер файла превышает 20Мб"}
+                text="Формат файла не поддерживается, либо размер файла превышает 20Мб"
                 autoclose={3}
                 onOk={() => { setErrorAlert(false);}}
             />

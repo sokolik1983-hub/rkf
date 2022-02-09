@@ -21,7 +21,7 @@ const ClubLogoPicture = ({ backgroundImage, clubLogoUpdateSuccess }) => {
         {modalType && <EditAvatar
             setModalType={setModalType}
             avatar={backgroundImage}
-            userType={'club'}
+            userType="club"
             onSubmitSuccess={clubLogoUpdateSuccess}
         />}
     </>

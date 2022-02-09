@@ -1,19 +1,29 @@
-import React from "react";
-import {Link} from "react-router-dom";
-import Container from "../../../../components/Layouts/Container";
-import {connectClubPublicLink} from "../../connectors";
-import "./styles.scss";
+import React from 'react';
+import {connectClubPublicLink} from '../../connectors';
+
+import './styles.scss';
 
 
-const EditPageButtons = ({club_alias, handleSubmitForms}) => (
-    <div className="EditPageButtons">
-        <Container className="EditPageButtons__inner">
-            <Link className="EditPageButtons__back" to={`/${club_alias}`}>Назад</Link>
+const EditPageButtons = ({
+        handleSubmitForms,
+        handleSuccess,
+}) => {
+
+    return (
+        <div className="Submit-button">
             {handleSubmitForms &&
-                <button className="EditPageButtons__save" onClick={handleSubmitForms}>Сохранить</button>
+                <button
+                    className="Submit-button__save"
+                    onClick={()=> {
+                        handleSuccess();
+                        handleSubmitForms();
+                    }}
+                >
+                    Сохранить
+                </button>
             }
-        </Container>
-    </div>
-);
+        </div>
+    )
+};
 
 export default connectClubPublicLink(React.memo(EditPageButtons));

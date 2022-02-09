@@ -11,12 +11,8 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     const linkRef = useRef();
 
     useEffect(() => {
-        if (pdf && isMobile) newTab.location.href = pdf;
-    }, [pdf])
-
-    const autoClick = () => {
-        linkRef.current && linkRef.current.click();
-    }
+        if (pdf) newTab.location.href = pdf;
+    }, [pdf]);
 
     const fetchPdf = (id) => {
         fetch(`/api/document/documentdog/puppy_card?id=${id}`, {headers})
@@ -24,7 +20,6 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
             .then(data => URL.createObjectURL(data))
             .then(url => {
                 setPdf(url);
-                autoClick();
                 handleOnPdfLoading('remove class');
             })
             .catch(error => handleOnPdfLoading('removeClass'))
@@ -33,7 +28,7 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     const startPdfLoad = () => {
         fetchPdf(dataItem.id);
         handleOnPdfLoading('add class');
-        isMobile && setNewTab(window.open('' , '_blank'));
+        setNewTab(window.open('' , '_blank'));
     }
 
     return (

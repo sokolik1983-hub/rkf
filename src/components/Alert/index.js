@@ -38,7 +38,7 @@ const Alert = ({
     }, [showModal])
 
     return createPortal((
-        <div className="wrap">
+        <div className="Alert__wrap">
             <div className="Alert" ref={ref}>
                 <div className="Alert__title">{title}</div>
                 <div className="Alert__text">{text}</div>

@@ -32,6 +32,7 @@ const ControlMenu = ({
         });
     };
 
+
     return (
         <div className="control-menu">
             <div className="control-menu__items">
@@ -49,7 +50,7 @@ const ControlMenu = ({
                 </div>
 
                 <div
-                    className={`control-menu__item ${((!selectedItemsIds.length && !isControlReadAllOn) || !isControlReadAllOn) && 'control-menu__item_disabled'}`}
+                    className={`control-menu__item ${(!selectedItemsIds.length || !isControlReadAllOn) && 'control-menu__item_disabled'}`}
                     onClick={() => moveNotifications('mark_articles_read')}
                 >
                     <span className="control-menu__item-icon control-menu__item-icon_select-all-reed"> </span>

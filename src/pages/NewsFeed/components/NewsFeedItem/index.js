@@ -90,6 +90,10 @@ const NewsFeedItem = forwardRef(({
         clearChecks && setIsChecked(false);
     }, [checkedAll, isControlCheckedAll, clearChecks]);
 
+    useEffect(() => {
+        checkedAll && handleCheck();
+    }, [checkedAll]);
+
     const handleCheck = () => {
         if (!isChecked) {
             setIsChecked(true);
@@ -250,7 +254,7 @@ const NewsFeedItem = forwardRef(({
                                 <label className="NewsFeedItem__control-checkbox-label">
                                     <input
                                         type="checkbox"
-                                        onChange={() => handleCheck()}
+                                        onChange={handleCheck}
                                         checked={isChecked}
                                     />
                                     <span> </span>
@@ -348,7 +352,7 @@ const NewsFeedItem = forwardRef(({
                 <div className="NewsFeedItem__controls">
                     <CardFooter
                         id={ id }
-                        share_link={ `https://rkf.online/news/${id}` }
+                        share_link={window.location.host === 'rkf.online' ? `https://rkf.online/news/${id}` : `https://stage.uep24.ru/news/${id}`}
                         is_liked={is_liked}
                         like_count={like_count}
                         likesOn={true}

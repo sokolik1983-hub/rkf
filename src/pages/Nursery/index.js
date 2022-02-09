@@ -5,7 +5,6 @@ import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
-import Card from "../../components/Card";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import UserMenu from "../../components/Layouts/UserMenu";
@@ -22,6 +21,8 @@ import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import BreedsList from "../../components/BreedsList";
+import UserBanner from "../../components/Layouts/UserBanner";
+
 import "./index.scss";
 
 
@@ -47,6 +48,11 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
     const isMobile = useIsMobile(1080);
 
     useEffect(() => {
+        (() => getNurseryInfo())();
+        return () => setNeedRequest(true);
+    }, [match]);
+
+    const getNurseryInfo = () => {
         (() => Request({
             url: endpointGetNurseryInfo + alias
         }, data => {
@@ -67,7 +73,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
             setLoading(false);
         }))();
         return () => setNeedRequest(true);
-    }, [alias]);
+    }
 
     const onSubscriptionUpdate = (subscribed) => {
         setNursery({
@@ -85,9 +91,15 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
-                                {isMobile && !nursery.headliner_link ? null : <Card className="nursery-page__content-banner">
-                                    <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}`, backgroundColor: '#fff' }} />
-                                </Card>}
+                                {isMobile && !nursery.headliner_link
+                                    ? null
+                                    : !isMobile
+                                    && <UserBanner
+                                        link={nursery.headliner_link}
+                                        canEdit={canEdit}
+                                        updateInfo={getNurseryInfo}
+                                    />
+                                }
                                 {isMobile &&
                                     <>
                                         <UserHeader

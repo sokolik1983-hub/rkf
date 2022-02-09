@@ -9,29 +9,32 @@ import CardFooter from '../CardFooter';
 import "./index.scss";
 
 
-const CardOrganization = ({
-                            id,
-                            alias,
-                            logo,
-                            name,
-                            user_type,
-                            active_member,
-                            active_rkf_user,
-                            city_name,
-                            city_id,
-                            owner_name,
-                            owner_position,
-                            federation_name,
-                            federation_alias,
-                            content,
-                            phones,
-                            mails,
-                            breeds,
-                            site,
-                            setFilters,
-                            is_liked,
-                            like_count,
-                          }) => {
+const CardOrganization = (props) => {
+
+    const {
+        id,
+        alias,
+        logo,
+        name,
+        user_type,
+        active_member,
+        active_rkf_user,
+        city_name,
+        city_id,
+        owner_name,
+        owner_position,
+        federation_name,
+        federation_alias,
+        content,
+        phones,
+        mails,
+        breeds,
+        site,
+        setFilters,
+        is_liked,
+        like_count,
+    } = props;
+
     const url = user_type === 4 ? `/kennel/${ alias }` : user_type === 7 ? null :
         (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` : `/${ alias }/`;
 
@@ -244,7 +247,7 @@ const CardOrganization = ({
             <div className="card-organization__controls">
                 <CardFooter
                     id={ id }
-                    share_link={ `https://rkf.online${ url }` }
+                    share_link={window.location.host === 'rkf.online' ? `https://rkf.online${ url }` : `https://stage.uep24.ru${ url }`}
                     is_liked={is_liked}
                     like_count={like_count}
                     likesOn={true}

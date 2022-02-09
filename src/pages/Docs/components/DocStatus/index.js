@@ -92,8 +92,8 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
         <Loading /> : !standardView ? <Card className="club-documents-status__popup">
             <div className="club-documents-status__controls" style={{ position: 'relative', top: '10px' }}>
                 <CustomCheckbox
-                    id={'is_archive_pkg'}
-                    label={'Архивные заявки'}
+                    id="is_archive_pkg"
+                    label="Архивные заявки"
                     checked={isArchivePkg}
                     onChange={() => setIsArchivePkg(!isArchivePkg)}
                     style={{ position: 'relative', top: '4px' }}
@@ -132,7 +132,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
             />
                 {showModal && <Modal
                     showModal={!!showModal}
-                    headerName={'Заявители'}
+                    headerName="Заявители"
                     handleClose={() => setShowModal(false)}
                     outsideClickHandler={() => setShowModal(false)}
                     noBackdrop={true}
@@ -162,8 +162,8 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                         ? <div className="club-documents-status__controls-wrap">
                             <div className="club-documents-status__controls" style={{ marginTop: '15px' }}>
                                 <CustomCheckbox
-                                    id={'is_archive_pkg'}
-                                    label={'Архивные заявки'}
+                                    id="is_archive_pkg"
+                                    label="Архивные заявки"
                                     checked={isArchivePkg}
                                     onChange={() => setIsArchivePkg(!isArchivePkg)}
                                     style={{ position: 'relative', top: '4px' }}
@@ -230,7 +230,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 </div>
                 {showModal && <Modal
                     showModal={!!showModal}
-                    headerName={'Заявители'}
+                    headerName="Заявители"
                     handleClose={() => setShowModal(false)}
                     outsideClickHandler={() => setShowModal(false)}
                     noBackdrop={true}

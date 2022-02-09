@@ -83,7 +83,7 @@ const RenderFields = ({ formik, working, handleError, setWorking }) => {
             <Card>
                 <div className="UserEdit__main-info">
                     <div className="UserEdit__main-info-left">
-                        <ActiveImageWrapper onChangeFunc={file => handleUpload(file, true)} requestUrl={'/'} >
+                        <ActiveImageWrapper onChangeFunc={file => handleUpload(file, true)} requestUrl="/" >
                             <div
                                 style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.userAvatar})` }}
                                 className="UserEdit__main-info-logo"
@@ -101,7 +101,7 @@ const RenderFields = ({ formik, working, handleError, setWorking }) => {
                 </div>
                 <div className="UserEdit__banner-wrap">
                     <div className="UserEdit__banner-title">Обложка</div>
-                    <ActiveImageWrapper onChangeFunc={file => handleUpload(file, false)} requestUrl={'/'} className="test" >
+                    <ActiveImageWrapper onChangeFunc={file => handleUpload(file, false)} requestUrl="/" className="test" >
                         <div style={{ backgroundImage: `url(${headliner_link ? headliner_link : DEFAULT_IMG.emptyGallery})` }} className="UserEdit__banner" />
                     </ActiveImageWrapper>
                 </div>
@@ -123,7 +123,7 @@ const RenderFields = ({ formik, working, handleError, setWorking }) => {
                         <div>
                             <CustomCheckbox
                                 id="gender-m"
-                                label={"M"}
+                                label="M"
                                 checked={getIn(formik.values, 'personal_information.sex_type_id') === 1 ? true : false}
                                 onChange={() => handleGenderChange(1)}
                             />

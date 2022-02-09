@@ -40,7 +40,7 @@ const AdditionalDocumentUpload = ({ documents, setDocuments, docTypes, documents
             name="documents"
             fileFormats={['.pdf', '.jpg', '.jpeg']}
             component={FormUpload}
-            saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
+            saveUrl="/api/requests/membership_confirmation_request/membershipconfirmationdocument"
             saveField="document"
             multiple={false}
             onBeforeUpload={e => onBeforeUpload(e)}

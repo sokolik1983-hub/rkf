@@ -43,7 +43,7 @@ const RequestRegistry = ({ history, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <div className="club-documents-status__controls" style={{ position: 'relative', top: '20px' }}>
+            <div className="club-documents-status__controls">
                 {document_id && <button
                     className="club-documents-status__control club-documents-status__control--resetIcon"
                 >

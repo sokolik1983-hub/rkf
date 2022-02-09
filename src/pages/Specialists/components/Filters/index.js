@@ -8,7 +8,6 @@ import BreedGroupsFilter from "../../../../components/Filters/BreedGroupsFilter"
 import BreedsFilter from "../../../../components/Filters/BreedsFilter";
 import RankFilter from "../../../../components/Filters/RankFilter";
 import ContestsFilter from "../../../../components/Filters/ContestsFilter";
-import ClassificationsFilter from "../../../../components/Filters/ClassificationsFilter";
 import SpecializationsFilter from "../../../../components/Filters/SpecializationsFilter";
 import DisciplinesFilter from "../../../../components/Filters/DisciplinesFilter";
 import AllBbreedsFilter from "../../../../components/Filters/AllBbreedsFilter";

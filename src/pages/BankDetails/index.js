@@ -81,18 +81,6 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                         bank_details
                     />}
 
-                    { user_type === 1 && isMobile &&
-                    <HorizontalMenu menu={userNav(alias).filter(item => item.id !== 4 && item.id !== 3 && item.id !== 8)} />
-                    }
-
-                    { user_type === 3 && isMobile &&
-                        <HorizontalMenu menu={clubNav(alias).filter(item => item.id !== 6 && item.id !== 10 && item.disabled !== true )} />
-                    }
-
-                    { user_type === 4 && isMobile &&
-                        <HorizontalMenu menu={kennelNav(alias).filter(item => item.id !== 3 && item.id !== 7)} />
-                    }
-
                     <div className="base-search__content-wrap">
                         {isMobile && user_type === 1 && <Card style={{ margin: '16px 0 16px 0', padding: '10px' }}>
                             <UserInfo
@@ -130,8 +118,8 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                                 <DetailsCard
                                     isUserCard
                                     docList={oankooFedList(fedIdList)}
-                                    iconClassName={'oankoo-logo'}
-                                    title={`Реквизиты ОАНКОО`}
+                                    iconClassName="oankoo-logo"
+                                    title="Реквизиты ОАНКОО"
                                     description={`В данном разделе Вы можете ознакомиться с реквизитами ОАНКОО для оплаты членских взносов и оформления племенных документов. В целях осуществления регистрации помета, изготовления родословной необходимо произвести оплату по указанным реквизитам и прикрепить платежный документ к соответствующей заявке в разделе "Оформление документов".`}
                                 />
                             </>}

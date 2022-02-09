@@ -78,7 +78,7 @@ function CitySelect({ cityFilter, currentCity }) {
                 menuIsOpen={true}
                 controlShouldRenderValue={false}
                 clearable={true}
-                placeholder={'Начните вводить город'}
+                placeholder="Начните вводить город"
                 noOptionsMessage={noOptionsMessage}
                 isSearchable
                 value={city}
