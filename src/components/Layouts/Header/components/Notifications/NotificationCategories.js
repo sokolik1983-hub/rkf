@@ -15,7 +15,7 @@ const NotificationCategories = ({ categories, currentCategory, setCurrentCategor
                             <div className="NotificationCategories__item-icon" style={{ backgroundImage: `url(${c.icon})` }} />
                             <div className="NotificationCategories__item-name">{c.name}</div>
                             {c.count > 0 &&
-                                <div className="NotificationCategories__item-count">{c.count}</div>
+                                <div className="NotificationCategories__item-count">{c.count <= 99 ? c.count : '99+'}</div>
                             }
                         </div>
                     </div>
