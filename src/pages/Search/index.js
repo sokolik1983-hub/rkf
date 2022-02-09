@@ -24,9 +24,6 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     const [searchTabActiveName, setSearchTabActiveName] = useState(null);
     const [isMenuChanges, setIsMenuChanges] = useState(false);
 
-    console.log('filtersValue', filtersValue)
-    console.log('filters', filters)
-
     useEffect(() => {
         filters.forEach(filter => {
             if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) setSearchTabActiveName(filter.name);

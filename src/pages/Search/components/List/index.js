@@ -1,5 +1,6 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+
 import Loading from "../../../../components/Loading";
 import CardOrganization from "../../../../components/CardOrganization";
 import CardExhibition from "../../../../components/CardExhibition";
@@ -7,14 +8,12 @@ import CardNewsNew from "../../../../components/CardNewsNew";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {formatDateCommon} from "../../../../utils/datetime";
-import "./index.scss";
 import CardSpecialist from "../../../../components/CardSpecialist";
+
+import "./index.scss";
 
 
 const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
-    console.log('SearchList')
-    console.log('filtersSearchType', filtersSearchType)
-    console.log('searchResult', searchResult)
     const {dictionary} = useDictionary('rank_type');
 
     const getDate = dates => {
@@ -90,10 +89,9 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                                 <CardSpecialist
                                     {...item}
                                     searchTypeId={
-                                        //Костыль, работающий от фильтров. Если надо будет одновременно выводить разные карточки, то это работать не будет
-                                        filtersSearchType === 401 ? 4 :
-                                        filtersSearchType === 402 ? 1 :
-                                        filtersSearchType === 403 ? 2 : 3
+                                        item.global_search_type_id === 401 ? 4 :
+                                        item.global_search_type_id === 402 ? 1 :
+                                        item.global_search_type_id === 403 ? 2 : 3
                                     }
                                 />
                             }

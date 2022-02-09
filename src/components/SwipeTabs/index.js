@@ -81,7 +81,7 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
                             {item.title}
                             {!!item.count &&
                                 <span className="swipe-tabs__tab-count">
-                                    {item.count}
+                                    {item.count <= 99 ? item.count : '99+'}
                                 </span>
                             }
                         </span>

@@ -5,7 +5,6 @@ export default class InputPassword extends PureComponent {
         show: false
     };
     toggle=()=>{
-        console.log('toggle')
         this.setState(prevState=>({show: !prevState.show}))
     }
     render() {
