@@ -35,6 +35,7 @@ const ModalDeleteBanner = ({ closeModal, updateInfo }) => {
             method: 'DELETE'
         }, () => {
             closeModal();
+            blockContent();
             updateInfo(true);
         }, error => {
             handleError(error);
