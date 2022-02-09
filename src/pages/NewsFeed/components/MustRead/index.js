@@ -26,7 +26,7 @@ const MustRead = ({ setActiveCategoryId, notificationUrlIndex, setShowFilters })
     return (
         <div className="must-read">
             <Checkbox
-                label={'Обязательные к прочтению'}
+                label="Обязательные к прочтению"
                 onChange={handleCheck}
                 checked={isChecked}
             />

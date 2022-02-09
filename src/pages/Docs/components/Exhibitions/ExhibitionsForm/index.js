@@ -271,11 +271,11 @@ const ExhibitionsForm = ({ clubAlias, history, status }) => {
                                                 <LocalizationProvider language="ru">
                                                     <IntlProvider locale="ru">
                                                         <FormComboBox
-                                                            id={'city_id'}
-                                                            name={'city_id'}
-                                                            label={'Город проведения выставки'}
+                                                            id="city_id"
+                                                            name="city_id"
+                                                            label="Город проведения выставки"
                                                             component={FormComboBox}
-                                                            textField={'name'}
+                                                            textField="name"
                                                             data={exhibitionProperties.cities}
                                                             placeholder={status ? formRenderProps.valueGetter('city_name') : ''}
                                                             onChange={formRenderProps.onChange}

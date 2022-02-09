@@ -76,7 +76,7 @@ const IndividualRegistration = ({ history }) => {
             {successAlert &&
                 <Alert
                     title="Регистрация прошла успешно!"
-                    text={'На указанный e-mail отправлено письмо.'}
+                    text="На указанный e-mail отправлено письмо."
                     autoclose={7.5}
                     onOk={() => setSuccessAlert(false)}
                 />
@@ -84,7 +84,7 @@ const IndividualRegistration = ({ history }) => {
             {errorAlert &&
                 <Alert
                     title="Произошла ошибка! =("
-                    text={'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.'}
+                    text="Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи."
                     autoclose={7.5}
                     onOk={() => setErrorAlert(false)}
                 />

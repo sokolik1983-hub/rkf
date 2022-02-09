@@ -352,7 +352,7 @@ const NewsFeedItem = forwardRef(({
                 <div className="NewsFeedItem__controls">
                     <CardFooter
                         id={ id }
-                        share_link={ `https://rkf.online/news/${id}` }
+                        share_link={window.location.host === 'rkf.online' ? `https://rkf.online/news/${id}` : `https://stage.uep24.ru/news/${id}`}
                         is_liked={is_liked}
                         like_count={like_count}
                         likesOn={true}

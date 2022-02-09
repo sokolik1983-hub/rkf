@@ -118,8 +118,8 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
                                 <DetailsCard
                                     isUserCard
                                     docList={oankooFedList(fedIdList)}
-                                    iconClassName={'oankoo-logo'}
-                                    title={`Реквизиты ОАНКОО`}
+                                    iconClassName="oankoo-logo"
+                                    title="Реквизиты ОАНКОО"
                                     description={`В данном разделе Вы можете ознакомиться с реквизитами ОАНКОО для оплаты членских взносов и оформления племенных документов. В целях осуществления регистрации помета, изготовления родословной необходимо произвести оплату по указанным реквизитам и прикрепить платежный документ к соответствующей заявке в разделе "Оформление документов".`}
                                 />
                             </>}

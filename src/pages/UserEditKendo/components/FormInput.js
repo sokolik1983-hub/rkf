@@ -13,7 +13,7 @@ const FormInput = (fieldRenderProps) => {
     return (
         <FieldWrapper>
             <Label editorId={id} editorValid={valid} editorDisabled={disabled} optional={optional}>{label}</Label>
-            <div className={'k-form-field-wrap'}>
+            <div className="k-form-field-wrap">
                 <Input
                     valid={valid}
                     type={type}
@@ -23,9 +23,9 @@ const FormInput = (fieldRenderProps) => {
                     {...others}
                 />
                 {
-                    showValidationMessage ? <Error id={errorId}>{validationMessage}</Error> 
-                    : 
-                    maxLength ? <Hint ariaDescribedBy={`${errorId}`}>{passwordField ? `От 6 до 20 символов` : `Макс. кол-во символов: ${maxLength}`}</Hint> 
+                    showValidationMessage ? <Error id={errorId}>{validationMessage}</Error>
+                    :
+                    maxLength ? <Hint ariaDescribedBy={`${errorId}`}>{passwordField ? `От 6 до 20 символов` : `Макс. кол-во символов: ${maxLength}`}</Hint>
                     : ''
                 }
             </div>

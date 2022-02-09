@@ -21,7 +21,7 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
 
     return <>
         <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
-            {url ? <object data={url} type={'image/jpeg'}> </object> : <Loading/>}
+            {url ? <object data={url} type="image/jpeg"> </object> : <Loading/>}
         </Modal>
         {!!docId && <div className="FormInput">
             <label>{showLabel ? label : "\u00a0"}</label>

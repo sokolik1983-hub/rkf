@@ -206,10 +206,10 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <DocApplyLitter clubAlias={clubAlias} history={history} distinction="litter" />}
                         />
                         <Route exact={true} path='/club/:route/documents/pedigree/:id' component={() =>
-                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction="pedigree" />}
                         />
                         <Route exact={true} path='/club/:route/documents/pedigree/:id/edit' component={() =>
-                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction="pedigree" />}
                         />
 
                         <Route path='/club/:route/documents' component={() => <DocHome clubAlias={clubAlias} history={history} />} />
@@ -366,10 +366,10 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <DocApplyLitter clubAlias={clubAlias} history={history} distinction="litter" />}
                         />
                         <Route exact={true} path='/:route/documents/pedigree/:id' component={() =>
-                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction="pedigree" />}
                         />
                         <Route exact={true} path='/:route/documents/pedigree/:id/edit' component={() =>
-                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction="pedigree" />}
                         />
 
                         <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} history={history} />} />

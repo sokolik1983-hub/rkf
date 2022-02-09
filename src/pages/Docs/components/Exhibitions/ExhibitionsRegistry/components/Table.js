@@ -60,7 +60,7 @@ const handleCancel = (e, id) => {
 const RankCell = ({ dataItem }) => {
     const { format_name, rank_name, national_breed_club_name } = dataItem;
     let fieldValue = format_name === "Монопородная" ? national_breed_club_name : rank_name;
-    
+
     return <td>{fieldValue}</td>
 };
 
@@ -221,8 +221,8 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
     return (
         <>
             <LocalizationProvider language="ru-RU">
-                <IntlProvider locale={'ru'}>
-                    <div className={'user-documents-status__filters-wrap'}>
+                <IntlProvider locale="ru">
+                    <div className="user-documents-status__filters-wrap">
                         <div className="chip-list__wrap">
                             <ChipList
                                 selection="single"

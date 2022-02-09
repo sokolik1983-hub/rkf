@@ -27,11 +27,11 @@ const PuppyItem = ({ formik, puppy, i, j, activePuppy, activateClick, deleteClic
             </td>
         </tr>
         <Modal
-            iconName={'puppy-white'}
+            iconName="puppy-white"
             showModal={activePuppy === j}
             handleClose={() => activePuppy === j && activateClick()}
             handleX={() => activePuppy === j && (activateClick() || (allFielsEmpty(puppy) && deleteClick(true)))}
-            headerName = {"Добавление щенка"}
+            headerName = "Добавление щенка"
         >
             <div className="puppy-modal-content">
                 <FormGroup inline>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useHistory, useLocation} from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
 
@@ -225,6 +225,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const [errorText, setErrorText] = useState(null);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
+    const [currentPageAlias, setCurrentPageAlias] = useState('');
     const { user_type, alias } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
         e.preventDefault();
@@ -241,14 +242,13 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
     const location = useLocation();
-    let url =  location.pathname.split('/')[1];
 
     useEffect(() => {
-        if (showDetails) {
+        if (showDetails && currentPageAlias && currentPageAlias !== 'rkf') {
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({
-                url: `/api/federation/federation_documents?Alias=${alias}`
+                url: `/api/federation/federation_documents?Alias=${currentPageAlias}`
             }, data => {
                 setFedFeesId(data[0]?.documents?.filter(i => i.document_type_id === 2)[0].document_id);
                 setFedDetails(data[0]?.documents?.filter(i => i.document_type_id === 1)[0].document_id);
@@ -257,7 +257,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 history.replace('/');
             }))();
         }
-    }, [alias]);
+    }, [currentPageAlias]);
 
     // const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
@@ -269,12 +269,12 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     };
 
     const showPresidium = () => {
-        if (alias === 'rfls') {
+        if (currentPageAlias === 'rfls') {
             return presidiumRfls
         } else {
             return <>
                 <ol className="menu-component__wrap-list">
-                    {presidium[alias].members.map((member, i) =>
+                    {presidium[currentPageAlias].members.map((member, i) =>
                         <li className="menu-component__wrap-item" key={i}>{member}</li>
                     )}
                 </ol>
@@ -448,6 +448,15 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
 
     }, [fedInfo]);
 
+    useEffect(() => {
+        let url =  location.pathname.split('/')[1];
+        if(url === 'exhibitions') {
+            setCurrentPageAlias(location.search.split('=')[1]);
+        } else {
+            setCurrentPageAlias(url);
+        }
+    }, []);
+
     return (
         <>
             {isMobile ?
@@ -475,7 +484,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                             handleClose={(e) => !moreRef.current.contains(e.target) && setOpenMenuComponent(false)}
                             bottomStyle
                         >
-                            {((location.pathname.search("documents") > -1) || (location.pathname.search("bank-details") > -1))? <>
+                            {((location.pathname.search("documents") > -1) || (location.pathname.search("bank-details") > -1)) ?
                             <div className="user-menu__inner">
                                 <div className="banner-federation">
                                     <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
@@ -492,7 +501,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                                         }
                                         <NavLink
                                             to={user_type === 3
-                                            && url === 'club'
+                                            && currentPageAlias === 'club'
                                             && alias !== 'rkf'
                                             && alias !== 'rkf-online'
                                             && navItem.title !== 'Поиск по базе РКФ'
@@ -510,8 +519,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
 
                                 )}
                             </ul>
-                            </div>
-                            </> : <>
+                            </div> :
                             <div className="user-menu__inner">
                                 <div className="banner-federation">
                                     <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
@@ -524,7 +532,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                                         <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
                                     </li>
                                     }
-                                    {presidium[alias] &&
+                                    {isFederation &&
                                     <li className="user-menu__item">
                                         <NavLink exact to="/" onClick={getPresidium} className="user-menu__link _presidium" title="Президиум">Президиум</NavLink>
 
@@ -568,8 +576,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                                         </NavLink>
                                     </li>
                                 </ul>
-                            </div>
-                            </>}
+                            </div>}
                         </PopupModal>
                     </CSSTransition>
                 </OutsideClickHandler>
@@ -580,13 +587,13 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                         <NavLink
                             exact
-                            to={`/exhibitions?Alias=${alias}`}
+                            to={`/exhibitions?Alias=${currentPageAlias}`}
                             className="menu-component__link _events"
                             title="Мероприятия"
                         >Мероприятия</NavLink>
                     </li>
                 }
-                    {presidium[alias] &&
+                    {isFederation &&
                     <li className="menu-component__item">
                         <NavLink
                             exact
@@ -600,7 +607,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                     <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`}
+                        to={user === 'nursery' ? `/kennel/${alias}/news` : `/${currentPageAlias}/news`}
                         className="menu-component__link _public"
                         title="Публикации"
                     >Публикации</NavLink>
@@ -608,7 +615,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`}
+                        to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${currentPageAlias}/uploaded-documents/`}
                         className="menu-component__link _documents"
                         title="Документы"
                     >Документы</NavLink>
@@ -616,7 +623,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`}
+                        to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${currentPageAlias}/gallery`}
                         className="menu-component__link _gallery"
                         title="Фотогалерея"
                     >Фотогалерея</NavLink>
@@ -624,7 +631,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`}
+                        to={user === 'nursery' ? `/kennel/${alias}/video` : `/${currentPageAlias}/video`}
                         className="menu-component__link _video"
                         title="Фотогалерея"
                     >Видеозаписи</NavLink>
@@ -649,7 +656,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                     <li className="menu-component__item">
                         <NavLink
                             exact
-                            to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`}
+                            to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${currentPageAlias}/document-status`}
                             className="menu-component__link _documents"
                             title="Статус документов"
                         >Статус документов</NavLink>
@@ -658,7 +665,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                     <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`}
+                        to={user === 'nursery' ? `/kennel/${alias}` : `/${currentPageAlias}`}
                         className="menu-component__link _club"
                         title={name}
                     >
@@ -670,7 +677,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             }
             {showModal &&
                 <Modal
-                    iconName={'icon-presidium-white'}
+                    iconName="icon-presidium-white"
                     headerName={alias === 'rfls' ? "Президиум РФЛС" : "Президиум"}
                     className="menu-component__modal"
                     showModal={showModal} handleClose={() => setShowModal(false)}

@@ -97,9 +97,7 @@ export const SvgSelector = ({icon}) => {
             );
 
         default:
-            return (
-                <></>
-            );
+            return null
     }
 }
 

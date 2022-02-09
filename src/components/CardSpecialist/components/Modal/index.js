@@ -9,7 +9,7 @@ const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, 
         ReactDOM.createPortal(
             <div className={(showModal ? 'Modal-specialist' : 'Modal-specialist--hidden') + (noBackdrop ? ' no-backdrop' : '') + (className ? ' ' + className : '')}>
                 <OutsideClickHandler onOutsideClick={handleClose}>
-                    <div className={'Modal-specialist__wrap'}>
+                    <div className="Modal-specialist__wrap">
                         <div style={{ backgroundColor: 'transparent', width: '100px', height: '40px' }}>
                             <div className="Modal-specialist__close" onClick={handleX ? handleX : handleClose} />
                         </div>

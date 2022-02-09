@@ -575,11 +575,11 @@ const Application = ({ alias, history, status, owner }) => {
                                             <LocalizationProvider language="ru">
                                                 <IntlProvider locale="ru">
                                                     <FormComboBox
-                                                        id={'breed_id'}
-                                                        name={'breed_id'}
-                                                        label={'Порода'}
+                                                        id="breed_id"
+                                                        name="breed_id"
+                                                        label="Порода"
                                                         component={FormComboBox}
-                                                        textField={'name'}
+                                                        textField="name"
                                                         data={formRenderProps.valueGetter('breeds')}
                                                         placeholder={formRenderProps.valueGetter('breed_id')
                                                             ? formRenderProps.valueGetter('breed_name') : "Не выбран"}

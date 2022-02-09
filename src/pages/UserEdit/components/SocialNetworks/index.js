@@ -15,7 +15,7 @@ const SocialNetworks = ({ social_networks }) => {
                     {social_networks.map((social, index) => (
                         <FormGroup inline key={index}>
                             <FormField
-                                placeholder={'Введите ссылку на сайт'}
+                                placeholder="Введите ссылку на сайт"
                                 name={`social_networks[${index}].site`}
                             />
                             <FormField

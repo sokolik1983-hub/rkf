@@ -405,7 +405,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                             name="payment_document_id"
                                                             fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                             component={FormUpload}
-                                                            saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
+                                                            saveUrl="/api/requests/membership_confirmation_request/membershipconfirmationdocument"
                                                             saveField="document"
                                                             multiple={false}
                                                             showActionButtons={!documentsOverflow}

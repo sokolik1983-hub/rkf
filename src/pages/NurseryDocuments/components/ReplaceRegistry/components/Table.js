@@ -217,7 +217,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
 
     return (<>
         <LocalizationProvider language="ru-RU">
-            <IntlProvider locale={'ru'}>
+            <IntlProvider locale="ru">
                 <StickyFilters>
                     <div className="club-documents-status__chips" style={{ marginTop: '10px' }}>
                         <div className="chip-list__wrap">
@@ -227,15 +227,15 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                                 onChange={handleDropDownChange}
                             />
                             <CustomCheckbox
-                                id={'is_archive'}
-                                label={'Архивные заявки'}
+                                id="is_archive"
+                                label="Архивные заявки"
                                 checked={isArchive}
                                 onChange={() => setIsArchive(!isArchive)}
                             />
                         </div>
                     </div>
                     <div className={`club-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
-                        <div className={'club-documents-status__checkbox-wrap'}>
+                        <div className="club-documents-status__checkbox-wrap">
                             {!!reqTypes.length && reqTypes.map(({ id, name }) =>
                                 <Checkbox
                                     key={id}

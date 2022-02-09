@@ -32,7 +32,7 @@ const ClubInfoForm = ({
         <div>
             <Form
                 method="PUT"
-                action={"/api/Club"}
+                action="/api/Club"
                 validationSchema={clubInfoFormConfig.validationSchema}
                 onSuccess={onSuccess}
                 initialValues={clubInfo}

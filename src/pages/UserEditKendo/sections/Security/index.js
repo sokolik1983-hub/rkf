@@ -114,7 +114,7 @@ const Security = ({setFormModified, history, handleSuccess, handleError}) => {
     return loading ?
         <Loading centered={false}/> :
         <div className="ue-security k-form">
-            <legend className={'k-form-legend'}>Безопасность</legend>
+            <legend className="k-form-legend">Безопасность</legend>
             <Form
                 onSubmit={submitAliasForm}
                 initialValues={{alias}}

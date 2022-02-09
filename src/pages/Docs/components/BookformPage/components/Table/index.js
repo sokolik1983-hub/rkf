@@ -122,7 +122,7 @@ class StatusTable extends PureComponent {
                 {this.state.showModal &&
                     <Modal
                         showModal={this.state.showModal}
-                        headerName={'Заявители'}
+                        headerName="Заявители"
                         handleClose={() => this.setState({showModal: false})}
                         noBackdrop={true}
                         hideCloseButton={true}

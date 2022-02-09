@@ -5,11 +5,12 @@ import EditPageButtons from '../EditPageButtons';
 import Card from '../../../../components/Card';
 
 const ClubContactsCard = ({
+        handleSuccess,
+        handleSubmitForms,
+        bindSubmitClubInfo,
         bindSubmitClubEmail,
         bindSubmitClubPhone,
-        bindSubmitClubInfo,
         bindSubmitClubSocials,
-        handleSubmitForms,
 }) => {
 
     return (
@@ -24,6 +25,7 @@ const ClubContactsCard = ({
                 bindSubmitForm={bindSubmitClubSocials}
             />
             <EditPageButtons
+                handleSuccess={handleSuccess}
                 handleSubmitForms={handleSubmitForms}
             />
         </Card>

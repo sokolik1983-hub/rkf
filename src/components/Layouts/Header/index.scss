@@ -1306,4 +1306,13 @@ span.position-relative {
   }
 }
 
+.stroke-color {
+  &__active {
+    stroke: #3366FF;
+  }
+  &__inactive {
+    stroke: #90999E;
+  }
+}
+
 

@@ -118,7 +118,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
     const { club_alias,
         display_name,
         club_fact_name,
-        id,
         federation_name,
         federation_alias,
         club_legal_name,
@@ -192,7 +191,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                             alias={club_alias}
                                             pageLink={`/${club_alias}/gallery`}
                                         />}
-                                        
+
                                         <CopyrightInfo withSocials={true} />
 
                                         <div className="mobile-only">
@@ -229,8 +228,8 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                         {address && <p>{address}</p>}
                                         <br />
 
-                                    {   
-                                        contacts && !!contacts.length 
+                                    {
+                                        contacts && !!contacts.length
                                             ? contacts.sort((a,b) => {
                                                 if(a.is_main > b.is_main) return -1
                                                 if(a.is_main < b.is_main) return 1
@@ -282,7 +281,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                 {/*            alias={club_alias}*/}
                                 {/*            pageLink={`/${club_alias}/gallery`}*/}
                                 {/*        />}*/}
-                                       
+
                             </div>
                         </div>
                     </Container>

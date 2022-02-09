@@ -262,8 +262,8 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport,
     return (
         <>
             <LocalizationProvider language="ru-RU">
-                <IntlProvider locale={'ru'}>
-                    <div className={'user-documents-status__filters-wrap'}>
+                <IntlProvider locale="ru">
+                    <div className="user-documents-status__filters-wrap">
                         <div className="chip-list__wrap">
                             <ChipList
                                 selection="single"
@@ -271,8 +271,8 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport,
                                 onChange={handleDropDownChange}
                             />
                             <CustomCheckbox
-                                id={'is_archive'}
-                                label={'Архивные заявки'}
+                                id="is_archive"
+                                label="Архивные заявки"
                                 checked={isArchive}
                                 onChange={() => setIsArchive(!isArchive)}
                             />
