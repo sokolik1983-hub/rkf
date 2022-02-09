@@ -12,6 +12,9 @@ import CardSpecialist from "../../../../components/CardSpecialist";
 
 
 const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
+    console.log('SearchList')
+    console.log('filtersSearchType', filtersSearchType)
+    console.log('searchResult', searchResult)
     const {dictionary} = useDictionary('rank_type');
 
     const getDate = dates => {

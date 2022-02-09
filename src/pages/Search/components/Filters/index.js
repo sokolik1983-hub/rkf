@@ -21,6 +21,8 @@ const Filters = ({
     }, [isOpenFilters]);
 
     const checkFilter = (filter) => {
+        console.log(filter.items[0].search_type)
+        console.log(filtersValue.search_type)
         if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) return true;
     }
 

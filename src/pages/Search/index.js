@@ -24,6 +24,8 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     const [searchTabActiveName, setSearchTabActiveName] = useState(null);
     const [isMenuChanges, setIsMenuChanges] = useState(false);
 
+    console.log('filtersValue', filtersValue)
+    console.log('filters', filters)
 
     useEffect(() => {
         filters.forEach(filter => {

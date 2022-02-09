@@ -9,11 +9,11 @@ const Search = ({ withFilters, hideSideMenu }) => {
     const [isClicked, setIsClicked] = useState(false);
 
     const getSearchTypeId = () => {
-        const url = window.location.href;
+        const urlPath = window.location.pathname;
 
-        return !!url.match(/organizations/) ? 100 :
-                !!url.match(/exhibitions/) ? 300 :
-                !!url.match(/specialists/) ? 400 : 200;
+        return urlPath === '/organizations' ? 100 :
+                urlPath === '/exhibitions' ? 300 :
+                urlPath === '/specialists' ? 400 : 200;
     }
 
     const handleSubmit = e => {
