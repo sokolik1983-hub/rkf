@@ -333,7 +333,7 @@ const RenderFields = ({ fields,
                             <div className="FormInput__error">Выберите категорию объявления.</div>
                         </div>
                     }
-                    <FormGroup className="ArticleCreateForm__advert BuySell">
+                    <FormGroup className={`ArticleCreateForm__advert BuySell ${isMating && 'isMating'}`}>
                         <FormField className="ArticleCreateForm__input-breed_new" {...fields.advert_breed_id} />
                         <FormField className="ArticleCreateForm__input-sex_new" {...fields.dog_sex_type_id} />
                         <FormField className="ArticleCreateForm__input-color_new" {...fields.dog_color} />
