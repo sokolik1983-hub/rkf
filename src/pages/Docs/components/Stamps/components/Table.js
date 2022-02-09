@@ -101,8 +101,8 @@ const Table = ({ documents, setDefaultStamp }) => {
 
     return (
         <LocalizationProvider language="ru-RU">
-            <IntlProvider locale={'ru'}>
-                <div className={'club-documents-status__filters-wrap'}>
+            <IntlProvider locale="ru">
+                <div className="club-documents-status__filters-wrap">
                     <strong>Фильтры: </strong>&nbsp;
                     <DropDownList
                         data={categories}

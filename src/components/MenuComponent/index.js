@@ -475,7 +475,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                             handleClose={(e) => !moreRef.current.contains(e.target) && setOpenMenuComponent(false)}
                             bottomStyle
                         >
-                            {((location.pathname.search("documents") > -1) || (location.pathname.search("bank-details") > -1))? <>
+                            {((location.pathname.search("documents") > -1) || (location.pathname.search("bank-details") > -1)) ?
                             <div className="user-menu__inner">
                                 <div className="banner-federation">
                                     <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
@@ -510,8 +510,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
 
                                 )}
                             </ul>
-                            </div>
-                            </> : <>
+                            </div> :
                             <div className="user-menu__inner">
                                 <div className="banner-federation">
                                     <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
@@ -568,8 +567,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                                         </NavLink>
                                     </li>
                                 </ul>
-                            </div>
-                            </>}
+                            </div>}
                         </PopupModal>
                     </CSSTransition>
                 </OutsideClickHandler>
@@ -670,7 +668,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             }
             {showModal &&
                 <Modal
-                    iconName={'icon-presidium-white'}
+                    iconName="icon-presidium-white"
                     headerName={alias === 'rfls' ? "Президиум РФЛС" : "Президиум"}
                     className="menu-component__modal"
                     showModal={showModal} handleClose={() => setShowModal(false)}

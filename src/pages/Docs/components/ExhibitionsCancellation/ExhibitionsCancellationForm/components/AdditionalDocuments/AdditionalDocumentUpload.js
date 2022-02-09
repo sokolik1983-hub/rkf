@@ -34,7 +34,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, disabled, setD
             name="documents_upload"
             fileFormats={['.pdf', '.jpg', '.jpeg']}
             component={FormUpload}
-            saveUrl={'/api/requests/exhibition_request/clubexhibitionrequestdocument'}
+            saveUrl="/api/requests/exhibition_request/clubexhibitionrequestdocument"
             saveField="file"
             multiple={false}
             onBeforeUpload={e => onBeforeUpload(e)}

@@ -76,7 +76,7 @@ const Header = ({
                     }
                     {!isAuthenticated && isMobile &&
                         <div className={`header__widgets--feedback${login_page ? ' __hidden' : ''}`}>
-                            <Feedback isMainNav={true} title={'Поддержка'}/>
+                            <Feedback isMainNav={true} title="Поддержка"/>
                         </div>
                     }
                     {isMobile ?

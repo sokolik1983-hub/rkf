@@ -131,7 +131,6 @@ const BookformCard = ({url, distinction}) => {
             <p>Отменить запись в Федерацию Вы можете в группе в Telegram по ссылке <a href="https://t.me/EntryRKFOnline" target="_blank" rel="noopener noreferrer">https://t.me/EntryRKFOnline</a></p>
             <hr />
             <div className="Card__links">
-                {/*<Link to={`/`} onClick={e => handleClick(e, false, null)}>Запись в {federation}</Link>*/}
                 <span className={`Card__link${!federation ? ' _not-active' : ''}`} onClick={e => handleClick(e, false, null)}>
                     Запись в {federation}
                 </span>
@@ -145,7 +144,6 @@ const BookformCard = ({url, distinction}) => {
             <hr />
             <div style={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
                 <div className="Card__links">
-                    {/*<Link to={`/`} onClick={e => handleClick(e, true, null)}>Запись на услуги РКФ</Link>*/}
                     <span className={`Card__link${!federation ? ' _not-active' : ''}`} onClick={e => handleClick(e, true, null)}>
                         Запись на услуги РКФ
                     </span>
@@ -162,10 +160,6 @@ const BookformCard = ({url, distinction}) => {
             <p>В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
             <hr />
             <div className="Card__links">
-                {/*<Link to={`/`}
-                    onClick={e => handleClick(e, null, 'federation')}
-                    className={`Card__link${!federation ? ' _not-active' : ''}`}
-                >Оценить работу {federation || 'Федерации'}</Link>*/}
                 <span className={`Card__link${!federation ? ' _not-active' : ''}`} onClick={e => handleClick(e, null, 'federation')}>
                     Оценить работу {federation || 'Федерации'}
                 </span>

@@ -55,7 +55,7 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
     return (
         <div className="App">
             <LocalizationProvider language="ru-RU">
-                <IntlProvider locale={'ru'}>
+                <IntlProvider locale="ru">
                     <div className={`chip-list__wrap _registry-wrap ${fullScreen ? `_full-registry-wrap` : ``}`}>
 
                     </div>
@@ -78,21 +78,21 @@ const Table = ({ documents, height,  fullScreen, puppiesCount}) => {
 
 
                                     <GridColumn field="barcode" title="Номер метрики щенка"
-                                                width={'110px'} columnMenu={ColumnMenu}
+                                                width="110px" columnMenu={ColumnMenu}
                                                  />
 
                                     <GridColumn field="request_barcode" title="Трек-номер заявки на регистрацию помета"
-                                                width={'120px'} columnMenu={ColumnMenu}
+                                                width="120px" columnMenu={ColumnMenu}
                                                 cell={(props) =>  CopyCell(props, handleSuccess)} />
 
                                     <GridColumn field="dog_name" title="Кличка" width={'70px'}
                                                 columnMenu={ColumnMenu} />
 
                                     <GridColumn field="stamp" title="Клеймо"
-                                                width={'60px'} columnMenu={ColumnMenu} />
+                                                width="60px" columnMenu={ColumnMenu} />
 
 
-                                    <GridColumn width={'60px'}
+                                    <GridColumn width="60px"
                                                 field="pedigree_link" title="Ссылка на эл. копию документа"
                                                 columnMenu={ColumnMenu}
                                                 cell={(props) => PdfLinkCell(props, handleOnPdfLoading)}

@@ -30,23 +30,23 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                 return (
                     <FormElement style={{ maxWidth: 550 }} >
                         <Prompt when={formRenderProps.modified} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
-                        <fieldset className={'k-form-fieldset'}>
-                            <legend className={'k-form-legend'}>Основная информация</legend>
+                        <fieldset className="k-form-fieldset">
+                            <legend className="k-form-legend">Основная информация</legend>
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="first_name" name={'first_name'} label={'Имя'} component={FormInput} maxLength="100" validator={value => nameRequiredValidator(value, 100)} />
+                                    <Field id="first_name" name="first_name" label="Имя" component={FormInput} maxLength="100" validator={value => nameRequiredValidator(value, 100)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="last_name" name={'last_name'} label={'Фамилия'} component={FormInput} maxLength="100" validator={value => nameRequiredValidator(value, 100)} />
+                                    <Field id="last_name" name="last_name" label="Фамилия" component={FormInput} maxLength="100" validator={value => nameRequiredValidator(value, 100)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="second_name" name={'second_name'} label={'Отчество'} component={FormInput} maxLength="100" validator={value => nameValidator(value, 100)} />
+                                    <Field id="second_name" name="second_name" label="Отчество" component={FormInput} maxLength="100" validator={value => nameValidator(value, 100)} />
                                 </div>
                             </div>
 
@@ -55,8 +55,8 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                     <div className="form-group col-md-6">
                                         <Field
                                             id="birth_date"
-                                            name={'birth_date'}
-                                            label={'Дата рождения'}
+                                            name="birth_date"
+                                            label="Дата рождения"
                                             min={new Date('1900')}
                                             max={today}
                                             component={FormDatePicker}
@@ -64,8 +64,8 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                     </div>
                                     <div className="form-group col-md-6 no-label-field">
                                         <Field
-                                            id={'birth_date_visibility_status_id'}
-                                            name={'birth_date_visibility_status_id'}
+                                            id="birth_date_visibility_status_id"
+                                            name="birth_date_visibility_status_id"
                                             component={FormDropDownList}
                                             data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                         />
@@ -74,9 +74,9 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <Field
-                                            id={'sex_type_id'}
-                                            name={'sex_type_id'}
-                                            label={'Пол'}
+                                            id="sex_type_id"
+                                            name="sex_type_id"
+                                            label="Пол"
                                             component={FormDropDownList}
                                             data={[{ text: 'Не выбран', value: '', id: null }, { text: 'Мужской', value: 1, id: 1 }, { text: 'Женский', value: 2, id: 2 },]}
                                         />
@@ -86,7 +86,7 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                         </fieldset>
                         <div className="k-form-buttons text-center">
                             <button
-                                type={'submit'}
+                                type="submit"
                                 className="k-button k-primary mx-auto"
                                 disabled={!formRenderProps.modified || !formRenderProps.valid || formBusy}
                             >Сохранить</button>

@@ -16,7 +16,7 @@ const RenderFields = ({ fields }) => {
 };
 
 export const AddAlbum = ({ showModal, onModalClose, onSuccess }) => {
-    return <Modal showModal={showModal} handleClose={onModalClose} className="AddAlbum__modal" headerName = {"Создание альбома"} iconName={'addfolder'}>
+    return <Modal showModal={showModal} handleClose={onModalClose} className="AddAlbum__modal" headerName ="Создание альбома" iconName="addfolder">
         <Form {...addAlbumForm} onSuccess={onSuccess}>
             <RenderFields fields={addAlbumForm.fields} />
             <div className="AddAlbum__modal-btnFrame">

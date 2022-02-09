@@ -9,7 +9,7 @@ const ListFilter = ({ setNewsFilter }) => {
     function getCity() {
         const l = localStorage.getItem('GLOBAL_CITY');
         return l ? JSON.parse(l) : { label: 'Выберите город', value: null };
-    };
+    }
 
     const cityFilter = city => setCity(city);
 
@@ -25,13 +25,13 @@ const ListFilter = ({ setNewsFilter }) => {
     return <div className="ListFilter">
         <ul>
             <li>
-                <a href="/" onClick={handleClick} className={!activeType ? 'active' : undefined}>Все</a>
+                <a href="/" onClick={handleClick} className={!activeType ? 'active' : ''}>Все</a>
             </li>
             <li>
-                <a href="/" name="rkf_and_federations" onClick={handleClick} className={activeType === 'rkf_and_federations' ? 'active' : undefined}>РКФ и Федерации</a>
+                <a href="/" name="rkf_and_federations" onClick={handleClick} className={activeType === 'rkf_and_federations' ? 'active' : ''}>РКФ и Федерации</a>
             </li>
             <li>
-                <a href="/" name="clubs" onClick={handleClick} className={activeType === 'clubs' ? 'active' : undefined}>Клубы</a>
+                <a href="/" name="clubs" onClick={handleClick} className={activeType === 'clubs' ? 'active' : ''}>Клубы</a>
             </li>
             <li style={{ opacity: 0.5 }}>
                 <span>НКП</span>

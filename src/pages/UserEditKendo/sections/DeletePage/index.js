@@ -66,7 +66,7 @@ const DeletePage = () => {
 
     return (
         <div className="ue-delete-page k-form">
-            <legend className={'k-form-legend'}>Удаление страницы</legend>
+            <legend className="k-form-legend">Удаление страницы</legend>
             {loading ?
                 <Loading centered={false} /> :
                 !date ?

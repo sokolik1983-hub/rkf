@@ -34,7 +34,7 @@ const ClientClubContactListItem = ({
     return (
         <Form
             className="ClientClubListItem"
-            action={"/api/clubs/Contact"}
+            action="/api/clubs/Contact"
             onSuccess={onUpdateSuccess}
             method="PUT"
             initialValues={clubContact}

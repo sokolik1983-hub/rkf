@@ -92,8 +92,8 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
         <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
             <div className="nursery-documents-status__controls" style={{ position: 'relative', top: '10px' }}>
                 <CustomCheckbox
-                    id={'is_archive_pkg'}
-                    label={'Архивные заявки'}
+                    id="is_archive_pkg"
+                    label="Архивные заявки"
                     checked={isArchivePkg}
                     onChange={() => setIsArchivePkg(!isArchivePkg)}
                     style={{ position: 'relative', top: '4px' }}
@@ -132,7 +132,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
             />
                 {showModal && <Modal
                     showModal={!!showModal}
-                    headerName={'Заявители'}
+                    headerName="Заявители"
                     handleClose={() => setShowModal(false)}
                     noBackdrop={true}
                     hideCloseButton={true}
@@ -161,8 +161,8 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                             <div className="nursery-documents-status__controls"
                                 style={{ marginTop: '8px', marginBottom: '11px' }}>
                                 <CustomCheckbox
-                                    id={'is_archive_pkg'}
-                                    label={'Архивные заявки'}
+                                    id="is_archive_pkg"
+                                    label="Архивные заявки"
                                     checked={isArchivePkg}
                                     onChange={() => setIsArchivePkg(!isArchivePkg)}
                                     style={{ position: 'relative', top: '4px' }}
@@ -230,7 +230,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                 </div>
                 {showModal && <Modal
                     showModal={!!showModal}
-                    headerName={'Заявители'}
+                    headerName="Заявители"
                     handleClose={() => setShowModal(false)}
                     noBackdrop={true}
                     hideCloseButton={true}

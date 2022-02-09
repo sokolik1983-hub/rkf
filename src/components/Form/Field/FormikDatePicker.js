@@ -18,7 +18,7 @@ function FormikDatePicker({ name, formik, disabled, readOnly, required = true, d
         selected={value && new Date(value)}
         onChange={date => onChange(date)}
         placeholderText={placeholderText}
-        className={'FormInput__input'}
+        className="FormInput__input"
         dateFormat={dateFormat}
         disabled={!!disabled}
         onChangeRaw={readOnly && handleDateChangeRaw}

@@ -78,8 +78,8 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
 
             <Modal
                 showModal={showModal} handleClose={() => setShowModal(false)}
-                iconName={'help-white'}
-                headerName={"Центр поддержки"}
+                iconName="help-white"
+                headerName="Центр поддержки"
                 noBackdrop={true}
                 className={`feedback__modal feedback_modal_popup`} >
                 <div className="feedback">

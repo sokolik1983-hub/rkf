@@ -54,7 +54,7 @@ const ClubRegistration = () => {
             <div className="club-registration__select-title">Город</div>
             <Select
                 className="club-registration__select"
-                placeholder={'Выберите город'}
+                placeholder="Выберите город"
                 noOptionsMessage={() => 'Город не найден'}
                 options={selectOptions}
                 onChange={onCityChange}

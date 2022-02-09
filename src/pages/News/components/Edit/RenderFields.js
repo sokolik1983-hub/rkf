@@ -385,7 +385,7 @@ const RenderFields = ({ fields,
                                                 <CustomSelect
                                                     id="cities-input"
                                                     value={currentCities}
-                                                    placeholder={'Выберите город'}
+                                                    placeholder="Выберите город"
                                                     options={cities ? cities : []}
                                                     isMulti={true}
                                                     onChange={handleCitySelect}

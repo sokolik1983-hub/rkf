@@ -145,7 +145,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
 
     return (
         <LocalizationProvider language="ru-RU">
-            <IntlProvider locale={'ru'}>
+            <IntlProvider locale="ru">
                 {documents && <Grid
                     data={process(documents, gridData)}
                     rowRender={rowRender}

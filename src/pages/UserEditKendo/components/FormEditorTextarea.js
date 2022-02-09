@@ -76,10 +76,10 @@ const FormEditorTextarea = (fieldRenderProps) => {
     }
 
     return <LocalizationProvider language="ru-RU">
-        <IntlProvider locale={'ru'}>
+        <IntlProvider locale="ru">
             <FieldWrapper>
                 <Label editorId={id} editorValid={valid} editorDisabled={disabled} optional={optional}>{label}</Label>
-                <div className={'k-form-field-wrap'}>
+                <div className="k-form-field-wrap">
                     <Editor
                         tools={editorTools}
                         contentStyle={{ height: 115, resize: 'vertical' }}

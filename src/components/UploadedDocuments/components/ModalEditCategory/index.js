@@ -35,7 +35,7 @@ const ModalEditCategory = ({ handleSuccess, handleError, getCategories, category
 
     return (
         <Modal
-            iconName={'pen-opaque-white'}
+            iconName="pen-opaque-white"
             className="edit-category-modal"
             showModal={true}
             handleClose={closeModal}

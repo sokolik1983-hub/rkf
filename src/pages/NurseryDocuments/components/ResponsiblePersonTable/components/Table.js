@@ -66,7 +66,7 @@ const Table = ({ documents, setDefaultPerson, deletePerson }) => {
 
     return (
         <LocalizationProvider language="ru-RU">
-            <IntlProvider locale={'ru'}>
+            <IntlProvider locale="ru">
                 {
                     rows && <Grid
                         data={process(rows, gridData)}

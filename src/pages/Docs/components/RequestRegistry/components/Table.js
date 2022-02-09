@@ -189,7 +189,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
     return (
         <div className="App">
             <LocalizationProvider language="ru-RU">
-                <IntlProvider locale={'ru'}>
+                <IntlProvider locale="ru">
                     <div className={`chip-list__wrap _registry-wrap ${fullScreen ? `_full-registry-wrap` : ``}`}>
                         <ChipList
                             selection="single"
@@ -197,8 +197,8 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                             onChange={handleDropDownChange}
                         />
                         <CustomCheckbox
-                            id={'is_archive'}
-                            label={'Архивные заявки'}
+                            id="is_archive"
+                            label="Архивные заявки"
                             checked={isArchive}
                             onChange={() => setIsArchive(!isArchive)}
                         />
@@ -228,7 +228,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                         margin: "0 auto",
                                         textAlign: 'center'
                                     }}>
-                                    <GridColumn field="status_value" cell={StatusCell} title="Статус" width={'60px'} />
+                                    <GridColumn field="status_value" cell={StatusCell} title="Статус" width="60px" />
                                     <GridColumn field="date_create" title="Создана" width={fullScreen ? '99px' : '80px'}
                                         columnMenu={ColumnMenu} />
                                     <GridColumn field="date_change" title="Изменение статуса"

@@ -608,11 +608,11 @@ const Application = ({ alias, history, status }) => {
                                                 <LocalizationProvider language="ru">
                                                     <IntlProvider locale="ru">
                                                         <FormComboBox
-                                                            id={'breed_id'}
-                                                            name={'breed_id'}
-                                                            label={'Порода'}
+                                                            id="breed_id"
+                                                            name="breed_id"
+                                                            label="Порода"
                                                             component={FormComboBox}
-                                                            textField={'name'}
+                                                            textField="name"
                                                             data={formRenderProps.valueGetter('breeds')}
                                                             placeholder={formRenderProps.valueGetter('breed_id')
                                                                 ? formRenderProps.valueGetter('breed_name') : "Не выбран"}
@@ -650,7 +650,7 @@ const Application = ({ alias, history, status }) => {
                                                             name="application_document"
                                                             fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                             component={FormUpload}
-                                                            saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
+                                                            saveUrl="/api/requests/get_rkf_document/getrkfdocumentrequestdocument"
                                                             saveField="document"
                                                             multiple={false}
                                                             showActionButtons={true}

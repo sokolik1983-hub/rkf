@@ -22,7 +22,7 @@ const ClientClubAlias = ({
         <div className="ClientClubAlias">
             <Form
                 method="PUT"
-                action={"/api/Alias"}
+                action="/api/Alias"
                 initialValues={{ alias_name: club_alias ? club_alias : "" }}
                 onSuccess={onSuccess}
                 transformValues={transformValues}

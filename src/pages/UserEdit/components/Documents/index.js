@@ -16,7 +16,7 @@ const Documents = ({ documents }) => {
                     {documents.map(({ contact_type_id }, index) => (
                         <FormGroup inline key={index}>
                             <FormField
-                                placeholder={'Введите ссылку на документ'}
+                                placeholder="Введите ссылку на документ"
                                 name={`documents[${index}].url`}
                             />
                             <FormField

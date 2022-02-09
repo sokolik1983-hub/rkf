@@ -24,8 +24,8 @@ const About = ({ initialValues, setFormModified, handleSubmit, formBusy }) => {
                 return (
                     <FormElement style={{ maxWidth: 550 }} >
                         <Prompt when={formRenderProps.modified} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
-                        <fieldset className={'k-form-fieldset'}>
-                            <legend className={'k-form-legend mb-0'}>О себе</legend>
+                        <fieldset className="k-form-fieldset">
+                            <legend className="k-form-legend mb-0">О себе</legend>
                             <Field
                                 id="description"
                                 name="description"
@@ -47,7 +47,7 @@ const About = ({ initialValues, setFormModified, handleSubmit, formBusy }) => {
                                 <div className="form-group col-md-7">
                                     <Field
                                         id="web_site"
-                                        name={'web_site'}
+                                        name="web_site"
                                         placeholder="Введите ссылку на сайт"
                                         component={FormInput} maxLength="150"
                                         validator={urlValidator}

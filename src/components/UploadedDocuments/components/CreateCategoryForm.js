@@ -38,7 +38,7 @@ const CreateCategoryForm = ({ getCategories, handleSuccess, handleError, closeMo
                     />
                     <div className="k-form-buttons">
                         <button
-                            type={'submit'}
+                            type="submit"
                             className="k-button k-primary"
                             disabled={!formRenderProps.modified || !formRenderProps.valid}
                         >Добавить</button>

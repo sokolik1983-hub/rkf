@@ -16,8 +16,8 @@ const WebSites = ({ web_sites }) => {
                     {web_sites.map((social, index) => (
                         <FormGroup inline key={index}>
                             <FormField
-                                label={'Ссылка'}
-                                placeholder={'Введите ссылку'}
+                                label="Ссылка"
+                                placeholder="Введите ссылку"
                                 name={`web_sites[${index}].value`}
                             />
                             <Button className="btn WebSites__button-delete" onClick={() => arrayHelpers.remove(index)}>Удалить</Button>

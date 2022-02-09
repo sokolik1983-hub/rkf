@@ -5,7 +5,7 @@ import {DirObject} from "../../../../../../components/DirObject";
 
 const LegalInfo = ({clubLegalInfo}) => (
     <div id={`LegalInfo_`} className="LegalInfo">
-        <DirObject object={clubLegalInfo} className={'LegalInfo'}/>
+        <DirObject object={clubLegalInfo} className="LegalInfo"/>
     </div>
 );
 
