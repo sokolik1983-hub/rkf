@@ -112,6 +112,7 @@ const FooterMenu = ({
                             </NavLink>
                         </>
                     }
+
                     {
                         <div onClick={hideWidgetLoginPopup} className={(checkAliasUrl(pathname, alias) === null) ? 'more_btn-hide' : 'class-for-grid4'}>
                             {isFederationAlias(checkAliasUrl(pathname, alias) || alias)

@@ -132,7 +132,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
                         <li className='widget-login__item widget-login__item--menu popup-menu support-center'
                             onClick={() => setIsOpen(false)}>
                             <Feedback />
-                        </li>                        
+                        </li>
                         {links.map(item =>
                             <li className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
                                 onClick={() => setIsOpen(false)}>
