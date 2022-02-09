@@ -154,10 +154,10 @@
     &:before {
       content: "";
       position: absolute;
-      width: 12px;
+      width: 17px;
       height: 17px;
-      left: 0;
-      top: 0;
+      left: -4px;
+      top: 1px;
       background: url("/static/icons/ico-pointer2.svg") center no-repeat;
       background-size: contain;
     }
@@ -166,7 +166,7 @@
       color: #36f;
 
       &:before {
-        background: url("/static/icons/pin.svg") center no-repeat;
+        background: url("/static/icons/ico-pointer2-blue.svg") center no-repeat;
         background-size: contain;
       }
     }
