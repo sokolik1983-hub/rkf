@@ -1,25 +1,80 @@
-import React, {useState} from "react";
+import React, { useMemo, useState, useEffect } from 'react';
 import history from '../../../utils/history';
+import SwipeTabs from '../../../components/SwipeTabs';
+
 import  "./index.scss"
 
 
-const SearchFilter = ({filtersValue}) => {
+const SearchFilter = ({
+                          filtersValue,
+                          filters,
+                          filtersSearchType,
+                          searchTabActiveName,
+                          handleActiveTypeChange,
+                          isMenuChanges,
+}) => {
     const [searchValue, setSearchValue] = useState(filtersValue.string_filter);
+    const additionalFilterInUrl = !!window.location.href.match(/search_type=\d{3}&/);
+
+    const searchTabId = (searchTabActiveName === 'Кинологические организации' || searchTabActiveName === 'Организации') ? 1 :
+                        searchTabActiveName === 'Мероприятия' ? 2 :
+                        searchTabActiveName === 'Публикации' ? 3 : 4;
+
+    useEffect(() => {
+        filtersSearchType = searchTabId === 1 ? 100 : searchTabId === 2 ? 300 : searchTabId === 3 ? 200 : 400;
+        (!additionalFilterInUrl || (additionalFilterInUrl && isMenuChanges)) &&
+            history.push(`/search?string_filter=${searchValue.trim()}&search_type=${filtersSearchType}`)
+    }, [searchTabActiveName])
 
     const handleSubmit = e => {
         e.preventDefault();
-        history.push(`/search?string_filter=${searchValue.trim()}&search_type=8`);
+        history.push(`/search?string_filter=${searchValue.trim()}&search_type=${filtersSearchType}`);
     };
+
+    const tabItems = useMemo(() => {
+        return [
+            {
+                title: 'Организации',
+                search_type: 1,
+                count: 0,
+            },
+            {
+                title: 'Мероприятия',
+                search_type: 2,
+                count: 0,
+            },
+            {
+                title: 'Публикации',
+                search_type: 3,
+                count: 0,
+            },
+            {
+                title: 'Специалисты',
+                search_type: 4,
+                count: 0,
+            }
+        ];
+    }, [filters]);
+
+    tabItems.forEach(item => {
+        filters.forEach(filter => {
+            if (!!filter.name.toLowerCase().match(item.title.toLowerCase())) {
+                item.count = filter.count;
+            }
+        })
+    })
 
     return (
         <div className="search-page__content-filter">
             <h3 className="search-page__filters-title">Результаты поиска по запросу:</h3>
+
             <form onSubmit={handleSubmit}>
                 <input type='text'
                        className="search-page__content-input"
                        onChange={({ target }) => setSearchValue(target.value)}
                        value={searchValue}
                 />
+
                 <button className="search-page__content-btn" type='submit'>
                     <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
                         <path
@@ -30,6 +85,20 @@ const SearchFilter = ({filtersValue}) => {
                     </svg>
                 </button>
             </form>
+
+            <div className="search-page__horizontal-menu">
+                <SwipeTabs
+                    items={tabItems}
+                    activeTabIndex={tabItems.findIndex(item => item.search_type === searchTabId)}
+                    onChange={({search_type}) => {
+                        tabItems.filter(item => {
+                            if (item.search_type === search_type) {
+                                handleActiveTypeChange(item.title)
+                            }
+                        })
+                    }}
+                />
+            </div>
         </div>
     )
 }

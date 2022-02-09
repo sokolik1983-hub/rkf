@@ -21,6 +21,20 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     const [needFilter, setNeedFilter] = useState(true);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
+    const [searchTabActiveName, setSearchTabActiveName] = useState(null);
+    const [isMenuChanges, setIsMenuChanges] = useState(false);
+
+    useEffect(() => {
+        filters.forEach(filter => {
+            if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) setSearchTabActiveName(filter.name);
+        });
+
+        setIsMenuChanges(false);
+    }, [filters])
+
+    useEffect(() => {
+        setIsMenuChanges(false);
+    }, [searchTabActiveName]);
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -60,7 +74,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
 
                     return category;
                 });
-                setNeedCount(false);
+                setNeedCount(true);
             }
 
             if(data.filter) {
@@ -77,10 +91,11 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
             let results = [];
 
             Object.keys(data).forEach(key => {
-                if(data[key] && data[key].length && key !== 'counts') {
-                    results = [...results, ...data[key].map(item => ({...item, search_type: key}))];
+                if(data[key]?.result && data[key]?.result.length && key !== 'counts') {
+                    results = [...results, ...data[key].result.map(item => ({...item}))];
                 }
             });
+
 
             if (results.length) {
                 if (results.length < 10) {
@@ -103,12 +118,15 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     };
 
     useEffect(() => {
+        setSearchResult([]);
+
         if(filtersValue.string_filter && filtersValue.search_type) {
             (() => getSearchResults(1))();
         } else {
             setSearchResult([]);
             setHasMore(false);
         }
+
         setStartElement(1);
     }, [filtersValue]);
 
@@ -118,6 +136,13 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
             setStartElement(startElement + 10);
         }
     };
+
+    const handleActiveTypeChange = (tabActiveName) => {
+        setSearchResult([]);
+        setSearchTabActiveName(tabActiveName);
+        setIsMenuChanges(true);
+    }
+
 
     return (
         <Layout withFilters>
@@ -130,8 +155,16 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                         additionalFilters={additionalFilters}
                         isOpenFilters={isOpenFilters}
                     />
+
                     <div className="search-page__content">
-                        <SearchFilter filtersValue={filtersValue} />
+                        <SearchFilter
+                            filters={filters}
+                            filtersValue={filtersValue}
+                            filtersSearchType={filtersValue.search_type}
+                            searchTabActiveName={searchTabActiveName}
+                            handleActiveTypeChange={handleActiveTypeChange}
+                            isMenuChanges={isMenuChanges}
+                        />
                         <SearchList
                             filtersSearchType={filtersValue.search_type}
                             searchResult={searchResult}
