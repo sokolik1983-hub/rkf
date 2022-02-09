@@ -36,10 +36,8 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
     const alias = match.path.replace('/', '');
 
 
-
-
-    useEffect(() => {
-        (() => Request({
+    const getFedInfo = () => {
+        Request({
             url: `/api/Club/federation_base_info?alias=` + alias
         }, data => {
             setFedInfo(data);
@@ -50,9 +48,9 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
             console.log(error.response);
             setError(error.response);
             setLoading(false);
-        }))();
+        });
         return () => setNeedRequest(true);
-    }, []);
+    }
 
     const onSubscriptionUpdate = (subscribed) => {
         setFedInfo({
@@ -60,6 +58,10 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
             subscribed: subscribed
         })
     }
+
+    useEffect(() => {
+        getFedInfo();
+    }, []);
 
     return loading ?
         <Loading /> :
@@ -78,6 +80,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                         && <UserBanner
                                             link={fedInfo.header_picture_link}
                                             canEdit={canEdit}
+                                            updateInfo={getFedInfo}
                                         />
                                     }
                                     {isMobile && <>
