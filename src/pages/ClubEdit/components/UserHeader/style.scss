@@ -47,13 +47,6 @@
         }
     }
 
-    &__info {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: normal;
-    }
-
     &__logo-wrap {
         padding: 10px;
     }
@@ -77,9 +70,11 @@
     }
 
     &__wrap {
-        flex: 1;
         display: flex;
+        width: 100%;
+        flex: 1;
         align-items: center;
+        flex-direction: column;
         justify-content: space-between;
 
         & > div {

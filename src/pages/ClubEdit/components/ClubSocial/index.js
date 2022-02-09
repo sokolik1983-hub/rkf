@@ -18,19 +18,19 @@ const ClientClubSocialProxy = ({bindSubmitForm}) => {
 
     const checkForDelete = () => {
         setTriggerDell(!triggerDell);
-    }
+    };
 
     if (!visibility) {
         bindSubmitForm.submit(null, {});
     }
 
     useEffect(()=> {
-        triggerLoad &&
+        visibility && triggerLoad &&
             triggerRef.current.innerHTML.length <= 70 && setTriggerButton(true);
-    },[[], visibility]);
+    },[visibility]);
 
     useEffect(()=> {
-        triggerLoad &&
+        triggerDell && triggerLoad &&
             triggerRef.current.innerHTML.length < 1400 && setTriggerButton(true);
     },[triggerDell]);
 
