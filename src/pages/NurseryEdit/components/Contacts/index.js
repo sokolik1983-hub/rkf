@@ -12,7 +12,7 @@ const Contacts = ({contacts, is_public, errors, randomKeyGenerator}) => {
     const [isChange, setIsChange] = useState(false);
 
     useEffect(() => {
-        checkForCount();
+        isChange && checkForCount();
     }, [isChange]);
 
     const checkForErrors = (type) => {
