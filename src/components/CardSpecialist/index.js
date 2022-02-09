@@ -339,7 +339,7 @@ const CardSpecialist = ({
             <div className={`card-specialists__controls`}>
                 <CardFooter
                     id={id}
-                    share_link={`https://rkf.online/specialists?&SearchTypeId=${searchTypeId}#${id}`}
+                    share_link={window.location.host === 'rkf.online' ? `https://rkf.online/specialists?&SearchTypeId=${searchTypeId}#${id}` : `https://stage.uep24.ru/specialists?&SearchTypeId=${searchTypeId}#${id}`}
                     is_liked={is_liked}
                     like_count={like_count}
                     likesOn={true}
