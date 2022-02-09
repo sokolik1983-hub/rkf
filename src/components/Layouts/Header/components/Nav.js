@@ -37,11 +37,14 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
         },
     ];
 
-    const strokeColor = isOpen ? '#3366FF' : '#90999E'; //добавить класс и прописать это в стилях!
+    const strokeColor = isOpenFilters ? 'stroke-color__active' : 'stroke-color__inactive';
 
     const setOverflow = isOpen => {
         if (window.innerWidth <= 1080) {
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+            document.body.style.overflow = isOpen || isOpenFilters ? 'hidden' : '';
+            if (window.innerWidth > 680 && isOpenFilters) {
+                document.body.style.overflow = '';
+            }
         } else if (window.innerWidth > 1080 && isOpen) {
             document.body.style.overflow = '';
         }
@@ -86,15 +89,15 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
                     >
                         <div>
                             {
-                                isOpen ? <svg width='20' height='20' viewBox='0 0 20 20' fill='none'
+                                isOpen ? <svg className={`no-scale ${strokeColor}`} width='20' height='20' viewBox='0 0 20 20' fill='none'
                                     xmlns='http://www.w3.org/2000/svg'>
-                                    <line y1='1' x1='1' x2='20' y2='20' stroke={strokeColor} strokeWidth='1.32' />
-                                    <line y1='20' x1='1' x2='20' y2='1' stroke={strokeColor} strokeWidth='1.32' />
-                                </svg> : <svg width='20' height='14' viewBox='0 0 20 14' fill='none'
+                                    <line y1='1' x1='1' x2='20' y2='20' strokeWidth='1.32' />
+                                    <line y1='20' x1='1' x2='20' y2='1' strokeWidth='1.32' />
+                                </svg> : <svg className={`no-scale ${strokeColor}`} width='20' height='14' viewBox='0 0 20 14' fill='none'
                                     xmlns='http://www.w3.org/2000/svg'>
-                                    <line y1='1.34' x2='20' y2='1.34' stroke={strokeColor} strokeWidth='1.32' />
-                                    <line y1='7.34' x2='20' y2='7.34' stroke={strokeColor} strokeWidth='1.32' />
-                                    <line y1='13.34' x2='20' y2='13.34' stroke={strokeColor} strokeWidth='1.32' />
+                                    <line y1='1.34' x2='20' y2='1.34' strokeWidth='1.32' />
+                                    <line y1='7.34' x2='20' y2='7.34' strokeWidth='1.32' />
+                                    <line y1='13.34' x2='20' y2='13.34' strokeWidth='1.32' />
                                 </svg>
                             }
                         </div>
