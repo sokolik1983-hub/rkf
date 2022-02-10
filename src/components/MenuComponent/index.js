@@ -237,8 +237,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const [menuBackground, setMenuBackground] = useState('/static/images/user-nav/user-nav-bg.png');
     const [fedName, setFedName] = useState(null);
 
-    console.log('"/media/MmI4YTEwNDItOGRiMS00NDIyLWJiNmQtMTliMzMzZTRhMjdlX0NsdWJIZWFkZXI.JPG"', menuBackground);
-
     const isMobile = useIsMobile(1080);
     const showDetails = isFederation && alias !== 'rkf' && alias !== 'rkf-online' && alias !== 'oankoo';
     const [linkFeesId, setLinkFeesId] = useState('');
@@ -299,29 +297,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             </table>
         </>
     };
-
-    // const getBlanks = e => {
-    //     e.preventDefault();
-    //     setErrorText(null);
-    //     setShowModal('blanks');
-    //     if (!data.blanks) {
-    //         setLoading(true);
-    //         Promise.all([
-    //             PromiseRequest({ url: `/api/federation/federationblank/all?alias=${alias}` }),
-    //             PromiseRequest({ url: `/api/federation/federationblank/categories?alias=${alias}` })
-    //         ]).then(result => {
-    //             setData({ ...data, blanks: [...result[0]] });
-    //             setBlankCategories(result[1]);
-    //             setLoading(false);
-    //         }).catch(error => {
-    //             console.log(error.response);
-    //             if (error.response) {
-    //                 setErrorText(`${error.response.status} ${error.response.statusText}`);
-    //             }
-    //             setLoading(false);
-    //         });
-    //     }
-    // };
 
     const showBlanks = () => blankCategories.map(({ id, name }) => {
         return <div className="menu-component__show-blanks" key={id}>
@@ -418,7 +393,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 setLinkFedDetails(data);
             }, error => {
                 console.log(error.response);
-                // history.replace('/404');
             }))();
         }
     }, [fedDetails, fedFeesId]);
@@ -442,7 +416,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 setMenuBackground('/static/images/slider/1.jpg');
                 setFedName('РКФ')
             } else {
-                console.log('fedInfo', fedInfo);
                 (fedInfo && setMenuBackground(fedInfo.header_picture_link));
                 setFedName(fedInfo.name)
             }
