@@ -15,7 +15,7 @@ const GlobalCard = ({cardClicked}) => {
         if (searchValue) {
             setSearchValue('');
             setIsClicked(false);
-            history.push(`/search?string_filter=${searchValue.trim()}&search_type=1`);
+            history.push(`/search?string_filter=${searchValue.trim()}`);
         }
     };
 

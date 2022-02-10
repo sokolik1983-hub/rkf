@@ -49,7 +49,6 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
             setError(error.response);
             setLoading(false);
         });
-        return () => setNeedRequest(true);
     }
 
     const onSubscriptionUpdate = (subscribed) => {
