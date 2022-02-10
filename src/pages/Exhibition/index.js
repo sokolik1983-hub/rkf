@@ -23,6 +23,7 @@ import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
+import PhotoComponent from "../../components/PhotoComponent";
 
 const urlRegexp = new RegExp(/^((http|https):\/\/?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
 
@@ -37,6 +38,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
     const isMobile = useIsMobile(1080);
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
+    const [fedInfo, setFedInfo] = useState(null);
     const [loading, setLoading] = useState(true);
     const exhibitionId = match.params.id;
     const { dictionary } = useDictionary('cities');
@@ -141,6 +143,22 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
         })
     }
 
+    const getFedInfo = () => {
+        Request({
+            url: `/api/Club/federation_base_info?alias=` + club_alias
+        }, data => {
+            setFedInfo(data);
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+        });
+    }
+
+    useEffect(() => {
+        club_alias && getFedInfo();
+    }, [club_alias]);
+
+    console.log('fedInfo',fedInfo)
 
     return isError
         ? <PageNotFound />
@@ -172,9 +190,16 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                             subscribed={subscribed}
                                             onSubscriptionUpdate={onSubscriptionUpdate}
                                         />
+                                        {!isMobile && fedInfo &&
+                                            <PhotoComponent
+                                                photo={fedInfo.owner_photo}
+                                                name={fedInfo.owner_name}
+                                                position={fedInfo.owner_position}
+                                            />
+                                        }
                                         {!isMobile && isFederationAlias(club_alias) ?
                                             <MenuComponent
-                                                alias={club_alias}
+                                                club_alias={club_alias}
                                                 name={display_name || club_fact_name || ''}
                                                 isFederation={true}
                                             />
