@@ -20,9 +20,11 @@ import { clubNav } from "../Club/config";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
+import PhotoComponent from "../../components/PhotoComponent";
 
 const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
+    const [fedInfo, setFedInfo] = useState(null);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [notificationsLength, setNotificationsLength] = useState(0);
@@ -47,6 +49,18 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
         }, error => console.log(error));
     };
 
+    const getFedInfo = (url) => {
+        Request({
+            url: url
+        }, data => {
+            setFedInfo(data);
+            setPageLoaded(true);
+        }, error => {
+            console.log(error.response);
+            setPageLoaded(true);
+        });
+    }
+
     const onSubscriptionUpdate = (subscribed) => {
         setClubInfo({
             ...clubInfo,
@@ -54,6 +68,12 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
         })
     }
 
+    useEffect(() => {
+        if(clubInfo && clubInfo.federation_alias) {
+            let url = `/api/Club/federation_base_info?alias=` + clubInfo.federation_alias;
+            getFedInfo(url)
+        }
+    }, [clubInfo]);
 
     return (
         <>
@@ -110,6 +130,13 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                     member={clubInfo.member}
                                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                                     isAuthenticated={isAuthenticated}
+                                                />
+                                            }
+                                            {!isMobile && (clubInfo.user_type === 5 || clubInfo.club_alias === 'rkf') && fedInfo &&
+                                                <PhotoComponent
+                                                    photo={fedInfo.owner_photo}
+                                                    name={fedInfo.owner_name}
+                                                    position={fedInfo.owner_position}
                                                 />
                                             }
                                             {!isMobile && isFederationAlias(clubInfo.club_alias) ?
