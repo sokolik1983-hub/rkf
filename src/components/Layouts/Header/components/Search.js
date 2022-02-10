@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {useLocation} from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
+
 import history from '../../../../utils/history';
 import PopupModal from "../../../PopupModal";
 import {blockContent} from "../../../../utils/blockContent";
@@ -7,9 +9,10 @@ import {blockContent} from "../../../../utils/blockContent";
 const Search = ({ withFilters, hideSideMenu }) => {
     const [searchValue, setSearchValue] = useState('');
     const [isClicked, setIsClicked] = useState(false);
+    const location = useLocation();
 
     const getSearchTypeId = () => {
-        const urlPath = window.location.pathname;
+        const urlPath = location.pathname;
 
         return urlPath === '/organizations' ? 100 :
                 urlPath === '/' ? 200 :

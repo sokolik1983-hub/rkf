@@ -140,11 +140,9 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     };
 
     const handleActiveTypeChange = (tabActiveName) => {
-        if (!searchTabActiveName.toLowerCase().match(tabActiveName.toLowerCase())) {
-            setSearchResult([]);
-            setSearchTabActiveName(tabActiveName);
-            setIsMenuChanges(true);
-        }
+        setSearchResult([]);
+        setSearchTabActiveName(tabActiveName);
+        setIsMenuChanges(true);
     }
 
 

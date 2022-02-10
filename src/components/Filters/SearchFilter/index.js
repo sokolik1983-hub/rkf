@@ -91,11 +91,10 @@ const SearchFilter = ({
                     items={tabItems}
                     activeTabIndex={tabItems.findIndex(item => item.search_type === searchTabId)}
                     onChange={({search_type}) => {
-                        tabItems.filter(item => {
-                            if (item.search_type === search_type) {
-                                handleActiveTypeChange(item.title)
-                            }
-                        })
+                        searchTabId !== search_type &&
+                            tabItems.filter(item => {
+                                item.search_type === search_type && handleActiveTypeChange(item.title);
+                            })
                     }}
                 />
             </div>
