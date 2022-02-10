@@ -1,4 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
+import {useLocation} from 'react-router-dom';
+
 import history from '../../../utils/history';
 import SwipeTabs from '../../../components/SwipeTabs';
 
@@ -14,7 +16,9 @@ const SearchFilter = ({
                           isMenuChanges,
 }) => {
     const [searchValue, setSearchValue] = useState(filtersValue.string_filter);
-    const additionalFilterInUrl = !!window.location.href.match(/search_type=\d{3}&/);
+    const location = useLocation();
+    console.log('location', location)
+    const additionalFilterInUrl = location.search.match(/search_type=\d{3}&/);
 
     const searchTabId = (searchTabActiveName === 'Кинологические организации' || searchTabActiveName === 'Организации') ? 1 :
                         searchTabActiveName === 'Мероприятия' ? 2 :
