@@ -104,7 +104,7 @@
         position: relative;
         display: flex;
         flex-wrap: wrap;
-        justify-content: start;
+        justify-content: flex-start;
         min-height: 5px;
         width: 75%;
         margin: 0 auto;
@@ -116,7 +116,7 @@
             width: 80%;
         }
         @media (max-width: 768px) {
-            justify-content: end;
+            justify-content: flex-end;
             width: 73%;
         }
         @media (max-width: 560px) {
