@@ -155,7 +155,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                    href="#"
                                    onClick={()=> {
                                        history.go(-1);
-                                       return false;
                                 }}>Назад</a>
                             </div>
                             <aside className="exhibition-page__left">
