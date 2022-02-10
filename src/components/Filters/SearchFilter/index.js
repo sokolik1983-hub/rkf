@@ -54,7 +54,7 @@ const SearchFilter = ({
                 count: 0,
             }
         ];
-    }, [filters]);
+    }, []);
 
     tabItems.forEach(item => {
         filters.forEach(filter => {

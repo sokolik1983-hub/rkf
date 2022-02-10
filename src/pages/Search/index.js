@@ -25,9 +25,14 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     const [isMenuChanges, setIsMenuChanges] = useState(false);
 
     useEffect(() => {
-        filters.forEach(filter => {
-            if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) setSearchTabActiveName(filter.name);
-        });
+        if (filtersValue.search_type !== 8) {
+            filters.forEach(filter => {
+                if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) setSearchTabActiveName(filter.name);
+            });
+        } else {
+            filters.sort((a, b) => b.count - a.count);
+            setSearchTabActiveName(filters[0].name)
+        }
 
         setIsMenuChanges(false);
     }, [filters])
@@ -96,7 +101,6 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                 }
             });
 
-
             if (results.length) {
                 if (results.length < 10) {
                     setHasMore(false);
@@ -118,8 +122,6 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     };
 
     useEffect(() => {
-        setSearchResult([]);
-
         if(filtersValue.string_filter && filtersValue.search_type) {
             (() => getSearchResults(1))();
         } else {
@@ -138,9 +140,11 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     };
 
     const handleActiveTypeChange = (tabActiveName) => {
-        setSearchResult([]);
-        setSearchTabActiveName(tabActiveName);
-        setIsMenuChanges(true);
+        if (!searchTabActiveName.toLowerCase().match(tabActiveName.toLowerCase())) {
+            setSearchResult([]);
+            setSearchTabActiveName(tabActiveName);
+            setIsMenuChanges(true);
+        }
     }
 
 

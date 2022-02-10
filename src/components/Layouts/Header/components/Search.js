@@ -12,8 +12,9 @@ const Search = ({ withFilters, hideSideMenu }) => {
         const urlPath = window.location.pathname;
 
         return urlPath === '/organizations' ? 100 :
+                urlPath === '/' ? 200 :
                 urlPath === '/exhibitions' ? 300 :
-                urlPath === '/specialists' ? 400 : 200;
+                urlPath === '/specialists' ? 400 : 8;
     }
 
     const handleSubmit = e => {
@@ -64,6 +65,7 @@ const Search = ({ withFilters, hideSideMenu }) => {
                             onChange={ ({ target }) => setSearchValue(target.value) }
                             onClick={ () => setIsClicked(true) }
                             value={ searchValue }
+                            autoFocus={ true }
                         />
                     }
 
