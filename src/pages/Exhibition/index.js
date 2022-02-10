@@ -158,7 +158,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
         club_alias && getFedInfo();
     }, [club_alias]);
 
-    console.log('fedInfo',fedInfo)
+    console.log('fedInfo', fedInfo)
 
     return isError
         ? <PageNotFound />
@@ -190,7 +190,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                             subscribed={subscribed}
                                             onSubscriptionUpdate={onSubscriptionUpdate}
                                         />
-                                        {!isMobile && fedInfo &&
+                                        {!isMobile && fedInfo && fedInfo.owner_photo &&
                                             <PhotoComponent
                                                 photo={fedInfo.owner_photo}
                                                 name={fedInfo.owner_name}
