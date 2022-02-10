@@ -17,7 +17,6 @@ const SearchFilter = ({
 }) => {
     const [searchValue, setSearchValue] = useState(filtersValue.string_filter);
     const location = useLocation();
-    console.log('location', location)
     const additionalFilterInUrl = location.search.match(/search_type=\d{3}&/);
 
     const searchTabId = (searchTabActiveName === 'Кинологические организации' || searchTabActiveName === 'Организации') ? 1 :
