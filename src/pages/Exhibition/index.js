@@ -22,8 +22,9 @@ import Banner from "../../components/Banner";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import useIsMobile from "../../utils/useIsMobile";
-import "./index.scss";
 import PhotoComponent from "../../components/PhotoComponent";
+
+import "./index.scss";
 
 const urlRegexp = new RegExp(/^((http|https):\/\/?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
 
@@ -157,8 +158,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
     useEffect(() => {
         club_alias && getFedInfo();
     }, [club_alias]);
-
-    console.log('fedInfo', fedInfo)
 
     return isError
         ? <PageNotFound />

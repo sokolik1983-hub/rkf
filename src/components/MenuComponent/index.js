@@ -225,7 +225,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const [errorText, setErrorText] = useState(null);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
-    const [currentPageAlias, setCurrentPageAlias] = useState(`${club_alias}`);
+    const [currentPageAlias, setCurrentPageAlias] = useState('');
     const { user_type, alias } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
         e.preventDefault();
