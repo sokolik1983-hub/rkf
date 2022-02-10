@@ -434,7 +434,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             setError(error.response);
             setLoading(false);
         }))();
-        // return () => setNeedRequest(true);
     }, [currentPageAlias]);
 
     useEffect(() => {
