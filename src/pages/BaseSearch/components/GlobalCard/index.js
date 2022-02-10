@@ -5,10 +5,7 @@ import history from '../../../../utils/history';
 import './index.scss';
 
 const GlobalCard = ({cardClicked}) => {
-    // const [stamp_code, setStampCode] = useState('');
-    // const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
-    // const [alert, setAlert] = useState(null);
     const [isClicked, setIsClicked] = useState(false);
     const [searchValue, setSearchValue] = useState('');
 
@@ -18,7 +15,7 @@ const GlobalCard = ({cardClicked}) => {
         if (searchValue) {
             setSearchValue('');
             setIsClicked(false);
-            history.push(`/search?string_filter=${searchValue.trim()}&search_type=8`);
+            history.push(`/search?string_filter=${searchValue.trim()}`);
         }
     };
 

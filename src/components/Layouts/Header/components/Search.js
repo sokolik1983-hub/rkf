@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {useLocation} from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
+
 import history from '../../../../utils/history';
 import PopupModal from "../../../PopupModal";
 import {blockContent} from "../../../../utils/blockContent";
@@ -7,19 +9,30 @@ import {blockContent} from "../../../../utils/blockContent";
 const Search = ({ withFilters, hideSideMenu }) => {
     const [searchValue, setSearchValue] = useState('');
     const [isClicked, setIsClicked] = useState(false);
+    const location = useLocation();
+
+    const getSearchTypeId = () => {
+        const urlPath = location.pathname;
+
+        return urlPath === '/organizations' ? 100 :
+                urlPath === '/' ? 200 :
+                urlPath === '/exhibitions' ? 300 :
+                urlPath === '/specialists' ? 400 : 8;
+    }
 
     const handleSubmit = e => {
         e.preventDefault();
         if (searchValue) {
             setSearchValue('');
             setIsClicked(false);
-            history.push(`/search?string_filter=${searchValue.trim()}&search_type=8`);
+            history.push(`/search?string_filter=${searchValue.trim()}&search_type=${getSearchTypeId()}`);
         }
     };
 
     const handleChecked = () => {
         setIsClicked(!isClicked)
     };
+
     const strokeColor = isClicked ? '#3366FF' : '#90999E';
 
     const searchTitle = isClicked ? 'Закрыть' : 'Поиск';
@@ -55,6 +68,7 @@ const Search = ({ withFilters, hideSideMenu }) => {
                             onChange={ ({ target }) => setSearchValue(target.value) }
                             onClick={ () => setIsClicked(true) }
                             value={ searchValue }
+                            autoFocus={ true }
                         />
                     }
 

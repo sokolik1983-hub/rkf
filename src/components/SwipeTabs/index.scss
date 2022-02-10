@@ -1,4 +1,5 @@
 .swipe-tabs {
+
   &__tab {
     display: flex;
     align-items: center;
@@ -21,18 +22,44 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    &-count {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 20px;
+      height: 20px;
+      margin-left: 4px;
+      padding: 0 4px;
+      font-size: 12px;
+      color: #fff;
+      background-color: #3366FF;
+      border-radius: 10px;
+      box-sizing: border-box;
+
+      @media (max-width: 600px) {
+        width: 10px;
+        height: 10px;
+        font-size: 0;
+        border-radius: 50%;
+      }
+    }
+
     &._active {
       border-bottom-color: #36f;
     }
+
     &._disabled {
       cursor: not-allowed;
       opacity: .5;
     }
+
     @media (max-width: 360px) {
       max-width: 220px;
       text-align: center;
     }
   }
+
   .swiper-slide {
     width: auto;
     height: auto;

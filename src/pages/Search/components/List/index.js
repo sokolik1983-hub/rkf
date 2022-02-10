@@ -1,5 +1,6 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+
 import Loading from "../../../../components/Loading";
 import CardOrganization from "../../../../components/CardOrganization";
 import CardExhibition from "../../../../components/CardExhibition";
@@ -7,8 +8,9 @@ import CardNewsNew from "../../../../components/CardNewsNew";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {formatDateCommon} from "../../../../utils/datetime";
-import "./index.scss";
 import CardSpecialist from "../../../../components/CardSpecialist";
+
+import "./index.scss";
 
 
 const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
@@ -22,14 +24,14 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
             const endDate = dates[dates.length - 1];
             date = dates.length === 1
                 ? formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`))
-                : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) + 
+                : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) +
                 ' - ' + formatDateCommon(new Date(`${endDate.year}/${endDate.month}/${endDate.day}`));
         }
 
         return date;
     };
 
-    const getRanks = rank_ids => rank_ids.length ? getDictElementsArray(dictionary, rank_ids).join(', ') : 'Не указано';
+    const getRanks = rank_ids => rank_ids?.length ? getDictElementsArray(dictionary, rank_ids).join(', ') : 'Не указано';
 
     return (
         <div className="search-list">
@@ -48,10 +50,11 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                 <ul className="search-list__content">
                     {searchResult.map(item => (
                         <li className="search-list__item" key={item.id}>
-                            {item.search_type === 'organizations' &&
+                            {filtersSearchType.toString()[0] === '1' &&
                                 <CardOrganization {...item} />
                             }
-                            {item.search_type === 'exhibitions' &&
+
+                            {filtersSearchType.toString()[0] === '3' &&
                                 <CardExhibition
                                     {...item}
                                     title={item.exhibition_name}
@@ -63,7 +66,7 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                                     reports = {item.reports_links}
                                 />
                             }
-                            {item.search_type === 'articles' &&
+                            {filtersSearchType.toString()[0] === '2' &&
                                 <CardNewsNew
                                     {...item}
                                     user={item.user_type}
@@ -81,14 +84,14 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                                     adAmount={item.advert_number_of_puppies}
                                 />
                             }
-                            {(item.search_type === 'exterior_judges' || item.search_type === 'specialists') &&
+
+                            {filtersSearchType.toString()[0] === '4' &&
                                 <CardSpecialist
                                     {...item}
                                     searchTypeId={
-                                        //Костыль, работающий от фильтров. Если надо будет одновременно выводить разные карточки, то это работать не будет
-                                        filtersSearchType === 10 ? 1 :
-                                        filtersSearchType === 11 ? 2 :
-                                        filtersSearchType === 12 ? 3 : 4
+                                        item.global_search_type_id === 401 ? 4 :
+                                        item.global_search_type_id === 402 ? 1 :
+                                        item.global_search_type_id === 403 ? 2 : 3
                                     }
                                 />
                             }

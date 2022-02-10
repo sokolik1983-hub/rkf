@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useHistory, useLocation} from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
 
@@ -225,6 +225,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const [errorText, setErrorText] = useState(null);
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
+    const [currentPageAlias, setCurrentPageAlias] = useState('');
     const { user_type, alias } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
         e.preventDefault();
@@ -241,14 +242,13 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
     const location = useLocation();
-    let url =  location.pathname.split('/')[1];
 
     useEffect(() => {
-        if (showDetails) {
+        if (showDetails && currentPageAlias && currentPageAlias !== 'rkf') {
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({
-                url: `/api/federation/federation_documents?Alias=${alias}`
+                url: `/api/federation/federation_documents?Alias=${currentPageAlias}`
             }, data => {
                 setFedFeesId(data[0]?.documents?.filter(i => i.document_type_id === 2)[0].document_id);
                 setFedDetails(data[0]?.documents?.filter(i => i.document_type_id === 1)[0].document_id);
@@ -257,7 +257,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 history.replace('/');
             }))();
         }
-    }, [alias]);
+    }, [currentPageAlias]);
 
     // const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
@@ -269,12 +269,12 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     };
 
     const showPresidium = () => {
-        if (alias === 'rfls') {
+        if (currentPageAlias === 'rfls') {
             return presidiumRfls
         } else {
             return <>
                 <ol className="menu-component__wrap-list">
-                    {presidium[alias].members.map((member, i) =>
+                    {presidium[currentPageAlias].members.map((member, i) =>
                         <li className="menu-component__wrap-item" key={i}>{member}</li>
                     )}
                 </ol>
@@ -297,29 +297,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             </table>
         </>
     };
-
-    // const getBlanks = e => {
-    //     e.preventDefault();
-    //     setErrorText(null);
-    //     setShowModal('blanks');
-    //     if (!data.blanks) {
-    //         setLoading(true);
-    //         Promise.all([
-    //             PromiseRequest({ url: `/api/federation/federationblank/all?alias=${alias}` }),
-    //             PromiseRequest({ url: `/api/federation/federationblank/categories?alias=${alias}` })
-    //         ]).then(result => {
-    //             setData({ ...data, blanks: [...result[0]] });
-    //             setBlankCategories(result[1]);
-    //             setLoading(false);
-    //         }).catch(error => {
-    //             console.log(error.response);
-    //             if (error.response) {
-    //                 setErrorText(`${error.response.status} ${error.response.statusText}`);
-    //             }
-    //             setLoading(false);
-    //         });
-    //     }
-    // };
 
     const showBlanks = () => blankCategories.map(({ id, name }) => {
         return <div className="menu-component__show-blanks" key={id}>
@@ -416,14 +393,13 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 setLinkFedDetails(data);
             }, error => {
                 console.log(error.response);
-                // history.replace('/404');
             }))();
         }
     }, [fedDetails, fedFeesId]);
 
     useEffect(() => {
         (() => Request({
-            url: `/api/Club/federation_base_info?alias=` + alias
+            url: `/api/Club/federation_base_info?alias=` + currentPageAlias
         }, data => {
             setFedInfo(data);
             setLoading(false);
@@ -432,8 +408,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             setError(error.response);
             setLoading(false);
         }))();
-        // return () => setNeedRequest(true);
-    }, []);
+    }, [currentPageAlias]);
 
     useEffect(() => {
         if(fedInfo) {
@@ -447,6 +422,15 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
         }
 
     }, [fedInfo]);
+
+    useEffect(() => {
+        let url =  location.pathname.split('/')[1];
+        if(url === 'exhibitions') {
+            setCurrentPageAlias(location.search.split('=')[1]);
+        } else {
+            setCurrentPageAlias(url);
+        }
+    }, []);
 
     return (
         <>
@@ -475,71 +459,33 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                             handleClose={(e) => !moreRef.current.contains(e.target) && setOpenMenuComponent(false)}
                             bottomStyle
                         >
-                            {((location.pathname.search("documents") > -1) || (location.pathname.search("bank-details") > -1)) ?
                             <div className="user-menu__inner">
                                 <div className="banner-federation">
                                     <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
                                 </div>
                                 {fedName && <p className="user-menu__name">{fedName}</p>}
                                 <ul className="user-menu__list">
-                                {clubNavDocs(alias).map(navItem =>  <li className={`user-menu__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
-                                                                        key={navItem.id}>
-                                        {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
-                                            <span
-                                                className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                    {notificationsLength > 99 ? 99 : notificationsLength}
-                                </span>
-                                        }
-                                        <NavLink
-                                            to={user_type === 3
-                                            && url === 'club'
-                                            && alias !== 'rkf'
-                                            && alias !== 'rkf-online'
-                                            && navItem.title !== 'Поиск по базе РКФ'
-                                            && navItem.title !== 'Реквизиты и размеры взносов'
-                                            && navItem.title !== 'Мероприятия'
-                                                ? `/club${navItem.to}` : navItem.to}
-                                            exact={navItem.exact}
-                                            className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                            onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
-                                        >
-                                            {navItem.icon}
-                                            <span>{navItem.title}</span>
-                                        </NavLink>
-                                    </li>
-
-                                )}
-                            </ul>
-                            </div> :
-                            <div className="user-menu__inner">
-                                <div className="banner-federation">
-                                    <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
-                                </div>
-                                {fedName && <p className="user-menu__name">{fedName}</p>}
-                                <ul className="user-menu__list">
-
                                     {user !== 'nursery' &&
                                     <li className="user-menu__item">
-                                        <NavLink exact to={`/exhibitions?Alias=${alias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
+                                        <NavLink exact to={`/exhibitions?Alias=${currentPageAlias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
                                     </li>
                                     }
-                                    {presidium[alias] &&
+                                    {isFederation &&
                                     <li className="user-menu__item">
                                         <NavLink exact to="/" onClick={getPresidium} className="user-menu__link _presidium" title="Президиум">Президиум</NavLink>
-
                                     </li>
                                     }
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link _public" title="Публикации">Публикации</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${currentPageAlias}/news`} className="user-menu__link _public" title="Публикации">Публикации</NavLink>
                                     </li>
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/club/${alias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : user === 'club' ? `/club/${alias}/uploaded-documents/` : `/${currentPageAlias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
                                     </li>
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link _gallery" title="Фотогалерея">Фотогалерея</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${currentPageAlias}/gallery`} className="user-menu__link _gallery" title="Фотогалерея">Фотогалерея</NavLink>
                                     </li>
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link _video" title="Фотогалерея">Видеозаписи</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${currentPageAlias}/video`} className="user-menu__link _video" title="Фотогалерея">Видеозаписи</NavLink>
                                     </li>
                                     {showDetails &&
                                     <>
@@ -558,11 +504,11 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                                     }
                                     {isFederation &&
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link _documents" title="Статус документов">Статус документов</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${currentPageAlias}/document-status`} className="user-menu__link _documents" title="Статус документов">Статус документов</NavLink>
                                     </li>
                                     }
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link _club" title={name}>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}` : `/${currentPageAlias}`} className="user-menu__link _club" title={name}>
                                             {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
                                         </NavLink>
                                     </li>
@@ -578,13 +524,13 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                         <NavLink
                             exact
-                            to={`/exhibitions?Alias=${url}`}
+                            to={`/exhibitions?Alias=${currentPageAlias}`}
                             className="menu-component__link _events"
                             title="Мероприятия"
                         >Мероприятия</NavLink>
                     </li>
                 }
-                    {presidium[alias] &&
+                    {isFederation &&
                     <li className="menu-component__item">
                         <NavLink
                             exact
@@ -598,7 +544,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                     <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/news` : `/${url}/news`}
+                        to={user === 'nursery' ? `/kennel/${alias}/news` : `/${currentPageAlias}/news`}
                         className="menu-component__link _public"
                         title="Публикации"
                     >Публикации</NavLink>
@@ -606,7 +552,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${url}/uploaded-documents/`}
+                        to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${currentPageAlias}/uploaded-documents/`}
                         className="menu-component__link _documents"
                         title="Документы"
                     >Документы</NavLink>
@@ -614,7 +560,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${url}/gallery`}
+                        to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${currentPageAlias}/gallery`}
                         className="menu-component__link _gallery"
                         title="Фотогалерея"
                     >Фотогалерея</NavLink>
@@ -622,7 +568,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}/video` : `/${url}/video`}
+                        to={user === 'nursery' ? `/kennel/${alias}/video` : `/${currentPageAlias}/video`}
                         className="menu-component__link _video"
                         title="Фотогалерея"
                     >Видеозаписи</NavLink>
@@ -647,7 +593,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                     <li className="menu-component__item">
                         <NavLink
                             exact
-                            to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${url}/document-status`}
+                            to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${currentPageAlias}/document-status`}
                             className="menu-component__link _documents"
                             title="Статус документов"
                         >Статус документов</NavLink>
@@ -656,7 +602,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                     <li className="menu-component__item">
                     <NavLink
                         exact
-                        to={user === 'nursery' ? `/kennel/${alias}` : `/${url}`}
+                        to={user === 'nursery' ? `/kennel/${alias}` : `/${currentPageAlias}`}
                         className="menu-component__link _club"
                         title={name}
                     >

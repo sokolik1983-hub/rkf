@@ -56,7 +56,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                 setError(error.response);
                 setLoading(false);
             })
-            // return () => setNeedRequest(true);
     }
 
     useEffect(() => {
@@ -126,6 +125,15 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
         }
     };
 
+    const checkFederationPage = () => {
+        return location.pathname === '/rkf' ||
+            location.pathname === '/rfss' ||
+            location.pathname === '/rfls' ||
+            location.pathname === '/rfos' ||
+            location.pathname === '/oankoo';
+    }
+
+
     return (
         <div
             className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
@@ -156,11 +164,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                             bottomStyle
                         >
                             <div className="user-nav__inner">
-                                {/*<div className="close-btn" onClick={() => setOpenUserMenu(false)}>
-                                    <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
-                                    </svg>
-                                </div>*/}
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                 </div>
@@ -170,27 +173,29 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                         getMeLink(user_type)
                                     }
                                 </div>}
-                                    <ul className="user-nav__list">
-                                    {routes.map(navItem => <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
-                                            key={navItem.id}>
-                                            <NavLink
-                                                to={navItem.to}
-                                                exact={navItem.exact}
-                                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
-                                            >
-                                                {navItem.icon}
-                                                <span>{navItem.title}</span>
-                                            </NavLink>
-                                            {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
-                                            <span
-                                                className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                                {notificationsLength > 99 ? 99 : notificationsLength}
+                                    {!checkFederationPage() &&
+                                        <ul className="user-nav__list">
+                                            { routes.map(navItem => <li
+                                                    className={ `user-nav__item${ isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : '' }` }
+                                                    key={ navItem.id }>
+                                                    <NavLink
+                                                        to={ navItem.to }
+                                                        exact={ navItem.exact }
+                                                        className={ `user-nav__link${ navItem.disabled ? ' _disabled' : '' }` }
+                                                        onClick={ e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false) }
+                                                    >
+                                                        { navItem.icon }
+                                                        <span>{ navItem.title }</span>
+                                                    </NavLink>
+                                                    { navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                                    <span
+                                                        className={ `user-nav__item-notification${ notificationsLength > 99 ? ' _plus' : '' }` }>
+                                                { notificationsLength > 99 ? 99 : notificationsLength }
                                             </span>
-                                            }
-                                        </li>
-                                    )}
-                                </ul>
+                                                    }
+                                                </li>
+                                            ) }
+                                        </ul> }
                                     </>
                                     : user_type === 3 ?
                                     <ul className="user-nav__list">
