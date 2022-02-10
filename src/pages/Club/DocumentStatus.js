@@ -121,7 +121,7 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                             </div>
                             <Aside className="club-page__info">
                                 <StickyBox offsetTop={60}>
-                                    <div className="club-page__info-inner 555555555555">
+                                    <div className="club-page__info-inner">
                                         {!isMobile &&
                                             <UserHeader
                                                 user={match.params.route !== 'rkf-online' ? 'club' : ''}
