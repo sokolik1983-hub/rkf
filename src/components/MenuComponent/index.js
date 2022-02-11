@@ -244,11 +244,11 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const location = useLocation();
 
     useEffect(() => {
-        if (showDetails && currentPageAlias && currentPageAlias !== 'rkf') {
+        if (showDetails && (currentPageAlias || club_alias) && (currentPageAlias !== 'rkf' || club_alias !== 'rkf')) {
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({
-                url: `/api/federation/federation_documents?Alias=${currentPageAlias}`
+                url: `/api/federation/federation_documents?Alias=${currentPageAlias ? currentPageAlias : club_alias}`
             }, data => {
                 setFedFeesId(data[0]?.documents?.filter(i => i.document_type_id === 2)[0].document_id);
                 setFedDetails(data[0]?.documents?.filter(i => i.document_type_id === 1)[0].document_id);
@@ -257,9 +257,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 history.replace('/');
             }))();
         }
-    }, [currentPageAlias]);
-
-    // const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
+    }, [currentPageAlias, club_alias]);
 
     const getPresidium = e => {
         e.preventDefault();
@@ -274,7 +272,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
         } else {
             return <>
                 <ol className="menu-component__wrap-list">
-                    {presidium[currentPageAlias].members.map((member, i) =>
+                    {presidium[currentPageAlias ? currentPageAlias : club_alias].members.map((member, i) =>
                         <li className="menu-component__wrap-item" key={i}>{member}</li>
                     )}
                 </ol>
@@ -399,7 +397,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
 
     useEffect(() => {
         (() => Request({
-            url: `/api/Club/federation_base_info?alias=` + currentPageAlias
+            url: `/api/Club/federation_base_info?alias=` + currentPageAlias ? currentPageAlias : club_alias
         }, data => {
             setFedInfo(data);
             setLoading(false);
@@ -408,7 +406,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             setError(error.response);
             setLoading(false);
         }))();
-    }, [currentPageAlias]);
+    }, [currentPageAlias, club_alias]);
 
     useEffect(() => {
         if(fedInfo) {
@@ -467,7 +465,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                                 <ul className="user-menu__list">
                                     {user !== 'nursery' &&
                                     <li className="user-menu__item">
-                                        <NavLink exact to={`/exhibitions?Alias=${currentPageAlias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
+                                        <NavLink exact to={`/exhibitions?Alias=${currentPageAlias ? currentPageAlias : club_alias}`} className="user-menu__link _events" title="Мероприятия">Мероприятия</NavLink>
                                     </li>
                                     }
                                     {isFederation &&
@@ -476,16 +474,16 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                                     </li>
                                     }
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${currentPageAlias}/news`} className="user-menu__link _public" title="Публикации">Публикации</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/news` : `/${currentPageAlias ? currentPageAlias : club_alias}/news`} className="user-menu__link _public" title="Публикации">Публикации</NavLink>
                                     </li>
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : user === 'club' ? `/club/${alias}/uploaded-documents/` : `/${currentPageAlias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : user === 'club' ? `/club/${alias}/uploaded-documents/` : `/${currentPageAlias ? currentPageAlias : club_alias}/uploaded-documents/`} className="user-menu__link _documents" title="Документы">Документы</NavLink>
                                     </li>
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${currentPageAlias}/gallery`} className="user-menu__link _gallery" title="Фотогалерея">Фотогалерея</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${currentPageAlias ? currentPageAlias : club_alias}/gallery`} className="user-menu__link _gallery" title="Фотогалерея">Фотогалерея</NavLink>
                                     </li>
                                     <li className="user-menu__item">
-                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${currentPageAlias}/video`} className="user-menu__link _video" title="Фотогалерея">Видеозаписи</NavLink>
+                                        <NavLink exact to={user === 'nursery' ? `/kennel/${alias}/video` : `/${currentPageAlias ? currentPageAlias : club_alias}/video`} className="user-menu__link _video" title="Фотогалерея">Видеозаписи</NavLink>
                                     </li>
                                     {showDetails &&
                                     <>
