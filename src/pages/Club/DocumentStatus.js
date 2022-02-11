@@ -19,9 +19,9 @@ import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGal
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
+import PhotoComponent from "../../components/PhotoComponent";
 
 import "./index.scss";
-import PhotoComponent from "../../components/PhotoComponent";
 
 const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
