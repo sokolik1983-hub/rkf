@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { connect, getIn, Field } from 'formik';
 import Error from './Error';
 import Label from './Label';
@@ -8,9 +8,6 @@ const CustomNumber = (props) => {
 
     const handleChange = ({ target }) => {
         formik.setFieldValue(name, target.value.replace(/\D/g, ''));
-    }
-    const errorFounder = () => {
-
     }
 
     return (
