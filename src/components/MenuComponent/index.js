@@ -259,8 +259,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
         }
     }, [currentPageAlias, club_alias]);
 
-    // const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
-
     const getPresidium = e => {
         e.preventDefault();
         setErrorText(null);
