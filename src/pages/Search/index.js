@@ -122,6 +122,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     };
 
     useEffect(() => {
+        setSearchResult([]);
         if(filtersValue.string_filter && filtersValue.search_type) {
             (() => getSearchResults(1))();
         } else {
