@@ -430,6 +430,12 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
         }
     }, []);
 
+    useEffect(() => {
+        if(currentPageAlias === 'client') {
+            setCurrentPageAlias(alias);
+        }
+    }, [currentPageAlias]);
+
     return (
         <>
             {isMobile ?
