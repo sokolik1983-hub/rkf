@@ -27,12 +27,17 @@ const SearchFilter = ({
         filtersSearchType = searchTabId === 1 ? 100 : searchTabId === 2 ? 300 : searchTabId === 3 ? 200 : 400;
         (!additionalFilterInUrl || (additionalFilterInUrl && isMenuChanges)) &&
             history.push(`/search?string_filter=${searchValue.trim()}&search_type=${filtersSearchType}`)
-    }, [searchTabActiveName])
+    }, [searchTabActiveName]);
+
+    useEffect(() => {
+        setSearchValue(filtersValue.string_filter);
+    }, [filtersValue.string_filter]);
+
 
     const handleSubmit = e => {
         e.preventDefault();
         history.push(`/search?string_filter=${searchValue.trim()}&search_type=${filtersSearchType}`);
-    };
+    }
 
     const tabItems = useMemo(() => {
         return [
