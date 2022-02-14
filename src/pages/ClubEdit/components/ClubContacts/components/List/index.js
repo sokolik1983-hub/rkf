@@ -24,7 +24,7 @@ const ClientContactList = props => {
     };
 
     useEffect(()=> {
-        visibility && triggerRef.current.innerHTML.length <= 50 && setTriggerButton(true);
+        triggerRef?.current.innerHTML.length <= 50 && setTriggerButton(true);
     },[visibility]);
 
     useEffect(()=> {
