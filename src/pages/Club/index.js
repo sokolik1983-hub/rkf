@@ -80,15 +80,11 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    {isMobile && !clubInfo.headliner_link
-                                        ? null
-                                        : !isMobile
-                                        && <UserBanner
-                                            link={clubInfo.headliner_link}
-                                            canEdit={canEdit}
-                                            updateInfo={getClubInfo}
-                                        />
-                                    }
+                                    <UserBanner
+                                        link={clubInfo.headliner_link}
+                                        canEdit={canEdit}
+                                        updateInfo={getClubInfo}
+                                    />
                                     {isMobile &&
                                         <UserHeader
                                             user={alias !== 'rkf-online' ? 'club' : ''}
