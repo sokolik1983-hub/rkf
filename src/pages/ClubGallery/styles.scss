@@ -94,31 +94,34 @@
         }
     }
     &__buttons {
-        padding-bottom: 10px;
+        display: flex;
+        flex-wrap: wrap;
         margin-bottom: 0.5rem;
+        padding-bottom: 10px;
         border-bottom: 1px solid #e8e8e8;
         &:not(:empty) {
             margin-top: 10px;
         }
         &-link {
+            display: flex;
             color: #72839c;
             font-weight: normal;
             font-size: 18px;
             line-height: 20px;
             text-decoration: none;
             cursor: pointer;
-            margin-right: 15px;
+            margin: 3px 15px 3px 0px;
             white-space: nowrap;
+            &__icon {
+                width: 15px;
+                display: flex;
+                align-items: center;
+                margin-right: 3px;
+            }
             &:hover {
                 color: #36f;
                 & svg {
                     fill: #36f;
-                }
-            }
-            @media (max-width: 380px) {
-                display: block;
-                &:not(:last-child) {
-                    margin-bottom: 6px;
                 }
             }
         }
