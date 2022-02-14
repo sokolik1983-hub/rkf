@@ -205,7 +205,7 @@ const RenderFields = ({ fields,
                             onFocus={setFocused}
                             maxLength="1000"
                             value={content ? content : ''}
-                            rows={content ? addRow() : focus ? "3" : "1"}
+                            rows={content ? addRow() : focus ? "2" : "1"}
                             className={focus ? `_textarea_focus` : ``}
                         />
                 </FormGroup>
