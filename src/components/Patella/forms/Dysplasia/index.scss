@@ -27,6 +27,11 @@
     grid-template-columns: 2.75fr 157px 2fr;
     margin-top: 20px;
     margin-bottom: 20px!important;
+
+    &-delete {
+        display: grid;
+        grid-template-columns: 49.5% 1fr 141px;
+    }
 }
 .DocItem__pedigree-agreement-wrap {
     display: grid;

@@ -13,6 +13,8 @@ import HideIf from "components/HideIf";
 import FormFile from "../../components/FormFile";
 import UserDatePicker from "../../../kendo/DatePicker";
 import moment from "moment";
+import useIsMobile from "../../../../utils/useIsMobile";
+
 import "./index.scss";
 
 
@@ -26,6 +28,8 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
     const [everkAlert, setEverkAlert] = useState(false);
     const [everk, setEverk] = useState(false);
     const [init, setInit] = useState(false);
+    
+    const isMobile = useIsMobile(1080);
 
     const apiPrivacyEndpointDysplasia = config.profileType === 'kennel' ? '/api/requests/dog_health_check_request/kenneldoghealthcheckdysplasiarequest/personal_data_document' : '/api/requests/dog_health_check_request/doghealthcheckdysplasiarequest/personal_data_document';
     const apiPrivacyEndpointPatella = config.profileType === 'kennel' ? '/api/requests/dog_health_check_request/kenneldoghealthcheckpatellarequest/personal_data_document' : '/api/requests/dog_health_check_request/doghealthcheckpatellarequest/personal_data_document';
@@ -144,7 +148,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                 />}
             </FormGroup>
 
-            <FormGroup inline className="DocItem__pedigree-number_search">
+            <FormGroup inline className={`${everk && !view && !isMobile ? "DocItem__pedigree-number_search-delete" : "DocItem__pedigree-number_search"}`}>
                 <FormField disabled={view || everk} name='pedigree_number' label='№ родословной собаки' />
                 {!everk && !view && <Button className='btn btn-primary' style={{ marginRight: '1em', alignSelf: 'flex-end'  }} onClick={e => getEverkData()}>Поиск</Button>}
                 <FormField disabled={view || everk} name='dog_name' label='Кличка собаки' />
