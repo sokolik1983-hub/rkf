@@ -68,12 +68,12 @@
             }
 
             input {
-                min-width: 100px;
-                max-height: 38px;
-                padding: 7px 10px 5px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                min-width: 100px;
+                max-height: 38px;
+                padding: 7px 10px 5px;
                 @media (max-width: 1200px) {
                     margin: auto;
                 }
