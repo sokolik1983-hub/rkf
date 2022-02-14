@@ -25,6 +25,7 @@ import {Request} from '../../utils/request';
 import ls from 'local-storage';
 
 import './styles.scss';
+import Alert from "../../components/Alert";
 
 
 let unblock;
@@ -282,6 +283,7 @@ const ClubEditPage = ({
                             </aside>
                             <div className="ClubEdit__inner">
                                 <RenderFields
+                                    club_alias={club_alias}
                                     is_federation={is_federation}
                                     isOpenFilters={isOpenFilters}
                                     setShowFilters={setShowFilters}
@@ -298,6 +300,12 @@ const ClubEditPage = ({
                                     bindSubmitClubDocuments={bindSubmitClubDocuments}
                                 />
                             </div>
+                            {isSubmit && <Alert
+                                title="Сохранение данных"
+                                text={`Данные сохранены!`}
+                                autoclose={2.5}
+                                onOk={() => setIsSubmit(false)}
+                            />}
                         </Container>
                     </div>
                 </Layout>

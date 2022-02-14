@@ -37,6 +37,18 @@
                 text-align: left;
             }
         }
+
+        &__error {
+            position: absolute;
+            font-size: 12px;
+            line-height: 12px;
+            left: 125px;
+            bottom: -16px;
+            background-color: rgba(255, 255, 255, 0);
+            @media (max-width: 768px) {
+                left: 0;
+            }
+        }
     }
     .Submit-button {
         &__save {

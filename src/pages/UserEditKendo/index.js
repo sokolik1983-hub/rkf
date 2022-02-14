@@ -29,6 +29,8 @@ import './styles.scss';
 import ClickGuard from "../../components/ClickGuard";
 
 
+let unblock;
+
 const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated, isOpenFilters, setShowFilters }) => {
     const [values, setValues] = useState(defaultValues);
     const [requestData, setRequestData] = useState(null);
@@ -49,6 +51,11 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [notificationsLength, setNotificationsLength] = useState(0);
     const prevRequestData = useRef();
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
+
+    useEffect(() => {
+        unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
+        return () => unblock();
+    }, []);
 
     useEffect(() => {
         Promise.all([
