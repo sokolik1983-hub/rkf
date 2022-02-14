@@ -356,9 +356,13 @@
       & > div:first-child {
         display: flex;
         flex-wrap: wrap;
+        div {
+          display: flex;
+          flex-direction: column;
+        }
       }
       span:not(:last-child) {
-        margin-right: 10px;
+        margin-bottom: 5px;
       }
     }
     &-inactive {
