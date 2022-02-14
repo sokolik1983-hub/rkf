@@ -19,14 +19,21 @@
             align-items: flex-start;
         }
         &-link {
+            display: flex;
+            margin-left: 15px;
             color: #72839c;
             font-weight: normal;
             font-size: 18px;
             line-height: 24px;
             text-decoration: none;
             cursor: pointer;
-            margin-left: 15px;
             white-space: nowrap;
+            &__icon {
+                display: flex;
+                align-items: center;
+                width: 15px;
+                margin-right: 3px;
+            }
             &:hover {
                 color: #3366ff;
                 transition: all 0.2s linear;
