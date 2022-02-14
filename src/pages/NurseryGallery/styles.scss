@@ -97,13 +97,7 @@
                 & svg {
                     fill: #36f;
                 }
-            }
-            @media (max-width: 380px) {
-                display: block;
-                &:not(:last-child) {
-                    margin-bottom: 6px;
-                }
-            }
+            }пше
         }
     }
     &__edit {
