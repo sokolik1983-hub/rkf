@@ -20,10 +20,10 @@ import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import UserMenu from "../../components/Layouts/UserMenu";
 import { clubNav } from "../Club/config";
+import PhotoComponent from "../../components/PhotoComponent";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
-import PhotoComponent from "../../components/PhotoComponent";
 
 const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
