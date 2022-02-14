@@ -31,7 +31,7 @@ import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
 
 
-const BaseSearch = ({isAuthenticated}) => {
+const BaseSearch = ({isAuthenticated, history, isOpenFilters, setShowFilters}) => {
     const [cardClicked, setCardClicked] = useState(0);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);

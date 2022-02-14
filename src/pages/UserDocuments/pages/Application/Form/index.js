@@ -750,6 +750,9 @@ const Application = ({ alias, history, status, owner }) => {
                                         }
                                     </div>
                                     <div className="application-form__row _payment-info">
+                                        {
+                                            console.log(new Date())
+                                        }
                                         <Field
                                             id="payment_date"
                                             name="payment_date"

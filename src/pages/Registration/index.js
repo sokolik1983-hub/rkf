@@ -23,6 +23,7 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
         <Redirect to="/" /> :
         <Layout login_page>
             <AuthLayout className="registration-page">
+                111111111111111111111111111111111111111111111
                 <Card>
                     <div>
                         <div className="registration-page__main-tabs">

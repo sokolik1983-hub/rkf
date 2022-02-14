@@ -128,7 +128,7 @@ const Filters = ({
         if(federationAlias) {
             let url = `/api/Club/federation_base_info?alias=` + federationAlias;
             getFedInfo(url)
-        } else if(club.alias === 'rkf') {
+        } else if(club?.alias === 'rkf') {
             let url = '/api/Club/rkf_base_info';
             getFedInfo(url);
         }
