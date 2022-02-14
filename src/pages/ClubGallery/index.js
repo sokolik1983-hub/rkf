@@ -20,12 +20,14 @@ import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import UserMenu from "../../components/Layouts/UserMenu";
 import { clubNav } from "../Club/config";
+import PhotoComponent from "../../components/PhotoComponent";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
 
 const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
+    const [fedInfo, setFedInfo] = useState(null);
     const [images, setImages] = useState([]);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [imagesLoading, setImagesLoading] = useState(false);
@@ -113,6 +115,18 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
         }, error => handleError(error));
     }
 
+    const getFedInfo = (url) => {
+        Request({
+            url: url
+        }, data => {
+            setFedInfo(data);
+            setPageLoaded(true);
+        }, error => {
+            console.log(error.response);
+            setPageLoaded(true);
+        });
+    };
+
     const handleError = e => {
         let errorText = e.response.data.errors
             ? Object.values(e.response.data.errors)
@@ -168,6 +182,14 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
             subscribed: subscribed
         })
     }
+
+    useEffect(() => {
+        if(clubInfo && clubInfo.federation_alias) {
+            let url = `/api/Club/federation_base_info?alias=` + clubInfo.federation_alias;
+            getFedInfo(url)
+        }
+    }, [clubInfo]);
+
     return (
         <>
             {!pageLoaded && !clubInfo
@@ -280,6 +302,13 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                     member={clubInfo.member}
                                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                                     isAuthenticated={isAuthenticated}
+                                                />
+                                            }
+                                            {!isMobile && (clubInfo.user_type === 5 || clubInfo.club_alias === 'rkf') && fedInfo &&
+                                                <PhotoComponent
+                                                    photo={fedInfo.owner_photo}
+                                                    name={fedInfo.owner_name}
+                                                    position={fedInfo.owner_position}
                                                 />
                                             }
                                             {!isMobile && isFederationAlias(clubInfo.club_alias) ?

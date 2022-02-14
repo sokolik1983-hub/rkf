@@ -20,12 +20,14 @@ import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import UserMenu from "../../components/Layouts/UserMenu";
 import { clubNav } from "../Club/config";
+import PhotoComponent from "../../components/PhotoComponent";
 
 import "./styles.scss";
 import "pages/Club/index.scss";
 
 const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
+    const [fedInfo, setFedInfo] = useState(null);
     const [videos, setVideos] = useState([]);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [videosLoading, setVideosLoading] = useState(false);
@@ -85,6 +87,18 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
         }, error => handleError(error));
     };
 
+    const getFedInfo = (url) => {
+        Request({
+            url: url
+        }, data => {
+            setFedInfo(data);
+            setPageLoaded(true);
+        }, error => {
+            console.log(error.response);
+            setPageLoaded(true);
+        });
+    };
+
     const handleError = e => {
         let errorText;
         if (e.response) {
@@ -137,6 +151,13 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
         })
     }
 
+    useEffect(() => {
+        if(clubInfo && clubInfo.federation_alias) {
+            let url = `/api/Club/federation_base_info?alias=` + clubInfo.federation_alias;
+            getFedInfo(url)
+        }
+    }, [clubInfo]);
+
     return (
         <>
             {!pageLoaded && !clubInfo
@@ -146,7 +167,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    {isMobile &&
+                                    {isMobile && clubInfo &&
                                         <>
                                             <UserHeader
                                                 user={match.params.route !== 'rkf-online' ? 'club' : ''}
@@ -223,6 +244,13 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                     member={clubInfo.member}
                                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                                     isAuthenticated={isAuthenticated}
+                                                />
+                                            }
+                                            {!isMobile && (clubInfo.user_type === 5 || clubInfo.club_alias === 'rkf') && fedInfo &&
+                                                <PhotoComponent
+                                                    photo={fedInfo.owner_photo}
+                                                    name={fedInfo.owner_name}
+                                                    position={fedInfo.owner_position}
                                                 />
                                             }
                                             {!isMobile && isFederationAlias(clubInfo.club_alias) ?
