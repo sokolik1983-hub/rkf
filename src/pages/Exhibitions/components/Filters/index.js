@@ -27,9 +27,11 @@ import MenuComponent from "../../../../components/MenuComponent";
 import { connectAuthVisible } from "pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
 import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
+import PhotoComponent from "../../../../components/PhotoComponent";
 import ls from "local-storage";
 
 import "./index.scss";
+
 
 
 const Filters = ({
@@ -60,7 +62,20 @@ const Filters = ({
     const [loading, setLoading] = useState(true);
     const [clear_filter, setClearFilter] = useState(false);
     const [range_clicked, setRangeClicked] = useState(false);
+    const [fedInfo, setFedInfo] = useState(null);
     const isMobile = useIsMobile(1080);
+
+    const getFedInfo = (url) => {
+        Request({
+            url: url
+        }, data => {
+            setFedInfo(data);
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setLoading(false);
+        });
+    }
 
     useEffect(() => {
         Promise.all([
@@ -110,6 +125,16 @@ const Filters = ({
     };
 
     useEffect(() => {
+        if(federationAlias) {
+            let url = `/api/Club/federation_base_info?alias=` + federationAlias;
+            getFedInfo(url)
+        } else if(club.alias === 'rkf') {
+            let url = '/api/Club/rkf_base_info';
+            getFedInfo(url);
+        }
+    }, []);
+
+    useEffect(() => {
         if(currentExhibCities && currentExhibCities.length > 0){
             (() => Request({
                 url: `${endpointExhibitionsFilters}?${currentExhibCities.map(reg => `RegionIds=${reg}`).join('&')}`
@@ -147,6 +172,14 @@ const Filters = ({
                                 onSubscriptionUpdate={onSubscriptionUpdate}
                                 isAuthenticated={isAuthenticated}
                             />
+                            {
+                                (federationAlias || club.alias === 'rkf') && fedInfo &&
+                                <PhotoComponent
+                                    photo={fedInfo.owner_photo}
+                                    name={fedInfo.owner_name}
+                                    position={fedInfo.owner_position}
+                                />
+                            }
                             {!isMobile && isFederationAlias(filters.Alias) ?
                                 <MenuComponent
                                     alias={filters.Alias}

@@ -22,6 +22,8 @@ import Banner from "../../components/Banner";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import useIsMobile from "../../utils/useIsMobile";
+import PhotoComponent from "../../components/PhotoComponent";
+
 import "./index.scss";
 
 const urlRegexp = new RegExp(/^((http|https):\/\/?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
@@ -37,6 +39,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
     const isMobile = useIsMobile(1080);
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
+    const [fedInfo, setFedInfo] = useState(null);
     const [loading, setLoading] = useState(true);
     const exhibitionId = match.params.id;
     const { dictionary } = useDictionary('cities');
@@ -141,6 +144,20 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
         })
     }
 
+    const getFedInfo = () => {
+        Request({
+            url: `/api/Club/federation_base_info?alias=` + club_alias
+        }, data => {
+            setFedInfo(data);
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+        });
+    }
+
+    useEffect(() => {
+        club_alias && getFedInfo();
+    }, [club_alias]);
 
     return isError
         ? <PageNotFound />
@@ -151,7 +168,11 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
                             <div className="exhibition-page__back-button_wrap">
-                                <Link className="exhibition-page__back-button" to="/exhibitions">Назад</Link>
+                                <a className="exhibition-page__back-button"
+                                   href="#"
+                                   onClick={()=> {
+                                       history.go(-1);
+                                }}>Назад</a>
                             </div>
                             <aside className="exhibition-page__left">
                                 <StickyBox offsetTop={60}>
@@ -172,9 +193,16 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                             subscribed={subscribed}
                                             onSubscriptionUpdate={onSubscriptionUpdate}
                                         />
+                                        {!isMobile && fedInfo && fedInfo.owner_photo &&
+                                            <PhotoComponent
+                                                photo={fedInfo.owner_photo}
+                                                name={fedInfo.owner_name}
+                                                position={fedInfo.owner_position}
+                                            />
+                                        }
                                         {!isMobile && isFederationAlias(club_alias) ?
                                             <MenuComponent
-                                                alias={club_alias}
+                                                club_alias={club_alias}
                                                 name={display_name || club_fact_name || ''}
                                                 isFederation={true}
                                             />
