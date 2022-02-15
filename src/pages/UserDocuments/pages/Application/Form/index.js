@@ -29,11 +29,13 @@ import ruMessages from "kendoMessages.json";
 import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
 
 import "./index.scss";
+import {DateInput} from "../../../../../components/materialUI/DateTime";
 
 loadMessages(ruMessages, 'ru');
 
 
 const Application = ({ alias, history, status, owner }) => {
+
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableOwner, setDisableOwner] = useState(true);
     const [disableFields, setDisableFields] = useState(false);
@@ -52,6 +54,9 @@ const Application = ({ alias, history, status, owner }) => {
     const [requestId, setRequestId] = useState(0);
     const [docId, setDocId] = useState(0);
     const [payId, setPayId] = useState(0);
+    const [selectedDate, handleDateChange] = useState(null);
+
+    console.log('status', status);
 
     const [initialValues, setInitialValues] = useState({
         declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
@@ -99,7 +104,6 @@ const Application = ({ alias, history, status, owner }) => {
                 PromiseRequest({ url: `/api/dog/Breed` }),
                 PromiseRequest({ url: `/api/requests/commonrequest/rkf_document_types` })
             ]).then(data => {
-
                 const requestData = data[0];
                 const breedsData = data[1];
                 const rkfDocTypesData = data[2];
@@ -195,7 +199,7 @@ const Application = ({ alias, history, status, owner }) => {
             application_document_id: applicationDocumentId ? applicationDocumentId : data.application_document_id
         };
 
-        newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
+        newData.payment_date = moment(selectedDate).format("YYYY-MM-DD");
 
         delete newData.declarant_name;
         delete newData.document_type_id;
@@ -753,10 +757,12 @@ const Application = ({ alias, history, status, owner }) => {
                                         <Field
                                             id="payment_date"
                                             name="payment_date"
-                                            label="Дата оплаты"
-                                            max={new Date()}
-                                            component={FormDatePicker}
-                                            validator={dateRequiredValidator}
+                                            label="Custom input"
+                                            maxDate={'2022-02-16'}
+                                            component={DateInput}
+                                            value={status === 'view' ? values.payment_date : selectedDate}
+                                            onChange={handleDateChange}
+                                            // validator={dateRequiredValidator}
                                             disabled={!editable}
                                         />
                                         <Field

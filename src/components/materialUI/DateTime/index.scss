@@ -1,0 +1,14 @@
+.date-input {
+  width: 100%;
+  margin-bottom: 16px;
+  .MuiInputBase-root {
+    font-family: Roboto, sans-serif;
+  }
+  .MuiFormControlLabel-root {
+    margin: 0;
+    align-items: flex-start;
+    .MuiTouchRipple-root {
+      display: none;
+    }
+  }
+}
