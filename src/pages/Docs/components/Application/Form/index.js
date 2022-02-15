@@ -135,7 +135,7 @@ const Application = ({ alias, history, status }) => {
 
             setDisableAllFields(true);
         }
-    }, [status]);
+    }, []);
 
     const handleError = e => {
         if (e.response) {
