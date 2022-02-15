@@ -264,9 +264,11 @@
     }
 
     .custom-checkbox {
+
       &:first-child {
         margin-left: 32px;
       }
+
       &__label {
         color: #72839c;
         padding-left: 22px;
@@ -448,8 +450,8 @@
     }
 
     &-wrap {
-      color: #72839C;
       margin-left: 5px;
+      color: #72839C;
 
       &._desktop {
         margin-left: 50px;
