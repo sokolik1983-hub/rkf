@@ -9,6 +9,8 @@ import Button from "components/Button";
 import HideIf from "components/HideIf";
 import Card from "components/Card";
 import { Request } from "utils/request";
+import Modal from "../../../../../../components/Modal";
+import FeedBack from "../../components/Feedback";
 
 // litter
 const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, send, Title}) => {
@@ -20,6 +22,8 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
     }
     const [init, setInit] = useState(false);
     const [folder, _setFolder] = useState('');
+    const [showModal, setShowModal] = useState('');
+
     const setFolder = e => {
         if (!e) return;
         formik.setFieldValue('folder_number', e);
@@ -103,6 +107,18 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
     <div className="stage-controls flex-row">
             <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${alias}/documents/`)}>Назад</Button>
         <SubmitError />
+        <Button className="btn-condensed"
+                onClick={() => setShowModal(true)}
+        >Сообщить о ошибке</Button>
+        <Modal showModal={showModal}
+               handleClose={() => {
+                   setShowModal(false);
+               }}
+               className={`stage-controls__modal`}
+               headerName="Сообщить о ошибке"
+        >
+            <FeedBack />
+        </Modal>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
             action: config.url,
