@@ -10,3 +10,46 @@
 .k-dateinput input {
     text-transform: uppercase;
 }
+
+// добавление стилей для корректного отображения цвета в Сафари
+.k-textbox {
+    -webkit-text-fill-color: #495057;
+    -webkit-opacity: 1;
+    color: #495057;
+}
+
+// добавление стилей для меню в таблице заявок
+.k-list .k-item,
+.k-list .k-item:focus,
+.k-list .k-item.k-state-focused,
+.k-list .k-item.k-state-focused:hover {
+    width: 100%;
+    padding: 0;
+    box-shadow: none;
+
+    & a,
+    & span {
+        padding: 0 16px;
+    }
+}
+
+// добавление стилей фильтру таблиц
+.k-animation-container {
+    z-index: 99 !important;
+    .k-popup {
+        background-color: #fff !important;
+        transition: 0s !important;
+    }
+}
+
+div.k-columnmenu-actions {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+button.k-button {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    margin: 5px auto !important;
+}
