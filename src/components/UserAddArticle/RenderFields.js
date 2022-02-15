@@ -197,7 +197,7 @@ const RenderFields = ({ fields,
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
-                <FormGroup className="ArticleCreateForm__wrap ArticleCreateForm__textarea-wrap">
+                <FormGroup className="articleCreateForm__wrap articleCreateForm__textarea-wrap">
                     <ClientAvatar size={40} avatar={logo || DEFAULT_IMG.clubAvatar} />
                         <FormField
                             {...fields.content}
@@ -209,23 +209,23 @@ const RenderFields = ({ fields,
                             className={focus ? `_textarea_focus` : ``}
                         />
                 </FormGroup>
-                <div className="ArticleCreateForm__controls-wrap">
-                    <FormControls className={`ArticleCreateForm__controls ${focus ? ' _focus' : ''}`}>
+                <div className="articleCreateForm__controls-wrap">
+                    <FormControls className={`articleCreateForm__controls ${focus ? ' _focus' : ''}`}>
                         <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
-                            <label htmlFor="file" className="ArticleCreateForm__labelfile" />
+                            <label htmlFor="file" className="articleCreateForm__labelfile" />
                         </LightTooltip>
                         <input
                             type="file"
                             name="file"
                             id="file"
                             accept=".jpg, .jpeg"
-                            className="ArticleCreateForm__inputfile"
+                            className="articleCreateForm__inputfile"
                             onChange={handleChange}
                         />
                         {!videoLink &&
                             <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
                                 <button
-                                    className="ArticleCreateForm__attach-video"
+                                    className="articleCreateForm__attach-video"
                                     type="button"
                                     onClick={() => {
                                         setModalType('video');
@@ -236,7 +236,7 @@ const RenderFields = ({ fields,
                         }
                         <LightTooltip title="Прикрепить PDF" enterDelay={200} leaveDelay={200}>
                             <button
-                                className="ArticleCreateForm__attach-pdf"
+                                className="articleCreateForm__attach-pdf"
                                 type="button"
                                 onClick={() => {
                                     setModalType('pdf');
@@ -244,13 +244,13 @@ const RenderFields = ({ fields,
                                 }}
                             />
                         </LightTooltip>
-                        <div className="ArticleCreateForm__ad-wrap">
+                        <div className="articleCreateForm__ad-wrap">
                         {
                             !videoLink && focus &&
                             <CustomCheckbox
                                 id="ad"
                                 label="Куплю/Продам"
-                                className="ArticleCreateForm__ad"
+                                className="articleCreateForm__ad"
                                 checked={isAd}
                                 onChange={() => {
                                     if (isAd) {
@@ -271,7 +271,7 @@ const RenderFields = ({ fields,
                                 <CustomCheckbox
                                     id="ad1"
                                     label="Объявление"
-                                    className="ArticleCreateForm__ad"
+                                    className="articleCreateForm__ad"
                                     checked={isCheckedAddTypes}
                                     onChange={() => {
                                         if (isCheckedAddTypes) {
@@ -292,7 +292,7 @@ const RenderFields = ({ fields,
                             <CustomCheckbox
                                 id="is_must_read"
                                 label="Обязательно к прочтению"
-                                className="ArticleCreateForm__ad"
+                                className="articleCreateForm__ad"
                                 checked={isMust}
                                 onChange={() => {
                                     if (isMust) {
@@ -308,8 +308,8 @@ const RenderFields = ({ fields,
                         </div>
                     </FormControls>
                     {content && !isMobile &&
-                        <div className="ArticleCreateForm__length-hint">
-                            <span className="ArticleCreateForm__content-length">
+                        <div className="articleCreateForm__length-hint">
+                            <span className="articleCreateForm__content-length">
                                 {`осталось ${1000 - content.length} знаков`}
                             </span>
                         </div>
@@ -317,7 +317,7 @@ const RenderFields = ({ fields,
                 </div>
             </div>
             {isAd && focus &&
-                <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
+                <div className={`articleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
                         <CustomChipList
                             {...fields.advert_type_id}
@@ -329,22 +329,22 @@ const RenderFields = ({ fields,
                         />
                     </FormGroup>
                     {
-                        !activeElem && <div className="ArticleCreateForm__error-wrap">
+                        !activeElem && <div className="articleCreateForm__error-wrap">
                             <div className="FormInput__error">Выберите категорию объявления.</div>
                         </div>
                     }
-                    <FormGroup className={`ArticleCreateForm__advert BuySell ${isMating ? 'isMating' : ''}`}>
-                        <FormField className="ArticleCreateForm__input-breed_new" {...fields.advert_breed_id} />
-                        <FormField className="ArticleCreateForm__input-sex_new" {...fields.dog_sex_type_id} />
-                        <FormField className="ArticleCreateForm__input-color_new" {...fields.dog_color} />
-                        <FormField className="ArticleCreateForm__input-age_new" {...fields.dog_age} />
-                        <CustomNumber cName={' ArticleCreateForm__input-cost_new'} {...fields.advert_cost} maxLength={10}  />
-                        {!isMating && <CustomNumber cName={' ArticleCreateForm__input-puppies_new'} {...fields.advert_number_of_puppies} />}
+                    <FormGroup className={`articleCreateForm__advert buySell ${isMating ? 'isMating' : ''}`}>
+                        <FormField className="articleCreateForm__input-breed_new" {...fields.advert_breed_id} />
+                        <FormField className="articleCreateForm__input-sex_new" {...fields.dog_sex_type_id} />
+                        <FormField className="articleCreateForm__input-color_new" {...fields.dog_color} />
+                        <FormField className="articleCreateForm__input-age_new" {...fields.dog_age} />
+                        <CustomNumber cName={' articleCreateForm__input-cost_new'} {...fields.advert_cost} maxLength={10}  />
+                        {!isMating && <CustomNumber cName={' articleCreateForm__input-puppies_new'} {...fields.advert_number_of_puppies} />}
                     </FormGroup>
                 </div>
             }
             {isCheckedAddTypes && focus && (activeElem !== 6) &&
-                <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
+                <div className={`articleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
                         <CustomChipList
                             {...fields.advert_type_id}
@@ -356,36 +356,36 @@ const RenderFields = ({ fields,
                         />
                     </FormGroup>
                     {
-                        !activeElem && <div className="ArticleCreateForm__error-wrap">
+                        !activeElem && <div className="articleCreateForm__error-wrap">
                             <div className="FormInput__error">Выберите категорию объявления.</div>
                         </div>
                     }
-                    <FormGroup className="ArticleCreateForm__advert Ads">
-                        <div className="ArticleCreateForm__city-select-wrap">
-                            <FormField className={`ArticleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={false}/>
+                    <FormGroup className="articleCreateForm__advert Ads">
+                        <div className="articleCreateForm__city-select-wrap">
+                            <FormField className={`articleCreateForm__input-city`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={false}/>
                         </div>
-                        <div className="ArticleCreateForm__breed-select-wrap">
-                            <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
+                        <div className="articleCreateForm__breed-select-wrap">
+                            <FormField className={`articleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                             <CustomCheckbox
                                 id="isHalfBreed_checkbox"
                                 label="Метис"
-                                className="ArticleCreateForm__ad"
+                                className="articleCreateForm__ad"
                                 checked={isHalfBreed}
                                 onChange={handleChangeHalfBreed}
                             />
                         </div>
-                        <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
-                        <div className={(activeElem === 5) ? 'ArticleCreateForm__age-wrap' : 'ArticleCreateForm__input-age'}>
-                            <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
+                        <FormField className="articleCreateForm__input-sex" {...fields.dog_sex_type_id} />
+                        <div className={(activeElem === 5) ? 'articleCreateForm__age-wrap' : 'articleCreateForm__input-age'}>
+                            <FormField className="articleCreateForm__input-age" {...fields.dog_age} />
                         </div>
-                        <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
-                        <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
+                        <FormField className="articleCreateForm__input-name" {...fields.dog_name} />
+                        <FormField className="articleCreateForm__input-color" {...fields.dog_color} />
                     </FormGroup>
                 </div>
             }
 
             {isCheckedAddTypes && focus && (activeElem === 6) &&
-            <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
+            <div className={`articleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                 <FormGroup inline>
                     <CustomChipList
                         {...fields.advert_type_id}
@@ -397,37 +397,37 @@ const RenderFields = ({ fields,
                     />
                 </FormGroup>
                 {
-                    !activeElem && <div className="ArticleCreateForm__error-wrap">
+                    !activeElem && <div className="articleCreateForm__error-wrap">
                         <div className="FormInput__error">Выберите категорию объявления.</div>
                     </div>
                 }
-                <FormGroup className="ArticleCreateForm__advert Ads">
-                        <div className="ArticleCreateForm__city-select-wrap">
-                            <FormField className={`ArticleCreateForm__input-city ${isAllCities && 'disabled'}`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={true} />
+                <FormGroup className="articleCreateForm__advert Ads">
+                        <div className="articleCreateForm__city-select-wrap">
+                            <FormField className={`articleCreateForm__input-city ${isAllCities && 'disabled'}`}  {...fields.dog_city} label={`Место ${cityLabel}`} isMulti={true} />
                             <CustomCheckbox
                                 id="isAllCities__checkbox"
                                 label="Все города"
-                                className="ArticleCreateForm__ad"
+                                className="articleCreateForm__ad"
                                 checked={isAllCities}
                                 onChange={handleChangeAllCities}
                             />
                         </div>
-                        <div className="ArticleCreateForm__breed-select-wrap">
-                            <FormField className={`ArticleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
+                        <div className="articleCreateForm__breed-select-wrap">
+                            <FormField className={`articleCreateForm__input-breedId ${isHalfBreed && 'disabled'}`} {...fields.advert_breed_id} />
                             <CustomCheckbox
                                 id="isHalfBreed_checkbox"
                                 label="Метис"
-                                className="ArticleCreateForm__ad"
+                                className="articleCreateForm__ad"
                                 checked={isHalfBreed}
                                 onChange={handleChangeHalfBreed}
                             />
                         </div>
-                        <FormField className="ArticleCreateForm__input-sex" {...fields.dog_sex_type_id} />
-                        <div className={(activeElem === 5) ? 'ArticleCreateForm__age-wrap' : 'ArticleCreateForm__input-age'}>
-                            <FormField className="ArticleCreateForm__input-age" {...fields.dog_age} />
+                        <FormField className="articleCreateForm__input-sex" {...fields.dog_sex_type_id} />
+                        <div className={(activeElem === 5) ? 'articleCreateForm__age-wrap' : 'articleCreateForm__input-age'}>
+                            <FormField className="articleCreateForm__input-age" {...fields.dog_age} />
                         </div>
-                        <FormField className="ArticleCreateForm__input-name" {...fields.dog_name} />
-                        <FormField className="ArticleCreateForm__input-color" {...fields.dog_color} />
+                        <FormField className="articleCreateForm__input-name" {...fields.dog_name} />
+                        <FormField className="articleCreateForm__input-color" {...fields.dog_color} />
                 </FormGroup>
             </div>
         }
@@ -454,11 +454,11 @@ const RenderFields = ({ fields,
                     </div>
                 }
                 {!!documents.length &&
-                    <div className="ArticleCreateForm__documents">
-                        <h4 className="ArticleCreateForm__documents-title">Прикреплённые файлы:</h4>
-                        <ul className="ArticleCreateForm__documents-list">
+                    <div className="articleCreateForm__documents">
+                        <h4 className="articleCreateForm__documents-title">Прикреплённые файлы:</h4>
+                        <ul className="articleCreateForm__documents-list">
                             {documents.map((item, i) =>
-                                <li className="ArticleCreateForm__documents-item" key={i}>
+                                <li className="articleCreateForm__documents-item" key={i}>
                                     <span>{item.name}</span>
                                     <button type="button" onClick={() => deleteDocument(i)}>
                                         <SvgIcon icon={trash} size="default" />
@@ -468,17 +468,17 @@ const RenderFields = ({ fields,
                         </ul>
                     </div>
                 }
-                {focus && <div className="ArticleCreateForm__button-wrap">
+                {focus && <div className="articleCreateForm__button-wrap">
                     <SubmitButton
                         type="submit"
-                        className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
+                        className={`articleCreateForm__button ${formik.isValid ? 'active' : ''}`}
                     >
                         Опубликовать
                     </SubmitButton>
                 </div>}
             </>
             <Modal
-                className="ArticleCreateForm__modal"
+                className="articleCreateForm__modal"
                 showModal={showModal}
                 handleClose={closeModal}
                 handleX={closeModal}
