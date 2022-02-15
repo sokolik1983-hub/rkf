@@ -451,9 +451,16 @@
                 margin-left: 2px;
             }
 
+            &[for="name_lat"] {
+                position: relative;
+                height: 36px;
+                overflow: visible;
+            }
+
+
             &[for="description"] {
                 position: relative;
-                top: -80px;
+                top: -70px;
                 @media (max-width: 1024px) {
                     top: 0;
                 }
