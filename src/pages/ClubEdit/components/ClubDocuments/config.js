@@ -15,7 +15,7 @@ export const clubClubDocumentsConfig = {
         },
         url: {
             name: 'url',
-            label: 'Ссылка на документы',
+            label: 'Ссылки на&nbsp;документы',
         },
     },
     validationSchema: object().shape({
