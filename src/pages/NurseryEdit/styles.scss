@@ -379,8 +379,15 @@
     }
 
     .FormInput__error {
-        bottom: -3px;
+        position: absolute;
         font-size: 12px;
+        line-height: 12px;
+        left: 125px;
+        bottom: -16px;
+        background-color: rgba(255, 255, 255, 0);
+        @media (max-width: 1024px) {
+            left: 0;
+        }
     }
 
     .FormInput {

@@ -20,6 +20,7 @@ import BreedsList from '../../components/BreedsList';
 import {connectAuthVisible} from '../Login/connectors';
 import {connectShowFilters} from '../../components/Layouts/connectors';
 import randomKeyGenerator from '../../utils/randomKeyGenerator'
+import {blockContent} from "../../utils/blockContent";
 
 import './styles.scss';
 
@@ -144,6 +145,12 @@ const NurseryEdit = ({
             name
         };
         ls.set('user_info', updatedUserInfo);
+        setShowAlert({
+            title: 'Сохранение данных',
+            text: 'Данные сохранены!',
+            autoclose: 2.5,
+            onOk: () => setShowAlert(false)
+        });
     };
 
     const handleError = e => {
@@ -206,8 +213,6 @@ const NurseryEdit = ({
                                     withLoading={false}
                                 >
                                     <RenderFields
-                                        success={success}
-                                        setSuccess={setSuccess}
                                         isOpenFilters={isOpenFilters}
                                         setShowFilters={setShowFilters}
                                         streetTypes={streetTypes}

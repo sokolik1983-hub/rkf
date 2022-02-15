@@ -18,6 +18,7 @@ import CopyrightInfo from '../../components/CopyrightInfo';
 import ClickGuard from '../../components/ClickGuard';
 import Loading from '../../components/Loading';
 import Layout from '../../components/Layouts';
+import Alert from "../../components/Alert";
 import {useResourceAndStoreToRedux} from '../../shared/hooks';
 import injectReducer from '../../utils/injectReducer';
 import useIsMobile from '../../utils/useIsMobile';
@@ -25,7 +26,6 @@ import {Request} from '../../utils/request';
 import ls from 'local-storage';
 
 import './styles.scss';
-import Alert from "../../components/Alert";
 
 
 let unblock;
