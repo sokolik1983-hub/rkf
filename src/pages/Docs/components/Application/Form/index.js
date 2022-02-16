@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { Form, Field, FormElement } from '@progress/kendo-react-form';
@@ -391,8 +391,6 @@ const Application = ({ alias, history, status }) => {
             documents: values.documents.filter(d => d.id !== id)
         })
     };
-
-    const currentDate = useMemo(() => new Date(), []);
 
     return (
         <div className="application-form">
