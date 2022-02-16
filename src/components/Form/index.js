@@ -1,11 +1,11 @@
 import Form from './Form'
-import FormFormikEnhanced from './FormFormikEnhanced'
-import SubmitButton from './SubmitButton'
-import FormControls from "./FormControls";
-import FormGroup from "./FormGroup";
-import FormField from "./Field";
-import FormAliasInput from "./Field/AliasInput";
-import FormInput from "./FormInput";
+import FormFormikEnhanced from 'components/Form/FormFormikEnhanced'
+import SubmitButton from 'components/Form/SubmitButton'
+import FormControls from "components/Form/FormControls";
+import FormGroup from "components/Form/FormGroup";
+import FormField from "components/Form/Field";
+import FormAliasInput from "components/Form/Field/AliasInput";
+import FormInput from "components/Form/FormInput";
 
 export {
     Form,
