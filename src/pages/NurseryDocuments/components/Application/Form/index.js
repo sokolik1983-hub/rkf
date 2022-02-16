@@ -242,8 +242,6 @@ const Application = ({ alias, history, status }) => {
             application_document_id: applicationDocumentId ? applicationDocumentId : data.application_document_id
         };
 
-        newData.payment_date = moment(selectedDate).format("YYYY-MM-DD");
-
         delete newData.declarant_name;
         delete newData.document_type_id;
         delete newData.payment_document;
@@ -814,11 +812,12 @@ const Application = ({ alias, history, status }) => {
                                                     id="payment_date"
                                                     name="payment_date"
                                                     label="Дата оплаты"
-                                                    className="club-page"
-                                                    maxDate={currentDate}
+                                                    maxDate={moment().format('YYYY-MM-DD')}
                                                     component={DateInput}
-                                                    value={status === 'view' ? values.payment_date : selectedDate}
-                                                    onChange={setSelectedDate}
+                                                    value={formProps?.valueGetter('payment_date')}
+                                                    onChange={date => formProps.onChange('payment_date', {
+                                                        value: date,
+                                                    })}
                                                     editable={!editable}
                                                 />
                                             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
@@ -54,7 +54,6 @@ const Application = ({ alias, history, status, owner }) => {
     const [requestId, setRequestId] = useState(0);
     const [docId, setDocId] = useState(0);
     const [payId, setPayId] = useState(0);
-    const [selectedDate, setSelectedDate] = useState(null);
 
     const [initialValues, setInitialValues] = useState({
         declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
@@ -188,6 +187,7 @@ const Application = ({ alias, history, status, owner }) => {
     };
 
     const handleSubmit = async data => {
+
         const paymentId = formProps.valueGetter('payment_document')[0]?.id;
         const applicationDocumentId = formProps.valueGetter('application_document')[0]?.id;
         setDisableSubmit(true);
@@ -196,8 +196,6 @@ const Application = ({ alias, history, status, owner }) => {
             payment_document_id: paymentId ? paymentId : data.payment_document_id,
             application_document_id: applicationDocumentId ? applicationDocumentId : data.application_document_id
         };
-
-        newData.payment_date = moment(selectedDate).format("YYYY-MM-DD");
 
         delete newData.declarant_name;
         delete newData.document_type_id;
@@ -267,7 +265,6 @@ const Application = ({ alias, history, status, owner }) => {
                         values && values.owner_second_name ? values.owner_second_name :
                             ''
             });
-
             setDisableOwner(!isForeign);
         }
 
@@ -295,6 +292,7 @@ const Application = ({ alias, history, status, owner }) => {
         }
 
         formProps.onChange(name, { value: !formProps.valueGetter(name) });
+
     };
 
     const onAdd = event => {
@@ -372,8 +370,6 @@ const Application = ({ alias, history, status, owner }) => {
             formProps.onChange('breeds', { value: breeds });
         }
     };
-
-    const currentDate = useMemo(() => new Date(), []);
 
     return (
         <div className="application-form">
@@ -758,10 +754,12 @@ const Application = ({ alias, history, status, owner }) => {
                                             id="payment_date"
                                             name="payment_date"
                                             label="Дата оплаты"
-                                            maxDate={currentDate}
+                                            maxDate={moment().format('YYYY-MM-DD')}
                                             component={DateInput}
-                                            value={status === 'view' ? values.payment_date : selectedDate}
-                                            onChange={setSelectedDate}
+                                            value={formProps?.valueGetter('payment_date')}
+                                            onChange={date => formProps.onChange('payment_date', {
+                                                value: date,
+                                            })}
                                             editable={!editable}
                                         />
                                         <Field
