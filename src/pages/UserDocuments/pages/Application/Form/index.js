@@ -27,9 +27,10 @@ import {
 import { PromiseRequest, Request, getHeaders } from "../../../../../utils/request";
 import ruMessages from "kendoMessages.json";
 import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
+import {DateInput} from "../../../../../components/materialUI/DateTime";
 
 import "./index.scss";
-import {DateInput} from "../../../../../components/materialUI/DateTime";
+
 
 loadMessages(ruMessages, 'ru');
 
