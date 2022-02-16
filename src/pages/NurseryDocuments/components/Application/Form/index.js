@@ -57,7 +57,6 @@ const Application = ({ alias, history, status }) => {
     const [requestId, setRequestId] = useState(0);
     const [docId, setDocId] = useState(0);
     const [payId, setPayId] = useState(0);
-    const [selectedDate, setSelectedDate] = useState(null);
 
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
