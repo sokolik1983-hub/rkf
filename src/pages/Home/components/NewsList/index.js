@@ -208,6 +208,7 @@ const NewsList = ({isFullDate = true}) => {
                     <PublicationFilter
                         changeTypeFilters={changeTypeFilters}
                         activeType={activeType}
+                        changeIsPopular={changeIsPopular}
                     />
                     <ul className="NewsList__content">
                         {news && !!news.length && news.map((item, index) => (

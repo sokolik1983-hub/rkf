@@ -1,8 +1,28 @@
-import React, {memo, useMemo} from "react";
+import React, {memo, useMemo, useState} from "react";
 import SwipeTabs from "../../../../components/SwipeTabs";
+import CustomCheckbox from '../../../../components/Form/CustomCheckbox';
+
 import "./index.scss";
 
-const PublicationFilter = ({changeTypeFilters, activeType}) => {
+const PublicationFilter = ({changeTypeFilters, activeType, changeIsPopular}) => {
+
+    const [needFilter, setNeedFilter] = useState(false);
+    // const [mostLiked, setMostLiked] = useState(false);
+
+
+        const handleClick = () => {
+            setNeedFilter(!needFilter);
+            console.log(!needFilter);
+            // setMostLiked(true);
+            changeIsPopular(!needFilter);
+        };
+
+        // const handleLiked = () => {
+        //     setMostLiked(!mostLiked);
+        //     changeIsPopular(!mostLiked);
+        // }
+    //включим при добавлении более 1 фильтра, сейчас при нажатии на "Сортировка" автоматом включается "По популярности"
+
     const tabItems = useMemo(() => {
         return [
             {title: 'Все', activeType: 'all' },
@@ -14,12 +34,28 @@ const PublicationFilter = ({changeTypeFilters, activeType}) => {
 
     return (
             <div className="publicFilter__wrap">
-                <h3>Публикации</h3>
-                <SwipeTabs
+                <div className="publicFilter__header">
+                    <h3>Публикации</h3>
+                    <CustomCheckbox
+                        id="need-filter"
+                        label="Сортировка"
+                        checked={!!needFilter}
+                        onChange={handleClick}
+                    />
+                </div>
+
+                {!needFilter ? <SwipeTabs
                     items={tabItems}
                     activeTabIndex={tabItems.findIndex(item => item.activeType === activeType)}
                     onChange={({activeType}) => changeTypeFilters(activeType)}
-                />
+                /> :
+                    <CustomCheckbox
+                        id="most-liked"
+                        label="По популярности"
+                        checked={!!needFilter}
+                        onChange={handleClick}
+                    />
+                }
             </div>
     );
 }
