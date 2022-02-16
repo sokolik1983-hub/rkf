@@ -27,13 +27,16 @@ import {
 import { PromiseRequest, Request, getHeaders } from "../../../../../utils/request";
 import ruMessages from "kendoMessages.json";
 import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
+import {DateInput} from "../../../../../components/materialUI/DateTime";
 
 import "./index.scss";
+
 
 loadMessages(ruMessages, 'ru');
 
 
 const Application = ({ alias, history, status, owner }) => {
+
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableOwner, setDisableOwner] = useState(true);
     const [disableFields, setDisableFields] = useState(false);
@@ -99,7 +102,6 @@ const Application = ({ alias, history, status, owner }) => {
                 PromiseRequest({ url: `/api/dog/Breed` }),
                 PromiseRequest({ url: `/api/requests/commonrequest/rkf_document_types` })
             ]).then(data => {
-
                 const requestData = data[0];
                 const breedsData = data[1];
                 const rkfDocTypesData = data[2];
@@ -186,6 +188,7 @@ const Application = ({ alias, history, status, owner }) => {
     };
 
     const handleSubmit = async data => {
+
         const paymentId = formProps.valueGetter('payment_document')[0]?.id;
         const applicationDocumentId = formProps.valueGetter('application_document')[0]?.id;
         setDisableSubmit(true);
@@ -194,8 +197,6 @@ const Application = ({ alias, history, status, owner }) => {
             payment_document_id: paymentId ? paymentId : data.payment_document_id,
             application_document_id: applicationDocumentId ? applicationDocumentId : data.application_document_id
         };
-
-        newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
 
         delete newData.declarant_name;
         delete newData.document_type_id;
@@ -265,7 +266,6 @@ const Application = ({ alias, history, status, owner }) => {
                         values && values.owner_second_name ? values.owner_second_name :
                             ''
             });
-
             setDisableOwner(!isForeign);
         }
 
@@ -293,6 +293,7 @@ const Application = ({ alias, history, status, owner }) => {
         }
 
         formProps.onChange(name, { value: !formProps.valueGetter(name) });
+
     };
 
     const onAdd = event => {
@@ -754,10 +755,13 @@ const Application = ({ alias, history, status, owner }) => {
                                             id="payment_date"
                                             name="payment_date"
                                             label="Дата оплаты"
-                                            max={new Date()}
-                                            component={FormDatePicker}
-                                            validator={dateRequiredValidator}
-                                            disabled={!editable}
+                                            maxDate={moment().format('YYYY-MM-DD')}
+                                            component={DateInput}
+                                            value={formProps?.valueGetter('payment_date')}
+                                            onChange={date => formProps.onChange('payment_date', {
+                                                value: date,
+                                            })}
+                                            editable={!editable}
                                         />
                                         <Field
                                             id="payment_number"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
@@ -26,7 +26,10 @@ import { PromiseRequest, Request } from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
+import {DateInput} from "../../../../../components/materialUI/DateTime";
+
 import "./index.scss";
+
 
 
 loadMessages(ruMessages, 'ru');
@@ -237,8 +240,6 @@ const Application = ({ alias, history, status }) => {
             payment_document_id: paymentId ? paymentId : data.payment_document_id,
             application_document_id: applicationDocumentId ? applicationDocumentId : data.application_document_id
         };
-
-        newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
 
         delete newData.declarant_name;
         delete newData.document_type_id;
@@ -808,10 +809,13 @@ const Application = ({ alias, history, status }) => {
                                                     id="payment_date"
                                                     name="payment_date"
                                                     label="Дата оплаты"
-                                                    max={new Date()}
-                                                    component={FormDatePicker}
-                                                    validator={dateRequiredValidator}
-                                                    disabled={!editable}
+                                                    maxDate={moment().format('YYYY-MM-DD')}
+                                                    component={DateInput}
+                                                    value={formProps?.valueGetter('payment_date')}
+                                                    onChange={date => formProps.onChange('payment_date', {
+                                                        value: date,
+                                                    })}
+                                                    editable={!editable}
                                                 />
                                             </div>
                                             <div>

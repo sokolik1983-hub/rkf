@@ -9,6 +9,18 @@ const DEFAULT_EMAIL_INPUT_PLACEHOLDER = 'Введите ваш E-mail';
 const LOGIN_URL = '/auth/login';
 const REGISTRATION_URL = '/auth/registration';
 
+export const MOMENT_LOCALE_DEFINITION = {
+    week: {
+        dow: 1,
+        doy: 1,
+    },
+    months : {
+        format: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
+        standalone: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+    },
+    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+};
+
 const appRoutes = [
     {
         exact: true,
