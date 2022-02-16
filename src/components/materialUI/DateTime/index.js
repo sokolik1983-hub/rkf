@@ -11,7 +11,7 @@ moment.updateLocale('ru', MOMENT_LOCALE_DEFINITION);
 //https://material-ui-pickers.dev/api/DatePicker
 //value, minDate, maxDate - должны быть строкой в формате "YYYY-MM-DD"
 export const DateInput = (fieldRenderProps) => {
-    const {event, id, name, className, label, maxDate, minDate, value, onChange, ...props} = fieldRenderProps;
+    const {id, name, className, label, maxDate, minDate, value, onChange, editable, ...props} = fieldRenderProps;
 
     const min = moment(minDate || '1900-01-01', 'YYYY-MM-DD');
     const max = moment(maxDate || '2100-01-01', 'YYYY-MM-DD');
@@ -22,12 +22,12 @@ export const DateInput = (fieldRenderProps) => {
                 id={id}
                 name={name}
                 label={label}
-                // className={`date-input${className ? ' ' + className : ''}`}
+                className={`date-input${className ? ' ' + className : ''}`}
                 minDate={min}
                 maxDate={max}
                 value={value ? moment(value, 'YYYY-MM-DD') : null}
                 onChange={date => onChange(moment(date).format('YYYY-MM-DD'))}
-                // animateYearScrolling
+                animateYearScrolling
                 autoOk
                 format="DD.MM.YYYY"
                 inputVariant="outlined"
@@ -38,6 +38,7 @@ export const DateInput = (fieldRenderProps) => {
                 invalidLabel="Неверная дата"
                 minDateMessage={`Дата не может быть раньше ${moment(min, 'DD.MM.YYYY')}`}
                 maxDateMessage={`Дата не может быть позже ${moment(max, 'DD.MM.YYYY')}`}
+                disabled={editable}
             />
         </MuiPickersUtilsProvider>
     )

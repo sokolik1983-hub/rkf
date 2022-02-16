@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
@@ -54,9 +54,7 @@ const Application = ({ alias, history, status, owner }) => {
     const [requestId, setRequestId] = useState(0);
     const [docId, setDocId] = useState(0);
     const [payId, setPayId] = useState(0);
-    const [selectedDate, handleDateChange] = useState(null);
-
-    console.log('status', status);
+    const [selectedDate, setSelectedDate] = useState(null);
 
     const [initialValues, setInitialValues] = useState({
         declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
@@ -374,6 +372,8 @@ const Application = ({ alias, history, status, owner }) => {
             formProps.onChange('breeds', { value: breeds });
         }
     };
+
+    const currentDate = useMemo(() => new Date(), []);
 
     return (
         <div className="application-form">
@@ -757,13 +757,12 @@ const Application = ({ alias, history, status, owner }) => {
                                         <Field
                                             id="payment_date"
                                             name="payment_date"
-                                            label="Custom input"
-                                            maxDate={'2022-02-16'}
+                                            label="Дата оплаты"
+                                            maxDate={currentDate}
                                             component={DateInput}
                                             value={status === 'view' ? values.payment_date : selectedDate}
-                                            onChange={handleDateChange}
-                                            // validator={dateRequiredValidator}
-                                            disabled={!editable}
+                                            onChange={setSelectedDate}
+                                            editable={!editable}
                                         />
                                         <Field
                                             id="payment_number"

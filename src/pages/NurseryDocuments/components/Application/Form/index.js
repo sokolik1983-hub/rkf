@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
@@ -27,6 +27,7 @@ import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
 import "./index.scss";
+import {DateInput} from "../../../../../components/materialUI/DateTime";
 
 
 loadMessages(ruMessages, 'ru');
@@ -54,6 +55,7 @@ const Application = ({ alias, history, status }) => {
     const [requestId, setRequestId] = useState(0);
     const [docId, setDocId] = useState(0);
     const [payId, setPayId] = useState(0);
+    const [selectedDate, setSelectedDate] = useState(null);
 
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
@@ -238,7 +240,7 @@ const Application = ({ alias, history, status }) => {
             application_document_id: applicationDocumentId ? applicationDocumentId : data.application_document_id
         };
 
-        newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
+        newData.payment_date = moment(selectedDate).format("YYYY-MM-DD");
 
         delete newData.declarant_name;
         delete newData.document_type_id;
@@ -412,6 +414,8 @@ const Application = ({ alias, history, status }) => {
             formProps.onChange('breeds', { value: breeds });
         }
     };
+
+    const currentDate = useMemo(() => new Date(), []);
 
     return (
         <div className="application-form">
@@ -808,10 +812,12 @@ const Application = ({ alias, history, status }) => {
                                                     id="payment_date"
                                                     name="payment_date"
                                                     label="Дата оплаты"
-                                                    max={new Date()}
-                                                    component={FormDatePicker}
-                                                    validator={dateRequiredValidator}
-                                                    disabled={!editable}
+                                                    className="club-page"
+                                                    maxDate={currentDate}
+                                                    component={DateInput}
+                                                    value={status === 'view' ? values.payment_date : selectedDate}
+                                                    onChange={setSelectedDate}
+                                                    editable={!editable}
                                                 />
                                             </div>
                                             <div>
