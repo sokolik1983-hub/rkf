@@ -1,59 +1,46 @@
-import React from "react";
 import { object, string } from "yup";
-
-const endpointGetTypes = 'api/feedback/types'
-const endpointGetCategories = 'api/feedback/categories'
-const endpointGetSubCategories = 'api/feedback/sub_categories'
-const endpointPostFeedback = 'api/feedback/new'
-
 
 
 export const options = {
+    action: '/api/feedback/new',
+    method: 'POST',
     fields:{
-        reason: {
-            name: 'types',
-            label: 'Причина обращения',
+        types: {
+            name: 'type_id',
+            label: 'Тип заявки',
             placeholder: 'Выберите...',
-            fieldType: 'reactSelectAsync',
+            fieldType: 'reactSelect',
             type: 'select',
-            rows: 3,
-            optionsEndpoint: '/api/feedback/types'
+            className: 'feedback__form-group_select-type',
         },
         category: {
-            name: 'category',
-            label: 'Категория обращения',
+            name: 'category_id',
+            label: 'Категория',
             placeholder: 'Выберите...',
-            fieldType: 'reactSelectAsync',
+            fieldType: 'reactSelect',
             type: 'select',
-            optionsEndpoint: '/api/feedback/categories'
+            className: 'feedback__form-group_select-category',
         },
         subCategory: {
-            name: 'subCategory',
+            name: 'category_id',
             label: 'Подкатегория',
             placeholder: 'Выберите...',
-            fieldType: 'reactSelectAsync',
+            fieldType: 'reactSelect',
             type: 'select',
+            className: 'feedback__form-group_subcategory',
         },
         feedbackText: {
-            name: "feedbackText",
-            label: "Напишите Ваше обращение",
+            name: "comment",
+            label: "Ваше сообщение",
             fieldType: 'textarea',
-            rows: 6,
-            maxLength: '1500'
+            rows: 5,
+            maxLength: '1500',
+            className: 'feedback__form-group_textarea'
         },
     },
+    validationSchema: object().shape({
+        type_id: string().required('Выберите тип заявки'),
+        category_id: string().required('Выберите категорию'),
+        comment: string().required('Напишите заявку').min(20, 'Заявка должна содержать не менее 20 символов')
+    })
 }
-
-
-
-
-
-const config = () => {
-    return (
-        <div>
-
-        </div>
-    );
-};
-
-export default config;

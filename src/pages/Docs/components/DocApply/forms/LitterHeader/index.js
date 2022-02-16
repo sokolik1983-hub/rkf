@@ -11,6 +11,8 @@ import Card from "components/Card";
 import { Request } from "utils/request";
 import Modal from "../../../../../../components/Modal";
 import FeedBack from "../../components/Feedback";
+import Alert from "../../../../../../components/Alert";
+import {blockContent} from "../../../../../../utils/blockContent";
 
 // litter
 const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, send, Title}) => {
@@ -23,6 +25,8 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
     const [init, setInit] = useState(false);
     const [folder, _setFolder] = useState('');
     const [showModal, setShowModal] = useState('');
+    const [okAlert, setOkAlert] = useState(false);
+    const [errAlert, setErrAlert] = useState(false);
 
     const setFolder = e => {
         if (!e) return;
@@ -49,6 +53,11 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
             setFolder,
             e => {})
     }, []);
+
+    const closeModal = () => {
+        setShowModal(false);
+        blockContent(false);
+    };
 
     return <>
 <Card>
@@ -110,15 +119,41 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
         <Button className="btn-condensed"
                 onClick={() => setShowModal(true)}
         >Сообщить о ошибке</Button>
-        <Modal showModal={showModal}
-               handleClose={() => {
-                   setShowModal(false);
-               }}
-               className={`stage-controls__modal`}
-               headerName="Сообщить о ошибке"
-        >
-            <FeedBack />
-        </Modal>
+        <div className="feedback__module">
+            {showModal &&
+                <Modal
+                    showModal={showModal}
+                    handleClose={closeModal}
+                    outsideClickHandler={() => setShowModal(false)}
+                    className={`stage-controls__modal`}
+                    headerName="Сообщить о ошибке"
+                >
+                    <FeedBack
+                        setShowModal={setShowModal}
+                        setOkAlert={setOkAlert}
+                        setErrAlert={setErrAlert}
+                        blockContent={blockContent}
+                    />
+                </Modal>
+            }
+            {okAlert &&
+                <Alert
+                     title="Заявка отправлена"
+                     text="Ваша заявка отправлена"
+                     autoclose={2.5}
+                     okButton={true}
+                     onOk={() => setOkAlert(false)}
+                />
+            }
+            {errAlert &&
+                <Alert
+                     title="Ошибка отправки"
+                     text={`Пожалуйста, проверьте правильность заполнения всех полей`}
+                     autoclose={2.5}
+                     onOk={() => setErrAlert(false)}
+                />
+            }
+        </div>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
             action: config.url,

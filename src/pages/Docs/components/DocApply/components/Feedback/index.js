@@ -1,28 +1,38 @@
-import React, { useState } from "react";
-import { FormField, FormGroup } from "../../../../../../components/Form";
-import {options} from "./config.js";
+import React from 'react';
+import {options} from './config.js';
+import RenderFields from "./RenderFields";
+import {Form} from '../../../../../../components/Form';
 
-import "./style.scss"
+import './style.scss';
 
 
-const FeedBack = () => {
-
-    const [categoryId, setCategoryId] = useState(null);
-
-    const {fields} = options
-
-    console.log(categoryId);
-
+const FeedBack = ({
+        blockContent,
+        setErrAlert,
+        setOkAlert,
+        setShowModal,
+}) => {
 
     return (
-        <FormGroup>
-            <FormField {...fields.reason} />
-            <FormField {...fields.category} onChange={() => console.log('eeee')}/>
-            <FormField {...fields.subCategory}
-                       disabled={!categoryId}
-                       optionsEndpoint={`/api/feedback/sub_categories?categoryId=${categoryId}`}/>
-            <FormField {...fields.feedbackText} />
-        </FormGroup>
+        <Form
+            {...options}
+            id="feedback__form"
+            className="feedback__form"
+            onSuccess={() => {
+                setOkAlert(true);
+                setShowModal(false);
+                blockContent(false);
+            }}
+            onError={() => {
+                setErrAlert(true);
+                blockContent(true);
+            }}
+        >
+            <RenderFields
+                blockContent={blockContent}
+                setShowModal={setShowModal}
+            />
+        </Form>
     );
 };
 
