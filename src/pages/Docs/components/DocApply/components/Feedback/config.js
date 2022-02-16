@@ -11,7 +11,7 @@ export const options = {
             placeholder: 'Выберите...',
             fieldType: 'reactSelect',
             type: 'select',
-            className: 'feedback__form-group_select-type',
+            className: 'select-type',
         },
         category: {
             name: 'category_id',
@@ -19,7 +19,7 @@ export const options = {
             placeholder: 'Выберите...',
             fieldType: 'reactSelect',
             type: 'select',
-            className: 'feedback__form-group_select-category',
+            className: 'select-category',
         },
         subCategory: {
             name: 'category_id',
@@ -27,7 +27,7 @@ export const options = {
             placeholder: 'Выберите...',
             fieldType: 'reactSelect',
             type: 'select',
-            className: 'feedback__form-group_subcategory',
+            className: 'select-subcategory',
         },
         feedbackText: {
             name: "comment",
@@ -35,12 +35,17 @@ export const options = {
             fieldType: 'textarea',
             rows: 5,
             maxLength: '1500',
-            className: 'feedback__form-group_textarea'
+            className: 'textarea'
         },
     },
     validationSchema: object().shape({
-        type_id: string().required('Выберите тип заявки'),
-        category_id: string().required('Выберите категорию'),
-        comment: string().required('Напишите заявку').min(20, 'Заявка должна содержать не менее 20 символов')
+        type_id: string()
+            .required('Выберите тип заявки'),
+        category_id: string()
+            .required('Выберите категорию'),
+        comment: string()
+            .required('Напишите заявку')
+            .min(20, 'Заявка должна содержать не менее 20 символов')
+            .max(1500, 'Заявка должна содержать не более 1500 символов'),
     })
 }
