@@ -18,7 +18,7 @@ import CopyrightInfo from '../../components/CopyrightInfo';
 import ClickGuard from '../../components/ClickGuard';
 import Loading from '../../components/Loading';
 import Layout from '../../components/Layouts';
-import Alert from "../../components/Alert";
+import Alert from '../../components/Alert';
 import {useResourceAndStoreToRedux} from '../../shared/hooks';
 import injectReducer from '../../utils/injectReducer';
 import useIsMobile from '../../utils/useIsMobile';
@@ -302,7 +302,7 @@ const ClubEditPage = ({
                             </div>
                             {isSubmit && <Alert
                                 title="Сохранение данных"
-                                text={`Данные сохранены!`}
+                                text="Данные сохранены!"
                                 autoclose={2.5}
                                 onOk={() => setIsSubmit(false)}
                             />}

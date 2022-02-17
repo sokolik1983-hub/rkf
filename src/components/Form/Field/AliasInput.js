@@ -57,8 +57,8 @@ function FormField({ formik, fieldType, className, style, disabled, blockIfHasVa
                 { [`FormInput--${fieldProps.type}`]: fieldProps.type }
             ) + ' alias-name'}
         >
-            <Label htmlFor={fieldProps.name} label={`Адрес страницы`} />
-            <Label htmlFor={fieldProps.name + '_description'} label={`допускаются цифры, латинские буквы и нижнее подчеркивание`} />
+            <Label htmlFor={fieldProps.name} label="Адрес страницы" />
+            <Label htmlFor={fieldProps.name + "_description"} label="допускаются цифры, латинские буквы и нижнее подчеркивание" />
             <Input
                 id={fieldProps.name}
                 className="FormInput__input"

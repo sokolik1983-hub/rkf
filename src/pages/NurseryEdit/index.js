@@ -20,7 +20,6 @@ import BreedsList from '../../components/BreedsList';
 import {connectAuthVisible} from '../Login/connectors';
 import {connectShowFilters} from '../../components/Layouts/connectors';
 import randomKeyGenerator from '../../utils/randomKeyGenerator'
-import {blockContent} from "../../utils/blockContent";
 
 import './styles.scss';
 
