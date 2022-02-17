@@ -104,18 +104,18 @@
         }
         &-link {
             display: flex;
+            margin: 3px 15px 3px 0px;
             color: #72839c;
             font-weight: normal;
             font-size: 18px;
             line-height: 20px;
             text-decoration: none;
             cursor: pointer;
-            margin: 3px 15px 3px 0px;
             white-space: nowrap;
             &__icon {
-                width: 15px;
                 display: flex;
                 align-items: center;
+                width: 15px;
                 margin-right: 3px;
             }
             &:hover {
