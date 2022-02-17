@@ -1,8 +1,9 @@
 import React, {memo, useMemo, useState} from "react";
 import SwipeTabs from "../../../../../../components/SwipeTabs";
 import {setFiltersToUrl} from "../../../../utils";
-import "./index.scss";
 import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
+
+import "./index.scss";
 
 
 const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardView, exporting, setExporting}) => {

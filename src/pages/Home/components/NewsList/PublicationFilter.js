@@ -7,23 +7,16 @@ import "./index.scss";
 const PublicationFilter = ({changeTypeFilters, activeType, changeIsPopular}) => {
 
     const [needFilter, setNeedFilter] = useState(false);
-    // const [mostLiked, setMostLiked] = useState(false);
 
 
-        const handleClick = () => {
-            setNeedFilter(!needFilter);
-            changeIsPopular(!needFilter);
-        };
-
-        // const handleLiked = () => {
-        //     setMostLiked(!mostLiked);
-        //     changeIsPopular(!mostLiked);
-        // }
-    //включим при добавлении более 1 фильтра, сейчас при нажатии на "Сортировка" автоматом включается "По популярности"
+    const handleClick = () => {
+        setNeedFilter(!needFilter);
+        changeIsPopular(!needFilter);
+    };
 
     const tabItems = useMemo(() => {
         return [
-            {title: 'Все', activeType: 'all' },
+            {title: 'Все', activeType: 'all'},
             {title: 'Новости', activeType: 'news'},
             {title: 'Куплю/Продам', activeType: 'advert'},
             {title: 'Объявления', activeType: 'articles'}
@@ -31,31 +24,31 @@ const PublicationFilter = ({changeTypeFilters, activeType, changeIsPopular}) => 
     }, []);
 
     return (
-            <div className="publicFilter__wrap">
-                <div className="publicFilter__header">
-                    <h3>Публикации</h3>
-                    <CustomCheckbox
-                        id="need-filter"
-                        label="Сортировка"
-                        checked={!!needFilter}
-                        onChange={handleClick}
-                    />
-                </div>
+        <div className="publicFilter__wrap">
+            <div className="publicFilter__header">
+                <h3>Публикации</h3>
+                <CustomCheckbox
+                    id="need-filter"
+                    label="Сортировка"
+                    checked={!!needFilter}
+                    onChange={handleClick}
+                />
+            </div>
 
-                {!needFilter ? <SwipeTabs
+            {!needFilter ? <SwipeTabs
                     items={tabItems}
                     activeTabIndex={tabItems.findIndex(item => item.activeType === activeType)}
                     onChange={({activeType}) => changeTypeFilters(activeType)}
                 /> :
-                    <CustomCheckbox
-                        id="most-liked"
-                        label="По популярности"
-                        checked={!!needFilter}
-                        onChange={handleClick}
-                        cName="like-filter"
-                    />
-                }
-            </div>
+                <CustomCheckbox
+                    id="most-liked"
+                    label="По популярности"
+                    checked={!!needFilter}
+                    onChange={handleClick}
+                    cName="like-filter"
+                />
+            }
+        </div>
     );
 }
 

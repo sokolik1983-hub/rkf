@@ -26,7 +26,6 @@ import UserMenu from "../../../../components/Layouts/UserMenu";
 import MenuComponent from "../../../../components/MenuComponent";
 import { connectAuthVisible } from "pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
-import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
 import PhotoComponent from "../../../../components/PhotoComponent";
 import ls from "local-storage";
 
