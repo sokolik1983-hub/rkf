@@ -71,6 +71,7 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
                     label="Сортировка"
                     checked={!!isFilter}
                     onChange={handleFilter}
+                    cName="sorting-filter"
                 />
             </div>
             {!isFilter ? <SwipeTabs
@@ -82,7 +83,9 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
                 id="most-liked"
                 label="По популярности"
                 checked={!!isFilter}
-                onChange={handleFilter}/>}
+                onChange={handleFilter}
+                cName="like-filter"
+            />}
         </div>
     );
 };

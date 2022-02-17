@@ -96,8 +96,17 @@
 
     & .list-filter__title {
       margin-bottom: 0;
+      margin-right: auto;
       padding-bottom: 10px;
       padding-left: 14px;
+    }
+
+    .sorting-filter {
+      margin: 0 10px auto;
+    }
+
+    .like-filter {
+      margin: 9px 15px;
     }
   }
 

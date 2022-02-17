@@ -52,6 +52,7 @@ const PublicationFilter = ({changeTypeFilters, activeType, changeIsPopular}) => 
                         label="По популярности"
                         checked={!!needFilter}
                         onChange={handleClick}
+                        cName="like-filter"
                     />
                 }
             </div>

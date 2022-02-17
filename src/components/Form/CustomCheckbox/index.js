@@ -2,8 +2,8 @@ import React, {memo} from "react";
 import "./index.scss";
 
 
-const CustomCheckbox = ({id, label, checked, onChange, disabled, style}) => (
-    <div className={`custom-checkbox${disabled ? ' disabled' : ''}`} style={style}>
+const CustomCheckbox = ({id, label, checked, onChange, disabled, style, cName}) => (
+    <div className={`custom-checkbox${disabled ? ' disabled' : ''} ${cName ? cName : ''}`} style={style}>
         <input type="checkbox"
             id={id}
             className="custom-checkbox__input"
