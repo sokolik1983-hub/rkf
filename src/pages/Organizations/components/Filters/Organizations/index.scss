@@ -24,66 +24,81 @@
     }
   }
 }
-.organizations-page__list-filter {
-  background-color: #fff;
-  border-radius: 6px;
-  padding: 10px 10px 0;
-  overflow: hidden;
-  top: 15px;
-  z-index: 1;
-  position: sticky;
-  margin-bottom: 16px;
-  box-shadow: rgba(51, 102, 255, 0.05) 0px 2px 10px 0px, rgba(51, 102, 255, 0.1) 0px 4px 30px 0px;
-  h3 {
-    font-size: 18px;
-    font-weight: 400;
-    color: #253C5E;
+.organizations-page {
+  &__list-filter {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 10px 10px 0;
+    overflow: hidden;
+    top: 15px;
+    z-index: 1;
+    position: sticky;
+    margin-bottom: 16px;
+    box-shadow: rgba(51, 102, 255, 0.05) 0px 2px 10px 0px, rgba(51, 102, 255, 0.1) 0px 4px 30px 0px;
+    h3 {
+      font-size: 18px;
+      font-weight: 400;
+      color: #253C5E;
+      line-height: 24px;
+    }
+    .slick-track li {
+      padding: 0 20px;
+    }
+    .list-filter {
+      list-style: none;
+      display: flex;
+      @media (max-width: 560px) {
+        justify-content: space-between;
+      }
+      &__item {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:not(:last-child) {
+          margin-right: 5px;
+        }
+        &:first-child {
+          margin-left: -6px;
+        }
+      }
+      &__control {
+        display: block;
+        padding: 10px 6px;
+        line-height: 20px;
+        border: none;
+        border-radius: 0;
+        border-bottom: 2px solid transparent;
+        font-weight: 600;
+        font-size: 16px;
+        letter-spacing: .2px;
+        color: #72839c;
+        white-space: nowrap;
+        transition: all .2s linear;
+        &._active {
+          border-bottom-color: #36f;
+        }
+        &._not-active {
+          opacity: .5;
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  &__filter-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     border-bottom: 1px solid #e5e5e5;
     line-height: 24px;
     padding-bottom: 10px;
     padding-left: 15px;
+    font-size: 18px;
+    font-weight: 400;
   }
-  .slick-track li {
-    padding: 0 20px;
-  }
-  .list-filter {
-    list-style: none;
-    display: flex;
-    @media (max-width: 560px) {
-      justify-content: space-between;
-    }
-    &__item {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      &:not(:last-child) {
-        margin-right: 5px;
-      }
-      &:first-child {
-        margin-left: -6px;
-      }
-    }
-    &__control {
-      display: block;
-      padding: 10px 6px;
-      line-height: 20px;
-      border: none;
-      border-radius: 0;
-      border-bottom: 2px solid transparent;
-      font-weight: 600;
-      font-size: 16px;
-      letter-spacing: .2px;
-      color: #72839c;
-      white-space: nowrap;
-      transition: all .2s linear;
-      &._active {
-        border-bottom-color: #36f;
-      }
-      &._not-active {
-        opacity: .5;
-        cursor: default;
-      }
-    }
+
+  .like-filter {
+    margin: 9px 15px;
   }
 }

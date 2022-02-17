@@ -177,10 +177,10 @@ const Filters = ({
                                     Сбросить все параметры
                                 </button>
                             </Card>
-                            <LikeFilter
-                                is_popular={is_popular}
-                                onChange={filter => setFiltersToUrl({not_activated: false, is_popular: filter})}
-                            />
+                            {/*<LikeFilter*/}
+                            {/*    is_popular={is_popular}*/}
+                            {/*    onChange={filter => setFiltersToUrl({not_activated: false, is_popular: filter})}*/}
+                            {/*/>*/}
                             {(organization_type === 3 || organization_type === 4) &&
                                 <>
                                     <FederationsFilter
