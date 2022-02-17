@@ -12,8 +12,6 @@ const PublicationFilter = ({changeTypeFilters, activeType, changeIsPopular}) => 
 
         const handleClick = () => {
             setNeedFilter(!needFilter);
-            console.log(!needFilter);
-            // setMostLiked(true);
             changeIsPopular(!needFilter);
         };
 

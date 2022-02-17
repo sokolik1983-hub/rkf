@@ -31,9 +31,6 @@ const NewsFilters = ({
             {loading ?
                 <Loading centered={false}/> :
                 <>
-                    <LikeFilter
-                        changeIsPopular={changeIsPopular}
-                    />
                     <ListFilter
                         changeFilter={changeOrganizationFilters}
                     />
