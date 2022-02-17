@@ -18,8 +18,6 @@ import "./index.scss";
 const App = ({history}) => {
     const layout = useSelector(state => state.layout);
 
-    const {isOpen, setIsOpen} = useState(layout?.isOpen);
-
     const resetFilters = () => {
         ls.remove('ClubsFiltersValues');
         ls.remove('FiltersValues');
@@ -50,7 +48,7 @@ const App = ({history}) => {
 
     return (
         <NotificationsProvider>
-            <Header withFilters={layout?.withFilters} login_page={layout?.login_page} isOpen={isOpen} />
+            <Header withFilters={layout?.withFilters} login_page={layout?.login_page} isOpen={layout?.isOpen} />
             <Switch>
                 {!!appRoutes.length && appRoutes.map(route =>
                     <Route
@@ -64,7 +62,7 @@ const App = ({history}) => {
                 <Route exact={true} path='/results/cacib' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblResExhibitionCACIB.aspx" />} />
                 <Route component={LoadableNotFound} />
             </Switch>
-            <FooterMenu login_page={layout?.login_page} isOpen={isOpen} />
+            <FooterMenu login_page={layout?.login_page} isOpen={layout?.isOpen} />
         </NotificationsProvider>
     )
 };
