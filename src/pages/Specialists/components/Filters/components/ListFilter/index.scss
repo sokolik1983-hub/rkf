@@ -41,7 +41,6 @@
     font-size: 18px;
     line-height: 24px;
     margin-left: 6px;
-    border-bottom: 1px solid #e8e8e8;
     padding-bottom: 10px;
   }
   &__item {
@@ -83,7 +82,18 @@
 }
 .specialists-page__list-filter {
 
-  .custom-checkbox {
+  &_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .like-filter {
+    margin: 9px 15px;
+  }
+
+  /*.custom-checkbox {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -96,5 +106,5 @@
       top: 40px;
     }
   }
-
+*/
 }
