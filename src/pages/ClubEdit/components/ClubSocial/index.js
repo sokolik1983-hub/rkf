@@ -25,8 +25,8 @@ const ClientClubSocialProxy = ({bindSubmitForm}) => {
     }
 
     useEffect(()=> {
-        triggerRef?.current.innerHTML.length <= 70 && setTriggerButton(true);
-    },[visibility]);
+        setTriggerButton( !triggerLoad || triggerRef?.current.innerHTML.length <= 70);
+    },[visibility, triggerLoad]);
 
     useEffect(()=> {
         triggerDell && triggerLoad &&

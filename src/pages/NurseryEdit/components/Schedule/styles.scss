@@ -1,4 +1,4 @@
-.Schedule {
+.Nursery-Schedule {
     .FormGroup {
         display: grid;
         grid-template-columns: 100px 63fr 37fr;
@@ -85,6 +85,11 @@
                 top: 42px;
                 bottom: 0;
                 right: 0;
+                left: 0;
+                background-color: rgba(255, 255, 255, 0);
+                @media (max-width: 1200px) {
+                    top: 56px;
+                }
             }
         }
     }

@@ -6,7 +6,6 @@ import './styles.scss';
 
 const EditPageButtons = ({
         handleSubmitForms,
-        handleSuccess,
 }) => {
 
     return (
@@ -15,7 +14,6 @@ const EditPageButtons = ({
                 <button
                     className="Submit-button__save"
                     onClick={()=> {
-                        handleSuccess();
                         handleSubmitForms();
                     }}
                 >

@@ -25,8 +25,8 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
     }
 
     useEffect(()=> {
-        triggerRef?.current.innerHTML.length <= 70 && setTriggerButton(true);
-    },[visibility]);
+        setTriggerButton((triggerRef?.current.innerHTML.length <= 70) || !triggerLoad);
+    },[visibility, triggerLoad]);
 
     useEffect(()=> {
         triggerDell && triggerLoad &&

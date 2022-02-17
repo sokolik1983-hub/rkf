@@ -9,16 +9,12 @@ import MainPage from './components/MainPage';
 import DeletePage from './components/DeletePage';
 import DefaultPage from './components/DefaultPage';
 import ContactsPage from './components/ContactsPage';
-import { Fade } from '@progress/kendo-react-animation';
-import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 
 
 const RenderFields = ({
         formik,
         working,
         coOwner,
-        success,
-        setSuccess,
         isOpenFilters,
         setShowFilters,
         randomKeyGenerator,
@@ -118,17 +114,6 @@ const RenderFields = ({
                     </Card>
                 </StickyBox>
             </div>
-            <NotificationGroup>
-                <Fade enter={true} exit={true}>
-                    {success && <Notification
-                        type={{ style: 'success', icon: true }}
-                        closable={true}
-                        onClose={() => setSuccess(false)}
-                    >
-                        <span>Информация сохранена!</span>
-                    </Notification>}
-                </Fade>
-            </NotificationGroup>
         </div>
     )
 };

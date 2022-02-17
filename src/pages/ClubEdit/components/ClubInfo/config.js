@@ -17,7 +17,7 @@ export const clubInfoFormConfig = {
         },
         description: {
             name: "description",
-            label: "Краткая информация о клубе",
+            label: "Краткая информация о&nbsp;клубе",
             fieldType: 'textarea',
             rows: 6,
             maxLength: '1500'

@@ -379,8 +379,15 @@
     }
 
     .FormInput__error {
-        bottom: -3px;
+        position: absolute;
         font-size: 12px;
+        line-height: 12px;
+        left: 125px;
+        bottom: -16px;
+        background-color: rgba(255, 255, 255, 0);
+        @media (max-width: 1024px) {
+            left: 0;
+        }
     }
 
     .FormInput {
@@ -444,9 +451,16 @@
                 margin-left: 2px;
             }
 
+            &[for="name_lat"] {
+                position: relative;
+                height: 36px;
+                overflow: visible;
+            }
+
+
             &[for="description"] {
                 position: relative;
-                top: -80px;
+                top: -70px;
                 @media (max-width: 1024px) {
                     top: 0;
                 }
