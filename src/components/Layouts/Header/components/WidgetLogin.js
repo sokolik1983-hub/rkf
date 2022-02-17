@@ -11,6 +11,8 @@ import { Request } from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
 import PopupModal from "../../../PopupModal";
 import OutsideClickHandler from "react-outside-click-handler";
+import {endpointGetClubInfo} from "../../../../pages/Club/config";
+import {endpointGetUserInfo} from "../../UserLayout/config";
 
 const WidgetLogin = forwardRef(
     ({
@@ -28,6 +30,7 @@ const WidgetLogin = forwardRef(
 
         const [showModal, setShowModal] = useState(false);
         const [desktop, setDesktop] = useState(false);
+        const [menuBackground, setMenuBackground] = useState(null)
 
 
         const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
@@ -40,6 +43,7 @@ const WidgetLogin = forwardRef(
         const isMobile1080 = useIsMobile(1080);
 
         const widgetLoginRef = useRef();
+
 
         const AuthButtons = () => {
             let path = history.location.pathname;
@@ -85,9 +89,21 @@ const WidgetLogin = forwardRef(
         }
         useEffect(() => {
             setOpen(desktop);
-        }, [desktop])
+        }, [desktop]);
 
+        const backgroundForPage =(alias) => {
+            Request({
+                url: `${(userType === 1) ? endpointGetUserInfo : endpointGetClubInfo}${alias}`
+            }, data => {
+                setMenuBackground(data.headliner_link)
+            }, error => {
+                console.log(error.response);
+            });
+        };
 
+        useEffect(() => {
+            backgroundForPage(alias);
+        }, [alias]);
 
         return (
             <div
@@ -133,6 +149,9 @@ const WidgetLogin = forwardRef(
                                                 <div className="widget-login__inner">
                                                     <div className="widget-login__content">
                                                         <div className="widget-login__userpic-wrap">
+                                                            <div className="widget-login__bg-box">
+                                                                { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/widget-login/userpic-bg.jpg' alt=""/>}
+                                                            </div>
                                                             <div className={`widget-login__userpic${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
                                                                  style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
                                                             />
