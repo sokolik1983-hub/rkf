@@ -1,6 +1,17 @@
 .rkf-page {
   @media (max-width: 990px) {
     padding-bottom: 24px;
+
+    .rkf_profile-slider {
+
+      .slick-slider {
+        margin: 0 0 0 -12px;
+
+        .slick-list {
+          padding-bottom: 0;
+        }
+      }
+    }
   }
   @media (max-width: 560px) {
     padding-bottom: 16px;
@@ -33,33 +44,34 @@
     display: none;
     @media (max-width: 990px) {
       display: flex;
-      justify-content: space-between;
-      //& > div {
-      //  width: calc(50% - 12px);
-      //  min-width: calc(50% - 12px);
-      //}
-    }
-    @media (max-width: 768px) {
+      margin: 16px 0;
+
       .photo-component {
+        display: flex;
         width: 100%;
         min-width: auto;
-        display: flex;
+        padding: 10px;
         background-color: #fff;
-        padding: 16px;
+        margin: 0;
+
         &__photo {
           min-width: 164px;
-          max-width: 164px;
-          margin-right: 16px;
-          border-radius: 6px;
+          max-width: 264px;
+          margin-right: 20px;
         }
+
         &__description {
           position: static;
+          justify-content: center;
           background: transparent;
           padding: 0;
+          gap: 10px;
         }
+
         &__title, &__subtitle {
           color: #253c5e;
         }
+
         &__title {
           font-size: 18px;
           margin-top: 0;
@@ -111,14 +123,12 @@
     margin-right: 15px;
     @media (max-width: 990px) {
       margin-right: 0;
-      //display: flex;
       display: block;
-      //flex-wrap: wrap;
-
       width: 100%;
       order: 1;
       & > div {
         min-width: 100%;
+        margin-bottom: 16px;
         &:last-child {
           margin-left: 0;
         }
@@ -126,16 +136,44 @@
       .photo-component, .menu-component {
         display: none;
       }
-      //& > div {
-      //  width: calc(50% - 12px);
-      //  margin-bottom: 0;
-      //  &:nth-child(odd) {
-      //    margin-right: 12px;
-      //  }
-      //  &:nth-child(even) {
-      //    margin-left: 12px;
-      //  }
-      //}
+
+      .about-component {
+
+        h4 {
+          padding-bottom: 10px;
+          border-bottom: 1px solid #E5E5E5;
+        }
+
+        p {
+          line-height: 20px;
+        }
+      }
+
+      .contacts-component {
+
+        &__title {
+          padding-bottom: 10px;
+          border-bottom: 1px solid #E5E5E5;
+        }
+      }
+
+      .members-component {
+
+        &__title {
+          padding-bottom: 10px;
+          border-bottom: 1px solid #E5E5E5;
+        }
+
+        &__list {
+          display: flex;
+          justify-content: space-around;
+        }
+
+        &__item {
+          margin-bottom: 6px;
+        }
+      }
+
     }
     @media (max-width: 560px) {
       display: block;
