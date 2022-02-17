@@ -8,10 +8,11 @@ import { LoadableNotFound } from "../appModules";
 import NotificationsProvider from './context';
 import {useSelector} from "react-redux";
 import Header from "../components/Layouts/Header";
+import FooterMenu from "../components/Layouts/FooterMenu";
 
 import "./kendo.scss";
 import "./index.scss";
-import FooterMenu from "../components/Layouts/FooterMenu";
+
 
 
 const App = ({history}) => {
