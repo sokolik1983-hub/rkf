@@ -38,7 +38,8 @@ const defaultCategories = [
 ];
 
 const Notifications = forwardRef(
-    ({ isAuthenticated, is_active_profile, logOutUser, logo_link, setNotificationsLength }, ref) => {
+    ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
+        const {notificationLength, setNotificationsLength} = useState(0);
         const [loaded, setLoaded] = useState(false);
         const [open, setOpen] = useState(false);
         const [notifications, setNotifications] = useState([]);

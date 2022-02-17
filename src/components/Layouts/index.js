@@ -10,20 +10,15 @@ import './index.scss';
 
 
 
-const Layout = ({ children, withFilters, showCopyright, login_page, setShowFilters, setNotificationsLength }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    console.log('2222222222', withFilters, login_page, isOpen)
+const Layout = ({ children, withFilters, showCopyright, login_page, setShowFilters}) => {
 
     useEffect(() => {
-        setShowFilters({ withFilters: withFilters, login_page: login_page, isOpen: isOpen})
-    }, [isOpen,withFilters, login_page]);
+        setShowFilters({ withFilters: withFilters, login_page: login_page, isOpen: false})
+    }, [withFilters, login_page]);
 
     return (
         <>
-            <Header withFilters={withFilters} login_page={login_page} setNotificationsLength={setNotificationsLength} setIsOpen={setIsOpen} isOpen={isOpen}/>
             {children}
-            <FooterMenu login_page={login_page} setIsOpen={setIsOpen} isOpen={isOpen} />
         </>
     )
 };

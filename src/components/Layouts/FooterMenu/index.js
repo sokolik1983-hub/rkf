@@ -25,8 +25,7 @@ const FooterMenu = ({
     profile_id,
     notificationsLength,
     isAuthenticated,
-    setShowFilters,
-    setIsOpen
+    setShowFilters
 }) => {
     const isMobile1080 = useIsMobile(1080);
     const { alias, id, user_type } = ls.get('user_info') || {};
@@ -63,8 +62,7 @@ const FooterMenu = ({
     }, []);
 
     const hideSideMenu = () => {
-        setShowFilters({ isOpenFilters: false });
-        setIsOpen(false);
+        setShowFilters({ isOpenFilters: false, isOpen: false });
     };
 
     const hideWidgetLoginPopup = () => {

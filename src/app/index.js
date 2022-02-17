@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import ls from "local-storage";
 import { Request } from "../utils/request";
@@ -6,11 +6,18 @@ import { appRoutes } from "../appConfig";
 import IframePage from "../pages/Static/IframePage";
 import { LoadableNotFound } from "../appModules";
 import NotificationsProvider from './context';
+import {useSelector} from "react-redux";
+import Header from "../components/Layouts/Header";
+
 import "./kendo.scss";
 import "./index.scss";
+import FooterMenu from "../components/Layouts/FooterMenu";
 
 
-const App = ({ history }) => {
+const App = ({history}) => {
+    const layout = useSelector(state => state.layout);
+
+    const {isOpen, setIsOpen} = useState(layout?.isOpen);
 
     const resetFilters = () => {
         ls.remove('ClubsFiltersValues');
@@ -42,6 +49,7 @@ const App = ({ history }) => {
 
     return (
         <NotificationsProvider>
+            <Header withFilters={layout?.withFilters} login_page={layout?.login_page} isOpen={isOpen} />
             <Switch>
                 {!!appRoutes.length && appRoutes.map(route =>
                     <Route
@@ -55,6 +63,7 @@ const App = ({ history }) => {
                 <Route exact={true} path='/results/cacib' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblResExhibitionCACIB.aspx" />} />
                 <Route component={LoadableNotFound} />
             </Switch>
+            <FooterMenu login_page={layout?.login_page} isOpen={isOpen} />
         </NotificationsProvider>
     )
 };

@@ -11,7 +11,7 @@ import ZlineModal from "../../../../components/ZlineModal";
 import {blockContent} from "../../../../utils/blockContent";
 
 
-const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen, setOpen}) => {
+const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowFilters, setOpen}) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
     const isMobile = useIsMobile(1080);
     const apiKey = localStorage.getItem('apikey');
@@ -60,7 +60,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
 
     useEffect(() => {
         if (isOpenFilters) {
-            setIsOpen(false);
+            setShowFilters({isOpen: false});
         }
     }, [isOpenFilters]);
 
@@ -79,11 +79,11 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
                 <>
-                    <ClickGuard value={isOpen} callback={() => setIsOpen(false)} />
+                    <ClickGuard value={isOpen} callback={() => setShowFilters({isOpen: false})} />
                     <div
                         className="header__nav-burger"
                         onClick={() => {
-                            setIsOpen(!isOpen);
+                            setShowFilters({isOpen: !isOpen});
                             needChangeIsOpen(!isOpen);
                         }}
                     >
@@ -110,12 +110,12 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
                         {mainNav.map((navItem, i, arr) =>
                             <li className='header__nav-item' key={navItem.id}>
                                 {navItem.children ?
-                                    <NavSublist setIsOpen={setIsOpen} navItem={navItem} /> :
+                                    <NavSublist setShowFilters={setShowFilters} navItem={navItem} /> :
                                     <NavLink
                                         to={navItem.to}
                                         exact={navItem.exact}
                                         className={navItem.disabled ? '_disabled' : ''}
-                                        onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
+                                        onClick={e => navItem.disabled ? e.preventDefault() : setShowFilters({isOpen: false})}
                                     >
                                         {navItem.image}
                                         <span>{navItem.name}</span>
@@ -129,16 +129,16 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
                             </NavLink>
                         </li>
                         <li className='widget-login__item widget-login__item--menu popup-menu auth-clubs'
-                            onClick={() => setIsOpen(false)}>
+                            onClick={() => setShowFilters({isOpen: false})}>
                             <Link className="map-link" to="/clubs-map" target="_blank">Карта авторизованных клубов</Link>
                         </li>
                         <li className='widget-login__item widget-login__item--menu popup-menu support-center'
-                            onClick={() => setIsOpen(false)}>
+                            onClick={() => setShowFilters({isOpen: false})}>
                             <Feedback />
                         </li>
                         {links.map(item =>
                             <li className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
-                                onClick={() => setIsOpen(false)}>
+                                onClick={() => setShowFilters({isOpen: false})}>
                                 <a
                                     href={item.link}
                                     target='_blank'
