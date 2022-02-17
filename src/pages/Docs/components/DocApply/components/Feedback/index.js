@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {options} from './config.js';
-import { Form, FormField, FormGroup } from "../../../../../../components/Form";
-import Button from "../../../../../../components/Button";
-import { Request } from "../../../../../../utils/request";
+import {connect} from 'formik';
+import {Form, FormField} from '../../../../../../components/Form';
+import Button from '../../../../../../components/Button';
+import {Request} from '../../../../../../utils/request';
+import SubmitError from '../SubmitError';
 
 import './style.scss';
 
@@ -12,6 +14,7 @@ const FeedBack = ({
         setShowModal,
         setErrAlert,
         setOkAlert,
+        formik,
 }) => {
     const [types, setTypes] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -47,9 +50,8 @@ const FeedBack = ({
     };
 
     return (
-        <Form
+        <Form className="feedback__form"
             {...options}
-            className="feedback__form"
             onSuccess={() => {
                 setOkAlert(true);
                 setShowModal(false);
@@ -60,32 +62,28 @@ const FeedBack = ({
                 blockContent(true);
             }}
         >
-            <FormGroup className="feedback__form-group">
-                <FormField {...fields.types}
-                           options={types.map(option => ({value: option.id, label: option.name}))}
-                />
-                <FormField {...fields.category}
-                           options={categories.map(option => ({value: option.id, label: option.name}))}
-                           onChange={select => setCategoryId(select.value)}
-                />
-                {<FormField {...fields.subCategory}
-                            disabled={!categoryId}
-                            options={subCategories.map(option => ({value: option.id, label: option.name}))}
-                />}
-                <FormField {...fields.feedbackText} />
-                <div className="feedback__form-buttons">
-                    <Button
-                        className="btn-cancel"
-                        onClick={()=> {
-                            setShowModal(false);
-                            blockContent(false);
-                        }}
-                    >Отмена</Button>
-                    <Button className="btn-submit" type="submit">Отправить</Button>
-                </div>
-            </FormGroup>
+            <FormField {...fields.types}
+                       options={types.map(option => ({value: option.id, label: option.name}))}/>
+            <FormField {...fields.category}
+                       options={categories.map(option => ({value: option.id, label: option.name}))}
+                       onChange={select => setCategoryId(select.value)}/>
+            {<FormField {...fields.subCategory}
+                        disabled={!categoryId}
+                        options={subCategories.map(option => ({value: option.id, label: option.name}))}/>}
+            <FormField {...fields.feedbackText} />
+            <div className="feedback__form-buttons">
+                <Button className="btn-cancel"
+                    onClick={() => {
+                        setShowModal(false);
+                        blockContent(false);
+                    }}>
+                    Отмена
+                </Button>
+                <Button className="btn-submit" type="submit">Отправить</Button>
+            </div>
+            <SubmitError/>
         </Form>
     );
 };
 
-export default FeedBack;
+export default connect(FeedBack);

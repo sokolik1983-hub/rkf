@@ -39,14 +39,11 @@
 }
 
 .feedback__form {
-    &-group{
-
-    }
-    &-buttons{
+    &-buttons {
         display: flex;
         justify-content: center;
 
-        .btn+.btn {
+        .btn + .btn {
             margin-left: 20px;
         }
 
@@ -59,9 +56,48 @@
             line-height: 20px;
             color: #FFFFFF;
             transition: all 0.2s linear;
+
             &:hover {
                 box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
             }
         }
+    }
+
+    .select-subcategory {
+        Label {
+            color: #B9B9B9;
+        }
+
+        .FormInput__error {
+            font-size: 13px;
+            line-height: 14px;
+            color: #FEB5BC;
+        }
+    }
+
+    .FormInput {
+        margin-bottom: 24px;
+
+        &__error {
+            margin-left: 10px;
+            font-size: 13px;
+            line-height: 14px;
+        }
+
+        .RSInput__control {
+            min-height: 36px;
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+    }
+
+    .SubmitError {
+        display: flex;
+        justify-content: center;
+    }
+
+    Label {
+        font-size: 16px;
+        line-height: 16px;
     }
 }

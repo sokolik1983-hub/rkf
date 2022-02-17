@@ -105,17 +105,17 @@ const DocApply = ({ clubAlias, history }) => {
                 {...{alias, id, profileId, Title, update, view}}
             />
             <div className="documents-page__feedback">
-                <Button className="btn-condensed"
+                {/*<Button className="btn-condensed"
                         onClick={() => setShowModal(true)}
-                >Сообщить о ошибке</Button>
-                <span className="hidden-item"> </span>
+                >Сообщить об ошибке</Button>
+                <span className="hidden-item"> </span>*/}
                 {showModal &&
                     <Modal
                         showModal={showModal}
                         handleClose={closeModal}
                         outsideClickHandler={() => setShowModal(false)}
                         className={`stage-controls__modal`}
-                        headerName="Сообщить о ошибке"
+                        headerName="Сообщить об ошибке"
                     >
                         <FeedBack
                             setShowModal={setShowModal}
@@ -134,14 +134,6 @@ const DocApply = ({ clubAlias, history }) => {
                         onOk={() => setOkAlert(false)}
                     />
                 }
-                {/*{errAlert &&*/}
-                {/*    <Alert*/}
-                {/*        title="Ошибка отправки"*/}
-                {/*        text={`Пожалуйста, проверьте правильность заполнения всех полей`}*/}
-                {/*        autoclose={2.5}*/}
-                {/*        onOk={() => setErrAlert(false)}*/}
-                {/*    />*/}
-                {/*}*/}
             </div>
         </div>
     </div>
