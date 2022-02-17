@@ -1,11 +1,15 @@
-import React, {memo, useMemo} from "react";
+import React, {memo, useMemo, useState} from "react";
 import SwipeTabs from "../../../../../../components/SwipeTabs";
 import {setFiltersToUrl} from "../../../../utils";
 import "./index.scss";
+import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
 
 
 const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardView, exporting, setExporting}) => {
     const clientWidth = window.innerWidth;
+
+    const [isFilter, setIsFilter] = useState(false)
+
     const tabItems = useMemo(() => {
         return [
             {title: 'Все', type: 0},
@@ -25,6 +29,11 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
             setFiltersToUrl({CityIds: []});
         }
     };
+
+    const handleFilter = () => {
+        setIsFilter(!isFilter);
+        setFiltersToUrl({IsPopular: !isFilter})
+    }
 
     return (
         <div className="exhibitions-page__list-filter">
@@ -57,12 +66,23 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
                        </button>
                    }
                 </div>
+                <CustomCheckbox
+                    id="need-filter"
+                    label="Сортировка"
+                    checked={!!isFilter}
+                    onChange={handleFilter}
+                />
             </div>
-            <SwipeTabs
+            {!isFilter ? <SwipeTabs
                 items={tabItems}
                 activeTabIndex={tabItems.findIndex(item => item.type === +categoryId)}
                 onChange={item => handleClick(item)}
-            />
+            /> :
+            <CustomCheckbox
+                id="most-liked"
+                label="По популярности"
+                checked={!!isFilter}
+                onChange={handleFilter}/>}
         </div>
     );
 };

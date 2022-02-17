@@ -229,10 +229,6 @@ const Filters = ({
                                     />
                                 </div>
                             </Card>
-                            <LikeFilter
-                                is_popular={IsPopular}
-                                onChange={filter => setFiltersToUrl({ IsPopular: filter })}
-                            />
                             {parseInt(filters.CategoryId) === 4
                                 ? <FormatFilter
                                     format_ids={filters.TypeIds}
