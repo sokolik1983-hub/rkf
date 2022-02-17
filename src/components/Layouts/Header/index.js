@@ -18,9 +18,7 @@ const Header = ({
     isOpenFilters,
     setShowFilters,
     login_page,
-    setNotificationsLength,
     isOpen,
-    setIsOpen
 }) => {
     const [openWidgets, setOpenWidgets] = useState(false);
     const [open, setOpen] = useState(false);
@@ -34,8 +32,7 @@ const Header = ({
     };
 
     const hideSideMenu = () => {
-        setShowFilters({isOpenFilters: false});
-        setIsOpen(false);
+        setShowFilters({isOpenFilters: false, isOpen: false});
         setOpen(false);
     };
 
@@ -67,7 +64,7 @@ const Header = ({
                             needChangeIsOpen={needChangeIsOpen}
                             login_page={login_page}
                             isOpen={isOpen}
-                            setIsOpen={setIsOpen}
+                            setShowFilters={setShowFilters}
                         />
                     </div> :
                     <div><Link to='/' className="header__logo" /></div>
@@ -82,7 +79,6 @@ const Header = ({
                             <div onClick={hideSideMenu} className='header__widgets-notifications-wrap'>
                                 <Notifications open={openWidgets}
                                                setOpen={setOpenWidgets}
-                                               setNotificationsLength={setNotificationsLength}
                                 />
                             </div>
                         </>
