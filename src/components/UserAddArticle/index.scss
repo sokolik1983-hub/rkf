@@ -15,7 +15,7 @@
   }
 }
 
-.articleCreateForm {
+.ArticleCreateForm {
   position: relative;
 
   textarea {
@@ -292,7 +292,7 @@
       margin-left: 1px;
       margin-bottom: 3px;
     }
-    &.buySell {
+    &.buy-sell {
       display: grid;
       grid-template-areas:
             "breed cost puppies"
@@ -352,7 +352,7 @@
         }
       }
     }
-    .articleCreateForm {
+    .ArticleCreateForm {
       &__input-sex {
         grid-area: sex2;
         & .FormInput__input {
@@ -692,7 +692,7 @@
   }
 }
 
-.articleCreateForm__advert-wrap~.articleCreateForm__button-wrap {
+.ArticleCreateForm__advert-wrap~.ArticleCreateForm__button-wrap {
   margin-top: 0;
 }
 
