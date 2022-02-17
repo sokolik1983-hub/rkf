@@ -307,12 +307,11 @@
 
   &__advert {
     color: #72839C;
-    margin-bottom: 15px;
     label {
       margin-left: 1px;
       margin-bottom: 3px;
     }
-    &.BuySell {
+    &.buy-sell {
       display: grid;
       grid-template-areas:
             "breed cost puppies"
@@ -712,9 +711,12 @@
   }
 }
 
+.ArticleCreateForm__advert-wrap~.ArticleCreateForm__button-wrap {
+  margin-top: 0;
+}
+
 ._focus {
   flex-direction: column;
-
 }
 
 ._no_focus {

@@ -205,7 +205,7 @@ const RenderFields = ({ fields,
                             onFocus={setFocused}
                             maxLength="1000"
                             value={content ? content : ''}
-                            rows={content ? addRow() : focus ? "3" : "1"}
+                            rows={content ? addRow() : focus ? "2" : "1"}
                             className={focus ? `_textarea_focus` : ``}
                         />
                 </FormGroup>
@@ -333,7 +333,7 @@ const RenderFields = ({ fields,
                             <div className="FormInput__error">Выберите категорию объявления.</div>
                         </div>
                     }
-                    <FormGroup className={`ArticleCreateForm__advert BuySell ${isMating && 'isMating'}`}>
+                    <FormGroup className={`ArticleCreateForm__advert buy-sell ${isMating ? 'isMating' : ''}`}>
                         <FormField className="ArticleCreateForm__input-breed_new" {...fields.advert_breed_id} />
                         <FormField className="ArticleCreateForm__input-sex_new" {...fields.dog_sex_type_id} />
                         <FormField className="ArticleCreateForm__input-color_new" {...fields.dog_color} />

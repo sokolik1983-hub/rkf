@@ -342,7 +342,7 @@
       justify-content: space-between;
     }
     &-breed {
-      margin: 10px 0!important;
+      margin: 15px 0!important;
     }
     &-breed {
       span:first-child {
@@ -356,13 +356,20 @@
       & > div:first-child {
         display: flex;
         flex-wrap: wrap;
+        div {
+          display: flex;
+          flex-direction: column;
+        }
       }
       span:not(:last-child) {
-        margin-right: 10px;
+        margin-bottom: 5px;
       }
     }
     &-inactive {
       color: red;
+    }
+    &-city, &-age, &-sex {
+      margin: 5px 0;
     }
   }
   &__documents {
@@ -556,5 +563,21 @@
   }
   &__controls {
     padding: 0 10px;
+  }
+
+  &__category {
+
+    &-wrap {
+      display: flex;
+      justify-content: space-between;
+      div {
+        display: flex;
+      }
+    }
+
+    &-value {
+      width: fit-content;
+      font-weight: 600;
+    }
   }
 }

@@ -214,31 +214,37 @@ const CardNewsNew = forwardRef(({
                 <div className={(!collapsed && (advert_type_id < 1))  ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
 
                     {is_advert && <div className="CardNewsNew__ad">
-                        {advert_type_name && <span className="CardNewsNew__category-span">Категория: {advert_type_name}</span>}
+                        {advert_type_name &&
+                            <div className = "CardNewsNew__category-wrap">
+                                <div>
+                                    <span className="CardNewsNew__category-span">Категория: </span>
+                                    <p className = "CardNewsNew__category-value">{advert_type_name}</p>
+                                </div>
+                                <span>№{advert_code}</span>
+                            </div>}
                         {
                                 <p className="CardNewsNew__ad-breed">
                                     <span>{is_halfbreed ? "Метис" : `Порода: ${advert_breed_name}`}</span>
-                                    <span>№{advert_code}</span>
                                 </p>
                         }
                         {
-                            dog_color && <div>Окрас: {dog_color}</div>
+                            dog_color && <div className="CardNewsNew__ad-color">Окрас: {dog_color}</div>
                         }
                         {
-                            dog_name && <div>Кличка собаки: {dog_name}</div>
+                            dog_name && <div className="CardNewsNew__ad-name">Кличка собаки: {dog_name}</div>
                         }
                         {
                             !is_all_cities && dog_city && (advert_type_id > 1)
                                 ?
-                                <div>Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
+                                <div className="CardNewsNew__ad-city">Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
                                 :
-                                <span>Все города</span>
+                                <span className="CardNewsNew__ad-city">Все города</span>
                         }
                         {
-                            dog_age && <div>Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
+                            dog_age && <div className="CardNewsNew__ad-age">Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
                         }
                         {
-                            dog_sex_type_id && <div>Пол: {dog_sex_type_id}</div>
+                            dog_sex_type_id && <div className="CardNewsNew__ad-sex">Пол: {dog_sex_type_id}</div>
                         }
                         <div className="CardNewsNew__ad-price">
                             <div>
