@@ -13,10 +13,11 @@ import {blockContent} from "../../utils/blockContent";
 import {clubNav as clubNavDocs} from "../../pages/Docs/config";
 import ls from "local-storage";
 import Alert from "../Alert";
+import {endpointGetClubInfo} from "../../pages/Club/config";
 
 import "./index.scss";
-import {endpointGetClubInfo} from "../../pages/Club/config";
-import {endpointGetUserInfo} from "../Layouts/UserLayout/config";
+
+
 
 
 
@@ -409,23 +410,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             setLoading(false);
         }))();
     }, [currentPageAlias, club_alias]);
-
-    console.log('fedInfo', fedInfo);
-    console.log('alias', alias, currentPageAlias, club_alias);
-
-
-    // useEffect(() => {
-    //     if(fedInfo) {
-    //         if (alias === 'rkf' || alias === 'rkf-online') {
-    //             setMenuBackground('/static/images/slider/1.jpg');
-    //             setFedName('РКФ')
-    //         } else {
-    //             (fedInfo && setMenuBackground(fedInfo.header_picture_link));
-    //             setFedName(fedInfo.name)
-    //         }
-    //     }
-    //
-    // }, [fedInfo]);
 
     useEffect(() => {
         let url =  location.pathname.split('/')[1];
