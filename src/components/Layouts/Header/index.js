@@ -18,7 +18,7 @@ const Header = ({
     isOpenFilters,
     setShowFilters,
     login_page,
-    isOpen
+    isOpen,
 }) => {
     const [openWidgets, setOpenWidgets] = useState(false);
     const [open, setOpen] = useState(false);

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
-import ls from "local-storage";
-import { Request } from "../utils/request";
-import { appRoutes } from "../appConfig";
-import IframePage from "../pages/Static/IframePage";
-import { LoadableNotFound } from "../appModules";
+import React, {useEffect} from 'react';
+import {Route, Switch, withRouter } from 'react-router-dom';
+import ls from 'local-storage';
+import { Request } from '../utils/request';
+import { appRoutes } from '../appConfig';
+import IframePage from '../pages/Static/IframePage';
+import { LoadableNotFound } from '../appModules';
 import NotificationsProvider from './context';
-import {useSelector} from "react-redux";
-import Header from "../components/Layouts/Header";
-import FooterMenu from "../components/Layouts/FooterMenu";
+import {useSelector} from 'react-redux';
+import Header from '../components/Layouts/Header';
+import FooterMenu from '../components/Layouts/FooterMenu';
 
-import "./kendo.scss";
-import "./index.scss";
+import './kendo.scss';
+import './index.scss';
 
 
 
