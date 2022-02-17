@@ -120,7 +120,7 @@ const Filters = ({
     }
 
     const handleChangeRegionFilter = (filter) => {
-        setFiltersToUrl({RegionIds: filter});
+        setFiltersToUrl({RegionIds: filter, CityIds: []});
         setCurrentExhibCities(filter);
     };
 
@@ -146,6 +146,12 @@ const Filters = ({
             }))();
         }
     }, [currentExhibCities]);
+
+    useEffect(() => {
+        if(filters.RegionIds.length === 0) {
+            setExhibitionCities(cities.exhibitionCities);
+        }
+    }, [filters.RegionIds.length]);
 
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
@@ -251,6 +257,7 @@ const Filters = ({
                                 onChange={filter => handleChangeRegionFilter(filter)}
                             />
                             <CitiesFilter
+                                loading={loading}
                                 cities={isEducational ? cities.educationalCities : exhibitionCities}
                                 city_ids={filters.CityIds}
                                 onChange={filter => setFiltersToUrl({ CityIds: filter })}

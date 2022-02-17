@@ -168,9 +168,9 @@ const NewsList = ({isFullDate = true}) => {
 
     const changeRegionFilter = regionIds => {
         setLSRegions(regionIds);
-        setNewsFilter({...newsFilter, regions: regionIds});
+        setNewsFilter({...newsFilter, regions: regionIds, cities: []});
         setStartElement(1);
-        (() => getNews(1, {...newsFilter, regions: regionIds}))();
+        (() => getNews(1, {...newsFilter, regions: regionIds, cities: []}))();
     };
 
     useEffect(() => {
