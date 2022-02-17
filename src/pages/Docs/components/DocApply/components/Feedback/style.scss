@@ -1,0 +1,103 @@
+.documents-page__feedback {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: flex-end;
+
+    .btn {
+        position: relative;
+        bottom: 65px;
+        height: 46px;
+        text-align: center;
+        background: #3366FF;
+        border-radius: 4px;
+        font-size: 16px;
+        line-height: 20px;
+        color: #FFFFFF;
+        transition: all 0.2s linear;
+        @media (max-width: 1079px) {
+            width: calc(100% - 30px);
+            bottom: 0;
+            margin: 0 auto;
+        }
+
+        &:hover {
+            box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+        }
+
+    }
+
+    .hidden-item {
+        position: relative;
+        height: 46px;
+        width: 305px;
+        margin: 0 30px 0 16px;
+        @media (max-width: 1079px) {
+            display: none;
+        }
+    }
+}
+
+.feedback__form {
+    &-buttons {
+        display: flex;
+        justify-content: center;
+
+        .btn + .btn {
+            margin-left: 20px;
+        }
+
+        .btn {
+            width: 150px;
+            text-align: center;
+            background: #3366FF;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 20px;
+            color: #FFFFFF;
+            transition: all 0.2s linear;
+
+            &:hover {
+                box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+            }
+        }
+    }
+
+    .select-subcategory {
+        Label {
+            color: #B9B9B9;
+        }
+
+        .FormInput__error {
+            font-size: 13px;
+            line-height: 14px;
+            color: #FEB5BC;
+        }
+    }
+
+    .FormInput {
+        margin-bottom: 24px;
+
+        &__error {
+            margin-left: 10px;
+            font-size: 13px;
+            line-height: 14px;
+        }
+
+        .RSInput__control {
+            min-height: 36px;
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+    }
+
+    .SubmitError {
+        display: flex;
+        justify-content: center;
+    }
+
+    Label {
+        font-size: 16px;
+        line-height: 16px;
+    }
+}
