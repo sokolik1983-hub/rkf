@@ -105,7 +105,8 @@ const DocApply = ({ clubAlias, history }) => {
                 {...{alias, id, profileId, Title, update, view}}
             />
             <div className="documents-page__feedback">
-                {/*<Button className="btn-condensed"
+
+                {/*<Button className="btn-condensed"      //закоментировано на будущее до того как будет реализован бек фидбека
                         onClick={() => setShowModal(true)}
                 >Сообщить об ошибке</Button>
                 <span className="hidden-item"> </span>*/}
