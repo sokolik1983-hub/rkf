@@ -65,6 +65,7 @@ const NewsList = ({isFullDate = true}) => {
                     : ''}
                 ${filters.is_popular ? '&is_popular='+ filters.is_popular : '&is_popular=false'}`
             }, data => {
+                console.log('data', data)
                 if (data.articles.length) {
                     const modifiedNews = data.articles.map(article => {
                         article.title = article.club_name;
@@ -86,7 +87,7 @@ const NewsList = ({isFullDate = true}) => {
 
                     setHasMore(false);
                 }
-            }, error => console.log(error.response));
+            }, error => console.log('ошибочка', error.response));
 
         setNewsLoading(false);
     };
