@@ -39,17 +39,15 @@
     .k-popup {
         background-color: #fff !important;
         transition: 0s !important;
+        div.k-columnmenu-actions {
+            display: flex !important;
+            flex-direction: column !important;
+        }
+        button.k-button {
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            margin: 5px auto !important;
+        }
     }
-}
-
-div.k-columnmenu-actions {
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-button.k-button {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    margin: 5px auto !important;
 }
