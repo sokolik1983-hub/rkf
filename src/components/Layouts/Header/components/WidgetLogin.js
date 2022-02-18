@@ -1,18 +1,18 @@
-import React, {forwardRef, useRef, useState, useEffect} from "react";
-import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import ls from "local-storage";
-import Modal from "../../../Modal";
-import LoginAsUser from "./LoginAsUser";
-import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG, widgetLoginIcon } from "../../../../appConfig";
-import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connectors";
-import history from "../../../../utils/history";
-import { Request } from "../../../../utils/request";
-import useIsMobile from "../../../../utils/useIsMobile";
-import PopupModal from "../../../PopupModal";
-import OutsideClickHandler from "react-outside-click-handler";
-import {endpointGetClubInfo} from "../../../../pages/Club/config";
-import {endpointGetUserInfo} from "../../UserLayout/config";
+import React, {forwardRef, useRef, useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import ls from 'local-storage';
+import Modal from '../../../Modal';
+import LoginAsUser from './LoginAsUser';
+import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG, widgetLoginIcon } from '../../../../appConfig';
+import { connectLogin, connectWidgetLogin } from '../../../../pages/Login/connectors';
+import history from '../../../../utils/history';
+import { Request } from '../../../../utils/request';
+import useIsMobile from '../../../../utils/useIsMobile';
+import PopupModal from '../../../PopupModal';
+import OutsideClickHandler from 'react-outside-click-handler';
+import {endpointGetClubInfo} from '../../../../pages/Club/config';
+import {endpointGetUserInfo} from '../../UserLayout/config';
 
 const WidgetLogin = forwardRef(
     ({
@@ -30,8 +30,7 @@ const WidgetLogin = forwardRef(
 
         const [showModal, setShowModal] = useState(false);
         const [desktop, setDesktop] = useState(false);
-        const [menuBackground, setMenuBackground] = useState(null)
-
+        const [menuBackground, setMenuBackground] = useState(null);
 
         const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
         const name = ls.get('user_info') ? ls.get('user_info').name : '';
@@ -43,7 +42,6 @@ const WidgetLogin = forwardRef(
         const isMobile1080 = useIsMobile(1080);
 
         const widgetLoginRef = useRef();
-
 
         const AuthButtons = () => {
             let path = history.location.pathname;
@@ -95,7 +93,7 @@ const WidgetLogin = forwardRef(
             Request({
                 url: `${(userType === 1) ? endpointGetUserInfo : endpointGetClubInfo}${alias}`
             }, data => {
-                setMenuBackground(data.headliner_link)
+                setMenuBackground(data.headliner_link);
             }, error => {
                 console.log(error.response);
             });
