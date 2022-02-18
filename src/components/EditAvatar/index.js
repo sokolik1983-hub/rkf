@@ -3,19 +3,21 @@ import Modal from "./Modal";
 import CustomAvatarEditor from "./AvatarEditor";
 
 
-const EditAvatar = ({ avatar, setModalType, onSubmitSuccess, userType }) => {
+const EditAvatar = ({ avatar, setModalType, onSubmitSuccess, userType, pageBanner }) => {
 
     return (
         <Modal
             open={true}
             onClose={() => setModalType('')}
-            title="Редактирование аватара"
+            title={pageBanner ? "Редактирование заставки" : "Редактирование аватара"}
+            pageBanner={pageBanner}
         >
             <CustomAvatarEditor
                 avatar={avatar}
                 setModalType={setModalType}
                 userType={userType}
                 onSubmitSuccess={onSubmitSuccess}
+                pageBanner={pageBanner}
             />
         </Modal>
     )

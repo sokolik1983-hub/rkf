@@ -9,9 +9,10 @@ import {blockContent} from "../../../../utils/blockContent";
 import "./index.scss";
 
 
-const ModalDeleteAvatar = ({ closeModal, updateInfo }) => {
+const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner }) => {
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
+    const currentLink = pageBanner ? '/api/headerpicture' : '/api/avatar';
 
     const handleError = e => {
         if (e.response) {
@@ -32,7 +33,7 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo }) => {
         setLoading(true);
 
         await Request({
-            url: '/api/avatar',
+            url: currentLink,
             method: 'DELETE'
         }, () => {
             closeModal();
@@ -52,15 +53,26 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo }) => {
     }
 
     return (
-        <Modal className="delete-avatar-modal" showModal={true} handleClose={handleClose} handleX={handleClose} headerName="Удаление аватара">
+        <Modal className="delete-avatar-modal" showModal={true} handleClose={handleClose} handleX={handleClose} headerName={pageBanner ? "Удаление заставки" : "Удаление аватара"}>
             <div className="delete-avatar-modal__content">
                 {loading ?
                     <Loading centered={false} /> :
                     <>
-                        <p className="delete-avatar-modal__describe">
-                            Вы уверены, что хотите удалить <br />
-                            Ваш аватар?
-                        </p>
+
+                            {
+                                pageBanner
+                                ?
+                                    <p className="delete-avatar-modal__describe">
+                                    Вы уверены, что хотите удалить <br />
+                                Вашу заставку?
+                                    </p>
+                                :
+                                    <p className="delete-avatar-modal__describe">
+                                        Вы уверены, что хотите удалить <br />
+                                        Ваш аватар?
+                                    </p>
+                            }
+
                         <div className="k-form-buttons">
                             <button
                                 className="btn btn-light"

@@ -8,12 +8,13 @@ import ModalDeleteBanner from "./ModalDeleteBanner";
 import LightTooltip from "../../LightTooltip";
 import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
+import EditAvatar from "../../EditAvatar";
+import ModalDeleteAvatar from "../UserInfo/ModalDeleteAvatar";
 
 
 const UserBanner = ({ link, canEdit, updateInfo }) => {
     const [hover, setHover] = useState(false);
     const [modalType, setModalType] = useState('');
-
 
     return (
         <Card
@@ -66,12 +67,21 @@ const UserBanner = ({ link, canEdit, updateInfo }) => {
             {link &&
                 <div className="user-banner__img" style={{ background: `url(${link}) no-repeat center / cover` }} />
             }
-            {modalType === 'edit' &&
-                <ModalEditBanner closeModal={() => setModalType('')} updateInfo={updateInfo} />
-            }
+            {modalType === 'edit' && <EditAvatar
+                setModalType={setModalType}
+                avatar={link}
+                pageBanner
+            />}
             {modalType === 'delete' &&
-                <ModalDeleteBanner closeModal={() => setModalType('')} updateInfo={updateInfo} />
+                <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} pageBanner/>
             }
+
+            {/*{modalType === 'edit' &&*/}
+            {/*    <ModalEditBanner closeModal={() => setModalType('')} updateInfo={updateInfo} />*/}
+            {/*}*/}
+            {/*{modalType === 'delete' &&*/}
+            {/*    <ModalDeleteBanner closeModal={() => setModalType('')} updateInfo={updateInfo} />*/}
+            {/*}*/}
         </Card>
     )
 };

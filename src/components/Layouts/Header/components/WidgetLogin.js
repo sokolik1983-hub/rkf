@@ -85,9 +85,7 @@ const WidgetLogin = forwardRef(
         }
         useEffect(() => {
             setOpen(desktop);
-        }, [desktop])
-
-
+        }, [desktop]);
 
         return (
             <div

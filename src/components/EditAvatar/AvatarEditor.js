@@ -9,8 +9,7 @@ import Alert from "../Alert";
 import ls from "local-storage";
 import "./index.scss";
 
-
-const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess }) => {
+const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner }) => {
     const [image, setImage] = useState(avatar || '');
     const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
     const [scale, setScale] = useState(1);
@@ -18,10 +17,11 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
     const [editorErrors, setEditorErrors] = useState([]);
     const editor = useRef(null);
     const UPLOAD_AVATAR = `/static/icons/default/user-avatar-upload.svg`;
+    const currentLink = pageBanner ? '/api/headerpicture/full_v3' : '/api/avatar/full_v3';
 
     const handleSubmit = () => {
         Request({
-            url: '/api/avatar/full_v3',
+            url: currentLink,
             method: 'POST',
             data: {
                 data: editor.current.getImageScaledToCanvas().toDataURL('image/jpeg', 1)
@@ -29,7 +29,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
         }, data => {
             if (data) {
                 userType === 'club' && onSubmitSuccess({ image_link: data });
-                ls.set('user_info', { ...ls.get('user_info'), logo_link: data });
+                !pageBanner && ls.set('user_info', { ...ls.get('user_info'), logo_link: data });
                 setModalType('');
                 window.location.reload();
             }
@@ -68,7 +68,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
                                 position={position}
                                 onPositionChange={pos => setPosition(pos)}
                                 rotate={parseFloat(rotate)}
-                                borderRadius={166}
+                                borderRadius={pageBanner ? 0 : 166}
                                 image={image}
                                 className="avatar-editor__canvas"
                                 style={image ? {} : { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
