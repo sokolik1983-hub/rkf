@@ -260,10 +260,12 @@ const CardNewsNew = forwardRef(({
                             {is_closed_advert && <div className="CardNewsNew__ad-inactive" >Объявление не активно</div>}
                         </div>
                     </div>}
-                    <p className={`CardNewsNew__text${!canCollapse ? ' _disabled' : ''}`}
-                        ref={ref}
-                        dangerouslySetInnerHTML={content && { __html: formatText(content) }}
-                    />
+                    {!!content &&
+                        <p className={`CardNewsNew__text${!canCollapse ? ' _disabled' : ''}`}
+                           ref={ref}
+                           dangerouslySetInnerHTML={{ __html: formatText(content) }}
+                        />
+                    }
                 </div>
                 <div className="CardNewsNew__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
                     {

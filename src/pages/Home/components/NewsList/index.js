@@ -93,24 +93,6 @@ const NewsList = ({isFullDate = true}) => {
 
     useEffect(() => {
         (async () => {
-            await Request({url: '/api/city/article_cities'},
-            data => {
-                if(data) {
-                    setCities(data);
-                }
-            },
-            error => {
-                console.log(error.response);
-            });
-
-            setFiltersLoading(false);
-
-            await getNews(1, newsFilter);
-        })();
-    }, []);
-
-    useEffect(() => {
-        (async () => {
             await Request({url: 'api/city/article_regions'},
                 data => {
                     if(data) {
@@ -122,6 +104,16 @@ const NewsList = ({isFullDate = true}) => {
                 });
 
             setFiltersLoading(false);
+
+            await Request({url: '/api/city/article_cities'},
+                data => {
+                    if(data) {
+                        setCities(data);
+                    }
+                },
+                error => {
+                    console.log(error.response);
+                });
 
             await getNews(1, newsFilter);
         })();
