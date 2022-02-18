@@ -128,6 +128,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         } else {
             setSearchResult([]);
             setHasMore(false);
+            clearFilterCounts();
         }
 
         setStartElement(1);
@@ -146,6 +147,18 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         setIsMenuChanges(true);
     }
 
+    const clearFilterCounts = () => {
+        const clearedFilters = filters.map(filter => {
+            filter.count = 0;
+            filter.items.map(item => {
+                item.count = 0;
+                return item;
+            })
+            return filter;
+        })
+
+        setFilters(clearedFilters);
+    }
 
     return (
         <Layout withFilters>
