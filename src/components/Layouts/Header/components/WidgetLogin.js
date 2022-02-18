@@ -1,16 +1,16 @@
-import React, {forwardRef, useRef, useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
-import { CSSTransition } from 'react-transition-group';
-import ls from 'local-storage';
-import Modal from '../../../Modal';
-import LoginAsUser from './LoginAsUser';
-import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG, widgetLoginIcon } from '../../../../appConfig';
-import { connectLogin, connectWidgetLogin } from '../../../../pages/Login/connectors';
-import history from '../../../../utils/history';
-import { Request } from '../../../../utils/request';
-import useIsMobile from '../../../../utils/useIsMobile';
-import PopupModal from '../../../PopupModal';
-import OutsideClickHandler from 'react-outside-click-handler';
+import React, {forwardRef, useRef, useState, useEffect} from "react";
+import { Link } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+import ls from "local-storage";
+import Modal from "../../../Modal";
+import LoginAsUser from "./LoginAsUser";
+import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG, widgetLoginIcon } from "../../../../appConfig";
+import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connectors";
+import history from "../../../../utils/history";
+import { Request } from "../../../../utils/request";
+import useIsMobile from "../../../../utils/useIsMobile";
+import PopupModal from "../../../PopupModal";
+import OutsideClickHandler from "react-outside-click-handler";
 
 const WidgetLogin = forwardRef(
     ({
@@ -28,7 +28,7 @@ const WidgetLogin = forwardRef(
 
         const [showModal, setShowModal] = useState(false);
         const [desktop, setDesktop] = useState(false);
-
+        const [menuBackground, setMenuBackground] = useState(null);
 
         const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
         const name = ls.get('user_info') ? ls.get('user_info').name : '';
@@ -87,6 +87,20 @@ const WidgetLogin = forwardRef(
             setOpen(desktop);
         }, [desktop]);
 
+        const backgroundForPage =(alias) => {
+            Request({
+                url: `${(userType === 1) ? endpointGetUserInfo : endpointGetClubInfo}${alias}`
+            }, data => {
+                setMenuBackground(data.headliner_link);
+            }, error => {
+                console.log(error.response);
+            });
+        };
+
+        useEffect(() => {
+            backgroundForPage(alias);
+        }, [alias]);
+
         return (
             <div
                 className={`widget-login class-for-grid-block3 ${login_page ? `active` : !isAuthenticated ? `__noAuth` : ''}`}
@@ -131,6 +145,9 @@ const WidgetLogin = forwardRef(
                                                 <div className="widget-login__inner">
                                                     <div className="widget-login__content">
                                                         <div className="widget-login__userpic-wrap">
+                                                            <div className="widget-login__bg-box">
+                                                                { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/widget-login/userpic-bg.jpg' alt=""/>}
+                                                            </div>
                                                             <div className={`widget-login__userpic${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
                                                                  style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
                                                             />

@@ -30,6 +30,7 @@
 
   &__title-inner{
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #e8e8e8;
@@ -96,8 +97,21 @@
 
     & .list-filter__title {
       margin-bottom: 0;
+      margin-right: auto;
       padding-bottom: 10px;
       padding-left: 14px;
+    }
+
+    .sorting-filter {
+      margin: 0 10px auto;
+      @media (max-width: 560px) {
+        position: absolute;
+        right: 25px;
+      }
+    }
+
+    .like-filter {
+      margin: 9px 15px;
     }
   }
 

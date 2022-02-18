@@ -829,6 +829,7 @@
     }
   }
   &__userpic {
+    position: absolute;
     height: 80px;
     width: 80px;
     min-width: 60px;
@@ -837,18 +838,18 @@
     background-color: white;
     border-radius: 50%;
     border: 2px solid #fff;
-    margin-bottom: -30px;
+    margin-bottom: -75px;
     @media (max-width: 600px) {
       height: 60px;
       width: 60px;
     }
     &-wrap {
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
       height: 80px;
       margin: 10px 10px 30px 10px;
-      background: url("/static/images/widget-login/userpic-bg.jpg") center/cover no-repeat;
     }
   }
   &__username {
@@ -1107,7 +1108,21 @@
       transition: opacity 0.2s, margin-top 0.2s;
     }
   }
-
+  &__bg-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      transform: translateY( -50%);
+    }
+  }
 }
 .header__nav-item-hover {
   &.__hover {

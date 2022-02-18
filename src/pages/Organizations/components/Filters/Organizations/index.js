@@ -1,10 +1,20 @@
-import React, {memo, useMemo} from "react";
-import SwipeTabs from "../../../../../components/SwipeTabs";
-import {getEmptyFilters, setFiltersToUrl} from "../../../utils";
-import "./index.scss";
+import React, {memo, useMemo, useState} from 'react';
+import SwipeTabs from '../../../../../components/SwipeTabs';
+import {getEmptyFilters, setFiltersToUrl} from '../../../utils';
+import CustomCheckbox from '../../../../../components/Form/CustomCheckbox';
 
+import './index.scss';
 
 const OrganizationsFilter = ({organization_type}) => {
+
+    const [isFilter, setIsFilter] = useState(false);
+
+    const handleFilter = () => {
+        setIsFilter(!isFilter);
+        setFiltersToUrl({is_popular: !isFilter})
+
+    }
+
     const tabItems = useMemo(() => {
         return [
             {title: 'РКФ и Федерации', organization_type: 5},
@@ -17,15 +27,32 @@ const OrganizationsFilter = ({organization_type}) => {
     return (
         <div className="organizations-page__list-filter">
             <div className="organizations-page__filter-wrap">
-                <h3>Организации</h3>
-                <SwipeTabs
+                <div className="organizations-page__filter-header">
+                    <h3>Организации</h3>
+                    {(organization_type !== 5) &&
+                        <CustomCheckbox
+                        id="need-filter"
+                        label="Сортировка"
+                        checked={!!isFilter}
+                        onChange={handleFilter}
+                        cName="sorting-filter"
+                    />}
+                </div>
+                {!isFilter ? <SwipeTabs
                     items={tabItems}
                     activeTabIndex={tabItems.findIndex(item => item.organization_type === organization_type)}
                     onChange={({organization_type}) => setFiltersToUrl({
                         ...getEmptyFilters(),
                         organization_type
                     })}
-                />
+                /> :
+                    <CustomCheckbox
+                        id="most-liked"
+                        label="По популярности"
+                        checked={!!isFilter}
+                        onChange={handleFilter}
+                        cName="like-filter"
+                    />}
             </div>
         </div>
     );
