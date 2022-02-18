@@ -106,10 +106,10 @@ const DocApply = ({ clubAlias, history }) => {
             />
             <div className="documents-page__feedback">
 
-                {/*<Button className="btn-condensed"      //закоментировано на будущее до того как будет реализован бек фидбека
+                <Button className="btn-condensed"      //закоментировано на будущее до того как будет реализован бек фидбека
                         onClick={() => setShowModal(true)}
                 >Сообщить об ошибке</Button>
-                <span className="hidden-item"> </span>*/}
+                <span className="hidden-item"> </span>
                 {showModal &&
                     <Modal
                         showModal={showModal}
