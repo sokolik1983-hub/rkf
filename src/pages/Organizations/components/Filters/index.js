@@ -1,22 +1,22 @@
-import React, {memo, useEffect, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
-import StickyBox from "react-sticky-box";
-import Aside from "../../../../components/Layouts/Aside";
-import Card from "../../../../components/Card";
-import CopyrightInfo from "../../../../components/CopyrightInfo";
-import Socials from "../../../../components/Socials";
-import Statistics from "../../../../components/Statistics";
-import FederationsFilter from "../../../../components/Filters/FederationsFilter";
-import FederationChoiceFilter from "../../../../components/Filters/FederationChoiceFilter";
-import ActivatedFilter from "../../../../components/Filters/ActivatedFilter";
-import BreedsFilter from "../../../../components/Filters/BreedsFilter";
-import CitiesFilter from "../../../../components/Filters/CitiesFilter";
-import NotActivatedFilter from "../../../../components/Filters/NotActivatedFilter";
-import ActiveUserFilter from "../../../../components/Filters/ActiveUserFilter";
-import ClubsMap from "../../../../components/ClubsMap";
-import {RKFInfo} from "../../../Home/config";
-import {setOverflow} from "../../../../utils";
-import {Request} from "../../../../utils/request";
+import React, {memo, useEffect, useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
+import StickyBox from 'react-sticky-box';
+import Aside from '../../../../components/Layouts/Aside';
+import Card from '../../../../components/Card';
+import CopyrightInfo from '../../../../components/CopyrightInfo';
+import Socials from '../../../../components/Socials';
+import Statistics from '../../../../components/Statistics';
+import FederationsFilter from '../../../../components/Filters/FederationsFilter';
+import FederationChoiceFilter from '../../../../components/Filters/FederationChoiceFilter';
+import ActivatedFilter from '../../../../components/Filters/ActivatedFilter';
+import BreedsFilter from '../../../../components/Filters/BreedsFilter';
+import CitiesFilter from '../../../../components/Filters/CitiesFilter';
+import NotActivatedFilter from '../../../../components/Filters/NotActivatedFilter';
+import ActiveUserFilter from '../../../../components/Filters/ActiveUserFilter';
+import ClubsMap from '../../../../components/ClubsMap';
+import {RKFInfo} from '../../../Home/config';
+import {setOverflow} from '../../../../utils';
+import {Request} from '../../../../utils/request';
 import {
     endpointGetClubsCities,
     endpointGetFederations,
@@ -26,11 +26,11 @@ import {
     endpointGetRegions,
     endpointGetClubRegions,
     endpointGetNurseryRegions,
-} from "../../config";
-import {getEmptyFilters, setFiltersToUrl} from "../../utils";
-import RegionsFilter from "../../../../components/Filters/RegionsFilter";
+} from '../../config';
+import {getEmptyFilters, setFiltersToUrl} from '../../utils';
+import RegionsFilter from '../../../../components/Filters/RegionsFilter';
 
-import "./index.scss";
+import './index.scss';
 
 
 

@@ -1,8 +1,8 @@
-import React, {memo, useMemo, useState} from "react";
-import SwipeTabs from "../../../../components/SwipeTabs";
+import React, {memo, useMemo, useState} from 'react';
+import SwipeTabs from '../../../../components/SwipeTabs';
 import CustomCheckbox from '../../../../components/Form/CustomCheckbox';
 
-import "./index.scss";
+import './index.scss';
 
 const PublicationFilter = ({changeTypeFilters, activeType, changeIsPopular}) => {
 

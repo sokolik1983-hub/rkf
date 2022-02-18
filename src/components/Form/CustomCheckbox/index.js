@@ -1,5 +1,6 @@
-import React, {memo} from "react";
-import "./index.scss";
+import React, {memo} from 'react';
+
+import './index.scss';
 
 
 const CustomCheckbox = ({id, label, checked, onChange, disabled, style, cName}) => (

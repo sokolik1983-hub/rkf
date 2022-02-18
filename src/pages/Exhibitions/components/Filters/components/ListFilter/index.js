@@ -1,15 +1,15 @@
-import React, {memo, useMemo, useState} from "react";
-import SwipeTabs from "../../../../../../components/SwipeTabs";
-import {setFiltersToUrl} from "../../../../utils";
-import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
+import React, {memo, useMemo, useState} from 'react';
+import SwipeTabs from '../../../../../../components/SwipeTabs';
+import {setFiltersToUrl} from '../../../../utils';
+import CustomCheckbox from '../../../../../../components/Form/CustomCheckbox';
 
-import "./index.scss";
+import './index.scss';
 
 
 const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardView, exporting, setExporting}) => {
     const clientWidth = window.innerWidth;
 
-    const [isFilter, setIsFilter] = useState(false)
+    const [isFilter, setIsFilter] = useState(false);
 
     const tabItems = useMemo(() => {
         return [

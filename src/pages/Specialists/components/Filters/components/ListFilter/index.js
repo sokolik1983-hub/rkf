@@ -1,8 +1,9 @@
-import React, {memo, useMemo, useState} from "react";
-import SwipeTabs from "../../../../../../components/SwipeTabs";
-import {setFiltersToUrl, getEmptyFilters} from "../../../../utils";
-import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
-import "./index.scss";
+import React, {memo, useMemo, useState} from 'react';
+import SwipeTabs from '../../../../../../components/SwipeTabs';
+import {setFiltersToUrl, getEmptyFilters} from '../../../../utils';
+import CustomCheckbox from '../../../../../../components/Form/CustomCheckbox';
+
+import './index.scss';
 
 
 const ListFilter = ({

@@ -1,13 +1,13 @@
-import React, {memo, useState, useEffect} from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Loading from "../../../../components/Loading";
-import CardNewsNew from "../../../../components/CardNewsNew";
-import NewsFilters from "../NewsFilters";
-import PublicationFilter from "./PublicationFilter";
-import {endpointGetNews, endpointNewsCity} from "../../config";
-import {Request} from "../../../../utils/request";
-import {DEFAULT_IMG} from "../../../../appConfig";
-import "./index.scss";
+import React, {memo, useState, useEffect} from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Loading from '../../../../components/Loading';
+import CardNewsNew from '../../../../components/CardNewsNew';
+import NewsFilters from '../NewsFilters';
+import PublicationFilter from './PublicationFilter';
+import {endpointGetNews, endpointNewsCity} from '../../config';
+import {Request} from '../../../../utils/request';
+import {DEFAULT_IMG} from '../../../../appConfig';
+import './index.scss';
 
 
 const getLSCities = () => {
