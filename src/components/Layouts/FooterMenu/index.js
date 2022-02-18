@@ -13,11 +13,12 @@ import { clubNav, endpointGetClubInfo } from '../../../pages/Club/config';
 import { kennelNav } from '../../../pages/Nursery/config';
 import { userNav } from "../UserLayout/config";
 import UserMenu from '../UserMenu';
-import ZlineModal from '../../ZlineModal';
+import ZlineWidget from "../../ZLineWidget";
 import {blockContent} from "../../../utils/blockContent";
 import { checkAliasUrl } from '../../../utils/checkAliasUrl';
 
 import './footerMenu.scss';
+
 
 const FooterMenu = ({
     match,
@@ -153,19 +154,14 @@ const FooterMenu = ({
                     }
                 </div>
             }
-            <ZlineModal showModal={showZlineModal}
-                handleClose={() => {
-                    setShowZlineModal(false);
-                }}
-            >
-                <iframe
-                    title="unique_iframe"
-                    src={process.env.NODE_ENV === 'production' ?
-                        `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
-                        `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
-                    }
-                />
-            </ZlineModal>
+            <ZlineWidget
+                isModalShow={showZlineModal}
+                handleClose={() => setShowZlineModal(false)}
+                iframeLink={process.env.NODE_ENV === 'production' ?
+                    `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
+                    `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
+                }
+            />
         </>
     );
 };
