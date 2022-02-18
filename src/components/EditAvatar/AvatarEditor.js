@@ -1,15 +1,16 @@
-import React, { memo, useRef, useState } from "react";
-import Dropzone from "react-dropzone";
-import AvatarEditor from "react-avatar-editor";
-import { Slider } from "@material-ui/core";
+import React, {memo, useRef, useState} from 'react';
+import Dropzone from 'react-dropzone';
+import AvatarEditor from 'react-avatar-editor';
+import { Slider } from '@material-ui/core';
 import { Button } from '@progress/kendo-react-buttons';
-import LightTooltip from "../LightTooltip";
-import { Request } from "../../utils/request";
-import Alert from "../Alert";
-import ls from "local-storage";
-import "./index.scss";
+import LightTooltip from '../LightTooltip';
+import { Request } from '../../utils/request';
+import Alert from '../Alert';
+import ls from 'local-storage';
 
-const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner }) => {
+import './index.scss';
+
+const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth }) => {
     const [image, setImage] = useState(avatar || '');
     const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
     const [scale, setScale] = useState(1);
@@ -49,7 +50,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
 
     return (
         <div className="avatar-editor">
-            <div className="avatar-editor__dropzone">
+            <div className="avatar-editor__dropzone" style={{width: canvasWidth}}>
                 <Dropzone
                     accept={['.jpg', '.jpeg']}
                     maxSize={5242880} //5MB
@@ -59,11 +60,11 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                     onDropRejected={handleError}
                 >
                     {({ getRootProps, getInputProps }) => (
-                        <div {...getRootProps()}>
+                        <div className="avatar-editor__wrap-canvas" {...getRootProps()}>
                             <AvatarEditor
                                 ref={editor}
                                 scale={parseFloat(scale)}
-                                width={332}
+                                width={pageBanner ? canvasWidth : 332}
                                 height={332}
                                 position={position}
                                 onPositionChange={pos => setPosition(pos)}

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Loading from "../../../../components/Loading";
-import Modal from "../../../../components/Modal";
-import Alert from "../../../../components/Alert";
-import { Request } from "../../../../utils/request";
-import ls from "local-storage";
-import {blockContent} from "../../../../utils/blockContent";
+import React, { useState } from 'react';
+import Loading from '../../../../components/Loading';
+import Modal from '../../../../components/Modal';
+import Alert from '../../../../components/Alert';
+import { Request } from '../../../../utils/request';
+import ls from 'local-storage';
+import {blockContent} from '../../../../utils/blockContent';
 
-import "./index.scss";
+import './index.scss';
 
 
 const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner }) => {

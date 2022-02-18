@@ -1,16 +1,16 @@
-import React, {forwardRef, useRef, useState, useEffect} from "react";
-import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import ls from "local-storage";
-import Modal from "../../../Modal";
-import LoginAsUser from "./LoginAsUser";
-import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG, widgetLoginIcon } from "../../../../appConfig";
-import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connectors";
-import history from "../../../../utils/history";
-import { Request } from "../../../../utils/request";
-import useIsMobile from "../../../../utils/useIsMobile";
-import PopupModal from "../../../PopupModal";
-import OutsideClickHandler from "react-outside-click-handler";
+import React, {forwardRef, useRef, useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import ls from 'local-storage';
+import Modal from '../../../Modal';
+import LoginAsUser from './LoginAsUser';
+import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG, widgetLoginIcon } from '../../../../appConfig';
+import { connectLogin, connectWidgetLogin } from '../../../../pages/Login/connectors';
+import history from '../../../../utils/history';
+import { Request } from '../../../../utils/request';
+import useIsMobile from '../../../../utils/useIsMobile';
+import PopupModal from '../../../PopupModal';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 const WidgetLogin = forwardRef(
     ({

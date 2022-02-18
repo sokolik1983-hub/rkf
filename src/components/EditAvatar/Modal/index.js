@@ -1,5 +1,6 @@
 import React from 'react';
 import {AppBar, Dialog, DialogContent, Toolbar} from '@material-ui/core';
+
 import './index.scss';
 
 const Modal = ({open, onClose, title, children, pageBanner}) => (

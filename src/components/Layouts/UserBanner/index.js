@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import { CSSTransition } from "react-transition-group";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { pencil, trash } from "@progress/kendo-svg-icons";
-import Card from "../../Card";
-import ModalEditBanner from "./ModalEditBanner";
-import ModalDeleteBanner from "./ModalDeleteBanner";
-import LightTooltip from "../../LightTooltip";
-import useIsMobile from "../../../utils/useIsMobile";
-import "./index.scss";
-import EditAvatar from "../../EditAvatar";
-import ModalDeleteAvatar from "../UserInfo/ModalDeleteAvatar";
+import React, {useEffect, useState} from 'react';
+import { CSSTransition } from 'react-transition-group';
+import { SvgIcon } from '@progress/kendo-react-common';
+import { pencil, trash } from '@progress/kendo-svg-icons';
+import Card from '../../Card';
+import LightTooltip from '../../LightTooltip';
+import EditAvatar from '../../EditAvatar';
+import ModalDeleteAvatar from '../UserInfo/ModalDeleteAvatar';
+
+import './index.scss';
 
 
 const UserBanner = ({ link, canEdit, updateInfo }) => {
