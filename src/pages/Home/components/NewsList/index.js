@@ -65,7 +65,6 @@ const NewsList = ({isFullDate = true}) => {
                     : ''}
                 ${filters.is_popular ? '&is_popular='+ filters.is_popular : '&is_popular=false'}`
             }, data => {
-                console.log('data', data)
                 if (data.articles.length) {
                     const modifiedNews = data.articles.map(article => {
                         article.title = article.club_name;
@@ -87,28 +86,10 @@ const NewsList = ({isFullDate = true}) => {
 
                     setHasMore(false);
                 }
-            }, error => console.log('ошибочка', error.response));
+            }, error => console.log(error.response));
 
         setNewsLoading(false);
     };
-
-    /*useEffect(() => {
-        (async () => {
-            await Request({url: '/api/city/article_cities'},
-            data => {
-                if(data) {
-                    setCities(data);
-                }
-            },
-            error => {
-                console.log(error.response);
-            });
-
-            setFiltersLoading(false);
-
-            await getNews(1, newsFilter);
-        })();
-    }, []);*/
 
     useEffect(() => {
         (async () => {
