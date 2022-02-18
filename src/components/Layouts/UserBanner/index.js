@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { pencil, trash } from '@progress/kendo-svg-icons';
@@ -73,13 +73,6 @@ const UserBanner = ({ link, canEdit, updateInfo }) => {
             {modalType === 'delete' &&
                 <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} pageBanner/>
             }
-
-            {/*{modalType === 'edit' &&*/}
-            {/*    <ModalEditBanner closeModal={() => setModalType('')} updateInfo={updateInfo} />*/}
-            {/*}*/}
-            {/*{modalType === 'delete' &&*/}
-            {/*    <ModalDeleteBanner closeModal={() => setModalType('')} updateInfo={updateInfo} />*/}
-            {/*}*/}
         </Card>
     )
 };
