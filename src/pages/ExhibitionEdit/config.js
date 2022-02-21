@@ -10,7 +10,8 @@ export const exhibitionInfoForm = {
         name: {
             name: 'name',
             label: 'Название мероприятия',
-            placeholder: 'Название мероприятия'
+            placeholder: 'Название мероприятия',
+            disabled: true
         },
         description: {
             name: 'description',
@@ -116,17 +117,6 @@ export const exhibitionInfoForm = {
             .required('Введите e-mail')
             }),
         ),
-        
-        // rank_types: array()
-        //     .required('Укажите Ранг выставки'),
-        // class_types: array()
-        //     .required('Укажите Класс выставки'),
-        // breed_types: array()
-        //     .required('Укажите породы'),
-        // schedule_url: string()
-        //     .required('Укажите ссылку на расписание'),
-        // catalog_url: string()
-        //     .required('Укажите ссылку на каталог'),
     })
 };
 
