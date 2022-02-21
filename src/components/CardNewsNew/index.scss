@@ -311,7 +311,7 @@
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 16px;
     color: #72839c;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -319,6 +319,7 @@
     margin-bottom: 0 !important;
     &._disabled {
       margin-bottom: 10px !important;
+      margin-top: 15px;
     }
     * {
       max-width: 100% !important;
@@ -329,7 +330,7 @@
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 16px;
     color: #72839c;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -350,26 +351,19 @@
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: calc(100% - 130px);
+        line-height: 16px;
       }
     }
     &-price {
-      & > div:first-child {
-        display: flex;
-        flex-wrap: wrap;
-        div {
-          display: flex;
-          flex-direction: column;
-        }
-      }
-      span:not(:last-child) {
-        margin-bottom: 5px;
-      }
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
     &-inactive {
       color: red;
     }
-    &-city, &-age, &-sex {
-      margin: 5px 0;
+    &-city, &-age, &-sex, &-name, &-color {
+      margin-bottom: 10px;
     }
   }
   &__documents {
@@ -570,6 +564,7 @@
     &-wrap {
       display: flex;
       justify-content: space-between;
+      line-height: 16px;
       div {
         display: flex;
       }
