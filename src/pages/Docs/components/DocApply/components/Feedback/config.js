@@ -1,4 +1,4 @@
-import { object, string } from "yup";
+import { object, string, number } from "yup";
 
 
 export const options = {
@@ -39,9 +39,9 @@ export const options = {
         },
     },
     validationSchema: object().shape({
-        type_id: string()
+        type_id: number()
             .required('Выберите тип заявки'),
-        category_id: string()
+        category_id: number()
             .required('Выберите категорию'),
         comment: string()
             .required('Напишите заявку')
