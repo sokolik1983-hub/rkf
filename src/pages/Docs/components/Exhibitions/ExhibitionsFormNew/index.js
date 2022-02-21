@@ -29,7 +29,6 @@ import './index.scss';
 
 loadMessages(ruMessages, 'ru');
 
-// const requiredRanksMessage = 'Максимальное количество рангов 4';
 const requiredMessage = 'Обязательное поле';
 const requiredRankError = 'Исчерпан лимит по выбранным рангам';
 const requiredNcpMessage = 'Максимальное количество НКП 30';
