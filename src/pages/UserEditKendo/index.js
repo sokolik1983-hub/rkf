@@ -27,6 +27,7 @@ import { connectShowFilters } from "../../components/Layouts/connectors";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import './styles.scss';
 import ClickGuard from "../../components/ClickGuard";
+import Alert from "../../components/Alert";
 
 
 let unblock;
@@ -290,15 +291,12 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 top: '80vh',
                             }}
                         >
-                            <Fade enter={true} exit={true}>
-                                {success && <Notification
-                                    type={{ style: 'success', icon: true }}
-                                    closable={true}
-                                    onClose={() => setSuccess(false)}
-                                >
-                                    <span>Информация сохранена!</span>
-                                </Notification>}
-                            </Fade>
+                            {success && <Alert
+                                title="Сохранение данных"
+                                text="Данные сохранены!"
+                                autoclose={2.5}
+                                onOk={() => setSuccess(false)}
+                            />}
                             <Fade enter={true} exit={true}>
                                 {error && <Notification
                                     type={{ style: 'error', icon: true }}
