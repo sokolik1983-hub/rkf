@@ -113,9 +113,10 @@ const UserInfo = ({
             {modalType === 'edit' && <EditAvatar
                 setModalType={setModalType}
                 avatar={logo_link}
+                pageBanner={false}
             />}
             {modalType === 'delete' &&
-                    <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} />
+                    <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} pageBanner={false} />
             }
         </>
     )

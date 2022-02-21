@@ -1,16 +1,16 @@
-import React, { memo, useRef, useState } from "react";
-import Dropzone from "react-dropzone";
-import AvatarEditor from "react-avatar-editor";
-import { Slider } from "@material-ui/core";
+import React, {memo, useRef, useState} from 'react';
+import Dropzone from 'react-dropzone';
+import AvatarEditor from 'react-avatar-editor';
+import { Slider } from '@material-ui/core';
 import { Button } from '@progress/kendo-react-buttons';
-import LightTooltip from "../LightTooltip";
-import { Request } from "../../utils/request";
-import Alert from "../Alert";
-import ls from "local-storage";
-import "./index.scss";
+import LightTooltip from '../LightTooltip';
+import { Request } from '../../utils/request';
+import Alert from '../Alert';
+import ls from 'local-storage';
 
+import './index.scss';
 
-const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess }) => {
+const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth }) => {
     const [image, setImage] = useState(avatar || '');
     const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
     const [scale, setScale] = useState(1);
@@ -18,10 +18,11 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
     const [editorErrors, setEditorErrors] = useState([]);
     const editor = useRef(null);
     const UPLOAD_AVATAR = `/static/icons/default/user-avatar-upload.svg`;
+    const currentLink = pageBanner ? '/api/headerpicture/full_v3' : '/api/avatar/full_v3';
 
     const handleSubmit = () => {
         Request({
-            url: '/api/avatar/full_v3',
+            url: currentLink,
             method: 'POST',
             data: {
                 data: editor.current.getImageScaledToCanvas().toDataURL('image/jpeg', 1)
@@ -29,7 +30,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
         }, data => {
             if (data) {
                 userType === 'club' && onSubmitSuccess({ image_link: data });
-                ls.set('user_info', { ...ls.get('user_info'), logo_link: data });
+                !pageBanner && ls.set('user_info', { ...ls.get('user_info'), logo_link: data });
                 setModalType('');
                 window.location.reload();
             }
@@ -49,7 +50,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
 
     return (
         <div className="avatar-editor">
-            <div className="avatar-editor__dropzone">
+            <div className="avatar-editor__dropzone" style={{width: canvasWidth}}>
                 <Dropzone
                     accept={['.jpg', '.jpeg']}
                     maxSize={5242880} //5MB
@@ -59,16 +60,16 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess })
                     onDropRejected={handleError}
                 >
                     {({ getRootProps, getInputProps }) => (
-                        <div {...getRootProps()}>
+                        <div className="avatar-editor__wrap-canvas" {...getRootProps()}>
                             <AvatarEditor
                                 ref={editor}
                                 scale={parseFloat(scale)}
-                                width={332}
+                                width={pageBanner ? canvasWidth : 332}
                                 height={332}
                                 position={position}
                                 onPositionChange={pos => setPosition(pos)}
                                 rotate={parseFloat(rotate)}
-                                borderRadius={166}
+                                borderRadius={pageBanner ? 0 : 166}
                                 image={image}
                                 className="avatar-editor__canvas"
                                 style={image ? {} : { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}

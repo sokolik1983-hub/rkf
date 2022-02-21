@@ -11,7 +11,7 @@ import { Request } from '../../../../utils/request';
 import useIsMobile from '../../../../utils/useIsMobile';
 import PopupModal from '../../../PopupModal';
 import OutsideClickHandler from 'react-outside-click-handler';
-import {endpointGetClubInfo} from '../../../../pages/Club/config';
+import {endpointGetClubInfo} from '../../ClubLayout/config';
 import {endpointGetUserInfo} from '../../UserLayout/config';
 
 const WidgetLogin = forwardRef(
