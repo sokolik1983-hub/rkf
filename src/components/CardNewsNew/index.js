@@ -238,7 +238,7 @@ const CardNewsNew = forwardRef(({
                                 ?
                                 <div className="CardNewsNew__ad-city">Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
                                 :
-                                <span className="CardNewsNew__ad-city">Все города</span>
+                                <div className="CardNewsNew__ad-city">Все города</div>
                         }
                         {
                             dog_age && <div className="CardNewsNew__ad-age">Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
@@ -246,19 +246,11 @@ const CardNewsNew = forwardRef(({
                         {
                             dog_sex_type_id && <div className="CardNewsNew__ad-sex">Пол: {dog_sex_type_id}</div>
                         }
-                        <div className="CardNewsNew__ad-price">
-                            <div>
-                                {
-                                    (advert_type_id < 4) &&
-                                    <div>
-                                        <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'} </span>
-                                        <span>Кол-во щенков: {advert_number_of_puppies} </span>
-                                    </div>
-                                }
-
-                            </div>
+                        { (advert_type_id < 4) &&<div className="CardNewsNew__ad-price">
+                            <div>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'} </div>
+                            <div>Кол-во щенков: {advert_number_of_puppies} </div>
                             {is_closed_advert && <div className="CardNewsNew__ad-inactive" >Объявление не активно</div>}
-                        </div>
+                        </div>}
                     </div>}
                     {!!content &&
                         <p className={`CardNewsNew__text${!canCollapse ? ' _disabled' : ''}`}
