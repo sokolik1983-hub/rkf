@@ -291,9 +291,11 @@ const WidgetLogin = forwardRef(
                                                 </div>
                                             </PopupModal>
                                             :
-
                                             <div className="widget-login__content">
-                                                    <div className="widget-login__userpic-wrap">
+                                                    <div
+                                                        className="widget-login__userpic-wrap"
+                                                    >
+                                                        { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/widget-login/userpic-bg.jpg' alt=""/>}
                                                         <div className={`widget-login__userpic${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
                                                              style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
                                                         />
@@ -312,7 +314,6 @@ const WidgetLogin = forwardRef(
                                                         <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
                                                         }
                                                     </div>
-
                                                     <ul className="widget-login__list">
                                                         {is_active_profile &&
                                                         <>

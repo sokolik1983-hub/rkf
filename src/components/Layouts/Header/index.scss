@@ -850,6 +850,10 @@
       justify-content: center;
       height: 80px;
       margin: 10px 10px 30px 10px;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
     }
   }
   &__username {
