@@ -16,7 +16,10 @@
     }
   }
   &.two >* {
-    width: 50%
+    width: 50%;
+    @media (max-width: 990px) {
+      width: 100%;
+    }
   }
   &:not(:first-child) {
     border-bottom: 1px solid #E5E5E5;
