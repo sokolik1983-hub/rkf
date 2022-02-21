@@ -44,7 +44,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     const handleError = () => {
         setEditorErrors([
             ...editorErrors,
-            'Ошибка: Формат файла не поддерживается, либо размер файла превышает 5Мб'
+            'Ошибка: Формат файла не поддерживается, либо размер файла превышает 20Мб'
         ]);
     };
 
@@ -53,7 +53,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
             <div className="avatar-editor__dropzone" style={{width: canvasWidth}}>
                 <Dropzone
                     accept={['.jpg', '.jpeg']}
-                    maxSize={5242880} //5MB
+                    maxSize={20971520} //20MB
                     noClick
                     multiple={false}
                     onDrop={acceptedFiles => setImage(acceptedFiles[0])}
@@ -126,7 +126,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
             </Button>
             {!!editorErrors.length &&
                 <Alert
-                    text="Ошибка: Формат файла не поддерживается, либо размер файла превышает 5Мб. Поддерживаемые форматы JPG, JPEG."
+                    text="Ошибка: Формат файла не поддерживается, либо размер файла превышает 20Мб. Поддерживаемые форматы JPG, JPEG."
                     okButton={true}
                     onOk={() => setEditorErrors([])}
                 />
