@@ -1,33 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Redirect } from "react-router-dom";
-import Loading from "../../components/Loading";
-import Layout from "../../components/Layouts";
-import Card from "components/Card";
-import Container from "../../components/Layouts/Container";
-import { Request } from "utils/request";
-import { sections, defaultValues, phoneMask } from './config';
-import { connectAuthVisible } from "pages/Login/connectors";
-import removeNulls from "utils/removeNulls";
-import StickyBox from "react-sticky-box";
-import UserBanner from "components/Layouts/UserBanner";
-import UserInfo from "../../components/Layouts/UserInfo";
-import UserMenu from "components/Layouts/UserMenu"
-import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
+import React, { useState, useEffect, useRef } from 'react';
+import { Redirect } from 'react-router-dom';
+import StickyBox from 'react-sticky-box';
+import moment from 'moment';
+import ls from 'local-storage';
+import { Fade } from '@progress/kendo-react-animation';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Request } from '../../utils/request';
+import removeNulls from '../../utils/removeNulls';
+import useIsMobile from '../../utils/useIsMobile';
+import Card from '../../components/Card';
+import Alert from '../../components/Alert';
+import Layout from '../../components/Layouts';
+import Loading from '../../components/Loading';
+import ClickGuard from '../../components/ClickGuard';
+import UserMenu from '../../components/Layouts/UserMenu'
+import UserInfo from '../../components/Layouts/UserInfo';
+import Container from '../../components/Layouts/Container';
+import CopyrightInfo from '../../components/CopyrightInfo';
+import UserBanner from '../../components/Layouts/UserBanner';
+import { connectShowFilters } from '../../components/Layouts/connectors';
+import { endpointGetUserInfo, userNav } from '../../components/Layouts/UserLayout/config';
+import About from './sections/About';
 import MainInfo from './sections/MainInfo';
 import Contacts from './sections/Contacts';
-import About from './sections/About';
 import Security from './sections/Security';
 import DeletePage from './sections/DeletePage';
-import useIsMobile from "utils/useIsMobile";
-import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-import { Fade } from '@progress/kendo-react-animation';
-import moment from "moment";
-import ls from "local-storage";
-import { connectShowFilters } from "../../components/Layouts/connectors";
-import CopyrightInfo from "../../components/CopyrightInfo";
+import { connectAuthVisible } from '../Login/connectors';
+import { sections, defaultValues, phoneMask } from './config';
+
 import './styles.scss';
-import ClickGuard from "../../components/ClickGuard";
-import Alert from "../../components/Alert";
 
 
 let unblock;
