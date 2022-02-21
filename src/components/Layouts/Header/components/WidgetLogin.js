@@ -41,8 +41,6 @@ const WidgetLogin = forwardRef(
         const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
         const isMobile1080 = useIsMobile(1080);
 
-        console.log('logo', logo)
-
         const widgetLoginRef = useRef();
 
         const AuthButtons = () => {
