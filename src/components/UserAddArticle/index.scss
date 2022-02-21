@@ -291,7 +291,7 @@
     button {
       width: 154px;
       @media (max-width: 750px) {
-        width: 135px;
+        width: 136px;
       }
     }
   }
@@ -454,9 +454,10 @@
 
       &._desktop {
         margin-left: 50px;
+        margin-top: 18px;
       }
       .FormGroup--inline {
-        margin-bottom: 18px;
+        margin-bottom: 25px;
         .k-chip-list .k-chip {
           height: 33px;
           min-width: 100px;
@@ -657,7 +658,7 @@
   &__error-wrap {
     position: relative;
     & .FormInput__error {
-      top: -15px;
+      top: -17px;
       color: #FA5D50;
       padding: 0;
     }
