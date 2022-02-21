@@ -26,13 +26,11 @@ import {
 
 import './index.scss';
 
-
 loadMessages(ruMessages, 'ru');
 
 const requiredMessage = 'Обязательное поле';
 const requiredRankError = 'Исчерпан лимит по выбранным рангам';
 const requiredNcpMessage = 'Максимальное количество НКП 30';
-
 
 const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
