@@ -13,7 +13,7 @@ import moment from "moment";
 import "./index.scss";
 
 
-const AttachFile = ({ documents, categories, setDocuments, setCategories, closeModal }) => {
+const AttachFile = ({ documents, categories, setDocuments, setCategories, closeModal, isFederation }) => {
     const [formProps, setFormProps] = useState(null);
     const [activeCategory, setActiveCategory] = useState('');
     const [touchedCategories, setTouchedCategories] = useState('');
@@ -173,6 +173,7 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
                                         component={FormUpload}
                                         saveUrl="/api/article/public_document"
                                         saveField="file"
+                                        accept={isFederation ? `.pdf, .doc, .docx` : `.pdf`}
                                         multiple={true}
                                         showActionButtons={true}
                                         onAdd={onAdd}

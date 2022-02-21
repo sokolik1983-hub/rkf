@@ -218,7 +218,7 @@ const RenderFields = ({ fields,
                             type="file"
                             name="file"
                             id="file"
-                            accept=".jpg, .jpeg"
+                            accept="image/*"
                             className="ArticleCreateForm__inputfile"
                             onChange={handleChange}
                         />
