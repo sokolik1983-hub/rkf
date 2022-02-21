@@ -940,7 +940,7 @@
     align-items: center;
     &--menu {
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
     }
     &:hover {
       background-color: whitesmoke;

@@ -119,7 +119,7 @@
       }
       @media (max-width: 500px) {
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
       }
     }
     &__control {
@@ -142,7 +142,7 @@
         transition: color .2s linear;
         &:hover {
           color: #3366FF;
-        }  
+        }
       }
       &--tableIcon {
         z-index: 99;
@@ -220,7 +220,7 @@
       text-align: center;
     }
   }
-  
+
   .row-control {
     position: relative;
     &__head {
