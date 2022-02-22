@@ -1,22 +1,22 @@
-import React, {memo, useEffect, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
-import StickyBox from "react-sticky-box";
-import Aside from "../../../../components/Layouts/Aside";
-import Card from "../../../../components/Card";
-import CopyrightInfo from "../../../../components/CopyrightInfo";
-import Socials from "../../../../components/Socials";
-import Statistics from "../../../../components/Statistics";
-import FederationsFilter from "../../../../components/Filters/FederationsFilter";
-import FederationChoiceFilter from "../../../../components/Filters/FederationChoiceFilter";
-import ActivatedFilter from "../../../../components/Filters/ActivatedFilter";
-import BreedsFilter from "../../../../components/Filters/BreedsFilter";
-import CitiesFilter from "../../../../components/Filters/CitiesFilter";
-import NotActivatedFilter from "../../../../components/Filters/NotActivatedFilter";
-import ActiveUserFilter from "../../../../components/Filters/ActiveUserFilter";
-import ClubsMap from "../../../../components/ClubsMap";
-import {RKFInfo} from "../../../Home/config";
-import {setOverflow} from "../../../../utils";
-import {Request} from "../../../../utils/request";
+import React, {memo, useEffect, useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
+import StickyBox from 'react-sticky-box';
+import Aside from '../../../../components/Layouts/Aside';
+import Card from '../../../../components/Card';
+import CopyrightInfo from '../../../../components/CopyrightInfo';
+import Socials from '../../../../components/Socials';
+import Statistics from '../../../../components/Statistics';
+import FederationsFilter from '../../../../components/Filters/FederationsFilter';
+import FederationChoiceFilter from '../../../../components/Filters/FederationChoiceFilter';
+import ActivatedFilter from '../../../../components/Filters/ActivatedFilter';
+import BreedsFilter from '../../../../components/Filters/BreedsFilter';
+import CitiesFilter from '../../../../components/Filters/CitiesFilter';
+import NotActivatedFilter from '../../../../components/Filters/NotActivatedFilter';
+import ActiveUserFilter from '../../../../components/Filters/ActiveUserFilter';
+import ClubsMap from '../../../../components/ClubsMap';
+import {RKFInfo} from '../../../Home/config';
+import {setOverflow} from '../../../../utils';
+import {Request} from '../../../../utils/request';
 import {
     endpointGetClubsCities,
     endpointGetFederations,
@@ -26,11 +26,12 @@ import {
     endpointGetRegions,
     endpointGetClubRegions,
     endpointGetNurseryRegions,
-} from "../../config";
-import {getEmptyFilters, setFiltersToUrl} from "../../utils";
-import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
-import "./index.scss";
-import RegionsFilter from "../../../../components/Filters/RegionsFilter";
+} from '../../config';
+import {getEmptyFilters, setFiltersToUrl} from '../../utils';
+import RegionsFilter from '../../../../components/Filters/RegionsFilter';
+
+import './index.scss';
+
 
 
 
@@ -39,7 +40,6 @@ const Filters = ({
     organization_type,
     federation_ids,
     city_ids,
-    is_popular,
     breed_ids,
     activated,
     not_activated,
@@ -177,10 +177,6 @@ const Filters = ({
                                     Сбросить все параметры
                                 </button>
                             </Card>
-                            <LikeFilter
-                                is_popular={is_popular}
-                                onChange={filter => setFiltersToUrl({not_activated: false, is_popular: filter})}
-                            />
                             {(organization_type === 3 || organization_type === 4) &&
                                 <>
                                     <FederationsFilter

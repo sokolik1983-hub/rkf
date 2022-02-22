@@ -11,10 +11,10 @@ import { connectShowFilters } from '../connectors';
 import { Request } from '../../../utils/request';
 import { clubNav, endpointGetClubInfo } from '../../../pages/Club/config';
 import { kennelNav } from '../../../pages/Nursery/config';
-import { userNav } from "../UserLayout/config";
+import { userNav } from '../UserLayout/config';
 import UserMenu from '../UserMenu';
 import ZlineModal from '../../ZlineModal';
-import {blockContent} from "../../../utils/blockContent";
+import {blockContent} from '../../../utils/blockContent';
 import { checkAliasUrl } from '../../../utils/checkAliasUrl';
 
 import './footerMenu.scss';

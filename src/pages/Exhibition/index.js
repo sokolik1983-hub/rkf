@@ -172,7 +172,13 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                    href="#"
                                    onClick={()=> {
                                        history.go(-1);
-                                }}>Назад</a>
+                                   }}
+                                   onTouchStart={()=> {
+                                       history.go(-1);
+                                   }}
+                                >
+                                    Назад
+                                </a>
                             </div>
                             <aside className="exhibition-page__left">
                                 <StickyBox offsetTop={60}>
