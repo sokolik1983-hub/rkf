@@ -254,6 +254,7 @@
         }
 
         &__social {
+            position: relative;
             margin-top: 10px;
 
             &:before {
@@ -270,6 +271,7 @@
             }
 
             .form {
+
                 .FormGroup {
                     display: grid;
                     width: 100%;
@@ -333,8 +335,8 @@
         }
 
         .add-mini {
-            position: relative;
-            bottom: 53px;
+            position: absolute;
+            bottom: 27px;
             left: 5px;
             height: 18px;
             width: 18px;
@@ -384,6 +386,7 @@
         .ClientClubList {
 
             .ClientClubListItem {
+                position: relative;
                 flex-direction: column;
                 margin-bottom: 0;
                 height: 56px;
@@ -393,10 +396,10 @@
                 }
 
                 &__controls {
-                    position: relative;
+                    position: absolute;
                     width: 15px;
                     margin-left: auto;
-                    bottom: 46px;
+                    bottom: 20px;
                     right: 3px;
 
                     button {
@@ -456,8 +459,12 @@
                 }
             }
         }
-        .Submit-button__save {
-            margin-top: -20px!important;
+
+        .FormInput__error {
+            bottom: -18px;
+            font-size: 12px;
+            line-height: 16px;
+            background-color: rgba(255, 255, 255, 0);
         }
     }
 }

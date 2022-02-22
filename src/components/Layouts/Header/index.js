@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {Link, useLocation} from "react-router-dom";
-import Container from "../Container";
-import Search from "./components/Search";
-import Nav from "./components/Nav";
-import WidgetLogin from "./components/WidgetLogin";
-import Notifications from "./components/Notifications";
-import Feedback from "../../Feedback";
-import {connectShowFilters} from "../connectors";
-import {connectAuthVisible} from "../../../pages/Login/connectors";
-import useIsMobile from "../../../utils/useIsMobile";
-import "./index.scss";
+import React, {useEffect, useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
+import Container from '../Container';
+import Search from './components/Search';
+import Nav from './components/Nav';
+import WidgetLogin from './components/WidgetLogin';
+import Notifications from './components/Notifications';
+import Feedback from '../../Feedback';
+import {connectShowFilters} from '../connectors';
+import {connectAuthVisible} from '../../../pages/Login/connectors';
+import useIsMobile from '../../../utils/useIsMobile';
 
+import './index.scss';
 
 const Header = ({
     isAuthenticated,

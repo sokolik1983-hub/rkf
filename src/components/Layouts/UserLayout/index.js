@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
-import {useLocation, useParams} from "react-router-dom";
-import ls from "local-storage";
-import StickyBox from "react-sticky-box";
-import Loading from "components/Loading";
-import Layout from "components/Layouts";
-import { Redirect } from "react-router-dom";
-import Container from "components/Layouts/Container";
-import UserBanner from "components/Layouts/UserBanner";
-import UserInfo from "components/Layouts/UserInfo";
-import UserMenu from "components/Layouts/UserMenu";
-import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
-import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
-import Card from "components/Card";
-import CopyrightInfo from "components/CopyrightInfo";
-import { Request } from "utils/request";
-import { connectAuthVisible } from "pages/Login/connectors";
-import { endpointGetUserInfo, userNav } from "./config";
+import React, { useEffect, useState } from 'react';
+import {useLocation, useParams} from 'react-router-dom';
+import ls from 'local-storage';
+import StickyBox from 'react-sticky-box';
+import Loading from 'components/Loading';
+import Layout from 'components/Layouts';
+import { Redirect } from 'react-router-dom';
+import Container from 'components/Layouts/Container';
+import UserBanner from 'components/Layouts/UserBanner';
+import UserInfo from 'components/Layouts/UserInfo';
+import UserMenu from 'components/Layouts/UserMenu';
+import UserPhotoGallery from 'components/Layouts/UserGallerys/UserPhotoGallery';
+import UserVideoGallery from 'components/Layouts/UserGallerys/UserVideoGallery';
+import Card from 'components/Card';
+import CopyrightInfo from 'components/CopyrightInfo';
+import { Request } from 'utils/request';
+import { connectAuthVisible } from 'pages/Login/connectors';
+import { endpointGetUserInfo, userNav } from './config';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
-import useIsMobile from "utils/useIsMobile";
-import {connectShowFilters} from "../../../components/Layouts/connectors"
+import useIsMobile from 'utils/useIsMobile';
+import {connectShowFilters} from '../../../components/Layouts/connectors';
 
 import "./index.scss";
-
 
 const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
     const [loading, setLoading] = useState(true);

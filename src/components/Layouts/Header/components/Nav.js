@@ -36,7 +36,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
         },
     ];
 
-    const strokeColor = isOpenFilters ? 'stroke-color__active' : 'stroke-color__inactive';
+    const strokeColor = isOpen ? 'stroke-color__active' : 'stroke-color__inactive';
 
     const setOverflow = isOpen => {
         if (window.innerWidth <= 1080) {
