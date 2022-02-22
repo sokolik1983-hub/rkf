@@ -24,6 +24,8 @@ import randomKeyGenerator from '../../utils/randomKeyGenerator'
 import './styles.scss';
 
 
+let unblock;
+
 const NurseryEdit = ({
                          history,
                          profile_id,
@@ -49,6 +51,11 @@ const NurseryEdit = ({
     const PromiseRequest = url => new Promise((res, rej) => Request({url}, res, rej));
     const isMobile = useIsMobile(1080);
     const alias = match.params.id;
+
+    useEffect(() => {
+        unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
+        return () => unblock();
+    }, []);
 
     useEffect(() => {
         Promise.all([getInfo(), getAddresses()])
@@ -137,6 +144,12 @@ const NurseryEdit = ({
             name
         };
         ls.set('user_info', updatedUserInfo);
+        setShowAlert({
+            title: 'Сохранение данных',
+            text: 'Данные сохранены!',
+            autoclose: 2.5,
+            onOk: () => setShowAlert(false)
+        });
     };
 
     const handleError = e => {
@@ -199,8 +212,6 @@ const NurseryEdit = ({
                                     withLoading={false}
                                 >
                                     <RenderFields
-                                        success={success}
-                                        setSuccess={setSuccess}
                                         isOpenFilters={isOpenFilters}
                                         setShowFilters={setShowFilters}
                                         streetTypes={streetTypes}

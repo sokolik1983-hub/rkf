@@ -270,10 +270,9 @@
                 padding: 10px;
 
                 h3 {
-                    margin-top: 3px;
-                    margin-bottom: 10px;
+                    padding-bottom: 10px;
                     font-size: 18px;
-                    line-height: 24px;
+                    line-height: 18px;
                     font-weight: normal;
                     color: #030404;
                     border-bottom: 1px solid #E5E5E5;
@@ -383,8 +382,9 @@
                 @media (min-width: 680px) {
                     .ClubEdit__profile-label {
                         display: block !important;
-                        margin-top: 3px;
+                        padding-bottom: 10px;
                         font-size: 18px;
+                        line-height: 18px;
                         color: #030404;
                         border-bottom: 1px solid #E5E5E5;
 

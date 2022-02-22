@@ -15,7 +15,9 @@ import {clubNav as clubNavDocs} from "../../../pages/Docs/config";
 import { kennelNav } from "../../../pages/Nursery/config";
 import {kennelNav as kennelNavDocs} from "../../../pages/NurseryDocuments/config";
 import {userNav as userNavDocs} from "../../../pages/UserDocuments/config.js";
+
 import "./index.scss";
+
 
 
 
@@ -26,8 +28,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     const [userInfo, setUserInfo] = useState(null);
     const [menuBackground, setMenuBackground] = useState(null)
     const [nameInMenu, setNameInMenu] = useState(null)
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [routes, setRoutes] = useState(userNav);
     const isMobile = useIsMobile(1080);
     const { user_type, alias } = ls.get('user_info') || {};
@@ -35,7 +35,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
         e.preventDefault();
         setAlert(true);
     };
-
 
     const moreRef = useRef();
     const location = useLocation();
@@ -53,10 +52,8 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                }
             }, error => {
                 console.log(error.response);
-                setError(error.response);
-                setLoading(false);
-            })
-    }
+            });
+    };
 
     useEffect(() => {
         changeBackground(user_type, backgroundForPage, alias, orgAlias, url);

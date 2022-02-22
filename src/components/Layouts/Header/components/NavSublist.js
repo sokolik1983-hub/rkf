@@ -4,9 +4,8 @@ import { NavLink } from "react-router-dom";
 import SlideDownComponent from "../../../SlideDown";
 import { CSSTransition } from 'react-transition-group';
 
-
 const NavSublist = forwardRef(
-    ({ navItem, setIsOpen }, ref) => {
+    ({ navItem, setShowFilters }, ref) => {
         const [open, setOpen] = useState(false);
         const [isMobile, setIsMobile] = useState(window.innerWidth <= 990);
 
@@ -17,7 +16,7 @@ const NavSublist = forwardRef(
 
         const onClose = () => {
             setOpen(false);
-            setIsOpen(false);
+            setShowFilters({isOpen: false});
         };
 
         return isMobile

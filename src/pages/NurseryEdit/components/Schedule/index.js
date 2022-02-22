@@ -24,13 +24,13 @@ const Schedule = ({ work_time }) => {
         }
     }
 
-    return <Card className="Schedule">
+    return <Card className="Nursery-Schedule">
         <h3>График работы</h3>
         <FieldArray
             name="work_time"
             render={arrayHelpers => (
                 <div>
-                    <ul className="Schedule__days">
+                    <ul className="Nursery-Schedule__days">
                         {days.map(day => (
                             <li className="Schedule__days-item" key={day.id}>
                                 <button

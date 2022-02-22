@@ -1,35 +1,36 @@
-import React, { useState, useEffect } from "react";
-import StickyBox from "react-sticky-box";
-import Loading from "../../../../components/Loading";
-import UserHeader from "../../../../components/redesign/UserHeader";
-import BreedsFilter from "../../../../components/Filters/BreedsFilter";
-import RegionsFilter from "../../../../components/Filters/RegionsFilter";
-import RanksFilter from "../../../../components/Filters/RanksFilter";
-import TypeFilter from "../../../../components/Filters/TypeFilter";
-import CitiesFilter from "../../../../components/Filters/CitiesFilter";
-import FormatFilter from "../../../../components/Filters/FormatFilter";
-import PaymentFormFilter from "../../../../components/Filters/PaymentFormFilter";
-import CalendarFilter from "../../../../components/Filters/CalendarFilter";
-import { connectShowFilters } from "../../../../components/Layouts/connectors";
-import { setFiltersToUrl, getEmptyFilters } from "../../utils";
-import { isFederationAlias, setOverflow } from "../../../../utils";
-import Card from "../../../../components/Card";
-import {PromiseRequest, Request} from "../../../../utils/request";
+import React, { useState, useEffect } from 'react';
+import StickyBox from 'react-sticky-box';
+import Loading from '../../../../components/Loading';
+import UserHeader from '../../../../components/redesign/UserHeader';
+import BreedsFilter from '../../../../components/Filters/BreedsFilter';
+import RegionsFilter from '../../../../components/Filters/RegionsFilter';
+import RanksFilter from '../../../../components/Filters/RanksFilter';
+import TypeFilter from '../../../../components/Filters/TypeFilter';
+import CitiesFilter from '../../../../components/Filters/CitiesFilter';
+import FormatFilter from '../../../../components/Filters/FormatFilter';
+import PaymentFormFilter from '../../../../components/Filters/PaymentFormFilter';
+import CalendarFilter from '../../../../components/Filters/CalendarFilter';
+import { connectShowFilters } from '../../../../components/Layouts/connectors';
+import { setFiltersToUrl, getEmptyFilters } from '../../utils';
+import { isFederationAlias, setOverflow } from '../../../../utils';
+import Card from '../../../../components/Card';
+import {PromiseRequest, Request} from '../../../../utils/request';
 import {
     endpointExhibitionsFilters,
     endpointEducationalsFilters,
-} from "../../config";
-import RangeCalendarExhibitions from "../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js";
-import CopyrightInfo from "../../../../components/CopyrightInfo";
-import { clubNav } from "../../../Club/config";
-import UserMenu from "../../../../components/Layouts/UserMenu";
-import MenuComponent from "../../../../components/MenuComponent";
-import { connectAuthVisible } from "pages/Login/connectors";
-import useIsMobile from "../../../../utils/useIsMobile";
-import LikeFilter from "../../../../components/Filters/LikeFilter/LikeFilter";
-import ls from "local-storage";
+} from '../../config';
+import RangeCalendarExhibitions from '../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js';
+import CopyrightInfo from '../../../../components/CopyrightInfo';
+import { clubNav } from '../../../Club/config';
+import UserMenu from '../../../../components/Layouts/UserMenu';
+import MenuComponent from '../../../../components/MenuComponent';
+import { connectAuthVisible } from 'pages/Login/connectors';
+import useIsMobile from '../../../../utils/useIsMobile';
+import PhotoComponent from '../../../../components/PhotoComponent';
+import ls from 'local-storage';
 
-import "./index.scss";
+import './index.scss';
+
 
 
 const Filters = ({
@@ -60,7 +61,20 @@ const Filters = ({
     const [loading, setLoading] = useState(true);
     const [clear_filter, setClearFilter] = useState(false);
     const [range_clicked, setRangeClicked] = useState(false);
+    const [fedInfo, setFedInfo] = useState(null);
     const isMobile = useIsMobile(1080);
+
+    const getFedInfo = (url) => {
+        Request({
+            url: url
+        }, data => {
+            setFedInfo(data);
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setLoading(false);
+        });
+    }
 
     useEffect(() => {
         Promise.all([
@@ -105,9 +119,19 @@ const Filters = ({
     }
 
     const handleChangeRegionFilter = (filter) => {
-        setFiltersToUrl({RegionIds: filter});
+        setFiltersToUrl({RegionIds: filter, CityIds: []});
         setCurrentExhibCities(filter);
     };
+
+    useEffect(() => {
+        if(federationAlias) {
+            let url = `/api/Club/federation_base_info?alias=` + federationAlias;
+            getFedInfo(url)
+        } else if(club?.alias === 'rkf') {
+            let url = '/api/Club/rkf_base_info';
+            getFedInfo(url);
+        }
+    }, []);
 
     useEffect(() => {
         if(currentExhibCities && currentExhibCities.length > 0){
@@ -121,6 +145,12 @@ const Filters = ({
             }))();
         }
     }, [currentExhibCities]);
+
+    useEffect(() => {
+        if(filters.RegionIds.length === 0) {
+            setExhibitionCities(cities.exhibitionCities);
+        }
+    }, [filters.RegionIds.length]);
 
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
@@ -147,6 +177,14 @@ const Filters = ({
                                 onSubscriptionUpdate={onSubscriptionUpdate}
                                 isAuthenticated={isAuthenticated}
                             />
+                            {
+                                (federationAlias || club.alias === 'rkf') && fedInfo &&
+                                <PhotoComponent
+                                    photo={fedInfo.owner_photo}
+                                    name={fedInfo.owner_name}
+                                    position={fedInfo.owner_position}
+                                />
+                            }
                             {!isMobile && isFederationAlias(filters.Alias) ?
                                 <MenuComponent
                                     alias={filters.Alias}
@@ -196,10 +234,6 @@ const Filters = ({
                                     />
                                 </div>
                             </Card>
-                            <LikeFilter
-                                is_popular={IsPopular}
-                                onChange={filter => setFiltersToUrl({ IsPopular: filter })}
-                            />
                             {parseInt(filters.CategoryId) === 4
                                 ? <FormatFilter
                                     format_ids={filters.TypeIds}
@@ -218,6 +252,7 @@ const Filters = ({
                                 onChange={filter => handleChangeRegionFilter(filter)}
                             />
                             <CitiesFilter
+                                loading={loading}
                                 cities={isEducational ? cities.educationalCities : exhibitionCities}
                                 city_ids={filters.CityIds}
                                 onChange={filter => setFiltersToUrl({ CityIds: filter })}

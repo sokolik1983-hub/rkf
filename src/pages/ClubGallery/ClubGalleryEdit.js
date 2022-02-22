@@ -23,8 +23,8 @@ import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGal
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
-import "pages/Club/index.scss";
 
+import "pages/Club/index.scss";
 import "./styles.scss";
 
 const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {

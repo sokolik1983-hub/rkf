@@ -214,50 +214,50 @@ const CardNewsNew = forwardRef(({
                 <div className={(!collapsed && (advert_type_id < 1))  ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
 
                     {is_advert && <div className="CardNewsNew__ad">
-                        {advert_type_name && <span className="CardNewsNew__category-span">Категория: {advert_type_name}</span>}
+                        {advert_type_name &&
+                            <div className = "CardNewsNew__category-wrap">
+                                <div>
+                                    <span className="CardNewsNew__category-span">Категория: </span>
+                                    <p className = "CardNewsNew__category-value">{advert_type_name}</p>
+                                </div>
+                                <span>№{advert_code}</span>
+                            </div>}
                         {
                                 <p className="CardNewsNew__ad-breed">
                                     <span>{is_halfbreed ? "Метис" : `Порода: ${advert_breed_name}`}</span>
-                                    <span>№{advert_code}</span>
                                 </p>
                         }
                         {
-                            dog_color && <div>Окрас: {dog_color}</div>
+                            dog_color && <div className="CardNewsNew__ad-color">Окрас: {dog_color}</div>
                         }
                         {
-                            dog_name && <div>Кличка собаки: {dog_name}</div>
+                            dog_name && <div className="CardNewsNew__ad-name">Кличка собаки: {dog_name}</div>
                         }
                         {
                             !is_all_cities && dog_city && (advert_type_id > 1)
                                 ?
-                                <div>Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
+                                <div className="CardNewsNew__ad-city">Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
                                 :
-                                <span>Все города</span>
+                                <div className="CardNewsNew__ad-city">Все города</div>
                         }
                         {
-                            dog_age && <div>Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
+                            dog_age && <div className="CardNewsNew__ad-age">Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
                         }
                         {
-                            dog_sex_type_id && <div>Пол: {dog_sex_type_id}</div>
+                            dog_sex_type_id && <div className="CardNewsNew__ad-sex">Пол: {dog_sex_type_id}</div>
                         }
-                        <div className="CardNewsNew__ad-price">
-                            <div>
-                                {
-                                    (advert_type_id < 4) &&
-                                    <div>
-                                        <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'} </span>
-                                        <span>Кол-во щенков: {advert_number_of_puppies} </span>
-                                    </div>
-                                }
-
-                            </div>
+                        { (advert_type_id < 4) &&<div className="CardNewsNew__ad-price">
+                            <div>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'} </div>
+                            <div>Кол-во щенков: {advert_number_of_puppies} </div>
                             {is_closed_advert && <div className="CardNewsNew__ad-inactive" >Объявление не активно</div>}
-                        </div>
+                        </div>}
                     </div>}
-                    <p className={`CardNewsNew__text${!canCollapse ? ' _disabled' : ''}`}
-                        ref={ref}
-                        dangerouslySetInnerHTML={content && { __html: formatText(content) }}
-                    />
+                    {!!content &&
+                        <p className={`CardNewsNew__text${!canCollapse ? ' _disabled' : ''}`}
+                           ref={ref}
+                           dangerouslySetInnerHTML={{ __html: formatText(content) }}
+                        />
+                    }
                 </div>
                 <div className="CardNewsNew__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
                     {

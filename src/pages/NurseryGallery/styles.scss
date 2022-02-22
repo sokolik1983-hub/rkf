@@ -68,6 +68,8 @@
         }
     }
     &__buttons {
+        display: flex;
+        flex-wrap: wrap;
         padding-bottom: 0.5rem;
         margin-bottom: 0.5rem;
         border-bottom: 1px solid #e8e8e8;
@@ -75,24 +77,25 @@
             margin-top: 10px;
         }
         &-link {
+            display: flex;
+            margin: 3px 15px 3px 0px;
             color: #72839c;
             font-weight: normal;
             font-size: 18px;
             line-height: 20px;
             text-decoration: none;
             cursor: pointer;
-            margin-right: 15px;
             white-space: nowrap;
+            &__icon {
+                display: flex;
+                align-items: center;
+                width: 15px;
+                margin-right: 3px;
+            }
             &:hover {
                 color: #36f;
                 & svg {
                     fill: #36f;
-                }
-            }
-            @media (max-width: 380px) {
-                display: block;
-                &:not(:last-child) {
-                    margin-bottom: 6px;
                 }
             }
         }

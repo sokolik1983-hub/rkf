@@ -1,11 +1,11 @@
-.Schedule {
+.Nursery-Schedule {
     .FormGroup {
         display: grid;
         grid-template-columns: 100px 63fr 37fr;
         gap: 16px;
         margin-bottom: 20px!important;
 
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
             grid-template-columns: 63fr 37fr;
             grid-template-rows: 16px 38px;
             margin-bottom: 10px!important;
@@ -19,7 +19,7 @@
             }
         }
 
-        @media (max-width: 380px) {
+        @media (max-width: 1200px) {
             grid-template-columns: 50fr 50fr;
             grid-template-rows: 16px 60px;
         }
@@ -34,7 +34,7 @@
                 grid-template-columns: 50fr 50fr;
                 gap: 16px;
 
-                @media (max-width: 380px) {
+                @media (max-width: 1200px) {
                     grid-template-columns: 100fr;
                     grid-template-rows: 16px 38px;
                     row-gap: 5px;
@@ -46,7 +46,7 @@
                 grid-template-columns: 15px 30fr;
                 gap: 16px;
 
-                @media (max-width: 380px) {
+                @media (max-width: 1200px) {
                     grid-template-columns: 100fr;
                     grid-template-rows: 16px 38px;
                     row-gap: 5px;
@@ -62,15 +62,21 @@
                 color: #253C5E;
                 overflow: unset;
 
-                @media (max-width: 380px) {
+                @media (max-width: 1200px) {
                     text-align: center;
                 }
             }
 
             input {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 min-width: 100px;
                 max-height: 38px;
                 padding: 7px 10px 5px;
+                @media (max-width: 1200px) {
+                    margin: auto;
+                }
             }
 
             &__error {
@@ -79,6 +85,11 @@
                 top: 42px;
                 bottom: 0;
                 right: 0;
+                left: 0;
+                background-color: rgba(255, 255, 255, 0);
+                @media (max-width: 1200px) {
+                    top: 56px;
+                }
             }
         }
     }
@@ -110,7 +121,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
             justify-content: center;
         }
 

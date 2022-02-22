@@ -1,5 +1,9 @@
 .LegalInfo {
 
+    .Form {
+        margin-top: 20px;
+    }
+
     .FormGroup {
         width: 100%;
         display: grid;
@@ -57,6 +61,6 @@
         }
     }
     .button-save__disable {
-        margin-top: 77px!important;
+        margin-top: 60px!important;
     }
 }

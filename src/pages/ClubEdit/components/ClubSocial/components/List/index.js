@@ -21,7 +21,7 @@ const ClientSocialList = ({
     const {loading} = useResourceAndStoreToRedux(url, getClubSocialListSuccess);
 
     useEffect(()=>{
-        !loading && setTriggerLoad(true)
+        !loading && setTriggerLoad(true);
     },[loading]);
 
     

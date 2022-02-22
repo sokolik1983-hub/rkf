@@ -73,15 +73,11 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    {isMobile && !fedInfo.header_picture_link
-                                        ? null
-                                        : !isMobile
-                                        && <UserBanner
-                                            link={fedInfo.header_picture_link}
-                                            canEdit={canEdit}
-                                            updateInfo={getFedInfo}
-                                        />
-                                    }
+                                    <UserBanner
+                                        link={fedInfo.header_picture_link}
+                                        canEdit={canEdit}
+                                        updateInfo={getFedInfo}
+                                    />
                                     {isMobile && <>
                                         <UserHeader
                                             user={alias !== 'rkf-online' ? 'club' : ''}

@@ -11,10 +11,10 @@ import { connectShowFilters } from '../connectors';
 import { Request } from '../../../utils/request';
 import { clubNav, endpointGetClubInfo } from '../../../pages/Club/config';
 import { kennelNav } from '../../../pages/Nursery/config';
-import { userNav } from "../UserLayout/config";
+import { userNav } from '../UserLayout/config';
 import UserMenu from '../UserMenu';
 import ZlineModal from '../../ZlineModal';
-import {blockContent} from "../../../utils/blockContent";
+import {blockContent} from '../../../utils/blockContent';
 import { checkAliasUrl } from '../../../utils/checkAliasUrl';
 
 import './footerMenu.scss';
@@ -25,8 +25,7 @@ const FooterMenu = ({
     profile_id,
     notificationsLength,
     isAuthenticated,
-    setShowFilters,
-    setIsOpen
+    setShowFilters
 }) => {
     const isMobile1080 = useIsMobile(1080);
     const { alias, id, user_type } = ls.get('user_info') || {};
@@ -63,8 +62,7 @@ const FooterMenu = ({
     }, []);
 
     const hideSideMenu = () => {
-        setShowFilters({ isOpenFilters: false });
-        setIsOpen(false);
+        setShowFilters({ isOpenFilters: false, isOpen: false });
     };
 
     const hideWidgetLoginPopup = () => {

@@ -91,15 +91,11 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
-                                {isMobile && !nursery.headliner_link
-                                    ? null
-                                    : !isMobile
-                                    && <UserBanner
-                                        link={nursery.headliner_link}
-                                        canEdit={canEdit}
-                                        updateInfo={getNurseryInfo}
-                                    />
-                                }
+                                <UserBanner
+                                    link={nursery.headliner_link}
+                                    canEdit={canEdit}
+                                    updateInfo={getNurseryInfo}
+                                />
                                 {isMobile &&
                                     <>
                                         <UserHeader

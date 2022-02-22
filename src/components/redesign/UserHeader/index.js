@@ -36,7 +36,12 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
         <Card className="user-header">
             <div
                 className={logo ? "user-info__logo-wrap" : "user-info__logo-wrap empty"}
-                onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+                onTouchStart={()=> {
+                    setHover(true);
+                    setTimeout(() => setHover(false), 3000);
+                }}
             >
                 {canEdit &&
                     <>

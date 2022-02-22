@@ -88,33 +88,6 @@
     }
   }
 
-  .like-filter {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    background: #fff;
-    padding: 10px 10px 0;
-    margin-bottom: 16px;
-    border-radius: 6px;
-    box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
-    @media (max-width: 1080px) {
-      box-shadow: none;
-    }
-
-    h3 {
-      font-size: 18px;
-      font-weight: 400;
-      color: #253C5E;
-      border-bottom: 1px solid rgb(229, 229, 229);
-      line-height: 24px;
-      padding-bottom: 10px;
-    }
-    label {
-      margin-top: 8px;
-      margin-bottom: 10px!important;
-    }
-  }
-
   &__no-news {
     height: 1330px;
     padding-top: 20px;
@@ -210,6 +183,7 @@
   }
   &__wrap {
     position: sticky;
+    min-height: 87px;
     top: 15px;
     z-index: 2;
     background: #fff;
@@ -220,14 +194,29 @@
     @media (max-width: 1080px) {
       margin-right: 0;
     }
+
     h3 {
       font-size: 18px;
       font-weight: 400;
       color: #253C5E;
-      border-bottom: 1px solid rgb(229, 229, 229);
       line-height: 24px;
       padding-bottom: 10px;
       padding-left: 5px;
+    }
+
+    .like-filter {
+      margin: 9px 5px;
+      label {
+        color: #72839C;
+      }
+    }
+  }
+  &__header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgb(229, 229, 229);
+    label {
+      color: #72839C;
     }
   }
 }
