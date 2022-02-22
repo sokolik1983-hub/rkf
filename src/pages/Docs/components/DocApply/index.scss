@@ -135,7 +135,9 @@
         }
     }
     .SubmitError {
-        position: relative;
-        right: 200px;
+        @media (min-width: 1080px) {
+            position: relative;
+            right: 300px;
+        }
     }
 }
