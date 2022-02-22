@@ -39,6 +39,6 @@ const LoginPage = ({isAuthenticated, is_active_profile, user_type}) => {
     );
 };
 
-const withReducer = injectReducer({ key: 'authentication', reducer: reducer });
+const withReducer = injectReducer({key: 'authentication', reducer: reducer});
 
 export default compose(withReducer)(connectAuthVisible(memo(LoginPage)));

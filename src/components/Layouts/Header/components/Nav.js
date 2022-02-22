@@ -7,8 +7,7 @@ import NavSublist from "./NavSublist";
 import {connectAuthVisible} from "../../../../pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
 import MenuLink from "./MenuLink";
-import ZlineModal from "../../../../components/ZlineModal";
-import {blockContent} from "../../../../utils/blockContent";
+import ZlineWidget from "../../../ZLineWidget";
 
 
 const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowFilters, setOpen}) => {
@@ -63,12 +62,6 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
             setShowFilters({isOpen: false});
         }
     }, [isOpenFilters]);
-
-    useEffect(() => {
-        blockContent(showZlineModal);
-
-        return () => blockContent(false);
-    }, [showZlineModal]);
 
     const handleZlineClick = e => {
         e.preventDefault();
@@ -201,23 +194,19 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                     </Link>
                 </>
             }
-            <ZlineModal
-                showModal={showZlineModal}
+            <ZlineWidget
+                isModalShow={showZlineModal}
                 handleClose={() => {
                     setShowZlineModal(false);
                     if(!isMobile) {
                         setOpen(false);
                     }
                 }}
-            >
-                <iframe
-                    title="unique_iframe"
-                    src={process.env.NODE_ENV === 'production' ?
-                        `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
-                        `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
-                    }
-                />
-            </ZlineModal>
+                iframeLink={process.env.NODE_ENV === 'production' ?
+                    `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
+                    `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
+                }
+            />
         </nav>
     );
 };
