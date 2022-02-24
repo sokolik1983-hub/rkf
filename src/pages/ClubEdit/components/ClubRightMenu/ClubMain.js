@@ -4,7 +4,7 @@ import ClubDocuments from '../ClubDocuments';
 import EditPageButtons from '../EditPageButtons';
 import Card from '../../../../components/Card';
 import {withRouter} from "react-router-dom";
-import ClubForm from "../ClubForm";
+import ClubForm from "../ClubForm/ClubForm";
 import {Request} from "../../../../utils/request";
 import {useSelector} from "react-redux";
 

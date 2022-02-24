@@ -5,11 +5,11 @@ import { Form, Field, FieldArray, FormElement } from "@progress/kendo-react-form
 import { Fade } from "@progress/kendo-react-animation";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import Loading from "../../../components/Loading";
-import Card from "../../../components/Card";
-import AdditionalDocuments from "../../Docs/components/Exhibitions/ExhibitionsForm/components/AdditionalDocuments";
-import { Request } from "../../../utils/request";
-import ruMessages from "../../../kendoMessages.json"
+import Loading from "../../../../components/Loading";
+import Card from "../../../../components/Card";
+import AdditionalDocuments from "./components/AdditionalDocuments/index";
+import { Request } from "../../../../utils/request";
+import ruMessages from "../../../../kendoMessages.json"
 // import "./index.scss";
 
 loadMessages(ruMessages, 'ru');
