@@ -47,10 +47,10 @@ const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit,
             </div>
         }
         <Modal showModal={showModal} handleClose={() => { setShowModal(false); setUrl('') }}>
-            {url ?
-                <embed src={url} className="DocumentLinksArray__embed" /> :
-                <Loading />
-            }
+            {/*{url ?*/}
+            {/*    <embed src={url} className="DocumentLinksArray__embed" /> :*/}
+            {/*    <Loading />*/}
+            {/*}*/}
         </Modal>
     </div>
 }
