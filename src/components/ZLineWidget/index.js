@@ -7,7 +7,7 @@ import AuthCard from "../Layouts/AuthLayout/components/AuthCard/AuthCard";
 import "./index.scss";
 
 
-const ZlineWidget = ({isAuthenticated, className, iframeLink, isModalShow, handleClose}) => {
+const ZlineWidget = ({isAuthenticated, access_token, className, iframeLink, isModalShow, handleClose}) => {
     useEffect(() => {
         blockContent(isModalShow);
 
@@ -21,7 +21,7 @@ const ZlineWidget = ({isAuthenticated, className, iframeLink, isModalShow, handl
                     <div className="zline-modal__inner">
                         <div className="zline-modal__content">
                             {isAuthenticated ?
-                                <iframe src={iframeLink} title="unique_iframe" /> :
+                                <iframe src={`${iframeLink}&ak=${access_token}`} title="unique_iframe" /> :
                                 <AuthCard/>
                             }
                         </div>

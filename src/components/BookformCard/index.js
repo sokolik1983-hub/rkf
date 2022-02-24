@@ -60,7 +60,6 @@ const BookformCard = ({url, distinction}) => {
     const [color, setColor] = useState('');
     const [headerName, setHeaderName] = useState('');
     const [authorizedAccess, setAuthorizedAccess] = useState(true);
-    const apiKey = ls.get('apikey');
     const user_type = ls.get('user_info') ? ls.get('user_info').user_type : '';
 
     useEffect(() => {
@@ -101,10 +100,6 @@ const BookformCard = ({url, distinction}) => {
                     federation === 'ОАНКОО/Элита' ? ELITA :
                     federation === 'ОАНКОО/Фауна' ? FAUNA :
                     federation === 'ОАНКОО/РКК' ? RKK : '';
-            }
-
-            if(frameLink && apiKey) {
-                frameLink += `&ak=${apiKey}`
             }
 
             setIframeLink(frameLink);

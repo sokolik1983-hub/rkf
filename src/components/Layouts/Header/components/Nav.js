@@ -203,8 +203,8 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                     }
                 }}
                 iframeLink={process.env.NODE_ENV === 'production' ?
-                    `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
-                    `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
+                    'https://zline.me/widgets/registration-for-service?id=33' :
+                    'http://zsdev.uep24.ru/widgets/registration-for-service?id=92'
                 }
             />
         </nav>
