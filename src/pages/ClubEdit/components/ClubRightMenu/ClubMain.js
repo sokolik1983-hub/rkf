@@ -59,12 +59,6 @@ const ClubMain = ({
             <EditPageButtons
                 handleSubmitForms={handleSubmitForms}
             />
-                {/*<ExhibitionsForm*/}
-                {/*    clubAlias={club_alias}*/}
-                {/*    history={history}*/}
-                {/*    status="edit"*/}
-                {/*    isEditPage*/}
-                {/*        />*/}
                 <ClubForm
                     clubAlias={club_alias}
                     history={history}

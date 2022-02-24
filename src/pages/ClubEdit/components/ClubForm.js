@@ -29,84 +29,8 @@ const ClubForm = ({ clubAlias, history, status, isEditPage }) => {
         forbidden_dates: [],
         cities: []
     });
-    const [initialValues, setInitialValues] = useState({
-        id: '',
-        format_id: '',
-        format_name: '',
-        rank_id: '',
-        rank_name: '',
-        city_id: '',
-        city_name: '',
-        date_begin: '',
-        date_end: '',
-        national_breed_club_id: '',
-        national_breed_club_name: '',
-        comment: '',
-        rejected_comment: '',
-        documents: [],
-        phones: [{
-            value: '',
-            is_main: true,
-            description: ''
-        }],
-        emails: [{
-            value: '',
-            is_main: true,
-            description: ''
-        }]
-    });
-    const editable = !status || status !== 'view';
+    const initialValues = {documents: []};
 
-    // useEffect(() => {
-    //     Promise.all([
-    //         getExhibitionProperties(),
-    //         status && getExhibitionInfo()
-    //     ]).then(() => setLoaded(true));
-    // }, []);
-    //
-    // const getExhibitionProperties = async () => {
-    //     await Request({
-    //         url: `/api/requests/exhibition_request/clubexhibitionrequest/exhibition_properties`
-    //     }, data => {
-    //         if (data) {
-    //             setExhibitionProperties({
-    //                 ...exhibitionProperties,
-    //                 formats: data.formats.map(d => ({ text: d.name, value: d.id })),
-    //                 ranks: data.ranks.map(d => ({ text: d.name, value: d.id })),
-    //                 national_breed_clubs: data.national_breed_clubs,
-    //                 forbidden_dates: data.forbidden_dates,
-    //                 cities: data.cities
-    //             });
-    //         } else {
-    //             setError('Ошибка');
-    //         }
-    //     }, error => {
-    //         handleError(error);
-    //     });
-    // };
-    //
-    // const getExhibitionInfo = async () => {
-    //     const paramsArr = history.location.pathname.split('/');
-    //     const id = paramsArr[paramsArr.length - 1];
-    //
-    //     await Request({
-    //         url: `/api/requests/exhibition_request/clubexhibitionrequest?id=${id}`
-    //     }, data => {
-    //         let values = {};
-    //         Object.keys(initialValues).forEach(key => {
-    //             values[key] = data[key] || initialValues[key];
-    //         });
-    //         setInitialValues(values);
-    //         setStatusId(data.status_id);
-    //     }, error => {
-    //         console.log(error);
-    //         history.replace('/404');
-    //     });
-    //
-    //     if (status === 'view') {
-    //         setDisableAllFields(true);
-    //     }
-    // }
 
 
 
@@ -122,32 +46,6 @@ const ClubForm = ({ clubAlias, history, status, isEditPage }) => {
         }
     };
 
-    const handleSubmit = async data => {
-        setDisableSubmit(true);
-        let newData = {
-            ...data,
-            date_begin: moment(data.date_begin).format('YYYY-MM-DD'),
-            date_end: moment(data.date_end).format('YYYY-MM-DD'),
-            documents: data.documents.map(d => ({
-                id: d.id ? d.id : null,
-                name: d.name,
-                document_id: d.document_id
-            }))
-        };
-        delete newData.documents_upload;
-        !status && delete newData.id;
-
-        await Request({
-            url: '/api/requests/exhibition_request/clubexhibitionrequest',
-            method: status ? 'PUT' : 'POST',
-            data: JSON.stringify(newData)
-        }, () => {
-            history.push(`/${clubAlias}/documents/exhibitions`);
-        }, error => {
-            handleError(error);
-            setDisableSubmit(false);
-        });
-    };
 
     return (
         <div className="application-form">
@@ -159,13 +57,10 @@ const ClubForm = ({ clubAlias, history, status, isEditPage }) => {
                 </div>
                 {
                     <Form
-                        onSubmit={handleSubmit}
                         initialValues={initialValues}
                         key={JSON.stringify(initialValues)}
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
-                            // const isCACIB = formRenderProps.valueGetter('format_id') === 2;
-                            // const isCAC = formRenderProps.valueGetter('format_id') === 1;
                             return (
                                 <FormElement>
                                     <div className="application-form__content">{
@@ -176,7 +71,7 @@ const ClubForm = ({ clubAlias, history, status, isEditPage }) => {
                                             handleError={handleError}
                                             setDisableSubmit={setDisableSubmit}
                                             formRenderProps={formRenderProps}
-                                            editable={editable}
+                                            editable={status}
                                             status={status}
                                         />
                                     }
