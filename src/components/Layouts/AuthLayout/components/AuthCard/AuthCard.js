@@ -1,4 +1,5 @@
 import React, {memo, useState} from "react";
+import ScrollArea from "react-scrollbar";
 import CopyrightInfo from "../../../../CopyrightInfo";
 import LoginForm from "../LoginForm";
 import RegistrationForm from "../RegistrationForm";
@@ -25,10 +26,17 @@ const AuthCard = () => {
                         Регистрация
                     </span>
                 </div>
-                <div className="auth-card__form">
+                <ScrollArea
+                    className="auth-card__form"
+                    contentClassName="auth-card__scroll"
+                    verticalScrollbarStyle={{borderRadius: 6, width: 6, backgroundColor: '#aaa'}}
+                    verticalContainerStyle={{borderRadius: 8, width: 8}}
+                    horizontal={false}
+                    smoothScrolling={true}
+                >
                     {activeTab === 1 && <LoginForm/>}
                     {activeTab === 2 && <RegistrationForm/>}
-                </div>
+                </ScrollArea>
             </div>
             <CopyrightInfo withSocials={true} />
         </div>

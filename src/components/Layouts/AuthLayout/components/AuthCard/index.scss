@@ -6,7 +6,13 @@
   padding: 50px 32px 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow: hidden;
+    margin: 0 -32px;
+  }
   &__nav {
     border-bottom: 1px solid #e8e8e8;
     margin-bottom: 50px;
@@ -25,5 +31,9 @@
         color: #3366FF;
       }
     }
+  }
+  &__form {
+    flex: 1 1 auto;
+    padding: 0 32px;
   }
 }
