@@ -1,43 +1,8 @@
 .registration-form {
-  width: 100%;
-  max-width: 572px;
-  margin: 0 auto 28px;
-  &__controls {
+  margin-bottom: 24px;
+  .swipe-tabs {
     border-bottom: 1px solid #e8e8e8;
     margin-bottom: 24px;
     overflow: hidden;
-  }
-  &__tabs {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-  }
-  &__tab {
-    padding: 0 6px 10px;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    text-align: center;
-    line-height: 16px;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: .2px;
-    color: #72839c;
-    white-space: nowrap;
-    transition: all .2s linear;
-    &:hover {
-      color: #3366FF;
-    }
-    &._active {
-      border-bottom-color: #3366FF;
-    }
-    &._disabled {
-      color: #72839c;
-      opacity: .5;
-      cursor: default;
-    }
-    @media (max-width: 560px) {
-      width: auto;
-      padding: 0 6px 10px;
-    }
   }
 }

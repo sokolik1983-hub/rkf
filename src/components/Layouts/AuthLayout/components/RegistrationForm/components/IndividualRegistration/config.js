@@ -1,4 +1,4 @@
-import {object, string, ref} from "yup";
+import {object, string, ref, number} from "yup";
 
 const emptyFieldMsg = 'Поле не может быть пустым';
 
@@ -18,9 +18,12 @@ export const config = {
     validationSchema: object().shape({
         last_name: string().required(emptyFieldMsg),
         first_name: string().required(emptyFieldMsg),
-        city_id: string().required('Укажите город'),
+        city_id: number().required('Укажите город'),
         mail: string().email('Некорректный e-mail').required(emptyFieldMsg),
-        password: string().required(emptyFieldMsg),
+        password: string()
+            .required(emptyFieldMsg)
+            .min(6, 'Пароль должен состоять минимум из 6 символов')
+            .matches(/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])[\w\S].{5,}/g, 'Пароль должен иметь не менее 1 заглавной буквы и не менее 1 цифры'),
         passwordConfirm: string().required(emptyFieldMsg).oneOf([ref('password'), null], 'Пароль не совпадает')
     })
 };

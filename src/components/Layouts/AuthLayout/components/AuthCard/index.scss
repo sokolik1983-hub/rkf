@@ -3,7 +3,7 @@
   height: 100%;
   background-color: #fff;
   box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
-  padding: 50px 32px 10px;
+  padding: 50px 25px 10px;
   display: flex;
   flex-direction: column;
   &__content {
@@ -11,7 +11,7 @@
     flex-direction: column;
     flex: 1 1 auto;
     overflow: hidden;
-    margin: 0 -32px;
+    margin: 0 -25px;
   }
   &__nav {
     border-bottom: 1px solid #e8e8e8;
@@ -34,7 +34,7 @@
   }
   &__form {
     flex: 1 1 auto;
-    padding: 0 32px;
+    padding: 0 25px;
   }
   .copyright-wrap {
     box-shadow: none;
