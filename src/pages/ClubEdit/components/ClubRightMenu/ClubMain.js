@@ -22,7 +22,7 @@ const ClubMain = ({
         bindSubmitClubDocuments,
         history
 }) => {
-    const [loaded, setLoaded] = useState(true);
+    const [loaded, setLoaded] = useState(false);
     const [documents, setDocuments] = useState([]);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
@@ -104,9 +104,9 @@ const ClubMain = ({
                             ?
                             documents.map(item => <DocItem key={item.id} id={item.id} name={item.name} link={item.link} date_create={item.date_create} setModal={setModal} />)
                             :
-                            <h3>Вы не загрузили ни одного документа</h3>
+                            <h3 className="MainInfo__empty-h3">Вы не загрузили ни одного документа</h3>
                     :
-                        <Loading />
+                        <Loading centered={false} />
                 }
 
             </div>
