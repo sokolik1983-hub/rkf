@@ -3,16 +3,16 @@ import { Button } from "@progress/kendo-react-buttons";
 import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import { Request } from "../../../../utils/request";
+
 import "./index.scss";
 
-
-const ModalDeleteDocument = ({ handleSuccess, handleError, getDocuments, documentId, closeModal }) => {
+const ModalDeleteDocument = ({ handleSuccess, handleError, getDocuments, documentId, closeModal, isEditPage }) => {
     const [loading, setLoading] = useState(false);
 
     const deleteCategory = async () => {
         setLoading(true);
         await Request({
-            url: `/api/document/publicdocument?id=${documentId}`,
+            url:  isEditPage ? `/api/document/document/private?id=${documentId}` :`/api/document/publicdocument?id=${documentId}`,
             method: 'DELETE'
         }, () => {
             setLoading(false);
