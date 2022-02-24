@@ -17,7 +17,7 @@ const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit,
 
     return <div style={{ marginTop: '20px' }}>
         {
-            (!status || (status && !!documents?.length)) &&
+            (!status || (status && !!documents.length)) &&
             <div className="application-form__additional-title">{editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}</div>
         }
         <div className="AdditionalDocumentField__wrap">

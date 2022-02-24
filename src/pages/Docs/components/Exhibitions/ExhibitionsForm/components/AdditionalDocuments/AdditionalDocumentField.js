@@ -3,15 +3,15 @@ import {getHeaders} from "../../../../../../../utils/request";
 
 
 const AdditionalDocumentField = ({
-        documents,
-        setDocumentsOverflow,
-        id,
-        document_id,
-        name,
-        accept,
-        editable,
-        formRenderProps
-    }) => {
+                                     documents,
+                                     setDocumentsOverflow,
+                                     id,
+                                     document_id,
+                                     name,
+                                     accept,
+                                     editable,
+                                     formRenderProps
+                                 }) => {
     const [url, setUrl] = useState('')
 
     const getDocument = (docId) => {
