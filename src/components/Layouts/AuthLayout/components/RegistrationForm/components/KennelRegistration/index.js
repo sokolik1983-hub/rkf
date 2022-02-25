@@ -198,8 +198,8 @@ const KennelRegistration = () => {
             }
             {alert &&
                 <Alert
-                    title={isCodeFormSend ? "Проверьте почту" : "Произошла ошибка! =("}
-                    text={alertText || "Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи."}
+                    title={isCodeFormSend ? 'Проверьте почту' : 'Произошла ошибка! =('}
+                    text={alertText || 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.'}
                     okButton={true}
                     onOk={() => {
                         setAlertText('');
@@ -212,8 +212,8 @@ const KennelRegistration = () => {
             }
             {confirm &&
                 <Confirm
-                    title={"Внимание!"}
-                    text={"Питомник с такими данными не найден в базе RKF.Online\nДобавить питомник?"}
+                    title="Внимание!"
+                    text="Питомник с такими данными не найден в базе RKF.Online\nДобавить питомник?"
                     agreeButtonText="Добавить"
                     disagreeButtonText="Отмена"
                     agreeFunction={() => setIsFederationFormSend(true)}

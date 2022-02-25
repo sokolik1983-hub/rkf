@@ -40,7 +40,7 @@ const AuthCard = () => {
             </div>
             <CopyrightInfo withSocials={true} />
         </div>
-    );
+    )
 };
 
 export default memo(AuthCard);
