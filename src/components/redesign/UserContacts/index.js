@@ -149,7 +149,7 @@ const UserContacts = ({
                     </p>
                 }
                 {bank_comment &&
-                    <p className="user-contacts__info-bankg">
+                    <p className="user-contacts__info-bank">
                         <span>Банковские реквизиты</span>:&nbsp;
                         <span>{bank_comment}</span>
                     </p>
