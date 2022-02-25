@@ -1,7 +1,7 @@
 .MainInfo {
   $font-family: "Source Sans Pro", Helvetica, sans-serif;
-  @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
-  @import "~bootstrap/scss/bootstrap.scss";
+  @import "../../../../../node_modules/@progress/kendo-theme-bootstrap/dist/all";
+  @import "../../../../../node_modules/bootstrap/scss/bootstrap";
   &__private-docs-wrap {
     position: relative;
     h3 {

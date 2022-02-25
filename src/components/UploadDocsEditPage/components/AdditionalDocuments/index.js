@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import AdditionalDocumentUpload from "./AdditionalDocumentUpload";
+import React from 'react';
+import AdditionalDocumentUpload from './AdditionalDocumentUpload';
 
-import "./styles.scss";
-
+import './styles.scss';
 
 const AdditionalDocuments = ({documents, formRenderProps, handleError, getDocuments }) => {
 

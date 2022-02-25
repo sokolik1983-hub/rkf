@@ -1,12 +1,14 @@
 .application-form {
   .DocumentItem {
-    padding: 0 10px!important;
+    & .row {
+      padding: 0 10px!important;
+    }
   }
   font-size: 16px;
   h3 {
     padding-bottom: 10px;
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 18px!important;
+    line-height: 18px!important;
     font-weight: normal;
     color: #030404;
     border-bottom: 1px solid #E5E5E5;
@@ -48,5 +50,8 @@
   }
   button {
     border-color: transparent;
+  }
+  .k-svg-icon {
+    display: flex!important;
   }
 }

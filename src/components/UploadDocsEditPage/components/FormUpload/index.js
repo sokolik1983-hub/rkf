@@ -1,10 +1,10 @@
-import React from "react";
-import { FieldWrapper } from "@progress/kendo-react-form";
-import { Label, Error, Hint } from "@progress/kendo-react-labels";
-import { Upload } from "@progress/kendo-react-upload";
-import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import ruMessages from "../ruMessages.json";
-import "./styles.scss";
+import React from 'react';
+import { FieldWrapper } from '@progress/kendo-react-form';
+import { Label, Error, Hint } from '@progress/kendo-react-labels';
+import { Upload } from '@progress/kendo-react-upload';
+import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
+import ruMessages from '../ruMessages.json';
+import './styles.scss';
 
 loadMessages(ruMessages, 'Application-ru');
 
@@ -44,10 +44,6 @@ const FormUpload = fieldRenderProps => {
                         onRemove={onRemoveHandler}
                         ariaDescribedBy={`${hintId} ${errorId}`}
                         ariaLabelledBy={labelId}
-                        maxFileSize={10485760}
-                        restrictions={{
-                            allowedExtensions: fileFormats || []
-                        }}
                         {...others}
                     />
                 </IntlProvider>

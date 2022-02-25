@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Share from "components/Share";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { filePdf, trash } from "@progress/kendo-svg-icons";
-import { DropDownList } from '@progress/kendo-react-dropdowns';
-import { getHeaders} from "../../../../../../utils/request";
-import LightTooltip from "components/LightTooltip";
-import moment from "moment";
-import "moment/locale/ru";
+import React, { useState, useEffect } from 'react';
+import Share from 'components/Share';
+import { SvgIcon } from '@progress/kendo-react-common';
+import { filePdf, trash } from '@progress/kendo-svg-icons';
+import { getHeaders} from '../../../../utils/request';
+import LightTooltip from 'components/LightTooltip';
+import moment from 'moment';
+import 'moment/locale/ru';
 
-import "./styles.scss";
+import './styles.scss';
 
 moment.locale('ru');
 
@@ -16,29 +15,7 @@ const DocumentItem = (props) => {
 
     const {id, name, link, date_create, setModal} = props;
     const headers = getHeaders();
-    // const [category, setCategory] = useState({});
     const [url, setUrl] = useState('');
-
-    // const initialCategory = category_id ? { id: category_id, name: category_name } : unsortedCategory;
-    // const categoriesToShow = categories.filter(category => category.editable !== false);
-    //
-    // useEffect(() => {
-    //     setCategory(initialCategory);
-    // }, []);
-    //
-    // const handleCategoryChange = ({ target }) => {
-    //     const { value } = target;
-    //     setCategory(value);
-    //     if (value === initialCategory) {
-    //         setDocumentsToUpdate(documentsToUpdate.filter(d => d.id !== id));
-    //     } else {
-    //         const updatedDocument = { id: id, category_id: value.id };
-    //         setDocumentsToUpdate([
-    //             ...documentsToUpdate.filter(d => d.id !== id),
-    //             updatedDocument
-    //         ]);
-    //     }
-    // };
 
     const itemRender = (li) => {
         const itemChildren = <div style={{ textOverflow: 'ellipsis', display: 'block', overflow: 'hidden' }}>
@@ -103,17 +80,6 @@ const DocumentItem = (props) => {
                         </button>
                     </LightTooltip>
                 </div>
-                {/*<div className="col-4">*/}
-                {/*    <DropDownList*/}
-                {/*        data={categoriesToShow}*/}
-                {/*        dataItemKey="id"*/}
-                {/*        textField="name"*/}
-                {/*        value={category}*/}
-                {/*        itemRender={itemRender}*/}
-                {/*        onChange={handleCategoryChange}*/}
-                {/*        disabled={!editable}*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className="col-1">
                     <button
                         className="DocumentItem__delete-btn"

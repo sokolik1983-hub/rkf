@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from "react";
-import { Form, FormElement } from "@progress/kendo-react-form";
-import { Fade } from "@progress/kendo-react-animation";
-import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
-import { loadMessages } from "@progress/kendo-react-intl";
-import Card from "../Card";
-import AdditionalDocuments from "./components/AdditionalDocuments";
-import ruMessages from "../../kendoMessages.json"
-import {blockContent} from "../../utils/blockContent";
-import ModalDeleteDocument from "../UploadedDocuments/components/ModalDeleteDocument";
-import DocItem from "../../pages/ClubEdit/components/ClubForm/components/DocItem/DocItem";
-import Loading from "../Loading";
-import {Request} from "../../utils/request";
-import {useSelector} from "react-redux";
+import React, {useEffect, useState} from 'react';
+import { Form, FormElement } from '@progress/kendo-react-form';
+import { Fade } from '@progress/kendo-react-animation';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { loadMessages } from '@progress/kendo-react-intl';
+import Card from '../Card';
+import AdditionalDocuments from './components/AdditionalDocuments';
+import ruMessages from '../../kendoMessages.json';
+import {blockContent} from '../../utils/blockContent';
+import ModalDeleteDocument from '../UploadedDocuments/components/ModalDeleteDocument';
+import DocItem from './components/DocItem/DocItem';
+import Loading from '../Loading';
+import {Request} from '../../utils/request';
+import {useSelector} from 'react-redux';
 
-import "./index.scss";
+import './index.scss';
 
 loadMessages(ruMessages, 'ru');
 
