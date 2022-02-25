@@ -19,7 +19,9 @@ const ZlineWidget = ({isAuthenticated, access_token, className, iframeLink, isMo
             <div className={`zline-modal${!isModalShow ? ' _hidden' : ''}${className ? ' ' + className : ''}`}>
                 <OutsideClickHandler onOutsideClick={handleClose}>
                     <div className="zline-modal__inner">
+
                         <div className="zline-modal__content">
+                            <p className="zline-modal__close" onClick={handleClose}>Закрыть</p>
                             {isAuthenticated ?
                                 <iframe src={`${iframeLink}&ak=${access_token}`} title="unique_iframe" /> :
                                 <AuthCard/>
