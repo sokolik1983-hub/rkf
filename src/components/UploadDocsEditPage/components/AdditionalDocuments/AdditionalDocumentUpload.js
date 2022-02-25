@@ -17,7 +17,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
     const onStatusChange = (event, name) => {
         if (event.response?.response) {
             const {extension, size} = event.newState[0];
-            if(!(extension === '.pdf' || extension === '.jpg' || extension === '.jpeg')) {
+            if(!(extension === '.pdf' || extension.toLowerCase() === '.jpg' || extension.toLowerCase() === '.jpeg')) {
                 setIsFormat(false);
             }
             if(size > 10000000) {
@@ -45,7 +45,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
         <Field
             id="documents_upload"
             name="documents_upload"
-            fileFormats={['.pdf', '.jpg', '.jpeg']}
+            fileFormats={['.pdf', '.jpg', '.jpeg', '.JPG']}
             component={FormUpload}
             saveUrl="/api/document/document/private"
             saveField="file"
