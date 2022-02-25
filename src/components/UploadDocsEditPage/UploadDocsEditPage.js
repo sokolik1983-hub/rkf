@@ -4,7 +4,7 @@ import { Fade } from "@progress/kendo-react-animation";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
 import { loadMessages } from "@progress/kendo-react-intl";
 import Card from "../Card";
-import AdditionalDocuments from "../../pages/ClubEdit/components/ClubForm/components/AdditionalDocuments";
+import AdditionalDocuments from "./components/AdditionalDocuments";
 import ruMessages from "../../kendoMessages.json"
 import {blockContent} from "../../utils/blockContent";
 import ModalDeleteDocument from "../UploadedDocuments/components/ModalDeleteDocument";

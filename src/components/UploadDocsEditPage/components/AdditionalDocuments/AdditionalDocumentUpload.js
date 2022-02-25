@@ -1,14 +1,13 @@
 
 import React from "react";
 import { Field } from "@progress/kendo-react-form";
-import FormUpload from "../FormUpload";
+import FormUpload from "../../../../pages/ClubEdit/components/ClubForm/components/FormUpload";
 import { getHeaders } from "utils/request";
 
-const AdditionalDocumentUpload = ({ documents, documentsOverflow, setDisableSubmit, formRenderProps, handleError, getDocuments }) => {
+const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProps, handleError, getDocuments }) => {
 
     const onBeforeUpload = (e) => {
         e.headers = getHeaders(true);
-        setDisableSubmit(true);
     };
 
     const onStatusChange = (event, name) => {
@@ -18,7 +17,6 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, setDisableSubm
                 formRenderProps.onChange('documents', { value: [...documents, { name: result.name, document_id: result.id }] });
                 formRenderProps.onChange(name, { value: [] });
                 getDocuments();
-                setDisableSubmit(false);
             } else {
                 handleError(event.response);
                 formRenderProps.onChange(name, { value: [] });
