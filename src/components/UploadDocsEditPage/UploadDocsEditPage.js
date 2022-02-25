@@ -16,9 +16,7 @@ import {useSelector} from "react-redux";
 loadMessages(ruMessages, 'ru');
 
 const UploadDocsEditPage = ({ clubAlias, history }) => {
-    const [disableSubmit, setDisableSubmit] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
-
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
     const clubId = useSelector(state => state.authentication.profile_id);
     const [loaded, setLoaded] = useState(false);
@@ -108,7 +106,6 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                                              history={history}
                                              clubAlias={clubAlias}
                                              handleError={handleError}
-                                             setDisableSubmit={setDisableSubmit}
                                              formRenderProps={formRenderProps}
                                              getDocuments={getDocuments}
                                          />

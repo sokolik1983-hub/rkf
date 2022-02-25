@@ -4,14 +4,13 @@ import AdditionalDocumentUpload from "./AdditionalDocumentUpload";
 import "./styles.scss";
 
 
-const AdditionalDocuments = ({documents, formRenderProps, setDisableSubmit, handleError, getDocuments }) => {
+const AdditionalDocuments = ({documents, formRenderProps, handleError, getDocuments }) => {
 
     return <div style={{ marginTop: '20px' }}>
         {
              <div className="application-form__row">
                 <AdditionalDocumentUpload
                     documents={documents}
-                    setDisableSubmit={setDisableSubmit}
                     formRenderProps={formRenderProps}
                     handleError={handleError}
                     getDocuments={getDocuments}
