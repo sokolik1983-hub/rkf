@@ -23,7 +23,6 @@ import randomKeyGenerator from '../../utils/randomKeyGenerator'
 
 import './styles.scss';
 
-
 let unblock;
 
 const NurseryEdit = ({

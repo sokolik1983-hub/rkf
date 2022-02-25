@@ -13,6 +13,8 @@ import Loading from "../Loading";
 import {Request} from "../../utils/request";
 import {useSelector} from "react-redux";
 
+import "./index.scss";
+
 loadMessages(ruMessages, 'ru');
 
 const UploadDocsEditPage = ({ clubAlias, history }) => {

@@ -68,7 +68,7 @@ export const editForm = {
     fields: {
         alias: {
             name: "alias",
-            label: "Адрес страницы",
+            label: "rkf.online/kennel/",
             fieldType: "customAliasInput",
             baseUrl: "rkf.online/kennel/"
         },

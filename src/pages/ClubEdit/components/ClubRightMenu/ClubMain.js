@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import ClubInfo from '../ClubInfo';
 import ClubDocuments from '../ClubDocuments';
 import EditPageButtons from '../EditPageButtons';
 import Card from '../../../../components/Card';
-import {withRouter} from "react-router-dom";
-import UploadDocsEditPage from "../../../../components/UploadDocsEditPage/UploadDocsEditPage";
+import {withRouter} from 'react-router-dom';
+import UploadDocsEditPage from '../../../../components/UploadDocsEditPage/UploadDocsEditPage';
 
 const ClubMain = ({
         club_alias,
@@ -27,14 +27,13 @@ const ClubMain = ({
             <ClubDocuments
                 bindSubmitForm={bindSubmitClubDocuments}
             />
+            <EditPageButtons
+                handleSubmitForms={handleSubmitForms}
+            />
             <UploadDocsEditPage
                 clubAlias={club_alias}
                 history={history}
             />
-            <EditPageButtons
-                handleSubmitForms={handleSubmitForms}
-            />
-
         </Card>
     );
 };

@@ -4,6 +4,8 @@ import Card from '../../../../components/Card';
 import Transliteratable from '../Transliteratable';
 import {FormField, FormGroup} from '../../../../components/Form';
 import SubmitButton from '../../../../components/Form/SubmitButton';
+import UploadDocsEditPage from '../../../../components/UploadDocsEditPage/UploadDocsEditPage';
+import {withRouter} from 'react-router-dom';
 
 const MyComponent = ({
         name,
@@ -19,23 +21,15 @@ const MyComponent = ({
         co_owner_last_name,
         co_owner_first_name,
         co_owner_second_name,
+        history
 }) => {
     return (
         <Card>
             <h3>Основная информация</h3>
-            <a className="support-link"
-               href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/"
-               target="_blank"
-               rel="noopener noreferrer"
-            >
-                Инструкция по редактированию профиля
-            </a>
-            <FormField {...alias} />
             <div className="NurseryEdit__main-info">
                 <Transliteratable {...name} />
                 <FormField {...name_lat} />
                 <FormField {...description} />
-
                 <FormField {...co_owner_last_name} disabled={!!coOwner.lastName}/>
                 <FormField {...co_owner_first_name} disabled={!!coOwner.firstName}/>
                 <FormField {...co_owner_second_name} disabled={!!coOwner.secondName}/>
@@ -49,8 +43,16 @@ const MyComponent = ({
             {formik.errors && !!Object.keys(formik.errors).length
                 && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
             {working && <div className="NurseryEdit__is-valid">Идёт загрузка файла...</div>}
+            <div className="MainInfo">
+                <UploadDocsEditPage
+                    clubAlias={alias}
+                    history={history}
+                />
+
+            </div>
+
         </Card>
     );
 };
 
-export default MyComponent;
+export default withRouter(MyComponent);
