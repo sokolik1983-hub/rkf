@@ -45,10 +45,6 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         !isControlCheckedAll && setIsUpdateWithAllChecks(false);
     },[isControlCheckedAll])
 
-    useEffect(() => {
-        console.log('checkedItemsIds', checkedItemsIds)
-    },[checkedItemsIds])
-
     const getNews = async (startElement = 1, reset = false, elementsCount = 10) => {
         await Request({
             url: `/api/article/articles_feed?profile_id=${profileId}&start_element=${startElement}&size=${elementsCount}&filter_type=${activeCategoryId}`
@@ -175,7 +171,6 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
 
     const unsetCheckedAll = () => {
         setIsControlCheckedAll(false);
-        // setIsUpdateWithAllChecks(false);
     }
 
     const unsetAllChecks = () => {
