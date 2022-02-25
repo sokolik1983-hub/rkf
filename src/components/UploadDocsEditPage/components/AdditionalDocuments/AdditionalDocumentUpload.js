@@ -4,6 +4,7 @@ import FormUpload from '../FormUpload';
 import { getHeaders } from 'utils/request';
 import Alert from '../../../Alert';
 import OutsideClickHandler from 'react-outside-click-handler';
+import {blockContent} from "../../../../utils/blockContent";
 
 const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProps, handleError, getDocuments }) => {
     const [isFormat, setIsFormat] = useState(true);
@@ -37,6 +38,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
     const handleClose = () => {
         setIsFormat(true);
         setIsMaxSize(false);
+        blockContent(false);
     }
 
     return (<div className="AdditionalDocumentUpload">
