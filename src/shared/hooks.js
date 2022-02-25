@@ -60,7 +60,7 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
             try {
                 setLoading(true);
 
-                const response = await axios(axiosConfig);
+                const response = await axios(axiosConfig);я
 
                 if (!didCancel) {
                     dispatch(onSuccessAction(response.data.result));
