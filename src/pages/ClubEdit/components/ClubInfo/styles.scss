@@ -32,21 +32,9 @@
                     padding-top: 5px;
                 }
                 &:before {
-                    content: "Адрес страницы";
-                    font-size: 16px;
-                    line-height: 16px;
-                }
-                &:after {
-                    position: absolute;
                     content: "rkf.online/";
-                    top: 15px;
-                    left: 125px;
                     font-size: 16px;
                     line-height: 16px;
-                    @media (max-width: 820px) {
-                        top: 35px;
-                        left: 0;
-                    }
                 }
             }
             label[for="alias_name_description"] {

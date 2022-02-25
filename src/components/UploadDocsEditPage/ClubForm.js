@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import moment from "moment";
-import { Form, Field, FieldArray, FormElement } from "@progress/kendo-react-form";
+import React, { useState } from "react";
+import { Form, FormElement } from "@progress/kendo-react-form";
 import { Fade } from "@progress/kendo-react-animation";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
-import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import Loading from "../../../../components/Loading";
-import Card from "../../../../components/Card";
-import AdditionalDocuments from "./components/AdditionalDocuments/index";
-import { Request } from "../../../../utils/request";
-import ruMessages from "../../../../kendoMessages.json"
-import ModalDeleteCategory from "../../../../components/UploadedDocuments/components/ModalDeleteCategory";
-// import "./index.scss";
+import { loadMessages } from "@progress/kendo-react-intl";
+import Card from "../Card";
+import AdditionalDocuments from "../../pages/ClubEdit/components/ClubForm/components/AdditionalDocuments";
+import ruMessages from "../../kendoMessages.json"
 
 loadMessages(ruMessages, 'ru');
 
@@ -55,7 +49,6 @@ const ClubForm = ({ clubAlias, history, status, getDocuments }) => {
                                              setDisableSubmit={setDisableSubmit}
                                              formRenderProps={formRenderProps}
                                              editable={status}
-                                             status={status}
                                              getDocuments={getDocuments}
                                          />
                                      }

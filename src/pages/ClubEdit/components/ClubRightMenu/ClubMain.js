@@ -4,7 +4,7 @@ import ClubDocuments from '../ClubDocuments';
 import EditPageButtons from '../EditPageButtons';
 import Card from '../../../../components/Card';
 import {withRouter} from "react-router-dom";
-import ClubForm from "../ClubForm/ClubForm";
+import ClubForm from "../../../../components/UploadDocsEditPage/ClubForm";
 import {Request} from "../../../../utils/request";
 import {useSelector} from "react-redux";
 import DocItem from "../ClubForm/components/DocItem/DocItem";
@@ -92,9 +92,6 @@ const ClubMain = ({
             <ClubDocuments
                 bindSubmitForm={bindSubmitClubDocuments}
             />
-            <EditPageButtons
-                handleSubmitForms={handleSubmitForms}
-            />
             <div className="MainInfo__private-docs-wrap">
                 <h3>Ваши приватные документы</h3>
                 {
@@ -115,6 +112,9 @@ const ClubMain = ({
                 history={history}
                 status="edit"
                 getDocuments={getDocuments}
+            />
+            <EditPageButtons
+                handleSubmitForms={handleSubmitForms}
             />
             {
                 modal.type === 'deleteDocument' &&
