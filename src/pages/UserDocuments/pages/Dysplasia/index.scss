@@ -112,8 +112,6 @@
     margin-bottom: 40px;
   }
   .btn {
-    display: inline-block;
-    margin-top: 5px;
     padding-top: 6px;
     padding-bottom: 6px;
   }
@@ -139,6 +137,19 @@
       right: 5px;
       top: 48px;
       bottom: auto;
+    }
+  }
+  &__file {
+    position: relative;
+    .btn {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      &__look {
+        position: relative;
+        margin-top: 5px;
+        bottom: 0;
+        right: 0;
+      }
     }
   }
 }
