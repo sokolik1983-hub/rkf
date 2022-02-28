@@ -1,13 +1,16 @@
-import React, {memo, useEffect} from "react";
+import React, {memo, useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 import OutsideClickHandler from "react-outside-click-handler";
 import {blockContent} from "../../utils/blockContent";
 import {connectAuthVisible} from "../../pages/Login/connectors";
 import AuthCard from "../Layouts/AuthLayout/components/AuthCard/AuthCard";
 import "./index.scss";
+import Button from "../Button";
 
 
 const ZlineWidget = ({isAuthenticated, access_token, className, iframeLink, isModalShow, handleClose}) => {
+    const [showDisclaimer, setShowDisclaimer] = useState(true);
+
     useEffect(() => {
         blockContent(isModalShow);
 
@@ -24,7 +27,18 @@ const ZlineWidget = ({isAuthenticated, access_token, className, iframeLink, isMo
                             <p className="zline-modal__close" onClick={handleClose}>Закрыть</p>
                             {isAuthenticated ?
                                 <iframe src={`${iframeLink}&ak=${access_token}`} title="unique_iframe" /> :
-                                <AuthCard/>
+                                showDisclaimer ?
+                                    <div className="disclaimer">
+                                        <p className="disclaimer__text">Для того, чтобы записаться на посещение офиса в РКФ и Федераций, необходимо быть зарегистрированным и авторизованным пользователем на портале RKF.ONLINE.</p>
+                                        <Button
+                                            type="button"
+                                            className="btn btn-primary btn-lg"
+                                            onClick={() => setShowDisclaimer(false)}
+                                        >
+                                            Войти
+                                        </Button>
+                                    </div> :
+                                    <AuthCard/>
                             }
                         </div>
                     </div>
