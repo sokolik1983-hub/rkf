@@ -19,8 +19,6 @@
     background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
     background-size: contain;
     border: none;
-    @media (min-width: 320px) {
-    }
     &._show-password {
       background: url("/static/icons/psw-eye-open.svg") center no-repeat;
       background-size: contain;

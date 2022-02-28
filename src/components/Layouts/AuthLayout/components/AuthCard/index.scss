@@ -1,0 +1,42 @@
+.auth-card {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
+  padding: 50px 25px 10px;
+  display: flex;
+  flex-direction: column;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow: hidden;
+    margin: 0 -25px;
+  }
+  &__nav {
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 50px;
+    padding: 0 25px 10px;
+    display: flex;
+    justify-content: space-between;
+    &-item {
+      text-transform: uppercase;
+      font-size: 18px;
+      line-height: 24px;
+      text-align: center;
+      cursor: pointer;
+      color: #90999E;
+      transition: color .2s linear;
+      &._active {
+        color: #3366FF;
+      }
+    }
+  }
+  &__form {
+    flex: 1 1 auto;
+    padding: 0 25px;
+  }
+  .copyright-wrap {
+    box-shadow: none;
+  }
+}
