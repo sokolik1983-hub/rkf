@@ -9,6 +9,7 @@ import Alert from "../../../components/Alert";
 import Modal from '../../../components/Modal';
 import {blockContent} from '../../../utils/blockContent';
 import OutsideClickHandler from 'react-outside-click-handler/esm/OutsideClickHandler';
+import Button from '../../../components/Button';
 
 
 const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setInitialValues,}) => {
@@ -36,7 +37,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
         } else {
             blockContent(false)
         }
-    }, []);
+    }, [showModal]);
 
 
     const handleValidate = value => {
@@ -201,7 +202,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
 
             <div className="exhibition-edit__judge">
                 <h5>Судья/специалист</h5>
-                <button onClick={() => setShowModal(true)}>Пригласить судью</button>
+                <Button primary={true} onClick={() => setShowModal(true)}>Пригласить судью</Button>
             </div>
 
 
@@ -308,10 +309,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
             <FormField {...fields.additional_info} />
             <FormControls>
                 <button type="button" className="btn btn-simple" onClick={onCancel}>Отмена</button>
-                <button type="submit" className="btn btn-simple" onClick={() => {
-                    formik.setFieldValue('avatar', avatar);
-                    formik.setFieldValue('map', map);
-                }}>Обновить
+                <button type="submit" className="btn btn-simple">Обновить
                 </button>
             </FormControls>
             {alert &&
@@ -323,12 +321,21 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                 />
             }
             {showModal &&
-                <OutsideClickHandler>
-                    <div>
-                        <button onClick={()=>setShowModal(false)}>s</button>
-                    </div>
-                </OutsideClickHandler>
-                    }
+                // <OutsideClickHandler onOutsideClick={()=>setShowModal(false)}>
+                <Modal showModal={showModal}
+                       handleClose={() =>setShowModal(false)}
+                       handleX={() => {setShowModal(false)}}
+                       noBackdrop={true}
+                       iconName="owner2-white"
+                       headerName="Выбор судьи/специалиста"
+            >
+                <div style={{width : "100%", height : "100%"}}>
+                    Добавить судью
+
+                </div>
+            </Modal>
+            // </OutsideClickHandler>
+}
         </>
     )
 };
