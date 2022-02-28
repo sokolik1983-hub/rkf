@@ -3,9 +3,12 @@ import {connect} from 'formik';
 import {FormGroup, FormField, FormControls} from "../../../components/Form";
 import {exhibitionInfoForm} from "../config";
 import {DEFAULT_IMG} from "../../../appConfig";
-import { acceptType } from "../../../utils/checkImgType";
+import {acceptType} from "../../../utils/checkImgType";
 import Contacts from "./components/Contacts";
 import Alert from "../../../components/Alert";
+import Modal from '../../../components/Modal';
+import {blockContent} from '../../../utils/blockContent';
+import OutsideClickHandler from 'react-outside-click-handler/esm/OutsideClickHandler';
 
 
 const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setInitialValues,}) => {
@@ -14,10 +17,11 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
     const [mapSrc, setMapSrc] = useState(map);
     const [docs, setDocs] = useState(documents);
     const [docField, setDocField] = useState(null);
+    const [showModal, setShowModal] = useState(false);
     const {fields} = exhibitionInfoForm;
     const {
-       phones,
-       emails,
+        phones,
+        emails,
     } = formik.values;
 
 
@@ -26,10 +30,18 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
         formik.setFieldValue('map', map);
     }, []);
 
+    useEffect(() => {
+        if (showModal) {
+            blockContent(true)
+        } else {
+            blockContent(false)
+        }
+    }, []);
+
 
     const handleValidate = value => {
         let error;
-        if(!value) {
+        if (!value) {
             error = 'Поле не может быть пустым';
         }
         return error;
@@ -59,7 +71,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                 type === 'avatar' ? setAvatarSrc(avatar) : setMapSrc(map);
             }
         });
-        if(file && file.size > 20971520 ) {
+        if (file && file.size > 20971520) {
             setAlert(true);
             type === 'avatar' ? setAvatarSrc(avatar) : setMapSrc(map);
         }
@@ -98,14 +110,14 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
         const doc = {...docField};
         const isValid = !(Object.keys(formik.errors).length && (formik.errors[`docs_url_${id}`] || formik.errors[`docs_name_${id}`]));
 
-        if(isValid) {
-            if(!doc.url) {
-                formik.setFieldTouched(`docs_url_${doc.id}`,true, true);
+        if (isValid) {
+            if (!doc.url) {
+                formik.setFieldTouched(`docs_url_${doc.id}`, true, true);
             }
-            if(!doc.name) {
-                formik.setFieldTouched(`docs_name_${doc.id}`,true, true);
+            if (!doc.name) {
+                formik.setFieldTouched(`docs_name_${doc.id}`, true, true);
             }
-            if(doc.url && doc.name) {
+            if (doc.url && doc.name) {
                 setDocs(docs ? [...docs, doc] : [doc]);
                 setDocField(null);
             }
@@ -113,7 +125,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
     };
 
     const handleDeleteDocs = id => {
-        if(window.confirm('Вы действительно хотите удалить эту ссылку?')) {
+        if (window.confirm('Вы действительно хотите удалить эту ссылку?')) {
             let newValues = {...formik.values};
             delete newValues[`docs_url_${id}`];
             delete newValues[`docs_name_${id}`];
@@ -141,29 +153,34 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     />
                     <img src={avatarSrc || DEFAULT_IMG.noImage} alt=""/>
                 </label>
-                {avatarSrc && <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('avatar')} />}
+                {avatarSrc &&
+                    <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('avatar')}/>}
             </div>
             <FormField
                 {...fields.description}
             />
             {dates && !!dates.length &&
-                dates.map(date =>
-                    <FormGroup inline key={date.id} className="exhibition-edit__dates">
-                        <span>{`${date.day < 10 ? '0'+date.day : date.day}.${date.month < 10 ? '0'+date.month : date.month}.${date.year}`}</span>
-                        <FormField
-                            name={`time_start_${date.id}`}
-                            label="Начало"
-                            type="time"
-                            validate={handleValidate}
-                        />
-                        <FormField
-                            name={`time_end_${date.id}`}
-                            label="Окончание"
-                            type="time"
-                            validate={handleValidate}
-                        />
-                    </FormGroup>
-                )
+
+                <div>
+                    <h5>Даты проведения мероприятия</h5>
+                    {dates.map(date =>
+                        <FormGroup inline key={date.id} className="exhibition-edit__dates">
+                            <span>{`${date.day < 10 ? '0' + date.day : date.day}.${date.month < 10 ? '0' + date.month : date.month}.${date.year}`}</span>
+                            <FormField
+                                name={`time_start_${date.id}`}
+                                label="Время работы с"
+                                type="time"
+                                validate={handleValidate}
+                            />
+                            <FormField
+                                name={`time_end_${date.id}`}
+                                label="До"
+                                type="time"
+                                validate={handleValidate}
+                            />
+                        </FormGroup>
+                    )}
+                </div>
             }
             <FormGroup inline>
                 <FormField
@@ -179,6 +196,15 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     {...fields.breed_types}
                 />
             </FormGroup>
+
+            {/*тут добавляю функцуонал по приглашению судьи*/}
+
+            <div className="exhibition-edit__judge">
+                <h5>Судья/специалист</h5>
+                <button onClick={() => setShowModal(true)}>Пригласить судью</button>
+            </div>
+
+
             <FormGroup inline>
                 <FormField
                     {...fields.schedule_url}
@@ -195,9 +221,9 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     {...fields.catalog_name}
                 />
             </FormGroup>
-            <Contacts 
-                phones={phones} 
-                emails={emails} 
+            <Contacts
+                phones={phones}
+                emails={emails}
                 errors={formik.errors}/>
             <div className="exhibition-edit__documents">
                 <h3>Документы</h3>
@@ -205,13 +231,15 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     <ul className="exhibition-edit__documents-list">
                         {docs.map(doc => (
                             <li className="exhibition-edit__documents-item" key={doc.id}>
-                                <a href={doc.url} target="__blank" className="exhibition-edit__documents-link">{doc.name}</a>
+                                <a href={doc.url} target="__blank"
+                                   className="exhibition-edit__documents-link">{doc.name}</a>
                                 <button
                                     className="exhibition-edit__documents-delete"
                                     type="button"
                                     onClick={() => handleDeleteDocs(doc.id)}
                                     title="Удалить"
-                                >✕</button>
+                                >✕
+                                </button>
                             </li>
                         ))}
                     </ul>
@@ -239,7 +267,8 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                             className="exhibition-edit__documents-submit btn btn-simple"
                             type="button"
                             onClick={() => handleAddDocs(docField.id)}
-                        >Добавить</button>
+                        >Добавить
+                        </button>
                     </FormGroup>
                 }
                 {docField ?
@@ -274,12 +303,16 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     />
                     <img src={mapSrc || DEFAULT_IMG.noImage} alt=""/>
                 </label>
-                {mapSrc && <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('map')} />}
+                {mapSrc && <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('map')}/>}
             </div>
             <FormField {...fields.additional_info} />
             <FormControls>
                 <button type="button" className="btn btn-simple" onClick={onCancel}>Отмена</button>
-                <button type="submit" className="btn btn-simple">Обновить</button>
+                <button type="submit" className="btn btn-simple" onClick={() => {
+                    formik.setFieldValue('avatar', avatar);
+                    formik.setFieldValue('map', map);
+                }}>Обновить
+                </button>
             </FormControls>
             {alert &&
                 <Alert
@@ -289,6 +322,13 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     onOk={() => setAlert(false)}
                 />
             }
+            {showModal &&
+                <OutsideClickHandler>
+                    <div>
+                        <button onClick={()=>setShowModal(false)}>s</button>
+                    </div>
+                </OutsideClickHandler>
+                    }
         </>
     )
 };

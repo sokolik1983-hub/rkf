@@ -16,7 +16,7 @@
       margin-bottom: 8px;
       font-size: 16px;
       line-height: 24px;
-      font-weight: 300;
+      font-weight: 400;
     }
     img {
       display: block;
@@ -79,10 +79,30 @@
     }
   }
   &__dates {
+    .FormInput--time {
+      display: flex;
+      flex-direction: row;
+      flex: unset;
+      gap: 10px;
+
+    &:not(:last-child){
+      gap: 20px;
+    }
+
+      label {
+        align-self: center;
+        margin: 0;
+      }
+
+      input {
+        width: 150px;
+      }
+    }
     span {
       align-self: center;
       font-weight: 400;
-      margin: 32px 16px 0 0;
+      margin-right: 43px;
+      //margin: 32px 16px 0 0;
     }
   }
   @media (max-width: 800px) {
