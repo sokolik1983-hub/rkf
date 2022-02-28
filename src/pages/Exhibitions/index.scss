@@ -106,7 +106,7 @@
       margin: 0 10px auto;
       @media (max-width: 560px) {
         position: absolute;
-        right: 25px;
+        right: 0;
       }
     }
 
@@ -189,8 +189,8 @@
     &--backIcon, &--tableIcon {
       @media (max-width: 560px) {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 2px;
+        right: 130px;
       }
     }
 
