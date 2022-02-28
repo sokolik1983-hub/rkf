@@ -17,6 +17,7 @@ import {kennelNav as kennelNavDocs} from "../../../pages/NurseryDocuments/config
 import {userNav as userNavDocs} from "../../../pages/UserDocuments/config.js";
 
 import "./index.scss";
+import MenuComponentNew from "../../MenuComponentNew";
 
 
 
@@ -161,6 +162,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                             bottomStyle
                         >
                             <div className="user-nav__inner">
+                                <MenuComponentNew notificationsLength={notificationsLength} />
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                 </div>
@@ -288,33 +290,34 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                         </PopupModal>
                         :
                         <ul className="user-nav__list">
-                            {userNav.map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
-                                key={navItem.id}>
-                                <NavLink
-                                    to={user_type === 3
-                                        && url === 'club'
-                                        && alias !== 'rkf'
-                                        && alias !== 'rkf-online'
-                                        && navItem.title !== 'Поиск по базе РКФ'
-                                        && navItem.title !== 'Реквизиты и размеры взносов'
-                                        && navItem.title !== 'Мероприятия'
-                                        ? `/club${navItem.to}` : navItem.to}
-                                    exact={navItem.exact}
-                                    className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                    onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
-                                >
-                                    {navItem.icon}
-                                    <span>{navItem.title}</span>
-                                </NavLink>
-                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
-                                <span
-                                    className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                    {notificationsLength > 99 ? 99 : notificationsLength}
-                                </span>
-                                }
-                            </li>
+                            <MenuComponentNew notificationsLength={notificationsLength} />
+                            {/*{userNav.map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}*/}
+                            {/*    key={navItem.id}>*/}
+                            {/*    <NavLink*/}
+                            {/*        to={user_type === 3*/}
+                            {/*            && url === 'club'*/}
+                            {/*            && alias !== 'rkf'*/}
+                            {/*            && alias !== 'rkf-online'*/}
+                            {/*            && navItem.title !== 'Поиск по базе РКФ'*/}
+                            {/*            && navItem.title !== 'Реквизиты и размеры взносов'*/}
+                            {/*            && navItem.title !== 'Мероприятия'*/}
+                            {/*            ? `/club${navItem.to}` : navItem.to}*/}
+                            {/*        exact={navItem.exact}*/}
+                            {/*        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}*/}
+                            {/*        onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}*/}
+                            {/*    >*/}
+                            {/*        {navItem.icon}*/}
+                            {/*        <span>{navItem.title}</span>*/}
+                            {/*    </NavLink>*/}
+                            {/*    {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&*/}
+                            {/*    <span*/}
+                            {/*        className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>*/}
+                            {/*        {notificationsLength > 99 ? 99 : notificationsLength}*/}
+                            {/*    </span>*/}
+                            {/*    }*/}
+                            {/*</li>*/}
 
-                            )}
+                            {/*)}*/}
                         </ul>
                 }
                 </CSSTransition>

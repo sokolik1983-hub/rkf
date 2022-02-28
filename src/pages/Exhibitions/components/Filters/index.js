@@ -30,6 +30,7 @@ import PhotoComponent from '../../../../components/PhotoComponent';
 import ls from 'local-storage';
 
 import './index.scss';
+import MenuComponentNew from "../../../../components/MenuComponentNew";
 
 
 
@@ -186,18 +187,25 @@ const Filters = ({
                                 />
                             }
                             {!isMobile && isFederationAlias(filters.Alias) ?
-                                <MenuComponent
-                                    alias={filters.Alias}
-                                    name={clubName}
-                                    isFederation={true}
-                                />
+                                <>
+                                    <MenuComponent
+                                        alias={filters.Alias}
+                                        name={clubName}
+                                        isFederation={true}
+                                    />
+                                    <MenuComponentNew exhibAlias={filters.Alias}/>
+                                </>
+
                                 :
                                 !isMobile &&
-                                <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                    ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                    : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                          notificationsLength={notificationsLength}
-                                />
+                                <>
+                                    <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
+                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
+                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
+                                              notificationsLength={notificationsLength}
+                                    />
+                                    <MenuComponentNew exhibAlias={filters.Alias} />
+                                </>
                             }
                         </div>
                         }

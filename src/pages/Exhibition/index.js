@@ -23,6 +23,7 @@ import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import useIsMobile from "../../utils/useIsMobile";
 import PhotoComponent from "../../components/PhotoComponent";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
 
@@ -207,17 +208,29 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                             />
                                         }
                                         {!isMobile && isFederationAlias(club_alias) ?
-                                            <MenuComponent
-                                                club_alias={club_alias}
-                                                name={display_name || club_fact_name || ''}
-                                                isFederation={true}
-                                            />
+                                            <>
+                                                <MenuComponent
+                                                    club_alias={club_alias}
+                                                    name={display_name || club_fact_name || ''}
+                                                    isFederation={true}
+                                                />
+                                                <MenuComponentNew
+                                                    exhibAlias={club_alias}
+                                                >
+                                                </MenuComponentNew>
+                                            </>
                                             :
                                             !isMobile &&
-                                            <UserMenu
-                                                userNav={clubNav(club_alias)}
-                                                isExhibitionPage={true}
-                                            />
+                                            <>
+                                                <UserMenu
+                                                    userNav={clubNav(club_alias)}
+                                                    isExhibitionPage={true}
+                                                />
+                                                <MenuComponentNew
+                                                    exhibAlias={club_alias}
+                                                >
+                                                </MenuComponentNew>
+                                            </>
                                         }
                                         {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} /> }
                                         {!isMobile &&

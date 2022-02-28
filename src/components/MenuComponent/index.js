@@ -14,6 +14,7 @@ import {clubNav as clubNavDocs} from "../../pages/Docs/config";
 import ls from "local-storage";
 import Alert from "../Alert";
 import {endpointGetClubInfo} from "../../pages/Club/config";
+import MenuComponentNew from "../MenuComponentNew";
 
 import "./index.scss";
 
@@ -235,6 +236,8 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
         setAlert(true);
     };
 
+
+
     const [fedInfo, setFedInfo] = useState(null);
     const [error, setError] = useState(null);
     const [menuBackground, setMenuBackground] = useState('/static/images/user-nav/user-nav-bg.png');
@@ -375,7 +378,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     }, [showModal])
 
     useEffect(() => {
-
         if (fedFeesId) {
             (() => Request({
                 url: `/api/document/document/public?id=${fedFeesId}`
@@ -469,6 +471,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                             bottomStyle
                         >
                             <div className="user-menu__inner">
+                                <MenuComponentNew>11111111111111</MenuComponentNew>
                                 <div className="banner-federation">
                                     <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
                                 </div>
@@ -529,6 +532,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 :
                 <Card>
                 <ul className="menu-component__list">
+                    <MenuComponentNew>222222222222</MenuComponentNew>
                 {user !== 'nursery' &&
                 <li className="menu-component__item">
                         <NavLink
