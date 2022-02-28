@@ -23,6 +23,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const [isControlCheckedAll, setIsControlCheckedAll] = useState(false);
     const [clearChecks, setClearChecks] = useState(false);
     const [isUnreadMessages, setIsUnreadMessages] = useState(false);
+    const [isUpdateWithAllChecks, setIsUpdateWithAllChecks] = useState(false);
 
     const allItemsIds = [];
     news.map(n => allItemsIds.push(n.id));
@@ -34,10 +35,15 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         setIsControlCheckedAll(false);
         setClearChecks(false);
         setIsUnreadMessages(false);
+        setIsUpdateWithAllChecks(false);
 
         setStartElement(1);
         (() => getNews(1, true))();
     }, [activeCategoryId]);
+
+    useEffect(() => {
+        !isControlCheckedAll && setIsUpdateWithAllChecks(false);
+    },[isControlCheckedAll])
 
     const getNews = async (startElement = 1, reset = false, elementsCount = 10) => {
         await Request({
@@ -46,8 +52,10 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             setIsControlCheckedAll(false);
             setClearChecks(false);
             setCheckedAll(false);
-            setCheckedItemsIds([]);
             setIsUnreadMessages(false);
+
+            startElement === 1 && setCheckedItemsIds([]);
+            startElement !== 1 && isControlCheckedAll && setIsUpdateWithAllChecks(true);
 
             setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
 
@@ -168,6 +176,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const unsetAllChecks = () => {
         setClearChecks(true);
         setCheckedItemsIds([]);
+        setIsUpdateWithAllChecks(false);
     }
 
     const checkReadability = (ids) => {
@@ -199,6 +208,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                     updateNews={getNews}
                     unsetAllChecks={unsetAllChecks}
                     startElement={startElement}
+                    isUpdateWithAllChecks={isUpdateWithAllChecks}
                 />
 
                 <InfiniteScroll
