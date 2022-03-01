@@ -249,8 +249,19 @@
         color: #253C5E;
       }
     }
+      
+      .ReactCollapse {
+        &--collapse {
+          min-height: 191px;
+        }
+      }
+
+      .user-contacts__info-title-wrap {
+        padding-bottom: 10px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid #E5E5E5
+      }
 
     }
-
   }
 }
