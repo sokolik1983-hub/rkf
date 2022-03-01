@@ -141,13 +141,17 @@
           width: auto;
         }
 
-        @media(min-width: 769px) {
+        @media(min-width: 730px) {
+
+          height: 110px;
+
           .UserActionControls {
             display: flex;
             position: relative;
-            bottom: 50px;
+            bottom: 41px;
             justify-content: flex-end;
             margin-right: 30px;
+            width: auto;
 
             &__message-btn {
               width: 170px;
@@ -157,7 +161,26 @@
             &__subscribe-btn {
               width: 170px;
               margin: 10px 10px 0;
+              padding: 0;
             }
+          }
+
+          .user-info__logo-wrap {
+            align-self: flex-start;
+            padding-top: 15px;
+          }
+
+          &__container {
+            position: relative;
+
+            .Share {
+              position: relative;
+              top: 8px;
+            }
+          }
+
+          &__user-wrap {
+            top: 62px;
           }
         }
 
