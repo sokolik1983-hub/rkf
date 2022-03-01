@@ -4,7 +4,7 @@ import Card from "../../Card";
 import Counter from "../../CounterComponent";
 import "./index.scss";
 
-const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias }) => {
+const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, judgeInfo }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const normalizeLink = link => {
@@ -93,6 +93,21 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias }) =
                 <span className="user-description__item-title">{main_phone_description || 'Телефон'}:</span>&nbsp;
                 <span>{getPhoneString(main_phone_value, main_phone_status, phones)}</span>
             </p>
+            {!!judgeInfo.length && <p className="user-description__item _full-info">
+                <span className="user-description__item-title">Полная информация:</span>&nbsp;
+                <span className="user-description__item-lists">
+                    { judgeInfo.map(item =>
+                        item.judge_type_id === 1 ? <span className="user-description__item-list">Лист судьи по пародам № {item.judge_cert_number}&nbsp;</span>
+                            : item.judge_type_id === 2 && <span className="user-description__item-list"> Лист судьи/специалиста по рабочим качествам № {item.judge_cert_number}&nbsp;</span>
+                    )}
+                </span>
+            </p>}
+            {!!judgeInfo.length && <p className="user-description__item _specialization">
+                <span className="user-description__item-title">Специализация:</span>&nbsp;
+                <span className="user-description__item-specs">
+                    {judgeInfo.map(item => <span className="user-description__item-spec">{item.judge_type_name}</span>)}
+                </span>
+            </p>}
             {additionalInfo &&
                 <>
                     <Collapse isOpened={isOpen}>

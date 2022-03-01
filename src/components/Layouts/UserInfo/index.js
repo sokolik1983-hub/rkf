@@ -11,6 +11,7 @@ import LightTooltip from "../../LightTooltip";
 import UserActionControls from "components/UserActionControls";
 import { connectAuthVisible } from "pages/Login/connectors";
 import EditAvatar from "../../EditAvatar";
+import { judgeIcon } from "../UserLayout/config.js"
 
 import "./index.scss";
 
@@ -28,7 +29,8 @@ const UserInfo = ({
     subscribed,
     onSubscriptionUpdate,
     onSuccess,
-    onError
+    onError,
+    judgeInfo,
 }) => {
     const [hover, setHover] = useState(false);
     const [modalType, setModalType] = useState('');
@@ -96,6 +98,7 @@ const UserInfo = ({
                         <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}</p>
                     }
                     {last_name && <p title={last_name}>{last_name}</p>}
+                    {!!judgeInfo.length && judgeIcon}
                 </div>
             </div>
             {
