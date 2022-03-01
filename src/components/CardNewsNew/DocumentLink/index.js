@@ -47,7 +47,7 @@ const DocumentLink = ({ docId, document }) => {
         <>
             { !url ?
                 <span
-                    className="DocumentItem__href CardNewsNew__documents-item-name"
+                    className="DocumentItem__href card-news-new__documents-item-name"
                     onClick={ getDocument }
                 >
                         {renderDocumentItem()}

@@ -35,14 +35,14 @@ const Content = props => { //Дополнительные props берутся �
 
     return (
         <>
-            <div className="NewsFeed">
+            <div className="news-feed">
 
-                <div className="NewsFeed-left">
+                <div className="news-feed-left">
                     <NewsList {...props} />
                 </div>
 
                 <aside className={`notification-page__filters ${showFilter ? ' _open' : ''} `}>
-                            <div className={showFilter ? "NewsFeed-right" : 'NewsFeed-right hidden'}>
+                            <div className={showFilter ? "news-feed-right" : 'news-feed-right hidden'}>
                                 <CategoriesList {...props} setShowFilters={setShowFilters} />
                                 {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
                                 <MustRead {...props} notificationUrlIndex={notificationUrlIndex} setShowFilters={setShowFilters}/>

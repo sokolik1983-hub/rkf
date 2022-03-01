@@ -217,7 +217,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                     hasMore={hasMore}
                     loader={<Loading centered={false} />}
                     endMessage={
-                        <div className="NewsList__no-news">
+                        <div className="news-list__no-news">
                             <h4>Публикаций больше нет</h4>
                             <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
                         </div>
@@ -248,7 +248,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                 </InfiniteScroll>
             </>
             : <Card>
-                <div className="NewsList__no-news">
+                <div className="news-list__no-news">
                     <h4>Публикации не найдены</h4>
                     <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
                 </div>

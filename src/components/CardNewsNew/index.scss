@@ -1,15 +1,14 @@
-.CardNewsNew {
+.card-news-new {
   padding: 10px 0 10px 0 !important;
   position: relative;
 
   &__wrap {
-
     &.is_closed {
-      .CardNewsNew__controls,
-      .CardNewsNew__photo,
-      .CardNewsNew__text-wrap,
-      .CardNewsNew__club,
-      .CardNewsNew__city {
+      .card-news-new__controls,
+      .card-news-new__photo,
+      .card-news-new__text-wrap,
+      .card-news-new__club,
+      .card-news-new__city {
         opacity: 0.5;
         pointer-events: none;
       }

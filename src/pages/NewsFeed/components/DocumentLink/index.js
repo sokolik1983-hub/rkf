@@ -45,7 +45,7 @@ const DocumentLink = ({ docId, document }) => {
             <>
                 { !url ?
                     <span
-                        className="d-flex align-items-center NewsFeedItem__documents-item-name"
+                        className="d-flex align-items-center news-feed-item__documents-item-name"
                         onClick={ getDocument }
                     >
                         {renderDocumentItem()}
