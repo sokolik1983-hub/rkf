@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useLocation, useParams} from 'react-router-dom';
+import {Link, useLocation, useParams} from 'react-router-dom';
 import ls from 'local-storage';
 import StickyBox from 'react-sticky-box';
 import Loading from 'components/Loading';
@@ -161,6 +161,10 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                             </StickyBox>
                         </aside>}
                         <div className="user-page__right">
+                            <Link to={{
+                                pathname: "/Referee/full/16085",
+                                judgeLinkInfo: userInfo
+                            }} >111111111111111111111111111111111</Link>
                             {
                                 React.cloneElement(children, {
                                     isMobile,

@@ -46,6 +46,7 @@ const CardSpecialist = ({
                 ? `/api/exteriorjudge/additional_details/${id}`
                 : `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=${searchTypeId}`
         }, data => {
+
             setAdditionalPhones(data.phones);
             setAdditionalEmails(data.emails);
             setAdditionalDisciplines(data.disciplines);
