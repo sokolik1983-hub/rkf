@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import { Collapse } from "react-collapse";
 import {Link} from "react-router-dom";
 import Card from "../../Card";
@@ -7,6 +7,13 @@ import "./index.scss";
 
 const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, judgeInfo }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [judge, setJudge] = useState(null);
+    const [specializations, setSpecializations] = useState(null);
+
+    useEffect(() => {
+        !!judgeInfo && setJudge(judgeInfo.judge_info);
+        !!judgeInfo && setSpecializations(judgeInfo.judge_specializations)
+    }, [judgeInfo]);
 
     const normalizeLink = link => {
         if (!link.includes('https://') || !link.includes('http://')) {
@@ -94,20 +101,20 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
                 <span className="user-description__item-title">{main_phone_description || 'Телефон'}:</span>&nbsp;
                 <span>{getPhoneString(main_phone_value, main_phone_status, phones)}</span>
             </p>
-            {!!judgeInfo.length && <p className="user-description__item _full-info">
-                <span className="user-description__item-title">Полная информация:</span>&nbsp;
-                <span className="user-description__item-lists">
-                    { judgeInfo.map(item =>
-                        item.judge_type_id === 1 ? <Link to={`/referee/${item.judge_id}/1`} className="user-description__item-list">Лист судьи по пародам № {item.judge_cert_number}&nbsp;</Link>
-                            : item.judge_type_id === 2 && <Link to={`/referee/${item.judge_id}/2`} className="user-description__item-list"> Лист судьи/специалиста по рабочим качествам № {item.judge_cert_number}&nbsp;</Link>
+            {!!judge?.length && <p className="user-description__item _full-info">
+                <span className="user-description__item-title">Полная&nbsp;информация:</span>
+                <div className="user-description__item-lists">
+                    { judge.map(item =>
+                        item.judge_type_id === 1 ? <Link to={`/referee/${item.judge_id}/1`} className="user-description__item-list">Лист&nbsp;судьи&nbsp;по&nbsp;пародам&nbsp;№&nbsp;{item.judge_cert_number}&nbsp;</Link>
+                            : item.judge_type_id=== 2 && <Link to={`/referee/${item.judge_id}/2`} className="user-description__item-list"> Лист&nbsp;судьи&nbsp;по&nbsp;рабочим качествам&nbsp;№&nbsp;{item.judge_cert_number}&nbsp;</Link>
                     )}
-                </span>
+                </div>
             </p>}
-            {!!judgeInfo.length && <p className="user-description__item _specialization">
-                <span className="user-description__item-title">Специализация:</span>&nbsp;
-                <span className="user-description__item-specs">
-                    {judgeInfo.map(item => <span className="user-description__item-spec">{item.judge_type_name}</span>)}
-                </span>
+            {!!specializations?.length && <p className="user-description__item _specialization">
+                <div className="user-description__item-title">Специализация:</div>
+                <div className="user-description__item-specs">
+                    {specializations.map(item => <div className="user-description__item-spec">{item.name}</div>)}
+                </div>
             </p>}
             {additionalInfo &&
                 <>
