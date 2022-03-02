@@ -3,7 +3,7 @@ import Card from 'components/Card';
 import { categories } from '../config';
 
 const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead, setShowFilters}) => {
-    const isActive = (value) => activeCategoryId === value ? "news-feed__category-item active" : "NewsFeed__category-item";
+    const isActive = (value) => activeCategoryId === value ? "news-feed__category-item active" : "news-feed__category-item";
 
     const handleCategoryClick = (id) => {
         setActiveCategoryId(id);
