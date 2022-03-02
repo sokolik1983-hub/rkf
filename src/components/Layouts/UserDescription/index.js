@@ -138,9 +138,9 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
                                     <Fragment key={item.id}>
                                         <br />
                                         <a href={normalizeLink(item.site)}
-                                            title={item.description || item.site}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                           title={item.description || item.site}
+                                           target="_blank"
+                                           rel="noopener noreferrer"
                                         >
                                             {item.description || item.site}
                                         </a>

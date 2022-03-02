@@ -104,6 +104,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/referee/:id/:type',
+        component: LoadableModules.LoadableReferee
+    },
+    {
+        exact: true,
         path: '/exhibitions/:id',
         component: LoadableModules.LoadableExhibition
     },
