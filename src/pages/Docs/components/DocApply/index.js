@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import ls from "local-storage";
-import { Redirect, useParams } from "react-router-dom";
-import Alert from "components/Alert";
-import Button from "components/Button";
-import PedigreeHeader from "./forms/PedigreeHeader";
-import PedigreeTable from "./forms/PedigreeTable";
-import PedigreePayment from "./forms/PedigreePayment";
-import PedigreeDeclarant from "./forms/PedigreeDeclarant";
-import LitterHeader from "./forms/LitterHeader";
-import LitterTable from "./forms/LitterTable";
-import LitterPayment from "./forms/LitterPayment";
-import LitterDeclarant from "./forms/LitterDeclarant";
-import StageStrip from "./components/StageStrip";
-import DocHead from "../DocHead";
-import Modal from "../../../../components/Modal";
-import FeedBack from "./components/Feedback";
-import { blockContent } from "../../../../utils/blockContent";
+import React, { useState } from 'react';
+import { Redirect, useParams } from 'react-router-dom';
+
+import ls from 'local-storage';
+import Alert from 'components/Alert';
+import PedigreeHeader from './forms/PedigreeHeader';
+import PedigreeTable from './forms/PedigreeTable';
+import PedigreePayment from './forms/PedigreePayment';
+import PedigreeDeclarant from './forms/PedigreeDeclarant';
+import LitterHeader from './forms/LitterHeader';
+import LitterTable from './forms/LitterTable';
+import LitterPayment from './forms/LitterPayment';
+import LitterDeclarant from './forms/LitterDeclarant';
+import StageStrip from './components/StageStrip';
+import DocHead from '../DocHead';
+import Modal from '../../../../components/Modal';
+import FeedBack from './components/Feedback';
+import { blockContent } from '../../../../utils/blockContent';
 
 import './index.scss';
+
 
 const forms = {
     pedigree: {
@@ -59,7 +60,6 @@ const DocApply = ({ clubAlias, history }) => {
         let params = useParams();
         distinction = params.distinction || "pedigree";
         params.id && id !== params.id && setId(params.id);
-        //action = params.action || "form";
         url_stage = params.stage || "header";
         url_stage && stages[url_stage] && stage !== stages[url_stage] && setStage(stages[url_stage]);
     } else (setRedirect('/404'))

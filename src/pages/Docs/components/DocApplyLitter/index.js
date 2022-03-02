@@ -76,8 +76,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         declarant_id
     };
     const [loading, setLoading] = useState(true);
-    const [okAlert, setOkAlert] = useState(false);
-    const [noChangeAlert, setNoChangeAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
@@ -122,7 +120,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         return r;
     }
     const transformValues = values => {
-        //if (update) {
         setStatusId(values.status_id);
         let r = filterBySchema(values, (update ? updateSchema : validationSchema).fields);
         if (!(r.payment_document instanceof File)) {
@@ -142,10 +139,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             });
         });
         return r;
-        //} else {
-        //    let r = filterBySchema(values, validationSchema.fields);
-        //    return r;
-        //}
     }
 
     const setFormValues = values => {
@@ -189,23 +182,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         setRedirect(`/club/${clubAlias}/documents`);
     }
 
-    return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
-        {okAlert &&
-        <Alert
-            {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
-            autoclose={2.5}
-            okButton="true"
-            onOk={() => setRedirect(`/${clubAlias}/documents`)}
-        />
-        }
-        {noChangeAlert &&
-        <Alert
-            {...(sendAlertEmptyProps)}
-            autoclose={2.5}
-            okButton="true"
-            onOk={() => setRedirect(`/club/${clubAlias}/documents`)}
-        />
-        }
+    return loading ? <Loading /> : <div className={`documents-page__info DocApply view`}>
         {redirect && <Redirect to={redirect} />}
         {errAlert &&
             <Alert

@@ -70,7 +70,6 @@ const CardNewsNew = forwardRef(({
     is_all_cities
 }, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
@@ -417,7 +416,7 @@ const CardNewsNew = forwardRef(({
     return (
         <Card className={`card-news-new`}>
             <div className={`card-news-new__wrap${is_closed_advert ? ' is_closed' : ''}`}>
-                {isEditing ? <EditItem /> : <ViewItem />}
+                <ViewItem />
                 {showPhoto &&
                     <Modal handleClose={() => setShowPhoto(false)}>
                         <Lightbox

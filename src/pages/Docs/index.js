@@ -15,7 +15,6 @@ import ResponsivePersonTable from "./components/ResponsiblePersonTable";
 import CheckMembershipForm from "./components/CheckMembership/CheckMembershipForm";
 import CheckMembershipRegistry from "./components/CheckMembership/CheckMembershipRegistry";
 import DocRegistry from "./components/Print/DocRegistry";
-import PuppyMetrics from "./components/Print/PuppyMetrics";
 import AddStamp from "./components/Stamps/AddStamp";
 import Registry from "./components/Stamps/Registry";
 import RequestRegistry from "./components/RequestRegistry";

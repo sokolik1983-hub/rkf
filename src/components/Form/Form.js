@@ -40,7 +40,6 @@ function Form({
     resetForm = false,
     isEditPage,
     history,
-    setValue
 }) {
     const [loading, setLoading] = useState(false);
     const isMultipartData = format === "multipart/form-data";

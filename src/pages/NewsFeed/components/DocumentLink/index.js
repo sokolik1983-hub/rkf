@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { getHeaders } from '../../../../utils/request';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { filePdf } from '@progress/kendo-svg-icons';
