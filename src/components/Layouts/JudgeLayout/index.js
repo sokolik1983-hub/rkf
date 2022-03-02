@@ -39,13 +39,12 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     const [checkLink, setCheckLink] = useState(false);
     const isMobile = useIsMobile(1080);
 
-    console.log('judgeInfo', judgeInfo);
 
-    const { id } = useParams();
-    const { judgeLinkInfo } = location;
+
+    const {id} = useParams();
     const alias = useSelector(state => state.authentication.user_info.alias);
 
-    console.log('judgeLinkInfo', judgeLinkInfo);
+    console.log('judgeInfo', judgeInfo);
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
@@ -59,7 +58,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
         }, error => {
             console.log(error.response);
-            setErrorRedirect(error.response);
+            // setErrorRedirect(error.response);
         });
 
         setNeedRequest(true);
@@ -69,12 +68,14 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     const getJudgeInfo = () => {
         setLoading(true);
         Request({
-            url: endpointGetJudgeInfo + id
+            url: "/api/referee/referee/full?id=14017&type=1"
         }, data => {
+            console.log('data111111111', data)
             setJudgeInfo(data);
         }, error => {
             console.log(error.response);
-            setErrorRedirect(error.response);
+            console.log(endpointGetJudgeInfo + id);
+            // setErrorRedirect(error.response);
         });
         setLoading(false);
     };
@@ -180,7 +181,24 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                         </StickyBox>
                     </aside>}
                     <div className="user-page__right">
-                            444444444444444444444444444444444444444
+                            <Card>
+                                <div className="judge-info__wrap">
+                                    <img src="/media/MWI4ZjdkNzMtMTc1MS00MDVmLTlkZDUtZmIwYzA5OWUyODMxX0F2YXRhcg.JPG" alt="avatar-img" />
+                                    <div className="judge-info__inner">
+                                        <div className="judge-info__name-location">
+                                            <div className="judge-info__name-block">
+                                                <p className="judge-info__name-rus">Ивановский Иван</p>
+                                                <p className="judge-info__name-lat">Ivanov Ivan Ivanich</p>
+                                            </div>
+                                            <div className="judge-info__location-block">
+                                                <p className="judge-info__city">Москва</p>
+                                            </div>
+                                        </div>
+                                        <p className="judge-info__list">Лист Судьи № <span>1111</span></p>
+                                    </div>
+                                </div>
+
+                            </Card>
                     </div>
                 </Container>
                 <NotificationGroup>

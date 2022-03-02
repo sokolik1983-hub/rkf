@@ -38,6 +38,8 @@ const AuthCard = () => {
                     {activeTab === 2 && <RegistrationForm/>}
                 </ScrollArea>
             </div>
+
+
             <CopyrightInfo withSocials={true} />
         </div>
     )

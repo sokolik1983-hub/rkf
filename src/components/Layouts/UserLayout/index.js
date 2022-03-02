@@ -108,103 +108,102 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         checkLinkUserPage();
     },[]);
 
-    return loading ?
-        <Loading /> :
-        errorRedirect ?
-            <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
+    return (
+        <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
 
-                <div className="user-page">
-                    <Container className="user-page__content content">
-                        {(!checkLink || !isMobile) && <aside className="user-page__left">
-                            <StickyBox offsetTop={60}>
-                                {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
-                                }
-                                <Card>
-                                    <UserInfo
-                                        canEdit={canEdit}
-                                        logo_link={userInfo.logo_link}
-                                        share_link={`https://rkf.online/user/${alias}`}
-                                        first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                        last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                        alias={alias}
-                                        subscribed={userInfo.subscribed}
-                                        subscribed_id={userInfo.profile_id}
-                                        onSubscriptionUpdate={onSubscriptionUpdate}
-                                        onSuccess={notifySuccess}
-                                        onError={notifyError}
-                                    />
-                                </Card>
-                                {!isMobile &&
+            <div className="user-page">
+                <Container className="user-page__content content">
+                    {(!checkLink || !isMobile) && <aside className="user-page__left">
+                        <StickyBox offsetTop={60}>
+                            {isMobile &&
+                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
+                            }
+                            <Card>
+                                <UserInfo
+                                    canEdit={canEdit}
+                                    logo_link={userInfo.logo_link}
+                                    share_link={`https://rkf.online/user/${alias}`}
+                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
+                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                    alias={alias}
+                                    subscribed={userInfo.subscribed}
+                                    subscribed_id={userInfo.profile_id}
+                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                    onSuccess={notifySuccess}
+                                    onError={notifyError}
+                                />
+                            </Card>
+                            {!isMobile &&
                                 <UserMenu userNav={canEdit
                                     ? userNav(alias) // Show NewsFeed menu item to current user only
                                     : userNav(alias).filter(i => i.id !== 2)}
                                           notificationsLength={notificationsLength}
                                 />
-                                }
-                                {!isMobile &&
-                                    <>
-                                        <UserPhotoGallery
-                                            alias={alias}
-                                            pageLink={`/user/${alias}/gallery`}
-                                            canEdit={canEdit}
-                                        />
-                                        <UserVideoGallery
-                                            alias={alias}
-                                            pageLink={`/user/${alias}/video`}
-                                            canEdit={canEdit}
-                                        />
-                                        <CopyrightInfo withSocials={true} />
-                                    </>
-                                }
-                            </StickyBox>
-                        </aside>}
-                        <div className="user-page__right">
-                            <Link to={{
-                                pathname: "/Referee/full/16085",
-                                judgeLinkInfo: userInfo
-                            }} >111111111111111111111111111111111</Link>
-                            {
-                                React.cloneElement(children, {
-                                    isMobile,
-                                    userInfo,
-                                    getUserInfo,
-                                    canEdit,
-                                    alias,
-                                    id,
-                                    setNeedRequest,
-                                    needRequest,
-                                    setUserInfo,
-                                    onSubscriptionUpdate,
-                                    notifySuccess,
-                                    notifyError
-                                })
                             }
-                        </div>
-                    </Container>
-                    <NotificationGroup>
-                        <Fade enter={true} exit={true}>
-                            {success.status && <Notification
-                                type={{ style: 'success', icon: true }}
-                                closable={true}
-                                onClose={() => setSuccess(false)}
-                            >
-                                <span>{success.message ? success.message : 'Информация сохранена!'}</span>
-                            </Notification>}
-                        </Fade>
-                        <Fade enter={true} exit={true}>
-                            {error && <Notification
-                                type={{ style: 'error', icon: true }}
-                                closable={true}
-                                onClose={() => setError(false)}
-                            >
-                                <span>{errorMessage}</span>
-                            </Notification>}
-                        </Fade>
-                    </NotificationGroup>
-                </div>
-            </Layout>
+                            {!isMobile &&
+                                <>
+                                    <UserPhotoGallery
+                                        alias={alias}
+                                        pageLink={`/user/${alias}/gallery`}
+                                        canEdit={canEdit}
+                                    />
+                                    <UserVideoGallery
+                                        alias={alias}
+                                        pageLink={`/user/${alias}/video`}
+                                        canEdit={canEdit}
+                                    />
+                                    <CopyrightInfo withSocials={true} />
+                                </>
+                            }
+                        </StickyBox>
+                    </aside>}
+                    <div className="user-page__right">
+                        <Link to={{
+                            pathname: "/Referee/full/988",
+                            type: 1
+                        }} >111111111111111111111111111111111</Link>
+                        {
+                            React.cloneElement(children, {
+                                isMobile,
+                                userInfo,
+                                getUserInfo,
+                                canEdit,
+                                alias,
+                                id,
+                                setNeedRequest,
+                                needRequest,
+                                setUserInfo,
+                                onSubscriptionUpdate,
+                                notifySuccess,
+                                notifyError
+                            })
+                        }
+                    </div>
+                </Container>
+                <NotificationGroup>
+                    <Fade enter={true} exit={true}>
+                        {success.status && <Notification
+                            type={{ style: 'success', icon: true }}
+                            closable={true}
+                            onClose={() => setSuccess(false)}
+                        >
+                            <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                        </Notification>}
+                    </Fade>
+                    <Fade enter={true} exit={true}>
+                        {error && <Notification
+                            type={{ style: 'error', icon: true }}
+                            closable={true}
+                            onClose={() => setError(false)}
+                        >
+                            <span>{errorMessage}</span>
+                        </Notification>}
+                    </Fade>
+                </NotificationGroup>
+            </div>
+        </Layout>
+        )
+
 };
 
 export default React.memo(connectAuthVisible(connectShowFilters(UserLayout)));
