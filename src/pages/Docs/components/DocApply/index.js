@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ls from "local-storage";
 import { Redirect, useParams } from "react-router-dom";
 import Alert from "components/Alert";
-import Button from "components/Button";
 import PedigreeHeader from "./forms/PedigreeHeader";
 import PedigreeTable from "./forms/PedigreeTable";
 import PedigreePayment from "./forms/PedigreePayment";
@@ -13,9 +12,7 @@ import LitterPayment from "./forms/LitterPayment";
 import LitterDeclarant from "./forms/LitterDeclarant";
 import StageStrip from "./components/StageStrip";
 import DocHead from "../DocHead";
-import Modal from "../../../../components/Modal";
-import FeedBack from "./components/Feedback";
-import { blockContent } from "../../../../utils/blockContent";
+import FooterFeedback from "../../../../components/Layouts/FooterFeedback";
 
 import './index.scss';
 
@@ -39,10 +36,8 @@ const DocApply = ({ clubAlias, history }) => {
     let distinction;
     const profileId = ls.get('profile_id') ? ls.get('profile_id') : '';
 
-    const [okAlert, setOkAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
-    const [showModal, setShowModal] = useState('');
     const [id, setId] = useState(undefined);
     const [stage, setStage] = useState(0);
 
@@ -65,11 +60,6 @@ const DocApply = ({ clubAlias, history }) => {
     } else (setRedirect('/404'))
 
     const FormContent = (forms[distinction] || forms.pedigree)[url_stage] || forms.pedigree.header;
-
-    const closeModal = () => {
-        setShowModal(false);
-        blockContent(false);
-    };
 
     const Title = props => <><div>
         <DocHead text={distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"} link={`/${alias}/documents`} history={history}/>
@@ -104,38 +94,7 @@ const DocApply = ({ clubAlias, history }) => {
             <FormContent
                 {...{alias, id, profileId, Title, update, view}}
             />
-            <div className="documents-page__feedback">
-
-                <Button className="btn-condensed"
-                        onClick={() => setShowModal(true)}
-                >Сообщить об ошибке</Button>
-                <span className="hidden-item"> </span>
-                {showModal &&
-                    <Modal
-                        showModal={showModal}
-                        handleClose={closeModal}
-                        outsideClickHandler={() => setShowModal(false)}
-                        className={`stage-controls__modal`}
-                        headerName="Сообщить об ошибке"
-                    >
-                        <FeedBack
-                            setShowModal={setShowModal}
-                            setOkAlert={setOkAlert}
-                            setErrAlert={setErrAlert}
-                            blockContent={blockContent}
-                        />
-                    </Modal>
-                }
-                {okAlert &&
-                    <Alert
-                        title="Заявка отправлена"
-                        text="Ваша заявка отправлена"
-                        autoclose={2.5}
-                        okButton={true}
-                        onOk={() => setOkAlert(false)}
-                    />
-                }
-            </div>
+            <FooterFeedback />
         </div>
     </div>
 };
