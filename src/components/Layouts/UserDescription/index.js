@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Collapse } from "react-collapse";
+import {Link} from "react-router-dom";
 import Card from "../../Card";
 import Counter from "../../CounterComponent";
 import "./index.scss";
@@ -97,8 +98,8 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
                 <span className="user-description__item-title">Полная информация:</span>&nbsp;
                 <span className="user-description__item-lists">
                     { judgeInfo.map(item =>
-                        item.judge_type_id === 1 ? <span className="user-description__item-list">Лист судьи по пародам № {item.judge_cert_number}&nbsp;</span>
-                            : item.judge_type_id === 2 && <span className="user-description__item-list"> Лист судьи/специалиста по рабочим качествам № {item.judge_cert_number}&nbsp;</span>
+                        item.judge_type_id === 1 ? <Link to={`/referee/${item.judge_id}/1`} className="user-description__item-list">Лист судьи по пародам № {item.judge_cert_number}&nbsp;</Link>
+                            : item.judge_type_id === 2 && <Link to={`/referee/${item.judge_id}/2`} className="user-description__item-list"> Лист судьи/специалиста по рабочим качествам № {item.judge_cert_number}&nbsp;</Link>
                     )}
                 </span>
             </p>}
