@@ -36,6 +36,12 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
         setFiltersToUrl({IsPopular: !isFilter})
     }
 
+    const checkIos = () => {
+        if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
+            return true;
+        }
+    }
+
     return (
         <div className="exhibitions-page__list-filter">
             <div className="exhibitions-page__title-inner">
@@ -47,7 +53,7 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
                     />
                 }
                 <div className="exhibitions-page__controls">
-                    {!!exhibitionsForTable.length && !standardView &&
+                    {!!exhibitionsForTable.length && !standardView && !checkIos() &&
                         <div className="exhibitions-page__downloadBtn-wrap">
                             <button
                                 className="exhibitions-page__control exhibitions-page__control--downloadIcon"
