@@ -102,6 +102,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
         Request({
             url: `/api/referee/referee/full?id=14017&type=1`
         }, data => {
+            console.log('data', data);
             setJudgeAddInfo(data[0].judge_info);
         }, error => {
             console.log('error', error)
@@ -252,6 +253,44 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                                             <ul>
                                                 {
                                                     judgeAddInfo.emails.map(item => <li>{item}</li>)
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                </div>
+                                <div className="judge-info__box">
+                                    {
+                                        judgeAddInfo?.phones.length > 0 &&
+                                        <div className="judge-info__add-info">
+                                            <p>Статус:</p>
+                                            <ul>
+                                                {
+                                                    judgeAddInfo.phones.map(item => <li>{item}</li>)
+                                                }
+                                            </ul>
+
+                                        </div>
+                                    }
+                                    {
+                                        judgeAddInfo?.emails.length > 0 &&
+                                        <div className="judge-info__add-info">
+                                            <p>Выставочные конкурсы:</p>
+                                            <ul>
+                                                {
+                                                    judgeAddInfo.emails.map(item => <li>{item}</li>)
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                </div>
+                                <div className="judge-info__box">
+                                    {
+                                        judgeAddInfo?.opened_groups_and_breeds.length > 0 &&
+                                        <div className="judge-info__add-info">
+                                            <p>Группа, номер стандарта, название породы:</p>
+                                            <ul>
+                                                {
+                                                    judgeAddInfo.opened_groups_and_breeds.map(item => <li>{item}</li>)
                                                 }
                                             </ul>
                                         </div>

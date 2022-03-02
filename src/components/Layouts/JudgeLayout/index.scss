@@ -60,6 +60,9 @@
         list-style: none;
       }
     }
+    &__box:last-child {
+      border-bottom: none;
+    }
     &__wrap {
       display: flex;
       align-items: center;
@@ -119,8 +122,22 @@
     &__tel-email {
       width: 50%;
       display: flex;
+      color: #72839C;
       p {
         padding-right: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 26px;
+      }
+    }
+    &__add-info {
+      color: #72839C;
+      width: 50%;
+      p {
+        padding-right: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 26px;
       }
     }
   }
