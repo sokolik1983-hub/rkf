@@ -51,6 +51,15 @@
 }
 .Card {
   & .judge-info {
+    &__box {
+      display: flex;
+      align-items: flex-start;
+      padding: 15px 5px 20px;
+      border-bottom: 1px solid #e8e8e8;
+      ul {
+        list-style: none;
+      }
+    }
     &__wrap {
       display: flex;
       align-items: center;
@@ -105,6 +114,13 @@
       font-weight: 600;
       span {
         font-weight: 400;
+      }
+    }
+    &__tel-email {
+      width: 50%;
+      display: flex;
+      p {
+        padding-right: 10px;
       }
     }
   }

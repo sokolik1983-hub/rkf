@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Link, useLocation, useParams} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 import ls from 'local-storage';
 import StickyBox from 'react-sticky-box';
 import Loading from 'components/Loading';
@@ -99,7 +99,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
 
     const link = useLocation();
 
-   function checkLinkUserPage() {
+    function checkLinkUserPage() {
         let checkLink = link.pathname.includes('news-feed');
         setCheckLink(checkLink)
     }
@@ -108,102 +108,99 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         checkLinkUserPage();
     },[]);
 
-    return (
-        <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
+    return loading ?
+        <Loading /> :
+        errorRedirect ?
+            <Redirect to="/404" /> :
+            <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
 
-            <div className="user-page">
-                <Container className="user-page__content content">
-                    {(!checkLink || !isMobile) && <aside className="user-page__left">
-                        <StickyBox offsetTop={60}>
-                            {isMobile &&
-                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
-                            }
-                            <Card>
-                                <UserInfo
-                                    canEdit={canEdit}
-                                    logo_link={userInfo.logo_link}
-                                    share_link={`https://rkf.online/user/${alias}`}
-                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                    alias={alias}
-                                    subscribed={userInfo.subscribed}
-                                    subscribed_id={userInfo.profile_id}
-                                    onSubscriptionUpdate={onSubscriptionUpdate}
-                                    onSuccess={notifySuccess}
-                                    onError={notifyError}
-                                />
-                            </Card>
-                            {!isMobile &&
-                                <UserMenu userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                          notificationsLength={notificationsLength}
-                                />
-                            }
-                            {!isMobile &&
-                                <>
-                                    <UserPhotoGallery
-                                        alias={alias}
-                                        pageLink={`/user/${alias}/gallery`}
+                <div className="user-page">
+                    <Container className="user-page__content content">
+                        {(!checkLink || !isMobile) && <aside className="user-page__left">
+                            <StickyBox offsetTop={60}>
+                                {isMobile &&
+                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
+                                }
+                                <Card>
+                                    <UserInfo
                                         canEdit={canEdit}
-                                    />
-                                    <UserVideoGallery
+                                        logo_link={userInfo.logo_link}
+                                        share_link={`https://rkf.online/user/${alias}`}
+                                        first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
+                                        last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}
-                                        pageLink={`/user/${alias}/video`}
-                                        canEdit={canEdit}
+                                        subscribed={userInfo.subscribed}
+                                        subscribed_id={userInfo.profile_id}
+                                        onSubscriptionUpdate={onSubscriptionUpdate}
+                                        onSuccess={notifySuccess}
+                                        onError={notifyError}
                                     />
-                                    <CopyrightInfo withSocials={true} />
-                                </>
+                                </Card>
+                                {!isMobile &&
+                                    <UserMenu userNav={canEdit
+                                        ? userNav(alias) // Show NewsFeed menu item to current user only
+                                        : userNav(alias).filter(i => i.id !== 2)}
+                                              notificationsLength={notificationsLength}
+                                    />
+                                }
+                                {!isMobile &&
+                                    <>
+                                        <UserPhotoGallery
+                                            alias={alias}
+                                            pageLink={`/user/${alias}/gallery`}
+                                            canEdit={canEdit}
+                                        />
+                                        <UserVideoGallery
+                                            alias={alias}
+                                            pageLink={`/user/${alias}/video`}
+                                            canEdit={canEdit}
+                                        />
+                                        <CopyrightInfo withSocials={true} />
+                                    </>
+                                }
+                            </StickyBox>
+                        </aside>}
+                        <div className="user-page__right">
+                            {
+                                React.cloneElement(children, {
+                                    isMobile,
+                                    userInfo,
+                                    getUserInfo,
+                                    canEdit,
+                                    alias,
+                                    id,
+                                    setNeedRequest,
+                                    needRequest,
+                                    setUserInfo,
+                                    onSubscriptionUpdate,
+                                    notifySuccess,
+                                    notifyError
+                                })
                             }
-                        </StickyBox>
-                    </aside>}
-                    <div className="user-page__right">
-                        <Link to={{
-                            pathname: "/Referee/full/988",
-                            type: 1
-                        }} >111111111111111111111111111111111</Link>
-                        {
-                            React.cloneElement(children, {
-                                isMobile,
-                                userInfo,
-                                getUserInfo,
-                                canEdit,
-                                alias,
-                                id,
-                                setNeedRequest,
-                                needRequest,
-                                setUserInfo,
-                                onSubscriptionUpdate,
-                                notifySuccess,
-                                notifyError
-                            })
-                        }
-                    </div>
-                </Container>
-                <NotificationGroup>
-                    <Fade enter={true} exit={true}>
-                        {success.status && <Notification
-                            type={{ style: 'success', icon: true }}
-                            closable={true}
-                            onClose={() => setSuccess(false)}
-                        >
-                            <span>{success.message ? success.message : 'Информация сохранена!'}</span>
-                        </Notification>}
-                    </Fade>
-                    <Fade enter={true} exit={true}>
-                        {error && <Notification
-                            type={{ style: 'error', icon: true }}
-                            closable={true}
-                            onClose={() => setError(false)}
-                        >
-                            <span>{errorMessage}</span>
-                        </Notification>}
-                    </Fade>
-                </NotificationGroup>
-            </div>
-        </Layout>
-        )
-
+                        </div>
+                    </Container>
+                    <NotificationGroup>
+                        <Fade enter={true} exit={true}>
+                            {success.status && <Notification
+                                type={{ style: 'success', icon: true }}
+                                closable={true}
+                                onClose={() => setSuccess(false)}
+                            >
+                                <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                            </Notification>}
+                        </Fade>
+                        <Fade enter={true} exit={true}>
+                            {error && <Notification
+                                type={{ style: 'error', icon: true }}
+                                closable={true}
+                                onClose={() => setError(false)}
+                            >
+                                <span>{errorMessage}</span>
+                            </Notification>}
+                        </Fade>
+                    </NotificationGroup>
+                </div>
+            </Layout>
 };
 
 export default React.memo(connectAuthVisible(connectShowFilters(UserLayout)));

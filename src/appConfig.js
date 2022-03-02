@@ -104,7 +104,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/referee/full/:id',
+        path: '/referee/:id/:type',
         component: LoadableModules.LoadableReferee
     },
     {

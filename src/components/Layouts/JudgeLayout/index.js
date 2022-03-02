@@ -22,6 +22,7 @@ import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 import {endpointGetJudgeInfo} from "./config";
+import transliterate from "../../../utils/transliterate";
 
 import "./index.scss";
 
@@ -32,19 +33,21 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     const [errorMessage, setErrorMessage] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
     const [userInfo, setUserInfo] = useState({});
-    const [judgeInfo, setJudgeInfo] = useState({});
+    const [judgeAlias, setJudgeAlias] = useState('');
+    const [judgeInfo, setJudgeInfo] = useState(null);
+    const [judgeAddInfo, setJudgeAddInfo] = useState(null);
+    const [judgePersInfo, setJudgePersInfo] = useState(null);
+    const [judgeCity, setJudgeCity] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
     const [checkLink, setCheckLink] = useState(false);
     const isMobile = useIsMobile(1080);
 
-
-
-    const {id} = useParams();
+    const {id, type} = useParams();
     const alias = useSelector(state => state.authentication.user_info.alias);
 
-    console.log('userInfo', userInfo);
+    console.log('judgeAddInfo', judgeAddInfo);
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
@@ -65,20 +68,47 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
         setLoading(false);
     };
 
-    // const getJudgeInfo = () => {
-    //     setLoading(true);
-    //     Request({
-    //         url: "/api/referee/referee/full?id=14017&type=1"
-    //     }, data => {
-    //         console.log('data111111111', data)
-    //         setJudgeInfo(data);
-    //     }, error => {
-    //         console.log(error.response);
-    //         console.log(endpointGetJudgeInfo + id);
-    //         setErrorRedirect(error.response);
-    //     });
-    //     setLoading(false);
-    // };
+
+    const getJudgeAlias = () => {
+        setLoading(true);
+        Request({
+            url: `/api/referee/alias?judgeId=${id}`
+        }, data => {
+            setJudgeAlias(data);
+        }, error => {
+            setErrorRedirect(error.response);
+        });
+        setLoading(false);
+    };
+
+    const getJudgeInfo = () => {
+        setLoading(true);
+        Request({
+            url: `/api/owners/owner/public_full/${judgeAlias}`
+        }, data => {
+            setJudgeInfo(data);
+            setJudgePersInfo(data.personal_information);
+            setJudgeCity(data.additional_information);
+        }, error => {
+            console.log('error', error)
+            // setErrorRedirect(error.response);
+        });
+        setLoading(false);
+    };
+
+
+    const getJudgeAddInfo = () => {
+        setLoading(true);
+        Request({
+            url: `/api/referee/referee/full?id=14017&type=1`
+        }, data => {
+            setJudgeAddInfo(data[0].judge_info);
+        }, error => {
+            console.log('error', error)
+            // setErrorRedirect(error.response);
+        });
+        setLoading(false);
+    };
 
     const notifySuccess = (message) => {
         setSuccess({ status: true, message: message });
@@ -126,8 +156,13 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     useEffect(() => {
         checkLinkUserPage();
         (() => getUserInfo())();
-        // (() => getJudgeInfo())();
+        (() => getJudgeAlias())();
+        (() => getJudgeAddInfo())();
     },[]);
+
+   useEffect(() => {
+       (() => getJudgeInfo())();
+   }, [judgeAlias])
 
     return (
         loading ?
@@ -183,19 +218,44 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                     <div className="user-page__right">
                             <Card>
                                 <div className="judge-info__wrap">
-                                    <img src="/media/MWI4ZjdkNzMtMTc1MS00MDVmLTlkZDUtZmIwYzA5OWUyODMxX0F2YXRhcg.JPG" alt="avatar-img" />
+                                    <img src={judgeInfo?.logo_link} alt="avatar-img" />
                                     <div className="judge-info__inner">
                                         <div className="judge-info__name-location">
                                             <div className="judge-info__name-block">
-                                                <p className="judge-info__name-rus">Ивановский Иван</p>
-                                                <p className="judge-info__name-lat">Ivanov Ivan Ivanich</p>
+                                                <p className="judge-info__name-rus">{judgePersInfo && judgePersInfo.first_name + ' ' + judgePersInfo.last_name}</p>
+                                                <p className="judge-info__name-lat">{judgePersInfo && transliterate(`${judgePersInfo.first_name} ${judgePersInfo.last_name}`)}</p>
                                             </div>
                                             <div className="judge-info__location-block">
-                                                <p className="judge-info__city">Москва</p>
+                                                <p className="judge-info__city">{judgeCity && judgeCity.city_name}</p>
                                             </div>
                                         </div>
                                         <p className="judge-info__list">Лист Судьи № <span>1111</span></p>
                                     </div>
+                                </div>
+                                <div className="judge-info__box">
+                                    {
+                                        judgeAddInfo?.phones.length > 0 &&
+                                        <div className="judge-info__tel-email">
+                                            <p>Телефон:</p>
+                                            <ul>
+                                                {
+                                                    judgeAddInfo.phones.map(item => <li>{item}</li>)
+                                                }
+                                            </ul>
+
+                                        </div>
+                                    }
+                                    {
+                                        judgeAddInfo?.emails.length > 0 &&
+                                        <div className="judge-info__tel-email">
+                                            <p>E-mail:</p>
+                                            <ul>
+                                                {
+                                                    judgeAddInfo.emails.map(item => <li>{item}</li>)
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
                                 </div>
 
                             </Card>
