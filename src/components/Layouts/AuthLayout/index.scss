@@ -1,42 +1,77 @@
 .auth-layout {
+  display: flex;
+  justify-content: flex-end;
   width: 100%;
-  min-height: calc(100vh - 52px);
+  min-height: calc(100vh - 76px);
   background: url("/static/images/authorization/auth-bg.jpg") no-repeat left center;
   background-attachment: fixed;
   background-size: cover;
-  display: flex;
-  justify-content: flex-end;
-  @media (max-width: 768px) {
-    min-height: calc(100vh - 158px);
-  }
-  @media (max-width: 560px) {
-    min-height: calc(100vh - 156px);
-  }
-  &.login-page{
-    min-height: calc(100vh - 52px);
+  border-radius: 0 5px 5px 0;
+  @media (max-width: 1079px) {
+    min-height: calc(100vh - 146px);
   }
   &__content {
     display: flex;
-    box-sizing: border-box;
     max-width: 410px;
     width: 100%;
     .Card{
       display: flex;
       flex-direction: column;
+      border-radius: 4px;
+      box-shadow: 0px 0px 7px rgba(63, 110, 182, 0.2);
+      .copyright-wrap {
+        width: fit-content;
+        height: auto;
+        margin: 0 auto;
+        padding: 40px 0 0;
+        box-shadow: none;
+      }
     }
     @media (max-width: 990px) {
       max-width: none;
     }
   }
-  .copyright-wrap{
-    box-shadow: none;
-    padding: 0;
-    margin-bottom: 0;
-    height: auto!important;
+  .FormInput {
+    margin-bottom: 25px;
+    label {
+      margin-left: 3px;
+    }
+    &__input {
+      height: 38px;
+      padding-left: 10px;
+      border-radius: 3px;
+      border: 1px solid #CED4DA;
+      font-family: "Source Sans Pro", Helvetica, sans-serif;
+      font-weight: 400;
+      &::placeholder {
+        font-family: "Source Sans Pro", Helvetica, sans-serif !important;
+        font-size: 16px;
+        font-weight: 400;
+        color: #8F989D;
+      }
+      &:active,
+      &:focus {
+        padding-left: 10px;
+        border-radius: 3px;
+        border-width: 1px;
+      }
+    }
   }
-  
+  .custom-checkbox__label {
+    max-width: 330px;
+    padding-top: 5px;
+    font-size: 14px;
+    line-height: 14px;
+    &:before {
+      border-radius: 3px;
+      border-width: 1px;
+    }
+  }
   .copyright-policy {
     text-align: center;
     text-align-last: center;
+  }
+  .scrollarea-content {
+    overflow: visible;
   }
 }

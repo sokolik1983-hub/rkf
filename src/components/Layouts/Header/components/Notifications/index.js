@@ -1,18 +1,18 @@
-import React, { forwardRef, useState, useEffect, useContext, useRef } from "react";
-import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import ls from "local-storage";
-import { connectLogin, connectWidgetLogin } from "pages/Login/connectors";
-import OutsideClickHandler from "react-outside-click-handler";
-import { Request } from "utils/request";
-import NotificationCategories from "./NotificationCategories";
-import NotificationItem from "./NotificationItem";
-import { NotificationsContext } from "app/context";
-import Loading from "components/Loading";
-import { DEFAULT_IMG } from "appConfig";
-import PopupModal from "../../../../PopupModal";
-import useIsMobile from "../../../../../utils/useIsMobile";
-import {blockContent} from "../../../../../utils/blockContent";
+import React, { forwardRef, useState, useEffect, useContext, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import ls from 'local-storage';
+import { connectLogin, connectWidgetLogin } from 'pages/Login/connectors';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { Request } from 'utils/request';
+import NotificationCategories from './NotificationCategories';
+import NotificationItem from './NotificationItem';
+import { NotificationsContext } from 'app/context';
+import Loading from 'components/Loading';
+import { DEFAULT_IMG } from 'appConfig';
+import PopupModal from '../../../../PopupModal';
+import useIsMobile from '../../../../../utils/useIsMobile';
+import {blockContent} from '../../../../../utils/blockContent';
 
 import "./styles.scss";
 
@@ -271,10 +271,6 @@ const Notifications = forwardRef(
                                 </OutsideClickHandler>
                             </div>
                         }
-
-
-
-
                     </CSSTransition>
                 </>
                 }

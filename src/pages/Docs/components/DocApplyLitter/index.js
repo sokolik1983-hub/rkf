@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import ls from "local-storage";
-import { Redirect, Link } from "react-router-dom";
-import { Request } from "utils/request";
-import Loading from "components/Loading";
-import Alert from "components/Alert";
-import Card from "components/Card";
-import { Form } from "components/Form";
-import DocItemList from "../DocItemList";
-import removeNulls from "utils/removeNulls";
-import './index.scss';
+import React, { useState, useEffect } from 'react';
+import { Redirect, Link } from 'react-router-dom';
 
+import ls from 'local-storage';
+import { Request } from 'utils/request';
+import Loading from 'components/Loading';
+import Alert from 'components/Alert';
+import Card from 'components/Card';
+import { Form } from 'components/Form';
+import DocItemList from '../DocItemList';
+import removeNulls from 'utils/removeNulls';
 import {
     emptyPedigreeDeclarant,
     emptyLitterDeclarant,
@@ -21,21 +20,10 @@ import {
     apiClubDeclarantsEndpoint,
     apiPedigreeEndpoint,
     apiLitterEndpoint
-} from "../../config.js";
+} from '../../config.js';
 
-const sendAlertProps = {
-    title: "Документы отправлены",
-    text: "Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
-}
-const sendAlertEmptyProps = {
-    title: "Вы не внесли никаких изменений",
-    text: "Необходимо внести изменения перед отправкой"
-}
+import './index.scss';
 
-const draftAlertProps = {
-    title: "Заявка сохранена",
-    text: "Заявка сохранена. Вы можете отредактировать ее в личном кабинете."
-}
 
 const DocApply = ({ clubAlias, history, distinction }) => {
     const [draft, setDraft] = useState(false);
@@ -79,7 +67,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
-    const [statusId, setStatusId] = useState(1);
     const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
 
     let update = false, id, view = false;
@@ -120,7 +107,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         return r;
     }
     const transformValues = values => {
-        setStatusId(values.status_id);
         let r = filterBySchema(values, (update ? updateSchema : validationSchema).fields);
         if (!(r.payment_document instanceof File)) {
             delete r.payment_document;

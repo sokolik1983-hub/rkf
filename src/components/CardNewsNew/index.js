@@ -10,7 +10,6 @@ import { ActiveUserMark, FederationChoiceMark } from 'components/Marks';
 import { formatText } from 'utils';
 import { formatDateTime } from 'utils/datetime';
 import { DEFAULT_IMG } from 'appConfig';
-import EditForm from './EditForm';
 import CardFooter from '../CardFooter';
 import DocumentLink from './DocumentLink';
 import './index.scss';
@@ -317,101 +316,6 @@ const CardNewsNew = forwardRef(({
         </>
     };
 
-    const EditItem = () => <>
-        <div className="card-news-new__content">
-            <div className="card-news-new__head">
-                <div className="card-news-new__left">
-                    <Link to={user_type === 4
-                        ? `/kennel/${alias}`
-                        : user_type === 1
-                            ? `/user/${alias}`
-                            : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
-                                ? `/club/${alias}`
-                                : `/${alias}`}
-                    >
-                        <div className="card-news-new__left-logo" style={{
-                            background: `url(${logo_link ?
-                                logo_link :
-                                user_type === 1 ?
-                                    DEFAULT_IMG.userAvatar :
-                                    DEFAULT_IMG.clubAvatar
-                                }) center center/cover no-repeat`
-                        }} />
-                    </Link>
-                    <span className="card-news-new__left-name">
-                        <span>
-                            <Link to={user_type === 4
-                                ? `/kennel/${alias}`
-                                : user_type === 1
-                                    ? `/user/${alias}`
-                                    : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
-                                        ? `/club/${alias}`
-                                        : `/${alias}`}>
-                                {(user_type === 3 || user_type === 4 || user_type === 5) &&
-                                    <>
-                                        <span>
-                                            {
-                                                user_type === 3
-                                                    ? 'Клуб'
-                                                    : user_type === 4
-                                                        ? 'Питомник'
-                                                        : user_type === 5
-                                                            ? 'Федерация'
-                                                            : ''
-                                            }
-                                        </span>
-                                            &nbsp;
-                                    </>
-                                }
-                                {user_type === 1 ? first_name + ' ' + last_name : name}
-                            </Link>
-                            {active_rkf_user &&
-                                <ActiveUserMark />
-                            }
-                            {active_member &&
-                                <FederationChoiceMark />
-                            }
-                        </span>
-                        <div>
-                            {formatDateTime(create_date)}
-                            {fact_city_name &&
-                                <span className="card-news-new__city"
-                                    onClick={() => changeCityFilter([fact_city_id])}
-                                    title={fact_city_name}>
-                                    {fact_city_name}
-                                </span>
-                            }
-                        </div>
-                    </span>
-                </div>
-            </div>
-            <div>
-                <EditForm id={id}
-                    text={content}
-                    img={picture_link || ''}
-                    videoLink={video_link || ''}
-                    documents={documents}
-                    isAd={is_advert}
-                    adBreedId={advert_breed_id}
-                    adCode={advert_code}
-                    adCost={advert_cost}
-                    adNumberOfPuppies={advert_number_of_puppies}
-                    history={history}
-                    handleSuccess={handleSuccess}
-                />
-            </div>
-        </div>
-        <div className="card-news-new__controls">
-            <CardFooter
-                id={id}
-                share_link={window.location.host === 'rkf.online' ? `https://rkf.online/news/${id}` : `https://stage.uep24.ru/news/${id}`}
-                is_liked={is_liked}
-                like_count={like_count}
-                likesOn={true}
-                type="news"
-            />
-        </div>
-    </>;
 
     return (
         <Card className={`card-news-new`}>

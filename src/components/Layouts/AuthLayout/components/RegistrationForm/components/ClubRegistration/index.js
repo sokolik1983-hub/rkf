@@ -93,7 +93,7 @@ const ClubRegistration = () => {
                 }
                 {activeClub &&
                     <Modal showModal={showModal} handleClose={onModalClose} className="club-registration__modal">
-                        <ActivateClub club={activeClub} />
+                        <ActivateClub club={activeClub} close={onModalClose} />
                     </Modal>
                 }
             </div>

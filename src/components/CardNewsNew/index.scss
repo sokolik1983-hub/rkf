@@ -380,7 +380,6 @@
 
     &._disabled {
       margin-bottom: 10px !important;
-      margin-top: 15px;
     }
 
     * {
@@ -390,6 +389,7 @@
   }
 
   &__ad {
+    margin-bottom: 15px;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
