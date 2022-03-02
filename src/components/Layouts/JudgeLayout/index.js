@@ -44,7 +44,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     const {id} = useParams();
     const alias = useSelector(state => state.authentication.user_info.alias);
 
-    console.log('judgeInfo', judgeInfo);
+    console.log('userInfo', userInfo);
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
@@ -58,27 +58,27 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
         }, error => {
             console.log(error.response);
-            // setErrorRedirect(error.response);
+            setErrorRedirect(error.response);
         });
 
         setNeedRequest(true);
         setLoading(false);
     };
 
-    const getJudgeInfo = () => {
-        setLoading(true);
-        Request({
-            url: "/api/referee/referee/full?id=14017&type=1"
-        }, data => {
-            console.log('data111111111', data)
-            setJudgeInfo(data);
-        }, error => {
-            console.log(error.response);
-            console.log(endpointGetJudgeInfo + id);
-            // setErrorRedirect(error.response);
-        });
-        setLoading(false);
-    };
+    // const getJudgeInfo = () => {
+    //     setLoading(true);
+    //     Request({
+    //         url: "/api/referee/referee/full?id=14017&type=1"
+    //     }, data => {
+    //         console.log('data111111111', data)
+    //         setJudgeInfo(data);
+    //     }, error => {
+    //         console.log(error.response);
+    //         console.log(endpointGetJudgeInfo + id);
+    //         setErrorRedirect(error.response);
+    //     });
+    //     setLoading(false);
+    // };
 
     const notifySuccess = (message) => {
         setSuccess({ status: true, message: message });
@@ -126,7 +126,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     useEffect(() => {
         checkLinkUserPage();
         (() => getUserInfo())();
-        (() => getJudgeInfo())();
+        // (() => getJudgeInfo())();
     },[]);
 
     return (
