@@ -1,56 +1,44 @@
 .FormInput {
   display: flex;
   flex-flow: column nowrap;
-  //min-width: 278px;
   margin-bottom: 32px;
   position: relative;
-
   &.hidden,
   &--hidden{
     height: 0;
     padding: 0;
     margin: 0;
   }
-
   label {
     margin-bottom: 8px;
   }
-
   textarea {
     resize: none;
   }
-
   input[type="date"],
   input[type="time"] {
     padding: 9px 11px 10px 11px;
-
     &:active,
     &:focus {
       padding: 8px 10px 9px 10px;
     }
   }
-
   .FormInput__input {
     box-sizing: border-box;
     letter-spacing: .2px;
     font-family: 'Futura New', Helvetica, sans-serif;
-
     padding: 12px 14px;
     font-size: 16px;
     line-height: 24px;
     font-weight: 200;
-
     border-radius: 6px;
     border-style: solid;
     border-width: 1px;
     border-color: #EBF0F2;
     background-color: white;
-
-
     &:hover {
       border-color: #b3b3b3;
     }
-
     &:active,
     &:focus {
       outline: none;
@@ -59,7 +47,6 @@
       border-width: 2px;
       padding: 11px 13px;
     }
-
     &:disabled {
       padding: 11px 12px;
       border-width: 1px;
@@ -67,27 +54,20 @@
       -webkit-text-fill-color: #90999E;
       -webkit-opacity: 1;
       color: #90999E;
-
       &:hover {
         border-color: #EBF0F2;
       }
     }
-
     &::placeholder {
       font-family: inherit;
-      // color: #BABFC7;
     }
   }
-
-
   &--checkbox {
     display: flex;
     flex-flow: row nowrap;
-
     label {
       order: 2;
     }
-
     input {
       order: 1;
       border: solid 1px;
@@ -95,29 +75,18 @@
       margin-right: 8px;
     }
   }
-
   &--error {
-    //color: #FA5D50;
     .FormInput__input {
       border-color: #FA5D50;
       border-width: 2px;
       padding: 11px 13px;
     }
-
     .FormInput__error {
       -webkit-text-fill-color: #FA5D50;
       -webkit-opacity: 1;
       color: #FA5D50;
     }
-
-    div[class*="-control"] {
-      border-color: #FA5D50;
-      border-width: 2px;
-      padding-top: 6px;
-      padding-bottom: 5px;
-    }
   }
-
   &__error {
     position: absolute;
     line-height: 100%;
@@ -126,7 +95,6 @@
     white-space: nowrap;
     background-color: white;
   }
-
   &--select {
     .FormInput__input,
     .FormInput__input:focus,
