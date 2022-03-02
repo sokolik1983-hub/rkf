@@ -219,7 +219,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                     <div className="user-page__right">
                             <Card>
                                 <div className="judge-info__wrap">
-                                    <img src={judgeInfo?.logo_link} alt="avatar-img" />
+                                    {/*<img src={judgeInfo.logo_link === null ? '' : judgeInfo.logo_link} alt="avatar-img" />*/}
                                     <div className="judge-info__inner">
                                         <div className="judge-info__name-location">
                                             <div className="judge-info__name-block">
