@@ -89,7 +89,8 @@ const authInitialState = {
     profile_id: loadProfile(),
     account_type: loadAccountType(),
     user_info: loadUserInfo(),
-    helpdesk_api_key: loadHelpdeskApiKey()
+    helpdesk_api_key: loadHelpdeskApiKey(),
+    access_token: loadApiKey()
 };
 
 const authReducer = createReducer(authInitialState, {
@@ -113,7 +114,8 @@ const authReducer = createReducer(authInitialState, {
             profile_id,
             account_type: accountType !== 5 ? account_type : accountType,
             user_info,
-            helpdesk_api_key
+            helpdesk_api_key,
+            access_token
         };
     },
     [actiontypes.LOGOUT](state, action) {

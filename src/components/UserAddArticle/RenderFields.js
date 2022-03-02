@@ -218,7 +218,7 @@ const RenderFields = ({ fields,
                             type="file"
                             name="file"
                             id="file"
-                            accept=".jpg, .jpeg"
+                            accept="image/*"
                             className="ArticleCreateForm__inputfile"
                             onChange={handleChange}
                         />
@@ -330,7 +330,7 @@ const RenderFields = ({ fields,
                     </FormGroup>
                     {
                         !activeElem && <div className="ArticleCreateForm__error-wrap">
-                            <div className="FormInput__error">Выберите категорию объявления.</div>
+                            <div className="FormInput__error">Выберите категорию объявления</div>
                         </div>
                     }
                     <FormGroup className={`ArticleCreateForm__advert buy-sell ${isMating ? 'isMating' : ''}`}>
@@ -357,7 +357,7 @@ const RenderFields = ({ fields,
                     </FormGroup>
                     {
                         !activeElem && <div className="ArticleCreateForm__error-wrap">
-                            <div className="FormInput__error">Выберите категорию объявления.</div>
+                            <div className="FormInput__error">Выберите категорию объявления</div>
                         </div>
                     }
                     <FormGroup className="ArticleCreateForm__advert Ads">
@@ -398,7 +398,7 @@ const RenderFields = ({ fields,
                 </FormGroup>
                 {
                     !activeElem && <div className="ArticleCreateForm__error-wrap">
-                        <div className="FormInput__error">Выберите категорию объявления.</div>
+                        <div className="FormInput__error">Выберите категорию объявления</div>
                     </div>
                 }
                 <FormGroup className="ArticleCreateForm__advert Ads">

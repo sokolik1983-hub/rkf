@@ -830,6 +830,7 @@
   }
   &__userpic {
     position: absolute;
+    top: 50px;
     height: 80px;
     width: 80px;
     min-width: 60px;
@@ -838,8 +839,8 @@
     background-color: white;
     border-radius: 50%;
     border: 2px solid #fff;
-    margin-bottom: -75px;
     @media (max-width: 600px) {
+      top: 60px;
       height: 60px;
       width: 60px;
     }
@@ -940,7 +941,7 @@
     align-items: center;
     &--menu {
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
     }
     &:hover {
       background-color: whitesmoke;

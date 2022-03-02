@@ -217,7 +217,6 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                 </div>
             }
             <FormControls className="article-edit__form-controls">
-                {/* <button type="button" className="btn btn-simple" onClick={onCancel}>Отмена</button> */}
                 <SubmitButton
                     type="submit"
                     className={`k-button k-primary ${formik.isValid ? '' : 'disabled'}`}

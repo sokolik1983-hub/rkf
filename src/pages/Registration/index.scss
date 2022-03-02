@@ -1,12 +1,23 @@
 .registration-page {
-  &__main-tabs {
+  background-color: #f5f8ff;
+  &__content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0 -25px;
+  }
+  &__tabs {
     border-bottom: 1px solid #e8e8e8;
     margin-bottom: 50px;
     padding: 0 25px 10px;
     display: flex;
     justify-content: space-between;
+    @media (max-width: 560px) {
+      margin: 0 16px 50px;
+    }
   }
-  &__main-tab {
+  &__tab {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 18px;
@@ -17,106 +28,21 @@
       color: #3366FF;
     }
   }
-  &__message {
-    margin-top: 24px;
-    text-align: center;
-    &._error {
-      color: #FA5D50;
-    }
-  }
-  &__login{
-    margin: 20px 0;
-    padding: 0 10px;
-    &-link{
-      text-decoration: none;
-      font-weight: bold;
-      &:hover{
-        text-decoration: underline;
-      }
-    }
-  }
-  &__title {
-    text-align: center;
-    font-size: 38px;
-    line-height: 42px;
-    font-weight: bold;
-    margin: 0 0 18px;
-  }
-  &__tabs {
-    width: 100%;
-    max-width: 572px;
-    margin: 0 auto 28px;
-    &-controls {
-      border-bottom: 1px solid #e8e8e8;
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
-  }
-  &__tabs-list {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-  }
-  &__tab {
-    padding: 0 6px 10px;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    text-align: center;
-    line-height: 16px;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: .2px;
-    color: #72839c;
-    white-space: nowrap;
-    transition: all .2s linear;
-    &:hover {
-      color: #3366FF;
-    }
-    &._active {
-      border-bottom-color: #3366FF;
-    }
-    &._disabled {
-      color: #72839c;
-      opacity: .5;
-      cursor: default;
-    }
-    @media (max-width: 560px) {
-      width: auto;
-      padding: 0 6px 10px;
-    }
-  }
-  &__support-links {
-    font-weight: normal;
-    border-top: 1px solid #ccc;
-    margin: 24px 0 10px;
-    padding: 12px 10px 0;
-    p {
-      margin-bottom: 10px;
-    }
-    a {
-      text-decoration: none;
-      margin-bottom: 10px;
-      background: url("/static/icons/registration/info.svg") left center/contain no-repeat;
-      padding-left: 25px;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+  &__scroll-wrap {
+    flex: 1 1 auto;
+    padding: 0 25px;
   }
   .Card {
     border-radius: 0;
     width: 100%;
-    height: 100%;
-    padding-top: 50px;
-    padding-bottom: 10px;
+    height: calc(100vh - 52px);
+    padding: 50px 25px 10px;
+    display: flex;
+    flex-direction: column;
     @media (max-width: 560px) {
-      padding-left: 16px;
-      padding-right: 16px;
+      padding-left: 0;
+      padding-right: 0;
+      height: 100%;
     }
-  }
-  .copyright-wrap{
-    box-shadow: none;
-    padding: 0;
-    margin-bottom: 0;
   }
 }

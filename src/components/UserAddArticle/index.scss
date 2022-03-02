@@ -108,6 +108,7 @@
   &__length-hint {
     display: flex;
     justify-content: flex-end;
+    width: 80px;
   }
 
   &__content-length {
@@ -291,7 +292,7 @@
     button {
       width: 154px;
       @media (max-width: 750px) {
-        width: 135px;
+        width: 136px;
       }
     }
   }
@@ -301,6 +302,7 @@
 
     @media(max-width: 750px) {
       flex-basis: 100%;
+      flex-wrap: wrap;
       gap: 20px;
     }
   }
@@ -454,9 +456,10 @@
 
       &._desktop {
         margin-left: 50px;
+        margin-top: 18px;
       }
       .FormGroup--inline {
-        margin-bottom: 18px;
+        margin-bottom: 25px;
         .k-chip-list .k-chip {
           height: 33px;
           min-width: 100px;
@@ -657,7 +660,7 @@
   &__error-wrap {
     position: relative;
     & .FormInput__error {
-      top: -15px;
+      top: -17px;
       color: #FA5D50;
       padding: 0;
     }

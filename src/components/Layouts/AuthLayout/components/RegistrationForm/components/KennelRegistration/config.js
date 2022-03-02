@@ -1,4 +1,4 @@
-import {object, string} from "yup";
+import {number, object, string} from "yup";
 
 
 export const federationForm = {
@@ -24,7 +24,7 @@ export const federationForm = {
         }
     },
     validationSchema: object().shape({
-        federation_id: string().required('Укажите федерацию'),
+        federation_id: number().required('Укажите федерацию'),
         folder_number: string().required('Укажите номер папки')
     })
 };
@@ -65,7 +65,7 @@ export const nurseryForm = {
         }
     },
     validationSchema: object().shape({
-        city_id: string().required('Укажите город'),
+        city_id: number().required('Укажите город'),
         owner_last_name: string().required('Укажите Фамилию'),
         owner_first_name: string().required('Укажите Имя'),
         mail: string().email('Неверный формат E-mail').required('Укажите E-mail')

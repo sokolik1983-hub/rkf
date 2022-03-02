@@ -117,7 +117,7 @@
     }
     @media (max-width: 550px) {
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
     }
   }
   &__fullscreen-controls {
@@ -198,7 +198,7 @@
         border-bottom: 1px solid rgba(33, 37, 41, 0.125);
         text-align: center;
       }
-    }  
+    }
   }
   .k-grid {
     font-size: 14px;

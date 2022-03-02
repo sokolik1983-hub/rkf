@@ -1,0 +1,48 @@
+.login-page {
+  background-color: #f5f8ff;
+  &__content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0 -25px;
+  }
+  &__tabs {
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 50px;
+    padding: 0 25px 10px;
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 560px) {
+      margin: 0 16px 50px;
+    }
+  }
+  &__tab {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+    color: #90999E;
+    &.active {
+      color: #3366FF;
+    }
+  }
+  &__scroll-wrap {
+    flex: 1 1 auto;
+    padding: 0 25px;
+  }
+  .Card {
+    border-radius: 0;
+    width: 100%;
+    height: calc(100vh - 52px);
+    padding: 50px 25px 10px;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 560px) {
+      padding-left: 0;
+      padding-right: 0;
+      height: 100%;
+    }
+  }
+}

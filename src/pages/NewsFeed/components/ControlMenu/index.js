@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 import { Request } from "../../../../utils/request";
 
 import './index.scss';
@@ -12,13 +12,19 @@ const ControlMenu = ({
                          updateNews,
                          unsetAllChecks,
                          startElement,
+                         isUpdateWithAllChecks,
                      }) => {
 
     const [elementsCount, setElementsCount] = useState(startElement + 9);
+    const controlCheckedAllRef = useRef();
 
     useEffect(() => {
         setElementsCount(startElement + 9);
     }, [startElement]);
+
+    useEffect(() => {
+        isUpdateWithAllChecks && !isControlCheckedAll && clickControl();
+    }, [isUpdateWithAllChecks, isControlCheckedAll]);
 
     const moveNotifications = async (method) => {
         await Request({
@@ -32,6 +38,10 @@ const ControlMenu = ({
         });
     };
 
+    const clickControl = () => {
+        controlCheckedAllRef.current.click();
+    }
+
 
     return (
         <div className="control-menu">
@@ -42,6 +52,7 @@ const ControlMenu = ({
                             type="checkbox"
                             checked={isControlCheckedAll}
                             onChange={() => handleCheckAll(true)}
+                            ref={controlCheckedAllRef}
                         />
                         <span className="control-menu__item-text">
                             Выделить все
