@@ -22,6 +22,7 @@ import {
     apiPedigreeEndpoint,
     apiLitterEndpoint
 } from "../../config.js";
+import FooterFeedback from "../../../../components/Layouts/FooterFeedback";
 
 const sendAlertProps = {
     title: "Документы отправлены",
