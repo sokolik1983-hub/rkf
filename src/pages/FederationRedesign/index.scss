@@ -120,5 +120,148 @@
         }
       }
     }
+    @media (max-width: 990px) and (min-width: 561px) {
+      .user-banner._custom_banner {
+        padding: 0;
+        max-height: 200px;
+        .user-banner__img {
+          border-radius: 5px;
+        }
+      }
+
+      .user-header {
+        display: flex;
+        flex-direction: row;
+
+         &__user-wrap::before {
+           display: none;
+         }
+
+        &__content {
+          width: auto;
+        }
+
+        @media(min-width: 730px) {
+
+          height: 110px;
+
+          .UserActionControls {
+            display: flex;
+            position: relative;
+            bottom: 41px;
+            justify-content: flex-end;
+            margin-right: 30px;
+            width: auto;
+
+            &__message-btn {
+              width: 170px;
+              padding: 0;
+            }
+
+            &__subscribe-btn {
+              width: 170px;
+              margin: 10px 10px 0;
+              padding: 0;
+
+              span {
+                padding-right: 0;
+              }
+            }
+          }
+
+          .user-info__logo-wrap {
+            align-self: flex-start;
+            padding-top: 15px;
+          }
+
+          &__container {
+            position: relative;
+
+            .Share {
+              position: relative;
+              top: 8px;
+            }
+          }
+
+          &__user-wrap {
+            top: 62px;
+          }
+        }
+
+        .user-info__logo {
+          width: 80px;
+          min-width: 80px;
+          height: 80px;
+
+          @media (min-width: 769px) {
+            &-wrap {
+              align-self: flex-start;
+            }
+          }
+        }
+      }
+
+      .photo-component {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        height: 174px;
+        border-radius: 6px;
+        background-color: white;
+        box-shadow: 0 6px 12px rgba(51,102,255,.08);
+
+
+        img {
+          margin: 10px;
+          height: 154px;
+          width: auto;
+        }
+
+        &__description {
+          position: relative;
+          justify-content: center;
+          height: 100%;
+          width: auto;
+          gap: 10px;
+          background: none;
+
+          h5, p {
+            color: #253C5E;
+          }
+        }
+
+        &__title {
+          margin: 0;
+        }
+      }
+
+    .user-description {
+      height: 130px;
+      
+      h4 {
+        padding-bottom: 8px;
+        border-bottom: 1px solid #E5E5E5;
+        line-height: 18px;
+      }
+
+      &__info {
+        margin-top: 20px;
+        color: #253C5E;
+      }
+    }
+      
+      .ReactCollapse {
+        &--collapse {
+          min-height: 191px;
+        }
+      }
+
+      .user-contacts__info-title-wrap {
+        padding-bottom: 10px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid #E5E5E5
+      }
+
+    }
   }
 }

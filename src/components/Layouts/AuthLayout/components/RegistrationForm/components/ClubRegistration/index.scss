@@ -1,23 +1,53 @@
 .club-registration {
   text-align: center;
   .css-bg1rzq-control {
-    border-radius: 6px !important;
-    border-color: #EBF0F2 !important;
+    height: 38px !important;
+    border-radius: 3px !important;
+    border-color: #CED4DA !important;
+    padding-left: 10px;
+    .css-1hwfws3 {
+      height: 38px !important;
+    }
+    &:hover {
+      border-color: #90999E !important;
+    }
+  }
+  .css-kj6f9i-menu {
+    left: 0;
+    max-width: 100%;
+    border: 1px solid #CED4DA;
+    z-index: 10;
+  }
+  .css-1cadwkg {
+    margin: 0;
+    padding-top: 7px;
+  }
+  .css-151xaom-placeholder,
+  .css-dvua67-singleValue {
+    margin-left: 0 !important;
+    padding-bottom: 2px;
+    color: #253c5e;
   }
   .css-151xaom-placeholder {
-    color: #ccc !important;
+    color: #757575 !important;
     font-size: 16px !important;
   }
-  .css-bgvzuu-indicatorSeparator {
-    margin-top: 14px;
-    margin-bottom: 14px;
+  .css-1szy77t-control,
+  .css-1hwfws3 {
+    height: 38px !important;
+    padding-left: 10px;
+    margin: 0;
+    box-shadow: none !important;
+  }
+  .css-1szy77t-control {
+    border-color: #CED4DA !important;
   }
   &__select {
     width: 100% !important;
-    margin: 0 0 24px;
+    margin: 0 0 30px;
     text-align: left;
     &-title {
-      margin-bottom: 8px;
+      margin: 0 0 8px 3px;
       text-align: left;
     }
   }
@@ -39,38 +69,72 @@
   }
   &__not-found {
     max-width: 300px;
+    margin: 25px auto 0;
     text-align: center;
-    margin: 24px auto 0;
-    font-weight: 600;
-    color: firebrick;
+    line-height: 20px;
+    color: #DC3545;
   }
   &__list {
-    list-style-position: inside;
-    max-width: 300px;
-    margin: auto;
-    text-align: left;
-    li:hover {
+    width: fit-content;
+    list-style: none;
+    li {
+      text-align: left;
       cursor: pointer;
-      text-decoration: underline;
+      line-height: 16px;
+      margin-bottom: 15px;
+      &:hover {
+        color: #3366FF;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
   &__modal {
+    background: rgba(37, 60, 94, 0.7);
+    padding: 15px;
     & > div {
-      max-width: 900px;
-      @media (max-width: 767px) {
-        width: 92% !important;
+     width: auto;
+    }
+    .Modal {
+      &__inner {
+        width: 100%;
+        max-width: 720px;
+        box-shadow: none;
+        border-radius: 5px;
+      }
+      &__body {
+        margin: 0;
       }
     }
   }
   &__activate {
+    &-close {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      width: 12px;
+      height: 12px;
+      background-image: url("/static/icons/registration/close.svg");
+      cursor: pointer;
+    }
     &-header{
-      font-weight: 400;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      background: linear-gradient(90deg, #4067AC 0%, #5791F8 100%);
+      padding: 0 20px;
+      color: #fff;
+      font-weight: 600;
       font-size: 18px;
-      line-height: 23px;
-      padding-bottom: 11px;
-      border-bottom: 1px solid #e5e5e5;
-      margin-bottom: 8px;
-      margin-top: -17px;
+      &::before {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+        background-image:  url("/static/icons/registration/info-white.svg");
+      }
     }
     h3 {
       font-weight: 600;
@@ -82,26 +146,34 @@
       }
     }
     &-content {
-      padding-left: 230px;
-      background: url("/static/images/default/email.svg") no-repeat left 30px center;
-      @media (max-width: 990px) {
-        padding-left: 173px;
-        background-position: left center;
-      }
-      @media (max-width: 600px) {
-        padding-left: 0;
-        background: transparent;
+      display: flex;
+      padding: 20px 20px 40px;
+      align-items: center;
+      &__img {
+        width: 100px;
+        height: 100px;
+        background-image:  url("/static/images/default/email.svg");
+        background-size: 100% 100%;
+        margin: 0 25px 0 5px;
+        @media screen and (max-width: 768px) {
+          display: none;
+        }
       }
     }
     &-info {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       p {
         &:first-child {
-          font-weight: 600;
-          margin-bottom: 12px;
+          margin-bottom: 35px;
         }
         span:last-child {
-          font-weight: 300;
+          color: #253C5E;
+        }
+        span {
+          line-height: 26px;
+          &:first-child {
+            color: #72839C;
+          }
         }
       }
     }
@@ -112,10 +184,13 @@
         margin-top: 10px;
         margin-left: auto;
       }
+      b {
+        font-weight: 600;
+      }
     }
     &-warn {
-      font-weight: 600;
-      color: firebrick;
+      margin-top: 25px;
+      color: #DC3545;
     }
     &-confirm {
       min-height: 133px;
@@ -127,9 +202,10 @@
       margin-top: 24px;
       input {
         max-width: 315px;
+        height: 38px;
         padding: 10px 15px;
         border-radius: 4px;
-        border: 1px solid #ddd;
+        border: 1px solid #90999E;
         font-size: 16px;
         line-height: 24px;
         margin-right: 8px;
@@ -141,6 +217,21 @@
           width: 100%;
           margin: 0 0 12px;
         }
+      }
+    }
+    &-btns {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 154px;
+        height: 38px;
+        border-radius: 3px;
+        padding: 0;
       }
     }
   }

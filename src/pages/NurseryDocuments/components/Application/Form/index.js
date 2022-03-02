@@ -27,6 +27,7 @@ import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
 import {DateInput} from "../../../../../components/materialUI/DateTime";
+import FooterFeedback from "../../../../../components/Layouts/FooterFeedback";
 
 import "./index.scss";
 
@@ -910,6 +911,7 @@ const Application = ({ alias, history, status }) => {
                     }
                 </Fade>
             </NotificationGroup>
+            <FooterFeedback />
         </div>
     )
 };
