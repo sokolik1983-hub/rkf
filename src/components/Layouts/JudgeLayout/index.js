@@ -5,9 +5,7 @@ import StickyBox from 'react-sticky-box';
 import {useSelector} from "react-redux";
 import Loading from 'components/Loading';
 import Layout from 'components/Layouts';
-import { Redirect } from 'react-router-dom';
 import Container from 'components/Layouts/Container';
-import UserBanner from 'components/Layouts/UserBanner';
 import UserInfo from 'components/Layouts/UserInfo';
 import UserMenu from 'components/Layouts/UserMenu';
 import UserPhotoGallery from 'components/Layouts/UserGallerys/UserPhotoGallery';
@@ -16,27 +14,26 @@ import Card from 'components/Card';
 import CopyrightInfo from 'components/CopyrightInfo';
 import { Request } from 'utils/request';
 import { connectAuthVisible } from 'pages/Login/connectors';
-import { endpointGetUserInfo, userNav} from "../UserLayout/config";
+import { endpointGetUserInfo, userNav} from '../UserLayout/config';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
-import {endpointGetJudgeInfo} from "./config";
-import transliterate from "../../../utils/transliterate";
+import transliterate from '../../../utils/transliterate';
 
-import "./index.scss";
+import './index.scss';
 
 const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters, location }) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
-    const [errorRedirect, setErrorRedirect] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [judgeAlias, setJudgeAlias] = useState('');
-    const [judgeInfo, setJudgeInfo] = useState(null);
+    const [judgeInfoLink, setJudgeInfoLink] = useState(null);
     const [judgeAddInfo, setJudgeAddInfo] = useState(null);
     const [judgePersInfo, setJudgePersInfo] = useState(null);
+    const [data, setData] = useState(null);
     const [judgeCity, setJudgeCity] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
@@ -46,8 +43,6 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
 
     const {id, type} = useParams();
     const alias = useSelector(state => state.authentication.user_info.alias);
-
-    console.log('judgeAddInfo', judgeAddInfo);
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
@@ -61,13 +56,10 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
         }, error => {
             console.log(error.response);
-            setErrorRedirect(error.response);
         });
-
         setNeedRequest(true);
         setLoading(false);
     };
-
 
     const getJudgeAlias = () => {
         setLoading(true);
@@ -76,37 +68,36 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
         }, data => {
             setJudgeAlias(data);
         }, error => {
-            setErrorRedirect(error.response);
+            console.log('error', error);
         });
         setLoading(false);
     };
 
     const getJudgeInfo = () => {
         setLoading(true);
-        Request({
-            url: `/api/owners/owner/public_full/${judgeAlias}`
-        }, data => {
-            setJudgeInfo(data);
-            setJudgePersInfo(data.personal_information);
-            setJudgeCity(data.additional_information);
-        }, error => {
-            console.log('error', error)
-            // setErrorRedirect(error.response);
-        });
+        if(judgeAlias) {
+            Request({
+                url: `/api/owners/owner/public_full/${judgeAlias}`
+            }, data => {
+                setJudgeInfoLink(data.logo_link);
+                setJudgePersInfo(data.personal_information);
+                setJudgeCity(data.additional_information);
+            }, error => {
+                console.log('error', error)
+            });
+        }
         setLoading(false);
     };
-
 
     const getJudgeAddInfo = () => {
         setLoading(true);
         Request({
-            url: `/api/referee/referee/full?id=14017&type=1`
+            url: `/api/referee/referee/full?id=${id}&type=${type}`
         }, data => {
-            console.log('data', data);
+            setData(data);
             setJudgeAddInfo(data[0].judge_info);
         }, error => {
             console.log('error', error)
-            // setErrorRedirect(error.response);
         });
         setLoading(false);
     };
@@ -152,9 +143,10 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
    function checkLinkUserPage() {
         let checkLink = link.pathname.includes('news-feed');
         setCheckLink(checkLink)
-    }
+    };
 
-    useEffect(() => {
+
+   useEffect(() => {
         checkLinkUserPage();
         (() => getUserInfo())();
         (() => getJudgeAlias())();
@@ -163,15 +155,13 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
 
    useEffect(() => {
        (() => getJudgeInfo())();
-   }, [judgeAlias])
+   }, [judgeAlias]);
 
     return (
         loading ?
-            <Loading /> :
-            errorRedirect ?
-                <Redirect to="/404" />
-                :
-        <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
+            <Loading />
+            :
+            <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
 
             <div className="user-page">
                 <Container className="user-page__content content">
@@ -219,7 +209,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                     <div className="user-page__right">
                             <Card>
                                 <div className="judge-info__wrap">
-                                    {/*<img src={judgeInfo.logo_link === null ? '' : judgeInfo.logo_link} alt="avatar-img" />*/}
+                                    <img src={judgeInfoLink ? judgeInfoLink : '/static/icons/default/default_avatar.svg'} alt="avatar-img" />
                                     <div className="judge-info__inner">
                                         <div className="judge-info__name-location">
                                             <div className="judge-info__name-block">
@@ -230,17 +220,17 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                                                 <p className="judge-info__city">{judgeCity && judgeCity.city_name}</p>
                                             </div>
                                         </div>
-                                        <p className="judge-info__list">Лист Судьи № <span>1111</span></p>
+                                        <p className="judge-info__list">Лист Судьи № <span>{data && data[0].judge_info.cert_number}</span></p>
                                     </div>
                                 </div>
-                                <div className="judge-info__box">
+                                <div className="judge-info__contacts">
                                     {
                                         judgeAddInfo?.phones.length > 0 &&
                                         <div className="judge-info__tel-email">
                                             <p>Телефон:</p>
                                             <ul>
                                                 {
-                                                    judgeAddInfo.phones.map(item => <li>{item}</li>)
+                                                    judgeAddInfo.phones.map((item, i) => <li key={i}>{item}</li>)
                                                 }
                                             </ul>
 
@@ -252,50 +242,99 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                                             <p>E-mail:</p>
                                             <ul>
                                                 {
-                                                    judgeAddInfo.emails.map(item => <li>{item}</li>)
+                                                    judgeAddInfo.emails.map((item, i) => <li key={i}>{item}</li>)
                                                 }
                                             </ul>
                                         </div>
                                     }
                                 </div>
-                                <div className="judge-info__box">
-                                    {
-                                        judgeAddInfo?.phones.length > 0 &&
-                                        <div className="judge-info__add-info">
-                                            <p>Статус:</p>
-                                            <ul>
-                                                {
-                                                    judgeAddInfo.phones.map(item => <li>{item}</li>)
-                                                }
-                                            </ul>
-
+                                { (type && type === '1' &&  judgeAddInfo) &&
+                                    <>
+                                        <div className="judge-info__box">
+                                            {
+                                                <div className="judge-info__add-info">
+                                                    <p>Статус:</p>
+                                                    <p className="judge-info__status">
+                                                        {judgeAddInfo?.ranks}
+                                                    </p>
+                                                </div>
+                                            }
+                                            {
+                                                judgeAddInfo?.contests.length > 0 &&
+                                                <div className="judge-info__add-info">
+                                                    <p>Выставочные конкурсы:</p>
+                                                    <ul>
+                                                        {
+                                                            judgeAddInfo.contests.map((item, i) => <li key={i}>{item}</li>)
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            }
                                         </div>
-                                    }
-                                    {
-                                        judgeAddInfo?.emails.length > 0 &&
-                                        <div className="judge-info__add-info">
-                                            <p>Выставочные конкурсы:</p>
-                                            <ul>
+                                        {
+                                            !(judgeAddInfo?.contests.includes("Все конкурсы/All competitions")) &&
+                                            <div className="judge-info__box">
                                                 {
-                                                    judgeAddInfo.emails.map(item => <li>{item}</li>)
+                                                    judgeAddInfo?.opened_groups_and_breeds.length > 0 &&
+                                                    <div className="judge-info__add-info">
+                                                        <p>Группа, номер стандарта, название породы:</p>
+                                                        <ul>
+                                                            {
+                                                                judgeAddInfo.opened_groups_and_breeds.map((item, i) => <li key={i}>{item}</li>)
+                                                            }
+                                                        </ul>
+                                                    </div>
                                                 }
-                                            </ul>
-                                        </div>
-                                    }
-                                </div>
-                                <div className="judge-info__box">
-                                    {
-                                        judgeAddInfo?.opened_groups_and_breeds.length > 0 &&
-                                        <div className="judge-info__add-info">
-                                            <p>Группа, номер стандарта, название породы:</p>
-                                            <ul>
-                                                {
-                                                    judgeAddInfo.opened_groups_and_breeds.map(item => <li>{item}</li>)
-                                                }
-                                            </ul>
-                                        </div>
-                                    }
-                                </div>
+                                            </div>
+                                        }
+                                    </>
+                                }
+                                {type && type === '2'
+                                    &&
+                                    data?.map((item) =>
+                                        item.judge_info?.disciplines.map((item, i) =>
+                                                <div key={i} className="judge-info__rank-box">
+                                                    <p key={i} className="judge-info__spec">
+                                                    {item.specialization}
+                                                    </p>
+                                                    {
+                                                        item?.disciplines.map((item , i)=>
+                                                            <div key={i}>
+                                                                {
+                                                                    item.for_judge_examiner &&
+                                                                    <p className="judge-info__exam">Экзаменатор</p>
+                                                                }
+                                                                <div className="judge-info__box">
+                                                                    {
+                                                                        item.rank &&
+                                                                        <div className="judge-info__add-info">
+                                                                            <p>Ранг:</p>
+                                                                            <p className="">
+                                                                                {item.rank}
+                                                                            </p>
+                                                                        </div>
+                                                                    }
+                                                                    {
+                                                                        item.disciplines.length > 0 &&
+                                                                        <div className="judge-info__add-info">
+                                                                            <p>Дисциплины:</p>
+                                                                            <ul>
+                                                                                {
+                                                                                    item.disciplines.map((item, i) =>
+                                                                                        <li>{item.discipline_short_name}</li>
+                                                                                    )
+                                                                                }
+                                                                            </ul>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                </div>
+                                            )
+                                    )
+                                }
 
                             </Card>
                     </div>

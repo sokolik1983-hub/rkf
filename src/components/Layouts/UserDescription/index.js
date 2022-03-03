@@ -1,9 +1,10 @@
-import React, {Fragment, useEffect, useState} from "react";
-import { Collapse } from "react-collapse";
-import {Link} from "react-router-dom";
-import Card from "../../Card";
-import Counter from "../../CounterComponent";
-import "./index.scss";
+import React, {Fragment, useEffect, useState} from 'react';
+import { Collapse } from 'react-collapse';
+import {Link} from 'react-router-dom';
+import Card from '../../Card';
+import Counter from '../../CounterComponent';
+
+import './index.scss';
 
 const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, judgeInfo }) => {
     const [isOpen, setIsOpen] = useState(false);

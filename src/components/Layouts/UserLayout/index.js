@@ -23,7 +23,6 @@ import {connectShowFilters} from '../../../components/Layouts/connectors';
 
 import './index.scss';
 
-
 const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
