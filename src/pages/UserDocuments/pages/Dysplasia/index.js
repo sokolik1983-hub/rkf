@@ -19,7 +19,7 @@ import {
 import { getHeaders, Request } from '../../../../utils/request';
 import flatten from '../../../../utils/flatten';
 import DocLink from '../../../Docs/components/DocApply/components/DocLink';
-import FooterFeedback from "../../../../components/Layouts/FooterFeedback";
+import FooterFeedback from '../../../../components/Layouts/FooterFeedback';
 
 import './index.scss';
 
