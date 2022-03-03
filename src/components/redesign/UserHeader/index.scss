@@ -355,3 +355,42 @@
     align-items: center;
   }
 }
+
+
+.redesign .container  {
+
+  @media (max-width: 990px) and (min-width: 561px) {
+    //плашка
+  }
+  @media (max-width: 560px) {
+    //мобилун
+
+      .user-header {
+        align-items: flex-start!important;
+
+          &__user-wrap, &__container, &-link {
+            padding-left: 120px;
+          }
+
+        &__user-wrap:before, &-link:after {
+          display: none;
+        }
+
+        .user-info__logo-wrap {
+          position: absolute;
+        }
+
+        .UserActionControls {
+          margin-top: 21px;
+          padding-top: 2px;
+          border-top:1px solid #E5E5E5;
+        }
+
+        &__content {
+          padding-top: 28px!important;
+        }
+
+      }
+
+  }
+}
