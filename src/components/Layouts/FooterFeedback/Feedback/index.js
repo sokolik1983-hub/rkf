@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form} from '../../../../../../components/Form';
+import {Form} from '../../../Form';
 import {options} from './config.js';
 import RenderFields from './RenderFields';
 

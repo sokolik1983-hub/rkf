@@ -1,9 +1,13 @@
 .individual-registration {
   &__form {
     &-submit {
-      display: block;
-      margin: 0 auto;
-      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 154px;
+      height: 40px;
+      margin: 30px auto 0;
     }
   }
   &__psw {
@@ -14,7 +18,7 @@
     height: 24px;
     position: absolute;
     display: inline-block;
-    top: 45px;
+    top: 40px;
     right: 10px;
     background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
     background-size: contain;
@@ -29,13 +33,12 @@
     height: 24px;
     position: absolute;
     display: inline-block;
-    top: 158px;
+    top: 135px;
     right: 10px;
     background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
     background-size: contain;
     border: none;
     &._show-confirm {
-      top: 157px;
       background: url("/static/icons/psw-eye-open.svg") center no-repeat;
       background-size: contain;
     }
