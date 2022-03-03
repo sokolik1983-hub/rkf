@@ -1,17 +1,3 @@
-// import React from "react";
-// import Layout from "../../components/Layouts";
-// import JudgeLayout from "../../components/Layouts/JudgeLayout";
-//
-// const Referee = () => {
-//     return (
-//         <Layout>
-//             q111111111111111111
-//         </Layout>
-//     )
-// };
-//
-// export default Referee;
-
 import React from "react";
 import UserBanner from "../../components/Layouts/UserBanner";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
@@ -20,7 +6,6 @@ import UserDescription from "../../components/Layouts/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import { DEFAULT_IMG } from "../../appConfig";
-import UserLayout from 'components/Layouts/UserLayout';
 import JudgeLayout from "../../components/Layouts/JudgeLayout";
 
 const Content = ({ isMobile,
@@ -81,12 +66,9 @@ const RefereePage = (props) => {
     return (
         <JudgeLayout {...props}>
             <Content />
-            </JudgeLayout>
+        </JudgeLayout>
 
-        // <UserLayout {...props}>
-        //     <Content />
-        // </UserLayout>
-    )
+    );
 };
 
 export default React.memo(RefereePage);
