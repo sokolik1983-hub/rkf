@@ -47,7 +47,7 @@ export const LoadableExhibition = Loadable({
     loading: Loading
 });
 export const LoadableReferee= Loadable({
-    loader: () => import('./pages/referee'),
+    loader: () => import('./pages/Referee'),
     loading: Loading
 });
 
