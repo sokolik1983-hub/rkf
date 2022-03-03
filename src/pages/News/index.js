@@ -58,7 +58,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
             <Redirect to="/not-found" /> :
             <Layout>
                 <Container className="content news-page">
-                    <Card className="news">
+                    <Card className={'news' + (!!isEdit ? ' edit' : '')}>
                         <div className="news__wrap-head">
                             <Link
                                 to={news.user_type === 1 ? `/user/${news.alias}` :

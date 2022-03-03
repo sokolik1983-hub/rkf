@@ -280,7 +280,7 @@ const RenderFields = ({ fields,
                                     advert_type_id !== 6 ?
                                         <div className="article-edit__city-select-wrap">
                                             <FormField
-                                                className={`ArticleCreateForm__input-city ${(!formik.values.dog_city || formik.values.dog_city.length === 0) && 'error-field'}`}
+                                                className={`ArticleCreateForm__input-city ${(!formik.values.dog_city || formik.values.dog_city.length === 0) ? 'error-field' : ''}`}
                                                 {...fields.dog_city}
                                                 label={`Место ${cityLabel}`}
                                             />
@@ -338,17 +338,17 @@ const RenderFields = ({ fields,
                                         <div className="FormInput__error select-error">Поле не может быть пустым</div>
                                     }
                                 </FormGroup>
-                                <FormGroup inline className="article-edit__ad">
-                                    <FormField {...fields.dog_name} />
-                                    <FormField {...fields.dog_color} />
-                                    <div className={(activeElem === 5) && 'article-edit__age-wrap'}>
+                                {/*<FormGroup inline className="article-edit__ad">*/}
+                                    <FormField {...fields.dog_name} className="article-edit__name-wrap"/>
+                                    <FormField {...fields.dog_color} className="article-edit__color-wrap"/>
+                                    <div className={'article-edit__age-wrap' + (activeElem === 5 ? '__about' : '')}>
                                         <FormField {...fields.dog_age} />
                                     </div>
                                     <div className="article-edit__custom-select">
                                         <label htmlFor="dog_sex_type_id">Пол</label>
                                         <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
                                     </div>
-                                </FormGroup>
+                                {/*</FormGroup>*/}
                             </div>
                     }
                 </div>
@@ -360,6 +360,7 @@ const RenderFields = ({ fields,
                     onChange={handleChangeText}
                     maxLength="1000"
                     rows={content && addRow()}
+
                 />
                 {content && !isMobile &&
                     <span className="article-edit__content-length">

@@ -1,6 +1,7 @@
 .article-edit {
 
   margin-left: 58px;
+  margin-top: 14px;
 
   &__input-breedId.disabled {
     opacity: .5;
@@ -207,12 +208,12 @@
     }
   }
   &__advert {
-    margin: 8px 0 16px;
+    margin: 8px 0 40px;
     & #advert_breed_id>div {
       z-index: 1;
     }
     .css-1pcexqc-container {
-      margin-bottom: 32px;
+      //margin-bottom: 10px;
     }
     .css-kj6f9i-menu {
       z-index: 99;
@@ -304,9 +305,9 @@
         border-color: #EBF0F2;
       }
     }
-    input {
-      padding: 8px 6px 8px 14px!important;
-    }
+    //input {
+    //  padding: 8px 6px 8px 14px!important;
+    //}
     .css-xo7z33-option {
       background-color: #fff!important;
       color: #000000!important;
@@ -325,7 +326,8 @@
   }
   &__halfbreed-wrap {
     padding-left: 20px;
-    width: 40%;
+    //width: 40%;
+    grid-area: breed;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -353,11 +355,17 @@
     }
     & #advert_breed_id {
       margin-bottom: 5px;
+      div {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
     }
     & .custom-checkbox {
       margin-bottom: 0;
       position: absolute;
-      top: -25px;
+      top: -3px;
+      right: 0;
+      z-index: 100;
     }
   }
   &__error-wrap {
@@ -366,7 +374,7 @@
       top: -23px;
       color: #FA5D50;
       &.select-breed, &.select-city  {
-        top: -30px;
+        top: 0;
       }
     }
   }
@@ -378,31 +386,31 @@
       }
     }
   }
-  &__age-wrap {
+  &__age-wrap__about {
     position: relative;
     &:before {
       content: '(примерный)';
       position: absolute;
-      top: 13px;
+      right: 0;
       font-size: 11px;
     }
   }
   &__city-input-wrap {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
+    //width: 40%;
+    //display: flex;
+    //flex-direction: column;
     gap: 10px;
     position: relative;
-    margin-bottom: 32px;
-    @media (max-width: 1023px) {
-      width: 100%;
-    }
+    //margin-bottom: 32px;
+    //@media (max-width: 1023px) {
+    //  width: 100%;
+    //}
     & .custom-checkbox {
       position: absolute;
-      top: -25px;
+      right: 0;
     }
     & .css-1hwfws3 {
-      padding: 8px 8px 8px;
+      //padding: 8px 8px 8px;
     }
     & .css-bg1rzq-control {
       border-color: #EBF0F2;
@@ -417,42 +425,96 @@
       color: #253c5e;
       margin-bottom: 8px;
     }
-    & #cities-input {
-      margin-top: 8px;
-      & .css-151xaom-placeholder {
-        color: #cccccc;
-      }
-    }
     & .css-151xaom-placeholder {
       font-size: 16px;
       line-height: 16px;
+      color: #72839C;
     }
   }
   &__inner-add-inputs {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    & .FormInput--select {
-      width: 40%;
+    //display: flex;
+    //flex-wrap: wrap;
+    //align-items: flex-start;
+    //& .FormInput--select {
+    //  width: 40%;
+    //}
+    display: grid;
+    grid-template-areas:
+      "place place name color"
+      "breed breed age sex";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+
+
+    & .FormInput label, .article-edit__custom-select label {
+      margin-bottom: 4px;
+      line-height: 18px;
+      color: #72839C;
+    }
+
+    .FormInput {
+      margin: 0;
+    }
+
+    .FormGroup {
+      padding: 0;
+    }
+
+    .css-1ox0dji-singleValue, input, .css-dvua67-singleValue {
+      color: #72839C;
+    }
+
+    #dog_city div {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+
+    #dog_name {
+      padding-top: 6px;
+      padding-bottom: 6px;
     }
     @media (max-width: 1023px) {
       flex-direction: column;
     }
   }
-  &__city-select-wrap {
-    width: 40%;
-    position: relative;
-    @media (max-width: 1023px) {
-      width: 100%;
+  &__city-select-wrap, &__city-input-wrap {
+    //width: 40%;
+    grid-area: place;
+    //position: relative;
+    //@media (max-width: 1023px) {
+    //  width: 100%;
+    //}
+    //& .FormInput--select {
+    //  width: 100%;
+    //}
+    //& .article-edit__error-wrap {
+    //  .FormInput__error.select-city {
+    //      top: -55px;
+    //  }
+    //}
+  }
+  &__name-wrap {
+    grid-area: name;
+    div {
+      bottom: -12px;
     }
-    & .FormInput--select {
-      width: 100%;
+  }
+  &__color-wrap {
+    grid-area: color;
+    #dog_color {
+      padding-top: 6px;
+      padding-bottom: 6px;
     }
-    & .article-edit__error-wrap {
-      .FormInput__error.select-city {
-          top: -55px;
-      }
+  }
+  &__age-wrap {
+    grid-area: age;
+    #dog_age {
+      padding-top: 6px;
+      padding-bottom: 6px;
     }
+  }
+  &__custom-select {
+    grid-area: sex;
   }
 }
 .k-upload .k-dropzone {
