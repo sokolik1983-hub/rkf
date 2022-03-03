@@ -164,7 +164,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                     <div className="user-nav__userpic">
-                                        <img src={logo_link}/>
+                                        <img src={logo_link} alt=""/>
                                     </div>
                                 </div>
                                 {(!(location.pathname.search("documents") > -1) && !(location.pathname.search("bank-details") > -1))? <> {
