@@ -82,6 +82,7 @@
     }
 
     &__link {
+        transition: all 0.2s linear;
         &:hover {
             color: #3366FF;
             cursor: pointer;
@@ -95,6 +96,8 @@
     &__copyright-link {
         text-decoration: none;
         color: #72839C;
+        transition: all 0.2s linear;
+
         &:hover {
             color: #3366FF;
         }
