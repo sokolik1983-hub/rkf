@@ -108,6 +108,7 @@
   &__length-hint {
     display: flex;
     justify-content: flex-end;
+    width: 80px;
   }
 
   &__content-length {
@@ -301,6 +302,7 @@
 
     @media(max-width: 750px) {
       flex-basis: 100%;
+      flex-wrap: wrap;
       gap: 20px;
     }
   }
@@ -658,7 +660,7 @@
   &__error-wrap {
     position: relative;
     & .FormInput__error {
-      top: -17px;
+      top: -20px;
       color: #FA5D50;
       padding: 0;
     }

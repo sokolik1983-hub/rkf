@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import ls from "local-storage";
 import Loading from "../../../../components/Loading";
@@ -66,8 +66,8 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                 <Loading /> :
 
                 <Container className="user-documents__content">
-                    <aside className="user-documents__left">
-
+                    {history.location.pathname === `/user/${ls.get('user_info').alias}/documents` &&
+                        <aside className="user-documents__left">
                         <StickyBox offsetTop={60}>
                             <Card>
                                 <UserInfo
@@ -84,7 +84,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                             {!isMobile && <Banner type={10} />}
                             <CopyrightInfo withSocials={true} />
                         </StickyBox>
-                    </aside>
+                    </aside>}
                     <div className="user-documents__right">
                         <div className="user-documents__cards">
                             <Switch>

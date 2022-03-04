@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {Form, FormField, SubmitButton} from "../../../../components/Form";
-import CustomText from "../../../../components/Form/Field/CustomText";
-import Alert from "../../../../components/Alert";
-import Confirm from "../../../../components/Confirm";
-import {Request} from "../../../../utils/request";
+import React, {memo, useEffect, useState} from "react";
+import {useHistory} from "react-router-dom";
+import Alert from "../../../../../../Alert";
+import Confirm from "../../../../../../Confirm";
+import {Form, FormField, SubmitButton} from "../../../../../../Form";
+import CustomText from "../../../../../../Form/Field/CustomText";
+import {Request} from "../../../../../../../utils/request";
 import {federationForm, nurseryForm, createForm, codeForm} from "./config";
-import history from "../../../../utils/history";
 import "./index.scss";
 
 
-const NurseryRegistration = () => {
+const KennelRegistration = () => {
     const [federations, setFederations] = useState([]);
     const [isFederationFormSend, setIsFederationFormSend] = useState(true);
     const [isCodeFormSend, setIsCodeFormSend] = useState(false);
@@ -19,27 +19,27 @@ const NurseryRegistration = () => {
     const [alert, setAlert] = useState(false);
     const [confirm, setConfirm] = useState(false);
     const [alertText, setAlertText] = useState('');
+    const history = useHistory();
 
     useEffect(() => {
         (() => Request({
             url: '/api/clubs/Federation'
         }, data => {
-            setFederations(data.map(option => ({ label: option.short_name, value: option.id })));
-        },
-            error => {
-                console.log(error.response);
-                setAlert(true);
-            }))();
+            setFederations(data.map(option => ({label: option.short_name, value: option.id})));
+        }, error => {
+            console.log(error.response);
+            setAlert(true);
+        }))();
     }, []);
 
     const transformFederationValues = values => {
-        setNursery({ ...values });
+        setNursery({...values});
         return values;
     };
 
     const federationFormSuccess = data => {
-        if (data) {
-            setNursery({ ...data, city_id: data.city ? data.city.id : '' });
+        if(data) {
+            setNursery({...data, city_id: data.city ? data.city.id : ''});
             setIsNurseryFound(true);
             setIsFederationFormSend(true)
         } else {
@@ -49,8 +49,9 @@ const NurseryRegistration = () => {
     };
 
     const transformNurseryValues = values => {
-        let newData = { ...values };
-        if (newData.city) delete newData.city;
+        let newData = {...values};
+
+        if(newData.city) delete newData.city;
 
         setNursery(newData);
 
@@ -64,27 +65,32 @@ const NurseryRegistration = () => {
     };
 
     const transformCodeValues = values => {
-        const newValues = { ...values, ...nursery };
-        if (isNurseryFound) delete newValues.name;
+        const newValues = {...values, ...nursery};
+
+        if(isNurseryFound) delete newValues.name;
 
         return newValues;
     };
 
     const codeFormSuccess = () => {
         setIsCodeFormSend(true);
-        setAlertText(`Мы отправили Вам письмо на указанный вами адрес. Пожалуйста, зайдите в свою почту и следуйте дальнейшим инструкциям.`);
+
+        setAlertText('Мы отправили Вам письмо на указанный вами адрес. Пожалуйста, зайдите в свою почту и следуйте дальнейшим инструкциям.');
+
         setAlert(true);
-    }
+    };
 
     const handleFormError = error => {
         if (error.response && error.response.data && error.response.data.errors) {
             setAlertText(`${Object.values(error.response.data.errors)}`);
         }
+
         setAlert(true);
     };
 
     const handleSkip = e => {
         e.preventDefault();
+
         setIsNurseryFound(false);
         setIsFederationFormSend(true);
     };
@@ -192,22 +198,22 @@ const NurseryRegistration = () => {
             }
             {alert &&
                 <Alert
-                    title={isCodeFormSend ? "Проверьте почту" : "Произошла ошибка! =("}
-                    text={alertText || "Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи."}
+                    title={isCodeFormSend ? 'Проверьте почту' : 'Произошла ошибка! =('}
+                    text={alertText || 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.'}
                     okButton={true}
                     onOk={() => {
                         setAlertText('');
                         setAlert(false);
                         if (isCodeFormSend) {
-                            history.push('/');
+                            history.push('/login');
                         }
                     }}
                 />
             }
             {confirm &&
                 <Confirm
-                    title={"Внимание!"}
-                    text={"Питомник с такими данными не найден в базе RKF.Online\nДобавить питомник?"}
+                    title="Внимание!"
+                    text="Питомник с такими данными не найден в базе RKF.Online\nДобавить питомник?"
                     agreeButtonText="Добавить"
                     disagreeButtonText="Отмена"
                     agreeFunction={() => setIsFederationFormSend(true)}
@@ -218,4 +224,4 @@ const NurseryRegistration = () => {
     )
 };
 
-export default React.memo(NurseryRegistration);
+export default memo(KennelRegistration);

@@ -17,6 +17,8 @@ import {
 } from "../../../../components/kendo/Form/validators";
 import { Request } from "../../../../utils/request";
 import flatten from "../../../../utils/flatten";
+import FooterFeedback from "../../../../components/Layouts/FooterFeedback";
+
 import "./index.scss";
 
 const apiPrivacyEndpoint = '/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest/personal_data_document';
@@ -430,6 +432,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                     }
                 </Fade>
             </NotificationGroup>
+            <FooterFeedback />
         </div>
     )
 };

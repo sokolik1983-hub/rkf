@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import moment from "moment";
-import { Form, Field, FieldArray, FormElement } from "@progress/kendo-react-form";
-import { Fade } from "@progress/kendo-react-animation";
-import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
-import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import Loading from "../../../../../components/Loading";
-import Card from "../../../../../components/Card";
-import AdditionalDocuments from "./components/AdditionalDocuments";
-import FormContactsFieldArray from "./components/FormContactsFieldArray";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import { Form, Field, FieldArray, FormElement } from '@progress/kendo-react-form';
+import { Fade } from '@progress/kendo-react-animation';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
+import Loading from '../../../../../components/Loading';
+import Card from '../../../../../components/Card';
+import AdditionalDocuments from './components/AdditionalDocuments';
+import FormContactsFieldArray from './components/FormContactsFieldArray';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
-import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
-import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
-import FormMultiSelect from "../../../../../components/kendo/Form/FormMultiSelect";
-import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import { requiredValidator } from "../../../../../components/kendo/Form/validators";
-import { Request } from "../../../../../utils/request";
-import ruMessages from "../../../../../kendoMessages.json"
-import "./index.scss";
+import FormDatePicker from '../../../../../components/kendo/Form/FormDatePicker';
+import FormDropDownList from '../../../../../components/kendo/Form/FormDropDownList';
+import FormMultiSelect from '../../../../../components/kendo/Form/FormMultiSelect';
+import FormTextArea from '../../../../../components/kendo/Form/FormTextArea';
+import { requiredValidator } from '../../../../../components/kendo/Form/validators';
+import { Request } from '../../../../../utils/request';
+import ruMessages from '../../../../../kendoMessages.json';
 import {
     phoneRequiredValidator,
     phoneValidator,
@@ -25,13 +24,13 @@ import {
     emailValidator
 } from 'pages/UserEditKendo/validators';
 
+import './index.scss';
+
 loadMessages(ruMessages, 'ru');
 
-// const requiredRanksMessage = 'Максимальное количество рангов 4';
 const requiredMessage = 'Обязательное поле';
 const requiredRankError = 'Исчерпан лимит по выбранным рангам';
 const requiredNcpMessage = 'Максимальное количество НКП 30';
-
 
 const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
@@ -54,6 +53,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
         year_forbidden_ranks: [],
         year_warning_ranks: [],
     });
+
     const [initialValues, setInitialValues] = useState({
         id: '',
         format_id: '',
@@ -81,6 +81,8 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
         }]
     });
     const editable = !status || status !== 'view';
+
+    const currentYear =new Date().getFullYear(); //текущий год, на который нельзя регистрировать выставку, но на который могут приходить данные с бека
 
     useEffect(() => {
         Promise.all([
@@ -412,9 +414,16 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     label="Выберите НКП"
                                                     selectType="ncp"
                                                     component={FormMultiSelect}
-                                                    data={pickedYear && Object.keys(exhibitionProperties.year_forbidden_nkp).length > 0 ?
-                                                        exhibitionProperties.national_breed_clubs.filter(item => exhibitionProperties.year_forbidden_nkp[pickedYear]?.every(nkp => item.id !== nkp)) :
-                                                        exhibitionProperties.national_breed_clubs
+                                                    data={
+                                                        Object.keys(exhibitionProperties.year_forbidden_nkp).length === 1 && exhibitionProperties.year_forbidden_nkp[currentYear]
+                                                            ?
+                                                            exhibitionProperties.national_breed_clubs
+                                                            :
+                                                            (Object.keys(exhibitionProperties.year_forbidden_nkp).length > 0 && pickedYear)
+                                                                ?
+                                                                exhibitionProperties.national_breed_clubs.filter(item => exhibitionProperties.year_forbidden_nkp[pickedYear]?.every(nkp => item.id !== nkp))
+                                                                :
+                                                                exhibitionProperties.national_breed_clubs
                                                     }
                                                     defaultValue={formRenderProps.valueGetter('national_breed_club_ids')
                                                         ? formRenderProps.valueGetter('national_breed_club_ids')
