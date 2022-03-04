@@ -95,10 +95,8 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
             case 3:
                 if(currentUserAlias === 'rkf' || currentUserAlias === 'rkf-online')
                 {
-                    console.log('666666666')
                     setCurrentPageNav(federationNav(currentUserAlias));
                 } else {
-                    console.log('7777777777777777777777')
                     setCurrentPageNav(clubNav(currentUserAlias));
                 }
                 break;
@@ -124,16 +122,34 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                                     {notificationsLength > 99 ? 99 : notificationsLength}
                                 </span>
                     }
-                    22
-                    <NavLink
-                        to={navItem.to}
-                        exact={navItem.exact}
-                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                        // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
-                    >
-                        {navItem.icon}
-                        <span>{navItem.title}</span>
-                    </NavLink>
+                    {
+                        console.log('111111111111111!!!!!!!!!!!' , navItem.onClick)
+                    }
+                    {
+                        navItem.onClick
+                        ?
+                            <NavLink
+                                to={navItem.to}
+                                exact={navItem.exact}
+                                onClick={navItem.onClick}
+                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                            >
+                                {navItem.icon}
+                                <span>{navItem.title}</span>
+                            </NavLink>
+                            :
+                            <NavLink
+                                to={navItem.to}
+                                exact={navItem.exact}
+                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                            >
+                                {navItem.icon}
+                                <span>{navItem.title}</span>
+                            </NavLink>
+                    }
+
                 </li>)
             }
         </>

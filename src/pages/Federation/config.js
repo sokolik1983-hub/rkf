@@ -1,6 +1,6 @@
 import React from "react";
 
-export const federationNav = alias => [
+export const federationNav = (alias, getPresidium) => [
     {
         id: 1,
         title: 'Мероприятия',
@@ -31,6 +31,7 @@ export const federationNav = alias => [
         id: 2,
         title: 'Президиум',
         to: ``,
+        onClick: () => console.log('44444444444444444'),
         exact: true,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_1668_655)">
