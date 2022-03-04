@@ -1,20 +1,18 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { pencil, trash } from '@progress/kendo-svg-icons';
-import { CSSTransition } from "react-transition-group";
+import { CSSTransition } from 'react-transition-group';
+import Share from '../../Share';
+import ModalDeleteAvatar from './ModalDeleteAvatar';
+import { DEFAULT_IMG } from '../../../appConfig';
+import LightTooltip from '../../LightTooltip';
+import UserActionControls from 'components/UserActionControls';
+import { connectAuthVisible } from 'pages/Login/connectors';
+import EditAvatar from '../../EditAvatar';
+import { judgeIcon } from '../UserLayout/config.js';
 
-import Share from "../../Share";
-import ModalDeleteAvatar from "./ModalDeleteAvatar";
-import { DEFAULT_IMG } from "../../../appConfig";
-import LightTooltip from "../../LightTooltip";
-import UserActionControls from "components/UserActionControls";
-import { connectAuthVisible } from "pages/Login/connectors";
-import EditAvatar from "../../EditAvatar";
-import { judgeIcon } from "../UserLayout/config.js"
-
-import "./index.scss";
-
+import './index.scss';
 
 const UserInfo = ({
     isAuthenticated,

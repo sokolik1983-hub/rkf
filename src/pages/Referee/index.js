@@ -1,12 +1,12 @@
-import React from "react";
-import UserBanner from "../../components/Layouts/UserBanner";
-import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
-import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
-import UserDescription from "../../components/Layouts/UserDescription";
-import AddArticle from "../../components/UserAddArticle";
-import UserNews from "../../components/Layouts/UserNews";
-import { DEFAULT_IMG } from "../../appConfig";
-import JudgeLayout from "../../components/Layouts/JudgeLayout";
+import React from 'react';
+import UserBanner from '../../components/Layouts/UserBanner';
+import UserPhotoGallery from '../../components/Layouts/UserGallerys/UserPhotoGallery';
+import UserVideoGallery from '../../components/Layouts/UserGallerys/UserVideoGallery';
+import UserDescription from '../../components/Layouts/UserDescription';
+import AddArticle from '../../components/UserAddArticle';
+import UserNews from '../../components/Layouts/UserNews';
+import { DEFAULT_IMG } from '../../appConfig';
+import JudgeLayout from '../../components/Layouts/JudgeLayout';
 
 const Content = ({ isMobile,
                      userInfo,
@@ -15,7 +15,7 @@ const Content = ({ isMobile,
                      alias,
                      setNeedRequest,
                      needRequest,
-                     setUserInfo
+                     setUserInfo,
                  }) => <>
     {!isMobile &&
         <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />

@@ -1,10 +1,10 @@
-import React, {memo, useState} from "react";
-import ScrollArea from "react-scrollbar";
-import CopyrightInfo from "../../../../CopyrightInfo";
-import LoginForm from "../LoginForm";
-import RegistrationForm from "../RegistrationForm";
-import "./index.scss";
+import React, {memo, useState} from 'react';
+import ScrollArea from 'react-scrollbar';
+import CopyrightInfo from '../../../../CopyrightInfo';
+import LoginForm from '../LoginForm';
+import RegistrationForm from '../RegistrationForm';
 
+import './index.scss';
 
 const AuthCard = () => {
     const [activeTab, setActiveTab] = useState(1);
@@ -38,8 +38,6 @@ const AuthCard = () => {
                     {activeTab === 2 && <RegistrationForm/>}
                 </ScrollArea>
             </div>
-
-
             <CopyrightInfo withSocials={true} />
         </div>
     )

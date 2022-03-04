@@ -3,12 +3,10 @@ import { DEFAULT_IMG } from "../../appConfig";
 import { Request } from "../../utils/request";
 import { setFiltersToUrl } from "../../pages/Specialists/utils";
 import LightTooltip from "../../components/LightTooltip";
-
 import Card from "../Card";
 import CardFooter from "../CardFooter"
 
 import "./index.scss";
-
 
 const CardSpecialist = ({
                             id,
@@ -46,7 +44,6 @@ const CardSpecialist = ({
                 ? `/api/exteriorjudge/additional_details/${id}`
                 : `/api/workreferee/additional_details?JudgeId=${id}&SearchTypeId=${searchTypeId}`
         }, data => {
-
             setAdditionalPhones(data.phones);
             setAdditionalEmails(data.emails);
             setAdditionalDisciplines(data.disciplines);

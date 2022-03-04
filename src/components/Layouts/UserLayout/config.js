@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const endpointGetUserInfo = '/api/owners/owner/public_full/';
 export const endpointGetJudgeInfo = '/api/owners/owner/judge_info?profileId=';
