@@ -16,9 +16,9 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
     const [currentPageUserInfo, setCurrentPageUserInfo] = useState(null);
     const [currentPageNav, setCurrentPageNav] = useState(null);
 
-    console.log('currentPageNav', currentPageNav);
-    console.log('currentPageUserInfo', currentPageUserInfo);
-    console.log('notificationsLength', notificationsLength);
+    // console.log('currentPageNav', currentPageNav);
+    // console.log('currentPageUserInfo', currentPageUserInfo);
+    // console.log('notificationsLength', notificationsLength);
 
     const userAlias = useSelector(state => state.authentication.user_info?.alias);
     const userType = useSelector(state => state.authentication.user_info?.user_type);
@@ -29,11 +29,14 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
     const linkAlias = location.pathname.split('/')[2];
     const isUserProfilePage = (userAlias === url || userAlias === linkAlias); // страница профиль залогиненного юзера?
 
+    console.log('2222222222222222222', isUserProfilePage);
+
     const checkIsProfilePage = () => { //проверяем страницы на котрых будем показывать то или иное меню
         if(userAlias) { // юзер залогинен?
             if(isUserProfilePage) { //проверка на страницу своего профиля залогиненного юзера
                 alert('Это страница нашего профиля, подтягиваем меню юзера');
                 setIsUserPages(true);
+                console.log('44444444444444', userAlias);
                 getCurrentPageUserInfo(userAlias);
             } else {
                 if(isFederationAlias(url) || url === 'kennel' || url === 'club' || (linkAlias && url === 'exhibitions') || (url.includes('exhibitions'))) { //проверка: если это 1) стр. Федерации 2) Питомника 3) Клуба 4) Страница выбранного мероприятия
@@ -57,7 +60,7 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
         Request({
             url: isUserPages
                 ?
-                    (userType === 0)
+                    (userType === 1)
                     ?
                     endpointGetUserInfo + userAlias
                     :
@@ -65,7 +68,6 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                 :
                 endpointGetClubInfo + userAlias
         }, data => {
-            console.log('data', data);
             setCurrentPageUserInfo({...data});
         }, error => {
             console.log(error.response);
@@ -74,12 +76,15 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
 
     useEffect(() => {
         checkIsProfilePage();
-    },[]);
+    },[isUserProfilePage]);
 
     useEffect(() => {
-        const currentUserAlias = currentPageUserInfo?.club_alias;
-        switch (currentPageUserInfo?.user_type) {
+        const currentUserAlias = (userType === 1) ?  currentPageUserInfo?.alias : currentPageUserInfo?.club_alias;
+        switch (userType) {
             case 0:
+                setCurrentPageNav(userNav(currentUserAlias));
+                break;
+            case 1:
                 setCurrentPageNav(userNav(currentUserAlias));
                 break;
             case 3:
@@ -112,6 +117,7 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                                     {notificationsLength > 99 ? 99 : notificationsLength}
                                 </span>
                     }
+                    22
                     <NavLink
                         to={navItem.to}
                         exact={navItem.exact}
