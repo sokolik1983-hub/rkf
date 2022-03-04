@@ -46,7 +46,7 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
         <div className="exhibitions-page__list-filter">
             <div className="exhibitions-page__title-inner">
                 <h4 className="list-filter__title">Мероприятия</h4>
-                {clientWidth < 560 &&
+                {clientWidth < 630 &&
                     <button
                         className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')}
                         onClick={() => setStandardView(!standardView)}
@@ -64,7 +64,7 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
                             </button>
                         </div>
                     }
-                   {clientWidth > 560 &&
+                   {clientWidth > 630 &&
                        <button
                            className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')}
                            onClick={() => setStandardView(!standardView)}
