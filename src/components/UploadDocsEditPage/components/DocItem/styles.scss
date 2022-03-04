@@ -1,4 +1,4 @@
-.MainInfo {
+.main-info {
   $font-family: "Source Sans Pro", Helvetica, sans-serif;
   @import "../../../../../node_modules/@progress/kendo-theme-bootstrap/dist/all";
   @import "../../../../../node_modules/bootstrap/scss/bootstrap";
@@ -12,7 +12,7 @@
     border-bottom: none!important;
     text-align: center;
   }
-  .DocumentItem {
+  .document-item {
     &__date {
       font-weight: normal;
       font-size: 12px;
@@ -23,13 +23,13 @@
       display: block;
     }
     &__download {
-      padding: 0;
-      border: 0;
-      height: 30px;
-      width: 30px;
-      background: url("/static/icons/icon-download.svg") no-repeat center;
       position: relative;
       top: 4px;
+      height: 30px;
+      width: 30px;
+      padding: 0;
+      border: 0;
+      background: url("/static/icons/icon-download.svg") no-repeat center;
       &:hover {
         background-image: url("/static/icons/icon-download-blue.svg");
       }
@@ -38,11 +38,11 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding: 0;
-      border: none;
       width: 24px;
       height: 24px;
       max-width: 100%;
+      padding: 0;
+      border: none;
     }
     .k-svg-i-file-pdf {
       width: 22px;

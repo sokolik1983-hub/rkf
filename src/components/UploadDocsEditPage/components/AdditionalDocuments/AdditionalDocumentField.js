@@ -18,7 +18,7 @@ const AdditionalDocumentField = ({
         if (isNaN(docId) || !docId) return;
 
         const headers = getHeaders();
-        setUrl('')
+        setUrl('');
         fetch(`/api/requests/exhibition_request/clubexhibitionrequestdocument?id=` + docId, { headers })
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
@@ -33,27 +33,27 @@ const AdditionalDocumentField = ({
                 setDocumentsOverflow(false);
             }
         }
-    }
+    };
 
     useEffect(()=>{
         getDocument(document_id)
     },[document_id])
 
     return (
-        <div className="AdditionalDocumentField">
-            <div className="AdditionalDocumentField__name">
+        <div className="additional-document-field">
+            <div className="additional-document-field__name">
                 <a
-                    className="AdditionalDocumentField__link"
+                    className="additional-document-field__link"
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <span className="AdditionalDocumentField__name-icon" />
+                    <span className="additional-document-field__name-icon" />
                     {name}
                 </a>
             </div>
             {!accept && editable &&
-                <div className="AdditionalDocumentField__remove">
+                <div className="additional-document-field__remove">
                     <span onClick={() => handleRemove()} className="k-icon k-i-trash" />
                 </div>
             }

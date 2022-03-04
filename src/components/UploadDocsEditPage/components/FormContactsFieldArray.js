@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Field } from '@progress/kendo-react-form';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
@@ -8,7 +8,16 @@ import { lengthValidator } from "components/kendo/Form/validators";
 import { phoneMask } from 'pages/UserEditKendo/config';
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
-    const { validationMessage, visited, id, value, onRemove, onPush, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
+    const {
+        validationMessage,
+        visited,
+        id,
+        value,
+        onRemove,
+        onPush,
+        valueRequiredValidator,
+        formRenderProps
+    } = fieldArrayRenderProps;
     const newItem = { "is_main": false, "value": "", "description": "" };
     const valuesArray = formRenderProps.valueGetter(id);
 

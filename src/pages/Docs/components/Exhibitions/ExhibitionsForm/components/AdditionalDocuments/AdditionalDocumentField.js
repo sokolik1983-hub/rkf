@@ -10,9 +10,9 @@ const AdditionalDocumentField = ({
                                      name,
                                      accept,
                                      editable,
-                                     formRenderProps
+                                     formRenderProps,
                                  }) => {
-    const [url, setUrl] = useState('')
+    const [url, setUrl] = useState('');
 
     const getDocument = (docId) => {
         if (isNaN(docId) || !docId) return;

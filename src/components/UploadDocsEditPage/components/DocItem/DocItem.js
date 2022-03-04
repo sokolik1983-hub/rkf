@@ -50,14 +50,14 @@ const DocumentItem = (props) => {
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => setUrl(url));
-    }
+    };
 
     useEffect(() => {
         getUrl();
     }, [])
 
     return (
-        <div className="DocumentItem container p-0 mb-4" >
+        <div className="document-item container p-0 mb-4" >
             <div className="row d-flex align-items-center flex-row" >
                 <div className="col-9">
                     <a href={url} target="_blank" rel="noopener noreferrer" className="d-flex align-items-center">

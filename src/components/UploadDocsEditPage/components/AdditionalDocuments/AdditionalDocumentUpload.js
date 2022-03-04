@@ -4,7 +4,7 @@ import FormUpload from '../FormUpload';
 import { getHeaders } from 'utils/request';
 import Alert from '../../../Alert';
 import OutsideClickHandler from 'react-outside-click-handler';
-import {blockContent} from "../../../../utils/blockContent";
+import {blockContent} from '../../../../utils/blockContent';
 
 const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProps, handleError, getDocuments }) => {
     const [isFormat, setIsFormat] = useState(true);
@@ -41,7 +41,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
         blockContent(false);
     }
 
-    return (<div className="AdditionalDocumentUpload">
+    return (<div className="additional-document-upload">
         <Field
             id="documents_upload"
             name="documents_upload"

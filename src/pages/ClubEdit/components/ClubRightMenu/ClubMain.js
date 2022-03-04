@@ -16,7 +16,7 @@ const ClubMain = ({
         history
 }) => {
     return (
-        <Card className="MainInfo">
+        <Card className="main-info">
             <h3>Основная информация</h3>
             <ClubInfo
                 bindSubmitClubAlias={bindSubmitClubAlias}

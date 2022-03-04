@@ -87,7 +87,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                      return (
                              <FormElement>
                                  <div className="application-form__content">
-                                     <div className="MainInfo__private-docs-wrap">
+                                     <div className="main-info__private-docs-wrap">
                                          <h3>Ваши приватные документы</h3>
                                          {
                                              loaded
@@ -96,7 +96,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                                                      ?
                                                      documents.map(item => <DocItem key={item.id} id={item.id} name={item.name} link={item.link} date_create={item.date_create} setModal={setModal} />)
                                                      :
-                                                     <h3 className="MainInfo__empty-h3">Вы не загрузили ни одного документа</h3>
+                                                     <h3 className="main-info__empty-h3">Вы не загрузили ни одного документа</h3>
                                                  :
                                                  <Loading centered={false} />
                                          }

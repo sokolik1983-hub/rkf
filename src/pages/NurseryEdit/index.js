@@ -172,9 +172,9 @@ const NurseryEdit = ({
             <Redirect to="404"/> :
             <Layout withFilters setNotificationsLength={setNotificationsLength}>
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
-                <div className="NurseryEdit__wrap">
-                    <Container className="NurseryEdit content">
-                        <aside className="NurseryEdit__left">
+                <div className="nursery-edit__wrap">
+                    <Container className="nursery-edit content">
+                        <aside className="nursery-edit__left">
                             <StickyBox offsetTop={60}>
                                 <UserHeader
                                     user="nursery"
@@ -198,7 +198,7 @@ const NurseryEdit = ({
                                 <CopyrightInfo withSocials={true}/>
                             </StickyBox>
                         </aside>
-                        <div className="NurseryEdit__right">
+                        <div className="nursery-edit__right">
                             {loading
                                 ? <Loading/>
                                 : <Form
@@ -207,7 +207,7 @@ const NurseryEdit = ({
                                     transformValues={transformValues}
                                     onSuccess={handleSuccess}
                                     onError={handleError}
-                                    className="NurseryEdit__form"
+                                    className="nursery-edit__form"
                                     withLoading={false}
                                 >
                                     <RenderFields

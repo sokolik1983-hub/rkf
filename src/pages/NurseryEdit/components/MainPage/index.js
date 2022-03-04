@@ -21,12 +21,12 @@ const MyComponent = ({
         co_owner_last_name,
         co_owner_first_name,
         co_owner_second_name,
-        history
+        history,
 }) => {
     return (
         <Card>
             <h3>Основная информация</h3>
-            <div className="NurseryEdit__main-info">
+            <div className="nursery-edit__main-info">
                 <Transliteratable {...name} />
                 <FormField {...name_lat} />
                 <FormField {...description} />
@@ -41,14 +41,13 @@ const MyComponent = ({
             <Documents documents={documents}/>
             <SubmitButton>Сохранить</SubmitButton>
             {formik.errors && !!Object.keys(formik.errors).length
-                && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
-            {working && <div className="NurseryEdit__is-valid">Идёт загрузка файла...</div>}
-            <div className="MainInfo">
+                && <div className="nursery-edit__is-valid">Не все необходимые поля заполнены</div>}
+            {working && <div className="nursery-edit__is-valid">Идёт загрузка файла...</div>}
+            <div className="main-info">
                 <UploadDocsEditPage
                     clubAlias={alias}
                     history={history}
                 />
-
             </div>
 
         </Card>

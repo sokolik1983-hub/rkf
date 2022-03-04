@@ -4,7 +4,7 @@ import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import { Request } from "../../../../utils/request";
 
-import "./index.scss";
+import './index.scss';
 
 const ModalDeleteDocument = ({ handleSuccess, handleError, getDocuments, documentId, closeModal, isEditPage }) => {
     const [loading, setLoading] = useState(false);
