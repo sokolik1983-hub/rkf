@@ -17,11 +17,12 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
     const [currentPageNav, setCurrentPageNav] = useState(null);
 
     // console.log('currentPageNav', currentPageNav);
-    // console.log('currentPageUserInfo', currentPageUserInfo);
     // console.log('notificationsLength', notificationsLength);
 
     const userAlias = useSelector(state => state.authentication.user_info?.alias);
     const userType = useSelector(state => state.authentication.user_info?.user_type);
+
+    console.log('currentPageUserInfo', currentPageUserInfo);
 
     const isMobile = useIsMobile(1080);
     const location = useLocation();
@@ -29,20 +30,19 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
     const linkAlias = location.pathname.split('/')[2];
     const isUserProfilePage = (userAlias === url || userAlias === linkAlias); // страница профиль залогиненного юзера?
 
-    console.log('2222222222222222222', isUserProfilePage);
-
     const checkIsProfilePage = () => { //проверяем страницы на котрых будем показывать то или иное меню
         if(userAlias) { // юзер залогинен?
             if(isUserProfilePage) { //проверка на страницу своего профиля залогиненного юзера
                 alert('Это страница нашего профиля, подтягиваем меню юзера');
                 setIsUserPages(true);
-                console.log('44444444444444', userAlias);
                 getCurrentPageUserInfo(userAlias);
             } else {
                 if(isFederationAlias(url) || url === 'kennel' || url === 'club' || (linkAlias && url === 'exhibitions') || (url.includes('exhibitions'))) { //проверка: если это 1) стр. Федерации 2) Питомника 3) Клуба 4) Страница выбранного мероприятия
-                    alert('111Это не страница профиля, подтягиваем меню другого профиля');
+                    alert('111Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
                     setIsUserPages(false);
-                    isFederationAlias(url) ? getCurrentPageUserInfo(exhibAlias || url) : getCurrentPageUserInfo(exhibAlias || linkAlias); //если страница мероприятия (linkAlias && url === 'exhibitions'), то записываем в getCurrentPageUserInfo значение exhibAlias===алиас организации которая проводит мероприятие
+                    console.log('22222222222222222222', url, linkAlias)
+                    isFederationAlias(url) ? getCurrentPageUserInfo(exhibAlias || url) : getCurrentPageUserInfo(exhibAlias || linkAlias);
+                    //если страница мероприятия (linkAlias && url === 'exhibitions'), то записываем в getCurrentPageUserInfo значение exhibAlias===алиас организации которая проводит мероприятие
                 } else {
                     alert('Это остальные страницы, подтягиваем меню юзера');
                     setIsUserPages(true);
@@ -50,7 +50,7 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                 };
             }
         } else {
-            alert('Юзер не залогинен, подтягиваем меню другого профиля');
+            alert('Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
             setIsUserPages(false);
             isFederationAlias(url) ? getCurrentPageUserInfo(url) : getCurrentPageUserInfo(linkAlias);
         };
@@ -79,8 +79,13 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
     },[isUserProfilePage]);
 
     useEffect(() => {
+
         const currentUserAlias = (userType === 1) ?  currentPageUserInfo?.alias : currentPageUserInfo?.club_alias;
-        switch (userType) {
+        const currentUserType = currentPageUserInfo?.user_type;
+
+        console.log('currentUserAlias', currentUserType)
+
+        switch (currentUserType) {
             case 0:
                 setCurrentPageNav(userNav(currentUserAlias));
                 break;
@@ -88,10 +93,12 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                 setCurrentPageNav(userNav(currentUserAlias));
                 break;
             case 3:
-                if(userAlias === 'rkf' || userAlias === 'rkf-online')
+                if(currentUserAlias === 'rkf' || currentUserAlias === 'rkf-online')
                 {
+                    console.log('666666666')
                     setCurrentPageNav(federationNav(currentUserAlias));
                 } else {
+                    console.log('7777777777777777777777')
                     setCurrentPageNav(clubNav(currentUserAlias));
                 }
                 break;
