@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Button } from "@progress/kendo-react-buttons";
-import Loading from "../../../../components/Loading";
-import Modal from "../../../../components/Modal";
-import { Request } from "../../../../utils/request";
+import React, { useState } from 'react';
+import { Button } from '@progress/kendo-react-buttons';
+import Loading from '../../../../components/Loading';
+import Modal from '../../../../components/Modal';
+import { Request } from '../../../../utils/request';
 
 import './index.scss';
 
