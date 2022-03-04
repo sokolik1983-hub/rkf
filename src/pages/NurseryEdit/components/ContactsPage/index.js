@@ -41,8 +41,8 @@ const ContactsPage = ({
             <SocialNetworks socials={socials}/>
             <SubmitButton>Сохранить</SubmitButton>
             {formik.errors && !!Object.keys(formik.errors).length
-                && <div className="NurseryEdit__is-valid">Не все необходимые поля заполнены</div>}
-            {working && <div className="NurseryEdit__is-valid">Идёт загрузка файла...</div>}
+                && <div className="nursery-edit__is-valid">Не все необходимые поля заполнены</div>}
+            {working && <div className="nursery-edit__is-valid">Идёт загрузка файла...</div>}
         </Card>
     );
 };
