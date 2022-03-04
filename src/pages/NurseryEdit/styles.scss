@@ -3,17 +3,21 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 60px;
+
     a:hover {
         text-decoration: none;
     }
+
     @media (max-width: 560px) {
         display: block;
     }
+
     &__main-info > div:nth-child(2) {
         @media (max-width: 1024px) {
             display: none;
         }
     }
+
     &__left {
         width: 300px;
         min-width: 300px;
@@ -161,6 +165,7 @@
             }
         }
     }
+
     &__right {
         width: 100%;
         @media (max-width: 560px) {
@@ -173,6 +178,7 @@
             padding-bottom: 1px;
         }
     }
+
     &__inner {
         display: flex;
         width: 100%;
@@ -317,6 +323,7 @@
             }
         }
     }
+
     .Card {
         margin: 0 0 16px 0;
         padding: 25px;
@@ -365,9 +372,11 @@
             }
         }
     }
+
     .FormGroup--inline {
         margin-bottom: 0;
     }
+
     .FormInput__error {
         position: absolute;
         font-size: 12px;
@@ -379,6 +388,7 @@
             left: 0;
         }
     }
+
     .FormInput {
         display: grid;
         grid-template-columns: 19% 79%;
@@ -486,6 +496,7 @@
             height: 42px;
         }
     }
+
     &__is-valid {
         display: flex;
         justify-content: center;
