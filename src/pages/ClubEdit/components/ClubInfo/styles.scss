@@ -291,15 +291,15 @@
 
     .delete-mini {
         position: relative;
-        display: block;
+        display: block!important;
         margin-left: auto;
         bottom: 35px;
         right: 3px;
-        padding: 0;
+        padding: 0!important;
         width: 15px;
         height: 18px;
         cursor: pointer;
-        font-size: 0;
+        font-size: 0!important;
         background: url('/static/icons/delete-red.svg');
         background-size: cover;
         border: none;
