@@ -23,7 +23,6 @@ import "./index.scss";
 
 const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
     const [alert, setAlert] = useState(false);
-    const [state, setState] = useState(state)
     const [clubInfo, setClubInfo] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [menuBackground, setMenuBackground] = useState(null)

@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
-import ls from "local-storage";
-import { Redirect, Link } from "react-router-dom";
-import { Request } from "utils/request";
-import Loading from "components/Loading";
-import Alert from "components/Alert";
-import Card from "components/Card";
-import { Form } from "components/Form";
-import DocItemList from "../DocItemList";
-import removeNulls from "utils/removeNulls";
-import './index.scss';
-
+import React, { useState, useEffect } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import ls from 'local-storage';
+import { Request } from 'utils/request';
+import Loading from 'components/Loading';
+import Alert from 'components/Alert';
+import Card from 'components/Card';
+import { Form } from 'components/Form';
+import DocItemList from '../DocItemList';
+import removeNulls from 'utils/removeNulls';
 import {
     emptyNurseryPedigreeDeclarant,
     emptyNurseryLitterDeclarant,
@@ -23,20 +21,8 @@ import {
     apiLitterEndpoint
 } from "../../config.js";
 
-const sendAlertProps = {
-    title: "Документы отправлены",
-    text: "Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
-}
+import './index.scss';
 
-const sendAlertEmptyProps = {
-    title: "Вы не внесли никаких изменений",
-    text: "Необходимо внести изменения перед отправкой"
-}
-
-const draftAlertProps = {
-    title: "Заявка сохранена",
-    text: "Заявка сохранена. Вы можете отредактировать ее в личном кабинете."
-}
 
 const DocApply = ({ nurseryAlias, history, distinction }) => {
     const [draft, setDraft] = useState(false);
@@ -77,12 +63,9 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         declarant_id
     };
     const [loading, setLoading] = useState(true);
-    const [okAlert, setOkAlert] = useState(false);
-    const [noChangeAlert, setNoChangeAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
-    const [statusId, setStatusId] = useState(1);
     const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
 
     let update = false, id, view = false;
@@ -123,8 +106,6 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         return r;
     }
     const transformValues = values => {
-        //if (update) {
-        setStatusId(values.status_id);
         let r = filterBySchema(values, (update ? updateSchema : validationSchema).fields);
         if (!(r.payment_document instanceof File)) {
             delete r.payment_document;
@@ -143,10 +124,6 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
             });
         });
         return r;
-        //} else {
-        //    let r = filterBySchema(values, validationSchema.fields);
-        //    return r;
-        //}
     }
 
     const setFormValues = values => {
@@ -190,25 +167,8 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         setRedirect(`/kennel/${nurseryAlias}/documents`);
     }
 
-    return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
+    return loading ? <Loading /> : <div className={"documents-page__info DocApply view"}>
 
-         {/*{noChangeAlert &&
-             <Alert
-                 {...(sendAlertEmptyProps)}
-                 autoclose={2.5}
-                 okButton="true"
-                 onOk={() => setRedirect(`/kennel/${nurseryAlias}/documents`)}
-             />
-         }
-        {okAlert &&
-            <Alert
-                {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
-                // title="Заявка отправлена на рассмотрение"
-                autoclose="false"
-                okButton="true"
-                onOk={() => setRedirect(`/kennel/${nurseryAlias}/documents`)}
-            />
-        }*/}
         {redirect && <Redirect to={redirect} />}
         {errAlert &&
             <Alert

@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import getYouTubeID from "get-youtube-id";
-import { connect } from "formik";
-import CustomChipList from "../../../../components/Form/Field/CustomChipList";
-import { FormControls, FormField, FormGroup, SubmitButton } from "../../../../components/Form";
-import AddVideoLink from "../../../../components/UserAddArticle/AddVideoLink";
-import AttachFile from "../../../../components/UserAddArticle/AttachFile";
-import { BAD_SITES } from "../../../../appConfig";
-import { Request } from "../../../../utils/request";
-import Modal from "../../../../components/Modal";
-import LightTooltip from "../../../../components/LightTooltip";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { trash } from "@progress/kendo-svg-icons";
-import { acceptType } from "../../../../utils/checkImgType";
-import useIsMobile from "../../../../utils/useIsMobile";
+import React, { useEffect, useState } from 'react';
+import getYouTubeID from 'get-youtube-id';
+import { connect } from 'formik';
+import CustomChipList from '../../../../components/Form/Field/CustomChipList';
+import { FormControls, FormField, FormGroup, SubmitButton } from '../../../../components/Form';
+import AddVideoLink from '../../../../components/UserAddArticle/AddVideoLink';
+import AttachFile from '../../../../components/UserAddArticle/AttachFile';
+import { BAD_SITES } from '../../../../appConfig';
+import { Request } from '../../../../utils/request';
+import Modal from '../../../../components/Modal';
+import LightTooltip from '../../../../components/LightTooltip';
+import { SvgIcon } from '@progress/kendo-react-common';
+import { trash } from '@progress/kendo-svg-icons';
+import { acceptType } from '../../../../utils/checkImgType';
+import useIsMobile from '../../../../utils/useIsMobile';
 import { blockContent } from '../../../../utils/blockContent';
-import OutsideClickHandler from "react-outside-click-handler";
+import OutsideClickHandler from 'react-outside-click-handler';
 import { useFocus } from '../../../../shared/hooks';
-import CustomSelect from "react-select";
-import CustomCheckbox from "../../../../components/Form/CustomCheckbox";
+import CustomSelect from 'react-select';
+import CustomCheckbox from '../../../../components/Form/CustomCheckbox';
 
 
 const RenderFields = ({ fields,
@@ -59,7 +59,7 @@ const RenderFields = ({ fields,
     const [currentCities, setCurrentCities] = useState(currentCityId);
     const [isAllCitiesEdit, setIsAllCitiesEdit] = useState(isAllCities);
 
-    const { focus, setFocused, setBlured } = useFocus(false);
+    const { setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
     const isMobile = useIsMobile();
 

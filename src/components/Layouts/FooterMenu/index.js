@@ -36,7 +36,6 @@ const FooterMenu = ({
     const [open, setOpen] = useState(false);
     const [openUserMenu, setOpenUserMenu] = useState(false);
     const [openMenuComponent, setOpenMenuComponent] = useState(false);
-    const [openFedMenu, setOpenFedMenu] = useState(false);
     const [fedInfo, setFedInfo] = useState(null);
     const isExhibitionPage = match.path === pathname;
     const isKennel = pathname.search('kennel') === 1 || user_type === 4;
@@ -76,12 +75,12 @@ const FooterMenu = ({
     };
 
     useEffect(() => {
-        if(showZlineModal || open || openUserMenu || openFedMenu || openMenuComponent) {
+        if(showZlineModal || open || openUserMenu || openMenuComponent) {
             blockContent(true);
         } else {
             blockContent(false);
         }
-    }, [showZlineModal, open, openUserMenu, openFedMenu, openMenuComponent]);
+    }, [showZlineModal, open, openUserMenu, openMenuComponent]);
 
     return (
         <>
