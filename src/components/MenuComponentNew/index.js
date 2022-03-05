@@ -27,13 +27,8 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
 
-    // console.log('currentPageNav', currentPageNav);
-    // console.log('notificationsLength', notificationsLength);
-
     const userAlias = useSelector(state => state.authentication.user_info?.alias);
     const userType = useSelector(state => state.authentication.user_info?.user_type);
-
-    // console.log('fedFeesId', linkFeesId, linkFedDetails);
 
     const isMobile = useIsMobile(1080);
     const location = useLocation();
@@ -92,12 +87,8 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
     }, [isUserProfilePage]);
 
     useEffect(() => {
-
         const currentUserAlias = (userType === 1) ? currentPageUserInfo?.alias : currentPageUserInfo?.club_alias;
         const currentUserType = currentPageUserInfo?.user_type;
-
-        // console.log('currentUserAlias', currentUserType)
-
         switch (currentUserType) {
             case 0:
                 setCurrentPageNav(userNav(currentUserAlias));
@@ -117,13 +108,20 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                 setCurrentPageNav(kennelNav(currentUserAlias));
                 break;
             case 5:
-                setCurrentPageNav(federationNav(currentUserAlias));
+                const newArr = federationNav(currentUserAlias).map(item => {
+                    if(item.id === 7) {
+                        item.to = linkFeesId;
+                    } else if (item.id === 8) {
+                        item.to = linkFedDetails;
+                    }
+                    return item;
+                });
+                setCurrentPageNav(federationNav(newArr));
                 break;
             default:
                 setCurrentPageNav(null);
-        }
-        ;
-    }, [currentPageUserInfo]);
+        };
+    }, [currentPageUserInfo, linkFeesId, linkFedDetails]);
 
     useEffect(() => {
         if (showModal) {
@@ -132,44 +130,44 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
             blockContent(false)
         }
     }, [showModal]);
-    //
-    // useEffect(() => {
-    //     if (currentPageUserInfo?.club_alias) {
-    //         //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
-    //         //Alias (алиас федерации)
-    //         (() => Request({
-    //             url: `/api/federation/federation_documents?Alias=${currentPageUserInfo.club_alias}`
-    //         }, data => {
-    //             setFedFeesId(data[0]?.documents?.filter(i => i.document_type_id === 2)[0].document_id);
-    //             setFedDetails(data[0]?.documents?.filter(i => i.document_type_id === 1)[0].document_id);
-    //         }, error => {
-    //             console.log(error.response);
-    //         }))();
-    //     }
-    // }, [currentPageUserInfo]);
-    //
-    // useEffect(() => {
-    //     if (fedFeesId) {
-    //         (() => Request({
-    //             url: `/api/document/document/public?id=${fedFeesId}`
-    //         }, data => {
-    //             setLinkFeesId(data);
-    //         }, error => {
-    //             console.log(error.response);
-    //             // history.replace('/404');
-    //         }))();
-    //     }
-    //
-    //     if (fedDetails) {
-    //         (() => Request({
-    //             url: `/api/document/document/public?id=${fedDetails}`
-    //         }, data => {
-    //             setLinkFedDetails(data);
-    //         }, error => {
-    //             console.log(error.response);
-    //         }))();
-    //     }
-    // }, [fedDetails, fedFeesId]);
+
+    useEffect(() => {
+        if (currentPageUserInfo?.club_alias) {
+            //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
+            //Alias (алиас федерации)
+            (() => Request({
+                url: `/api/federation/federation_documents?Alias=${currentPageUserInfo.club_alias}`
+            }, data => {
+                setFedFeesId(data[0]?.documents?.filter(i => i.document_type_id === 2)[0].document_id);
+                setFedDetails(data[0]?.documents?.filter(i => i.document_type_id === 1)[0].document_id);
+            }, error => {
+                console.log(error.response);
+            }))();
+        }
+    }, [currentPageUserInfo]);
+
+    useEffect(() => {
+        if (fedFeesId) {
+            (() => Request({
+                url: `/api/document/document/public?id=${fedFeesId}`
+            }, data => {
+                setLinkFeesId(data);
+            }, error => {
+                console.log(error.response);
+                // history.replace('/404');
+            }))();
+        }
+
+        if (fedDetails) {
+            (() => Request({
+                url: `/api/document/document/public?id=${fedDetails}`
+            }, data => {
+                setLinkFedDetails(data);
+            }, error => {
+                console.log(error.response);
+            }))();
+        }
+    }, [fedDetails, fedFeesId]);
 
     return (
         <>
