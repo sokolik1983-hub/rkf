@@ -61,7 +61,7 @@ const RenderFields = ({ fields,
 
     const { setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(900);
 
 
     useEffect(() => {
