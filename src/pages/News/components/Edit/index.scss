@@ -511,6 +511,7 @@
       padding-bottom: 6px;
     }
   }
+
   &__age-wrap {
     grid-area: age;
     #dog_age {
@@ -518,8 +519,30 @@
       padding-bottom: 6px;
     }
   }
+
   &__custom-select {
     grid-area: sex;
+  }
+
+  &__wrap {
+    .FormInput input, .RSInput__control {
+      height: 38px;
+      padding-top: 0;
+      padding-bottom: 0;
+      .RSInput__value-container {
+        height: 18px;
+      }
+    }
+
+    .FormInput label, .article-edit__custom-select label {
+      margin-bottom: 4px;
+      line-height: 18px;
+      color: #72839C;
+    }
+
+    .article-edit__ad:first-child {
+      margin-bottom: 20px;
+    }
   }
 }
 .k-upload .k-dropzone {
