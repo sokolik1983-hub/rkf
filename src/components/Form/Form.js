@@ -1,9 +1,9 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { array, element, func, object, oneOf, oneOfType, string } from 'prop-types';
 import classnames from 'classnames'
 import { Formik  } from 'formik';
 import { Request } from '../../utils/request';
-import Loading from "../Loading";
+import Loading from '../Loading';
 import flatten from 'utils/flatten';
 
 const getFormData = data => {
@@ -40,7 +40,6 @@ function Form({
     resetForm = false,
     isEditPage,
     history,
-    setValue
 }) {
     const [loading, setLoading] = useState(false);
     const isMultipartData = format === "multipart/form-data";

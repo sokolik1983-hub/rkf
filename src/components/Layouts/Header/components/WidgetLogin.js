@@ -169,23 +169,6 @@ const WidgetLogin = forwardRef(
                                                             <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
                                                             }
                                                         </div>
-
-                                                        {/*<div className="widget-login__button-wrap">*/}
-                                                        {/*    {is_active_profile &&*/}
-                                                        {/*    <>*/}
-                                                        {/*        {userType === 1 &&*/}
-                                                        {/*        <Link className="widget-login__button" to={`/user/${alias}/edit`} >Редактировать профиль</Link>*/}
-                                                        {/*        }*/}
-                                                        {/*        {(userType === 3 || userType === 5) &&*/}
-                                                        {/*        <Link className="widget-login__button" to="/client" >Редактировать профиль</Link>*/}
-                                                        {/*        }*/}
-                                                        {/*        {userType === 4 &&*/}
-                                                        {/*        <Link className="widget-login__button" to={`/kennel/${alias}/edit`} >Редактировать профиль</Link>*/}
-                                                        {/*        }*/}
-                                                        {/*    </>*/}
-                                                        {/*    }*/}
-                                                        {/*</div>*/}
-
                                                         <ul className="widget-login__list">
                                                             {is_active_profile &&
                                                             <>

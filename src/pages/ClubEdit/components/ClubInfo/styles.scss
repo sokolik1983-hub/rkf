@@ -1,4 +1,4 @@
-.MainInfo {
+.main-info {
     .FormGroup {
         margin: 0;
         gap: 0;
@@ -282,12 +282,12 @@
     }
 
     .add-mini {
-        position: absolute;
-        bottom: 19px;
+        position: relative;
+        bottom: 57px;
         left: 95px;
         height: 18px;
         width: 18px;
-        margin: 0;
+        margin: 0 0 -20px 0;
         padding: 0;
         font-size: 0;
         border: none;
@@ -297,21 +297,21 @@
             display: block;
             margin-left: auto;
             left: -50px;
-            bottom: 48px;
+            bottom: 53px;
         }
     }
 
     .delete-mini {
         position: relative;
-        display: block;
+        display: block!important;
         margin-left: auto;
         bottom: 35px;
         right: 3px;
-        padding: 0;
+        padding: 0!important;
         width: 15px;
         height: 18px;
         cursor: pointer;
-        font-size: 0;
+        font-size: 0!important;
         background: url('/static/icons/delete-red.svg');
         background-size: cover;
         border: none;
@@ -382,5 +382,8 @@
                 }
             }
         }
+    }
+    .Submit-button {
+        margin-top: -20px;
     }
 }

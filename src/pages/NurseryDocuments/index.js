@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import ls from "local-storage";
-// import PageNotFound from "../404";
 import Container from "../../components/Layouts/Container";
 import Layout from "../../components/Layouts";
 import TopComponent from "../../components/TopComponent";
@@ -13,9 +12,6 @@ import PuppiesMetrics from "../Docs/components/PuppiesMetrics";
 import ResponsiblePersonForm from "./components/ResponsiblePersonForm";
 import ResponsivePersonTable from "./components/ResponsiblePersonTable";
 import DocRegistry from "./components/Print/DocRegistry";
-import PuppyMetrics from "./components/Print/PuppyMetrics";
-// import AddStamp from "./components/Stamps/AddStamp";
-// import Registry from "./components/Stamps/Registry";
 import RequestRegistry from "./components/RequestRegistry";
 import ReplaceRegistry from "./components/ReplaceRegistry";
 import ReplacePedigree from "./components/ReplacePedigree";
@@ -26,11 +22,8 @@ import ApplicationRegistry from "./components/Application/ApplicationRegistry";
 import CheckMembershipForm from "./components/CheckMembership/CheckMembershipForm";
 import CheckMembershipRegistry from "./components/CheckMembership/CheckMembershipRegistry";
 import { LoadableNotFound } from "../../appModules";
-import { connectAuthVisible } from "../Login/connectors";
-import HorizontalMenu from "../../components/HorizontalMenu";
-import useIsMobile from "../../utils/useIsMobile";
-import {kennelNav} from "../../pages/NurseryDocuments/config"
-import "./index.scss";
+import { connectAuthVisible } from '../Login/connectors';
+import './index.scss';
 
 
 
@@ -38,10 +31,7 @@ const Docs = ({ history }) => {
     const nurseryAlias = ls.get('user_info') ? ls.get('user_info').alias : 1;
     const nurseryName = ls.get('user_info') ? ls.get('user_info').name : '';
     const nurseryLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
-    //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
-    // const isVisible = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
     const isWithFilters = !!useRouteMatch('/kennel/:route/documents/replace-pedigree/registry');
-    const isMobile = useIsMobile(1080);
 
 
 
@@ -150,12 +140,6 @@ const Docs = ({ history }) => {
                     <Route exact={true} path='/kennel/:route/documents/puppy/metrics/:id/print' component={() =>
                         <PuppiesMetrics history={history} />}
                     />
-                    {/*<Route exact={true} path='/kennel/:route/documents/stamps/add' component={() =>
-                            <AddStamp history={history} />}
-                        />
-                        <Route exact={true} path='/kennel/:route/documents/stamps/registry' component={() =>
-                            <Registry history={history} />}
-                        />*/}
                     <Route exact={true} path='/kennel/:route/documents/responsible/form' component={() =>
                         <ResponsiblePersonForm nurseryAlias={nurseryAlias} history={history} />}
                     />

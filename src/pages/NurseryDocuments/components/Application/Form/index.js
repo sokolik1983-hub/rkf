@@ -11,22 +11,26 @@ import LightTooltip from "../../../../../components/LightTooltip";
 import FormInput from "../../../../../components/kendo/Form/FormInput";
 import FormContactsCheckbox from "../../../../../components/kendo/Form/FormContactsCheckbox";
 import FormUpload from "./components/FormUpload";
-import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import FormComboBox from './components/FormComboBox';
 import DocumentLink from "../../DocumentLink";
 import DocumentLinksArray from "../../DocumentLinksArray";
 import {
-    dateRequiredValidator, nameRequiredValidator,
-    documentRequiredValidator, requiredWithTrimValidator,
-    documentTypeRequired, innValidator, requiredValidator, nameValidator
+    nameRequiredValidator,
+    documentRequiredValidator,
+    requiredWithTrimValidator,
+    documentTypeRequired,
+    innValidator,
+    requiredValidator,
+    nameValidator,
 } from "../../../../../components/kendo/Form/validators";
 import { PromiseRequest, Request } from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
 import {DateInput} from "../../../../../components/materialUI/DateTime";
+import FooterFeedback from "../../../../../components/Layouts/FooterFeedback";
 
 import "./index.scss";
 
@@ -910,6 +914,7 @@ const Application = ({ alias, history, status }) => {
                     }
                 </Fade>
             </NotificationGroup>
+            <FooterFeedback />
         </div>
     )
 };
