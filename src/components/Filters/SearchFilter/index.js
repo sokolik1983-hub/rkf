@@ -101,7 +101,7 @@ const SearchFilter = ({
                     onChange={({search_type}) => {
                         searchTabId !== search_type &&
                             tabItems.filter(item => {
-                                item.search_type === search_type && handleActiveTypeChange(item.title);
+                                return item.search_type === search_type && handleActiveTypeChange(item.title);
                             })
                     }}
                 />

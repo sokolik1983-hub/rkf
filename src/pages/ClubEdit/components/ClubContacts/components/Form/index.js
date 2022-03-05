@@ -1,10 +1,10 @@
-import React, {useContext} from "react";
-import Button from "../../../../../../components/Button";
-import {Form, SubmitButton} from "../../../../../../components/Form";
-import RenderFields from "./RenderFields";
-import {connectContactFrom} from "../../connectors";
-import {clubClubContactsConfig} from "../../config";
-import {ContactTypeContext} from "../../context";
+import React, {useContext} from 'react';
+import Button from '../../../../../../components/Button';
+import {Form} from '../../../../../../components/Form';
+import RenderFields from './RenderFields';
+import {connectContactFrom} from '../../connectors';
+import {clubClubContactsConfig} from '../../config';
+import {ContactTypeContext} from '../../context';
 
 
 const ClubContactForm = ({club_id, addClubContactSuccess, hideForm, bindSubmitForm}) => {

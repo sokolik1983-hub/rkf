@@ -1,32 +1,38 @@
 export const categories = [
     {
-        name: 'Все',
-        id: 1,
-        icon: 'NewsFeed__icon NewsFeed__icon--publications'
-    },
-    {
         name: 'Новые',
-        id: 7,
-        icon: 'NewsFeed__icon NewsFeed__icon--new'
+        id: 1,
+        icon: 'news-feed__icon news-feed__icon--new',
+        count: 0,
     },
     {
         name: 'Важные',
         id: 4,
-        icon: 'NewsFeed__icon NewsFeed__icon--required'
+        icon: 'news-feed__icon news-feed__icon--required',
+        count: 0,
     },
     {
         name: 'Заявки',
         id: 6,
-        icon: 'NewsFeed__icon NewsFeed__icon--applications'
+        icon: 'news-feed__icon news-feed__icon--applications',
+        count: 0,
     },
     {
         name: 'Подписки',
         id: 8,
-        icon: 'NewsFeed__icon NewsFeed__icon--subscriptions'
+        icon: 'news-feed__icon news-feed__icon--subscriptions',
+        count: 0,
+    },
+    {
+        name: 'Все',
+        id: 0,
+        icon: 'news-feed__icon news-feed__icon--publications',
+        count: 0,
     },
     {
         name: 'Архив',
         id: 9,
-        icon: 'NewsFeed__icon NewsFeed__icon--archive',
+        icon: 'news-feed__icon news-feed__icon--archive',
+        count: 0,
     }
 ];

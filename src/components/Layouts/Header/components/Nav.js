@@ -13,7 +13,6 @@ import ZlineWidget from "../../../ZLineWidget";
 const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowFilters, setOpen}) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
     const isMobile = useIsMobile(1080);
-    const apiKey = localStorage.getItem('apikey');
 
     const links = [
         {

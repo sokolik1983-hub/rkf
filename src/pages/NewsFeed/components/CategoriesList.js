@@ -1,9 +1,9 @@
-import React from "react";
-import Card from "components/Card";
-import { categories } from "../config";
+import React from 'react';
+import Card from 'components/Card';
+import { categories } from '../config';
 
 const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead, setShowFilters}) => {
-    const isActive = (value) => activeCategoryId === value ? "NewsFeed__category-item active" : "NewsFeed__category-item";
+    const isActive = (value) => activeCategoryId === value ? "news-feed__category-item active" : "news-feed__category-item";
 
     const handleCategoryClick = (id) => {
         setActiveCategoryId(id);
@@ -16,13 +16,18 @@ const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead
         window.scrollTo(0, 0);
     }
     return <Card>
-        <h3 className="NewsFeed__inner-name">Уведомления</h3>
-        <ul className="NewsFeed__inner-list">
-            {categories.map(({ id, name, icon, disabled }, key) => {
+        <h3 className="news-feed__inner-name">Уведомления</h3>
+        <ul className="news-feed__inner-list">
+            {categories.map(({ id, name, icon, disabled, count }, key) => {
                 if (disabled) {
-                    return <li className="NewsFeed__category-item disabled" key={key}>
+                    return <li className="news-feed__category-item disabled" key={key}>
                         <span className={icon} />
                         <span>{name}</span>
+                        {count > 0 &&
+                            <span className="news-feed__category-item-count">
+                                {count <= 99 ? count : '99+'}
+                            </span>
+                        }
                     </li>;
                 }
                 return <li
