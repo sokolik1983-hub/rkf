@@ -15,7 +15,7 @@ import Card from 'components/Card';
 import CopyrightInfo from 'components/CopyrightInfo';
 import { Request } from 'utils/request';
 import { connectAuthVisible } from 'pages/Login/connectors';
-import { endpointGetUserInfo, endpointGetJudgeInfo, userNav } from './config';
+import { endpointGetUserInfo, endpointGetRolesInfo, userNav } from './config';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
@@ -30,6 +30,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
     const [errorMessage, setErrorMessage] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
     const [userInfo, setUserInfo] = useState({});
+    const [rolesInfo, setRolesInfo] = useState([]);
     const [judgeInfo, setJudgeInfo] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
@@ -44,8 +45,13 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
 
     useEffect(() => {
         userInfo?.profile_id &&
-        (() => getJudgeInfo())();
+        (() => getRolesInfo())();
     }, [userInfo]);
+
+    useEffect(() => {
+        !!rolesInfo &&
+            setJudgeInfo(rolesInfo.open_roles?.map(item => item.key_name === "role_judge" && item.role_data));
+    }, [rolesInfo]);
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
@@ -67,11 +73,11 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         setLoading(false);
     };
 
-    const getJudgeInfo = async() => {
+    const getRolesInfo = async() => {
         await Request({
-            url: endpointGetJudgeInfo + userInfo.profile_id
+            url: endpointGetRolesInfo + userInfo.profile_id
         }, data => {
-            setJudgeInfo(data);
+            setRolesInfo(data);
         }, error => {
             console.log(error.response);
             setErrorRedirect(error.response);
@@ -125,6 +131,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         checkLinkUserPage();
     },[]);
 
+
     return loading ?
         <Loading /> :
         errorRedirect ?
@@ -146,7 +153,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}
-                                        judgeInfo={judgeInfo.judge_info}
+                                        judgeInfo={judgeInfo}
                                         subscribed={userInfo.subscribed}
                                         subscribed_id={userInfo.profile_id}
                                         onSubscriptionUpdate={onSubscriptionUpdate}
