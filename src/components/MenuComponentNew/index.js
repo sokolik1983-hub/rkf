@@ -111,12 +111,16 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                 const newArr = federationNav(currentUserAlias).map(item => {
                     if(item.id === 7) {
                         item.to = linkFeesId;
+                        return item;
                     } else if (item.id === 8) {
                         item.to = linkFedDetails;
+                        return item;
+                    } else {
+                        return item;
                     }
-                    return item;
                 });
-                setCurrentPageNav(federationNav(newArr));
+
+                setCurrentPageNav(newArr);
                 break;
             default:
                 setCurrentPageNav(null);
