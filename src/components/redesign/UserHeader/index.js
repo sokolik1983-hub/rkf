@@ -127,7 +127,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                                 canEdit &&
                                 <div className="widget-login__button-wrap">
                                     <Link
-                                        to={`/${setUserType(user, alias) === 'Питомник' ? "kennel" : "client"}/${alias}/edit`}
+                                        to={`/${setUserType(user, alias) === 'Питомник' ? 'kennel' : 'client'}/${alias}/edit`}
                                         className="widget-login__button"
                                         >
                                         Редактировать профиль
