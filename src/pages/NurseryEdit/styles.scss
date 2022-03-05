@@ -1,4 +1,4 @@
-.NurseryEdit {
+.nursery-edit {
     $font-family: "Source Sans Pro", Helvetica, sans-serif;
     display: flex;
     justify-content: space-between;
@@ -363,7 +363,7 @@
             padding: 16px;
         }
         @media (min-width: 560px) {
-            .NurseryEdit__profile-label {
+            .nursery-edit__profile-label {
                 display: block !important;
                 margin-top: 3px;
                 font-size: 18px;
@@ -504,7 +504,6 @@
         color: red;
     }
 }
-
 .header__filters {
     & > span {
         font-size: 0;
@@ -516,7 +515,6 @@
             content: "Разделы";
         }
     }
-
     @media (min-width: 681px) {
         display: none;
     }

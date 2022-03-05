@@ -125,12 +125,15 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                             }
                             {
                                 canEdit &&
-                                <Link
-                                    to={`/${setUserType(user, alias) === 'Питомник' ? "kennel" : "client"}/${alias}/edit`}
-                                    className="widget-login__button"
-                                    style={{marginTop: "20px"}}>
-                                    Редактировать профиль
-                                </Link>
+                                <div className="widget-login__button-wrap">
+                                    <Link
+                                        to={`/${setUserType(user, alias) === 'Питомник' ? 'kennel' : 'client'}/${alias}/edit`}
+                                        className="widget-login__button"
+                                        >
+                                        Редактировать профиль
+                                    </Link>
+                                </div>
+
                             }
                             {
                                 !canEdit && isAuthenticated && <>

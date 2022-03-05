@@ -29,7 +29,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     const [nameInMenu, setNameInMenu] = useState(null)
     const [routes, setRoutes] = useState(userNav);
     const isMobile = useIsMobile(1080);
-    const { user_type, alias } = ls.get('user_info') || {};
+    const { user_type, alias, logo_link } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
@@ -162,6 +162,9 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                             <div className="user-nav__inner">
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
+                                    <div className="user-nav__userpic">
+                                        <img src={logo_link} alt=""/>
+                                    </div>
                                 </div>
                                 {(!(location.pathname.search("documents") > -1) && !(location.pathname.search("bank-details") > -1))? <> {
                                     nameInMenu && <div className="user-nav__alias-name">
