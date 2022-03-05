@@ -341,7 +341,7 @@ const RenderFields = ({ fields,
                                 {/*<FormGroup inline className="article-edit__ad">*/}
                                     <FormField {...fields.dog_name} className="article-edit__name-wrap"/>
                                     <FormField {...fields.dog_color} className="article-edit__color-wrap"/>
-                                    <div className={'article-edit__age-wrap' + (activeElem === 5 ? '__about' : '')}>
+                                    <div className={'article-edit__age-wrap' + (activeElem === 5 ? ' about' : '')}>
                                         <FormField {...fields.dog_age} />
                                     </div>
                                     <div className="article-edit__custom-select">
