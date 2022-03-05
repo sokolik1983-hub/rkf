@@ -10,11 +10,22 @@ import {clubNav} from "../../pages/Club/config";
 import {kennelNav} from "../../pages/Nursery/config";
 import {userNav} from "../Layouts/UserLayout/config";
 import {federationNav} from "../../pages/Federation/config";
+import Modal from "../Modal";
+import {showPresidium} from "./utils";
+import {blockContent} from "../../utils/blockContent";
+import Loading from "../Loading";
+
 
 const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
+    const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [isUserPages, setIsUserPages] = useState(true);
     const [currentPageUserInfo, setCurrentPageUserInfo] = useState(null);
     const [currentPageNav, setCurrentPageNav] = useState(null);
+    const [fedFeesId, setFedFeesId] = useState(null);
+    const [fedDetails, setFedDetails] = useState(null);
+    const [linkFeesId, setLinkFeesId] = useState('');
+    const [linkFedDetails, setLinkFedDetails] = useState('');
 
     // console.log('currentPageNav', currentPageNav);
     // console.log('notificationsLength', notificationsLength);
@@ -22,22 +33,22 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
     const userAlias = useSelector(state => state.authentication.user_info?.alias);
     const userType = useSelector(state => state.authentication.user_info?.user_type);
 
-    console.log('currentPageUserInfo', currentPageUserInfo);
+    // console.log('fedFeesId', linkFeesId, linkFedDetails);
 
     const isMobile = useIsMobile(1080);
     const location = useLocation();
-    const url =  location.pathname.split('/')[1];
+    const url = location.pathname.split('/')[1];
     const linkAlias = location.pathname.split('/')[2];
     const isUserProfilePage = (userAlias === url || userAlias === linkAlias); // страница профиль залогиненного юзера?
 
     const checkIsProfilePage = () => { //проверяем страницы на котрых будем показывать то или иное меню
-        if(userAlias) { // юзер залогинен?
-            if(isUserProfilePage) { //проверка на страницу своего профиля залогиненного юзера
+        if (userAlias) { // юзер залогинен?
+            if (isUserProfilePage) { //проверка на страницу своего профиля залогиненного юзера
                 alert('Это страница нашего профиля, подтягиваем меню юзера');
                 setIsUserPages(true);
                 getCurrentPageUserInfo(userAlias);
             } else {
-                if(isFederationAlias(url) || url === 'kennel' || url === 'club' || (linkAlias && url === 'exhibitions') || (url.includes('exhibitions'))) { //проверка: если это 1) стр. Федерации 2) Питомника 3) Клуба 4) Страница выбранного мероприятия
+                if (isFederationAlias(url) || url === 'kennel' || url === 'club' || (linkAlias && url === 'exhibitions') || (url.includes('exhibitions'))) { //проверка: если это 1) стр. Федерации 2) Питомника 3) Клуба 4) Страница выбранного мероприятия
                     alert('111Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
                     setIsUserPages(false);
                     console.log('22222222222222222222', url, linkAlias)
@@ -47,20 +58,22 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                     alert('Это остальные страницы, подтягиваем меню юзера');
                     setIsUserPages(true);
                     getCurrentPageUserInfo(userAlias);
-                };
+                }
+                ;
             }
         } else {
             alert('Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
             setIsUserPages(false);
             isFederationAlias(url) ? getCurrentPageUserInfo(url) : getCurrentPageUserInfo(linkAlias);
-        };
+        }
+        ;
     };
 
     const getCurrentPageUserInfo = (userAlias) => {
         Request({
             url: isUserPages
                 ?
-                    (userType === 1)
+                (userType === 1)
                     ?
                     endpointGetUserInfo + userAlias
                     :
@@ -76,14 +89,14 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
 
     useEffect(() => {
         checkIsProfilePage();
-    },[isUserProfilePage]);
+    }, [isUserProfilePage]);
 
     useEffect(() => {
 
-        const currentUserAlias = (userType === 1) ?  currentPageUserInfo?.alias : currentPageUserInfo?.club_alias;
+        const currentUserAlias = (userType === 1) ? currentPageUserInfo?.alias : currentPageUserInfo?.club_alias;
         const currentUserType = currentPageUserInfo?.user_type;
 
-        console.log('currentUserAlias', currentUserType)
+        // console.log('currentUserAlias', currentUserType)
 
         switch (currentUserType) {
             case 0:
@@ -93,9 +106,9 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                 setCurrentPageNav(userNav(currentUserAlias));
                 break;
             case 3:
-                if(currentUserAlias === 'rkf' || currentUserAlias === 'rkf-online')
-                {
-                    setCurrentPageNav(federationNav(currentUserAlias));
+                if (currentUserAlias === 'rkf' || currentUserAlias === 'rkf-online') {
+                    const newArr = federationNav(currentUserAlias).filter(item => !(item.id === 7 || item.id === 8));
+                    setCurrentPageNav(newArr);
                 } else {
                     setCurrentPageNav(clubNav(currentUserAlias));
                 }
@@ -108,30 +121,76 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                 break;
             default:
                 setCurrentPageNav(null);
-        };
+        }
+        ;
     }, [currentPageUserInfo]);
+
+    useEffect(() => {
+        if (showModal) {
+            blockContent(true)
+        } else {
+            blockContent(false)
+        }
+    }, [showModal]);
+    //
+    // useEffect(() => {
+    //     if (currentPageUserInfo?.club_alias) {
+    //         //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
+    //         //Alias (алиас федерации)
+    //         (() => Request({
+    //             url: `/api/federation/federation_documents?Alias=${currentPageUserInfo.club_alias}`
+    //         }, data => {
+    //             setFedFeesId(data[0]?.documents?.filter(i => i.document_type_id === 2)[0].document_id);
+    //             setFedDetails(data[0]?.documents?.filter(i => i.document_type_id === 1)[0].document_id);
+    //         }, error => {
+    //             console.log(error.response);
+    //         }))();
+    //     }
+    // }, [currentPageUserInfo]);
+    //
+    // useEffect(() => {
+    //     if (fedFeesId) {
+    //         (() => Request({
+    //             url: `/api/document/document/public?id=${fedFeesId}`
+    //         }, data => {
+    //             setLinkFeesId(data);
+    //         }, error => {
+    //             console.log(error.response);
+    //             // history.replace('/404');
+    //         }))();
+    //     }
+    //
+    //     if (fedDetails) {
+    //         (() => Request({
+    //             url: `/api/document/document/public?id=${fedDetails}`
+    //         }, data => {
+    //             setLinkFedDetails(data);
+    //         }, error => {
+    //             console.log(error.response);
+    //         }))();
+    //     }
+    // }, [fedDetails, fedFeesId]);
 
     return (
         <>
             {
-                currentPageNav?.map(navItem => <li className={`user-nav__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
-                                                  key={navItem.id}>
+                currentPageNav?.map(navItem => <li
+                    className={`user-nav__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
+                    key={navItem.id}>
                     {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength && //по какой то причине не работают, проверить
                         <span
                             className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
                                     {notificationsLength > 99 ? 99 : notificationsLength}
                                 </span>
                     }
-                    {
-                        console.log('111111111111111!!!!!!!!!!!' , navItem.onClick)
-                    }
+                    123
                     {
                         navItem.onClick
                         ?
                             <NavLink
                                 to={navItem.to}
                                 exact={navItem.exact}
-                                onClick={navItem.onClick}
+                                onClick={e => navItem.onClick(e, setShowModal)}
                                 className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
                                 // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                             >
@@ -149,8 +208,19 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                                 <span>{navItem.title}</span>
                             </NavLink>
                     }
-
                 </li>)
+            }
+            {showModal &&
+                <Modal
+                    iconName="icon-presidium-white"
+                    headerName={currentPageUserInfo?.club_alias === 'rfls' ? "Президиум РФЛС" : "Президиум"}
+                    className="menu-component__modal"
+                    showModal={showModal} handleClose={() => setShowModal(false)}
+                    noBackdrop={true}>
+                    <div className="menu-component__wrap">
+                        {showModal === 'presidium' && showPresidium(currentPageUserInfo?.club_alias)}
+                    </div>
+                </Modal>
             }
         </>
     )

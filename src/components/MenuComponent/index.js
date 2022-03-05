@@ -9,7 +9,7 @@ import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import PopupModal from "../PopupModal";
-import {blockContent} from "../../utils/blockContent";
+// import {blockContent} from "../../utils/blockContent";
 import {clubNav as clubNavDocs} from "../../pages/Docs/config";
 import ls from "local-storage";
 import Alert from "../Alert";
@@ -236,8 +236,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
         setAlert(true);
     };
 
-
-
     const [fedInfo, setFedInfo] = useState(null);
     const [error, setError] = useState(null);
     const [menuBackground, setMenuBackground] = useState('/static/images/user-nav/user-nav-bg.png');
@@ -286,62 +284,62 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
         }
     };
 
-    const showFees = () => {
-        return <>
-            <h4 className="menu-component__wrap-title">РАЗМЕР, СРОКИ И ПОРЯДОК ВНЕСЕНИЯ ВСТУПИТЕЛЬНЫХ И ЧЛЕНСКИХ ВЗНОСОВ  В РФЛС</h4>
-            <table className="menu-component__table fees">
-                {data.fees
-                    ? data.fees.map(({ name, price, description }) => {
-                        return <tr>
-                            <td>{name}</td>
-                            <td dangerouslySetInnerHTML={{ __html: `${price} руб.${description ? '<br/>' + description : ''}` }} />
-                        </tr>
-                    })
-                    : errorText ? errorText : 'Не найдено'}
-            </table>
-        </>
-    };
-
-    const showBlanks = () => blankCategories.map(({ id, name }) => {
-        return <div className="menu-component__show-blanks" key={id}>
-            <h4 className="menu-component__wrap-title">{name}</h4>
-            {
-                data.blanks
-                    ? data.blanks.filter(b => b.category_id === id).map(({ document_name, document_id }) => {
-                        return <p key={document_id}><a href="/" onClick={e => downloadBlank(e, document_id, document_name)}>{document_name}</a></p>
-                    })
-                    : errorText ? errorText : 'Не найдено'
-            }
-        </div>
-    });
-
-    const showRequisites = () => {
-        const { owner_name,
-            legal_address,
-            actual_address,
-            mailing_address,
-            inn,
-            rs_number,
-            bic_number,
-            ks_number,
-            phone,
-            work_time } = data.requisites;
-        return <>
-            <h4 className="menu-component__wrap-title">РЕКВИЗИТЫ</h4>
-            <p><strong>Президент СОКО РФЛС - {owner_name}</strong></p>
-            <p><strong>Юридический адрес:</strong> {legal_address}</p>
-            <p><strong>Фактический адрес:</strong> {actual_address}</p>
-            <p><strong>Почтовый адрес:</strong> {mailing_address}</p>
-            <p><strong>Реквизиты:</strong><br />
-            ИНН {inn}<br />
-            Р/с {rs_number}<br />
-            БИК {bic_number}<br />
-            К/с {ks_number}
-            </p>
-            <p><strong>Телефон:</strong> {phone}</p>
-            <p>{work_time}</p>
-        </>
-    };
+    // const showFees = () => {
+    //     return <>
+    //         <h4 className="menu-component__wrap-title">РАЗМЕР, СРОКИ И ПОРЯДОК ВНЕСЕНИЯ ВСТУПИТЕЛЬНЫХ И ЧЛЕНСКИХ ВЗНОСОВ  В РФЛС</h4>
+    //         <table className="menu-component__table fees">
+    //             {data.fees
+    //                 ? data.fees.map(({ name, price, description }) => {
+    //                     return <tr>
+    //                         <td>{name}</td>
+    //                         <td dangerouslySetInnerHTML={{ __html: `${price} руб.${description ? '<br/>' + description : ''}` }} />
+    //                     </tr>
+    //                 })
+    //                 : errorText ? errorText : 'Не найдено'}
+    //         </table>
+    //     </>
+    // };
+    //
+    // const showBlanks = () => blankCategories.map(({ id, name }) => {
+    //     return <div className="menu-component__show-blanks" key={id}>
+    //         <h4 className="menu-component__wrap-title">{name}</h4>
+    //         {
+    //             data.blanks
+    //                 ? data.blanks.filter(b => b.category_id === id).map(({ document_name, document_id }) => {
+    //                     return <p key={document_id}><a href="/" onClick={e => downloadBlank(e, document_id, document_name)}>{document_name}</a></p>
+    //                 })
+    //                 : errorText ? errorText : 'Не найдено'
+    //         }
+    //     </div>
+    // });
+    //
+    // const showRequisites = () => {
+    //     const { owner_name,
+    //         legal_address,
+    //         actual_address,
+    //         mailing_address,
+    //         inn,
+    //         rs_number,
+    //         bic_number,
+    //         ks_number,
+    //         phone,
+    //         work_time } = data.requisites;
+    //     return <>
+    //         <h4 className="menu-component__wrap-title">РЕКВИЗИТЫ</h4>
+    //         <p><strong>Президент СОКО РФЛС - {owner_name}</strong></p>
+    //         <p><strong>Юридический адрес:</strong> {legal_address}</p>
+    //         <p><strong>Фактический адрес:</strong> {actual_address}</p>
+    //         <p><strong>Почтовый адрес:</strong> {mailing_address}</p>
+    //         <p><strong>Реквизиты:</strong><br />
+    //         ИНН {inn}<br />
+    //         Р/с {rs_number}<br />
+    //         БИК {bic_number}<br />
+    //         К/с {ks_number}
+    //         </p>
+    //         <p><strong>Телефон:</strong> {phone}</p>
+    //         <p>{work_time}</p>
+    //     </>
+    // };
 
     const downloadBlank = async (e, id, name) => {
         e.preventDefault();
@@ -369,13 +367,13 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
 
     const moreRef = useRef();
 
-    useEffect(() => {
-        if(showModal) {
-            blockContent(true)
-        } else {
-            blockContent(false)
-        }
-    }, [showModal])
+    // useEffect(() => {
+    //     if(showModal) {
+    //         blockContent(true)
+    //     } else {
+    //         blockContent(false)
+    //     }
+    // }, [showModal]);
 
     useEffect(() => {
         if (fedFeesId) {
@@ -638,9 +636,9 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                                 ? <Loading centered={false} />
                                 : <>
                                     {showModal === 'presidium' && showPresidium()}
-                                    {showModal === 'fees' && showFees()}
-                                    {showModal === 'blanks' && showBlanks()}
-                                    {showModal === 'requisites' && showRequisites()}
+                                    {/*{showModal === 'fees' && showFees()}*/}
+                                    {/*{showModal === 'blanks' && showBlanks()}*/}
+                                    {/*{showModal === 'requisites' && showRequisites()}*/}
                                 </>
                         }
                     </div>
