@@ -299,8 +299,8 @@ const RenderFields = ({ fields,
                                                 checked={isAllCitiesEdit}
                                                 onChange={handleChangeAllCities}
                                             />
+                                            <label className="article-edit__city-label" htmlFor="cities-input">Город</label>
                                             <div>
-                                                <label className="article-edit__city-label" htmlFor="cities-input">Город</label>
                                                 <CustomSelect
                                                     id="cities-input"
                                                     value={currentCities}
@@ -309,6 +309,7 @@ const RenderFields = ({ fields,
                                                     isMulti={true}
                                                     onChange={handleCitySelect}
                                                     className={`article-edit__input-breedId ${(isAllCitiesEdit) && 'disabled'} ${(!currentCities && !isAllCitiesEdit) && 'error-field' }`}
+
                                                 />
                                             </div>
                                             {

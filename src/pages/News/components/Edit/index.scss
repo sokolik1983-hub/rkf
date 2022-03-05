@@ -349,8 +349,8 @@
       height: 0;
     }
     & .select-error {
-      bottom: 14px;
-      height: 0;
+      //bottom: -20px;
+      //height: 0;
       color: #FA5D50;
     }
     & .FormInput {
@@ -411,6 +411,7 @@
     & .custom-checkbox {
       position: absolute;
       right: 0;
+      top: -3px;
     }
     & .css-1hwfws3 {
       //padding: 8px 8px 8px;
@@ -418,15 +419,16 @@
     & .css-bg1rzq-control {
       border-color: #EBF0F2;
       border-radius: 6px;
-      max-height: 51px;
+      max-height: 38px;
     }
     & .article-edit__city-label {
+      display: flex;
       font-size: 16px;
-      line-height: 24px;
+      line-height: 18px;
       font-weight: normal;
       font-style: normal;
-      color: #253c5e;
-      margin-bottom: 8px;
+      color: #72839C;
+      margin-bottom: 4px;
     }
     & .css-151xaom-placeholder {
       font-size: 16px;
