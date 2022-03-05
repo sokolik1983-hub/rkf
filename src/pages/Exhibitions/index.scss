@@ -14,10 +14,10 @@
     display: flex;
 
     @media (max-width: 560px) {
+      height: 56px;
       width: 100%;
-      margin-bottom: 10px;
+      padding-top: 10px;
       border-bottom: 1px solid #e8e8e8;
-      padding-bottom: 12px;
     }
   }
 

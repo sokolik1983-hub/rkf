@@ -57,8 +57,8 @@ const RenderFields = ({
 
 
     return (
-        <div className="NurseryEdit__inner">
-            <div className="NurseryEdit__inner-left">
+        <div className="nursery-edit__inner">
+            <div className="nursery-edit__inner-left">
                 {activeSection === 0 ? <MainPage
                         name={name}
                         alias={alias}
@@ -94,15 +94,15 @@ const RenderFields = ({
                     /> : <DefaultPage />
                 }
             </div>
-            <div className={`NurseryEdit__inner-right${isOpenFilters ? " _open" : ""}`}>
+            <div className={`nursery-edit__inner-right${isOpenFilters ? " _open" : ""}`}>
                 <StickyBox offsetTop={60}>
                     <Card>
-                        <span className="NurseryEdit__profile-label">Профиль</span>
-                        <ul className="NurseryEdit__inner-list">
+                        <span className="nursery-edit__profile-label">Профиль</span>
+                        <ul className="nursery-edit__inner-list">
                             {Object.keys(sections).map((type, key) => <div
                                     className={sections[type].id === activeSection
-                                        ? "NurseryEdit__inner-item active"
-                                        : "NurseryEdit__inner-item"}
+                                        ? "nursery-edit__inner-item active"
+                                        : "nursery-edit__inner-item"}
                                     key={key}
                                     onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                 >
