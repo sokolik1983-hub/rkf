@@ -20,15 +20,21 @@ import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 import transliterate from '../../../utils/transliterate';
+import {endpointGetClubInfo, clubNav} from '../ClubLayout/config';
+import {kennelNav} from "../NurseryLayout/config";
+import UserHeader from '../../redesign/UserHeader';
 
 import './index.scss';
 
-const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters, location }) => {
+
+const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters, location, refereePage }) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
     const [userInfo, setUserInfo] = useState({});
+    const [clubInfo, setClubInfo] = useState({});
+    const [fedInfo, setFedInfo] = useState({});
     const [judgeAlias, setJudgeAlias] = useState('');
     const [judgeInfoLink, setJudgeInfoLink] = useState(null);
     const [judgeAddInfo, setJudgeAddInfo] = useState(null);
@@ -43,6 +49,9 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
 
     const {id, type} = useParams();
     const alias = useSelector(state => state.authentication.user_info.alias);
+    const userType = useSelector(state => state.authentication.user_info.user_type);
+
+    console.log('userType', userType);
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
@@ -53,6 +62,23 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                 ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             }
             setUserInfo(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
+        }, error => {
+            console.log(error.response);
+        });
+        setNeedRequest(true);
+        setLoading(false);
+    };
+
+    const getClubInfo = async needUpdateAvatar => {
+        setLoading(true);
+        await Request({
+            url: endpointGetClubInfo + alias
+        }, data => {
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
+            }
+            setClubInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
         }, error => {
             console.log(error.response);
@@ -148,7 +174,11 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
 
    useEffect(() => {
         checkLinkUserPage();
-        (() => getUserInfo())();
+        if(userType === 1) {
+            (() => getUserInfo())();
+        } else if(userType === 3 || userType === 4) {
+            (() => getClubInfo())();
+        }
         (() => getJudgeAlias())();
         (() => getJudgeAddInfo())();
     },[]);
@@ -165,40 +195,88 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
 
             <div className="user-page">
                 <Container className="user-page__content content">
-                    {(!checkLink || !isMobile) && <aside className="user-page__left">
+                    {(!checkLink || !isMobile) && <aside className="user-page__left referee">
                         <StickyBox offsetTop={60}>
-                            <Card>
-                                <UserInfo
-                                    canEdit={canEdit}
-                                    logo_link={userInfo.logo_link}
-                                    share_link={`https://rkf.online/user/${alias}`}
-                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                    alias={alias}
-                                    subscribed={userInfo.subscribed}
-                                    subscribed_id={userInfo.profile_id}
-                                    onSubscriptionUpdate={onSubscriptionUpdate}
-                                    onSuccess={notifySuccess}
-                                    onError={notifyError}
-                                />
-                            </Card>
-                            {!isMobile &&
+                            {
+                                (userType && userType === 1)
+                                    ?
+                                    <Card>
+                                        <UserInfo
+                                            canEdit={true}
+                                            logo_link={userInfo.logo_link}
+                                            share_link={`https://rkf.online/user/${alias}`}
+                                            first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
+                                            last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                            alias={alias}
+                                            subscribed={userInfo.subscribed}
+                                            subscribed_id={userInfo.profile_id}
+                                            onSubscriptionUpdate={onSubscriptionUpdate}
+                                            onSuccess={notifySuccess}
+                                            onError={notifyError}
+                                        />
+                                    </Card>
+                                    :
+                                    <div className="redesign">
+                                        <UserHeader
+                                            user={userType === 4 ? 'nursery' : 'club'}
+                                            logo={clubInfo.logo_link}
+                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                            alias={clubInfo.club_alias}
+                                            profileId={clubInfo.id}
+                                            federationName={clubInfo.federation_name}
+                                            federationAlias={clubInfo.federation_alias}
+                                            isFederation={clubInfo.user_type === 5}
+                                            active_rkf_user={clubInfo.active_rkf_user}
+                                            active_member={clubInfo.active_member}
+                                            canEdit={true}
+                                            subscribed={clubInfo.subscribed}
+                                            member={clubInfo.member}
+                                            onSubscriptionUpdate={onSubscriptionUpdate}
+                                            isAuthenticated={isAuthenticated}
+                                        />
+                                    </div>
+                            }
+                            {!isMobile && (userType && userType === 1)
+                                ?
                                 <UserMenu userNav={canEdit
                                     ? userNav(alias) // Show NewsFeed menu item to current user only
                                     : userNav(alias).filter(i => i.id !== 2)}
                                           notificationsLength={notificationsLength}
                                 />
+                                : (userType && userType === 3)
+                                ?
+                                    <UserMenu userNav={clubNav(clubInfo.club_alias)} refereePage />
+                                    :
+                                    <UserMenu userNav={kennelNav(clubInfo.club_alias)} refereePage />
                             }
                             {!isMobile &&
                                 <>
                                     <UserPhotoGallery
                                         alias={alias}
-                                        pageLink={`/user/${alias}/gallery`}
+                                        pageLink={(userType && userType === 1)
+                                            ?
+                                            `/user/${alias}/gallery`
+                                            :
+                                            (userType && userType === 3)
+                                                ?
+                                                `/club/${alias}/gallery`
+                                                :
+                                                `/kennel/${alias}/gallery`
+                                    }
                                         canEdit={canEdit}
                                     />
                                     <UserVideoGallery
                                         alias={alias}
-                                        pageLink={`/user/${alias}/video`}
+                                        pageLink={(userType && userType === 1)
+                                            ?
+                                            `/user/${alias}/video`
+                                            :
+                                            (userType && userType === 3)
+                                                ?
+                                                `/club/${alias}/video`
+                                                :
+                                                `/kennel/${alias}/video`
+                                    }
                                         canEdit={canEdit}
                                     />
                                     <CopyrightInfo withSocials={true} />

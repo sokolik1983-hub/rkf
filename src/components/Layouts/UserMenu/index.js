@@ -21,7 +21,7 @@ import "./index.scss";
 
 
 
-const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
+const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu, refereePage}) => {
     const [alert, setAlert] = useState(false);
     const [clubInfo, setClubInfo] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
@@ -132,7 +132,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
 
     return (
         <div
-            className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
+            className={`user-nav${isMobile ? '' : ' _desktop_card'} ${refereePage && 'd-none'}`}
         >
                 {isMobile &&
                 <button onClick={() => setOpenUserMenu(!openUserMenu)}

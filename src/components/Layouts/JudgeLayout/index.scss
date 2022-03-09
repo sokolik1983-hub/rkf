@@ -48,6 +48,19 @@
     bottom: 10px;
     right: 10px;
   }
+  & .referee {
+    .widget-login {
+      &__button-wrap {
+        width: auto;
+      }
+    }
+    .user-info__logo-wrap {
+      border-bottom: none;
+    }
+    & .d-none {
+      display: none;
+    }
+  }
 }
 .Card {
   & .judge-info {
