@@ -223,14 +223,13 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                             :
                                             !isMobile &&
                                             <>
-                                                <UserMenu
-                                                    userNav={clubNav(club_alias)}
-                                                    isExhibitionPage={true}
-                                                />
+                                                {/*<UserMenu*/}
+                                                {/*    userNav={clubNav(club_alias)}*/}
+                                                {/*    isExhibitionPage={true}*/}
+                                                {/*/>*/}
                                                 <MenuComponentNew
                                                     exhibAlias={club_alias}
-                                                >
-                                                </MenuComponentNew>
+                                                />
                                             </>
                                         }
                                         {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} /> }

@@ -20,6 +20,7 @@ import Banner from "components/Banner";
 import {connectShowFilters} from "../../../components/Layouts/connectors"
 
 import "./index.scss";
+import MenuComponentNew from "../../MenuComponentNew";
 
 
 const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthenticated, user, children, setShowFilters, isOpenFilters }) => {
@@ -98,7 +99,7 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
                                                     active_member={clubInfo.active_member}
                                                 />
                                             }
-                                            {!isMobile && <UserMenu  userNav={canEdit
+                                            {!isMobile && <MenuComponentNew  userNav={canEdit
                                                 ? clubNav(alias) // Show NewsFeed menu item to current user only
                                                 : clubNav(alias).filter(i => i.id !== 2)}
                                                        notificationsLength={notificationsLength}

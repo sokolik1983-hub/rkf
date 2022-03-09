@@ -29,6 +29,7 @@ import useIsMobile from "../../utils/useIsMobile";
 import ListFilter from "./components/ListFilter";
 import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 
 const BaseSearch = ({isAuthenticated}) => {
@@ -97,9 +98,12 @@ const BaseSearch = ({isAuthenticated}) => {
                             <StickyBox offsetTop={60}>
                                 <div className="base-search__info-inner">
                                     {!isMobile && clubData ?
-                                        <UserMenu userNav={clubNav(clubData.club_alias)}/> :
+                                        <>
+                                            2222222222222222222
+                                            <MenuComponentNew isDocsPage userNav={clubNav(clubData.club_alias)}/>
+                                        </> :
                                         nurseryData ?
-                                            <UserMenu userNav={kennelNav(nurseryData.alias)}/> :
+                                            <MenuComponentNew isDocsPage userNav={kennelNav(nurseryData.alias)}/> :
                                             <>
                                                 <Statistics/>
                                                 <Banner type={11}/>

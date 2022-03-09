@@ -17,6 +17,7 @@ import CardMessage from "../../../../components/CardMessage";
 import ls from 'local-storage';
 
 import "./styles.scss";
+import MenuComponentNew from "../../../../components/MenuComponentNew";
 
 
 //Access method statuses
@@ -342,7 +343,8 @@ const DocHome = ({ clubAlias }) => {
     return (loading ? <Loading /> : <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={60}>
-                {!isMobile && <UserMenu userNav={clubNav(clubAlias)} />}
+                {/*{!isMobile && <UserMenu userNav={clubNav(clubAlias)} />}*/}
+                {!isMobile && <MenuComponentNew userNav={clubNav(clubAlias)} isDocsPage />}
                 {!isMobile && <Banner type={8} />}
                 <CopyrightInfo withSocials={true} />
             </StickyBox>

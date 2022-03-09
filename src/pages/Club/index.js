@@ -25,6 +25,7 @@ import Banner from "../../components/Banner";
 import UserBanner from "../../components/Layouts/UserBanner";
 
 import "./index.scss";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 
 const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
@@ -161,7 +162,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            {!isMobile && <UserMenu userNav={canEdit
+                                            {!isMobile && <MenuComponentNew userNav={canEdit
                                                 ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
                                                 : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
                                                        notificationsLength={notificationsLength}

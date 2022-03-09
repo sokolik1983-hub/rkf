@@ -19,6 +19,7 @@ import { connectAuthVisible } from "../../pages/Login/connectors";
 import Loading from "../../components/Loading";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }) => {
     const [fedIdList, setFedIdList] = useState(null);
@@ -136,16 +137,19 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                                                     updateInfo={getUserInfo}
                                                 />
                                             </Card>}
-                                            {!isMobile && <UserMenu
+                                            {!isMobile && <MenuComponentNew
+                                                isDocsPage
                                                 userNav={userNav(alias)}
                                             />}
                                         </>
                                     }
-                                    {user_type === 3 && !isMobile &&  <UserMenu
+                                    {user_type === 3 && !isMobile &&  <MenuComponentNew
+                                        isDocsPage
                                         userNav={clubNav(alias)}
                                     />}
 
-                                    {user_type === 4 && !isMobile && <UserMenu
+                                    {user_type === 4 && !isMobile && <MenuComponentNew
+                                        isDocsPage
                                         userNav={kennelNav(alias)}
                                     />}
                                     <CopyrightInfo withSocials={true} />

@@ -16,7 +16,7 @@ import {blockContent} from "../../utils/blockContent";
 import Loading from "../Loading";
 
 
-const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
+const MenuComponentNew = ({exhibAlias, notificationsLength, userNav, isDocsPage}) => {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isUserPages, setIsUserPages] = useState(true);
@@ -34,19 +34,38 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
     const location = useLocation();
     const url = location.pathname.split('/')[1];
     const linkAlias = location.pathname.split('/')[2];
-    const isUserProfilePage = (userAlias === url || userAlias === linkAlias); // страница профиль залогиненного юзера?
+    const isUserProfilePage = (
+        userAlias === url
+        || userAlias === linkAlias
+        || url === 'base-search'
+        || url === 'bank-details'
+        || location.search.includes(userAlias)
+        || userAlias === exhibAlias //страница мероприятия залогиненного пользователя?
+    ); // страницы профиля залогиненного юзера?
+
+    console.log('url', url, linkAlias);
 
     const checkIsProfilePage = () => { //проверяем страницы на котрых будем показывать то или иное меню
         if (userAlias) { // юзер залогинен?
             if (isUserProfilePage) { //проверка на страницу своего профиля залогиненного юзера
-                alert('Это страница нашего профиля, подтягиваем меню юзера');
-                setIsUserPages(true);
-                getCurrentPageUserInfo(userAlias);
+                if(isDocsPage) { //проверка на страницу личного кабинета с документами залогиненного юзера
+                    console.log('userNav111111111', userNav);
+                    alert('Это страница личного кабинета залогиненного юзера с документами');
+                    setCurrentPageNav(userNav);
+                } else {
+                    alert('Это страница нашего профиля, подтягиваем меню юзера');
+                    setIsUserPages(true);
+                    getCurrentPageUserInfo(userAlias);
+                }
             } else {
-                if (isFederationAlias(url) || url === 'kennel' || url === 'club' || (linkAlias && url === 'exhibitions') || (url.includes('exhibitions'))) { //проверка: если это 1) стр. Федерации 2) Питомника 3) Клуба 4) Страница выбранного мероприятия
+                if (
+                    isFederationAlias(url)
+                    || url === 'kennel'
+                    || url === 'club'
+                    || (linkAlias && url === 'exhibitions')
+                    || (url.includes('exhibitions') && !(location.search.includes(userAlias)))) { //проверка: если это 1) стр. Федерации 2) Питомника 3) Клуба 4) Страница выбранного мероприятия и страница мероприятий , которая не содержит в ссылке имя залогиненного юзера
                     alert('111Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
                     setIsUserPages(false);
-                    console.log('22222222222222222222', url, linkAlias)
                     isFederationAlias(url) ? getCurrentPageUserInfo(exhibAlias || url) : getCurrentPageUserInfo(exhibAlias || linkAlias);
                     //если страница мероприятия (linkAlias && url === 'exhibitions'), то записываем в getCurrentPageUserInfo значение exhibAlias===алиас организации которая проводит мероприятие
                 } else {
@@ -81,10 +100,6 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
             console.log(error.response);
         });
     };
-
-    useEffect(() => {
-        checkIsProfilePage();
-    }, [isUserProfilePage]);
 
     useEffect(() => {
         const currentUserAlias = (userType === 1) ? currentPageUserInfo?.alias : currentPageUserInfo?.club_alias;
@@ -148,7 +163,7 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                 console.log(error.response);
             }))();
         }
-    }, [currentPageUserInfo]);
+    }, [currentPageUserInfo]); //подтягиваем документы для федераций
 
     useEffect(() => {
         if (fedFeesId) {
@@ -171,47 +186,57 @@ const MenuComponentNew = ({exhibAlias, notificationsLength}) => {
                 console.log(error.response);
             }))();
         }
-    }, [fedDetails, fedFeesId]);
+    }, [fedDetails, fedFeesId]);//подтягиваем документы для федераций
+
+    useEffect(() => {
+        checkIsProfilePage();
+    }, [isUserProfilePage, isDocsPage, userNav]);
 
     return (
         <>
-            {
-                currentPageNav?.map(navItem => <li
-                    className={`user-nav__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
-                    key={navItem.id}>
-                    {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength && //по какой то причине не работают, проверить
-                        <span
-                            className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
+            <div
+                className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
+            >
+                <ul className="user-nav__list">
+                    {
+                        currentPageNav?.map(navItem => <li
+                            className={`user-nav__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
+                            key={navItem.id}>
+                            {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength && //по какой то причине не работают, проверить
+                                <span
+                                    className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
                                     {notificationsLength > 99 ? 99 : notificationsLength}
                                 </span>
+                            }
+                            123
+                            {
+                                navItem.onClick
+                                    ?
+                                    <NavLink
+                                        to={navItem.to}
+                                        exact={navItem.exact}
+                                        onClick={e => navItem.onClick(e, setShowModal)}
+                                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                        // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                    >
+                                        {navItem.icon}
+                                        <span>{navItem.title}</span>
+                                    </NavLink>
+                                    :
+                                    <NavLink
+                                        to={navItem.to}
+                                        exact={navItem.exact}
+                                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                        // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                    >
+                                        {navItem.icon}
+                                        <span>{navItem.title}</span>
+                                    </NavLink>
+                            }
+                        </li>)
                     }
-                    123
-                    {
-                        navItem.onClick
-                        ?
-                            <NavLink
-                                to={navItem.to}
-                                exact={navItem.exact}
-                                onClick={e => navItem.onClick(e, setShowModal)}
-                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
-                            >
-                                {navItem.icon}
-                                <span>{navItem.title}</span>
-                            </NavLink>
-                            :
-                            <NavLink
-                                to={navItem.to}
-                                exact={navItem.exact}
-                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
-                            >
-                                {navItem.icon}
-                                <span>{navItem.title}</span>
-                            </NavLink>
-                    }
-                </li>)
-            }
+                </ul>
+            </div>
             {showModal &&
                 <Modal
                     iconName="icon-presidium-white"

@@ -199,12 +199,11 @@ const Filters = ({
                                 :
                                 !isMobile &&
                                 <>
-                                    <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
+                                    <MenuComponentNew userNav={filters.Alias === ls.get('user_info')?.alias
                                         ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
                                         : clubNav(filters.Alias).filter(i => i.id !== 2)}
                                               notificationsLength={notificationsLength}
                                     />
-                                    <MenuComponentNew exhibAlias={filters.Alias} />
                                 </>
                             }
                         </div>

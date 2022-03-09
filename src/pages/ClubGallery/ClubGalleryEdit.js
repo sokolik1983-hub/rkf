@@ -26,6 +26,7 @@ import MenuComponent from "../../components/MenuComponent";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClub] = useState(null);
@@ -293,7 +294,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                     />
                                                     :
                                                     !isMobile &&
-                                                    <UserMenu
+                                                    <MenuComponentNew
                                                         userNav={clubNav(clubInfo.club_alias)}
                                                         notificationsLength={notificationsLength}
                                                     />

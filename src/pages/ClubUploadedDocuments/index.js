@@ -21,6 +21,7 @@ import PhotoComponent from "../../components/PhotoComponent";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -147,7 +148,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                 />
                                                 :
                                                 !isMobile &&
-                                                <UserMenu userNav={canEdit
+                                                <MenuComponentNew userNav={canEdit
                                                     ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
                                                     : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
                                                     notificationsLength={notificationsLength}
