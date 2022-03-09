@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import {NavLink, useHistory, useLocation} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import { CSSTransition } from "react-transition-group";
-
 import Card from "../Card";
 import Modal from "../Modal";
 import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import PopupModal from "../PopupModal";
-// import {blockContent} from "../../utils/blockContent";
-import {clubNav as clubNavDocs} from "../../pages/Docs/config";
 import ls from "local-storage";
 import Alert from "../Alert";
 import {endpointGetClubInfo} from "../../pages/Club/config";
@@ -469,7 +466,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                             bottomStyle
                         >
                             <div className="user-menu__inner">
-                                <MenuComponentNew>11111111111111</MenuComponentNew>
                                 <div className="banner-federation">
                                     <div className="banner-federation__wrap">
                                         <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>

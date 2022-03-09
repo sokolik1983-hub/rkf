@@ -22,6 +22,7 @@ import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 
 import "./index.scss";
+import MenuComponentNew from "../../MenuComponentNew";
 
 const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
     const [loading, setLoading] = useState(true);
@@ -137,7 +138,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     />
                                 </Card>
                                 {!isMobile &&
-                                <UserMenu userNav={canEdit
+                                <MenuComponentNew userNav={canEdit
                                     ? userNav(alias) // Show NewsFeed menu item to current user only
                                     : userNav(alias).filter(i => i.id !== 2)}
                                           notificationsLength={notificationsLength}

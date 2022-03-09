@@ -39,11 +39,10 @@ const MenuComponentNew = ({exhibAlias, notificationsLength, userNav, isDocsPage}
         || userAlias === linkAlias
         || url === 'base-search'
         || url === 'bank-details'
+        || url === 'client'
         || location.search.includes(userAlias)
         || userAlias === exhibAlias //страница мероприятия залогиненного пользователя?
     ); // страницы профиля залогиненного юзера?
-
-    console.log('url', url, linkAlias);
 
     const checkIsProfilePage = () => { //проверяем страницы на котрых будем показывать то или иное меню
         if (userAlias) { // юзер залогинен?
@@ -104,11 +103,16 @@ const MenuComponentNew = ({exhibAlias, notificationsLength, userNav, isDocsPage}
     useEffect(() => {
         const currentUserAlias = (userType === 1) ? currentPageUserInfo?.alias : currentPageUserInfo?.club_alias;
         const currentUserType = currentPageUserInfo?.user_type;
+
+        console.log('888888888888888', currentPageUserInfo)
+        console.log('888888888888888', currentUserType)
+
         switch (currentUserType) {
             case 0:
                 setCurrentPageNav(userNav(currentUserAlias));
                 break;
             case 1:
+                console.log('userNav(currentUserAlias)', userNav(currentUserAlias));
                 setCurrentPageNav(userNav(currentUserAlias));
                 break;
             case 3:

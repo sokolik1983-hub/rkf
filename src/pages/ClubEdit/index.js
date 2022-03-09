@@ -26,6 +26,7 @@ import {Request} from '../../utils/request';
 import ls from 'local-storage';
 
 import './styles.scss';
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 
 let unblock;
@@ -268,7 +269,7 @@ const ClubEditPage = ({
                                         canEdit={canEdit}
                                         isAuthenticated={isAuthenticated}
                                     />
-                                    {!isMobile && !isFed && <UserMenu userNav={canEdit
+                                    {!isMobile && !isFed && <MenuComponentNew userNav={canEdit
                                         ? clubNav(alias)
                                         : clubNav(alias).filter(i => i.id !== 2)}
                                                             notificationsLength={notificationsLength}
