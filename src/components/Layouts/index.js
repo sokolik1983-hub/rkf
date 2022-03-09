@@ -1,13 +1,10 @@
-import React, {useState, useEffect} from "react";
-import { compose } from "redux";
-import Header from "../Layouts/Header";
-import injectReducer from "../../utils/injectReducer";
-import reducer from "./reducer";
-import FooterMenu from "./FooterMenu";
-import {connectShowFilters} from "./connectors";
+import React, {useEffect} from 'react';
+import { compose } from 'redux';
+import injectReducer from '../../utils/injectReducer';
+import reducer from './reducer';
+import {connectShowFilters} from './connectors';
 
 import './index.scss';
-
 
 
 const Layout = ({ children, withFilters, showCopyright, login_page, setShowFilters}) => {

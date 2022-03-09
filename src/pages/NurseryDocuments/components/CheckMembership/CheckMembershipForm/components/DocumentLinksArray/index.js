@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import Loading from "../../../../../../../components/Loading";
-import Modal from "../../../../../../../components/Modal";
-import { getHeaders } from "utils/request";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { file } from "@progress/kendo-svg-icons";
-import "./index.scss";
+import React, { useState } from 'react';
+import Loading from '../../../../../../../components/Loading';
+import Modal from '../../../../../../../components/Modal';
+import { getHeaders } from 'utils/request';
+import './index.scss';
 
 
 const DocumentLinksArray = ({ documents }) => {
@@ -25,22 +23,6 @@ const DocumentLinksArray = ({ documents }) => {
         setShowModal(true);
         getDocument(id);
     }
-
-    const setDocumentName = (id) => {
-        switch (id) {
-            case 5:
-                return 'Квитанция об оплате';
-            case 27:
-                return 'Другое';
-            case 50:
-                return 'Заявление о подтверждении членства';
-            case 51:
-                return 'Книга вязок и щенений';
-            default:
-                return 'Без названия';
-        }
-
-    };
 
     return (
         <div className="DocumentLinksArray">

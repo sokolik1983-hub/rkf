@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import StickyBox from 'react-sticky-box';
 import Aside from '../../../../components/Layouts/Aside';
 import Card from '../../../../components/Card';
@@ -31,9 +31,6 @@ import {getEmptyFilters, setFiltersToUrl} from '../../utils';
 import RegionsFilter from '../../../../components/Filters/RegionsFilter';
 
 import './index.scss';
-
-
-
 
 
 const Filters = ({

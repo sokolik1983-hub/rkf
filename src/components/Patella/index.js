@@ -6,6 +6,7 @@ import Alert from "components/Alert";
 import Dysplasia from "./forms/Dysplasia";
 import DocHeadClub from "pages/Docs/components/DocHead";
 import DocHeadKennel from "pages/NurseryDocuments/components/DocHead";
+import FooterFeedback from "../Layouts/FooterFeedback";
 
 import './index.scss';
 
@@ -56,6 +57,7 @@ const Patella = ({ alias, history, distinction, profileType }) => {
             <FormContent
                 {...{alias, id, profileId, Title, update, view}}
             />
+            <FooterFeedback />
         </div>
     </div>
 };

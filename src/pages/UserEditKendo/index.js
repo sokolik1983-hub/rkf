@@ -27,9 +27,9 @@ import Security from './sections/Security';
 import DeletePage from './sections/DeletePage';
 import { connectAuthVisible } from '../Login/connectors';
 import { sections, defaultValues, phoneMask } from './config';
+import UploadDocsEditPage from '../../components/UploadDocsEditPage/UploadDocsEditPage';
 
 import './styles.scss';
-
 
 let unblock;
 
@@ -264,6 +264,10 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     <div className="UserEdit__inner-left">
                                         <Card>
                                             {renderSection(activeSection)}
+                                            <UploadDocsEditPage
+                                                clubAlias={alias}
+                                                history={history}
+                                            />
                                         </Card>
                                     </div>
                                     <div className={`UserEdit__inner-right${isOpenFilters ? ' _open' : ''}`}>

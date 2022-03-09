@@ -3,7 +3,7 @@ import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import { getHeaders } from "utils/request";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { file, trash } from "@progress/kendo-svg-icons";
+import { trash } from "@progress/kendo-svg-icons";
 import "./index.scss";
 
 

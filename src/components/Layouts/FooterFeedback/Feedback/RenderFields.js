@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {connect} from 'formik';
 import { options } from './config';
 import SubmitError from '../SubmitError';
-import Button from '../../../../../../components/Button';
-import { Request } from '../../../../../../utils/request';
-import { FormField, FormGroup, SubmitButton } from '../../../../../../components/Form';
+import Button from '../../../Button';
+import { Request } from '../../../../utils/request';
+import { FormField, FormGroup, SubmitButton } from '../../../Form';
 
 const RenderFields = ({blockContent, setShowModal, formik}) => {
     const [types, setTypes] = useState([]);

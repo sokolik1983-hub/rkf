@@ -1,8 +1,24 @@
 .registration-form {
   margin-bottom: 24px;
+  .swiper-wrapper {
+    justify-content: space-between;
+    .swiper-slide {
+      margin-right: 20px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
   .swipe-tabs {
-    border-bottom: 1px solid #e8e8e8;
-    margin-bottom: 24px;
+    border-bottom: 1px solid #B9B9B9;
+    margin-bottom: 30px;
     overflow: hidden;
+    &__tab {
+      padding: 0 0 12px;
+      font-weight: 400;
+      &._active {
+        color: #253C5E;
+      }
+    }
   }
 }

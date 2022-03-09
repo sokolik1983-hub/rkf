@@ -34,7 +34,7 @@ const PdfLinkCell = ({ dataItem }, handleOnPdfLoading) => {
     return (
         <td className={`puppies-metrics__pdf-cell`}>
             {!pdf ?
-                <span className={ `pedigree-link`}
+                <span className="pedigree-link"
                       onClick={startPdfLoad}
                 >
                     {!isMobile ? 'Посмотреть' : ''} PDF

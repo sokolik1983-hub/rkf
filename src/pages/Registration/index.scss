@@ -1,28 +1,26 @@
 .registration-page {
   background-color: #f5f8ff;
+  @media (max-width: 1079px) {
+    border-radius: 4px;
+  }
   &__content {
-    flex: 1 1 auto;
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     overflow: hidden;
-    margin: 0 -25px;
   }
   &__tabs {
-    border-bottom: 1px solid #e8e8e8;
-    margin-bottom: 50px;
-    padding: 0 25px 10px;
     display: flex;
     justify-content: space-between;
-    @media (max-width: 560px) {
-      margin: 0 16px 50px;
-    }
+    border-bottom: 1px solid #90999E;
+    margin-bottom: 40px;
+    padding: 0 30px 15px;
   }
   &__tab {
     text-decoration: none;
-    text-transform: uppercase;
     font-size: 18px;
-    line-height: 23px;
-    text-align: center;
+    line-height: 18px;
+    font-weight: 600;
     color: #90999E;
     &.active {
       color: #3366FF;
@@ -30,19 +28,83 @@
   }
   &__scroll-wrap {
     flex: 1 1 auto;
-    padding: 0 25px;
   }
   .Card {
-    border-radius: 0;
-    width: 100%;
-    height: calc(100vh - 52px);
-    padding: 50px 25px 10px;
     display: flex;
     flex-direction: column;
-    @media (max-width: 560px) {
-      padding-left: 0;
-      padding-right: 0;
-      height: 100%;
+    width: 100%;
+    max-height: calc(100vh - 76px);
+    padding: 60px 30px 40px;
+    @media (max-width: 1079px) {
+      max-height: calc(100vh - 146px);
+    }
+  }
+  .css-shvkw9-control,
+  .css-8rvjbo-control,
+  .css-1hwfws3 {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    font-weight: 400 !important;
+    color: #757575 !important;
+    opacity: 1;
+  }
+  .css-rd8czp-placeholder {
+    margin-left: 0;
+    padding-bottom: 2px;
+    font-family: "Source Sans Pro", Helvetica, sans-serif !important;
+    font-size: 16px;
+    font-weight: 400 !important;
+    color: #757575 !important;
+  }
+  .css-1g6gooi input {
+    margin-left: -2px;
+  }
+  .css-1ox0dji-singleValue {
+    margin-left: 0;
+    color: #253c5e;
+  }
+  #federation_id {
+    height: 38px;
+    border: 1px solid #CED4DA;
+    border-radius: 3px;
+    padding-left: 10px;
+    transition: 0.3s;
+    &:hover {
+      border: 1px solid #90999E;
+    }
+  }
+  .css-kj6f9i-menu {
+    left: 0;
+  }
+  &__support-links {
+    border-top: 1px solid #B9B9B9;
+    margin-top: 70px;
+    padding-top: 15px;
+    p {
+      display: flex;
+      margin-bottom: 15px;
+      &::before {
+        content: '';
+        display: block;
+        width: 20px;
+        min-width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        background-image: url("/static/icons/registration/attention.svg");
+        background-size: cover;
+      }
+      a {
+        text-decoration: none;
+        line-height: 20px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }

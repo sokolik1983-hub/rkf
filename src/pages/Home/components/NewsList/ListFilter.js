@@ -15,7 +15,7 @@ const ListFilter = ({changeFilter}) => {
         changeFilter(null);
     }
     return (
-        <div className="NewsList__filter">
+        <div className="news-list__filter">
             <div className="ListFilter__wrap">
                 <ul className="ListFilter">
                     <h3>Автор</h3>

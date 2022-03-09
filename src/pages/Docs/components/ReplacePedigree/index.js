@@ -11,6 +11,7 @@ import ReplacePedigreeOutRKFFCI from "./forms/ReplacePedigreeOutRKFFCI";
 import ReplacePedigreeForeign from "./forms/ReplacePedigreeForeign";
 import ReplaceDeclarantError from "./forms/DeclarantError";
 import DocHead from "../DocHead";
+import FooterFeedback from "../../../../components/Layouts/FooterFeedback";
 
 import './index.scss';
 
@@ -84,6 +85,7 @@ const ReplacePedigree = ({ alias, history }) => {
             <FormContent
                 {...{ alias, id, profileId, Title, update, view }}
             />
+            <FooterFeedback />
         </div>
     </div>
 };
