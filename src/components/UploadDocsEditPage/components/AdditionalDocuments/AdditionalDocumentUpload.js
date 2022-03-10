@@ -20,7 +20,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
             if(!(extension === '.pdf' || extension.toLowerCase() === '.jpg' || extension.toLowerCase() === '.jpeg')) {
                 setIsFormat(false);
             }
-            if(size > 10000000) {
+            if(size > 20971520) {
                 setIsMaxSize(true);
             }
             const { result } = event.response.response;
@@ -60,7 +60,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
             <OutsideClickHandler onOutsideClick={handleClose}>
                 <Alert
                     title="Произошла ошибка! =("
-                    text={isMaxSize ? "Слишком большой размер файла! Максимум 10Mb" : "Неверный формат файла! Допустимы только файлы формата: '.pdf', '.jpg', '.jpeg'"}
+                    text={isMaxSize ? "Слишком большой размер файла! Максимум 20Mb" : "Неверный формат файла! Допустимы только файлы формата: '.pdf', '.jpg', '.jpeg'"}
                     okButton={true}
                     onOk={() => handleClose()}
                 />

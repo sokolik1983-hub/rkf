@@ -32,6 +32,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
             return 'Клуб';
         }
     };
+
     return (
         <Card className="user-header">
             <div
