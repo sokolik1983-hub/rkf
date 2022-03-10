@@ -114,7 +114,7 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
 
     return loading ?
         <Loading /> :
-        <Layout withFilters>
+        <Layout layoutWithFilters>
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
             <div className="specialists-page__wrap redesign">
                 <Container className="specialists-page content">

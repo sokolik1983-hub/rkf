@@ -134,7 +134,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
             errorRedirect ?
                 <Redirect to="/404" />
                 :
-        <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
+        <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters={checkLink}>
 
             <div className="user-page">
                 <Container className="user-page__content content">

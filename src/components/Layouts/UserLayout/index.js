@@ -21,7 +21,7 @@ import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 
-import "./index.scss";
+import './index.scss';
 
 const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
     const [loading, setLoading] = useState(true);
@@ -112,7 +112,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         <Loading /> :
         errorRedirect ?
             <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
+            <Layout setNotificationsLength={setNotificationsLength}>
 
                 <div className="user-page">
                     <Container className="user-page__content content">
