@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import * as signalR from "@microsoft/signalr";
 import { isDevEnv } from 'utils';
 import { getHeaders } from "../utils/request";
 import { connectAuthVisible } from "pages/Login/connectors";
+import {IsJsonString} from "../utils";
 
 export const NotificationsContext = React.createContext(null);
 
@@ -39,10 +39,12 @@ const NotificationsProvider = ({ isAuthenticated, children }) => {
             .then(function () {
                 if (connection.state === 'Connected') {
                     connection.invoke('GetConnectionId').then(function (data) {
-                        setPushedNotification({
-                            ...pushedNotification,
-                            hasNewMessage: JSON.parse(data).has_new
-                        });
+                        if(IsJsonString(data)) {
+                            setPushedNotification({
+                                ...pushedNotification,
+                                hasNewMessage: JSON.parse(data).has_new
+                            });
+                        }
                     })
                 }
             })

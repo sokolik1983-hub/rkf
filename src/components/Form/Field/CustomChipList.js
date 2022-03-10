@@ -1,6 +1,5 @@
-import React, {useEffect} from "react";
+import React, {useEffect} from 'react';
 import { connect, Field } from 'formik';
-import {useState} from "react";
 import { ChipList} from '@progress/kendo-react-buttons';
 import Label from './Label';
 import Error from './Error';

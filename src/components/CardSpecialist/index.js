@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { DEFAULT_IMG } from "../../appConfig";
-import { Request } from "../../utils/request";
-import { setFiltersToUrl } from "../../pages/Specialists/utils";
-import LightTooltip from "../../components/LightTooltip";
+import React, { useState } from 'react';
+import { DEFAULT_IMG } from '../../appConfig';
+import { Request } from '../../utils/request';
+import { setFiltersToUrl } from '../../pages/Specialists/utils';
+import LightTooltip from '../../components/LightTooltip';
 
-import Card from "../Card";
-import CardFooter from "../CardFooter"
+import Card from '../Card';
+import CardFooter from '../CardFooter';
 
-import "./index.scss";
+import './index.scss';
 
 
 const CardSpecialist = ({

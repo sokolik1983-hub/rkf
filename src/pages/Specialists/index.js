@@ -15,7 +15,6 @@ import {Request} from "../../utils/request";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import "./index.scss";
 import { setFiltersToUrl } from "./utils";
-import { log2 } from "pdfjs-dist/lib/core/core_utils";
 
 
 moment.locale('ru');

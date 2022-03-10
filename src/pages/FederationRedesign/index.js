@@ -98,8 +98,8 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                         />
                                     </>
                                     }
-                                    <UserDescription description={fedInfo.description} />
                                     <UserContacts {...fedInfo} profileAlias={alias} />
+                                    <UserDescription description={fedInfo.description} />
                                     <div className="club-page__exhibitions">
                                         <ExhibitionsComponent alias={alias} />
                                     </div>

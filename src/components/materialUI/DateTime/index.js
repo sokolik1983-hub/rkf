@@ -11,7 +11,7 @@ moment.updateLocale('ru', MOMENT_LOCALE_DEFINITION);
 //https://material-ui-pickers.dev/api/DatePicker
 //value, minDate, maxDate - должны быть строкой в формате "YYYY-MM-DD"
 export const DateInput = (fieldRenderProps) => {
-    const {id, name, className, label, maxDate, minDate, value, onChange, editable, ...props} = fieldRenderProps;
+    const {id, name, className, label, maxDate, minDate, value, onChange, editable} = fieldRenderProps;
 
     const min = moment(minDate || '1900-01-01', 'YYYY-MM-DD');
     const max = moment(maxDate || '2100-01-01', 'YYYY-MM-DD');

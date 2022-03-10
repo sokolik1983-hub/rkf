@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
-import {boolean, number, object, string, array, lazy} from "yup";
-import Card from "../Card";
-import Alert from "../Alert";
-import { Form } from "../Form";
-import RenderFields from "./RenderFields";
-import { newsArticleFormConfig } from "./config";
-import ls from "local-storage";
-import {useFocus} from "../../shared/hooks";
+import React, { useState } from 'react';
+import {number, object, string, array} from 'yup';
+import Card from '../Card';
+import Alert from '../Alert';
+import { Form } from '../Form';
+import RenderFields from './RenderFields';
+import { newsArticleFormConfig } from './config';
+import ls from 'local-storage';
+import {useFocus} from '../../shared/hooks';
 
-import "./index.scss";
+import './index.scss';
 
 
 const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInfo}) => {
@@ -27,7 +27,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [activeElem, setActiveElem] = useState(null);
     const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
-    const [values, setValue] = useState(1);
 
 
     const CategoryNullSchema = object().shape({
@@ -96,7 +95,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
 
     const onSuccess = () => {
         if(!!setProfileInfo){
-            setProfileInfo({...profileInfo, 
+            setProfileInfo({...profileInfo,
                 counters: {
                     ...profileInfo.counters,
                     publications_count: profileInfo.counters.publications_count + 1,
@@ -139,7 +138,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 transformValues={transformValues}
                 onSuccess={onSuccess}
                 onError={onError}
-                setValue={setValue}
             >
                 <RenderFields
                     fields={newsArticleFormConfig.fields}

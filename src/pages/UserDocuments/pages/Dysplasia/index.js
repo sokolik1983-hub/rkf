@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Form, Field, FormElement } from "@progress/kendo-react-form";
-import { Fade } from "@progress/kendo-react-animation";
-import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
-import Card from "../../../../components/Card";
-import FormInput from "../../../../components/kendo/Form/FormInput";
-import FormUpload from "../../../../components/kendo/Form/FormUpload";
-import FormDatePicker from "../../../../components/kendo/Form/FormDatePicker";
-import FormTextArea from "../../../../components/kendo/Form/FormTextArea";
-import FormContactsCheckbox from "../../../../components/kendo/Form/FormContactsCheckbox";
-import DocumentLink from "../../components/DocumentLink";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Form, Field, FormElement } from '@progress/kendo-react-form';
+import { Fade } from '@progress/kendo-react-animation';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import Card from '../../../../components/Card';
+import FormInput from '../../../../components/kendo/Form/FormInput';
+import FormUpload from '../../../../components/kendo/Form/FormUpload';
+import FormDatePicker from '../../../../components/kendo/Form/FormDatePicker';
+import FormTextArea from '../../../../components/kendo/Form/FormTextArea';
+import FormContactsCheckbox from '../../../../components/kendo/Form/FormContactsCheckbox';
+import DocumentLink from '../../components/DocumentLink';
 import {
-    dateRequiredValidator, nameRequiredValidator,
+    dateRequiredValidator,
+    nameRequiredValidator,
     requiredValidator,
-    requiredWithTrimValidator, documentRequiredValidatorTypeArray
-} from "../../../../components/kendo/Form/validators";
-import { Request } from "../../../../utils/request";
-import flatten from "../../../../utils/flatten";
-import "./index.scss";
+    requiredWithTrimValidator,
+    documentRequiredValidatorTypeArray } from '../../../../components/kendo/Form/validators';
+import { getHeaders, Request } from '../../../../utils/request';
+import flatten from '../../../../utils/flatten';
+import DocLink from '../../../Docs/components/DocApply/components/DocLink';
+import FooterFeedback from '../../../../components/Layouts/FooterFeedback';
+
+import './index.scss';
+
 
 const apiPrivacyEndpoint = '/api/requests/dog_health_check_request/ownerdoghealthcheckdysplasiarequest/personal_data_document';
 
@@ -45,6 +50,12 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
         payment_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         comment: ''
     });
+    const [formProps, setFormProps] = useState(null);
+    const [vetDocId, setVetDocId] = useState('');
+    const [roentgenId, setRoentgenId] = useState('');
+    const [personalDataId, setPersonalDataId] = useState('');
+    const [pedigreeDocId, setPedigreeDocId] = useState('');
+    const [paymentDocId, setPaymentDocId] = useState('');
 
     useEffect(() => {
         Promise.all([
@@ -143,6 +154,30 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
         setDisableSubmit(false);
     };
 
+    const onBeforeUpload = (event, type) => {
+        event.headers = getHeaders(true);
+        event.additionalData = { document_type_id: type };
+    };
+
+    const onStatusChange = (event, name) => {
+        const { newState, affectedFiles, response } = event;
+
+        if (response) {
+            const updatedNewState = newState.map(document => document.uid === affectedFiles[0].uid ? ({ ...document, id: response?.response?.result?.id }) : document);
+            formProps.onChange(name, { value: updatedNewState });
+            name === 'veterinary_contract_document' ? setVetDocId(response?.response?.result?.id,)
+                : name === 'roentgenogram_document' ? setRoentgenId(response?.response?.result?.id,)
+                : name === 'personal_data_document' ? setPersonalDataId(response?.response?.result?.id,)
+                : name === 'pedigree_document' ? setPedigreeDocId(response?.response?.result?.id,)
+                    : setPaymentDocId(response?.response?.result?.id,);
+        } else {
+            formProps.onChange(name, { value: newState });
+        }
+    };
+
+    const onProgress = (event, name) => formProps.onChange(name, { value: event.newState });
+
+
     return (
         <div className="dysplasia-form">
             <Card>
@@ -157,7 +192,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                     initialValues={initialValues}
                     key={JSON.stringify(initialValues)}
                     render={formRenderProps => {
-
+                        if (!formProps) setFormProps(formRenderProps);
                         const handleChange = name => {
                             formRenderProps.onChange(name, { value: !formRenderProps.valueGetter(name) });
                         };
@@ -223,30 +258,52 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         id="veterinary_contract_document"
                                                         name="veterinary_contract_document"
                                                         label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg']}
+                                                        fileFormats={[".pdf", ".jpg", ".jpeg"]}
                                                         component={FormUpload}
-                                                        validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
+                                                        validator={status === "edit" ? "" : documentRequiredValidatorTypeArray}
+                                                        showActionButtons={true}
+                                                        saveUrl="/api/requests/get_rkf_document/getrkfdocumentrequestdocument"
+                                                        saveField="document"
+                                                        onBeforeUpload={e => onBeforeUpload(e, 47)}
+                                                        onStatusChange={e => onStatusChange(e, "veterinary_contract_document")}
+                                                        onProgress={e => onProgress(e, "veterinary_contract_document")}
                                                     />
                                                     {values &&
                                                         values.veterinary_contract_document_id &&
-                                                        !formRenderProps.valueGetter('veterinary_contract_document').length &&
+                                                        !formRenderProps.valueGetter("veterinary_contract_document").length &&
                                                         <DocumentLink docId={values.veterinary_contract_document_id} />
                                                     }
+                                                    <DocLink
+                                                        distinction="get_rkf_document"
+                                                        docId={vetDocId}
+                                                        showLabel={false}
+                                                    />
                                                 </div>
                                                 <div className="dysplasia-form__file">
                                                     <Field
                                                         id="roentgenogram_document"
                                                         name="roentgenogram_document"
                                                         label="Рентгенограмма (PDF, JPEG, JPG)"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg']}
+                                                        fileFormats={[".pdf", ".jpg", ".jpeg"]}
                                                         component={FormUpload}
-                                                        validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
+                                                        validator={status === "edit" ? "" : documentRequiredValidatorTypeArray}
+                                                        showActionButtons={true}
+                                                        saveUrl="/api/requests/get_rkf_document/getrkfdocumentrequestdocument"
+                                                        saveField="document"
+                                                        onBeforeUpload={e => onBeforeUpload(e, 47)}
+                                                        onStatusChange={e => onStatusChange(e, "roentgenogram_document")}
+                                                        onProgress={e => onProgress(e, "roentgenogram_document")}
                                                     />
                                                     {values &&
                                                         values.roentgenogram_document_id &&
-                                                        !formRenderProps.valueGetter('roentgenogram_document').length &&
+                                                        !formRenderProps.valueGetter("roentgenogram_document").length &&
                                                         <DocumentLink docId={values.roentgenogram_document_id} />
                                                     }
+                                                    <DocLink
+                                                        distinction="get_rkf_document"
+                                                        docId={roentgenId}
+                                                        showLabel={false}
+                                                    />
                                                 </div>
                                             </>
                                         }
@@ -303,33 +360,55 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                             <Field
                                                 id="personal_data_document"
                                                 name="personal_data_document"
-                                                label={<div>Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br /><a href={privacyHref} style={{ textDecoration: 'none' }}>Скачать форму соглашения</a></div>}
-                                                fileFormats={['.pdf', '.jpg', '.jpeg']}
+                                                label={<div>Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br /><a href={privacyHref} style={{ textDecoration: "none" }}>Скачать форму соглашения</a></div>}
+                                                fileFormats={[".pdf", ".jpg", ".jpeg"]}
                                                 component={FormUpload}
-                                                disabled={status === 'edit' && values && values.personal_data_document_accept}
-                                                validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
+                                                disabled={status === "edit" && values && values.personal_data_document_accept}
+                                                validator={status === "edit" ? "" : documentRequiredValidatorTypeArray}
+                                                showActionButtons={true}
+                                                saveUrl="/api/requests/get_rkf_document/getrkfdocumentrequestdocument"
+                                                saveField="document"
+                                                onBeforeUpload={e => onBeforeUpload(e, 47)}
+                                                onStatusChange={e => onStatusChange(e, "personal_data_document")}
+                                                onProgress={e => onProgress(e, "personal_data_document")}
                                             />
                                             {values &&
                                                 values.personal_data_document_id &&
-                                                !formRenderProps.valueGetter('personal_data_document').length &&
+                                                !formRenderProps.valueGetter("personal_data_document").length &&
                                                 <DocumentLink docId={values.personal_data_document_id} />
                                             }
+                                            <DocLink
+                                                distinction="get_rkf_document"
+                                                docId={personalDataId}
+                                                showLabel={false}
+                                            />
                                         </div>
                                         <div className="dysplasia-form__file">
                                             <Field
                                                 id="pedigree_document"
                                                 name="pedigree_document"
                                                 label="Загрузите родословную (PDF, JPEG, JPG)"
-                                                fileFormats={['.pdf', '.jpg', '.jpeg']}
+                                                fileFormats={[".pdf", ".jpg", ".jpeg"]}
                                                 component={FormUpload}
-                                                disabled={status === 'edit' && values && values.pedigree_document_accept}
-                                                validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
+                                                disabled={status === "edit" && values && values.pedigree_document_accept}
+                                                validator={status === "edit" ? "" : documentRequiredValidatorTypeArray}
+                                                showActionButtons={true}
+                                                saveUrl="/api/requests/get_rkf_document/getrkfdocumentrequestdocument"
+                                                saveField="document"
+                                                onBeforeUpload={e => onBeforeUpload(e, 47)}
+                                                onStatusChange={e => onStatusChange(e, "pedigree_document")}
+                                                onProgress={e => onProgress(e, "pedigree_document")}
                                             />
                                             {values &&
                                                 values.pedigree_document_id &&
-                                                !formRenderProps.valueGetter('pedigree_document').length &&
+                                                !formRenderProps.valueGetter("pedigree_document").length &&
                                                 <DocumentLink docId={values.pedigree_document_id} />
                                             }
+                                            <DocLink
+                                                distinction="get_rkf_document"
+                                                docId={pedigreeDocId}
+                                                showLabel={false}
+                                            />
                                         </div>
                                     </div>
                                 }
@@ -353,15 +432,26 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                     id="payment_document"
                                                     name="payment_document"
                                                     label="Квитанция об оплате (PDF, JPEG, JPG)"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg']}
+                                                    fileFormats={[".pdf", ".jpg", ".jpeg"]}
                                                     component={FormUpload}
-                                                    validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
+                                                    validator={status === "edit" ? "" : documentRequiredValidatorTypeArray}
+                                                    showActionButtons={true}
+                                                    saveUrl="/api/requests/get_rkf_document/getrkfdocumentrequestdocument"
+                                                    saveField="document"
+                                                    onBeforeUpload={e => onBeforeUpload(e, 47)}
+                                                    onStatusChange={e => onStatusChange(e, 'payment_document')}
+                                                    onProgress={e => onProgress(e, 'payment_document')}
                                                 />
                                                 {values &&
                                                     values.payment_document_id &&
-                                                    !formRenderProps.valueGetter('payment_document').length &&
+                                                    !formRenderProps.valueGetter("payment_document").length &&
                                                     <DocumentLink docId={values.payment_document_id} />
                                                 }
+                                                <DocLink
+                                                    distinction="get_rkf_document"
+                                                    docId={paymentDocId}
+                                                    showLabel={false}
+                                                />
                                             </div>
                                         }
                                     </div>
@@ -451,6 +541,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                     }
                 </Fade>
             </NotificationGroup>
+            <FooterFeedback />
         </div>
     )
 };

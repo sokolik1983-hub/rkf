@@ -79,6 +79,16 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias }) =
                     <span>{main_mail_status}</span>
                 }
             </p>
+            {emails && !!emails.length &&
+                emails.map(item =>
+                    <p className="user-description__item _email" key={item.id}>
+                        <span className="user-description__item-title">{item.description || 'E-mail'}:</span>&nbsp;
+                        <a href={`mailto:${item.value}`} title={item.value}>
+                            {item.value}
+                        </a>
+                    </p>
+                )
+            }
             <p className="user-description__item _phone">
                 <span className="user-description__item-title">{main_phone_description || 'Телефон'}:</span>&nbsp;
                 <span>{getPhoneString(main_phone_value, main_phone_status, phones)}</span>
@@ -86,16 +96,6 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias }) =
             {additionalInfo &&
                 <>
                     <Collapse isOpened={isOpen}>
-                        {emails && !!emails.length &&
-                            emails.map(item =>
-                                <p className="user-description__item _email" key={item.id}>
-                                    <span className="user-description__item-title">{item.description || 'E-mail'}:</span>&nbsp;
-                                    <a href={`mailto:${item.value}`} title={item.value}>
-                                        {item.value}
-                                    </a>
-                                </p>
-                            )
-                        }
                         {getAddressString(address) &&
                             <p className="user-description__item _address">
                                 <span className="user-description__item-title">Адрес:</span>&nbsp;

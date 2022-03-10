@@ -1,11 +1,11 @@
-import React, {memo, useEffect, useRef, useState} from "react";
-import {Swiper, SwiperSlide} from "swiper/react/swiper-react.js";
-import {FreeMode} from "swiper";
-import "swiper/modules/free-mode/free-mode.scss";
-import "swiper/modules/scrollbar/scrollbar.scss";
-import "swiper/swiper.scss";
-import {Link as LinkScroll} from "react-scroll";
-import "./index.scss";
+import React, {memo, useEffect, useRef, useState} from 'react';
+import {Swiper, SwiperSlide} from 'swiper/react/swiper-react.js';
+import {FreeMode} from 'swiper';
+import 'swiper/modules/free-mode/free-mode.scss';
+import 'swiper/modules/scrollbar/scrollbar.scss';
+import 'swiper/swiper.scss';
+import {Link as LinkScroll} from 'react-scroll';
+import './index.scss';
 
 
 const SwipeTabs = ({items, activeTabIndex, onChange}) => {
@@ -21,6 +21,10 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
 
         return () => swiper.destroy();
     }, []);
+
+    useEffect(()=>{
+        swiperRef.current.swiper.slideTo(activeTabIndex);
+    }, [activeTabIndex]);
 
     const handleMoveToActive = index => {
         if(swiperRef?.current) {

@@ -3,6 +3,15 @@ import { WEEKDAYS } from "../appConfig";
 
 export const isDevEnv = () => process.env.NODE_ENV !== 'production';
 
+export const IsJsonString = str => {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+};
+
 export const formatText = text => JSON.parse(
     JSON.stringify(text)
         .replace('/(<([^>]+)>)/ig', '')
