@@ -329,15 +329,11 @@ const RenderFields = ({ fields,
                                         onChange={handleChangeHalfBreed}
                                     />
                                     <FormField
-                                        className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'} ${(!isHalfBreedEdit && !breedValue) && 'error-input'}`}
+                                        className={`article-edit__input-breedId ${(isHalfBreedEdit) ? 'disabled' : ''} ${(!isHalfBreedEdit && !breedValue) ? 'error-input' : ''}`}
                                         {...fields.advert_breed_id}
                                         options={breeds}
                                         onChange={(e) => handleChangeBreed(e)}
                                     />
-                                    {
-                                        (!isHalfBreedEdit && !breedValue) &&
-                                        <div className="FormInput__error select-error">Поле не может быть пустым</div>
-                                    }
                                 </FormGroup>
                                 {/*<FormGroup inline className="article-edit__ad">*/}
                                     <FormField {...fields.dog_name} className="article-edit__name-wrap"/>
