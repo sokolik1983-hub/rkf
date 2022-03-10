@@ -161,10 +161,6 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                             </StickyBox>
                         </aside>}
                         <div className="user-page__right">
-                            <Link to={{
-                                pathname: "/Referee/full/16085",
-                                judgeLinkInfo: userInfo
-                            }} >111111111111111111111111111111111</Link>
                             {
                                 React.cloneElement(children, {
                                     isMobile,
