@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "formik";
+
 import "./style.scss";
 
 const text = 'Заполнены не все обязательные поля';
