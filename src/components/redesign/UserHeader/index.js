@@ -18,8 +18,6 @@ import "./index.scss";
 
 const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, onSubscriptionUpdate, federationName, federationAlias, isFederation = false, active_rkf_user, active_member, isAuthenticated, canEdit }) => {
 
-    console.log('user', user);
-
     const [shareAlert, setShareAlert] = useState(false);
     const [modalType, setModalType] = useState('');
     const [hover, setHover] = useState(false);
