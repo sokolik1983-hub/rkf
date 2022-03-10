@@ -34,7 +34,6 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     const [errorMessage, setErrorMessage] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [clubInfo, setClubInfo] = useState({});
-    const [fedInfo, setFedInfo] = useState({});
     const [judgeAlias, setJudgeAlias] = useState('');
     const [judgeInfoLink, setJudgeInfoLink] = useState(null);
     const [judgeAddInfo, setJudgeAddInfo] = useState(null);
@@ -48,8 +47,9 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     const isMobile = useIsMobile(1080);
 
     const {id, type} = useParams();
-    const alias = useSelector(state => state.authentication.user_info.alias);
-    const userType = useSelector(state => state.authentication.user_info.user_type);
+    const isAuthentificated = useSelector(state => state.authentication.isAuthenticated);
+    const alias = isAuthentificated ? useSelector(state => state.authentication.user_info.alias) : 'rkf';
+    const userType = isAuthentificated ? useSelector(state => state.authentication.user_info.user_type) : 3;
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
