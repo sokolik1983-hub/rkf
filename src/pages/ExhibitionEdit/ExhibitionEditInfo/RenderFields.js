@@ -329,10 +329,12 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                        iconName="owner2-white"
                        headerName="Выбор судьи/специалиста"
             >
-                <div style={{width : "100%", height : "100%"}}>
-                    Добавить судью
+                    <div>
+                        <h3>Список судей/специалистов</h3>
+                        <ul>
 
-                </div>
+                        </ul>
+                    </div>
             </Modal>
             // </OutsideClickHandler>
 }
