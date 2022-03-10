@@ -120,7 +120,7 @@
         }
       }
     }
-    @media (max-width: 990px) and (min-width: 561px) {
+    @media (min-width: 561px) and (max-width: 990px) {
       .user-banner._custom_banner {
         padding: 0;
         max-height: 200px;
