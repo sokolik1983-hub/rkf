@@ -121,9 +121,9 @@ const NewsFeedItem = forwardRef(({
 
         return (
             <>
-                <div className="NewsFeedItem__content">
-                    <div className="NewsFeedItem__head" style={{margin: '0 10px 0 10px'}}>
-                        <div className="NewsFeedItem__left">
+                <div className="news-feed-item__content">
+                    <div className="news-feed-item__head" style={{margin: '0 10px 0 10px'}}>
+                        <div className="news-feed-item__left">
                             <Link to={user_type === 4
                                 ? `/kennel/${alias}`
                                 : user_type === 1
@@ -132,7 +132,7 @@ const NewsFeedItem = forwardRef(({
                                         ? `/club/${alias}`
                                         : `/${alias}`}>
                                 <div
-                                    className="NewsFeedItem__left-logo"
+                                    className="news-feed-item__left-logo"
                                     style={{background: `url(${logo_link ?
                                         logo_link :
                                         user_type === 1 ?
@@ -141,7 +141,7 @@ const NewsFeedItem = forwardRef(({
                                     }) center center/cover no-repeat`}}
                                 />
                             </Link>
-                            <span className="NewsFeedItem__left-name">
+                            <span className="news-feed-item__left-name">
                                 {is_request_article ?
                                     <div>
                                         <Link to={user_type === 4
@@ -154,7 +154,7 @@ const NewsFeedItem = forwardRef(({
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
                                         </Link>
                                         <span>{formatDateTime(create_date)}</span>
-                                        <p className={`NewsFeedItem__left-name_text${!is_read && " --bold" }`}>{formatText(content)}</p>
+                                        <p className={`news-feed-item__left-name_text${!is_read && " --bold" }`}>{formatText(content)}</p>
                                     </div> :
                                     <>
                                         <span>
@@ -183,7 +183,7 @@ const NewsFeedItem = forwardRef(({
                                         <div>
                                             {formatDateTime(create_date)}
                                             {fact_city_name &&
-                                                <span className="NewsFeedItem__city" title={fact_city_name}>
+                                                <span className="news-feed-item__city" title={fact_city_name}>
                                                     {fact_city_name}
                                                 </span>
                                             }
@@ -192,7 +192,7 @@ const NewsFeedItem = forwardRef(({
                                 }
                             </span>
                         </div>
-                        <div className="NewsFeedItem__right" >
+                        <div className="news-feed-item__right" >
                             {!member &&
                                 <Chip
                                     text="Подписка"
@@ -213,9 +213,9 @@ const NewsFeedItem = forwardRef(({
                                 />
                             }*/}
                             {canEdit && profileId === profile_id && alias === userAlias &&
-                                <div className="NewsFeedItem__head-control">
+                                <div className="news-feed-item__head-control">
                                     <button
-                                        className={`NewsFeedItem__head-control-btn${isOpenControls ? ' _open' : ''}`}
+                                        className={`news-feed-item__head-control-btn${isOpenControls ? ' _open' : ''}`}
                                         onClick={() => setIsOpenControls(!isOpenControls)}
                                     />
                                     {isOpenControls &&
@@ -226,22 +226,22 @@ const NewsFeedItem = forwardRef(({
                                             <CSSTransition
                                                 in={isOpenControls}
                                                 timeout={350}
-                                                classNames="NewsFeedItem__transition"
+                                                classNames="news-feed-item__transition"
                                                 unmountOnExit
                                             >
-                                                <ul className="NewsFeedItem__head-control-list">
+                                                <ul className="news-feed-item__head-control-list">
                                                     {!is_closed_advert &&
-                                                        <li className="NewsFeedItem__head-control-item" onClick={() => setIsEditing(true)}>
+                                                        <li className="news-feed-item__head-control-item" onClick={() => setIsEditing(true)}>
                                                             <span>Редактировать</span>
                                                         </li>
                                                     }
                                                     {is_advert && !is_closed_advert &&
-                                                        <li className="NewsFeedItem__head-control-item" onClick={() => onAdClose(id)}>
-                                                            <span className="NewsFeedItem__remove">Закрыть объявление</span>
+                                                        <li className="news-feed-item__head-control-item" onClick={() => onAdClose(id)}>
+                                                            <span className="news-feed-item__remove">Закрыть объявление</span>
                                                         </li>
                                                     }
-                                                    <li className="NewsFeedItem__head-control-item" onClick={() => deleteNewsItem(id)}>
-                                                        <span className="NewsFeedItem__remove">Удалить</span>
+                                                    <li className="news-feed-item__head-control-item" onClick={() => deleteNewsItem(id)}>
+                                                        <span className="news-feed-item__remove">Удалить</span>
                                                     </li>
                                                 </ul>
                                             </CSSTransition>
@@ -250,8 +250,8 @@ const NewsFeedItem = forwardRef(({
                                 </div>
                             }
 
-                            <div className="NewsFeedItem__control-checkbox">
-                                <label className="NewsFeedItem__control-checkbox-label">
+                            <div className="news-feed-item__control-checkbox">
+                                <label className="news-feed-item__control-checkbox-label">
                                     <input
                                         type="checkbox"
                                         onChange={handleCheck}
@@ -262,33 +262,33 @@ const NewsFeedItem = forwardRef(({
                             </div>
                         </div>
                     </div>
-                    <div className={!collapsed ? 'NewsFeedItem__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
+                    <div className={!collapsed ? 'news-feed-item__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
                         {is_advert &&
-                            <div className="NewsFeedItem__ad">
-                                <p className="NewsFeedItem__ad-breed">
+                            <div className="news-feed-item__ad">
+                                <p className="news-feed-item__ad-breed">
                                     <span>Порода: {advert_breed_name}</span>
                                     <span>№{advert_code}</span>
                                 </p>
-                                <div className="NewsFeedItem__ad-price">
+                                <div className="news-feed-item__ad-price">
                                     <div>
                                         <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'}</span>
                                         <span>Кол-во щенков: {advert_number_of_puppies}</span>
                                         {advert_type_name && <span>Категория: {advert_type_name}</span>}
                                     </div>
-                                    {is_closed_advert && <div className="NewsFeedItem__ad-inactive" >Объявление не активно</div>}
+                                    {is_closed_advert && <div className="news-feed-item__ad-inactive" >Объявление не активно</div>}
                                 </div>
                             </div>
                         }
                         {!is_request_article &&
                             <p
-                                className={`NewsFeedItem__text${!canCollapse ? ' _disabled' : ''}`}
+                                className={`news-feed-item__text${!canCollapse ? ' _disabled' : ''}`}
                                 ref={ref}
                                 dangerouslySetInnerHTML={{ __html: formatText(content) }}
                             />
                         }
                         {videoLink &&
                             <iframe
-                                className={`NewsFeedItem__video${!collapsed ? ' _disabled' : ''}`}
+                                className={`news-feed-item__video${!collapsed ? ' _disabled' : ''}`}
                                 src={videoLink}
                                 title={id}
                                 frameBorder="0"
@@ -296,13 +296,13 @@ const NewsFeedItem = forwardRef(({
                             />
                         }
                     </div>
-                    <div className="NewsFeedItem__show-all-wrap">
+                    <div className="news-feed-item__show-all-wrap">
                         {is_request_article ?
-                            <div className="NewsFeedItem__show-all" onClick={handleItemClick}>
+                            <div className="news-feed-item__show-all" onClick={handleItemClick}>
                                 <Link to={redirect_link} target="_blank">Подробнее...</Link>
                             </div> :
                             <div
-                                className={`NewsFeedItem__show-all${!canCollapse ? ' _disabled' : ''}`}
+                                className={`news-feed-item__show-all${!canCollapse ? ' _disabled' : ''}`}
                                 onClick={() => canCollapse && setCollapsed(!collapsed)}
                             >
                                 {!collapsed ? 'Подробнее...' : 'Свернуть'}
@@ -313,15 +313,15 @@ const NewsFeedItem = forwardRef(({
                         }
                     </div>
                     {(picture_link || video_link) &&
-                        <div className="NewsFeedItem__media">
+                        <div className="news-feed-item__media">
                             {picture_link &&
-                                <div className="NewsFeedItem__photo"
+                                <div className="news-feed-item__photo"
                                      style={{ backgroundImage: `url(${picture_link})` }}
                                      onClick={() => setShowPhoto(true)}
                                 />
                             }
                             {video_link &&
-                                <div className="NewsFeedItem__video">
+                                <div className="news-feed-item__video">
                                     <iframe
                                         className="news__video"
                                         src={video_link}
@@ -335,8 +335,8 @@ const NewsFeedItem = forwardRef(({
                     }
                 </div>
                 {documents && !!documents.length &&
-                    <div className="NewsFeedItem__documents" style={{ margin: '0 10px 0 10px' }}>
-                        <ul className="NewsFeedItem__documents-list">
+                    <div className="news-feed-item__documents" style={{ margin: '0 10px 0 10px' }}>
+                        <ul className="news-feed-item__documents-list">
                             {documents.map(doc =>
                                 <li className="DocumentItem" key={doc.id}>
                                     <DocumentLink
@@ -348,8 +348,8 @@ const NewsFeedItem = forwardRef(({
                         </ul>
                     </div>
                 }
-                {/* {videoLink && <p className={`NewsFeedItem__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
-                <div className="NewsFeedItem__controls">
+                {/* {videoLink && <p className={`news-feed-item__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
+                <div className="news-feed-item__controls">
                     <CardFooter
                         id={ id }
                         share_link={window.location.host === 'rkf.online' ? `https://rkf.online/news/${id}` : `https://stage.uep24.ru/news/${id}`}
@@ -364,9 +364,9 @@ const NewsFeedItem = forwardRef(({
     };
 
     const EditItem = () => <>
-        <div className="NewsFeedItem__content">
-            <div className="NewsFeedItem__head">
-                <div className="NewsFeedItem__left">
+        <div className="news-feed-item__content">
+            <div className="news-feed-item__head">
+                <div className="news-feed-item__left">
                     <Link to={user_type === 4
                         ? `/kennel/${alias}`
                         : user_type === 1
@@ -374,7 +374,7 @@ const NewsFeedItem = forwardRef(({
                             : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                 ? `/club/${alias}`
                                 : `/${alias}`}>
-                        <div className="NewsFeedItem__left-logo" style={{
+                        <div className="news-feed-item__left-logo" style={{
                             background: `url(${logo_link ?
                                 logo_link :
                                 user_type === 1 ?
@@ -383,7 +383,7 @@ const NewsFeedItem = forwardRef(({
                                 }) center center/cover no-repeat`
                         }} />
                     </Link>
-                    <span className="NewsFeedItem__left-name">
+                    <span className="news-feed-item__left-name">
                         <span>
                             <Link to={user_type === 4
                                 ? `/kennel/${alias}`
@@ -410,7 +410,7 @@ const NewsFeedItem = forwardRef(({
                         <div style={{ display: 'flex' }}>
                             {formatDateTime(create_date)}
                             {fact_city_name &&
-                                <span className="NewsFeedItem__city" title={fact_city_name}>
+                                <span className="news-feed-item__city" title={fact_city_name}>
                                     {fact_city_name}
                                 </span>
                             }
@@ -435,16 +435,16 @@ const NewsFeedItem = forwardRef(({
                 />
             </div>
         </div>
-        <div className="NewsFeedItem__controls">
-            <div className="NewsFeedItem__controls-center">
+        <div className="news-feed-item__controls">
+            <div className="news-feed-item__controls-center">
                 <Share url={`https://rkf.online/news/${id}`} />
             </div>
         </div>
     </>;
 
     return (
-        <Card className={`NewsFeedItem${is_request_article ? ' is-request-article' : ''}`}>
-            <div className={`NewsFeedItem__wrap${is_closed_advert ? ' is_closed' : is_read  ? ' is_read' : '' }`}>
+        <Card className={`news-feed-item${is_request_article ? ' is-request-article' : ''}`}>
+            <div className={`news-feed-item__wrap${is_closed_advert ? ' is_closed' : is_read  ? ' is_read' : '' }`}>
                 {isEditing ? <EditItem /> : <ViewItem />}
                 {showPhoto &&
                     <Lightbox

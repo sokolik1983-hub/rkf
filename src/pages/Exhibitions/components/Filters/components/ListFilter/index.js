@@ -36,18 +36,24 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
         setFiltersToUrl({IsPopular: !isFilter})
     }
 
+    const checkIos = () => {
+        if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
+            return true;
+        }
+    }
+
     return (
         <div className="exhibitions-page__list-filter">
             <div className="exhibitions-page__title-inner">
                 <h4 className="list-filter__title">Мероприятия</h4>
-                {clientWidth < 560 &&
+                {clientWidth < 630 &&
                     <button
                         className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')}
                         onClick={() => setStandardView(!standardView)}
                     />
                 }
                 <div className="exhibitions-page__controls">
-                    {!!exhibitionsForTable.length && !standardView &&
+                    {!!exhibitionsForTable.length && !standardView && !checkIos() &&
                         <div className="exhibitions-page__downloadBtn-wrap">
                             <button
                                 className="exhibitions-page__control exhibitions-page__control--downloadIcon"
@@ -58,7 +64,7 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
                             </button>
                         </div>
                     }
-                   {clientWidth > 560 &&
+                   {clientWidth > 630 &&
                        <button
                            className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')}
                            onClick={() => setStandardView(!standardView)}

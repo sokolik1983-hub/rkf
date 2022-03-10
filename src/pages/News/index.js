@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Redirect, Link } from "react-router-dom";
-import Layout from "../../components/Layouts";
-import Container from "../../components/Layouts/Container";
-import Loading from "../../components/Loading";
-import Card from "../../components/Card";
-import Edit from "./components/Edit";
-import { DEFAULT_IMG } from "../../appConfig";
-import { formatDateTime } from "../../utils/datetime";
-import { formatText } from "../../utils";
-import { Request } from "../../utils/request";
-import { endpointGetNews } from "./config";
-import { connectAuthVisible } from "../Login/connectors";
-import "./index.scss";
-import {login} from "@progress/kendo-svg-icons";
+import React, { useEffect, useState } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+
+import Layout from '../../components/Layouts';
+import Container from '../../components/Layouts/Container';
+import Loading from '../../components/Loading';
+import Card from '../../components/Card';
+import Edit from './components/Edit';
+import { DEFAULT_IMG } from '../../appConfig';
+import { formatDateTime } from '../../utils/datetime';
+import { formatText } from '../../utils';
+import { Request } from '../../utils/request';
+import { endpointGetNews } from './config';
+import { connectAuthVisible } from '../Login/connectors';
+
+import './index.scss';
 
 
 const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {

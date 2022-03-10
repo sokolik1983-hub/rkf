@@ -1,5 +1,3 @@
-import { object, string, number, boolean } from "yup";
-
 export const endpointGetNews = '/api/Article'; //GET
 export const endpointEditNews = '/api/article/update'; //PUT
 export const endpointAddNewsPicture = '/api/Article/image'; //POST

@@ -22,7 +22,7 @@ const ListFilter = ({ setFilters, setNeedRequest, isFederation }) => {
     };
 
     return (
-        <div className="NewsList__filter">
+        <div className="news-list__filter">
             <div className="ListFilter__wrap">
                 <HorizontalSwipe id="news-list-filter">
                     <ul className="ListFilter">

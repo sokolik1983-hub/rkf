@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { getHeaders } from '../../../../utils/request';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { filePdf } from '@progress/kendo-svg-icons';
@@ -45,7 +45,7 @@ const DocumentLink = ({ docId, document }) => {
             <>
                 { !url ?
                     <span
-                        className="d-flex align-items-center NewsFeedItem__documents-item-name"
+                        className="d-flex align-items-center news-feed-item__documents-item-name"
                         onClick={ getDocument }
                     >
                         {renderDocumentItem()}

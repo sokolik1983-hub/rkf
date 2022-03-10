@@ -229,7 +229,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
     const [currentPageAlias, setCurrentPageAlias] = useState('');
-    const { user_type, alias } = ls.get('user_info') || {};
+    const { user_type, alias, logo_link } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
@@ -470,9 +470,14 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                         >
                             <div className="user-menu__inner">
                                 <div className="banner-federation">
-                                    <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
+                                    <div className="banner-federation__wrap">
+                                        <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
+                                        <div className="banner-federation__userpic">
+                                            <img src={logo_link} alt=""/>
+                                        </div>
+                                    </div>
                                 </div>
-                                {fedName && <p className="user-menu__name">{fedName}</p>}
+                                {fedName && <p className="banner-federation__name">{fedName}</p>}
                                 <ul className="user-menu__list">
                                     {user !== 'nursery' &&
                                     <li className="user-menu__item">

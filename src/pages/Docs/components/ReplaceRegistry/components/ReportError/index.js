@@ -10,9 +10,7 @@ import './styles.scss';
 const ReportErrorForm = ({ id, setIsOpen, setNeedUpdateTable }) => {
     const [errorAlert, setErrorAlert] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
-    const [errorText, setErrorText] = useState('');
     const handleError = ({ response }) => {
-        setErrorText(response ? Object.values(response.data.errors).join(', ') : '');
         setErrorAlert(true);
     };
     const handleSusccess = () => {
