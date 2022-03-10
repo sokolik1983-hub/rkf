@@ -82,7 +82,7 @@ const ControlMenu = ({
                     <span className="control-menu__item-icon control-menu__item-icon_move-to-archive"> </span>
 
                     <span className="control-menu__item-text">
-                         {categoryId !== 9
+                         {categoryId !== 6
                              ?
                              <>
                                  <span>Переместить</span>
