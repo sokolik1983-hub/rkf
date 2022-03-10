@@ -450,6 +450,18 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 20px;
 
+    @media (max-width: 899px) {
+      grid-template-areas:
+              'breed breed'
+              'sex age'
+              'color color'
+              'name name'
+              'place place';
+      grid-template-columns:48% 48%;
+      gap: 20px;
+    }
+
+
 
     & .FormInput label, .article-edit__custom-select label {
       margin-bottom: 4px;
@@ -545,9 +557,14 @@
     }
   }
 
-//  @media (max-width: 990px) {
-//
-//  }
+  @media (max-width: 990px) {
+    margin-left: 0;
+    margin-top: 25px;
+
+    &__controls {
+      bottom: 5px;
+    }
+  }
 }
 .k-upload .k-dropzone {
   @media (max-width:480px) {
