@@ -251,7 +251,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                                             isFederation={clubInfo.user_type === 5}
                                             active_rkf_user={clubInfo.active_rkf_user}
                                             active_member={clubInfo.active_member}
-                                            canEdit={true}
+                                            canEdit={isAuthenticated}
                                             subscribed={clubInfo.subscribed}
                                             member={clubInfo.member}
                                             onSubscriptionUpdate={onSubscriptionUpdate}
