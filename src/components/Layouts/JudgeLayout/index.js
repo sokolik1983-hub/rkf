@@ -21,13 +21,13 @@ import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 import transliterate from '../../../utils/transliterate';
 import {endpointGetClubInfo, clubNav} from '../ClubLayout/config';
-import {kennelNav} from "../NurseryLayout/config";
+import {kennelNav} from '../NurseryLayout/config';
 import UserHeader from '../../redesign/UserHeader';
+import MenuComponent from '../../MenuComponent';
 
 import './index.scss';
 
-
-const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters, location, refereePage }) => {
+const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters, location }) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
@@ -50,8 +50,6 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     const {id, type} = useParams();
     const alias = useSelector(state => state.authentication.user_info.alias);
     const userType = useSelector(state => state.authentication.user_info.user_type);
-
-    console.log('userType', userType);
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
@@ -172,11 +170,36 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
     };
 
 
+    const getUserMenu = (userType) => {
+        switch (userType) {
+            case 1:  return <UserMenu userNav={canEdit
+                ? userNav(alias) // Show NewsFeed menu item to current user only
+                : userNav(alias).filter(i => i.id !== 2)}
+                                      notificationsLength={notificationsLength}
+            />;
+            case 3:
+                if(clubInfo.club_alias === 'rkf' || clubInfo.club_alias === 'rkf-online') {
+                    return <MenuComponent
+                        club_alias={clubInfo.club_alias}
+                        isFederation={true}
+                    />;
+                } else {
+                    return <UserMenu userNav={clubNav(clubInfo.club_alias)} refereePage />;
+                }
+            case 4:  return  <UserMenu userNav={kennelNav(clubInfo.club_alias)}  refereePage />;
+            case 5:  return <MenuComponent
+                club_alias={clubInfo.club_alias}
+                isFederation={true}
+            />;
+            default: return;
+        }
+    };
+
    useEffect(() => {
         checkLinkUserPage();
         if(userType === 1) {
             (() => getUserInfo())();
-        } else if(userType === 3 || userType === 4) {
+        } else if(userType === 3 || userType === 4 || userType === 5) {
             (() => getClubInfo())();
         }
         (() => getJudgeAlias())();
@@ -236,47 +259,55 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
                                         />
                                     </div>
                             }
-                            {!isMobile && (userType && userType === 1)
-                                ?
-                                <UserMenu userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                          notificationsLength={notificationsLength}
-                                />
-                                : (userType && userType === 3)
-                                ?
-                                    <UserMenu userNav={clubNav(clubInfo.club_alias)} refereePage />
-                                    :
-                                    <UserMenu userNav={kennelNav(clubInfo.club_alias)} refereePage />
+                            {!isMobile && userType &&
+                                getUserMenu(userType)
                             }
                             {!isMobile &&
                                 <>
                                     <UserPhotoGallery
                                         alias={alias}
-                                        pageLink={(userType && userType === 1)
-                                            ?
-                                            `/user/${alias}/gallery`
-                                            :
-                                            (userType && userType === 3)
-                                                ?
-                                                `/club/${alias}/gallery`
-                                                :
-                                                `/kennel/${alias}/gallery`
+                                        pageLink={() => {
+                                            switch (userType) {
+                                                case 1:
+                                                    return `/user/${alias}/gallery`
+                                                case 3:
+                                                    if(alias === 'rkf' || alias === 'rkf-online') {
+                                                        return `/${alias}/gallery`
+                                                    } else {
+                                                        return `/club/${alias}/gallery`
+                                                    }
+                                                case 4:
+                                                    return `/kennel/${alias}/gallery`
+                                                case 5:
+                                                    return `/${alias}/gallery`
+                                                default:
+                                                    break;
+                                            }
+                                        }
                                     }
                                         canEdit={canEdit}
                                     />
                                     <UserVideoGallery
                                         alias={alias}
-                                        pageLink={(userType && userType === 1)
-                                            ?
-                                            `/user/${alias}/video`
-                                            :
-                                            (userType && userType === 3)
-                                                ?
-                                                `/club/${alias}/video`
-                                                :
-                                                `/kennel/${alias}/video`
-                                    }
+                                        pageLink={() => {
+                                            switch (userType) {
+                                                case 1:
+                                                    return `/user/${alias}/video`
+                                                case 3:
+                                                    if(alias === 'rkf' || alias === 'rkf-online') {
+                                                        return `/${alias}/video`
+                                                    } else {
+                                                        return `/club/${alias}/video`
+                                                    }
+                                                case 4:
+                                                    return `/kennel/${alias}/video`
+                                                case 5:
+                                                    return `/${alias}/video`
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                        }
                                         canEdit={canEdit}
                                     />
                                     <CopyrightInfo withSocials={true} />

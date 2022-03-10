@@ -1,25 +1,22 @@
-import React, {memo, useState, useRef, useEffect} from "react";
-import {CSSTransition} from "react-transition-group";
+import React, {memo, useState, useRef, useEffect} from 'react';
+import {CSSTransition} from 'react-transition-group';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import Alert from "../../Alert";
-import useIsMobile from "../../../utils/useIsMobile";
-import PopupModal from "../../PopupModal";
+import Alert from '../../Alert';
+import useIsMobile from '../../../utils/useIsMobile';
+import PopupModal from '../../PopupModal';
 import ls from 'local-storage';
-import {endpointGetClubInfo} from "../../../pages/Club/config";
-import {Request} from "../../../utils/request";
-import {endpointGetUserInfo} from "../UserLayout/config";
-import changeBackground from "../../../utils/changeBgInMobileMenu";
-import nameInMobileMenu from "../../../utils/nameInMobileMenu";
-import { clubNav } from "../../../pages/Club/config";
-import {clubNav as clubNavDocs} from "../../../pages/Docs/config";
-import { kennelNav } from "../../../pages/Nursery/config";
-import {kennelNav as kennelNavDocs} from "../../../pages/NurseryDocuments/config";
-import {userNav as userNavDocs} from "../../../pages/UserDocuments/config.js";
+import {endpointGetClubInfo} from '../../../pages/Club/config';
+import {Request} from '../../../utils/request';
+import {endpointGetUserInfo} from '../UserLayout/config';
+import changeBackground from '../../../utils/changeBgInMobileMenu';
+import nameInMobileMenu from '../../../utils/nameInMobileMenu';
+import { clubNav } from '../../../pages/Club/config';
+import {clubNav as clubNavDocs} from '../../../pages/Docs/config';
+import { kennelNav } from '../../../pages/Nursery/config';
+import {kennelNav as kennelNavDocs} from '../../../pages/NurseryDocuments/config';
+import {userNav as userNavDocs} from '../../../pages/UserDocuments/config.js';
 
-import "./index.scss";
-
-
-
+import './index.scss';
 
 const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu, refereePage}) => {
     const [alert, setAlert] = useState(false);
@@ -132,7 +129,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
 
     return (
         <div
-            className={`user-nav${isMobile ? '' : ' _desktop_card'} ${refereePage && 'd-none'}`}
+            className={`user-nav${isMobile ? '' : ' _desktop_card'} ${refereePage ? 'referee-page' : ''}`}
         >
                 {isMobile &&
                 <button onClick={() => setOpenUserMenu(!openUserMenu)}
