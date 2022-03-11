@@ -84,8 +84,10 @@ export const getFiltersFromUrl = () => {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else if(key === 'activated' || key === 'active_member') {
                 filtersFromUrl[key] = value === 'true';
-            } else if(key === 'search_type' || key === 'specialist_classification_id' || key === 'rank_id') {
+            } else if(key === 'search_type' || key === 'specialist_classification_id') {
                 filtersFromUrl[key] = +value;
+            } else if(key === 'rank_id') {
+                filtersFromUrl[key] = JSON.parse('[' + value + ']');
             } else {
                 filtersFromUrl[key] = value;
             }
