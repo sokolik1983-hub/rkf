@@ -15,7 +15,7 @@ const AdditionalDocumentField = ({
     const [url, setUrl] = useState('')
 
     const getDocument = (docId) => {
-        if (isNaN(docId) || !docId) return;
+        if (!docId) return;
 
         const headers = getHeaders();
         setUrl('');
@@ -26,7 +26,7 @@ const AdditionalDocumentField = ({
     };
 
     const handleRemove = () => {
-        if (window.confirm('Удалить документ?')) {
+        if (window.confirm('Удалить документ11?')) {
             const updatedDocuments = [...documents.filter(d => d.id !== id)];
             formRenderProps.onChange('documents', { value: updatedDocuments });
             if (updatedDocuments.length <= 10) {

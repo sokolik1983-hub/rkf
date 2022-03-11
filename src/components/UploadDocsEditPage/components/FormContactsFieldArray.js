@@ -45,7 +45,8 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
 
     return <>
         {
-            value?.map((item, index) => <div className="form-row mb-2" key={index}>
+            value?.map((item, index) =>
+            <div className="form-row mb-2" key={index}>
                 <div className="form-row col-12 col-md-3">
                     <div className="col-md-2 d-none d-sm-block">
                         <div className="Contacts__custom-plus">
@@ -124,8 +125,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
             </div>)
         }
         {
-            visited && validationMessage &&
-            (<Error>{validationMessage}</Error>)
+            visited && validationMessage && <Error>{validationMessage}</Error>
         }
     </>;
 };

@@ -3,7 +3,7 @@ import { FieldWrapper } from '@progress/kendo-react-form';
 import { Label, Error, Hint } from '@progress/kendo-react-labels';
 import { Upload } from '@progress/kendo-react-upload';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
-import ruMessages from '../ruMessages.json';
+import ruMessages from '../../../../ruMessages.json';
 import './styles.scss';
 
 loadMessages(ruMessages, 'Application-ru');
