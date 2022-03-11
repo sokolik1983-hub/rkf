@@ -5,9 +5,11 @@ import FormDatePicker from 'pages/UserEditKendo/components/FormDatePicker';
 import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import { nameRequiredValidator, nameValidator } from "../../validators";
-import './styles.scss';
+import UploadDocsEditPage from "../../../../components/UploadDocsEditPage/UploadDocsEditPage";
 
-const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSubmit, formBusy }) => {
+import "./styles.scss";
+
+const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSubmit, formBusy, alias, history }) => {
     const [formProps, setFormProps] = useState(null);
     const today = new Date();
 
@@ -84,6 +86,10 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                 </div>
                             </section>
                         </fieldset>
+                        <UploadDocsEditPage
+                            clubAlias={alias}
+                            history={history}
+                        />
                         <div className="k-form-buttons text-center">
                             <button
                                 type="submit"
