@@ -36,8 +36,8 @@ const AdditionalDocumentField = ({
     };
 
     useEffect(()=>{
-        getDocument(document_id)
-    },[document_id])
+        getDocument(document_id);
+    },[document_id]);
 
     return (
         <div className="additional-document-field">
