@@ -87,7 +87,7 @@ export const getFiltersFromUrl = () => {
             } else if(key === 'search_type' || key === 'specialist_classification_id') {
                 filtersFromUrl[key] = +value;
             } else if(key === 'rank_id') {
-                filtersFromUrl[key] = JSON.parse("[" + value + "]");
+                filtersFromUrl[key] = JSON.parse('[' + value + ']');
             } else {
                 filtersFromUrl[key] = value;
             }
