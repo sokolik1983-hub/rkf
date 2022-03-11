@@ -8,11 +8,19 @@ import Contacts from "./components/Contacts";
 import Alert from "../../../components/Alert";
 import Modal from '../../../components/Modal';
 import {blockContent} from '../../../utils/blockContent';
-import OutsideClickHandler from 'react-outside-click-handler/esm/OutsideClickHandler';
 import Button from '../../../components/Button';
 
 
-const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setInitialValues,}) => {
+const RenderFields = ({
+                          formik,
+                          avatar,
+                          map,
+                          documents,
+                          dates,
+                          onCancel,
+                          setInitialValues,
+                          exhibitionId,
+                      }) => {
     const [avatarSrc, setAvatarSrc] = useState(avatar);
     const [alert, setAlert] = useState(false);
     const [mapSrc, setMapSrc] = useState(map);
@@ -29,6 +37,8 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
     useEffect(() => {
         formik.setFieldValue('avatar', avatar);
         formik.setFieldValue('map', map);
+
+        getJudgeList();
     }, []);
 
     useEffect(() => {
@@ -136,6 +146,15 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
         }
     };
 
+    const getJudgeList = () => {
+          fetch(`/api/exhibitions/common/relevant_judges?id=${exhibitionId}` , {
+            method: 'GET',
+        })
+             // .then(responce=>responce.json())
+            .then((data) => console.log(data))
+            .catch(error => console.log(error))
+    }
+
     return (
         <>
             <FormField
@@ -183,7 +202,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     )}
                 </div>
             }
-            <FormGroup inline>
+            <FormGroup inline className="exhibition-edit__rank">
                 <FormField
                     disabled={true}
                     {...fields.rank_types}
@@ -202,7 +221,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
 
             <div className="exhibition-edit__judge">
                 <h5>Судья/специалист</h5>
-                <Button primary={true} onClick={() => setShowModal(true)}>Пригласить судью</Button>
+                <Button primary={true} onClick={() => setShowModal(true)}><p>Пригласить судью</p></Button>
             </div>
 
 
@@ -328,11 +347,12 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                        noBackdrop={true}
                        iconName="owner2-white"
                        headerName="Выбор судьи/специалиста"
+                       className="exhibition-edit__judge__modal"
             >
                     <div>
                         <h3>Список судей/специалистов</h3>
                         <ul>
-
+                            {/*{endpointExhibitionRelevantJudges}*/}
                         </ul>
                     </div>
             </Modal>

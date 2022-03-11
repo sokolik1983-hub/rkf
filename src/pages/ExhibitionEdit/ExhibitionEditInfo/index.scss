@@ -105,10 +105,17 @@
       //margin: 32px 16px 0 0;
     }
   }
+
+  &__rank {
+    margin-bottom: 20px;
+  }
+
   &__judge {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 15px;
+    margin-bottom: 18px;
 
     h5 {
       font-size: 16px;
@@ -120,6 +127,13 @@
     .btn {
       width: 155px;
       height: 36px;
+      padding: 0;
+      text-align: center;
+    }
+
+    &__modal .Modal__body {
+      width: 720px;
+      height: 359px;
     }
   }
 
