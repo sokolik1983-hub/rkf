@@ -61,8 +61,8 @@ const ControlMenu = ({
                 </div>
 
                 <div
-                    className={`control-menu__item ${(!selectedItemsIds.length || !isControlReadAllOn) && 'control-menu__item_disabled'}`}
-                    onClick={() => moveNotifications('mark_articles_read')}
+                    className={`control-menu__item ${(!selectedItemsIds.length || !isControlReadAllOn || categoryId === 8) && 'control-menu__item_disabled'}`}
+                    onClick={() => ((selectedItemsIds.length || isControlReadAllOn) && categoryId !== 8) && moveNotifications('mark_articles_read')}
                 >
                     <span className="control-menu__item-icon control-menu__item-icon_select-all-reed"> </span>
                     <span className="control-menu__item-text">
@@ -77,12 +77,12 @@ const ControlMenu = ({
 
                 <div
                     className={`control-menu__item ${!selectedItemsIds.length && 'control-menu__item_disabled'}`}
-                    onClick={() => moveNotifications(categoryId !== 9 ? 'zip_notification' : 'unzip_notification')}
+                    onClick={() => selectedItemsIds.length && moveNotifications(categoryId !== 9 ? 'zip_notification' : 'unzip_notification')}
                 >
                     <span className="control-menu__item-icon control-menu__item-icon_move-to-archive"> </span>
 
                     <span className="control-menu__item-text">
-                         {categoryId !== 6
+                         {categoryId !== 9
                              ?
                              <>
                                  <span>Переместить</span>

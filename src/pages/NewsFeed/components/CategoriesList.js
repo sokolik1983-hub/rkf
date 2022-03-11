@@ -17,26 +17,16 @@ const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead
     }
 
     const getCount = (id) => {
-        switch (id) {
-            case 1:
-                return categoriesCounters.counter_of_new;
-                break;
-            case 2:
-                return categoriesCounters.counter_of_must_read;
-                break;
-            case 3:
-                return categoriesCounters.counter_of_request;
-                break;
-            case 4:
-                return categoriesCounters.counter_of_subscribe;
-                break;
-            case 5:
-                return categoriesCounters.counter_of_all;
-                break;
-            case 6:
-                return categoriesCounters.counter_of_archive;
-                break;
-        }
+        let count = 0;
+
+        if (id === 7) count = categoriesCounters.counter_of_new
+        else if (id === 5) count = categoriesCounters.counter_of_must_read
+        else if (id === 6) count = categoriesCounters.counter_of_request
+        else if (id === 8) count = categoriesCounters.counter_of_subscribe
+        else if (id === 1) count = categoriesCounters.counter_of_all
+        else if (id === 9) count = categoriesCounters.counter_of_archive;
+
+        return count;
     }
 
     return <Card>
