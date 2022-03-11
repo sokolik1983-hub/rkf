@@ -65,10 +65,10 @@ const ActivateClub = ({club, history, logOutUser, close}) => {
     return loading ?
         <Loading/> :
         <div className="club-registration__activate">
-            <div className="club-registration__activate-close" onClick={() => close()}></div>
+            <button className="club-registration__activate-close" onClick={() => close()}/>
             <h4 className="club-registration__activate-header">{code === null ? 'Активация клуба' : 'Подтвердите ваш e-mail'}</h4>
             <div className="club-registration__activate-content">
-                <div className="club-registration__activate-content__img"></div>
+                <img className="club-registration__activate-content__img" src="/static/images/default/email.svg" alt=""/>
                 <div className="club-registration__activate-content__text">
                     {code === null ?
                         <>
