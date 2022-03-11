@@ -12,7 +12,7 @@ import Alert from "../../../../components/Alert";
 import "./styles.scss";
 
 
-const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
+const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError, setCategoriesCounters}) => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
@@ -69,6 +69,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             }
 
             setLoading(false);
+            setCategoriesCounters(data.counters);
         }, error => {
             console.log(error.response);
             setLoading(false);

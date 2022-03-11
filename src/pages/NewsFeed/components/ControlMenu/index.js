@@ -66,8 +66,8 @@ const ControlMenu = ({
                 </div>
 
                 <div
-                    className={`control-menu__item ${(!selectedItemsIds.length || !isControlReadAllOn) && 'control-menu__item_disabled'}`}
-                    onClick={() => (selectedItemsIds.length || isControlReadAllOn) && moveNotifications('mark_articles_read')}
+                    className={`control-menu__item ${(!selectedItemsIds.length || !isControlReadAllOn || categoryId === 8) && 'control-menu__item_disabled'}`}
+                    onClick={() => ((selectedItemsIds.length || isControlReadAllOn) && categoryId !== 8) && moveNotifications('mark_articles_read')}
                 >
                     <span className="control-menu__item-icon control-menu__item-icon_select-all-reed"> </span>
                     <span className="control-menu__item-text">
