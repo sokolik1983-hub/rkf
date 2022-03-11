@@ -9,6 +9,7 @@ import Alert from "../../../components/Alert";
 import Modal from '../../../components/Modal';
 import {blockContent} from '../../../utils/blockContent';
 import Button from '../../../components/Button';
+import { getHeaders } from "utils/request";
 
 
 const RenderFields = ({
@@ -146,14 +147,25 @@ const RenderFields = ({
         }
     };
 
-    const getJudgeList = () => {
-          fetch(`/api/exhibitions/common/relevant_judges?id=${exhibitionId}` , {
+    const getJudgeList = async () => {
+        await fetch(`/api/exhibitions/common/relevant_judges?id=${exhibitionId}`, {
             method: 'GET',
+            headers: getHeaders()
         })
-             // .then(responce=>responce.json())
-            .then((data) => console.log(data))
+            .then(resp => resp.json())
+            .then ((promiseResult) => {return(promiseResult.result)})
+            // .then(responce=>responce.json())
+            //   .then ((res) => console.log(res))
+            // .then((result) => console.log(result))
+              .then(result=> {
+                  return (result)
+              })
+
+
             .catch(error => console.log(error))
     }
+
+    console.log(getJudgeList());
 
     return (
         <>
