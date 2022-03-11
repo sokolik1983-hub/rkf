@@ -26,7 +26,7 @@ const AdditionalDocumentField = ({
     };
 
     const handleRemove = () => {
-        if (window.confirm('Удалить документ11?')) {
+        if (window.confirm('Удалить документ?')) {
             const updatedDocuments = [...documents.filter(d => d.id !== id)];
             formRenderProps.onChange('documents', { value: updatedDocuments });
             if (updatedDocuments.length <= 10) {
