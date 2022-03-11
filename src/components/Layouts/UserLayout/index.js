@@ -15,13 +15,13 @@ import Card from 'components/Card';
 import CopyrightInfo from 'components/CopyrightInfo';
 import { Request } from 'utils/request';
 import { connectAuthVisible } from 'pages/Login/connectors';
-import { endpointGetUserInfo, userNav } from './config';
+import { endpointGetUserInfo, endpointGetRolesInfo, userNav } from './config';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 
-import "./index.scss";
+import './index.scss';
 
 const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
     const [loading, setLoading] = useState(true);
@@ -30,6 +30,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
     const [errorMessage, setErrorMessage] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
     const [userInfo, setUserInfo] = useState({});
+    const [rolesInfo, setRolesInfo] = useState([]);
+    const [judgeInfo, setJudgeInfo] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
@@ -40,6 +42,16 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
     useEffect(() => {
         (() => getUserInfo())();
     }, []);
+
+    useEffect(() => {
+        userInfo?.profile_id &&
+        (() => getRolesInfo())();
+    }, [userInfo]);
+
+    useEffect(() => {
+        !!rolesInfo &&
+            setJudgeInfo(rolesInfo.open_roles?.map(item => item.key_name === "role_judge" && item.role_data));
+    }, [rolesInfo]);
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
@@ -59,6 +71,17 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
 
         setNeedRequest(true);
         setLoading(false);
+    };
+
+    const getRolesInfo = async() => {
+        await Request({
+            url: endpointGetRolesInfo + userInfo.profile_id
+        }, data => {
+            setRolesInfo(data);
+        }, error => {
+            console.log(error.response);
+            setErrorRedirect(error.response);
+        });
     };
 
     const notifySuccess = (message) => {
@@ -99,7 +122,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
 
     const link = useLocation();
 
-   function checkLinkUserPage() {
+    function checkLinkUserPage() {
         let checkLink = link.pathname.includes('news-feed');
         setCheckLink(checkLink)
     }
@@ -107,6 +130,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
     useEffect(() => {
         checkLinkUserPage();
     },[]);
+
 
     return loading ?
         <Loading /> :
@@ -129,6 +153,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}
+                                        judgeInfo={judgeInfo}
                                         subscribed={userInfo.subscribed}
                                         subscribed_id={userInfo.profile_id}
                                         onSubscriptionUpdate={onSubscriptionUpdate}
@@ -137,11 +162,11 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     />
                                 </Card>
                                 {!isMobile &&
-                                <UserMenu userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                          notificationsLength={notificationsLength}
-                                />
+                                    <UserMenu userNav={canEdit
+                                        ? userNav(alias) // Show NewsFeed menu item to current user only
+                                        : userNav(alias).filter(i => i.id !== 2)}
+                                              notificationsLength={notificationsLength}
+                                    />
                                 }
                                 {!isMobile &&
                                     <>
@@ -174,7 +199,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     setUserInfo,
                                     onSubscriptionUpdate,
                                     notifySuccess,
-                                    notifyError
+                                    notifyError,
+                                    judgeInfo
                                 })
                             }
                         </div>
