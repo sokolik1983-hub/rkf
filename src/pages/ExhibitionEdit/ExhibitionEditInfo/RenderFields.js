@@ -10,6 +10,7 @@ import Modal from '../../../components/Modal';
 import {blockContent} from '../../../utils/blockContent';
 import Button from '../../../components/Button';
 import { getHeaders } from "utils/request";
+import { Request } from "utils/request";
 
 
 const RenderFields = ({
@@ -26,6 +27,7 @@ const RenderFields = ({
     const [alert, setAlert] = useState(false);
     const [mapSrc, setMapSrc] = useState(map);
     const [docs, setDocs] = useState(documents);
+    const [judge, setJudge] = useState([])
     const [docField, setDocField] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const {fields} = exhibitionInfoForm;
@@ -141,31 +143,21 @@ const RenderFields = ({
             let newValues = {...formik.values};
             delete newValues[`docs_url_${id}`];
             delete newValues[`docs_name_${id}`];
-
             formik.setValues(newValues);
             setDocs(docs.filter(doc => doc.id !== id));
         }
     };
 
-    const getJudgeList = async () => {
-        await fetch(`/api/exhibitions/common/relevant_judges?id=${exhibitionId}`, {
-            method: 'GET',
-            headers: getHeaders()
-        })
-            .then(resp => resp.json())
-            .then ((promiseResult) => {return(promiseResult.result)})
-            // .then(responce=>responce.json())
-            //   .then ((res) => console.log(res))
-            // .then((result) => console.log(result))
-              .then(result=> {
-                  return (result)
-              })
-
-
+    const getJudgeList =  () => {
+        return Request({
+            url: `/api/exhibitions/common/relevant_judges?id=${exhibitionId}`,
+            method: 'GET'
+        }, data => setJudge(data))
             .catch(error => console.log(error))
+
     }
 
-    console.log(getJudgeList());
+console.log(judge)
 
     return (
         <>
@@ -364,7 +356,10 @@ const RenderFields = ({
                     <div>
                         <h3>Список судей/специалистов</h3>
                         <ul>
-                            {/*{endpointExhibitionRelevantJudges}*/}
+                            {judge.map(data =>
+                                <li key={data.id}>
+                                    {data.last_name}, {data.first_name + ' ' + data.second_name}, город {data.city_name}
+                                </li>)}
                         </ul>
                     </div>
             </Modal>
