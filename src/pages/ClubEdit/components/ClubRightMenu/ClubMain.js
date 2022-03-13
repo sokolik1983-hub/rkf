@@ -27,12 +27,12 @@ const ClubMain = ({
             <ClubDocuments
                 bindSubmitForm={bindSubmitClubDocuments}
             />
+                <UploadDocsEditPage
+                    clubAlias={club_alias}
+                    history={history}
+                />
             <EditPageButtons
                 handleSubmitForms={handleSubmitForms}
-            />
-            <UploadDocsEditPage
-                clubAlias={club_alias}
-                history={history}
             />
         </Card>
     );

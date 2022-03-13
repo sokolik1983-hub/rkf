@@ -1,0 +1,199 @@
+.user-page {
+  @media (max-width: 1080px) {
+    min-height: calc(100vh - 108px);
+  }
+  & + .Footer {
+    display: none;
+  }
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 1080px) {
+      display: block;
+    }
+  }
+  &__right {
+    width: calc(100% - 316px);
+    @media (max-width: 1080px) {
+      width: 100%;
+      margin-top: 0;
+      padding-bottom: 1px;
+    }
+  }
+  &__left {
+    width: 300px;
+    min-width: 300px;
+    margin: 0 16px 0 0;
+    padding-bottom: 16px;
+    @media (max-width: 1080px) {
+      width: 100%;
+      min-width: auto;
+      margin-right: 0;
+      & > div {
+        position: static !important;
+      }
+    }
+  }
+  .Card {
+    padding: 10px;
+    margin-bottom: 16px;
+    @media (max-width: 560px) {
+      margin-bottom: 12px;
+    }
+  }
+  .k-notification-group {
+    align-items: flex-start;
+    flex-wrap: wrap-reverse;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
+  & .referee {
+    .widget-login {
+      &__button-wrap {
+        width: auto;
+      }
+    }
+    .user-info__logo-wrap {
+      border-bottom: none;
+    }
+  }
+}
+.Card {
+  & .judge-info {
+    &__rank-box {
+      border-bottom: 1px solid #e8e8e8;
+    }
+    &__rank-box:last-child {
+      border-bottom: none;
+    }
+    &__box {
+      display: flex;
+      align-items: flex-start;
+      padding: 15px 5px 20px;
+      @media (max-width: 767px) {
+        flex-direction: column;
+      }
+      ul {
+        list-style: none;
+      }
+    }
+    &__contacts {
+      display: flex;
+      align-items: flex-start;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 15px 5px;
+      ul {
+        list-style: none;
+      }
+    }
+    &__wrap {
+      display: flex;
+      align-items: center;
+      color: #72839C;
+      font-family: "Source Sans Pro", sans-serif;
+      padding: 5px 5px 30px;
+      border-bottom: 1px solid #e8e8e8;
+      img {
+        width: 130px;
+        border-radius: 50%;
+        margin-right: 18px;
+      }
+      ul {
+        list-style: none;
+      }
+    }
+    &__inner {
+      display: flex;
+      justify-content: space-between;
+      max-height: 100px;
+      width: 100%;
+      @media (max-width: 767px) {
+        flex-direction: column;
+        width: 100%;
+        max-height: initial;
+      }
+    }
+    &__name-rus {
+      font-size: 24px;
+      line-height: 24px;
+      padding-bottom: 15px;
+      color: #253C5E;
+      font-weight: 600;
+    }
+    &__name-lat {
+      font-size: 22px;
+      line-height: 22px;
+      padding-bottom: 15px;
+      font-weight: 400;
+    }
+    &__city {
+      position: relative;
+      padding-left: 20px;
+      line-height: 20px;
+      @media (max-width: 767px) {
+        padding-bottom: 10px;
+      }
+    }
+    &__city:before {
+      content: "";
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      left: 0;
+      top: 1px;
+      margin-right: 4px;
+      background: url(/static/icons/ico-pointer2.svg) center no-repeat;
+      background-size: contain;
+    }
+    &__list {
+      font-size: 18px;
+      line-height: 16px;
+      font-weight: 600;
+      span {
+        font-weight: 400;
+      }
+    }
+    &__tel-email {
+      width: 50%;
+      display: flex;
+      color: #72839C;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+      p {
+        padding-right: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 26px;
+      }
+    }
+    &__add-info {
+      color: #72839C;
+      width: 50%;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+      p {
+        padding-right: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 26px;
+      }
+      p.judge-info__status {
+        font-weight: 400;
+      }
+    }
+    &__exam {
+      font-weight: 600;
+      color: #72839C;
+      padding: 10px 0 0 5px;
+    }
+    &__spec {
+      font-size: 20px;
+      color: #3D4551;
+      font-weight: 600;
+      padding: 10px 0 0 5px;
+    }
+  }
+}

@@ -15,7 +15,7 @@ const AdditionalDocumentField = ({
     const [url, setUrl] = useState('')
 
     const getDocument = (docId) => {
-        if (isNaN(docId) || !docId) return;
+        if (!docId) return;
 
         const headers = getHeaders();
         setUrl('');

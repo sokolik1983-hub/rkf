@@ -45,22 +45,11 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
 
     return <>
         {
-            value?.map((item, index) => <div className="form-row mb-2" key={index}>
-                <div className="form-row col-12 col-md-3">
-                    <div className="col-md-2 d-none d-sm-block">
-                        <div className="Contacts__custom-plus">
-                            {index === value.length - 1 && valuesArray.length < 5 && <div onClick={() => handleAdd(index)}>
-                                <span
-                                    className={valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid
-                                        ? "k-icon k-i-plus-circle"
-                                        : "k-icon k-i-plus-circle k-icon-disabled"}
-                                />
-                            </div>}
-                        </div>
-                    </div>
-                    <div className="col-md-10">
-                        <div className="form-row">
-                            <div className="col-1 d-block d-sm-none Contacts__custom-plus">
+            value?.map((item, index) =>
+                <div className="form-row mb-2" key={index}>
+                    <div className="form-row col-12 col-md-3">
+                        <div className="col-md-2 d-none d-sm-block">
+                            <div className="Contacts__custom-plus">
                                 {index === value.length - 1 && valuesArray.length < 5 && <div onClick={() => handleAdd(index)}>
                                     <span
                                         className={valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid
@@ -69,63 +58,74 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                                     />
                                 </div>}
                             </div>
-                            <div className="col-9 col-md-12">
-                                <Field
-                                    name={`${id}[${index}].value`}
-                                    mask={id === 'phones' ? '+7(000)000-00-00' : ''}
-                                    component={id === 'phones' ? FormMaskedInput : FormInput}
-                                    validator={valueRequiredValidator}
-                                />
-                            </div>
-                            <div className="col-1 d-block d-sm-none">
-                                {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
-                                <div className="Contacts__custom-checkbox">
+                        </div>
+                        <div className="col-md-10">
+                            <div className="form-row">
+                                <div className="col-1 d-block d-sm-none Contacts__custom-plus">
+                                    {index === value.length - 1 && valuesArray.length < 5 && <div onClick={() => handleAdd(index)}>
+                                        <span
+                                            className={valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid
+                                                ? "k-icon k-i-plus-circle"
+                                                : "k-icon k-i-plus-circle k-icon-disabled"}
+                                        />
+                                    </div>}
+                                </div>
+                                <div className="col-9 col-md-12">
                                     <Field
-                                        id={`m-${id}[${index}]`}
-                                        name={`${id}[${index}].is_main`}
-                                        component={FormContactsRadioButton}
-                                        onChange={handleChange}
-                                        formRenderProps={formRenderProps}
+                                        name={`${id}[${index}].value`}
+                                        mask={id === 'phones' ? '+7(000)000-00-00' : ''}
+                                        component={id === 'phones' ? FormMaskedInput : FormInput}
+                                        validator={valueRequiredValidator}
                                     />
                                 </div>
+                                <div className="col-1 d-block d-sm-none">
+                                    {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
+                                    <div className="Contacts__custom-checkbox">
+                                        <Field
+                                            id={`m-${id}[${index}]`}
+                                            name={`${id}[${index}].is_main`}
+                                            component={FormContactsRadioButton}
+                                            onChange={handleChange}
+                                            formRenderProps={formRenderProps}
+                                        />
+                                    </div>
+                                </div>
+                                {index > 0 && <div className="col-1 d-block d-sm-none Contacts__custom-trash">
+                                    <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
+                                </div>
+                                }
                             </div>
-                            {index > 0 && <div className="col-1 d-block d-sm-none Contacts__custom-trash">
-                                <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
-                            </div>
-                            }
                         </div>
                     </div>
-                </div>
-                <div className="col-md-7">
-                    <Field
-                        name={`${id}[${index}].description`}
-                        placeholder="Описание"
-                        maxLength="50"
-                        component={FormInput}
-                        validator={value => lengthValidator(value, 50)}
-                    />
-                </div>
-                <div className="col-md-1 d-none d-sm-block">
-                    {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
-                    <div className="Contacts__custom-checkbox">
+                    <div className="col-md-7">
                         <Field
-                            id={`${id}[${index}]`}
-                            name={`${id}[${index}].is_main`}
-                            component={FormContactsRadioButton}
-                            onChange={handleChange}
-                            formRenderProps={formRenderProps}
+                            name={`${id}[${index}].description`}
+                            placeholder="Описание"
+                            maxLength="50"
+                            component={FormInput}
+                            validator={value => lengthValidator(value, 50)}
                         />
                     </div>
-                </div>
-                {index > 0 && <div className="col-md-1 d-none d-sm-block Contacts__custom-trash">
-                    <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
-                </div>
-                }
-            </div>)
+                    <div className="col-md-1 d-none d-sm-block">
+                        {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
+                        <div className="Contacts__custom-checkbox">
+                            <Field
+                                id={`${id}[${index}]`}
+                                name={`${id}[${index}].is_main`}
+                                component={FormContactsRadioButton}
+                                onChange={handleChange}
+                                formRenderProps={formRenderProps}
+                            />
+                        </div>
+                    </div>
+                    {index > 0 && <div className="col-md-1 d-none d-sm-block Contacts__custom-trash">
+                        <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
+                    </div>
+                    }
+                </div>)
         }
         {
-            visited && validationMessage &&
-            (<Error>{validationMessage}</Error>)
+            visited && validationMessage && <Error>{validationMessage}</Error>
         }
     </>;
 };

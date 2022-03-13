@@ -9,6 +9,9 @@
     height: 50px;
     display: flex;
     justify-content: center;
+    &.referee-page {
+      display: none;
+    }
   }
   &__button {
     display: flex;

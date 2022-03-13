@@ -1,25 +1,32 @@
 .redesign {
   min-height: 100vh;
+
   & + .Footer {
     display: none;
   }
+
   .club-page {
     word-break: break-word;
+
     .user-gallery__wrap .ReactGridGallery_tile-viewport {
       @media (min-width: 991px) {
         width: 88px !important;
         height: 88px !important;
       }
     }
+
     .photo-component {
       margin-bottom: 16px;
     }
+
     .menu-component {
       padding: 14px 16px 16px;
       margin-bottom: 16px;
+
       @media (max-width: 990px) {
         padding: 0 !important;
       }
+
       h4 {
         font-weight: 600;
         font-size: 14px;
@@ -28,41 +35,51 @@
         text-transform: uppercase;
         margin-bottom: 8px;
       }
+
       &__title {
         margin-bottom: 8px;
       }
     }
+
     &__content-wrap {
       display: flex;
       justify-content: space-between;
+
       @media (max-width: 1080px) {
         display: block;
       }
     }
+
     &__content {
       width: calc(100% - 316px);
       margin-left: 16px;
       order: 1;
+
       @media (max-width: 1080px) {
         width: 100%;
         margin-left: 0;
       }
+
       &-banner {
         padding: 0;
         background: #fff url("/static/images/noimg/no-banner.png") no-repeat center center;
         background-size: cover;
         overflow: hidden;
+
         @media (max-width: 560px) {
           background: #fff url("/static/images/noimg/no-banner-mobile.png") no-repeat center center;
           background-size: cover;
           height: 25vw;
-        }      
+        }
+
         &.Card {
           margin-bottom: 16px;
+
           @media (max-width: 560px) {
             margin-bottom: 12px;
           }
         }
+
         & > div {
           height: 235px;
           margin: auto;
@@ -72,10 +89,12 @@
           background-repeat: no-repeat;
           background-position: 50%;
           background-size: cover;
+
           @media (max-width: 560px) {
             height: 25vw;
           }
         }
+
         &-inactive {
           display: flex;
           align-items: center;
@@ -83,15 +102,18 @@
           background: url('/static/icons/banner-club.svg') no-repeat center , white;
         }
       }
+
       & > .Card:not(.club-page__content-banner) {
         padding: 10px;
         margin-bottom: 16px !important;
       }
     }
+
     &__info {
       width: 300px;
       min-width: 300px;
       padding-bottom: 16px;
+
       @media (max-width: 990px) {
         width: 100%;
         min-width: unset;
@@ -100,19 +122,24 @@
     &__exhibitions {
       max-width: 860px;
     }
+
     @media (max-width: 990px) {
       &__info > div {
         position: static !important;
       }
+
       .user-header {
         display: flex;
         align-items: center;
+
         &__wrap > div:first-child > * {
           line-height: 1.3;
         }
+
         &__federation {
           display: block;
         }
+
         &__content {
           flex-grow: 1;
           min-width: 0;
@@ -120,10 +147,11 @@
         }
       }
     }
-    @media (max-width: 990px) and (min-width: 561px) {
+    @media (min-width: 561px) and (max-width: 990px) {
       .user-banner._custom_banner {
         padding: 0;
         max-height: 200px;
+
         .user-banner__img {
           border-radius: 5px;
         }
@@ -142,7 +170,6 @@
         }
 
         @media(min-width: 730px) {
-
           height: 110px;
 
           .UserActionControls {
@@ -210,7 +237,6 @@
         background-color: white;
         box-shadow: 0 6px 12px rgba(51,102,255,.08);
 
-
         img {
           margin: 10px;
           height: 154px;
@@ -235,21 +261,21 @@
         }
       }
 
-    .user-description {
-      height: 130px;
-      
-      h4 {
-        padding-bottom: 8px;
-        border-bottom: 1px solid #E5E5E5;
-        line-height: 18px;
+      .user-description {
+        height: 130px;
+
+        h4 {
+          padding-bottom: 8px;
+          border-bottom: 1px solid #E5E5E5;
+          line-height: 18px;
+        }
+
+        &__info {
+          margin-top: 20px;
+          color: #253C5E;
+        }
       }
 
-      &__info {
-        margin-top: 20px;
-        color: #253C5E;
-      }
-    }
-      
       .ReactCollapse {
         &--collapse {
           min-height: 191px;
@@ -261,7 +287,6 @@
         margin-bottom: 6px;
         border-bottom: 1px solid #E5E5E5
       }
-
     }
   }
 }
