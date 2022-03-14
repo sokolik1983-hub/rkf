@@ -62,7 +62,9 @@ const ReplaceRegistry = ({ isOpenFilters, setShowFilters }) => {
     }, [needUpdateTable]);
 
     return loading
-        ? <Loading /> : !standardView ? <Card className="club-documents-status__popup">
+        ? <Loading /> : !standardView
+            ?
+            <Card className="club-documents-status__popup">
             <div className="club-documents-status__controls _replace_registry" style={{ top: '45px', right: '33px' }}>
                 {document_id && <button
                     className="club-documents-status__control club-documents-status__control--resetIcon"
@@ -97,6 +99,7 @@ const ReplaceRegistry = ({ isOpenFilters, setShowFilters }) => {
                 fullScreen
                 setNeedUpdateTable={setNeedUpdateTable}
             />
+                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
         </Card>
             : <Card className="club-documents-status">
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
