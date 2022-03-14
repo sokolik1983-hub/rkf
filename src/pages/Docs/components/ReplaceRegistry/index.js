@@ -99,7 +99,13 @@ const ReplaceRegistry = ({ isOpenFilters, setShowFilters }) => {
                 fullScreen
                 setNeedUpdateTable={setNeedUpdateTable}
             />
-                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+                {errorReport &&
+                    <ReportError
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        id={errorReport}
+                        onErrorReport={id => setErrorReport(id)}
+                    />
+                }
         </Card>
             : <Card className="club-documents-status">
                 <ClickGuard
