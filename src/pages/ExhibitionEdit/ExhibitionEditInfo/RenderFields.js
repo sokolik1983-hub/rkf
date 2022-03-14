@@ -147,11 +147,11 @@ const RenderFields = ({
 
     const getJudgeList = async () => {
         await Request({
-                url: `/api/exhibitions/common/relevant_judges?id=${exhibitionId}`,
-                method: 'GET'
-            },
-            data => setJudge(data),
-            error => console.log(error))
+            url: `/api/exhibitions/common/relevant_judges?id=${exhibitionId}`,
+            method: 'GET'
+        },
+        data => setJudge(data),
+        error => console.log(error))
     }
 
     return (
@@ -217,7 +217,12 @@ const RenderFields = ({
             </FormGroup>
             <div className="exhibition-edit__judge">
                 <h5>Судья/специалист</h5>
-                <Button primary={true} onClick={() => setShowModal(true)}>Подобрать судью</Button>
+                <Button
+                    primary={true}
+                    onClick={() => setShowModal(true)}
+                >
+                    Подобрать судью
+                </Button>
             </div>
             <FormGroup inline>
                 <FormField
@@ -378,7 +383,9 @@ const RenderFields = ({
                                     </li>
                                 )}
                             </ul>
-                            <Button primary={true}>Выбрать</Button>
+                            <Button primary={true}>
+                                Выбрать
+                            </Button>
                         </>:
                         <p>Подходящих судей не найдено</p>}
             </Modal>
