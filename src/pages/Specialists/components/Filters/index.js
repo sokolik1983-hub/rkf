@@ -77,7 +77,7 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                         <RegionsFilter
                             regions={filters.regions}
                             region_ids={filtersValue.RegionIds}
-                            onChange={filter => setFiltersToUrl({RegionIds: filter})}
+                            onChange={filter => setFiltersToUrl({RegionIds: filter, CityIds: []})}
                         />
 
                         <CitiesFilter

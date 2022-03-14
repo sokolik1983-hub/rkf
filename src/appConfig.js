@@ -1,6 +1,5 @@
 import React from 'react';
 import * as LoadableModules from './appModules';
-import { LoadableMetricsDocPage } from "./appModules";
 
 const SERVER = 'http://dev.uep24.ru';
 const DEFAULT_PHONE_INPUT_MASK = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
@@ -101,6 +100,11 @@ const appRoutes = [
         exact: true,
         path: '/exhibitions/:id/edit',
         component: LoadableModules.LoadableExhibitionEdit
+    },
+    {
+        exact: true,
+        path: '/referee/:id/:type',
+        component: LoadableModules.LoadableReferee
     },
     {
         exact: true,

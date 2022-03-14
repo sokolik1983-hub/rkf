@@ -1,20 +1,22 @@
-import React, { forwardRef, useState, useEffect, useContext, useRef } from "react";
-import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import ls from "local-storage";
-import { connectLogin, connectWidgetLogin } from "pages/Login/connectors";
-import OutsideClickHandler from "react-outside-click-handler";
-import { Request } from "utils/request";
-import NotificationCategories from "./NotificationCategories";
-import NotificationItem from "./NotificationItem";
-import { NotificationsContext } from "app/context";
-import Loading from "components/Loading";
-import { DEFAULT_IMG } from "appConfig";
-import PopupModal from "../../../../PopupModal";
-import useIsMobile from "../../../../../utils/useIsMobile";
-import {blockContent} from "../../../../../utils/blockContent";
+import React, { forwardRef, useState, useEffect, useContext, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+
+import ls from 'local-storage';
+import { connectLogin, connectWidgetLogin } from 'pages/Login/connectors';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { Request } from 'utils/request';
+import NotificationCategories from './NotificationCategories';
+import NotificationItem from './NotificationItem';
+import { NotificationsContext } from 'app/context';
+import Loading from 'components/Loading';
+import { DEFAULT_IMG } from 'appConfig';
+import PopupModal from '../../../../PopupModal';
+import useIsMobile from '../../../../../utils/useIsMobile';
+import {blockContent} from '../../../../../utils/blockContent';
 
 import "./styles.scss";
+
 
 const defaultCategories = [
     {
@@ -38,7 +40,8 @@ const defaultCategories = [
 ];
 
 const Notifications = forwardRef(
-    ({ isAuthenticated, is_active_profile, logOutUser, logo_link, setNotificationsLength }, ref) => {
+    ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
+        const {notificationLength, setNotificationsLength} = useState(0);
         const [loaded, setLoaded] = useState(false);
         const [open, setOpen] = useState(false);
         const [notifications, setNotifications] = useState([]);
@@ -165,11 +168,6 @@ const Notifications = forwardRef(
                                         }}
                             >
                                 <div className="Notifications__inner">
-                                    {/*<div className="close-btn">
-                                        <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#90999E"/>
-                                        </svg>
-                                    </div>*/}
                                     <div className="Notifications__content">
                                         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
                                             <div className="Notifications__title">
@@ -270,10 +268,6 @@ const Notifications = forwardRef(
                                 </OutsideClickHandler>
                             </div>
                         }
-
-
-
-
                     </CSSTransition>
                 </>
                 }

@@ -101,7 +101,7 @@
       background: url("/static/icons/icon-download.svg") no-repeat center;
       &:hover {
         background-image: url("/static/icons/icon-download-blue.svg");
-      }  
+      }
     }
     .stamp-loading {
       pointer-events: none;
@@ -118,7 +118,7 @@
       }
       @media (max-width: 550px) {
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
       }
     }
     &__control {
@@ -219,7 +219,7 @@
       text-align: center;
     }
   }
-  
+
   .row-control {
     position: relative;
     &__head {

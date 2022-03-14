@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from "react";
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 import {mainNav} from "../../../../appConfig";
 import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
@@ -7,14 +7,14 @@ import NavSublist from "./NavSublist";
 import {connectAuthVisible} from "../../../../pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
 import MenuLink from "./MenuLink";
-import ZlineModal from "../../../../components/ZlineModal";
-import {blockContent} from "../../../../utils/blockContent";
+import ZlineWidget from "../../../ZLineWidget";
 
 
-const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpen, setOpen}) => {
+const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowFilters, setOpen}) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
     const isMobile = useIsMobile(1080);
     const apiKey = localStorage.getItem('apikey');
+    const location = useLocation();
 
     const links = [
         {
@@ -37,7 +37,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
         },
     ];
 
-    const strokeColor = isOpenFilters ? 'stroke-color__active' : 'stroke-color__inactive';
+    const strokeColor = isOpen ? 'stroke-color__active' : 'stroke-color__inactive';
 
     const setOverflow = isOpen => {
         if (window.innerWidth <= 1080) {
@@ -60,30 +60,61 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
 
     useEffect(() => {
         if (isOpenFilters) {
-            setIsOpen(false);
+            setShowFilters({isOpen: false});
         }
     }, [isOpenFilters]);
-
-    useEffect(() => {
-        blockContent(showZlineModal);
-
-        return () => blockContent(false);
-    }, [showZlineModal]);
 
     const handleZlineClick = e => {
         e.preventDefault();
         setShowZlineModal(true);
     };
 
+    const checkLinkRkfOrg = () => {
+        const search = location.search.substring(1);
+
+        if (search) {
+            const paramsSearch = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+
+            if (paramsSearch.redirect === 'http://rkf.org.ru/' && paramsSearch.id) {
+                if (isAuthenticated) {
+                    window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-test/?ak=${apiKey}&id=${paramsSearch.id}`;
+                } else {
+                    setShowZlineModal(true);
+                    localStorage.setItem('rkforg_zline', paramsSearch.id);
+                }
+            }
+        }
+    }
+
+    const checkRkfOrgZline = () => {
+        if (localStorage.getItem('rkforg_zline') && !showZlineModal) {
+            localStorage.removeItem('rkforg_zline');
+            window.location.href = 'http://rkf.org.ru/zapis-na-poseshhenie-test/';
+        } else if (localStorage.getItem('rkforg_zline') && isAuthenticated) {
+            const id = localStorage.getItem('rkforg_zline');
+
+            localStorage.removeItem('rkforg_zline');
+            window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-test/?ak=${apiKey}&id=${id}`;
+        }
+    }
+
+    useEffect( () => {
+        checkRkfOrgZline();
+    }, [showZlineModal, isAuthenticated]);
+
+    useEffect(() => {
+        checkLinkRkfOrg();
+    }, []);
+
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
                 <>
-                    <ClickGuard value={isOpen} callback={() => setIsOpen(false)} />
+                    <ClickGuard value={isOpen} callback={() => setShowFilters({isOpen: false})} />
                     <div
                         className="header__nav-burger"
                         onClick={() => {
-                            setIsOpen(!isOpen);
+                            setShowFilters({isOpen: !isOpen});
                             needChangeIsOpen(!isOpen);
                         }}
                     >
@@ -110,12 +141,12 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
                         {mainNav.map((navItem, i, arr) =>
                             <li className='header__nav-item' key={navItem.id}>
                                 {navItem.children ?
-                                    <NavSublist setIsOpen={setIsOpen} navItem={navItem} /> :
+                                    <NavSublist setShowFilters={setShowFilters} navItem={navItem} /> :
                                     <NavLink
                                         to={navItem.to}
                                         exact={navItem.exact}
                                         className={navItem.disabled ? '_disabled' : ''}
-                                        onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
+                                        onClick={e => navItem.disabled ? e.preventDefault() : setShowFilters({isOpen: false})}
                                     >
                                         {navItem.image}
                                         <span>{navItem.name}</span>
@@ -129,16 +160,16 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
                             </NavLink>
                         </li>
                         <li className='widget-login__item widget-login__item--menu popup-menu auth-clubs'
-                            onClick={() => setIsOpen(false)}>
+                            onClick={() => setShowFilters({isOpen: false})}>
                             <Link className="map-link" to="/clubs-map" target="_blank">Карта авторизованных клубов</Link>
                         </li>
                         <li className='widget-login__item widget-login__item--menu popup-menu support-center'
-                            onClick={() => setIsOpen(false)}>
+                            onClick={() => setShowFilters({isOpen: false})}>
                             <Feedback />
                         </li>
                         {links.map(item =>
                             <li className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
-                                onClick={() => setIsOpen(false)}>
+                                onClick={() => setShowFilters({isOpen: false})}>
                                 <a
                                     href={item.link}
                                     target='_blank'
@@ -201,23 +232,19 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setIsOpe
                     </Link>
                 </>
             }
-            <ZlineModal
-                showModal={showZlineModal}
+            <ZlineWidget
+                isModalShow={showZlineModal}
                 handleClose={() => {
                     setShowZlineModal(false);
                     if(!isMobile) {
                         setOpen(false);
                     }
                 }}
-            >
-                <iframe
-                    title="unique_iframe"
-                    src={process.env.NODE_ENV === 'production' ?
-                        `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
-                        `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
-                    }
-                />
-            </ZlineModal>
+                iframeLink={process.env.NODE_ENV === 'production' ?
+                    'https://zline.me/widgets/registration-for-service?id=33' :
+                    'http://zsdev.uep24.ru/widgets/registration-for-service?id=92'
+                }
+            />
         </nav>
     );
 };

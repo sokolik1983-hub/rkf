@@ -6,7 +6,6 @@ import EditPageButtons from '../EditPageButtons';
 const ClubBank = ({
         bindSubmitClubBankInfo,
         handleSubmitForms,
-        handleSuccess,
 }) => {
 
     return (
@@ -15,7 +14,6 @@ const ClubBank = ({
                 bindSubmitForm={bindSubmitClubBankInfo}
             />
             <EditPageButtons
-                handleSuccess={handleSuccess}
                 handleSubmitForms={handleSubmitForms}
             />
         </Card>

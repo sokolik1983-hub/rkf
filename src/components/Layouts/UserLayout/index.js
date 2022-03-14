@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
-import {useLocation, useParams} from "react-router-dom";
-import ls from "local-storage";
-import StickyBox from "react-sticky-box";
-import Loading from "components/Loading";
-import Layout from "components/Layouts";
-import { Redirect } from "react-router-dom";
-import Container from "components/Layouts/Container";
-import UserBanner from "components/Layouts/UserBanner";
-import UserInfo from "components/Layouts/UserInfo";
-import UserMenu from "components/Layouts/UserMenu";
-import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
-import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
-import Card from "components/Card";
-import CopyrightInfo from "components/CopyrightInfo";
-import { Request } from "utils/request";
-import { connectAuthVisible } from "pages/Login/connectors";
-import { endpointGetUserInfo, userNav } from "./config";
+import React, { useEffect, useState } from 'react';
+import {useLocation, useParams} from 'react-router-dom';
+import ls from 'local-storage';
+import StickyBox from 'react-sticky-box';
+import Loading from 'components/Loading';
+import Layout from 'components/Layouts';
+import { Redirect } from 'react-router-dom';
+import Container from 'components/Layouts/Container';
+import UserBanner from 'components/Layouts/UserBanner';
+import UserInfo from 'components/Layouts/UserInfo';
+import UserMenu from 'components/Layouts/UserMenu';
+import UserPhotoGallery from 'components/Layouts/UserGallerys/UserPhotoGallery';
+import UserVideoGallery from 'components/Layouts/UserGallerys/UserVideoGallery';
+import Card from 'components/Card';
+import CopyrightInfo from 'components/CopyrightInfo';
+import { Request } from 'utils/request';
+import { connectAuthVisible } from 'pages/Login/connectors';
+import { endpointGetUserInfo, endpointGetRolesInfo, userNav } from './config';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
-import useIsMobile from "utils/useIsMobile";
-import {connectShowFilters} from "../../../components/Layouts/connectors"
+import useIsMobile from 'utils/useIsMobile';
+import {connectShowFilters} from '../../../components/Layouts/connectors';
 
-import "./index.scss";
-
+import './index.scss';
 
 const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
     const [loading, setLoading] = useState(true);
@@ -31,6 +30,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
     const [errorMessage, setErrorMessage] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
     const [userInfo, setUserInfo] = useState({});
+    const [rolesInfo, setRolesInfo] = useState([]);
+    const [judgeInfo, setJudgeInfo] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [notificationsLength, setNotificationsLength] = useState(0);
@@ -41,6 +42,16 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
     useEffect(() => {
         (() => getUserInfo())();
     }, []);
+
+    useEffect(() => {
+        userInfo?.profile_id &&
+        (() => getRolesInfo())();
+    }, [userInfo]);
+
+    useEffect(() => {
+        !!rolesInfo &&
+            setJudgeInfo(rolesInfo.open_roles?.map(item => item.key_name === "role_judge" && item.role_data));
+    }, [rolesInfo]);
 
     const getUserInfo = async needUpdateAvatar => {
         setLoading(true);
@@ -60,6 +71,17 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
 
         setNeedRequest(true);
         setLoading(false);
+    };
+
+    const getRolesInfo = async() => {
+        await Request({
+            url: endpointGetRolesInfo + userInfo.profile_id
+        }, data => {
+            setRolesInfo(data);
+        }, error => {
+            console.log(error.response);
+            setErrorRedirect(error.response);
+        });
     };
 
     const notifySuccess = (message) => {
@@ -100,7 +122,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
 
     const link = useLocation();
 
-   function checkLinkUserPage() {
+    function checkLinkUserPage() {
         let checkLink = link.pathname.includes('news-feed');
         setCheckLink(checkLink)
     }
@@ -113,11 +135,11 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         <Loading /> :
         errorRedirect ?
             <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
+            <Layout setNotificationsLength={setNotificationsLength}>
 
                 <div className="user-page">
                     <Container className="user-page__content content">
-                        <aside className="user-page__left">
+                        {(!checkLink || !isMobile) && <aside className="user-page__left">
                             <StickyBox offsetTop={60}>
                                 {isMobile &&
                                     <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
@@ -130,6 +152,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}
+                                        judgeInfo={judgeInfo}
                                         subscribed={userInfo.subscribed}
                                         subscribed_id={userInfo.profile_id}
                                         onSubscriptionUpdate={onSubscriptionUpdate}
@@ -138,11 +161,11 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     />
                                 </Card>
                                 {!isMobile &&
-                                <UserMenu userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                          notificationsLength={notificationsLength}
-                                />
+                                    <UserMenu userNav={canEdit
+                                        ? userNav(alias) // Show NewsFeed menu item to current user only
+                                        : userNav(alias).filter(i => i.id !== 2)}
+                                              notificationsLength={notificationsLength}
+                                    />
                                 }
                                 {!isMobile &&
                                     <>
@@ -160,7 +183,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     </>
                                 }
                             </StickyBox>
-                        </aside>
+                        </aside>}
                         <div className="user-page__right">
                             {
                                 React.cloneElement(children, {
@@ -175,7 +198,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     setUserInfo,
                                     onSubscriptionUpdate,
                                     notifySuccess,
-                                    notifyError
+                                    notifyError,
+                                    judgeInfo
                                 })
                             }
                         </div>

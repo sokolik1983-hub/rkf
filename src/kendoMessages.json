@@ -66,10 +66,11 @@
     },
     "upload": {
         "cancel": "Отмена",
-        "clearSelectedFiles": "Удалить",
+        "clearSelectedFiles": "Очистить",
         "dropFilesHere": "Перетащите сюда файл для загрузки",
         "headerStatusUploaded": "Готово",
         "headerStatusUploading": "Загрузка...",
+        "statusUploaded": "Файл успешно загружен",
         "invalidFileExtension": "Тип файла не поддерживается",
         "invalidFiles": "Битый файл",
         "invalidMaxFileSize": "Размер файла слишком большой",
@@ -77,7 +78,7 @@
         "remove": "Удалить",
         "retry": "Загрузить снова",
         "select": "Загрузить файл",
-        "uploadSelectedFiles": "Загрузка",
+        "uploadSelectedFiles": "Загрузить",
         "total": "Всего",
         "files": "Файлы"
     }

@@ -1,122 +1,110 @@
 .registration-page {
-  &__main-tabs {
-    border-bottom: 1px solid #e8e8e8;
-    margin-bottom: 50px;
-    padding: 0 25px 10px;
+  background-color: #f5f8ff;
+  @media (max-width: 1079px) {
+    border-radius: 4px;
+  }
+  &__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  &__tabs {
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #90999E;
+    margin-bottom: 40px;
+    padding: 0 30px 15px;
   }
-  &__main-tab {
+  &__tab {
     text-decoration: none;
-    text-transform: uppercase;
     font-size: 18px;
-    line-height: 23px;
-    text-align: center;
+    line-height: 18px;
+    font-weight: 600;
     color: #90999E;
     &.active {
       color: #3366FF;
     }
   }
-  &__message {
-    margin-top: 24px;
-    text-align: center;
-    &._error {
-      color: #FA5D50;
-    }
-  }
-  &__login{
-    margin: 20px 0;
-    padding: 0 10px;
-    &-link{
-      text-decoration: none;
-      font-weight: bold;
-      &:hover{
-        text-decoration: underline;
-      }
-    }
-  }
-  &__title {
-    text-align: center;
-    font-size: 38px;
-    line-height: 42px;
-    font-weight: bold;
-    margin: 0 0 18px;
-  }
-  &__tabs {
-    width: 100%;
-    max-width: 572px;
-    margin: 0 auto 28px;
-    &-controls {
-      border-bottom: 1px solid #e8e8e8;
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
-  }
-  &__tabs-list {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-  }
-  &__tab {
-    padding: 0 6px 10px;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    text-align: center;
-    line-height: 16px;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: .2px;
-    color: #72839c;
-    white-space: nowrap;
-    transition: all .2s linear;
-    &:hover {
-      color: #3366FF;
-    }
-    &._active {
-      border-bottom-color: #3366FF;
-    }
-    &._disabled {
-      color: #72839c;
-      opacity: .5;
-      cursor: default;
-    }
-    @media (max-width: 560px) {
-      width: auto;
-      padding: 0 6px 10px;
-    }
-  }
-  &__support-links {
-    font-weight: normal;
-    border-top: 1px solid #ccc;
-    margin: 24px 0 10px;
-    padding: 12px 10px 0;
-    p {
-      margin-bottom: 10px;
-    }
-    a {
-      text-decoration: none;
-      margin-bottom: 10px;
-      background: url("/static/icons/registration/info.svg") left center/contain no-repeat;
-      padding-left: 25px;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+  &__scroll-wrap {
+    flex: 1 1 auto;
   }
   .Card {
-    border-radius: 0;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 100%;
-    padding-top: 50px;
-    padding-bottom: 10px;
-    @media (max-width: 560px) {
-      padding-left: 16px;
-      padding-right: 16px;
+    max-height: calc(100vh - 76px);
+    padding: 60px 30px 40px;
+    @media (max-width: 1079px) {
+      max-height: calc(100vh - 146px);
     }
   }
-  .copyright-wrap{
-    box-shadow: none;
+  .css-shvkw9-control,
+  .css-8rvjbo-control,
+  .css-1hwfws3 {
     padding: 0;
-    margin-bottom: 0;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    font-weight: 400 !important;
+    color: #757575 !important;
+    opacity: 1;
+  }
+  .css-rd8czp-placeholder {
+    margin-left: 0;
+    padding-bottom: 2px;
+    font-family: "Source Sans Pro", Helvetica, sans-serif !important;
+    font-size: 16px;
+    font-weight: 400 !important;
+    color: #757575 !important;
+  }
+  .css-1g6gooi input {
+    margin-left: -2px;
+  }
+  .css-1ox0dji-singleValue {
+    margin-left: 0;
+    color: #253c5e;
+  }
+  #federation_id {
+    height: 38px;
+    border: 1px solid #CED4DA;
+    border-radius: 3px;
+    padding-left: 10px;
+    transition: 0.3s;
+    &:hover {
+      border: 1px solid #90999E;
+    }
+  }
+  .css-kj6f9i-menu {
+    left: 0;
+  }
+  &__support-links {
+    border-top: 1px solid #B9B9B9;
+    margin-top: 70px;
+    padding-top: 15px;
+    p {
+      display: flex;
+      margin-bottom: 15px;
+      &::before {
+        content: '';
+        display: block;
+        width: 20px;
+        min-width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        background-image: url("/static/icons/registration/attention.svg");
+        background-size: cover;
+      }
+      a {
+        text-decoration: none;
+        line-height: 20px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }

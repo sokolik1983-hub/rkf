@@ -86,38 +86,41 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
                     </div>
                 </a>
             </div>
-            <div className="col-1">
-                <Share url={`//${window.location.host}/docs/${id}`} />
-            </div>
-            <div className="col-1">
-                <LightTooltip title="Скачать документ" enterDelay={200} leaveDelay={200}>
+            <div className="col-wrap">
+                <div className="col-1">
+                    <Share url={`//${window.location.host}/docs/${id}`} />
+                </div>
+                <div className="col-1">
+                    <LightTooltip title="Скачать документ" enterDelay={200} leaveDelay={200}>
+                        <button
+                            className="DocumentItem__download"
+                            onClick={e => handleClick(e, id)}
+                        >
+                        </button>
+                    </LightTooltip>
+                </div>
+                <div className="col-4">
+                    <DropDownList
+                        data={categoriesToShow}
+                        dataItemKey="id"
+                        textField="name"
+                        value={category}
+                        itemRender={itemRender}
+                        onChange={handleCategoryChange}
+                        disabled={!editable}
+                    />
+                </div>
+                <div className="col-1">
                     <button
-                        className="DocumentItem__download"
-                        onClick={e => handleClick(e, id)}
+                        className="DocumentItem__delete-btn"
+                        type="button"
+                        onClick={() => setModal({ type: 'deleteDocument', documentId: id })}
                     >
+                        <SvgIcon icon={trash} size="default" />
                     </button>
-                </LightTooltip>
+                </div>
             </div>
-            <div className="col-4">
-                <DropDownList
-                    data={categoriesToShow}
-                    dataItemKey="id"
-                    textField="name"
-                    value={category}
-                    itemRender={itemRender}
-                    onChange={handleCategoryChange}
-                    disabled={!editable}
-                />
-            </div>
-            <div className="col-1">
-                <button
-                    className="DocumentItem__delete-btn"
-                    type="button"
-                    onClick={() => setModal({ type: 'deleteDocument', documentId: id })}
-                >
-                    <SvgIcon icon={trash} size="default" />
-                </button>
-            </div>
+
         </div>
     </div>;
 };

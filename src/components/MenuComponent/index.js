@@ -13,8 +13,11 @@ import {blockContent} from "../../utils/blockContent";
 import {clubNav as clubNavDocs} from "../../pages/Docs/config";
 import ls from "local-storage";
 import Alert from "../Alert";
+import {endpointGetClubInfo} from "../../pages/Club/config";
 
 import "./index.scss";
+
+
 
 
 
@@ -226,7 +229,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const [fedFeesId, setFedFeesId] = useState(null);
     const [fedDetails, setFedDetails] = useState(null);
     const [currentPageAlias, setCurrentPageAlias] = useState('');
-    const { user_type, alias } = ls.get('user_info') || {};
+    const { user_type, alias, logo_link } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
@@ -241,6 +244,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     const showDetails = isFederation && alias !== 'rkf' && alias !== 'rkf-online' && alias !== 'oankoo';
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
+    const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
     const location = useLocation();
 
     useEffect(() => {
@@ -248,13 +252,12 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({
-                url: `/api/federation/federation_documents?Alias=${currentPageAlias ? currentPageAlias : club_alias}`
+                url: `/api/federation/federation_documents?Alias=${currentPageAlias ? currentPageAlias : club_alias ? club_alias : alias}`
             }, data => {
                 setFedFeesId(data[0]?.documents?.filter(i => i.document_type_id === 2)[0].document_id);
                 setFedDetails(data[0]?.documents?.filter(i => i.document_type_id === 1)[0].document_id);
             }, error => {
                 console.log(error.response);
-                history.replace('/');
             }))();
         }
     }, [currentPageAlias, club_alias]);
@@ -397,7 +400,7 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
 
     useEffect(() => {
         (() => Request({
-            url: `/api/Club/federation_base_info?alias=` + currentPageAlias ? currentPageAlias : club_alias
+            url: `/api/federation/federation_documents?Alias=${currentPageAlias ? currentPageAlias : club_alias ? club_alias : alias}`
         }, data => {
             setFedInfo(data);
             setLoading(false);
@@ -409,22 +412,11 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
     }, [currentPageAlias, club_alias]);
 
     useEffect(() => {
-        if(fedInfo) {
-            if (alias === 'rkf' || alias === 'rkf-online') {
-                setMenuBackground('/static/images/slider/1.jpg');
-                setFedName('РКФ')
-            } else {
-                (fedInfo && setMenuBackground(fedInfo.header_picture_link));
-                setFedName(fedInfo.name)
-            }
-        }
-
-    }, [fedInfo]);
-
-    useEffect(() => {
         let url =  location.pathname.split('/')[1];
         if(url === 'exhibitions') {
             setCurrentPageAlias(location.search.split('=')[1]);
+        } else if(url === 'referee') {
+            setCurrentPageAlias(club_alias);
         } else {
             setCurrentPageAlias(url);
         }
@@ -435,6 +427,21 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
             setCurrentPageAlias(alias);
         }
     }, [currentPageAlias]);
+
+    const backgroundForPage =(currentPageAlias, club_alias, alias) => {
+        Request({
+            url: `${endpointGetClubInfo}${currentPageAlias ? currentPageAlias : club_alias ? club_alias : alias}`
+        }, data => {
+            setMenuBackground(data.headliner_link)
+            setFedName(data.short_name)
+        }, error => {
+            console.log(error.response);
+        });
+    };
+
+    useEffect(() => {
+        backgroundForPage(currentPageAlias, club_alias, alias);
+    }, [currentPageAlias, club_alias, alias]);
 
     return (
         <>
@@ -465,9 +472,14 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                         >
                             <div className="user-menu__inner">
                                 <div className="banner-federation">
-                                    <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
+                                    <div className="banner-federation__wrap">
+                                        <img src={menuBackground ? menuBackground : '/static/images/user-nav/user-nav-bg.png'} alt=""/>
+                                        <div className="banner-federation__userpic">
+                                            <img src={logo_link} alt=""/>
+                                        </div>
+                                    </div>
                                 </div>
-                                {fedName && <p className="user-menu__name">{fedName}</p>}
+                                {fedName && <p className="banner-federation__name">{fedName}</p>}
                                 <ul className="user-menu__list">
                                     {user !== 'nursery' &&
                                     <li className="user-menu__item">

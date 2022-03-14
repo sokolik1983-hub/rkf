@@ -23,6 +23,7 @@ import {
 import { Request, getHeaders } from "../../../../../utils/request";
 import { years } from "./config";
 import Alert from "../../../../../components/Alert";
+import {DateInput} from "../../../../../components/materialUI/DateTime";
 
 import "./index.scss";
 
@@ -436,11 +437,14 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                             id="payment_date"
                                                             name="payment_date"
                                                             label="Дата оплаты"
-                                                            max={new Date()}
-                                                            component={FormDatePicker}
+                                                            maxDate={moment().format('YYYY-MM-DD')}
+                                                            component={DateInput}
+                                                            onChange={date => formProps.onChange('payment_date', {
+                                                                value: date,
+                                                            })}
                                                             validator={dateRequiredValidator}
                                                             disabled={disableAllFields}
-
+                                                            editable={!editable}
                                                         />
                                                     </div>
                                                     <div>

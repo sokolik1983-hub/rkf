@@ -254,6 +254,7 @@
         }
 
         &__social {
+            position: relative;
             margin-top: 10px;
 
             &:before {
@@ -270,6 +271,7 @@
             }
 
             .form {
+
                 .FormGroup {
                     display: grid;
                     width: 100%;
@@ -307,6 +309,13 @@
                 input {
                     grid-column: 2/3;
                     padding: 5px 10px;
+                }
+            }
+
+            .DeleteButton {
+                @media (max-width: 560px) {
+                position: relative;
+                bottom: -56px!important;
                 }
             }
         }
@@ -384,6 +393,7 @@
         .ClientClubList {
 
             .ClientClubListItem {
+                position: relative;
                 flex-direction: column;
                 margin-bottom: 0;
                 height: 56px;
@@ -393,10 +403,10 @@
                 }
 
                 &__controls {
-                    position: relative;
+                    position: absolute;
                     width: 15px;
                     margin-left: auto;
-                    bottom: 46px;
+                    bottom: 20px;
                     right: 3px;
 
                     button {
@@ -410,7 +420,9 @@
                         background-size: cover;
                         border: none;
                         transition: all 0.2s linear;
-
+                        @media (max-width: 560px) {
+                            bottom: 0;
+                        }
                         &:hover {
                             box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
                         }
@@ -456,5 +468,15 @@
                 }
             }
         }
+
+        .FormInput__error {
+            bottom: -18px;
+            font-size: 12px;
+            line-height: 16px;
+            background-color: rgba(255, 255, 255, 0);
+        }
+    }
+    .Submit-button {
+        margin-top: -20px;
     }
 }

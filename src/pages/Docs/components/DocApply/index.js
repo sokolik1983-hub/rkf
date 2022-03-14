@@ -1,18 +1,22 @@
-import React, { useState } from "react";
-import ls from "local-storage";
-import { Redirect, useParams } from "react-router-dom";
-import Alert from "components/Alert";
-import PedigreeHeader from "./forms/PedigreeHeader";
-import PedigreeTable from "./forms/PedigreeTable";
-import PedigreePayment from "./forms/PedigreePayment";
-import PedigreeDeclarant from "./forms/PedigreeDeclarant";
-import LitterHeader from "./forms/LitterHeader";
-import LitterTable from "./forms/LitterTable";
-import LitterPayment from "./forms/LitterPayment";
-import LitterDeclarant from "./forms/LitterDeclarant";
-import StageStrip from "./components/StageStrip";
-import DocHead from "../DocHead";
+import React, { useState } from 'react';
+import { Redirect, useParams } from 'react-router-dom';
+
+import ls from 'local-storage';
+import Alert from 'components/Alert';
+import PedigreeHeader from './forms/PedigreeHeader';
+import PedigreeTable from './forms/PedigreeTable';
+import PedigreePayment from './forms/PedigreePayment';
+import PedigreeDeclarant from './forms/PedigreeDeclarant';
+import LitterHeader from './forms/LitterHeader';
+import LitterTable from './forms/LitterTable';
+import LitterPayment from './forms/LitterPayment';
+import LitterDeclarant from './forms/LitterDeclarant';
+import StageStrip from './components/StageStrip';
+import DocHead from '../DocHead';
+import FooterFeedback from '../../../../components/Layouts/FooterFeedback';
+
 import './index.scss';
+
 
 const forms = {
     pedigree: {
@@ -52,7 +56,6 @@ const DocApply = ({ clubAlias, history }) => {
         let params = useParams();
         distinction = params.distinction || "pedigree";
         params.id && id !== params.id && setId(params.id);
-        //action = params.action || "form";
         url_stage = params.stage || "header";
         url_stage && stages[url_stage] && stage !== stages[url_stage] && setStage(stages[url_stage]);
     } else (setRedirect('/404'))
@@ -92,6 +95,7 @@ const DocApply = ({ clubAlias, history }) => {
             <FormContent
                 {...{alias, id, profileId, Title, update, view}}
             />
+            <FooterFeedback />
         </div>
     </div>
 };

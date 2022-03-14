@@ -1,22 +1,28 @@
-import React, { memo } from "react";
-import Modal from "./Modal";
-import CustomAvatarEditor from "./AvatarEditor";
+import React, {memo, useState} from 'react';
+import Modal from './Modal';
+import CustomAvatarEditor from './AvatarEditor';
 
 
-const EditAvatar = ({ avatar, setModalType, onSubmitSuccess, userType }) => {
+const EditAvatar = ({ avatar, setModalType, onSubmitSuccess, userType, pageBanner }) => {
+    const [canvasWidth, setCanvasWidth] = useState(null);
 
     return (
         <Modal
             open={true}
             onClose={() => setModalType('')}
-            title="Редактирование аватара"
+            title={pageBanner ? "Редактирование заставки" : "Редактирование аватара"}
+            pageBanner={pageBanner}
         >
-            <CustomAvatarEditor
-                avatar={avatar}
-                setModalType={setModalType}
-                userType={userType}
-                onSubmitSuccess={onSubmitSuccess}
-            />
+            <div ref={el => {el && setCanvasWidth(el.getBoundingClientRect().width * .9)}}>
+                <CustomAvatarEditor
+                    avatar={avatar}
+                    setModalType={setModalType}
+                    userType={userType}
+                    onSubmitSuccess={onSubmitSuccess}
+                    pageBanner={pageBanner}
+                    canvasWidth={canvasWidth}
+                />
+            </div>
         </Modal>
     )
 };

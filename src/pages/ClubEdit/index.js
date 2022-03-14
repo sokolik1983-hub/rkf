@@ -18,6 +18,7 @@ import CopyrightInfo from '../../components/CopyrightInfo';
 import ClickGuard from '../../components/ClickGuard';
 import Loading from '../../components/Loading';
 import Layout from '../../components/Layouts';
+import Alert from '../../components/Alert';
 import {useResourceAndStoreToRedux} from '../../shared/hooks';
 import injectReducer from '../../utils/injectReducer';
 import useIsMobile from '../../utils/useIsMobile';
@@ -250,7 +251,7 @@ const ClubEditPage = ({
             ? <Loading/>
             : error ?
                 <Redirect to="404"/> :
-                <Layout withFilters setNotificationsLength={setNotificationsLength}>
+                <Layout layoutWithFilters setNotificationsLength={setNotificationsLength}>
                     <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
                     <div className="ClubEdit__wrap">
                         <Container className="ClubEdit content">
@@ -282,6 +283,7 @@ const ClubEditPage = ({
                             </aside>
                             <div className="ClubEdit__inner">
                                 <RenderFields
+                                    club_alias={club_alias}
                                     is_federation={is_federation}
                                     isOpenFilters={isOpenFilters}
                                     setShowFilters={setShowFilters}
@@ -298,6 +300,12 @@ const ClubEditPage = ({
                                     bindSubmitClubDocuments={bindSubmitClubDocuments}
                                 />
                             </div>
+                            {isSubmit && <Alert
+                                title="Сохранение данных"
+                                text="Данные сохранены!"
+                                autoclose={2.5}
+                                onOk={() => setIsSubmit(false)}
+                            />}
                         </Container>
                     </div>
                 </Layout>

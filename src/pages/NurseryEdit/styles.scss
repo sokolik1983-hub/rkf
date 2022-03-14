@@ -1,4 +1,4 @@
-.NurseryEdit {
+.nursery-edit {
     $font-family: "Source Sans Pro", Helvetica, sans-serif;
     display: flex;
     justify-content: space-between;
@@ -260,19 +260,18 @@
             flex-grow: 1;
             @media (max-width: 680px) {
                 position: fixed;
-                width: 300px;
+                width: 100%;
                 top: 62px;
                 right: 0;
                 z-index: 99;
                 padding: 16px;
-                height: 200px;
+                height: 100%;
                 overflow-y: auto;
                 border-radius: 5px 0 0 5px;
                 transform: translateX(100%);
                 transition: all 0.2s ease-out;
                 background: #fff;
                 &._open {
-                    padding: 10px 16px 16px 16px;
                     transform: translateX(0);
 
                     .Card {
@@ -364,7 +363,7 @@
             padding: 16px;
         }
         @media (min-width: 560px) {
-            .NurseryEdit__profile-label {
+            .nursery-edit__profile-label {
                 display: block !important;
                 margin-top: 3px;
                 font-size: 18px;
@@ -379,8 +378,15 @@
     }
 
     .FormInput__error {
-        bottom: -3px;
+        position: absolute;
         font-size: 12px;
+        line-height: 12px;
+        left: 125px;
+        bottom: -16px;
+        background-color: rgba(255, 255, 255, 0);
+        @media (max-width: 1024px) {
+            left: 0;
+        }
     }
 
     .FormInput {
@@ -394,7 +400,7 @@
         @media (max-width: 1024px) {
             display: flex;
             flex-direction: column;
-            align-items: start;
+            align-items: flex-start;
         }
 
         &__input,
@@ -444,9 +450,16 @@
                 margin-left: 2px;
             }
 
+            &[for="name_lat"] {
+                position: relative;
+                height: 36px;
+                overflow: visible;
+            }
+
+
             &[for="description"] {
                 position: relative;
-                top: -80px;
+                top: -70px;
                 @media (max-width: 1024px) {
                     top: 0;
                 }
@@ -491,7 +504,6 @@
         color: red;
     }
 }
-
 .header__filters {
     & > span {
         font-size: 0;
@@ -503,7 +515,6 @@
             content: "Разделы";
         }
     }
-
     @media (min-width: 681px) {
         display: none;
     }

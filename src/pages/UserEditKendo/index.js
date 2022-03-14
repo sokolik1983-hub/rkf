@@ -1,35 +1,39 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Redirect } from "react-router-dom";
-import Loading from "../../components/Loading";
-import Layout from "../../components/Layouts";
-import Card from "components/Card";
-import Container from "../../components/Layouts/Container";
-import { Request } from "utils/request";
-import { sections, defaultValues, phoneMask } from './config';
-import { connectAuthVisible } from "pages/Login/connectors";
-import removeNulls from "utils/removeNulls";
-import StickyBox from "react-sticky-box";
-import UserBanner from "components/Layouts/UserBanner";
-import UserInfo from "../../components/Layouts/UserInfo";
-import UserMenu from "components/Layouts/UserMenu"
-import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
+import React, { useState, useEffect, useRef } from 'react';
+import { Redirect } from 'react-router-dom';
+import StickyBox from 'react-sticky-box';
+import moment from 'moment';
+import ls from 'local-storage';
+import { Fade } from '@progress/kendo-react-animation';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Request } from '../../utils/request';
+import removeNulls from '../../utils/removeNulls';
+import useIsMobile from '../../utils/useIsMobile';
+import Card from '../../components/Card';
+import Alert from '../../components/Alert';
+import Layout from '../../components/Layouts';
+import Loading from '../../components/Loading';
+import ClickGuard from '../../components/ClickGuard';
+import UserMenu from '../../components/Layouts/UserMenu'
+import UserInfo from '../../components/Layouts/UserInfo';
+import Container from '../../components/Layouts/Container';
+import CopyrightInfo from '../../components/CopyrightInfo';
+import UserBanner from '../../components/Layouts/UserBanner';
+import { connectShowFilters } from '../../components/Layouts/connectors';
+import { endpointGetUserInfo, userNav } from '../../components/Layouts/UserLayout/config';
+import About from './sections/About';
 import MainInfo from './sections/MainInfo';
 import Contacts from './sections/Contacts';
-import About from './sections/About';
 import Security from './sections/Security';
 import DeletePage from './sections/DeletePage';
-import useIsMobile from "utils/useIsMobile";
-import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-import { Fade } from '@progress/kendo-react-animation';
-import moment from "moment";
-import ls from "local-storage";
-import { connectShowFilters } from "../../components/Layouts/connectors";
-import CopyrightInfo from "../../components/CopyrightInfo";
+import { connectAuthVisible } from '../Login/connectors';
+import { sections, defaultValues, phoneMask } from './config';
+import UploadDocsEditPage from '../../components/UploadDocsEditPage/UploadDocsEditPage';
+
 import './styles.scss';
-import ClickGuard from "../../components/ClickGuard";
 
+let unblock;
 
-const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated, isOpenFilters, setShowFilters }) => {
+const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated, isOpenFilters, withFilters, setShowFilters }) => {
     const [values, setValues] = useState(defaultValues);
     const [requestData, setRequestData] = useState(null);
     const [cities, setCities] = useState([]);
@@ -49,6 +53,11 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [notificationsLength, setNotificationsLength] = useState(0);
     const prevRequestData = useRef();
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
+
+    useEffect(() => {
+        unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
+        return () => unblock();
+    }, []);
 
     useEffect(() => {
         Promise.all([
@@ -179,6 +188,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
                     formBusy={formBusy}
+                    alias={alias}
+                    history={history}
                 />;
             case 1:
                 return <Contacts
@@ -224,7 +235,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout withFilters setNotificationsLength={setNotificationsLength}>
+            : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="UserEdit__wrap">
                     <Container className="UserEdit content">
@@ -283,15 +294,12 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 top: '80vh',
                             }}
                         >
-                            <Fade enter={true} exit={true}>
-                                {success && <Notification
-                                    type={{ style: 'success', icon: true }}
-                                    closable={true}
-                                    onClose={() => setSuccess(false)}
-                                >
-                                    <span>Информация сохранена!</span>
-                                </Notification>}
-                            </Fade>
+                            {success && <Alert
+                                title="Сохранение данных"
+                                text="Данные сохранены!"
+                                autoclose={2.5}
+                                onOk={() => setSuccess(false)}
+                            />}
                             <Fade enter={true} exit={true}>
                                 {error && <Notification
                                     type={{ style: 'error', icon: true }}

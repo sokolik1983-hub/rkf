@@ -1,12 +1,11 @@
-import React, {memo} from "react";
-import StickyBox from "react-sticky-box";
-import Loading from "../../../../components/Loading";
-import ClickGuard from "../../../../components/ClickGuard";
-import ListFilter from "../NewsList/ListFilter";
-import CitiesFilter from "../../../../components/Filters/CitiesFilter";
-import {connectShowFilters} from "../../../../components/Layouts/connectors";
-import RegionsFilter from "../../../../components/Filters/RegionsFilter";
-import LikeFilter from "../NewsList/LikeFilter";
+import React, {memo} from 'react';
+import StickyBox from 'react-sticky-box';
+import Loading from '../../../../components/Loading';
+import ClickGuard from '../../../../components/ClickGuard';
+import ListFilter from '../NewsList/ListFilter';
+import CitiesFilter from '../../../../components/Filters/CitiesFilter';
+import {connectShowFilters} from '../../../../components/Layouts/connectors';
+import RegionsFilter from '../../../../components/Filters/RegionsFilter';
 
 import "./index.scss";
 
@@ -31,9 +30,6 @@ const NewsFilters = ({
             {loading ?
                 <Loading centered={false}/> :
                 <>
-                    <LikeFilter
-                        changeIsPopular={changeIsPopular}
-                    />
                     <ListFilter
                         changeFilter={changeOrganizationFilters}
                     />

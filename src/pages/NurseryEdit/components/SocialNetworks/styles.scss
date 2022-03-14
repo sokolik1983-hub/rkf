@@ -13,6 +13,13 @@
             @media (max-width: 768px) {
                 grid-template-columns: 20% 53% 20%;
             }
+
+            &__error {
+                left: 48px;
+                @media (max-width: 768px) {
+                    left: 0;
+                }
+            }
         }
 
         .FormInput--text {
@@ -109,7 +116,7 @@
         position: relative;
         display: flex;
         flex-wrap: wrap;
-        justify-content: start;
+        justify-content: flex-start;
         min-height: 5px;
         width: 99%;
         margin: 0 auto;
@@ -123,7 +130,7 @@
             width: 95%;
         }
         @media (max-width: 768px) {
-            justify-content: end;
+            justify-content: flex-end;
             width: 96%;
         }
         @media (max-width: 560px) {

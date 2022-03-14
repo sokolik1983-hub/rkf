@@ -829,6 +829,8 @@
     }
   }
   &__userpic {
+    position: absolute;
+    top: 50px;
     height: 80px;
     width: 80px;
     min-width: 60px;
@@ -837,18 +839,22 @@
     background-color: white;
     border-radius: 50%;
     border: 2px solid #fff;
-    margin-bottom: -30px;
     @media (max-width: 600px) {
+      top: 60px;
       height: 60px;
       width: 60px;
     }
     &-wrap {
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
       height: 80px;
       margin: 10px 10px 30px 10px;
-      background: url("/static/images/widget-login/userpic-bg.jpg") center/cover no-repeat;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
     }
   }
   &__username {
@@ -890,7 +896,7 @@
     }
     &-wrap {
       padding-bottom: 10px;
-      width: 293px;
+      width: auto;
       margin: 0 auto;
       @media (max-width: 1080px) {
         width: 100%;
@@ -935,7 +941,7 @@
     align-items: center;
     &--menu {
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
     }
     &:hover {
       background-color: whitesmoke;
@@ -1107,7 +1113,21 @@
       transition: opacity 0.2s, margin-top 0.2s;
     }
   }
-
+  &__bg-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      transform: translateY( -50%);
+    }
+  }
 }
 .header__nav-item-hover {
   &.__hover {

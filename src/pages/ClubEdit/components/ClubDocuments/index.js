@@ -25,9 +25,8 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
     }
 
     useEffect(()=> {
-        visibility && triggerLoad &&
-        triggerRef.current.innerHTML.length <= 70 && setTriggerButton(true);
-    },[visibility]);
+        setTriggerButton((triggerRef?.current.innerHTML.length <= 70) || !triggerLoad);
+    },[visibility, triggerLoad]);
 
     useEffect(()=> {
         triggerDell && triggerLoad &&
@@ -36,7 +35,7 @@ const ClientClubDocumentsProxy = ({bindSubmitForm}) => {
 
 
     return (
-        <div className="MainInfo__documents">
+        <div className="main-info__documents">
             <ClientDocumentList
                 triggerRef={triggerRef}
                 setTriggerLoad={setTriggerLoad}

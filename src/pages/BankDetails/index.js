@@ -18,10 +18,9 @@ import { getFedInfo, mainFedList, oankooFedList } from "./config";
 import { connectAuthVisible } from "../../pages/Login/connectors";
 import Loading from "../../components/Loading";
 import useIsMobile from "../../utils/useIsMobile";
-import HorizontalMenu from "../../components/HorizontalMenu";
 import "./index.scss";
 
-const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, history }) => {
+const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }) => {
     const [fedIdList, setFedIdList] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [userInfo, setUserInfo] = useState({});
@@ -64,9 +63,6 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, hi
             console.log(error.response);
         });
     };
-
-
-
 
 
     return (loading ? <Loading /> :

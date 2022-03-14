@@ -1,11 +1,16 @@
-import React, {memo, useMemo} from "react";
-import SwipeTabs from "../../../../../../components/SwipeTabs";
-import {setFiltersToUrl} from "../../../../utils";
-import "./index.scss";
+import React, {memo, useMemo, useState} from 'react';
+import SwipeTabs from '../../../../../../components/SwipeTabs';
+import {setFiltersToUrl} from '../../../../utils';
+import CustomCheckbox from '../../../../../../components/Form/CustomCheckbox';
+
+import './index.scss';
 
 
 const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardView, exporting, setExporting}) => {
     const clientWidth = window.innerWidth;
+
+    const [isFilter, setIsFilter] = useState(false);
+
     const tabItems = useMemo(() => {
         return [
             {title: 'Все', type: 0},
@@ -26,18 +31,29 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
         }
     };
 
+    const handleFilter = () => {
+        setIsFilter(!isFilter);
+        setFiltersToUrl({IsPopular: !isFilter})
+    }
+
+    const checkIos = () => {
+        if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
+            return true;
+        }
+    }
+
     return (
         <div className="exhibitions-page__list-filter">
             <div className="exhibitions-page__title-inner">
                 <h4 className="list-filter__title">Мероприятия</h4>
-                {clientWidth < 560 &&
+                {clientWidth < 630 &&
                     <button
                         className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')}
                         onClick={() => setStandardView(!standardView)}
                     />
                 }
                 <div className="exhibitions-page__controls">
-                    {!!exhibitionsForTable.length && !standardView &&
+                    {!!exhibitionsForTable.length && !standardView && !checkIos() &&
                         <div className="exhibitions-page__downloadBtn-wrap">
                             <button
                                 className="exhibitions-page__control exhibitions-page__control--downloadIcon"
@@ -48,7 +64,7 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
                             </button>
                         </div>
                     }
-                   {clientWidth > 560 &&
+                   {clientWidth > 630 &&
                        <button
                            className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')}
                            onClick={() => setStandardView(!standardView)}
@@ -57,12 +73,26 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
                        </button>
                    }
                 </div>
+                <CustomCheckbox
+                    id="need-filter"
+                    label="Сортировка"
+                    checked={!!isFilter}
+                    onChange={handleFilter}
+                    cName="sorting-filter"
+                />
             </div>
-            <SwipeTabs
+            {!isFilter ? <SwipeTabs
                 items={tabItems}
                 activeTabIndex={tabItems.findIndex(item => item.type === +categoryId)}
                 onChange={item => handleClick(item)}
-            />
+            /> :
+            <CustomCheckbox
+                id="most-liked"
+                label="По популярности"
+                checked={!!isFilter}
+                onChange={handleFilter}
+                cName="like-filter"
+            />}
         </div>
     );
 };

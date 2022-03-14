@@ -1,41 +1,36 @@
-import React, {memo, useState, useRef, useEffect} from "react";
-import {CSSTransition} from "react-transition-group";
+import React, {memo, useState, useRef, useEffect} from 'react';
+import {CSSTransition} from 'react-transition-group';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import Alert from "../../Alert";
-import useIsMobile from "../../../utils/useIsMobile";
-import PopupModal from "../../PopupModal";
+import Alert from '../../Alert';
+import useIsMobile from '../../../utils/useIsMobile';
+import PopupModal from '../../PopupModal';
 import ls from 'local-storage';
-import {endpointGetClubInfo} from "../../../pages/Club/config";
-import {Request} from "../../../utils/request";
-import {endpointGetUserInfo} from "../UserLayout/config";
-import changeBackground from "../../../utils/changeBgInMobileMenu";
-import nameInMobileMenu from "../../../utils/nameInMobileMenu";
-import { clubNav } from "../../../pages/Club/config";
-import {clubNav as clubNavDocs} from "../../../pages/Docs/config";
-import { kennelNav } from "../../../pages/Nursery/config";
-import {kennelNav as kennelNavDocs} from "../../../pages/NurseryDocuments/config";
-import {userNav as userNavDocs} from "../../../pages/UserDocuments/config.js";
-import "./index.scss";
+import {endpointGetClubInfo} from '../../../pages/Club/config';
+import {Request} from '../../../utils/request';
+import {endpointGetUserInfo} from '../UserLayout/config';
+import changeBackground from '../../../utils/changeBgInMobileMenu';
+import nameInMobileMenu from '../../../utils/nameInMobileMenu';
+import { clubNav } from '../../../pages/Club/config';
+import {clubNav as clubNavDocs} from '../../../pages/Docs/config';
+import { kennelNav } from '../../../pages/Nursery/config';
+import {kennelNav as kennelNavDocs} from '../../../pages/NurseryDocuments/config';
+import {userNav as userNavDocs} from '../../../pages/UserDocuments/config.js';
 
+import './index.scss';
 
-
-const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu}) => {
+const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu, refereePage}) => {
     const [alert, setAlert] = useState(false);
-    const [state, setState] = useState(state)
     const [clubInfo, setClubInfo] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [menuBackground, setMenuBackground] = useState(null)
     const [nameInMenu, setNameInMenu] = useState(null)
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [routes, setRoutes] = useState(userNav);
     const isMobile = useIsMobile(1080);
-    const { user_type, alias } = ls.get('user_info') || {};
+    const { user_type, alias, logo_link } = ls.get('user_info') || {};
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
     };
-
 
     const moreRef = useRef();
     const location = useLocation();
@@ -53,10 +48,8 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                }
             }, error => {
                 console.log(error.response);
-                setError(error.response);
-                setLoading(false);
-            })
-    }
+            });
+    };
 
     useEffect(() => {
         changeBackground(user_type, backgroundForPage, alias, orgAlias, url);
@@ -136,7 +129,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
 
     return (
         <div
-            className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
+            className={`user-nav${isMobile ? '' : ' _desktop_card'} ${refereePage ? 'referee-page' : ''}`}
         >
                 {isMobile &&
                 <button onClick={() => setOpenUserMenu(!openUserMenu)}
@@ -166,6 +159,9 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                             <div className="user-nav__inner">
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
+                                    <div className="user-nav__userpic">
+                                        <img src={logo_link} alt=""/>
+                                    </div>
                                 </div>
                                 {(!(location.pathname.search("documents") > -1) && !(location.pathname.search("bank-details") > -1))? <> {
                                     nameInMenu && <div className="user-nav__alias-name">

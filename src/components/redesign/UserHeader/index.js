@@ -32,11 +32,17 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
             return 'Клуб';
         }
     };
+
     return (
         <Card className="user-header">
             <div
                 className={logo ? "user-info__logo-wrap" : "user-info__logo-wrap empty"}
-                onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+                onTouchStart={()=> {
+                    setHover(true);
+                    setTimeout(() => setHover(false), 3000);
+                }}
             >
                 {canEdit &&
                     <>
@@ -120,12 +126,15 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                             }
                             {
                                 canEdit &&
-                                <Link
-                                    to={`/${setUserType(user, alias) === 'Питомник' ? "kennel" : "client"}/${alias}/edit`}
-                                    className="widget-login__button"
-                                    style={{marginTop: "20px"}}>
-                                    Редактировать профиль
-                                </Link>
+                                <div className="widget-login__button-wrap">
+                                    <Link
+                                        to={`/${setUserType(user, alias) === 'Питомник' ? 'kennel' : 'client'}/${alias}/edit`}
+                                        className="widget-login__button"
+                                        >
+                                        Редактировать профиль
+                                    </Link>
+                                </div>
+
                             }
                             {
                                 !canEdit && isAuthenticated && <>

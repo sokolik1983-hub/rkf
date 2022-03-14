@@ -9,9 +9,10 @@ const ClientClubInfo = ({
         bindSubmitClubAlias,
         bindSubmitClubInfo,
         isFederation,
+        club_alias,
 }) => (
     <div className="ClientClubInfo__wrap">
-        {!isFederation && <ClubAlias bindSubmitForm={bindSubmitClubAlias} />}
+        {!isFederation && <ClubAlias bindSubmitForm={bindSubmitClubAlias} club_alias={club_alias} />}
         <div className="ClientClubInfo">
             <UpdateClubInfoForm
                 bindSubmitForm={bindSubmitClubInfo}

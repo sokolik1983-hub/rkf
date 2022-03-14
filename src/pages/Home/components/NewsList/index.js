@@ -1,13 +1,13 @@
-import React, {memo, useState, useEffect} from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Loading from "../../../../components/Loading";
-import CardNewsNew from "../../../../components/CardNewsNew";
-import NewsFilters from "../NewsFilters";
-import PublicationFilter from "./PublicationFilter";
-import {endpointGetNews, endpointNewsCity} from "../../config";
-import {Request} from "../../../../utils/request";
-import {DEFAULT_IMG} from "../../../../appConfig";
-import "./index.scss";
+import React, {memo, useState, useEffect} from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Loading from '../../../../components/Loading';
+import CardNewsNew from '../../../../components/CardNewsNew';
+import NewsFilters from '../NewsFilters';
+import PublicationFilter from './PublicationFilter';
+import {endpointGetNews, endpointNewsCity} from '../../config';
+import {Request} from '../../../../utils/request';
+import {DEFAULT_IMG} from '../../../../appConfig';
+import './index.scss';
 
 
 const getLSCities = () => {
@@ -93,24 +93,6 @@ const NewsList = ({isFullDate = true}) => {
 
     useEffect(() => {
         (async () => {
-            await Request({url: '/api/city/article_cities'},
-            data => {
-                if(data) {
-                    setCities(data);
-                }
-            },
-            error => {
-                console.log(error.response);
-            });
-
-            setFiltersLoading(false);
-
-            await getNews(1, newsFilter);
-        })();
-    }, []);
-
-    useEffect(() => {
-        (async () => {
             await Request({url: 'api/city/article_regions'},
                 data => {
                     if(data) {
@@ -122,6 +104,16 @@ const NewsList = ({isFullDate = true}) => {
                 });
 
             setFiltersLoading(false);
+
+            await Request({url: '/api/city/article_cities'},
+                data => {
+                    if(data) {
+                        setCities(data);
+                    }
+                },
+                error => {
+                    console.log(error.response);
+                });
 
             await getNews(1, newsFilter);
         })();
@@ -168,9 +160,9 @@ const NewsList = ({isFullDate = true}) => {
 
     const changeRegionFilter = regionIds => {
         setLSRegions(regionIds);
-        setNewsFilter({...newsFilter, regions: regionIds});
+        setNewsFilter({...newsFilter, regions: regionIds, cities: []});
         setStartElement(1);
-        (() => getNews(1, {...newsFilter, regions: regionIds}))();
+        (() => getNews(1, {...newsFilter, regions: regionIds, cities: []}))();
     };
 
     useEffect(() => {
@@ -192,14 +184,14 @@ const NewsList = ({isFullDate = true}) => {
 
 
     return (
-        <div className="NewsList">
+        <div className="news-list">
                 <InfiniteScroll
                     dataLength={news.length}
                     next={getNextNews}
                     hasMore={hasMore}
                     loader={newsLoading && <Loading centered={false}/>}
                     endMessage={
-                        <div className="NewsList__no-news">
+                        <div className="news-list__no-news">
                             <h4>Публикаций больше нет</h4>
                             <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет"/>
                         </div>
@@ -208,10 +200,11 @@ const NewsList = ({isFullDate = true}) => {
                     <PublicationFilter
                         changeTypeFilters={changeTypeFilters}
                         activeType={activeType}
+                        changeIsPopular={changeIsPopular}
                     />
-                    <ul className="NewsList__content">
+                    <ul className="news-list__content">
                         {news && !!news.length && news.map((item, index) => (
-                            <li className="NewsList__item" key={item.id}>
+                            <li className="news-list__item" key={item.id}>
                                 <CardNewsNew
                                     {...item}
                                     user={item.user_type}
