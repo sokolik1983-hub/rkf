@@ -74,7 +74,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
         <Loading /> :
         error ?
             error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
-            <Layout setNotificationsLength={setNotificationsLength} withFilters>
+            <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
                 <div className="redesign">
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">

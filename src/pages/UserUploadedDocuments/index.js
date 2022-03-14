@@ -16,12 +16,12 @@ import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "components/CopyrightInfo";
 import ls from "local-storage";
-import "./styles.scss";
-
+import {connectShowFilters} from "../../components/Layouts/connectors";
 import UploadedDocuments from "components/UploadedDocuments";
 
+import "./styles.scss";
 
-const UserUploadedDocuments = ({ history, location, match, profile_id, is_active_profile, isAuthenticated }) => {
+const UserUploadedDocuments = ({ history, location, match, profile_id, is_active_profile, isAuthenticated, setShowFilters }) => {
     const [loaded, setLoaded] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
@@ -57,13 +57,17 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
             ...userInfo,
             subscribed: subscribed
         })
-    }
+    };
+
+    useEffect(() => {
+        setShowFilters({withFilters: true});
+    }, []);
 
     return (!loaded
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout setNotificationsLength={setNotificationsLength} withFilters>
+            : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
                 <Container className="UserUploadedDocuments content">
                     <aside className="UserUploadedDocuments__left">
                         <StickyBox offsetTop={60}>
@@ -117,4 +121,4 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
     )
 };
 
-export default React.memo(connectAuthVisible(UserUploadedDocuments));
+export default React.memo(connectShowFilters(connectAuthVisible(UserUploadedDocuments)));

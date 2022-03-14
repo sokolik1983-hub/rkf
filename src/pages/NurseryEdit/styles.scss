@@ -260,12 +260,12 @@
             flex-grow: 1;
             @media (max-width: 680px) {
                 position: fixed;
-                width: 300px;
+                width: 100%;
                 top: 62px;
                 right: 0;
                 z-index: 99;
                 padding: 16px;
-                height: 200px;
+                height: 100%;
                 overflow-y: auto;
                 border-radius: 5px 0 0 5px;
                 transform: translateX(100%);
