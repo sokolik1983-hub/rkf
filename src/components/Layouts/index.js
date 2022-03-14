@@ -6,11 +6,7 @@ import {connectShowFilters} from './connectors';
 
 import './index.scss';
 
-
 const Layout = (props) => {
-
-    console.log('props', props);
-
     const { children, withFilters, showCopyright, login_page, setShowFilters, example, layoutWithFilters} = props;
 
     useEffect(() => {

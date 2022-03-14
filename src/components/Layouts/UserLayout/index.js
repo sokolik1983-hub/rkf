@@ -131,7 +131,6 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         checkLinkUserPage();
     },[]);
 
-
     return loading ?
         <Loading /> :
         errorRedirect ?
