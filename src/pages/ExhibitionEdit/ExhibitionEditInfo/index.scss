@@ -1,5 +1,4 @@
 .exhibition-edit {
-
   .FormInput__input {
     height: 38px;
     padding-top: 0;
@@ -130,6 +129,10 @@
 
   &__rank {
     margin-bottom: 20px;
+    .css-shvkw9-control {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
 
   &__judge {
@@ -180,9 +183,6 @@
         color: #253C5E;
       }
     }
-
-
-
     &-list {
       height: 250px;
       overflow: auto;
@@ -198,7 +198,6 @@
             color: #3366ff;
             fill: #3366ff;
           }
-
         }
         span {
           margin-right: 25px;

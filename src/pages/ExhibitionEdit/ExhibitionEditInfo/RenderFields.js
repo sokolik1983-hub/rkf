@@ -35,7 +35,6 @@ const RenderFields = ({
         emails,
     } = formik.values;
 
-
     useEffect(() => {
         formik.setFieldValue('avatar', avatar);
         formik.setFieldValue('map', map);
@@ -50,7 +49,6 @@ const RenderFields = ({
             blockContent(false)
         }
     }, [showModal]);
-
 
     const handleValidate = value => {
         let error;
@@ -147,12 +145,13 @@ const RenderFields = ({
         }
     };
 
-    const getJudgeList =  () => {
+    const getJudgeList = () => {
         return Request({
             url: `/api/exhibitions/common/relevant_judges?id=${exhibitionId}`,
             method: 'GET'
-        }, data => setJudge(data))
-            .catch(error => console.log(error))
+        },
+            data => setJudge(data),
+            error => console.log(error))
     }
 
     return (
@@ -253,8 +252,7 @@ const RenderFields = ({
                                     type="button"
                                     onClick={() => handleDeleteDocs(doc.id)}
                                     title="Удалить"
-                                >✕
-                                </button>
+                                >✕</button>
                             </li>
                         ))}
                     </ul>
@@ -282,8 +280,7 @@ const RenderFields = ({
                             className="exhibition-edit__documents-submit btn btn-simple"
                             type="button"
                             onClick={() => handleAddDocs(docField.id)}
-                        >Добавить
-                        </button>
+                        >Добавить</button>
                     </FormGroup>
                 }
                 {docField ?
@@ -323,8 +320,7 @@ const RenderFields = ({
             <FormField {...fields.additional_info} />
             <FormControls>
                 <button type="button" className="btn btn-simple" onClick={onCancel}>Отмена</button>
-                <button type="submit" className="btn btn-simple">Обновить
-                </button>
+                <button type="submit" className="btn btn-simple">Обновить</button>
             </FormControls>
             {alert &&
                 <Alert
@@ -343,10 +339,11 @@ const RenderFields = ({
                        headerName="Выбор судьи/специалиста"
                        className="exhibition-edit__judge__modal"
             >
-
-                        <h3>Список судей/специалистов</h3>
-                        <ul className="exhibition-edit__judge-list">
-                            {judge.map(data =>
+                    {judge ?
+                        <>
+                            <h3>Список судей/специалистов</h3>
+                            <ul className="exhibition-edit__judge-list">
+                                {judge.map(data =>
                                 <li key={data.id}>
                                     <span>№{data.cert_number}</span><span>{data.last_name + ' ' + data.first_name + ' ' + data.second_name}</span><span>{data.city_name}</span><span>{data.all_breeder && <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_2219_2838)">
@@ -364,10 +361,11 @@ const RenderFields = ({
                                     </defs>
                                 </svg>}</span>
                                 </li>)}
-                        </ul>
-                        <Button primary={true}><p>Выбрать</p></Button>
+                            </ul>
+                            <Button primary={true}><p>Выбрать</p></Button>
+                        </>:
+                        <p>Подходящих судей не найдено</p>}
             </Modal>
-            // </OutsideClickHandler>
 }
         </>
     )
