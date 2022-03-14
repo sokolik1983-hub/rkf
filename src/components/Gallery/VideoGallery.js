@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { AddVideoModal } from "components/Gallery";
 import { VideoModal } from "components/Modal";
 import { useParams } from "react-router-dom";
@@ -16,13 +16,6 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
     const handleAddVideo = () => {
         setShowModal({ type: 'addVideo' });
     }
-
-    const onModalClose = (e) => {
-        if (showModal && (!e.target.closest('.Alert'))) {
-            setShowModal(false);
-            blockContent(false);
-        }
-    };
 
     const onVideoAddSuccess = link => {
         const id = getYouTubeID(link);
@@ -57,7 +50,11 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
             <img src={cover_link} onClick={() => setShowModal({ type: 'openVideo', item: item })} alt="" />
             <h5 className="VideoGallery__item-name">{name}</h5>
         </div>
-    }
+    };
+
+    useEffect(() => {
+        !showModal && blockContent(showModal);
+    }, [showModal]);
 
     return <div className="ReactGridGallery__wrap">
         <div className="ReactGridGallery__controls">
@@ -82,7 +79,7 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
             }
         </div>
         {showModal && showModal.type === 'addVideo' &&
-            <AddVideoModal showModal={showModal} setShowModal={setShowModal} onSuccess={onVideoAddSuccess} onModalClose={onModalClose}/>
+            <AddVideoModal showModal={showModal} setShowModal={setShowModal} onSuccess={onVideoAddSuccess} />
         }
         {showModal && showModal.type === 'openVideo' &&
             <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
