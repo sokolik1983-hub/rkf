@@ -188,6 +188,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
                     formBusy={formBusy}
+                    alias={alias}
+                    history={history}
                 />;
             case 1:
                 return <Contacts
@@ -264,10 +266,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     <div className="UserEdit__inner-left">
                                         <Card>
                                             {renderSection(activeSection)}
-                                            <UploadDocsEditPage
-                                                clubAlias={alias}
-                                                history={history}
-                                            />
                                         </Card>
                                     </div>
                                     <div className={`UserEdit__inner-right${isOpenFilters ? ' _open' : ''}`}>

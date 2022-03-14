@@ -15,7 +15,7 @@ const Content = ({ isMobile,
                      alias,
                      setNeedRequest,
                      needRequest,
-                     setUserInfo
+                     setUserInfo,
                  }) => <>
     {!isMobile &&
         <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
@@ -66,12 +66,9 @@ const RefereePage = (props) => {
     return (
         <JudgeLayout {...props}>
             <Content />
-            </JudgeLayout>
+        </JudgeLayout>
 
-        // <UserLayout {...props}>
-        //     <Content />
-        // </UserLayout>
-    )
+    );
 };
 
 export default React.memo(RefereePage);

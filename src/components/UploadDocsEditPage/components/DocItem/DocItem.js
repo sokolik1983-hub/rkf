@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Share from 'components/Share';
 import { SvgIcon } from '@progress/kendo-react-common';
-import { filePdf, trash } from '@progress/kendo-svg-icons';
+import {filePdf, pencil, trash} from '@progress/kendo-svg-icons';
 import { getHeaders} from '../../../../utils/request';
 import LightTooltip from 'components/LightTooltip';
 import moment from 'moment';
@@ -12,20 +12,11 @@ import './styles.scss';
 moment.locale('ru');
 
 const DocumentItem = (props) => {
-
     const {id, name, link, date_create, setModal} = props;
     const headers = getHeaders();
     const [url, setUrl] = useState('');
 
-    const itemRender = (li) => {
-        const itemChildren = <div style={{ textOverflow: 'ellipsis', display: 'block', overflow: 'hidden' }}>
-            {li.props.children}
-        </div >;
-        return React.cloneElement(li, li.props, itemChildren);
-    }
-
-    const handleClick = async (e, id) => {
-        e.preventDefault();
+    const handleClick = async (id) => {
         await fetch(`/api/document/document/private?id=` + id, {
             method: 'GET',
             headers: getHeaders()
@@ -43,7 +34,7 @@ const DocumentItem = (props) => {
     };
 
     const getUrl = () => {
-        if (isNaN(id) || !id)
+        if (!id)
             return;
         setUrl('');
         fetch(`/api/document/document/private?id=` + id, {headers})
@@ -57,37 +48,39 @@ const DocumentItem = (props) => {
     }, [])
 
     return (
-        <div className="document-item container p-0 mb-4" >
-            <div className="row d-flex align-items-center flex-row" >
-                <div className="col-9">
+        <div className="document-item__wrap" >
+            <div className="document-item__inner" >
+                <div className="">
                     <a href={url} target="_blank" rel="noopener noreferrer" className="d-flex align-items-center">
                         <SvgIcon icon={filePdf} size="default" />
-                        <div className="d-flex flex-column">{name}<span className="DocumentItem__date">
+                        <div className="d-flex flex-column">{name}<span className="document-item__date">
                         {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}
                     </span>
                         </div>
                     </a>
                 </div>
-                <div className="col-1">
-                    <Share url={`//${window.location.host}/docs/${id}`} />
-                </div>
-                <div className="col-1">
-                    <LightTooltip title="Скачать документ" enterDelay={200} leaveDelay={200}>
+                <div className="document-item__box">
+                    <div className="">
+                        <Share url={`//${window.location.host}/docs/${id}`} />
+                    </div>
+                    <div className="">
+                        <LightTooltip title="Скачать документ" enterDelay={200} leaveDelay={200}>
+                            <button
+                                className="document-item__download"
+                                onClick={() => handleClick(id)}
+                            >
+                            </button>
+                        </LightTooltip>
+                    </div>
+                    <div className="">
                         <button
-                            className="DocumentItem__download"
-                            onClick={e => handleClick(e, id)}
+                            className="document-item__delete-btn"
+                            type="button"
+                            onClick={() => setModal({ type: 'deleteDocument', documentId: id })}
                         >
+                            <SvgIcon icon={trash} size="default" />
                         </button>
-                    </LightTooltip>
-                </div>
-                <div className="col-1">
-                    <button
-                        className="DocumentItem__delete-btn"
-                        type="button"
-                        onClick={() => setModal({ type: 'deleteDocument', documentId: id })}
-                    >
-                        <SvgIcon icon={trash} size="default" />
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -43,6 +43,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                 withSuccess && handleSuccess();
             }
         });
+
     const handleError = e => {
         if (e.response) {
             let message;
@@ -78,7 +79,6 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
 
     return (
         <div className="application-form">
-            <Card>
                <Form
                   initialValues={initialValues}
                   key={JSON.stringify(initialValues)}
@@ -118,7 +118,6 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                       }
                    }
                />
-            </Card>
             {
                 modal.type === 'deleteDocument' &&
                 <ModalDeleteDocument handleError={handleError}

@@ -29,7 +29,7 @@ const RegistrationPage = ({isAuthenticated}) => {
                             className="registration-page__scroll-wrap"
                             contentClassName="registration-page__scroll"
                             verticalScrollbarStyle={{borderRadius: 6, width: 6, backgroundColor: '#aaa'}}
-                            verticalContainerStyle={{borderRadius: 8, width: 8}}
+                            verticalContainerStyle={{display: 'none'}}
                             horizontal={false}
                             smoothScrolling={true}
                         >

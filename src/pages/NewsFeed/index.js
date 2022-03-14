@@ -12,7 +12,6 @@ import {blockContent} from "../../utils/blockContent";
 import "./styles.scss";
 
 
-
 const user_type = ls.get('user_info').user_type;
 
 const Layout = props => {
@@ -31,6 +30,8 @@ const Content = props => { //Дополнительные props берутся �
 
     const {showMustRead, notificationUrlIndex, activeCategoryId, showFilter, setShowFilters} = props;
 
+    const [categoriesCounters, setCategoriesCounters] = useState('');
+
     blockContent(showFilter);
 
     return (
@@ -38,12 +39,12 @@ const Content = props => { //Дополнительные props берутся �
             <div className="news-feed">
 
                 <div className="news-feed-left">
-                    <NewsList {...props} />
+                    <NewsList {...props} setCategoriesCounters={setCategoriesCounters}/>
                 </div>
 
                 <aside className={`notification-page__filters ${showFilter ? ' _open' : ''} `}>
                             <div className={showFilter ? "news-feed-right" : 'news-feed-right hidden'}>
-                                <CategoriesList {...props} setShowFilters={setShowFilters} />
+                                <CategoriesList {...props} setShowFilters={setShowFilters}  categoriesCounters={categoriesCounters}/>
                                 {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
                                 <MustRead {...props} notificationUrlIndex={notificationUrlIndex} setShowFilters={setShowFilters}/>
                                 }

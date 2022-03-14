@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import Modal from '../../Modal';
-import Alert from '../../Alert';
-import FeedBack from './Feedback';
-import {blockContent} from '../../../utils/blockContent';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Modal from "../../Modal";
+import Alert from "../../Alert";
+import FeedBack from "./Feedback";
+import { blockContent } from "../../../utils/blockContent";
 
-import './style.scss'
+import "./style.scss";
 
 
 const FooterFeedback = ({ showCopyright = true }) => {
@@ -17,7 +17,6 @@ const FooterFeedback = ({ showCopyright = true }) => {
         setShowModal(false);
         blockContent(false);
     };
-
 
     return (
         <div className="footer-feedback">
