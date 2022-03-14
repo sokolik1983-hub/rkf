@@ -358,36 +358,36 @@
 
 .redesign .container  {
   @media (max-width: 560px) {
-      .user-header {
-        align-items: flex-start!important;
+    .user-header {
+      align-items: flex-start!important;
 
-          &__user-wrap, &__container, &-link {
-            padding-left: 120px;
-          }
-
-        &__user-wrap:before, &-link:after {
-          display: none;
-        }
-
-        .user-info__logo-wrap {
-          position: absolute;
-        }
-
-        .UserActionControls {
-          margin-top: 21px;
-          padding-top: 2px;
-          border-top:1px solid #E5E5E5;
-        }
-
-        .widget-login__button-wrap {
-          margin-top: 20px;
-          padding: 10px 0 0 0;
-          border-top:1px solid #E5E5E5;
-        }
-
-        &__content {
-          padding-top: 28px!important;
-        }
+      &__user-wrap, &__container, &-link {
+        padding-left: 120px;
       }
+
+      &__user-wrap:before, &-link:after {
+        display: none;
+      }
+
+      .user-info__logo-wrap {
+        position: absolute;
+      }
+
+      .UserActionControls {
+        margin-top: 21px;
+        padding-top: 2px;
+        border-top:1px solid #E5E5E5;
+      }
+
+      .widget-login__button-wrap {
+        margin-top: 20px;
+        padding: 10px 0 0 0;
+        border-top:1px solid #E5E5E5;
+      }
+
+      &__content {
+        padding-top: 28px!important;
+      }
+    }
   }
 }

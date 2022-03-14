@@ -43,6 +43,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                 withSuccess && handleSuccess();
             }
         });
+
     const handleError = e => {
         if (e.response) {
             let message;
@@ -64,6 +65,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
             }, 5000);
         }
     };
+
     const handleSuccess = (message) => {
         setSuccess(true);
         !success && setTimeout(() => {
@@ -78,10 +80,8 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
 
     return (
         <div className="application-form">
-            <Card>
                <Form
                   initialValues={initialValues}
-                  key={JSON.stringify(initialValues)}
                   render={formRenderProps => {
                      if (!formProps) setFormProps(formRenderProps);
                      return (
@@ -118,7 +118,6 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                       }
                    }
                />
-            </Card>
             {
                 modal.type === 'deleteDocument' &&
                 <ModalDeleteDocument handleError={handleError}

@@ -3,7 +3,6 @@
         .form-row {
             .k-form-field {
                 margin-top: 0;
-
             }
             .k-form-hint {
                 @media (max-width: 1024px) {
@@ -39,5 +38,26 @@
     .k-input,
     .k-select {
         background-color: white !important;
+    }
+}
+.document-item {
+    &__wrap {
+        margin-bottom: 1.5rem;
+    }
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        @media (max-width: 600px) {
+            flex-direction: column;
+        }
+    }
+    &__box {
+        display: flex;
+        align-items: center;
+        div {
+            padding: 0 5px;
+        }
     }
 }
