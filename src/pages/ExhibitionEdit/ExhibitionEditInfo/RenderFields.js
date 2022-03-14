@@ -9,7 +9,6 @@ import Alert from "../../../components/Alert";
 import Modal from '../../../components/Modal';
 import {blockContent} from '../../../utils/blockContent';
 import Button from '../../../components/Button';
-import { getHeaders } from "utils/request";
 import { Request } from "utils/request";
 
 
@@ -154,10 +153,7 @@ const RenderFields = ({
             method: 'GET'
         }, data => setJudge(data))
             .catch(error => console.log(error))
-
     }
-
-console.log(judge)
 
     return (
         <>
@@ -220,15 +216,10 @@ console.log(judge)
                     {...fields.breed_types}
                 />
             </FormGroup>
-
-            {/*тут добавляю функцуонал по приглашению судьи*/}
-
             <div className="exhibition-edit__judge">
                 <h5>Судья/специалист</h5>
                 <Button primary={true} onClick={() => setShowModal(true)}><p>Подобрать судью</p></Button>
             </div>
-
-
             <FormGroup inline>
                 <FormField
                     {...fields.schedule_url}
@@ -344,7 +335,6 @@ console.log(judge)
                 />
             }
             {showModal &&
-                // <OutsideClickHandler onOutsideClick={()=>setShowModal(false)}>
                 <Modal showModal={showModal}
                        handleClose={() =>setShowModal(false)}
                        handleX={() => {setShowModal(false)}}
