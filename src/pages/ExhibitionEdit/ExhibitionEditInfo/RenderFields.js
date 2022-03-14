@@ -150,8 +150,8 @@ const RenderFields = ({
             url: `/api/exhibitions/common/relevant_judges?id=${exhibitionId}`,
             method: 'GET'
         },
-        data => setJudge(data),
-        error => console.log(error))
+            data => setJudge(data),
+            error => console.log(error))
     }
 
     return (
