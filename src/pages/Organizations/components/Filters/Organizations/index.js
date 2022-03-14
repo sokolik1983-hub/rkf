@@ -14,8 +14,7 @@ const OrganizationsFilter = ({organization_type}) => {
     }
 
     const prepareFilters =  (typeId) => {
-        if (typeId !== 3 || typeId !== 4) {
-            console.log(typeId)
+        if (typeId !== 3 && typeId !== 4) {
             return getEmptyFilters();
         }
     }
