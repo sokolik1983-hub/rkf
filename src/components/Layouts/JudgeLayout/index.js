@@ -24,10 +24,11 @@ import {endpointGetClubInfo, clubNav} from '../ClubLayout/config';
 import {kennelNav} from '../NurseryLayout/config';
 import UserHeader from '../../redesign/UserHeader';
 import MenuComponent from '../../MenuComponent';
+import {Redirect} from "react-router-dom";
 
 import './index.scss';
 
-const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters, location }) => {
+const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated}) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
