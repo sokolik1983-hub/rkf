@@ -1,8 +1,29 @@
 .exhibition-edit {
+  .FormInput__input {
+    height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .FormInput--text textarea {
+    min-height:150px;
+    padding: 11px 13px;
+  }
+
+  .FormControls {
+    display: flex;
+  }
+
   &__info-form {
     .btn {
       &:first-child {
         margin-right: 12px;
+        margin-left:auto;
+      }
+      &:last-child {
+        background: #3366ff;
+        color: white;
+        margin-right: auto;
       }
     }
   }
@@ -16,7 +37,7 @@
       margin-bottom: 8px;
       font-size: 16px;
       line-height: 24px;
-      font-weight: 300;
+      font-weight: 400;
     }
     img {
       display: block;
@@ -79,12 +100,140 @@
     }
   }
   &__dates {
+    .FormInput--time {
+      display: flex;
+      flex-direction: row;
+      flex: unset;
+      height: 38px;
+      gap: 10px;
+
+    &:not(:last-child){
+      gap: 20px;
+    }
+
+      label {
+        align-self: center;
+        margin: 0;
+      }
+
+      input {
+        width: 150px;
+      }
+    }
     span {
       align-self: center;
       font-weight: 400;
-      margin: 32px 16px 0 0;
+      margin-right: 43px;
     }
   }
+
+  &__rank {
+    margin-bottom: 20px;
+    .css-shvkw9-control {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &__judge {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+
+    h5 {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 16px;
+    }
+
+    .btn {
+      width: 155px;
+      height: 36px;
+      padding: 0;
+      text-align: center;
+    }
+
+    &__modal .Modal__body {
+      display: flex;
+      flex-direction: column;
+      width: 720px;
+      height: 359px;
+
+      Button {
+        height: 38px;
+        width: 154px;
+        align-self: center;
+        margin-top: 15px;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-family: Source Sans Pro;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #253C5E;
+      }
+    }
+    &-list {
+      height: 250px;
+      overflow: auto;
+      border: 1px solid #CED4DA;
+      li {
+        height: 22px;
+        margin-bottom: 10px;
+        display: grid;
+        grid-template-columns: 1fr 4fr 2fr 2fr;
+        cursor: pointer;
+        &:hover {
+          span, path {
+            color: #3366ff;
+            fill: #3366ff;
+          }
+        }
+        span {
+          margin-right: 25px;
+          font-family: Source Sans Pro;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 22px;
+          text-align: left;
+          color: #72839C;
+          &:first-child {
+            margin-left: 10px;
+            min-width: 48px;
+          }
+        }
+      }
+    }
+
+    &__modal .Modal__inner {
+      overflow: hidden;
+      height: 408px;
+      @media (max-width: 799px) {
+        .Modal__body {
+          width: auto;
+          .exhibition-edit__judge-list {
+            li {
+              height: auto;
+                grid-template-columns: 1fr 140px 2fr 1fr;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
   @media (max-width: 800px) {
     .FormGroup--inline {
       display: block;
