@@ -437,8 +437,12 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                             id="payment_date"
                                                             name="payment_date"
                                                             label="Дата оплаты"
-                                                            max={new Date()}
+                                                            maxDate={moment().format('YYYY-MM-DD')}
                                                             component={DateInput}
+                                                            value={formProps?.valueGetter('payment_date')}
+                                                            onChange={date => formProps.onChange('payment_date', {
+                                                                value: date,
+                                                            })}
                                                             validator={dateRequiredValidator}
                                                             disabled={disableAllFields}
                                                             editable={!editable}
