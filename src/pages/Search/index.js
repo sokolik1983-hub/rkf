@@ -161,7 +161,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     }
 
     return (
-        <Layout withFilters>
+        <Layout layoutWithFilters>
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
             <div className="search-page__wrap">
                 <Container className="search-page content">

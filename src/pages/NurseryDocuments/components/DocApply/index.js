@@ -12,6 +12,8 @@ import LitterPayment from "./forms/LitterPayment";
 import NurseryLitterDeclarant from "./forms/LitterDeclarant";
 import StageStrip from "./components/StageStrip";
 import DocHead from "../DocHead";
+import FooterFeedback from "../../../../components/Layouts/FooterFeedback";
+
 import './index.scss';
 
 const forms = {
@@ -92,6 +94,7 @@ const DocApply = ({ nurseryAlias, history }) => {
             <FormContent
                 {...{alias, id, profileId, Title, update, view}}
             />
+            <FooterFeedback />
         </div>
     </div>
 };

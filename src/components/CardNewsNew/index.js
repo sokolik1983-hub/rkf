@@ -10,7 +10,6 @@ import { ActiveUserMark, FederationChoiceMark } from 'components/Marks';
 import { formatText } from 'utils';
 import { formatDateTime } from 'utils/datetime';
 import { DEFAULT_IMG } from 'appConfig';
-import EditForm from './EditForm';
 import CardFooter from '../CardFooter';
 import DocumentLink from './DocumentLink';
 import './index.scss';
@@ -70,7 +69,6 @@ const CardNewsNew = forwardRef(({
     is_all_cities
 }, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
@@ -104,11 +102,11 @@ const CardNewsNew = forwardRef(({
         }
 
         return <>
-            <div className="CardNewsNew__content">
-                <div className="CardNewsNew__head" style={{ margin: '0 10px 0 10px' }}>
-                    <div className="CardNewsNew__left">
+            <div className="card-news-new__content">
+                <div className="card-news-new__head">
+                    <div className="card-news-new__left">
                         <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
-                            <div className="CardNewsNew__left-logo" style={{
+                            <div className="card-news-new__left-logo" style={{
                                 background: `url(${logo_link ?
                                     logo_link :
                                     user_type === 1 ?
@@ -117,10 +115,10 @@ const CardNewsNew = forwardRef(({
                                     }) center center/cover no-repeat`
                             }} />
                         </Link>
-                        <span className="CardNewsNew__left-name">
-                            <span className="CardNewsNew__left-city">
-                                <div className="CardNewsNew__left-inner">
-                                    <div className="CardNewsNew__add-wrap">
+                        <span className="card-news-new__left-name">
+                            <span className="card-news-new__left-city">
+                                <div className="card-news-new__left-inner">
+                                    <div className="card-news-new__add-wrap">
                                         {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                         <span>
                                             {user_type === 3
@@ -143,7 +141,7 @@ const CardNewsNew = forwardRef(({
                                         : `/${alias}`}>
                                         {user_type === 1 ? first_name + ' ' + last_name : name}
                                     </Link>
-                                    <span className="CardNewsNew__left-mark">
+                                    <span className="card-news-new__left-mark">
                                         <span>
                                             {active_rkf_user &&
                                             <ActiveUserMark />
@@ -156,7 +154,7 @@ const CardNewsNew = forwardRef(({
                                     </span>
                                     </div>
                                     {fact_city_name &&
-                                    <span className="CardNewsNew__city"
+                                    <span className="card-news-new__city"
                                           onClick={() => changeCityFilter([fact_city_id])}
                                           title={fact_city_name}>
                                           {fact_city_name}
@@ -164,16 +162,16 @@ const CardNewsNew = forwardRef(({
                                     }
                                 </div>
                             </span>
-                            <div className="CardNewsNew__left__city-inner">
+                            <div className="card-news-new__left__city-inner">
                                 {formatDateTime(create_date)}
                             </div>
                         </span>
                     </div>
-                    <div className="CardNewsNew__right" >
+                    <div className="card-news-new__right" >
                         {alias === userAlias && canEdit &&
-                            <div className="CardNewsNew__head-control">
+                            <div className="card-news-new__head-control">
                                 <button
-                                    className={`CardNewsNew__head-control-btn${isOpenControls ? ' _open' : ''}`}
+                                    className={`card-news-new__head-control-btn${isOpenControls ? ' _open' : ''}`}
                                     onClick={() => setIsOpenControls(!isOpenControls)}
                                 />
                                 {isOpenControls &&
@@ -183,25 +181,23 @@ const CardNewsNew = forwardRef(({
                                         <CSSTransition
                                             in={isOpenControls}
                                             timeout={350}
-                                            classNames="CardNewsNew__transition"
+                                            classNames="card-news-new__transition"
                                             unmountOnExit
                                         >
-                                            <ul className="CardNewsNew__head-control-list">
+                                            <ul className="card-news-new__head-control-list">
                                                 {!is_closed_advert &&
-                                                    <li className="CardNewsNew__head-control-item"
-                                                    // onClick={() => setIsEditing(true)}
+                                                    <li className="card-news-new__head-control-item"
                                                     >
-                                                        {/* <span>Редактировать</span> */}
-                                                        {isFederation ? <Link to={`/news/${id}`} style={{ textDecoration: 'none' }}>Подробнее...</Link> : <Link to={`${url}/edit`} style={{ textDecoration: 'none' }}>Редактировать</Link>}
+                                                        {isFederation ? <Link to={`/news/${id}`}>Подробнее...</Link> : <Link to={`${url}/edit`}>Редактировать</Link>}
                                                     </li>
                                                 }
                                                 {is_advert && !is_closed_advert &&
-                                                    <li className="CardNewsNew__head-control-item" onClick={() => onAdClose(id)}>
-                                                        <span className="CardNewsNew__remove">Закрыть объявление</span>
+                                                    <li className="card-news-new__head-control-item" onClick={() => onAdClose(id)}>
+                                                        <span className="card-news-new__remove">Закрыть объявление</span>
                                                     </li>
                                                 }
-                                                <li className="CardNewsNew__head-control-item" onClick={() => onDelete(id)}>
-                                                    <span className="CardNewsNew__remove">Удалить</span>
+                                                <li className="card-news-new__head-control-item" onClick={() => onDelete(id)}>
+                                                    <span className="card-news-new__remove">Удалить</span>
                                                 </li>
                                             </ul>
                                         </CSSTransition>
@@ -211,57 +207,57 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={(!collapsed && (advert_type_id < 1))  ? 'CardNewsNew__text-wrap' : 'CardNewsNew__text-wrap__collapsed'}>
+                <div className={(!collapsed && (advert_type_id < 1))  ? 'card-news-new__text-wrap' : 'card-news-new__text-wrap__collapsed'}>
 
-                    {is_advert && <div className="CardNewsNew__ad">
+                    {is_advert && <div className="card-news-new__ad">
                         {advert_type_name &&
-                            <div className = "CardNewsNew__category-wrap">
+                            <div className = "card-news-new__category-wrap">
                                 <div>
-                                    <span className="CardNewsNew__category-span">Категория: </span>
-                                    <p className = "CardNewsNew__category-value">{advert_type_name}</p>
+                                    <span className="card-news-new__category-span">Категория: </span>
+                                    <p className = "card-news-new__category-value">{advert_type_name}</p>
                                 </div>
                                 <span>№{advert_code}</span>
                             </div>}
                         {
-                                <p className="CardNewsNew__ad-breed">
+                                <p className="card-news-new__ad-breed">
                                     <span>{is_halfbreed ? "Метис" : `Порода: ${advert_breed_name}`}</span>
                                 </p>
                         }
                         {
-                            dog_color && <div className="CardNewsNew__ad-color">Окрас: {dog_color}</div>
+                            dog_color && <div className="card-news-new__ad-color">Окрас: {dog_color}</div>
                         }
                         {
-                            dog_name && <div className="CardNewsNew__ad-name">Кличка собаки: {dog_name}</div>
+                            dog_name && <div className="card-news-new__ad-name">Кличка собаки: {dog_name}</div>
                         }
                         {
                             !is_all_cities && dog_city && (advert_type_id > 1)
                                 ?
-                                <div className="CardNewsNew__ad-city">Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
+                                <div className="card-news-new__ad-city">Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
                                 :
-                                <div className="CardNewsNew__ad-city">Все города</div>
+                                <div className="card-news-new__ad-city">Все города</div>
                         }
                         {
-                            dog_age && <div className="CardNewsNew__ad-age">Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
+                            dog_age && <div className="card-news-new__ad-age">Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
                         }
                         {
-                            dog_sex_type_id && <div className="CardNewsNew__ad-sex">Пол: {dog_sex_type_id}</div>
+                            dog_sex_type_id && <div className="card-news-new__ad-sex">Пол: {dog_sex_type_id}</div>
                         }
-                        { (advert_type_id < 4) &&<div className="CardNewsNew__ad-price">
+                        { (advert_type_id < 4) &&<div className="card-news-new__ad-price">
                             <div>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'} </div>
                             <div>Кол-во щенков: {advert_number_of_puppies} </div>
-                            {is_closed_advert && <div className="CardNewsNew__ad-inactive" >Объявление не активно</div>}
+                            {is_closed_advert && <div className="card-news-new__ad-inactive" >Объявление не активно</div>}
                         </div>}
                     </div>}
                     {!!content &&
-                        <p className={`CardNewsNew__text${!canCollapse ? ' _disabled' : ''}`}
+                        <p className={`card-news-new__text${!canCollapse ? ' _disabled' : ''}`}
                            ref={ref}
                            dangerouslySetInnerHTML={{ __html: formatText(content) }}
                         />
                     }
                 </div>
-                <div className="CardNewsNew__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
+                <div className="card-news-new__show-all-wrap">
                     {
-                        <div className={`CardNewsNew__show-all${!canCollapse ? ' _disabled' : ''}`}
+                        <div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}
                             onClick={() => canCollapse && setCollapsed(!collapsed)}>
                             {
                                 (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
@@ -271,15 +267,15 @@ const CardNewsNew = forwardRef(({
                     }
                 </div>
                 {(picture_link || video_link) &&
-                    <div className="CardNewsNew__media">
+                    <div className="card-news-new__media">
                         {picture_link &&
-                            <div className="CardNewsNew__photo"
+                            <div className="card-news-new__photo"
                                 style={{ backgroundImage: `url(${picture_link})` }}
                                 onClick={() => setShowPhoto(true)}
                             />
                         }
                         {video_link &&
-                            <div className="CardNewsNew__video">
+                            <div className="card-news-new__video">
                                 <iframe
                                     src={video_link}
                                     title="YouTube Video"
@@ -293,8 +289,8 @@ const CardNewsNew = forwardRef(({
             </div>
             {
                 documents && !!documents.length &&
-                <div className="CardNewsNew__documents" style={{ margin: '0 10px 0 10px' }}>
-                    <ul className="CardNewsNew__documents-list">
+                <div className="card-news-new__documents">
+                    <ul className="card-news-new__documents-list">
                         {documents.map(doc =>
                             <li className="DocumentItem" key={doc.id}>
                                 <DocumentLink
@@ -306,8 +302,8 @@ const CardNewsNew = forwardRef(({
                     </ul>
                 </div>
             }
-            {/* {videoLink && <p className={`CardNewsNew__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
-            <div className="CardNewsNew__controls">
+            {/* {videoLink && <p className={`card-news-new__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
+            <div className="card-news-new__controls">
                 <CardFooter
                     id={id}
                     share_link={window.location.host === 'rkf.online' ? `https://rkf.online/news/${id}` : `https://stage.uep24.ru/news/${id}`}
@@ -320,106 +316,11 @@ const CardNewsNew = forwardRef(({
         </>
     };
 
-    const EditItem = () => <>
-        <div className="CardNewsNew__content">
-            <div className="CardNewsNew__head">
-                <div className="CardNewsNew__left">
-                    <Link to={user_type === 4
-                        ? `/kennel/${alias}`
-                        : user_type === 1
-                            ? `/user/${alias}`
-                            : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
-                                ? `/club/${alias}`
-                                : `/${alias}`}
-                    >
-                        <div className="CardNewsNew__left-logo" style={{
-                            background: `url(${logo_link ?
-                                logo_link :
-                                user_type === 1 ?
-                                    DEFAULT_IMG.userAvatar :
-                                    DEFAULT_IMG.clubAvatar
-                                }) center center/cover no-repeat`
-                        }} />
-                    </Link>
-                    <span className="CardNewsNew__left-name">
-                        <span>
-                            <Link to={user_type === 4
-                                ? `/kennel/${alias}`
-                                : user_type === 1
-                                    ? `/user/${alias}`
-                                    : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
-                                        ? `/club/${alias}`
-                                        : `/${alias}`}>
-                                {(user_type === 3 || user_type === 4 || user_type === 5) &&
-                                    <>
-                                        <span>
-                                            {
-                                                user_type === 3
-                                                    ? 'Клуб'
-                                                    : user_type === 4
-                                                        ? 'Питомник'
-                                                        : user_type === 5
-                                                            ? 'Федерация'
-                                                            : ''
-                                            }
-                                        </span>
-                                            &nbsp;
-                                    </>
-                                }
-                                {user_type === 1 ? first_name + ' ' + last_name : name}
-                            </Link>
-                            {active_rkf_user &&
-                                <ActiveUserMark />
-                            }
-                            {active_member &&
-                                <FederationChoiceMark />
-                            }
-                        </span>
-                        <div>
-                            {formatDateTime(create_date)}
-                            {fact_city_name &&
-                                <span className="CardNewsNew__city"
-                                    onClick={() => changeCityFilter([fact_city_id])}
-                                    title={fact_city_name}>
-                                    {fact_city_name}
-                                </span>
-                            }
-                        </div>
-                    </span>
-                </div>
-            </div>
-            <div>
-                <EditForm id={id}
-                    text={content}
-                    img={picture_link || ''}
-                    videoLink={video_link || ''}
-                    documents={documents}
-                    isAd={is_advert}
-                    adBreedId={advert_breed_id}
-                    adCode={advert_code}
-                    adCost={advert_cost}
-                    adNumberOfPuppies={advert_number_of_puppies}
-                    history={history}
-                    handleSuccess={handleSuccess}
-                />
-            </div>
-        </div>
-        <div className="CardNewsNew__controls">
-            <CardFooter
-                id={id}
-                share_link={window.location.host === 'rkf.online' ? `https://rkf.online/news/${id}` : `https://stage.uep24.ru/news/${id}`}
-                is_liked={is_liked}
-                like_count={like_count}
-                likesOn={true}
-                type="news"
-            />
-        </div>
-    </>;
 
     return (
-        <Card className={`CardNewsNew`}>
-            <div className={`CardNewsNew__wrap${is_closed_advert ? ' is_closed' : ''}`}>
-                {isEditing ? <EditItem /> : <ViewItem />}
+        <Card className={`card-news-new`}>
+            <div className={`card-news-new__wrap${is_closed_advert ? ' is_closed' : ''}`}>
+                <ViewItem />
                 {showPhoto &&
                     <Modal handleClose={() => setShowPhoto(false)}>
                         <Lightbox

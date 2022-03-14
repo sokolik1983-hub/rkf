@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from "react";
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 import {mainNav} from "../../../../appConfig";
 import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
@@ -7,14 +7,14 @@ import NavSublist from "./NavSublist";
 import {connectAuthVisible} from "../../../../pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
 import MenuLink from "./MenuLink";
-import ZlineModal from "../../../../components/ZlineModal";
-import {blockContent} from "../../../../utils/blockContent";
+import ZlineWidget from "../../../ZLineWidget";
 
 
 const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowFilters, setOpen}) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
     const isMobile = useIsMobile(1080);
     const apiKey = localStorage.getItem('apikey');
+    const location = useLocation();
 
     const links = [
         {
@@ -64,16 +64,47 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
         }
     }, [isOpenFilters]);
 
-    useEffect(() => {
-        blockContent(showZlineModal);
-
-        return () => blockContent(false);
-    }, [showZlineModal]);
-
     const handleZlineClick = e => {
         e.preventDefault();
         setShowZlineModal(true);
     };
+
+    const checkLinkRkfOrg = () => {
+        const search = location.search.substring(1);
+
+        if (search) {
+            const paramsSearch = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+
+            if (paramsSearch.redirect === 'http://rkf.org.ru/' && paramsSearch.id) {
+                if (isAuthenticated) {
+                    window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-test/?ak=${apiKey}&id=${paramsSearch.id}`;
+                } else {
+                    setShowZlineModal(true);
+                    localStorage.setItem('rkforg_zline', paramsSearch.id);
+                }
+            }
+        }
+    }
+
+    const checkRkfOrgZline = () => {
+        if (localStorage.getItem('rkforg_zline') && !showZlineModal) {
+            localStorage.removeItem('rkforg_zline');
+            window.location.href = 'http://rkf.org.ru/zapis-na-poseshhenie-test/';
+        } else if (localStorage.getItem('rkforg_zline') && isAuthenticated) {
+            const id = localStorage.getItem('rkforg_zline');
+
+            localStorage.removeItem('rkforg_zline');
+            window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-test/?ak=${apiKey}&id=${id}`;
+        }
+    }
+
+    useEffect( () => {
+        checkRkfOrgZline();
+    }, [showZlineModal, isAuthenticated]);
+
+    useEffect(() => {
+        checkLinkRkfOrg();
+    }, []);
 
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
@@ -201,23 +232,19 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                     </Link>
                 </>
             }
-            <ZlineModal
-                showModal={showZlineModal}
+            <ZlineWidget
+                isModalShow={showZlineModal}
                 handleClose={() => {
                     setShowZlineModal(false);
                     if(!isMobile) {
                         setOpen(false);
                     }
                 }}
-            >
-                <iframe
-                    title="unique_iframe"
-                    src={process.env.NODE_ENV === 'production' ?
-                        `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
-                        `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
-                    }
-                />
-            </ZlineModal>
+                iframeLink={process.env.NODE_ENV === 'production' ?
+                    'https://zline.me/widgets/registration-for-service?id=33' :
+                    'http://zsdev.uep24.ru/widgets/registration-for-service?id=92'
+                }
+            />
         </nav>
     );
 };

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../../../../../components/Loading";
-import Card from "../../../../../components/Card";
+import { Link } from "react-router-dom";
+import moment from "moment";
 import Table from "./components/Table";
+import ReportError from "./components/ReportError";
+import Card from "../../../../../components/Card";
+import Loading from "../../../../../components/Loading";
 import { Request } from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
-import { Link } from 'react-router-dom';
-import ReportError from './components/ReportError';
-import moment from "moment";
+
 import "./index.scss";
 
 
@@ -77,7 +78,7 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
                     Отчёты о племенной деятельности
                 </div>
                 {documents && !!documents.length
-                    ? <div>
+                    ? <div className="user-documents-status__wrap">
                         <div className="user-documents-status__controls">
                             {document_id && <button
                                 className="user-documents-status__control user-documents-status__control--resetIcon"
@@ -102,6 +103,7 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
                             exporting={exporting}
                             setExporting={setExporting}
                             setErrorReport={setErrorReport}
+                            fullScreen
                         />
                     </div>
                     : <div className="user-documents-status__plug">

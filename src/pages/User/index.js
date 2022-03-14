@@ -15,7 +15,8 @@ const Content = ({ isMobile,
     alias,
     setNeedRequest,
     needRequest,
-    setUserInfo
+    setUserInfo,
+    judgeInfo,
 }) => <>
         {!isMobile &&
             <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
@@ -25,6 +26,7 @@ const Content = ({ isMobile,
             additionalInfo={userInfo.additional_information}
             counters={userInfo.counters}
             profileAlias={`/user/${alias}`}
+            judgeInfo={judgeInfo}
         />
         {isMobile &&
             <>

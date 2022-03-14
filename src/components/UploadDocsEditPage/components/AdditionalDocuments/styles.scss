@@ -1,0 +1,77 @@
+.application-form {
+    .additional-documents {
+        margin-top: 20px;
+    }
+    .additional-document-field {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 20px;
+        min-width: 100%;
+        @media (max-width: 560px) {
+            & > * {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        &__name {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            & > div {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                color: #72839c;
+                cursor: pointer;
+                &:hover {
+                    color: #3366ff;
+                }
+            }
+            &-icon {
+                background: url(/static/icons/icon-pdf-blue.svg) no-repeat center/cover;
+                width: 16px;
+                height: 20px;
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
+        &__remove {
+            cursor: pointer;
+            text-align: right;
+            @media (min-width: 560px) {
+                margin-right: 10px;
+            }
+            .k-i-trash::before {
+                color: red;
+            }
+        }
+        .k-dropdown {
+            @media (min-width: 560px) {
+                margin-right: 40px;
+            }
+        }
+    }
+    .additional-document-upload {
+        display: flex;
+        margin-bottom: 20px;
+        align-items: center;
+        @media (max-width: 560px) {
+            flex-direction: column;
+            & > * {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        .kendo-form-upload {
+            margin-top: 0;
+            flex-grow: 1;
+        }
+        .k-dropdown {
+            @media (min-width: 560px) {
+                margin-right: 40px;
+                width: 12.4em;
+            }
+        }
+    }
+}

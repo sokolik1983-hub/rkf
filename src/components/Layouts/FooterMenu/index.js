@@ -11,13 +11,14 @@ import { connectShowFilters } from '../connectors';
 import { Request } from '../../../utils/request';
 import { clubNav, endpointGetClubInfo } from '../../../pages/Club/config';
 import { kennelNav } from '../../../pages/Nursery/config';
-import { userNav } from '../UserLayout/config';
+import { userNav } from "../UserLayout/config";
 import UserMenu from '../UserMenu';
-import ZlineModal from '../../ZlineModal';
-import {blockContent} from '../../../utils/blockContent';
+import ZlineWidget from "../../ZLineWidget";
+import {blockContent} from "../../../utils/blockContent";
 import { checkAliasUrl } from '../../../utils/checkAliasUrl';
 
 import './footerMenu.scss';
+
 
 const FooterMenu = ({
     match,
@@ -35,9 +36,7 @@ const FooterMenu = ({
     const [open, setOpen] = useState(false);
     const [openUserMenu, setOpenUserMenu] = useState(false);
     const [openMenuComponent, setOpenMenuComponent] = useState(false);
-    const [openFedMenu, setOpenFedMenu] = useState(false);
     const [fedInfo, setFedInfo] = useState(null);
-    const apiKey = localStorage.getItem('apikey');
     const isExhibitionPage = match.path === pathname;
     const isKennel = pathname.search('kennel') === 1 || user_type === 4;
     const isUser = pathname.search('user') === 1 || user_type === 1;
@@ -76,12 +75,12 @@ const FooterMenu = ({
     };
 
     useEffect(() => {
-        if(showZlineModal || open || openUserMenu || openFedMenu || openMenuComponent) {
+        if(showZlineModal || open || openUserMenu || openMenuComponent) {
             blockContent(true);
         } else {
             blockContent(false);
         }
-    }, [showZlineModal, open, openUserMenu, openFedMenu, openMenuComponent]);
+    }, [showZlineModal, open, openUserMenu, openMenuComponent]);
 
     return (
         <>
@@ -153,19 +152,14 @@ const FooterMenu = ({
                     }
                 </div>
             }
-            <ZlineModal showModal={showZlineModal}
-                handleClose={() => {
-                    setShowZlineModal(false);
-                }}
-            >
-                <iframe
-                    title="unique_iframe"
-                    src={process.env.NODE_ENV === 'production' ?
-                        `https://zline.me/widgets/registration-for-service?id=33${apiKey ? '&ak=' + apiKey : ''}` :
-                        `http://zsdev.uep24.ru/widgets/registration-for-service?id=92${apiKey ? '&ak=' + apiKey : ''}`
-                    }
-                />
-            </ZlineModal>
+            <ZlineWidget
+                isModalShow={showZlineModal}
+                handleClose={() => setShowZlineModal(false)}
+                iframeLink={process.env.NODE_ENV === 'production' ?
+                    'https://zline.me/widgets/registration-for-service?id=33' :
+                    'http://zsdev.uep24.ru/widgets/registration-for-service?id=92'
+                }
+            />
         </>
     );
 };

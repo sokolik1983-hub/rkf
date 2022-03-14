@@ -27,13 +27,13 @@ import Security from './sections/Security';
 import DeletePage from './sections/DeletePage';
 import { connectAuthVisible } from '../Login/connectors';
 import { sections, defaultValues, phoneMask } from './config';
+import UploadDocsEditPage from '../../components/UploadDocsEditPage/UploadDocsEditPage';
 
 import './styles.scss';
 
-
 let unblock;
 
-const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated, isOpenFilters, setShowFilters }) => {
+const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated, isOpenFilters, withFilters, setShowFilters }) => {
     const [values, setValues] = useState(defaultValues);
     const [requestData, setRequestData] = useState(null);
     const [cities, setCities] = useState([]);
@@ -188,6 +188,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
                     formBusy={formBusy}
+                    alias={alias}
+                    history={history}
                 />;
             case 1:
                 return <Contacts
@@ -233,7 +235,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout withFilters setNotificationsLength={setNotificationsLength}>
+            : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="UserEdit__wrap">
                     <Container className="UserEdit content">

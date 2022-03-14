@@ -1,15 +1,14 @@
-.CardNewsNew {
+.card-news-new {
   padding: 10px 0 10px 0 !important;
   position: relative;
 
   &__wrap {
-
     &.is_closed {
-      .CardNewsNew__controls,
-      .CardNewsNew__photo,
-      .CardNewsNew__text-wrap,
-      .CardNewsNew__club,
-      .CardNewsNew__city {
+      .card-news-new__controls,
+      .card-news-new__photo,
+      .card-news-new__text-wrap,
+      .card-news-new__club,
+      .card-news-new__city {
         opacity: 0.5;
         pointer-events: none;
       }
@@ -63,9 +62,8 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 15px;
     text-align: right;
-
+    margin: 0 10px 15px 10px;
     &-control {
       position: relative;
 
@@ -111,7 +109,9 @@
         text-align: left;
         cursor: pointer;
         padding: 0 10px;
-
+        a {
+          text-decoration: none;
+        }
         &:hover {
           background-color: #3366ff;
 
@@ -381,7 +381,6 @@
 
     &._disabled {
       margin-bottom: 10px !important;
-      margin-top: 15px;
     }
 
     * {
@@ -391,6 +390,7 @@
   }
 
   &__ad {
+    margin-bottom: 15px;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -443,7 +443,7 @@
     padding-bottom: 5px;
     padding-top: 5px;
     border-top: 1px solid #e5e5e5;
-    margin: 10px 0;
+    margin: 0 10px;
 
     &-list {
       list-style: none;
@@ -592,6 +592,10 @@
       transform: translateY(-10px);
       transition: opacity 0.2s, transform 0.2s;
     }
+  }
+
+  &__show-all-wrap {
+    margin: 0 10px;
   }
 
   .DocumentItem {

@@ -1,6 +1,18 @@
-.club-documents-status__chips {
-    position: relative;
-    top: 10px;
+.user-documents-status,
+.club-documents-status {
+
+    &__chips {
+        position: relative;
+        top: 10px;
+    }
+
+    &__wrap {
+
+        .k-widget.k-grid {
+            max-height: 700px;
+            margin: 0 auto;
+        }
+    }
 }
 
 .k-chip-list {

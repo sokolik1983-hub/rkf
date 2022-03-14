@@ -15,7 +15,6 @@ import ResponsivePersonTable from "./components/ResponsiblePersonTable";
 import CheckMembershipForm from "./components/CheckMembership/CheckMembershipForm";
 import CheckMembershipRegistry from "./components/CheckMembership/CheckMembershipRegistry";
 import DocRegistry from "./components/Print/DocRegistry";
-import PuppyMetrics from "./components/Print/PuppyMetrics";
 import AddStamp from "./components/Stamps/AddStamp";
 import Registry from "./components/Stamps/Registry";
 import RequestRegistry from "./components/RequestRegistry";
@@ -31,9 +30,6 @@ import ExhibitionsFormNew from "./components/Exhibitions/ExhibitionsFormNew";
 import ExhibitionsRegistry from "./components/Exhibitions/ExhibitionsRegistry";
 import ExhibitionsCancellationForm from "./components/ExhibitionsCancellation/ExhibitionsCancellationForm";
 import ExhibitionsCancellationRegistry from "./components/ExhibitionsCancellation/ExhibitionsCancellationRegistry";
-import {clubNav} from "../../pages/Docs/config";
-import useIsMobile from "../../utils/useIsMobile";
-import HorizontalMenu from "../../components/HorizontalMenu";
 import "./index.scss";
 
 
@@ -44,11 +40,10 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     const isVisible = isAuthenticated && is_active_profile && match.params.route === clubAlias;
     const isWithFilters = !!useRouteMatch('/:route/documents/replace-pedigree/registry');
-    const isMobile = useIsMobile(1080);
 
     return !isVisible
         ? <PageNotFound />
-        : <Layout withFilters={isWithFilters}>
+        : <Layout layoutWithFilters={isWithFilters}>
             <div className="documents-page content">
                 <Container className="documents-page__content">
                     <TopComponent

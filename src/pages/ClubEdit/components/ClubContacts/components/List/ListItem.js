@@ -14,7 +14,7 @@ const ClientClubContactListItem = ({
         updateClubContactSuccess,
         deleteClubContactSuccess,
 }) => {
-    const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
+    const {setInvisible} = useVisibility(false);
 
     const onUpdateSuccess = values => {
         updateClubContactSuccess(values);

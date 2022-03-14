@@ -1,10 +1,9 @@
-import React from "react";
+import React, {memo} from "react";
 import Container from "../Container";
 import "./index.scss";
 
 
 const AuthLayout = ({className, children}) => (
-
     <Container className="content">
         <div className={`auth-layout${className ? ' ' + className : ''}`}>
             <div className="auth-layout__content">
@@ -14,4 +13,4 @@ const AuthLayout = ({className, children}) => (
     </Container>
 );
 
-export default React.memo(AuthLayout);
+export default memo(AuthLayout);

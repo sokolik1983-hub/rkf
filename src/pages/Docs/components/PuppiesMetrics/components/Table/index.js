@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
 import CopyCell from '../../../CopyCell';
-import PdfLinkCell from "../PdfLinkCell";
+import PdfLinkCell from '../PdfLinkCell';
 
-import "./index.scss";
+import './index.scss';
 
 loadMessages(kendoMessages, 'ru-RU');
 

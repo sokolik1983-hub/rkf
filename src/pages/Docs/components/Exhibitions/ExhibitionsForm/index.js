@@ -27,7 +27,7 @@ import {
 loadMessages(ruMessages, 'ru');
 
 
-const ExhibitionsForm = ({ clubAlias, history, status }) => {
+const ExhibitionsForm = ({ clubAlias, history, status, isEditPage }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [success, setSuccess] = useState('');
