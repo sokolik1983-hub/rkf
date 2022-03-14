@@ -6,11 +6,11 @@ import {connectShowFilters} from './connectors';
 
 import './index.scss';
 
-
-const Layout = ({ children, withFilters, showCopyright, login_page, setShowFilters}) => {
+const Layout = (props) => {
+    const { children, withFilters, showCopyright, login_page, setShowFilters, example, layoutWithFilters} = props;
 
     useEffect(() => {
-        setShowFilters({ withFilters: withFilters, login_page: login_page, isOpen: false})
+        setShowFilters({ withFilters: layoutWithFilters, login_page: login_page, isOpen: false});
     }, [withFilters, login_page]);
 
     return (

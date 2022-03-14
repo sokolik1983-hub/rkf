@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useLocation, useParams} from 'react-router-dom';
+import {useLocation, useParams, Redirect} from 'react-router-dom';
 import ls from 'local-storage';
 import StickyBox from 'react-sticky-box';
 import {useSelector} from "react-redux";
@@ -27,11 +27,12 @@ import MenuComponent from '../../MenuComponent';
 
 import './index.scss';
 
-const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters, location }) => {
+const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated}) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
+    const [errorRedirect, setErrorRedirect] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [clubInfo, setClubInfo] = useState({});
     const [judgeAlias, setJudgeAlias] = useState('');
@@ -81,6 +82,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
         }, error => {
             console.log(error.response);
         });
+
         setNeedRequest(true);
         setLoading(false);
     };
@@ -212,9 +214,11 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated, children,
 
     return (
         loading ?
-            <Loading />
-            :
-            <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
+            <Loading /> :
+            errorRedirect ?
+                <Redirect to="/404" />
+                :
+        <Layout setNotificationsLength={setNotificationsLength} withFilters={checkLink}>
 
             <div className="user-page">
                 <Container className="user-page__content content">

@@ -33,7 +33,7 @@ import './styles.scss';
 
 let unblock;
 
-const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated, isOpenFilters, setShowFilters }) => {
+const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated, isOpenFilters, withFilters, setShowFilters }) => {
     const [values, setValues] = useState(defaultValues);
     const [requestData, setRequestData] = useState(null);
     const [cities, setCities] = useState([]);
@@ -235,7 +235,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout withFilters setNotificationsLength={setNotificationsLength}>
+            : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="UserEdit__wrap">
                     <Container className="UserEdit content">

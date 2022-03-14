@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from "react";
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 import {mainNav} from "../../../../appConfig";
 import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
@@ -13,6 +13,8 @@ import ZlineWidget from "../../../ZLineWidget";
 const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowFilters, setOpen}) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
     const isMobile = useIsMobile(1080);
+    const apiKey = localStorage.getItem('apikey');
+    const location = useLocation();
 
     const links = [
         {
@@ -66,6 +68,43 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
         e.preventDefault();
         setShowZlineModal(true);
     };
+
+    const checkLinkRkfOrg = () => {
+        const search = location.search.substring(1);
+
+        if (search) {
+            const paramsSearch = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+
+            if (paramsSearch.redirect === 'http://rkf.org.ru/' && paramsSearch.id) {
+                if (isAuthenticated) {
+                    window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-test/?ak=${apiKey}&id=${paramsSearch.id}`;
+                } else {
+                    setShowZlineModal(true);
+                    localStorage.setItem('rkforg_zline', paramsSearch.id);
+                }
+            }
+        }
+    }
+
+    const checkRkfOrgZline = () => {
+        if (localStorage.getItem('rkforg_zline') && !showZlineModal) {
+            localStorage.removeItem('rkforg_zline');
+            window.location.href = 'http://rkf.org.ru/zapis-na-poseshhenie-test/';
+        } else if (localStorage.getItem('rkforg_zline') && isAuthenticated) {
+            const id = localStorage.getItem('rkforg_zline');
+
+            localStorage.removeItem('rkforg_zline');
+            window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-test/?ak=${apiKey}&id=${id}`;
+        }
+    }
+
+    useEffect( () => {
+        checkRkfOrgZline();
+    }, [showZlineModal, isAuthenticated]);
+
+    useEffect(() => {
+        checkLinkRkfOrg();
+    }, []);
 
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
