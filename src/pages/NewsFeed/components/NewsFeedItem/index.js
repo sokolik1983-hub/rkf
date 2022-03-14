@@ -12,8 +12,8 @@ import {formatText} from '../../../../utils';
 import {formatDateTime} from '../../../../utils/datetime';
 import {DEFAULT_IMG} from '../../../../appConfig';
 import CardFooter from '../../../../components/CardFooter';
-import DocumentLink from '../DocumentLink';
-import { Request } from "utils/request";
+import DocumentLink from '../../../../components/DocumentLink';
+import { Request } from 'utils/request';
 
 import './index.scss';
 
@@ -121,7 +121,7 @@ const NewsFeedItem = forwardRef(({
 
         return (
             <>
-                <div className="news-feed-item__content">
+                <div className="news-feed-item__content 66666666666666666666666666666666666">
                     <div className="news-feed-item__head" style={{margin: '0 10px 0 10px'}}>
                         <div className="news-feed-item__left">
                             <Link to={user_type === 4

@@ -1,10 +1,11 @@
 import React, { useState,  useRef } from 'react';
-import { getHeaders } from '../../../utils/request';
+import { getHeaders} from "../../utils/request";
 import { SvgIcon } from '@progress/kendo-react-common';
 import { filePdf } from '@progress/kendo-svg-icons';
 import moment from 'moment';
 
-
+//заменён компонент на странице "Главная" в новостях посередине и в профиле в новостях посередине
+//заменён компонент на странице "Уведомления" в списке уведомлений
 const DocumentLink = ({ docId, document }) => {
     const headers = getHeaders();
     const [url, setUrl] = useState('');
@@ -38,7 +39,7 @@ const DocumentLink = ({ docId, document }) => {
             </>
 
         )
-    };
+    }
 
 
     return (

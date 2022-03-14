@@ -11,7 +11,7 @@ import { formatText } from 'utils';
 import { formatDateTime } from 'utils/datetime';
 import { DEFAULT_IMG } from 'appConfig';
 import CardFooter from '../CardFooter';
-import DocumentLink from './DocumentLink';
+import DocumentLink from "../../components/DocumentLink";
 import './index.scss';
 
 const CardNewsNew = forwardRef(({
@@ -102,7 +102,7 @@ const CardNewsNew = forwardRef(({
         }
 
         return <>
-            <div className="card-news-new__content">
+            <div className="card-news-new__content 5555555555555555555555555555555555">
                 <div className="card-news-new__head">
                     <div className="card-news-new__left">
                         <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>

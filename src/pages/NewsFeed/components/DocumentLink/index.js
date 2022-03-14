@@ -12,7 +12,6 @@ const DocumentLink = ({ docId, document }) => {
 
     const getDocument = () => {
         if (!+docId) return;
-
         fetch(`/api/document/publicdocument?id=${docId}`, { headers })
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
