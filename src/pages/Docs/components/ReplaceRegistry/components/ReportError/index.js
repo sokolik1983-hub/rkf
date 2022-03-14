@@ -96,6 +96,8 @@ const ReportErrorForm = ({ id, setIsOpen, setNeedUpdateTable }) => {
 const ReportError = ({ id, onErrorReport, setNeedUpdateTable }) => {
     const [isModalOpen, setIsModalOpen] = useState(true);
 
+    console.log('isModalOpen', isModalOpen);
+
     const handleClose = () => {
         setIsModalOpen(false);
         onErrorReport(null);
