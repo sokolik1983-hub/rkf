@@ -4,6 +4,8 @@ import { SvgIcon } from '@progress/kendo-react-common';
 import { filePdf } from '@progress/kendo-svg-icons';
 import moment from 'moment';
 
+import './index.scss';
+
 //заменён компонент на странице "Главная" в новостях посередине и в профиле в новостях посередине
 //заменён компонент на странице "Уведомления" в списке уведомлений
 const DocumentLink = ({ docId, document }) => {
@@ -27,9 +29,9 @@ const DocumentLink = ({ docId, document }) => {
         return (
             <>
                 <SvgIcon icon={filePdf} size="default" />
-                <div className="DocumentItem__name">
+                <div className="document-item__name">
                     {document.name}
-                    <span className="DocumentItem__date">
+                    <span className="document-item__date">
                         {`Добавлено 
                             ${moment(document.date_create).format("D MMMM YYYY")} в 
                             ${moment(document.date_create).format("HH:mm")}`
@@ -47,13 +49,13 @@ const DocumentLink = ({ docId, document }) => {
         <>
             { !url ?
                 <span
-                    className="DocumentItem__href card-news-new__documents-item-name"
+                    className="document-item__href card-news-new__documents-item-name"
                     onClick={ getDocument }
                 >
                         {renderDocumentItem()}
                     </span> :
                 <a
-                    className="DocumentItem__href"
+                    className="document-item__href"
                     href={url}
                     target="_blank"
                     rel="noreferrer noopener"

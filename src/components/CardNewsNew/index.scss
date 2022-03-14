@@ -598,7 +598,7 @@
     margin: 0 10px;
   }
 
-  .DocumentItem {
+  .document-item {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -627,17 +627,6 @@
 
       svg {
         fill: red !important;
-      }
-    }
-
-    .k-svg-i-file-pdf {
-      width: 22px;
-      height: 22px;
-      margin-right: 10px;
-      flex-shrink: 0;
-
-      svg {
-        fill: #3366ff !important;
       }
     }
 

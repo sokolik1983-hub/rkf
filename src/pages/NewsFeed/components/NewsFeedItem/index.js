@@ -121,7 +121,7 @@ const NewsFeedItem = forwardRef(({
 
         return (
             <>
-                <div className="news-feed-item__content 66666666666666666666666666666666666">
+                <div className="news-feed-item__content">
                     <div className="news-feed-item__head" style={{margin: '0 10px 0 10px'}}>
                         <div className="news-feed-item__left">
                             <Link to={user_type === 4
@@ -338,7 +338,7 @@ const NewsFeedItem = forwardRef(({
                     <div className="news-feed-item__documents" style={{ margin: '0 10px 0 10px' }}>
                         <ul className="news-feed-item__documents-list">
                             {documents.map(doc =>
-                                <li className="DocumentItem" key={doc.id}>
+                                <li className="document-item" key={doc.id}>
                                     <DocumentLink
                                         docId={doc.id}
                                         document={doc}

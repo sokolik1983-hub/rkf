@@ -292,7 +292,7 @@ const CardNewsNew = forwardRef(({
                 <div className="card-news-new__documents">
                     <ul className="card-news-new__documents-list">
                         {documents.map(doc =>
-                            <li className="DocumentItem" key={doc.id}>
+                            <li className="document-item" key={doc.id}>
                                 <DocumentLink
                                     docId={doc.id}
                                     document={doc}
