@@ -47,7 +47,7 @@ export const getEmptyFilters = () => ({
     region_ids: [],
     city_ids: [],
     rank_ids: [],
-    rank_id: 0,
+    rank_id: [],
     specialist_specialization_ids: [],
     contest_ids: [],
     specialist_classification_id: 0,
