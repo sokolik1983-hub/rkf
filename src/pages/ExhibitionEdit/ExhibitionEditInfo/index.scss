@@ -132,10 +132,73 @@
     }
 
     &__modal .Modal__body {
+      display: flex;
+      flex-direction: column;
       width: 720px;
       height: 359px;
+
+      Button {
+        height: 38px;
+        width: 154px;
+        align-self: center;
+        margin-top: 15px;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-family: Source Sans Pro;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #253C5E;
+      }
+    }
+
+    &__modal .Modal__inner {
+      overflow: hidden;
+      height: 408px;
+    }
+
+    &-list {
+      height: 250px;
+      overflow: auto;
+      border: 1px solid #CED4DA;
+      li {
+        height: 22px;
+        margin-bottom: 10px;
+        display: grid;
+        grid-template-columns: 1fr 4fr 2fr 2fr;
+        cursor: pointer;
+        &:hover {
+          span, path {
+            color: #3366ff;
+            fill: #3366ff;
+          }
+
+        }
+        span {
+          margin-right: 25px;
+          font-family: Source Sans Pro;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 22px;
+          text-align: left;
+          color: #72839C;
+          &:first-child {
+            margin-left: 10px;
+            min-width: 48px;
+          }
+        }
+      }
     }
   }
+
 
   @media (max-width: 800px) {
     .FormGroup--inline {
