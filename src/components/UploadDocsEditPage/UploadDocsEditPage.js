@@ -65,6 +65,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
             }, 5000);
         }
     };
+
     const handleSuccess = (message) => {
         setSuccess(true);
         !success && setTimeout(() => {
@@ -81,7 +82,6 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
         <div className="application-form">
                <Form
                   initialValues={initialValues}
-                  key={JSON.stringify(initialValues)}
                   render={formRenderProps => {
                      if (!formProps) setFormProps(formRenderProps);
                      return (
