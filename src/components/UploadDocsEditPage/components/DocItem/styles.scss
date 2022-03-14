@@ -4,9 +4,6 @@
   @import "../../../../../node_modules/bootstrap/scss/bootstrap";
   &__private-docs-wrap {
     position: relative;
-    h3 {
-      padding-top: 15px;
-    }
   }
   &__empty-h3 {
     border-bottom: none!important;
@@ -69,5 +66,28 @@
       display: block;
       overflow: hidden;
     }
+    &__wrap {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      padding: 0 15px;
+    }
+    &__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @media (max-width: 600px) {
+        flex-direction: column;
+      }
+      div {
+        padding: 0 5px;
+      }
+    }
+    &__box {
+      display: flex;
+      align-items: center;
+    }
+  }
+  ul {
+    margin-bottom: 0;
   }
 }

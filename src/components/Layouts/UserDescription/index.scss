@@ -41,6 +41,39 @@
     &-title {
       color: #253c5e;
     }
+    &-lists{
+      display: flex!important;
+      flex-direction: row;
+      @media (max-width: 860px) {
+        display: block!important;
+      }
+    }
+    &-list+&-list {
+      margin-left: 10px;
+      @media (max-width: 600px) {
+        margin-top: 10px;
+        margin-left: 0;
+      }
+    }
+    &-specs{
+      display: flex!important;
+      flex-direction: row;
+      @media (max-width: 600px) {
+        display: block!important;
+      }
+    }
+    &-spec+&-spec{
+      margin-left: 10px;
+      @media (max-width: 600px) {
+        margin-top: 10px;
+      }
+    }
+    &-spec {
+      display: inline-block;
+      padding: 0 10px 2px;
+      background: #DFE9FB;
+      border-radius: 11px;
+    }
     &:before {
       content: "";
       width: 22px;
@@ -54,6 +87,8 @@
     &._birthday:before {background-image: url("/static/icons/owner2.svg")}
     &._email:before {background-image: url("/static/icons/ico-contact-email2.svg")}
     &._phone:before {background-image: url("/static/icons/ico-contact-phone2.svg")}
+    &._full-info:before {background-image: url("/static/icons/information2.svg")}
+    &._specialization:before {background-image: url("/static/icons/favorit.svg")}
     &._address:before {background-image: url("/static/icons/ico-pointer2.svg")}
     &._site:before {background-image: url("/static/icons/ico-web2.svg")}
     &._socials {
@@ -79,6 +114,12 @@
         white-space: nowrap;
         overflow: hidden;
         display: block;
+      }
+    }
+    &._full-info,
+    &._specialization, {
+      @media (max-width: 860px) {
+        flex-direction: column;
       }
     }
   }

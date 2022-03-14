@@ -5,7 +5,7 @@ import './styles.scss';
 
 const AdditionalDocuments = ({documents, formRenderProps, handleError, getDocuments }) => {
 
-    return <div style={{ marginTop: '20px' }}>
+    return <div className="additional-documents">
         {
              <div className="application-form__row">
                 <AdditionalDocumentUpload

@@ -35,7 +35,7 @@ const Docs = ({ history }) => {
 
 
 
-    return <Layout withFilters={isWithFilters}>
+    return <Layout layoutWithFilters={isWithFilters}>
         <div className="documents-page content">
             <Container className="documents-page__content">
                 <TopComponent

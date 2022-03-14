@@ -184,6 +184,7 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
                 dates={dates}
                 onCancel={() => history.push(`/exhibitions/${id}`)}
                 setInitialValues={setInitialValues}
+                exhibitionId={id}
             />
         </Form>
     )
