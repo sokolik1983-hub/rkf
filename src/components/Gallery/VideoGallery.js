@@ -53,7 +53,7 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
     };
 
     useEffect(() => {
-        (!showModal) && blockContent(showModal);
+        !showModal && blockContent(showModal);
     }, [showModal]);
 
     return <div className="ReactGridGallery__wrap">
