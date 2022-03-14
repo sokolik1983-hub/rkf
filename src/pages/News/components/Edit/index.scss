@@ -15,11 +15,12 @@
       &__error {
         position: static;
         padding: 0;
-        margin-top: 10px;
+        margin-top: 2px;
       }
     }
     textarea {
-      resize: vertical;
+      resize: none;
+      height: 138px;
     }
   }
   &__content-length {
@@ -30,7 +31,7 @@
   &__controls {
     display: flex;
     position: relative;
-    bottom: 41px;
+    bottom: 16px;
     align-items: center;
     justify-content: flex-start;
     border-bottom: 1px solid transparent!important;
@@ -230,6 +231,9 @@
         border-width: 2px;
       }
     }
+    @media (max-width: 1023px) {
+      margin-bottom: 20px;
+    }
   }
   &__ad {
     width: 100%;
@@ -255,6 +259,9 @@
     .btn {
       padding: 6px 16px;
       width: 154px;
+      @media (max-width: 1023px) {
+        width: 135px;
+      }
       &:first-child {
         margin-right: 20px;
         @media (max-width: 560px) {
@@ -543,6 +550,14 @@
       padding-bottom: 0;
       .RSInput__value-container {
         height: 18px;
+        .css-1ox0dji-singleValue {
+          position: relative;
+          transform: none;
+          top: unset;
+        }
+        .css-1g6gooi {
+          display: none;
+        }
       }
     }
 
@@ -565,6 +580,24 @@
       bottom: 5px;
     }
   }
+
+  @media (max-width: 1023px) {
+    .article-edit__text {
+      textarea {
+        resize: none;
+        height: 60px;
+        border: none;
+        border-bottom: 1px solid #E5E5E5;
+        border-radius: 0;
+        &:focus {
+          border: none;
+          border-bottom: 1px solid #E5E5E5;
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
 }
 .k-upload .k-dropzone {
   @media (max-width:480px) {
