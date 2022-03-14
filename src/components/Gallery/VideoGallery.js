@@ -50,11 +50,11 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
             <img src={cover_link} onClick={() => setShowModal({ type: 'openVideo', item: item })} alt="" />
             <h5 className="VideoGallery__item-name">{name}</h5>
         </div>
-    }
+    };
 
     useEffect(() => {
-        showModal && blockContent(false);
-    }, []);
+        (showModal === false) && blockContent(showModal);
+    }, [showModal]);
 
     return <div className="ReactGridGallery__wrap">
         <div className="ReactGridGallery__controls">
