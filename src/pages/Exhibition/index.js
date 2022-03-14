@@ -168,17 +168,18 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
                             <div className="exhibition-page__back-button_wrap">
-                                <a className="exhibition-page__back-button"
-                                   href="#"
-                                   onClick={()=> {
-                                       history.go(-1);
-                                   }}
-                                   onTouchStart={()=> {
-                                       history.go(-1);
-                                   }}
+                                <Link
+                                    className="exhibition-page__back-button"
+                                    to="#"
+                                    onClick={()=> {
+                                        history.go(-1);
+                                    }}
+                                    onTouchStart={()=> {
+                                        history.go(-1);
+                                    }}
                                 >
                                     Назад
-                                </a>
+                                </Link>
                             </div>
                             <aside className="exhibition-page__left">
                                 <StickyBox offsetTop={60}>

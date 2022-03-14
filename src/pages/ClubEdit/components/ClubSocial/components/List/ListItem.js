@@ -13,15 +13,15 @@ const ClientClubListItem = ({
         updateClubSocialSuccess,
         deleteClubSocialSuccess
 }) => {
-    const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
-    
+    const {setInvisible} = useVisibility(false);
+
     const onUpdateSuccess = values => {
         updateClubSocialSuccess(values);
         setInvisible()
     };
-    
+
     const onDeleteSuccess = () => deleteClubSocialSuccess({ id: clubSocial.id });
-    
+
     const filterObj = (obj, fKey) => {
         return Object.keys(obj)
             .filter(key => key !== fKey)
@@ -35,7 +35,7 @@ const ClientClubListItem = ({
         checkForDelete();
         onDeleteSuccess();
     }
-    
+
     return (
         <div className="ClientClubListItem">
                 <Form

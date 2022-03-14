@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
-import getYouTubeID from "get-youtube-id";
-import { connect } from "formik";
-import { Link } from "react-router-dom";
-import CustomChipList from "components/Form/Field/CustomChipList";
-import { FormControls, FormField, FormGroup, SubmitButton } from "components/Form";
-import AddVideoLink from "components/UserAddArticle/AddVideoLink";
-import AttachFile from "components/UserAddArticle/AttachFile";
-import { BAD_SITES } from "appConfig";
-import { Request } from "utils/request";
-import Modal from "components/Modal";
-import LightTooltip from "components/LightTooltip";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { filePdf, trash, youtube } from "@progress/kendo-svg-icons";
-import moment from "moment";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import OutsideClickHandler from 'react-outside-click-handler';
+
+import getYouTubeID from 'get-youtube-id';
+import { connect } from 'formik'
+import CustomChipList from 'components/Form/Field/CustomChipList';
+import { FormControls, FormField, FormGroup, SubmitButton } from 'components/Form';
+import AddVideoLink from 'components/UserAddArticle/AddVideoLink';
+import AttachFile from 'components/UserAddArticle/AttachFile';
+import { BAD_SITES } from 'appConfig';
+import { Request } from 'utils/request';
+import Modal from 'components/Modal';
+import LightTooltip from 'components/LightTooltip';
+import { SvgIcon } from '@progress/kendo-react-common';
+import { filePdf, trash, youtube } from '@progress/kendo-svg-icons';
+import moment from 'moment';
 import { blockContent } from '../../../../../utils/blockContent';
-import OutsideClickHandler from "react-outside-click-handler";
 import { useFocus } from '../../../../../shared/hooks';
 
 
@@ -24,7 +25,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const [advertTypes, setAdvertTypes] = useState([]);
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const { focus, setFocused, setBlured } = useFocus(false);
+    const { setBlured } = useFocus(false);
     const { content, is_advert } = formik.values;
 
     useEffect(() => {

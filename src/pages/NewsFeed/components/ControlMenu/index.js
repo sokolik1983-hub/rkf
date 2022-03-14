@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 import { Request } from "../../../../utils/request";
 
 import './index.scss';
@@ -12,13 +12,20 @@ const ControlMenu = ({
                          updateNews,
                          unsetAllChecks,
                          startElement,
+                         isUpdateWithAllChecks,
+                         setZipMessage,
                      }) => {
 
     const [elementsCount, setElementsCount] = useState(startElement + 9);
+    const controlCheckedAllRef = useRef();
 
     useEffect(() => {
         setElementsCount(startElement + 9);
     }, [startElement]);
+
+    useEffect(() => {
+        isUpdateWithAllChecks && !isControlCheckedAll && clickControl();
+    }, [isUpdateWithAllChecks, isControlCheckedAll]);
 
     const moveNotifications = async (method) => {
         await Request({
@@ -27,10 +34,18 @@ const ControlMenu = ({
         }, data => {
             updateNews(1, true, elementsCount);
             unsetAllChecks();
+
+            if (method === 'zip_notification' || method === 'unzip_notification') {
+                setZipMessage(data);
+            }
         }, error => {
             console.log(error.response);
         });
     };
+
+    const clickControl = () => {
+        controlCheckedAllRef.current.click();
+    }
 
 
     return (
@@ -42,6 +57,7 @@ const ControlMenu = ({
                             type="checkbox"
                             checked={isControlCheckedAll}
                             onChange={() => handleCheckAll(true)}
+                            ref={controlCheckedAllRef}
                         />
                         <span className="control-menu__item-text">
                             Выделить все
@@ -50,8 +66,8 @@ const ControlMenu = ({
                 </div>
 
                 <div
-                    className={`control-menu__item ${(!selectedItemsIds.length || !isControlReadAllOn) && 'control-menu__item_disabled'}`}
-                    onClick={() => moveNotifications('mark_articles_read')}
+                    className={`control-menu__item ${(!selectedItemsIds.length || !isControlReadAllOn || categoryId === 8) && 'control-menu__item_disabled'}`}
+                    onClick={() => ((selectedItemsIds.length || isControlReadAllOn) && categoryId !== 8) && moveNotifications('mark_articles_read')}
                 >
                     <span className="control-menu__item-icon control-menu__item-icon_select-all-reed"> </span>
                     <span className="control-menu__item-text">
@@ -66,7 +82,7 @@ const ControlMenu = ({
 
                 <div
                     className={`control-menu__item ${!selectedItemsIds.length && 'control-menu__item_disabled'}`}
-                    onClick={() => moveNotifications(categoryId !== 9 ? 'zip_notification' : 'unzip_notification')}
+                    onClick={() => selectedItemsIds.length && moveNotifications(categoryId !== 9 ? 'zip_notification' : 'unzip_notification')}
                 >
                     <span className="control-menu__item-icon control-menu__item-icon_move-to-archive"> </span>
 

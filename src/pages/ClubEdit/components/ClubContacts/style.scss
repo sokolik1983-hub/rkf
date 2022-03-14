@@ -311,6 +311,13 @@
                     padding: 5px 10px;
                 }
             }
+
+            .DeleteButton {
+                @media (max-width: 560px) {
+                position: relative;
+                bottom: -56px!important;
+                }
+            }
         }
 
         .add-max {
@@ -335,8 +342,8 @@
         }
 
         .add-mini {
-            position: absolute;
-            bottom: 27px;
+            position: relative;
+            bottom: 53px;
             left: 5px;
             height: 18px;
             width: 18px;
@@ -413,7 +420,9 @@
                         background-size: cover;
                         border: none;
                         transition: all 0.2s linear;
-
+                        @media (max-width: 560px) {
+                            bottom: 0;
+                        }
                         &:hover {
                             box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
                         }
@@ -466,5 +475,8 @@
             line-height: 16px;
             background-color: rgba(255, 255, 255, 0);
         }
+    }
+    .Submit-button {
+        margin-top: -20px;
     }
 }

@@ -157,23 +157,23 @@
         }
       }
 
-      .members-component {
+      @media (min-width: 450px) {
+        .members-component {
+          &__title {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #E5E5E5;
+          }
 
-        &__title {
-          padding-bottom: 10px;
-          border-bottom: 1px solid #E5E5E5;
-        }
+          &__list {
+            display: flex;
+            justify-content: space-around;
+          }
 
-        &__list {
-          display: flex;
-          justify-content: space-around;
-        }
-
-        &__item {
-          margin-bottom: 6px;
+          &__item {
+            margin-bottom: 6px;
+          }
         }
       }
-
     }
     @media (max-width: 560px) {
       display: block;

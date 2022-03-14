@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState, useRef } from "react";
 import { Collapse } from "react-collapse";
-
 import Card from "../../Card";
 import {formatWorkTime} from "../../../utils";
 import {timeSecondsCutter} from "../../../utils/datetime";
@@ -102,6 +101,14 @@ const UserContacts = ({
                     </div>
                     : <div className="user-contacts__info-email"><p><span style={{ color: '#253c5e' }}>E-mail:&nbsp;</span>Не указан</p></div>
                 }
+                <div className="user-contacts__info-email">
+                    {contacts.filter(item => item.contact_type_id === 2).slice(1).map(contact => (
+                        <p key={contact.id}>
+                            <span>{contact.description || "E-mail"}:&nbsp;</span>
+                            <a href={`mailto:${contact.value}`}>{contact.value}</a>
+                        </p>
+                    ))}
+                </div>
                 {mainPhone || contacts
                     ? <div className="user-contacts__info-phone">
                         <p>
@@ -111,14 +118,6 @@ const UserContacts = ({
                     </div>
                     : <div className="user-contacts__info-phone"><p><span>Телефон:&nbsp;</span><span>Не указан</span></p></div>
                 }
-                <div className="user-contacts__info-email">
-                    {contacts.filter(item => item.contact_type_id === 2).slice(1).map(contact => (
-                        <p key={contact.id}>
-                            <span>{contact.description || 'E-mail'}:&nbsp;</span>
-                            <a href={`mailto:${contact.value}`}>{contact.value}</a>
-                        </p>
-                    ))}
-                </div>
                 {work_time && !!work_time.length &&
                     <div className="user-contacts__info-work-time">
                         <span>График работы:&nbsp;</span>

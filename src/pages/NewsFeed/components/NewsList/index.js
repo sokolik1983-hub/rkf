@@ -7,11 +7,12 @@ import NewsFeedItem from "../NewsFeedItem";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import ControlMenu from "../ControlMenu";
+import Alert from "../../../../components/Alert";
 
 import "./styles.scss";
 
 
-const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
+const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError, setCategoriesCounters}) => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
@@ -23,6 +24,8 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const [isControlCheckedAll, setIsControlCheckedAll] = useState(false);
     const [clearChecks, setClearChecks] = useState(false);
     const [isUnreadMessages, setIsUnreadMessages] = useState(false);
+    const [isUpdateWithAllChecks, setIsUpdateWithAllChecks] = useState(false);
+    const [zipMessage, setZipMessage] = useState('');
 
     const allItemsIds = [];
     news.map(n => allItemsIds.push(n.id));
@@ -34,10 +37,16 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         setIsControlCheckedAll(false);
         setClearChecks(false);
         setIsUnreadMessages(false);
+        setIsUpdateWithAllChecks(false);
+        setZipMessage('');
 
         setStartElement(1);
         (() => getNews(1, true))();
     }, [activeCategoryId]);
+
+    useEffect(() => {
+        !isControlCheckedAll && setIsUpdateWithAllChecks(false);
+    },[isControlCheckedAll])
 
     const getNews = async (startElement = 1, reset = false, elementsCount = 10) => {
         await Request({
@@ -46,8 +55,10 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             setIsControlCheckedAll(false);
             setClearChecks(false);
             setCheckedAll(false);
-            setCheckedItemsIds([]);
             setIsUnreadMessages(false);
+
+            startElement === 1 && setCheckedItemsIds([]);
+            startElement !== 1 && isControlCheckedAll && setIsUpdateWithAllChecks(true);
 
             setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
 
@@ -58,6 +69,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
             }
 
             setLoading(false);
+            setCategoriesCounters(data.counters);
         }, error => {
             console.log(error.response);
             setLoading(false);
@@ -168,6 +180,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const unsetAllChecks = () => {
         setClearChecks(true);
         setCheckedItemsIds([]);
+        setIsUpdateWithAllChecks(false);
     }
 
     const checkReadability = (ids) => {
@@ -199,6 +212,8 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                     updateNews={getNews}
                     unsetAllChecks={unsetAllChecks}
                     startElement={startElement}
+                    isUpdateWithAllChecks={isUpdateWithAllChecks}
+                    setZipMessage={setZipMessage}
                 />
 
                 <InfiniteScroll
@@ -207,7 +222,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                     hasMore={hasMore}
                     loader={<Loading centered={false} />}
                     endMessage={
-                        <div className="NewsList__no-news">
+                        <div className="news-list__no-news">
                             <h4>Публикаций больше нет</h4>
                             <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
                         </div>
@@ -236,9 +251,18 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                     </div>
 
                 </InfiniteScroll>
+
+                {zipMessage &&
+                    <Alert
+                        text={zipMessage}
+                        autoclose={2}
+                        onOk={() => setZipMessage('')}
+                    />
+                }
+
             </>
             : <Card>
-                <div className="NewsList__no-news">
+                <div className="news-list__no-news">
                     <h4>Публикации не найдены</h4>
                     <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
                 </div>

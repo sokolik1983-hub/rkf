@@ -15,7 +15,6 @@ import {Request} from "../../utils/request";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import "./index.scss";
 import { setFiltersToUrl } from "./utils";
-import { log2 } from "pdfjs-dist/lib/core/core_utils";
 
 
 moment.locale('ru');
@@ -115,7 +114,7 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
 
     return loading ?
         <Loading /> :
-        <Layout withFilters>
+        <Layout layoutWithFilters>
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
             <div className="specialists-page__wrap redesign">
                 <Container className="specialists-page content">
