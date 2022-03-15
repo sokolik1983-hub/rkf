@@ -90,7 +90,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                             canEdit={canEdit}
                                         />
                                         <PhotoComponent
-                                            photo={fedInfo.owner_photo}
+                                            photo={fedInfo.picture_link}
                                             name={fedInfo.owner_name}
                                             position={fedInfo.owner_position}
                                         />
@@ -151,7 +151,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                                 <PhotoComponent
-                                                    photo={fedInfo.owner_photo}
+                                                    photo={fedInfo.picture_link}
                                                     name={fedInfo.owner_name}
                                                     position={fedInfo.owner_position}
                                                 />
