@@ -19,7 +19,7 @@ import Container from '../../components/Layouts/Container';
 import CopyrightInfo from '../../components/CopyrightInfo';
 import UserBanner from '../../components/Layouts/UserBanner';
 import { connectShowFilters } from '../../components/Layouts/connectors';
-import { endpointGetUserInfo, userNav } from '../../components/Layouts/UserLayout/config';
+import {endpointGetRolesInfo, endpointGetUserInfo, userNav} from '../../components/Layouts/UserLayout/config';
 import About from './sections/About';
 import MainInfo from './sections/MainInfo';
 import Contacts from './sections/Contacts';
@@ -51,6 +51,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [errorRedirect, setErrorRedirect] = useState(false);
     const [formBusy, setFormBusy] = useState(false);
     const [notificationsLength, setNotificationsLength] = useState(0);
+    const [rolesInfo, setRolesInfo] = useState([]);
+    const [judgeInfo, setJudgeInfo] = useState([]);
     const prevRequestData = useRef();
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
@@ -77,6 +79,16 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }
     }, [requestData]);
 
+    useEffect(() => {
+        userInfo?.profile_id &&
+        (() => getRolesInfo())();
+    }, [userInfo]);
+
+    useEffect(() => {
+        !!rolesInfo &&
+        setJudgeInfo(rolesInfo.open_roles?.map(item => item.key_name === "role_judge" && item.role_data));
+    }, [rolesInfo]);
+
     const getUser = async needUpdateAvatar => {
         await Request({
             url: endpointGetUserInfo + alias
@@ -91,6 +103,18 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             setError(error.response);
         });
     };
+
+    const getRolesInfo = async() => {
+        await Request({
+            url: endpointGetRolesInfo + userInfo.profile_id
+        }, data => {
+            setRolesInfo(data);
+        }, error => {
+            console.log(error.response);
+            setErrorRedirect(error.response);
+        });
+    };
+
 
     const getInfo = (type) => {
         PromiseRequest(sections[type].url)
@@ -216,7 +240,9 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     handleError={handleError}
                 />;
             case 4:
-                return <DeletePage updateInfo={getInfo} />;
+                return <DeletePage
+                    judgeInfo={judgeInfo}
+                />;
             default:
                 return <div>Not Found</div>;
         }

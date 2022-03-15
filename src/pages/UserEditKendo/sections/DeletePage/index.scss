@@ -1,37 +1,77 @@
 .ue-delete-page {
-  &__describe {
-    line-height: 20px;
-    text-align: center;
-    margin: 150px 0 !important;
-    b {
-      color: #72839c;
+    &__describe {
+        line-height: 20px;
+        text-align: center;
+        margin: 150px 0 !important;
+
+        b {
+            color: #72839c;
+        }
+
+        @media (max-width: 1024px) {
+            display: none;
+        }
+
+        &__mobile {
+            display: none;
+            line-height: 20px;
+            text-align: center;
+            margin: 26px 0 !important;
+            @media (max-width: 1024px) {
+                display: block;
+            }
+        }
     }
-    @media (max-width: 1024px) {
-      display: none;
+
+    .k-form-buttons {
+        justify-content: center;
     }
-    &__mobile {
-      display: none;
-      line-height: 20px;
-      text-align: center;
-      margin: 26px 0 !important;
-      @media (max-width: 1024px) {
-        display: block;
-      }
+
+    .k-button {
+        background-color: #00C48C !important;
     }
-  }
-  .k-form-buttons {
-    justify-content: center;
-  }
-  .k-button {
-      background-color: #00C48C !important;
-  }
+
+    .user-edit__delete {
+        display: flex;
+        flex-direction: column;
+        min-height: 125px;
+        @media (max-width: 560px) {
+            margin: 120px auto;
+            padding: 0;
+            max-width: 400px;
+        }
+
+        p {
+            text-align: center;
+            margin: 25px auto 40px;
+        }
+
+        .button-delete__disable {
+            margin: 0 auto;
+            width: 155px;
+            height: 38px;
+            padding: 0;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            color: #FFFFFF;
+            background: #D6D6D6;
+            border: 1px solid #D6D6D6;
+            border-radius: 4px;
+            @media (max-width: 560px) {
+                margin-bottom: 10px;
+            }
+        }
+    }
 }
+
 .Modal__body {
-  .btn, .k-button {
-      width: 154px;
-      height: 38px;
-  }
-  .k-button, .btn-danger {
-      background-color: #00C48C !important;
-  }
+    .btn, .k-button {
+        width: 154px;
+        height: 38px;
+    }
+
+    .k-button, .btn-danger {
+        background-color: #00C48C !important;
+    }
 }
