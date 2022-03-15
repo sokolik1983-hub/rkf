@@ -72,14 +72,14 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
                                     <UserBanner
-                                        link={fedInfo.header_picture_link}
+                                        link={fedInfo.headliner_link}
                                         canEdit={canEdit}
                                         updateInfo={getFedInfo}
                                     />
                                     {isMobile && <>
                                         <UserHeader
                                             user={alias !== 'rkf-online' ? 'club' : ''}
-                                            logo={fedInfo.logo}
+                                            logo={fedInfo.logo_link}
                                             name={fedInfo.short_name || fedInfo.name || 'Название федерации отсутствует'}
                                             alias={alias}
                                             profileId={fedInfo.id}
@@ -140,7 +140,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                             {!isMobile && <>
                                                 <UserHeader
                                                     user={alias !== 'rkf-online' ? 'club' : ''}
-                                                    logo={fedInfo.logo}
+                                                    logo={fedInfo.logo_link}
                                                     name={fedInfo.short_name || fedInfo.name || 'Название клуба отсутствует'}
                                                     alias={alias}
                                                     profileId={fedInfo.id}
