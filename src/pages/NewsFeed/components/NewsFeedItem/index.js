@@ -14,6 +14,7 @@ import {DEFAULT_IMG} from '../../../../appConfig';
 import CardFooter from '../../../../components/CardFooter';
 import DocumentLink from '../../../../components/DocumentLink';
 import { Request } from 'utils/request';
+import { endpointGetLinkNewsFeed } from "../../config";
 
 import './index.scss';
 
@@ -342,6 +343,8 @@ const NewsFeedItem = forwardRef(({
                                     <DocumentLink
                                         docId={doc.id}
                                         document={doc}
+                                        endpoint={endpointGetLinkNewsFeed}
+                                        page="NewsFeedItem"
                                     />
                                 </li>
                             )}

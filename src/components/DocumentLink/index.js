@@ -6,17 +6,17 @@ import moment from 'moment';
 
 import './index.scss';
 
-//заменён компонент на странице "Главная" в новостях посередине и в профиле в новостях посередине
-//заменён компонент на странице "Уведомления" в списке уведомлений
-const DocumentLink = ({ docId, document }) => {
+const DocumentLink = ({ docId, document, endpoint, page }) => {
     const headers = getHeaders();
     const [url, setUrl] = useState('');
     const linkRef = useRef();
 
+    console.log('page', page)
+
     const getDocument = () => {
         if (!+docId) return;
 
-        fetch(`/api/document/publicdocument?id=${docId}`, { headers })
+        fetch(`${endpoint}?id=${docId}`, { headers })
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => {
@@ -49,7 +49,7 @@ const DocumentLink = ({ docId, document }) => {
         <>
             { !url ?
                 <span
-                    className="document-item__href card-news-new__documents-item-name"
+                    className="document-item__href"
                     onClick={ getDocument }
                 >
                         {renderDocumentItem()}

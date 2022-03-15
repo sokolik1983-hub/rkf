@@ -12,6 +12,8 @@ import { formatDateTime } from 'utils/datetime';
 import { DEFAULT_IMG } from 'appConfig';
 import CardFooter from '../CardFooter';
 import DocumentLink from "../../components/DocumentLink";
+import { endpointGetLinkNewsFeed } from "./config";
+
 import './index.scss';
 
 const CardNewsNew = forwardRef(({
@@ -296,6 +298,8 @@ const CardNewsNew = forwardRef(({
                                 <DocumentLink
                                     docId={doc.id}
                                     document={doc}
+                                    endpoint={endpointGetLinkNewsFeed}
+                                    page="CardNewsNew"
                                 />
                             </li>
                         )}
