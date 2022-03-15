@@ -45,7 +45,6 @@ const RenderFields = ({
                         handleSubmitForms={handleSubmitForms}
                         bindSubmitClubInfo={bindSubmitClubInfo}
                         bindSubmitClubAlias={bindSubmitClubAlias}
-                        bindSubmitClubDocuments={bindSubmitClubDocuments}
                     /> :
                     activeSection === 1 ? <ClubContactsCard
                         handleSubmitForms={handleSubmitForms}

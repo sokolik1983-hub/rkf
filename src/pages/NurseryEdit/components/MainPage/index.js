@@ -15,7 +15,6 @@ const MyComponent = ({
         working,
         name_lat,
         web_site,
-        documents,
         description,
         co_owner_mail,
         co_owner_last_name,
@@ -38,7 +37,6 @@ const MyComponent = ({
             <FormGroup inline>
                 <FormField {...web_site} />
             </FormGroup>
-            <Documents documents={documents}/>
             <SubmitButton>Сохранить</SubmitButton>
             {formik.errors && !!Object.keys(formik.errors).length
                 && <div className="nursery-edit__is-valid">Не все необходимые поля заполнены</div>}
@@ -49,7 +47,6 @@ const MyComponent = ({
                     history={history}
                 />
             </div>
-
         </Card>
     );
 };
