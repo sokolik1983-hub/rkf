@@ -6,8 +6,7 @@ const {fields} = clubBankInfoFormConfig;
 
 const RenderFields = () => (
     <FormGroup>
-        <FormField {...fields.rs_number}/>
-        <FormField {...fields.bank_name}/>
+        <FormField {...fields.comment}/>
     </FormGroup>
 );
 

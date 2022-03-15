@@ -81,7 +81,8 @@
     &-phone,
     &-site,
     &-socials,
-    &-work-time {
+    &-work-time,
+    &-bank {
       position: relative;
       padding-left: 30px;
       margin-bottom: 6px;
@@ -145,7 +146,13 @@
     }
 
     &-work-time {
+      display: flex;
+      flex-wrap: wrap;
+      @media (max-width: 576px) {
+        flex-direction: column;
+      }
       span {
+        display: flex;
         font-weight: 400;
       }
 
@@ -177,18 +184,8 @@
       }
     }
 
-    &-bank {
-      margin-top: 36px;
-
-      .club-page__info-details {
-        color: #61797c;
-        font-weight: 300;
-
-        span {
-          color: #253c5e !important;
-          font-weight: 400 !important;
-        }
-      }
+    &-bank:before {
+      background-image: url("/static/icons/bank.svg");
     }
 
     &-show-more {

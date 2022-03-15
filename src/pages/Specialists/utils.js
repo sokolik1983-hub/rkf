@@ -19,7 +19,7 @@ const buildUrlParams = filters => {
                 key === 'SpecializationIds' ||
                 key === 'DisciplineIds' ||
                 key === 'ContestIds'||
-                key === 'RankIds'
+                key === 'RankId'
             ) {
                 if (filters[key].length) {
                     params = params + filters[key].map(item => `${key}=${item}&`).join('');
@@ -46,7 +46,7 @@ export const buildUrl = filters => {
 export const buildFiltersUrl = (filters, isFirstTime) => {
     return +filters.SearchTypeId === 4 ?
         `${endpointJudgesFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${filters.BreedGroupIds.map(b => `&BreedGroupIds=${b}`).join('')}&ReturnStaticFilters=true&ReturnBreeds=true&ReturnCities=true` : //ReturnStaticFilters= должен использовать переменную "isFirstTime" сделали костыль, убрали оптимизацию запросов, нужно переделать
-        `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=${isFirstTime}${filters.RankIds.map(rank => `&RankIds=${rank}`).join('')}${filters.DisciplineIds.map(discipline => `&DisciplineIds=${discipline}`).join('')}`
+        `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=${isFirstTime}${filters.RankId.map(rank => `&RankIds=${rank}`).join('')}${filters.DisciplineIds.map(discipline => `&DisciplineIds=${discipline}`).join('')}`
 };
 
 export const getFiltersFromUrl = () => {
@@ -69,7 +69,7 @@ export const getFiltersFromUrl = () => {
                 key === 'SpecializationIds' ||
                 key === 'DisciplineIds' ||
                 key === 'ContestIds' ||
-                key === 'RankIds'
+                key === 'RankId'
             ) {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else if(key === 'SearchTypeId' || key === 'ClassificationId') {
@@ -100,7 +100,7 @@ export const getEmptyFilters = () => ({
     CityIds: [],
     BreedGroupIds: [],
     BreedIds: [],
-    RankIds: [],
+    RankId: [],
     ClassificationId: 0,
     SpecializationIds: [],
     DisciplineIds: [],
