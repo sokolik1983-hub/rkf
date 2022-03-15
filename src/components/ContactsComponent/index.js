@@ -5,7 +5,19 @@ import {timeSecondsCutter} from "../../utils/datetime";
 import "./index.scss";
 
 
-const ContactsComponent = ({name, legal_address, address, owner_position, owner_name, contacts, site, work_time, ogrn, regdate, bank_comment}) => (
+const ContactsComponent = ({
+        name,
+        legal_address,
+        address,
+        owner_position,
+        owner_name,
+        contacts,
+        site,
+        work_time,
+        ogrn,
+        regdate,
+        bank_comment,
+    }) => (
     <Card className="contacts-component">
         <h4 className="contacts-component__title">Контакты</h4>
         {name &&
