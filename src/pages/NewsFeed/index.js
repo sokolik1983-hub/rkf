@@ -28,9 +28,15 @@ const Layout = props => {
 
 const Content = props => { //Дополнительные props берутся из Layout. Это неочевидно и лучше так не делать.
 
-    const {showMustRead, notificationUrlIndex, activeCategoryId, showFilter, setShowFilters} = props;
-
-    const [categoriesCounters, setCategoriesCounters] = useState('');
+    const {
+        showMustRead,
+        notificationUrlIndex,
+        activeCategoryId,
+        showFilter,
+        setShowFilters,
+        countersChanges,
+        setCountersChanges,
+    } = props;
 
     blockContent(showFilter);
 
@@ -39,12 +45,20 @@ const Content = props => { //Дополнительные props берутся �
             <div className="news-feed">
 
                 <div className="news-feed-left">
-                    <NewsList {...props} setCategoriesCounters={setCategoriesCounters}/>
+                    <NewsList
+                        {...props}
+                        setCountersChanges={setCountersChanges}
+                    />
                 </div>
 
                 <aside className={`notification-page__filters ${showFilter ? ' _open' : ''} `}>
                             <div className={showFilter ? "news-feed-right" : 'news-feed-right hidden'}>
-                                <CategoriesList {...props} setShowFilters={setShowFilters}  categoriesCounters={categoriesCounters}/>
+                                <CategoriesList
+                                    {...props}
+                                    setShowFilters={setShowFilters}
+                                    countersChanges={countersChanges}
+                                    setCountersChanges={setCountersChanges}
+                                />
                                 {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
                                 <MustRead {...props} notificationUrlIndex={notificationUrlIndex} setShowFilters={setShowFilters}/>
                                 }
@@ -59,6 +73,7 @@ const NewsFeed = props => {
     const [activeCategoryId, setActiveCategoryId] = useState(1);
     const [showMustRead, setShowMustRead] = useState(false);
     const [notificationUrlIndex, setNotificationUrlIndex] = useState(null);
+    const [countersChanges, setCountersChanges] = useState(false);
 
     useEffect(() => {
         setActiveCategoryId(props.match.params.id ? parseInt(props.match.params.id) : 1);
@@ -77,6 +92,8 @@ const NewsFeed = props => {
                 showMustRead={showMustRead}
                 setShowMustRead={setShowMustRead}
                 notificationUrlIndex={notificationUrlIndex}
+                countersChanges={countersChanges}
+                setCountersChanges={setCountersChanges}
             />
         </Layout>
     )

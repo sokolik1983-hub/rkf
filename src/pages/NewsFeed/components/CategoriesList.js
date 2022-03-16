@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from 'components/Card';
 import { categories } from '../config';
+import { Request } from "../../../utils/request";
 
-const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead, setShowFilters, categoriesCounters}) => {
+const CategoriesList = ({
+                            activeCategoryId,
+                            setActiveCategoryId,
+                            setShowMustRead,
+                            setShowFilters,
+                            countersChanges,
+                            setCountersChanges,
+}) => {
     const isActive = (value) => activeCategoryId === value ? "news-feed__category-item active" : "news-feed__category-item";
+    const [categoriesCounters, setCategoriesCounters] = useState(0);
+
+    useEffect(() => {
+        console.log('countersChanges', countersChanges)
+        getCategoriesCounters();
+    }, [countersChanges]);
+
+    const getCategoriesCounters = async () => {
+        await Request({
+            url: '/api/article/articles_feed_counters',
+            method: 'GET',
+        }, data => {
+            setCategoriesCounters(data);
+            countersChanges && setCountersChanges(false);
+        }, error => {
+            console.log(error.response);
+        });
+    };
 
     const handleCategoryClick = (id) => {
         setActiveCategoryId(id);
@@ -15,6 +41,7 @@ const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead
         }
         window.scrollTo(0, 0);
     }
+    // api/article/articles_feed_counters
 
     const getCount = (id) => {
         let count = 0;
