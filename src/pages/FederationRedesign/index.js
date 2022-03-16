@@ -36,7 +36,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
 
     const getFedInfo = () => {
         Request({
-            url: `/api/Club/public/${alias}`
+            url: `/api/Club/federation_base_info?alias=${alias}`
         }, data => {
             setFedInfo(data);
             setNotActiveProfile(isAuthenticated && !is_active_profile);
@@ -72,14 +72,14 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
                                     <UserBanner
-                                        link={fedInfo.headliner_link}
+                                        link={fedInfo.header_picture_link}
                                         canEdit={canEdit}
                                         updateInfo={getFedInfo}
                                     />
                                     {isMobile && <>
                                         <UserHeader
                                             user={alias !== 'rkf-online' ? 'club' : ''}
-                                            logo={fedInfo.logo_link}
+                                            logo={fedInfo.logo}
                                             name={fedInfo.short_name || fedInfo.name || 'Название федерации отсутствует'}
                                             alias={alias}
                                             profileId={fedInfo.id}
@@ -90,7 +90,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                             canEdit={canEdit}
                                         />
                                         <PhotoComponent
-                                            photo={fedInfo.picture_link}
+                                            photo={fedInfo.owner_photo}
                                             name={fedInfo.owner_name}
                                             position={fedInfo.owner_position}
                                         />
@@ -140,7 +140,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                             {!isMobile && <>
                                                 <UserHeader
                                                     user={alias !== 'rkf-online' ? 'club' : ''}
-                                                    logo={fedInfo.logo_link}
+                                                    logo={fedInfo.logo}
                                                     name={fedInfo.short_name || fedInfo.name || 'Название клуба отсутствует'}
                                                     alias={alias}
                                                     profileId={fedInfo.id}
@@ -151,7 +151,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                                 <PhotoComponent
-                                                    photo={fedInfo.picture_link}
+                                                    photo={fedInfo.owner_photo}
                                                     name={fedInfo.owner_name}
                                                     position={fedInfo.owner_position}
                                                 />
