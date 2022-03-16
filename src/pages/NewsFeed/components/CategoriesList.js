@@ -41,7 +41,6 @@ const CategoriesList = ({
         }
         window.scrollTo(0, 0);
     }
-    // api/article/articles_feed_counters
 
     const getCount = (id) => {
         let count = 0;

@@ -60,7 +60,11 @@ const Content = props => { //Дополнительные props берутся �
                                     setCountersChanges={setCountersChanges}
                                 />
                                 {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
-                                <MustRead {...props} notificationUrlIndex={notificationUrlIndex} setShowFilters={setShowFilters}/>
+                                    <MustRead
+                                        {...props}
+                                        notificationUrlIndex={notificationUrlIndex}
+                                        setShowFilters={setShowFilters}
+                                    />
                                 }
                             </div>
                 </aside>
