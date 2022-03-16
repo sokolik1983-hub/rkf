@@ -27,7 +27,6 @@ import Security from './sections/Security';
 import DeletePage from './sections/DeletePage';
 import { connectAuthVisible } from '../Login/connectors';
 import { sections, defaultValues, phoneMask } from './config';
-import UploadDocsEditPage from '../../components/UploadDocsEditPage/UploadDocsEditPage';
 
 import './styles.scss';
 
