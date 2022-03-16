@@ -26,6 +26,7 @@ const UserContacts = ({
     kpp,
     ogrn,
     bank_name,
+    bank_comment,
     rs_number,
     bic,
     is_active,
@@ -61,7 +62,6 @@ const UserContacts = ({
     const address_or_city = address || legal_address || city_name;
     const mainEmail = contacts && contacts.filter(item => item.contact_type_id === 2)[0];
     const mainPhone = contacts && contacts.filter(item => item.contact_type_id === 1)[0];
-    //const mainWorkTime = work_time && formatWorkTime(work_time)[0];
     const showRequisites = !is_active && (!!inn || !!kpp || !!ogrn || !!bank_name || !!bic || !!rs_number);
 
     const getPhoneString = (main_phone, contactsList) => {
@@ -145,6 +145,12 @@ const UserContacts = ({
                     <p className="user-contacts__info-address">
                         <span>Фактический адрес</span>:&nbsp;
                         <span>{address_or_city}</span>
+                    </p>
+                }
+                {bank_comment &&
+                    <p className="user-contacts__info-bank">
+                        <span>Банковские реквизиты</span>:&nbsp;
+                        <span>{bank_comment}</span>
                     </p>
                 }
                 <div className="user-contacts__info-site">

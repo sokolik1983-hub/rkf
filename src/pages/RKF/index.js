@@ -30,7 +30,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
 
     useEffect(() => {
         (() => Request({
-            url: '/api/Club/rkf_base_info'
+            url: '/api/Club/public/rkf'
         }, data => {
             setInfo(data);
             setCanEdit(isAuthenticated && profile_id === data.id);
@@ -83,13 +83,12 @@ const RKF = ({isAuthenticated, profile_id}) => {
                     </div>
                     <div className="rkf-page__info">
                         {!isMobile && <aside className="rkf-page__left">
-                            {/*если не мобилка*/}
                             <PhotoComponent
                                 photo={info.owner_photo || "/static/images/rkf/photo.png"}
                                 name={info.owner_name || "Голубев Владимир Семенович"}
                                 position={info.owner_position || "Президент Российской Кинологической Федерации"}
                             />
-                            {!isMobile && <MenuComponent //показывайся всегда
+                            {!isMobile && <MenuComponent
                                 alias='rkf'
                                 name={info.name}
                                 isFederation
@@ -98,26 +97,18 @@ const RKF = ({isAuthenticated, profile_id}) => {
                             {info.documents && !!info.documents.length && <DocumentsComponent documents={info.documents}/>}
                             {info.members && !!info.members.length && <MembersComponent members={info.members}/>}
                             <CopyrightInfo withSocials={true} />
-                            {/*если мобилка*/}
                         </aside>}
                         {isMobile && <aside className="rkf-page__left">
-                            {/*если не мобилка*/}
                             <PhotoComponent
                                 photo={info.owner_photo || "/static/images/rkf/photo.png"}
                                 name={info.owner_name || "Голубев Владимир Семенович"}
                                 position={info.owner_position || "Президент Российской Кинологической Федерации"}
                             />
-                            {/*<MenuComponent //показывайся всегда
-                                alias='rkf'
-                                name={info.name}
-                                isFederation
-                            />*/}
                             {info.description && <AboutComponent description={info.description}/>}
                             <ContactsComponent {...info}/>
                             {info.documents && !!info.documents.length && <DocumentsComponent documents={info.documents}/>}
                             {info.members && !!info.members.length && <MembersComponent members={info.members}/>}
                             <CopyrightInfo withSocials={true} />
-                            {/*если мобилка*/}
                         </aside>
                         }
                         <div className="rkf-page__right">
