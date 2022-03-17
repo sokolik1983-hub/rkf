@@ -96,7 +96,7 @@ const UserInfo = ({
                         <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}</p>
                     }
                     {last_name && <p title={last_name}>{last_name}</p>}
-                    {!!judgeInfo?.length && judgeIcon}
+                    {(judgeInfo?.length > 0 && judgeInfo[0].description !== null) && judgeIcon}
                 </div>
             </div>
             {

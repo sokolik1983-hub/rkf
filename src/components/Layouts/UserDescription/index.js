@@ -29,7 +29,7 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
 
         if (addressObj) {
             if (addressObj.postcode) address += `${addressObj.postcode}, `;
-            if (addressObj.city_name) address += `${addressObj.city_name}${addressObj.street_name && `, `}`;
+            if (addressObj.city_name) address += `${addressObj.city_name}${addressObj.street_name ? addressObj.street_name && `, ` : ''}`;
             if (addressObj.street_name) address += `${addressObj.street_name}${addressObj.house_name && `, `}`;
             if (addressObj.house_name) address += `д. ${addressObj.house_name}${addressObj.building_name && `, `}`;
             if (addressObj.building_name) address += `стр. ${addressObj.building_name}${addressObj.flat_name && `, `}`;
@@ -126,6 +126,9 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
             {additionalInfo &&
                 <>
                     <Collapse isOpened={isOpen}>
+                        {
+                            console.log('1111111111111111', address)
+                        }
                         {getAddressString(address) &&
                             <p className="user-description__item _address">
                                 <span className="user-description__item-title">Адрес:</span>&nbsp;

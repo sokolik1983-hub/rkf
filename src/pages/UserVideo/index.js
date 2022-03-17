@@ -170,6 +170,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                         subscribed_id={userInfo.profile_id}
                                         onSubscriptionUpdate={onSubscriptionUpdate}
                                         updateInfo={getUserInfo}
+                                        judgeInfo={userInfo.open_roles}
                                     />
                                 </Card>
                                 {!isMobile && <UserMenu userNav={canEdit
