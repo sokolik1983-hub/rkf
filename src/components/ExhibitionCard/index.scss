@@ -38,9 +38,9 @@
     justify-content: space-between;
     height: 202px;
     @media (max-width: 560px) {
+      height: 227px;
       margin: 0;
       padding: 8px;
-      height: 182px;
     }
     span {
       font-weight: normal;
@@ -60,7 +60,15 @@
       display: flex;
       @media (max-width: 560px) {
         display: block;
+        margin-bottom: 10px;
         line-height: 18px;
+        span {
+          font-size: 16px !important;
+          line-height: 1;
+        }
+        &:last-child {
+          margin-bottom: 15px;
+        }
       }
       &:not(._date) > span:last-child {
         text-overflow: ellipsis;
@@ -105,11 +113,6 @@
     text-decoration: none;
     letter-spacing: 0.2px;
     color: #3366ff;
-    @media (max-width: 560px) {
-      font-size: 14px;
-      line-height: 20px;
-      padding: 7px 0;
-    }
   }
   &__show-all,
   &__share {
@@ -164,9 +167,10 @@
       color: #253c5e;
     }
     @media (max-width: 560px) {
-      font-size: 14px;
-      line-height: 18px;
-      max-height: 36px;
+      max-height: 40px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
     }
   }
   &__club {

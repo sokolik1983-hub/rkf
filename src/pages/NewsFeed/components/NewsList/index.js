@@ -12,7 +12,13 @@ import Alert from "../../../../components/Alert";
 import "./styles.scss";
 
 
-const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError, setCategoriesCounters}) => {
+const NewsList = ({
+                      canEdit,
+                      activeCategoryId,
+                      notifySuccess,
+                      notifyError,
+                      setCountersChanges,
+}) => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
@@ -69,7 +75,6 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError, setCat
             }
 
             setLoading(false);
-            setCategoriesCounters(data.counters);
         }, error => {
             console.log(error.response);
             setLoading(false);
@@ -214,6 +219,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError, setCat
                     startElement={startElement}
                     isUpdateWithAllChecks={isUpdateWithAllChecks}
                     setZipMessage={setZipMessage}
+                    setCountersChanges={setCountersChanges}
                 />
 
                 <InfiniteScroll
