@@ -79,13 +79,17 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     }, [requestData]);
 
     useEffect(() => {
-        userInfo?.profile_id &&
-        (() => getRolesInfo())();
+        if (userInfo?.profile_id) {
+            (() => getRolesInfo())();
+        }
     }, [userInfo]);
 
     useEffect(() => {
-        !!rolesInfo &&
-        setJudgeInfo(rolesInfo.open_roles?.map(item => item.key_name === "role_judge" && item.role_data));
+        if (!!rolesInfo) {
+            setJudgeInfo(rolesInfo.open_roles?.map(
+                item => item.key_name === "role_judge" && item.role_data
+            ));
+        }
     }, [rolesInfo]);
 
     const getUser = async needUpdateAvatar => {
