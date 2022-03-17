@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Share from 'components/Share';
 import { SvgIcon } from '@progress/kendo-react-common';
-import {filePdf, pencil, trash} from '@progress/kendo-svg-icons';
+import {filePdf, trash} from '@progress/kendo-svg-icons';
 import { getHeaders} from '../../../../utils/request';
 import LightTooltip from 'components/LightTooltip';
 import moment from 'moment';
@@ -12,7 +12,7 @@ import './styles.scss';
 moment.locale('ru');
 
 const DocumentItem = (props) => {
-    const {id, name, link, date_create, setModal} = props;
+    const {id, name, date_create, setModal} = props;
     const headers = getHeaders();
     const [url, setUrl] = useState('');
 

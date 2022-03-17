@@ -14,6 +14,7 @@ const ControlMenu = ({
                          startElement,
                          isUpdateWithAllChecks,
                          setZipMessage,
+                         setCountersChanges,
                      }) => {
 
     const [elementsCount, setElementsCount] = useState(startElement + 9);
@@ -34,6 +35,7 @@ const ControlMenu = ({
         }, data => {
             updateNews(1, true, elementsCount);
             unsetAllChecks();
+            setCountersChanges(true);
 
             if (method === 'zip_notification' || method === 'unzip_notification') {
                 setZipMessage(data);
