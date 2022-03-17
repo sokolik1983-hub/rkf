@@ -77,7 +77,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
 
             if (paramsSearch.redirect === 'http://rkf.org.ru/' && paramsSearch.id) {
                 if (isAuthenticated) {
-                    window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-test/?ak=${apiKey}&id=${paramsSearch.id}`;
+                    window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${paramsSearch.id}`;
                 } else {
                     setShowZlineModal(true);
                     localStorage.setItem('rkforg_zline', paramsSearch.id);
@@ -89,12 +89,12 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
     const checkRkfOrgZline = () => {
         if (localStorage.getItem('rkforg_zline') && !showZlineModal) {
             localStorage.removeItem('rkforg_zline');
-            window.location.href = 'http://rkf.org.ru/zapis-na-poseshhenie-test/';
+            window.location.href = 'http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/';
         } else if (localStorage.getItem('rkforg_zline') && isAuthenticated) {
             const id = localStorage.getItem('rkforg_zline');
 
             localStorage.removeItem('rkforg_zline');
-            window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-test/?ak=${apiKey}&id=${id}`;
+            window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${id}`;
         }
     }
 
