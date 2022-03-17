@@ -15,14 +15,12 @@ const CategoriesList = ({
     const [categoriesCounters, setCategoriesCounters] = useState(0);
 
     useEffect(() => {
-        console.log('countersChanges', countersChanges)
         getCategoriesCounters();
     }, [countersChanges]);
 
     const getCategoriesCounters = async () => {
         await Request({
             url: '/api/article/articles_feed_counters',
-            method: 'GET',
         }, data => {
             setCategoriesCounters(data);
             countersChanges && setCountersChanges(false);
