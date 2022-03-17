@@ -171,7 +171,8 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated}) => {
         setCheckLink(checkLink)
     };
 
-   const getUserMenu = (userType) => {
+
+    const getUserMenu = (userType) => {
         switch (userType) {
             case 1:  return <UserMenu userNav={canEdit
                 ? userNav(alias) // Show NewsFeed menu item to current user only

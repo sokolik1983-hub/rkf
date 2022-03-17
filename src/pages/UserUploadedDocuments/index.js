@@ -31,8 +31,6 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
     const [error, setError] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
 
-    console.log('userInfo', userInfo);
-
     useEffect(() => {
         Promise.all([getUser()])
             .then(() => setLoaded(true))

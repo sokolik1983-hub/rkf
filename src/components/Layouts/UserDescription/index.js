@@ -126,9 +126,6 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
             {additionalInfo &&
                 <>
                     <Collapse isOpened={isOpen}>
-                        {
-                            console.log('1111111111111111', address)
-                        }
                         {getAddressString(address) &&
                             <p className="user-description__item _address">
                                 <span className="user-description__item-title">Адрес:</span>&nbsp;
