@@ -21,6 +21,8 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
     const [alert, setAlert] = useState(null);
     const [isOpen, setIsOpen] = useStickyState(true, "is_photo_gallery_open");
     const isMobile = useIsMobile(1080);
+    const countImages = 6;
+    const sizeImages = 115;
 
     useEffect(() => {
         (() => getImages())();
@@ -47,20 +49,20 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
         setLoading(true);
 
         await Request({
-            url: `/api/photogallery/gallery?alias=${alias}&element_count=12`
+            url: `/api/photogallery/gallery?alias=${alias}&element_count=${countImages}`
         }, data => {
             if (data.photos.length) {
                 const { photos } = data;
                 let imagesArr = [];
 
-                for (let i = 0; i < 12; i++) {
+                for (let i = 0; i < countImages; i++) {
                     if (photos[i]) {
                         imagesArr.push({
                             id: photos[i].id,
                             src: photos[i].link,
                             thumbnail: photos[i].small_photo.link,
-                            thumbnailWidth: 88,
-                            thumbnailHeight: 88,
+                            thumbnailWidth: sizeImages,
+                            thumbnailHeight: sizeImages,
                             caption: photos[i].caption
                         });
                     }
@@ -80,8 +82,8 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
 
     const squareStyle = () => {
         return {
-            height: '88px',
-            width: '88px',
+            height: `${sizeImages}px`,
+            width: `${sizeImages}px`,
             objectFit: 'cover',
             cursor: 'pointer'
         };
@@ -166,7 +168,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                                     images={images}
                                     enableImageSelection={false}
                                     backdropClosesModal={true}
-                                    rowHeight={89}
+                                    rowHeight={sizeImages}
                                     thumbnailStyle={squareStyle}
                                     imageCountSeparator="&nbsp;из&nbsp;"
                                 />

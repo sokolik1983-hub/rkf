@@ -16,7 +16,7 @@
   }
 
   &__content {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     position: initial;
 
       @media (max-width: 560px) {
@@ -182,7 +182,7 @@
 
         @media (max-width: 560px) {
           flex-direction: column;
-          }
+        }
     }
 
     &-mark {
@@ -209,8 +209,8 @@
     &-logo {
       display: flex;
       flex-shrink: 0;
-      width: 63px;
-      height: 63px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       margin: 0 10px 0 0;
     }
@@ -317,17 +317,13 @@
     &:before {
       content: "";
       position: absolute;
-      width: 17px;
-      height: 17px;
+      width: 13px;
+      height: 18px;
       left: 0;
       top: 1px;
       margin-right: 4px;
       background: url("/static/icons/ico-pointer2.svg") center no-repeat;
       background-size: contain;
-
-      @media (max-width: 560px) {
-        height: 16px;
-      }
     }
 
      &:hover {
@@ -338,15 +334,6 @@
          background-size: contain;
        }
      }
-
-    @media (max-width: 560px) {
-      display: block;
-      text-align: left;
-      font-size: 14px;
-      line-height: 22px;
-      padding-left: 18px;
-      margin-left: 0;
-    }
   }
 
   &__text-wrap {
@@ -603,10 +590,16 @@
     justify-content: space-between;
     margin-bottom: 10px;
 
+    &__pdf {
+      width: 18px;
+      height: 22px;
+      margin-right: 10px;
+    }
+
     &__date {
       font-weight: normal;
-      font-size: 12px;
-      line-height: 15px;
+      font-size: 14px;
+      line-height: 1;
       color: #b9b9b9;
     }
 
@@ -679,6 +672,7 @@
 
       div {
         display: flex;
+        flex-wrap: wrap;
       }
     }
 

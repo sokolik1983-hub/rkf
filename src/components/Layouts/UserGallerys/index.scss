@@ -1,6 +1,5 @@
 .user-gallery {
   padding: 10px !important;
-  //margin-bottom: 16px;
   margin-top: 16px;
   @media (max-width: 560px) {
     margin-top: 12px;
@@ -88,6 +87,7 @@
       text-overflow: ellipsis;
       font-size: 16px;
       line-height: 22px;
+      color: #72839C;
     }
   }
 
