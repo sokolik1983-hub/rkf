@@ -25,7 +25,7 @@ const DocumentLink = ({ docId, document }) => {
     const renderDocumentItem = () => {
         return (
             <>
-                <SvgIcon icon={filePdf} size="default" />
+                <img className="DocumentItem__pdf" src="/static/icons/icon-pdf3.svg" alt="pdf"/>
                 <div className="DocumentItem__name">
                     {document.name}
                     <span className="DocumentItem__date">

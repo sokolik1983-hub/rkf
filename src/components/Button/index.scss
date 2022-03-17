@@ -2,13 +2,11 @@ $primary-color: #3366ff; //#253C5E;
 $primary-color--disabled: transparentize($primary-color, 0.3);
 
 button {
-    font-family: Helvetica, sans-serif;
     background-color: transparent;
     padding: 10px;
     color: $primary-color;
     border-color: $primary-color;
     border-radius: 4px;
-    font-size: 14px;
     line-height: 20px;
 }
 
