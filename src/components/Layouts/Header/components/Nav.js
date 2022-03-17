@@ -84,7 +84,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                 }
             }
         }
-    }
+    };
 
     const checkRkfOrgZline = () => {
         if (localStorage.getItem('rkforg_zline') && !showZlineModal) {
@@ -96,7 +96,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
             localStorage.removeItem('rkforg_zline');
             window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${id}`;
         }
-    }
+    };
 
     useEffect( () => {
         checkRkfOrgZline();
