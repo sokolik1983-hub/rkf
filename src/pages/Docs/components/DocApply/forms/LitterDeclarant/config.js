@@ -5,7 +5,7 @@ const latOptional = () => string().matches(/^[^а-я]+$/i, { message: 'Поле 
 
 const endpointGetFederations = '/api/clubs/Federation';
 const apiDoctypeEndpoint = '/api/requests/LitterRequest/additional_document_types';
-const apiBreedsEndpoint = '/api/dog/Breed';
+const apiBreedsEndpoint = '/api/dog/breed/dog_handler';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiLitterStatusesEndpoint = '/api/requests/CommonRequest/status';
 const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_status';
