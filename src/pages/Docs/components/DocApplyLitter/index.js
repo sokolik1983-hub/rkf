@@ -168,7 +168,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         setRedirect(`/club/${clubAlias}/documents`);
     }
 
-    return loading ? <Loading /> : <div className={`documents-page__info DocApply view`}>
+    return loading ? <Loading /> : <div "className=documents-page__info DocApply">
         {redirect && <Redirect to={redirect} />}
         {errAlert &&
             <Alert
