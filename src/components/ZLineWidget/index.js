@@ -22,11 +22,10 @@ const ZlineWidget = ({isAuthenticated, access_token, className, iframeLink, isMo
             <div className={`zline-modal${!isModalShow ? ' _hidden' : ''}${className ? ' ' + className : ''}`}>
                 <OutsideClickHandler onOutsideClick={handleClose}>
                     <div className="zline-modal__inner">
-
                         <div className="zline-modal__content">
                             <p className="zline-modal__close" onClick={handleClose}>Закрыть</p>
                             {isAuthenticated ?
-                                <iframe src={`${iframeLink}&ak=${access_token}`} title="unique_iframe" /> :
+                                isModalShow && <iframe src={`${iframeLink}&ak=${access_token}`} title="unique_iframe" /> :
                                 showDisclaimer ?
                                     <div className="disclaimer">
                                         <p className="disclaimer__text">Для того, чтобы записаться на посещение офиса в РКФ и Федераций, необходимо быть зарегистрированным и авторизованным пользователем на портале RKF.ONLINE.</p>
