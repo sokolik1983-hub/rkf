@@ -2,6 +2,14 @@
   .user-contacts__info {
     margin-bottom: 24px;
 
+    &-email,
+    &-phone {
+      p {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+
     @media (max-width: 990px) {
       margin-top: 0;
     }
@@ -81,8 +89,7 @@
     &-phone,
     &-site,
     &-socials,
-    &-work-time,
-    &-bank {
+    &-work-time {
       position: relative;
       padding-left: 30px;
       margin-bottom: 6px;
@@ -146,13 +153,7 @@
     }
 
     &-work-time {
-      display: flex;
-      flex-wrap: wrap;
-      @media (max-width: 576px) {
-        flex-direction: column;
-      }
       span {
-        display: flex;
         font-weight: 400;
       }
 
@@ -184,8 +185,18 @@
       }
     }
 
-    &-bank:before {
-      background-image: url("/static/icons/bank.svg");
+    &-bank {
+      margin-top: 36px;
+
+      .club-page__info-details {
+        color: #61797c;
+        font-weight: 300;
+
+        span {
+          color: #253c5e !important;
+          font-weight: 400 !important;
+        }
+      }
     }
 
     &-show-more {

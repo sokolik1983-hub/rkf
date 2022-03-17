@@ -29,7 +29,7 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
         return (
             <>
                 <SvgIcon icon={filePdf} size="default" />
-                <div className="document-item__name">
+                <div className="DocumentItem__name">
                     {document.name}
                     <span className="document-item__date">
                         {`Добавлено 
@@ -49,13 +49,13 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
         <>
             { !url ?
                 <span
-                    className="document-item__href"
+                    className="DocumentItem__href card-news-new__documents-item-name"
                     onClick={ getDocument }
                 >
                         {renderDocumentItem()}
                     </span> :
                 <a
-                    className="document-item__href"
+                    className="DocumentItem__href"
                     href={url}
                     target="_blank"
                     rel="noreferrer noopener"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import ls from "local-storage";
 import Loading from "../../../../components/Loading";

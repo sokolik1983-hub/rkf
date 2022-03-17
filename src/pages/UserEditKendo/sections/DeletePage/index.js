@@ -5,11 +5,14 @@ import Alert from "../../../../components/Alert";
 import ModalDeletePage from "../../components/ModalDeletePage";
 import {Request} from "../../../../utils/request";
 import {formatDateTime} from "../../../../utils/datetime";
+import {blockContent} from "../../../../utils/blockContent";
+
 import "./index.scss";
-import { blockContent } from '../../../../utils/blockContent';
 
 
-const DeletePage = () => {
+const DeletePage = ({
+    judgeInfo
+}) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(null);
@@ -69,6 +72,18 @@ const DeletePage = () => {
             <legend className="k-form-legend">Удаление страницы</legend>
             {loading ?
                 <Loading centered={false} /> :
+                !!judgeInfo.length ?
+                    <div className="user-edit__delete">
+                        <p>
+                            Удаление Профиля Судьи недоступно
+                        </p>
+                        <button
+                            className="button-delete__disable"
+                            disabled="disabled"
+                        >
+                            Удалить
+                        </button>
+                    </div> :
                 !date ?
                     <>
                         <p className="ue-delete-page__describe">

@@ -3,7 +3,6 @@ import { Form, FormElement } from '@progress/kendo-react-form';
 import { Fade } from '@progress/kendo-react-animation';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { loadMessages } from '@progress/kendo-react-intl';
-import Card from '../Card';
 import AdditionalDocuments from './components/AdditionalDocuments';
 import ruMessages from '../../kendoMessages.json';
 import {blockContent} from '../../utils/blockContent';
@@ -18,14 +17,13 @@ import './index.scss';
 loadMessages(ruMessages, 'ru');
 
 const UploadDocsEditPage = ({ clubAlias, history }) => {
-    const [errorMessage, setErrorMessage] = useState(false);
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
     const clubId = useSelector(state => state.authentication.profile_id);
     const [loaded, setLoaded] = useState(false);
     const [documents, setDocuments] = useState([]);
     const [modal, setModal] = useState({});
     const [success, setSuccess] = useState('');
-    const [error, setError] = useState('');
+    const [error, setError] = useState(false);
     const [formProps, setFormProps] = useState(null);
     const initialValues = {documents: []};
 
@@ -58,7 +56,6 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
             } else {
                 message = 'Произошла ошибка';
             }
-            setErrorMessage(message);
             setError(true);
             !error && setTimeout(() => {
                 setError(false);
