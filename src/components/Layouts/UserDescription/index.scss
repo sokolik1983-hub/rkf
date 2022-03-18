@@ -26,7 +26,7 @@
       height: 20px;
       left: 0;
       top: 2px;
-      background: url("/static/icons/pin-gray-thin.svg") no-repeat center / contain;
+      background: url("/static/icons/ico-pointer2.svg") center no-repeat;
     }
   }
   &__disabled {
@@ -34,11 +34,13 @@
   }
   &__item {
     display: flex;
+    flex-wrap: wrap;
     color: #72839c;
     padding-left: 30px;
     margin-bottom: 6px;
     position: relative;
     &-title {
+      padding-right: 5px;
       color: #253c5e;
     }
     &-lists{

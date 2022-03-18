@@ -91,8 +91,8 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                 {filtersValue.SearchTypeId !== 3 &&
                                     <RankFilter
                                         ranks={filters.ranks}
-                                        ranks_ids={filtersValue.RankIds}
-                                        onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                        rank_id={filtersValue.RankId}
+                                        onChange={filter => setFiltersToUrl({RankId: filter})}
                                         searchTypeId={filtersValue.SearchTypeId}
                                     />
                                 }
@@ -132,8 +132,8 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
 
                                 <RankFilter
                                     ranks={filters.ranks}
-                                    ranks_ids={filtersValue.RankIds}
-                                    onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                    rank_id={filtersValue.RankId}
+                                    onChange={filter => setFiltersToUrl({RankId: filter})}
                                 />
 
                                 <DisciplinesFilter

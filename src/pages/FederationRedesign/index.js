@@ -36,7 +36,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
 
     const getFedInfo = () => {
         Request({
-            url: `/api/Club/federation_base_info?alias=` + alias
+            url: `/api/Club/federation_base_info?alias=${alias}`
         }, data => {
             setFedInfo(data);
             setNotActiveProfile(isAuthenticated && !is_active_profile);

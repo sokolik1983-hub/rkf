@@ -4,7 +4,7 @@ import {reqText, reqEmail, numbersOnly, lat, reqCheckbox} from "../../config.js"
 
 const endpointGetFederations = '/api/clubs/Federation';
 const apiDoctypeEndpoint = '/api/requests/PedigreeRequest/additional_document_types';
-const apiBreedsEndpoint = '/api/dog/Breed';
+const apiBreedsEndpoint = '/api/dog/breed/dog_handler';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
 const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';

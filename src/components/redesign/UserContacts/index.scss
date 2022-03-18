@@ -2,6 +2,14 @@
   .user-contacts__info {
     margin-bottom: 24px;
 
+    &-email,
+    &-phone {
+      p {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+
     @media (max-width: 990px) {
       margin-top: 0;
     }

@@ -84,10 +84,8 @@
         height: auto !important;
       }
 
-      @media (max-width: 750px) {
-        width: 100%;
+      @media (max-width: 400px) {
         font-size: 14px;
-        padding: 7px 7px 7px 5px;
       }
     }
 
