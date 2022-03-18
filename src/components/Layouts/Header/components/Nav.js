@@ -97,16 +97,11 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
     };
 
     const checkRkfOrgZline = () => {
-        if (localStorage.getItem('rkforg_zline') && !showZlineModal) {
-            console.log('checkRkfOrgZline +', localStorage.getItem('rkforg_zline'));
-            localStorage.removeItem('rkforg_zline');
-            //window.location.href = 'http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/';
-        } else if (localStorage.getItem('rkforg_zline') && isAuthenticated) {
-            console.log('checkRkfOrgZline -');
+        if (localStorage.getItem('rkforg_zline') && isAuthenticated) {
             const id = localStorage.getItem('rkforg_zline');
 
             localStorage.removeItem('rkforg_zline');
-            //window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${id}`;
+            window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${id}`;
         }
     };
 
