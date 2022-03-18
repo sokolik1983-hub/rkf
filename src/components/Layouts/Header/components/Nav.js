@@ -259,3 +259,4 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
     );
 };
 
+export default memo(connectAuthVisible(Nav));
