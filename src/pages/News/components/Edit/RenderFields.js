@@ -227,16 +227,6 @@ const RenderFields = ({ fields,
             {
                 (advertTypeId !== null) &&
                 <>
-                    {/*<div className="article-edit__categories-wrap">*/}
-                    {/*    {*/}
-                    {/*        <CustomCheckbox*/}
-                    {/*            id="ad"*/}
-                    {/*            label={(advertCategoryId === 1) ? "Куплю/Продам" : "Объявление"}*/}
-                    {/*            className="ArticleCreateForm__ad"*/}
-                    {/*            checked={true}*/}
-                    {/*        />*/}
-                    {/*    }*/}
-                    {/*</div>*/}
                     <FormGroup inline className="article-edit__ad">
                         <CustomChipList
                             {...fields.advert_type_id}
@@ -335,7 +325,6 @@ const RenderFields = ({ fields,
                                         onChange={(e) => handleChangeBreed(e)}
                                     />
                                 </FormGroup>
-                                {/*<FormGroup inline className="article-edit__ad">*/}
                                     <FormField {...fields.dog_name} className="article-edit__name-wrap"/>
                                     <FormField {...fields.dog_color} className="article-edit__color-wrap"/>
                                     <div className={'article-edit__age-wrap' + (activeElem === 5 ? ' about' : '')}>
@@ -345,7 +334,6 @@ const RenderFields = ({ fields,
                                         <label htmlFor="dog_sex_type_id">Пол</label>
                                         <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
                                     </div>
-                                {/*</FormGroup>*/}
                             </div>
                     }
                 </div>
