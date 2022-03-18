@@ -179,9 +179,12 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                             onClick={() => setShowFilters({isOpen: false})}>
                             <Feedback />
                         </li>
-                        {links.map(item =>
-                            <li className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
-                                onClick={() => setShowFilters({isOpen: false})}>
+                        {links.map((item, index) =>
+                            <li
+                                className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
+                                key={index}
+                                onClick={() => setShowFilters({isOpen: false})}
+                            >
                                 <a
                                     href={item.link}
                                     target='_blank'
