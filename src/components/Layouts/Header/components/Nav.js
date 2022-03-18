@@ -70,17 +70,27 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
     };
 
     const checkLinkRkfOrg = () => {
-        const search = location.search.substring(1);
+        const search = decodeURI(location.search.replace('?', ''));
 
-        if (search) {
-            const paramsSearch = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+        if(search) {
+            const params = search.split('&').reduce((prev, curr) => {
+                const param = curr.split('=');
 
-            if (paramsSearch.redirect === 'http://rkf.org.ru/' && paramsSearch.id) {
+                if(param.length > 1) {
+                    prev[param[0]] = param[1];
+                } else {
+                    prev = param[0];
+                }
+
+                return prev;
+            }, {});
+
+            if(typeof params !== 'string' && params.redirect === 'http://rkf.org.ru/' && params.id) {
                 if (isAuthenticated) {
-                    window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${paramsSearch.id}`;
+                    window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${params.id}`;
                 } else {
                     setShowZlineModal(true);
-                    localStorage.setItem('rkforg_zline', paramsSearch.id);
+                    localStorage.setItem('rkforg_zline', params.id);
                 }
             }
         }
@@ -88,23 +98,25 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
 
     const checkRkfOrgZline = () => {
         if (localStorage.getItem('rkforg_zline') && !showZlineModal) {
+            console.log('checkRkfOrgZline +', localStorage.getItem('rkforg_zline'));
             localStorage.removeItem('rkforg_zline');
-            window.location.href = 'http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/';
+            //window.location.href = 'http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/';
         } else if (localStorage.getItem('rkforg_zline') && isAuthenticated) {
+            console.log('checkRkfOrgZline -');
             const id = localStorage.getItem('rkforg_zline');
 
             localStorage.removeItem('rkforg_zline');
-            window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${id}`;
+            //window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${id}`;
         }
     };
-
-    useEffect( () => {
-        checkRkfOrgZline();
-    }, [showZlineModal, isAuthenticated]);
 
     useEffect(() => {
         checkLinkRkfOrg();
     }, []);
+
+    useEffect( () => {
+        checkRkfOrgZline();
+    }, [showZlineModal, isAuthenticated]);
 
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
