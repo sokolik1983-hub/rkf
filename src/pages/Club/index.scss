@@ -139,6 +139,10 @@
       display: flex;
       flex-flow: column;
 
+      .Card {
+        margin-bottom: 15px !important;
+      }
+
       .user-banner {
         order: -5;
         padding: 0;
@@ -251,11 +255,9 @@
         }
       }
 
-      .news-component {
-
-      }
-
       .user-gallery {
+        margin-top: 0 !important;
+
         &.photo {
           padding-top: 2px !important;
 
