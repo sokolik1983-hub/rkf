@@ -1,0 +1,95 @@
+import React from "react";
+import {Link} from "react-router-dom";
+import {DEFAULT_IMG, widgetLoginIcon} from "../../../../../appConfig";
+import MenuLinks from "./MenuLinks";
+
+
+const Content = ({
+    open,
+    name,
+    logo,
+    alias,
+    setOpen,
+    userType,
+    lastName,
+    firstName,
+    logOutUser,
+    accountType,
+    setShowModal,
+    isMobile1080,
+    menuBackground,
+    loginUserSuccess,
+    is_active_profile,
+}) => {
+
+    return (
+        <div className="widget-login__content">
+            <div className="widget-login__userpic-wrap">
+                <div className="widget-login__bg-box">
+                    {menuBackground ?
+                        <img src={menuBackground} alt=""/> :
+                        <img src='/static/images/widget-login/userpic-bg.jpg' alt=""/>
+                    }
+                </div>
+                <div className={`widget-login__userpic${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
+                     style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
+                />
+            </div>
+            <div className="widget-login__username">
+                {userType === 1 &&
+                    <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
+                }
+                {userType === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
+                    <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
+                }
+                {(userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
+                    <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
+                }
+                {userType === 4 &&
+                    <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
+                }
+            </div>
+            <ul className="widget-login__list">
+                {is_active_profile &&
+                    <MenuLinks
+                        alias={alias}
+                        setOpen={setOpen}
+                        accountType={accountType}
+                        setShowModal={setShowModal}
+                        loginUserSuccess={loginUserSuccess}
+                        is_active_profile={is_active_profile}
+                        userTypes={
+                            userType === 1 ? "user" :
+                            userType === 3 && alias !== "rkf" && alias !== "rkf-online" ? "club" :
+                            userType === 5 || alias === "rkf" || alias === "rkf-online" ? "federation" :
+                            userType === 4 && "kennel"
+                        }
+                        logInLogOut={
+                            accountType === 5 && (userType === 5 || alias === "rkf" || alias === "rkf-online") ? "in" :
+                            accountType === 5 && userType !== 5 && alias !== "rkf" && alias !== "rkf-online" && "out"
+                        }
+                    />
+                }
+                <li className="widget-login__item widget-login__item--logout" onClick={() => setOpen(false)}>
+                    <Link to="/" onClick={logOutUser}>{widgetLoginIcon.exit}Выход</Link>
+                </li>
+                <li className="widget-login__item widget-login__add-user">
+                    <div>Добавить пользователя</div>
+                </li>
+                {!isMobile1080 &&
+                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                        <a className="widget-login__item-link"
+                            href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            База знаний
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    );
+};
+
+export default Content;
