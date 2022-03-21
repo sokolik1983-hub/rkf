@@ -1,5 +1,4 @@
 .article-edit {
-
   margin-left: 58px;
   margin-top: 14px;
 
@@ -37,11 +36,11 @@
   &__controls {
     display: flex;
     position: relative;
-    bottom: 16px;
-    align-items: center;
     justify-content: flex-start;
-    border-bottom: 1px solid transparent !important;
+    align-items: center;
     margin-bottom: 16px;
+    bottom: 16px;
+    border-bottom: 1px solid transparent !important;
 
     & > *:not(:last-child) {
       margin-right: 10px;
@@ -253,10 +252,6 @@
       z-index: 1;
     }
 
-    .css-1pcexqc-container {
-      //margin-bottom: 10px;
-    }
-
     .css-kj6f9i-menu {
       z-index: 99;
     }
@@ -370,9 +365,6 @@
       }
     }
 
-    //input {
-    //  padding: 8px 6px 8px 14px!important;
-    //}
     .css-xo7z33-option {
       background-color: #fff !important;
       color: #000000 !important;
@@ -395,7 +387,6 @@
 
   &__halfbreed-wrap {
     padding-left: 20px;
-    //width: 40%;
     grid-area: breed;
     display: flex;
     flex-direction: column;
@@ -418,8 +409,6 @@
     }
 
     & .select-error {
-      //bottom: -20px;
-      //height: 0;
       color: #FA5D50;
     }
 
@@ -484,8 +473,8 @@
 
     & .custom-checkbox {
       position: absolute;
-      right: 0;
       top: -3px;
+      right: 0;
     }
 
     & .css-bg1rzq-control {
