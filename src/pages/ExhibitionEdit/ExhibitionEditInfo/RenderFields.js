@@ -38,8 +38,6 @@ const RenderFields = ({
     useEffect(() => {
         formik.setFieldValue('avatar', avatar);
         formik.setFieldValue('map', map);
-
-        getJudgeList();
     }, []);
 
     useEffect(() => {
@@ -219,7 +217,10 @@ const RenderFields = ({
                 <h5>Судья/специалист</h5>
                 <Button
                     primary={true}
-                    onClick={() => setShowModal(true)}
+                    onClick={() => {
+                        getJudgeList();
+                        setShowModal(true);
+                    }}
                 >
                     Подобрать судью
                 </Button>

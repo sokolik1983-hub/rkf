@@ -42,16 +42,6 @@ export const clubInfoFormConfig = {
             label: "Адрес клуба (улица, дом)",
             fieldType: 'textarea',
         },
-        // work_time_from: {
-        //     name: "work_time_from",
-        //     label: "Время работы С",
-        //     type: 'time'
-        // },
-        // work_time_to: {
-        //     name: "work_time_to",
-        //     label: "Время работы До",
-        //     type: 'time'
-        // },
         site: {
             name: "site",
             label: "Адрес сайта",
@@ -64,12 +54,6 @@ export const clubInfoFormConfig = {
         description: string()
             .nullable()
             .required('Поле не может быть пустым')
-            .min(20, 'Введите информацию длиной не менее 20 символов'),
-        city_id: string()
-            .required('Поле не может быть пустым')
-            .nullable(),
-        address: string()
-            .required('Поле не может быть пустым')
-            .nullable(),
+            .min(20, 'Введите информацию длиной не менее 20 символов')
     })
 };
