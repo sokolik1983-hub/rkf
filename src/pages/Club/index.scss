@@ -184,6 +184,13 @@
               padding-top: 0;
             }
           }
+
+          .user-header__name {
+            width: 50%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
 
         &__wrap {
@@ -191,7 +198,7 @@
             position: relative;
             bottom: 86px;
             margin: 0 40px 0 auto;
-            width: 50%;
+            width: 40%;
           }
 
           .widget-login__button-wrap {
@@ -249,17 +256,24 @@
 
       }
 
-      .user-gallery.photo {
-        padding-top: 2px!important;
-        .user-gallery__header {
-          height: 23px;
+      .user-gallery {
+        &.photo {
+          padding-top: 2px!important;
+          .user-gallery__header {
+            height: 23px;
+          }
+
+          .user-gallery__dropdown-wrap {
+            margin-top: 5px;
+          }
         }
 
-        .user-gallery__dropdown-wrap {
-          margin-top: 5px;
+        &.video {
+          .user-gallery__header {
+            height: 18px;
+          }
         }
       }
-
     }
   }
 }
