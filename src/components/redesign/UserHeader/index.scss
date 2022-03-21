@@ -300,21 +300,20 @@
         position: absolute;
         display: block;
         left: 0;
-       bottom: -10px;
+        bottom: -10px;
         width: 100%;
         height: 1px;
         background: #e8e8e8;
       }
     }
     .btn-share {
-      margin-left: 8px;
       width: 15px;
       height: 20px;
+      margin-left: 8px;
       border: none;
       background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
     }
     .ya-share2__icon_more {
-      height: 16px;
       background-color: white;
       &:after {
         background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
