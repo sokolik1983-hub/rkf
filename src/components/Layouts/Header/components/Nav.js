@@ -128,11 +128,11 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                         <div>
                             {
                                 isOpen ? <svg className={`no-scale ${strokeColor}`} width='20' height='20' viewBox='0 0 20 20' fill='none'
-                                    xmlns='http://www.w3.org/2000/svg'>
+                                              xmlns='http://www.w3.org/2000/svg'>
                                     <line y1='1' x1='1' x2='20' y2='20' strokeWidth='1.32' />
                                     <line y1='20' x1='1' x2='20' y2='1' strokeWidth='1.32' />
                                 </svg> : <svg className={`no-scale ${strokeColor}`} width='20' height='14' viewBox='0 0 20 14' fill='none'
-                                    xmlns='http://www.w3.org/2000/svg'>
+                                              xmlns='http://www.w3.org/2000/svg'>
                                     <line y1='1.34' x2='20' y2='1.34' strokeWidth='1.32' />
                                     <line y1='7.34' x2='20' y2='7.34' strokeWidth='1.32' />
                                     <line y1='13.34' x2='20' y2='13.34' strokeWidth='1.32' />
@@ -216,9 +216,9 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                             </li>
                         )}
                         {!isMobile &&
-                            <li className='header__nav-item--desktop Feedback'>
-                                <Feedback isMainNav title='Поддержка' />
-                            </li>
+                        <li className='header__nav-item--desktop Feedback'>
+                            <Feedback isMainNav title='Поддержка' />
+                        </li>
                         }
                     </ul>
                     <Link to="" className='header__nav-item--desktop recording' onClick={e => handleZlineClick(e)}>
@@ -230,13 +230,13 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                                 d='M12.2576 16.9633L15.256 17.1854L23.1405 9.30084C23.9039 8.53738 23.9039 7.28807 23.1405 6.52461L22.6963 6.08041C21.9328 5.31695 20.6835 5.31695 19.92 6.08041L12.0355 13.9649L12.2576 16.9633Z'
                                 stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10' strokeLinejoin='round' />
                             <path d='M5.21985 5.51123H16.3248' stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10'
-                                strokeLinejoin='round' />
+                                  strokeLinejoin='round' />
                             <path d='M5.21985 9.71729H15.7834' stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10'
-                                strokeLinejoin='round' />
+                                  strokeLinejoin='round' />
                             <path d='M5.21985 13.9233H12.0355' stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10'
-                                strokeLinejoin='round' />
+                                  strokeLinejoin='round' />
                             <path d='M5.21985 18.1294H9.55078' stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10'
-                                strokeLinejoin='round' />
+                                  strokeLinejoin='round' />
                         </svg>
                         <span>Записаться</span>
                     </Link>
