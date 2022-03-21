@@ -125,6 +125,21 @@
   .ReactGridGallery {
     overflow: hidden;
 
+    @media (max-width: 1080px) {
+      display: flex;
+    }
+
+    @media (max-width: 550px) {
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 427px) {
+      & > div:nth-child(8),
+      & > div:nth-child(9){
+        display: none;
+      }
+    }
+
     &_tile-viewport {
       @media (min-width: 1080px) {
         width: 88px !important;
