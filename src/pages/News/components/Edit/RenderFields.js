@@ -276,7 +276,7 @@ const RenderFields = ({ fields,
                                     advert_type_id !== 6 ?
                                         <div className="article-edit__city-select-wrap">
                                             <FormField
-                                                className={`ArticleCreateForm__input-city ${(!formik.values.dog_city || formik.values.dog_city.length === 0) ? 'error-field' : ''}`}
+                                                className={`article-create-form__input-city ${(!formik.values.dog_city || formik.values.dog_city.length === 0) ? 'error-field' : ''}`}
                                                 {...fields.dog_city}
                                                 label={`Место ${cityLabel}`}
                                             />
@@ -292,7 +292,7 @@ const RenderFields = ({ fields,
                                             <CustomCheckbox
                                                 id="isAllCities__checkbox"
                                                 label="Все города"
-                                                className="ArticleCreateForm__ad"
+                                                className="article-create-form__ad"
                                                 checked={isAllCitiesEdit}
                                                 onChange={handleChangeAllCities}
                                             />
@@ -321,7 +321,7 @@ const RenderFields = ({ fields,
                                     <CustomCheckbox
                                         id="isHalfBreed_checkbox"
                                         label="Метис"
-                                        className="ArticleCreateForm__ad"
+                                        className="article-create-form__ad"
                                         checked={isHalfBreedEdit}
                                         onChange={handleChangeHalfBreed}
                                     />
