@@ -224,7 +224,7 @@
       align-items: center;
       justify-content: space-between;
       
-      & > div > div {
+      & > div > div, & > div > section > div {
         display: flex;
       }
     }
