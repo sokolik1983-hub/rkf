@@ -283,6 +283,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}
                                         updateInfo={getUser}
+                                        judgeInfo={userInfo.open_roles}
                                     />
                                 </Card>
                                 {!isMobile && <UserMenu userNav={userNav(alias)} notificationsLength={notificationsLength} />}

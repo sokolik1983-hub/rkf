@@ -129,7 +129,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     return (
         <Card className="add-article">
             <Form
-                className="ArticleCreateForm"
+                className="article-create-form"
                 resetForm="true"
                 isMultipart
                 validationSchema={(isCategoryId === 1) ? CategoryOneSchema : (isCategoryId === 2) ? CategoryTwoSchema : CategoryNullSchema}

@@ -61,7 +61,7 @@ const RenderFields = ({ fields,
 
     const { setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(900);
 
 
     useEffect(() => {
@@ -227,16 +227,6 @@ const RenderFields = ({ fields,
             {
                 (advertTypeId !== null) &&
                 <>
-                    <div className="article-edit__categories-wrap">
-                        {
-                            <CustomCheckbox
-                                id="ad"
-                                label={(advertCategoryId === 1) ? "Куплю/Продам" : "Объявление"}
-                                className="ArticleCreateForm__ad"
-                                checked={true}
-                            />
-                        }
-                    </div>
                     <FormGroup inline className="article-edit__ad">
                         <CustomChipList
                             {...fields.advert_type_id}
@@ -253,6 +243,107 @@ const RenderFields = ({ fields,
                         </div>
                     }
                 </>
+            }
+
+            {is_advert &&
+                <div className="article-edit__advert">
+                    {
+                        (advertCategoryId === 1) ?
+                            <div className="article-edit__wrap">
+                                <FormGroup inline className="article-edit__ad">
+                                    <FormField {...fields.advert_breed_id} options={breeds} />
+                                    <FormField {...fields.advert_cost} />
+                                    {!isMating &&
+                                        <FormField {...fields.advert_number_of_puppies} />
+                                    }
+                                </FormGroup>
+                                <FormGroup inline className="article-edit__ad">
+                                    <FormField {...fields.dog_color} />
+                                    <FormField {...fields.dog_age} />
+                                    <div className="article-edit__custom-select">
+                                        <label htmlFor="dog_sex_type_id">Пол</label>
+                                        <CustomSelect
+                                            value={sexId}
+                                            options={sex}
+                                            onChange={(e) => handleChange(e)}
+                                        />
+                                    </div>
+                                </FormGroup>
+                            </div>
+                            :
+                            <div className="article-edit__inner-add-inputs">
+                                {
+                                    advert_type_id !== 6 ?
+                                        <div className="article-edit__city-select-wrap">
+                                            <FormField
+                                                className={`article-create-form__input-city ${(!formik.values.dog_city || formik.values.dog_city.length === 0) ? 'error-field' : ''}`}
+                                                {...fields.dog_city}
+                                                label={`Место ${cityLabel}`}
+                                            />
+                                            {
+                                                (!formik.values.dog_city || formik.values.dog_city.length === 0) &&
+                                                <div className="article-edit__error-wrap ">
+                                                    <div className="FormInput__error select-city">Выберите город</div>
+                                                </div>
+                                            }
+                                        </div>
+                                        :
+                                        <div className="article-edit__city-input-wrap">
+                                            <CustomCheckbox
+                                                id="isAllCities__checkbox"
+                                                label="Все города"
+                                                className="article-create-form__ad"
+                                                checked={isAllCitiesEdit}
+                                                onChange={handleChangeAllCities}
+                                            />
+                                            <label className="article-edit__city-label" htmlFor="cities-input">Город</label>
+                                            <div>
+                                                <CustomSelect
+                                                    id="cities-input"
+                                                    value={currentCities}
+                                                    placeholder="Выберите город"
+                                                    options={cities ? cities : []}
+                                                    isMulti={true}
+                                                    onChange={handleCitySelect}
+                                                    className={`article-edit__input-breedId ${(isAllCitiesEdit) && 'disabled'} ${(!currentCities && !isAllCitiesEdit) && 'error-field' }`}
+
+                                                />
+                                            </div>
+                                            {
+                                                (!currentCities && !isAllCitiesEdit) &&
+                                                <div className="article-edit__error-wrap ">
+                                                    <div className="FormInput__error select-city">Выберите город</div>
+                                                </div>
+                                            }
+                                        </div>
+                                }
+                                <FormGroup inline className="article-edit__ad article-edit__halfbreed-wrap">
+                                    <CustomCheckbox
+                                        id="isHalfBreed_checkbox"
+                                        label="Метис"
+                                        className="article-create-form__ad"
+                                        checked={isHalfBreedEdit}
+                                        onChange={handleChangeHalfBreed}
+                                    />
+                                    <FormField
+                                        className={`article-edit__input-breedId ${(isHalfBreedEdit) ? 'disabled' : ''} ${(!isHalfBreedEdit && !breedValue) ? 'error-input' : ''}`}
+                                        {...fields.advert_breed_id}
+                                        options={breeds}
+                                        onChange={(e) => handleChangeBreed(e)}
+                                    />
+                                </FormGroup>
+                                    <FormField {...fields.dog_name} className="article-edit__name-wrap"/>
+                                    <FormField {...fields.dog_color} className="article-edit__color-wrap"/>
+                                    <div className={'article-edit__age-wrap' + (activeElem === 5 ? ' about' : '')}>
+                                        <FormField {...fields.dog_age} />
+                                    </div>
+                                    <div className="article-edit__custom-select">
+                                        <label htmlFor="dog_sex_type_id">Пол</label>
+                                        <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
+                                    </div>
+                            </div>
+                    }
+                </div>
             }
 
             <div className="article-edit__text">
@@ -309,20 +400,22 @@ const RenderFields = ({ fields,
                     </LightTooltip>
                 }
             </div>
-            <div className="article-edit__media">
-                {src &&
-                    <div className="article-edit__image">
-                        <img src={src} alt="" />
-                        <button className="article-edit__image-delete" onClick={handleDeleteImg} />
-                    </div>
-                }
-                {video &&
-                    <div className="article-edit__video">
-                        <img src={`https://img.youtube.com/vi/${getYouTubeID(video)}/mqdefault.jpg`} alt="" />
-                        <button className="article-edit__image-delete" onClick={handleDeleteVideoLink} />
-                    </div>
-                }
-            </div>
+            {(src || video) &&
+                <div className="article-edit__media">
+                    {src &&
+                        <div className="article-edit__image">
+                            <img src={src} alt="" />
+                            <button className="article-edit__image-delete" onClick={handleDeleteImg} />
+                        </div>
+                    }
+                    {video &&
+                        <div className="article-edit__video">
+                            <img src={`https://img.youtube.com/vi/${getYouTubeID(video)}/mqdefault.jpg`} alt="" />
+                            <button className="article-edit__image-delete" onClick={handleDeleteVideoLink} />
+                        </div>
+                    }
+                </div>
+            }
             {!!docs.length &&
                 <div className="article-edit__documents">
                     <h4 className="article-edit__documents-title">Прикреплённые файлы:</h4>
@@ -330,112 +423,25 @@ const RenderFields = ({ fields,
                         {docs.map((item, i) =>
                             <li className="article-edit__documents-item" key={i}>
                                 <span>{item.name}</span>
-                                <SvgIcon icon={trash} size="default" onClick={() => handleDeleteDocument(i)} />
+                                <SvgIcon
+                                    icon={trash}
+                                    size="default"
+                                    onClick={() => handleDeleteDocument(i)}
+                                />
                             </li>
                         )}
                     </ul>
                 </div>
             }
-            {is_advert &&
-                <div className="article-edit__advert">
-                    {
-                        (advertCategoryId === 1) ?
-                            <div className="article-edit__wrap">
-                                <FormGroup inline className="article-edit__ad">
-                                    <FormField {...fields.advert_breed_id} options={breeds} />
-                                    <FormField {...fields.advert_cost} />
-                                    {!isMating && <FormField {...fields.advert_number_of_puppies} />}
-                                </FormGroup>
-                                <FormGroup inline className="article-edit__ad">
-                                    <FormField {...fields.dog_color} />
-                                    <FormField {...fields.dog_age} />
-                                    <div className="article-edit__custom-select">
-                                        <label htmlFor="dog_sex_type_id">Пол</label>
-                                        <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
-                                    </div>
-                                </FormGroup>
-                            </div>
-                            :
-                            <div className="article-edit__inner-add-inputs">
-                                {
-                                    advert_type_id !== 6 ?
-                                    <div className="article-edit__city-select-wrap">
-                                        <FormField
-                                            className={`ArticleCreateForm__input-city ${(!formik.values.dog_city || formik.values.dog_city.length === 0) && 'error-field'}`}
-                                            {...fields.dog_city}
-                                            label={`Место ${cityLabel}`}
-                                        />
-                                        {
-                                            (!formik.values.dog_city || formik.values.dog_city.length === 0) && <div className="article-edit__error-wrap ">
-                                                <div className="FormInput__error select-city">Выберите город</div>
-                                            </div>
-                                        }
-                                    </div>
-                                        :
-                                        <div className="article-edit__city-input-wrap">
-                                            <CustomCheckbox
-                                                id="isAllCities__checkbox"
-                                                label="Все города"
-                                                className="ArticleCreateForm__ad"
-                                                checked={isAllCitiesEdit}
-                                                onChange={handleChangeAllCities}
-                                            />
-                                            <div>
-                                                <label className="article-edit__city-label" htmlFor="cities-input">Город</label>
-                                                <CustomSelect
-                                                    id="cities-input"
-                                                    value={currentCities}
-                                                    placeholder="Выберите город"
-                                                    options={cities ? cities : []}
-                                                    isMulti={true}
-                                                    onChange={handleCitySelect}
-                                                    className={`article-edit__input-breedId ${(isAllCitiesEdit) && 'disabled'} ${(!currentCities && !isAllCitiesEdit) && 'error-field' }`}
-                                                />
-                                            </div>
-                                            {
-                                                (!currentCities && !isAllCitiesEdit) && <div className="article-edit__error-wrap ">
-                                                    <div className="FormInput__error select-city">Выберите город</div>
-                                                </div>
-                                            }
 
-                                        </div>
-                                }
-                                <FormGroup inline className="article-edit__ad article-edit__halfbreed-wrap">
-                                    <CustomCheckbox
-                                         id="isHalfBreed_checkbox"
-                                         label="Метис"
-                                         className="ArticleCreateForm__ad"
-                                         checked={isHalfBreedEdit}
-                                         onChange={handleChangeHalfBreed}
-                                     />
-                                    <FormField
-                                        className={`article-edit__input-breedId ${(isHalfBreedEdit) && 'disabled'} ${(!isHalfBreedEdit && !breedValue) && 'error-input'}`}
-                                        {...fields.advert_breed_id}
-                                        options={breeds}
-                                        onChange={(e) => handleChangeBreed(e)}
-                                    />
-                                        {
-                                            (!isHalfBreedEdit && !breedValue) &&
-                                            <div className="FormInput__error select-error">Поле не может быть пустым</div>
-                                        }
-                                </FormGroup>
-                                <FormGroup inline className="article-edit__ad">
-                                    <FormField {...fields.dog_name} />
-                                    <FormField {...fields.dog_color} />
-                                    <div className={(activeElem === 5) && 'article-edit__age-wrap'}>
-                                        <FormField {...fields.dog_age} />
-                                    </div>
-                                    <div className="article-edit__custom-select">
-                                        <label htmlFor="dog_sex_type_id">Пол</label>
-                                        <CustomSelect value={sexId} options={sex} onChange={(e) => handleChange(e)}/>
-                                    </div>
-                                </FormGroup>
-                            </div>
-                    }
-                </div>
-            }
             <FormControls className="article-edit__form-controls">
-                <button type="button" className="btn" onClick={onCancel}>Отмена</button>
+                <button
+                    type="button"
+                    className="btn"
+                    onClick={onCancel}
+                >
+                    Отмена
+                </button>
                 <SubmitButton
                     type="submit"
                     className={`article-edit__button${(advert_type_id === 6) 
