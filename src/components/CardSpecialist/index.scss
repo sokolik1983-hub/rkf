@@ -142,6 +142,8 @@
   }
 
   &__name {
+    display: flex;
+    flex-direction: column;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;

@@ -71,21 +71,26 @@ const CardSpecialist = ({
                         <div className="card-specialists__info">
 
                             <div className="card-specialists__names">
-
                                 {owner_alias ?
                                     <Link className="card-specialists__name"
-                                          to = {`/user/${owner_alias}`}>
-                                        {last_name}&nbsp;
-                                        <br />
-                                        {first_name + " " + second_name}
+                                        to={`/user/${owner_alias}`}>
+                                        <span>
+                                            {last_name}
+                                        </span>
+                                        <span>
+                                            {first_name + " " + second_name}
+                                        </span>
                                     </Link>
-                                : <span className="card-specialists__name">
-                                        {last_name}&nbsp;
-                                        <br />
-                                        {first_name + " " + second_name}
+                                    :
+                                    <span className="card-specialists__name">
+                                        <span>
+                                            {last_name}
+                                        </span>
+                                        <span>
+                                            {first_name + " " + second_name}
+                                        </span>
                                     </span>
                                 }
-                                
                                 <span className="card-specialists__name-eng">
                                     {last_name_lat} {first_name_lat}
                                 </span>
