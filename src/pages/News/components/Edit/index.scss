@@ -618,6 +618,39 @@
     .article-edit__ad:first-child {
       margin-bottom: 20px;
     }
+
+    @media (min-width: 1024px) {
+      .article-edit__ad {
+        justify-content: space-between;
+        gap: 0;
+
+        .FormInput:first-child {
+          width: 50%;
+          flex: none;
+        }
+
+        & > div:not(:first-child) {
+          width: 25%;
+          flex: none;
+        }
+
+        & > div {
+          margin-right: 0;
+          padding-right: 16px;
+
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+      &.isMating {
+        .article-edit__ad:first-child {
+          & > div:last-child {
+            width: 50%;
+          }
+        }
+      }
+    }
   }
 
   @media (max-width: 990px) {
