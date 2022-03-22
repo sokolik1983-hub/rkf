@@ -203,7 +203,7 @@
     &-form {
       display: flex;
       flex-direction: column;
-      margin-top: 24px;
+      margin: 24px 0 42px;
       &__input {
         max-width: 315px;
         height: 38px;
@@ -220,7 +220,19 @@
         }
       }
       &__error {
+        position: absolute;
+        margin-top: 38px;
         color: #DC3545;
+      }
+      .btn {
+        position: absolute;
+        left: 0;
+        right: 0;
+        max-width: 154px;
+        height: 38px;
+        margin: 78px auto 0;
+        padding: 0;
+        border-radius: 3px;
       }
     }
     &-btns {
