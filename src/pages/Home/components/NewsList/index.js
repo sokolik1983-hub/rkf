@@ -46,6 +46,27 @@ const NewsList = ({isFullDate = true}) => {
         isAdvert: null
     });
 
+    const doTheFilter = (currentCities) => {
+        console.log('currentCities', currentCities);
+        console.log('newsFilter.cities', newsFilter.cities);
+        if(newsFilter.regions.length === 0) {
+            setNewsFilter({...newsFilter, regions:newsFilter.regions,  cities: []});
+        } else {
+            const newArr = [];
+            currentCities.forEach(item => {
+                newsFilter.cities.forEach(elem => {
+                    if(item.value === elem) {
+                        newArr.push(elem);
+                    }
+                })
+            });
+
+            console.log('newArr', newArr);
+            setNewsFilter({...newsFilter, cities: newArr});
+        }
+
+    }
+
     const getNews = async (startElem, filters) => {
         setNewsLoading(true);
 
@@ -160,9 +181,9 @@ const NewsList = ({isFullDate = true}) => {
 
     const changeRegionFilter = regionIds => {
         setLSRegions(regionIds);
-        setNewsFilter({...newsFilter, regions: regionIds, cities: []});
+        setNewsFilter({...newsFilter, regions: regionIds});
         setStartElement(1);
-        (() => getNews(1, {...newsFilter, regions: regionIds, cities: []}))();
+        (() => getNews(1, {...newsFilter, regions: regionIds}))();
     };
 
     useEffect(() => {
@@ -171,6 +192,7 @@ const NewsList = ({isFullDate = true}) => {
             url: `${endpointNewsCity}?${currentRegions.map(reg => `regionIds=${reg}`).join('&')}`
         }, data => {
             setCities(data);
+            doTheFilter(data)
         },error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -181,6 +203,7 @@ const NewsList = ({isFullDate = true}) => {
         setNewsFilter({...newsFilter, is_popular: mostLiked});
         (() => getNews(1, {...newsFilter, is_popular: mostLiked}))();
     };
+
 
 
     return (
