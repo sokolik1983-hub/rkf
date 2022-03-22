@@ -7,6 +7,7 @@ import {connectWidgetLogin} from "pages/Login/connectors";
 
 const ActivateClub = ({club, history, logOutUser, close}) => {
     const [code, setCode] = useState(null);
+    const [errorCode, setErrorCode] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const onEmailSubmit = () => {
@@ -57,7 +58,7 @@ const ActivateClub = ({club, history, logOutUser, close}) => {
                     logOutUser();
                     history.push('/');
                 } else {
-                    alert('Произошла ошибка');
+                    setErrorCode(true);
                 }
             });
     };
@@ -90,13 +91,20 @@ const ActivateClub = ({club, history, logOutUser, close}) => {
                             <p>Пожалуйста, зайдите в свою почту и введите полученный код ниже.</p>
                             <form onSubmit={onCodeSubmit} className="club-registration__activate-form">
                                 <input
+                                    className={errorCode ? 'club-registration__activate-form__input __error' : 'club-registration__activate-form__input'}
                                     size="30"
                                     type="text"
                                     onChange={e => setCode(e.target.value)}
+                                    onClick={() => setErrorCode(false)}
                                     minLength="4"
                                     required
                                     placeholder="Введите код активации"
                                 />
+                                {errorCode &&
+                                    <span className="club-registration__activate-form__error">
+                                        Введен неверный код активации
+                                    </span>
+                                }
                             </form>
                         </div>
                     }
