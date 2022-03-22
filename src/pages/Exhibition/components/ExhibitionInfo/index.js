@@ -178,6 +178,7 @@ const ExhibitionInfo = ({
                     </p>
                 </div>
             </Card>*/}
+            {/*блок закоментирован по просьбе аналитика, по макету*/}
             {showModal &&
                 <Modal showModal={showModal}
                        handleClose={() =>setShowModal(false)}
