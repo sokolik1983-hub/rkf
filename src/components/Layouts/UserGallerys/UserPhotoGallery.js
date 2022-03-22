@@ -124,7 +124,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
     if (!loading && !images.length && isMobile) {
         return null
     } else return (
-        <Card className="user-gallery">
+        <Card className="user-gallery photo">
             <div className="user-gallery__header">
                 <Link to={pageLink}><h4 className="user-gallery__title">Фотогалерея</h4></Link>
                 <div style={{ display: 'flex' }}>
