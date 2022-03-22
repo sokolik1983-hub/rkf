@@ -82,6 +82,7 @@ const NewsList = ({
     };
 
     const getNextNews = () => {
+        console.log('getNextNews')
         if (hasMore) {
             setStartElement(startElement + 10);
             (() => getNews(startElement + 10))();
