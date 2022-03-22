@@ -189,18 +189,18 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                             </li>
                         )}
                         <li className='header__nav-socials'>
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/">
-                                <img src="/static/icons/social/facebook-grey.svg" alt="" />
-                            </a>
+                            {/*<a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/">*/}
+                            {/*    <img src="/static/icons/social/facebook-grey.svg" alt="" />*/}
+                            {/*</a>*/}
                             <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed">
                                 <img src="/static/icons/social/vk-grey.svg" alt="" />
                             </a>
                             <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig">
                                 <img src="/static/icons/social/youtube-grey.svg" alt="" />
                             </a>
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/">
-                                <img src="/static/icons/social/instagram-grey.svg" alt="" />
-                            </a>
+                            {/*<a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/">*/}
+                            {/*    <img src="/static/icons/social/instagram-grey.svg" alt="" />*/}
+                            {/*</a>*/}
                             <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial">
                                 <img src="/static/icons/social/telegram-grey.svg" alt="" />
                             </a>
