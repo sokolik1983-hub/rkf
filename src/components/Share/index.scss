@@ -3,13 +3,15 @@
 }
 
 .ya-share2 span:hover {
-    color: #3366ff!important;
+  color: #3366ff !important;
 }
+
 .ya-share2__popup {
-  z-index: 1!important;
+  z-index: 1 !important;
 }
+
 .ya-share2_inited {
-    display: inline-block!important;
+  display: inline-block !important;
 }
 
 .has-url .ya-share2__popup {
@@ -17,29 +19,32 @@
 }
 
 .ya-share2__icon_more {
-      position: relative;
-      width: 22px!important;
-      height: 24px;
-      background-color: white;
-      &:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: inline-block;
-        width: 22px;
-        height: 24px;
-        background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50%/contain;
-        background-color: white;
-        vertical-align: middle;
-      }
-      &:before {
-        content: 'Поделиться'!important;
-        position: relative!important;
-        top: -2px;
-        right: 70px!important;
-        display: none;
-        font-size: .9rem!important;
-        color: #3366ff!important;
-      }
+  border-width: 0 !important;
+  box-shadow: none !important;
+  width: 16px !important;
+  height: 16px;
+  background-color: white;
+
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50%/contain;
+    background-color: white;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &:before {
+    display: none;
+    content: 'Поделиться' !important;
+    position: relative !important;
+    right: 70px !important;
+    font-size: .9rem !important;
+    color: #3366ff !important;
+    top: -2px;
+  }
 }
