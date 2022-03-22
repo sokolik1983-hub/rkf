@@ -106,7 +106,7 @@ const ActivateClub = ({club, history, logOutUser, close}) => {
                 {code === null ?
                     <button className="btn btn-primary" onClick={onEmailSubmit}>Отправить</button>
                     :
-                    <button type="submit" className="btn btn-primary">Отправить</button>
+                    <button type="submit" className="btn btn-primary" onClick={onCodeSubmit}>Отправить</button>
                 }
             </div>
         </div>
