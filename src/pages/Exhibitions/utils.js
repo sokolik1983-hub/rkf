@@ -74,11 +74,9 @@ export const getFiltersFromUrl = () => {
 };
 
 export const setFiltersToUrl = (filters, initial = false) => {
-    console.log('filters', filters);
-
-    const newArr = [];
 
     if(filters.filteredCities) {
+        const newArr = [];
         filters.filteredCities.forEach(item => {
             filters.CityIds.forEach(elem => {
                 if(item === elem) {
@@ -87,7 +85,7 @@ export const setFiltersToUrl = (filters, initial = false) => {
             })
         });
         filters.CityIds = newArr;
-    }
+    };
 
     const newFilters = getFiltersFromUrl() ? { ...getFiltersFromUrl(), ...filters } : filters;
     const targetUrl = (`/exhibitions${buildUrlParams(newFilters)}`);

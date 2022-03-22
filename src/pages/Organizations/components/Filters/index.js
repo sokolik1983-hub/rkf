@@ -148,7 +148,7 @@ const Filters = ({
             if (error.response) alert(`Ошибка: ${error.response.status}`);
         }))();
         setIsUserFiltered(true);
-        setFiltersToUrl({region_ids: filter})
+        setFiltersToUrl({region_ids: filter});
     };
 
     const handleChangeCities = filter => {
@@ -162,7 +162,7 @@ const Filters = ({
             setFiltersToUrl({city_ids: []});
             setIsUserFiltered(false);
         }
-        setFiltersToUrl({filtered_cities: currentCities, city_ids: currentCityIds})
+        setFiltersToUrl({filtered_cities: currentCities, city_ids: currentCityIds});
     }, [currentCities, currentCityIds]);
 
     return (

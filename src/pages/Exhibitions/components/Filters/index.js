@@ -161,7 +161,6 @@ const Filters = ({
     }, [filters.RegionIds.length]);
 
     useEffect(() => {
-        console.log('11111111111111111', filters.RegionIds.length);
         if(filters.RegionIds.length === 0 && isUserFiltered) {
             setCurrentCityIds([]);
             setFiltersToUrl({cityIds: []});
