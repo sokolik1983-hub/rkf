@@ -57,7 +57,9 @@ const Filters = ({
     const [regionLabels, setRegionLabels] = useState([]);
     const [cities, setCities] = useState({ exhibitionCities: [], educationalCities: [] });
     const [exhibitionCities, setExhibitionCities] = useState( []);
-    const [currentExhibCities, setCurrentExhibCities] = useState( []);
+    const [currentExhibRegions, setcurrentExhibRegions] = useState( []);
+    const [currentCityIds, setCurrentCityIds] = useState( []);
+    const [isUserFiltered, setIsUserFiltered] = useState(false);
     const [loading, setLoading] = useState(true);
     const [clear_filter, setClearFilter] = useState(false);
     const [range_clicked, setRangeClicked] = useState(false);
@@ -116,11 +118,17 @@ const Filters = ({
             ...club,
             subscribed: subscribed
         })
-    }
+    };
 
     const handleChangeRegionFilter = (filter) => {
-        setFiltersToUrl({RegionIds: filter, CityIds: []});
-        setCurrentExhibCities(filter);
+        setFiltersToUrl({RegionIds: filter});
+        setcurrentExhibRegions(filter);
+        setIsUserFiltered(true);
+    };
+
+    const handleChangeCityFilter = (filter) => {
+        setFiltersToUrl({ CityIds: filter });
+        setCurrentCityIds(filter);
     };
 
     useEffect(() => {
@@ -134,9 +142,9 @@ const Filters = ({
     }, []);
 
     useEffect(() => {
-        if(currentExhibCities && currentExhibCities.length > 0){
+        if(currentExhibRegions && currentExhibRegions.length > 0){
             (() => Request({
-                url: `${endpointExhibitionsFilters}?${currentExhibCities.map(reg => `RegionIds=${reg}`).join('&')}`
+                url: `${endpointExhibitionsFilters}?${currentExhibRegions.map(reg => `RegionIds=${reg}`).join('&')}`
             }, data => {
                 setExhibitionCities(data.cities);
             },error => {
@@ -144,13 +152,23 @@ const Filters = ({
                 if (error.response) alert(`Ошибка: ${error.response.status}`);
             }))();
         }
-    }, [currentExhibCities]);
+    }, [currentExhibRegions]);
 
     useEffect(() => {
         if(filters.RegionIds.length === 0) {
             setExhibitionCities(cities.exhibitionCities);
         }
     }, [filters.RegionIds.length]);
+
+    useEffect(() => {
+        console.log('11111111111111111', filters.RegionIds.length);
+        if(filters.RegionIds.length === 0 && isUserFiltered) {
+            setCurrentCityIds([]);
+            setFiltersToUrl({cityIds: []});
+            setIsUserFiltered(false);
+        }
+        setFiltersToUrl({ CityIds: currentCityIds, filteredCities: exhibitionCities.map(item => item.value)});
+    }, [exhibitionCities, currentCityIds]);
 
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
@@ -255,7 +273,7 @@ const Filters = ({
                                 loading={loading}
                                 cities={isEducational ? cities.educationalCities : exhibitionCities}
                                 city_ids={filters.CityIds}
-                                onChange={filter => setFiltersToUrl({ CityIds: filter })}
+                                onChange={filter => handleChangeCityFilter(filter)}
                                 is_club_link={clubName && filters.Alias}
                             />
                             {parseInt(filters.CategoryId) !== 4 &&
