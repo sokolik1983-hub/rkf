@@ -4,13 +4,15 @@ export const buildUrlParams = filters => {
     let params = '';
 
     Object.keys(filters).forEach(key => {
-        if (filters[key] || key === 'activated' || key === 'active_rkf_user') {
-            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'region_ids') {
-                if (filters[key].length) {
-                    params += filters[key].map(id => `${key}=${id}&`).join('');
+        if(key !== 'filtered_cities') {
+            if (filters[key] || key === 'activated' || key === 'active_rkf_user') {
+                if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'region_ids') {
+                    if (filters[key].length) {
+                        params += filters[key].map(id => `${key}=${id}&`).join('');
+                    }
+                } else {
+                    params += `${key}=${filters[key]}&`;
                 }
-            } else {
-                params += `${key}=${filters[key]}&`;
             }
         }
     });
@@ -68,6 +70,25 @@ export const getFiltersFromUrl = () => {
 };
 
 export const setFiltersToUrl = filters => {
+    console.log('filtered5555', filters.filtered_cities);
+    console.log('filter6666', filters.city_ids);
+
+    const newArr = [];
+
+    if(filters.filtered_cities) {
+        filters.filtered_cities.forEach(item => {
+            filters.city_ids.forEach(elem => {
+                if(item === elem) {
+                    newArr.push(item);
+                }
+            })
+        });
+        filters.city_ids = newArr;
+    }
+
+
+    console.log('filters777777777', filters);
+
     const newFilters = Object.keys(filters).length > 2 ? {...filters} : {...getFiltersFromUrl(), ...filters};
 
     history.push(`/organizations${buildUrlParams(newFilters)}`);
