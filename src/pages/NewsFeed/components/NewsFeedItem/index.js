@@ -343,6 +343,7 @@ const NewsFeedItem = forwardRef(({
                                         docId={doc.id}
                                         document={doc}
                                         page="NewsFeedItem"
+                                        endpoint="/api/document/publicdocument"
                                     />
                                 </li>
                             )}
