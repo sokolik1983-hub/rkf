@@ -70,8 +70,11 @@ const CategoriesList = ({
                         onClick={() => handleCategoryClick(id)}
                         className={isActive(id)}
                         key={key} >
-                            <span className={icon} />
-                            <span>{name}</span>
+                            <div>
+                                <span className={icon} />
+                                <span>{name}</span>
+                            </div>
+
                             {count > 0 &&
                                 <span className="news-feed__category-item-count">
                                     {count}

@@ -13,24 +13,24 @@ const NotificationCategories = ({
     }
 
     return (
-        <div className="NotificationCategories">
+        <div className="notification-categories">
             {categories.map(category => {
                 return (
                     <div
-                        className={`NotificationCategories__item${currentCategory === category.id ? ' _active' : ''}`}
+                        className={`notification-categories__item${currentCategory === category.id ? ' _active' : ''}`}
                         key={category.id}
                         onClick={() => handleClick(category.id)}
                     >
-                        <div className="NotificationCategories__item-inner">
+                        <div className="notification-categories__item-inner">
                             <div
-                                className="NotificationCategories__item-icon"
+                                className="notification-categories__item-icon"
                                 style={{ backgroundImage: `url(${category.icon})` }}
                             />
-                            <div className="NotificationCategories__item-name">
+                            <div className="notification-categories__item-name">
                                 {category.name}
                             </div>
                             {category.count > 0 &&
-                                <div className="NotificationCategories__item-count">
+                                <div className="notification-categories__item-count">
                                     {category.count <= 99 ? category.count : '99+'}
                                 </div>
                             }
