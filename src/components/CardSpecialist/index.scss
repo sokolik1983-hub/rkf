@@ -162,6 +162,17 @@
       line-height: 26px;
     }
   }
+  a.card-specialists__name {
+    &:hover {
+      color: #3366ff;
+    }
+    span:last-child {
+      display: flex;
+      svg {
+        align-self: center;
+      }
+    }
+  }
 
   &__specialization {
     display: flex;
