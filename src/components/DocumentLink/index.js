@@ -1,5 +1,5 @@
 import React, { useState,  useRef } from 'react';
-import { getHeaders} from "../../utils/request";
+import { getHeaders } from '../../utils/request';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { filePdf } from '@progress/kendo-svg-icons';
 import moment from 'moment';
@@ -12,6 +12,7 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
     const linkRef = useRef();
 
     console.log('page', page)
+    console.log('endpoint', endpoint)
 
     const getDocument = () => {
         if (!+docId) return;

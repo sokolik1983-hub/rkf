@@ -1,6 +1,6 @@
 .CardFooter {
     width: 100%;
-    padding-top: 6px;
+    padding-top: 10px;
     border-top: 1px solid #e8e8e8;
 
     &__controls {
@@ -21,10 +21,14 @@
                 span:first-child {
                     color: #b9b9b9;
                     font-size: 18px;
+                    font-weight: 700;
                     margin-right: 10px;
+                    &.k-i-preview {
+                        font-size: 21px;
+                    }
                     & + span {
-                        font-size: 14px;
-                        line-height: 18px;
+                        font-size: 16px;
+                        line-height: 1;
                     }
                 }
             }
@@ -50,9 +54,9 @@
                     background-color: white;
 
                     &:after {
-                        width: 16px;
-                        height: 16px;
                         top: 0;
+                        width: 18px;
+                        height: 20px;
                         background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
                         background-color: white;
                     }
@@ -65,8 +69,6 @@
 
                 & .ya-share2__badge.ya-share2__badge_more {
                     background: none!important;
-                    width: 16px!important;
-                    height: 16px!important;
                 }
 
                 & .ya-share2__link {
