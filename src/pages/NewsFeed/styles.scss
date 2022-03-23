@@ -37,8 +37,13 @@
   &__category {
     &-item {
       display: flex;
+      justify-content: space-between;
       align-items: center;
       margin-top: 15px;
+
+      & div {
+        display: flex;
+      }
 
       &-count {
         display: flex;

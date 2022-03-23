@@ -337,8 +337,8 @@ const NewsFeedItem = forwardRef(({
                 {documents && !!documents.length &&
                     <div className="news-feed-item__documents" style={{ margin: '0 10px 0 10px' }}>
                         <ul className="news-feed-item__documents-list">
-                            {documents.map(doc =>
-                                <li className="DocumentItem" key={doc.id}>
+                            {documents.map((doc, key) =>
+                                <li className="DocumentItem" key={key}>
                                     <DocumentLink
                                         docId={doc.id}
                                         document={doc}
