@@ -131,6 +131,8 @@ const Filters = ({
             url: `${endpointGetClubsCities}?${region_ids.map(reg => `regionIds=${reg}`).join('&')}`
         }, data => {
             setCities(data);
+
+            isUserFiltered && goToLink(cities, currentCityIds);
         },error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -139,14 +141,6 @@ const Filters = ({
     }, [region_ids]);
 
     const handleChangeRegions = filter => {
-        (() => Request({
-            url: `${endpointGetClubsCities}?${filter.map(reg => `regionIds=${reg}`).join('&')}`
-        }, data => {
-            setCurrentCities(data.map(item => item.value));
-        },error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-        }))();
         setIsUserFiltered(true);
         setFiltersToUrl({region_ids: filter});
     };
@@ -156,14 +150,25 @@ const Filters = ({
         setFiltersToUrl({city_ids: filter});
     };
 
-    useEffect(() => {
-        if(region_ids.length === 0 && isUserFiltered) {
-            setCurrentCityIds([]);
+    const goToLink = (cities, currentCityIds) => {
+        if(filtersValue.region_ids.length === 0) {
             setFiltersToUrl({city_ids: []});
-            setIsUserFiltered(false);
+        } else {
+            const newArr = [];
+            cities.map(item => item.value).forEach(item => {
+                currentCityIds.forEach(elem => {
+                        if(item === elem) {
+                            newArr.push(item);
+                        }
+                    })
+                });
+            setCurrentCityIds(newArr)
+            setFiltersToUrl({ city_ids: newArr});
         }
-        setFiltersToUrl({filtered_cities: currentCities, city_ids: currentCityIds});
-    }, [currentCities, currentCityIds]);
+        setIsUserFiltered(false);
+    };
+
+
 
     return (
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>

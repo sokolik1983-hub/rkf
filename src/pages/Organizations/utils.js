@@ -71,17 +71,6 @@ export const getFiltersFromUrl = () => {
 
 export const setFiltersToUrl = filters => {
 
-    if(filters.filtered_cities) {
-        const newArr = [];
-        filters.filtered_cities.forEach(item => {
-            filters.city_ids.forEach(elem => {
-                if(item === elem) {
-                    newArr.push(item);
-                }
-            })
-        });
-        filters.city_ids = newArr;
-    }
     const newFilters = Object.keys(filters).length > 2 ? {...filters} : {...getFiltersFromUrl(), ...filters};
 
     history.push(`/organizations${buildUrlParams(newFilters)}`);

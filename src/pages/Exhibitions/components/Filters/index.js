@@ -57,6 +57,7 @@ const Filters = ({
     const [regionLabels, setRegionLabels] = useState([]);
     const [cities, setCities] = useState({ exhibitionCities: [], educationalCities: [] });
     const [exhibitionCities, setExhibitionCities] = useState( []);
+    const [startCities, setStartCities] = useState( []);
     const [currentExhibRegions, setcurrentExhibRegions] = useState( []);
     const [currentCityIds, setCurrentCityIds] = useState( []);
     const [isUserFiltered, setIsUserFiltered] = useState(false);
@@ -76,7 +77,27 @@ const Filters = ({
             console.log(error.response);
             setLoading(false);
         });
-    }
+    };
+
+    const goToLink = (cities, currentCityIds) => {
+        if(currentExhibRegions.length  === 0) {
+            setExhibitionCities(startCities);
+            setFiltersToUrl({CityIds: []});
+        } else {
+            const newArr = [];
+            cities.map(item => item.value).forEach(item => {
+                currentCityIds.forEach(elem => {
+                    if(item === elem) {
+                        newArr.push(item);
+                    }
+                })
+            });
+
+            setCurrentCityIds(newArr)
+            setFiltersToUrl({ CityIds: newArr});
+        }
+        setIsUserFiltered(false);
+    };
 
     useEffect(() => {
         Promise.all([
@@ -85,6 +106,7 @@ const Filters = ({
         ]).then(data => {
             setCities({ exhibitionCities: data[0].cities, educationalCities: data[1].cities });
             setExhibitionCities(data[0].cities);
+            setStartCities(data[0].cities);
             setRanks(data[0].ranks);
             setTypes(data[0].types);
             setBreeds(data[0].breeds.filter(item => item.value !== 1));
@@ -121,14 +143,14 @@ const Filters = ({
     };
 
     const handleChangeRegionFilter = (filter) => {
-        setFiltersToUrl({RegionIds: filter});
         setcurrentExhibRegions(filter);
         setIsUserFiltered(true);
+        setFiltersToUrl({RegionIds: filter});
     };
 
     const handleChangeCityFilter = (filter) => {
-        setFiltersToUrl({ CityIds: filter });
         setCurrentCityIds(filter);
+        setFiltersToUrl({ CityIds: filter });
     };
 
     useEffect(() => {
@@ -140,34 +162,21 @@ const Filters = ({
             getFedInfo(url);
         }
     }, []);
-
     useEffect(() => {
         if(currentExhibRegions && currentExhibRegions.length > 0){
             (() => Request({
                 url: `${endpointExhibitionsFilters}?${currentExhibRegions.map(reg => `RegionIds=${reg}`).join('&')}`
             }, data => {
                 setExhibitionCities(data.cities);
+                isUserFiltered && goToLink(data.cities, currentCityIds);
             },error => {
                 console.log(error.response);
                 if (error.response) alert(`Ошибка: ${error.response.status}`);
             }))();
+        } else {
+            goToLink(startCities, currentCityIds);
         }
     }, [currentExhibRegions]);
-
-    useEffect(() => {
-        if(filters.RegionIds.length === 0) {
-            setExhibitionCities(cities.exhibitionCities);
-        }
-    }, [filters.RegionIds.length]);
-
-    useEffect(() => {
-        if(filters.RegionIds.length === 0 && isUserFiltered) {
-            setCurrentCityIds([]);
-            setFiltersToUrl({cityIds: []});
-            setIsUserFiltered(false);
-        }
-        setFiltersToUrl({ CityIds: currentCityIds, filteredCities: exhibitionCities.map(item => item.value)});
-    }, [exhibitionCities, currentCityIds]);
 
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
