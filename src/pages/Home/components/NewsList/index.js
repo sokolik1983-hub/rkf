@@ -47,10 +47,9 @@ const NewsList = ({isFullDate = true}) => {
     });
 
     const doTheFilter = (currentCities) => {
-        console.log('currentCities', currentCities);
-        console.log('newsFilter.cities', newsFilter.cities);
         if(newsFilter.regions.length === 0) {
             setNewsFilter({...newsFilter, regions:newsFilter.regions,  cities: []});
+            (() => getNews(1, {...newsFilter, regions: [], cities: []}))();
         } else {
             const newArr = [];
             currentCities.forEach(item => {
@@ -60,9 +59,8 @@ const NewsList = ({isFullDate = true}) => {
                     }
                 })
             });
-
-            console.log('newArr', newArr);
             setNewsFilter({...newsFilter, cities: newArr});
+            (() => getNews(1, {...newsFilter, regions: newsFilter.regions, cities: newArr}))();
         }
 
     }
