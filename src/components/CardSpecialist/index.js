@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 import Card from '../Card';
 import CardFooter from '../CardFooter';
+import {judgeIcon} from "../Layouts/UserLayout/config";
 
 import './index.scss';
 
@@ -79,6 +80,7 @@ const CardSpecialist = ({
                                         </span>
                                         <span>
                                             {first_name + " " + second_name}
+                                            {owner_alias && judgeIcon}
                                         </span>
                                     </Link>
                                     :
