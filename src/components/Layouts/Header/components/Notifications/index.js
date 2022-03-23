@@ -219,9 +219,9 @@ const Notifications = forwardRef(
                                                                     </div>
                                                                 }
                                                             >
-                                                                { notificationsList.map((n, key) => {
+                                                                { notificationsList.map((notification, key) => {
                                                                     return <React.Fragment key={ key }>
-                                                                        <NotificationItem  { ...n } setOpen={ setOpen }/>
+                                                                        <NotificationItem  { ...notification } setOpen={ setOpen }/>
                                                                     </React.Fragment>
                                                                 }) }
 
