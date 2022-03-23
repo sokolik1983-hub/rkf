@@ -6,7 +6,6 @@ import Container from "../Layouts/Container";
 import "./styles.scss";
 
 const PopupModal = ({ showModal, handleClose, children, bottomStyle, zIndexStyle }) => {
-console.log(showModal)
     return (
         ReactDOM.createPortal(
             <div className={(showModal ? "Modal-popup" : "Modal-popup--hidden") + " " + (bottomStyle ? "bottomStyle" : "") + " " + (zIndexStyle ? "zIndexStyle" : "") }>

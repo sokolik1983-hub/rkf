@@ -13,7 +13,6 @@ import { NotificationsContext } from 'app/context';
 import Loading from 'components/Loading';
 import { DEFAULT_IMG } from 'appConfig';
 import PopupModal from '../../../../PopupModal';
-import useIsMobile from '../../../../../utils/useIsMobile';
 import {blockContent} from '../../../../../utils/blockContent';
 
 import "./styles.scss";
@@ -39,7 +38,6 @@ const defaultCategories = [
 
 const Notifications = forwardRef(
     ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
-        const {notificationLength, setNotificationsLength} = useState(0);
         const [loaded, setLoaded] = useState(false);
         const [open, setOpen] = useState(false);
         const [notificationsList, setNotificationsList] = useState([]);
@@ -52,10 +50,6 @@ const Notifications = forwardRef(
 
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
-        const isMobile = useIsMobile(1080);
-
-        const mobileNotificationsBlock = useRef();
-        const desktopNotificationsBlock = useRef();
 
         useEffect(() => {
             setNotificationsList([]);
@@ -97,7 +91,6 @@ const Notifications = forwardRef(
                 ]);
 
                 setNotificationsList(startElement === 1 ? [...notifications] : [...notificationsList, ...notifications]);
-                setNotificationsLength && setNotificationsLength(notifications.filter(notification => notification.is_read === false).length);
                 setLoaded(true);
 
                 if (!notifications || notifications.length < 10) {
