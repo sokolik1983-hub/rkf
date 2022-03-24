@@ -1,22 +1,18 @@
 import React, {memo, useState, useEffect} from "react";
 import StickyBox from "react-sticky-box";
 import {Link} from "react-router-dom";
-import ls from "local-storage";
 import {useTimeOut} from "../../shared/hooks.js";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import CheckStatus from "../Club/components/CheckStatus";
-import CheckLitterStatus from "../Club/components/CheckLitterStatus";
 import CheckRegistration from "./components/CheckRegistration"
 import FoundInfo from "./components/FoundInfo";
-import GlobalCard from "./components/GlobalCard";
 import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
-// import RefereeSearch from "./components/RefereeSearch";
 import TopComponent from "../../components/TopComponent";
 import UserMenu from "../../components/Layouts/UserMenu";
 import Banner from "../../components/Banner";
@@ -26,17 +22,18 @@ import {Request} from "../../utils/request";
 import {clubNav} from "../Docs/config";
 import {kennelNav} from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
-import ListFilter from "./components/ListFilter";
 import {connectAuthVisible} from "../Login/connectors";
+import LeftMenu from "./components/LeftMune/LeftMenu";
+
 import "./index.scss";
 
 
-const BaseSearch = ({isAuthenticated}) => {
+const BaseSearch = () => {
     const [cardClicked, setCardClicked] = useState(0);
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
+    const [activeSection, setActiveSection] = useState(0);
     const isMobile = useIsMobile(1080);
-    const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
 
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
@@ -77,21 +74,13 @@ const BaseSearch = ({isAuthenticated}) => {
                     />}
                     <div className="base-search__content-wrap">
                         <div className="base-search__content">
-                            <ListFilter
-                                cardClicked={cardClicked}
-                                setCardClicked={setCardClicked}
-                                isAuth={isAuthenticated && (userType === 3 || userType === 4 || userType === 5)}
-                            />
-                            <GlobalCard cardClicked={cardClicked} />
-                            <FoundInfo cardClicked={cardClicked} />
-                            <CheckStatus cardClicked={cardClicked} />
-                            <CheckRegistration cardClicked={cardClicked} />
-                            <StampSearch cardClicked={cardClicked} />
-                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
-                                <CheckLitterStatus cardClicked={cardClicked} />
+                            {
+                                activeSection === 0 ? <FoundInfo cardClicked={cardClicked}/> :
+                                activeSection === 1 ? <CheckStatus cardClicked={cardClicked} /> :
+                                activeSection === 2 ? <CheckRegistration cardClicked={cardClicked} /> :
+                                activeSection === 3 ? <StampSearch cardClicked={cardClicked} /> :
+                                activeSection === 4 && <PublicationSearch cardClicked={cardClicked} />
                             }
-                            {/*<RefereeSearch cardClicked={cardClicked} />*/}
-                            <PublicationSearch cardClicked={cardClicked} />
                         </div>
                         {!isMobile && <Aside className="base-search__info">
                             <StickyBox offsetTop={60}>
@@ -101,6 +90,10 @@ const BaseSearch = ({isAuthenticated}) => {
                                         nurseryData ?
                                             <UserMenu userNav={kennelNav(nurseryData.alias)}/> :
                                             <>
+                                                <LeftMenu
+                                                    setActiveSection={setActiveSection}
+                                                    activeSection={activeSection}
+                                                />
                                                 <Statistics/>
                                                 <Banner type={11}/>
                                                 <Card className="base-search__map-wrap">

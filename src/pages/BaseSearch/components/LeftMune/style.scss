@@ -1,0 +1,52 @@
+.left-menu {
+    padding: 10px;
+
+    h3 {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+
+    &__title {
+        font-weight: normal;
+        line-height: 24px;
+    }
+
+    &__inner {
+         &-list {
+            list-style: none;
+            margin-bottom: 0;
+            margin-right: 10px;
+
+            & li {
+                margin-left: 6px;
+                margin-top: 10px;
+            }
+        }
+
+        &-item {
+            cursor: pointer;
+            display: flex;
+            align-items: baseline;
+            color: #72839c;
+            transition: all 0.2s linear;
+
+            svg {
+                height: 18px;
+                position: relative;
+                top: 2px;
+                font-size: 20px;
+            }
+
+            &:hover,
+            &.active {
+                color: #3366ff;
+                transition: all 0.2s linear;
+
+                & > svg > path,
+                & > svg > g > path {
+                    fill: #3366ff;
+                }
+            }
+        }
+    }
+}
