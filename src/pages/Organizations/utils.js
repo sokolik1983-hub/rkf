@@ -57,9 +57,19 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'region_ids') {
+            if (
+                key === 'federation_ids' ||
+                key === 'city_ids' ||
+                key === 'breed_ids' ||
+                key === 'region_ids'
+            ) {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
-            } else if(key === 'activated' || key === 'active_member' || key === 'not_activated' || key === 'active_rkf_user') {
+            } else if(
+                key === 'activated' ||
+                key === 'active_member' ||
+                key === 'not_activated' ||
+                key === 'active_rkf_user'
+            ) {
                 filtersFromUrl[key] = value === 'true';
             } else {
                 filtersFromUrl[key] = key === 'organization_type' ? +value : value;
