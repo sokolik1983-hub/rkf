@@ -86,6 +86,7 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
                                     subscribed_id={userInfo.profile_id}
                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                     updateInfo={getUser}
+                                    judgeInfo={userInfo.open_roles}
                                 />
                             </Card>
                             {!isMobile && <UserMenu userNav={canEdit

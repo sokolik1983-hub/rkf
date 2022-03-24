@@ -38,12 +38,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 160px;
-    margin: 0 auto 15px;
+    width: 110px;
+    margin: 0 auto 30px;
     a {
-      &:first-child {
-        width: 10px;
-      }
       display: flex;
       align-items: center;
       width: 20px;

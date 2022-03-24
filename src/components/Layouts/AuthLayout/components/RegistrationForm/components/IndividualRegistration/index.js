@@ -26,7 +26,7 @@ const IndividualRegistration = () => {
     const onSuccess = () => {
         setSuccessAlert(true);
 
-        setTimeout(() => history.push("/login"), 7500);
+        setTimeout(() => history.push("/auth/login"), 7500);
     };
 
     const onPrivacyChange = () => {

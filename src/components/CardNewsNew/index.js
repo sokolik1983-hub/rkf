@@ -299,7 +299,7 @@ const CardNewsNew = forwardRef(({
                                     docId={doc.id}
                                     document={doc}
                                     endpoint={endpointGetLinkNewsFeed}
-                                    page="CardNewsNew"
+                                    page="CardNewsNew11"
                                 />
                             </li>
                         )}

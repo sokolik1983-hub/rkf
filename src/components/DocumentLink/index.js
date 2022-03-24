@@ -1,5 +1,5 @@
 import React, { useState,  useRef } from 'react';
-import { getHeaders} from "../../utils/request";
+import { getHeaders } from '../../utils/request';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { filePdf } from '@progress/kendo-svg-icons';
 import moment from 'moment';
@@ -12,6 +12,7 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
     const linkRef = useRef();
 
     console.log('page', page)
+    console.log('endpoint', endpoint)
 
     const getDocument = () => {
         if (!+docId) return;
@@ -29,7 +30,7 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
         return (
             <>
                 <SvgIcon icon={filePdf} size="default" />
-                <div className="DocumentItem__name">
+                <div className="document-item__name">
                     {document.name}
                     <span className="document-item__date">
                         {`Добавлено 
@@ -49,13 +50,13 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
         <>
             { !url ?
                 <span
-                    className="DocumentItem__href card-news-new__documents-item-name"
+                    className="document-item__href"
                     onClick={ getDocument }
                 >
                         {renderDocumentItem()}
                     </span> :
                 <a
-                    className="DocumentItem__href"
+                    className="document-item__href"
                     href={url}
                     target="_blank"
                     rel="noreferrer noopener"

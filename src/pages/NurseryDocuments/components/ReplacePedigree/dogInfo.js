@@ -23,7 +23,7 @@ const initial = {
 
 const options = {
     breeds: {
-        url: '/api/dog/Breed',
+        url: '/api/dog/breed/dog_handler',
         mapping: data => data.filter(f => typeof f.id === 'number' && f.id !== 1).map(m => ({ value: m.id, label: m.name })),
     },
     stampCodes: {

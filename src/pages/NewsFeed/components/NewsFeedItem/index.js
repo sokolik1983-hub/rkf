@@ -14,7 +14,6 @@ import {DEFAULT_IMG} from '../../../../appConfig';
 import CardFooter from '../../../../components/CardFooter';
 import DocumentLink from '../../../../components/DocumentLink';
 import { Request } from 'utils/request';
-import { endpointGetLinkNewsFeed } from "../../config";
 
 import './index.scss';
 
@@ -339,12 +338,12 @@ const NewsFeedItem = forwardRef(({
                     <div className="news-feed-item__documents" style={{ margin: '0 10px 0 10px' }}>
                         <ul className="news-feed-item__documents-list">
                             {documents.map(doc =>
-                                <li className="document-item" key={doc.id}>
+                                <li className="DocumentItem" key={doc.id}>
                                     <DocumentLink
                                         docId={doc.id}
                                         document={doc}
-                                        endpoint={endpointGetLinkNewsFeed}
                                         page="NewsFeedItem"
+                                        endpoint="/api/document/publicdocument"
                                     />
                                 </li>
                             )}
