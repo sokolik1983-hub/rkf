@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import { DEFAULT_IMG } from '../../appConfig';
 import { Request } from '../../utils/request';
 import { setFiltersToUrl } from '../../pages/Specialists/utils';
 import LightTooltip from '../../components/LightTooltip';
-import { Link } from "react-router-dom";
-
 import Card from '../Card';
 import CardFooter from '../CardFooter';
 import {judgeIcon} from "../Layouts/UserLayout/config";
@@ -79,7 +78,7 @@ const CardSpecialist = ({
                                             {last_name}
                                         </span>
                                         <span>
-                                            {first_name + " " + second_name}
+                                            {first_name || ''}{second_name ? ' ' + second_name : ''}
                                             {owner_alias && judgeIcon}
                                         </span>
                                     </Link>
@@ -89,12 +88,12 @@ const CardSpecialist = ({
                                             {last_name}
                                         </span>
                                         <span>
-                                            {first_name + " " + second_name}
+                                            {first_name || ''}{second_name ? ' ' + second_name : ''}
                                         </span>
                                     </span>
                                 }
                                 <span className="card-specialists__name-eng">
-                                    {last_name_lat} {first_name_lat}
+                                    {last_name_lat || ''}{first_name_lat ? ' ' + first_name_lat : ''}
                                 </span>
                             </div>
 

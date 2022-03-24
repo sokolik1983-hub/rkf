@@ -175,34 +175,6 @@
       text-align: center;
     }
 
-    &__modal .Modal__body {
-      display: flex;
-      flex-direction: column;
-      width: 720px;
-      height: 359px;
-
-      Button {
-        height: 38px;
-        width: 154px;
-        align-self: center;
-        margin-top: 15px;
-        margin-bottom: 10px;
-      }
-
-      h3 {
-        margin-top: 10px;
-        margin-bottom: 5px;
-        font-family: Source Sans Pro;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-        color: #253C5E;
-      }
-    }
-
     &-list {
       height: 250px;
       overflow: auto;

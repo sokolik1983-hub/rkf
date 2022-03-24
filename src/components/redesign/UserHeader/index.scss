@@ -223,6 +223,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      & > div {
+        width: 100%;
+      }
       
       & > div > div, & > div > section > div {
         display: flex;
@@ -274,7 +278,7 @@
     &__federation {
       display: block;
       margin-bottom: 0 !important;
-      padding-top: 10px;
+      padding-top: 0;
       text-decoration: none;
       font-weight: normal;
       font-size: 16px;
