@@ -168,8 +168,6 @@ const Filters = ({
         setIsUserFiltered(false);
     };
 
-
-
     return (
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox offsetTop={60}>

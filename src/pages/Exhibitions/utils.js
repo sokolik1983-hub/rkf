@@ -18,7 +18,7 @@ const buildUrlParams = filter => {
                     }
                 } else if (key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === 'RegionIds') {
                     if (filter[key].length) {
-                        params = params + filter[key].map(r => `${key}=${r}&`).join('');
+                        params = params + filter[key].map(item => `${key}=${item}&`).join('');
                     }
                 } else {
                     params = params + `${key}=${filter[key]}&`;
@@ -57,7 +57,14 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'CityIds' || key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === 'RegionIds') {
+            if (key === 'CityIds' ||
+                key === 'RankIds' ||
+                key === 'TypeIds' ||
+                key === 'BreedIds' ||
+                key === 'TypeIds' ||
+                key === 'PaymentFormTypeIds' ||
+                key === 'RegionIds')
+            {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else {
                 filtersFromUrl[key] = key === 'PageNumber' ? +value : value;

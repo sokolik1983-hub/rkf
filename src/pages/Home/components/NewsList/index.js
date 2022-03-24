@@ -60,7 +60,13 @@ const NewsList = ({isFullDate = true}) => {
                 })
             });
             setNewsFilter({...newsFilter, cities: newArr});
-            (() => getNews(1, {...newsFilter, regions: newsFilter.regions, cities: newArr}))();
+            (() => getNews(
+                1,
+                {
+                    ...newsFilter,
+                    regions: newsFilter.regions,
+                    cities: newArr
+                }))();
         }
 
     }
@@ -190,7 +196,7 @@ const NewsList = ({isFullDate = true}) => {
             url: `${endpointNewsCity}?${currentRegions.map(reg => `regionIds=${reg}`).join('&')}`
         }, data => {
             setCities(data);
-            doTheFilter(data)
+            doTheFilter(data);
         },error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);

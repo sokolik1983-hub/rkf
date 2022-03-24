@@ -5,8 +5,17 @@ export const buildUrlParams = filters => {
 
     Object.keys(filters).forEach(key => {
         if(key !== 'filtered_cities') {
-            if (filters[key] || key === 'activated' || key === 'active_rkf_user') {
-                if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'region_ids') {
+            if (
+                filters[key] ||
+                key === 'activated' ||
+                key === 'active_rkf_user'
+            ) {
+                if (
+                    key === 'federation_ids' ||
+                    key === 'city_ids' ||
+                    key === 'breed_ids' ||
+                    key === 'region_ids'
+                ) {
                     if (filters[key].length) {
                         params += filters[key].map(id => `${key}=${id}&`).join('');
                     }
