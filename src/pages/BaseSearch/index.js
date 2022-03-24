@@ -29,9 +29,8 @@ import "./index.scss";
 
 
 const BaseSearch = props => {
-
     const {
-        showFilter,
+        isOpenFilters,
         setShowFilters,
     } = props;
 
@@ -95,8 +94,8 @@ const BaseSearch = props => {
                                                 <LeftMenu
                                                     setActiveSection={setActiveSection}
                                                     activeSection={activeSection}
-                                                    showFilter={props.isOpenFilters}
-                                                    setShowFilters={props.setShowFilters}
+                                                    showFilter={isOpenFilters}
+                                                    setShowFilters={setShowFilters}
                                                 />
                                                 <Statistics/>
                                                 <Banner type={11}/>
