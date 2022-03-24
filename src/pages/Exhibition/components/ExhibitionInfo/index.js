@@ -49,7 +49,6 @@ const ExhibitionInfo = ({
     const getJudgeList = async () => {
         await Request({
                 url: `/api/exhibitions/common/relevant_judges?id=${exhibitionId}`,
-                method: 'GET'
             },
             data => setJudge(data),
             error => console.log(error));
