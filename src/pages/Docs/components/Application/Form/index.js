@@ -14,7 +14,7 @@ import FormUpload from './components/FormUpload';
 import FormDropDownList from '../../../../../components/kendo/Form/FormDropDownList';
 import FormTextArea from '../../../../../components/kendo/Form/FormTextArea';
 import FormComboBox from './components/FormComboBox';
-import DocumentLink from '../../DocumentLink';
+import DocumentLink from '../../../../../components/DocumentLink';
 import DocumentLinksArray from '../../DocumentLinksArray';
 import {
     nameRequiredValidator,
@@ -32,12 +32,11 @@ import DocLink from '../../DocApply/components/DocLink';
 import Alert from '../../../../../components/Alert';
 import {DateInput} from '../../../../../components/materialUI/DateTime';
 import FooterFeedback from '../../../../../components/Layouts/FooterFeedback';
+import {apiClubApplicationFormEndpoint} from '../../../config'
 
 import './index.scss';
 
-
 loadMessages(ruMessages, 'ru');
-
 
 const Application = ({ alias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
@@ -666,7 +665,11 @@ const Application = ({ alias, history, status }) => {
                                                         {values &&
                                                             values.application_document_id &&
                                                             !formRenderProps.valueGetter('application_document_id').length &&
-                                                            <DocumentLink docId={values.application_document_id} />
+                                                            <DocumentLink
+                                                                docId={values.application_document_id}
+                                                                page="AppForm"
+                                                                endpoint={apiClubApplicationFormEndpoint}
+                                                            />
                                                         }
                                                         <DocLink
                                                             distinction="get_rkf_document"
@@ -676,7 +679,11 @@ const Application = ({ alias, history, status }) => {
                                                     </div>
                                                     : values?.application_document_id && <div className="application-form__file">
                                                         <p className="k-label">Заявочный лист</p>
-                                                        <DocumentLink docId={values.application_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.application_document_id}
+                                                            page="AppForm"
+                                                            endpoint={apiClubApplicationFormEndpoint}
+                                                        />
                                                     </div>
                                                 }
                                             </div>
@@ -728,7 +735,11 @@ const Application = ({ alias, history, status }) => {
                                                     {values &&
                                                         values.veterinary_contract_document_id &&
                                                         !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.veterinary_contract_document_id}
+                                                            page="AppForm"
+                                                            endpoint={apiClubApplicationFormEndpoint}
+                                                        />
                                                     }
                                                     {documentsOverflow &&
                                                         <div id="documents_error" role="alert" className="k-form-error k-text-start">
@@ -781,7 +792,11 @@ const Application = ({ alias, history, status }) => {
                                                     {values &&
                                                         values.payment_document_id &&
                                                         !formRenderProps.valueGetter('payment_document').length &&
-                                                        <DocumentLink docId={values.payment_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.payment_document_id}
+                                                            page="AppForm"
+                                                            endpoint={apiClubApplicationFormEndpoint}
+                                                        />
                                                     }
                                                     <DocLink
                                                         distinction="get_rkf_document"
@@ -791,7 +806,11 @@ const Application = ({ alias, history, status }) => {
                                                 </div>
                                                 : <div className="application-form__file">
                                                     <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
-                                                    <DocumentLink docId={values.payment_document_id} />
+                                                    <DocumentLink
+                                                        docId={values.payment_document_id}
+                                                        page="AppForm"
+                                                        endpoint={apiClubApplicationFormEndpoint}
+                                                    />
                                                 </div>
                                             }
                                         </div>

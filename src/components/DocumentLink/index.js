@@ -1,4 +1,4 @@
-import React, { useState,  useRef } from 'react';
+import React, { useState,  useRef, useEffect } from 'react';
 import { getHeaders } from '../../utils/request';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { filePdf } from '@progress/kendo-svg-icons';
@@ -8,8 +8,7 @@ import './index.scss';
 
 const DocumentLink = ({ docId, document, endpoint, page }) => {
     const headers = getHeaders();
-    const [url, setUrl] = useState('');
-    const linkRef = useRef();
+    const [url, setUrl] = useState(null);
 
     console.log('page', page)
     console.log('endpoint', endpoint)
@@ -22,9 +21,9 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
             .then(data => URL.createObjectURL(data))
             .then(url => {
                 setUrl(url);
-                linkRef.current.click();
             });
     };
+
 
     const renderDocumentItem = () => {
         return (
@@ -44,26 +43,33 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
         )
     }
 
+    useEffect(() => {
+        getDocument();
+    }, []);
 
     return (
-        !!docId &&
+        !!docId && url &&
         <>
-            { !url ?
-                <span
-                    className="document-item__href"
-                    onClick={ getDocument }
-                >
+            {
+                (page === "CardNewsNew" || page === "NewsFeedItem") && (
+                    <a
+                        className="document-item__href"
+                        href={url}
+                        target="_blank"
+                    >
                         {renderDocumentItem()}
-                    </span> :
-                <a
-                    className="document-item__href"
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    ref={ linkRef }
-                >
-                    {renderDocumentItem()}
-                </a> }
+                    </a>
+                )
+            }
+            {
+                (page === "AppForm") && (
+                    <a
+                        className="btn nomargin"
+                        href={url}
+                        target="_blank"
+                    >Посмотреть</a>
+                )
+            }
         </>
 
     );
