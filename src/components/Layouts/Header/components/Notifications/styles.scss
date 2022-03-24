@@ -119,7 +119,7 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
                 }
                 &:nth-child(2) {
                     color: #ff6977;
-                    .notification-categories {
+                    .notification-categories__item-count {
                         background: #ff6977;
                     }
                 }
