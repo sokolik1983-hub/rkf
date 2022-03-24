@@ -210,16 +210,43 @@
       border: 1px solid #CED4DA;
 
       li {
-        height: 22px;
-        margin-bottom: 10px;
-        display: grid;
-        grid-template-columns: 1fr 4fr 2fr 2fr;
+        //height: 22px;
+        //margin-bottom: 10px;
+        //display: grid;
+        //grid-template-columns: 1fr 4fr 2fr 2fr;
+        border-bottom: 1px solid #CED4DA;
         cursor: pointer;
 
+        .exhibition-page__judge-item {
+          &__wrap {
+            display: flex;
+            flex-direction: row;
+            height: 109px;
+
+            div {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            }
+
+            input {
+              align-self: center;
+            }
+          }
+
+          &__name {
+            width: 40%;
+            padding-left: 15px;
+          }
+          &__info {
+            width: 50%;
+          }
+        }
+
         &:hover {
-          span, path {
+          span {
             color: #3366ff;
-            fill: #3366ff;
+            //fill: #3366ff;
           }
         }
 
@@ -233,10 +260,10 @@
           text-align: left;
           color: #72839C;
 
-          &:first-child {
-            margin-left: 10px;
-            min-width: 48px;
-          }
+          //&:first-child {
+          //  margin-left: 10px;
+          //  min-width: 48px;
+          //}
         }
       }
     }
