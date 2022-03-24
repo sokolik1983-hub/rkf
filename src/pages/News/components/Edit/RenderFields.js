@@ -249,7 +249,7 @@ const RenderFields = ({ fields,
                 <div className="article-edit__advert">
                     {
                         (advertCategoryId === 1) ?
-                            <div className="article-edit__wrap">
+                            <div className={`article-edit__wrap${isMating ? ' isMating' : ''}`}>
                                 <FormGroup inline className="article-edit__ad">
                                     <FormField {...fields.advert_breed_id} options={breeds} />
                                     <FormField {...fields.advert_cost} />

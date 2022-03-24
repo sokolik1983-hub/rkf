@@ -21,7 +21,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
     const [alert, setAlert] = useState(null);
     const [isOpen, setIsOpen] = useStickyState(true, "is_photo_gallery_open");
     const isMobile = useIsMobile(1080);
-    const countImages = 6;
+    const countImages = 8;
     const sizeImages = 115;
 
     useEffect(() => {
@@ -124,10 +124,10 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
     if (!loading && !images.length && isMobile) {
         return null
     } else return (
-        <Card className="user-gallery">
+        <Card className="user-gallery _photo">
             <div className="user-gallery__header">
                 <Link to={pageLink}><h4 className="user-gallery__title">Фотогалерея</h4></Link>
-                <div style={{ display: 'flex' }}>
+                <div>
                     {canEdit && !images.length ?
                         <LightTooltip title="Добавить фото" enterDelay={200} leaveDelay={200}>
                             <button
@@ -171,6 +171,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                                     rowHeight={sizeImages}
                                     thumbnailStyle={squareStyle}
                                     imageCountSeparator="&nbsp;из&nbsp;"
+                                    margin={5}
                                 />
                             </div>
                             : <div className="user-gallery__disabled">

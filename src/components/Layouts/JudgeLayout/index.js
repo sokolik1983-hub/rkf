@@ -333,7 +333,7 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated}) => {
                                                 <p className="judge-info__city">{judgeCity && judgeCity.city_name}</p>
                                             </div>
                                         </div>
-                                        <p className="judge-info__list">Лист Судьи № <span>{data && data[0].judge_info.cert_number}</span></p>
+                                        <p className="judge-info__list">Лист Судьи № <span>{data && data[0]?.judge_info?.cert_number}</span></p>
                                     </div>
                                 </div>
                                 <div className="judge-info__contacts">
