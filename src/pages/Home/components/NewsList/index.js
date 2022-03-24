@@ -209,7 +209,6 @@ const NewsList = ({isFullDate = true}) => {
     };
 
 
-
     return (
         <div className="news-list">
                 <InfiniteScroll
