@@ -94,7 +94,7 @@ const ActivateClub = ({club, history, logOutUser, close}) => {
                             <p>Пожалуйста, зайдите в свою почту и введите полученный код ниже.</p>
                             <form onSubmit={onCodeSubmit} className="club-registration__activate-form">
                                 <input
-                                    className={`club-registration__activate-form__input ${errorCode && '__error'}`}
+                                    className={`club-registration__activate-form__input${errorCode ? ' __error' : ''}`}
                                     size="30"
                                     type="text"
                                     onChange={e => setCode(e.target.value)}
