@@ -1,7 +1,6 @@
 import React, {memo, useState, useEffect} from "react";
 import StickyBox from "react-sticky-box";
 import {Link} from "react-router-dom";
-import {useTimeOut} from "../../shared/hooks.js";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import CheckStatus from "../Club/components/CheckStatus";
@@ -24,16 +23,24 @@ import {kennelNav} from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
 import {connectAuthVisible} from "../Login/connectors";
 import LeftMenu from "./components/LeftMune/LeftMenu";
+import {connectShowFilters} from "../../components/Layouts/connectors";
 
 import "./index.scss";
 
 
-const BaseSearch = () => {
-    const [cardClicked, setCardClicked] = useState(0);
+const BaseSearch = props => {
+
+    const {
+        showFilter,
+        setShowFilters,
+    } = props;
+
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
     const [activeSection, setActiveSection] = useState(0);
     const isMobile = useIsMobile(1080);
+
+    console.log(props)
 
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
@@ -50,14 +57,9 @@ const BaseSearch = () => {
         }
     }, []);
 
-    const handleActiveReset = () => {
-        setCardClicked(0);
-    };
-
-    useTimeOut(handleActiveReset, 2000);//Что это за хрень???
 
     return (
-        <Layout>
+        <Layout layoutWithFilters>
             <div className="redesign">
                 <Container className="content base-search">
                     {clubData && <TopComponent
@@ -75,11 +77,11 @@ const BaseSearch = () => {
                     <div className="base-search__content-wrap">
                         <div className="base-search__content">
                             {
-                                activeSection === 0 ? <FoundInfo cardClicked={cardClicked}/> :
-                                activeSection === 1 ? <CheckStatus cardClicked={cardClicked} /> :
-                                activeSection === 2 ? <CheckRegistration cardClicked={cardClicked} /> :
-                                activeSection === 3 ? <StampSearch cardClicked={cardClicked} /> :
-                                activeSection === 4 && <PublicationSearch cardClicked={cardClicked} />
+                                activeSection === 0 ? <FoundInfo /> :
+                                activeSection === 1 ? <CheckStatus /> :
+                                activeSection === 2 ? <CheckRegistration /> :
+                                activeSection === 3 ? <StampSearch /> :
+                                activeSection === 4 && <PublicationSearch />
                             }
                         </div>
                         {!isMobile && <Aside className="base-search__info">
@@ -93,6 +95,8 @@ const BaseSearch = () => {
                                                 <LeftMenu
                                                     setActiveSection={setActiveSection}
                                                     activeSection={activeSection}
+                                                    showFilter={props.isOpenFilters}
+                                                    setShowFilters={props.setShowFilters}
                                                 />
                                                 <Statistics/>
                                                 <Banner type={11}/>
@@ -115,4 +119,4 @@ const BaseSearch = () => {
         </Layout>
     )
 };
-export default memo(connectAuthVisible(BaseSearch));
+export default memo(connectShowFilters(connectAuthVisible(BaseSearch)));
