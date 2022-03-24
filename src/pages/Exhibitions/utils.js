@@ -6,21 +6,30 @@ const buildUrlParams = filter => {
     let params = '';
 
     Object.keys(filter).forEach(key => {
-        if (filter[key]) {
-            if (key === 'PageNumber') {
-                if (filter[key] > 1) {
+        if(key !== 'filteredCities') {
+            if (filter[key]) {
+                if (key === 'PageNumber') {
+                    if (filter[key] > 1) {
+                        params = params + `${key}=${filter[key]}&`;
+                    }
+                } else if (key === 'CategoryId') {
+                    if (filter[key] > 0) {
+                        params = params + `${key}=${filter[key]}&`;
+                    }
+                } else if (
+                    key === 'RankIds' ||
+                    key === 'TypeIds' ||
+                    key === 'BreedIds' ||
+                    key === 'CityIds' ||
+                    key === 'TypeIds' ||
+                    key === 'PaymentFormTypeIds' ||
+                    key === 'RegionIds') {
+                    if (filter[key].length) {
+                        params = params + filter[key].map(item => `${key}=${item}&`).join('');
+                    }
+                } else {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'CategoryId') {
-                if (filter[key] > 0) {
-                    params = params + `${key}=${filter[key]}&`;
-                }
-            } else if (key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === 'RegionIds') {
-                if (filter[key].length) {
-                    params = params + filter[key].map(r => `${key}=${r}&`).join('');
-                }
-            } else {
-                params = params + `${key}=${filter[key]}&`;
             }
         }
     });
@@ -55,7 +64,14 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'CityIds' || key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === 'RegionIds') {
+            if (key === 'CityIds' ||
+                key === 'RankIds' ||
+                key === 'TypeIds' ||
+                key === 'BreedIds' ||
+                key === 'TypeIds' ||
+                key === 'PaymentFormTypeIds' ||
+                key === 'RegionIds')
+            {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else {
                 filtersFromUrl[key] = key === 'PageNumber' ? +value : value;
@@ -68,11 +84,11 @@ export const getFiltersFromUrl = () => {
     } else {
         filters = null;
     }
-
     return filters;
 };
 
 export const setFiltersToUrl = (filters, initial = false) => {
+
     const newFilters = getFiltersFromUrl() ? { ...getFiltersFromUrl(), ...filters } : filters;
     const targetUrl = (`/exhibitions${buildUrlParams(newFilters)}`);
     initial ? history.replace(targetUrl) : history.push(targetUrl);
