@@ -16,7 +16,14 @@ const buildUrlParams = filter => {
                     if (filter[key] > 0) {
                         params = params + `${key}=${filter[key]}&`;
                     }
-                } else if (key === 'RankIds' || key === 'TypeIds' || key === 'BreedIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds' || key === 'RegionIds') {
+                } else if (
+                    key === 'RankIds' ||
+                    key === 'TypeIds' ||
+                    key === 'BreedIds' ||
+                    key === 'CityIds' ||
+                    key === 'TypeIds' ||
+                    key === 'PaymentFormTypeIds' ||
+                    key === 'RegionIds') {
                     if (filter[key].length) {
                         params = params + filter[key].map(item => `${key}=${item}&`).join('');
                     }
