@@ -7,18 +7,21 @@ import "./style.scss"
 
 
 const LeftMenu = ({
-                      activeSection,
-                      isOpenFilters,
-                      setActiveSection,
-                      setShowFilters,
+    activeSection,
+    className,
+    isOpenFilters,
+    setActiveSection,
+    setShowFilters,
 }) => {
     const handleSectionSwitch = (id) => {
         setActiveSection(id);
         setShowFilters({isOpenFilters: false});
     };
 
+
+
     return (
-        <div className={`left-menu__inner-right${isOpenFilters ? " _open" : ""}`}>
+        <div className={`left-menu__inner-right${isOpenFilters && ` _open`} ${className === "hide" && ` hide`}`}>
             <StickyBox offsetTop={60}>
                 <Card className="left-menu">
                     <h3 className="left-menu__title">Сервисы</h3>

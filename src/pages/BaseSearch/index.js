@@ -24,6 +24,7 @@ import useIsMobile from "../../utils/useIsMobile";
 import {connectAuthVisible} from "../Login/connectors";
 import LeftMenu from "./components/LeftMune/LeftMenu";
 import {connectShowFilters} from "../../components/Layouts/connectors";
+import ClickGuard from "../../components/ClickGuard";
 
 import "./index.scss";
 
@@ -59,6 +60,7 @@ const BaseSearch = props => {
 
     return (
         <Layout layoutWithFilters>
+            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <div className="redesign">
                 <Container className="content base-search">
                     {clubData && <TopComponent
@@ -83,6 +85,13 @@ const BaseSearch = props => {
                                 activeSection === 4 && <PublicationSearch />
                             }
                         </div>
+                        <LeftMenu
+                            setActiveSection={setActiveSection}
+                            activeSection={activeSection}
+                            showFilter={isOpenFilters}
+                            setShowFilters={setShowFilters}
+                            className="hide"
+                        />
                         {!isMobile && <Aside className="base-search__info">
                             <StickyBox offsetTop={60}>
                                 <div className="base-search__info-inner">
