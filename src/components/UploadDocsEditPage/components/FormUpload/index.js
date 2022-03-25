@@ -10,7 +10,18 @@ loadMessages(ruMessages, 'Application-ru');
 
 
 const FormUpload = fieldRenderProps => {
-    const { valid, value, id, optional, label, hint, validationMessage, touched, fileFormats, ...others } = fieldRenderProps;
+    const {
+        valid,
+        value,
+        id,
+        optional,
+        label,
+        hint,
+        validationMessage,
+        touched,
+        fileFormats,
+        ...others
+    } = fieldRenderProps;
     const showValidationMessage = touched && validationMessage;
     const showHint = !showValidationMessage && hint;
     const hintId = showHint ? `${id}_hint` : '';

@@ -18,7 +18,13 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
         if (event.response?.response) {
             const { result } = event.response.response;
             if (result) {
-                formRenderProps.onChange('documents', { value: [...documents, { name: result.name, document_id: result.id }] });
+                formRenderProps.onChange('documents',
+                    { value: [...documents,
+                            {
+                                name: result.name,
+                                document_id: result.id
+                            }]
+                    });
                 formRenderProps.onChange(name, { value: [] });
                 getDocuments();
             } else {
