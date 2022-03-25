@@ -49,27 +49,8 @@
                     right: -25px;
                 }
 
-                & .ya-share2__icon_more {
-                    height: 16px;
-                    background-color: white;
-                    background-image: none;
-
-                    &:after {
-                        top: 0;
-                        width: 18px;
-                        height: 20px;
-                        background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
-                        background-color: white;
-                    }
-
-                    &:hover:after {
-                        background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
-                        background-color: white;
-                    }
-                }
-
                 & .ya-share2__badge.ya-share2__badge_more {
-                    background: none!important;
+                    display: flex;
                 }
 
                 & .ya-share2__link {
