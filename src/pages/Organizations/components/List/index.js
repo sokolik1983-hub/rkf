@@ -1,5 +1,4 @@
 import React, {memo, useEffect, useState} from 'react';
-
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../../../../components/Loading';
 import CardOrganization from '../../../../components/CardOrganization';
@@ -9,7 +8,6 @@ import {Request} from '../../../../utils/request';
 import {endpointGetOrganizations} from '../../config';
 
 import './index.scss';
-
 
 const OrganizationsList = ({
     organization_type,

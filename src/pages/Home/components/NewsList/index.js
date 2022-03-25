@@ -48,7 +48,6 @@ const NewsList = ({isFullDate = true}) => {
     });
 
     const doTheFilter = (currentCities) => {
-
         if(newsFilter.regions.length === 0) {
             setNewsFilter({...newsFilter, regions:newsFilter.regions,  cities: []});
             (() => getNews(1, {...newsFilter, regions: [], cities: []}))();
