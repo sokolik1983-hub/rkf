@@ -45,6 +45,7 @@ const OrganizationsList = ({
                 start_element: startElem
             })}`
         }, data => {
+            console.log('data', data);
             if (data.length) {
                 if (data.length < 10) {
                     setHasMore(false);
