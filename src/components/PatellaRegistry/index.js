@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Link} from 'react-router-dom';
 import ls from "local-storage";
 import moment from "moment";
-
 import Loading from "components/Loading";
 import Card from "components/Card";
 import Table from './components/Table';
@@ -21,7 +20,6 @@ const ReplaceRegistry = ({distinction, profileType}) => {
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const document_id = window.location.href.split('=')[1];
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
-
 
     useEffect(() => {
         (() => PromiseRequest({
