@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from "react";
+import {Link} from 'react-router-dom';
 import ls from "local-storage";
 import moment from "moment";
 
 import Loading from "components/Loading";
 import Card from "components/Card";
 import Table from './components/Table';
-import { PromiseRequest } from "utils/request";
-import { DEFAULT_IMG } from "../../appConfig";
+import {PromiseRequest} from "utils/request";
+import {DEFAULT_IMG} from "../../appConfig";
 import ReportError from './components/ReportError';
 
 import "./index.scss";
 
-const ReplaceRegistry = ({ distinction, profileType }) => {
+const ReplaceRegistry = ({distinction, profileType}) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
@@ -27,99 +27,113 @@ const ReplaceRegistry = ({ distinction, profileType }) => {
         (() => PromiseRequest({
             url: `/api/requests/dog_health_check_request/${profileType === "kennel" ? 'kennel' : ''}doghealthcheckrequest/register_of_requests`,
             method: 'POST',
-            data: { type_id: distinction === "dysplasia" ? 1 : 2 }
+            data: {type_id: distinction === "dysplasia" ? 1 : 2}
         }).then(
             data => {
                 setDocuments(data.sort(function (a, b) {
                     return new Date(b.date_create) - new Date(a.date_create);
-                }).map(({ date_change, date_create, ...rest }) => ({
+                }).map(({date_change, date_create, ...rest}) => ({
                     date_change: moment(date_change).format('DD.MM.YY'),
                     date_create: moment(date_create).format('DD.MM.YY'),
                     ...rest
                 })));
                 setLoading(false);
             }).catch(
-                error => {
-                    console.log(error.response);
-                    setLoading(false);
-                }))();
+            error => {
+                console.log(error.response);
+                setLoading(false);
+            }))();
     }, [needUpdateTable]);
 
-    return loading ? <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-        <div className="club-documents-status__controls" style={{ position: 'relative', top: '29px' }}>
-            {document_id && <button
-                className="club-documents-status__control club-documents-status__control--resetIcon"
-            >
-                <Link to={profileType === "kennel" ? `/kennel/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry` : `/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry`}>
-                    Вернуться к списку
-                </Link>
-            </button>}
-            <button
-                className="club-documents-status__control club-documents-status__control--downloadIcon"
-                onClick={() => setExporting(true)}
-                disabled={exporting}
-            >
-                Скачать PDF
-            </button>
-            <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
-                Уменьшить таблицу
-            </button>
-        </div>
-        <Table
-            documents={documents}
-            profileType={profileType}
-            exporting={exporting}
-            setExporting={setExporting}
-            setErrorReport={setErrorReport}
-            fullScreen
-            setNeedUpdateTable={setNeedUpdateTable}
-        />
-    </Card>
-        :
-        <Card className="club-documents-status">
-            <div className="club-documents-status__head">
-                <Link className="btn-backward" to={profileType === "kennel" ? `/kennel/${alias}/documents` : `/${alias}/documents`}>Личный кабинет</Link>
-                &nbsp;/&nbsp;
-                {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
-            </div>
-            {documents && !!documents.length
-                ? <div>
-                    <div className="club-documents-status__controls _patella_controls">
-                        {document_id && <button
-                            className="club-documents-status__control club-documents-status__control--resetIcon"
-                        >
-                            <Link to={profileType === "kennel" ? `/kennel/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry` : `/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry`}>
-                                Вернуться к списку
-                            </Link>
-                        </button>}
-                        <button
-                            className="club-documents-status__control club-documents-status__control--downloadIcon"
-                            onClick={() => setExporting(true)}
-                            disabled={exporting}
-                        >
-                            Скачать PDF
-                        </button>
-                        <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
-                            Увеличить таблицу
-                        </button>
+    return loading
+        ?
+        <Loading/>
+        : !standardView
+            ?
+            <Card className="club-documents-status__popup">
+                <div className="club-documents-status__controls" style={{position: 'relative', top: '29px'}}>
+                    {document_id && <button
+                        className="club-documents-status__control club-documents-status__control--resetIcon"
+                    >
+                        <Link
+                            to={profileType === "kennel" ? `/kennel/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry` : `/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry`}>
+                            Вернуться к списку
+                        </Link>
+                    </button>}
+                    <button
+                        className="club-documents-status__control club-documents-status__control--downloadIcon"
+                        onClick={() => setExporting(true)}
+                        disabled={exporting}
+                    >
+                        Скачать PDF
+                    </button>
+                    <button className="club-documents-status__control club-documents-status__control--tableIcon"
+                            onClick={() => setStandardView(true)}>
+                        Уменьшить таблицу
+                    </button>
+                </div>
+                <Table
+                    documents={documents}
+                    profileType={profileType}
+                    exporting={exporting}
+                    setExporting={setExporting}
+                    setErrorReport={setErrorReport}
+                    fullScreen
+                    setNeedUpdateTable={setNeedUpdateTable}
+                />
+                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport}
+                                             onErrorReport={id => setErrorReport(id)} profileType={profileType}/>}
+            </Card>
+            :
+            <Card className="club-documents-status">
+                <div className="club-documents-status__head">
+                    <Link className="btn-backward"
+                          to={profileType === "kennel" ? `/kennel/${alias}/documents` : `/${alias}/documents`}>Личный
+                        кабинет</Link>
+                    &nbsp;/&nbsp;
+                    {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ11111" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
+                </div>
+                {documents && !!documents.length
+                    ? <div>
+                        <div className="club-documents-status__controls _patella_controls">
+                            {document_id && <button
+                                className="club-documents-status__control club-documents-status__control--resetIcon"
+                            >
+                                <Link
+                                    to={profileType === "kennel" ? `/kennel/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry` : `/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry`}>
+                                    Вернуться к списку
+                                </Link>
+                            </button>}
+                            <button
+                                className="club-documents-status__control club-documents-status__control--downloadIcon"
+                                onClick={() => setExporting(true)}
+                                disabled={exporting}
+                            >
+                                Скачать PDF
+                            </button>
+                            <button className="club-documents-status__control club-documents-status__control--tableIcon"
+                                    onClick={() => setStandardView(false)}>
+                                Увеличить таблицу
+                            </button>
+                        </div>
+                        <Table
+                            documents={documents}
+                            profileType={profileType}
+                            exporting={exporting}
+                            setExporting={setExporting}
+                            distinction={distinction}
+                            setErrorReport={setErrorReport}
+                            setNeedUpdateTable={setNeedUpdateTable}
+                        />
                     </div>
-                    <Table
-                        documents={documents}
-                        profileType={profileType}
-                        exporting={exporting}
-                        setExporting={setExporting}
-                        distinction={distinction}
-                        setErrorReport={setErrorReport}
-                        setNeedUpdateTable={setNeedUpdateTable}
-                    />
-                </div>
-                : <div className="club-documents-status__plug">
-                    <h4 className="club-documents-status__text">Заявок не найдено</h4>
-                    <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
-                </div>
-            }
-            {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} profileType={profileType} />}
-        </Card>
+                    : <div className="club-documents-status__plug">
+                        <h4 className="club-documents-status__text">Заявок не найдено</h4>
+                        <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено"/>
+                    </div>
+                }
+                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport}
+                                             onErrorReport={id => setErrorReport(id)} profileType={profileType}/>}
+            </Card>
 };
 
 export default React.memo(ReplaceRegistry);
