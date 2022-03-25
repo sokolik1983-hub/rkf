@@ -100,3 +100,17 @@
         }
     }
 }
+
+.header__filters {
+    & > span {
+        font-size: 0;
+
+        &::before {
+            display: block;
+            padding-top: 0;
+            margin-bottom: -.5px;
+            font-size: 13px;
+            content: "Сервисы";
+        }
+    }
+}
