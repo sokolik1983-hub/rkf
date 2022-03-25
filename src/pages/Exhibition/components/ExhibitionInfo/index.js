@@ -7,7 +7,11 @@ import PropertyP from "../../../../components/PropertyP";
 import declension from "../../../../utils/declension";
 import {Request} from "../../../../utils/request";
 import {blockContent} from "../../../../utils/blockContent";
-import {getLocalizedWeekDay, timeSecondsCutter, transformDateSafariFriendly} from "../../../../utils/datetime";
+import {
+    getLocalizedWeekDay,
+    timeSecondsCutter,
+    transformDateSafariFriendly
+} from "../../../../utils/datetime";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {judgeIcon, allbreedJudgeIcon} from "../../../../components/Layouts/UserLayout/config";
 import useIsMobile from "../../../../utils/useIsMobile";
@@ -158,6 +162,7 @@ const ExhibitionInfo = ({
                     }
                 </div>
             </Card>
+            {/*блок закоментирован по просьбе аналитика, по макету*/}
             {/*            <Card className="exhibition-info">
                 <div className="exhibition-page__schedule">
                     <h4 className="exhibition-page__schedule-title">Расписание</h4>
@@ -180,13 +185,10 @@ const ExhibitionInfo = ({
                     </p>
                 </div>
             </Card>*/}
-            {/*блок закоментирован по просьбе аналитика, по макету*/}
             {showModal &&
                 <Modal showModal={showModal}
                        handleClose={() => setShowModal(false)}
-                       handleX={() => {
-                           setShowModal(false)
-                       }}
+                       handleX={() => {setShowModal(false)}}
                        noBackdrop={true}
                        iconName="owner2-white"
                        headerName="Выбор судьи/специалиста"

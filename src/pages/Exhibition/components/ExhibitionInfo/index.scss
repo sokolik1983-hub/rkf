@@ -1,4 +1,16 @@
 .exhibition-info {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  overflow: hidden;
+  width: 98%;
+  margin: 0 auto;
+  box-shadow: none;
+  border-radius: 0;
+  @media (max-width: 990px) {
+    display: block;
+  }
+
   &.two {
     display: flex;
     flex-direction: row;
@@ -26,18 +38,6 @@
 
   &:not(:first-child) {
     border-bottom: 1px solid #E5E5E5;
-  }
-
-  display: flex;
-  justify-content: space-between;
-  font-weight: 400;
-  overflow: hidden;
-  width: 98%;
-  margin: 0 auto;
-  box-shadow: none;
-  border-radius: 0;
-  @media (max-width: 990px) {
-    display: block;
   }
 
   &__title {
