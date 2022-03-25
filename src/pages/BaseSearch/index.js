@@ -40,8 +40,6 @@ const BaseSearch = props => {
     const [activeSection, setActiveSection] = useState(0);
     const isMobile = useIsMobile(1080);
 
-    console.log(props)
-
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
         const [orgType, alias] = organizationData[0];
