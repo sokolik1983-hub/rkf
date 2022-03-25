@@ -85,13 +85,14 @@ const BaseSearch = props => {
                                 activeSection === 4 && <PublicationSearch />
                             }
                         </div>
-                        <LeftMenu
-                            setActiveSection={setActiveSection}
-                            activeSection={activeSection}
-                            showFilter={isOpenFilters}
-                            setShowFilters={setShowFilters}
-                            className="hide"
-                        />
+                        <div className={`left-menu__inner-right hide${isOpenFilters ? ` _open` : ``}`}>
+                            <LeftMenu
+                                setActiveSection={setActiveSection}
+                                activeSection={activeSection}
+                                showFilter={isOpenFilters}
+                                setShowFilters={setShowFilters}
+                            />
+                        </div>
                         {!isMobile && <Aside className="base-search__info">
                             <StickyBox offsetTop={60}>
                                 <div className="base-search__info-inner">
