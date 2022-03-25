@@ -106,7 +106,7 @@ export const SvgSelector = ({icon}) => {
             );
 
         default:
-            return null
+            return null;
     }
 }
 

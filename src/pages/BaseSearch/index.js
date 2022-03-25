@@ -58,21 +58,28 @@ const BaseSearch = props => {
 
     return (
         <Layout layoutWithFilters>
-            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
+            <ClickGuard
+                value={isOpenFilters}
+                callback={() => setShowFilters({isOpenFilters: false})}
+            />
             <div className="redesign">
                 <Container className="content base-search">
-                    {clubData && <TopComponent
-                        logo={clubData ? clubData.logo_link : ``}
-                        name={clubData ? clubData.title : ``}
-                        canEdit={false}
-                        withShare={false}
-                    />}
-                    {nurseryData && <TopComponent
-                        logo={nurseryData ? nurseryData.logo_link : ``}
-                        name={nurseryData ? nurseryData.name : ``}
-                        canEdit={false}
-                        withShare={false}
-                    />}
+                    {clubData &&
+                        <TopComponent
+                            logo={clubData ? clubData.logo_link : ``}
+                            name={clubData ? clubData.title : ``}
+                            canEdit={false}
+                            withShare={false}
+                        />
+                    }
+                    {nurseryData &&
+                        <TopComponent
+                            logo={nurseryData ? nurseryData.logo_link : ``}
+                            name={nurseryData ? nurseryData.name : ``}
+                            canEdit={false}
+                            withShare={false}
+                        />
+                    }
                     <div className="base-search__content-wrap">
                         <div className="base-search__content">
                             {
@@ -91,35 +98,37 @@ const BaseSearch = props => {
                                 setShowFilters={setShowFilters}
                             />
                         </div>
-                        {!isMobile && <Aside className="base-search__info">
-                            <StickyBox offsetTop={60}>
-                                <div className="base-search__info-inner">
-                                    {!isMobile && clubData ?
-                                        <UserMenu userNav={clubNav(clubData.club_alias)}/> :
-                                        nurseryData ?
-                                            <UserMenu userNav={kennelNav(nurseryData.alias)}/> :
-                                            <>
-                                                <LeftMenu
-                                                    setActiveSection={setActiveSection}
-                                                    activeSection={activeSection}
-                                                    showFilter={isOpenFilters}
-                                                    setShowFilters={setShowFilters}
-                                                />
-                                                <Statistics/>
-                                                <Banner type={11}/>
-                                                <Card className="base-search__map-wrap">
-                                                    <h3><Link className="base-search__map-title" to="/clubs-map">Карта
-                                                        авторизованных клубов</Link></h3>
-                                                    <div className="base-search__map">
-                                                        <ClubsMap/>
-                                                    </div>
-                                                </Card>
-                                            </>
-                                    }
-                                    <CopyrightInfo withSocials={true}/>
-                                </div>
-                            </StickyBox>
-                        </Aside>}
+                        {!isMobile &&
+                            <Aside className="base-search__info">
+                                <StickyBox offsetTop={60}>
+                                    <div className="base-search__info-inner">
+                                        {!isMobile && clubData ?
+                                            <UserMenu userNav={clubNav(clubData.club_alias)}/> :
+                                            nurseryData ?
+                                                <UserMenu userNav={kennelNav(nurseryData.alias)}/> :
+                                                <>
+                                                    <LeftMenu
+                                                        setActiveSection={setActiveSection}
+                                                        activeSection={activeSection}
+                                                        showFilter={isOpenFilters}
+                                                        setShowFilters={setShowFilters}
+                                                    />
+                                                    <Statistics/>
+                                                    <Banner type={11}/>
+                                                    <Card className="base-search__map-wrap">
+                                                        <h3><Link className="base-search__map-title" to="/clubs-map">Карта
+                                                            авторизованных клубов</Link></h3>
+                                                        <div className="base-search__map">
+                                                            <ClubsMap/>
+                                                        </div>
+                                                    </Card>
+                                                </>
+                                        }
+                                        <CopyrightInfo withSocials={true}/>
+                                    </div>
+                                </StickyBox>
+                            </Aside>
+                        }
                     </div>
                 </Container>
             </div>
