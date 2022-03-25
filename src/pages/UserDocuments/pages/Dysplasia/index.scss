@@ -112,8 +112,10 @@
     margin-bottom: 40px;
   }
   .btn {
+    position: relative;
     padding-top: 8px;
     padding-bottom: 8px;
+    top: 6px;
   }
   .Card {
     padding: 24px 32px !important;
