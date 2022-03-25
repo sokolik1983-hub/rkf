@@ -129,7 +129,7 @@ const ExhibitionInfo = ({
                                     setShowModal(true);
                                 }}
                             >
-                                Подобрать судью
+                                Пригласить судью
                             </Button>
                         </div>}
                 </div>

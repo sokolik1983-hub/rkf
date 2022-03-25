@@ -181,6 +181,11 @@
     }
   }
 
+  &__description {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__judge {
     display: flex;
     flex-direction: row;
@@ -199,6 +204,25 @@
       height: 36px;
       padding: 0;
       text-align: center;
+    }
+
+    &-select {
+      position: relative;
+      bottom: 10px;
+      width: 154px;
+
+      button {
+        padding: 10px;
+      }
+
+      @media (max-width: 990px) {
+        bottom: 0;
+
+        button {
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+      }
     }
 
     &__modal .Modal__body {
