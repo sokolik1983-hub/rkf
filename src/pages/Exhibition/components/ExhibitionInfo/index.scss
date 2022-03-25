@@ -211,14 +211,14 @@
       bottom: 10px;
       width: 154px;
 
-      button {
+      .btn {
         padding: 10px;
       }
 
       @media (max-width: 990px) {
         bottom: 0;
 
-        button {
+        .btn {
           padding-top: 5px;
           padding-bottom: 5px;
         }
