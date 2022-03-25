@@ -11,7 +11,6 @@ loadMessages(ruMessages, 'Application-ru');
 
 const FormUpload = fieldRenderProps => {
     const { valid, value, id, optional, label, hint, validationMessage, touched, fileFormats, ...others } = fieldRenderProps;
-
     const showValidationMessage = touched && validationMessage;
     const showHint = !showValidationMessage && hint;
     const hintId = showHint ? `${id}_hint` : '';
@@ -44,6 +43,9 @@ const FormUpload = fieldRenderProps => {
                         onRemove={onRemoveHandler}
                         ariaDescribedBy={`${hintId} ${errorId}`}
                         ariaLabelledBy={labelId}
+                        restrictions={{
+                            allowedExtensions: fileFormats,
+                        }}
                         {...others}
                     />
                 </IntlProvider>
