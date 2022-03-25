@@ -184,49 +184,6 @@ const Filters = ({
                 {loading ?
                     <Loading centered={false} /> :
                     <>
-                        {clubName && filters.Alias &&
-                        <div className="phone-hide">
-                            <UserHeader
-                                user={filters.Alias !== 'rkf-online' ? 'club' : ''}
-                                logo={filters.logo_link || logo}
-                                name={clubName}
-                                alias={filters.Alias}
-                                profileId={profileId}
-                                federationName={federationName}
-                                federationAlias={federationAlias}
-                                active_member={active_member}
-                                active_rkf_user={active_rkf_user}
-                                canEdit={canEdit}
-                                subscribed={club.subscribed}
-                                member={club.member}
-                                subscribed_id={profileId = { profileId }}
-                                onSubscriptionUpdate={onSubscriptionUpdate}
-                                isAuthenticated={isAuthenticated}
-                            />
-                            {
-                                (federationAlias || club.alias === 'rkf') && fedInfo &&
-                                <PhotoComponent
-                                    photo={fedInfo.owner_photo}
-                                    name={fedInfo.owner_name}
-                                    position={fedInfo.owner_position}
-                                />
-                            }
-                            {!isMobile && isFederationAlias(filters.Alias) ?
-                                <MenuComponent
-                                    alias={filters.Alias}
-                                    name={clubName}
-                                    isFederation={true}
-                                />
-                                :
-                                !isMobile &&
-                                <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                    ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                    : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                          notificationsLength={notificationsLength}
-                                />
-                            }
-                        </div>
-                        }
                         <div className="exhibitions-filters__wrap">
                             <Card>
                                 <div className="exhibitions-filters__head">
