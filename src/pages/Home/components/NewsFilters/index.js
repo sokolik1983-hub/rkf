@@ -19,7 +19,8 @@ const NewsFilters = ({
     setShowFilters,
     isOpenFilters,
     regions,
-    changeIsPopular
+    changeIsPopular,
+    untouchableMode,
 }) => (
     <aside className={`news-filters${isOpenFilters ? ' _open' : ''}`}>
         <ClickGuard
@@ -33,17 +34,19 @@ const NewsFilters = ({
                     <ListFilter
                         changeFilter={changeOrganizationFilters}
                     />
-                    <RegionsFilter
-                        regions={regions}
-                        region_ids={newsFilter.regions}
-                        onChange={changeRegionFilter}
-                    />
-                    <CitiesFilter
-                        withOpenButton={false}
-                        cities={cities}
-                        city_ids={newsFilter.cities}
-                        onChange={changeCityFilter}
-                    />
+                    <div className={untouchableMode && "untouchable-mode"}>
+                        <RegionsFilter
+                            regions={regions}
+                            region_ids={newsFilter.regions}
+                            onChange={changeRegionFilter}
+                        />
+                        <CitiesFilter
+                            withOpenButton={false}
+                            cities={cities}
+                            city_ids={newsFilter.cities}
+                            onChange={changeCityFilter}
+                        />
+                    </div>
                 </>
             }
         </StickyBox>

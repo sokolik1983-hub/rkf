@@ -39,6 +39,7 @@ const NewsList = ({isFullDate = true}) => {
     const [newsLoading, setNewsLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [untouchableMode, setUntouchableMode] = useState(false);
     const [newsFilter, setNewsFilter] = useState({
         cities: getLSCities(),
         regions: getLSRegions(),
@@ -68,7 +69,7 @@ const NewsList = ({isFullDate = true}) => {
                     cities: newArr
                 }))();
         }
-
+        setUntouchableMode(false);
     }
 
     const getNews = async (startElem, filters) => {
@@ -184,6 +185,7 @@ const NewsList = ({isFullDate = true}) => {
     };
 
     const changeRegionFilter = regionIds => {
+        setUntouchableMode(true);
         setLSRegions(regionIds);
         setNewsFilter({...newsFilter, regions: regionIds});
         setStartElement(1);
@@ -266,6 +268,7 @@ const NewsList = ({isFullDate = true}) => {
                 changeCityFilter={changeCityFilter}
                 changeRegionFilter={changeRegionFilter}
                 changeIsPopular={changeIsPopular}
+                untouchableMode={untouchableMode}
             />
         </div>
     )
