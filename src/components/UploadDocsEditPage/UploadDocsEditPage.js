@@ -29,7 +29,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
 
     const closeModal = () => {
         setModal({});
-        blockContent(false)
+        blockContent(false);
     };
 
     const getDocuments = (withSuccess) => PromiseRequest(`/api/document/document/private_list?profileId=${clubId}`)

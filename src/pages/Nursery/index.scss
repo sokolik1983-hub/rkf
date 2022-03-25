@@ -289,7 +289,7 @@
       .user-gallery {
         margin-top: 0 !important;
 
-        &.photo {
+        &._photo {
           padding-top: 2px !important;
 
           .user-gallery__header {
@@ -301,7 +301,7 @@
           }
         }
 
-        &.video {
+        &._video {
           .user-gallery__header {
             height: 18px;
           }
