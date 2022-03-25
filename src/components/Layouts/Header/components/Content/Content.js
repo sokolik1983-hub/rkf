@@ -5,21 +5,21 @@ import MenuLinks from "./MenuLinks";
 
 
 const Content = ({
-    open,
-    name,
-    logo,
-    alias,
-    setOpen,
-    userType,
-    lastName,
-    firstName,
-    logOutUser,
     accountType,
-    setShowModal,
+    alias,
+    firstName,
     isMobile1080,
-    menuBackground,
-    loginUserSuccess,
     is_active_profile,
+    lastName,
+    logOutUser,
+    loginUserSuccess,
+    logo,
+    menuBackground,
+    name,
+    open,
+    setOpen,
+    setShowModal,
+    userType,
 }) => {
 
     return (
@@ -31,7 +31,7 @@ const Content = ({
                         <img src='/static/images/widget-login/userpic-bg.jpg' alt=""/>
                     }
                 </div>
-                <div className={`widget-login__userpic${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
+                <div className={`widget-login__userpic${open ? ' _active' : ''}`}
                      style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
                 />
             </div>
@@ -40,13 +40,13 @@ const Content = ({
                     <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                 }
                 {userType === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
-                    <Link to={is_active_profile ? `/club/${alias}` : "/not-confirmed"}>{name}</Link>
+                    <Link to={is_active_profile ? `/club/${alias}` : '/not-confirmed'}>{name}</Link>
                 }
                 {(userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
-                    <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
+                    <Link to={is_active_profile ? `/${alias}` : '/not-confirmed'}>{name}</Link>
                 }
                 {userType === 4 &&
-                    <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
+                    <Link to={is_active_profile ? `/kennel/${alias}` : '/kennel/activation'}>{name}</Link>
                 }
             </div>
             <ul className="widget-login__list">

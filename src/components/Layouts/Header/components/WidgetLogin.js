@@ -72,7 +72,7 @@ const WidgetLogin = forwardRef(
 
 
     return (
-        <div className={`widget-login class-for-grid-block3 ${login_page ? "active" : !isAuthenticated && "__noAuth"}`}>
+        <div className={`widget-login class-for-grid-block3 ${login_page ? "active" : !isAuthenticated && "__no-auth"}`}>
             {isAuthenticated ?
                 <section>
                     <div

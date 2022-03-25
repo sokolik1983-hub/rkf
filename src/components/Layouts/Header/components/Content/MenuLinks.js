@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import {widgetLoginIcon} from "../../../../../appConfig";
 import {Request} from "../../../../../utils/request";
@@ -6,14 +6,14 @@ import history from "../../../../../utils/history";
 
 
 const MenuLinks = ({
-    alias,
-    setOpen,
-    logInLogOut,
-    userTypes,
     accountType,
-    setShowModal,
-    loginUserSuccess,
+    alias,
     is_active_profile,
+    logInLogOut,
+    loginUserSuccess,
+    setOpen,
+    setShowModal,
+    userTypes,
 }) => {
     let profileEdit,
         profileCabinet,
@@ -63,6 +63,9 @@ const MenuLinks = ({
         default:
             break;
     }
+
+
+
 
     const logoutAsUser = async () => {
         await Request({
