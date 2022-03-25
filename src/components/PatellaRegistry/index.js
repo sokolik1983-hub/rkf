@@ -79,26 +79,42 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                     fullScreen
                     setNeedUpdateTable={setNeedUpdateTable}
                 />
-                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport}
-                                             onErrorReport={id => setErrorReport(id)} profileType={profileType}/>}
+                {errorReport &&
+                    <ReportError
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        id={errorReport}
+                        onErrorReport={id => setErrorReport(id)}
+                        profileType={profileType}
+                    />
+                }
             </Card>
             :
             <Card className="club-documents-status">
                 <div className="club-documents-status__head">
-                    <Link className="btn-backward"
-                          to={profileType === "kennel" ? `/kennel/${alias}/documents` : `/${alias}/documents`}>Личный
-                        кабинет</Link>
+                    <Link
+                        className="btn-backward"
+                        to={profileType === "kennel" ? `/kennel/${alias}/documents` : `/${alias}/documents`}
+                    >
+                        Личный кабинет
+                    </Link>
                     &nbsp;/&nbsp;
-                    {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ11111" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
+                    {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
                 </div>
                 {documents && !!documents.length
                     ? <div>
                         <div className="club-documents-status__controls _patella_controls">
-                            {document_id && <button
-                                className="club-documents-status__control club-documents-status__control--resetIcon"
-                            >
+                            {document_id &&
+                                <button className="club-documents-status__control club-documents-status__control--resetIcon">
                                 <Link
-                                    to={profileType === "kennel" ? `/kennel/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry` : `/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry`}>
+                                    to={profileType === "kennel"
+                                        ?
+                                        `/kennel/${alias}/documents/${distinction === 'dysplasia' 
+                                            ? 'dysplasia' 
+                                            : 'patella'}/registry`
+                                        : `/${alias}/documents/${distinction === 'dysplasia' 
+                                            ? 'dysplasia' 
+                                            : 'patella'}/registry`}
+                                >
                                     Вернуться к списку
                                 </Link>
                             </button>}
@@ -129,8 +145,13 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                         <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено"/>
                     </div>
                 }
-                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport}
-                                             onErrorReport={id => setErrorReport(id)} profileType={profileType}/>}
+                {errorReport &&
+                    <ReportError
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        id={errorReport}
+                        onErrorReport={id => setErrorReport(id)}
+                        profileType={profileType}
+                    />}
             </Card>
 };
 
