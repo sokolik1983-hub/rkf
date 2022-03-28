@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import ls from "local-storage";
 import moment from "moment";
 import Loading from "components/Loading";
@@ -18,7 +18,8 @@ const ReplaceRegistry = ({distinction, profileType}) => {
     const [exporting, setExporting] = useState(false);
     const [errorReport, setErrorReport] = useState(null);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
-    const document_id = window.location.href.split('=')[1];
+    const location = useLocation();
+    const document_id = location.pathname.split('=')[1];
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
     useEffect(() => {
@@ -49,7 +50,7 @@ const ReplaceRegistry = ({distinction, profileType}) => {
         : !standardView
             ?
             <Card className="club-documents-status__popup">
-                <div className="club-documents-status__controls" style={{position: 'relative', top: '29px'}}>
+                <div className="club-documents-status__controls">
                     {document_id && <button
                         className="club-documents-status__control club-documents-status__control--resetIcon"
                     >
