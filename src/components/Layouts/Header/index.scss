@@ -886,6 +886,7 @@
             color: #8F989D;
             font-size: 13px;
             line-height: 16px;
+            user-select: none;
         }
 
         @media (max-width: 1079px) {
@@ -923,7 +924,6 @@
         &._login_open {
             svg path {
                 stroke: #3366FF;
-
             }
         }
     }

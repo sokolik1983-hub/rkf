@@ -76,22 +76,26 @@ const WidgetLogin = forwardRef(
             {isAuthenticated ?
                 <section>
                     <div
-                        className={`widget-login__wrap ${open && "_login_open "}`}
+                        className={`widget-login__wrap ${open && "_login_open"}`}
                         ref={widgetLoginRef}
                         onClick={handleChecked}
                     >
                         {isMobile1080 ?
                             <div className={`widget-login__user-icon`}>
                                 {footerNav?.image}
-                                <span style={{color: open && '#3366FF', userSelect: "none"}}>
+                                <span style={{color: open && '#3366FF'}}>
                                     {footerNav?.title}
                                 </span>
                             </div> :
-                            <div className={`widget-login__user-icon ${open ? ` _active` : !logo && ` _no-logo`}`}
+                            <div className={`widget-login__user-icon ${open && ' _active'}`}
                                 style={{backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})`}}
                             />
                         }
-                        {!isMobile1080 && <span>Профиль</span>}
+                        {!isMobile1080 &&
+                            <span style={{color: open && '#3366FF'}}>
+                                Профиль
+                            </span>
+                        }
                     </div>
                     <OutsideClickHandler onOutsideClick={handleOutsideClick}>
                         <CSSTransition

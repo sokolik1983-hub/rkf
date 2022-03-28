@@ -31,7 +31,7 @@ const Content = ({
                         <img src='/static/images/widget-login/userpic-bg.jpg' alt=""/>
                     }
                 </div>
-                <div className={`widget-login__userpic${open ? ' _active' : ''}`}
+                <div className={`widget-login__userpic${open && ' _active'}`}
                      style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
                 />
             </div>
