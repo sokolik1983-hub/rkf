@@ -18,28 +18,23 @@ import useIsMobile from "../../../../utils/useIsMobile";
 
 const WidgetLogin = forwardRef(
     ({
+    footerNav,
     isAuthenticated,
     is_active_profile,
-    loginUserSuccess,
     logOutUser,
-    logo_link,
+    loginUserSuccess,
     login_page,
-    footerNav,
-    withFilters,
+    logo_link,
+    open,
     setOpen,
-    open
+    withFilters,
 }, ref) => {
     const [desktop, setDesktop] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [menuBackground, setMenuBackground] = useState(null);
 
-    const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
-    const name = ls.get('user_info') ? ls.get('user_info').name : '';
-    const logo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
-    const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
-    const accountType = ls.get('account_type') ? ls.get('account_type') : '';
-    const firstName = ls.get('user_info') ? ls.get('user_info').first_name : '';
-    const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
+    const {alias, name, user_type, account_type, first_name, last_name} = ls.get('user_info') || {};
+    const logo = ls.get('user_info').logo_link || logo_link;
     const isMobile1080 = useIsMobile(1080);
 
     const widgetLoginRef = useRef();
@@ -62,7 +57,7 @@ const WidgetLogin = forwardRef(
 
     const backgroundForPage = async (alias) => {
         await Request({
-            url: `${(userType === 1) ? endpointGetUserInfo : endpointGetClubInfo}${alias}`
+            url: `${(user_type === 1) ? endpointGetUserInfo : endpointGetClubInfo}${alias}`
         }, data => {
             setMenuBackground(data.headliner_link);
         }, error => {
@@ -88,7 +83,7 @@ const WidgetLogin = forwardRef(
                                 </span>
                             </div> :
                             <div className={`widget-login__user-icon ${open && ' _active'}`}
-                                style={{backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})`}}
+                                style={{backgroundImage: `url(${logo ? logo : user_type === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})`}}
                             />
                         }
                         {!isMobile1080 &&
@@ -119,11 +114,11 @@ const WidgetLogin = forwardRef(
                                             logo={logo}
                                             alias={alias}
                                             setOpen={setOpen}
-                                            userType={userType}
-                                            lastName={lastName}
-                                            firstName={firstName}
+                                            userType={user_type}
+                                            lastName={last_name}
+                                            firstName={first_name}
                                             logOutUser={logOutUser}
-                                            accountType={accountType}
+                                            accountType={account_type}
                                             setShowModal={setShowModal}
                                             isMobile1080={isMobile1080}
                                             menuBackground={menuBackground}
@@ -138,11 +133,11 @@ const WidgetLogin = forwardRef(
                                     logo={logo}
                                     alias={alias}
                                     setOpen={setOpen}
-                                    userType={userType}
-                                    lastName={lastName}
-                                    firstName={firstName}
+                                    userType={user_type}
+                                    lastName={last_name}
+                                    firstName={first_name}
                                     logOutUser={logOutUser}
-                                    accountType={accountType}
+                                    accountType={account_type}
                                     setShowModal={setShowModal}
                                     isMobile1080={isMobile1080}
                                     menuBackground={menuBackground}
