@@ -271,9 +271,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     <Container className="UserEdit content">
                         <aside className="UserEdit__left">
                             <StickyBox offsetTop={60}>
-                                {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser} />
-                                }
                                 <Card>
                                     <UserInfo
                                         canEdit={canEdit}
