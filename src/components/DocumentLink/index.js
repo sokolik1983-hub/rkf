@@ -62,7 +62,7 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
                 )
             }
             {
-                (page === "AppForm") && (
+                (page === "AppForm" || page === "CheckMembership") && (
                     <a
                         className="btn nomargin"
                         href={url}

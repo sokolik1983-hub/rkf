@@ -12,7 +12,7 @@ import FormUpload from "./components/FormUpload";
 import AdditionalDocuments from "./components/AdditionalDocuments";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import DocumentLink from "../../DocumentLink";
+import DocumentLink from "../../../../../components/DocumentLink";
 import DocumentLinksArray from "./components/DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
@@ -25,6 +25,7 @@ import Alert from "../../../../../components/Alert";
 import {DateInput} from "../../../../../components/materialUI/DateTime";
 
 import "./index.scss";
+import {apiClubApplicationFormEndpoint} from "../../../config";
 
 
 const CheckMembershipForm = ({ clubAlias, history, status }) => {
@@ -305,7 +306,11 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                 {values &&
                                                                     values.changes_confirmation_document_id &&
                                                                     !formRenderProps.valueGetter('changes_confirmation_document_id')?.length &&
-                                                                    <DocumentLink docId={values.changes_confirmation_document_id} />
+                                                                    <DocumentLink
+                                                                        docId={values.changes_confirmation_document_id}
+                                                                        endpoint={apiClubApplicationFormEndpoint}
+                                                                        page="CheckMembership"
+                                                                    />
                                                                 }</>}
                                                     </div>
                                                 </div>
@@ -337,7 +342,11 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                 {values &&
                                                                     values.membership_confirmation_document_id &&
                                                                     !formRenderProps.valueGetter('membership_confirmation_document_id').length &&
-                                                                    <DocumentLink docId={values.membership_confirmation_document_id} />
+                                                                    <DocumentLink
+                                                                        docId={values.membership_confirmation_document_id}
+                                                                        endpoint={apiClubApplicationFormEndpoint}
+                                                                        page="CheckMembership"
+                                                                    />
                                                                 }</>}
                                                     </div>
                                                 </div>
@@ -377,7 +386,11 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                         {values &&
                                                                             values.mating_whelping_book_document_id &&
                                                                             !formRenderProps.valueGetter('mating_whelping_book_document_id').length &&
-                                                                            <DocumentLink docId={values.mating_whelping_book_document_id} />
+                                                                            <DocumentLink
+                                                                                docId={values.mating_whelping_book_document_id}
+                                                                                endpoint={apiClubApplicationFormEndpoint}
+                                                                                page="CheckMembership"
+                                                                            />
                                                                         }</>}
                                                             </div>
                                                         </div>
@@ -426,7 +439,11 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                 {values &&
                                                                     values.payment_document_id &&
                                                                     !formRenderProps.valueGetter('payment_document_id').length &&
-                                                                    <DocumentLink docId={values.payment_document_id} />
+                                                                    <DocumentLink
+                                                                        docId={values.payment_document_id}
+                                                                        endpoint={apiClubApplicationFormEndpoint}
+                                                                        page="CheckMembership"
+                                                                    />
                                                                 }</>}
                                                     </div>
                                                 </div>

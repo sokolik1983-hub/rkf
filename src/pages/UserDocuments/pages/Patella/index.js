@@ -153,7 +153,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                     <Link to={`/user/${alias}/documents`} className="user-documents__breadcrumbs-link">Личный
                         кабинет</Link>
                     &nbsp;/&nbsp;
-                    <span className="user-documents__breadcrumbs-item">Сертификат клинической оценки коленных суставов (PL) (Пателла)</span>
+                    <span className="user-documents__breadcrumbs-item">Сертификат клинической оценки коленных суставов (PL) (Пателла)1111111111</span>
                 </div>
                 <Form
                     onSubmit={handleSubmit}
@@ -314,7 +314,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                     </div>
                                 </div>
                                 <div className="patella-form__content">
-                                    <h4 className="patella-form__title">Информация о платеже</h4>
+                                    <h4 className="patella-form__title">Информация о платеже111111111111111111</h4>
                                     {!disableAllFields &&
                                         <>
                                             <p style={{ marginBottom: '10px' }}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
