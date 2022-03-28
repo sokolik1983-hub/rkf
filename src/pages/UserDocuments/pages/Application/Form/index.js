@@ -101,7 +101,7 @@ const Application = ({ alias, history, status, owner }) => {
             const id = paramsArr[paramsArr.length - 1];
 
             Promise.all([
-                PromiseRequest({ url: `${apiRequestRkfDocs}?id=${id}` }),
+                PromiseRequest({ url: `/api/requests/get_rkf_document_request/ownergetrkfdocumentrequest?id=${id}` }),
                 PromiseRequest({ url: `/api/dog/Breed` }),
                 PromiseRequest({ url: `/api/requests/commonrequest/rkf_document_types` })
             ]).then(data => {
