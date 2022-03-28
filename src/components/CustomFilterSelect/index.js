@@ -1,10 +1,19 @@
 import React, {memo, useState} from "react";
 import LightTooltip from "../LightTooltip";
 import CustomCheckbox from "../Form/CustomCheckbox";
+
 import "./index.scss";
 
-
-const CustomFilterSelect = ({options = [], values, onChange, placeholder, noOptionsMessage, className, id}) => {
+const CustomFilterSelect = (
+    {
+        options = [],
+        values,
+        onChange,
+        placeholder,
+        noOptionsMessage,
+        className,
+        id
+    }) => {
     const [searchText, setSearchText] = useState('');
 
     const filterOptions = opts => opts.filter(option =>

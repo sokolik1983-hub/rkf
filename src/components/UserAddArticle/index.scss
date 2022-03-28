@@ -15,7 +15,7 @@
   }
 }
 
-.ArticleCreateForm {
+.article-create-form {
   position: relative;
 
   textarea {
@@ -366,7 +366,7 @@
         }
       }
     }
-    .ArticleCreateForm {
+    .article-create-form {
       &__input-sex {
         grid-area: sex2;
         & .FormInput__input {
@@ -707,7 +707,7 @@
   }
 }
 
-.ArticleCreateForm__advert-wrap~.ArticleCreateForm__button-wrap {
+.article-create-form__advert-wrap~.article-create-form__button-wrap {
   margin-top: 0;
 }
 

@@ -1,33 +1,65 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Card from "../../../../components/Card";
+import Modal from "../../../../components/Modal";
+import Button from "../../../../components/Button";
 import CountDown from "../../../../components/CountDown";
 import PropertyP from "../../../../components/PropertyP";
-import {useDictionary, getDictElementsArray} from "../../../../dictionaries";
-import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
 import declension from "../../../../utils/declension";
+import {Request} from "../../../../utils/request";
+import {blockContent} from "../../../../utils/blockContent";
+import {
+    getLocalizedWeekDay,
+    timeSecondsCutter,
+    transformDateSafariFriendly
+} from "../../../../utils/datetime";
+import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
+import {judgeIcon, allbreedJudgeIcon} from "../../../../components/Layouts/UserLayout/config";
+import useIsMobile from "../../../../utils/useIsMobile";
+
 import "./index.scss";
 
 
 const ExhibitionInfo = ({
-    dateStart,
-    dateEnd,
-    reportsDateEnd,
-    dates,
-    rank_types,
-    breed_types,
-    description,
-    judges,
-    comments,
-    documents_links,
-    schedule_link,
-    catalog_link,
-    reports_link,
-    national_breed_club_name,
-}) => {
-    const { dictionary: rankDictionary } = useDictionary('rank_type');
-    const { dictionary: breedDictionary } = useDictionary('breed_types');
+                            breed_types,
+                            canEdit,
+                            catalog_link,
+                            comments,
+                            dateEnd,
+                            dateStart,
+                            dates,
+                            description,
+                            documents_links,
+                            exhibitionId,
+                            judges,
+                            national_breed_club_name,
+                            rank_types,
+                            reportsDateEnd,
+                            reports_link,
+                            schedule_link,
+                        }) => {
+    const [judge, setJudge] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const {dictionary: rankDictionary} = useDictionary('rank_type');
+    const {dictionary: breedDictionary} = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
+    const isMobile = useIsMobile(990);
+
+    useEffect(() => {
+        if (showModal) {
+            blockContent(true);
+        } else {
+            blockContent(false);
+        }
+    }, [showModal]);
+
+    const getJudgeList = async () => {
+        await Request({
+                url: `/api/exhibitions/common/relevant_judges?id=${exhibitionId}`,
+            },
+            data => setJudge(data),
+            error => console.log(error));
+    };
 
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -92,6 +124,18 @@ const ExhibitionInfo = ({
                 <div className="exhibition-page__description">
                     <h4 className="exhibition-page__description-title">Судьи</h4>
                     {judges && <p>{judges}</p>}
+                    {canEdit &&
+                        <div className="exhibition-page__judge-select">
+                            <Button
+                                primary={true}
+                                onClick={() => {
+                                    getJudgeList();
+                                    setShowModal(true);
+                                }}
+                            >
+                                Пригласить судью
+                            </Button>
+                        </div>}
                 </div>
                 <div className="exhibition-page__description">
                     <h4 className="exhibition-page__description-title">Комментарий</h4>
@@ -102,7 +146,7 @@ const ExhibitionInfo = ({
                 <div className="exhibition-page__description">
                     <h4 className="exhibition-page__description-title">Описание</h4>
                     {description ?
-                        <p dangerouslySetInnerHTML={{ __html: description }} /> :
+                        <p dangerouslySetInnerHTML={{__html: description}}/> :
                         <p>Описание отсутствует</p>
                     }
                 </div>
@@ -118,7 +162,8 @@ const ExhibitionInfo = ({
                     }
                 </div>
             </Card>
-{/*            <Card className="exhibition-info">
+            {/*блок закоментирован по просьбе аналитика, по макету*/}
+            {/*            <Card className="exhibition-info">
                 <div className="exhibition-page__schedule">
                     <h4 className="exhibition-page__schedule-title">Расписание</h4>
                     <p className="exhibition-documents__doc">
@@ -140,7 +185,100 @@ const ExhibitionInfo = ({
                     </p>
                 </div>
             </Card>*/}
-
+            {showModal &&
+                <Modal showModal={showModal}
+                       handleClose={() => setShowModal(false)}
+                       handleX={() => {setShowModal(false)}}
+                       noBackdrop={true}
+                       iconName="owner2-white"
+                       headerName="Выбор судьи/специалиста"
+                       className="exhibition-page__judge__modal"
+                >
+                    {judge ?
+                        <>
+                            <h3>Список судей/специалистов</h3>
+                            <ul className="exhibition-page__judge-list">
+                                {judge.map(data =>
+                                    <li key={data.id}>
+                                        {!isMobile ?
+                                            <div className="exhibition-page__judge-item__wrap">
+                                                <div className="exhibition-page__judge-item__name">
+                                                    <span className="exhibition-page__judge-item__name-rus">
+                                                        <p>{data.last_name && `${data.last_name} `}</p>
+                                                        <p>{data.first_name && `${data.first_name} `}
+                                                            {data.second_name}
+                                                            {data.owner_alias && judgeIcon}
+                                                            {data.all_breeder &&
+                                                                allbreedJudgeIcon
+                                                            }
+                                                        </p>
+                                                    </span>
+                                                    <span className="exhibition-page__judge-item__name-eng">
+                                                        {data.last_name_lat}{data.first_name_lat ? ' ' + data.first_name_lat : ''}
+                                                    </span>
+                                                    <span className="exhibition-page__judge-item__cert-number">
+                                                        Лист судьи №{data.cert_number}
+                                                    </span>
+                                                </div>
+                                                <div className="exhibition-page__judge-item__info">
+                                                    <span>
+                                                        Город:
+                                                        <p>{data.city_name}</p>
+                                                    </span>
+                                                    <span>
+                                                        Телефон:
+                                                        <p>{data.phone}</p>
+                                                    </span>
+                                                    <span>
+                                                        E-mail:
+                                                        <p>{data.email}</p>
+                                                    </span>
+                                                </div>
+                                                <input type="checkbox"
+                                                       className="exhibition-page__judge-item__checkbox"
+                                                       id={data.id}
+                                                      />
+                                            </div>
+                                            :
+                                            <div className="exhibition-page__judge-item__wrap">
+                                                <div className="exhibition-page__judge-item__name">
+                                                    <span className="exhibition-page__judge-item__name-rus">
+                                                        <p>{data.last_name && `${data.last_name} `}</p>
+                                                        <p>{data.first_name && `${data.first_name} `}
+                                                            {data.second_name}
+                                                            {data.owner_alias && judgeIcon}
+                                                            {data.all_breeder &&
+                                                                allbreedJudgeIcon
+                                                            }
+                                                        </p>
+                                                    </span>
+                                                    <span className="exhibition-page__judge-item__name-eng">
+                                                        {data.last_name_lat}{data.first_name_lat ? ' ' + data.first_name_lat : ''}
+                                                    </span>
+                                                    <span className="exhibition-page__judge-item__cert-number">
+                                                        Лист судьи №{data.cert_number}
+                                                    </span>
+                                                </div>
+                                                <div className="exhibition-page__judge-item__info">
+                                                    <span>
+                                                        {data.city_name}
+                                                    </span>
+                                                    <input type="checkbox"
+                                                           className="exhibition-page__judge-item__checkbox"/>
+                                                </div>
+                                            </div>
+                                        }
+                                    </li>
+                                )}
+                            </ul>
+                            <Button primary={true}>
+                                Выбрать
+                            </Button>
+                        </> :
+                        <p>Подходящих судей не найдено</p>
+                    }
+                </Modal>
+            }
         </>
     )
 };

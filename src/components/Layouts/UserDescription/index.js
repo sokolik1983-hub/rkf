@@ -13,8 +13,8 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
     const [specializations, setSpecializations] = useState(null);
 
     useEffect(() => {
-        !!judgeInfo && setSpecializations(judgeInfo.map(item => item.specializations))
-        !!judgeInfo && setJudge(judgeInfo)
+        !!judgeInfo && !!judgeInfo[0] && setSpecializations(judgeInfo.map(item => item.specializations))
+        !!judgeInfo && !!judgeInfo[0] && setJudge(judgeInfo)
     }, [judgeInfo]);
 
     const normalizeLink = link => {

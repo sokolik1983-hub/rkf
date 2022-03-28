@@ -1,29 +1,4 @@
 .exhibition-info {
-  &.two {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    @media (max-width: 990px) {
-      display: block;
-    }
-  }
-  &.two.main-info {
-    .exhibition-info__right {
-      @media(min-width: 991px) {
-        display: flex;
-        justify-content: right;
-      }
-    }
-  }
-  &.two >* {
-    width: 50%;
-    @media (max-width: 990px) {
-      width: 100%;
-    }
-  }
-  &:not(:first-child) {
-    border-bottom: 1px solid #E5E5E5;
-  }
   display: flex;
   justify-content: space-between;
   font-weight: 400;
@@ -35,6 +10,36 @@
   @media (max-width: 990px) {
     display: block;
   }
+
+  &.two {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    @media (max-width: 990px) {
+      display: block;
+    }
+  }
+
+  &.two.main-info {
+    .exhibition-info__right {
+      @media(min-width: 991px) {
+        display: flex;
+        justify-content: right;
+      }
+    }
+  }
+
+  &.two > * {
+    width: 50%;
+    @media (max-width: 990px) {
+      width: 100%;
+    }
+  }
+
+  &:not(:first-child) {
+    border-bottom: 1px solid #E5E5E5;
+  }
+
   &__title {
     font-weight: 600;
     font-size: 14px;
@@ -43,6 +48,7 @@
     text-transform: uppercase;
     margin-bottom: 12px;
   }
+
   &__subtitle {
     font-weight: 400;
     font-size: 16px;
@@ -50,9 +56,11 @@
     color: #72839c;
     margin-bottom: 6px;
   }
+
   &__right {
     width: 300px;
     min-width: 300px;
+
     &.reports {
       width: 100%;
       max-width: 60%;
@@ -60,26 +68,32 @@
         max-width: none;
       }
     }
+
     @media (max-width: 560px) {
       width: 100%;
       min-width: 100%;
     }
   }
+
   &__left {
     margin-right: 24px;
     @media (max-width: 990px) {
       margin-right: 0;
     }
   }
+
   &__dates {
     margin-bottom: 16px;
   }
+
   &__date {
     font-weight: 600;
   }
+
   &__time {
     margin-bottom: 16px;
   }
+
   &__address {
     margin-bottom: 16px;
     font-size: 16px;
@@ -88,14 +102,17 @@
     padding-left: 30px;
     background: url("/static/icons/exhibitions/pin.svg") 0 no-repeat;
   }
+
   &__table {
     width: 100%;
     margin: 24px 0;
     @media (max-width: 560px) {
       margin: 24px 0;
     }
+
     td {
       padding-left: 12px;
+
       &:first-child {
         color: #72839c;
         padding-left: 0;
@@ -103,21 +120,25 @@
       }
     }
   }
+
   &__block {
     &-list {
       list-style: none;
       margin-bottom: 24px;
     }
+
     &-item {
       &:not(:last-child) {
         margin-bottom: 4px;
       }
+
       &.not-active a {
         color: #72839c !important;
       }
     }
   }
 }
+
 .exhibition-schedule {
   &__date {
     font-size: 18px;
@@ -128,16 +149,20 @@
       line-height: 1.2;
     }
   }
+
   &__event {
     margin-left: 12px;
   }
+
   &:not(:last-child) {
     margin-bottom: 12px;
   }
 }
+
 .exhibition-documents__doc:not(:last-child) {
   margin-bottom: 6px;
 }
+
 .exhibition-page {
   &__description,
   &__schedule,
@@ -145,6 +170,7 @@
   &__documents {
     margin-bottom: 24px;
     font-weight: 300;
+
     &-title {
       font-weight: 600;
       font-size: 14px;
@@ -152,6 +178,258 @@
       letter-spacing: 0.4px;
       text-transform: uppercase;
       margin-bottom: 12px;
+    }
+  }
+
+  &__description {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__judge {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 18px;
+
+    h5 {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 16px;
+    }
+
+    .btn {
+      width: 155px;
+      height: 36px;
+      padding: 0;
+      text-align: center;
+    }
+
+    &-select {
+      position: relative;
+      bottom: 10px;
+      width: 154px;
+
+      .btn {
+        padding: 10px;
+      }
+
+      @media (max-width: 990px) {
+        bottom: 0;
+
+        .btn {
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+      }
+    }
+
+    &__modal .Modal__body {
+      display: flex;
+      flex-direction: column;
+      width: 720px;
+      height: 484px;
+
+      @media (max-width: 899px) {
+        height: 588px;
+      }
+
+      button {
+        height: 38px;
+        width: 154px;
+        align-self: center;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        padding-top: 8px;
+      }
+
+      h3 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-family: Source Sans Pro, serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #253C5E;
+      }
+    }
+
+    &-list {
+      height: 373px;
+      overflow: auto;
+      border: 1px solid #CED4DA;
+
+      li {
+        border-bottom: 1px solid #CED4DA;
+
+        .exhibition-page__judge-item {
+          &__wrap {
+            display: flex;
+            flex-direction: row;
+            height: 109px;
+
+            div {
+              display: flex;
+              flex-direction: column;
+            }
+          }
+
+          &__name {
+            width: 40%;
+            padding-left: 15px;
+
+            &-rus {
+              margin-top: 3px;
+
+              p {
+                color: #253C5E;
+
+                &:last-child {
+                  display: flex;
+
+                  svg {
+                    margin-top: auto;
+                    margin-left: 5px;
+                  }
+                }
+              }
+            }
+
+            &-eng {
+              font-size: 15px;
+            }
+
+            span {
+              margin-bottom: 5px;
+            }
+          }
+
+          &__cert-number {
+            font-size: 15px;
+          }
+
+          &__info {
+            width: 50%;
+
+            span {
+              display: flex;
+              font-size: 15px;
+              margin-bottom: 5px;
+
+              p {
+                font-weight: 400;
+              }
+
+              &:first-child {
+                margin-top: 25px;
+              }
+            }
+          }
+
+          &__checkbox {
+            align-self: center;
+            height: 21px;
+            width: 21px;
+          }
+
+          @media (max-width: 899px) {
+            &__wrap {
+              min-width: 330px;
+              width: auto;
+            }
+
+            &__name {
+              width: 100%;
+
+              &-rus {
+                margin-right: 0;
+              }
+            }
+
+            &__info {
+              span:first-child {
+                position: relative;
+                margin-top: 5px;
+                margin-bottom: 20px;
+                margin-right: 10px;
+                align-self: flex-end;
+                font-weight: 400;
+                white-space: nowrap;
+                padding-left: 20px;
+
+                &:before {
+                  content: "";
+                  width: 17px;
+                  height: 17px;
+                  background: url(/static/icons/ico-pointer2.svg) center center/contain no-repeat;
+                  position: absolute;
+                  left: 0;
+                }
+              }
+            }
+
+            &__checkbox {
+              height: 21px;
+              width: 21px;
+              align-self: flex-end;
+              margin-right: 20px;
+            }
+
+          }
+        }
+
+        & span {
+          margin-right: 25px;
+          font-family: Source Sans Pro, serif;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 22px;
+          text-align: left;
+          color: #72839C;
+        }
+      }
+
+      @media (max-width: 899px) {
+        height: 477px;
+      }
+    }
+
+    &__modal .Modal__inner {
+      overflow: hidden;
+      height: 533px;
+
+      @media (max-width: 899px) {
+        height: 637px;
+        .Modal__body {
+          width: auto;
+
+          .exhibition-edit__judge-list {
+            li {
+              height: auto;
+              grid-template-columns: 1fr 140px 2fr 1fr;
+              @media (max-width: 400px) {
+                span {
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @media (max-width: 799px) {
+      flex-direction: column;
+      align-items: flex-start;
+      .btn {
+        width: auto;
+        padding: 8px 27px;
+      }
     }
   }
 }

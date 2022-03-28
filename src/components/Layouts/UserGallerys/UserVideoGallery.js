@@ -86,10 +86,10 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
     if (!loading && !videos.length && isMobile) {
         return null
     } else return (
-        <Card className="user-gallery">
+        <Card className="user-gallery _video">
             <div className="user-gallery__header">
                 <Link to={pageLink}><h4 className="user-gallery__title">Видеозаписи</h4></Link>
-                <div style={{ display: 'flex' }}>
+                <div>
                     {canEdit && !videos.length ?
                         <LightTooltip title="Добавить видео" enterDelay={200} leaveDelay={200}>
                             <button

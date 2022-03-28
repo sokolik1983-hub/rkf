@@ -13,11 +13,15 @@ const Documents = ({ alias }) => (
                 <Link
                     to={`/user/${alias}/documents/dysplasia/form`}
                     className="documents-card__link"
-                >Подать заявку</Link>
+                >
+                    Подать заявку
+                </Link>
                 <Link
                     to={`/user/${alias}/documents/dysplasia/registry`}
                     className="documents-card__link"
-                >Проверка статуса документов</Link>
+                >
+                    Проверка статуса документов
+                </Link>
             </div>
         </Card>
         <Card className="documents-card">
@@ -28,11 +32,15 @@ const Documents = ({ alias }) => (
                 <Link
                     to={`/user/${alias}/documents/patella/form`}
                     className="documents-card__link"
-                >Подать заявку</Link>
+                >
+                    Подать заявку
+                </Link>
                 <Link
                     to={`/user/${alias}/documents/patella/registry`}
                     className="documents-card__link"
-                >Проверка статуса документов</Link>
+                >
+                    Проверка статуса документов
+                </Link>
             </div>
         </Card>
         <Card className="documents-card">
@@ -43,11 +51,15 @@ const Documents = ({ alias }) => (
                 <Link
                     to={`/user/${alias}/documents/application/form`}
                     className="documents-card__link"
-                >Подать заявку</Link>
+                >
+                    Подать заявку
+                </Link>
                 <Link
                     to={`/user/${alias}/documents/application/registry`}
                     className="documents-card__link"
-                >Проверка статуса документов</Link>
+                >
+                    Проверка статуса документов
+                </Link>
             </div>
         </Card>
     </>

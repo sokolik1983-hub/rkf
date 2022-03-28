@@ -39,12 +39,38 @@ const NewsList = ({isFullDate = true}) => {
     const [newsLoading, setNewsLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [untouchableMode, setUntouchableMode] = useState(false);
     const [newsFilter, setNewsFilter] = useState({
         cities: getLSCities(),
         regions: getLSRegions(),
         activeType: null,
         isAdvert: null
     });
+
+    const doTheFilter = (currentCities) => {
+        if(newsFilter.regions.length === 0) {
+            setNewsFilter({...newsFilter, regions:newsFilter.regions,  cities: []});
+            (() => getNews(1, {...newsFilter, regions: [], cities: []}))();
+        } else {
+            const newArr = [];
+            currentCities.forEach(item => {
+                newsFilter.cities.forEach(elem => {
+                    if(item.value === elem) {
+                        newArr.push(elem);
+                    }
+                })
+            });
+            setNewsFilter({...newsFilter, cities: newArr});
+            (() => getNews(
+                1,
+                {
+                    ...newsFilter,
+                    regions: newsFilter.regions,
+                    cities: newArr
+                }))();
+        }
+        setUntouchableMode(false);
+    }
 
     const getNews = async (startElem, filters) => {
         setNewsLoading(true);
@@ -159,10 +185,11 @@ const NewsList = ({isFullDate = true}) => {
     };
 
     const changeRegionFilter = regionIds => {
+        setUntouchableMode(true);
         setLSRegions(regionIds);
-        setNewsFilter({...newsFilter, regions: regionIds, cities: []});
+        setNewsFilter({...newsFilter, regions: regionIds});
         setStartElement(1);
-        (() => getNews(1, {...newsFilter, regions: regionIds, cities: []}))();
+        (() => getNews(1, {...newsFilter, regions: regionIds}))();
     };
 
     useEffect(() => {
@@ -171,6 +198,7 @@ const NewsList = ({isFullDate = true}) => {
             url: `${endpointNewsCity}?${currentRegions.map(reg => `regionIds=${reg}`).join('&')}`
         }, data => {
             setCities(data);
+            doTheFilter(data);
         },error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -240,6 +268,7 @@ const NewsList = ({isFullDate = true}) => {
                 changeCityFilter={changeCityFilter}
                 changeRegionFilter={changeRegionFilter}
                 changeIsPopular={changeIsPopular}
+                untouchableMode={untouchableMode}
             />
         </div>
     )

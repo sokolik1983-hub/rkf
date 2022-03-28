@@ -7,6 +7,7 @@ import {connectWidgetLogin} from "pages/Login/connectors";
 
 const ActivateClub = ({club, history, logOutUser, close}) => {
     const [code, setCode] = useState(null);
+    const [errorCode, setErrorCode] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const onEmailSubmit = () => {
@@ -56,8 +57,11 @@ const ActivateClub = ({club, history, logOutUser, close}) => {
                     alert('Регистрация завершена.\nДанные для входа отправлены на указанную почту.');
                     logOutUser();
                     history.push('/');
+                } else if (response.returnCode == 422) {
+                    setCode('');
+                    setErrorCode(true);
                 } else {
-                    alert('Произошла ошибка');
+                    alert(`Ошибка: ${Object.values(response.errors)}`);
                 }
             });
     };
@@ -90,23 +94,29 @@ const ActivateClub = ({club, history, logOutUser, close}) => {
                             <p>Пожалуйста, зайдите в свою почту и введите полученный код ниже.</p>
                             <form onSubmit={onCodeSubmit} className="club-registration__activate-form">
                                 <input
+                                    className={`club-registration__activate-form__input${errorCode ? ' __error' : ''}`}
                                     size="30"
                                     type="text"
                                     onChange={e => setCode(e.target.value)}
+                                    onClick={() => setErrorCode(false)}
                                     minLength="4"
                                     required
                                     placeholder="Введите код активации"
                                 />
+                                {errorCode &&
+                                    <span className="club-registration__activate-form__error">
+                                        Введен неверный код активации
+                                    </span>
+                                }
+                                <button type="submit" className="btn btn-primary" onClick={() => setErrorCode(false)}>Отправить</button>
                             </form>
                         </div>
                     }
                 </div>
             </div>
             <div className="club-registration__activate-btns">
-                {code === null ?
+                {code === null &&
                     <button className="btn btn-primary" onClick={onEmailSubmit}>Отправить</button>
-                    :
-                    <button type="submit" className="btn btn-primary">Отправить</button>
                 }
             </div>
         </div>

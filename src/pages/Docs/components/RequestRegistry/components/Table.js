@@ -237,8 +237,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                         columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed')} />
                                     <GridColumn field="stamp_code" title="Клеймо" width={fullScreen ? '88px' : '55px'}
                                         columnMenu={ColumnMenu} />
-                                    <GridColumn field="stamp" title="Клеймо" width={fullScreen ? '88px' : '55px'}
-                                        columnMenu={ColumnMenu} />
                                     <GridColumn field="date_of_birth_litter" title="Дата рождения помёта"
                                         width={fullScreen ? '99px' : '80px'} columnMenu={ColumnMenu} />
                                     <GridColumn field="breeder_full_name" title="Заводчик"

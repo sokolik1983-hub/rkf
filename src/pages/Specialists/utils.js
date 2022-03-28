@@ -6,26 +6,28 @@ const buildUrlParams = filters => {
     let params = '';
 
     Object.keys(filters).forEach(key => {
-        if(filters[key]) {
-            if(key === 'SearchTypeId') {
-                if(filters[key] > 0) {
+        if(key !== 'filteredCities') {
+            if(filters[key]) {
+                if(key === 'SearchTypeId') {
+                    if(filters[key] > 0) {
+                        params = params + `${key}=${filters[key]}&`;
+                    }
+                } else if(
+                    key === 'RegionIds' ||
+                    key === 'CityIds' ||
+                    key === 'BreedGroupIds' ||
+                    key === 'BreedIds' ||
+                    key === 'SpecializationIds' ||
+                    key === 'DisciplineIds' ||
+                    key === 'ContestIds'||
+                    key === 'RankId'
+                ) {
+                    if (filters[key].length) {
+                        params = params + filters[key].map(item => `${key}=${item}&`).join('');
+                    }
+                } else {
                     params = params + `${key}=${filters[key]}&`;
                 }
-            } else if(
-                key === 'RegionIds' ||
-                key === 'CityIds' ||
-                key === 'BreedGroupIds' ||
-                key === 'BreedIds' ||
-                key === 'SpecializationIds' ||
-                key === 'DisciplineIds' ||
-                key === 'ContestIds'||
-                key === 'RankId'
-            ) {
-                if (filters[key].length) {
-                    params = params + filters[key].map(item => `${key}=${item}&`).join('');
-                }
-            } else {
-                params = params + `${key}=${filters[key]}&`;
             }
         }
     });
@@ -88,6 +90,19 @@ export const getFiltersFromUrl = () => {
 };
 
 export const setFiltersToUrl = (filters, initial = false) => {
+
+    if(filters.filteredCities) {
+        const newArr = [];
+        filters.filteredCities.forEach(item => {
+            filters.CityIds.forEach(elem => {
+                if(item === elem) {
+                    newArr.push(item);
+                }
+            })
+        });
+        filters.CityIds = newArr;
+    }
+
     const newFilters = getFiltersFromUrl() ? { ...getFiltersFromUrl(), ...filters } : filters;
     const targetUrl = (`/specialists${buildUrlParams(newFilters)}`);
 
