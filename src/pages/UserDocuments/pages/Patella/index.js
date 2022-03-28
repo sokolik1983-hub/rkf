@@ -23,7 +23,7 @@ import "./index.scss";
 
 const apiPrivacyEndpoint = '/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest/personal_data_document';
 
-const PatellaForm = ({ alias, history, status, owner }) => {
+const PatellaForm = ({ alias, history, owner, status }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const [privacyHref, setPrivacyHref] = useState('');
     const [disableAllFields, setDisableAllFields] = useState(false);
@@ -63,6 +63,9 @@ const PatellaForm = ({ alias, history, status, owner }) => {
             (() => Request({
                 url: `/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest?id=${id}`
             }, data => {
+
+                console.log('data', data);
+
                 let values = {};
                 Object.keys(initialValues).forEach(key => {
                     values[key] = data[key] || initialValues[key];
@@ -145,6 +148,17 @@ const PatellaForm = ({ alias, history, status, owner }) => {
         setDisableSubmit(false);
     };
 
+    const handleValidator = (value) => {
+        const maxLength = 150;
+        return nameRequiredValidator(value, maxLength);
+    };
+
+    useEffect(() => {
+        console.log('values', values);
+        console.log('status', status);
+        console.log('owner', owner);
+    }, [values, status]);
+
     return (
         <div className="patella-form">
             <Card>
@@ -166,10 +180,6 @@ const PatellaForm = ({ alias, history, status, owner }) => {
 
                         return (
                             <FormElement>
-                                8888888888888888888888888
-                                {
-                                    console.log('222222222222222', formRenderProps)
-                                }
                                 <div className="patella-form__content">
                                     {values && values.rejected_comment &&
                                         <p className="patella-form__danger">{values.rejected_comment}</p>
@@ -375,7 +385,8 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                             label="ФИО плательщика"
                                             cutValue={150}
                                             component={FormInput}
-                                            // validator={value => console.log('333333', value)}
+                                            maxLength={150}
+                                            validator={handleValidator}
                                             disabled={disableAllFields}
                                         />
                                     </div>
