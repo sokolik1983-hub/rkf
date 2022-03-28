@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import {widgetLoginIcon} from "../../../../../appConfig";
 import {Request} from "../../../../../utils/request";
@@ -15,57 +15,30 @@ const MenuLinks = ({
     setShowModal,
     userTypes,
 }) => {
-    let profileEdit,
-        profileCabinet,
-        profilePage,
-        profileType,
-        text,
-        method
+    const profileEdit = () => {
+        return userTypes === 'user' ? `/user/${alias}/edit` :
+            userTypes === 'club' ? '/client' :
+            userTypes === 'federation' ? '/client' :
+            userTypes === 'kennel' && `/kennel/${alias}/edit`;
+    };
 
-    switch (userTypes){
-        case 'user':
-            profileEdit = `/user/${alias}/edit`;
-            profileCabinet = `/user/${alias}/documents`;
-            profilePage = `/user/${alias}`;
-            profileType = 'пользователя';
-            break;
-        case 'club':
-            profileEdit = '/client';
-            profileCabinet = `/club/${alias}/documents/`;
-            profilePage = is_active_profile ? `/club/${alias}` : '/not-confirmed';
-            profileType = 'клуба';
-            break;
-        case 'federation':
-            profileEdit = '/client';
-            profileCabinet = `/${alias}/documents/`;
-            profilePage = is_active_profile ? `/${alias}` : '/not-confirmed';
-            profileType = 'федерации';
-            break;
-        case 'kennel':
-            profileEdit = `/kennel/${alias}/edit`;
-            profileCabinet = `/kennel/${alias}/documents`;
-            profilePage = is_active_profile ? `/kennel/${alias}` : '/kennel/activation';
-            profileType = 'питомника';
-            break;
-        default:
-            break;
-    }
+    const profileCabinet = () => {
+        return userTypes === 'user' ? `/user/${alias}/documents` :
+            userTypes === 'club' ? `/club/${alias}/documents/` :
+            userTypes === 'federation' ? `/${alias}/documents/` :
+            userTypes === 'kennel' && `/kennel/${alias}/documents`;
+    };
 
-    switch (logInLogOut){
-        case 'in':
-            text = 'Войти в аккаунт клуба';
-            method = () => setShowModal(true);
-            break;
-        case 'out':
-            text = 'Выйти из аккаунта клуба';
-            method = () => logoutAsUser();
-            break;
-        default:
-            break;
-    }
+    const profilePage = () => {
+        return userTypes === 'user' ? `/user/${alias}` :
+            userTypes === 'club' ? is_active_profile ? `/club/${alias}` : '/not-confirmed' :
+            userTypes === 'federation' ? is_active_profile ? `/${alias}` : '/not-confirmed' :
+            userTypes === 'kennel' && is_active_profile ? `/kennel/${alias}` : '/kennel/activation';
+    };
 
-
-
+    const loginItem = () => {
+        return logInLogOut === 'in' ? () => setShowModal(true) : () => logoutAsUser();
+    };
 
     const logoutAsUser = async () => {
         await Request({
@@ -84,17 +57,33 @@ const MenuLinks = ({
     return (
         <menu>
             <li className="widget-login__item" onClick={() => setOpen(false)}>
-                <Link to={profileEdit} >{widgetLoginIcon.editProfile}Редактировать профиль</Link>
+                <Link to={profileEdit} >
+                    {widgetLoginIcon.editProfile}
+                    Редактировать профиль
+                </Link>
             </li>
             <li className="widget-login__item" onClick={() => setOpen(false)}>
-                <Link to={profileCabinet} >{widgetLoginIcon.lk}Личный кабинет</Link>
+                <Link to={profileCabinet} >
+                    {widgetLoginIcon.lk}
+                    Личный кабинет
+                </Link>
             </li>
             <li className="widget-login__item" onClick={() => setOpen(false)}>
-                <Link to={profilePage} >{widgetLoginIcon.profile}Страница {profileType}</Link>
+                <Link to={profilePage} >
+                    {widgetLoginIcon.profile}
+                    Страница {
+                        userTypes === 'user' ? 'пользователя' :
+                        userTypes === 'club' ? 'клуба' :
+                        userTypes === 'federation' ? 'федерации' :
+                        userTypes === 'kennel' && 'питомника'}
+                </Link>
             </li>
             {accountType === 5 &&
                 <li className="widget-login__item" onClick={() => setOpen(false)}>
-                    <span onClick={method}>{widgetLoginIcon.exitInClub}{text}</span>
+                    <span onClick={loginItem()}>
+                        {widgetLoginIcon.exitInClub}
+                        {logInLogOut === 'in' ? 'Войти в аккаунт клуба' : 'Выйти из аккаунта клуба'}
+                    </span>
                 </li>
             }
         </menu>

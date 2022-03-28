@@ -33,8 +33,9 @@ const WidgetLogin = forwardRef(
     const [showModal, setShowModal] = useState(false);
     const [menuBackground, setMenuBackground] = useState(null);
 
-    const {alias, name, user_type, account_type, first_name, last_name} = ls.get('user_info') || {};
-    const logo = ls.get('user_info').logo_link || logo_link;
+    const {alias, name, user_type, first_name, last_name} = ls.get('user_info') || {};
+    const logo = ls.get('user_info')?.logo_link || logo_link;
+    const account_type = ls.get('account_type') || '';
     const isMobile1080 = useIsMobile(1080);
 
     const widgetLoginRef = useRef();
