@@ -10,7 +10,7 @@ export const judgeIcon = <svg width="20" height="19" viewBox="0 0 20 19" fill="n
 
 export const allbreedJudgeIcon = <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                       xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_2219_2838)">
+    <g clipPath="url(#clip0_2219_2838)">
         <path
             d="M10 8.74758C10 8.74758 5.33984 8.56635 5.33984 14.4952C5.33984 18.534 8.21363 15.5825 10 15.5825"
             fill="#3366ff"/>

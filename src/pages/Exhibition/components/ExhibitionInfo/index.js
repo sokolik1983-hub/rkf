@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import Card from "../../../../components/Card";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
@@ -19,10 +20,11 @@ import useIsMobile from "../../../../utils/useIsMobile";
 import "./index.scss";
 
 
+
+
 const ExhibitionInfo = ({
                             breed_types,
                             canEdit,
-                            catalog_link,
                             comments,
                             dateEnd,
                             dateStart,
@@ -35,7 +37,6 @@ const ExhibitionInfo = ({
                             rank_types,
                             reportsDateEnd,
                             reports_link,
-                            schedule_link,
                         }) => {
     const [judge, setJudge] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -203,16 +204,32 @@ const ExhibitionInfo = ({
                                         {!isMobile ?
                                             <div className="exhibition-page__judge-item__wrap">
                                                 <div className="exhibition-page__judge-item__name">
-                                                    <span className="exhibition-page__judge-item__name-rus">
-                                                        <p>{data.last_name && `${data.last_name} `}</p>
-                                                        <p>{data.first_name && `${data.first_name} `}
-                                                            {data.second_name}
-                                                            {data.owner_alias && judgeIcon}
-                                                            {data.all_breeder &&
-                                                                allbreedJudgeIcon
-                                                            }
-                                                        </p>
-                                                    </span>
+                                                    {data.owner_alias ?
+                                                        <Link
+                                                            className="exhibition-page__judge-item__name-rus"
+                                                            to={`/user/${data.owner_alias}`}>
+
+                                                            <p>{data.last_name && `${data.last_name} `}</p>
+                                                            <p>{data.first_name && `${data.first_name} `}
+                                                                {data.second_name}
+                                                                {data.owner_alias && judgeIcon}
+                                                                {data.all_breeder &&
+                                                                    allbreedJudgeIcon
+                                                                }
+                                                            </p>
+                                                        </Link>
+                                                        :
+                                                        <span className="exhibition-page__judge-item__name-rus">
+                                                            <p>{data.last_name && `${data.last_name} `}</p>
+                                                            <p>{data.first_name && `${data.first_name} `}
+                                                                {data.second_name}
+                                                                {data.owner_alias && judgeIcon}
+                                                                {data.all_breeder &&
+                                                                    allbreedJudgeIcon
+                                                                }
+                                                            </p>
+                                                        </span>
+                                                    }
                                                     <span className="exhibition-page__judge-item__name-eng">
                                                         {data.last_name_lat}{data.first_name_lat ? ' ' + data.first_name_lat : ''}
                                                     </span>
@@ -234,24 +251,44 @@ const ExhibitionInfo = ({
                                                         <p>{data.email}</p>
                                                     </span>
                                                 </div>
-                                                <input type="checkbox"
-                                                       className="exhibition-page__judge-item__checkbox"
-                                                       id={data.id}
-                                                      />
+                                                <div className="exhibition-page__judge-item__checkbox-wrap">
+                                                    <input type="checkbox"
+                                                           className="exhibition-page__judge-item__checkbox"
+                                                           id={data.id}
+                                                    />
+                                                    <label htmlFor={data.id}></label>
+                                                </div>
+
                                             </div>
                                             :
                                             <div className="exhibition-page__judge-item__wrap">
                                                 <div className="exhibition-page__judge-item__name">
-                                                    <span className="exhibition-page__judge-item__name-rus">
-                                                        <p>{data.last_name && `${data.last_name} `}</p>
-                                                        <p>{data.first_name && `${data.first_name} `}
-                                                            {data.second_name}
-                                                            {data.owner_alias && judgeIcon}
-                                                            {data.all_breeder &&
-                                                                allbreedJudgeIcon
-                                                            }
-                                                        </p>
-                                                    </span>
+                                                    {data.owner_alias ?
+                                                        <Link
+                                                            className="exhibition-page__judge-item__name-rus"
+                                                            to={`/user/${data.owner_alias}`}>
+
+                                                            <p>{data.last_name && `${data.last_name} `}</p>
+                                                            <p>{data.first_name && `${data.first_name} `}
+                                                                {data.second_name}
+                                                                {data.owner_alias && judgeIcon}
+                                                                {data.all_breeder &&
+                                                                    allbreedJudgeIcon
+                                                                }
+                                                            </p>
+                                                        </Link>
+                                                        :
+                                                        <span className="exhibition-page__judge-item__name-rus">
+                                                            <p>{data.last_name && `${data.last_name} `}</p>
+                                                            <p>{data.first_name && `${data.first_name} `}
+                                                                {data.second_name}
+                                                                {data.owner_alias && judgeIcon}
+                                                                {data.all_breeder &&
+                                                                    allbreedJudgeIcon
+                                                                }
+                                                            </p>
+                                                        </span>
+                                                    }
                                                     <span className="exhibition-page__judge-item__name-eng">
                                                         {data.last_name_lat}{data.first_name_lat ? ' ' + data.first_name_lat : ''}
                                                     </span>
@@ -263,17 +300,25 @@ const ExhibitionInfo = ({
                                                     <span>
                                                         {data.city_name}
                                                     </span>
-                                                    <input type="checkbox"
-                                                           className="exhibition-page__judge-item__checkbox"/>
+                                                    <div className="exhibition-page__judge-item__checkbox-wrap">
+                                                        <input type="checkbox"
+                                                               className="exhibition-page__judge-item__checkbox"
+                                                               id={data.id}
+                                                        />
+                                                        <label htmlFor={data.id}></label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         }
                                     </li>
                                 )}
                             </ul>
-                            <Button primary={true}>
-                                Выбрать
-                            </Button>
+                            {/*Кнопка закомментирована дл появления функционала*/}
+                            {/*<Button*/}
+                            {/*    primary={true}*/}
+                            {/*>*/}
+                            {/*    Выбрать*/}
+                            {/*</Button>*/}
                         </> :
                         <p>Подходящих судей не найдено</p>
                     }
