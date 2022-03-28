@@ -129,6 +129,22 @@
           margin-top: 10px;
         }
       }
+
+      ._video {
+        .user-gallery__dropdown-wrap {
+          display: flex;
+
+          .user-gallery__item {
+            &:not(:only-child) {
+              width: 49%;
+
+              &:first-child {
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
