@@ -145,7 +145,6 @@ const PatellaForm = ({ alias, history, status, owner }) => {
         setDisableSubmit(false);
     };
 
-
     return (
         <div className="patella-form">
             <Card>
@@ -167,6 +166,10 @@ const PatellaForm = ({ alias, history, status, owner }) => {
 
                         return (
                             <FormElement>
+                                8888888888888888888888888
+                                {
+                                    console.log('222222222222222', formRenderProps)
+                                }
                                 <div className="patella-form__content">
                                     {values && values.rejected_comment &&
                                         <p className="patella-form__danger">{values.rejected_comment}</p>
@@ -314,7 +317,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                     </div>
                                 </div>
                                 <div className="patella-form__content">
-                                    <h4 className="patella-form__title">Информация о платеже111111111111111111</h4>
+                                    <h4 className="patella-form__title">Информация о платеже</h4>
                                     {!disableAllFields &&
                                         <>
                                             <p style={{ marginBottom: '10px' }}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
@@ -338,6 +341,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                     component={FormUpload}
                                                     validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
                                                 />
+
                                                 {values &&
                                                     values.payment_document_id &&
                                                     !formRenderProps.valueGetter('payment_document').length &&
@@ -371,7 +375,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                             label="ФИО плательщика"
                                             cutValue={150}
                                             component={FormInput}
-                                            validator={value => nameRequiredValidator(value, 150)}
+                                            // validator={value => console.log('333333', value)}
                                             disabled={disableAllFields}
                                         />
                                     </div>

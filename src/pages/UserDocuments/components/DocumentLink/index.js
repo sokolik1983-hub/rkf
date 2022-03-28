@@ -24,14 +24,13 @@ const DocumentLink = ({ docId }) => {
 
     return (
         <>
-            {!!docId &&
+
             <a
                 className='btn nomargin'
                 href={url}
                 target='_blank'
                 rel='noreferrer noopener'
-            >Посмотреть</a>
-            }
+            >Посмотреть11111111111</a>
         </>
     );
 };
