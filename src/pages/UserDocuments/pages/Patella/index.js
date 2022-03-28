@@ -9,7 +9,7 @@ import FormUpload from "../../../../components/kendo/Form/FormUpload";
 import FormDatePicker from "../../../../components/kendo/Form/FormDatePicker";
 import FormTextArea from "../../../../components/kendo/Form/FormTextArea";
 import FormContactsCheckbox from "../../../../components/kendo/Form/FormContactsCheckbox";
-import DocumentLink from "../../components/DocumentLink";
+import DocumentLink from "../../../../components/DocumentLink";
 import {
     dateRequiredValidator, nameRequiredValidator,
     requiredValidator,
@@ -22,6 +22,7 @@ import FooterFeedback from "../../../../components/Layouts/FooterFeedback";
 import "./index.scss";
 
 const apiPrivacyEndpoint = '/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest/personal_data_document';
+const apiPatellaDocsEndpoint = '/api/requests/dog_health_check_request/doghealthcheckdocument';
 
 const PatellaForm = ({ alias, history, owner, status }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
@@ -58,14 +59,12 @@ const PatellaForm = ({ alias, history, owner, status }) => {
     useEffect(() => {
         if (status) {
             const paramsArr = history.location.pathname.split('/');
+
             const id = paramsArr[paramsArr.length - 1];
 
             (() => Request({
                 url: `/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest?id=${id}`
             }, data => {
-
-                console.log('data', data);
-
                 let values = {};
                 Object.keys(initialValues).forEach(key => {
                     values[key] = data[key] || initialValues[key];
@@ -153,12 +152,6 @@ const PatellaForm = ({ alias, history, owner, status }) => {
         return nameRequiredValidator(value, maxLength);
     };
 
-    useEffect(() => {
-        console.log('values', values);
-        console.log('status', status);
-        console.log('owner', owner);
-    }, [values, status]);
-
     return (
         <div className="patella-form">
             <Card>
@@ -166,7 +159,7 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                     <Link to={`/user/${alias}/documents`} className="user-documents__breadcrumbs-link">Личный
                         кабинет</Link>
                     &nbsp;/&nbsp;
-                    <span className="user-documents__breadcrumbs-item">Сертификат клинической оценки коленных суставов (PL) (Пателла)1111111111</span>
+                    <span className="user-documents__breadcrumbs-item">Сертификат клинической оценки коленных суставов (PL) (Пателла)</span>
                 </div>
                 <Form
                     onSubmit={handleSubmit}
@@ -212,17 +205,29 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                                                     <div className="patella-form__file">
                                                         <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)</p>
-                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.veterinary_contract_document_id}
+                                                            endpoint={apiPatellaDocsEndpoint}
+                                                            page="PatellaUser"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                                                     {values.pedigree_document_id && <div className="patella-form__file" style={{ marginRight: '50px' }}>
                                                         <p className="k-label">Соглашение на обработку персональных данных</p>
-                                                        <DocumentLink docId={values.pedigree_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.pedigree_document_id}
+                                                            endpoint={apiPatellaDocsEndpoint}
+                                                            page="PatellaUser"
+                                                        />
                                                     </div>}
                                                     {values.personal_data_document_id && <div>
                                                         <p className="k-label">Родословная</p>
-                                                        <DocumentLink docId={values.personal_data_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.personal_data_document_id}
+                                                            endpoint={apiPatellaDocsEndpoint}
+                                                            page="PatellaUser"
+                                                        />
                                                     </div>}
                                                 </div>
                                             </div>
@@ -240,7 +245,11 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                 {values &&
                                                     values.veterinary_contract_document_id &&
                                                     !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                    <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                    <DocumentLink
+                                                        docId={values.veterinary_contract_document_id}
+                                                        endpoint={apiPatellaDocsEndpoint}
+                                                        page="PatellaUser"
+                                                    />
                                                 }
 
                                             </div>
@@ -260,7 +269,11 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                             {values &&
                                                 values.personal_data_document_id &&
                                                 !formRenderProps.valueGetter('personal_data_document').length &&
-                                                <DocumentLink docId={values.personal_data_document_id} />
+                                                <DocumentLink
+                                                    docId={values.personal_data_document_id}
+                                                    endpoint={apiPatellaDocsEndpoint}
+                                                    page="PatellaUser"
+                                                />
                                             }
                                         </div>
                                         <div className="dysplasia-form__file">
@@ -276,7 +289,11 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                             {values &&
                                                 values.pedigree_document_id &&
                                                 !formRenderProps.valueGetter('pedigree_document').length &&
-                                                <DocumentLink docId={values.pedigree_document_id} />
+                                                <DocumentLink
+                                                    docId={values.pedigree_document_id}
+                                                    endpoint={apiPatellaDocsEndpoint}
+                                                    page="PatellaUser"
+                                                />
                                             }
                                         </div>
                                     </div>}
@@ -338,7 +355,11 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                         {disableAllFields && values &&
                                             <div className="patella-form__file">
                                                 <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
-                                                <DocumentLink docId={values.payment_document_id} />
+                                                <DocumentLink
+                                                    docId={values.payment_document_id}
+                                                    endpoint={apiPatellaDocsEndpoint}
+                                                    page="PatellaUser"
+                                                />
                                             </div>
                                         }
                                         {!disableAllFields &&
@@ -351,11 +372,14 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                     component={FormUpload}
                                                     validator={status === 'edit' ? '' : documentRequiredValidatorTypeArray}
                                                 />
-
                                                 {values &&
                                                     values.payment_document_id &&
                                                     !formRenderProps.valueGetter('payment_document').length &&
-                                                    <DocumentLink docId={values.payment_document_id} />
+                                                    <DocumentLink
+                                                        docId={values.payment_document_id}
+                                                        endpoint={apiPatellaDocsEndpoint}
+                                                        page="PatellaUser"
+                                                    />
                                                 }
                                             </div>
                                         }

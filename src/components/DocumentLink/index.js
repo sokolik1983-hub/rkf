@@ -41,7 +41,7 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
             </>
 
         )
-    }
+    };
 
     useEffect(() => {
         getDocument();
@@ -62,12 +62,12 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
                 )
             }
             {
-                (page === "AppForm" || page === "CheckMembership") && (
+                (page === "AppForm" || page === "CheckMembership" || page === "PatellaUser" || page === "AppFormUser") && (
                     <a
                         className="btn"
                         href={url}
                         target="_blank"
-                    >Посмотреть</a>
+                    >Посмотреть55</a>
                 )
             }
         </>

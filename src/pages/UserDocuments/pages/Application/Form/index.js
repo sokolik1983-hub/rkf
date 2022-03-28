@@ -14,7 +14,7 @@ import FormUpload from "./components/FormUpload";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import FormComboBox from './components/FormComboBox';
-import DocumentLink from "../../../components/DocumentLink";
+import DocumentLink from "../../../../../components/DocumentLink";
 import DocumentLinksArray from "../../../components/DocumentLinksArray";
 import {
     nameRequiredValidator,
@@ -36,6 +36,7 @@ import "./index.scss";
 
 loadMessages(ruMessages, 'ru');
 
+const apiRequestRkfDocs = '/api/requests/dog_health_check_request/doghealthcheckdocument';
 
 const Application = ({ alias, history, status, owner }) => {
 
@@ -100,7 +101,7 @@ const Application = ({ alias, history, status, owner }) => {
             const id = paramsArr[paramsArr.length - 1];
 
             Promise.all([
-                PromiseRequest({ url: `/api/requests/get_rkf_document_request/ownergetrkfdocumentrequest?id=${id}` }),
+                PromiseRequest({ url: `${apiRequestRkfDocs}?id=${id}` }),
                 PromiseRequest({ url: `/api/dog/Breed` }),
                 PromiseRequest({ url: `/api/requests/commonrequest/rkf_document_types` })
             ]).then(data => {
@@ -629,11 +630,6 @@ const Application = ({ alias, history, status, owner }) => {
                                                     onProgress={e => onProgress(e, 'application_document')}
                                                     validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document').find(d => d.id))}
                                                 />
-                                                {values &&
-                                                    values.application_document_id &&
-                                                    !formRenderProps.valueGetter('application_document_id').length &&
-                                                    <DocumentLink docId={values.application_document_id} />
-                                                }
                                                 <DocLink
                                                     distinction='get_rkf_document'
                                                     docId={requestId}
@@ -642,7 +638,11 @@ const Application = ({ alias, history, status, owner }) => {
                                             </div>
                                             : values?.application_document_id && <div className="application-form__file">
                                                 <p className="k-label">Заявочный лист</p>
-                                                <DocumentLink docId={values.application_document_id} />
+                                                <DocumentLink
+                                                    docId={values.application_document_id}
+                                                    page="AppFormUser"
+                                                    endpoint={apiRequestRkfDocs}
+                                                />
                                             </div>
                                         }
                                     </div>
@@ -693,11 +693,17 @@ const Application = ({ alias, history, status, owner }) => {
                                                     : () => documentRequiredValidator(formProps?.valueGetter('documents').find(d => d.id))
                                                 }
                                             />
+                                            222222222222222
                                             {values &&
                                                 values.veterinary_contract_document_id &&
                                                 !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                <DocumentLink
+                                                    docId={values.veterinary_contract_document_id}
+                                                    page="AppFormUser"
+                                                    endpoint={apiRequestRkfDocs}
+                                                />
                                             }
+                                            33333333333333333333333
                                             {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
                                                 Вы не можете добавить больше 20 документов
                                             </div>}
@@ -738,7 +744,11 @@ const Application = ({ alias, history, status, owner }) => {
                                                 {values &&
                                                     values.payment_document_id &&
                                                     !formRenderProps.valueGetter('payment_document').length &&
-                                                    <DocumentLink docId={values.payment_document_id} />
+                                                    <DocumentLink
+                                                        docId={values.payment_document_id}
+                                                        page="AppFormUser"
+                                                        endpoint={apiRequestRkfDocs}
+                                                    />
                                                 }
                                                 <DocLink
                                                     distinction="get_rkf_document"
@@ -748,7 +758,11 @@ const Application = ({ alias, history, status, owner }) => {
                                             </div>
                                             : <div className="application-form__file">
                                                 <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
-                                                <DocumentLink docId={values.payment_document_id} />
+                                                <DocumentLink
+                                                    docId={values.payment_document_id}
+                                                    page="AppFormUser"
+                                                    endpoint={apiRequestRkfDocs}
+                                                />
                                             </div>
                                         }
                                     </div>

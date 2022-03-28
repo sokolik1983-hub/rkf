@@ -30,7 +30,7 @@ const DocumentLink = ({ docId }) => {
                 href={url}
                 target='_blank'
                 rel='noreferrer noopener'
-            >Посмотреть11111111111</a>
+            >Посмотреть</a>
         </>
     );
 };
