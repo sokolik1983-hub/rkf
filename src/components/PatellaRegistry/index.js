@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useLocation} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from 'react-router-dom';
 import ls from "local-storage";
 import moment from "moment";
@@ -41,7 +41,6 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                 setLoading(false);
             }))();
     }, [needUpdateTable]);
-
 
     return loading
         ?
