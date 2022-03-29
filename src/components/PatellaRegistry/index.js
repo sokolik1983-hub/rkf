@@ -18,7 +18,6 @@ const ReplaceRegistry = ({distinction, profileType}) => {
     const [exporting, setExporting] = useState(false);
     const [errorReport, setErrorReport] = useState(null);
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
-    const document_id = window.location.href.split('=')[1];
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
     useEffect(() => {
@@ -50,14 +49,6 @@ const ReplaceRegistry = ({distinction, profileType}) => {
             ?
             <Card className="club-documents-status__popup">
                 <div className="club-documents-status__controls" style={{position: 'relative', top: '29px'}}>
-                    {document_id && <button
-                        className="club-documents-status__control club-documents-status__control--resetIcon"
-                    >
-                        <Link
-                            to={profileType === "kennel" ? `/kennel/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry` : `/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry`}>
-                            Вернуться к списку
-                        </Link>
-                    </button>}
                     <button
                         className="club-documents-status__control club-documents-status__control--downloadIcon"
                         onClick={() => setExporting(true)}
@@ -93,7 +84,7 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                 <div className="club-documents-status__head">
                     <Link
                         className="btn-backward"
-                        to={profileType === "kennel" ? `/kennel/${alias}/documents` : `/${alias}/documents`}
+                        to={profileType === "kennel" ? `/kennel/${alias}/documents` : `/club/${alias}/documents`}
                     >
                         Личный кабинет
                     </Link>
@@ -103,21 +94,6 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                 {documents && !!documents.length
                     ? <div>
                         <div className="club-documents-status__controls _patella_controls">
-                            {document_id &&
-                                <button className="club-documents-status__control club-documents-status__control--resetIcon">
-                                <Link
-                                    to={profileType === "kennel"
-                                        ?
-                                        `/kennel/${alias}/documents/${distinction === 'dysplasia' 
-                                            ? 'dysplasia' 
-                                            : 'patella'}/registry`
-                                        : `/${alias}/documents/${distinction === 'dysplasia' 
-                                            ? 'dysplasia' 
-                                            : 'patella'}/registry`}
-                                >
-                                    Вернуться к списку
-                                </Link>
-                            </button>}
                             <button
                                 className="club-documents-status__control club-documents-status__control--downloadIcon"
                                 onClick={() => setExporting(true)}

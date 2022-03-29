@@ -34,7 +34,7 @@ const NewsFilters = ({
                     <ListFilter
                         changeFilter={changeOrganizationFilters}
                     />
-                    <div className={untouchableMode && "untouchable-mode"}>
+                    <div className={untouchableMode ? "untouchable-mode" : ""}>
                         <RegionsFilter
                             regions={regions}
                             region_ids={newsFilter.regions}

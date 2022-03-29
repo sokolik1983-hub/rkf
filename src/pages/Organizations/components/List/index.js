@@ -9,41 +9,15 @@ import {endpointGetOrganizations} from '../../config';
 
 import './index.scss';
 
-const OrganizationsList = ({
-    organization_type,
-    string_filter,
-    federation_ids,
-    city_ids,
-    is_popular,
-    breed_ids,
-    activated,
-    not_activated,
-    active_member,
-    active_rkf_user,
-    region_ids,
-}) => {
+const OrganizationsList = (filters) => {
     const [org, setOrg] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
 
     const getOrganizations = async startElem => {
         await Request({
-            url: `${endpointGetOrganizations}${buildUrlParams({
-                organization_type,
-                string_filter,
-                federation_ids,
-                city_ids,
-                breed_ids,
-                activated,
-                not_activated,
-                active_member,
-                active_rkf_user,
-                region_ids,
-                is_popular,
-                start_element: startElem
-            })}`
+            url: `${endpointGetOrganizations}${buildUrlParams({ ...filters })}`
         }, data => {
-            console.log('data', data);
             if (data.length) {
                 if (data.length < 10) {
                     setHasMore(false);
@@ -65,7 +39,7 @@ const OrganizationsList = ({
     useEffect(() => {
         (() => getOrganizations(1))();
         setStartElement(1);
-    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member, region_ids, is_popular]);
+    }, [filters]);
 
     const getNextOrganizations = () => {
         if(org.length) {
