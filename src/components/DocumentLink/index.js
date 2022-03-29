@@ -61,12 +61,19 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
                 )
             }
             {
-                (page === "AppForm" || page === "CheckMembership" || page === "PatellaUser" || page === "AppFormUser" || page === "DysplasiaUser") && (
+                (
+                    page === "AppForm" ||
+                    page === "CheckMembership" ||
+                    page === "PatellaUser" ||
+                    page === "AppFormUser" ||
+                    page === "DysplasiaUser" ||
+                    page === "CheckMembershipNurs") ||
+                    page === "AppFormNurs" && (
                     <a
                         className="btn"
                         href={url}
                         target="_blank"
-                    >Посмотреть55</a>
+                    >Посмотреть</a>
                 )
             }
         </>

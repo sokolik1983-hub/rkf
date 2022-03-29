@@ -10,10 +10,9 @@ import FormInput from "../../../../../components/kendo/Form/FormInput";
 import FormContactsCheckbox from "../../../../../components/kendo/Form/FormContactsCheckbox";
 import FormUpload from "./components/FormUpload";
 import AdditionalDocuments from "./components/AdditionalDocuments";
-import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import DocumentLink from "../../DocumentLink";
+import DocumentLink from "../../../../../components/DocumentLink";
 import DocumentLinksArray from "./components/DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
@@ -25,6 +24,8 @@ import { years } from "./config";
 import {DateInput} from "../../../../../components/materialUI/DateTime";
 
 import "./index.scss";
+
+const apiGetRkfDocuments = '/api/requests/get_rkf_document/getrkfdocumentrequestdocument';
 
 
 const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
@@ -301,7 +302,11 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                 {values &&
                                                                     values.changes_confirmation_document_id &&
                                                                     !formRenderProps.valueGetter('changes_confirmation_document_id')?.length &&
-                                                                    <DocumentLink docId={values.changes_confirmation_document_id} />
+                                                                    <DocumentLink
+                                                                        docId={values.changes_confirmation_document_id}
+                                                                        endpoint={apiGetRkfDocuments}
+                                                                        page="CheckMembershipNurs"
+                                                                    />
                                                                 }</>}
                                                     </div>
                                                 </div>
@@ -333,7 +338,11 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                 {values &&
                                                                     values.membership_confirmation_document_id &&
                                                                     !formRenderProps.valueGetter('membership_confirmation_document_id').length &&
-                                                                    <DocumentLink docId={values.membership_confirmation_document_id} />
+                                                                    <DocumentLink
+                                                                        docId={values.membership_confirmation_document_id}
+                                                                        endpoint={apiGetRkfDocuments}
+                                                                        page="CheckMembershipNurs"
+                                                                    />
                                                                 }</>}
                                                     </div>
                                                 </div>
@@ -373,7 +382,11 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                         {values &&
                                                                             values.mating_whelping_book_document_id &&
                                                                             !formRenderProps.valueGetter('mating_whelping_book_document_id').length &&
-                                                                            <DocumentLink docId={values.mating_whelping_book_document_id} />
+                                                                            <DocumentLink
+                                                                                docId={values.mating_whelping_book_document_id}
+                                                                                endpoint={apiGetRkfDocuments}
+                                                                                page="CheckMembershipNurs"
+                                                                            />
                                                                         }</>}
                                                             </div>
                                                         </div>
@@ -422,7 +435,11 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                 {values &&
                                                                     values.payment_document_id &&
                                                                     !formRenderProps.valueGetter('payment_document_id').length &&
-                                                                    <DocumentLink docId={values.payment_document_id} />
+                                                                    <DocumentLink
+                                                                        docId={values.payment_document_id}
+                                                                        endpoint={apiGetRkfDocuments}
+                                                                        page="CheckMembershipNurs"
+                                                                    />
                                                                 }</>}
                                                     </div>
                                                 </div>
