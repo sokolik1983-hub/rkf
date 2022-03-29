@@ -10,8 +10,8 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
     const headers = getHeaders();
     const [url, setUrl] = useState(null);
 
-    console.log('page', page)
-    console.log('endpoint', endpoint)
+    console.log('page', page);
+    console.log('endpoint', endpoint);
 
     const getDocument = () => {
         if (!+docId) return;
@@ -23,7 +23,6 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
                 setUrl(url);
             });
     };
-
 
     const renderDocumentItem = () => {
         return (
@@ -62,7 +61,7 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
                 )
             }
             {
-                (page === "AppForm" || page === "CheckMembership" || page === "PatellaUser" || page === "AppFormUser") && (
+                (page === "AppForm" || page === "CheckMembership" || page === "PatellaUser" || page === "AppFormUser" || page === "DysplasiaUser") && (
                     <a
                         className="btn"
                         href={url}
