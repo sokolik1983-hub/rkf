@@ -265,8 +265,8 @@ const ExhibitionInfo = ({
                                                     {data.owner_alias ?
                                                         <Link
                                                             className="judge-item__name-rus"
-                                                            to={`/user/${data.owner_alias}`}>
-
+                                                            to={`/user/${data.owner_alias}`}
+                                                        >
                                                             <p>{data.last_name && `${data.last_name} `}</p>
                                                             <p>{data.first_name && `${data.first_name} `}
                                                                 {data.second_name}
