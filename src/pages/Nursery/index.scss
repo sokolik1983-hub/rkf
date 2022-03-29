@@ -317,6 +317,10 @@
                   margin-right: 10px;
                 }
               }
+
+              &:only-child {
+                width: 100%;
+              }
             }
           }
         }
