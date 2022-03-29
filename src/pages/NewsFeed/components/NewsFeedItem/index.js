@@ -342,8 +342,8 @@ const NewsFeedItem = forwardRef(({
                                     <DocumentLink
                                         docId={doc.id}
                                         document={doc}
-                                        page="NewsFeedItem"
                                         endpoint="/api/document/publicdocument"
+                                        NewsFeedItem
                                     />
                                 </li>
                             )}

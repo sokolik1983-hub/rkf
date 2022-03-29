@@ -382,7 +382,7 @@ const Application = ({ alias, history, status, owner }) => {
                     <Link to={`/user/${alias}/documents`} className="user-documents__breadcrumbs-link">Личный
                         кабинет</Link>
                     &nbsp;/&nbsp;
-                    <span className="user-documents__breadcrumbs-item">Заявка на получение документов РКФ111</span>
+                    <span className="user-documents__breadcrumbs-item">Заявка на получение документов РКФ</span>
                 </div>
                 {!loaded
                     ? <Loading centered={false} />
@@ -649,11 +649,13 @@ const Application = ({ alias, history, status, owner }) => {
                                 </div>}
                                 <div className="application-form__content">
                                     <h4 className="application-form__title">Документы</h4>
+                                    1111111111111111111111
                                     {!!status && values &&
-                                        <DocumentLinksArray
+                                        <DocumentLink
                                             documents={values.documents}
-                                            editable={editable}
-                                            onRemove={handleDocumentRemove}
+                                            endpoint="/api/requests/dog_health_check_request/doghealthcheckdocument"
+                                            // editable={editable}
+                                            // onRemove={handleDocumentRemove}
                                         />
                                     }
                                     {editable &&

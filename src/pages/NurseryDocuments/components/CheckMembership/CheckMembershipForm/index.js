@@ -22,11 +22,9 @@ import {
 import { Request, getHeaders } from "../../../../../utils/request";
 import { years } from "./config";
 import {DateInput} from "../../../../../components/materialUI/DateTime";
+import {apiGetRkfDocuments} from "../../../config";
 
 import "./index.scss";
-
-const apiGetRkfDocuments = '/api/requests/get_rkf_document/getrkfdocumentrequestdocument';
-
 
 const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };

@@ -1,4 +1,4 @@
-import React, { useState,  useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getHeaders } from '../../utils/request';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { filePdf } from '@progress/kendo-svg-icons';
@@ -6,20 +6,21 @@ import moment from 'moment';
 
 import './index.scss';
 
-const DocumentLink = ({ docId, document, endpoint, page }) => {
+const DocumentLink = ({ docId, document, documents, endpoint, page, CardNewsNew, NewsFeedItem }) => {
     const headers = getHeaders();
     const [url, setUrl] = useState(null);
 
     console.log('page', page);
-    console.log('endpoint', endpoint);
+    console.log('endpoint', documents);
 
-    const getDocument = () => {
+    const getDocument = (docId) => {
         if (!+docId) return;
 
         fetch(`${endpoint}?id=${docId}`, { headers })
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => {
+                console.log('url', url);
                 setUrl(url);
             });
     };
@@ -43,14 +44,32 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
     };
 
     useEffect(() => {
-        getDocument();
+        if(documents?.length > 0) {
+            documents.map(d => getDocument(d.id));
+        } else {
+            getDocument(docId);
+        }
+
     }, []);
 
     return (
-        !!docId && url &&
         <>
             {
-                (page === "CardNewsNew" || page === "NewsFeedItem") && (
+                documents?.length > 0 &&
+                documents.map(d => {
+                    return <a
+                                className="btn"
+                                href={url}
+                                target="_blank"
+                            >
+                                Посмотреть
+                            </a>
+                })
+            }
+            {
+                (CardNewsNew || NewsFeedItem)
+                    ?
+
                     <a
                         className="document-item__href"
                         href={url}
@@ -58,26 +77,17 @@ const DocumentLink = ({ docId, document, endpoint, page }) => {
                     >
                         {renderDocumentItem()}
                     </a>
-                )
-            }
-            {
-                (
-                    page === "AppForm" ||
-                    page === "CheckMembership" ||
-                    page === "PatellaUser" ||
-                    page === "AppFormUser" ||
-                    page === "DysplasiaUser" ||
-                    page === "CheckMembershipNurs") ||
-                    page === "AppFormNurs" && (
+                    :
                     <a
-                        className="btn"
-                        href={url}
-                        target="_blank"
-                    >Посмотреть</a>
-                )
+                    className="btn"
+                    href={url}
+                    target="_blank"
+                    >
+                        Посмотреть
+                    </a>
+
             }
         </>
-
     );
 };
 

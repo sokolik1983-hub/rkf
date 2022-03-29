@@ -31,10 +31,9 @@ import ruMessages from "../../../../../kendoMessages.json"
 import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
 import {DateInput} from "../../../../../components/materialUI/DateTime";
 import FooterFeedback from "../../../../../components/Layouts/FooterFeedback";
+import {apiGetRkfDocuments} from "../../../config";
 
 import "./index.scss";
-
-const apiGetRkfDocuments = '/api/requests/get_rkf_document/getrkfdocumentrequestdocument';
 
 loadMessages(ruMessages, 'ru');
 

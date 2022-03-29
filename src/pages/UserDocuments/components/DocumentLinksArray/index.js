@@ -12,6 +12,8 @@ const DocumentLinksArray = ({ documents, editable, onRemove }) => {
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
 
+    console.log('11111111111111111111111111111111111111111111111111111111111111', documents);
+
     const getDocument = (docId) => {
         if (isNaN(docId) || !docId) return;
 
@@ -37,22 +39,22 @@ const DocumentLinksArray = ({ documents, editable, onRemove }) => {
                             onClick={() => handleClick(d.id)}
                         >Посмотреть
                         </button>
-                        {editable && !d.accept && <button
-                            className="DocumentLinksArray__delete-btn"
-                            type="button"
-                            onClick={() => onRemove(d.id)}
-                        >
-                            <SvgIcon icon={trash} size="default" />
-                        </button>}
+                        {/*{editable && !d.accept && <button*/}
+                        {/*    className="DocumentLinksArray__delete-btn"*/}
+                        {/*    type="button"*/}
+                        {/*    onClick={() => onRemove(d.id)}*/}
+                        {/*>*/}
+                        {/*    <SvgIcon icon={trash} size="default" />*/}
+                        {/*</button>}*/}
                     </div>
                 })
             }
-            <Modal showModal={showModal} handleClose={() => { setShowModal(false); setUrl('') }}>
-                {url ?
-                    <embed src={url} className="DocumentLinksArray__embed" /> :
-                    <Loading />
-                }
-            </Modal>
+            {/*<Modal showModal={showModal} handleClose={() => { setShowModal(false); setUrl('') }}>*/}
+            {/*    {url ?*/}
+            {/*        <embed src={url} className="DocumentLinksArray__embed" /> :*/}
+            {/*        <Loading />*/}
+            {/*    }*/}
+            {/*</Modal>*/}
         </div >
     )
 };
