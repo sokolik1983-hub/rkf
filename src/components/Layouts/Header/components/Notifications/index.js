@@ -223,18 +223,13 @@ const Notifications = forwardRef(
                                                                     return <React.Fragment key={ key }>
                                                                         <NotificationItem  { ...notification } setOpen={ setOpen }/>
                                                                     </React.Fragment>
-                                                                }) }
-
+                                                                })}
                                                             </InfiniteScroll>
                                                              : <div className="NotificationItem nothing-found">
-                                                            <h4>Здесь будут ваши уведомления</h4>
-                                                            <img src={DEFAULT_IMG.noNews} alt="Здесь будут ваши уведомления" />
-                                                        </div>
+                                                                    <h4>Здесь будут ваши уведомления</h4>
+                                                                    <img src={DEFAULT_IMG.noNews} alt="Здесь будут ваши уведомления" />
+                                                                </div>
                                                             }
-
-
-
-
                                                         </div>
                                                         <div className="Notifications__list-see-all">
                                                             <Link
@@ -257,7 +252,6 @@ const Notifications = forwardRef(
                 </>
                 }
             </div>
-
         )
     }
 )

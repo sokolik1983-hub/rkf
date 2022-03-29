@@ -124,10 +124,10 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
     if (!loading && !images.length && isMobile) {
         return null
     } else return (
-        <Card className="user-gallery photo">
+        <Card className="user-gallery _photo">
             <div className="user-gallery__header">
                 <Link to={pageLink}><h4 className="user-gallery__title">Фотогалерея</h4></Link>
-                <div style={{ display: 'flex' }}>
+                <div>
                     {canEdit && !images.length ?
                         <LightTooltip title="Добавить фото" enterDelay={200} leaveDelay={200}>
                             <button

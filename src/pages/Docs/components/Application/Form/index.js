@@ -104,7 +104,7 @@ const Application = ({ alias, history, status }) => {
 
             Promise.all([
                 PromiseRequest({ url: `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest?id=${id}` }),
-                PromiseRequest({ url: `/api/dog/Breed` }),
+                PromiseRequest({ url: `api/dog/breed/dog_handler` }),
                 PromiseRequest({ url: `/api/requests/commonrequest/rkf_document_types` })
             ]).then(data => {
                 const requestData = data[0];
@@ -174,7 +174,7 @@ const Application = ({ alias, history, status }) => {
 
     const getBreeds = async () => {
         await Request({
-            url: `/api/dog/Breed`
+            url: `/api/dog/breed/dog_handler`
         }, data => {
             if (data) {
                 setBreeds(data);

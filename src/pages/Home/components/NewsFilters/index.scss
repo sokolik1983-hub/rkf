@@ -42,4 +42,8 @@
       margin-bottom: 0;
     }
   }
+  .untouchable-mode {
+    opacity: .5;
+    pointer-events: none;
+  }
 }

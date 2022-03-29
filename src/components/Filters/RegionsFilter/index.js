@@ -3,8 +3,8 @@ import {CSSTransition} from "react-transition-group";
 import Loading from "../../Loading";
 import Card from "../../Card";
 import CustomFilterSelect from "../../CustomFilterSelect";
-import "./index.scss";
 
+import "./index.scss";
 
 const RegionsFilter = ({regions = [], region_ids, onChange, loading = false, startOpen = true}) => {
     const [values, setValues] = useState([]);

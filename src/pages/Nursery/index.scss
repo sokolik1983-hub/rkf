@@ -289,7 +289,7 @@
       .user-gallery {
         margin-top: 0 !important;
 
-        &.photo {
+        &._photo {
           padding-top: 2px !important;
 
           .user-gallery__header {
@@ -301,9 +301,23 @@
           }
         }
 
-        &.video {
+        &._video {
           .user-gallery__header {
             height: 18px;
+          }
+
+          .user-gallery__dropdown-wrap {
+            display: flex;
+
+            .user-gallery__item {
+              &:not(:only-child) {
+                width: 49%;
+
+                &:first-child {
+                  margin-right: 10px;
+                }
+              }
+            }
           }
         }
       }
