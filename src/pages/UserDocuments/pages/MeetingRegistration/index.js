@@ -12,7 +12,7 @@ const MeetingRegistration = () => {
 
         setIframeLink(process.env.NODE_ENV === 'production' ?
             `https://zline.me/widgets/registration-for-service?id=${isRKF ? '18' : '19'}` :
-            'http://zsstage.uep24.ru/widgets/registration-for-service?id=94'
+            'https://zsstage.uep24.ru/widgets/registration-for-service?id=94'
         );
 
         setShowModal(true);
