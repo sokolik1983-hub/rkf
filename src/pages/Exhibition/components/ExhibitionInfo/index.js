@@ -120,10 +120,10 @@ const ExhibitionInfo = ({
                 </div>
             </Card>
             <Card className="exhibition-info two">
-                <div className="exhibition-page__description">
-                    <h4 className="exhibition-page__description-title">Судьи</h4>
-                    {judges && <p>{judges}</p>}
-                    {canEdit &&
+                <div className="exhibition-page__description judge-info">
+                    <div className="judge-info__header-wrap">
+                        <h4 className="exhibition-page__description-title">Судьи</h4>
+                        {canEdit &&
                         <div className="exhibition-page__judge-select">
                             <Button
                                 primary={true}
@@ -135,6 +135,8 @@ const ExhibitionInfo = ({
                                 Пригласить судью
                             </Button>
                         </div>}
+                    </div>
+                    {judges && <p>{judges}</p>}
                 </div>
                 <div className="exhibition-page__description">
                     <h4 className="exhibition-page__description-title">Комментарий</h4>
