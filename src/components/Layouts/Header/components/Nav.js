@@ -252,7 +252,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                 }}
                 iframeLink={process.env.NODE_ENV === 'production' ?
                     'https://zline.me/widgets/registration-for-service?id=33' :
-                    'http://zsstage.uep24.ru/widgets/registration-for-service?id=92'
+                    'https://zsstage.uep24.ru/widgets/registration-for-service?id=92'
                 }
             />
         </nav>
