@@ -20,8 +20,6 @@ import useIsMobile from "../../../../utils/useIsMobile";
 import "./index.scss";
 
 
-
-
 const ExhibitionInfo = ({
                             breed_types,
                             canEdit,
@@ -189,7 +187,9 @@ const ExhibitionInfo = ({
             {showModal &&
                 <Modal showModal={showModal}
                        handleClose={() => setShowModal(false)}
-                       handleX={() => {setShowModal(false)}}
+                       handleX={() => {
+                           setShowModal(false)
+                       }}
                        noBackdrop={true}
                        iconName="owner2-white"
                        headerName="Выбор судьи/специалиста"
@@ -200,15 +200,15 @@ const ExhibitionInfo = ({
                             <h3>Список судей/специалистов</h3>
                             <ul className="exhibition-page__judge-list">
                                 {judge.map(data =>
-                                    <li key={data.id}>
+                                    <li key={data.id} className="exhibition-page__judge-item judge-item">
                                         {!isMobile ?
-                                            <div className="exhibition-page__judge-item__wrap">
-                                                <div className="exhibition-page__judge-item__name">
+                                            <div className="judge-item__wrap">
+                                                <div className="judge-item__name">
                                                     {data.owner_alias ?
                                                         <Link
-                                                            className="exhibition-page__judge-item__name-rus"
-                                                            to={`/user/${data.owner_alias}`}>
-
+                                                            className="judge-item__name-rus"
+                                                            to={`/user/${data.owner_alias}`}
+                                                        >
                                                             <p>{data.last_name && `${data.last_name} `}</p>
                                                             <p>{data.first_name && `${data.first_name} `}
                                                                 {data.second_name}
@@ -219,7 +219,7 @@ const ExhibitionInfo = ({
                                                             </p>
                                                         </Link>
                                                         :
-                                                        <span className="exhibition-page__judge-item__name-rus">
+                                                        <span className="judge-item__name-rus">
                                                             <p>{data.last_name && `${data.last_name} `}</p>
                                                             <p>{data.first_name && `${data.first_name} `}
                                                                 {data.second_name}
@@ -230,14 +230,14 @@ const ExhibitionInfo = ({
                                                             </p>
                                                         </span>
                                                     }
-                                                    <span className="exhibition-page__judge-item__name-eng">
+                                                    <span className="judge-item__name-eng">
                                                         {data.last_name_lat}{data.first_name_lat ? ' ' + data.first_name_lat : ''}
                                                     </span>
-                                                    <span className="exhibition-page__judge-item__cert-number">
+                                                    <span className="judge-item__cert-number">
                                                         Лист судьи №{data.cert_number}
                                                     </span>
                                                 </div>
-                                                <div className="exhibition-page__judge-item__info">
+                                                <div className="judge-item__info">
                                                     <span>
                                                         Город:
                                                         <p>{data.city_name}</p>
@@ -251,21 +251,20 @@ const ExhibitionInfo = ({
                                                         <p>{data.email}</p>
                                                     </span>
                                                 </div>
-                                                <div className="exhibition-page__judge-item__checkbox-wrap">
+                                                <div className="judge-item__checkbox-wrap">
                                                     <input type="checkbox"
-                                                           className="exhibition-page__judge-item__checkbox"
+                                                           className="judge-item__checkbox"
                                                            id={data.id}
                                                     />
                                                     <label htmlFor={data.id}></label>
                                                 </div>
-
                                             </div>
                                             :
-                                            <div className="exhibition-page__judge-item__wrap">
-                                                <div className="exhibition-page__judge-item__name">
+                                            <div className="judge-item__wrap">
+                                                <div className="judge-item__name">
                                                     {data.owner_alias ?
                                                         <Link
-                                                            className="exhibition-page__judge-item__name-rus"
+                                                            className="judge-item__name-rus"
                                                             to={`/user/${data.owner_alias}`}>
 
                                                             <p>{data.last_name && `${data.last_name} `}</p>
@@ -278,7 +277,7 @@ const ExhibitionInfo = ({
                                                             </p>
                                                         </Link>
                                                         :
-                                                        <span className="exhibition-page__judge-item__name-rus">
+                                                        <span className="judge-item__name-rus">
                                                             <p>{data.last_name && `${data.last_name} `}</p>
                                                             <p>{data.first_name && `${data.first_name} `}
                                                                 {data.second_name}
@@ -289,20 +288,20 @@ const ExhibitionInfo = ({
                                                             </p>
                                                         </span>
                                                     }
-                                                    <span className="exhibition-page__judge-item__name-eng">
+                                                    <span className="judge-item__name-eng">
                                                         {data.last_name_lat}{data.first_name_lat ? ' ' + data.first_name_lat : ''}
                                                     </span>
-                                                    <span className="exhibition-page__judge-item__cert-number">
+                                                    <span className="judge-item__cert-number">
                                                         Лист судьи №{data.cert_number}
                                                     </span>
                                                 </div>
-                                                <div className="exhibition-page__judge-item__info">
+                                                <div className="judge-item__info">
                                                     <span>
                                                         {data.city_name}
                                                     </span>
-                                                    <div className="exhibition-page__judge-item__checkbox-wrap">
+                                                    <div className="judge-item__checkbox-wrap">
                                                         <input type="checkbox"
-                                                               className="exhibition-page__judge-item__checkbox"
+                                                               className="judge-item__checkbox"
                                                                id={data.id}
                                                         />
                                                         <label htmlFor={data.id}></label>

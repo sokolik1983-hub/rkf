@@ -266,7 +266,7 @@
       li {
         border-bottom: 1px solid #CED4DA;
 
-        .exhibition-page__judge-item {
+        .judge-item {
           &__wrap {
             display: flex;
             flex-direction: row;
@@ -290,7 +290,6 @@
               line-height: 22px;
               text-decoration: none;
 
-
               p {
                 color: #253C5E;
 
@@ -304,7 +303,7 @@
                 }
               }
             }
-            a.exhibition-page__judge-item__name-rus {
+            a.judge-item__name-rus {
               text-decoration: none;
               &:hover p{
                 color: #3366ff;
@@ -343,7 +342,6 @@
           }
 
           &__checkbox {
-            position: absolute;
             z-index: -1;
             opacity: 0;
 
@@ -364,6 +362,7 @@
               background-repeat: no-repeat;
               background-position: center center;
               background-size: 60% 60%;
+              cursor: pointer;
             }
 
             &:checked+label::before {
@@ -418,7 +417,6 @@
                 align-self: flex-end;
               }
             }
-
           }
         }
 
