@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useLocation, useParams, Redirect} from 'react-router-dom';
+import {useLocation, useParams, Redirect, Link} from 'react-router-dom';
 import ls from 'local-storage';
 import StickyBox from 'react-sticky-box';
 import {useSelector} from "react-redux";
@@ -26,6 +26,8 @@ import UserHeader from '../../redesign/UserHeader';
 import MenuComponent from '../../MenuComponent';
 
 import './index.scss';
+import Statistics from "../../Statistics";
+import ClubsMap from "../../ClubsMap";
 
 const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated}) => {
     const [loading, setLoading] = useState(true);
@@ -222,6 +224,16 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated}) => {
 
             <div className="user-page">
                 <Container className="user-page__content content">
+                    <aside className="user-page__left referee">
+                        <Statistics />
+                        <Card className="home-page__map-wrap">
+                            <h3><Link className="home-page__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
+                            <div className="home-page__map">
+                                <ClubsMap />
+                            </div>
+                        </Card>
+                        <CopyrightInfo withSocials={true} />
+                    </aside>
                             <Card>
                                 <div className="judge-info__wrap">
                                     <img src={judgeInfoLink ? judgeInfoLink : '/static/icons/default/default_avatar.svg'} alt="avatar-img" />
@@ -353,11 +365,18 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated}) => {
 
                             </Card>
                 </Container>
-                <Container>
-                    <aside>
-                        <CopyrightInfo withSocials={true} />
-                    </aside>
-                </Container>
+                {/*<Container>*/}
+                {/*    <aside className="user-page__left referee">*/}
+                {/*        <Card className="home-page__map-wrap">*/}
+                {/*            <h3><Link className="home-page__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>*/}
+                {/*            <div className="home-page__map">*/}
+                {/*                <ClubsMap />*/}
+                {/*            </div>*/}
+                {/*        </Card>*/}
+                {/*        <Statistics />*/}
+                {/*        <CopyrightInfo withSocials={true} />*/}
+                {/*    </aside>*/}
+                {/*</Container>*/}
 
                 <NotificationGroup>
                     <Fade enter={true} exit={true}>

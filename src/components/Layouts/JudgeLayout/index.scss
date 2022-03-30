@@ -8,6 +8,7 @@
   &__content {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     @media (max-width: 1080px) {
       display: block;
     }
@@ -37,6 +38,7 @@
   .Card {
     padding: 10px;
     margin-bottom: 16px;
+    width: 100%;
     @media (max-width: 560px) {
       margin-bottom: 12px;
     }
@@ -49,6 +51,28 @@
     right: 10px;
   }
   & .referee {
+    .statistics__title {
+      font-size: 18px;
+      line-height: 24px;
+    }
+    .home-page__map-title {
+      font-size: 18px;
+      line-height: 18px;
+      text-decoration: none;
+      color: #253C5E;
+      font-weight: 400;
+    }
+    .home-page__map-title:hover {
+      color: #3366ff;
+    }
+    h3 {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e8e8e8;
+      margin-bottom: 10px;
+    }
+    .home-page__map {
+        height: 300px;
+    }
     .widget-login {
       &__button-wrap {
         width: auto;
