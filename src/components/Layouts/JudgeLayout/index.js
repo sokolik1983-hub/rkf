@@ -222,104 +222,6 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated}) => {
 
             <div className="user-page">
                 <Container className="user-page__content content">
-                    {(!checkLink || !isMobile) && <aside className="user-page__left referee">
-                        <StickyBox offsetTop={60}>
-                            {
-                                (userType && userType === 1)
-                                    ?
-                                    <Card>
-                                        <UserInfo
-                                            canEdit={true}
-                                            logo_link={userInfo.logo_link}
-                                            share_link={`https://rkf.online/user/${alias}`}
-                                            first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                            last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                            alias={alias}
-                                            subscribed={userInfo.subscribed}
-                                            subscribed_id={userInfo.profile_id}
-                                            onSubscriptionUpdate={onSubscriptionUpdate}
-                                            onSuccess={notifySuccess}
-                                            onError={notifyError}
-                                        />
-                                    </Card>
-                                    :
-                                    <div className="redesign">
-                                        <UserHeader
-                                            user={userType === 4 ? 'nursery' : 'club'}
-                                            logo={clubInfo.logo_link}
-                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                            alias={clubInfo.club_alias}
-                                            profileId={clubInfo.id}
-                                            federationName={clubInfo.federation_name}
-                                            federationAlias={clubInfo.federation_alias}
-                                            isFederation={clubInfo.user_type === 5}
-                                            active_rkf_user={clubInfo.active_rkf_user}
-                                            active_member={clubInfo.active_member}
-                                            canEdit={isAuthenticated}
-                                            subscribed={clubInfo.subscribed}
-                                            member={clubInfo.member}
-                                            onSubscriptionUpdate={onSubscriptionUpdate}
-                                            isAuthenticated={isAuthenticated}
-                                        />
-                                    </div>
-                            }
-                            {!isMobile && userType &&
-                                getUserMenu(userType)
-                            }
-                            {!isMobile &&
-                                <>
-                                    <UserPhotoGallery
-                                        alias={alias}
-                                        pageLink={() => {
-                                            switch (userType) {
-                                                case 1:
-                                                    return `/user/${alias}/gallery`
-                                                case 3:
-                                                    if(alias === 'rkf' || alias === 'rkf-online') {
-                                                        return `/${alias}/gallery`
-                                                    } else {
-                                                        return `/club/${alias}/gallery`
-                                                    }
-                                                case 4:
-                                                    return `/kennel/${alias}/gallery`
-                                                case 5:
-                                                    return `/${alias}/gallery`
-                                                default:
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                        canEdit={canEdit}
-                                    />
-                                    <UserVideoGallery
-                                        alias={alias}
-                                        pageLink={() => {
-                                            switch (userType) {
-                                                case 1:
-                                                    return `/user/${alias}/video`
-                                                case 3:
-                                                    if(alias === 'rkf' || alias === 'rkf-online') {
-                                                        return `/${alias}/video`
-                                                    } else {
-                                                        return `/club/${alias}/video`
-                                                    }
-                                                case 4:
-                                                    return `/kennel/${alias}/video`
-                                                case 5:
-                                                    return `/${alias}/video`
-                                                default:
-                                                    break;
-                                            }
-                                        }
-                                        }
-                                        canEdit={canEdit}
-                                    />
-                                    <CopyrightInfo withSocials={true} />
-                                </>
-                            }
-                        </StickyBox>
-                    </aside>}
-                    <div className="user-page__right">
                             <Card>
                                 <div className="judge-info__wrap">
                                     <img src={judgeInfoLink ? judgeInfoLink : '/static/icons/default/default_avatar.svg'} alt="avatar-img" />
@@ -450,8 +352,13 @@ const JudgeLayout = ({ profile_id, is_active_profile, isAuthenticated}) => {
                                 }
 
                             </Card>
-                    </div>
                 </Container>
+                <Container>
+                    <aside>
+                        <CopyrightInfo withSocials={true} />
+                    </aside>
+                </Container>
+
                 <NotificationGroup>
                     <Fade enter={true} exit={true}>
                         {success.status && <Notification
