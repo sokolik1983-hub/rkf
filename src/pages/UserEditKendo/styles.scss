@@ -89,6 +89,9 @@
             }
             .k-form {
                 max-width: none !important;
+                .k-form-legend {
+                    padding-bottom: 5px;
+                }
             }
         }
         &-right {
@@ -146,6 +149,7 @@
             .UserEdit__profile-label {
                 display: block !important;
                 margin-top: 3px;
+                padding-bottom: 5px;
                 font-size: 18px;
                 color: #030404;
                 border-bottom: 1px solid #E5E5E5;
@@ -200,7 +204,7 @@
         }
     }
     &__inner-right .Card {
-        .UserEdit__inner-item.active {
+        .UserEdit__inner-item.active, .UserEdit__inner-item:hover {
             .k-i-information::before {
                 content: url('/static/icons/information2-blue.svg');
             }
