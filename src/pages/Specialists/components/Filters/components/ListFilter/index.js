@@ -6,11 +6,7 @@ import CustomCheckbox from '../../../../../../components/Form/CustomCheckbox';
 import './index.scss';
 
 
-const ListFilter = ({
-                        searchTypeId,
-                        is_popular,
-                        onChange
-                    }) => {
+const ListFilter = ({searchTypeId, filters}) => {
     const tabItems = useMemo(() => {
         return [
             {title: 'По породам', search_type: 4},
@@ -45,6 +41,8 @@ const ListFilter = ({
                     activeTabIndex={tabItems.findIndex(item => item.search_type === searchTypeId)}
                     onChange={({search_type}) => setFiltersToUrl({
                         ...getEmptyFilters(),
+                        RegionIds: filters.RegionIds,
+                        CityIds: filters.CityIds,
                         SearchTypeId: search_type
                     })}
                 /> :

@@ -129,6 +129,7 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
                             searchTypeId={filters.SearchTypeId}
                             is_popular={filters.IsPopular}
                             onChange={filters => setFiltersToUrl({ IsPopular: filters })}
+                            filters={filters}
                         />
                         {listLoading ?
                             <Loading centered={false} /> :
