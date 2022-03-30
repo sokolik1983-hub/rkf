@@ -6,12 +6,9 @@ import moment from 'moment';
 
 import './index.scss';
 
-const DocumentLink = ({ docId, document, documents, endpoint, page, CardNewsNew, NewsFeedItem }) => {
+const DocumentLink = ({ docId, document, endpoint, page, CardNewsNew, NewsFeedItem }) => {
     const headers = getHeaders();
     const [url, setUrl] = useState(null);
-
-    console.log('page', page);
-    console.log('endpoint', documents);
 
     const getDocument = (docId) => {
         if (!+docId) return;
@@ -20,8 +17,7 @@ const DocumentLink = ({ docId, document, documents, endpoint, page, CardNewsNew,
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => {
-                console.log('url', url);
-                setUrl(url);
+                   setUrl(url);
             });
     };
 
@@ -44,50 +40,20 @@ const DocumentLink = ({ docId, document, documents, endpoint, page, CardNewsNew,
     };
 
     useEffect(() => {
-        if(documents?.length > 0) {
-            documents.map(d => getDocument(d.id));
-        } else {
-            getDocument(docId);
-        }
-
+        docId && getDocument(docId);
     }, []);
 
     return (
-        <>
+        <a
+            className={(CardNewsNew || NewsFeedItem) ? "document-item__href" : "btn"}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+        >
             {
-                documents?.length > 0 &&
-                documents.map(d => {
-                    return <a
-                                className="btn"
-                                href={url}
-                                target="_blank"
-                            >
-                                Посмотреть
-                            </a>
-                })
+                (CardNewsNew || NewsFeedItem) ? renderDocumentItem() : "Посмотреть"
             }
-            {
-                (CardNewsNew || NewsFeedItem)
-                    ?
-
-                    <a
-                        className="document-item__href"
-                        href={url}
-                        target="_blank"
-                    >
-                        {renderDocumentItem()}
-                    </a>
-                    :
-                    <a
-                    className="btn"
-                    href={url}
-                    target="_blank"
-                    >
-                        Посмотреть
-                    </a>
-
-            }
-        </>
+        </a>
     );
 };
 

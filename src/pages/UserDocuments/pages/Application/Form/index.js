@@ -15,7 +15,6 @@ import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownL
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import FormComboBox from './components/FormComboBox';
 import DocumentLink from "../../../../../components/DocumentLink";
-import DocumentLinksArray from "../../../components/DocumentLinksArray";
 import {
     nameRequiredValidator,
     documentRequiredValidator,
@@ -649,14 +648,13 @@ const Application = ({ alias, history, status, owner }) => {
                                 </div>}
                                 <div className="application-form__content">
                                     <h4 className="application-form__title">Документы</h4>
-                                    1111111111111111111111
-                                    {!!status && values &&
-                                        <DocumentLink
-                                            documents={values.documents}
-                                            endpoint="/api/requests/dog_health_check_request/doghealthcheckdocument"
-                                            // editable={editable}
-                                            // onRemove={handleDocumentRemove}
-                                        />
+                                    {
+                                        (!!status && values && values.documents.length > 0) &&
+                                        values.documents.map(item =>
+                                            <DocumentLink
+                                                docId={item.id}
+                                                endpoint={apiRequestRkfDocs}
+                                            />)
                                     }
                                     {editable &&
                                         <div>
