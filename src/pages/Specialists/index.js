@@ -1,24 +1,23 @@
 import React, {memo, useEffect, useState} from "react";
 import moment from "moment";
 import "moment/locale/ru";
-import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
+import Loading from "../../components/Loading";
 import ClickGuard from "../../components/ClickGuard";
 import Container from "../../components/Layouts/Container";
+import {connectShowFilters} from "../../components/Layouts/connectors";
 import SignUpModal from "../Educational/components/SignUpModal";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import SpecialistsList from "./components/SpecialistsList";
-import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
+import {buildUrl, getFiltersFromUrl, getInitialFilters, setFiltersToUrl} from "./utils";
 import {formatDateCommon} from "../../utils/datetime";
 import {Request} from "../../utils/request";
-import {connectShowFilters} from "../../components/Layouts/connectors";
+
 import "./index.scss";
-import { setFiltersToUrl } from "./utils";
 
 
 moment.locale('ru');
-
 
 const Specialists = ({history, isOpenFilters, setShowFilters}) => {
     const [loading, setLoading] = useState(true);
@@ -128,8 +127,9 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
                         <ListFilter
                             searchTypeId={filters.SearchTypeId}
                             is_popular={filters.IsPopular}
+                            RegionIds={filters.RegionIds}
+                            CityIds={filters.CityIds}
                             onChange={filters => setFiltersToUrl({ IsPopular: filters })}
-                            filters={filters}
                         />
                         {listLoading ?
                             <Loading centered={false} /> :
