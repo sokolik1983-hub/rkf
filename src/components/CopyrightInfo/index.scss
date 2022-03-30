@@ -28,9 +28,9 @@
 
   &-link {
     text-decoration: none;
-    color: #72839c;
+    color: #72839c!important;
     &:hover {
-      color: #3366ff;
+      color: #3366ff!important;
       text-decoration: underline;
     }
   }
@@ -39,7 +39,7 @@
     align-items: center;
     justify-content: space-between;
     width: 110px;
-    margin: 0 auto 30px;
+    margin: 0 auto 15px;
     a {
       display: flex;
       align-items: center;
