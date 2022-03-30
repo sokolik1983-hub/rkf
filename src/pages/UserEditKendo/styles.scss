@@ -204,7 +204,8 @@
         }
     }
     &__inner-right .Card {
-        .UserEdit__inner-item.active, .UserEdit__inner-item:hover {
+        .UserEdit__inner-item.active,
+        .UserEdit__inner-item:hover {
             .k-i-information::before {
                 content: url('/static/icons/information2-blue.svg');
             }
