@@ -235,7 +235,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         <DocumentLink
                                                             docId={values.veterinary_contract_document_id}
                                                             endpoint={apiRequestRkfDocs}
-                                                            page="DysplasiaUser"
                                                         />
                                                     </div>
                                                     <div className="dysplasia-form__file">
@@ -243,7 +242,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         <DocumentLink
                                                             docId={values.roentgenogram_document_id}
                                                             endpoint={apiRequestRkfDocs}
-                                                            page="DysplasiaUser"
                                                         />
                                                     </div>
                                                 </div>
@@ -253,7 +251,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         <DocumentLink
                                                             docId={values.pedigree_document_id}
                                                             endpoint={apiRequestRkfDocs}
-                                                            page="DysplasiaUser"
                                                         />
                                                     </div>}
                                                     {values.personal_data_document_id && <div>
@@ -261,7 +258,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         <DocumentLink
                                                             docId={values.personal_data_document_id}
                                                             endpoint={apiRequestRkfDocs}
-                                                            page="DysplasiaUser"
                                                         />
                                                     </div>}
                                                 </div>
@@ -290,7 +286,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         <DocumentLink
                                                             docId={values.veterinary_contract_document_id}
                                                             endpoint={apiRequestRkfDocs}
-                                                            page="DysplasiaUser"
                                                         />
                                                     }
                                                     <DocLink
@@ -320,7 +315,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         <DocumentLink
                                                             docId={values.roentgenogram_document_id}
                                                             endpoint={apiRequestRkfDocs}
-                                                            page="DysplasiaUser"
                                                         />
                                                     }
                                                     <DocLink
@@ -402,7 +396,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                 <DocumentLink
                                                     docId={values.personal_data_document_id}
                                                     endpoint={apiRequestRkfDocs}
-                                                    page="DysplasiaUser"
                                                 />
                                             }
                                             <DocLink
@@ -433,7 +426,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                 <DocumentLink
                                                     docId={values.pedigree_document_id}
                                                     endpoint={apiRequestRkfDocs}
-                                                    page="DysplasiaUser"
                                                 />
                                             }
                                             <DocLink
@@ -458,7 +450,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                 <DocumentLink
                                                     docId={values.payment_document_id}
                                                     endpoint={apiRequestRkfDocs}
-                                                    page="DysplasiaUser"
                                                 />
                                             </div>
                                         }
@@ -484,7 +475,6 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                     <DocumentLink
                                                         docId={values.payment_document_id}
                                                         endpoint={apiRequestRkfDocs}
-                                                        page="DysplasiaUser"
                                                     />
                                                 }
                                                 <DocLink

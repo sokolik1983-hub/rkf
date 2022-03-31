@@ -302,7 +302,6 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                     <DocumentLink
                                                                         docId={values.changes_confirmation_document_id}
                                                                         endpoint={apiGetRkfDocuments}
-                                                                        page="CheckMembershipNurs"
                                                                     />
                                                                 }</>}
                                                     </div>
@@ -338,7 +337,6 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                     <DocumentLink
                                                                         docId={values.membership_confirmation_document_id}
                                                                         endpoint={apiGetRkfDocuments}
-                                                                        page="CheckMembershipNurs"
                                                                     />
                                                                 }</>}
                                                     </div>
@@ -382,7 +380,6 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                             <DocumentLink
                                                                                 docId={values.mating_whelping_book_document_id}
                                                                                 endpoint={apiGetRkfDocuments}
-                                                                                page="CheckMembershipNurs"
                                                                             />
                                                                         }</>}
                                                             </div>
@@ -435,7 +432,6 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                     <DocumentLink
                                                                         docId={values.payment_document_id}
                                                                         endpoint={apiGetRkfDocuments}
-                                                                        page="CheckMembershipNurs"
                                                                     />
                                                                 }</>}
                                                     </div>

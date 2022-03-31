@@ -308,7 +308,6 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                     <DocumentLink
                                                                         docId={values.changes_confirmation_document_id}
                                                                         endpoint={apiClubApplicationFormEndpoint}
-                                                                        page="CheckMembership"
                                                                     />
                                                                 }</>}
                                                     </div>
@@ -344,7 +343,6 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                     <DocumentLink
                                                                         docId={values.membership_confirmation_document_id}
                                                                         endpoint={apiClubApplicationFormEndpoint}
-                                                                        page="CheckMembership"
                                                                     />
                                                                 }</>}
                                                     </div>
@@ -388,7 +386,6 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                             <DocumentLink
                                                                                 docId={values.mating_whelping_book_document_id}
                                                                                 endpoint={apiClubApplicationFormEndpoint}
-                                                                                page="CheckMembership"
                                                                             />
                                                                         }</>}
                                                             </div>
@@ -441,7 +438,6 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                     <DocumentLink
                                                                         docId={values.payment_document_id}
                                                                         endpoint={apiClubApplicationFormEndpoint}
-                                                                        page="CheckMembership"
                                                                     />
                                                                 }</>}
                                                     </div>

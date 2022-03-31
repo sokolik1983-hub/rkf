@@ -208,7 +208,6 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                         <DocumentLink
                                                             docId={values.veterinary_contract_document_id}
                                                             endpoint={apiPatellaDocsEndpoint}
-                                                            page="PatellaUser"
                                                         />
                                                     </div>
                                                 </div>
@@ -218,7 +217,6 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                         <DocumentLink
                                                             docId={values.pedigree_document_id}
                                                             endpoint={apiPatellaDocsEndpoint}
-                                                            page="PatellaUser"
                                                         />
                                                     </div>}
                                                     {values.personal_data_document_id && <div>
@@ -226,7 +224,6 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                         <DocumentLink
                                                             docId={values.personal_data_document_id}
                                                             endpoint={apiPatellaDocsEndpoint}
-                                                            page="PatellaUser"
                                                         />
                                                     </div>}
                                                 </div>
@@ -248,7 +245,6 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                     <DocumentLink
                                                         docId={values.veterinary_contract_document_id}
                                                         endpoint={apiPatellaDocsEndpoint}
-                                                        page="PatellaUser"
                                                     />
                                                 }
 
@@ -272,7 +268,6 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                 <DocumentLink
                                                     docId={values.personal_data_document_id}
                                                     endpoint={apiPatellaDocsEndpoint}
-                                                    page="PatellaUser"
                                                 />
                                             }
                                         </div>
@@ -292,7 +287,6 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                 <DocumentLink
                                                     docId={values.pedigree_document_id}
                                                     endpoint={apiPatellaDocsEndpoint}
-                                                    page="PatellaUser"
                                                 />
                                             }
                                         </div>
@@ -358,7 +352,6 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                 <DocumentLink
                                                     docId={values.payment_document_id}
                                                     endpoint={apiPatellaDocsEndpoint}
-                                                    page="PatellaUser"
                                                 />
                                             </div>
                                         }
@@ -378,7 +371,6 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                     <DocumentLink
                                                         docId={values.payment_document_id}
                                                         endpoint={apiPatellaDocsEndpoint}
-                                                        page="PatellaUser"
                                                     />
                                                 }
                                             </div>

@@ -666,7 +666,6 @@ const Application = ({ alias, history, status }) => {
                                                             !formRenderProps.valueGetter('application_document_id').length &&
                                                             <DocumentLink
                                                                 docId={values.application_document_id}
-                                                                page="AppForm"
                                                                 endpoint={apiClubApplicationFormEndpoint}
                                                             />
                                                         }
@@ -680,7 +679,6 @@ const Application = ({ alias, history, status }) => {
                                                         <p className="k-label">Заявочный лист</p>
                                                         <DocumentLink
                                                             docId={values.application_document_id}
-                                                            page="AppForm"
                                                             endpoint={apiClubApplicationFormEndpoint}
                                                         />
                                                     </div>
@@ -736,7 +734,6 @@ const Application = ({ alias, history, status }) => {
                                                         !formRenderProps.valueGetter('veterinary_contract_document').length &&
                                                         <DocumentLink
                                                             docId={values.veterinary_contract_document_id}
-                                                            page="AppForm"
                                                             endpoint={apiClubApplicationFormEndpoint}
                                                         />
                                                     }
@@ -793,7 +790,6 @@ const Application = ({ alias, history, status }) => {
                                                         !formRenderProps.valueGetter('payment_document').length &&
                                                         <DocumentLink
                                                             docId={values.payment_document_id}
-                                                            page="AppForm"
                                                             endpoint={apiClubApplicationFormEndpoint}
                                                         />
                                                     }
@@ -807,7 +803,6 @@ const Application = ({ alias, history, status }) => {
                                                     <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
                                                     <DocumentLink
                                                         docId={values.payment_document_id}
-                                                        page="AppForm"
                                                         endpoint={apiClubApplicationFormEndpoint}
                                                     />
                                                 </div>

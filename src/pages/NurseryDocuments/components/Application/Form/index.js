@@ -690,7 +690,6 @@ const Application = ({ alias, history, status }) => {
                                                         <DocumentLink
                                                             docId={values.application_document_id}
                                                             endpoint={apiGetRkfDocuments}
-                                                            page="AppFormNurs"
                                                         />
                                                     }
                                                     <DocLink
@@ -704,7 +703,6 @@ const Application = ({ alias, history, status }) => {
                                                     <DocumentLink
                                                         docId={values.application_document_id}
                                                         endpoint={apiGetRkfDocuments}
-                                                        page="AppFormNurs"
                                                     />
                                                 </div>
                                             }
@@ -760,7 +758,6 @@ const Application = ({ alias, history, status }) => {
                                                         <DocumentLink
                                                             docId={values.veterinary_contract_document_id}
                                                             endpoint={apiGetRkfDocuments}
-                                                            page="AppFormNurs"
                                                         />
                                                     }
                                                     {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
@@ -807,7 +804,6 @@ const Application = ({ alias, history, status }) => {
                                                         <DocumentLink
                                                             docId={values.payment_document_id}
                                                             endpoint={apiGetRkfDocuments}
-                                                            page="AppFormNurs"
                                                         />
                                                     }
                                                     <DocLink
@@ -821,7 +817,6 @@ const Application = ({ alias, history, status }) => {
                                                     <DocumentLink
                                                         docId={values.payment_document_id}
                                                         endpoint={apiGetRkfDocuments}
-                                                        page="AppFormNurs"
                                                     />
                                                 </div>
                                             }

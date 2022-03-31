@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import './index.scss';
 
-const DocumentLink = ({ docId, document, endpoint, page, CardNewsNew, NewsFeedItem }) => {
+const DocumentLink = ({ docId, document, endpoint, CardNewsNew, NewsFeedItem }) => {
     const headers = getHeaders();
     const [url, setUrl] = useState(null);
 

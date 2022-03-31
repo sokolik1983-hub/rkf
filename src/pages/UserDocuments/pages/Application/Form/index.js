@@ -639,7 +639,6 @@ const Application = ({ alias, history, status, owner }) => {
                                                 <p className="k-label">Заявочный лист</p>
                                                 <DocumentLink
                                                     docId={values.application_document_id}
-                                                    page="AppFormUser"
                                                     endpoint={apiRequestRkfDocs}
                                                 />
                                             </div>
@@ -698,7 +697,6 @@ const Application = ({ alias, history, status, owner }) => {
                                                 !formRenderProps.valueGetter('veterinary_contract_document').length &&
                                                 <DocumentLink
                                                     docId={values.veterinary_contract_document_id}
-                                                    page="AppFormUser"
                                                     endpoint={apiRequestRkfDocs}
                                                 />
                                             }
@@ -744,7 +742,6 @@ const Application = ({ alias, history, status, owner }) => {
                                                     !formRenderProps.valueGetter('payment_document').length &&
                                                     <DocumentLink
                                                         docId={values.payment_document_id}
-                                                        page="AppFormUser"
                                                         endpoint={apiRequestRkfDocs}
                                                     />
                                                 }
@@ -758,7 +755,6 @@ const Application = ({ alias, history, status, owner }) => {
                                                 <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
                                                 <DocumentLink
                                                     docId={values.payment_document_id}
-                                                    page="AppFormUser"
                                                     endpoint={apiRequestRkfDocs}
                                                 />
                                             </div>
