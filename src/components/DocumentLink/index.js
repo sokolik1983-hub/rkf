@@ -35,7 +35,6 @@ const DocumentLink = ({ docId, document, endpoint, page, CardNewsNew, NewsFeedIt
                     </span>
                 </div>
             </>
-
         )
     };
 
