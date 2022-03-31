@@ -10,15 +10,15 @@ const DocumentLinksArray = ({ documents, editable, onRemove }) => {
     return (
         <div className="DocumentLinksArray">
             {!!documents?.length &&
-                documents.map(d => {
-                    return <div className="DocumentLinksArray__item" key={d.id}>
+                documents.map(item => {
+                    return <div className="DocumentLinksArray__item" key={item.id}>
                         <DocumentLink
-                            docId={d.id}
+                            docId={item.id}
                         />
-                        {editable && !d.accept && <button
+                        {editable && !item.accept && <button
                             className="DocumentLinksArray__delete-btn"
                             type="button"
-                            onClick={() => onRemove(d.id)}
+                            onClick={() => onRemove(item.id)}
                         >
                             <SvgIcon icon={trash} size="default" />
                         </button>}
