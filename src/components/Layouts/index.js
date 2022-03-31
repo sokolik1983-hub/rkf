@@ -7,7 +7,7 @@ import {connectShowFilters} from './connectors';
 import './index.scss';
 
 const Layout = (props) => {
-    const { children, withFilters, login_page, setShowFilters, layoutWithFilters, setNotificationsLength} = props;
+    const { children, withFilters, login_page, setShowFilters, layoutWithFilters } = props;
 
     useEffect(() => {
         setShowFilters({ withFilters: layoutWithFilters, login_page: login_page, isOpen: false});
