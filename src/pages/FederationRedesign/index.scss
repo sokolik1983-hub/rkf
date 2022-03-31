@@ -288,5 +288,10 @@
         border-bottom: 1px solid #E5E5E5
       }
     }
+    @media (max-width: 560px) {
+      .user-header__name-wrap {
+        padding-top: 10px;
+      }
+    }
   }
 }
