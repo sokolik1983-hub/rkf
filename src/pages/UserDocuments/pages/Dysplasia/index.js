@@ -245,7 +245,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                         />
                                                     </div>
                                                 </div>
-                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <div className="dysplasia-form__inner">
                                                     {values.pedigree_document_id && <div className="dysplasia-form__file" style={{ marginRight: '50px' }}>
                                                         <p className="k-label">Соглашение на обработку персональных данных</p>
                                                         <DocumentLink

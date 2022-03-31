@@ -519,7 +519,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                 <div>
                                     <h3 className="application-form__additional-title">Дополнительные документы</h3>
                                     {
-                                        (documents && documents.length > 0) &&
+                                        documents && !!documents.length &&
                                             documents.map(item =>
                                                 <DocumentLink
                                                     docId={item.id}

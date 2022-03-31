@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { getHeaders } from '../../utils/request';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { filePdf } from '@progress/kendo-svg-icons';
 import moment from 'moment';
+import { getHeaders } from '../../utils/request';
 
 import './index.scss';
 
-const DocumentLink = ({ docId, document, endpoint, CardNewsNew, NewsFeedItem }) => {
+const DocumentLink = ({
+                          docId,
+                          document,
+                          endpoint,
+                          CardNewsNew,
+                          NewsFeedItem
+                        }) => {
     const headers = getHeaders();
     const [url, setUrl] = useState(null);
 
@@ -17,7 +23,7 @@ const DocumentLink = ({ docId, document, endpoint, CardNewsNew, NewsFeedItem }) 
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => {
-                   setUrl(url);
+                setUrl(url);
             });
     };
 

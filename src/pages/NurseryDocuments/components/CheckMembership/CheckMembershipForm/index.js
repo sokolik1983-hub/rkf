@@ -14,9 +14,13 @@ import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownL
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import DocumentLink from "../../../../../components/DocumentLink";
 import {
-    dateRequiredValidator, nameRequiredValidator,
-    documentRequiredValidator, requiredWithTrimValidator,
-    documentTypeRequired, innValidator, requiredValidator
+    dateRequiredValidator,
+    nameRequiredValidator,
+    documentRequiredValidator,
+    requiredWithTrimValidator,
+    documentTypeRequired,
+    innValidator,
+    requiredValidator,
 } from "../../../../../components/kendo/Form/validators";
 import { Request, getHeaders } from "../../../../../utils/request";
 import { years } from "./config";

@@ -627,7 +627,11 @@ const Application = ({ alias, history, status, owner }) => {
                                                     onBeforeUpload={e => onBeforeUpload(e, 47)}
                                                     onStatusChange={e => onStatusChange(e, 'application_document')}
                                                     onProgress={e => onProgress(e, 'application_document')}
-                                                    validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('application_document').find(d => d.id))}
+                                                    validator={status === 'edit'
+                                                        ?
+                                                        ''
+                                                        :
+                                                        () => documentRequiredValidator(formProps?.valueGetter('application_document').find(doc => doc.id))}
                                                 />
                                                 <DocLink
                                                     distinction='get_rkf_document'
@@ -648,7 +652,7 @@ const Application = ({ alias, history, status, owner }) => {
                                 <div className="application-form__content">
                                     <h4 className="application-form__title">Документы</h4>
                                     {
-                                        (!!status && values && values.documents.length > 0) &&
+                                        !!status && values && !!values.documents.length &&
                                         values.documents.map(item =>
                                             <DocumentLink
                                                 docId={item.id}

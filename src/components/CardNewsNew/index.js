@@ -104,10 +104,19 @@ const CardNewsNew = forwardRef(({
         }
 
         return <>
-            <div className="card-news-new__content 5555555555555555555555555555555555">
+            <div className="card-news-new__content">
                 <div className="card-news-new__head">
                     <div className="card-news-new__left">
-                        <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                        <Link to={user_type === 4
+                                    ?
+                                    `/kennel/${alias}`
+                                    :
+                                    user_type === 1
+                                        ?
+                                        `/user/${alias}`
+                                        :
+                                        `/${alias}`}
+                        >
                             <div className="card-news-new__left-logo" style={{
                                 background: `url(${logo_link ?
                                     logo_link :

@@ -11,9 +11,11 @@ import FormTextArea from "../../../../components/kendo/Form/FormTextArea";
 import FormContactsCheckbox from "../../../../components/kendo/Form/FormContactsCheckbox";
 import DocumentLink from "../../../../components/DocumentLink";
 import {
-    dateRequiredValidator, nameRequiredValidator,
+    dateRequiredValidator,
+    nameRequiredValidator,
     requiredValidator,
-    requiredWithTrimValidator, documentRequiredValidatorTypeArray
+    requiredWithTrimValidator,
+    documentRequiredValidatorTypeArray
 } from "../../../../components/kendo/Form/validators";
 import { Request } from "../../../../utils/request";
 import flatten from "../../../../utils/flatten";
@@ -211,7 +213,7 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                         />
                                                     </div>
                                                 </div>
-                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <div className="patella-form__inner">
                                                     {values.pedigree_document_id && <div className="patella-form__file" style={{ marginRight: '50px' }}>
                                                         <p className="k-label">Соглашение на обработку персональных данных</p>
                                                         <DocumentLink
@@ -219,13 +221,14 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                             endpoint={apiPatellaDocsEndpoint}
                                                         />
                                                     </div>}
-                                                    {values.personal_data_document_id && <div>
-                                                        <p className="k-label">Родословная</p>
-                                                        <DocumentLink
-                                                            docId={values.personal_data_document_id}
-                                                            endpoint={apiPatellaDocsEndpoint}
-                                                        />
-                                                    </div>}
+                                                    {values.personal_data_document_id &&
+                                                        <div>
+                                                            <p className="k-label">Родословная</p>
+                                                            <DocumentLink
+                                                                docId={values.personal_data_document_id}
+                                                                endpoint={apiPatellaDocsEndpoint}
+                                                            />
+                                                        </div>}
                                                 </div>
                                             </div>
                                         }

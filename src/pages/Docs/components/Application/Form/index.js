@@ -687,7 +687,7 @@ const Application = ({ alias, history, status }) => {
                                         </div>}
                                     <div className="application-form__content">
                                         <h4 className="application-form__title">Документы</h4>
-                                        {(!!status && values && values.documents.length > 0) &&
+                                        {!!status && values && !!values.documents.length &&
                                             values.documents.map(item =>
                                             <DocumentLink
                                                 docId={item.id}
