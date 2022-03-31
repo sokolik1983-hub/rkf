@@ -10,7 +10,7 @@
     justify-content: space-between;
     align-items: flex-start;
     @media (max-width: 1080px) {
-      display: block;
+      flex-direction: column-reverse;
     }
   }
   &__right {
@@ -107,6 +107,9 @@
       align-items: flex-start;
       border-bottom: 1px solid #e8e8e8;
       padding: 15px 5px;
+      @media (max-width: 767px) {
+        flex-direction: column;
+      }
       ul {
         list-style: none;
       }
@@ -183,6 +186,9 @@
       display: flex;
       color: #72839C;
       @media (max-width: 767px) {
+        &:nth-child(2) {
+          flex-direction: column;
+        }
         width: 100%;
       }
       p {
