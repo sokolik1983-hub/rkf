@@ -13,7 +13,6 @@ import AdditionalDocuments from "./components/AdditionalDocuments";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import DocumentLink from "../../../../../components/DocumentLink";
-import DocumentLinksArray from "./components/DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator, requiredWithTrimValidator,
@@ -521,10 +520,16 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                 handleError={handleError}
                             />}
                             {status === 'view' && !!documents.length &&
-                                <div><h3 className="application-form__additional-title">Дополнительные документы</h3>
-                                    <DocumentLinksArray
-                                        documents={documents}
-                                    />
+                                <div>
+                                    <h3 className="application-form__additional-title">Дополнительные документы</h3>
+                                    {
+                                        (documents && documents.length > 0) &&
+                                            documents.map(item =>
+                                                <DocumentLink
+                                                    docId={item.id}
+                                                    endpoint={apiClubApplicationFormEndpoint}
+                                                />)
+                                    }
                                 </div>
                             }
                         </>
