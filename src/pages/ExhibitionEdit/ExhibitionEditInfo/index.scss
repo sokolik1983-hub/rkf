@@ -12,19 +12,18 @@
 
   .FormControls {
     display: flex;
+    justify-content: center;
   }
 
   &__info-form {
     .btn {
       &:first-child {
-        margin-right: 12px;
-        margin-left: auto;
+        margin-right: 4px;
       }
 
       &:last-child {
         background: #3366ff;
-        color: white;
-        margin-right: auto;
+        color: #fff;
       }
     }
   }
@@ -51,13 +50,27 @@
 
     &-label {
       display: block;
-      border-radius: 6px;
+      width: 100%;
+      max-width: 476px;
+      margin: 0 auto;
       overflow: hidden;
       cursor: pointer;
       background-color: #f3f4f4;
 
       img {
         width: 100%;
+      }
+
+      &__no-img {
+        width: fit-content;
+        margin: 55px auto 65px;
+        padding: 10px;
+        text-align: center;
+        color: #72839C;
+        img {
+          width: 120px;
+          margin-bottom: 25px;
+        }
       }
     }
 
@@ -66,14 +79,23 @@
     }
 
     &-delete {
+      position: absolute;
+      right: 0;
+      top: 0;
       width: 36px;
       height: 36px;
-      background: url("/static/icons/file-cross.svg") no-repeat center;
       border: none;
       padding: 0;
-      position: absolute;
-      top: 38px;
-      right: 0;
+      background: url("/static/icons/file-cross.svg") no-repeat center;
+    }
+  }
+
+  &__date {
+    h5 {
+      margin-bottom: 8px;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 400;
     }
   }
 
@@ -126,6 +148,9 @@
 
       &:not(:last-child) {
         gap: 20px;
+        @media (max-width: 768px) {
+          gap: inherit;
+        }
       }
 
       label {
@@ -135,6 +160,12 @@
 
       input {
         width: 150px;
+      }
+
+      @media (max-width: 768px) {
+        & > label:first-child {
+          width: 115px;
+        }
       }
     }
 
@@ -250,11 +281,12 @@
     padding-bottom: 0;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 768px) {
     .FormGroup--inline {
       display: block;
 
       .FormInput {
+        max-width: 100%;
         margin: 0 0 12px;
       }
     }
@@ -262,6 +294,32 @@
   @media (max-width: 560px) {
     .btn {
       padding: 8px 27px;
+    }
+  }
+
+  .add-mini {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin: 0 0 11px;
+    padding: 0;
+    font-size: 0;
+    border: none;
+    border-radius: 50%;
+    background: url("/static/icons/add-blue.svg") no-repeat center / contain;
+    transition: all 0.2s linear;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+      bottom: 30px;
+      margin: 0;
     }
   }
 }
