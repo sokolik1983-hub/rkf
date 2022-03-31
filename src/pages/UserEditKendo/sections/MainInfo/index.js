@@ -105,7 +105,6 @@ const MainInfo = ({
                                             name="birth_date_visibility_status_id"
                                             component={FormDropDownList}
                                             data={visibilityStatuses.map(status => ({ text: status.name, value: status.id }))}
-                                            disabled={!!judgeInfo?.length}
                                         />
                                     </div>
                                 </div>

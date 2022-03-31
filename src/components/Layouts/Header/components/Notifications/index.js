@@ -47,7 +47,6 @@ const Notifications = forwardRef(
         const { notification } = useContext(NotificationsContext);
         const [startElement, setStartElement] = useState(1);
         const [hasMore, setHasMore] = useState(false);
-
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
 
