@@ -12,10 +12,6 @@ const DeclarantFormFields = connect(({formik, update, options, alias, setRedirec
     const {doctypes, breeds, sexTypes, statuses, stampCodes} = options;
     const isNew = !initial.dog_name;
 
-
-    console.log('555555555555555555')
-
-
     return <>
 <Card>
 <Title/>
