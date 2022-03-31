@@ -84,7 +84,7 @@ const UserInfo = ({
                     {share_link 
                         ?
                             <div className="user-info__with-share" >
-                                <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}{last_name ? ' ' + last_name : ''}</p>
+                                <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}{last_name ? ' ' + last_name : ''}{(judgeInfo?.length > 0 && judgeInfo[0].description !== null) && judgeIcon}</p>
                                 <Share url={share_link}
                                         className={!first_name && !last_name
                                                         ? '_no_share_name'
@@ -95,8 +95,6 @@ const UserInfo = ({
                         :
                         <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}</p>
                     }
-
-                    {(judgeInfo?.length > 0 && judgeInfo[0].description !== null) && judgeIcon}
                 </div>
             </div>
             {

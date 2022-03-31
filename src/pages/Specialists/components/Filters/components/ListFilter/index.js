@@ -1,16 +1,16 @@
-import React, {memo, useMemo, useState} from 'react';
-import SwipeTabs from '../../../../../../components/SwipeTabs';
-import {setFiltersToUrl, getEmptyFilters} from '../../../../utils';
-import CustomCheckbox from '../../../../../../components/Form/CustomCheckbox';
+import React, {memo, useMemo, useState} from "react";
+import SwipeTabs from "../../../../../../components/SwipeTabs";
+import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
+import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
 
-import './index.scss';
+import "./index.scss";
 
 
 const ListFilter = ({
-                        searchTypeId,
-                        is_popular,
-                        onChange
-                    }) => {
+        CityIds,
+        RegionIds,
+        searchTypeId,
+}) => {
     const tabItems = useMemo(() => {
         return [
             {title: 'По породам', search_type: 4},
@@ -45,6 +45,8 @@ const ListFilter = ({
                     activeTabIndex={tabItems.findIndex(item => item.search_type === searchTypeId)}
                     onChange={({search_type}) => setFiltersToUrl({
                         ...getEmptyFilters(),
+                        RegionIds: RegionIds,
+                        CityIds: CityIds,
                         SearchTypeId: search_type
                     })}
                 /> :
