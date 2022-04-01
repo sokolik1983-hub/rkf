@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { connect } from "formik";
 import { FormControls, FormField, FormGroup } from "../../../components/Form";
 import { exhibitionInfoForm } from "../config";
-import { DEFAULT_IMG } from "../../../appConfig";
 import { acceptType } from "../../../utils/checkImgType";
 import Contacts from "./components/Contacts";
 import Alert from "../../../components/Alert";
-import { blockContent } from "../../../utils/blockContent";
 
 
 const RenderFields = ({
@@ -146,7 +144,14 @@ const RenderFields = ({
                         accept=".jpg, .jpeg"
                         onChange={e => handleChangeImg(e, 'avatar')}
                     />
-                    <img src={avatarSrc || DEFAULT_IMG.noImage} alt=""/>
+                    {avatarSrc ?
+                        <img src={avatarSrc} alt=""/>
+                        :
+                        <div className="exhibition-edit__img-label__no-img">
+                            <img src="/static/images/noimg/no-img.svg" alt=""/>
+                            <span>Нажмите на иконку для загрузки фотографии</span>
+                        </div>
+                    }
                 </label>
                 {avatarSrc &&
                     <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('avatar')}/>}
@@ -156,7 +161,7 @@ const RenderFields = ({
             />
             {dates && !!dates.length &&
 
-                <div>
+                <div className="exhibition-edit__date">
                     <h5>Даты проведения мероприятия</h5>
                     {dates.map(date =>
                         <FormGroup inline key={date.id} className="exhibition-edit__dates">
@@ -210,7 +215,8 @@ const RenderFields = ({
             <Contacts
                 phones={phones}
                 emails={emails}
-                errors={formik.errors}/>
+                errors={formik.errors}
+            />
             <div className="exhibition-edit__documents">
                 <h3>Документы</h3>
                 {docs && !!docs.length &&
@@ -285,7 +291,14 @@ const RenderFields = ({
                         accept=".jpg, .jpeg"
                         onChange={e => handleChangeImg(e, 'map')}
                     />
-                    <img src={mapSrc || DEFAULT_IMG.noImage} alt=""/>
+                    {mapSrc ?
+                        <img src={mapSrc} alt=""/>
+                        :
+                        <div className="exhibition-edit__img-label__no-img">
+                            <img src="/static/images/noimg/no-img.svg" alt=""/>
+                            <span>Нажмите на иконку для загрузки фотографии</span>
+                        </div>
+                    }
                 </label>
                 {mapSrc && <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('map')}/>}
             </div>
