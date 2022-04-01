@@ -55,3 +55,9 @@
         }
     }
 }
+
+@media (max-width: 1079px) {
+    .k-dropzone .k-dropzone-hint {
+        display: none;
+    }
+}

@@ -49,8 +49,11 @@ const Filters = ({
     const [loading, setLoading] = useState(true);
     const [federations, setFederations] = useState([]);
     const [cities, setCities] = useState([]);
+    const [currentCities, setCurrentCities] = useState(cities);
     const [breeds, setBreeds] = useState([]);
     const [regions, setRegions] = useState([]);
+    const [currentCityIds, setCurrentCityIds] = useState([]);
+    const [isUserFiltered, setIsUserFiltered] = useState(false);
 
     const getBreeds = async () => {
         await Request({
@@ -128,11 +131,42 @@ const Filters = ({
             url: `${endpointGetClubsCities}?${region_ids.map(reg => `regionIds=${reg}`).join('&')}`
         }, data => {
             setCities(data);
+
+            isUserFiltered && goToLink(cities, currentCityIds);
         },error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
         }))();
+
     }, [region_ids]);
+
+    const handleChangeRegions = filter => {
+        setIsUserFiltered(true);
+        setFiltersToUrl({region_ids: filter});
+    };
+
+    const handleChangeCities = filter => {
+        setCurrentCityIds(filter);
+        setFiltersToUrl({city_ids: filter});
+    };
+
+    const goToLink = (cities, currentCityIds) => {
+        if(filtersValue.region_ids.length === 0) {
+            setFiltersToUrl({city_ids: []});
+        } else {
+            const newArr = [];
+            cities.map(item => item.value).forEach(item => {
+                currentCityIds.forEach(elem => {
+                        if(item === elem) {
+                            newArr.push(item);
+                        }
+                    })
+                });
+            setCurrentCityIds(newArr)
+            setFiltersToUrl({ city_ids: newArr});
+        }
+        setIsUserFiltered(false);
+    };
 
     return (
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
@@ -233,7 +267,8 @@ const Filters = ({
                                     <RegionsFilter
                                         regions={regions}
                                         region_ids={filtersValue.region_ids}
-                                        onChange={filter => setFiltersToUrl({region_ids: filter, city_ids: []})}
+                                        currentCities={currentCities}
+                                        onChange={filter => handleChangeRegions(filter)}
                                     />
                             }
                             {(organization_type === 3 || organization_type === 4) &&
@@ -241,7 +276,7 @@ const Filters = ({
                                     loading={loading}
                                     cities={cities}
                                     city_ids={city_ids}
-                                    onChange={filter => setFiltersToUrl({city_ids: filter})}
+                                    onChange={filter => handleChangeCities(filter)}
                                 />
                             }
                         </>

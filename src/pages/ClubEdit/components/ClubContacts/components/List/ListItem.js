@@ -11,6 +11,7 @@ const ClientClubContactListItem = ({
         type,
         clubContact,
         checkForDelete,
+        bindSubmitForm,
         updateClubContactSuccess,
         deleteClubContactSuccess,
 }) => {
@@ -38,6 +39,7 @@ const ClientClubContactListItem = ({
             onSuccess={onUpdateSuccess}
             method="PUT"
             initialValues={clubContact}
+            bindSubmitForm={bindSubmitForm}
         >
             <RenderFields isMaskedTel={type === "phone"} />
                 <div className="ClientClubListItem__controls">

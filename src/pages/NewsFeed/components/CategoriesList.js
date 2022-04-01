@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from 'components/Card';
 import { categories } from '../config';
+import { Request } from "../../../utils/request";
 
-const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead, setShowFilters, categoriesCounters}) => {
+const CategoriesList = ({
+                            activeCategoryId,
+                            setActiveCategoryId,
+                            setShowMustRead,
+                            setShowFilters,
+                            countersChanges,
+                            setCountersChanges,
+}) => {
     const isActive = (value) => activeCategoryId === value ? "news-feed__category-item active" : "news-feed__category-item";
+    const [categoriesCounters, setCategoriesCounters] = useState(0);
+
+    useEffect(() => {
+        getCategoriesCounters();
+    }, [countersChanges]);
+
+    const getCategoriesCounters = async () => {
+        await Request({
+            url: '/api/article/articles_feed_counters',
+        }, data => {
+            setCategoriesCounters(data);
+            countersChanges && setCountersChanges(false);
+        }, error => {
+            console.log(error.response);
+        });
+    };
 
     const handleCategoryClick = (id) => {
         setActiveCategoryId(id);
@@ -46,8 +70,11 @@ const CategoriesList = ({ activeCategoryId, setActiveCategoryId, setShowMustRead
                         onClick={() => handleCategoryClick(id)}
                         className={isActive(id)}
                         key={key} >
-                            <span className={icon} />
-                            <span>{name}</span>
+                            <div>
+                                <span className={icon} />
+                                <span>{name}</span>
+                            </div>
+
                             {count > 0 &&
                                 <span className="news-feed__category-item-count">
                                     {count}

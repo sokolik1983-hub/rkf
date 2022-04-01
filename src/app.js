@@ -37,7 +37,7 @@ const Application = () => {
             document.body.append(yMetrika);
 
             //Google аналитика
-            const gAnalyticsSrc = document.createElement('script');
+            /*const gAnalyticsSrc = document.createElement('script');
             gAnalyticsSrc.src = 'https://www.googletagmanager.com/gtag/js?id=UA-152896404-5';
             document.body.append(gAnalyticsSrc);
 
@@ -48,7 +48,7 @@ const Application = () => {
               gtag('js', new Date());
               gtag('config', 'UA-152896404-5');
             `;
-            document.body.append(gAnalytics);
+            document.body.append(gAnalytics);*/
         }
     }, []);
 

@@ -3,7 +3,7 @@
   text-align: center;
   color: #979797;
   font-size: 13px;
-  @media (max-width: 1080px) {
+  @media (max-width: 1079px) {
     z-index: 99;
     width: 50px;
     height: 50px;
@@ -21,7 +21,7 @@
     align-items: center;
     color: #979797;
     font-size: 13px;
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       &.more-btn {
         padding: 0;
         display: flex;
@@ -47,7 +47,7 @@
     }
   }
   &__inner {
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       padding: 10px;
       background-color: #fff;
       position: absolute;
@@ -117,13 +117,13 @@
   &__list {
     list-style: none;
     text-align: start;
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       z-index: 2;
       width: 240px;
       border-top: 1px solid #e8e8e8;
       padding-top: 7px;
     }
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       width: 100%;
       max-width: 476px;
       right: 16px;
@@ -139,10 +139,10 @@
     position: relative;
     &:not(:last-child) {
       margin-bottom: 16px;
-      @media (max-width: 1080px) {
+      @media (max-width: 1079px) {
         margin-bottom: 30px;
       }
-      @media (max-width: 1080px) {
+      @media (max-width: 1079px) {
         margin-bottom: 20px;
       }
     }

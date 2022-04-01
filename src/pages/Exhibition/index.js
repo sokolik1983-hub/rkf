@@ -255,6 +255,8 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                     reportsDateEnd={reportsDateEnd}
                                     {...exhibition}
                                     comments={comments}
+                                    canEdit={canEdit}
+                                    exhibitionId={exhibitionId}
                                 />
                                 <Card className="exhibition-page__address">
                                     <div className="exhibition-page__address-left">

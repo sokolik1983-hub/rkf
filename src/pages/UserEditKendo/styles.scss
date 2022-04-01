@@ -7,7 +7,7 @@
     }
     display: flex;
     justify-content: space-between;
-    @media (max-width: 560px) {
+    @media (max-width: 720px) {
         display: block;
     }
     &__wrap {
@@ -17,7 +17,7 @@
     }
     &__right {
         width: 100%;
-        @media (max-width: 560px) {
+        @media (max-width: 720px) {
             width: 100% !important;
             margin-top: 0;
             padding-bottom: 1px;
@@ -32,7 +32,7 @@
         width: 300px;
         min-width: 300px;
         margin: 0 16px 16px 0;
-        @media (max-width: 1024px) {
+        @media (max-width: 1079px) {
             display: none !important;
             width: 100%;
             min-width: auto;
@@ -48,7 +48,7 @@
     }
     &__inner {
         display: flex;
-        @media (max-width: 560px) {
+        @media (max-width: 720px) {
             flex-direction: column-reverse;
         }
         &-item {
@@ -89,11 +89,14 @@
             }
             .k-form {
                 max-width: none !important;
+                .k-form-legend {
+                    padding-bottom: 5px;
+                }
             }
         }
         &-right {
             flex-grow: 1;
-            @media (max-width: 560px) {
+            @media (max-width: 720px) {
                 position: fixed;
                 width: 100%;
                 top: 62px;
@@ -139,13 +142,14 @@
             font-weight: normal;
         }
 
-        @media (max-width: 560px) {
+        @media (max-width: 720px) {
             padding: 16px;
         }
-        @media (min-width: 560px){
+        @media (min-width: 720px){
             .UserEdit__profile-label {
                 display: block !important;
                 margin-top: 3px;
+                padding-bottom: 5px;
                 font-size: 18px;
                 color: #030404;
                 border-bottom: 1px solid #E5E5E5;
@@ -160,7 +164,7 @@
     .k-notification-group {
         right: 8px;
         bottom: 55px;
-        @media (max-width: 560px) {
+        @media (max-width: 720px) {
             left: 5px;
             right: 5px;
             top: 48px;
@@ -188,7 +192,7 @@
         border-radius: 50%;
     }
     .k-radio {
-        @media (max-width: 560px) {
+        @media (max-width: 720px) {
             &[aria-checked="true"] {
                 background-color: #007bff;
                 &:before {
@@ -200,7 +204,8 @@
         }
     }
     &__inner-right .Card {
-        .UserEdit__inner-item.active {
+        .UserEdit__inner-item.active,
+        .UserEdit__inner-item:hover {
             .k-i-information::before {
                 content: url('/static/icons/information2-blue.svg');
             }
@@ -244,7 +249,7 @@
         font-size: 12.5px;
         content: "Разделы";
     }
-    @media (min-width: 560px){
+    @media (min-width: 720px){
         display: none;
     }
 }
