@@ -56,7 +56,7 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                 {phones.length === index + 1 &&
                                     <Button
                                         className="triggerButton add-mini"
-                                        disabled={checkForPhones() ? true : false}
+                                        disabled={checkForPhones()}
                                         onClick={() => {
                                             arrayHelpers.push({
                                                 id: null,
@@ -110,7 +110,7 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                 {emails.length === index + 1 &&
                                     <Button
                                         className="triggerButton add-mini"
-                                        disabled={checkForEmails() ? true : false}
+                                        disabled={checkForEmails()}
                                         onClick={() => arrayHelpers.push({
                                             id: null,
                                             value: '',
