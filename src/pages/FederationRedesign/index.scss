@@ -215,6 +215,21 @@
           }
         }
 
+        ._editable {
+          .user-header__container {
+            position: relative;
+
+            .Share {
+              position: relative;
+              top: 8px;
+            }
+          }
+
+          .user-header__user-wrap {
+            top: 62px;
+          }
+        }
+
         .user-info__logo {
           width: 80px;
           min-width: 80px;
