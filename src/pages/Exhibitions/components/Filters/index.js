@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import StickyBox from 'react-sticky-box';
 import Loading from '../../../../components/Loading';
-import UserHeader from '../../../../components/redesign/UserHeader';
 import BreedsFilter from '../../../../components/Filters/BreedsFilter';
 import RegionsFilter from '../../../../components/Filters/RegionsFilter';
 import RanksFilter from '../../../../components/Filters/RanksFilter';
@@ -12,7 +11,7 @@ import PaymentFormFilter from '../../../../components/Filters/PaymentFormFilter'
 import CalendarFilter from '../../../../components/Filters/CalendarFilter';
 import { connectShowFilters } from '../../../../components/Layouts/connectors';
 import { setFiltersToUrl, getEmptyFilters } from '../../utils';
-import { isFederationAlias, setOverflow } from '../../../../utils';
+import { setOverflow } from '../../../../utils';
 import Card from '../../../../components/Card';
 import {PromiseRequest, Request} from '../../../../utils/request';
 import {
@@ -21,34 +20,23 @@ import {
 } from '../../config';
 import RangeCalendarExhibitions from '../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js';
 import CopyrightInfo from '../../../../components/CopyrightInfo';
-import { clubNav } from '../../../Club/config';
-import UserMenu from '../../../../components/Layouts/UserMenu';
-import MenuComponent from '../../../../components/MenuComponent';
 import { connectAuthVisible } from 'pages/Login/connectors';
 import useIsMobile from '../../../../utils/useIsMobile';
-import PhotoComponent from '../../../../components/PhotoComponent';
 import ls from 'local-storage';
 
 import './index.scss';
-
-
+import {endpointGetKennelBreeds, endpointGetNKPBreeds} from "../../../Organizations/config";
 
 const Filters = ({
         club,
-        logo,
         filters,
         setClub,
         clubName,
         profileId,
-        IsPopular,
-        active_member,
         isOpenFilters,
         isEducational,
-        federationName,
-        active_rkf_user,
         isAuthenticated,
         federationAlias,
-        notificationsLength
 }) => {
     const [ranks, setRanks] = useState([]);
     const [types, setTypes] = useState([]);
@@ -108,7 +96,9 @@ const Filters = ({
             setExhibitionCities(data[0].cities);
             setStartCities(data[0].cities);
             setRanks(data[0].ranks);
+            console.log('111111111111111111', data[0].ranks);
             setTypes(data[0].types);
+            console.log('222222222222222', data[0].types);
             setBreeds(data[0].breeds.filter(item => item.value !== 1));
             setRegionLabels(data[0].regions.filter(item => item.label !== 1));
             setLoading(false);
@@ -151,6 +141,29 @@ const Filters = ({
     const handleChangeCityFilter = (filter) => {
         setCurrentCityIds(filter);
         setFiltersToUrl({ CityIds: filter });
+    };
+
+    const handleChangeType = async (filter) => {
+        setFiltersToUrl({ TypeIds: filter });
+
+        let newFilterString = `${filter.map(tem => `TypeIds=${tem}`)}`.replace(/\,/g, '&');
+
+        console.log('newFilterString', newFilterString);
+
+        console.log('url', "api/exhibitions/Exhibition/filter?" + newFilterString)
+        await Request({
+            url: "api/exhibitions/Exhibition/filter?" + newFilterString
+        }, data => {
+            setRanks(data.ranks)
+            console.log('data', data);
+            // setBreeds(data.map(item => ({value: item.id, label: item.name})));
+        }, error => {
+            console.log(error.response);
+        });
+    };
+
+    const handleChangeRank = (filter) => {
+        setFiltersToUrl({ RankIds: filter });
     };
 
     useEffect(() => {
@@ -245,7 +258,7 @@ const Filters = ({
                             <TypeFilter
                                 types={types}
                                 type_ids={filters.TypeIds}
-                                onChange={filter => setFiltersToUrl({ TypeIds: filter })}
+                                onChange={filter => handleChangeType(filter)}
                                 is_club_link={clubName && filters.Alias}
                             />
                             }
@@ -258,7 +271,7 @@ const Filters = ({
                                 : <RanksFilter
                                     ranks={ranks}
                                     rank_ids={filters.RankIds}
-                                    onChange={filter => setFiltersToUrl({ RankIds: filter })}
+                                    onChange={filter => handleChangeRank(filter)}
                                     is_club_link={clubName && filters.Alias}
                                 />}
                             <CopyrightInfo withSocials={true} />
