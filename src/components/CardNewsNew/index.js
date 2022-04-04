@@ -250,7 +250,14 @@ const CardNewsNew = forwardRef(({
                         {
                             <p className="card-news-new__ad-city">
                                 <span>Место{cityLabel && ' ' + cityLabel}: </span>
-                                <span>{!is_all_cities && dog_city && (advert_type_id > 1) ? dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `) : 'Все города'}</span>
+                                <span>
+                                    {!is_all_cities && dog_city && (advert_type_id > 1)
+                                        ?
+                                        dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)
+                                        :
+                                        'Все города'
+                                    }
+                                </span>
                             </p>
                             }
                         {

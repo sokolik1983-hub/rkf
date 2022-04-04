@@ -392,13 +392,12 @@
 
     &-breed {
       margin: 15px 0!important;
-      span:first-child {
+      & span:first-child {
         color: #B9B9B9;
       }
     }
 
     &-breed {
-
       span:first-child {
         white-space: nowrap;
         overflow: hidden;
@@ -412,7 +411,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      p span:first-child {
+      & p span:first-child {
         color: #B9B9B9;
       }
     }
@@ -421,9 +420,13 @@
       color: red;
     }
 
-    &-city, &-age, &-sex, &-name, &-color {
+    &-city,
+    &-age,
+    &-sex,
+    &-name,
+    &-color {
       margin-bottom: 10px;
-      span:first-child {
+      & span:first-child {
         color: #B9B9B9;
       }
     }
