@@ -224,7 +224,7 @@ const CardNewsNew = forwardRef(({
                         {advert_type_name &&
                             <div className = "card-news-new__category-wrap">
                                 <div>
-                                    <span className="card-news-new__category-span">Категория: </span>
+                                    <span className="card-news-new__category-name">Категория: </span>
                                     <p className = "card-news-new__category-value">{advert_type_name}</p>
                                 </div>
                                 <span>№{advert_code}</span>
