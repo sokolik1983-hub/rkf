@@ -15,6 +15,7 @@ import {clubNav as clubNavDocs} from '../../../pages/Docs/config';
 import { kennelNav } from '../../../pages/Nursery/config';
 import {kennelNav as kennelNavDocs} from '../../../pages/NurseryDocuments/config';
 import {userNav as userNavDocs} from '../../../pages/UserDocuments/config.js';
+import MenuComponentNew from "../../MenuComponentNew";
 
 import './index.scss';
 
@@ -172,7 +173,7 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                             bottomStyle
                         >
                             <div className="user-nav__inner">
-                                <MenuComponentNew notificationsLength={notificationsLength} />
+                                <MenuComponentNew />
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
                                     <div className="user-nav__userpic">
