@@ -117,7 +117,7 @@ const BaseSearch = props => {
                                                 />
                                                 <UserMenu userNav={clubNav(clubData.club_alias)}/>
                                             </> :
-                                                nurseryData ?
+                                        nurseryData ?
                                             <>
                                                 <LeftMenu
                                                     setActiveSection={setActiveSection}
