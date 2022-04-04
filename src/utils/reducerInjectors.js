@@ -27,7 +27,6 @@ export function injectReducerFactory(store, isValid) {
 
 export default function getInjectors(store) {
   checkStore(store);
-
   return {
     injectReducer: injectReducerFactory(store, true),
   };

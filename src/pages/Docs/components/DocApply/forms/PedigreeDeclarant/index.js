@@ -11,6 +11,7 @@ import SubmitError from "../../components/SubmitError";
 const DeclarantFormFields = connect(({formik, update, options, alias, setRedirect, send, initial, Title}) => {
     const {doctypes, breeds, sexTypes, statuses, stampCodes} = options;
     const isNew = !initial.dog_name;
+
     return <>
 <Card>
 <Title/>

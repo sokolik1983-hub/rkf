@@ -30,20 +30,40 @@ import ExhibitionsFormNew from "./components/Exhibitions/ExhibitionsFormNew";
 import ExhibitionsRegistry from "./components/Exhibitions/ExhibitionsRegistry";
 import ExhibitionsCancellationForm from "./components/ExhibitionsCancellation/ExhibitionsCancellationForm";
 import ExhibitionsCancellationRegistry from "./components/ExhibitionsCancellation/ExhibitionsCancellationRegistry";
+
 import "./index.scss";
-
-
 
 const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const clubAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const clubName = ls.get('user_info') ? ls.get('user_info').name : '';
     const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     const isVisible = isAuthenticated && is_active_profile && match.params.route === clubAlias;
-    const isWithFilters = !!useRouteMatch('/:route/documents/replace-pedigree/registry');
+    const isWithFilters = !!useRouteMatch('/club/:route/documents/replace-pedigree/registry');
 
     return !isVisible
-        ? <PageNotFound />
-        : <Layout layoutWithFilters={isWithFilters}>
+        ?
+        <PageNotFound />
+        :
+        isWithFilters
+            ?
+            <Layout layoutWithFilters={isWithFilters}>
+                <div className="documents-page content">
+                    <Container className="documents-page__content">
+                        <TopComponent
+                            logo={clubLogo}
+                            name={clubName}
+                            canEdit={false}
+                            withShare={false}
+                        />
+                        <Switch>
+                            <Route exact={true} path='/club/:route/documents/replace-pedigree/registry' component={() =>
+                                <ReplaceRegistry alias={clubAlias} history={history} />}
+                            />
+                        </Switch>
+                    </Container>
+                </div>
+            </Layout>
+            :
             <div className="documents-page content">
                 <Container className="documents-page__content">
                     <TopComponent
@@ -72,10 +92,6 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             exact={true}
                             path='/club/:route/documents/application/registry'
                             component={() => <ApplicationRegistry history={history} />}
-                        />
-
-                        <Route exact={true} path='/club/:route/documents/replace-pedigree/registry' component={() =>
-                            <ReplaceRegistry alias={clubAlias} history={history} />}
                         />
                         <Route exact={true} path='/club/:route/documents/replace-pedigree/:reqtype/:action/:id' component={() =>
                             <ReplacePedigree alias={clubAlias} history={history} />}
@@ -375,7 +391,6 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                     </Switch>
                 </Container>
             </div>
-        </Layout>
 };
 
 export default React.memo(connectAuthVisible(Docs));
