@@ -1,4 +1,4 @@
-import React, {memo, useState, useEffect, useRef} from "react";
+import React, {memo, useState, useEffect} from "react";
 import StickyBox from "react-sticky-box";
 import {Link} from "react-router-dom";
 import ls from "local-storage";
