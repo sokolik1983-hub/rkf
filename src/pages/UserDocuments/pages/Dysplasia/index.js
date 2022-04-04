@@ -9,7 +9,7 @@ import FormUpload from '../../../../components/kendo/Form/FormUpload';
 import FormDatePicker from '../../../../components/kendo/Form/FormDatePicker';
 import FormTextArea from '../../../../components/kendo/Form/FormTextArea';
 import FormContactsCheckbox from '../../../../components/kendo/Form/FormContactsCheckbox';
-import DocumentLink from '../../components/DocumentLink';
+import DocumentLink from '../../../../components/DocumentLink';
 import {
     dateRequiredValidator,
     nameRequiredValidator,
@@ -23,7 +23,7 @@ import FooterFeedback from '../../../../components/Layouts/FooterFeedback';
 
 import './index.scss';
 
-
+const apiRequestRkfDocs = '/api/requests/dog_health_check_request/doghealthcheckdocument';
 const apiPrivacyEndpoint = '/api/requests/dog_health_check_request/ownerdoghealthcheckdysplasiarequest/personal_data_document';
 
 const DysplasiaForm = ({ alias, history, status, owner }) => {
@@ -232,21 +232,33 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                                                     <div className="dysplasia-form__file">
                                                         <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача</p>
-                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.veterinary_contract_document_id}
+                                                            endpoint={apiRequestRkfDocs}
+                                                        />
                                                     </div>
                                                     <div className="dysplasia-form__file">
                                                         <p className="k-label">Рентгенограмма</p>
-                                                        <DocumentLink docId={values.roentgenogram_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.roentgenogram_document_id}
+                                                            endpoint={apiRequestRkfDocs}
+                                                        />
                                                     </div>
                                                 </div>
-                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <div className="dysplasia-form__inner">
                                                     {values.pedigree_document_id && <div className="dysplasia-form__file" style={{ marginRight: '50px' }}>
                                                         <p className="k-label">Соглашение на обработку персональных данных</p>
-                                                        <DocumentLink docId={values.pedigree_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.pedigree_document_id}
+                                                            endpoint={apiRequestRkfDocs}
+                                                        />
                                                     </div>}
                                                     {values.personal_data_document_id && <div>
                                                         <p className="k-label">Родословная</p>
-                                                        <DocumentLink docId={values.personal_data_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.personal_data_document_id}
+                                                            endpoint={apiRequestRkfDocs}
+                                                        />
                                                     </div>}
                                                 </div>
                                             </div>
@@ -271,7 +283,10 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                     {values &&
                                                         values.veterinary_contract_document_id &&
                                                         !formRenderProps.valueGetter("veterinary_contract_document").length &&
-                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.veterinary_contract_document_id}
+                                                            endpoint={apiRequestRkfDocs}
+                                                        />
                                                     }
                                                     <DocLink
                                                         distinction="get_rkf_document"
@@ -297,7 +312,10 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                     {values &&
                                                         values.roentgenogram_document_id &&
                                                         !formRenderProps.valueGetter("roentgenogram_document").length &&
-                                                        <DocumentLink docId={values.roentgenogram_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.roentgenogram_document_id}
+                                                            endpoint={apiRequestRkfDocs}
+                                                        />
                                                     }
                                                     <DocLink
                                                         distinction="get_rkf_document"
@@ -375,7 +393,10 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                             {values &&
                                                 values.personal_data_document_id &&
                                                 !formRenderProps.valueGetter("personal_data_document").length &&
-                                                <DocumentLink docId={values.personal_data_document_id} />
+                                                <DocumentLink
+                                                    docId={values.personal_data_document_id}
+                                                    endpoint={apiRequestRkfDocs}
+                                                />
                                             }
                                             <DocLink
                                                 distinction="get_rkf_document"
@@ -402,7 +423,10 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                             {values &&
                                                 values.pedigree_document_id &&
                                                 !formRenderProps.valueGetter("pedigree_document").length &&
-                                                <DocumentLink docId={values.pedigree_document_id} />
+                                                <DocumentLink
+                                                    docId={values.pedigree_document_id}
+                                                    endpoint={apiRequestRkfDocs}
+                                                />
                                             }
                                             <DocLink
                                                 distinction="get_rkf_document"
@@ -423,7 +447,10 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                         {disableAllFields && values &&
                                             <div className="dysplasia-form__file">
                                                 <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
-                                                <DocumentLink docId={values.payment_document_id} />
+                                                <DocumentLink
+                                                    docId={values.payment_document_id}
+                                                    endpoint={apiRequestRkfDocs}
+                                                />
                                             </div>
                                         }
                                         {!disableAllFields &&
@@ -445,7 +472,10 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                 {values &&
                                                     values.payment_document_id &&
                                                     !formRenderProps.valueGetter("payment_document").length &&
-                                                    <DocumentLink docId={values.payment_document_id} />
+                                                    <DocumentLink
+                                                        docId={values.payment_document_id}
+                                                        endpoint={apiRequestRkfDocs}
+                                                    />
                                                 }
                                                 <DocLink
                                                     distinction="get_rkf_document"
