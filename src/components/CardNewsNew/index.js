@@ -231,31 +231,49 @@ const CardNewsNew = forwardRef(({
                             </div>}
                         {
                                 <p className="card-news-new__ad-breed">
-                                    <span>{is_halfbreed ? "Метис" : `Порода: ${advert_breed_name}`}</span>
+                                    <span>Порода:&nbsp;</span>
+                                    <span>{!is_halfbreed ? advert_breed_name : 'Метис'}</span>
                                 </p>
                         }
                         {
-                            dog_color && <div className="card-news-new__ad-color">Окрас: {dog_color}</div>
+                            dog_color && <p className="card-news-new__ad-color">
+                                <span>Окрас:&nbsp;</span>
+                                <span>{dog_color}</span>
+                            </p>
                         }
                         {
-                            dog_name && <div className="card-news-new__ad-name">Кличка собаки: {dog_name}</div>
+                            dog_name && <p className="card-news-new__ad-name">
+                                <span>Кличка собаки:&nbsp;</span>
+                                <span>{dog_name}</span>
+                            </p>
                         }
                         {
-                            !is_all_cities && dog_city && (advert_type_id > 1)
-                                ?
-                                <div className="card-news-new__ad-city">Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
-                                :
-                                <div className="card-news-new__ad-city">Все города</div>
+                            <p className="card-news-new__ad-city">
+                                <span>Место {cityLabel}:&nbsp;</span>
+                                <span>{!is_all_cities && dog_city && (advert_type_id > 1) ? dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `) : 'Все города'}</span>
+                            </p>
+                            }
+                        {
+                            dog_age && <p className="card-news-new__ad-age">
+                                <span>Возраст {(advert_type_id === 5) && '(примерный)'}:&nbsp;</span>
+                                <span>{dog_age}</span>
+                            </p>
                         }
                         {
-                            dog_age && <div className="card-news-new__ad-age">Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
-                        }
-                        {
-                            dog_sex_type_id && <div className="card-news-new__ad-sex">Пол: {dog_sex_type_id}</div>
+                            dog_sex_type_id && <p className="card-news-new__ad-sex">
+                                <span>Пол:&nbsp;</span>
+                                <span>{dog_sex_type_id}</span>
+                            </p>
                         }
                         { (advert_type_id < 4) &&<div className="card-news-new__ad-price">
-                            <div>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'} </div>
-                            <div>Кол-во щенков: {advert_number_of_puppies} </div>
+                            <p>
+                                <span>Стоимость:&nbsp;</span>
+                                <span>{advert_cost ? `${advert_cost} руб.` : '-'}</span>
+                            </p>
+                            <p>
+                                <span>Кол-во щенков:&nbsp;</span>
+                                <span>{advert_number_of_puppies}</span>
+                            </p>
                             {is_closed_advert && <div className="card-news-new__ad-inactive" >Объявление не активно</div>}
                         </div>}
                     </div>}

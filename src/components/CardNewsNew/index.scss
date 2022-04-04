@@ -383,7 +383,6 @@
     word-wrap: break-word;
     transition: height 0.2s linear;
 
-    &-breed,
     &-price {
       margin-bottom: 10px !important;
       display: flex;
@@ -393,6 +392,9 @@
 
     &-breed {
       margin: 15px 0!important;
+      span:first-child {
+        color: #B9B9B9;
+      }
     }
 
     &-breed {
@@ -410,6 +412,9 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      p span:first-child {
+        color: #B9B9B9;
+      }
     }
 
     &-inactive {
@@ -418,6 +423,9 @@
 
     &-city, &-age, &-sex, &-name, &-color {
       margin-bottom: 10px;
+      span:first-child {
+        color: #B9B9B9;
+      }
     }
   }
 
@@ -664,6 +672,10 @@
     &-value {
       width: fit-content;
       font-weight: 600;
+    }
+
+    &-span {
+      color: #B9B9B9;
     }
   }
 }
