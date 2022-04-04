@@ -1,9 +1,11 @@
 import React, {memo, useState, useEffect} from "react";
 import StickyBox from "react-sticky-box";
 import {Link} from "react-router-dom";
+import ls from "local-storage";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import CheckStatus from "../Club/components/CheckStatus";
+import CheckLitterStatus from "../Club/components/CheckLitterStatus";
 import CheckRegistration from "./components/CheckRegistration"
 import FoundInfo from "./components/FoundInfo";
 import Aside from "../../components/Layouts/Aside";
@@ -31,6 +33,7 @@ import "./index.scss";
 
 const BaseSearch = props => {
     const {
+        isAuthenticated,
         isOpenFilters,
         setShowFilters,
     } = props;
@@ -39,6 +42,7 @@ const BaseSearch = props => {
     const [nurseryData, setNurseryData] = useState(null);
     const [activeSection, setActiveSection] = useState(0);
     const isMobile = useIsMobile(1080);
+    const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
 
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
@@ -82,13 +86,14 @@ const BaseSearch = props => {
                     }
                     <div className="base-search__content-wrap">
                         <div className="base-search__content">
-                            {
-                                activeSection === 0 ? <FoundInfo /> :
-                                activeSection === 1 ? <CheckStatus /> :
-                                activeSection === 2 ? <CheckRegistration /> :
-                                activeSection === 3 ? <StampSearch /> :
-                                activeSection === 4 && <PublicationSearch />
+                            <FoundInfo />
+                            <CheckStatus />
+                            <CheckRegistration />
+                            <StampSearch />
+                            {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
+                                <CheckLitterStatus />
                             }
+                            <PublicationSearch />
                         </div>
                         <div className={`left-menu__inner-right hide${isOpenFilters ? ` _open` : ``}`}>
                             <LeftMenu
@@ -100,29 +105,47 @@ const BaseSearch = props => {
                         </div>
                         {!isMobile &&
                             <Aside className="base-search__info">
-                                <StickyBox offsetTop={60}>
+                                <StickyBox offsetTop={76}>
                                     <div className="base-search__info-inner">
                                         {!isMobile && clubData ?
-                                            <UserMenu userNav={clubNav(clubData.club_alias)}/> :
-                                            nurseryData ?
-                                                <UserMenu userNav={kennelNav(nurseryData.alias)}/> :
-                                                <>
+                                            <>
+                                                <LeftMenu
+                                                    setActiveSection={setActiveSection}
+                                                    activeSection={activeSection}
+                                                    showFilter={isOpenFilters}
+                                                    setShowFilters={setShowFilters}
+                                                />
+                                                <UserMenu userNav={clubNav(clubData.club_alias)}/>
+                                            </> :
+                                                nurseryData ?
+                                            <>
+                                                <LeftMenu
+                                                    setActiveSection={setActiveSection}
+                                                    activeSection={activeSection}
+                                                    showFilter={isOpenFilters}
+                                                    setShowFilters={setShowFilters}
+                                                />
+                                                <UserMenu userNav={kennelNav(nurseryData.alias)}/>
+                                            </> :
+                                            <>
+                                                <StickyBox offsetTop={76}>
                                                     <LeftMenu
                                                         setActiveSection={setActiveSection}
                                                         activeSection={activeSection}
                                                         showFilter={isOpenFilters}
                                                         setShowFilters={setShowFilters}
                                                     />
-                                                    <Statistics/>
-                                                    <Banner type={11}/>
-                                                    <Card className="base-search__map-wrap">
-                                                        <h3><Link className="base-search__map-title" to="/clubs-map">Карта
-                                                            авторизованных клубов</Link></h3>
-                                                        <div className="base-search__map">
-                                                            <ClubsMap/>
-                                                        </div>
-                                                    </Card>
-                                                </>
+                                                </StickyBox>
+                                                <Statistics/>
+                                                <Banner type={11}/>
+                                                <Card className="base-search__map-wrap">
+                                                    <h3><Link className="base-search__map-title" to="/clubs-map">Карта
+                                                        авторизованных клубов</Link></h3>
+                                                    <div className="base-search__map">
+                                                        <ClubsMap/>
+                                                    </div>
+                                                </Card>
+                                            </>
                                         }
                                         <CopyrightInfo withSocials={true}/>
                                     </div>
