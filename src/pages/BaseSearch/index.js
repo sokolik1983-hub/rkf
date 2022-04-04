@@ -27,7 +27,6 @@ import {connectShowFilters} from "../../components/Layouts/connectors";
 import ClickGuard from "../../components/ClickGuard";
 
 import "./index.scss";
-import MenuComponentNew from "../../components/MenuComponentNew";
 
 
 const BaseSearch = props => {
@@ -85,10 +84,10 @@ const BaseSearch = props => {
                         <div className="base-search__content">
                             {
                                 activeSection === 0 ? <FoundInfo /> :
-                                activeSection === 1 ? <CheckStatus /> :
-                                activeSection === 2 ? <CheckRegistration /> :
-                                activeSection === 3 ? <StampSearch /> :
-                                activeSection === 4 && <PublicationSearch />
+                                    activeSection === 1 ? <CheckStatus /> :
+                                        activeSection === 2 ? <CheckRegistration /> :
+                                            activeSection === 3 ? <StampSearch /> :
+                                                activeSection === 4 && <PublicationSearch />
                             }
                         </div>
                         <div className={`left-menu__inner-right hide${isOpenFilters ? ` _open` : ``}`}>
@@ -130,36 +129,10 @@ const BaseSearch = props => {
                                 </StickyBox>
                             </Aside>
                         }
-                        {!isMobile && <Aside className="base-search__info">
-                            <StickyBox offsetTop={60}>
-                                <div className="base-search__info-inner">
-                                    {!isMobile && clubData ?
-                                        <>
-                                            2222222222222222222
-                                            <MenuComponentNew isDocsPage userNav={clubNav(clubData.club_alias)}/>
-                                        </> :
-                                        nurseryData ?
-                                            <MenuComponentNew isDocsPage userNav={kennelNav(nurseryData.alias)}/> :
-                                            <>
-                                                <Statistics/>
-                                                <Banner type={11}/>
-                                                <Card className="base-search__map-wrap">
-                                                    <h3><Link className="base-search__map-title" to="/clubs-map">Карта
-                                                        авторизованных клубов</Link></h3>
-                                                    <div className="base-search__map">
-                                                        <ClubsMap/>
-                                                    </div>
-                                                </Card>
-                                            </>
-                                    }
-                                    <CopyrightInfo withSocials={true}/>
-                                </div>
-                            </StickyBox>
-                        </Aside>}
                     </div>
                 </Container>
             </div>
         </Layout>
     )
 };
-export default memo(connectAuthVisible(BaseSearch));
+export default memo(connectShowFilters(connectAuthVisible(BaseSearch)));
