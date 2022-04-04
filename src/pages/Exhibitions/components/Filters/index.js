@@ -39,7 +39,9 @@ const Filters = ({
         federationAlias,
 }) => {
     const [ranks, setRanks] = useState([]);
+    const [currentRanks, setCurrentRanks] = useState([]);
     const [types, setTypes] = useState([]);
+    const [currentTypes, setCurrentTypes] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [breeds, setBreeds] = useState([]);
     const [regionLabels, setRegionLabels] = useState([]);
@@ -96,9 +98,7 @@ const Filters = ({
             setExhibitionCities(data[0].cities);
             setStartCities(data[0].cities);
             setRanks(data[0].ranks);
-            console.log('111111111111111111', data[0].ranks);
             setTypes(data[0].types);
-            console.log('222222222222222', data[0].types);
             setBreeds(data[0].breeds.filter(item => item.value !== 1));
             setRegionLabels(data[0].regions.filter(item => item.label !== 1));
             setLoading(false);
@@ -145,24 +145,21 @@ const Filters = ({
 
     const handleChangeType = async (filter) => {
         setFiltersToUrl({ TypeIds: filter });
+        setCurrentTypes(filter);
 
         let newFilterString = `${filter.map(tem => `TypeIds=${tem}`)}`.replace(/\,/g, '&');
 
-        console.log('newFilterString', newFilterString);
-
-        console.log('url', "api/exhibitions/Exhibition/filter?" + newFilterString)
         await Request({
             url: "api/exhibitions/Exhibition/filter?" + newFilterString
         }, data => {
             setRanks(data.ranks)
-            console.log('data', data);
-            // setBreeds(data.map(item => ({value: item.id, label: item.name})));
         }, error => {
             console.log(error.response);
         });
     };
 
     const handleChangeRank = (filter) => {
+        setCurrentRanks(filter);
         setFiltersToUrl({ RankIds: filter });
     };
 
@@ -175,6 +172,7 @@ const Filters = ({
             getFedInfo(url);
         }
     }, []);
+
     useEffect(() => {
         if(currentExhibRegions && currentExhibRegions.length > 0){
             (() => Request({
@@ -190,6 +188,24 @@ const Filters = ({
             goToLink(startCities, currentCityIds);
         }
     }, [currentExhibRegions]);
+
+    useEffect(() => {
+        if(currentTypes && !!currentTypes.length) {
+            const newArr = [];
+            ranks.map(item => item.value).forEach(item => {
+                currentRanks.forEach(elem => {
+                    if(item === elem) {
+                        newArr.push(item);
+                    }
+                })
+            });
+            setCurrentRanks(newArr);
+            setFiltersToUrl({ RankIds: newArr});
+        } else {
+            setCurrentRanks([]);
+            setFiltersToUrl({ RankIds: [] });
+        }
+    }, [currentTypes, ranks]);
 
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
