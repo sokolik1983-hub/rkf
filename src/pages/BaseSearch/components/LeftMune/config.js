@@ -6,42 +6,36 @@ export const sections = {
         id: 0,
         icon: 'icon-found_info',
         to: 'found-info-anchor',
-        offset: -190
     },
     checkStatus: {
         name: 'Статус документов',
         id: 1,
         icon: 'icon-check_status',
         to: 'check-status-anchor',
-        offset: -190
     },
     checkRegistration: {
         name: 'Регистрационные данные собаки',
         id: 2,
         icon: 'icon-check_registration',
         to: 'check-registration-anchor',
-        offset: -190
     },
     stampSearch: {
         name: 'Поиск клуба/питомника по клейму',
         id: 3,
         icon: 'icon-stamp_search',
         to: 'stamp-search-anchor',
-        offset: -190
     },
     checkLitterStatus: {
         name: 'Информация о пометах',
         id: 4,
         icon: 'icon-checkLitterStatus',
         to: 'check-status__letter',
-        offset: -190
     },
     publicationSearch: {
         name: 'Поиск по объявлениям',
         id: 5,
         icon: 'icon-publication_search',
         to: 'publication-search-anchor',
-        offset: -190
     }
 }
 
