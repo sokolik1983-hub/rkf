@@ -6,7 +6,7 @@ import './index.scss';
 const Share = ({ url, className }) => {
 
   return <div className={`Share ${url ? 'has-url' : ''} ${className}`}><YandexShare
-    theme={{ lang: 'ru', services: 'vkontakte,facebook,odnoklassniki,viber,whatsapp,telegram', limit: 0 , popupPosition: 'outer', popupDirection: 'auto'}}
+    theme={{ lang: 'ru', services: 'vkontakte,odnoklassniki,viber,whatsapp,telegram', limit: 0 , popupPosition: 'outer', popupDirection: 'auto'}}
     content={{ url: url || window.location.href }}
   /></div>;
 }

@@ -45,6 +45,7 @@ const ClientContactList = props => {
                         key={id}
                         id={id}
                         type={contactType.type}
+                        bindSubmitForm={bindSubmitForm}
                     />
                 ))}
             </div>

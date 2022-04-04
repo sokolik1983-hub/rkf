@@ -170,7 +170,7 @@ const NurseryEdit = ({
         ? <Loading/>
         : error ?
             <Redirect to="404"/> :
-            <Layout withFilters setNotificationsLength={setNotificationsLength}>
+            <Layout layoutWithFilters setNotificationsLength={setNotificationsLength}>
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
                 <div className="nursery-edit__wrap">
                     <Container className="nursery-edit content">

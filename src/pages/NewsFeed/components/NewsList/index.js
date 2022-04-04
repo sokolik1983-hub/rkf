@@ -7,11 +7,18 @@ import NewsFeedItem from "../NewsFeedItem";
 import {Request} from "../../../../utils/request";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import ControlMenu from "../ControlMenu";
+import Alert from "../../../../components/Alert";
 
 import "./styles.scss";
 
 
-const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
+const NewsList = ({
+                      canEdit,
+                      activeCategoryId,
+                      notifySuccess,
+                      notifyError,
+                      setCountersChanges,
+}) => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
@@ -24,6 +31,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
     const [clearChecks, setClearChecks] = useState(false);
     const [isUnreadMessages, setIsUnreadMessages] = useState(false);
     const [isUpdateWithAllChecks, setIsUpdateWithAllChecks] = useState(false);
+    const [zipMessage, setZipMessage] = useState('');
 
     const allItemsIds = [];
     news.map(n => allItemsIds.push(n.id));
@@ -36,6 +44,7 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
         setClearChecks(false);
         setIsUnreadMessages(false);
         setIsUpdateWithAllChecks(false);
+        setZipMessage('');
 
         setStartElement(1);
         (() => getNews(1, true))();
@@ -209,6 +218,8 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                     unsetAllChecks={unsetAllChecks}
                     startElement={startElement}
                     isUpdateWithAllChecks={isUpdateWithAllChecks}
+                    setZipMessage={setZipMessage}
+                    setCountersChanges={setCountersChanges}
                 />
 
                 <InfiniteScroll
@@ -246,6 +257,15 @@ const NewsList = ({canEdit, activeCategoryId, notifySuccess, notifyError}) => {
                     </div>
 
                 </InfiniteScroll>
+
+                {zipMessage &&
+                    <Alert
+                        text={zipMessage}
+                        autoclose={2}
+                        onOk={() => setZipMessage('')}
+                    />
+                }
+
             </>
             : <Card>
                 <div className="news-list__no-news">

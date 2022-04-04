@@ -51,7 +51,13 @@
         }
         
         .k-list-scroller .k-item {
-        padding: 5px;
+            padding: 5px;
         }
+    }
+}
+
+@media (max-width: 1079px) {
+    .k-dropzone .k-dropzone-hint {
+        display: none;
     }
 }

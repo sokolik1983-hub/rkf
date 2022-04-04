@@ -21,6 +21,7 @@ const apiPedigreeEverk = '/api/requests/NurseryPedigreeRequest/everk_dog_info';
 const apiLitterEverk = '/api/requests/NurseryLitterRequest/everk_breeder_info';
 const apiStampCodesEndpoint = '/api/nurseries/NurseryStampCode/nursery';
 const apiNurseryDeclarantsEndpoint = '/api/nurseries/NurseryDeclarant/nursery_declarants';
+const apiGetRkfDocuments = '/api/requests/get_rkf_document/getrkfdocumentrequestdocument';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -372,7 +373,8 @@ export {
     apiLitterEverk,
     apiPedigreeStatusesEndpoint,
     apiStampCodesEndpoint,
-    apiNurseryDeclarantsEndpoint
+    apiNurseryDeclarantsEndpoint,
+    apiGetRkfDocuments,
 };
 
 export const kennelNav = alias => [

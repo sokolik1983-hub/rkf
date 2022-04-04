@@ -11,10 +11,11 @@ import Alert from "../../components/Alert";
 import { Request } from "../../utils/request";
 import { editForm, defaultValues } from './config';
 import removeNulls from "utils/removeNulls";
+import {connectShowFilters} from "../../components/Layouts/connectors";
+
 import './styles.scss';
 
-
-const UserEdit = () => {
+const UserEdit = ({withFilters}) => {
     const [initialValues, setInitialValues] = useState(defaultValues);
     const [streetTypes, setStreetTypes] = useState([]);
     const [houseTypes, setHouseTypes] = useState([]);
@@ -145,4 +146,4 @@ const UserEdit = () => {
     )
 };
 
-export default React.memo(UserEdit);
+export default React.memo(connectShowFilters(UserEdit));

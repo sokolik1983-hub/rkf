@@ -15,7 +15,7 @@
   }
 }
 
-.ArticleCreateForm {
+.article-create-form {
   position: relative;
 
   textarea {
@@ -84,10 +84,8 @@
         height: auto !important;
       }
 
-      @media (max-width: 750px) {
-        width: 100%;
+      @media (max-width: 400px) {
         font-size: 14px;
-        padding: 7px 7px 7px 5px;
       }
     }
 
@@ -368,7 +366,7 @@
         }
       }
     }
-    .ArticleCreateForm {
+    .article-create-form {
       &__input-sex {
         grid-area: sex2;
         & .FormInput__input {
@@ -709,7 +707,7 @@
   }
 }
 
-.ArticleCreateForm__advert-wrap~.ArticleCreateForm__button-wrap {
+.article-create-form__advert-wrap~.article-create-form__button-wrap {
   margin-top: 0;
 }
 

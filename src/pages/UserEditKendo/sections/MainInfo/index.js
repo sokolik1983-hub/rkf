@@ -1,13 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Prompt } from "react-router-dom";
-import { Form, Field, FormElement } from '@progress/kendo-react-form';
-import FormDatePicker from 'pages/UserEditKendo/components/FormDatePicker';
-import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
-import FormInput from 'pages/UserEditKendo/components/FormInput';
+import { Form, Field, FormElement } from "@progress/kendo-react-form";
 import { nameRequiredValidator, nameValidator } from "../../validators";
-import './styles.scss';
+import FormInput from "../../components/FormInput";
+import FormDatePicker from "../../components/FormDatePicker";
+import FormDropDownList from "../../components/FormDropDownList";
+import UploadDocsEditPage from "../../../../components/UploadDocsEditPage/UploadDocsEditPage";
 
-const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSubmit, formBusy }) => {
+import "./styles.scss";
+
+
+const MainInfo = ({
+        initialValues,
+        setFormModified,
+        visibilityStatuses,
+        handleSubmit,
+        formBusy,
+        alias,
+        history,
+        judgeInfo,
+}) => {
     const [formProps, setFormProps] = useState(null);
     const today = new Date();
 
@@ -34,19 +46,43 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                             <legend className="k-form-legend">Основная информация</legend>
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="first_name" name="first_name" label="Имя" component={FormInput} maxLength="100" validator={value => nameRequiredValidator(value, 100)} />
+                                    <Field
+                                        id="first_name"
+                                        name="first_name"
+                                        label="Имя"
+                                        component={FormInput}
+                                        maxLength="100"
+                                        validator={value => nameRequiredValidator(value, 100)}
+                                        disabled={!!judgeInfo?.length}
+                                    />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="last_name" name="last_name" label="Фамилия" component={FormInput} maxLength="100" validator={value => nameRequiredValidator(value, 100)} />
+                                    <Field
+                                        id="last_name"
+                                        name="last_name"
+                                        label="Фамилия"
+                                        component={FormInput}
+                                        maxLength="100"
+                                        validator={value => nameRequiredValidator(value, 100)}
+                                        disabled={!!judgeInfo?.length}
+                                    />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="second_name" name="second_name" label="Отчество" component={FormInput} maxLength="100" validator={value => nameValidator(value, 100)} />
+                                    <Field
+                                        id="second_name"
+                                        name="second_name"
+                                        label="Отчество"
+                                        component={FormInput}
+                                        maxLength="100"
+                                        validator={value => nameValidator(value, 100)}
+                                        disabled={!!judgeInfo?.length}
+                                    />
                                 </div>
                             </div>
 
@@ -60,6 +96,7 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                             min={new Date('1900')}
                                             max={today}
                                             component={FormDatePicker}
+                                            disabled={!!judgeInfo?.length}
                                         />
                                     </div>
                                     <div className="form-group col-md-6 no-label-field">
@@ -67,7 +104,7 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                             id="birth_date_visibility_status_id"
                                             name="birth_date_visibility_status_id"
                                             component={FormDropDownList}
-                                            data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
+                                            data={visibilityStatuses.map(status => ({ text: status.name, value: status.id }))}
                                         />
                                     </div>
                                 </div>
@@ -78,12 +115,21 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                             name="sex_type_id"
                                             label="Пол"
                                             component={FormDropDownList}
-                                            data={[{ text: 'Не выбран', value: '', id: null }, { text: 'Мужской', value: 1, id: 1 }, { text: 'Женский', value: 2, id: 2 },]}
+                                            data={[
+                                                { text: 'Не выбран', value: '', id: null },
+                                                { text: 'Мужской', value: 1, id: 1 },
+                                                { text: 'Женский', value: 2, id: 2 },
+                                            ]}
+                                            disabled={!!judgeInfo?.length}
                                         />
                                     </div>
                                 </div>
                             </section>
                         </fieldset>
+                        <UploadDocsEditPage
+                            clubAlias={alias}
+                            history={history}
+                        />
                         <div className="k-form-buttons text-center">
                             <button
                                 type="submit"

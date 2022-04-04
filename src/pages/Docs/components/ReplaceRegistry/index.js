@@ -62,8 +62,10 @@ const ReplaceRegistry = ({ isOpenFilters, setShowFilters }) => {
     }, [needUpdateTable]);
 
     return loading
-        ? <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <div className="club-documents-status__controls _replace_registry" style={{ top: '45px', right: '33px' }}>
+        ? <Loading /> : !standardView
+            ?
+            <Card className="club-documents-status__popup">
+            <div className="club-documents-status__controls _replace_registry non-standart-view">
                 {document_id && <button
                     className="club-documents-status__control club-documents-status__control--resetIcon"
                 >
@@ -97,16 +99,26 @@ const ReplaceRegistry = ({ isOpenFilters, setShowFilters }) => {
                 fullScreen
                 setNeedUpdateTable={setNeedUpdateTable}
             />
+                {errorReport &&
+                    <ReportError
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        id={errorReport}
+                        onErrorReport={id => setErrorReport(id)}
+                    />
+                }
         </Card>
             : <Card className="club-documents-status">
-                <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
+                <ClickGuard
+                    value={isOpenFilters}
+                    callback={() => setShowFilters({ isOpenFilters: false })}
+                />
                 <div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${alias}/documents`}>Личный кабинет</Link>
                 &nbsp;/&nbsp;
                 ЗАМЕНА РОДОСЛОВНОЙ
             </div>
                 {documents && !!documents.length
-                    ? <div style={{ position: 'relative' }}>
+                    ? <div className="club-documents-status__wrap">
                         <div className="club-documents-status__controls _replace_registry">
                             {document_id && <button
                                 className="club-documents-status__control club-documents-status__control--resetIcon"
@@ -122,9 +134,11 @@ const ReplaceRegistry = ({ isOpenFilters, setShowFilters }) => {
                             >
                                 Скачать PDF
                             </button>
-                            <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                            <button
+                                className="club-documents-status__control club-documents-status__control--tableIcon"
+                                onClick={() => setStandardView(false)}>
                                 Увеличить таблицу
-                        </button>
+                            </button>
                         </div>
                         <Table
                             documents={documents
@@ -144,7 +158,13 @@ const ReplaceRegistry = ({ isOpenFilters, setShowFilters }) => {
                         <h4 className="club-documents-status__text">Заявок не найдено</h4>
                         <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>}
-                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+                {errorReport &&
+                    <ReportError
+                        setNeedUpdateTable={setNeedUpdateTable}
+                        id={errorReport}
+                        onErrorReport={id => setErrorReport(id)}
+                    />
+                }
             </Card>
 };
 

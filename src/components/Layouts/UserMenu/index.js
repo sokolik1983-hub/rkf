@@ -1,33 +1,30 @@
-import React, {memo, useState, useRef, useEffect} from "react";
-import {CSSTransition} from "react-transition-group";
+import React, {memo, useState, useRef, useEffect} from 'react';
+import {CSSTransition} from 'react-transition-group';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import Alert from "../../Alert";
-import useIsMobile from "../../../utils/useIsMobile";
-import PopupModal from "../../PopupModal";
+import Alert from '../../Alert';
+import useIsMobile from '../../../utils/useIsMobile';
+import PopupModal from '../../PopupModal';
 import ls from 'local-storage';
-import {endpointGetClubInfo} from "../../../pages/Club/config";
-import {Request} from "../../../utils/request";
-import {endpointGetUserInfo} from "../UserLayout/config";
-import changeBackground from "../../../utils/changeBgInMobileMenu";
-import nameInMobileMenu from "../../../utils/nameInMobileMenu";
-import { clubNav } from "../../../pages/Club/config";
-import {clubNav as clubNavDocs} from "../../../pages/Docs/config";
-import { kennelNav } from "../../../pages/Nursery/config";
-import {kennelNav as kennelNavDocs} from "../../../pages/NurseryDocuments/config";
-import {userNav as userNavDocs} from "../../../pages/UserDocuments/config.js";
+import {endpointGetClubInfo} from '../../../pages/Club/config';
+import {Request} from '../../../utils/request';
+import {endpointGetUserInfo} from '../UserLayout/config';
+import changeBackground from '../../../utils/changeBgInMobileMenu';
+import nameInMobileMenu from '../../../utils/nameInMobileMenu';
+import { clubNav } from '../../../pages/Club/config';
+import {clubNav as clubNavDocs} from '../../../pages/Docs/config';
+import { kennelNav } from '../../../pages/Nursery/config';
+import {kennelNav as kennelNavDocs} from '../../../pages/NurseryDocuments/config';
+import {userNav as userNavDocs} from '../../../pages/UserDocuments/config.js';
 
-import "./index.scss";
-import MenuComponentNew from "../../MenuComponentNew";
+import './index.scss';
 
-
-
-
-const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMenu, openUserMenu, isDocsPage}) => {
+const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, refereePage}) => {
     const [alert, setAlert] = useState(false);
     const [clubInfo, setClubInfo] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
-    const [menuBackground, setMenuBackground] = useState(null)
-    const [nameInMenu, setNameInMenu] = useState(null)
+    const [menuBackground, setMenuBackground] = useState(null);
+    const [notificationCounter, setNotificationCounter] = useState(null);
+    const [nameInMenu, setNameInMenu] = useState(null);
     const [routes, setRoutes] = useState(userNav);
     const isMobile = useIsMobile(1080);
     const { user_type, alias, logo_link } = ls.get('user_info') || {};
@@ -40,6 +37,16 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
     const location = useLocation();
     let url =  location.pathname.split('/')[1];
     let orgAlias = location.pathname.split('/')[2];
+
+    const getNotifications = async () => {
+        await Request({
+            url: `/api/article/notifications`,
+        }, (data) => {
+            setNotificationCounter(data?.counters?.counter_of_new);
+        }, error => {
+            console.log(error)
+        });
+    };
 
     const backgroundForPage =(orgAlias, request) => { //Получаем алиас юзеров разных типов и образец запроса на сервер от разных юзеров.
            Request({
@@ -54,6 +61,10 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                 console.log(error.response);
             });
     };
+
+    useEffect(() => {
+        getNotifications()
+    }, []);
 
     useEffect(() => {
         changeBackground(user_type, backgroundForPage, alias, orgAlias, url);
@@ -133,7 +144,7 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
 
     return (
         <div
-            className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
+            className={`user-nav${isMobile ? '' : ' _desktop_card'} ${refereePage ? 'referee-page' : ''}`}
         >
                 {isMobile &&
                 <button onClick={() => setOpenUserMenu(!openUserMenu)}
@@ -188,10 +199,10 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                                         { navItem.icon }
                                                         <span>{ navItem.title }</span>
                                                     </NavLink>
-                                                    { navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                                    { navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
                                                     <span
-                                                        className={ `user-nav__item-notification${ notificationsLength > 99 ? ' _plus' : '' }` }>
-                                                { notificationsLength > 99 ? 99 : notificationsLength }
+                                                        className={ `user-nav__item-notification${ notificationCounter > 99 ? ' _plus' : '' }` }>
+                                                { notificationCounter > 99 ? 99 : notificationCounter }
                                             </span>
                                                     }
                                                 </li>
@@ -202,10 +213,10 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                     <ul className="user-nav__list">
                                     {clubNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                                                  key={navItem.id}>
-                                            {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                            {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
                                                 <span
-                                                    className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                                    className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
+                                    {notificationCounter > 99 ? 99 : notificationCounter}
                                 </span>
                                             }
                                             <NavLink
@@ -248,10 +259,10 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                                             {navItem.icon}
                                                             <span>{navItem.title}</span>
                                                         </NavLink>
-                                                        {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                                        {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
                                                             <span
-                                                                className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                                                className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
+                                    {notificationCounter > 99 ? 99 : notificationCounter}
                                 </span>
                                                         }
                                                     </li>
@@ -276,10 +287,10 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                                         {navItem.icon}
                                                         <span>{navItem.title}</span>
                                                     </NavLink>
-                                                    {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                                    {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
                                                         <span
-                                                            className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                                            className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
+                                    {notificationCounter > 99 ? 99 : notificationCounter}
                                 </span>
                                                     }
                                                 </li>
@@ -292,7 +303,6 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                         </PopupModal>
                         :
                         <ul className="user-nav__list">
-                            <MenuComponentNew userNav={userNav} />
                             {userNav.map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                 key={navItem.id}>
                                 <NavLink
@@ -311,10 +321,10 @@ const UserMenu = ({userNav, notificationsLength, isExhibitionPage, setOpenUserMe
                                     {navItem.icon}
                                     <span>{navItem.title}</span>
                                 </NavLink>
-                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength &&
+                                {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
                                 <span
-                                    className={`user-nav__item-notification${notificationsLength > 99 ? ' _plus' : ''}`}>
-                                    {notificationsLength > 99 ? 99 : notificationsLength}
+                                    className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
+                                    {notificationCounter > 99 ? 99 : notificationCounter}
                                 </span>
                                 }
                             </li>

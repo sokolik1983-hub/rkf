@@ -16,7 +16,7 @@
   }
 
   &__content {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     position: initial;
 
       @media (max-width: 560px) {
@@ -62,9 +62,8 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 15px;
     text-align: right;
-
+    margin: 0 10px 15px 10px;
     &-control {
       position: relative;
 
@@ -110,7 +109,9 @@
         text-align: left;
         cursor: pointer;
         padding: 0 10px;
-
+        a {
+          text-decoration: none;
+        }
         &:hover {
           background-color: #3366ff;
 
@@ -132,14 +133,14 @@
 
       &-btn {
         display: block;
+        width: 10px;
+        height: 20px;
+        margin-left: 10px;
+        margin-top: 2px;
+        padding: 0;
         border: none;
         background: url("/static/icons/chevron-down-light.svg") no-repeat center;
         background-size: contain;
-        padding: 0;
-        width: 10px;
-        height: 24px;
-        margin-left: 10px;
-        margin-top: 2px;
         transition: all 0.2s linear;
 
         &:hover {
@@ -181,7 +182,7 @@
 
         @media (max-width: 560px) {
           flex-direction: column;
-          }
+        }
     }
 
     &-mark {
@@ -208,8 +209,8 @@
     &-logo {
       display: flex;
       flex-shrink: 0;
-      width: 63px;
-      height: 63px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       margin: 0 10px 0 0;
     }
@@ -281,10 +282,6 @@
   &__right {
     display: flex;
 
-    @media (max-width: 560px) {
-      padding-top: 30px;
-     }
-
     .k-chip.k-chip-filled,
     .k-chip.k-chip-filled.k-chip-selected {
       height: 26px;
@@ -316,17 +313,13 @@
     &:before {
       content: "";
       position: absolute;
-      width: 17px;
-      height: 17px;
+      width: 13px;
+      height: 18px;
       left: 0;
       top: 1px;
       margin-right: 4px;
       background: url("/static/icons/ico-pointer2.svg") center no-repeat;
       background-size: contain;
-
-      @media (max-width: 560px) {
-        height: 16px;
-      }
     }
 
      &:hover {
@@ -337,19 +330,10 @@
          background-size: contain;
        }
      }
-
-    @media (max-width: 560px) {
-      display: block;
-      text-align: left;
-      font-size: 14px;
-      line-height: 22px;
-      padding-left: 18px;
-      margin-left: 0;
-    }
   }
 
   &__text-wrap {
-    max-height: 140px;
+    max-height: 130px;
     margin: 5px 10px 0;
     overflow: hidden;
 
@@ -442,7 +426,7 @@
     padding-bottom: 5px;
     padding-top: 5px;
     border-top: 1px solid #e5e5e5;
-    margin: 10px 0;
+    margin: 0 10px;
 
     &-list {
       list-style: none;
@@ -593,15 +577,25 @@
     }
   }
 
-  .DocumentItem {
+  &__show-all-wrap {
+    margin: 0 10px;
+  }
+
+  .document-item {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 
+    &__pdf {
+      width: 18px;
+      height: 22px;
+      margin-right: 10px;
+    }
+
     &__date {
       font-weight: normal;
-      font-size: 12px;
-      line-height: 15px;
+      font-size: 14px;
+      line-height: 1;
       color: #b9b9b9;
     }
 
@@ -622,17 +616,6 @@
 
       svg {
         fill: red !important;
-      }
-    }
-
-    .k-svg-i-file-pdf {
-      width: 22px;
-      height: 22px;
-      margin-right: 10px;
-      flex-shrink: 0;
-
-      svg {
-        fill: #3366ff !important;
       }
     }
 
@@ -674,6 +657,7 @@
 
       div {
         display: flex;
+        flex-wrap: wrap;
       }
     }
 

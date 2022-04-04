@@ -45,7 +45,7 @@ const ApplicationRegistry = ({ history }) => {
     }, [needUpdateTable]);
 
     return loading ? <Loading /> : !standardView ? <Card className="user-documents-status__popup">
-        <div className="user-documents-status__controls" style={{ position: 'relative', top: '43px' }}>
+        <div className="user-documents-status__controls">
             {document_id && <button
                 className="user-documents-status__control user-documents-status__control--resetIcon"
             >

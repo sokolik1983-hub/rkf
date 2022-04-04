@@ -67,7 +67,6 @@ const RenderFields = ({
                         working={working}
                         name_lat={name_lat}
                         web_site={web_site}
-                        documents={documents}
                         description={description}
                         co_owner_mail={co_owner_mail}
                         co_owner_last_name={co_owner_last_name}
@@ -95,7 +94,7 @@ const RenderFields = ({
                 }
             </div>
             <div className={`nursery-edit__inner-right${isOpenFilters ? " _open" : ""}`}>
-                <StickyBox offsetTop={60}>
+                <StickyBox offsetTop={0}>
                     <Card>
                         <span className="nursery-edit__profile-label">Профиль</span>
                         <ul className="nursery-edit__inner-list">

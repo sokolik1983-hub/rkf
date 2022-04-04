@@ -11,7 +11,9 @@ import { formatText } from 'utils';
 import { formatDateTime } from 'utils/datetime';
 import { DEFAULT_IMG } from 'appConfig';
 import CardFooter from '../CardFooter';
-import DocumentLink from './DocumentLink';
+import DocumentLink from "../../components/DocumentLink";
+import { endpointGetLinkNewsFeed } from "./config";
+
 import './index.scss';
 
 const CardNewsNew = forwardRef(({
@@ -103,9 +105,18 @@ const CardNewsNew = forwardRef(({
 
         return <>
             <div className="card-news-new__content">
-                <div className="card-news-new__head" style={{ margin: '0 10px 0 10px' }}>
+                <div className="card-news-new__head">
                     <div className="card-news-new__left">
-                        <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                        <Link to={user_type === 4
+                                    ?
+                                    `/kennel/${alias}`
+                                    :
+                                    user_type === 1
+                                        ?
+                                        `/user/${alias}`
+                                        :
+                                        `/${alias}`}
+                        >
                             <div className="card-news-new__left-logo" style={{
                                 background: `url(${logo_link ?
                                     logo_link :
@@ -188,7 +199,7 @@ const CardNewsNew = forwardRef(({
                                                 {!is_closed_advert &&
                                                     <li className="card-news-new__head-control-item"
                                                     >
-                                                        {isFederation ? <Link to={`/news/${id}`} style={{ textDecoration: 'none' }}>Подробнее...</Link> : <Link to={`${url}/edit`} style={{ textDecoration: 'none' }}>Редактировать</Link>}
+                                                        {isFederation ? <Link to={`/news/${id}`}>Подробнее...</Link> : <Link to={`${url}/edit`}>Редактировать</Link>}
                                                     </li>
                                                 }
                                                 {is_advert && !is_closed_advert &&
@@ -255,7 +266,7 @@ const CardNewsNew = forwardRef(({
                         />
                     }
                 </div>
-                <div className="card-news-new__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
+                <div className="card-news-new__show-all-wrap">
                     {
                         <div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}
                             onClick={() => canCollapse && setCollapsed(!collapsed)}>
@@ -289,13 +300,15 @@ const CardNewsNew = forwardRef(({
             </div>
             {
                 documents && !!documents.length &&
-                <div className="card-news-new__documents" style={{ margin: '0 10px 0 10px' }}>
+                <div className="card-news-new__documents">
                     <ul className="card-news-new__documents-list">
                         {documents.map(doc =>
-                            <li className="DocumentItem" key={doc.id}>
+                            <li className="document-item" key={doc.id}>
                                 <DocumentLink
                                     docId={doc.id}
                                     document={doc}
+                                    endpoint={endpointGetLinkNewsFeed}
+                                    CardNewsNew
                                 />
                             </li>
                         )}

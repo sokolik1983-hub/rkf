@@ -90,7 +90,7 @@ const BookformCard = ({url, distinction}) => {
     const handleClick = (e, isRKF, destination) => {
         e.preventDefault();
         if (!destination) {
-            let frameLink = 'http://zsdev.uep24.ru/widgets/registration-for-service?id=92';
+            let frameLink = 'https://zsstage.uep24.ru/widgets/registration-for-service?id=92';
 
             if(process.env.NODE_ENV === 'production') {
                 frameLink = isRKF ? RKF :

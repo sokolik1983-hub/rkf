@@ -6,26 +6,28 @@ const buildUrlParams = filters => {
     let params = '';
 
     Object.keys(filters).forEach(key => {
-        if(filters[key]) {
-            if(key === 'SearchTypeId') {
-                if(filters[key] > 0) {
+        if(key !== 'filteredCities') {
+            if(filters[key]) {
+                if(key === 'SearchTypeId') {
+                    if(filters[key] > 0) {
+                        params = params + `${key}=${filters[key]}&`;
+                    }
+                } else if(
+                    key === 'RegionIds' ||
+                    key === 'CityIds' ||
+                    key === 'BreedGroupIds' ||
+                    key === 'BreedIds' ||
+                    key === 'SpecializationIds' ||
+                    key === 'DisciplineIds' ||
+                    key === 'ContestIds'||
+                    key === 'RankId'
+                ) {
+                    if (filters[key].length) {
+                        params = params + filters[key].map(item => `${key}=${item}&`).join('');
+                    }
+                } else {
                     params = params + `${key}=${filters[key]}&`;
                 }
-            } else if(
-                key === 'RegionIds' ||
-                key === 'CityIds' ||
-                key === 'BreedGroupIds' ||
-                key === 'BreedIds' ||
-                key === 'SpecializationIds' ||
-                key === 'DisciplineIds' ||
-                key === 'ContestIds'||
-                key === 'RankIds'
-            ) {
-                if (filters[key].length) {
-                    params = params + filters[key].map(item => `${key}=${item}&`).join('');
-                }
-            } else {
-                params = params + `${key}=${filters[key]}&`;
             }
         }
     });
@@ -46,7 +48,7 @@ export const buildUrl = filters => {
 export const buildFiltersUrl = (filters, isFirstTime) => {
     return +filters.SearchTypeId === 4 ?
         `${endpointJudgesFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}${filters.BreedGroupIds.map(b => `&BreedGroupIds=${b}`).join('')}&ReturnStaticFilters=true&ReturnBreeds=true&ReturnCities=true` : //ReturnStaticFilters= должен использовать переменную "isFirstTime" сделали костыль, убрали оптимизацию запросов, нужно переделать
-        `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=${isFirstTime}${filters.RankIds.map(rank => `&RankIds=${rank}`).join('')}${filters.DisciplineIds.map(discipline => `&DisciplineIds=${discipline}`).join('')}`
+        `${endpointSpecialistsFilters}?SearchTypeId=${filters.SearchTypeId}${filters.RegionIds.map(reg => `&RegionIds=${reg}`).join('')}${filters.CityIds.map(city => `&CityIds=${city}`).join('')}&returnRegions=${isFirstTime}${filters.RankId.map(rank => `&RankIds=${rank}`).join('')}${filters.DisciplineIds.map(discipline => `&DisciplineIds=${discipline}`).join('')}`
 };
 
 export const getFiltersFromUrl = () => {
@@ -69,7 +71,7 @@ export const getFiltersFromUrl = () => {
                 key === 'SpecializationIds' ||
                 key === 'DisciplineIds' ||
                 key === 'ContestIds' ||
-                key === 'RankIds'
+                key === 'RankId'
             ) {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else if(key === 'SearchTypeId' || key === 'ClassificationId') {
@@ -88,6 +90,19 @@ export const getFiltersFromUrl = () => {
 };
 
 export const setFiltersToUrl = (filters, initial = false) => {
+
+    if(filters.filteredCities) {
+        const newArr = [];
+        filters.filteredCities.forEach(item => {
+            filters.CityIds.forEach(elem => {
+                if(item === elem) {
+                    newArr.push(item);
+                }
+            })
+        });
+        filters.CityIds = newArr;
+    }
+
     const newFilters = getFiltersFromUrl() ? { ...getFiltersFromUrl(), ...filters } : filters;
     const targetUrl = (`/specialists${buildUrlParams(newFilters)}`);
 
@@ -100,7 +115,7 @@ export const getEmptyFilters = () => ({
     CityIds: [],
     BreedGroupIds: [],
     BreedIds: [],
-    RankIds: [],
+    RankId: [],
     ClassificationId: 0,
     SpecializationIds: [],
     DisciplineIds: [],

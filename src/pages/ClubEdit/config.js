@@ -23,7 +23,7 @@ export const sections = {
         icon: 'icon-legal'
     },
     banks: {
-        name: 'Банковская информация',
+        name: 'Банковские реквизиты',
         id: 4,
         icon: 'icon-bank'
     },

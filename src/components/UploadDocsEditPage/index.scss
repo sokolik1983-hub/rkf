@@ -1,4 +1,5 @@
 .application-form {
+  padding-bottom: 15px;
   .document-item {
     & .row {
       padding: 0 10px!important;
@@ -12,7 +13,7 @@
     font-weight: normal;
     color: #030404;
     border-bottom: 1px solid #E5E5E5;
-    margin: 20px 0;
+    margin: 0 0 20px!important;
   }
   .k-svg-i-file-pdf {
     margin-right: 10px;
@@ -28,7 +29,7 @@
     border: 0;
     height: 30px;
     width: 30px;
-    background: url(/static/icons/icon-download.svg) no-repeat center;
+    background: url(/static/icons/icon-download.svg), url(/static/icons/icon-download-blue.svg) no-repeat center;
     position: relative;
     top: 4px;
   }

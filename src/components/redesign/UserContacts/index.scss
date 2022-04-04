@@ -2,6 +2,14 @@
   .user-contacts__info {
     margin-bottom: 24px;
 
+    &-email,
+    &-phone {
+      p {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+
     @media (max-width: 990px) {
       margin-top: 0;
     }
@@ -81,8 +89,11 @@
     &-phone,
     &-site,
     &-socials,
-    &-work-time {
+    &-work-time,
+    &-bank {
       position: relative;
+      display: flex;
+      flex-wrap: wrap;
       padding-left: 30px;
       margin-bottom: 6px;
       color: #61797c;
@@ -145,6 +156,9 @@
     }
 
     &-work-time {
+      display: flex;
+      flex-direction: column;
+
       span {
         font-weight: 400;
       }
@@ -180,6 +194,14 @@
     &-bank {
       margin-top: 36px;
 
+      &:before {
+        background-image: url("/static/icons/bank.svg");
+      }
+
+      & > span:last-child {
+        width: 100%;
+      }
+
       .club-page__info-details {
         color: #61797c;
         font-weight: 300;
@@ -209,15 +231,15 @@
 
     &-city {
       position: relative;
+      margin-left: 8px;
       padding-left: 22px;
+      overflow: hidden;
       font-weight: normal;
       font-size: 16px;
-      line-height: 24px;
+      line-height: 22px;
       letter-spacing: 0.2px;
       color: #72839c;
       white-space: nowrap;
-      margin-left: 8px;
-      overflow: hidden;
       text-overflow: ellipsis;
 
       &:before {
@@ -230,18 +252,9 @@
         background: url("/static/icons/ico-pointer2.svg") center no-repeat;
 
         @media (max-width: 560px) {
-          height: 16px;
+          height: 18px;
           background-size: contain;
         }
-      }
-
-      @media (max-width: 560px) {
-        display: block;
-        text-align: left;
-        font-size: 14px;
-        line-height: 22px;
-        padding-left: 18px;
-        margin-left: 0;
       }
     }
   }

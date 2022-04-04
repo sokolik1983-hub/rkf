@@ -9,11 +9,13 @@ import FormUpload from "../../../../components/kendo/Form/FormUpload";
 import FormDatePicker from "../../../../components/kendo/Form/FormDatePicker";
 import FormTextArea from "../../../../components/kendo/Form/FormTextArea";
 import FormContactsCheckbox from "../../../../components/kendo/Form/FormContactsCheckbox";
-import DocumentLink from "../../components/DocumentLink";
+import DocumentLink from "../../../../components/DocumentLink";
 import {
-    dateRequiredValidator, nameRequiredValidator,
+    dateRequiredValidator,
+    nameRequiredValidator,
     requiredValidator,
-    requiredWithTrimValidator, documentRequiredValidatorTypeArray
+    requiredWithTrimValidator,
+    documentRequiredValidatorTypeArray
 } from "../../../../components/kendo/Form/validators";
 import { Request } from "../../../../utils/request";
 import flatten from "../../../../utils/flatten";
@@ -22,8 +24,9 @@ import FooterFeedback from "../../../../components/Layouts/FooterFeedback";
 import "./index.scss";
 
 const apiPrivacyEndpoint = '/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest/personal_data_document';
+const apiPatellaDocsEndpoint = '/api/requests/dog_health_check_request/doghealthcheckdocument';
 
-const PatellaForm = ({ alias, history, status, owner }) => {
+const PatellaForm = ({ alias, history, owner, status }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const [privacyHref, setPrivacyHref] = useState('');
     const [disableAllFields, setDisableAllFields] = useState(false);
@@ -58,6 +61,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
     useEffect(() => {
         if (status) {
             const paramsArr = history.location.pathname.split('/');
+
             const id = paramsArr[paramsArr.length - 1];
 
             (() => Request({
@@ -145,6 +149,10 @@ const PatellaForm = ({ alias, history, status, owner }) => {
         setDisableSubmit(false);
     };
 
+    const handleValidator = (value) => {
+        const maxLength = 150;
+        return nameRequiredValidator(value, maxLength);
+    };
 
     return (
         <div className="patella-form">
@@ -199,18 +207,28 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                                                     <div className="patella-form__file">
                                                         <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)</p>
-                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.veterinary_contract_document_id}
+                                                            endpoint={apiPatellaDocsEndpoint}
+                                                        />
                                                     </div>
                                                 </div>
-                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <div className="patella-form__inner">
                                                     {values.pedigree_document_id && <div className="patella-form__file" style={{ marginRight: '50px' }}>
                                                         <p className="k-label">Соглашение на обработку персональных данных</p>
-                                                        <DocumentLink docId={values.pedigree_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.pedigree_document_id}
+                                                            endpoint={apiPatellaDocsEndpoint}
+                                                        />
                                                     </div>}
-                                                    {values.personal_data_document_id && <div>
-                                                        <p className="k-label">Родословная</p>
-                                                        <DocumentLink docId={values.personal_data_document_id} />
-                                                    </div>}
+                                                    {values.personal_data_document_id &&
+                                                        <div>
+                                                            <p className="k-label">Родословная</p>
+                                                            <DocumentLink
+                                                                docId={values.personal_data_document_id}
+                                                                endpoint={apiPatellaDocsEndpoint}
+                                                            />
+                                                        </div>}
                                                 </div>
                                             </div>
                                         }
@@ -227,7 +245,10 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                 {values &&
                                                     values.veterinary_contract_document_id &&
                                                     !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                    <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                    <DocumentLink
+                                                        docId={values.veterinary_contract_document_id}
+                                                        endpoint={apiPatellaDocsEndpoint}
+                                                    />
                                                 }
 
                                             </div>
@@ -247,7 +268,10 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                             {values &&
                                                 values.personal_data_document_id &&
                                                 !formRenderProps.valueGetter('personal_data_document').length &&
-                                                <DocumentLink docId={values.personal_data_document_id} />
+                                                <DocumentLink
+                                                    docId={values.personal_data_document_id}
+                                                    endpoint={apiPatellaDocsEndpoint}
+                                                />
                                             }
                                         </div>
                                         <div className="dysplasia-form__file">
@@ -263,7 +287,10 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                             {values &&
                                                 values.pedigree_document_id &&
                                                 !formRenderProps.valueGetter('pedigree_document').length &&
-                                                <DocumentLink docId={values.pedigree_document_id} />
+                                                <DocumentLink
+                                                    docId={values.pedigree_document_id}
+                                                    endpoint={apiPatellaDocsEndpoint}
+                                                />
                                             }
                                         </div>
                                     </div>}
@@ -325,7 +352,10 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                         {disableAllFields && values &&
                                             <div className="patella-form__file">
                                                 <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
-                                                <DocumentLink docId={values.payment_document_id} />
+                                                <DocumentLink
+                                                    docId={values.payment_document_id}
+                                                    endpoint={apiPatellaDocsEndpoint}
+                                                />
                                             </div>
                                         }
                                         {!disableAllFields &&
@@ -341,7 +371,10 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                                 {values &&
                                                     values.payment_document_id &&
                                                     !formRenderProps.valueGetter('payment_document').length &&
-                                                    <DocumentLink docId={values.payment_document_id} />
+                                                    <DocumentLink
+                                                        docId={values.payment_document_id}
+                                                        endpoint={apiPatellaDocsEndpoint}
+                                                    />
                                                 }
                                             </div>
                                         }
@@ -371,7 +404,8 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                             label="ФИО плательщика"
                                             cutValue={150}
                                             component={FormInput}
-                                            validator={value => nameRequiredValidator(value, 150)}
+                                            maxLength={150}
+                                            validator={handleValidator}
                                             disabled={disableAllFields}
                                         />
                                     </div>

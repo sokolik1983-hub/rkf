@@ -1,14 +1,21 @@
-import React, {useEffect, useState} from "react";
-import {connect} from 'formik';
-import {FormGroup, FormField, FormControls} from "../../../components/Form";
-import {exhibitionInfoForm} from "../config";
-import {DEFAULT_IMG} from "../../../appConfig";
+import React, { useEffect, useState } from "react";
+import { connect } from "formik";
+import { FormControls, FormField, FormGroup } from "../../../components/Form";
+import { exhibitionInfoForm } from "../config";
 import { acceptType } from "../../../utils/checkImgType";
 import Contacts from "./components/Contacts";
 import Alert from "../../../components/Alert";
 
 
-const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setInitialValues,}) => {
+const RenderFields = ({
+        formik,
+        avatar,
+        map,
+        documents,
+        dates,
+        onCancel,
+        setInitialValues,
+}) => {
     const [avatarSrc, setAvatarSrc] = useState(avatar);
     const [alert, setAlert] = useState(false);
     const [mapSrc, setMapSrc] = useState(map);
@@ -16,20 +23,18 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
     const [docField, setDocField] = useState(null);
     const {fields} = exhibitionInfoForm;
     const {
-       phones,
-       emails,
+        phones,
+        emails,
     } = formik.values;
-
 
     useEffect(() => {
         formik.setFieldValue('avatar', avatar);
         formik.setFieldValue('map', map);
     }, []);
 
-
     const handleValidate = value => {
         let error;
-        if(!value) {
+        if (!value) {
             error = 'Поле не может быть пустым';
         }
         return error;
@@ -59,7 +64,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                 type === 'avatar' ? setAvatarSrc(avatar) : setMapSrc(map);
             }
         });
-        if(file && file.size > 20971520 ) {
+        if (file && file.size > 20971520) {
             setAlert(true);
             type === 'avatar' ? setAvatarSrc(avatar) : setMapSrc(map);
         }
@@ -98,14 +103,14 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
         const doc = {...docField};
         const isValid = !(Object.keys(formik.errors).length && (formik.errors[`docs_url_${id}`] || formik.errors[`docs_name_${id}`]));
 
-        if(isValid) {
-            if(!doc.url) {
-                formik.setFieldTouched(`docs_url_${doc.id}`,true, true);
+        if (isValid) {
+            if (!doc.url) {
+                formik.setFieldTouched(`docs_url_${doc.id}`, true, true);
             }
-            if(!doc.name) {
-                formik.setFieldTouched(`docs_name_${doc.id}`,true, true);
+            if (!doc.name) {
+                formik.setFieldTouched(`docs_name_${doc.id}`, true, true);
             }
-            if(doc.url && doc.name) {
+            if (doc.url && doc.name) {
                 setDocs(docs ? [...docs, doc] : [doc]);
                 setDocField(null);
             }
@@ -113,15 +118,15 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
     };
 
     const handleDeleteDocs = id => {
-        if(window.confirm('Вы действительно хотите удалить эту ссылку?')) {
+        if (window.confirm('Вы действительно хотите удалить эту ссылку?')) {
             let newValues = {...formik.values};
             delete newValues[`docs_url_${id}`];
             delete newValues[`docs_name_${id}`];
-
             formik.setValues(newValues);
             setDocs(docs.filter(doc => doc.id !== id));
         }
     };
+
 
     return (
         <>
@@ -139,33 +144,45 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                         accept=".jpg, .jpeg"
                         onChange={e => handleChangeImg(e, 'avatar')}
                     />
-                    <img src={avatarSrc || DEFAULT_IMG.noImage} alt=""/>
+                    {avatarSrc ?
+                        <img src={avatarSrc} alt=""/>
+                        :
+                        <div className="exhibition-edit__img-label__no-img">
+                            <img src="/static/images/noimg/no-img.svg" alt=""/>
+                            <span>Нажмите на иконку для загрузки фотографии</span>
+                        </div>
+                    }
                 </label>
-                {avatarSrc && <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('avatar')} />}
+                {avatarSrc &&
+                    <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('avatar')}/>}
             </div>
             <FormField
                 {...fields.description}
             />
             {dates && !!dates.length &&
-                dates.map(date =>
-                    <FormGroup inline key={date.id} className="exhibition-edit__dates">
-                        <span>{`${date.day < 10 ? '0'+date.day : date.day}.${date.month < 10 ? '0'+date.month : date.month}.${date.year}`}</span>
-                        <FormField
-                            name={`time_start_${date.id}`}
-                            label="Начало"
-                            type="time"
-                            validate={handleValidate}
-                        />
-                        <FormField
-                            name={`time_end_${date.id}`}
-                            label="Окончание"
-                            type="time"
-                            validate={handleValidate}
-                        />
-                    </FormGroup>
-                )
+
+                <div className="exhibition-edit__date">
+                    <h5>Даты проведения мероприятия</h5>
+                    {dates.map(date =>
+                        <FormGroup inline key={date.id} className="exhibition-edit__dates">
+                            <span>{`${date.day < 10 ? '0' + date.day : date.day}.${date.month < 10 ? '0' + date.month : date.month}.${date.year}`}</span>
+                            <FormField
+                                name={`time_start_${date.id}`}
+                                label="Время работы с"
+                                type="time"
+                                validate={handleValidate}
+                            />
+                            <FormField
+                                name={`time_end_${date.id}`}
+                                label="До"
+                                type="time"
+                                validate={handleValidate}
+                            />
+                        </FormGroup>
+                    )}
+                </div>
             }
-            <FormGroup inline>
+            <FormGroup inline className="exhibition-edit__rank">
                 <FormField
                     disabled={true}
                     {...fields.rank_types}
@@ -195,17 +212,19 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     {...fields.catalog_name}
                 />
             </FormGroup>
-            <Contacts 
-                phones={phones} 
-                emails={emails} 
-                errors={formik.errors}/>
+            <Contacts
+                phones={phones}
+                emails={emails}
+                errors={formik.errors}
+            />
             <div className="exhibition-edit__documents">
                 <h3>Документы</h3>
                 {docs && !!docs.length &&
                     <ul className="exhibition-edit__documents-list">
                         {docs.map(doc => (
                             <li className="exhibition-edit__documents-item" key={doc.id}>
-                                <a href={doc.url} target="__blank" className="exhibition-edit__documents-link">{doc.name}</a>
+                                <a href={doc.url} target="__blank"
+                                   className="exhibition-edit__documents-link">{doc.name}</a>
                                 <button
                                     className="exhibition-edit__documents-delete"
                                     type="button"
@@ -272,9 +291,16 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                         accept=".jpg, .jpeg"
                         onChange={e => handleChangeImg(e, 'map')}
                     />
-                    <img src={mapSrc || DEFAULT_IMG.noImage} alt=""/>
+                    {mapSrc ?
+                        <img src={mapSrc} alt=""/>
+                        :
+                        <div className="exhibition-edit__img-label__no-img">
+                            <img src="/static/images/noimg/no-img.svg" alt=""/>
+                            <span>Нажмите на иконку для загрузки фотографии</span>
+                        </div>
+                    }
                 </label>
-                {mapSrc && <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('map')} />}
+                {mapSrc && <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('map')}/>}
             </div>
             <FormField {...fields.additional_info} />
             <FormControls>

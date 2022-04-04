@@ -45,34 +45,43 @@ const Contacts = ({ phones, emails, errors, formik }) => {
     }, [])
 
     return <div className="Contacts">
-        <h3>Контакты</h3>
         <FieldArray
-
             name="phones"
             render={arrayHelpers => (
                 <div className="FormGroup__contact">
+                    <h5 className="Contacts__title">Телефон</h5>
                     {phones && !!phones.length &&
-
-                        phones.map((phone, index) => (
+                        phones.map((phone, index, phones) => (
                             <FormGroup inline key={index}>
+                                {phones.length === index + 1 &&
+                                    <Button
+                                        className="triggerButton add-mini"
+                                        disabled={checkForPhones()}
+                                        onClick={() => {
+                                            arrayHelpers.push({
+                                                id: null,
+                                                value: '',
+                                                description: '',
+                                                is_main: false,
+                                            })
+                                        }}
+                                    />
+                                }
                                 <FormField
-                                    label="Номер телефона"
+                                    className="first-field"
                                     placeholder="Введите номер телефона"
                                     name={`phones[${index}].value`}
                                 />
                                 <FormField
-                                    label="Описание"
                                     placeholder="Введите описание"
                                     name={`phones[${index}].description`}
                                 />
                                 <div className="Contacts__checkbox-wrap">
-                                    <div>Основной</div>
-
+                                    <label className="Contacts__checkbox-wrap__label">Основной</label>
                                     <FormField
                                         disabled={phone.value.length < 16}
                                         name={`phones[${index}].is_main`}
                                         fieldType="customCheckbox"
-                                        // eslint-disable-next-line react/jsx-no-duplicate-props
                                         disabled={phone.is_main}
                                         onChange={e => {
                                             phones.forEach(p => p.is_main = false);
@@ -84,61 +93,52 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                             ? ''
                                             : <span className="k-icon k-i-trash" onClick={() => arrayHelpers.remove(index)}/>
                                     }
-
-
                                 </div>
-
                         </FormGroup>
                     ))}
-                    <div className="Contacts__buttons-wrap">
-                        <Button
-                           className={`btn-green Contacts__button-add ${checkForPhones() ? 'disabled' : ''}`}
-                            onClick={() => {
-                                arrayHelpers.push({
-                                            id: null,
-                                            value: '',
-                                            description: '',
-                                            is_main: false,
-                                        })
-                                }
-
-                            }>Добавить телефон</Button>
-                    </div>
                 </div>
             )}
         />
         <FieldArray
             name="emails"
-
             render={arrayHelpers => (
-                <div>
+                <div className="FormGroup__contact">
+                    <h5 className="Contacts__title">E-mail</h5>
                     {emails && !!emails.length &&
-
                         emails.map((email, index) => (
                             <FormGroup inline key={index} className="FormGroup__contact">
+                                {emails.length === index + 1 &&
+                                    <Button
+                                        className="triggerButton add-mini"
+                                        disabled={checkForEmails()}
+                                        onClick={() => arrayHelpers.push({
+                                            id: null,
+                                            value: '',
+                                            description: '',
+                                            is_main: false,
+                                        })}
+                                    />
+                                }
                                 <FormField
-                                    label="Email"
+                                    className="first-field"
                                     placeholder="Введите Email"
                                     name={`emails[${index}].value`}
                                 />
                                 <FormField
-                                    label="Описание"
                                     placeholder="Введите описание"
                                     name={`emails[${index}].description`}
                                 />
                                 <div className="Contacts__checkbox-wrap">
-
-                                    <div>Основной</div>
+                                    <label className="Contacts__checkbox-wrap__label">Основной</label>
                                     <FormField
                                         disabled={email.value.length < 7}
                                         name={`emails[${index}].is_main`}
-                                        // eslint-disable-next-line react/jsx-no-duplicate-props
                                         disabled={email.is_main}
                                         fieldType="customCheckbox"
                                         onChange={e => {
                                             emails.forEach(email => email.is_main = false);
                                             formik.setFieldValue(e.currentTarget.checked);
-                                            }}
+                                        }}
                                     />
 
                                     {
@@ -147,19 +147,8 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                             : <span className="k-icon k-i-trash" onClick={() => arrayHelpers.remove(index)}/>
                                     }
                                 </div>
-
                             </FormGroup>
                     ))}
-                    <div className="Contacts__buttons-wrap">
-                        <Button
-                            className={`btn-green Contacts__button-add ${checkForEmails() ? 'disabled' : ''}`}
-                            onClick={() => arrayHelpers.push({
-                                id: null,
-                                value: '',
-                                description: '',
-                                is_main: false,
-                            })}>Добавить e-mail</Button>
-                    </div>
                 </div>
             )}
         />

@@ -43,6 +43,10 @@
       top: 14px;
       z-index: 9;
       right: 0;
+      &.non-standart-view {
+        top: 45px;
+        right: 33px;
+      }
       @media (max-width: 1110px) {
         top: 0;
       }
@@ -211,5 +215,8 @@
       font-size: 16px;
       margin-bottom: 0;
     }
+  }
+  &__wrap {
+    position: relative;
   }
 }

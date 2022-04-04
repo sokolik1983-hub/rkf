@@ -1,5 +1,6 @@
 .user-info {
-  @media (max-width: 1080px) {
+  overflow: hidden;
+  @media (max-width: 1079px) {
     border-bottom: 1px solid #e8e8e8;
     padding-bottom: 10px;
   }
@@ -31,7 +32,7 @@
       transition: all 0.2s linear;
     }
   }
-  @media (max-width: 1080px) {
+  @media (max-width: 1079px) {
     display: flex;
   }
   &__logo-wrap {
@@ -40,13 +41,13 @@
     max-height: 500px;
     overflow: hidden;
     position: relative;
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       padding-bottom: 0;
       border-bottom: none;
       margin-right: 10px;
     }
     &.empty {
-      @media (min-width: 1080px) {
+      @media (min-width: 1079px) {
         height: 291px;
         .user-info__logo {
           max-height: 190px;
@@ -58,7 +59,7 @@
   &__logo {
     width: 100%;
     display: block;
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       width: 100px;
       min-width: 100px;
       height: 100px;
@@ -97,7 +98,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    @media (max-width: 1080px) {
+    @media (max-width: 1079px) {
       border-bottom: none;
       width: calc(100% - 110px);
       padding: 30px 0;
@@ -114,9 +115,11 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: pre-line;
+      display: flex;
       @media (max-width: 375px) {
         font-size: 16px;
         line-height: 20px;
+        display: inline;
       }
     }
     & > *:not(:last-child) {

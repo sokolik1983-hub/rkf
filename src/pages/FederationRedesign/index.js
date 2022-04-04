@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
-import StickyBox from "react-sticky-box";
-import NotConfirmed from "../NotConfirmed";
-import Layout from "../../components/Layouts";
-import Container from "../../components/Layouts/Container";
-import Aside from "../../components/Layouts/Aside";
-import Loading from "../../components/Loading";
-import CopyrightInfo from "../../components/CopyrightInfo";
-import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
-import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
-import UserHeader from "../../components/redesign/UserHeader";
-import ExhibitionsComponent from "../../components/ExhibitionsComponent";
-import UserContacts from "../../components/redesign/UserContacts";
-import UserDescription from "../../components/redesign/UserDescription";
-import AddArticle from "../../components/UserAddArticle";
-import UserNews from "../../components/Layouts/UserNews";
-import { Request } from "../../utils/request";
-import MenuComponent from "../../components/MenuComponent";
-import PhotoComponent from "../../components/PhotoComponent";
-import { connectAuthVisible } from "../Login/connectors";
-import useIsMobile from "../../utils/useIsMobile";
-import UserBanner from "../../components/Layouts/UserBanner";
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import StickyBox from 'react-sticky-box';
+import NotConfirmed from '../NotConfirmed';
+import Layout from '../../components/Layouts';
+import Container from '../../components/Layouts/Container';
+import Aside from '../../components/Layouts/Aside';
+import Loading from '../../components/Loading';
+import CopyrightInfo from '../../components/CopyrightInfo';
+import UserPhotoGallery from '../../components/Layouts/UserGallerys/UserPhotoGallery';
+import UserVideoGallery from '../../components/Layouts/UserGallerys/UserVideoGallery';
+import UserHeader from '../../components/redesign/UserHeader';
+import ExhibitionsComponent from '../../components/ExhibitionsComponent';
+import UserContacts from '../../components/redesign/UserContacts';
+import UserDescription from '../../components/redesign/UserDescription';
+import AddArticle from '../../components/UserAddArticle';
+import UserNews from '../../components/Layouts/UserNews';
+import { Request } from '../../utils/request';
+import MenuComponent from '../../components/MenuComponent';
+import PhotoComponent from '../../components/PhotoComponent';
+import { connectAuthVisible } from '../Login/connectors';
+import useIsMobile from '../../utils/useIsMobile';
+import UserBanner from '../../components/Layouts/UserBanner';
 
-import "./index.scss";
-
+import './index.scss';
 
 const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match }) => {
     const [fedInfo, setFedInfo] = useState(null);
@@ -35,10 +34,9 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
     const isMobile = useIsMobile(1080);
     const alias = match.path.replace('/', '');
 
-
     const getFedInfo = () => {
         Request({
-            url: `/api/Club/federation_base_info?alias=` + alias
+            url: `/api/Club/federation_base_info?alias=${alias}`
         }, data => {
             setFedInfo(data);
             setNotActiveProfile(isAuthenticated && !is_active_profile);

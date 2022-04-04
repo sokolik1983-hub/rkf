@@ -12,8 +12,8 @@ import {formatText} from '../../../../utils';
 import {formatDateTime} from '../../../../utils/datetime';
 import {DEFAULT_IMG} from '../../../../appConfig';
 import CardFooter from '../../../../components/CardFooter';
-import DocumentLink from '../DocumentLink';
-import { Request } from "utils/request";
+import DocumentLink from '../../../../components/DocumentLink';
+import { Request } from 'utils/request';
 
 import './index.scss';
 
@@ -342,6 +342,8 @@ const NewsFeedItem = forwardRef(({
                                     <DocumentLink
                                         docId={doc.id}
                                         document={doc}
+                                        endpoint="/api/document/publicdocument"
+                                        NewsFeedItem
                                     />
                                 </li>
                             )}

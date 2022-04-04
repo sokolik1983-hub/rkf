@@ -6,13 +6,17 @@ import CustomCheckbox from '../../../../../components/Form/CustomCheckbox';
 import './index.scss';
 
 const OrganizationsFilter = ({organization_type}) => {
-
     const [isFilter, setIsFilter] = useState(false);
 
     const handleFilter = () => {
         setIsFilter(!isFilter);
         setFiltersToUrl({is_popular: !isFilter})
+    }
 
+    const prepareFilters =  (typeId) => {
+        if (typeId !== 3 && typeId !== 4) {
+            return getEmptyFilters();
+        }
     }
 
     const tabItems = useMemo(() => {
@@ -42,7 +46,7 @@ const OrganizationsFilter = ({organization_type}) => {
                     items={tabItems}
                     activeTabIndex={tabItems.findIndex(item => item.organization_type === organization_type)}
                     onChange={({organization_type}) => setFiltersToUrl({
-                        ...getEmptyFilters(),
+                        ...prepareFilters(organization_type),
                         organization_type
                     })}
                 /> :
