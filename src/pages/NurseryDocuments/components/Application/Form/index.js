@@ -14,7 +14,7 @@ import FormUpload from "./components/FormUpload";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import FormComboBox from './components/FormComboBox';
-import DocumentLink from "../../DocumentLink";
+import DocumentLink from "../../../../../components/DocumentLink";
 import DocumentLinksArray from "../../DocumentLinksArray";
 import {
     nameRequiredValidator,
@@ -31,10 +31,9 @@ import ruMessages from "../../../../../kendoMessages.json"
 import DocLink from '../../../../Docs/components/DocApply/components/DocLink';
 import {DateInput} from "../../../../../components/materialUI/DateTime";
 import FooterFeedback from "../../../../../components/Layouts/FooterFeedback";
+import {apiGetRkfDocuments} from "../../../config";
 
 import "./index.scss";
-
-
 
 loadMessages(ruMessages, 'ru');
 
@@ -688,7 +687,10 @@ const Application = ({ alias, history, status }) => {
                                                     {values &&
                                                         values.application_document_id &&
                                                         !formRenderProps.valueGetter('application_document_id').length &&
-                                                        <DocumentLink docId={values.application_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.application_document_id}
+                                                            endpoint={apiGetRkfDocuments}
+                                                        />
                                                     }
                                                     <DocLink
                                                         distinction='get_rkf_document'
@@ -698,19 +700,22 @@ const Application = ({ alias, history, status }) => {
                                                 </div>
                                                 : values?.application_document_id && <div className="application-form__file">
                                                     <p className="k-label">Заявочный лист</p>
-                                                    <DocumentLink docId={values.application_document_id} />
+                                                    <DocumentLink
+                                                        docId={values.application_document_id}
+                                                        endpoint={apiGetRkfDocuments}
+                                                    />
                                                 </div>
                                             }
                                         </div>
                                     </div>}
                                     <div className="application-form__content">
                                         <h4 className="application-form__title">Документы</h4>
-                                        {!!status && values &&
-                                            <DocumentLinksArray
-                                                documents={values.documents}
-                                                editable={editable}
-                                                onRemove={handleDocumentRemove}
-                                            />
+                                        {!!status && values && (values.documents.length > 0) &&
+                                            values.documents.map(item =>
+                                            <DocumentLink
+                                                docId={item.id}
+                                                endpoint={apiGetRkfDocuments}
+                                            />)
                                         }
                                         {editable &&
                                             <>
@@ -750,7 +755,10 @@ const Application = ({ alias, history, status }) => {
                                                     {values &&
                                                         values.veterinary_contract_document_id &&
                                                         !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.veterinary_contract_document_id}
+                                                            endpoint={apiGetRkfDocuments}
+                                                        />
                                                     }
                                                     {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
                                                         Вы не можете добавить больше 20 документов
@@ -793,7 +801,10 @@ const Application = ({ alias, history, status }) => {
                                                     {values &&
                                                         values.payment_document_id &&
                                                         !formRenderProps.valueGetter('payment_document').length &&
-                                                        <DocumentLink docId={values.payment_document_id} />
+                                                        <DocumentLink
+                                                            docId={values.payment_document_id}
+                                                            endpoint={apiGetRkfDocuments}
+                                                        />
                                                     }
                                                     <DocLink
                                                         distinction="get_rkf_document"
@@ -803,7 +814,10 @@ const Application = ({ alias, history, status }) => {
                                                 </div>
                                                 : <div className="application-form__file">
                                                     <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG)</p>
-                                                    <DocumentLink docId={values.payment_document_id} />
+                                                    <DocumentLink
+                                                        docId={values.payment_document_id}
+                                                        endpoint={apiGetRkfDocuments}
+                                                    />
                                                 </div>
                                             }
                                         </div>

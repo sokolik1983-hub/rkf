@@ -1,0 +1,51 @@
+.document-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &__date {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: #b9b9b9;
+  }
+
+  svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    fill: #3366ff !important;
+  }
+
+  a {
+    &:hover {
+      text-decoration: none;
+      color: #0056b3;
+    }
+  }
+
+  &__href {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  &__name {
+    display: flex;
+    flex-direction: column;
+    color: #007bff;
+    cursor: pointer;
+    padding-left: 10px;
+    &:hover {
+      color: #36f;
+    }
+  }
+}
+.btn {
+  margin-right: 20px;
+}
