@@ -30,3 +30,5 @@ export const categories = [
         icon: 'news-feed__icon news-feed__icon--archive',
     }
 ];
+
+export const endpointGetLinkNewsFeed = "/api/document/publicdocument";
