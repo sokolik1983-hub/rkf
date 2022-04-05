@@ -39,10 +39,10 @@ const LeftMenu = ({
                 {Object.keys(sections).filter(isAuthenticated &&
                     (userType === 3 || userType === 4 || userType === 5) ?
                         type => type :
-                        type => type !== "checkLitterStatus").map((type, key) =>
+                        type => type !== 'checkLitterStatus').map((type, key) =>
                         <div className={sections[type].id === activeSection
-                            ? "left-menu__inner-item active"
-                            : "left-menu__inner-item"}
+                            ? 'left-menu__inner-item active'
+                            : 'left-menu__inner-item'}
                             key={key}
                             onClick={() => {
                                 activeSection !== sections[type].id &&
