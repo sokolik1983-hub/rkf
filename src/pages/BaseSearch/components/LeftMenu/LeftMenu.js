@@ -12,6 +12,7 @@ const LeftMenu = ({
     setShowFilters,
     isAuthenticated,
     userType,
+    setCardClicked,
 }) => {
     const handleSectionSwitch = (id) => {
         setActiveSection(id);
@@ -24,6 +25,11 @@ const LeftMenu = ({
             duration: 600,
             smooth: 'easeInOutQuart',
         });
+    };
+
+    const clicked = (item) => {
+        setCardClicked(item + 1);
+        setTimeout(() => setCardClicked(0),1000);
     };
 
     return (
@@ -41,7 +47,8 @@ const LeftMenu = ({
                             onClick={() => {
                                 activeSection !== sections[type].id &&
                                 handleSectionSwitch(sections[type].id);
-                                scrollTo(sections[type].to)
+                                scrollTo(sections[type].to);
+                                clicked(sections[type].id);
                             }}
                         >
                             <SvgSelector icon={sections[type].icon} />

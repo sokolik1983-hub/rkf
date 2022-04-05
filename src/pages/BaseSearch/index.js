@@ -24,7 +24,7 @@ import {clubNav} from "../Docs/config";
 import {kennelNav} from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
 import {connectAuthVisible} from "../Login/connectors";
-import LeftMenu from "./components/LeftMune/LeftMenu";
+import LeftMenu from "./components/LeftMenu/LeftMenu";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import ClickGuard from "../../components/ClickGuard";
 
@@ -41,6 +41,7 @@ const BaseSearch = props => {
     const [clubData, setClubData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
     const [activeSection, setActiveSection] = useState(0);
+    const [cardClicked, setCardClicked] = useState(0);
     const isMobile = useIsMobile(1080);
     const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
 
@@ -86,14 +87,14 @@ const BaseSearch = props => {
                     }
                     <div className="base-search__content-wrap">
                         <div className="base-search__content">
-                            <FoundInfo />
-                            <CheckStatus />
-                            <CheckRegistration />
-                            <StampSearch />
+                            <FoundInfo cardClicked={cardClicked}/>
+                            <CheckStatus cardClicked={cardClicked}/>
+                            <CheckRegistration cardClicked={cardClicked}/>
+                            <StampSearch cardClicked={cardClicked}/>
                             {isAuthenticated && (userType === 3 || userType === 4 || userType === 5) &&
-                                <CheckLitterStatus />
+                                <CheckLitterStatus cardClicked={cardClicked}/>
                             }
-                            <PublicationSearch />
+                            <PublicationSearch cardClicked={cardClicked}/>
                         </div>
                         <div className={`left-menu__inner-right hide${isOpenFilters ? ` _open` : ``}`}>
                             <LeftMenu
@@ -103,6 +104,7 @@ const BaseSearch = props => {
                                 setShowFilters={setShowFilters}
                                 isAuthenticated={isAuthenticated}
                                 userType={userType}
+                                setCardClicked={setCardClicked}
                             />
                         </div>
                         {!isMobile &&
@@ -112,16 +114,17 @@ const BaseSearch = props => {
                                         {!isMobile && clubData ?
                                             <>
                                                 <LeftMenu
-                                                setActiveSection={setActiveSection}
-                                                activeSection={activeSection}
-                                                showFilter={isOpenFilters}
-                                                setShowFilters={setShowFilters}
-                                                isAuthenticated={isAuthenticated}
-                                                userType={userType}
+                                                    setActiveSection={setActiveSection}
+                                                    activeSection={activeSection}
+                                                    showFilter={isOpenFilters}
+                                                    setShowFilters={setShowFilters}
+                                                    isAuthenticated={isAuthenticated}
+                                                    userType={userType}
+                                                    setCardClicked={setCardClicked}
                                                 />
                                                 <UserMenu userNav={clubNav(clubData.club_alias)}/>
                                             </> :
-                                                nurseryData ?
+                                        nurseryData ?
                                             <>
                                                 <LeftMenu
                                                     setActiveSection={setActiveSection}
@@ -130,6 +133,7 @@ const BaseSearch = props => {
                                                     setShowFilters={setShowFilters}
                                                     isAuthenticated={isAuthenticated}
                                                     userType={userType}
+                                                    setCardClicked={setCardClicked}
                                                 />
                                                 <UserMenu userNav={kennelNav(nurseryData.alias)}/>
                                             </> :
@@ -142,6 +146,7 @@ const BaseSearch = props => {
                                                         setShowFilters={setShowFilters}
                                                         isAuthenticated={isAuthenticated}
                                                         userType={userType}
+                                                        setCardClicked={setCardClicked}
                                                     />
                                                 </StickyBox>
                                                 <Statistics/>
