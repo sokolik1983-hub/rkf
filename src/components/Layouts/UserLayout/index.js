@@ -20,9 +20,8 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
-
-import "./index.scss";
 import MenuComponentNew from "../../MenuComponentNew";
+
 import './index.scss';
 
 const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {

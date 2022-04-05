@@ -18,9 +18,10 @@ import useIsMobile from "utils/useIsMobile";
 import { BANNER_TYPES } from "appConfig";
 import Banner from "components/Banner";
 import {connectShowFilters} from "../../../components/Layouts/connectors"
+import MenuComponentNew from "../../MenuComponentNew";
 
 import "./index.scss";
-import MenuComponentNew from "../../MenuComponentNew";
+
 
 
 const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthenticated, user, children, setShowFilters, isOpenFilters }) => {
