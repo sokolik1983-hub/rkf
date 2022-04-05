@@ -11,6 +11,7 @@ import UserActionControls from 'components/UserActionControls';
 import { connectAuthVisible } from 'pages/Login/connectors';
 import EditAvatar from '../../EditAvatar';
 import { judgeIcon } from '../UserLayout/config.js';
+import InitialsAvatar from "../../InitialsAvatar";
 
 import './index.scss';
 
@@ -78,7 +79,14 @@ const UserInfo = ({
                             }
                         </>
                     }
-                    <img className="user-info__logo" src={logo_link ? logo_link : DEFAULT_IMG.userAvatar} alt="" />
+                    {
+                        logo_link
+                            ?
+                            <img className="user-info__logo" src={logo_link} alt="" />
+                            :
+                            <InitialsAvatar firstName={first_name} lastName={last_name} />
+                    }
+
                 </div>
                 <div className="user-info__info">
                     {share_link 

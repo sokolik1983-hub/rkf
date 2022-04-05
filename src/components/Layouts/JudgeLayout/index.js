@@ -13,6 +13,7 @@ import Statistics from "../../Statistics";
 import ClubsMap from "../../ClubsMap";
 
 import './index.scss';
+import InitialsAvatar from "../../InitialsAvatar";
 
 const JudgeLayout = () => {
     const [loading, setLoading] = useState(true);
@@ -92,7 +93,14 @@ const JudgeLayout = () => {
                     </aside>
                             <Card>
                                 <div className="judge-info__wrap">
-                                    <img src={judgeInfoLink ? judgeInfoLink : '/static/icons/default/default_avatar.svg'} alt="avatar-img" />
+                                    {
+                                        judgeInfoLink
+                                        ?
+                                            <img src={judgeInfoLink} alt="avatar-img" />
+                                            :
+                                            <InitialsAvatar firstName={judgePersInfo?.first_name} lastName={judgePersInfo?.last_name} card="specialist-card" />
+                                    }
+
                                     <div className="judge-info__inner">
                                         <div className="judge-info__name-location">
                                             <div className="judge-info__name-block">
