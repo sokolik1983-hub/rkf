@@ -10,7 +10,6 @@
     height: 100%;
     border-radius: 50%;
     margin-right: 15px;
-    background-color: #FAE1E3;
     color: #72839C;
     @media (max-width: 1080px) {
       width: 79px;
@@ -43,6 +42,15 @@
       span {
         font-size: 30px;
         line-height: 45px;
+      }
+      @media (max-width: 1080px) {
+        margin-top: 0;
+        width: 56px;
+        height: 56px;
+        span {
+          font-size: 19px;
+          line-height: 25px;
+        }
       }
     }
     &.user-icon {

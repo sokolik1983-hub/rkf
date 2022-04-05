@@ -34,8 +34,6 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
         setAlert(true);
     };
 
-    console.log('userInfo', userInfo)
-
     const moreRef = useRef();
     const location = useLocation();
     let url =  location.pathname.split('/')[1];
@@ -185,11 +183,14 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                                                 <img src={logo_link} alt=""/>
                                             </div>
                                             :
+                                            userInfo
+                                            &&
                                             <div className="user-nav__userpic default">
                                                 <InitialsAvatar
                                                     firstName={userInfo && userInfo.personal_information.first_name}
                                                     lastName={userInfo && userInfo.personal_information.last_name}
-                                                    card="mobile-user-menu" />
+                                                    card="mobile-user-menu"
+                                                />
                                             </div>
                                     }
 

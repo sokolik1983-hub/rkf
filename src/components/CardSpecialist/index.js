@@ -71,7 +71,7 @@ const CardSpecialist = ({
                             ?
                             <span className="card-specialists__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link})` }} />
                             :
-                            <InitialsAvatar firstName={first_name} lastName={last_name} card="specialist-card" />
+                            <InitialsAvatar firstName={first_name} lastName={last_name} card="specialist-card" id={id}/>
                     }
                     <div className="card-specialists__inner">
                         <div className="card-specialists__info">
