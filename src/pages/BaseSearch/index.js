@@ -101,6 +101,8 @@ const BaseSearch = props => {
                                 activeSection={activeSection}
                                 showFilter={isOpenFilters}
                                 setShowFilters={setShowFilters}
+                                isAuthenticated={isAuthenticated}
+                                userType={userType}
                             />
                         </div>
                         {!isMobile &&
@@ -114,6 +116,8 @@ const BaseSearch = props => {
                                                 activeSection={activeSection}
                                                 showFilter={isOpenFilters}
                                                 setShowFilters={setShowFilters}
+                                                isAuthenticated={isAuthenticated}
+                                                userType={userType}
                                                 />
                                                 <UserMenu userNav={clubNav(clubData.club_alias)}/>
                                             </> :
@@ -124,6 +128,8 @@ const BaseSearch = props => {
                                                     activeSection={activeSection}
                                                     showFilter={isOpenFilters}
                                                     setShowFilters={setShowFilters}
+                                                    isAuthenticated={isAuthenticated}
+                                                    userType={userType}
                                                 />
                                                 <UserMenu userNav={kennelNav(nurseryData.alias)}/>
                                             </> :
@@ -134,6 +140,8 @@ const BaseSearch = props => {
                                                         activeSection={activeSection}
                                                         showFilter={isOpenFilters}
                                                         setShowFilters={setShowFilters}
+                                                        isAuthenticated={isAuthenticated}
+                                                        userType={userType}
                                                     />
                                                 </StickyBox>
                                                 <Statistics/>

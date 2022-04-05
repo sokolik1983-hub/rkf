@@ -10,6 +10,8 @@ const LeftMenu = ({
     activeSection,
     setActiveSection,
     setShowFilters,
+    isAuthenticated,
+    userType,
 }) => {
     const handleSectionSwitch = (id) => {
         setActiveSection(id);
@@ -28,19 +30,25 @@ const LeftMenu = ({
         <Card className="left-menu">
             <h3 className="left-menu__title">Сервисы</h3>
             <ul className="left-menu__inner-list">
-                {Object.keys(sections).map((type, key) =>
-                    <div className={sections[type].id === activeSection
-                            ? 'left-menu__inner-item active'
-                            : 'left-menu__inner-item'}
-                        key={key}
-                        onClick={() => {activeSection !== sections[type].id &&
+                {Object.keys(sections).filter(isAuthenticated &&
+                    (userType === 3 || userType === 4 || userType === 5) ?
+                        type => type :
+                        type => type !== "checkLitterStatus").map((type, key) =>
+                        <div className={sections[type].id === activeSection
+                            ? "left-menu__inner-item active"
+                            : "left-menu__inner-item"}
+                            key={key}
+                            onClick={() => {
+                                activeSection !== sections[type].id &&
                                 handleSectionSwitch(sections[type].id);
-                                scrollTo(sections[type].to)}}
-                    >
-                        <SvgSelector icon={sections[type].icon} />
-                        <li>{sections[type].name}</li>
-                    </div>
-                )}
+                                scrollTo(sections[type].to)
+                            }}
+                        >
+                            <SvgSelector icon={sections[type].icon} />
+                            <li>{sections[type].name}</li>
+                        </div>
+                    )
+                }
             </ul>
         </Card>
     );
