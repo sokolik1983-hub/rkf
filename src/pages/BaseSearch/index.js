@@ -138,17 +138,15 @@ const BaseSearch = props => {
                                                 <UserMenu userNav={kennelNav(nurseryData.alias)}/>
                                             </> :
                                             <>
-                                                <StickyBox offsetTop={76}>
-                                                    <LeftMenu
-                                                        setActiveSection={setActiveSection}
-                                                        activeSection={activeSection}
-                                                        showFilter={isOpenFilters}
-                                                        setShowFilters={setShowFilters}
-                                                        isAuthenticated={isAuthenticated}
-                                                        userType={userType}
-                                                        setCardClicked={setCardClicked}
-                                                    />
-                                                </StickyBox>
+                                                <LeftMenu
+                                                    setActiveSection={setActiveSection}
+                                                    activeSection={activeSection}
+                                                    showFilter={isOpenFilters}
+                                                    setShowFilters={setShowFilters}
+                                                    isAuthenticated={isAuthenticated}
+                                                    userType={userType}
+                                                    setCardClicked={setCardClicked}
+                                                />
                                                 <Statistics/>
                                                 <Banner type={11}/>
                                                 <Card className="base-search__map-wrap">
