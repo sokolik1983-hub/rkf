@@ -84,7 +84,7 @@ const UserInfo = ({
                             ?
                             <img className="user-info__logo" src={logo_link} alt="" />
                             :
-                            <InitialsAvatar firstName={first_name} lastName={last_name} />
+                            <InitialsAvatar  name={`${first_name} ${last_name}`} />
                     }
 
                 </div>

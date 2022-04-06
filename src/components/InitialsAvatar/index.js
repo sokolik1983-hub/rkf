@@ -3,10 +3,9 @@ import {useSelector} from "react-redux";
 
 import "./index.scss";
 
-const InitialsAvatar = ({firstName, lastName, card, id}) => {
-    const newName = firstName?.split('');
-    const newLastName = lastName?.split('');
-
+const InitialsAvatar = ({card, id, name}) => {
+    let firstName;
+    let lastName;
 
     const getBgColorAvatar = () => {
         let cardId;
@@ -25,11 +24,24 @@ const InitialsAvatar = ({firstName, lastName, card, id}) => {
         }
     }
 
+    const getInitialName = () => {
+        if(!name) {
+            firstName = useSelector(state => state.authentication.user_info.first_name);
+            lastName = useSelector(state => state.authentication.user_info.last_name);
+        } else if(name && name.split(' ').length > 1) {
+            firstName = name.split(' ')[0];
+            lastName = name.split(' ')[1];
+        } else {
+            firstName = name.split('')[0];
+            lastName = name.split('')[1];
+        }
+        return firstName[0] + lastName[0]
+    };
+
     return (
         <div className={`avatar__wrap ${card ? card : ""}`} style={{backgroundColor: getBgColorAvatar()}}>
             <div className="avatar__name-wrap">
-                <span>{newName && newName[0]}</span>
-                <span>{newLastName && newLastName[0]}</span>
+                <span>{getInitialName()}</span>
             </div>
         </div>
     )

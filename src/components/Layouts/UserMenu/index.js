@@ -187,8 +187,7 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                                             &&
                                             <div className="user-nav__userpic default">
                                                 <InitialsAvatar
-                                                    firstName={userInfo && userInfo.personal_information.first_name}
-                                                    lastName={userInfo && userInfo.personal_information.last_name}
+                                                    name={`${userInfo && userInfo.personal_information.first_name} ${userInfo && userInfo.personal_information.last_name}`}
                                                     card="mobile-user-menu"
                                                 />
                                             </div>

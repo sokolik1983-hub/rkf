@@ -11,7 +11,6 @@ import InitialsAvatar from "../InitialsAvatar";
 
 import './index.scss';
 
-
 const CardSpecialist = ({
                             id,
                             cert_number,
@@ -71,7 +70,7 @@ const CardSpecialist = ({
                             ?
                             <span className="card-specialists__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link})` }} />
                             :
-                            <InitialsAvatar firstName={first_name} lastName={last_name} card="specialist-card" id={id}/>
+                            <InitialsAvatar name={`${first_name} ${last_name}`} card="specialist-card" id={id} />
                     }
                     <div className="card-specialists__inner">
                         <div className="card-specialists__info">

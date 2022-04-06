@@ -7,6 +7,7 @@ import { DEFAULT_IMG } from "../../appConfig";
 import CardFooter from '../CardFooter';
 
 import "./index.scss";
+import InitialsAvatar from "../InitialsAvatar";
 
 
 const CardOrganization = (props) => {
@@ -154,9 +155,17 @@ const CardOrganization = (props) => {
                         </div> :
 
                         <div className="card-organization__author card-organization__no-url">
-                            <span className="card-organization__logo" style={ {
-                                backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`
-                            } }/>
+
+                            {
+                                logo
+                                ?
+                                    <span className="card-organization__logo" style={ {
+                                        backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`
+                                    } }/>
+                                    :
+                                    <InitialsAvatar id={id} card="specialist-card" name={name} />
+                            }
+
 
                             <div className="card-organization__container">
                                 <div className="card-organization__heading">

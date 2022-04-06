@@ -43,7 +43,7 @@ const Content = ({
                             ?
                             <div className={`widget-login__userpic${open && ' _active'}`}
                             >
-                                <InitialsAvatar firstName={firstName} lastName={lastName} card="widget-login" />
+                                <InitialsAvatar name={`${firstName} ${lastName}`} card="widget-login" />
                             </div>
                             :
                             <div className={`widget-login__userpic${open && ' _active'}`}

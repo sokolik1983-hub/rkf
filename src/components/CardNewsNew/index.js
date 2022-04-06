@@ -13,6 +13,7 @@ import { DEFAULT_IMG } from 'appConfig';
 import CardFooter from '../CardFooter';
 import DocumentLink from "../../components/DocumentLink";
 import { endpointGetLinkNewsFeed } from "./config";
+import InitialsAvatar from "../InitialsAvatar";
 
 import './index.scss';
 
@@ -117,14 +118,22 @@ const CardNewsNew = forwardRef(({
                                         :
                                         `/${alias}`}
                         >
-                            <div className="card-news-new__left-logo" style={{
-                                background: `url(${logo_link ?
-                                    logo_link :
-                                    user_type === 1 ?
-                                        DEFAULT_IMG.userAvatar :
-                                        DEFAULT_IMG.clubAvatar
-                                    }) center center/cover no-repeat`
-                            }} />
+                            {
+                                logo_link ?
+                                    <div className="card-news-new__left-logo" style={{
+                                        background: `url(${logo_link}) center center/cover no-repeat`
+                                    }} />
+                                    :
+                                    user_type === 1
+                                        ?
+                                        <div className="card-news-new__left-logo">
+                                            <InitialsAvatar name={`${first_name} ${last_name}`} card="cardnewsnew"/>
+                                        </div>
+                                        :
+                                        <div className="card-news-new__left-logo" style={{
+                                            background: `url(${DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
+                                        }} />
+                            }
                         </Link>
                         <span className="card-news-new__left-name">
                             <span className="card-news-new__left-city">

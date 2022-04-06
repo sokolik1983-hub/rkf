@@ -95,7 +95,7 @@ const WidgetLogin = forwardRef(
                                 (user_type === 1)
                                     ?
                                     <div className={`widget-login__user-icon ${open && ' _active'}`}>
-                                        <InitialsAvatar  firstName={first_name} lastName={last_name} card="user-icon"/>
+                                        <InitialsAvatar  name={`${first_name} ${last_name}`} card="user-icon"/>
                                     </div>
                                     :
                                     <div className={`widget-login__user-icon ${open && ' _active'}`}

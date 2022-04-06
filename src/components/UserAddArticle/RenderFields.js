@@ -20,6 +20,7 @@ import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
+import InitialsAvatar from "../InitialsAvatar";
 
 
 const RenderFields = ({ fields,
@@ -194,11 +195,22 @@ const RenderFields = ({ fields,
         isAllCities && formik.setFieldValue('dog_city', []);
     }, [isAllCities]);
 
+    useEffect(() => {
+        console.log('logo', logo);
+    }, [])
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="article-create-form__wrap article-create-form__textarea-wrap">
-                    <ClientAvatar size={40} avatar={logo || DEFAULT_IMG.clubAvatar} />
+                    {
+                        logo !== "/static/icons/default/default_avatar.svg"
+                            ?
+                            <ClientAvatar size={40} avatar={logo} />
+                            :
+                            <InitialsAvatar card="article"/>
+                    }
+
                         <FormField
                             {...fields.content}
                             onChange={handleKeyDown}
