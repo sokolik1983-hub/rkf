@@ -7,10 +7,10 @@ import LightTooltip from '../LightTooltip';
 import { Request } from '../../utils/request';
 import Alert from '../Alert';
 import ls from 'local-storage';
-
-import './index.scss';
 import {useSelector} from "react-redux";
 import InitialsAvatar from "../InitialsAvatar";
+
+import './index.scss';
 
 const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth }) => {
     const [image, setImage] = useState(avatar || '');
@@ -20,9 +20,6 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     const [editorErrors, setEditorErrors] = useState([]);
     const editor = useRef(null);
     const currentLink = pageBanner ? '/api/headerpicture/full_v3' : '/api/avatar/full_v3';
-    let cardId = useSelector(state => state.authentication.profile_id);
-    const newName = useSelector(state => state.authentication.user_info.first_name)?.split('')[0];
-    const newLastName = useSelector(state => state.authentication.user_info.last_name)?.split('')[0];
 
     const handleSubmit = () => {
         Request({

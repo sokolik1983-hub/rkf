@@ -11,9 +11,9 @@ import {connectShowFilters} from '../../../components/Layouts/connectors';
 import transliterate from '../../../utils/transliterate';
 import Statistics from "../../Statistics";
 import ClubsMap from "../../ClubsMap";
+import InitialsAvatar from "../../InitialsAvatar";
 
 import './index.scss';
-import InitialsAvatar from "../../InitialsAvatar";
 
 const JudgeLayout = () => {
     const [loading, setLoading] = useState(true);

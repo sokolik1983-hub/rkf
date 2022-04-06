@@ -195,10 +195,6 @@ const RenderFields = ({ fields,
         isAllCities && formik.setFieldValue('dog_city', []);
     }, [isAllCities]);
 
-    useEffect(() => {
-        console.log('logo', logo);
-    }, [])
-
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
