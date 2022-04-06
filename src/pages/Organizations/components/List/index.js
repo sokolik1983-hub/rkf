@@ -16,7 +16,7 @@ const OrganizationsList = (filters) => {
 
     const getOrganizations = async startElem => {
         await Request({
-            url: `${endpointGetOrganizations}${buildUrlParams({ ...filters })}`
+            url: `${endpointGetOrganizations}${buildUrlParams({ ...filters , start_element: startElem})}`
         }, data => {
             if (data.length) {
                 if (data.length < 10) {
