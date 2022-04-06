@@ -4,8 +4,6 @@ import {useSelector} from "react-redux";
 import "./index.scss";
 
 const InitialsAvatar = ({card, id, name}) => {
-    let firstName;
-    let lastName;
 
     const getBgColorAvatar = () => {
         let cardId;
@@ -25,6 +23,8 @@ const InitialsAvatar = ({card, id, name}) => {
     }
 
     const getInitialName = () => {
+        let firstName;
+        let lastName;
         if(!name) {
             firstName = useSelector(state => state.authentication.user_info.first_name);
             lastName = useSelector(state => state.authentication.user_info.last_name);
