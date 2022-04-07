@@ -280,6 +280,8 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
         return !value ? requiredMessage : value.length > 30 ? requiredNcpMessage : ''
     };
 
+    console.log('exhibitionProperties?.current_month', exhibitionProperties?.current_month);
+
     return (
         <div className="application-form">
             <Card>
@@ -380,8 +382,8 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     name="date_begin"
                                                     label="Дата начала проведения"
                                                     min={isCACIB ?
-                                                        new Date(new Date().getFullYear() + (exhibitionProperties?.current_month <= 4 ? 1 : 2), 12, 1)
-                                                        : new Date(new Date().getFullYear() + (exhibitionProperties?.current_month <= 4 ? 0 : 1), 12, 1)
+                                                        new Date(new Date().getFullYear() + 1 , 12, 1)
+                                                        : new Date(new Date().getFullYear() + (exhibitionProperties?.current_month <= 4 ? 1 : 0), 12, 1)
                                                     }
                                                     component={FormDatePicker}
                                                     validator={dateRequiredValidator}
