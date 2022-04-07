@@ -14,14 +14,13 @@ import AddVideoLink from "./AddVideoLink";
 import AttachFile from "./AttachFile";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
-import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
+import { BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 import InitialsAvatar from "../InitialsAvatar";
-
 
 const RenderFields = ({ fields,
                           logo,
@@ -199,14 +198,12 @@ const RenderFields = ({ fields,
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="article-create-form__wrap article-create-form__textarea-wrap">
-                    {
-                        logo !== "/static/icons/default/default_avatar.svg"
+                    {logo !== "/static/icons/default/default_avatar.svg"
                             ?
                             <ClientAvatar size={40} avatar={logo} />
                             :
                             <InitialsAvatar card="article"/>
                     }
-
                         <FormField
                             {...fields.content}
                             onChange={handleKeyDown}

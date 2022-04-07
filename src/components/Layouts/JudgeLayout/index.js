@@ -94,20 +94,20 @@ const JudgeLayout = () => {
                     </aside>
                             <Card>
                                 <div className="judge-info__wrap">
-                                    {
-                                        loadingJudgePersInfo
+                                    {loadingJudgePersInfo
                                             ?
                                             <Loading />
                                             :
                                             <>
-                                                {
-                                                    judgeInfoLink
+                                                {judgeInfoLink
                                                         ?
                                                         <img src={judgeInfoLink} alt="avatar-img" />
                                                         :
-                                                        <InitialsAvatar name={`${judgePersInfo?.first_name} ${judgePersInfo?.last_name}`} card="specialist-card" />
+                                                        <InitialsAvatar
+                                                            name={`${judgePersInfo?.first_name} ${judgePersInfo?.last_name}`}
+                                                            card="specialist-card"
+                                                        />
                                                 }
-
                                                 <div className="judge-info__inner">
                                                     <div className="judge-info__name-location">
                                                         <div className="judge-info__name-block">

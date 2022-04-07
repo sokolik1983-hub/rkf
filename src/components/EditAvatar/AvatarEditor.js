@@ -7,7 +7,6 @@ import LightTooltip from '../LightTooltip';
 import { Request } from '../../utils/request';
 import Alert from '../Alert';
 import ls from 'local-storage';
-import {useSelector} from "react-redux";
 import InitialsAvatar from "../InitialsAvatar";
 
 import './index.scss';

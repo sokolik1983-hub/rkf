@@ -7,7 +7,7 @@ const InitialsAvatar = ({card, id, name}) => {
 
     const getBgColorAvatar = () => {
         let cardId;
-        if(id) {
+        if (id) {
             cardId = id.toString().slice(-1);
         } else {
             cardId =  useSelector(state => state.authentication.profile_id);

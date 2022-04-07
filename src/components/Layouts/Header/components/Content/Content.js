@@ -32,25 +32,26 @@ const Content = ({
                         <img src='/static/images/widget-login/userpic-bg.jpg' alt=""/>
                     }
                 </div>
-                {
-                    logo
+                {logo
+                    ?
+                    <div className={`widget-login__userpic${open && ' _active'}`}
+                         style={{ backgroundImage: `url(${logo})` }}
+                    />
+                    :
+                    userType === 1
                         ?
                         <div className={`widget-login__userpic${open && ' _active'}`}
-                             style={{ backgroundImage: `url(${logo})` }}
-                        />
-                        :
-                        userType === 1
-                            ?
-                            <div className={`widget-login__userpic${open && ' _active'}`}
-                            >
-                                <InitialsAvatar name={`${firstName} ${lastName}`} card="widget-login" />
-                            </div>
-                            :
-                            <div className={`widget-login__userpic${open && ' _active'}`}
-                                 style={{ backgroundImage: `url(${DEFAULT_IMG.clubAvatar})` }}
+                        >
+                            <InitialsAvatar
+                                name={`${firstName} ${lastName}`}
+                                card="widget-login"
                             />
+                        </div>
+                        :
+                        <div className={`widget-login__userpic${open && ' _active'}`}
+                             style={{ backgroundImage: `url(${DEFAULT_IMG.clubAvatar})` }}
+                        />
                 }
-
             </div>
             <div className="widget-login__username">
                 {userType === 1 &&
