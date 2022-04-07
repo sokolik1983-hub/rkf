@@ -62,6 +62,25 @@ export const days = [{
         fullName: 'Воскресенье'
     }];
 
+export const phoneNumberMask = [
+    "+",
+    "7",
+    "(",
+    /[1-9]/,
+    /\d/,
+    /\d/,
+    ")",
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/
+];
+
 export const editForm = {
     method: 'PUT',
     action: '/api/nurseries/nursery/update_full',
@@ -172,7 +191,15 @@ export const editForm = {
             label: "Скрыть личную информацию",
             fieldType: "customCheckbox"
         },
-        contacts: [],
+        contacts: {
+            phone: {
+                mask: phoneNumberMask,
+                label: 'phone',
+                type: 'tel',
+                placeholder: '+7(___)___-__-__',
+                title: 'Формат номера: +7(999)999-99-99',
+            },
+        },
         documents: [],
         socials: [],
         work_time: []
@@ -207,8 +234,7 @@ export const editForm = {
             value: string().when(['contact_type_id'], {
                 is: 1,
                 then: string()
-                    .max(16, 'Формат номера: +7(999)999-99-99')
-                    .matches(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/, 'Формат номера: +7(999)999-99-99')
+                    .min(16, 'Формат номера: +7(999)999-99-99')
                     .required('Введите номер телефона'),
                 otherwise: string()
                     .email('Неверный формат электронного адреса')
