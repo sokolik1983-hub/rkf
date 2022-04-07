@@ -131,6 +131,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    p {
+      svg {
+        margin-left: 5px;
+      }
+    }
   }
   &__transition {
     &-enter,
