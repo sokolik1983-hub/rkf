@@ -107,14 +107,12 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
                 <div className="user-description__item-title">Специализация:</div>
                 <div className="user-description__item-specs">
                     {judgeInfo.map(item =>
-                    //     item.specializations.length > 1 ?
                         item.specializations[0] !== 'Судья по породам' ?
                             item.specializations.map(value =>
                                 <Link key={RandomKeyGenerator()} className="user-description__item-spec" to={`/referee/${item.judge_id}/2`}>{value}</Link>
 
                             ) :
                             <Link key={RandomKeyGenerator()} className="user-description__item-spec" to={`/referee/${item.judge_id}/1`}>{item.specializations}</Link>
-                        // console.log(item.specializations[0])
                     )}
                 </div>
             </div>}
