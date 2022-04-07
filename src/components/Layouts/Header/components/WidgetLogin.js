@@ -14,6 +14,7 @@ import {DEFAULT_IMG} from "../../../../appConfig";
 import history from "../../../../utils/history";
 import {Request} from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
+import InitialsAvatar from "../../../InitialsAvatar";
 
 
 const WidgetLogin = forwardRef(
@@ -76,16 +77,33 @@ const WidgetLogin = forwardRef(
                         ref={widgetLoginRef}
                         onClick={handleChecked}
                     >
-                        {isMobile1080 ?
+                        {isMobile1080
+                            ?
                             <div className={`widget-login__user-icon`}>
                                 {footerNav?.image}
                                 <span style={{color: open && '#3366FF'}}>
                                     {footerNav?.title}
                                 </span>
-                            </div> :
-                            <div className={`widget-login__user-icon ${open && ' _active'}`}
-                                style={{backgroundImage: `url(${logo ? logo : user_type === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})`}}
-                            />
+                            </div>
+                            :
+                                logo
+                                ?
+                                <div className={`widget-login__user-icon ${open && ' _active'}`}
+                                     style={{backgroundImage: `url(${logo})`}}
+                                />
+                                :
+                                (user_type === 1)
+                                    ?
+                                    <div className={`widget-login__user-icon ${open && ' _active'}`}>
+                                        <InitialsAvatar
+                                            name={`${first_name} ${last_name}`}
+                                            card="user-icon"
+                                        />
+                                    </div>
+                                    :
+                                    <div className={`widget-login__user-icon ${open && ' _active'}`}
+                                         style={{backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`}}
+                                    />
                         }
                         {!isMobile1080 &&
                             <span style={{color: open && '#3366FF'}}>

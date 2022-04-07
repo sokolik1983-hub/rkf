@@ -82,6 +82,12 @@
     background-position: center;
     background-size: cover;
     background-color: white;
+    &.default {
+      & .widget-login {
+        margin-top: 0;
+        height: 100%;
+      }
+    }
     img {
       border-radius: 50%;
     }

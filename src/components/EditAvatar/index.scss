@@ -1,4 +1,14 @@
 .avatar-editor {
+  &__initials {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5em;
+    line-height: 6em;
+    font-weight: 600;
+    color: #72839C;
+  }
   &__dropzone {
     width: 382px;
     margin: 0 auto;
