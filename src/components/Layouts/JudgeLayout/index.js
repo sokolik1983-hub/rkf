@@ -182,8 +182,7 @@ const JudgeLayout = () => {
                                     }
                                 </>
                             }
-                            {type && type === '2'
-                                &&
+                            {type && type === '2' &&
                                 data?.map((item) =>
                                     item.judge_info?.disciplines.map((item, i) =>
                                         <div key={i} className="judge-info__rank-box">
