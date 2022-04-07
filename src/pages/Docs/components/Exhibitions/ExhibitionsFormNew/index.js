@@ -280,8 +280,6 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
         return !value ? requiredMessage : value.length > 30 ? requiredNcpMessage : ''
     };
 
-    console.log('exhibitionProperties?.current_month', exhibitionProperties?.current_month);
-
     return (
         <div className="application-form">
             <Card>
