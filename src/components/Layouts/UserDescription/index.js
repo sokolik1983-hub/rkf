@@ -103,41 +103,30 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
                 <span className="user-description__item-title">{main_phone_description || 'Телефон'}:</span>&nbsp;
                 <span>{getPhoneString(main_phone_value, main_phone_status, phones)}</span>
             </p>
-            {!!judge?.length && <div className="user-description__item _full-info">
-                <span className="user-description__item-title">Полная&nbsp;информация:</span>
-                <div className="user-description__item-lists">
-                    { judge.map(item =>
-                        item.referee_type_id === 1
-                            ?
-                            <Link
-                                key={RandomKeyGenerator()}
-                                to={`/referee/${item.judge_id}/1`}
-                                className="user-description__item-list" >
-                                    Лист&nbsp;судьи&nbsp;по&nbsp;породам&nbsp;№&nbsp;{item.cert_number}&nbsp;
-                            </Link>
-                            :
-                            item.referee_type_id=== 2 &&
-                            <Link
-                                key={RandomKeyGenerator()}
-                                to={`/referee/${item.judge_id}/2`}
-                                className="user-description__item-list" >
-                                Лист&nbsp;судьи&nbsp;по&nbsp;рабочим качествам&nbsp;№&nbsp;{item.cert_number}&nbsp;
-                            </Link>
-                    )}
-                </div>
-            </div>}
             {!!specializations?.length &&
                 <div className="user-description__item _specialization">
                     <div className="user-description__item-title">Специализация:</div>
                     <div className="user-description__item-specs">
-                        {specializations.map(item =>
-                            item.length === 1 ?
-                                <div key={RandomKeyGenerator()} className="user-description__item-spec" >{item}</div>
-                                : item.map(item =>
-                                    <div key={RandomKeyGenerator()} className="user-description__item-spec" >{item}</div>)
-                        )}
+                        {judgeInfo.map(item =>
+                            item.specializations[0] !== 'Судья по породам' ?
+                                item.specializations.map(value =>
+                                    <Link key={RandomKeyGenerator()}
+                                          className="user-description__item-spec"
+                                          to={`/referee/${item.judge_id}/2`}>
+                                        {value}
+                                    </Link>
+
+                                ) :
+                                <Link key={RandomKeyGenerator()}
+                                      className="user-description__item-spec"
+                                      to={`/referee/${item.judge_id}/1`}>
+                                    {item.specializations}
+                                </Link>
+                            )
+                        }
                     </div>
-            </div>}
+                </div>
+            }
             {additionalInfo &&
                 <>
                     <Collapse isOpened={isOpen}>
