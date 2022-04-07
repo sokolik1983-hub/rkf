@@ -103,19 +103,30 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
                 <span className="user-description__item-title">{main_phone_description || 'Телефон'}:</span>&nbsp;
                 <span>{getPhoneString(main_phone_value, main_phone_status, phones)}</span>
             </p>
-            {!!specializations?.length && <div className="user-description__item _specialization">
-                <div className="user-description__item-title">Специализация:</div>
-                <div className="user-description__item-specs">
-                    {judgeInfo.map(item =>
-                        item.specializations[0] !== 'Судья по породам' ?
-                            item.specializations.map(value =>
-                                <Link key={RandomKeyGenerator()} className="user-description__item-spec" to={`/referee/${item.judge_id}/2`}>{value}</Link>
+            {!!specializations?.length &&
+                <div className="user-description__item _specialization">
+                    <div className="user-description__item-title">Специализация:</div>
+                    <div className="user-description__item-specs">
+                        {judgeInfo.map(item =>
+                            item.specializations[0] !== 'Судья по породам' ?
+                                item.specializations.map(value =>
+                                    <Link key={RandomKeyGenerator()}
+                                          className="user-description__item-spec"
+                                          to={`/referee/${item.judge_id}/2`}>
+                                        {value}
+                                    </Link>
 
-                            ) :
-                            <Link key={RandomKeyGenerator()} className="user-description__item-spec" to={`/referee/${item.judge_id}/1`}>{item.specializations}</Link>
-                    )}
+                                ) :
+                                <Link key={RandomKeyGenerator()}
+                                      className="user-description__item-spec"
+                                      to={`/referee/${item.judge_id}/1`}>
+                                    {item.specializations}
+                                </Link>
+                            )
+                        }
+                    </div>
                 </div>
-            </div>}
+            }
             {additionalInfo &&
                 <>
                     <Collapse isOpened={isOpen}>
