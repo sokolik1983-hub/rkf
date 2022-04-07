@@ -114,7 +114,6 @@
       color: #3366ff;
       font-size: 18px;
       text-overflow: ellipsis;
-      overflow: hidden;
       white-space: pre-line;
       display: flex;
       @media (max-width: 375px) {
@@ -132,8 +131,14 @@
     align-items: center;
     justify-content: space-between;
     p {
+      position: relative;
       svg {
         margin-left: 5px;
+        @media (max-width: 400px) {
+          position: absolute;
+          top: -7px;
+          right: -15px;
+        }
       }
     }
   }
