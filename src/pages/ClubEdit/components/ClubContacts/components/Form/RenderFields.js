@@ -20,7 +20,7 @@ const RenderFields = ({disabled, isMaskedTel}) => {
                     mask={phoneNumberMask}
                     type="tel"
                     placeholder="+7(999)999-99-99"
-                    title='Формат номера: +7(999)999-99-99'
+                    title="Формат номера: +7(999)999-99-99"
                 /> :
                 <FormField
                     disabled={disabled}
