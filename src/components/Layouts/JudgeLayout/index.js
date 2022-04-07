@@ -11,12 +11,14 @@ import {connectShowFilters} from '../../../components/Layouts/connectors';
 import transliterate from '../../../utils/transliterate';
 import Statistics from "../../Statistics";
 import ClubsMap from "../../ClubsMap";
+import InitialsAvatar from "../../InitialsAvatar";
 import history from "../../../utils/history";
 
 import './index.scss';
 
 const JudgeLayout = () => {
     const [loading, setLoading] = useState(true);
+    const [loadingJudgePersInfo, setLoadingJudgePersInfo] = useState(false);
     const [judgeAlias, setJudgeAlias] = useState('');
     const [judgeInfoLink, setJudgeInfoLink] = useState(null);
     const [judgeAddInfo, setJudgeAddInfo] = useState(null);
@@ -38,7 +40,7 @@ const JudgeLayout = () => {
     };
 
     const getJudgeInfo = () => {
-        setLoading(true);
+        setLoadingJudgePersInfo(true);
         if(judgeAlias) {
             Request({
                 url: `/api/owners/owner/public_full/${judgeAlias}`
@@ -46,11 +48,11 @@ const JudgeLayout = () => {
                 setJudgeInfoLink(data.logo_link);
                 setJudgePersInfo(data.personal_information);
                 setJudgeCity(data.additional_information);
+                setLoadingJudgePersInfo(false);
             }, error => {
                 console.log('error', error)
             });
         }
-        setLoading(false);
     };
 
     const getJudgeAddInfo = () => {
@@ -98,23 +100,37 @@ const JudgeLayout = () => {
                         </button>
 
                         <Card>
-                            <div className="judge-info__wrap">
-                                <img src={judgeInfoLink ? judgeInfoLink : '/static/icons/default/default_avatar.svg'}
-                                     alt="avatar-img"/>
-                                <div className="judge-info__inner">
-                                    <div className="judge-info__name-location">
-                                        <div className="judge-info__name-block">
-                                            <p className="judge-info__name-rus">{judgePersInfo && judgePersInfo.first_name + ' ' + judgePersInfo.last_name}</p>
-                                            <p className="judge-info__name-lat">{judgePersInfo && transliterate(`${judgePersInfo.first_name} ${judgePersInfo.last_name}`)}</p>
-                                        </div>
-                                        <div className="judge-info__location-block">
-                                            <p className="judge-info__city">{judgeCity && judgeCity.city_name}</p>
+                            {
+                                loadingJudgePersInfo
+                                ?
+                                    <Loading />
+                                    :
+                                    <div className="judge-info__wrap">
+                                        {judgeInfoLink
+                                            ?
+                                            <img src={judgeInfoLink} alt="avatar-img" />
+                                            :
+                                            <InitialsAvatar
+                                                name={`${judgePersInfo?.first_name} ${judgePersInfo?.last_name}`}
+                                                card="specialist-card"
+                                            />
+                                        }
+                                        <div className="judge-info__inner">
+                                            <div className="judge-info__name-location">
+                                                <div className="judge-info__name-block">
+                                                    <p className="judge-info__name-rus">{judgePersInfo && judgePersInfo.first_name + ' ' + judgePersInfo.last_name}</p>
+                                                    <p className="judge-info__name-lat">{judgePersInfo && transliterate(`${judgePersInfo.first_name} ${judgePersInfo.last_name}`)}</p>
+                                                </div>
+                                                <div className="judge-info__location-block">
+                                                    <p className="judge-info__city">{judgeCity && judgeCity.city_name}</p>
+                                                </div>
+                                            </div>
+                                            <p className="judge-info__list">Лист Судьи
+                                                № <span>{data && data[0]?.judge_info?.cert_number}</span></p>
                                         </div>
                                     </div>
-                                    <p className="judge-info__list">Лист Судьи
-                                        № <span>{data && data[0]?.judge_info?.cert_number}</span></p>
-                                </div>
-                            </div>
+                            }
+
                             <div className="judge-info__contacts">
                                 {
                                     judgeAddInfo?.phones.length > 0 &&
