@@ -95,7 +95,7 @@ const JudgeLayout = () => {
                     </aside>
                     <div className="user-page__content-wrap">
                         <button className="back-button"
-                                onClick={() => judgeAlias ? history.push(`/user/${judgeAlias}`) : history.goBack()}
+                                onClick={() => judgeAlias && history.push(`/user/${judgeAlias}`)}
                         >Назад
                         </button>
 
