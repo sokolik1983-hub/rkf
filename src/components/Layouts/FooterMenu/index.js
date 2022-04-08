@@ -16,6 +16,7 @@ import UserMenu from '../UserMenu';
 import ZlineWidget from "../../ZLineWidget";
 import {blockContent} from "../../../utils/blockContent";
 import { checkAliasUrl } from '../../../utils/checkAliasUrl';
+import MenuComponentNew from "../../MenuComponentNew";
 
 import './footerMenu.scss';
 
@@ -112,42 +113,7 @@ const FooterMenu = ({
 
                     {
                         <div onClick={hideWidgetLoginPopup} className={(checkAliasUrl(pathname, alias) === null) ? 'more_btn-hide' : 'class-for-grid4'}>
-                            {isFederationAlias(checkAliasUrl(pathname, alias) || alias)
-                                ?
-                                <MenuComponent
-                                    openMenuComponent={openMenuComponent}
-                                    setOpenMenuComponent={setOpenMenuComponent}
-                                    isExhibitionPage={isExhibitionPage}
-                                    alias={checkAliasUrl(pathname, alias) || alias}
-                                    name={fedInfo?.short_name || fedInfo?.name || 'Название федерации отсутствует'}
-                                    isFederation={true}
-                                />
-                                :
-                                isKennel ? <UserMenu
-                                        setOpenUserMenu={setOpenUserMenu}
-                                        openUserMenu={openUserMenu}
-                                        userNav={canEdit
-                                    ? kennelNav(checkAliasUrl(pathname, alias) || alias) // Show NewsFeed menu item to current user only
-                                    : kennelNav(checkAliasUrl(pathname, alias) || alias).filter(i => i.id !== 2)}
-                                    notificationsLength={notificationsLength}
-                                /> :
-                                    isUser ?
-                                        <UserMenu
-                                            setOpenUserMenu={setOpenUserMenu}
-                                            openUserMenu={openUserMenu}
-                                            userNav={canEdit
-                                            ? userNav(checkAliasUrl(pathname, alias) || alias) // Show NewsFeed menu item to current user only
-                                            : userNav(checkAliasUrl(pathname, alias) || alias).filter(i => i.id !== 2)}
-                                            notificationsLength={notificationsLength}
-                                        />
-                                        : <UserMenu
-                                            setOpenUserMenu={setOpenUserMenu}
-                                            openUserMenu={openUserMenu}
-                                            userNav={canEdit
-                                            ? clubNav(checkAliasUrl(pathname, alias) || alias) // Show NewsFeed menu item to current user only
-                                            : clubNav(checkAliasUrl(pathname, alias) || alias).filter(i => i.id !== 2)}
-                                            notificationsLength={notificationsLength}
-                                        />}
+                            <MenuComponentNew />
                         </div>
                     }
                 </div>

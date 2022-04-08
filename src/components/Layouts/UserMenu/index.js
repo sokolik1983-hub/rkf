@@ -174,6 +174,7 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                             bottomStyle
                         >
                             <div className="user-nav__inner">
+                                <MenuComponentNew />
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
 
@@ -319,6 +320,7 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                         </PopupModal>
                         :
                         <ul className="user-nav__list">
+                            <MenuComponentNew userNav={userNav} />
                             {userNav.map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                 key={navItem.id}>
                                 <NavLink

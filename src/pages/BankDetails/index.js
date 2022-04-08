@@ -138,7 +138,7 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                                                 />
                                             </Card>}
                                             {!isMobile && <MenuComponentNew
-                                                isDocsPage
+                                                isDocsPage={true}
                                                 userNav={userNav(alias)}
                                             />}
                                         </>

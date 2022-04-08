@@ -29,6 +29,7 @@ import {connectShowFilters} from "../../components/Layouts/connectors";
 import ClickGuard from "../../components/ClickGuard";
 
 import "./index.scss";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 
 const BaseSearch = props => {
@@ -170,4 +171,4 @@ const BaseSearch = props => {
         </Layout>
     )
 };
-export default memo(connectAuthVisible(BaseSearch));
+export default memo(connectShowFilters(connectAuthVisible(BaseSearch)));

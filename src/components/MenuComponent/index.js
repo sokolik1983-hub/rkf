@@ -15,10 +15,6 @@ import MenuComponentNew from "../MenuComponentNew";
 
 import "./index.scss";
 
-
-
-
-
 const presidium = {
     rkf: {
         title: 'Состав Президиума РКФ',
@@ -533,7 +529,6 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
                 :
                 <Card>
                 <ul className="menu-component__list">
-                    <MenuComponentNew>222222222222</MenuComponentNew>
                 {user !== 'nursery' &&
                 <li className="menu-component__item">
                         <NavLink
