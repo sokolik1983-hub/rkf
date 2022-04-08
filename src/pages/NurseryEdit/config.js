@@ -1,4 +1,6 @@
 import { object, string, number, array, boolean } from 'yup';
+import { DEFAULT_PHONE_INPUT_MASK } from "../../appConfig"
+
 
 const emptyFieldMsg = 'Поле не может быть пустым';
 const lat = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей' })
@@ -61,25 +63,6 @@ export const days = [{
         name: 'Вс',
         fullName: 'Воскресенье'
     }];
-
-export const phoneNumberMask = [
-    "+",
-    "7",
-    "(",
-    /[1-9]/,
-    /\d/,
-    /\d/,
-    ")",
-    /\d/,
-    /\d/,
-    /\d/,
-    "-",
-    /\d/,
-    /\d/,
-    "-",
-    /\d/,
-    /\d/
-];
 
 export const editForm = {
     method: 'PUT',
@@ -193,7 +176,7 @@ export const editForm = {
         },
         contacts: {
             phone: {
-                mask: phoneNumberMask,
+                mask: DEFAULT_PHONE_INPUT_MASK,
                 label: 'phone',
                 type: 'tel',
                 placeholder: '+7(___)___-__-__',
