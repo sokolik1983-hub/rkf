@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import {FormField, FormGroup} from "../../../../../../components/Form";
-import {clubClubContactsConfig} from "../../config";
+import MaskedInput from "../../../../../../components/Form/Field/MaskedInput";
+import {clubClubContactsConfig, phoneNumberMask} from "../../config";
 import {ContactTypeContext} from "../../context";
 
 
@@ -12,13 +13,14 @@ const RenderFields = ({disabled, isMaskedTel}) => {
     return (
         <FormGroup inline>
             {isMaskedTel ?
-                <FormField
+                <MaskedInput
                     disabled={disabled}
                     {...fields.value}
                     label={contactType.label}
-                    type='tel'
-                    placeholder="+7(999)999-99-99"
-                    title='Формат номера: +7(999)999-99-99'
+                    mask={phoneNumberMask}
+                    type="tel"
+                    placeholder="+7(___)___-__-__"
+                    title="Формат номера: +7(999)999-99-99"
                 /> :
                 <FormField
                     disabled={disabled}
