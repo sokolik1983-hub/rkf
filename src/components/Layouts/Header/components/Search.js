@@ -17,7 +17,15 @@ const Search = ({ withFilters, hideSideMenu }) => {
         return urlPath === '/organizations' ? 100 :
                 urlPath === '/' ? 200 :
                 urlPath === '/exhibitions' ? 300 :
-                urlPath === '/specialists' ? 400 : 8;
+                urlPath === '/specialists' ? 400 : getSearchTypeIdFromUrl();
+    }
+
+    const getSearchTypeIdFromUrl = () => {
+        if (!!location.search.match(/search_type=\d{3}/)) {
+            return `${location.search
+                .match(/search_type=\d{3}/)[0]
+                .match(/\d/)[0]}00`;
+        }
     }
 
     const handleSubmit = e => {

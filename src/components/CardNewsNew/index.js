@@ -11,7 +11,10 @@ import { formatText } from 'utils';
 import { formatDateTime } from 'utils/datetime';
 import { DEFAULT_IMG } from 'appConfig';
 import CardFooter from '../CardFooter';
-import DocumentLink from './DocumentLink';
+import DocumentLink from "../../components/DocumentLink";
+import { endpointGetLinkNewsFeed } from "./config";
+import InitialsAvatar from "../InitialsAvatar";
+
 import './index.scss';
 
 const CardNewsNew = forwardRef(({
@@ -103,17 +106,34 @@ const CardNewsNew = forwardRef(({
 
         return <>
             <div className="card-news-new__content">
-                <div className="card-news-new__head" style={{ margin: '0 10px 0 10px' }}>
+                <div className="card-news-new__head">
                     <div className="card-news-new__left">
-                        <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
-                            <div className="card-news-new__left-logo" style={{
-                                background: `url(${logo_link ?
-                                    logo_link :
-                                    user_type === 1 ?
-                                        DEFAULT_IMG.userAvatar :
-                                        DEFAULT_IMG.clubAvatar
-                                    }) center center/cover no-repeat`
-                            }} />
+                        <Link to={user_type === 4
+                                    ?
+                                    `/kennel/${alias}`
+                                    :
+                                    user_type === 1
+                                        ?
+                                        `/user/${alias}`
+                                        :
+                                        `/${alias}`}
+                        >
+                            {
+                                logo_link ?
+                                    <div className="card-news-new__left-logo" style={{
+                                        background: `url(${logo_link}) center center/cover no-repeat`
+                                    }} />
+                                    :
+                                    user_type === 1
+                                        ?
+                                        <div className="card-news-new__left-logo">
+                                            <InitialsAvatar name={`${first_name} ${last_name}`} card="cardnewsnew"/>
+                                        </div>
+                                        :
+                                        <div className="card-news-new__left-logo" style={{
+                                            background: `url(${DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
+                                        }} />
+                            }
                         </Link>
                         <span className="card-news-new__left-name">
                             <span className="card-news-new__left-city">
@@ -188,7 +208,7 @@ const CardNewsNew = forwardRef(({
                                                 {!is_closed_advert &&
                                                     <li className="card-news-new__head-control-item"
                                                     >
-                                                        {isFederation ? <Link to={`/news/${id}`} style={{ textDecoration: 'none' }}>Подробнее...</Link> : <Link to={`${url}/edit`} style={{ textDecoration: 'none' }}>Редактировать</Link>}
+                                                        {isFederation ? <Link to={`/news/${id}`}>Подробнее...</Link> : <Link to={`${url}/edit`}>Редактировать</Link>}
                                                     </li>
                                                 }
                                                 {is_advert && !is_closed_advert &&
@@ -213,38 +233,63 @@ const CardNewsNew = forwardRef(({
                         {advert_type_name &&
                             <div className = "card-news-new__category-wrap">
                                 <div>
-                                    <span className="card-news-new__category-span">Категория: </span>
+                                    <span className="card-news-new__category-name">Категория: </span>
                                     <p className = "card-news-new__category-value">{advert_type_name}</p>
                                 </div>
                                 <span>№{advert_code}</span>
                             </div>}
                         {
                                 <p className="card-news-new__ad-breed">
-                                    <span>{is_halfbreed ? "Метис" : `Порода: ${advert_breed_name}`}</span>
+                                    <span>Порода: </span>
+                                    <span>{!is_halfbreed ? advert_breed_name : 'Метис'}</span>
                                 </p>
                         }
                         {
-                            dog_color && <div className="card-news-new__ad-color">Окрас: {dog_color}</div>
+                            dog_color && <p className="card-news-new__ad-color">
+                                <span>Окрас: </span>
+                                <span>{dog_color}</span>
+                            </p>
                         }
                         {
-                            dog_name && <div className="card-news-new__ad-name">Кличка собаки: {dog_name}</div>
+                            dog_name && <p className="card-news-new__ad-name">
+                                <span>Кличка собаки: </span>
+                                <span>{dog_name}</span>
+                            </p>
                         }
                         {
-                            !is_all_cities && dog_city && (advert_type_id > 1)
-                                ?
-                                <div className="card-news-new__ad-city">Место {cityLabel}: {dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)}</div>
-                                :
-                                <div className="card-news-new__ad-city">Все города</div>
+                            <p className="card-news-new__ad-city">
+                                <span>Место{cityLabel && ' ' + cityLabel}: </span>
+                                <span>
+                                    {!is_all_cities && dog_city && (advert_type_id > 1)
+                                        ?
+                                        dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)
+                                        :
+                                        'Все города'
+                                    }
+                                </span>
+                            </p>
+                            }
+                        {
+                            dog_age && <p className="card-news-new__ad-age">
+                                <span>Возраст {(advert_type_id === 5) && '(примерный)'}: </span>
+                                <span>{dog_age}</span>
+                            </p>
                         }
                         {
-                            dog_age && <div className="card-news-new__ad-age">Возраст {(advert_type_id === 5) && '(примерный)'}: {dog_age}</div>
-                        }
-                        {
-                            dog_sex_type_id && <div className="card-news-new__ad-sex">Пол: {dog_sex_type_id}</div>
+                            dog_sex_type_id && <p className="card-news-new__ad-sex">
+                                <span>Пол: </span>
+                                <span>{dog_sex_type_id}</span>
+                            </p>
                         }
                         { (advert_type_id < 4) &&<div className="card-news-new__ad-price">
-                            <div>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'} </div>
-                            <div>Кол-во щенков: {advert_number_of_puppies} </div>
+                            <p>
+                                <span>Стоимость: </span>
+                                <span>{advert_cost ? `${advert_cost} руб.` : '-'}</span>
+                            </p>
+                            <p>
+                                <span>Кол-во щенков: </span>
+                                <span>{advert_number_of_puppies}</span>
+                            </p>
                             {is_closed_advert && <div className="card-news-new__ad-inactive" >Объявление не активно</div>}
                         </div>}
                     </div>}
@@ -255,7 +300,7 @@ const CardNewsNew = forwardRef(({
                         />
                     }
                 </div>
-                <div className="card-news-new__show-all-wrap" style={{ margin: '0 10px 0 10px' }}>
+                <div className="card-news-new__show-all-wrap">
                     {
                         <div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}
                             onClick={() => canCollapse && setCollapsed(!collapsed)}>
@@ -289,13 +334,15 @@ const CardNewsNew = forwardRef(({
             </div>
             {
                 documents && !!documents.length &&
-                <div className="card-news-new__documents" style={{ margin: '0 10px 0 10px' }}>
+                <div className="card-news-new__documents">
                     <ul className="card-news-new__documents-list">
                         {documents.map(doc =>
-                            <li className="DocumentItem" key={doc.id}>
+                            <li className="document-item" key={doc.id}>
                                 <DocumentLink
                                     docId={doc.id}
                                     document={doc}
+                                    endpoint={endpointGetLinkNewsFeed}
+                                    CardNewsNew
                                 />
                             </li>
                         )}

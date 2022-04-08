@@ -1,4 +1,8 @@
 .dysplasia-form {
+  &__inner {
+    display: flex;
+    flex-direction: row;
+  }
   &__content {
     margin-top: 40px;
   }
@@ -97,7 +101,7 @@
       .dysplasia-form__file {
         max-width: calc(50% - 8px);
         &:last-child {
-          margin-top: 48px;
+          margin-top: 24px;
         }
       }
     }
@@ -112,8 +116,10 @@
     margin-bottom: 40px;
   }
   .btn {
-    padding-top: 6px;
-    padding-bottom: 6px;
+    position: relative;
+    top: 6px;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
   .Card {
     padding: 24px 32px !important;
@@ -123,6 +129,7 @@
   }
   p.k-label {
     margin-top: 16px;
+    margin-bottom: 16px;
     opacity: .65;
     filter: grayscale(.1);
   }

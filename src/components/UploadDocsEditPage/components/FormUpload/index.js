@@ -3,15 +3,25 @@ import { FieldWrapper } from '@progress/kendo-react-form';
 import { Label, Error, Hint } from '@progress/kendo-react-labels';
 import { Upload } from '@progress/kendo-react-upload';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
-import ruMessages from '../ruMessages.json';
+import ruMessages from '../../../../ruMessages.json';
 import './styles.scss';
 
 loadMessages(ruMessages, 'Application-ru');
 
 
 const FormUpload = fieldRenderProps => {
-    const { valid, value, id, optional, label, hint, validationMessage, touched, fileFormats, ...others } = fieldRenderProps;
-
+    const {
+        valid,
+        value,
+        id,
+        optional,
+        label,
+        hint,
+        validationMessage,
+        touched,
+        fileFormats,
+        ...others
+    } = fieldRenderProps;
     const showValidationMessage = touched && validationMessage;
     const showHint = !showValidationMessage && hint;
     const hintId = showHint ? `${id}_hint` : '';
@@ -44,6 +54,9 @@ const FormUpload = fieldRenderProps => {
                         onRemove={onRemoveHandler}
                         ariaDescribedBy={`${hintId} ${errorId}`}
                         ariaLabelledBy={labelId}
+                        restrictions={{
+                            allowedExtensions: fileFormats,
+                        }}
                         {...others}
                     />
                 </IntlProvider>

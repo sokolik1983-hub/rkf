@@ -16,16 +16,15 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
 
     const onStatusChange = (event, name) => {
         if (event.response?.response) {
-            const {extension, size} = event.newState[0];
-            if(!(extension === '.pdf' || extension.toLowerCase() === '.jpg' || extension.toLowerCase() === '.jpeg')) {
-                setIsFormat(false);
-            }
-            if(size > 10000000) {
-                setIsMaxSize(true);
-            }
             const { result } = event.response.response;
             if (result) {
-                formRenderProps.onChange('documents', { value: [...documents, { name: result.name, document_id: result.id }] });
+                formRenderProps.onChange('documents',
+                    { value: [...documents,
+                            {
+                                name: result.name,
+                                document_id: result.id
+                            }]
+                    });
                 formRenderProps.onChange(name, { value: [] });
                 getDocuments();
             } else {
@@ -39,7 +38,17 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
         setIsFormat(true);
         setIsMaxSize(false);
         blockContent(false);
-    }
+    };
+
+    const handleChange = (e) => {
+        const {extension, size} = e.value[0];
+        if(!(extension === '.pdf' || extension.toLowerCase() === '.jpg' || extension.toLowerCase() === '.jpeg')) {
+            setIsFormat(false);
+        }
+        if(size > 20971520) {
+            setIsMaxSize(true);
+        }
+    };
 
     return (<div className="additional-document-upload">
         <Field
@@ -50,6 +59,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
             saveUrl="/api/document/document/private"
             saveField="file"
             multiple={false}
+            onChange={e => handleChange(e)}
             onBeforeUpload={e => onBeforeUpload(e)}
             onStatusChange={(e) => onStatusChange(e, 'documents_upload')}
             disabled={documentsOverflow}
@@ -60,7 +70,7 @@ const AdditionalDocumentUpload = ({ documents, documentsOverflow, formRenderProp
             <OutsideClickHandler onOutsideClick={handleClose}>
                 <Alert
                     title="Произошла ошибка! =("
-                    text={isMaxSize ? "Слишком большой размер файла! Максимум 10Mb" : "Неверный формат файла! Допустимы только файлы формата: '.pdf', '.jpg', '.jpeg'"}
+                    text={isMaxSize ? "Слишком большой размер файла! Максимум 20Mb" : "Неверный формат файла! Допустимы только файлы формата: '.pdf', '.jpg', '.jpeg'"}
                     okButton={true}
                     onOk={() => handleClose()}
                 />

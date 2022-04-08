@@ -3,7 +3,6 @@ import { Form, FormElement } from '@progress/kendo-react-form';
 import { Fade } from '@progress/kendo-react-animation';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { loadMessages } from '@progress/kendo-react-intl';
-import Card from '../Card';
 import AdditionalDocuments from './components/AdditionalDocuments';
 import ruMessages from '../../kendoMessages.json';
 import {blockContent} from '../../utils/blockContent';
@@ -18,20 +17,19 @@ import './index.scss';
 loadMessages(ruMessages, 'ru');
 
 const UploadDocsEditPage = ({ clubAlias, history }) => {
-    const [errorMessage, setErrorMessage] = useState(false);
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
     const clubId = useSelector(state => state.authentication.profile_id);
     const [loaded, setLoaded] = useState(false);
     const [documents, setDocuments] = useState([]);
     const [modal, setModal] = useState({});
     const [success, setSuccess] = useState('');
-    const [error, setError] = useState('');
+    const [error, setError] = useState(false);
     const [formProps, setFormProps] = useState(null);
     const initialValues = {documents: []};
 
     const closeModal = () => {
         setModal({});
-        blockContent(false)
+        blockContent(false);
     };
 
     const getDocuments = (withSuccess) => PromiseRequest(`/api/document/document/private_list?profileId=${clubId}`)
@@ -43,6 +41,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                 withSuccess && handleSuccess();
             }
         });
+
     const handleError = e => {
         if (e.response) {
             let message;
@@ -57,13 +56,13 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
             } else {
                 message = 'Произошла ошибка';
             }
-            setErrorMessage(message);
             setError(true);
             !error && setTimeout(() => {
                 setError(false);
             }, 5000);
         }
     };
+
     const handleSuccess = (message) => {
         setSuccess(true);
         !success && setTimeout(() => {
@@ -78,10 +77,8 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
 
     return (
         <div className="application-form">
-            <Card>
                <Form
                   initialValues={initialValues}
-                  key={JSON.stringify(initialValues)}
                   render={formRenderProps => {
                      if (!formProps) setFormProps(formRenderProps);
                      return (
@@ -118,7 +115,6 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                       }
                    }
                />
-            </Card>
             {
                 modal.type === 'deleteDocument' &&
                 <ModalDeleteDocument handleError={handleError}

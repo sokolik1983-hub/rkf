@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from "react";
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 import {mainNav} from "../../../../appConfig";
 import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
@@ -13,6 +13,8 @@ import ZlineWidget from "../../../ZLineWidget";
 const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowFilters, setOpen}) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
     const isMobile = useIsMobile(1080);
+    const apiKey = localStorage.getItem('apikey');
+    const location = useLocation();
 
     const links = [
         {
@@ -67,6 +69,50 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
         setShowZlineModal(true);
     };
 
+    const checkLinkRkfOrg = () => {
+        const search = decodeURI(location.search.replace('?', ''));
+
+        if(search) {
+            const params = search.split('&').reduce((prev, curr) => {
+                const param = curr.split('=');
+
+                if(param.length > 1) {
+                    prev[param[0]] = param[1];
+                } else {
+                    prev = param[0];
+                }
+
+                return prev;
+            }, {});
+
+            if(typeof params !== 'string' && params.redirect === 'http://rkf.org.ru/' && params.id) {
+                if (isAuthenticated) {
+                    window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${params.id}`;
+                } else {
+                    setShowZlineModal(true);
+                    localStorage.setItem('rkforg_zline', params.id);
+                }
+            }
+        }
+    };
+
+    const checkRkfOrgZline = () => {
+        if (localStorage.getItem('rkforg_zline') && isAuthenticated) {
+            const id = localStorage.getItem('rkforg_zline');
+
+            localStorage.removeItem('rkforg_zline');
+            window.location.href = `http://rkf.org.ru/zapis-na-poseshhenie-ofisa-rkf/?ak=${apiKey}&id=${id}`;
+        }
+    };
+
+    useEffect(() => {
+        checkLinkRkfOrg();
+    }, []);
+
+    useEffect( () => {
+        checkRkfOrgZline();
+    }, [showZlineModal, isAuthenticated]);
+
     return (
         <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
@@ -82,11 +128,11 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                         <div>
                             {
                                 isOpen ? <svg className={`no-scale ${strokeColor}`} width='20' height='20' viewBox='0 0 20 20' fill='none'
-                                    xmlns='http://www.w3.org/2000/svg'>
+                                              xmlns='http://www.w3.org/2000/svg'>
                                     <line y1='1' x1='1' x2='20' y2='20' strokeWidth='1.32' />
                                     <line y1='20' x1='1' x2='20' y2='1' strokeWidth='1.32' />
                                 </svg> : <svg className={`no-scale ${strokeColor}`} width='20' height='14' viewBox='0 0 20 14' fill='none'
-                                    xmlns='http://www.w3.org/2000/svg'>
+                                              xmlns='http://www.w3.org/2000/svg'>
                                     <line y1='1.34' x2='20' y2='1.34' strokeWidth='1.32' />
                                     <line y1='7.34' x2='20' y2='7.34' strokeWidth='1.32' />
                                     <line y1='13.34' x2='20' y2='13.34' strokeWidth='1.32' />
@@ -128,9 +174,12 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                             onClick={() => setShowFilters({isOpen: false})}>
                             <Feedback />
                         </li>
-                        {links.map(item =>
-                            <li className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
-                                onClick={() => setShowFilters({isOpen: false})}>
+                        {links.map((item, index) =>
+                            <li
+                                className={`widget-login__item widget-login__item--menu popup-menu ${item.class}`}
+                                key={index}
+                                onClick={() => setShowFilters({isOpen: false})}
+                            >
                                 <a
                                     href={item.link}
                                     target='_blank'
@@ -140,18 +189,18 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                             </li>
                         )}
                         <li className='header__nav-socials'>
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/">
-                                <img src="/static/icons/social/facebook-grey.svg" alt="" />
-                            </a>
+                            {/*<a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/">*/}
+                            {/*    <img src="/static/icons/social/facebook-grey.svg" alt="" />*/}
+                            {/*</a>*/}
                             <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed">
                                 <img src="/static/icons/social/vk-grey.svg" alt="" />
                             </a>
                             <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig">
                                 <img src="/static/icons/social/youtube-grey.svg" alt="" />
                             </a>
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/">
-                                <img src="/static/icons/social/instagram-grey.svg" alt="" />
-                            </a>
+                            {/*<a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/">*/}
+                            {/*    <img src="/static/icons/social/instagram-grey.svg" alt="" />*/}
+                            {/*</a>*/}
                             <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial">
                                 <img src="/static/icons/social/telegram-grey.svg" alt="" />
                             </a>
@@ -167,9 +216,9 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                             </li>
                         )}
                         {!isMobile &&
-                            <li className='header__nav-item--desktop Feedback'>
-                                <Feedback isMainNav title='Поддержка' />
-                            </li>
+                        <li className='header__nav-item--desktop Feedback'>
+                            <Feedback isMainNav title='Поддержка' />
+                        </li>
                         }
                     </ul>
                     <Link to="" className='header__nav-item--desktop recording' onClick={e => handleZlineClick(e)}>
@@ -181,13 +230,13 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                                 d='M12.2576 16.9633L15.256 17.1854L23.1405 9.30084C23.9039 8.53738 23.9039 7.28807 23.1405 6.52461L22.6963 6.08041C21.9328 5.31695 20.6835 5.31695 19.92 6.08041L12.0355 13.9649L12.2576 16.9633Z'
                                 stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10' strokeLinejoin='round' />
                             <path d='M5.21985 5.51123H16.3248' stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10'
-                                strokeLinejoin='round' />
+                                  strokeLinejoin='round' />
                             <path d='M5.21985 9.71729H15.7834' stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10'
-                                strokeLinejoin='round' />
+                                  strokeLinejoin='round' />
                             <path d='M5.21985 13.9233H12.0355' stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10'
-                                strokeLinejoin='round' />
+                                  strokeLinejoin='round' />
                             <path d='M5.21985 18.1294H9.55078' stroke='#8F989D' strokeWidth='1.6' strokeMiterlimit='10'
-                                strokeLinejoin='round' />
+                                  strokeLinejoin='round' />
                         </svg>
                         <span>Записаться</span>
                     </Link>
@@ -203,7 +252,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                 }}
                 iframeLink={process.env.NODE_ENV === 'production' ?
                     'https://zline.me/widgets/registration-for-service?id=33' :
-                    'http://zsdev.uep24.ru/widgets/registration-for-service?id=92'
+                    'https://zsstage.uep24.ru/widgets/registration-for-service?id=92'
                 }
             />
         </nav>

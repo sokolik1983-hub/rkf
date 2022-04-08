@@ -1,4 +1,8 @@
 .patella-form {
+  &__inner {
+    display: flex;
+    flex-direction: row;
+  }
   &__content {
     margin-top: 40px;
   }

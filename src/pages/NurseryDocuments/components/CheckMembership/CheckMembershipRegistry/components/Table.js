@@ -1,17 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { process } from '@progress/kendo-data-query';
-import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
-import { DropDownButton, ChipList } from '@progress/kendo-react-buttons';
-import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
+import { process } from "@progress/kendo-data-query";
+import { Fade } from "@progress/kendo-react-animation";
 import { GridPDFExport } from "@progress/kendo-react-pdf";
-import kendoMessages from 'kendoMessages.json';
+import { DropDownButton, ChipList } from "@progress/kendo-react-buttons";
+import { Grid, GridColumn, GridColumnMenuFilter } from "@progress/kendo-react-grid";
+import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
+import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
+import kendoMessages from "kendoMessages.json";
 import moment from "moment";
 import PdfPageTemplate from "../../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../../components/LightTooltip";
-import CopyCell from '../../../../../Docs/components/CopyCell';
-import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-import { Fade } from '@progress/kendo-react-animation';
+import CopyCell from "../../../../../Docs/components/CopyCell";
+
 import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -178,7 +179,7 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        style={{ height: "700px", maxWidth: `${fullScreen ? 'auto' : '703px'}`, margin: '0 auto' }}>
+                        style={{ maxWidth: `${fullScreen ? 'auto' : '703px'}` }}>
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
                         <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />

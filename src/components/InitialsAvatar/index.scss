@@ -1,0 +1,96 @@
+.avatar {
+  &__name-wrap {
+    display: flex;
+  }
+  &__wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-right: 15px;
+    border-radius: 50%;
+    color: #72839C;
+    @media (max-width: 1080px) {
+      width: 79px;
+      height: 79px;
+    }
+    span {
+      font-family: Source Sans Pro, sans-serif;
+      font-size: 5em;
+      line-height: 6em;
+      font-weight: 600;
+      @media (max-width: 1080px) {
+        font-size: 19px;
+        line-height: 25px;
+      }
+    }
+    &.specialist-card {
+      min-height: 130px;
+      min-width: 130px;
+      max-height: 130px;
+      max-width: 130px;
+      span {
+        font-size: 45px;
+        line-height: 57px;
+        letter-spacing: 3px;
+      }
+    }
+    &.widget-login {
+      span {
+        font-size: 30px;
+        line-height: 45px;
+      }
+      @media (max-width: 1080px) {
+        width: 100%;
+        height: 100%;
+        margin-top: 0;
+        span {
+          font-size: 19px;
+          line-height: 25px;
+        }
+      }
+    }
+    &.user-icon {
+      span {
+        margin-top: 0;
+        font-size: 10px;
+      }
+      span:first-child {
+        padding-right: 0px;
+      }
+    }
+    &.mobile-user-menu {
+      width: 100%;
+      height: 100%;
+    }
+    &.cardnewsnew {
+      margin-right: 0;
+      span {
+        font-size: 40px;
+        line-height: 50px;
+        @media (max-width: 1080px) {
+          font-size: 19px;
+          line-height: 25px;
+        }
+      }
+    }
+    &.article {
+      width: 40px;
+      height:40px;
+      align-self: flex-start;
+      span {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+    &.editor {
+      position: absolute;
+      width: 332px;
+      height: 332px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

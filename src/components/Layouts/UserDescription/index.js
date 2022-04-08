@@ -1,11 +1,21 @@
-import React, { Fragment, useState } from "react";
-import { Collapse } from "react-collapse";
-import Card from "../../Card";
-import Counter from "../../CounterComponent";
-import "./index.scss";
+import React, {Fragment, useEffect, useState} from 'react';
+import { Collapse } from 'react-collapse';
+import {Link} from 'react-router-dom';
+import Card from '../../Card';
+import Counter from '../../CounterComponent';
+import RandomKeyGenerator from "../../../utils/randomKeyGenerator";
 
-const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias }) => {
+import './index.scss';
+
+const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, judgeInfo }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [judge, setJudge] = useState(null);
+    const [specializations, setSpecializations] = useState(null);
+
+    useEffect(() => {
+        !!judgeInfo && !!judgeInfo[0] && setSpecializations(judgeInfo.map(item => item.specializations))
+        !!judgeInfo && !!judgeInfo[0] && setJudge(judgeInfo)
+    }, [judgeInfo]);
 
     const normalizeLink = link => {
         if (!link.includes('https://') || !link.includes('http://')) {
@@ -19,7 +29,7 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias }) =
 
         if (addressObj) {
             if (addressObj.postcode) address += `${addressObj.postcode}, `;
-            if (addressObj.city_name) address += `${addressObj.city_name}${addressObj.street_name && `, `}`;
+            if (addressObj.city_name) address += `${addressObj.city_name}${addressObj.street_name ? addressObj.street_name && `, ` : ''}`;
             if (addressObj.street_name) address += `${addressObj.street_name}${addressObj.house_name && `, `}`;
             if (addressObj.house_name) address += `д. ${addressObj.house_name}${addressObj.building_name && `, `}`;
             if (addressObj.building_name) address += `стр. ${addressObj.building_name}${addressObj.flat_name && `, `}`;
@@ -93,6 +103,30 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias }) =
                 <span className="user-description__item-title">{main_phone_description || 'Телефон'}:</span>&nbsp;
                 <span>{getPhoneString(main_phone_value, main_phone_status, phones)}</span>
             </p>
+            {!!specializations?.length &&
+                <div className="user-description__item _specialization">
+                    <div className="user-description__item-title">Специализация:</div>
+                    <div className="user-description__item-specs">
+                        {judgeInfo.map(item =>
+                            item.specializations[0] !== 'Судья по породам' ?
+                                item.specializations.map(value =>
+                                    <Link key={RandomKeyGenerator()}
+                                          className="user-description__item-spec"
+                                          to={`/referee/${item.judge_id}/2`}>
+                                        {value}
+                                    </Link>
+
+                                ) :
+                                <Link key={RandomKeyGenerator()}
+                                      className="user-description__item-spec"
+                                      to={`/referee/${item.judge_id}/1`}>
+                                    {item.specializations}
+                                </Link>
+                            )
+                        }
+                    </div>
+                </div>
+            }
             {additionalInfo &&
                 <>
                     <Collapse isOpened={isOpen}>
@@ -115,9 +149,9 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias }) =
                                     <Fragment key={item.id}>
                                         <br />
                                         <a href={normalizeLink(item.site)}
-                                            title={item.description || item.site}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                           title={item.description || item.site}
+                                           target="_blank"
+                                           rel="noopener noreferrer"
                                         >
                                             {item.description || item.site}
                                         </a>

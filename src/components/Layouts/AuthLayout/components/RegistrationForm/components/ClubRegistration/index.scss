@@ -115,7 +115,11 @@
       right: 20px;
       width: 12px;
       height: 12px;
+      border: none;
+      padding: 0;
+      background-color: transparent;
       background-image: url("/static/icons/registration/close.svg");
+      background-size: 100%;
       cursor: pointer;
     }
     &-header{
@@ -152,8 +156,6 @@
       &__img {
         width: 100px;
         height: 100px;
-        background-image:  url("/static/images/default/email.svg");
-        background-size: 100% 100%;
         margin: 0 25px 0 5px;
         @media screen and (max-width: 768px) {
           display: none;
@@ -199,24 +201,38 @@
       justify-content: center;
     }
     &-form {
-      margin-top: 24px;
-      input {
+      display: flex;
+      flex-direction: column;
+      margin: 24px 0 42px;
+      &__input {
         max-width: 315px;
         height: 38px;
         padding: 10px 15px;
-        border-radius: 4px;
         border: 1px solid #90999E;
+        border-radius: 4px;
         font-size: 16px;
         line-height: 24px;
-        margin-right: 8px;
-        @media (max-width: 990px) {
-          max-width: 195px;
+        &.__error {
+          border-color: #DC3545;
         }
         @media (max-width: 767px) {
-          max-width: none;
-          width: 100%;
-          margin: 0 0 12px;
+          max-width: 100%;
         }
+      }
+      &__error {
+        position: absolute;
+        margin-top: 38px;
+        color: #DC3545;
+      }
+      .btn {
+        position: absolute;
+        left: 0;
+        right: 0;
+        max-width: 154px;
+        height: 38px;
+        margin: 78px auto 0;
+        padding: 0;
+        border-radius: 3px;
       }
     }
     &-btns {

@@ -412,6 +412,8 @@ const MenuComponent = ( { name,notificationsLength,isExhibitionPage, user, isFed
         let url =  location.pathname.split('/')[1];
         if(url === 'exhibitions') {
             setCurrentPageAlias(location.search.split('=')[1]);
+        } else if(url === 'referee') {
+            setCurrentPageAlias(club_alias);
         } else {
             setCurrentPageAlias(url);
         }

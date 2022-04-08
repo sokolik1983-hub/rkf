@@ -17,9 +17,9 @@ import {Request} from "../../../../utils/request";
 
 import "./index.scss";
 
-
 const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
     const [loading, setLoading] = useState(true);
+    const [isUserFiltered, setIsUserFiltered] = useState(false);
     const [isFirstTimeFiltersRequest, setIsFirstTimeFiltersRequest] = useState({
         1: true,
         2: true,
@@ -40,6 +40,24 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
     });
     const isJudges = parseInt(filtersValue.SearchTypeId) === 4;
 
+    const handleChangeRegionFilter = (filter) => {
+        setIsUserFiltered(true);
+        setFiltersToUrl({RegionIds: filter});
+    };
+
+    const handleChangeCityFilter = (filter) => {
+        setFiltersToUrl({ CityIds: filter });
+    };
+
+    const goToLink = (cities, currentCityIds) => {
+        if(filtersValue.RegionIds.length === 0) {
+            setFiltersToUrl({CityIds: []});
+        } else {
+            setFiltersToUrl({ CityIds: currentCityIds, filteredCities: cities.map(item => item.value)});
+        }
+        setIsUserFiltered(false);
+    };
+
     useEffect(() => {
         (() => Request({
             url: buildFiltersUrl(filtersValue, isFirstTimeFiltersRequest[filtersValue.SearchTypeId])
@@ -47,13 +65,12 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
             if(isFirstTimeFiltersRequest[filtersValue.SearchTypeId]) {
                 setIsFirstTimeFiltersRequest({...isFirstTimeFiltersRequest, [filtersValue.SearchTypeId]: false});
             }
-
             const newFilters = Object.keys(filters).reduce((acc, key) => {
                 acc[key] = data[key] || filters[key];
                 return acc;
             }, {});
-
             setFilters(newFilters);
+            isUserFiltered && goToLink(newFilters.cities, filtersValue.CityIds);
             setLoading(false);
         },error => {
             console.log(error.response);
@@ -77,13 +94,13 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                         <RegionsFilter
                             regions={filters.regions}
                             region_ids={filtersValue.RegionIds}
-                            onChange={filter => setFiltersToUrl({RegionIds: filter, CityIds: []})}
+                            onChange={filter => handleChangeRegionFilter(filter)}
                         />
 
                         <CitiesFilter
                             cities={filters.cities}
                             city_ids={filtersValue.CityIds}
-                            onChange={filter => setFiltersToUrl({CityIds: filter})}
+                            onChange={filter => handleChangeCityFilter(filter)}
                         />
 
                         {isJudges ?
@@ -91,8 +108,8 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                 {filtersValue.SearchTypeId !== 3 &&
                                     <RankFilter
                                         ranks={filters.ranks}
-                                        ranks_ids={filtersValue.RankIds}
-                                        onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                        rank_id={filtersValue.RankId}
+                                        onChange={filter => setFiltersToUrl({RankId: filter})}
                                         searchTypeId={filtersValue.SearchTypeId}
                                     />
                                 }
@@ -132,8 +149,8 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
 
                                 <RankFilter
                                     ranks={filters.ranks}
-                                    ranks_ids={filtersValue.RankIds}
-                                    onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                    rank_id={filtersValue.RankId}
+                                    onChange={filter => setFiltersToUrl({RankId: filter})}
                                 />
 
                                 <DisciplinesFilter

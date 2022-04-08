@@ -51,43 +51,37 @@
 }
 
 @media (max-width: 1079px) {
-    span {
+    .DocItem__xray-agreement-wrap {
         display: block;
     }
-
-        .DocItem__xray-agreement-wrap {
-            display: block;
-            div {
-            }
+    .DocItem__pedigree-agreement-wrap {
+        display: block;
+    }
+    .DocItem__pedigree-number_search {
+        display: inline-block;
+        width: 100%;
+        margin-top: 0;
+        :first-child {
+            margin-right: 0!important;
         }
-        .DocItem__pedigree-agreement-wrap {
-            display: block;
-        }
-        .DocItem__pedigree-number_search {
-            display: inline-block;
-            width: 100%;
-            margin-top: 0;
-            :first-child {
-                margin-right: 0!important;
-            }
-            button {
-                width: 141px;
-            }
-        }
-        .DocItem__payer-info-wrap {
-            display: block;
-            :first-child {
-                margin-right: 0!important;
-            }
-        }
-        .DocItem__payment-receipt-wrap {
-            display: block;
-        }
-        .DocItem__dysplasia-payment-wrap {
-            margin: 0!important;
-        }
-        .DocItem__dysplasia-payment {
-            width: 100%;
+        button {
+            width: 141px;
         }
     }
+    .DocItem__payer-info-wrap {
+        display: block;
+        :first-child {
+            margin-right: 0!important;
+        }
+    }
+    .DocItem__payment-receipt-wrap {
+        display: block;
+    }
+    .DocItem__dysplasia-payment-wrap {
+        margin: 0!important;
+    }
+    .DocItem__dysplasia-payment {
+        width: 100%;
+    }
+}
 

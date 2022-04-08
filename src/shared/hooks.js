@@ -62,6 +62,8 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
 
                 const response = await axios(axiosConfig);
 
+                delete response.data.result.bic_number;
+
                 if (!didCancel) {
                     dispatch(onSuccessAction(response.data.result));
                     setLoading(false);

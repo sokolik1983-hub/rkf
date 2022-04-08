@@ -5,13 +5,25 @@ import {timeSecondsCutter} from "../../utils/datetime";
 import "./index.scss";
 
 
-const ContactsComponent = ({full_name, legal_address, address, owner_position, owner_name, contacts, site, work_time, ogrn, regdate}) => (
+const ContactsComponent = ({
+        name,
+        legal_address,
+        address,
+        owner_position,
+        owner_name,
+        contacts,
+        site,
+        work_time,
+        ogrn,
+        regdate,
+        bank_comment,
+    }) => (
     <Card className="contacts-component">
         <h4 className="contacts-component__title">Контакты</h4>
-        {full_name &&
+        {name &&
             <div className="contacts-component__block _name">
                 <h5 className="contacts-component__block-title">Полное наименование</h5>
-                <p className="contacts-component__block-info">{full_name}</p>
+                <p className="contacts-component__block-info">{name}</p>
             </div>
         }
         {legal_address &&
@@ -50,6 +62,12 @@ const ContactsComponent = ({full_name, legal_address, address, owner_position, o
                         <a href={`mailto:${item.value}`} className="contacts-component__block-link">{item.value}</a>
                     </Fragment>
                 )}
+            </div>
+        }
+        {bank_comment &&
+            <div className="contacts-component__block _bank">
+                <h5 className="contacts-component__block-title">Банковские реквизиты</h5>
+                <p className="contacts-component__block-info">{bank_comment}</p>
             </div>
         }
         <div className="contacts-component__block _site">

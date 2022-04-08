@@ -252,7 +252,7 @@ const ClubEditPage = ({
             ? <Loading/>
             : error ?
                 <Redirect to="404"/> :
-                <Layout withFilters setNotificationsLength={setNotificationsLength}>
+                <Layout layoutWithFilters setNotificationsLength={setNotificationsLength}>
                     <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
                     <div className="ClubEdit__wrap">
                         <Container className="ClubEdit content">

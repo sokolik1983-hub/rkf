@@ -21,6 +21,7 @@ const apiPedigreeEverk = '/api/requests/PedigreeRequest/everk_dog_info';
 const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
 const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
 const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
+const apiClubApplicationFormEndpoint = '/api/requests/get_rkf_document/getrkfdocumentrequestdocument';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -372,7 +373,8 @@ export {
     apiLitterEverk,
     apiPedigreeStatusesEndpoint,
     apiStampCodesEndpoint,
-    apiClubDeclarantsEndpoint
+    apiClubDeclarantsEndpoint,
+    apiClubApplicationFormEndpoint,
 };
 
 export const clubNav = alias => {

@@ -174,7 +174,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     return loading ?
         <Loading /> :
         <Layout
-            withFilters
+            layoutWithFilters
             setNotificationsLength={setNotificationsLength}
         >
             <div className="exhibitions-page__wrap redesign">

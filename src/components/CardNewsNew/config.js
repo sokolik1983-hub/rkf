@@ -1,0 +1,1 @@
+export const endpointGetLinkNewsFeed = "/api/document/publicdocument";

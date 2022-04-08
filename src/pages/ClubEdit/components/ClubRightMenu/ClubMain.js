@@ -12,7 +12,6 @@ const ClubMain = ({
         handleSubmitForms,
         bindSubmitClubInfo,
         bindSubmitClubAlias,
-        bindSubmitClubDocuments,
         history
 }) => {
     return (
@@ -24,15 +23,12 @@ const ClubMain = ({
                 isFederation={is_federation}
                 club_alias={club_alias}
             />
-            <ClubDocuments
-                bindSubmitForm={bindSubmitClubDocuments}
-            />
-            <EditPageButtons
-                handleSubmitForms={handleSubmitForms}
-            />
             <UploadDocsEditPage
                 clubAlias={club_alias}
                 history={history}
+            />
+            <EditPageButtons
+                handleSubmitForms={handleSubmitForms}
             />
         </Card>
     );

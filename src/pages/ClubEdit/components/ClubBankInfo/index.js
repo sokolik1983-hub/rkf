@@ -23,7 +23,7 @@ const ClientBankInfoProxy = ({
         !bank_data_id
             ? <div>Не задан идентификатор</div>
             : <div className="BankInfo__wrap">
-                <h3>Банковская информация</h3>
+                <h3>Банковские реквизиты</h3>
                 <UpdateBankInfoForm
                     bindSubmitForm={bindSubmitForm}
                 />
