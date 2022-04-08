@@ -25,7 +25,6 @@ const FooterMenu = ({
     match,
     is_active_profile,
     profile_id,
-    notificationsLength,
     isAuthenticated,
     setShowFilters
 }) => {
@@ -38,9 +37,6 @@ const FooterMenu = ({
     const [openUserMenu, setOpenUserMenu] = useState(false);
     const [openMenuComponent, setOpenMenuComponent] = useState(false);
     const [fedInfo, setFedInfo] = useState(null);
-    const isExhibitionPage = match.path === pathname;
-    const isKennel = pathname.search('kennel') === 1 || user_type === 4;
-    const isUser = pathname.search('user') === 1 || user_type === 1;
 
     useEffect(() => {
         if (isFederationAlias(checkAliasUrl(pathname, alias) || alias)) {

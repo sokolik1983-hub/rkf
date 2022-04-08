@@ -4,6 +4,7 @@ import {NavLink, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import useIsMobile from "../../utils/useIsMobile";
 import {endpointGetClubInfo} from "../../pages/Club/config";
+import {endpointGetNurseryInfo} from "../../pages/Nursery/config";
 import {endpointGetUserInfo} from "../Layouts/UserLayout/config";
 import {Request} from "../../utils/request";
 import {clubNav} from "../../pages/Club/config";
@@ -11,7 +12,7 @@ import {kennelNav} from "../../pages/Nursery/config";
 import {userNav} from "../Layouts/UserLayout/config";
 import {federationNav} from "../../pages/Federation/config";
 import Modal from "../Modal";
-import {showPresidium} from "./utils";
+
 import {blockContent} from "../../utils/blockContent";
 import Loading from "../Loading";
 import {clubNav as clubNavDocs} from "../../pages/Docs/config";
@@ -19,6 +20,216 @@ import {kennelNav as kennelNavDocs} from "../../pages/NurseryDocuments/config";
 import {userNav as userNavDocs} from "../../pages/UserDocuments/config";
 import PopupModal from "../PopupModal";
 
+const presidium = {
+    rkf: {
+        title: 'Состав Президиума РКФ',
+        members: [
+            'В.С. Голубев (ОАНКОО)',
+            'В.А. Александров (РФСС)',
+            'Л.В. Галиаскарова (РФСС)',
+            'Т.В. Григоренко (РФСС)',
+            'Н.А. Деменёв (ОАНКОО)',
+            'Е.Г. Домогацкая (РФОС)',
+            'Е.С. Купляускас (РФЛС)',
+            'А.В. Никитин (РФЛС)',
+            'Н.Б. Седых (РФЛС)',
+            'А.А. Солдатов (РФОС)',
+            'Н.Г. Харатишвили (ОАНКОО)',
+            'Р.Р. Хомасуридзе (РФОС)'
+        ]
+    },
+    rfls: {
+        title: 'Состав Президиума СОКО РФЛС',
+        members: [
+            'Голубев Владимир Семенович',
+            'Бычкова Елена Ивановна',
+            'Ваулина Нина Павловна',
+            'Горева Светлана Викторовна',
+            'Городилов Станислав Валентинович',
+            'Зубкова Людмила Анатольевна',
+            'Купляускас Евгений Стасович',
+            'Мазина Людмила Анатольевна',
+            'Набиева Марина Борисовна',
+            'Никитин Александр Владимирович',
+            'Новиславский Олег Юрьевич',
+            'Седых Николай Борисович',
+            'Швец Ирина Львовна'
+        ]
+    },
+    rfss: {
+        title: 'Состав Президиума РФСС',
+        members: [
+            'Александров Владимир Аркадьевич - президент',
+            'Галиаскарова Лариса Викторовна - вице-президент, член бюро',
+            'Круценко Елена Юрьевна - вице-президент, член бюро',
+            'Янчев Олег Владимирович - вице-президент, член бюро',
+            'Трофимов Дмитрий Валерьевич - ответственный секретарь, член бюро',
+            'Луговой Алексей Алексеевич - член бюро',
+            'Коробейников Александр Филиппович - член бюро',
+            'Григоренко Татьяна Васильевна',
+            'Григорьева Надежда Геннадьевна',
+            'Овсянникова Юлия Валерьевна',
+            'Дубенский Александр Анатольевич',
+            'Котельникова Ольга Капитоновна',
+            'Попов Сергей Анатольевич',
+            'Попов Сергей Викторович',
+            'Соловьев Валерий Викторович'
+        ]
+    },
+    rfos: {
+        title: 'Состав Президиума РФОС',
+        members: [
+            'Домогацкая Екатерина Григорьевна - президент',
+            'Солдатов Алексей Андреевич - Председатель Попечительского совета',
+            'Галкин Артем Андреевич',
+            'Гусева Юлия Вячеславовна',
+            'Краснова Ольга Борисовна',
+            'Островская Марина Григорьевна',
+            'Синяк Александр Николаевич',
+            'Стусь Виктор Николаевич',
+            'Чалдина Татьяна Алексеевна'
+        ]
+    },
+    oankoo: {
+        title: 'Состав Президиума ОАНКОО',
+        members: [
+            'Голубев Владимир Семенович - президент'
+        ]
+    }
+};
+
+const presidiumRfls = <>
+    <table className="menu-component__table">
+        <tbody>
+        <tr>
+            <td>1.</td>
+            <td>Голубев Владимир Семенович</td>
+        </tr>
+        <tr>
+            <td>2.</td>
+            <td>Бычкова Елена Ивановна</td>
+            <td>Тел.: +7-918-748-85-20</td>
+            <td>E-mail:elena 69@bk.ru</td>
+        </tr>
+        <tr>
+            <td>3.</td>
+            <td>Ваулина Нина Павловна</td>
+            <td>Тел.: +7-922-236-44-13</td>
+            <td>E-mail:chelregools@gmail.com</td>
+        </tr>
+        <tr>
+            <td>4.</td>
+            <td>Горева Светлана Викторовна</td>
+            <td>Тел.: +7-926-580-79-29</td>
+            <td>E-mail: sgoreva@inbox.ru</td>
+        </tr>
+        <tr>
+            <td>5.</td>
+            <td>Городилов Станислав Валентинович</td>
+            <td>Тел.: +7-914-237-24-66</td>
+            <td>E-mail: yras89142732466@icloud.com</td>
+        </tr>
+        <tr>
+            <td>6.</td>
+            <td>Зубкова Людмила Анатольевна</td>
+            <td>Тел.: +7-903-947-07-35</td>
+            <td>E-mail: zubkova-69@mail.ru</td>
+        </tr>
+        <tr>
+            <td>7.</td>
+            <td>Купляускас Евгений Стасович</td>
+            <td>Тел.: +7-903-509-57-68</td>
+            <td>E-mail: koulstas@mail.ru</td>
+        </tr>
+        <tr>
+            <td>8.</td>
+            <td>Мазина Людмила Анатольевна</td>
+            <td>Тел.: +7-917-219-50-00</td>
+            <td>E-mail: volga.rfls.info@yandex.ru</td>
+        </tr>
+        <tr>
+            <td>9.</td>
+            <td>Набиева Марина Борисовна</td>
+            <td>Тел.: +7-921-261-72-12</td>
+            <td>E-mail: m.b.nabieva@yandex.ru</td>
+        </tr>
+        <tr>
+            <td>10.</td>
+            <td>Никитин Александр Владимирович</td>
+            <td>Тел.: +7-903-856-87-80</td>
+            <td>E-mail: cacchr@mail.ru</td>
+        </tr>
+        <tr>
+            <td>11.</td>
+            <td>Новиславский Олег Юрьевич</td>
+            <td>Тел.: +7-926-211-39-39</td>
+            <td>E-mail: denfris@gmail.com</td>
+        </tr>
+        <tr>
+            <td>12.</td>
+            <td>Седых Николай Борисович</td>
+            <td>Тел.: +7-911-241-34-16</td>
+            <td>E-mail: nik5978824@yandex.ru</td>
+        </tr>
+        <tr>
+            <td>13.</td>
+            <td>Швец Ирина Львовна</td>
+            <td>Тел.: +7-916-145-16-41</td>
+            <td>E-mail: icetoifel@mail.ru</td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <h4 className="menu-component__wrap-title">СПИСОК ЧЛЕНОВ РЕВИЗИОННОЙ КОМИССИИ РФЛС:</h4>
+    <table className="menu-component__table" style={{maxWidth: '68%'}}>
+        <tbody>
+        <tr>
+            <td>
+                Председатель:
+            </td>
+            <td>
+                Бородин Дмитрий
+            </td>
+            <td>
+                Тел.: +7-919-247-69065
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Члены:
+            </td>
+            <td>
+                Бойко Надежда
+            </td>
+            <td>
+                Тел.: +7-915-089-81-58
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                Эглит Вероника
+            </td>
+            <td>
+                Тел.: +7-909-670-35-54
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</>;
+const showPresidium = (currentPageAlias) => {
+    if (currentPageAlias === 'rfls') {
+        return presidiumRfls
+    } else {
+        return <>
+            <ol className="menu-component__wrap-list">
+                {presidium[currentPageAlias].members.map((member, i) =>
+                    <li className="menu-component__wrap-item" key={i}>{member}</li>
+                )}
+            </ol>
+        </>
+    }
+};
 
 const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
     const [showModal, setShowModal] = useState(false);
@@ -81,7 +292,17 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         (userType === 3 && userAlias !== "rkf") &&  setCurrentPageNav(clubNav(userAlias));
         (userAlias === "rkf") && setCurrentPageNav(federationNav(userAlias));
         (userType === 4) && setCurrentPageNav(kennelNav(userAlias));
-        (userType === 5) && setCurrentPageNav(federationNav(userAlias).map(item => (item.id === 7) ? item.to = linkFeesId : (item.id === 8) ? item.to = linkFedDetails : item))
+        (userType === 5) &&
+        setCurrentPageNav(federationNav(userAlias).map(item =>
+            (item.id === 7)
+                ?
+                item.to = linkFeesId
+                :
+                (item.id === 8)
+                    ?
+                    item.to = linkFedDetails
+                    :
+                    item))
     }
 
     const getMyMenuWithDocs = () => {
@@ -101,6 +322,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                 if(addLink === "documents" || url === "bank-details") { //проверка на страницу личного кабинета с документами залогиненного юзера
                     alert('Это страница личного кабинета залогиненного юзера с документами');
                     getMyMenuWithDocs();
+                    getCurrentPageUserInfo(userAlias);
                     // setCurrentPageNav(userNav);
                 } else {
                     alert('Это страница нашего профиля, подтягиваем меню юзера');
@@ -153,13 +375,52 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                     :
                     endpointGetClubInfo + userAlias
                 :
-                endpointGetClubInfo + userAlias
+                (userType === 3 || userType === 5)
+                    ?
+                    endpointGetClubInfo + userAlias
+                    :
+                    endpointGetNurseryInfo + userAlias
         }, data => {
             setCurrentPageUserInfo({...data});
         }, error => {
             console.log(error.response);
         });
     };
+
+    const getMeLinkForName = (userType) => {
+        switch(userType) {
+            case 5:
+                return `/${currentPageUserInfo.club_alias}`;
+            case 4:
+                return `/kennel/${currentPageUserInfo.club_alias}`;
+            case 3:
+                if(currentPageUserInfo.club_alias === "rkf") {
+                    return "/rkf"
+                } else {
+                    return `/club/${currentPageUserInfo.club_alias}`;
+                }
+            case 1:
+                return `/user/${currentPageUserInfo.club_alias}`;
+        }
+    }
+
+    const getMeHeadliner = () => {
+        if (currentPageUserInfo?.headliner_link) {
+            return currentPageUserInfo.headliner_link
+        } else if(currentPageUserInfo?.club_alias === "rkf") {
+            return "/static/images/slider/1.jpg"
+        } else {
+            return "/static/images/noimg/no-banner.png"
+        }
+    }
+
+    const getMeLogoLink = () => {
+        if(currentPageUserInfo?.logo_link) {
+            return currentPageUserInfo.logo_link
+        } else {
+            return "/static/icons/default/default_avatar.svg"
+        }
+    }
 
     const getNotifications = async () => {
         await Request({
@@ -173,6 +434,12 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
 
     const clickOnDisabledLink = e => {
         e.preventDefault();
+    };
+
+    const clickOnPresidium = (e) => {
+        e.preventDefault();
+        setOpenUserMenu(false);
+        setShowModal('presidium');
     };
 
     // useEffect(() => {
@@ -222,13 +489,12 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
     // }, [currentPageUserInfo, linkFeesId, linkFedDetails]);
 
     useEffect(() => {
-        if (showModal) {
+        if (openUserMenu || showModal) {
             blockContent(true)
         } else {
             blockContent(false)
         }
-    }, [showModal]);
-    // }, [showModal]);
+    }, [openUserMenu, showModal]);
 
     useEffect(() => {
         if (currentPageUserInfo?.club_alias) {
@@ -287,6 +553,10 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         }
     }, [linkFeesId, linkFedDetails]);
 
+    useEffect(() => {
+        console.log('currentPageUserInfo', currentPageUserInfo);
+    }, [currentPageUserInfo])
+
     return (
         <>
             {
@@ -310,14 +580,25 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                             bottomStyle
                         >
                             <div className="user-nav__inner">
+                                <div className="user-nav__bg-wrap">
+                                    <img src={getMeHeadliner()} alt="menu-background" />
+                                    <div className="user-nav__userpic">
+                                        <img src={getMeLogoLink()} alt="menu-logo" />
+                                    </div>
+                                </div>
+                                <div className="user-nav__alias-name"><a href={getMeLinkForName(currentPageUserInfo?.user_type)}>{currentPageUserInfo?.short_name}</a>
+                                </div>
                                 {
                                     currentPageNav?.map(navItem => <li
                                         className={`user-nav__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
                                         key={navItem.id}>
-                                        {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter && //по какой то причине не работают, проверить
+                                        {navItem.title === 'Уведомления' &&
+                                            notificationCounter !== 0 &&
+                                            notificationCounter &&
                                             <span
-                                                className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
-                                    {notificationCounter > 99 ? 99 : notificationCounter}
+                                                className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}
+                                            >
+                                    { notificationCounter > 99 ? 99 : notificationCounter }
                                 </span>
                                         }
                                         123
@@ -325,10 +606,10 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                                             navItem.onClick
                                                 ?
                                                 <NavLink
-                                                    to={navItem.to}
+                                                    to=""
                                                     exact={navItem.exact}
                                                     className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                    onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                                    onClick={e => clickOnPresidium(e, currentPageUserInfo?.club_alias)}
                                                 >
                                                     {navItem.icon}
                                                     <span>{navItem.title}</span>
