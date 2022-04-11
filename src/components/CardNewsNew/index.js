@@ -14,6 +14,8 @@ import CardFooter from '../CardFooter';
 import DocumentLink from "../../components/DocumentLink";
 import { endpointGetLinkNewsFeed } from "./config";
 import InitialsAvatar from "../InitialsAvatar";
+import randomKeyGenerator from '../../utils/randomKeyGenerator'
+
 
 import './index.scss';
 
@@ -337,7 +339,7 @@ const CardNewsNew = forwardRef(({
                 <div className="card-news-new__documents">
                     <ul className="card-news-new__documents-list">
                         {documents.map(doc =>
-                            <li className="document-item" key={doc.id}>
+                            <li className="document-item" key={randomKeyGenerator()}>
                                 <DocumentLink
                                     docId={doc.id}
                                     document={doc}
