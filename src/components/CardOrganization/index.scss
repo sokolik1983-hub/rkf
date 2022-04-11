@@ -259,4 +259,37 @@
       }
     }
   }
+
+  &.nkp-layout {
+    & .nkp-card {
+      min-height: 130px;
+      min-width: 130px;
+      max-height: 130px;
+      max-width: 130px;
+      & span {
+        font-size: 45px;
+        line-height: 57px;
+        letter-spacing: 3px;
+      }
+      @media (max-width: 600px) {
+        min-height: 52px;
+        min-width: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        & span {
+          font-size: 20px;
+          line-height: 28px;
+        }
+      }
+    }
+    @media (max-width: 600px) {
+      & .card-organization__special-position_left__fed {
+        margin-top: 0;
+        margin-left: 0;
+      }
+      & .card-organization__heading {
+        height: auto;
+      }
+    }
+  }
 }
