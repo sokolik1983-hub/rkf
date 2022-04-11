@@ -224,6 +224,7 @@
           }
         }
 
+
         .user-info__logo {
           height: 80px;
           width: 80px;
@@ -293,6 +294,14 @@
               }
             }
           }
+        }
+      }
+    }
+
+    .club-page__content-wrap {
+      &._isFederation {
+        .UserActionControls {
+          bottom: 62px!important;
         }
       }
     }
