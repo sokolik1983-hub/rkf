@@ -72,7 +72,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 borderRadius={pageBanner ? 0 : 166}
                                 image={image}
                                 className="avatar-editor__canvas"
-                                style={image && {}}
+                                style={image ? {} : { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
                             />
                             {
                                 !image && (userType === 1) && <InitialsAvatar card="editor"/>
