@@ -11,6 +11,7 @@ import UserActionControls from 'components/UserActionControls';
 import { connectAuthVisible } from 'pages/Login/connectors';
 import EditAvatar from '../../EditAvatar';
 import { judgeIcon } from '../UserLayout/config.js';
+import InitialsAvatar from "../../InitialsAvatar";
 
 import './index.scss';
 
@@ -78,13 +79,20 @@ const UserInfo = ({
                             }
                         </>
                     }
-                    <img className="user-info__logo" src={logo_link ? logo_link : DEFAULT_IMG.userAvatar} alt="" />
+                    {
+                        logo_link
+                            ?
+                            <img className="user-info__logo" src={logo_link} alt="" />
+                            :
+                            <InitialsAvatar  name={`${first_name} ${last_name}`} />
+                    }
+
                 </div>
                 <div className="user-info__info">
                     {share_link 
                         ?
                             <div className="user-info__with-share" >
-                                <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}{last_name ? ' ' + last_name : ''}{(judgeInfo?.length && judgeInfo[0].description !== null) && judgeIcon}</p>
+                                <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}{last_name ? ' ' + last_name : ''}{(!!judgeInfo?.length && judgeInfo[0].description !== null) && judgeIcon}</p>
                                 <Share url={share_link}
                                         className={!first_name && !last_name
                                                         ? '_no_share_name'

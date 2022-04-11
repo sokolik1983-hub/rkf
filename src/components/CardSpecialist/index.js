@@ -7,9 +7,9 @@ import LightTooltip from '../../components/LightTooltip';
 import Card from '../Card';
 import CardFooter from '../CardFooter';
 import {judgeIcon} from "../Layouts/UserLayout/config";
+import InitialsAvatar from "../InitialsAvatar";
 
 import './index.scss';
-
 
 const CardSpecialist = ({
                             id,
@@ -65,8 +65,19 @@ const CardSpecialist = ({
         <Card className="card-specialists">
             <div className="card-specialists__wrap">
                 <div className="card-specialists__part card-specialists__part_top">
-                    <span className="card-specialists__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
-
+                    {picture_link
+                            ?
+                            <span
+                                className="card-specialists__photo"
+                                to={picture_link}
+                                style={{ backgroundImage: `url(${picture_link})` }}
+                            />
+                            :
+                            <InitialsAvatar
+                                name={`${first_name} ${last_name}`}
+                                card="specialist-card" id={id}
+                            />
+                    }
                     <div className="card-specialists__inner">
                         <div className="card-specialists__info">
 

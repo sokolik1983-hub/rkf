@@ -60,14 +60,15 @@
     &-specs{
       display: flex!important;
       flex-direction: row;
-      @media (max-width: 600px) {
-        display: block!important;
+      @media (max-width: 860px) {
+        flex-direction: column;
+        width: fit-content;
       }
     }
     &-spec+&-spec{
       margin-left: 10px;
-      @media (max-width: 600px) {
-        margin-top: 10px;
+      @media (max-width: 860px) {
+        margin: 10px 0 0;
       }
     }
     &-spec {
@@ -75,6 +76,8 @@
       padding: 0 10px 2px;
       background: #DFE9FB;
       border-radius: 11px;
+      text-decoration: none;
+      color: #72839c;
     }
     &:before {
       content: "";

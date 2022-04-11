@@ -12,6 +12,7 @@ const LeftMenu = ({
     setShowFilters,
     isAuthenticated,
     userType,
+    setCardClicked,
 }) => {
     const handleSectionSwitch = (id) => {
         setActiveSection(id);
@@ -26,6 +27,11 @@ const LeftMenu = ({
         });
     };
 
+    const clicked = (item) => {
+        setCardClicked(item + 1);
+        setTimeout(() => setCardClicked(0),1000);
+    };
+
     return (
         <Card className="left-menu">
             <h3 className="left-menu__title">Сервисы</h3>
@@ -37,12 +43,13 @@ const LeftMenu = ({
                         <div className={sections[type].id === activeSection
                             ? 'left-menu__inner-item active'
                             : 'left-menu__inner-item'}
-                             key={key}
-                             onClick={() => {
-                                 activeSection !== sections[type].id &&
-                                 handleSectionSwitch(sections[type].id);
-                                 scrollTo(sections[type].to)
-                             }}
+                            key={key}
+                            onClick={() => {
+                                activeSection !== sections[type].id &&
+                                handleSectionSwitch(sections[type].id);
+                                scrollTo(sections[type].to);
+                                clicked(sections[type].id);
+                            }}
                         >
                             <SvgSelector icon={sections[type].icon} />
                             <li>{sections[type].name}</li>

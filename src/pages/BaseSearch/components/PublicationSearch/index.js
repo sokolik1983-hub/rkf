@@ -118,7 +118,7 @@ const PublicationSearch = ({ cardClicked }) => {
     };
 
     return (
-        <Card className={`PublicationSearch ${cardClicked === 7 && `_active_card`}`} id="publication-search-anchor">
+        <Card className={`PublicationSearch ${cardClicked === 6 && `_active_card`}`} id="publication-search-anchor">
             <div className="search-form__icon publication-search" />
             <div className="PublicationSearch__text_wrap">
             <h3>Поиск по объявлениям</h3>

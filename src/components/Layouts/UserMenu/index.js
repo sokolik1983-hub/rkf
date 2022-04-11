@@ -15,6 +15,7 @@ import {clubNav as clubNavDocs} from '../../../pages/Docs/config';
 import { kennelNav } from '../../../pages/Nursery/config';
 import {kennelNav as kennelNavDocs} from '../../../pages/NurseryDocuments/config';
 import {userNav as userNavDocs} from '../../../pages/UserDocuments/config.js';
+import InitialsAvatar from "../../InitialsAvatar";
 
 import './index.scss';
 
@@ -174,9 +175,24 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                             <div className="user-nav__inner">
                                 <div className="user-nav__bg-wrap">
                                     { menuBackground ? <img src={menuBackground} alt=""/> :  <img src='/static/images/user-nav/user-nav-bg.png' alt=""/>}
-                                    <div className="user-nav__userpic">
-                                        <img src={logo_link} alt=""/>
-                                    </div>
+
+                                    {
+                                        logo_link
+                                        ?
+                                            <div className="user-nav__userpic">
+                                                <img src={logo_link} alt=""/>
+                                            </div>
+                                            :
+                                            userInfo
+                                            &&
+                                            <div className="user-nav__userpic default">
+                                                <InitialsAvatar
+                                                    name={`${userInfo && userInfo.personal_information.first_name} ${userInfo && userInfo.personal_information.last_name}`}
+                                                    card="mobile-user-menu"
+                                                />
+                                            </div>
+                                    }
+
                                 </div>
                                 {(!(location.pathname.search("documents") > -1) && !(location.pathname.search("bank-details") > -1))? <> {
                                     nameInMenu && <div className="user-nav__alias-name">

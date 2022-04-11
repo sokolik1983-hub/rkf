@@ -49,7 +49,7 @@ const ClientContactList = props => {
                     />
                 ))}
             </div>
-            <div>
+            <>
                 {visibility &&
                     <ClubContactsForm
                         hideForm={setInvisible}
@@ -66,7 +66,7 @@ const ClientContactList = props => {
                         {`Добавить ${contactType.label}`}
                     </Button>
                 }
-            </div>
+            </>
         </Provider>
     )
 };

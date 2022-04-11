@@ -7,6 +7,7 @@ import LightTooltip from '../LightTooltip';
 import { Request } from '../../utils/request';
 import Alert from '../Alert';
 import ls from 'local-storage';
+import InitialsAvatar from "../InitialsAvatar";
 
 import './index.scss';
 
@@ -17,7 +18,6 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     const [rotate, setRotate] = useState(0);
     const [editorErrors, setEditorErrors] = useState([]);
     const editor = useRef(null);
-    const UPLOAD_AVATAR = `/static/icons/default/user-avatar-upload.svg`;
     const currentLink = pageBanner ? '/api/headerpicture/full_v3' : '/api/avatar/full_v3';
 
     const handleSubmit = () => {
@@ -72,8 +72,11 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 borderRadius={pageBanner ? 0 : 166}
                                 image={image}
                                 className="avatar-editor__canvas"
-                                style={image ? {} : { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
+                                style={image && {}}
                             />
+                            {
+                                !image && <InitialsAvatar card="editor"/>
+                            }
                             <div className="avatar-editor__add-file">
                                 <label htmlFor="avatar" className="avatar-editor__add-label">
                                     <LightTooltip title="Добавить файл">
