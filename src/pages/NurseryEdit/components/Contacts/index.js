@@ -1,15 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {connect, FieldArray} from 'formik';
-import {FormField, FormGroup} from '../../../../components/Form';
-import Button from '../../../../components/Button';
+import React, {useEffect, useState} from "react";
+import {connect, FieldArray} from "formik";
+import {phoneNumberMask, editForm} from "../../config";
+import Button from "../../../../components/Button";
+import {FormField, FormGroup} from "../../../../components/Form";
+import MaskedInput from "../../../../components/Form/Field/MaskedInput";
 
-import './styles.scss';
+import "./styles.scss";
 
 
-const Contacts = ({contacts, is_public, errors, randomKeyGenerator}) => {
+const Contacts = ({
+    contacts,
+    is_public,
+    errors,
+    randomKeyGenerator,
+}) => {
     const [countPhone, setCountPhone] = useState(true);
     const [countEmail, setCountEmail] = useState(true);
     const [isChange, setIsChange] = useState(false);
+
+    const {fields} = editForm;
 
     useEffect(() => {
         isChange && checkForCount();
@@ -52,8 +61,8 @@ const Contacts = ({contacts, is_public, errors, randomKeyGenerator}) => {
                     {contacts.map(({contact_type_id}, index) => (
                         contact_type_id === 1 &&
                         <FormGroup key={index}>
-                            <FormField
-                                placeholder="Введите номер телефона"
+                            <MaskedInput
+                                {...fields.contacts.phone}
                                 name={`contacts[${index}].value`}
                             />
                             <FormField
