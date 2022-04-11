@@ -75,7 +75,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 style={image && {}}
                             />
                             {
-                                !image && <InitialsAvatar card="editor"/>
+                                !image && (userType === 1) && <InitialsAvatar card="editor"/>
                             }
                             <div className="avatar-editor__add-file">
                                 <label htmlFor="avatar" className="avatar-editor__add-label">
