@@ -20,8 +20,13 @@
       }
     }
   }
+  &__new-menu {
+    width: 100%;
+    list-style: none;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 7px;
+  }
 }
-
 ._desktop_card {
   padding: 10px !important;
   background-color: #fff !important;

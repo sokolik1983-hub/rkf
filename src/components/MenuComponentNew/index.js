@@ -19,6 +19,10 @@ import {clubNav as clubNavDocs} from "../../pages/Docs/config";
 import {kennelNav as kennelNavDocs} from "../../pages/NurseryDocuments/config";
 import {userNav as userNavDocs} from "../../pages/UserDocuments/config";
 import PopupModal from "../PopupModal";
+import InitialsAvatar from "../InitialsAvatar";
+import Alert from "../Alert"
+
+import "./styles.scss";
 
 const presidium = {
     rkf: {
@@ -233,6 +237,7 @@ const showPresidium = (currentPageAlias) => {
 
 const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
     const [showModal, setShowModal] = useState(false);
+    const [alert, setAlert] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isUserPages, setIsUserPages] = useState(true);
     const [currentPageUserInfo, setCurrentPageUserInfo] = useState(null);
@@ -318,14 +323,14 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
     const checkIsProfilePage = () => { //проверяем страницы на котрых будем показывать то или иное меню
         if (userAlias) { // юзер залогинен?
             if (isUserProfilePage) { //проверка на страницу своего профиля залогиненного юзера
-                alert('Это страница профиля залогиненного юзера')
+                // alert('Это страница профиля залогиненного юзера')
                 if(addLink === "documents" || url === "bank-details") { //проверка на страницу личного кабинета с документами залогиненного юзера
-                    alert('Это страница личного кабинета залогиненного юзера с документами');
+                    // alert('Это страница личного кабинета залогиненного юзера с документами');
                     getMyMenuWithDocs();
                     getCurrentPageUserInfo(userAlias);
                     // setCurrentPageNav(userNav);
                 } else {
-                    alert('Это страница нашего профиля, подтягиваем меню юзера');
+                    // alert('Это страница нашего профиля, подтягиваем меню юзера');
                     setIsUserPages(true);
                     getMyMenu();
                     getCurrentPageUserInfo(userAlias);
@@ -338,7 +343,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                     ) { //проверка: если это 1) стр. Федерации 2) Питомника
 
 
-                    alert('111Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
+                    console.log('111Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
                     setIsUserPages(false);
                     getMenuCurrentUserPage(url, linkAlias);
                     isFederationAlias(url) ? getCurrentPageUserInfo(exhibAlias || url) : getCurrentPageUserInfo(exhibAlias || linkAlias);
@@ -347,10 +352,10 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                         (linkAlias && url === 'exhibitions')
                     ) //1) Клуба 2) Страница выбранного мероприятия и страница мероприятий , которая не содержит в ссылке имя залогиненного юзера
                     {
-                        alert('555555Это не страница залогиненного юзера, это страница мероприятий');
+                        // alert('555555Это не страница залогиненного юзера, это страница мероприятий');
                     }
                 } else {
-                    alert('Это остальные страницы, подтягиваем меню юзера');
+                    // alert('Это остальные страницы, подтягиваем меню юзера');
                     setIsUserPages(true);
                     getCurrentPageUserInfo(userAlias);
                     getMyMenu();
@@ -358,7 +363,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                 ;
             }
         } else {
-            alert('Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
+            // alert('Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
             setIsUserPages(false);
             isFederationAlias(url) ? getCurrentPageUserInfo(url) : getCurrentPageUserInfo(linkAlias);
         }
@@ -366,6 +371,8 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
     };
 
     const getCurrentPageUserInfo = (userAlias) => {
+        console.log('333333333333333', userAlias);
+
         Request({
             url: isUserPages
                 ?
@@ -375,12 +382,10 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                     :
                     endpointGetClubInfo + userAlias
                 :
-                (userType === 3 || userType === 5)
-                    ?
-                    endpointGetClubInfo + userAlias
-                    :
-                    endpointGetNurseryInfo + userAlias
+                endpointGetClubInfo + userAlias
+
         }, data => {
+            console.log('sssssssssssss', data)
             setCurrentPageUserInfo({...data});
         }, error => {
             console.log(error.response);
@@ -418,7 +423,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         if(currentPageUserInfo?.logo_link) {
             return currentPageUserInfo.logo_link
         } else {
-            return "/static/icons/default/default_avatar.svg"
+            return null;
         }
     }
 
@@ -434,6 +439,8 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
 
     const clickOnDisabledLink = e => {
         e.preventDefault();
+        setOpenUserMenu(false);
+        setAlert(true);
     };
 
     const clickOnPresidium = (e) => {
@@ -583,50 +590,64 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                                 <div className="user-nav__bg-wrap">
                                     <img src={getMeHeadliner()} alt="menu-background" />
                                     <div className="user-nav__userpic">
-                                        <img src={getMeLogoLink()} alt="menu-logo" />
+                                        {/*{*/}
+                                        {/*    getMeLogoLink()*/}
+                                        {/*        ?*/}
+                                        {/*        <img src={getMeLogoLink()} alt="menu-logo" />*/}
+                                        {/*        :*/}
+                                        {/*        <InitialsAvatar card="mobile-user-menu" />*/}
+                                        {/*}*/}
                                     </div>
                                 </div>
-                                <div className="user-nav__alias-name"><a href={getMeLinkForName(currentPageUserInfo?.user_type)}>{currentPageUserInfo?.short_name}</a>
+                                <div className="user-nav__alias-name"><a href={getMeLinkForName(currentPageUserInfo?.user_type)}>
+                                    {userType === 1
+                                        ?
+                                        `${currentPageUserInfo?.personal_information.first_name} ${currentPageUserInfo?.personal_information.last_name}`
+                                        :
+                                        currentPageUserInfo?.short_name}
+                                </a>
                                 </div>
-                                {
-                                    currentPageNav?.map(navItem => <li
-                                        className={`user-nav__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
-                                        key={navItem.id}>
-                                        {navItem.title === 'Уведомления' &&
-                                            notificationCounter !== 0 &&
-                                            notificationCounter &&
-                                            <span
-                                                className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}
-                                            >
-                                    { notificationCounter > 99 ? 99 : notificationCounter }
-                                </span>
-                                        }
-                                        123
-                                        {
-                                            navItem.onClick
-                                                ?
-                                                <NavLink
-                                                    to=""
-                                                    exact={navItem.exact}
-                                                    className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                    onClick={e => clickOnPresidium(e, currentPageUserInfo?.club_alias)}
+                                <ul className="user-nav__new-menu">
+                                    {
+                                        currentPageNav?.map(navItem => <li
+                                            className={`user-nav__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
+                                            key={navItem.id}>
+                                            {navItem.title === 'Уведомления' &&
+                                                notificationCounter !== 0 &&
+                                                notificationCounter &&
+                                                <span
+                                                    className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}
                                                 >
-                                                    {navItem.icon}
-                                                    <span>{navItem.title}</span>
-                                                </NavLink>
-                                                :
-                                                <NavLink
-                                                    to={navItem.to}
-                                                    exact={navItem.exact}
-                                                    className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                    onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
-                                                >
-                                                    {navItem.icon}
-                                                    <span>{navItem.title}</span>
-                                                </NavLink>
-                                        }
-                                    </li>)
-                                }
+                                                { notificationCounter > 99 ? 99 : notificationCounter }
+                                            </span>
+                                            }
+                                            123
+                                            {
+                                                navItem.onClick
+                                                    ?
+                                                    <NavLink
+                                                        to=""
+                                                        exact={navItem.exact}
+                                                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                        onClick={e => clickOnPresidium(e, currentPageUserInfo?.club_alias)}
+                                                    >
+                                                        {navItem.icon}
+                                                        <span>{navItem.title}</span>
+                                                    </NavLink>
+                                                    :
+                                                    <NavLink
+                                                        to={navItem.to}
+                                                        exact={navItem.exact}
+                                                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                        onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                                    >
+                                                        {navItem.icon}
+                                                        <span>{navItem.title}</span>
+                                                    </NavLink>
+                                            }
+                                        </li>)
+                                    }
+                                </ul>
                             </div>
 
                         </PopupModal>
@@ -688,6 +709,12 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                     </div>
                 </Modal>
             }
+            {alert && <Alert
+                title="Внимание!"
+                text="Раздел находится в разработке."
+                autoclose={1.5}
+                onOk={() => setAlert(false)}
+            />}
         </>
     )
 
