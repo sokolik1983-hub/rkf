@@ -237,6 +237,10 @@ const showPresidium = (currentPageAlias) => {
 
 const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
     const [showModal, setShowModal] = useState(false);
+    const [linkForName, setLinkForName] = useState('');
+    const [name, setName] = useState('');
+    const [headliner, setHeadliner] = useState('');
+    const [logoLink, setLogoLink] = useState('');
     const [alert, setAlert] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isUserPages, setIsUserPages] = useState(true);
@@ -288,7 +292,11 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
             getCurrentPageUserInfo(url);
             setCurrentPageNav(federationNav(url));
         }
-        (url === 'club' && linkAlias) && setCurrentPageNav(clubNav(linkAlias));
+        if(url === 'club' && linkAlias) {
+            console.log('linkAlias', linkAlias)
+            getCurrentPageUserInfo(linkAlias);
+            setCurrentPageNav(clubNav(linkAlias));
+        }
         (url === 'kennel' && linkAlias) && setCurrentPageNav(kennelNav(linkAlias));
     }
 
@@ -333,7 +341,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                     // alert('Это страница нашего профиля, подтягиваем меню юзера');
                     setIsUserPages(true);
                     getMyMenu();
-                    getCurrentPageUserInfo(userAlias);
+                    getCurrentPageUserInfo(userAlias, url);
                 }
             } else {
                 if (
@@ -346,7 +354,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                     console.log('111Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
                     setIsUserPages(false);
                     getMenuCurrentUserPage(url, linkAlias);
-                    isFederationAlias(url) ? getCurrentPageUserInfo(exhibAlias || url) : getCurrentPageUserInfo(exhibAlias || linkAlias);
+                    isFederationAlias(url) ? getCurrentPageUserInfo(url, url) : getCurrentPageUserInfo(linkAlias, url);
                     //если страница мероприятия (linkAlias && url === 'exhibitions'), то записываем в getCurrentPageUserInfo значение exhibAlias===алиас организации которая проводит мероприятие
                     if(url.includes('exhibitions') && !(location.search.includes(userAlias)) ||
                         (linkAlias && url === 'exhibitions')
@@ -365,65 +373,94 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         } else {
             // alert('Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
             setIsUserPages(false);
-            isFederationAlias(url) ? getCurrentPageUserInfo(url) : getCurrentPageUserInfo(linkAlias);
+            isFederationAlias(url) ? getCurrentPageUserInfo(url, 5) : getCurrentPageUserInfo(linkAlias);
         }
         ;
     };
 
-    const getCurrentPageUserInfo = (userAlias) => {
-        console.log('333333333333333', userAlias);
-
+    const getCurrentPageUserInfo = (userAlias, url) => {
+        console.log('url', url)
         Request({
-            url: isUserPages
-                ?
-                (userType === 1)
+            url:
+                url === "club"
                     ?
-                    endpointGetUserInfo + userAlias
-                    :
                     endpointGetClubInfo + userAlias
-                :
-                endpointGetClubInfo + userAlias
-
+                    :
+                    url === "kennel"
+                        ?
+                        endpointGetNurseryInfo + userAlias
+                        :
+                        url === "user"
+                            ?
+                            endpointGetUserInfo + userAlias
+                            :
+                            endpointGetClubInfo + url
         }, data => {
-            console.log('sssssssssssss', data)
             setCurrentPageUserInfo({...data});
         }, error => {
             console.log(error.response);
         });
     };
 
-    const getMeLinkForName = (userType) => {
-        switch(userType) {
+    const getMeLinkForName = () => {
+        switch(currentPageUserInfo?.user_type) {
             case 5:
-                return `/${currentPageUserInfo.club_alias}`;
+                setLinkForName(`/${currentPageUserInfo.club_alias}`);
+                break;
             case 4:
-                return `/kennel/${currentPageUserInfo.club_alias}`;
+                setLinkForName(`/kennel/${currentPageUserInfo.alias}`);
+                break;
             case 3:
                 if(currentPageUserInfo.club_alias === "rkf") {
-                    return "/rkf"
+                    setLinkForName("/rkf")
                 } else {
-                    return `/club/${currentPageUserInfo.club_alias}`;
+                    setLinkForName(`/club/${currentPageUserInfo.club_alias}`);
                 }
+                break;
             case 1:
-                return `/user/${currentPageUserInfo.club_alias}`;
+                setLinkForName(`/user/${currentPageUserInfo.club_alias}`);
+                break;
+        }
+    }
+
+    const getMeName = () => {
+        switch(currentPageUserInfo?.user_type) {
+            case 1:
+                setName(`${currentPageUserInfo?.personal_information.first_name} ${currentPageUserInfo?.personal_information.last_name}`);
+                break;
+            case 4:
+                setName(`${currentPageUserInfo.name}`);
+                break;
+            case 3:
+                if(currentPageUserInfo.club_alias === "rkf") {
+                    setName(`${currentPageUserInfo.federation_name}`);
+                } else {
+                    setName(`${currentPageUserInfo.short_name}`);
+                }
+                break;
+            case 5:
+                setName(`${currentPageUserInfo.federation_name}`);
+                break;
+            default:
+                break;
         }
     }
 
     const getMeHeadliner = () => {
         if (currentPageUserInfo?.headliner_link) {
-            return currentPageUserInfo.headliner_link
+            setHeadliner(currentPageUserInfo.headliner_link);
         } else if(currentPageUserInfo?.club_alias === "rkf") {
-            return "/static/images/slider/1.jpg"
+            setHeadliner("/static/images/slider/1.jpg");
         } else {
-            return "/static/images/noimg/no-banner.png"
+            setHeadliner("/static/images/noimg/no-banner.png");
         }
     }
 
     const getMeLogoLink = () => {
         if(currentPageUserInfo?.logo_link) {
-            return currentPageUserInfo.logo_link
+            setLogoLink(currentPageUserInfo.logo_link);
         } else {
-            return null;
+            setLogoLink(null);
         }
     }
 
@@ -448,52 +485,6 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         setOpenUserMenu(false);
         setShowModal('presidium');
     };
-
-    // useEffect(() => {
-    //
-    //     console.log('currentPageUserInfo', currentPageUserInfo)
-    //
-    //     const currentUserAlias = (userType === 1) ? currentPageUserInfo?.alias : currentPageUserInfo?.club_alias;
-    //     const currentUserType = currentPageUserInfo?.user_type;
-    //
-    //     switch (currentUserType) {
-    //         case 0:
-    //             setCurrentPageNav(userNav(currentUserAlias));
-    //             break;
-    //         case 1:
-    //             console.log('userNav(currentUserAlias)', userNav(currentUserAlias));
-    //             setCurrentPageNav(userNav(currentUserAlias));
-    //             break;
-    //         case 3:
-    //             if (currentUserAlias === 'rkf' || currentUserAlias === 'rkf-online') {
-    //                 const newArr = federationNav(currentUserAlias).filter(item => !(item.id === 7 || item.id === 8));
-    //                 setCurrentPageNav(newArr);
-    //             } else {
-    //                 // setCurrentPageNav(clubNav(currentUserAlias));
-    //             }
-    //             break;
-    //         case 4:
-    //             setCurrentPageNav(kennelNav(currentUserAlias));
-    //             break;
-    //         case 5:
-    //             const newArr = federationNav(currentUserAlias).map(item => {
-    //                 if(item.id === 7) {
-    //                     item.to = linkFeesId;
-    //                     return item;
-    //                 } else if (item.id === 8) {
-    //                     item.to = linkFedDetails;
-    //                     return item;
-    //                 } else {
-    //                     return item;
-    //                 }
-    //             });
-    //
-    //             setCurrentPageNav(newArr);
-    //             break;
-    //         default:
-    //             setCurrentPageNav(null);
-    //     };
-    // }, [currentPageUserInfo, linkFeesId, linkFedDetails]);
 
     useEffect(() => {
         if (openUserMenu || showModal) {
@@ -555,12 +546,24 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
 
     useEffect(() => {
         if(isFederationAlias(url) && currentPageNav) {
-            const newNavWithDocLinks = currentPageNav.map(item => (item.id === 7) ? {...item, to: linkFeesId} : (item.id === 8) ? {...item, to: linkFedDetails}  : item)
-            setCurrentPageNav(newNavWithDocLinks);
+            if(currentPageUserInfo.club_alias === 'rkf' || currentPageUserInfo.club_alias === 'rkf-online') {
+                console.log('ya RKF')
+                const newNavWithoutDocLinks = currentPageNav.filter(item =>(item.id !== 7 || item.id !== 8));
+                console.log('newNavWithoutDocLinks', newNavWithoutDocLinks)
+                setCurrentPageNav(newNavWithoutDocLinks);
+
+            } else {
+                const newNavWithDocLinks = currentPageNav.map(item => (item.id === 7) ? {...item, to: linkFeesId} : (item.id === 8) ? {...item, to: linkFedDetails}  : item)
+                setCurrentPageNav(newNavWithDocLinks);
+            }
         }
-    }, [linkFeesId, linkFedDetails]);
+    }, [linkFeesId, linkFedDetails, currentPageUserInfo]);
 
     useEffect(() => {
+        getMeLogoLink();
+        getMeHeadliner();
+        getMeName();
+        getMeLinkForName();
         console.log('currentPageUserInfo', currentPageUserInfo);
     }, [currentPageUserInfo])
 
@@ -588,23 +591,21 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                         >
                             <div className="user-nav__inner">
                                 <div className="user-nav__bg-wrap">
-                                    <img src={getMeHeadliner()} alt="menu-background" />
+                                    <img src={headliner} alt="menu-background" />
                                     <div className="user-nav__userpic">
-                                        {/*{*/}
-                                        {/*    getMeLogoLink()*/}
-                                        {/*        ?*/}
-                                        {/*        <img src={getMeLogoLink()} alt="menu-logo" />*/}
-                                        {/*        :*/}
-                                        {/*        <InitialsAvatar card="mobile-user-menu" />*/}
-                                        {/*}*/}
+                                        {
+                                            logoLink
+                                                ?
+                                                <img src={logoLink} alt="menu-logo" />
+                                                :
+                                                ""
+                                                // <InitialsAvatar card="mobile-user-menu" />
+                                        }
                                     </div>
                                 </div>
-                                <div className="user-nav__alias-name"><a href={getMeLinkForName(currentPageUserInfo?.user_type)}>
-                                    {userType === 1
-                                        ?
-                                        `${currentPageUserInfo?.personal_information.first_name} ${currentPageUserInfo?.personal_information.last_name}`
-                                        :
-                                        currentPageUserInfo?.short_name}
+                                <div className="user-nav__alias-name">
+                                    <a href={linkForName}>
+                                    {name}
                                 </a>
                                 </div>
                                 <ul className="user-nav__new-menu">
@@ -626,7 +627,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                                                 navItem.onClick
                                                     ?
                                                     <NavLink
-                                                        to=""
+                                                        to={navItem.to}
                                                         exact={navItem.exact}
                                                         className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
                                                         onClick={e => clickOnPresidium(e, currentPageUserInfo?.club_alias)}
