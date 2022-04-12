@@ -16,7 +16,6 @@ import { endpointGetLinkNewsFeed } from "./config";
 import InitialsAvatar from "../InitialsAvatar";
 import randomKeyGenerator from '../../utils/randomKeyGenerator'
 
-
 import './index.scss';
 
 const CardNewsNew = forwardRef(({
