@@ -144,11 +144,12 @@
       }
     }
     &.two-column {
+      gap: 16px;
       & > div {
         margin: 0;
         @media (min-width: 560px) {
-          max-width: 50%;
-          min-width: 50%;
+          max-width: calc(50% - 8px)!important;
+          min-width: calc(50% - 8px)!important;
           &:first-child {
             & > div {
               margin-right: 16px;
