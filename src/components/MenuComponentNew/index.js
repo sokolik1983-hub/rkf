@@ -257,6 +257,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
 
     const userAlias = useSelector(state => state.authentication.user_info?.alias);
     const userType = useSelector(state => state.authentication.user_info?.user_type);
+    const isAuth = useSelector(state => state.authentication.isAuthenticated);
 
     const isMobile = useIsMobile(1080);
     const location = useLocation();
@@ -400,7 +401,8 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         } else {
             // alert('Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
             setIsUserPages(false);
-            isFederationAlias(url) ? getCurrentPageUserInfo(url, 5) : getCurrentPageUserInfo(linkAlias);
+            getMenuCurrentUserPage(url, linkAlias);
+            isFederationAlias(url) ? getCurrentPageUserInfo(url, 5) : getCurrentPageUserInfo(linkAlias, url);
         }
         ;
     };
@@ -497,7 +499,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         }, (data) => {
             setNotificationCounter(data?.counters?.counter_of_new);
         }, error => {
-            console.log(error)
+            console.log(error);
         });
     };
 
@@ -622,7 +624,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                                                     ?
                                                     <img src={'/static/icons/default/club-avatar.svg'} />
                                                     :
-                                                    <InitialsAvatar card="mobile-user-menu" />
+                                                    isAuth && <InitialsAvatar card="mobile-user-menu" />
                                         }
                                     </div>
                                 </div>
@@ -634,7 +636,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                                 <ul className="user-nav__new-menu">
                                     {
                                         currentPageNav?.map(navItem => <li
-                                            className={`user-nav__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
+                                            className={`user-nav__item${(navItem.title === 'Уведомления' && (!isUserProfilePage || !isAuth)) ? ' _hidden' : ''}`}
                                             key={navItem.id}>
                                             {navItem.title === 'Уведомления' &&
                                                 notificationCounter !== 0 &&
