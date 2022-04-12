@@ -31,7 +31,7 @@ export const federationNav = (alias) => [
     {
         id: 2,
         title: 'Президиум',
-        to: ``,
+        to: `/presidium`,
         onClick: (e, setShowModal) => getPresidium(e, setShowModal),
         exact: true,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,10 +154,6 @@ export const federationNav = (alias) => [
         id: 7,
         title: 'Размеры членских взносов',
         to: ``,
-        onClick: (e) => {
-            e.preventDefault();
-            console.log('55555555555')
-        },
         exact: true,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_1668_691)">
@@ -175,7 +171,7 @@ export const federationNav = (alias) => [
     {
         id: 8,
         title: 'Реквизиты',
-        to: '/',
+        to: '',
         exact: true,
         icon: <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_1669_710)">

@@ -21,6 +21,7 @@ import {userNav as userNavDocs} from "../../pages/UserDocuments/config";
 import PopupModal from "../PopupModal";
 import InitialsAvatar from "../InitialsAvatar";
 import Alert from "../Alert"
+import ls from "local-storage";
 
 import "./styles.scss";
 
@@ -235,8 +236,9 @@ const showPresidium = (currentPageAlias) => {
     }
 };
 
-const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
+const MenuComponentNew = ({isDocsPage}) => {
     const [showModal, setShowModal] = useState(false);
+    const [exhibAlias, setExhibAlias] = useState(null);
     const [linkForName, setLinkForName] = useState('');
     const [name, setName] = useState('');
     const [headliner, setHeadliner] = useState('');
@@ -271,7 +273,6 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         || url === 'bank-details'
         || url === 'client'
         || location.search.includes(userAlias)
-        || userAlias === exhibAlias //страница мероприятия залогиненного пользователя?
     ); // страницы профиля залогиненного юзера?
 
     // const newArr = federationNav(currentUserAlias).map(item => {
@@ -294,6 +295,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
             setCurrentPageNav(federationNav(url));
         }
         if(url === 'club' && linkAlias) {
+            console.log('656565651111')
             getCurrentPageUserInfo(linkAlias);
             setCurrentPageNav(clubNav(linkAlias));
         }
@@ -308,34 +310,50 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         (userType === 3 && userAlias !== "rkf") &&  setCurrentPageNav(clubNav(userAlias));
         (userAlias === "rkf") && setCurrentPageNav(federationNav(userAlias));
         (userType === 4) && setCurrentPageNav(kennelNav(userAlias));
-        (userType === 5) &&
-        setCurrentPageNav(federationNav(userAlias).map(item =>
-            (item.id === 7)
-                ?
-                item.to = linkFeesId
-                :
-                (item.id === 8)
-                    ?
-                    item.to = linkFedDetails
-                    :
-                    item))
+        if(userType === 5) {
+            const newArr = federationNav(userAlias).map(item => (item.id === 7) ? {...item, to: linkFeesId} : (item.id === 8) ? {...item, to: linkFedDetails}  : item)
+            setCurrentPageNav(newArr);
+        }
     }
 
     const getMyMenuWithDocs = () => {
         (userType === 1) && setCurrentPageNav(userNavDocs(userAlias));
-        (userType === 3 && userAlias !== "rkf") &&  setCurrentPageNav(clubNavDocs(userAlias));
-        // (userAlias === "rkf") && setCurrentPageNav(federationNav(userAlias));
+        (userType === 3 || userType === 5) &&  setCurrentPageNav(clubNavDocs(userAlias));
         (userType === 4) && setCurrentPageNav(kennelNavDocs(userAlias));
-        // (userType === 5) && setCurrentPageNav(federationNav(userAlias));
     }
 
+    // const getMeAliasFromLS = () => {
+    //     const exhibAlias = ls.get("exhibition_page_club_alias");
+    //     if (exhibAlias) return Promise.resolve(data);
+    //
+    //     return Promise.resolve(
+    //         fetch("https://data.cityofchicago.org/resource/xzkq-xp2w.json")
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 localStorage.setItem("requestAll", JSON.stringify(data));
+    //                 return data;
+    //             })
+    //     );
+    // }
+
+    const checkIsProfilePage = (exhibAlias) => { //проверяем страницы на котрых будем показывать то или иное меню
+        if(url.includes('exhibitions')) {
+            console.log('1eeeeeeeeeeeeeeeeeee',exhibAlias )
+                if(isFederationAlias(exhibAlias)) {
+                    console.log('Federation!!!!', exhibAlias)
+                    getMenuCurrentUserPage(exhibAlias, exhibAlias);
+                    getCurrentPageUserInfo(exhibAlias, exhibAlias)
+                } else {
+                    console.log('Club!!!!', exhibAlias)
+                    getMenuCurrentUserPage("club", exhibAlias);
+                    getCurrentPageUserInfo(exhibAlias,"club");
+                }
 
 
-    const checkIsProfilePage = () => { //проверяем страницы на котрых будем показывать то или иное меню
-        if (userAlias) { // юзер залогинен?
+        } else if (userAlias) { // юзер залогинен?
             if (isUserProfilePage) { //проверка на страницу своего профиля залогиненного юзера
                 // alert('Это страница профиля залогиненного юзера')
-                if(addLink === "documents" || url === "bank-details") { //проверка на страницу личного кабинета с документами залогиненного юзера
+                if(addLink === "documents" || linkAlias === "documents" || url === "bank-details") { //проверка на страницу личного кабинета с документами залогиненного юзера
                     // alert('Это страница личного кабинета залогиненного юзера с документами');
                     getMyMenuWithDocs();
                     getCurrentPageUserInfo(userAlias,
@@ -361,27 +379,21 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                     isFederationAlias(url)
                     || url === 'kennel'
                     || url === 'club'
-                    ) { //проверка: если это 1) стр. Федерации 2) Питомника
-
+                ) { //проверка: если это 1) стр. Федерации 2) Питомника
 
                     // alert('111Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
                     setIsUserPages(false);
                     getMenuCurrentUserPage(url, linkAlias);
                     isFederationAlias(url) ? getCurrentPageUserInfo(url, url) : getCurrentPageUserInfo(linkAlias, url);
                     //если страница мероприятия (linkAlias && url === 'exhibitions'), то записываем в getCurrentPageUserInfo значение exhibAlias===алиас организации которая проводит мероприятие
-                    if(url.includes('exhibitions') && !(location.search.includes(userAlias)) ||
-                        (linkAlias && url === 'exhibitions')
-                    ) //1) Клуба 2) Страница выбранного мероприятия и страница мероприятий , которая не содержит в ссылке имя залогиненного юзера
-                    {
-                        // alert('555555Это не страница залогиненного юзера, это страница мероприятий');
-                    }
+
+                    //
+                    // ) //1) Клуба 2) Страница выбранного мероприятия и страница мероприятий , которая не содержит в ссылке имя залогиненного юзера
+                    // {
+                    //     // alert('555555Это не страница залогиненного юзера, это страница мероприятий');
+                    // }
                 } else {
                     // alert('Это остальные страницы, подтягиваем меню юзера');
-                    console.log('userAlias2222222222', userAlias);
-                    console.log('ur11111111111l', url);
-
-
-
 
                     getCurrentPageUserInfo(userAlias,
                         userType === 3 || userType === 5
@@ -402,9 +414,10 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
             // alert('Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
             setIsUserPages(false);
             getMenuCurrentUserPage(url, linkAlias);
-            isFederationAlias(url) ? getCurrentPageUserInfo(url, 5) : getCurrentPageUserInfo(linkAlias, url);
+            isFederationAlias(url) ? getCurrentPageUserInfo(url, 'club') : getCurrentPageUserInfo(linkAlias, url);
         }
         ;
+
     };
 
     const getCurrentPageUserInfo = (userAlias, url) => {
@@ -434,16 +447,16 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
     const getMeLinkForName = () => {
         switch(currentPageUserInfo?.user_type || userType) {
             case 5:
-                setLinkForName(`/${currentPageUserInfo.club_alias}`);
+                setLinkForName(`/${currentPageUserInfo?.club_alias}`);
                 break;
             case 4:
-                setLinkForName(`/kennel/${currentPageUserInfo.alias}`);
+                setLinkForName(`/kennel/${currentPageUserInfo?.alias}`);
                 break;
             case 3:
-                if(currentPageUserInfo.club_alias === "rkf") {
+                if(currentPageUserInfo?.club_alias === "rkf") {
                     setLinkForName("/rkf")
                 } else {
-                    setLinkForName(`/club/${currentPageUserInfo.club_alias}`);
+                    setLinkForName(`/club/${currentPageUserInfo?.club_alias}`);
                 }
                 break;
             case 1:
@@ -458,17 +471,17 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                 setName(`${currentPageUserInfo?.personal_information.first_name} ${currentPageUserInfo?.personal_information.last_name}`);
                 break;
             case 4:
-                setName(`${currentPageUserInfo.name}`);
+                setName(`${currentPageUserInfo?.name}`);
                 break;
             case 3:
-                if(currentPageUserInfo.club_alias === "rkf") {
-                    setName(`${currentPageUserInfo.federation_name}`);
+                if(currentPageUserInfo?.club_alias === "rkf") {
+                    setName(`${currentPageUserInfo?.federation_name}`);
                 } else {
-                    setName(`${currentPageUserInfo.short_name}`);
+                    setName(`${currentPageUserInfo?.short_name}`);
                 }
                 break;
             case 5:
-                setName(`${currentPageUserInfo.federation_name}`);
+                setName(`${currentPageUserInfo?.federation_name}`);
                 break;
             default:
                 break;
@@ -559,7 +572,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                 console.log(error.response);
             }))();
         }
-    }, [fedDetails, fedFeesId]);//подтягиваем документы для клубов??
+    }, [fedDetails, fedFeesId, currentPageUserInfo]);//подтягиваем документы для клубов??
 
     useEffect(() => {
         checkIsProfilePage();
@@ -588,6 +601,13 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         getMeName();
         getMeLinkForName();
     }, [currentPageUserInfo]);
+
+    useEffect(() => {
+        const exhibAlias = ls.get('exhibition_page_club_alias');
+        console.log('qqqqqqqqqqq',exhibAlias )
+        setExhibAlias(exhibAlias);
+    }, []);
+
 
     return (
         <>

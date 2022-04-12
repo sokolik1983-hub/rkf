@@ -24,6 +24,7 @@ import MenuComponent from "../../components/MenuComponent";
 import useIsMobile from "../../utils/useIsMobile";
 import PhotoComponent from "../../components/PhotoComponent";
 import MenuComponentNew from "../../components/MenuComponentNew";
+import ls from "local-storage";
 
 import "./index.scss";
 
@@ -158,6 +159,10 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
 
     useEffect(() => {
         club_alias && getFedInfo();
+        ls.set('exhibition_page_club_alias', club_alias);
+        return () => {
+            ls.remove('exhibition_page_club_alias');
+        }
     }, [club_alias]);
 
     return isError
@@ -215,10 +220,8 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                     name={display_name || club_fact_name || ''}
                                                     isFederation={true}
                                                 />
-                                                <MenuComponentNew
-                                                    exhibAlias={club_alias}
-                                                >
-                                                </MenuComponentNew>
+                                                <MenuComponentNew />
+
                                             </>
                                             :
                                             !isMobile &&
@@ -227,9 +230,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                 {/*    userNav={clubNav(club_alias)}*/}
                                                 {/*    isExhibitionPage={true}*/}
                                                 {/*/>*/}
-                                                <MenuComponentNew
-                                                    exhibAlias={club_alias}
-                                                />
+                                                <MenuComponentNew />
                                             </>
                                         }
                                         {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} /> }

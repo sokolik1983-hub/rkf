@@ -6,20 +6,15 @@ import ls from 'local-storage';
 import { connectAuthVisible } from '../../../pages/Authorization/connectors';
 import { footerNav } from '../../../appConfig';
 import { isFederationAlias } from '../../../utils';
-import MenuComponent from '../../MenuComponent';
 import { connectShowFilters } from '../connectors';
 import { Request } from '../../../utils/request';
-import { clubNav, endpointGetClubInfo } from '../../../pages/Club/config';
-import { kennelNav } from '../../../pages/Nursery/config';
-import { userNav } from "../UserLayout/config";
-import UserMenu from '../UserMenu';
+import { endpointGetClubInfo } from '../../../pages/Club/config';
 import ZlineWidget from "../../ZLineWidget";
 import {blockContent} from "../../../utils/blockContent";
 import { checkAliasUrl } from '../../../utils/checkAliasUrl';
 import MenuComponentNew from "../../MenuComponentNew";
 
 import './footerMenu.scss';
-
 
 const FooterMenu = ({
     match,
@@ -34,8 +29,6 @@ const FooterMenu = ({
     const [canEdit, setCanEdit] = useState(false);
     const [showZlineModal, setShowZlineModal] = useState(false);
     const [open, setOpen] = useState(false);
-    const [openUserMenu, setOpenUserMenu] = useState(false);
-    const [openMenuComponent, setOpenMenuComponent] = useState(false);
     const [fedInfo, setFedInfo] = useState(null);
 
     useEffect(() => {
@@ -72,12 +65,12 @@ const FooterMenu = ({
     };
 
     useEffect(() => {
-        if(showZlineModal || open || openUserMenu || openMenuComponent) {
+        if(showZlineModal || open ) {
             blockContent(true);
         } else {
             blockContent(false);
         }
-    }, [showZlineModal, open, openUserMenu, openMenuComponent]);
+    }, [showZlineModal, open]);
 
     return (
         <>
