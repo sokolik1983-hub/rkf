@@ -1,4 +1,5 @@
 import React, {memo, useRef, useState} from 'react';
+import {useSelector} from "react-redux";
 import Dropzone from 'react-dropzone';
 import AvatarEditor from 'react-avatar-editor';
 import { Slider } from '@material-ui/core';
@@ -18,6 +19,8 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     const [rotate, setRotate] = useState(0);
     const [editorErrors, setEditorErrors] = useState([]);
     const editor = useRef(null);
+    const reduxUserType = useSelector(state => state.authentication.user_info.user_type)
+    const UPLOAD_AVATAR = `/static/icons/default/user-avatar-upload.svg`;
     const currentLink = pageBanner ? '/api/headerpicture/full_v3' : '/api/avatar/full_v3';
 
     const handleSubmit = () => {
@@ -72,10 +75,10 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 borderRadius={pageBanner ? 0 : 166}
                                 image={image}
                                 className="avatar-editor__canvas"
-                                style={image && {}}
+                                style={image && (reduxUserType !== 1) ? {} : { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
                             />
                             {
-                                !image && <InitialsAvatar card="editor"/>
+                                !image && (reduxUserType === 1) && <InitialsAvatar card="editor"/>
                             }
                             <div className="avatar-editor__add-file">
                                 <label htmlFor="avatar" className="avatar-editor__add-label">

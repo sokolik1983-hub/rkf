@@ -49,7 +49,7 @@ const CardOrganization = (props) => {
                 `/${ alias }/`;
 
     return (
-        <Card className="card-organization">
+        <Card className={`card-organization ${ user_type === 7 ? `nkp-layout` : `` }`}>
             <div className="card-organization__content">
                 <div className="card-organization__header">
                     { url ?
@@ -128,7 +128,7 @@ const CardOrganization = (props) => {
                                     }` }>
                                     <div className="card-organization__info">
                                         <div className="card-organization__info-item">
-                                            <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо ' }</span>
+                                            <span className="card-organization__subtitle">{ owner_position || 'Контактное лицо ' }&nbsp;</span>
                                             <span>
                                                 { owner_name || ' Не указано' }
                                             </span>
@@ -136,19 +136,19 @@ const CardOrganization = (props) => {
 
                                         { user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
                                             <div className="card-organization__info-item">
-                                                <span className="card-organization__subtitle">Телефон </span>
+                                                <span className="card-organization__subtitle">Телефон&nbsp;</span>
                                                 <span>{ phones.join(`, `) }</span>
                                             </div>
                                         }
                                         { user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
                                             <div className="card-organization__info-item">
-                                                <span className="card-organization__subtitle">E-mail </span>
+                                                <span className="card-organization__subtitle">E-mail&nbsp;</span>
                                                 <span>{ mails.join(`, `) }</span>
                                             </div>
                                         }
                                         { user_type === 7 && site &&
                                             <div className="card-organization__info-item">
-                                                <span className="card-organization__subtitle">Сайт </span>
+                                                <span className="card-organization__subtitle">Сайт&nbsp;</span>
                                                 <a href={ site.includes('http')
                                                     ?
                                                     site
@@ -164,7 +164,7 @@ const CardOrganization = (props) => {
                                         }
                                         { user_type === 4 && breeds && !!breeds.length &&
                                             <div className="card-organization__info-item">
-                                                <span className="card-organization__subtitle">Породы </span>
+                                                <span className="card-organization__subtitle">Породы&nbsp;</span>
                                                 <span>{ breeds.slice(0, 4).join(`, `) }</span>
                                             </div>
                                         }
@@ -187,7 +187,7 @@ const CardOrganization = (props) => {
                                     :
                                     <InitialsAvatar
                                         id={id}
-                                        card="specialist-card"
+                                        card="nkp-card"
                                         name={name}
                                     />
                             }
@@ -236,7 +236,7 @@ const CardOrganization = (props) => {
                                             <span
                                                 className="card-organization__subtitle"
                                             >
-                                                { owner_position || 'Контактное лицо ' }
+                                                { owner_position || 'Контактное лицо ' }&nbsp;
                                             </span>
                                             <span>
                                                 { owner_name || 'Не указано' }
@@ -244,19 +244,19 @@ const CardOrganization = (props) => {
                                         </div>
                                         { user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
                                             <div className="card-organization__info-item">
-                                                <span className="card-organization__subtitle">Телефон </span>
+                                                <span className="card-organization__subtitle">Телефон&nbsp;</span>
                                                 <span>{ phones.join(`, `) }</span>
                                             </div>
                                         }
                                         { user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
                                             <div className="card-organization__info-item">
-                                                <span className="card-organization__subtitle">E-mail </span>
+                                                <span className="card-organization__subtitle">E-mail&nbsp;</span>
                                                 <span>{ mails.join(`, `) }</span>
                                             </div>
                                         }
                                         { user_type === 7 && site &&
                                             <div className="card-organization__info-item">
-                                                <span className="card-organization__subtitle">Сайт </span>
+                                                <span className="card-organization__subtitle">Сайт&nbsp;</span>
                                                 <a
                                                     href={ site.includes('http')
                                                     ?
@@ -271,7 +271,7 @@ const CardOrganization = (props) => {
                                         }
                                         { user_type === 4 && breeds && !!breeds.length &&
                                             <div className="card-organization__info-item">
-                                                <span className="card-organization__subtitle">Породы </span>
+                                                <span className="card-organization__subtitle">Породы&nbsp;</span>
                                                 <span>{ breeds.slice(0, 4).join(`, `) }</span>
                                             </div>
                                         }
