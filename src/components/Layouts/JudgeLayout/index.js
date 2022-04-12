@@ -217,7 +217,7 @@ const JudgeLayout = () => {
                                                                 item.rank &&
                                                                 <div className="judge-info__add-info">
                                                                     <p>Ранг:</p>
-                                                                    <p className="">
+                                                                    <p>
                                                                         {item.rank}
                                                                     </p>
                                                                 </div>

@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import Card from "../Card";
 import { ActiveUserMark, FederationChoiceMark } from "../Marks";
 import { DEFAULT_IMG } from "../../appConfig";
 import CardFooter from '../CardFooter';
-
-import "./index.scss";
 import InitialsAvatar from "../InitialsAvatar";
 
+import "./index.scss";
 
 const CardOrganization = (props) => {
 
