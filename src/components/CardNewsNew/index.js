@@ -14,6 +14,7 @@ import CardFooter from '../CardFooter';
 import DocumentLink from "../../components/DocumentLink";
 import { endpointGetLinkNewsFeed } from "./config";
 import InitialsAvatar from "../InitialsAvatar";
+import useIsMobile from "../../utils/useIsMobile";
 
 import './index.scss';
 
@@ -76,9 +77,10 @@ const CardNewsNew = forwardRef(({
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
-        if ((ref.current && ref.current.clientHeight > 140)) setCanCollapse(true);
+        if ( (!isMobile && ref.current && ref.current.clientHeight > 100) || (isMobile && ref.current && ref.current.clientHeight > 200)) setCanCollapse(true);
     }, []);
 
     useEffect(() => {
