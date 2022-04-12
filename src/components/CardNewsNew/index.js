@@ -14,11 +14,8 @@ import CardFooter from '../CardFooter';
 import DocumentLink from "../../components/DocumentLink";
 import { endpointGetLinkNewsFeed } from "./config";
 import InitialsAvatar from "../InitialsAvatar";
-<<<<<<< HEAD
 import randomKeyGenerator from '../../utils/randomKeyGenerator'
-=======
 import useIsMobile from "../../utils/useIsMobile";
->>>>>>> 986bb703277aba44b3aa641bd3ea9feae1335c05
 
 import './index.scss';
 
