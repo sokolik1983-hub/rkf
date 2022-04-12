@@ -147,7 +147,7 @@ const Filters = ({
         setFiltersToUrl({ TypeIds: filter });
         setCurrentTypes(filter);
 
-        let newFilterString = `${filter.map(tem => `TypeIds=${tem}`)}`.replace(/\,/g, '&');
+        const newFilterString = `${filter.map(item => `TypeIds=${item}`)}`.replace(/\,/g, '&');
 
         await Request({
             url: "api/exhibitions/Exhibition/filter?" + newFilterString
