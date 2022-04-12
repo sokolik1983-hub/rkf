@@ -293,11 +293,13 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
             setCurrentPageNav(federationNav(url));
         }
         if(url === 'club' && linkAlias) {
-            console.log('linkAlias', linkAlias)
             getCurrentPageUserInfo(linkAlias);
             setCurrentPageNav(clubNav(linkAlias));
         }
-        (url === 'kennel' && linkAlias) && setCurrentPageNav(kennelNav(linkAlias));
+        if(url === 'kennel' && linkAlias) {
+            getCurrentPageUserInfo(linkAlias);
+            setCurrentPageNav(kennelNav(linkAlias))
+        };
     }
 
     const getMyMenu = () => {
@@ -335,7 +337,17 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                 if(addLink === "documents" || url === "bank-details") { //проверка на страницу личного кабинета с документами залогиненного юзера
                     // alert('Это страница личного кабинета залогиненного юзера с документами');
                     getMyMenuWithDocs();
-                    getCurrentPageUserInfo(userAlias);
+                    getCurrentPageUserInfo(userAlias,
+                        userType === 3 || userType === 5
+                            ?
+                            'club'
+                            :
+                            userType === 4
+                                ?
+                                'kennel'
+                                :
+                                'user'
+                    )
                     // setCurrentPageNav(userNav);
                 } else {
                     // alert('Это страница нашего профиля, подтягиваем меню юзера');
@@ -351,7 +363,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                     ) { //проверка: если это 1) стр. Федерации 2) Питомника
 
 
-                    console.log('111Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
+                    // alert('111Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
                     setIsUserPages(false);
                     getMenuCurrentUserPage(url, linkAlias);
                     isFederationAlias(url) ? getCurrentPageUserInfo(url, url) : getCurrentPageUserInfo(linkAlias, url);
@@ -364,11 +376,26 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                     }
                 } else {
                     // alert('Это остальные страницы, подтягиваем меню юзера');
+                    console.log('userAlias2222222222', userAlias);
+                    console.log('ur11111111111l', url);
+
+
+
+
+                    getCurrentPageUserInfo(userAlias,
+                        userType === 3 || userType === 5
+                            ?
+                            'club'
+                            :
+                            userType === 4
+                                ?
+                                'kennel'
+                                :
+                                'user'
+                    )
                     setIsUserPages(true);
-                    getCurrentPageUserInfo(userAlias);
                     getMyMenu();
-                }
-                ;
+                };
             }
         } else {
             // alert('Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся');
@@ -379,7 +406,6 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
     };
 
     const getCurrentPageUserInfo = (userAlias, url) => {
-        console.log('url', url)
         Request({
             url:
                 url === "club"
@@ -396,6 +422,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                             :
                             endpointGetClubInfo + url
         }, data => {
+            console.log('data', data)
             setCurrentPageUserInfo({...data});
         }, error => {
             console.log(error.response);
@@ -403,7 +430,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
     };
 
     const getMeLinkForName = () => {
-        switch(currentPageUserInfo?.user_type) {
+        switch(currentPageUserInfo?.user_type || userType) {
             case 5:
                 setLinkForName(`/${currentPageUserInfo.club_alias}`);
                 break;
@@ -418,13 +445,13 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                 }
                 break;
             case 1:
-                setLinkForName(`/user/${currentPageUserInfo.club_alias}`);
+                setLinkForName(`/user/${currentPageUserInfo?.alias}`);
                 break;
         }
-    }
+    };
 
     const getMeName = () => {
-        switch(currentPageUserInfo?.user_type) {
+        switch(currentPageUserInfo?.user_type || userType) {
             case 1:
                 setName(`${currentPageUserInfo?.personal_information.first_name} ${currentPageUserInfo?.personal_information.last_name}`);
                 break;
@@ -444,7 +471,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
             default:
                 break;
         }
-    }
+    };
 
     const getMeHeadliner = () => {
         if (currentPageUserInfo?.headliner_link) {
@@ -454,7 +481,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         } else {
             setHeadliner("/static/images/noimg/no-banner.png");
         }
-    }
+    };
 
     const getMeLogoLink = () => {
         if(currentPageUserInfo?.logo_link) {
@@ -462,7 +489,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         } else {
             setLogoLink(null);
         }
-    }
+    };
 
     const getNotifications = async () => {
         await Request({
@@ -540,16 +567,10 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         getNotifications()
     }, []);
 
-    // useEffect(() => {
-    //     console.log('currentPageNav', currentPageNav)
-    // }, [currentPageNav]);
-
     useEffect(() => {
         if(isFederationAlias(url) && currentPageNav) {
             if(currentPageUserInfo.club_alias === 'rkf' || currentPageUserInfo.club_alias === 'rkf-online') {
-                console.log('ya RKF')
-                const newNavWithoutDocLinks = currentPageNav.filter(item =>(item.id !== 7 || item.id !== 8));
-                console.log('newNavWithoutDocLinks', newNavWithoutDocLinks)
+                const newNavWithoutDocLinks = currentPageNav.filter(item =>(item.id !== 7 && item.id !== 8));
                 setCurrentPageNav(newNavWithoutDocLinks);
 
             } else {
@@ -564,8 +585,7 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
         getMeHeadliner();
         getMeName();
         getMeLinkForName();
-        console.log('currentPageUserInfo', currentPageUserInfo);
-    }, [currentPageUserInfo])
+    }, [currentPageUserInfo]);
 
     return (
         <>
@@ -598,8 +618,11 @@ const MenuComponentNew = ({exhibAlias, isDocsPage}) => {
                                                 ?
                                                 <img src={logoLink} alt="menu-logo" />
                                                 :
-                                                ""
-                                                // <InitialsAvatar card="mobile-user-menu" />
+                                                (currentPageUserInfo?.user_type >= 3 || userType >= 3)
+                                                    ?
+                                                    <img src={'/static/icons/default/club-avatar.svg'} />
+                                                    :
+                                                    <InitialsAvatar card="mobile-user-menu" />
                                         }
                                     </div>
                                 </div>
