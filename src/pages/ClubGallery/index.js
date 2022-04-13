@@ -198,7 +198,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                 : <Layout setNotificationsLength={setNotificationsLength}>
                     <div className="redesign">
                         <Container className="content club-page">
-                            <div className="club-page__content-wrap">
+                            <div className={`club-page__content-wrap${clubInfo.federation_name ? ' _isFederation' : ''}`}>
                                 <div className="club-page__content">
                                     {isMobile &&
                                         <>

@@ -136,7 +136,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         <Loading /> :
         errorRedirect ?
             <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength}>
+            <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters={checkLink} >
 
                 <div className="user-page">
                     <Container className="user-page__content content">

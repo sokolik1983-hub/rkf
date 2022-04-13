@@ -296,5 +296,13 @@
         }
       }
     }
+
+    .club-page__content-wrap {
+      &._isFederation {
+        .UserActionControls {
+          bottom: 62px!important;
+        }
+      }
+    }
   }
 }
