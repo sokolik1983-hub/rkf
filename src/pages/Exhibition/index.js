@@ -159,10 +159,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
 
     useEffect(() => {
         club_alias && getFedInfo();
-        ls.set('exhibition_page_club_alias', club_alias);
-        return () => {
-            ls.remove('exhibition_page_club_alias');
-        }
     }, [club_alias]);
 
     return isError

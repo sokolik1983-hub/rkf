@@ -24,6 +24,7 @@ import Alert from "../Alert"
 import ls from "local-storage";
 
 import "./styles.scss";
+import {endpointGetExhibition} from "../../pages/Exhibition/config";
 
 const presidium = {
     rkf: {
@@ -239,6 +240,7 @@ const showPresidium = (currentPageAlias) => {
 const MenuComponentNew = ({isDocsPage}) => {
     const [showModal, setShowModal] = useState(false);
     const [exhibAlias, setExhibAlias] = useState(null);
+
     const [linkForName, setLinkForName] = useState('');
     const [name, setName] = useState('');
     const [headliner, setHeadliner] = useState('');
@@ -295,7 +297,6 @@ const MenuComponentNew = ({isDocsPage}) => {
             setCurrentPageNav(federationNav(url));
         }
         if(url === 'club' && linkAlias) {
-            console.log('656565651111')
             getCurrentPageUserInfo(linkAlias);
             setCurrentPageNav(clubNav(linkAlias));
         }
@@ -322,34 +323,17 @@ const MenuComponentNew = ({isDocsPage}) => {
         (userType === 4) && setCurrentPageNav(kennelNavDocs(userAlias));
     }
 
-    // const getMeAliasFromLS = () => {
-    //     const exhibAlias = ls.get("exhibition_page_club_alias");
-    //     if (exhibAlias) return Promise.resolve(data);
-    //
-    //     return Promise.resolve(
-    //         fetch("https://data.cityofchicago.org/resource/xzkq-xp2w.json")
-    //             .then((res) => res.json())
-    //             .then((data) => {
-    //                 localStorage.setItem("requestAll", JSON.stringify(data));
-    //                 return data;
-    //             })
-    //     );
-    // }
-
     const checkIsProfilePage = (exhibAlias) => { //проверяем страницы на котрых будем показывать то или иное меню
-        if(url.includes('exhibitions')) {
-            console.log('1eeeeeeeeeeeeeeeeeee',exhibAlias )
+        if(exhibAlias) {
                 if(isFederationAlias(exhibAlias)) {
                     console.log('Federation!!!!', exhibAlias)
-                    getMenuCurrentUserPage(exhibAlias, exhibAlias);
-                    getCurrentPageUserInfo(exhibAlias, exhibAlias)
+                    getMenuCurrentUserPage (exhibAlias, exhibAlias);
+                    getCurrentPageUserInfo (exhibAlias, exhibAlias)
                 } else {
                     console.log('Club!!!!', exhibAlias)
                     getMenuCurrentUserPage("club", exhibAlias);
-                    getCurrentPageUserInfo(exhibAlias,"club");
+                    getCurrentPageUserInfo (exhibAlias,"club");
                 }
-
-
         } else if (userAlias) { // юзер залогинен?
             if (isUserProfilePage) { //проверка на страницу своего профиля залогиненного юзера
                 // alert('Это страница профиля залогиненного юзера')
@@ -528,6 +512,20 @@ const MenuComponentNew = ({isDocsPage}) => {
         setShowModal('presidium');
     };
 
+    const getExhibition = async(exhibitionId) => {
+        setLoading(true);
+
+        await Request({
+            url: endpointGetExhibition + exhibitionId
+        }, data => {
+            setExhibAlias(data.club_information.club_alias);
+        }, error => {
+            console.log(error.response);
+        });
+
+        setLoading(false);
+    }
+
     useEffect(() => {
         if (openUserMenu || showModal) {
             blockContent(true)
@@ -603,11 +601,15 @@ const MenuComponentNew = ({isDocsPage}) => {
     }, [currentPageUserInfo]);
 
     useEffect(() => {
-        const exhibAlias = ls.get('exhibition_page_club_alias');
-        console.log('qqqqqqqqqqq',exhibAlias )
-        setExhibAlias(exhibAlias);
-    }, []);
+        if(location.pathname.includes('exhibitions/')) {
+            const exhibitionId = location.pathname.split('/')[2]
+            getExhibition(exhibitionId);
+        }
+    }, [location]);
 
+    useEffect(() => {
+        checkIsProfilePage(exhibAlias)
+    }, [exhibAlias]);
 
     return (
         <>
