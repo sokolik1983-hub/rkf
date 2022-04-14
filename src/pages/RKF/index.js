@@ -16,9 +16,9 @@ import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../Login/connectors";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import useIsMobile from "../../utils/useIsMobile";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
-
 
 const RKF = ({isAuthenticated, profile_id}) => {
     const [info, setInfo] = useState(null);
@@ -75,11 +75,6 @@ const RKF = ({isAuthenticated, profile_id}) => {
                             name={info.owner_name || "Голубев Владимир Семенович"}
                             position={info.owner_position || "Президент Российской Кинологической Федерации"}
                         />
-                        {!isMobile && <MenuComponent
-                            alias='rkf'
-                            name={info.name}
-                            isFederation
-                        />}
                     </div>
                     <div className="rkf-page__info">
                         {!isMobile && <aside className="rkf-page__left">
@@ -88,11 +83,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
                                 name={info.owner_name || "Голубев Владимир Семенович"}
                                 position={info.owner_position || "Президент Российской Кинологической Федерации"}
                             />
-                            {!isMobile && <MenuComponent
-                                alias='rkf'
-                                name={info.name}
-                                isFederation
-                            />}
+                            <MenuComponentNew />
                             <ContactsComponent {...info}/>
                             {info.documents && !!info.documents.length && <DocumentsComponent documents={info.documents}/>}
                             {info.members && !!info.members.length && <MembersComponent members={info.members}/>}

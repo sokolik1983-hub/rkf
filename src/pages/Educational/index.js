@@ -24,6 +24,7 @@ import SignUpModal from "./components/SignUpModal";
 import useIsMobile from "../../utils/useIsMobile";
 
 import "./index.scss";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
     const [exhibition, setExhibition] = useState({ club_information: {} });
@@ -117,19 +118,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             federationName={organizer_name}
                                             federationAlias={organizer_alias}
                                         />
-                                        {!isMobile && isFederationAlias(organizer_alias) ?
-                                            <MenuComponent
-                                                alias={organizer_alias}
-                                                name={federation_name || ''}
-                                                isFederation={true}
-                                            />
-                                            :
-                                            !isMobile &&
-                                            <UserMenu
-                                                userNav={clubNav(organizer_alias)}
-                                                isExhibitionPage={true}
-                                            />
-                                        }
+                                        {/*{!isMobile && <MenuComponentNew /> Страница в проекте, - когда будет существовать, то прописать в компоненте условия, чтобы меню отображалось нормально*/}
+                                        {/*}*/}
                                         <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                         <UserPhotoGallery
                                             alias={organizer_alias}

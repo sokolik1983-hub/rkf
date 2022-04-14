@@ -11,8 +11,6 @@ import AuthOrLogin from '../Login/components/AuthOrLogin';
 import {connectAuthVisible} from '../Login/connectors';
 import {endpointGetClubInfo, clubNav} from '../../components/Layouts/ClubLayout/config';
 import {connectShowFilters} from '../../components/Layouts/connectors';
-import UserMenu from '../../components/Layouts/UserMenu';
-import MenuComponent from '../../components/MenuComponent';
 import Container from '../../components/Layouts/Container';
 import CopyrightInfo from '../../components/CopyrightInfo';
 import ClickGuard from '../../components/ClickGuard';
@@ -24,10 +22,9 @@ import injectReducer from '../../utils/injectReducer';
 import useIsMobile from '../../utils/useIsMobile';
 import {Request} from '../../utils/request';
 import ls from 'local-storage';
-
-import './styles.scss';
 import MenuComponentNew from "../../components/MenuComponentNew";
 
+import './styles.scss';
 
 let unblock;
 
@@ -269,16 +266,8 @@ const ClubEditPage = ({
                                         canEdit={canEdit}
                                         isAuthenticated={isAuthenticated}
                                     />
-                                    {!isMobile && !isFed && <MenuComponentNew userNav={canEdit
-                                        ? clubNav(alias)
-                                        : clubNav(alias).filter(i => i.id !== 2)}
-                                                            notificationsLength={notificationsLength}
-                                    />}
-                                    {!isMobile && isFed && <MenuComponent
-                                        alias={alias}
-                                        name={club.name}
-                                        isFederation={true}
-                                    />}
+                                    {!isMobile && <MenuComponentNew />}
+
                                     <CopyrightInfo withSocials={true}/>
                                 </StickyBox>
                             </aside>

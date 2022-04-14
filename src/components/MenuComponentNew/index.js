@@ -21,10 +21,10 @@ import {userNav as userNavDocs} from "../../pages/UserDocuments/config";
 import PopupModal from "../PopupModal";
 import InitialsAvatar from "../InitialsAvatar";
 import Alert from "../Alert"
-import ls from "local-storage";
+import {endpointGetExhibition} from "../../pages/Exhibition/config";
+import Card from "../Card";
 
 import "./styles.scss";
-import {endpointGetExhibition} from "../../pages/Exhibition/config";
 
 const presidium = {
     rkf: {
@@ -271,7 +271,8 @@ const MenuComponentNew = ({isDocsPage}) => {
     const isUserProfilePage = (
         userAlias === url
         || userAlias === linkAlias
-        // || url === 'base-search'
+        || url === 'base-search'
+        // || url.includes('base-search')
         || url === 'bank-details'
         || url === 'client'
         || location.search.includes(userAlias)
@@ -295,11 +296,11 @@ const MenuComponentNew = ({isDocsPage}) => {
         if(isFederationAlias(url)) {
             getCurrentPageUserInfo(url);
             setCurrentPageNav(federationNav(url));
-        }
+        };
         if(url === 'club' && linkAlias) {
             getCurrentPageUserInfo(linkAlias, 'club');
             setCurrentPageNav(clubNav(linkAlias));
-        }
+        };
         if(url === 'kennel' && linkAlias) {
             getCurrentPageUserInfo(linkAlias, 'kennel');
             setCurrentPageNav(kennelNav(linkAlias))
@@ -308,7 +309,7 @@ const MenuComponentNew = ({isDocsPage}) => {
             getCurrentPageUserInfo(linkAlias, 'user');
             setCurrentPageNav(userNav(linkAlias))
         };
-    }
+    };
 
     const getMyMenu = () => {
         (userType === 1) && setCurrentPageNav(userNav(userAlias));
@@ -319,13 +320,13 @@ const MenuComponentNew = ({isDocsPage}) => {
             const newArr = federationNav(userAlias).map(item => (item.id === 7) ? {...item, to: linkFeesId} : (item.id === 8) ? {...item, to: linkFedDetails}  : item)
             setCurrentPageNav(newArr);
         }
-    }
+    };
 
     const getMyMenuWithDocs = () => {
         (userType === 1) && setCurrentPageNav(userNavDocs(userAlias));
         (userType === 3 || userType === 5) &&  setCurrentPageNav(clubNavDocs(userAlias));
         (userType === 4) && setCurrentPageNav(kennelNavDocs(userAlias));
-    }
+    };
 
     const checkIsProfilePage = (exhibAlias) => { //проверяем страницы на котрых будем показывать то или иное меню
         if(exhibAlias) {
@@ -341,7 +342,7 @@ const MenuComponentNew = ({isDocsPage}) => {
         } else if (userAlias) { // юзер залогинен?
             if (isUserProfilePage) { //проверка на страницу своего профиля залогиненного юзера
                 console.log('Это страница профиля залогиненного юзера')
-                if(addLink === "documents" || linkAlias === "documents" || url === "bank-details") { //проверка на страницу личного кабинета с документами залогиненного юзера
+                if(addLink === "documents" || linkAlias === "documents" || url === "bank-details" || url.includes('base-search')) { //проверка на страницу личного кабинета с документами залогиненного юзера
                     console.log('Это страница личного кабинета залогиненного юзера с документами');
                     getMyMenuWithDocs();
                     getCurrentPageUserInfo(userAlias,
@@ -420,11 +421,11 @@ const MenuComponentNew = ({isDocsPage}) => {
             console.log('error', error);
         });
         setLoading(false);
-    }
+    };
 
     const getCurrentPageUserInfo = (userAlias, url) => {
         console.log('5555555555555555', userAlias);
-        console.log('url', url)
+        console.log('url', url);
         Request({
             url:
                 url === "club"
@@ -441,7 +442,7 @@ const MenuComponentNew = ({isDocsPage}) => {
                             :
                             endpointGetClubInfo + url
         }, data => {
-            console.log('data', data);
+            console.log('data6666666666666666666', data);
             if(url === 'user') { //ждём от беков когда пропишут type_id: 1 для юзера
                 setCurrentPageUserInfo({...data, user_type: 1});
             } else {
@@ -595,7 +596,7 @@ const MenuComponentNew = ({isDocsPage}) => {
                 console.log(error.response);
             }))();
         }
-    }, [fedDetails, fedFeesId, currentPageUserInfo]);//подтягиваем документы для клубов??
+    }, [fedDetails, fedFeesId, currentPageUserInfo]);//подтягиваем документы федераций
 
     useEffect(() => {
         checkIsProfilePage();
@@ -727,21 +728,18 @@ const MenuComponentNew = ({isDocsPage}) => {
                         </PopupModal>
                     </>
                 :
-                    <div
-                        className={`user-nav${isMobile ? '' : ' _desktop_card'}`}
-                    >
-                        <ul className="user-nav__list">
+                    <Card>
+                        <ul className="menu-component-new__list">
                             {
                                 currentPageNav?.map(navItem => <li
-                                    className={`user-nav__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
+                                    className={`menu-component-new__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
                                     key={navItem.id}>
                                     {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter && //по какой то причине не работают, проверить
                                         <span
-                                            className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
+                                            className={`menu-component-new__notifications${notificationCounter > 99 ? ' _plus' : ''}`}>
                                     {notificationCounter > 99 ? 99 : notificationCounter}
                                 </span>
                                     }
-                                    123
                                     {
                                         navItem.onClick
                                             ?
@@ -749,27 +747,27 @@ const MenuComponentNew = ({isDocsPage}) => {
                                                 to={navItem.to}
                                                 exact={navItem.exact}
                                                 onClick={e => navItem.onClick(e, setShowModal)}
-                                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                                className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
                                             >
                                                 {navItem.icon}
-                                                <span>{navItem.title}</span>
+                                                <span>{navItem.title}123</span>
                                             </NavLink>
                                             :
                                             <NavLink
                                                 to={navItem.to}
                                                 exact={navItem.exact}
-                                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                // onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                                className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
                                             >
                                                 {navItem.icon}
-                                                <span>{navItem.title}</span>
+                                                <span>{navItem.title}1234</span>
                                             </NavLink>
                                     }
                                 </li>)
                             }
                         </ul>
-                    </div>
+                    </Card>
+
+
             }
             {showModal &&
                 <Modal

@@ -161,14 +161,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     />
                                 </Card>
                                 {!isMobile &&
-                                <MenuComponentNew userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                          notificationsLength={notificationsLength}
-                                />
-                                }
-                                {!isMobile &&
                                     <>
+                                        <MenuComponentNew />
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}

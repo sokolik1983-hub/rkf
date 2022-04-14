@@ -7,19 +7,16 @@ import ls from "local-storage";
 import DetailsCard from "./components/DetailsCard";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import TopComponent from "../../components/TopComponent";
-import UserMenu from "../../components/Layouts/UserMenu";
 import Card from "../../components/Card";
 import UserInfo from "../../components/Layouts/UserInfo";
-import { clubNav } from "../Docs/config";
-import { kennelNav } from "../NurseryDocuments/config";
-import { userNav } from "../UserDocuments/config";
 import { Request } from "../../utils/request";
 import { getFedInfo, mainFedList, oankooFedList } from "./config";
 import { connectAuthVisible } from "../../pages/Login/connectors";
 import Loading from "../../components/Loading";
 import useIsMobile from "../../utils/useIsMobile";
-import "./index.scss";
 import MenuComponentNew from "../../components/MenuComponentNew";
+
+import "./index.scss";
 
 const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }) => {
     const [fedIdList, setFedIdList] = useState(null);
@@ -64,7 +61,6 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
             console.log(error.response);
         });
     };
-
 
     return (loading ? <Loading /> :
         <Layout>
@@ -137,21 +133,9 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                                                     updateInfo={getUserInfo}
                                                 />
                                             </Card>}
-                                            {!isMobile && <MenuComponentNew
-                                                isDocsPage={true}
-                                                userNav={userNav(alias)}
-                                            />}
                                         </>
                                     }
-                                    {user_type === 3 && !isMobile &&  <MenuComponentNew
-                                        isDocsPage
-                                        userNav={clubNav(alias)}
-                                    />}
-
-                                    {user_type === 4 && !isMobile && <MenuComponentNew
-                                        isDocsPage
-                                        userNav={kennelNav(alias)}
-                                    />}
+                                    {!isMobile &&  <MenuComponentNew />}
                                     <CopyrightInfo withSocials={true} />
                                 </div>
                             </StickyBox>

@@ -13,15 +13,11 @@ import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGal
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UploadedDocuments from "components/UploadedDocuments";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
-import UserMenu from "../../components/Layouts/UserMenu";
-import { clubNav } from "../Club/config";
 import PhotoComponent from "../../components/PhotoComponent";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
-import MenuComponentNew from "../../components/MenuComponentNew";
 
 const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -140,22 +136,9 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                     position={fedInfo.owner_position}
                                                 />
                                             }
-                                            {!isMobile && isFederationAlias(clubInfo.club_alias) ?
-                                                <MenuComponent
-                                                    alias={clubInfo.club_alias}
-                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                    isFederation={true}
-                                                />
-                                                :
-                                                !isMobile &&
-                                                <MenuComponentNew userNav={canEdit
-                                                    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
-                                                    notificationsLength={notificationsLength}
-                                                />
-                                            }
                                             {!isMobile &&
                                                 <>
+                                                    <MenuComponentNew />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/gallery`}

@@ -1,1 +1,1 @@
-export const endpointGetUserInfo = '/api/owners/owner/public_full/';
+export const endpointGetUserInfo = '/api/owners/owner/public/';

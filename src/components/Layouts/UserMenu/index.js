@@ -320,7 +320,7 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                         </PopupModal>
                         :
                         <ul className="user-nav__list">
-                            <MenuComponentNew userNav={userNav} />
+                            <MenuComponentNew />
                             {userNav.map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                 key={navItem.id}>
                                 <NavLink

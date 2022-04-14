@@ -209,32 +209,16 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                 position={fedInfo.owner_position}
                                             />
                                         }
-                                        {!isMobile && isFederationAlias(club_alias) ?
+                                        {!isMobile &&
                                             <>
-                                                <MenuComponent
-                                                    club_alias={club_alias}
-                                                    name={display_name || club_fact_name || ''}
-                                                    isFederation={true}
+                                                <MenuComponentNew />
+                                                <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
+                                                <UserPhotoGallery
+                                                    alias={club_alias}
+                                                    pageLink={`/${club_alias}/gallery`}
                                                 />
-                                                <MenuComponentNew />
-
-                                            </>
-                                            :
-                                            !isMobile &&
-                                            <>
-                                                {/*<UserMenu*/}
-                                                {/*    userNav={clubNav(club_alias)}*/}
-                                                {/*    isExhibitionPage={true}*/}
-                                                {/*/>*/}
-                                                <MenuComponentNew />
                                             </>
                                         }
-                                        {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} /> }
-                                        {!isMobile &&
-                                        <UserPhotoGallery
-                                            alias={club_alias}
-                                            pageLink={`/${club_alias}/gallery`}
-                                        />}
 
                                         <CopyrightInfo withSocials={true} />
 
