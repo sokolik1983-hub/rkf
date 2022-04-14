@@ -137,7 +137,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         name="breed_id"
                         label="Порода"
                         options={breeds.sort(function (x, y) {
-                            let a = x.label.toUpperCase(),
+                            const a = x.label.toUpperCase(),
                                 b = y.label.toUpperCase();
                             return a === b ? 0 : a > b ? 1 : -1})}
                         fieldType="reactSelect"
