@@ -19,12 +19,9 @@ import UserHeader from "../../components/redesign/UserHeader";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import StickyBox from "react-sticky-box";
 import Banner from "../../components/Banner";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
 import useIsMobile from "../../utils/useIsMobile";
 import PhotoComponent from "../../components/PhotoComponent";
 import MenuComponentNew from "../../components/MenuComponentNew";
-import ls from "local-storage";
 
 import "./index.scss";
 

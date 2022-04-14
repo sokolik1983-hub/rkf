@@ -8,7 +8,6 @@ import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import AboutComponent from "../../components/AboutComponent";
 import NewsComponent from "../../components/NewsComponent";
 import PhotoComponent from "../../components/PhotoComponent";
-import MenuComponent from "../../components/MenuComponent";
 import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import MembersComponent from "../../components/MembersComponent";

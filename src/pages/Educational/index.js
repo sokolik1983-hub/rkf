@@ -16,15 +16,11 @@ import UserHeader from "../../components/redesign/UserHeader";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import StickyBox from "react-sticky-box";
 import Banner from "../../components/Banner";
-import { isFederationAlias } from "../../utils";
-import { clubNav } from "../Club/config";
-import UserMenu from "../../components/Layouts/UserMenu";
-import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "./components/SignUpModal";
 import useIsMobile from "../../utils/useIsMobile";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
-import MenuComponentNew from "../../components/MenuComponentNew";
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
     const [exhibition, setExhibition] = useState({ club_information: {} });

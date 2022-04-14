@@ -21,12 +21,10 @@ import { DEFAULT_IMG } from "appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
-import MenuComponentNew from "../../components/MenuComponentNew";
 
 const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClub] = useState(null);

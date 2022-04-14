@@ -13,20 +13,15 @@ import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
 import { formatDateCommon } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
-import UserMenu from "../../components/Layouts/UserMenu";
-import { clubNav } from "../Club/config";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "pages/Educational/components/SignUpModal";
-import ls from "local-storage";
 import useIsMobile from "../../utils/useIsMobile";
+import MenuComponentNew from "../../components/MenuComponentNew";
+
 import './index.scss';
 
 import moment from "moment";
 import "moment/locale/ru";
-import MenuComponentNew from "../../components/MenuComponentNew";
 moment.locale('ru');
-
 
 const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [loading, setLoading] = useState(true);
