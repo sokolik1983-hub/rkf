@@ -5,7 +5,6 @@ import { pencil, trash } from '@progress/kendo-svg-icons';
 import { CSSTransition } from 'react-transition-group';
 import Share from '../../Share';
 import ModalDeleteAvatar from './ModalDeleteAvatar';
-import { DEFAULT_IMG } from '../../../appConfig';
 import LightTooltip from '../../LightTooltip';
 import UserActionControls from 'components/UserActionControls';
 import { connectAuthVisible } from 'pages/Login/connectors';
@@ -84,7 +83,7 @@ const UserInfo = ({
                             ?
                             <img className="user-info__logo" src={logo_link} alt="" />
                             :
-                            <InitialsAvatar  name={`${first_name} ${last_name}`} />
+                            <InitialsAvatar  name={`${first_name} ${last_name}`} card="profile"/>
                     }
 
                 </div>
