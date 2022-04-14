@@ -132,7 +132,17 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <HideIf cond={true || !everkData || update}>
                         <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                     </HideIf>
-                    <FormField disabled={update} name={`breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..." />
+                    <FormField
+                        disabled={update}
+                        name="breed_id"
+                        label="Порода"
+                        options={breeds.sort(function (x, y) {
+                            const a = x.label.toUpperCase(),
+                                b = y.label.toUpperCase();
+                            return a === b ? 0 : a > b ? 1 : -1})}
+                        fieldType="reactSelect"
+                        placeholder="Выберите..."
+                    />
                     <div className="DocItem__birthday">
                         <div>Дата рождения помета</div>
                         <UserDatePicker
