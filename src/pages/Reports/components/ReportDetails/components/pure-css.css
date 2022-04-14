@@ -195,7 +195,7 @@ td, th {
 .pure-g {
     letter-spacing: -.31em;
     text-rendering: optimizespeed;
-    font-family: FreeSans, Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
+    font-family: FreeSans, Arimo, "Droid Sans", Arial, sans-serif;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
