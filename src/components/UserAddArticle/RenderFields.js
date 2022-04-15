@@ -55,6 +55,7 @@ const RenderFields = ({ fields,
                           isAllCities,
                           setIsAllCities,
                           name,
+                          userType
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -201,10 +202,14 @@ const RenderFields = ({ fields,
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="article-create-form__wrap article-create-form__textarea-wrap">
                     {logo && logo !== "/static/icons/default/default_avatar.svg"
+                        ?
+                        <ClientAvatar size={40} avatar={logo} />
+                        :
+                        (userType === 4 || userType === 1)
                             ?
-                            <ClientAvatar size={40} avatar={logo} />
-                            :
                             <InitialsAvatar card="article" name={name}/>
+                            :
+                            <ClientAvatar size={40} avatar={"/static/icons/default/club-avatar-new.png"} />
                     }
                         <FormField
                             {...fields.content}

@@ -21,7 +21,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     const editor = useRef(null);
     const reduxUserType = useSelector(state => state.authentication.user_info.user_type);
     const reduxUserName = useSelector(state => state.authentication.user_info.name);
-    const UPLOAD_AVATAR = `/static/icons/default/user-avatar-upload.svg`;
+    const UPLOAD_AVATAR = `/static/icons/default/club-avatar-new.png`;
     const currentLink = pageBanner ? '/api/headerpicture/full_v3' : '/api/avatar/full_v3';
 
     const handleSubmit = () => {

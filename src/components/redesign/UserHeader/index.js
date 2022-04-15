@@ -113,9 +113,12 @@ const UserHeader = ({
                             ?
                             <InitialsAvatar name={name} card="profile" />
                             :
-                            <img className="user-info__logo" src={DEFAULT_IMG.userAvatar} alt=""/>
+                            (user === 'club')
+                                ?
+                                <img className="user-info__logo" src={DEFAULT_IMG.clubAvatar} alt=""/>
+                                :
+                                <img className="user-info__logo" src={DEFAULT_IMG.userAvatar} alt=""/>
                 }
-                {/*<img className="user-info__logo" src={logo ? logo : DEFAULT_IMG.userAvatar} alt=""/>*/}
             </div>
             <div className="user-header__content">
                 <div className="user-header__info">

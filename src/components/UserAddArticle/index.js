@@ -28,7 +28,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
 
-
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
     }); //Валидация для объявлений категории Новости
@@ -126,6 +125,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         }
     };
 
+    console.log('profileInfo', profileInfo)
+
     return (
         <Card className="add-article">
             <Form
@@ -173,6 +174,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     isAllCities={isAllCities}
                     setIsAllCities={setIsAllCities}
                     name={profileInfo?.name}
+                    userType={profileInfo?.user_type}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
