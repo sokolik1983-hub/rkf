@@ -822,7 +822,7 @@ const MONTHS = [
 ];
 
 const DEFAULT_IMG = {
-    clubAvatar: '/static/icons/default/club-avatar.svg',
+    clubAvatar: '/static/icons/default/club-avatar-new.png',
     userAvatar: '/static/icons/default/default_avatar.svg',
     exhibitionPicture: '/static/images/exhibitions/default.png',
     authPicture: '/static/images/registration/banner.png',

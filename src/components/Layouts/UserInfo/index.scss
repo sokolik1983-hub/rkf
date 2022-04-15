@@ -116,7 +116,7 @@
       text-overflow: ellipsis;
       white-space: pre-line;
       display: flex;
-      @media (max-width: 375px) {
+      @media (max-width: 400px) {
         font-size: 16px;
         line-height: 20px;
         display: inline;
@@ -136,8 +136,6 @@
         margin-left: 5px;
         @media (max-width: 400px) {
           position: absolute;
-          top: -7px;
-          right: -15px;
         }
       }
     }

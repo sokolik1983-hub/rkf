@@ -17,7 +17,6 @@ import useIsMobile from "../../../../utils/useIsMobile";
 import InitialsAvatar from "../../../InitialsAvatar";
 import { blockContent } from "../../../../utils/blockContent";
 
-
 const WidgetLogin = forwardRef(
     ({
     footerNav,
@@ -72,7 +71,6 @@ const WidgetLogin = forwardRef(
         });
     };
 
-
     return (
         <div className={`widget-login class-for-grid-block3 ${login_page ? "active" : !isAuthenticated && "__no-auth"}`}>
             {isAuthenticated ?
@@ -86,7 +84,7 @@ const WidgetLogin = forwardRef(
                             ?
                             <div className={`widget-login__user-icon`}>
                                 {footerNav?.image}
-                                <span style={{color: open && '#3366FF'}}>
+                                <span>
                                     {footerNav?.title}
                                 </span>
                             </div>
@@ -111,7 +109,7 @@ const WidgetLogin = forwardRef(
                                     />
                         }
                         {!isMobile1080 &&
-                            <span style={{color: open && '#3366FF'}}>
+                            <span>
                                 Профиль
                             </span>
                         }
