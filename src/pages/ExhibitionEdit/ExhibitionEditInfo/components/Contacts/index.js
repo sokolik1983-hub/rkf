@@ -1,8 +1,11 @@
 import React from "react";
 import { connect, FieldArray } from "formik";
-import { FormField, FormGroup } from "components/Form";
-import Button from "components/Button";
+import Button from "../../../../../components/Button";
+import { FormField, FormGroup } from "../../../../../components/Form";
+import { DEFAULT_PHONE_INPUT_MASK } from "../../../../../appConfig";
+
 import "./styles.scss";
+
 
 const Contacts = ({ phones, emails, errors, formik }) => {
 
@@ -69,8 +72,12 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                 }
                                 <FormField
                                     className="first-field"
-                                    placeholder="Введите номер телефона"
+                                    fieldType="masked"
+                                    mask={DEFAULT_PHONE_INPUT_MASK}
                                     name={`phones[${index}].value`}
+                                    type="tel"
+                                    placeholder="+7(___)___-__-__"
+                                    title="Формат номера: +7(999)999-99-99"
                                 />
                                 <FormField
                                     placeholder="Введите описание"
