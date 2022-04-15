@@ -38,12 +38,12 @@ const Content = ({
                          style={{ backgroundImage: `url(${logo})` }}
                     />
                     :
-                    userType === 1
+                    userType === 1 || userType === 4
                         ?
                         <div className={`widget-login__userpic${open && ' _active'}`}
                         >
                             <InitialsAvatar
-                                name={`${firstName} ${lastName}`}
+                                name={userType === 1 ? `${firstName} ${lastName}` : name}
                                 card="widget-login"
                             />
                         </div>

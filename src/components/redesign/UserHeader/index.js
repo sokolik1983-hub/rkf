@@ -12,9 +12,9 @@ import {SvgIcon} from "@progress/kendo-react-common";
 import {pencil, trash} from "@progress/kendo-svg-icons";
 import EditAvatar from "../../EditAvatar";
 import ModalDeleteAvatar from "../../Layouts/UserInfo/ModalDeleteAvatar";
+import InitialsAvatar from "../../InitialsAvatar";
 
 import "./index.scss";
-
 
 const UserHeader = ({
                         user,
@@ -104,7 +104,21 @@ const UserHeader = ({
                         }
                     </>
                 }
-                <img className="user-info__logo" src={logo ? logo : DEFAULT_IMG.userAvatar} alt=""/>
+                {
+                    logo
+                    ?
+                        <img className="user-info__logo" src={logo} alt=""/>
+                        :
+                        (user === 'nursery')
+                            ?
+                            <InitialsAvatar name={name} card="profile" />
+                            :
+                            (user === 'club')
+                                ?
+                                <img className="user-info__logo" src={DEFAULT_IMG.clubAvatar} alt=""/>
+                                :
+                                <img className="user-info__logo" src={DEFAULT_IMG.userAvatar} alt=""/>
+                }
             </div>
             <div className="user-header__content">
                 <div className="user-header__info">
