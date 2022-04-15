@@ -236,7 +236,7 @@ const CardOrganization = (props) => {
                                             <span
                                                 className="card-organization__subtitle"
                                             >
-                                                { owner_position || 'Контактное лицо ' }&nbsp;
+                                                { owner_position || 'Контактное лицо' }&nbsp;
                                             </span>
                                             <span>
                                                 { owner_name || 'Не указано' }
