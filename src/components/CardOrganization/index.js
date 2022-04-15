@@ -56,11 +56,24 @@ const CardOrganization = (props) => {
                         <div className="card-organization__author">
                             <Link
                                 to={ url }
-                                className={ `card-organization__logo ${ user_type === 3 || user_type === 4 ? `item-card__logo--club` : `` }` }
-                                style={ {
-                                    backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`
-                                } }
-                            />
+                                className={ `card-organization__logo ${ user_type === 3 || user_type === 4  ? `item-card__logo--club` : `` }` }
+                            >
+                                {
+                                    (user_type === 3 || user_type === 5)
+                                        ?
+                                        <img src={logo || DEFAULT_IMG.clubAvatar} alt=""/>
+                                        :
+                                        logo
+                                            ?
+                                            <img src={logo} alt=""/>
+                                            :
+                                            <InitialsAvatar
+                                                id={id}
+                                                card="nkp-card"
+                                                name={name}
+                                            />
+                                }
+                            </Link>
                             <div className="card-organization__container">
                                 <div className="card-organization__name-wrap">
                                     <div>

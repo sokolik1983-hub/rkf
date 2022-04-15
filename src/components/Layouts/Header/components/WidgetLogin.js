@@ -95,11 +95,11 @@ const WidgetLogin = forwardRef(
                                      style={{backgroundImage: `url(${logo})`}}
                                 />
                                 :
-                                (user_type === 1)
+                                (user_type === 1 || user_type === 4)
                                     ?
                                     <div className={`widget-login__user-icon ${open && ' _active'}`}>
                                         <InitialsAvatar
-                                            name={`${first_name} ${last_name}`}
+                                            name={user_type === 1 ? `${first_name} ${last_name}` : name}
                                             card="user-icon"
                                         />
                                     </div>

@@ -127,10 +127,10 @@ const CardNewsNew = forwardRef(({
                                         background: `url(${logo_link}) center center/cover no-repeat`
                                     }} />
                                     :
-                                    user_type === 1
+                                    user_type === 1 || user_type === 4
                                         ?
                                         <div className="card-news-new__left-logo">
-                                            <InitialsAvatar name={`${first_name} ${last_name}`} card="cardnewsnew"/>
+                                            <InitialsAvatar name={user_type === 1 ? `${first_name} ${last_name}` : name} card="cardnewsnew"/>
                                         </div>
                                         :
                                         <div className="card-news-new__left-logo" style={{

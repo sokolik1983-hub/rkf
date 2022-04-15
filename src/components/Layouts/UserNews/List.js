@@ -3,7 +3,17 @@ import CardNewsNew from "../../CardNewsNew";
 
 
 const List = (props) => {
-    const {list, className, isFullDate = true, removable, onAdClose, onDelete, first_name, last_name, canEdit} = props;
+    const {
+        list,
+        className,
+        isFullDate = true,
+        removable,
+        onAdClose,
+        onDelete,
+        first_name,
+        last_name,
+        canEdit
+    } = props;
 
     return (
     <div className={`list${className ? ' ' + className : ''}`}>
