@@ -78,21 +78,23 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                 />
                                 <div className="Contacts__checkbox-wrap">
                                     <label className="Contacts__checkbox-wrap__label">Основной</label>
-                                    <FormField
-                                        disabled={phone.value.length < 16}
-                                        name={`phones[${index}].is_main`}
-                                        fieldType="customCheckbox"
-                                        disabled={phone.is_main}
-                                        onChange={e => {
-                                            phones.forEach(p => p.is_main = false);
-                                            formik.setFieldValue(e.currentTarget.checked);
-                                        }}
-                                    />
-                                    {
-                                        phone.is_main
-                                            ? ''
-                                            : <span className="k-icon k-i-trash" onClick={() => arrayHelpers.remove(index)}/>
-                                    }
+                                    <div className="Contacts__checkbox-wrap__inner">
+                                        <FormField
+                                            disabled={phone.value.length < 16}
+                                            name={`phones[${index}].is_main`}
+                                            fieldType="customCheckbox"
+                                            disabled={phone.is_main}
+                                            onChange={e => {
+                                                phones.forEach(p => p.is_main = false);
+                                                formik.setFieldValue(e.currentTarget.checked);
+                                            }}
+                                        />
+                                        {
+                                            phone.is_main
+                                                ? ''
+                                                : <div className="k-icon k-i-trash" onClick={() => arrayHelpers.remove(index)}/>
+                                        }
+                                    </div>
                                 </div>
                         </FormGroup>
                     ))}
@@ -130,22 +132,23 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                 />
                                 <div className="Contacts__checkbox-wrap">
                                     <label className="Contacts__checkbox-wrap__label">Основной</label>
-                                    <FormField
-                                        disabled={email.value.length < 7}
-                                        name={`emails[${index}].is_main`}
-                                        disabled={email.is_main}
-                                        fieldType="customCheckbox"
-                                        onChange={e => {
-                                            emails.forEach(email => email.is_main = false);
-                                            formik.setFieldValue(e.currentTarget.checked);
-                                        }}
-                                    />
-
-                                    {
-                                        email.is_main
-                                            ? ''
-                                            : <span className="k-icon k-i-trash" onClick={() => arrayHelpers.remove(index)}/>
-                                    }
+                                    <div className="Contacts__checkbox-wrap__inner">
+                                        <FormField
+                                            disabled={email.value.length < 7}
+                                            name={`emails[${index}].is_main`}
+                                            disabled={email.is_main}
+                                            fieldType="customCheckbox"
+                                            onChange={e => {
+                                                emails.forEach(email => email.is_main = false);
+                                                formik.setFieldValue(e.currentTarget.checked);
+                                            }}
+                                        />
+                                        {
+                                            email.is_main
+                                                ? ''
+                                                : <div className="k-icon k-i-trash" onClick={() => arrayHelpers.remove(index)}/>
+                                        }
+                                    </div>
                                 </div>
                             </FormGroup>
                     ))}
