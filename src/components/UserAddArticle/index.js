@@ -125,8 +125,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         }
     };
 
-    console.log('profileInfo', profileInfo)
-
     return (
         <Card className="add-article">
             <Form
