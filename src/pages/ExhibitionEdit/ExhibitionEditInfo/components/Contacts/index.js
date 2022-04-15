@@ -92,7 +92,7 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                             fieldType="customCheckbox"
                                             disabled={phone.is_main}
                                             onChange={e => {
-                                                phones.forEach(p => p.is_main = false);
+                                                phones.forEach(phone => phone.is_main = false);
                                                 formik.setFieldValue(e.currentTarget.checked);
                                             }}
                                         />
