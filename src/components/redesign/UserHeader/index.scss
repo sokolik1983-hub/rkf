@@ -59,10 +59,17 @@
         max-height: 500px;
         overflow: hidden;
         position: relative;
+        //& .avatar__initials {
+        //  font-size: 4.5em;
+        //}
         @media (max-width: 1080px) {
           padding-bottom: 0;
           border-bottom: none;
           margin-right: 10px;
+          & .avatar__wrap {
+            width: 100px;
+            height: 100px;
+          }
         }
 
         &.empty {

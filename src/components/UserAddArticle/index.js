@@ -172,6 +172,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     setIsTypeId={setIsTypeId}
                     isAllCities={isAllCities}
                     setIsAllCities={setIsAllCities}
+                    name={profileInfo?.name}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
