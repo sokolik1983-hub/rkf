@@ -47,12 +47,12 @@ const Contacts = ({ phones, emails, errors, formik }) => {
 
     }, [])
 
-    return <div className="Contacts">
+    return <div className="сontacts">
         <FieldArray
             name="phones"
             render={arrayHelpers => (
                 <div className="FormGroup__contact">
-                    <h5 className="Contacts__title">Телефон</h5>
+                    <h5 className="сontacts__title">Телефон</h5>
                     {phones && !!phones.length &&
                         phones.map((phone, index, phones) => (
                             <FormGroup inline key={index}>
@@ -83,9 +83,9 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                     placeholder="Введите описание"
                                     name={`phones[${index}].description`}
                                 />
-                                <div className="Contacts__checkbox-wrap">
-                                    <label className="Contacts__checkbox-wrap__label">Основной</label>
-                                    <div className="Contacts__checkbox-wrap__inner">
+                                <div className="сontacts__checkbox-wrap">
+                                    <label className="сontacts__checkbox-wrap__label">Основной</label>
+                                    <div className="сontacts__checkbox-wrap__inner">
                                         <FormField
                                             disabled={phone.value.length < 16}
                                             name={`phones[${index}].is_main`}
@@ -112,7 +112,7 @@ const Contacts = ({ phones, emails, errors, formik }) => {
             name="emails"
             render={arrayHelpers => (
                 <div className="FormGroup__contact">
-                    <h5 className="Contacts__title">E-mail</h5>
+                    <h5 className="сontacts__title">E-mail</h5>
                     {emails && !!emails.length &&
                         emails.map((email, index) => (
                             <FormGroup inline key={index} className="FormGroup__contact">
@@ -137,9 +137,9 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                     placeholder="Введите описание"
                                     name={`emails[${index}].description`}
                                 />
-                                <div className="Contacts__checkbox-wrap">
-                                    <label className="Contacts__checkbox-wrap__label">Основной</label>
-                                    <div className="Contacts__checkbox-wrap__inner">
+                                <div className="сontacts__checkbox-wrap">
+                                    <label className="сontacts__checkbox-wrap__label">Основной</label>
+                                    <div className="сontacts__checkbox-wrap__inner">
                                         <FormField
                                             disabled={email.value.length < 7}
                                             name={`emails[${index}].is_main`}
