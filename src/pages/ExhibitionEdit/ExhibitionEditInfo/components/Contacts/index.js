@@ -84,8 +84,8 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                     name={`phones[${index}].description`}
                                 />
                                 <div className="сontacts__checkbox-wrap">
-                                    <label className="сontacts__checkbox-wrap__label">Основной</label>
-                                    <div className="сontacts__checkbox-wrap__inner">
+                                    <label className="сontacts__checkbox-wrap-label">Основной</label>
+                                    <div className="сontacts__checkbox-wrap-inner">
                                         <FormField
                                             disabled={phone.value.length < 16}
                                             name={`phones[${index}].is_main`}
@@ -138,8 +138,8 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                     name={`emails[${index}].description`}
                                 />
                                 <div className="сontacts__checkbox-wrap">
-                                    <label className="сontacts__checkbox-wrap__label">Основной</label>
-                                    <div className="сontacts__checkbox-wrap__inner">
+                                    <label className="сontacts__checkbox-wrap-label">Основной</label>
+                                    <div className="сontacts__checkbox-wrap-inner">
                                         <FormField
                                             disabled={email.value.length < 7}
                                             name={`emails[${index}].is_main`}
