@@ -76,10 +76,16 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 borderRadius={pageBanner ? 0 : 166}
                                 image={image}
                                 className="avatar-editor__canvas"
-                                style={(image && reduxUserType !== 1 && reduxUserType !== 4) ? {} : { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
+                                style={(image && reduxUserType !== 1 && reduxUserType !== 4) ?
+                                    {} :
+                                    { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
                             />
                             {
-                                !image && (reduxUserType === 1 || reduxUserType === 4) && <InitialsAvatar card="editor" name={reduxUserType === 4 ? reduxUserName : null }/>
+                                !image && (reduxUserType === 1 || reduxUserType === 4) &&
+                                <InitialsAvatar
+                                    card="editor"
+                                    name={reduxUserType === 4 ? reduxUserName : null}
+                                />
                             }
                             <div className="avatar-editor__add-file">
                                 <label htmlFor="avatar" className="avatar-editor__add-label">

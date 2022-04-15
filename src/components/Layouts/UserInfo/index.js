@@ -85,7 +85,6 @@ const UserInfo = ({
                             :
                             <InitialsAvatar  name={`${first_name} ${last_name}`} card="profile"/>
                     }
-
                 </div>
                 <div className="user-info__info">
                     {share_link 

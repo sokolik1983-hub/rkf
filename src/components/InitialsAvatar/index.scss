@@ -7,7 +7,7 @@
     font-size: 2.5rem;
     font-weight: 600;
     @media (max-width: 600px) {
-      font-size: 1.5rem;
+      font-size: 25px;
     }
   }
   &__wrap {
@@ -23,6 +23,7 @@
       min-width: 130px;
       max-height: 130px;
       max-width: 130px;
+      margin-right: 15px;
       span {
         font-size: 45px;
         line-height: 57px;
@@ -62,7 +63,7 @@
       span {
         font-size: 40px;
         @media (max-width: 1080px) {
-          font-size: 1.5rem;
+          font-size: 25px;
         }
       }
     }
@@ -83,18 +84,18 @@
       left: 50%;
       transform: translate(-50%, -50%);
       & .avatar__initials {
-        font-size: 4.5rem;
+        font-size: 85px;
       }
     }
     &.profile {
       & .avatar__initials {
-        font-size: 4.5rem;
+        font-size: 85px;
       }
       @media (max-width: 1080px) {
         width: 90px;
         height: 90px;
         & .avatar__initials {
-          font-size: 1.5rem;
+          font-size: 25px;
         }
       }
     }
