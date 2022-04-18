@@ -64,6 +64,7 @@
             background-position: 50%;
             background-size: contain;
             border-radius: 0;
+            text-align: center;
             @media (max-width: 990px) {
                 width: 120px;
                 min-width: 120px;
@@ -72,7 +73,6 @@
                 background-size: cover;
             }
         }
-
         &__wrap {
             flex: 1;
             display: flex;
@@ -225,5 +225,13 @@
         display: flex;
         margin-left: 5px;
         align-items: center;
+    }
+}
+.user-header {
+    &__logo {
+        text-align: center;
+        & img {
+            width: 158px;
+        }
     }
 }
