@@ -45,9 +45,7 @@ const UserHeader = ({
     return (
         <Card className="user-header">
             <div className="user-header__logo-wrap">
-                <div className="user-header__logo" style={logo
-                    ? { backgroundImage: `url(${logo})` }
-                    : { backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`, borderRadius: '50%', border: '1px solid #c0d3f9', width: '100px' }} />
+                <img className="user-header__logo" src={logo} alt=""/>
             </div>
             <div className="user-header__content">
                 <div className="user-header__info">
