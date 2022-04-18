@@ -3,15 +3,13 @@ import {Link} from "react-router-dom";
 import {DEFAULT_IMG, widgetLoginIcon} from "../../../../../appConfig";
 import MenuLinks from "./MenuLinks";
 import InitialsAvatar from "../../../../InitialsAvatar";
-
+import {getInitials} from "../../../../../utils/getInitials";
 
 const Content = ({
     accountType,
     alias,
-    firstName,
     isMobile1080,
     is_active_profile,
-    lastName,
     logOutUser,
     loginUserSuccess,
     logo,
@@ -43,7 +41,7 @@ const Content = ({
                         <div className={`widget-login__userpic${open && ' _active'}`}
                         >
                             <InitialsAvatar
-                                name={userType === 1 ? `${firstName} ${lastName}` : name}
+                                name={userType === 1 ? getInitials(name) : name}
                                 card="widget-login"
                             />
                         </div>
@@ -55,7 +53,7 @@ const Content = ({
             </div>
             <div className="widget-login__username">
                 {userType === 1 &&
-                    <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
+                    <Link to={`/user/${alias}`}>{name ? getInitials(name) : 'Аноним'}</Link>
                 }
                 {userType === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
                     <Link to={is_active_profile ? `/club/${alias}` : '/not-confirmed'}>{name}</Link>
