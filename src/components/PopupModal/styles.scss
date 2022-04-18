@@ -19,8 +19,11 @@
     display: none;
   }
   & .popup__content {
-    position: relative;
     padding-top: 10px;
+    position: relative;
+    @media (max-width: 1080px) {
+      position: static;
+    }
   }
 }
 
