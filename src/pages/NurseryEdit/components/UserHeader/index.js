@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { DEFAULT_IMG } from 'appConfig';
 import Card from '../../../../components/Card';
 import Alert from '../../../../components/Alert';
 import Share from '../../../../components/Share';
 import UserActionControls from '../../../../components/UserActionControls';
 import { ActiveUserMark, FederationChoiceMark } from '../../../../components/Marks';
+import InitialsAvatar from "../../../../components/InitialsAvatar";
 
 import './style.scss';
-
 
 const UserHeader = ({
                         user,
@@ -41,11 +40,15 @@ const UserHeader = ({
         }
     };
 
-
     return (
         <Card className="user-header">
             <div className="user-header__logo-wrap">
-                <img className="user-header__logo" src={logo} alt=""/>
+                <div className="user-header__logo">
+                    {logo ?
+                        <img src={logo} className="user-header__logo-img" alt="logo" /> :
+                        <InitialsAvatar name={name} card="nursery-edit-avatar"/>
+                    }
+                </div>
             </div>
             <div className="user-header__content">
                 <div className="user-header__info">

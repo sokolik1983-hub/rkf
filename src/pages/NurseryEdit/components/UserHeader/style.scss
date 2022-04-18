@@ -57,6 +57,7 @@
 
         &__logo {
             width: 100%;
+            text-align: center;
         }
 
         &__wrap {
@@ -211,5 +212,13 @@
         display: flex;
         margin-left: 5px;
         align-items: center;
+    }
+}
+.user-header {
+    &__logo {
+        text-align: center;
+        & img {
+            width: 158px;
+        }
     }
 }
