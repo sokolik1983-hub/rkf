@@ -16,6 +16,15 @@
       line-height: 15px;
       color: #b9b9b9;
     }
+    &__name {
+      text-overflow: ellipsis;
+      &-wrap {
+        min-width: 0;
+        .flex-column {
+          overflow: hidden;
+        }
+      }
+    }
     &__link {
       display: block;
     }
@@ -75,9 +84,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      @media (max-width: 600px) {
-        flex-direction: column;
-      }
+      //@media (max-width: 600px) {
+      //  flex-direction: column;
+      //}
       div {
         padding: 0 5px;
       }
