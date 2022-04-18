@@ -47,8 +47,6 @@ const DocumentItem = (props) => {
         getUrl();
     }, [])
 
-    console.log(isPrivate)
-
     return (
         <div className="document-item__wrap" >
             <div className="document-item__inner" >

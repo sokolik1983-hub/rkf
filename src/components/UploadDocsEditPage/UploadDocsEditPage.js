@@ -91,7 +91,15 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                                                  ?
                                                  documents?.length > 0
                                                      ?
-                                                     documents.map(item => <DocItem key={item.id} id={item.id} name={item.name} isPrivate link={item.link} date_create={item.date_create} setModal={setModal} />)
+                                                     documents.map(item => <DocItem
+                                                         key={item.id}
+                                                         id={item.id}
+                                                         name={item.name}
+                                                         link={item.link} 
+                                                         date_create={item.date_create}
+                                                         setModal={setModal}
+                                                         isPrivate
+                                                     />)
                                                      :
                                                      <h3 className="main-info__empty-h3">Вы не загрузили ни одного документа</h3>
                                                  :
