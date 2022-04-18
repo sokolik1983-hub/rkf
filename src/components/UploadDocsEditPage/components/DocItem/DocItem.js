@@ -12,7 +12,7 @@ import './styles.scss';
 moment.locale('ru');
 
 const DocumentItem = (props) => {
-    const {id, name, date_create, setModal} = props;
+    const {id, name, date_create, setModal, isPrivate} = props;
     const headers = getHeaders();
     const [url, setUrl] = useState('');
 
@@ -60,9 +60,9 @@ const DocumentItem = (props) => {
                     </a>
                 </div>
                 <div className="document-item__box">
-                    <div className="">
-                        <Share url={`//${window.location.host}/docs/${id}`} />
-                    </div>
+                    {!isPrivate && <div className="">
+                        <Share url={`//${window.location.host}/docs/${id}`}/>
+                    </div>}
                     <div className="">
                         <LightTooltip title="Скачать документ" enterDelay={200} leaveDelay={200}>
                             <button
