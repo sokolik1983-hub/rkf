@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { pencil, trash } from '@progress/kendo-svg-icons';
