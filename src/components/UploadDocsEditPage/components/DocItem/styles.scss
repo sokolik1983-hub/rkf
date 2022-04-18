@@ -16,10 +16,14 @@
       line-height: 15px;
       color: #b9b9b9;
     }
+    
     &__name {
       text-overflow: ellipsis;
+      overflow: hidden;
+
       &-wrap {
         min-width: 0;
+
         .flex-column {
           overflow: hidden;
         }
