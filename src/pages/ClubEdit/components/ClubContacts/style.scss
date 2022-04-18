@@ -165,7 +165,7 @@
                     background-color: white;
 
                     @media (max-width: 560px) {
-                        grid-column: 1 / 2;
+                        grid-column: 1 / 2 !important;
                     }
                 }
             }

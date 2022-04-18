@@ -2,34 +2,28 @@
   &__name-wrap {
     display: flex;
   }
+  &__initials {
+    font-family: Source Sans Pro, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    @media (max-width: 600px) {
+      font-size: 25px;
+    }
+  }
   &__wrap {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-    margin-right: 15px;
     border-radius: 50%;
     color: #72839C;
-    @media (max-width: 1080px) {
-      width: 79px;
-      height: 79px;
-    }
-    span {
-      font-family: Source Sans Pro, sans-serif;
-      font-size: 5em;
-      line-height: 6em;
-      font-weight: 600;
-      @media (max-width: 1080px) {
-        font-size: 19px;
-        line-height: 25px;
-      }
-    }
     &.specialist-card {
       min-height: 130px;
       min-width: 130px;
       max-height: 130px;
       max-width: 130px;
+      margin-right: 15px;
       span {
         font-size: 45px;
         line-height: 57px;
@@ -68,10 +62,8 @@
       margin-right: 0;
       span {
         font-size: 40px;
-        line-height: 50px;
         @media (max-width: 1080px) {
-          font-size: 19px;
-          line-height: 25px;
+          font-size: 25px;
         }
       }
     }
@@ -91,6 +83,22 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      & .avatar__initials {
+        font-size: 85px;
+      }
+    }
+    &.profile {
+      & .avatar__initials {
+        font-size: 85px;
+      }
+      @media (max-width: 1080px) {
+        width: 90px;
+        height: 90px;
+        & .avatar__initials {
+          font-size: 25px;
+        }
+      }
     }
   }
+
 }

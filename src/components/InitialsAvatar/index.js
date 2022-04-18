@@ -41,7 +41,7 @@ const InitialsAvatar = ({card, id, name}) => {
     return (
         <div className={`avatar__wrap ${card ? card : ""}`} style={{backgroundColor: getBgColorAvatar()}}>
             <div className="avatar__name-wrap">
-                <span>{getInitialName()}</span>
+                <span className="avatar__initials">{getInitialName().toUpperCase()}</span>
             </div>
         </div>
     )
