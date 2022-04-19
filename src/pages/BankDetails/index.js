@@ -82,7 +82,7 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                             <UserInfo
                                 canEdit={canEdit}
                                 logo_link={userInfo.logo_link}
-                                share_link={`https://rkf.online/user/${alias}`}
+                                share_link={window.location.host === 'rkf.online' ? `https://rkf.online/user/${alias}` : `https://stage.uep24.ru/user/${alias}`}
                                 first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
                                 last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
                                 alias={alias}
@@ -129,7 +129,7 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                                                 <UserInfo
                                                     canEdit={canEdit}
                                                     logo_link={userInfo.logo_link}
-                                                    share_link={`https://rkf.online/user/${alias}`}
+                                                    share_link={window.location.host === 'rkf.online' ? `https://rkf.online/user/${alias}` : `https://stage.uep24.ru/user/${alias}`}
                                                     first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
                                                     last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
                                                     alias={alias}
