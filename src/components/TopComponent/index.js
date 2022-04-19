@@ -23,10 +23,6 @@ const TopComponent = ({
                           userType
 }) => {
     const [shareAlert, setShareAlert] = useState(false);
-    // const { userAgent, clipboard } = navigator;
-    // const isSafari = userAgent.match(/safari|ipad|iphone/i) && !userAgent.match(/chrome/i);
-
-    console.log('userType', userType)
 
     window.Clipboard = ((window, document) => { // Safari fix
         let textArea, copy;
@@ -59,13 +55,6 @@ const TopComponent = ({
 
         return { copy: copy };
     })(window, document);
-
-    // const share = () => {
-    //     isSafari
-    //         ? window.Clipboard.copy(window.location.href)
-    //         : clipboard.writeText(window.location.href);
-    //     setShareAlert(true);
-    // };
 
     return (
         <Card className={`top-component ${bank_details ? `_bank_details` : ``}`}>
