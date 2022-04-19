@@ -73,7 +73,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <UserInfo
                                     canEdit={canEdit}
                                     logo_link={userInfo.logo_link}
-                                    share_link={window.location.host === 'rkf.online' ? `https://rkf.online/user/${userAlias}` : `https://stage.uep24.ru/user/${userAlias}`}
+                                    share_link={`${window.location.host}/user/${userAlias}`}
                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                     alias={userAlias}
