@@ -155,11 +155,28 @@ export const LoadableNBCPage = Loadable({
     loader: () => import('./pages/NBC'),
     loading: Loading
 });
+export const LoadableNBCPageEdit = Loadable({
+    loader: () => import('./pages/NBCEdit'),
+    loading: Loading
+});
 export const LoadableNBCGallery = Loadable({
     loader: () => import('./pages/NBCGallery'),
     loading: Loading
 });
 
+export const LoadableNBCGalleryEdit = Loadable({
+    loader: () => import('./pages/NBCGallery/NBCGalleryEdit'),
+    loading: Loading
+});
+
+export const LoadableNBCVideo = Loadable({
+    loader: () => import('./pages/NBCVideo'),
+    loading: Loading
+});
+export const LoadableNBCDocuments = Loadable({
+    loader: () => import('./pages/NBCDocuments'),
+    loading: Loading
+});
 export const LoadableUserVideo = Loadable({
     loader: () => import('./pages/UserVideo'),
     loading: Loading

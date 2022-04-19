@@ -59,7 +59,6 @@ const Content = () => <>
 
 const NBCPage = (props) => {
     return (
-
         <NBCLayout {...props}>
             <Content />
         </NBCLayout>

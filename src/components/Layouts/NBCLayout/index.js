@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 // import ls from 'local-storage';
 // import StickyBox from 'react-sticky-box';
 // import Loading from 'components/Loading';
-// import Layout from 'components/Layouts';
+import Layout from "../index";
 // import { Redirect } from 'react-router-dom';
 // import Container from 'components/Layouts/Container';
 // import UserBanner from 'components/Layouts/UserBanner';
@@ -23,6 +23,7 @@ import {connectShowFilters} from '../../../components/Layouts/connectors';
 
 import './index.scss';
 import {useParams} from "react-router-dom";
+import Container from "../Container";
 
 // { profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }
 
@@ -143,15 +144,17 @@ const NBCLayout = ({children}) => {
     console.log('id', id);
 
     return (
-        <>
-            <p>Здесь будет страница НКП</p>
-            {children}
-            <ul>
-                <li>Фото</li>
-                <li>Видео</li>
-                <li>Документы</li>
-            </ul>
-        </>
+        <Layout>
+            <Container className="pt-150">
+                <p>Здесь будет страница НКП</p>
+                <ul>
+                    <li><a href={`/nbc/${id}/edit`}>Редачить профиль</a></li>
+                    <li><a href={`/nbc/${id}/gallery`}>Фото</a></li>
+                    <li><a href={`/nbc/${id}/video`}>Видео</a></li>
+                    <li><a href={`/nbc/${id}/documents`}>Документы</a></li>
+                </ul>
+            </Container>
+        </Layout>
     )
     // loading ?
     //     <Loading /> :

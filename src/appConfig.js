@@ -212,9 +212,29 @@ const appRoutes = [
         component: LoadableModules.LoadableNBCPage
     },
     {
+        exact: false,
+        path: '/nbc/:id/edit',
+        component: LoadableModules.LoadableNBCPageEdit
+    },
+    {
         exact: true,
         path: '/nbc/:id/gallery',
         component: LoadableModules.LoadableNBCGallery
+    },
+    {
+        exact: true,
+        path: '/nbc/:id/gallery/edit',
+        component: LoadableModules.LoadableNBCGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/nbc/:id/video',
+        component: LoadableModules.LoadableNBCVideo
+    },
+    {
+        exact: true,
+        path: '/nbc/:id/uploaded-documents/',
+        component: LoadableModules.LoadableNBCDocuments
     },
     {
         exact: true,
