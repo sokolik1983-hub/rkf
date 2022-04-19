@@ -73,11 +73,13 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <UserInfo
                                     canEdit={canEdit}
                                     logo_link={userInfo.logo_link}
-                                    share_link={`https://rkf.online/user/${userAlias}`}
+                                    share_link={window.location.host === 'rkf.online' ? `https://rkf.online/user/${userAlias}` : `https://stage.uep24.ru/user/${userAlias}`}
                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                     alias={userAlias}
+                                    judge_description={userInfo.open_roles && userInfo.open_roles}
                                     updateInfo={getUserInfo}
+                                    judgeInfo={userInfo.open_roles}
                                 />
                             </Card>
                             {!isMobile && <UserMenu userNav={userNav(userAlias)} />}

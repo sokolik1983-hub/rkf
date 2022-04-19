@@ -61,10 +61,7 @@
     &.cardnewsnew {
       margin-right: 0;
       span {
-        font-size: 40px;
-        @media (max-width: 1080px) {
-          font-size: 25px;
-        }
+        font-size: 25px;
       }
     }
     &.article {
