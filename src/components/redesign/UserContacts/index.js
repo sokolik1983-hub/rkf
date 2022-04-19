@@ -101,14 +101,6 @@ const UserContacts = ({
                     </div>
                     : <div className="user-contacts__info-email"><p><span style={{ color: '#253c5e' }}>E-mail:&nbsp;</span>Не указан</p></div>
                 }
-                <div className="user-contacts__info-email">
-                    {contacts.filter(item => item.contact_type_id === 2).slice(1).map(contact => (
-                        <p key={contact.id}>
-                            <span>{contact.description || "E-mail"}:&nbsp;</span>
-                            <a href={`mailto:${contact.value}`}>{contact.value}</a>
-                        </p>
-                    ))}
-                </div>
                 {mainPhone || contacts
                     ? <div className="user-contacts__info-phone">
                         <p>

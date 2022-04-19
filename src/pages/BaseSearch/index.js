@@ -83,6 +83,7 @@ const BaseSearch = props => {
                             name={nurseryData ? nurseryData.name : ``}
                             canEdit={false}
                             withShare={false}
+                            userType={4}
                         />
                     }
                     <div className="base-search__content-wrap">

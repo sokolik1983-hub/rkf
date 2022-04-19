@@ -20,6 +20,10 @@
   }
   & .popup__content {
     padding-top: 10px;
+    position: relative;
+    @media (max-width: 1080px) {
+      position: static;
+    }
   }
 }
 

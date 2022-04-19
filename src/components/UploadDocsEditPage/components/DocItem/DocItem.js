@@ -12,7 +12,7 @@ import './styles.scss';
 moment.locale('ru');
 
 const DocumentItem = (props) => {
-    const {id, name, date_create, setModal} = props;
+    const {id, name, date_create, setModal, isPrivate} = props;
     const headers = getHeaders();
     const [url, setUrl] = useState('');
 
@@ -50,19 +50,23 @@ const DocumentItem = (props) => {
     return (
         <div className="document-item__wrap" >
             <div className="document-item__inner" >
-                <div className="">
+                <div className="document-item__name-wrap">
                     <a href={url} target="_blank" rel="noopener noreferrer" className="d-flex align-items-center">
                         <SvgIcon icon={filePdf} size="default" />
-                        <div className="d-flex flex-column">{name}<span className="document-item__date">
-                        {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}
-                    </span>
+                        <div className="d-flex flex-column">
+                            <span className="document-item__name">
+                                {name}
+                            </span>
+                            <span className="document-item__date">
+                                {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}
+                            </span>
                         </div>
                     </a>
                 </div>
                 <div className="document-item__box">
-                    <div className="">
-                        <Share url={`//${window.location.host}/docs/${id}`} />
-                    </div>
+                    {!isPrivate && <div className="">
+                        <Share url={`//${window.location.host}/docs/${id}`}/>
+                    </div>}
                     <div className="">
                         <LightTooltip title="Скачать документ" enterDelay={200} leaveDelay={200}>
                             <button

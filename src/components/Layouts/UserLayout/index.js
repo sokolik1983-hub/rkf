@@ -148,7 +148,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     <UserInfo
                                         canEdit={canEdit}
                                         logo_link={userInfo.logo_link}
-                                        share_link={`https://rkf.online/user/${alias}`}
+                                        share_link={`${window.location.host}/user/${alias}`}
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}

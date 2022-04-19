@@ -15,6 +15,11 @@ const DocumentLink = ({
                         }) => {
     const headers = getHeaders();
     const [url, setUrl] = useState(null);
+    const [newTab, setNewTab] = useState(null);
+
+    useEffect(() => {
+        if (url) newTab.location.href = url;
+    }, [url]);
 
     const getDocument = (docId) => {
         if (!+docId) return;
@@ -26,6 +31,11 @@ const DocumentLink = ({
                 setUrl(url);
             });
     };
+
+    const startDocumentLoad = (docId) => {
+        getDocument(docId);
+        setNewTab(window.open('' , '_blank'));
+    }
 
     const renderDocumentItem = () => {
         return (
@@ -44,16 +54,20 @@ const DocumentLink = ({
         )
     };
 
-    useEffect(() => {
-        docId && getDocument(docId);
-    }, []);
-
     return (
-        <a
-            className={(CardNewsNew || NewsFeedItem) ? "document-item__href" : "btn"}
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
+        !url ?
+        <span className={(CardNewsNew || NewsFeedItem) ? "document-item__href" : "btn"}
+              onClick={() => docId && startDocumentLoad(docId)}
+        >
+            {
+                (CardNewsNew || NewsFeedItem) ? renderDocumentItem() : "Посмотреть"
+            }
+        </span> :
+
+        <a className={(CardNewsNew || NewsFeedItem) ? "document-item__href" : "btn"}
+           href={url}
+           target="_blank"
+           rel="noopener noreferrer"
         >
             {
                 (CardNewsNew || NewsFeedItem) ? renderDocumentItem() : "Посмотреть"
