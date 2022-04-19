@@ -208,6 +208,16 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/nbc/:id',
+        component: LoadableModules.LoadableNBCPage
+    },
+    {
+        exact: true,
+        path: '/nbc/:id/gallery',
+        component: LoadableModules.LoadableNBCGallery
+    },
+    {
+        exact: true,
         path: '/user/:id/video',
         component: LoadableModules.LoadableUserVideo
     },

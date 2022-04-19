@@ -151,6 +151,15 @@ export const LoadableUserPage = Loadable({
     loading: Loading
 });
 
+export const LoadableNBCPage = Loadable({
+    loader: () => import('./pages/NBC'),
+    loading: Loading
+});
+export const LoadableNBCGallery = Loadable({
+    loader: () => import('./pages/NBCGallery'),
+    loading: Loading
+});
+
 export const LoadableUserVideo = Loadable({
     loader: () => import('./pages/UserVideo'),
     loading: Loading
