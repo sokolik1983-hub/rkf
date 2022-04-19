@@ -77,7 +77,9 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                     alias={userAlias}
+                                    judge_description={userInfo.open_roles && userInfo.open_roles}
                                     updateInfo={getUserInfo}
+                                    judgeInfo={userInfo.open_roles}
                                 />
                             </Card>
                             {!isMobile && <UserMenu userNav={userNav(userAlias)} />}

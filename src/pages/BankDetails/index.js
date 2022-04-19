@@ -87,6 +87,7 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                                 last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
                                 alias={alias}
                                 updateInfo={getUserInfo}
+                                judgeInfo={userInfo.open_roles}
                             />
                         </Card>}
                         <div className={`base-search__content ${user_type === 1 ? `_user_page` : ``}`}>
@@ -134,7 +135,7 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                                                     last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
                                                     alias={alias}
                                                     updateInfo={getUserInfo}
-                                                />
+                                                    judgeInfo={userInfo.open_roles}                                                />
                                             </Card>}
                                             {!isMobile && <UserMenu
                                                 userNav={userNav(alias)}
