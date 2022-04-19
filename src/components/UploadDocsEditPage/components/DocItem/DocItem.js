@@ -53,9 +53,13 @@ const DocumentItem = (props) => {
                 <div className="document-item__name-wrap">
                     <a href={url} target="_blank" rel="noopener noreferrer" className="d-flex align-items-center">
                         <SvgIcon icon={filePdf} size="default" />
-                        <div className="d-flex flex-column"><span className="document-item__name">{name}</span><span className="document-item__date">
-                        {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}
-                    </span>
+                        <div className="d-flex flex-column">
+                            <span className="document-item__name">
+                                {name}
+                            </span>
+                            <span className="document-item__date">
+                                {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}
+                            </span>
                         </div>
                     </a>
                 </div>
