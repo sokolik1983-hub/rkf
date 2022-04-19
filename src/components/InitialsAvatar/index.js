@@ -20,7 +20,7 @@ const InitialsAvatar = ({card, id, name}) => {
         } else {
             return "#DCF1F4"
         }
-    }
+    };
 
     const getInitialName = () => {
         let firstName;
@@ -44,7 +44,7 @@ const InitialsAvatar = ({card, id, name}) => {
                 <span className="avatar__initials">{getInitialName().toUpperCase()}</span>
             </div>
         </div>
-    )
+    );
 };
 
 export default InitialsAvatar;
