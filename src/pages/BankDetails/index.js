@@ -74,6 +74,7 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                         name={name ? name : ``}
                         canEdit={false}
                         withShare={false}
+                        userType={user_type}
                         bank_details
                     />}
 
