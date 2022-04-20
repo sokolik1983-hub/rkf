@@ -22,8 +22,10 @@ import { connectAuthVisible } from 'pages/Login/connectors';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 
 import './index.scss';
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import Container from "../Container";
+import StickyBox from "react-sticky-box";
+import {kennelNav} from "../NurseryLayout/config";
 
 // { profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }
 
@@ -138,10 +140,76 @@ const NBCLayout = ({children}) => {
     const {id} = useParams();
 
     const userInfo = {
-
+            "id": 3433,
+            "club_alias": "8a07aafe5d9541f0a2f9478e5ae5a795",
+            "owner_name": "test test test",
+            "owner_position": "Контактное лицо",
+            "headliner_link": "/media/YzBmODk0ZTYtYzljOC00MzE2LTk0NjQtNDQwZTdjZjc0OWRiX0NsdWJIZWFkZXI.JPG",
+            "logo_link": "/media/YzBmODk0ZTYtYzljOC00MzE2LTk0NjQtNDQwZTdjZjc0OWRiX0NsdWJIZWFkZXI.JPG",
+            "shortcut_route_name": "8a07aafe5d9541f0a2f9478e5ae5a795",
+            "name": "Питомник Ильича",
+            "short_name": "Питомник Ильича",
+            "site": "",
+            "description": "Наш питомник отличается культурой питания! Собачки нашего клуба - самые воспитанные, они не едят с пола и тем более из мусорного ведра!   ",
+            "address": null,
+            "city": null,
+            "legal_address": "323223, Красноярский край, Посёлок Абан, бульвар 23, корпус 32, комната 32",
+            "legal_city": {
+                "id": 3,
+                "name": "Абан",
+                "name_eng": null
+            },
+            "inn": "",
+            "kpp": "",
+            "ogrn": "",
+            "bank_name": null,
+            "rs_number": null,
+            "bic": null,
+            "bank_comment": null,
+            "work_time_from": null,
+            "work_time_to": null,
+            "work_time": [
+                {
+                    "id": 62,
+                    "week_day_id": 1,
+                    "time_from": "05:00:00",
+                    "time_to": "18:00:00"
+                }
+            ],
+            "contacts": [
+                {
+                    "id": 22056,
+                    "value": "+7(999)999-99-99",
+                    "description": "Из заявки на регистрацию питомника.",
+                    "is_main": false,
+                    "contact_type_id": 1
+                }
+            ],
+            "documents": [],
+            "title": "Питомник Ильича",
+            "content": "Наш питомник отличается культурой питания! Собачки нашего клуба - самые воспитанные, они не едят с пола и тем более из мусорного ведра!   ",
+            "picture_link": null,
+            "create_date": "2022-04-20T15:36:08.9264+03:00",
+            "geo_lat": "",
+            "geo_lon": "",
+            "organization_status_id": 1,
+            "organization_status_name": "Действующая",
+            "federation_name": "РФЛС",
+            "federation_alias": "rfls",
+            "is_active": true,
+            "user_type": 4,
+            "counters": {
+                "publications_count": 43,
+                "photos_count": 14,
+                "videos_count": 2,
+                "exhibitions_count": 0,
+                "documents_count": 8
+            },
+            "active_rkf_user": false,
+            "active_member": false,
+            "subscribed": false,
+            "member": false
     }
-
-    console.log('id', id);
 
     return (
         <Layout>
@@ -152,103 +220,80 @@ const NBCLayout = ({children}) => {
                     <li><a href={`/nbc/${id}/gallery`}>Фото</a></li>
                     <li><a href={`/nbc/${id}/video`}>Видео</a></li>
                     <li><a href={`/nbc/${id}/documents`}>Документы</a></li>
+                    {children}
                 </ul>
             </Container>
         </Layout>
     )
     // loading ?
     //     <Loading /> :
-    //     errorRedirect ?
-    //         <Redirect to="/404" /> :
-    //         <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters={checkLink} >
-    //
-    //             <div className="user-page">
-    //                 <Container className="user-page__content content">
-    //                     {(!checkLink || !isMobile) && <aside className="user-page__left">
-    //                         <StickyBox offsetTop={60}>
-    //                             {isMobile &&
-    //                                 <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
+    //     error ?
+    //         error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
+    //         <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+    //             <div className="redesign">
+    //                 <Container className="content nursery-page">
+    //                     <div className="nursery-page__content-wrap">
+    //                         <div className="nursery-page__content">
+    //                             {
+    //                                 React.cloneElement(children, {
+    //                                     isMobile,
+    //                                     userInfo: nursery,
+    //                                     getUserInfo: getNurserynfo,
+    //                                     canEdit,
+    //                                     alias,
+    //                                     id: profile_id,
+    //                                     setNeedRequest,
+    //                                     needRequest,
+    //                                     setUserInfo: setNursery
+    //                                 })
     //                             }
-    //                             <Card>
-    //                                 <UserInfo
-    //                                     canEdit={canEdit}
-    //                                     logo_link={userInfo.logo_link}
-    //                                     share_link={window.location.host === 'rkf.online' ? `https://rkf.online/user/${alias}` : `https://stage.uep24.ru/user/${alias}`}
-    //                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-    //                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-    //                                     alias={alias}
-    //                                     judgeInfo={judgeInfo}
-    //                                     subscribed={userInfo.subscribed}
-    //                                     subscribed_id={userInfo.profile_id}
-    //                                     onSubscriptionUpdate={onSubscriptionUpdate}
-    //                                     onSuccess={notifySuccess}
-    //                                     onError={notifyError}
-    //                                 />
-    //                             </Card>
-    //                             {!isMobile &&
-    //                                 <UserMenu userNav={canEdit
-    //                                     ? userNav(alias) // Show NewsFeed menu item to current user only
-    //                                     : userNav(alias).filter(i => i.id !== 2)}
-    //                                           notificationsLength={notificationsLength}
-    //                                 />
-    //                             }
-    //                             {!isMobile &&
-    //                                 <>
-    //                                     <UserPhotoGallery
-    //                                         alias={alias}
-    //                                         pageLink={`/user/${alias}/gallery`}
-    //                                         canEdit={canEdit}
-    //                                     />
-    //                                     <UserVideoGallery
-    //                                         alias={alias}
-    //                                         pageLink={`/user/${alias}/video`}
-    //                                         canEdit={canEdit}
-    //                                     />
-    //                                     <CopyrightInfo withSocials={true} />
-    //                                 </>
-    //                             }
-    //                         </StickyBox>
-    //                     </aside>}
-    //                     <div className="user-page__right">
-    //                         {
-    //                             React.cloneElement(children, {
-    //                                 isMobile,
-    //                                 userInfo,
-    //                                 getUserInfo,
-    //                                 canEdit,
-    //                                 alias,
-    //                                 id,
-    //                                 setNeedRequest,
-    //                                 needRequest,
-    //                                 setUserInfo,
-    //                                 onSubscriptionUpdate,
-    //                                 notifySuccess,
-    //                                 notifyError,
-    //                                 judgeInfo
-    //                             })
-    //                         }
+    //                         </div>
+    //                         <Aside className="nursery-page__info">
+    //                             <StickyBox offsetTop={60}>
+    //                                 <div className="nursery-page__info-inner">
+    //                                     {!isMobile &&
+    //                                         <UserHeader
+    //                                             canEdit={canEdit}
+    //                                             user="nursery"
+    //                                             logo={nursery.logo_link}
+    //                                             name={nursery.name || 'Имя отсутствует'}
+    //                                             alias={alias}
+    //                                             profileId={nursery.id}
+    //                                             federationName={nursery.federation_name}
+    //                                             federationAlias={nursery.federation_alias}
+    //                                             active_rkf_user={nursery.active_rkf_user}
+    //                                             active_member={nursery.active_member}
+    //                                         />
+    //                                     }
+    //                                     {!isMobile && <UserMenu userNav={canEdit
+    //                                         ? kennelNav(alias) // Show NewsFeed menu item to current user only
+    //                                         : kennelNav(alias).filter(i => i.id !== 2)}
+    //                                                             notificationsLength={notificationsLength}
+    //                                     />}
+    //                                     {!isMobile &&
+    //                                         <>
+    //                                             {nursery.breeds && !!nursery.breeds.length &&
+    //                                                 <BreedsList breeds={nursery.breeds} />
+    //                                             }
+    //                                             <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />
+    //                                             <UserPhotoGallery
+    //                                                 alias={alias}
+    //                                                 pageLink={`/kennel/${alias}/gallery`}
+    //                                                 canEdit={canEdit}
+    //                                             />
+    //                                             <UserVideoGallery
+    //                                                 alias={alias}
+    //                                                 pageLink={`/kennel/${alias}/video`}
+    //                                                 canEdit={canEdit}
+    //                                             />
+    //                                             <CopyrightInfo withSocials={true} />
+    //                                         </>
+    //                                     }
+    //                                 </div>
+    //                             </StickyBox>
+    //                         </Aside>
     //                     </div>
     //                 </Container>
-    //                 <NotificationGroup>
-    //                     <Fade enter={true} exit={true}>
-    //                         {success.status && <Notification
-    //                             type={{ style: 'success', icon: true }}
-    //                             closable={true}
-    //                             onClose={() => setSuccess(false)}
-    //                         >
-    //                             <span>{success.message ? success.message : 'Информация сохранена!'}</span>
-    //                         </Notification>}
-    //                     </Fade>
-    //                     <Fade enter={true} exit={true}>
-    //                         {error && <Notification
-    //                             type={{ style: 'error', icon: true }}
-    //                             closable={true}
-    //                             onClose={() => setError(false)}
-    //                         >
-    //                             <span>{errorMessage}</span>
-    //                         </Notification>}
-    //                     </Fade>
-    //                 </NotificationGroup>
     //             </div>
     //         </Layout>
 };

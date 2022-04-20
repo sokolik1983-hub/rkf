@@ -70,6 +70,8 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
         })
     };
 
+    console.log('alias', alias)
+
     return loading ?
         <Loading /> :
         error ?
