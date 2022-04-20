@@ -128,10 +128,8 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
         };
     };
 
-    const closeLink = (e) => {
-        if(location.pathname === e.target.getAttribute('href')) {
+    const closeLink = () => {
             setOpenUserMenu(false);
-        }
     };
 
     const checkFederationPage = () => {
@@ -199,7 +197,7 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                                     {
                                         getMeLink(user_type)
                                     }
-                                </div>}
+                                    </div>}
                                     {!checkFederationPage() &&
                                         <ul className="user-nav__list">
                                             { routes.map(navItem => <li
@@ -225,39 +223,24 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                                         </ul> }
                                     </>
                                     : user_type === 3 ?
-                                    <ul className="user-nav__list">
-                                    {clubNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
-                                                                 key={navItem.id}>
-                                            {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
-                                                <span
-                                                    className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
-                                    {notificationCounter > 99 ? 99 : notificationCounter}
-                                </span>
+                                        <>
+                                            {
+                                                nameInMenu &&
+                                                <div className="user-nav__alias-name">
+                                                    {
+                                                        getMeLink(user_type)
+                                                    }
+                                                </div>
                                             }
-                                            <NavLink
-                                                to={user_type === 3
-                                                && url === 'club'
-                                                && alias !== 'rkf'
-                                                && alias !== 'rkf-online'
-                                                && navItem.title !== 'Поиск по базе РКФ'
-                                                && navItem.title !== 'Реквизиты и размеры взносов'
-                                                && navItem.title !== 'Мероприятия'
-                                                    ? `/club${navItem.to}` : navItem.to}
-                                                exact={navItem.exact}
-                                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
-                                            >
-                                                {navItem.icon}
-                                                <span>{navItem.title}</span>
-                                            </NavLink>
-                                        </li>
-
-                                    )}
-                                    </ul>
-                                    : user_type === 4 ? (
                                             <ul className="user-nav__list">
-                                                {kennelNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                                {clubNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
                                                                                         key={navItem.id}>
+                                                        {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
+                                                            <span
+                                                                className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
+                                    {notificationCounter > 99 ? 99 : notificationCounter}
+                                    </span>
+                                                        }
                                                         <NavLink
                                                             to={user_type === 3
                                                             && url === 'club'
@@ -274,44 +257,90 @@ const UserMenu = ({userNav, isExhibitionPage, setOpenUserMenu, openUserMenu, ref
                                                             {navItem.icon}
                                                             <span>{navItem.title}</span>
                                                         </NavLink>
-                                                        {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
-                                                            <span
-                                                                className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
-                                    {notificationCounter > 99 ? 99 : notificationCounter}
-                                </span>
-                                                        }
                                                     </li>
+
                                                 )}
                                             </ul>
-                                        ) : user_type === 1 && (<ul className="user-nav__list">
-                                            {userNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
-                                                                                      key={navItem.id}>
-                                                    <NavLink
-                                                        to={user_type === 3
-                                                        && url === 'club'
-                                                        && alias !== 'rkf'
-                                                        && alias !== 'rkf-online'
-                                                        && navItem.title !== 'Поиск по базе РКФ'
-                                                        && navItem.title !== 'Реквизиты и размеры взносов'
-                                                        && navItem.title !== 'Мероприятия'
-                                                            ? `/club${navItem.to}` : navItem.to}
-                                                        exact={navItem.exact}
-                                                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                        onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
-                                                    >
-                                                        {navItem.icon}
-                                                        <span>{navItem.title}</span>
-                                                    </NavLink>
-                                                    {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
-                                                        <span
-                                                            className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
+                                        </>
+                                    : user_type === 4 ?
+                                            <>
+                                                {
+                                                    nameInMenu &&
+                                                    <div className="user-nav__alias-name">
+                                                        {
+                                                            getMeLink(user_type)
+                                                        }
+                                                    </div>
+                                                }
+                                                <ul className="user-nav__list">
+                                                    {kennelNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                                                                              key={navItem.id}>
+                                                            <NavLink
+                                                                to={user_type === 3
+                                                                && url === 'club'
+                                                                && alias !== 'rkf'
+                                                                && alias !== 'rkf-online'
+                                                                && navItem.title !== 'Поиск по базе РКФ'
+                                                                && navItem.title !== 'Реквизиты и размеры взносов'
+                                                                && navItem.title !== 'Мероприятия'
+                                                                    ? `/club${navItem.to}` : navItem.to}
+                                                                exact={navItem.exact}
+                                                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                                            >
+                                                                {navItem.icon}
+                                                                <span>{navItem.title}</span>
+                                                            </NavLink>
+                                                            {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
+                                                                <span
+                                                                    className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
                                     {notificationCounter > 99 ? 99 : notificationCounter}
                                 </span>
-                                                    }
-                                                </li>
+                                                            }
+                                                        </li>
+                                                    )}
+                                                </ul>
+                                            </>
+                                         : user_type === 1 &&
+                                            <>
+                                                {
+                                                    nameInMenu &&
+                                                    <div className="user-nav__alias-name">
+                                                        {
+                                                            getMeLink(user_type)
+                                                        }
+                                                    </div>
+                                                }
+                                                <ul className="user-nav__list">
+                                                    {userNavDocs(alias).map(navItem =>  <li className={`user-nav__item${isExhibitionPage && navItem.title === 'Уведомления' ? ' _hidden' : ''}`}
+                                                                                            key={navItem.id}>
+                                                            <NavLink
+                                                                to={user_type === 3
+                                                                && url === 'club'
+                                                                && alias !== 'rkf'
+                                                                && alias !== 'rkf-online'
+                                                                && navItem.title !== 'Поиск по базе РКФ'
+                                                                && navItem.title !== 'Реквизиты и размеры взносов'
+                                                                && navItem.title !== 'Мероприятия'
+                                                                    ? `/club${navItem.to}` : navItem.to}
+                                                                exact={navItem.exact}
+                                                                className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                                            >
+                                                                {navItem.icon}
+                                                                <span>{navItem.title}</span>
+                                                            </NavLink>
+                                                            {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
+                                                                <span
+                                                                    className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}>
+                                    {notificationCounter > 99 ? 99 : notificationCounter}
+                                </span>
+                                                            }
+                                                        </li>
 
-                                            )}
-                                        </ul>)
+                                                    )}
+                                                </ul>
+                                            </>
                                     }
                             </div>
 
