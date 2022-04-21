@@ -133,7 +133,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 resetForm="true"
                 isMultipart
                 validationSchema={(isCategoryId === 1) ? CategoryOneSchema : (isCategoryId === 2) ? CategoryTwoSchema : CategoryNullSchema}
-                // initialValues={(isCategoryId === 1) ? initialValueCatOne : initialValueCatTwo}
                 initialValues={(isCategoryId === 1) ? initialValueCatOne : initialValueCatTwo}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}
