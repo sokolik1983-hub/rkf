@@ -646,7 +646,7 @@ const MenuComponentNew = ({isDocsPage}) => {
                     <>
                         {isMobile &&
                             <button onClick={() => setOpenUserMenu(!openUserMenu)}
-                                    className={`user-nav__button more-btn${openUserMenu ? ' _open' : ''}`}
+                                    className={`menu-component-new__button more-btn${openUserMenu ? ' _open' : ''}`}
                                     ref ={moreRef}
                             >
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -660,16 +660,16 @@ const MenuComponentNew = ({isDocsPage}) => {
                             handleClose={(e) => !moreRef.current.contains(e.target) && setOpenUserMenu(false)}
                             bottomStyle
                         >
-                            <div className="user-nav__inner">
-                                <div className="user-nav__bg-wrap">
+                            <div className="menu-component-new__inner">
+                                <div className="menu-component-new__bg-wrap">
                                     <img src={headliner} alt="menu-background" />
-                                    <div className="user-nav__userpic">
+                                    <div className="menu-component-new__userpic">
                                         {
                                             logoLink
                                                 ?
                                                 <img src={logoLink} alt="menu-logo" />
                                                 :
-                                                (currentPageUserInfo?.user_type >= 3 || userType >= 3)
+                                                (currentPageUserInfo?.user_type === 3 || userType === 3)
                                                     ?
                                                     <img src={'/static/icons/default/club-avatar.svg'} />
                                                     :
@@ -677,33 +677,32 @@ const MenuComponentNew = ({isDocsPage}) => {
                                         }
                                     </div>
                                 </div>
-                                <div className="user-nav__alias-name">
+                                <div className="menu-component-new__alias-name">
                                     <a href={linkForName}>
                                     {name}
                                 </a>
                                 </div>
-                                <ul className="user-nav__new-menu">
+                                <ul className="menu-component-new__list">
                                     {
                                         currentPageNav?.map(navItem => <li
-                                            className={`user-nav__item${(navItem.title === 'Уведомления' && (!isUserProfilePage || !isAuth)) ? ' _hidden' : ''}`}
+                                            className={`menu-component-new__item${(navItem.title === 'Уведомления' && (!isUserProfilePage || !isAuth)) ? ' _hidden' : ''}`}
                                             key={navItem.id}>
                                             {navItem.title === 'Уведомления' &&
                                                 notificationCounter !== 0 &&
                                                 notificationCounter &&
                                                 <span
-                                                    className={`user-nav__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}
+                                                    className={`menu-component-new__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}
                                                 >
                                                 { notificationCounter > 99 ? 99 : notificationCounter }
                                             </span>
                                             }
-                                            123
                                             {
                                                 navItem.onClick
                                                     ?
                                                     <NavLink
                                                         to={navItem.to}
                                                         exact={navItem.exact}
-                                                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                        className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
                                                         onClick={e => clickOnPresidium(e, currentPageUserInfo?.club_alias)}
                                                     >
                                                         {navItem.icon}
@@ -713,7 +712,7 @@ const MenuComponentNew = ({isDocsPage}) => {
                                                     <NavLink
                                                         to={navItem.to}
                                                         exact={navItem.exact}
-                                                        className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                        className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
                                                         onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                                                     >
                                                         {navItem.icon}
