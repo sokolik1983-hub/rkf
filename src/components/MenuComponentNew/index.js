@@ -228,7 +228,7 @@ const showPresidium = (currentPageAlias) => {
         return presidiumRfls
     } else {
         return <>
-            <ol className="menu-component__wrap-list">
+            <ol className="menu-component-new__wrap-list">
                 {presidium[currentPageAlias].members.map((member, i) =>
                     <li className="menu-component__wrap-item" key={i}>{member}</li>
                 )}
