@@ -55,7 +55,8 @@ const RenderFields = ({ fields,
                           isAllCities,
                           setIsAllCities,
                           name,
-                          userType
+                          userType,
+                          setContent,
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -133,6 +134,7 @@ const RenderFields = ({ fields,
             });
 
         formik.setFieldValue('content', text);
+        setContent(content);
     };
 
     const addRow = () => {
@@ -350,8 +352,8 @@ const RenderFields = ({ fields,
                         <FormField className="article-create-form__input-sex_new" {...fields.dog_sex_type_id} />
                         <FormField className="article-create-form__input-color_new" {...fields.dog_color} />
                         <FormField className="article-create-form__input-age_new" {...fields.dog_age} />
-                        <CustomNumber cName={' article-create-form__input-cost_new'} {...fields.advert_cost} maxLength={10}  />
-                        {!isMating && <CustomNumber cName={' article-create-form__input-puppies_new'} {...fields.advert_number_of_puppies} />}
+                        <CustomNumber cName=" article-create-form__input-cost_new" {...fields.advert_cost} maxLength={10}  />
+                        {!isMating && <CustomNumber cName=" article-create-form__input-puppies_new" {...fields.advert_number_of_puppies} />}
                     </FormGroup>
                 </div>
             }
