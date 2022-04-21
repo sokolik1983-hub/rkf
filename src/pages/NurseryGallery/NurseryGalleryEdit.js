@@ -12,7 +12,6 @@ import { connectAuthVisible } from "../Login/connectors";
 import Aside from "components/Layouts/Aside";
 import UserHeader from "../../components/redesign/UserHeader";
 import StickyBox from "react-sticky-box";
-import UserMenu from "../../components/Layouts/UserMenu";
 import { EditAlbum } from "components/Gallery";
 import InfiniteScroll from "react-infinite-scroll-component";
 import declension from "utils/declension";
@@ -20,11 +19,11 @@ import { DEFAULT_IMG } from "appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { kennelNav } from "../Nursery/config";
 import BreedsList from "../../components/BreedsList";
+import MenuComponentNew from "../../components/MenuComponentNew";
+
 import "./styles.scss";
 import "pages/Nursery/index.scss";
-
 
 const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
@@ -288,12 +287,9 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                         active_member={nursery.active_member}
                                                     />
                                                 }
-                                                {!isMobile && <UserMenu
-                                                    userNav={kennelNav(alias)}
-                                                    notificationsLength={notificationsLength}
-                                                />}
                                                 {!isMobile &&
                                                     <>
+                                                        <MenuComponentNew />
                                                         {nursery.breeds && !!nursery.breeds.length &&
                                                             <BreedsList breeds={nursery.breeds} />
                                                         }

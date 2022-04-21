@@ -8,8 +8,6 @@ import PropertyP from "../../components/PropertyP";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { clubNav } from "../Club/config";
-import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../dictionaries";

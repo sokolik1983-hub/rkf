@@ -11,8 +11,6 @@ import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import Aside from "components/Layouts/Aside";
 import StickyBox from "react-sticky-box";
-import UserMenu from "../../components/Layouts/UserMenu";
-import { clubNav } from "../Club/config";
 import UserHeader from "../../components/redesign/UserHeader";
 import { EditAlbum } from "components/Gallery";
 import InfiniteScroll from "react-infinite-scroll-component";

@@ -15,18 +15,16 @@ import UserContacts from "../../components/redesign/UserContacts";
 import UserDescription from "../../components/redesign/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
-import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
-import { clubNav, endpointGetClubInfo } from "./config";
+import {endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import UserBanner from "../../components/Layouts/UserBanner";
-
-import "./index.scss";
 import MenuComponentNew from "../../components/MenuComponentNew";
 
+import "./index.scss";
 
 const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
     const [clubInfo, setClubInfo] = useState(null);

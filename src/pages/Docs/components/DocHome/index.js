@@ -6,7 +6,6 @@ import BookformCard from "../../../../components/BookformCard";
 import { LoadableNotFound } from "../../../../appModules";
 import Registry from "../Stamps/Registry";
 import Alert from "../../../../components/Alert";
-import UserMenu from "../../../../components/Layouts/UserMenu";
 import { clubNav } from "../../config";
 import Loading from "../../../../components/Loading";
 import { Request } from "../../../../utils/request";
@@ -15,10 +14,9 @@ import Banner from "../../../../components/Banner";
 import useIsMobile from "../../../../utils/useIsMobile";
 import CardMessage from "../../../../components/CardMessage";
 import ls from 'local-storage';
-
-import "./styles.scss";
 import MenuComponentNew from "../../../../components/MenuComponentNew";
 
+import "./styles.scss";
 
 //Access method statuses
 const _pedigree = 11;
@@ -343,8 +341,7 @@ const DocHome = ({ clubAlias }) => {
     return (loading ? <Loading /> : <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={60}>
-                {/*{!isMobile && <UserMenu userNav={clubNav(clubAlias)} />}*/}
-                {!isMobile && <MenuComponentNew userNav={clubNav(clubAlias)} isDocsPage />}
+                {!isMobile && <MenuComponentNew />}
                 {!isMobile && <Banner type={8} />}
                 <CopyrightInfo withSocials={true} />
             </StickyBox>

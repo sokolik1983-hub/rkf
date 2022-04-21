@@ -10,9 +10,8 @@ import CopyrightInfo from "components/CopyrightInfo";
 import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
 import UserHeader from "components/redesign/UserHeader";
-import UserMenu from "components/Layouts/UserMenu";
 import { Request } from "utils/request";
-import { clubNav, endpointGetClubInfo } from "./config";
+import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "pages/Login/connectors";
 import useIsMobile from "utils/useIsMobile";
 import { BANNER_TYPES } from "appConfig";
@@ -21,8 +20,6 @@ import {connectShowFilters} from "../../../components/Layouts/connectors"
 import MenuComponentNew from "../../MenuComponentNew";
 
 import "./index.scss";
-
-
 
 const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthenticated, user, children, setShowFilters, isOpenFilters }) => {
     const [clubInfo, setClubInfo] = useState(null);

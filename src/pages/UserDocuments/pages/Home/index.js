@@ -7,7 +7,6 @@ import Container from "../../../../components/Layouts/Container";
 import Card from "../../../../components/Card";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
 import UserInfo from "../../../../components/Layouts/UserInfo";
-import UserMenu from "../../../../components/Layouts/UserMenu";
 import Documents from "../Documents";
 import HealthCheckRegistry from "../HealthCheckRegistry";
 import Specialization from "../Specialization";
@@ -18,16 +17,14 @@ import DysplasiaForm from "../Dysplasia";
 import Application from "../Application/Form";
 import PageNotFound from "../404";
 import { Request } from "../../../../utils/request";
-import { userNav } from "../../config";
 import { connectAuthVisible } from "../../../Login/connectors";
 import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import ApplicationRegistry from "../Application/ApplicationRegistry";
 import Banner from "../../../../components/Banner";
 import useIsMobile from "../../../../utils/useIsMobile";
+import MenuComponentNew from "../../../../components/MenuComponentNew";
 
 import "./index.scss";
-
-
 
 const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
@@ -82,7 +79,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     judgeInfo={userInfo.open_roles}
                                 />
                             </Card>
-                            {!isMobile && <UserMenu userNav={userNav(userAlias)} />}
+                            {!isMobile && <MenuComponentNew />}
                             {!isMobile && <Banner type={10} />}
                             <CopyrightInfo withSocials={true} />
                         </StickyBox>
