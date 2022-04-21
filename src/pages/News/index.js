@@ -12,10 +12,10 @@ import { formatText } from '../../utils';
 import { Request } from '../../utils/request';
 import { endpointGetNews } from './config';
 import { connectAuthVisible } from '../Login/connectors';
-
-import './index.scss';
 import DocumentLink from "../../components/DocumentLink";
 import {endpointGetLinkNewsFeed} from "../../components/CardNewsNew/config";
+
+import './index.scss';
 
 
 const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
