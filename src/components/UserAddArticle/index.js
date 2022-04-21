@@ -27,6 +27,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [activeElem, setActiveElem] = useState(null);
     const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
+    const [content, setContent] = useState('');
 
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
@@ -54,7 +55,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_color: '',
         dog_sex_type_id: '',
         dog_age: '',
-        content: ''
+        content: content ? content : '',
     }; //Initial Values для объявлений категории 1
     const initialValueCatTwo = {
         advert_breed_id: '',
@@ -66,7 +67,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_age: '',
         dog_name: '',
         dog_city: '',
-        content: ''
+        content: content ? content : '',
     } //Initial Values для объявлений категории 2
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
@@ -132,6 +133,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 resetForm="true"
                 isMultipart
                 validationSchema={(isCategoryId === 1) ? CategoryOneSchema : (isCategoryId === 2) ? CategoryTwoSchema : CategoryNullSchema}
+                // initialValues={(isCategoryId === 1) ? initialValueCatOne : initialValueCatTwo}
                 initialValues={(isCategoryId === 1) ? initialValueCatOne : initialValueCatTwo}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}
@@ -173,6 +175,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     setIsAllCities={setIsAllCities}
                     name={profileInfo?.name}
                     userType={profileInfo?.user_type}
+                    setContent={setContent}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
