@@ -47,11 +47,11 @@ const appRoutes = [
         path: '/about',
         component: LoadableModules.LoadableAboutPage
     },
-    // {
-    //     exact: true,
-    //     path: './Politika',
-    //     component: LoadableModules.LoadablePersonalDataProcessingPolicyPage
-    // },
+    {
+        exact: true,
+        path: './Politika_PDn',
+        component: LoadableModules.LoadablePersonalDataProcessingPolicyPage
+    },
     {
         exact: true,
         path: '/search',
