@@ -106,7 +106,6 @@
   &__length-hint {
     display: flex;
     justify-content: flex-end;
-    width: 80px;
   }
 
   &__content-length {
@@ -283,6 +282,7 @@
     }
 
     button {
+      margin-right: 0;
       width: 154px;
       @media (max-width: 750px) {
         width: 136px;

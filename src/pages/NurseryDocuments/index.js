@@ -43,6 +43,7 @@ const Docs = ({ history }) => {
                     name={nurseryName}
                     canEdit={false}
                     withShare={false}
+                    userType ={4}
                 />
                 <Switch>
                     <Route

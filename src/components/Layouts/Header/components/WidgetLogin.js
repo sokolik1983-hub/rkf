@@ -16,6 +16,7 @@ import {Request} from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
 import InitialsAvatar from "../../../InitialsAvatar";
 import { blockContent } from "../../../../utils/blockContent";
+import {getInitials} from "../../../../utils/getInitials";
 
 const WidgetLogin = forwardRef(
     ({
@@ -99,7 +100,7 @@ const WidgetLogin = forwardRef(
                                     ?
                                     <div className={`widget-login__user-icon ${open && ' _active'}`}>
                                         <InitialsAvatar
-                                            name={user_type === 1 ? `${first_name} ${last_name}` : name}
+                                            name={user_type === 1 ? getInitials(name) : name}
                                             card="user-icon"
                                         />
                                     </div>
