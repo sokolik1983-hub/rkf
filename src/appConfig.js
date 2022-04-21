@@ -1,5 +1,6 @@
 import React from 'react';
 import * as LoadableModules from './appModules';
+import { LoadablePersonalDataProcessingPolicyPage } from "./appModules";
 
 const SERVER = 'http://dev.uep24.ru';
 const DEFAULT_PHONE_INPUT_MASK = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
@@ -46,6 +47,11 @@ const appRoutes = [
         path: '/about',
         component: LoadableModules.LoadableAboutPage
     },
+    // {
+    //     exact: true,
+    //     path: './Politika',
+    //     component: LoadableModules.LoadablePersonalDataProcessingPolicyPage
+    // },
     {
         exact: true,
         path: '/search',

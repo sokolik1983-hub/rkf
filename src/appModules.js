@@ -27,6 +27,11 @@ export const LoadableAboutPage = Loadable({
     loading: Loading
 });
 
+// export const LoadablePersonalDataProcessingPolicyPage = Loadable({
+//     loader: () => import('./pages/PersonalDataProcessingPolicy/Politika_PDn.pdf'),
+//     loading: Loading
+// });
+
 export const LoadableRKFPage = Loadable({
     loader: () => import('./pages/RKF'),
     loading: Loading

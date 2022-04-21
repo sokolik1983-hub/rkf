@@ -19,6 +19,7 @@ const Footer = ({ showCopyright = true }) => (
                     {/*<a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>*/}
                     <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
                 </div>
+                <p onClick={window.open('./Politika_PDn.pdf')}>Политика обработк</p>
                 {showCopyright &&
                     <Link
                         className="Footer__policy"
