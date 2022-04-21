@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "components/Card";
 import useIsMobile from "utils/useIsMobile";
-import personalDataProcessingPolicy from "./../../pages/PersonalDataProcessingPolicy/Politika_PDn.pdf";
-// import personalDataProcessingPolicy from "./../../pages/PersonalDataProcessingPolicy";
+import personalDataProcessingPolicyDoc from "./../../pages/PersonalDataProcessingPolicy/Politika_PDn.pdf";
 import "./index.scss";
 
 const CopyrightInfo = ({ withSocials }) => {
@@ -34,12 +33,10 @@ const CopyrightInfo = ({ withSocials }) => {
                         <span>© 1991—{new Date().getFullYear()} СОКО РКФ.</span>
                         <Link to="/about" className="copyright-link">О RKF.Online</Link>
                     </div>
-                    <p onClick={() => window.open('./Politika_PDn.pdf')}>Политика обработк</p>
-
                     <div>
                         <Link
                             className="copyright-link copyright-policy"
-                            to={personalDataProcessingPolicy}
+                            to={personalDataProcessingPolicyDoc}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -50,10 +47,9 @@ const CopyrightInfo = ({ withSocials }) => {
             </Card>
             : <div className="copyright-info">
                 <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                <p onClick={window.open('./Politika_PDn.pdf')}>Политика обработк</p>
                 <Link
                     className="copyright-policy"
-                    to={personalDataProcessingPolicy}
+                    to={personalDataProcessingPolicyDoc}
                     target="_blank"
                     rel="noopener noreferrer"
                 >

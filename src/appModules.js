@@ -28,7 +28,7 @@ export const LoadableAboutPage = Loadable({
 });
 
 export const LoadablePersonalDataProcessingPolicyPage = Loadable({
-    loader: () => import('./pages/PersonalDataProcessingPolicy/Politika_PDn.pdf'),
+    loader: () => import('./pages/PersonalDataProcessingPolicy'),
     loading: Loading
 });
 

@@ -49,7 +49,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: './Politika_PDn',
+        path: '/Politika_PDn.pdf',
         component: LoadableModules.LoadablePersonalDataProcessingPolicyPage
     },
     {
