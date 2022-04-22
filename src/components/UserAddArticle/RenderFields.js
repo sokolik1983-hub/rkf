@@ -57,6 +57,7 @@ const RenderFields = ({ fields,
                           name,
                           userType,
                           setContent,
+                          setFile,
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -64,7 +65,6 @@ const RenderFields = ({ fields,
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
-
 
     const { content, file } = formik.values;
 
@@ -80,6 +80,7 @@ const RenderFields = ({ fields,
 
         if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
+            setFile(file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
             setLoadFile(true);
