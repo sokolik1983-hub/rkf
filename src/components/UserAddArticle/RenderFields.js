@@ -57,6 +57,7 @@ const RenderFields = ({ fields,
                           name,
                           userType,
                           setContent,
+                          setFile,
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -64,7 +65,6 @@ const RenderFields = ({ fields,
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
-
 
     const { content, file } = formik.values;
 
@@ -80,6 +80,7 @@ const RenderFields = ({ fields,
 
         if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
+            setFile(file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
             setLoadFile(true);
@@ -134,7 +135,6 @@ const RenderFields = ({ fields,
             });
 
         formik.setFieldValue('content', text);
-        setContent(content);
     };
 
     const addRow = () => {
@@ -267,6 +267,8 @@ const RenderFields = ({ fields,
                                 className="article-create-form__ad"
                                 checked={isAd}
                                 onChange={() => {
+                                    setContent(content);
+
                                     if (isAd) {
                                         setIsAd(false);
                                         setIsMust(false);
@@ -288,6 +290,8 @@ const RenderFields = ({ fields,
                                     className="article-create-form__ad"
                                     checked={isCheckedAddTypes}
                                     onChange={() => {
+                                        setContent(content);
+
                                         if (isCheckedAddTypes) {
                                             setIsCheckedAddTypes(false);
                                             setIsMust(false);

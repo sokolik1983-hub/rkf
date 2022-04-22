@@ -28,7 +28,7 @@ const CustomChipList = ({ formik, name, label, options, setIsMating, advertTypeI
                 onChange={handleChange}
                 className="CustomChipList"
             />
-            <Field name={name} type="hidden" />
+            <Field name={name} type="hidden" value="" />
             <Error name={name} />
         </div>
     )
