@@ -18,7 +18,8 @@ const CustomNumber = (props) => {
                 onChange={handleChange}
                 className="FormInput__input"
                 maxLength={maxLength}
-                {...props}
+                formik={formik}
+                name={name}
             />
             <Error name={name} />
         </div>
