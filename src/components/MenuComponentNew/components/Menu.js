@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
 import Card from "../../Card";
+import {presidium, presidiumRfls} from "../config";
+import Modal from "../../Modal";
+import {blockContent} from "../../../utils/blockContent";
 
-export const Menu = ({currentPageNav, notificationCounter, setShowModal, setOpenUserMenu, setAlert, currentPageUserInfo, isMobile}) => {
+export const Menu = ({currentPageNav, notificationCounter, setOpenUserMenu, setAlert, currentPageUserInfo, isMobile, openUserMenu}) => {
+    const [showModal, setShowModal] = useState(false);
 
     const clickOnDisabledLink = e => {
         e.preventDefault();
@@ -15,6 +19,28 @@ export const Menu = ({currentPageNav, notificationCounter, setShowModal, setOpen
         setOpenUserMenu(false);
         setShowModal('presidium');
     };
+
+    const showPresidium = (currentPageAlias) => {
+        if (currentPageAlias === 'rfls') {
+            return presidiumRfls
+        } else {
+            return <>
+                <ol className="menu-component-new__wrap-list">
+                    {presidium[currentPageAlias].members.map((member, i) =>
+                        <li className="menu-component__wrap-item" key={i}>{member}</li>
+                    )}
+                </ol>
+            </>
+        }
+    };
+
+    useEffect(() => {
+        if (openUserMenu || showModal) {
+            blockContent(true)
+        } else {
+            blockContent(false)
+        }
+    }, [openUserMenu, showModal]);
 
     return (
         <>
@@ -95,6 +121,18 @@ export const Menu = ({currentPageNav, notificationCounter, setShowModal, setOpen
                             }
                         </ul>
                     </Card>
+            }
+            {showModal &&
+                <Modal
+                    iconName="icon-presidium-white"
+                    headerName={currentPageUserInfo?.club_alias === 'rfls' ? "Президиум РФЛС" : "Президиум"}
+                    className="menu-component__modal"
+                    showModal={showModal} handleClose={() => setShowModal(false)}
+                    noBackdrop={true}>
+                    <div className="menu-component__wrap">
+                        {showModal === 'presidium' && showPresidium(currentPageUserInfo?.club_alias)}
+                    </div>
+                </Modal>
             }
         </>
     );
