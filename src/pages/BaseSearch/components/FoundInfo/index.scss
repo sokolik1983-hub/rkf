@@ -88,21 +88,12 @@
             width: 100px;
             height: 100px;
         }
-        &.stamp-search {
-            background-image: url("/static/images/base_search/stamp-search.svg");
-        }
         &.found-info {
             background-image: url("/static/images/base_search/found-info.svg");
             
         }
-        &.check-registration {
-            background-image: url("/static/images/base_search/check-registration.svg");
-        }
         &.referee_search {
             background-image: url("/static/images/base_search/referee_search.svg");
-        }
-        &.publication-search {
-            background-image: url("/static/images/base_search/publication-search.svg");
         }
     }
     &__default-content {
@@ -168,8 +159,10 @@
         margin: 20px 0;
         padding: 12px 16px;
     }
-    &__button--clear{
-
+    &.registration {
+        .search-form__wrap:first-of-type, input {
+            width: 152px;
+        }
     }
 }
 ._hide {

@@ -5,7 +5,6 @@
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
-        justify-content: center;
         margin-bottom: 20px;
     }
     h3 {
@@ -27,13 +26,13 @@
         border-radius: 0.25rem;
         padding: 5px 34px 5px 10px;
         margin: 26px 0 6px 0;
-        height: calc( 1.5em + 0.75rem + 2px);
+        height: 32px;
         width: 100%;
     }
 
     &__wrap {
         position: relative;
-        width: 100%;
+        width: 314px;
         margin-right: 6px;
     }
     &__nickname, .check-status__breed {
@@ -73,18 +72,7 @@
         align-items: center;
         word-break: normal;
         margin-top: 23px;
-        button {
-            margin-left: 6px;
-            padding: 0;
-            display: block;
-            border: none;
-            background: #ffffff;
-            box-sizing: border-box;
-            & svg:hover {
-                fill: #3366ff;
-                transition: fill .2s linear;
-            }
-        }
+
     &--clear {
         margin-top: 25px;
         button {
