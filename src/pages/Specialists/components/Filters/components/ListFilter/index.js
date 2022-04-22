@@ -1,4 +1,5 @@
 import React, {memo, useEffect, useMemo, useState} from "react";
+import {useLocation} from "react-router-dom";
 import SwipeTabs from "../../../../../../components/SwipeTabs";
 import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
 import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
@@ -20,7 +21,9 @@ const ListFilter = ({
         ];
     }, []);
 
-    const [isFilter, setIsFilter] = useState(false)
+    const [isFilter, setIsFilter] = useState(false);
+
+    const location = useLocation();
 
     const handleFilter = () => {
         setIsFilter(!isFilter);
@@ -28,8 +31,8 @@ const ListFilter = ({
     }
 
     useEffect(()=>{
-        document.location.search.indexOf('IsPopular=true') !== -1 && setIsFilter(!isFilter)
-    }, [])
+        location.search.indexOf('IsPopular=true') !== -1 && setIsFilter(!isFilter)
+    }, []);
 
     return (
         <div className="specialists-page__list-filter">
