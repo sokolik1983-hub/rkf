@@ -1,4 +1,4 @@
-import React, {memo, useMemo, useState} from "react";
+import React, {memo, useEffect, useMemo, useState} from "react";
 import SwipeTabs from "../../../../../../components/SwipeTabs";
 import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
 import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
@@ -26,6 +26,10 @@ const ListFilter = ({
         setIsFilter(!isFilter);
         setFiltersToUrl({IsPopular: !isFilter})
     }
+
+    useEffect(()=>{
+        document.location.search.indexOf('IsPopular=true') !== -1 && setIsFilter(!isFilter)
+    }, [])
 
     return (
         <div className="specialists-page__list-filter">
