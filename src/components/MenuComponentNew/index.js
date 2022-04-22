@@ -274,6 +274,7 @@ const MenuComponentNew = ({isDocsPage}) => {
         || url === 'base-search'
         // || url.includes('base-search')
         || url === 'bank-details'
+        || url === ''
         || location.search.includes(userAlias)
     ); // страницы профиля залогиненного юзера?
 
@@ -317,7 +318,6 @@ const MenuComponentNew = ({isDocsPage}) => {
                             :
                             endpointGetClubInfo + userAlias
         }, data => {
-            console.log('data11111111111111', data);
             setCurrentPageUserInfo({...data });
         }, error => {
             console.log(error.response);
@@ -351,55 +351,65 @@ const MenuComponentNew = ({isDocsPage}) => {
                     getMenuCurrentUserPage("club", exhibAlias);
                     getCurrentPageUserInfo ("club", exhibAlias);
                 }
-        } else if (userAlias) { // юзер залогинен?
-            if (isUserProfilePage) { //Это страница профиля залогиненного юзера
-                if(addLink === "documents" ||
-                    linkAlias === "documents" ||
-                    url === "bank-details" ||
-                    url.includes('base-search'))
-                { //Это страница личного кабинета залогиненного юзера с документами
-                    getMyMenuWithDocs();
-                    getCurrentPageUserInfo(
-                        userType === 3 || userType === 5
-                            ?
-                            'club'
-                            :
-                            userType === 4
-                                ?
-                                'kennel'
-                                :
-                                'user',
-                        userAlias
-                    )
-                } else {
-                    //Это страница нашего профиля, подтягиваем меню юзера
-                    setIsUserPages(true);
-                    getMyMenu();
-                    getCurrentPageUserInfo( url, userAlias);
-                }
-            } else {
-                if (isFederationAlias(url)
-                    || url === 'kennel'
-                    || url === 'club'
-                    || url === 'user'
-                    || url === 'referee'
-                    || url === 'client'
-                ) {//Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся
-                    if(url === 'referee') { //страница специалистов
-                        getMenuForReferee(url, linkAlias)
-                    } else if(url === 'client') { //Страница редактирования профиля /client
-                        getMenuCurrentUserPage(url, userAlias);
-                        isFederationAlias(url) ? getCurrentPageUserInfo(url, userAlias) : getCurrentPageUserInfo(url , userAlias);
+            } else if (userAlias) { // юзер залогинен?
+
+                if (isUserProfilePage) { //Это страница профиля залогиненного юзера
+                    if(addLink === "documents" ||
+                        linkAlias === "documents" ||
+                        url === "bank-details" ||
+                        url.includes('base-search'))
+                        { //Это страница личного кабинета залогиненного юзера с документами
+                            getMyMenuWithDocs();
+                            getCurrentPageUserInfo(
+                                userType === 3 || userType === 5
+                                    ?
+                                    'club'
+                                    :
+                                    userType === 4
+                                        ?
+                                        'kennel'
+                                        :
+                                        'user',
+                                userAlias
+                            )
+                        } else {
+                            //Это страница нашего профиля, подтягиваем меню юзера
+                            setIsUserPages(true);
+                            getMyMenu();
+                            getCurrentPageUserInfo(
+                                userType === 3 || userType === 5
+                                    ?
+                                    'club'
+                                    :
+                                    userType === 4
+                                        ?
+                                        'kennel'
+                                        :
+                                        'user', userAlias);
+                        }
                     } else {
-                        getMenuCurrentUserPage(url, linkAlias);
-                        isFederationAlias(url) ? getCurrentPageUserInfo(url, url) : getCurrentPageUserInfo(url , linkAlias);
+                    if (isFederationAlias(url)
+                        || url === 'kennel'
+                        || url === 'club'
+                        || url === 'user'
+                        || url === 'referee'
+                        || url === 'client'
+                    ) {//Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся
+                        if(url === 'referee') { //страница специалистов
+                            getMenuForReferee(url, linkAlias)
+                        } else if(url === 'client') { //Страница редактирования профиля /client
+                            getMenuCurrentUserPage(url, userAlias);
+                            isFederationAlias(url) ? getCurrentPageUserInfo(url, userAlias) : getCurrentPageUserInfo(url , userAlias);
+                        } else {
+                            getMenuCurrentUserPage(url, linkAlias);
+                            isFederationAlias(url) ? getCurrentPageUserInfo(url, url) : getCurrentPageUserInfo(url , linkAlias);
+                        }
+                    } else {
+                        setIsUserPages(true);
+                        getMyMenu();
+                        getCurrentPageUserInfo( url, userAlias);
                     }
-                } else {
-                    setIsUserPages(true);
-                    getMyMenu();
-                    getCurrentPageUserInfo( url, userAlias);
                 }
-            }
         } else {
             //Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся
             getMenuCurrentUserPage(url, linkAlias);
