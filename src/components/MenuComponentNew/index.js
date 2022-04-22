@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import {isFederationAlias} from "../../utils";
-import {NavLink, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import useIsMobile from "../../utils/useIsMobile";
 import {endpointGetClubInfo} from "../../pages/Club/config";
@@ -22,9 +22,11 @@ import PopupModal from "../PopupModal";
 import InitialsAvatar from "../InitialsAvatar";
 import Alert from "../Alert"
 import {endpointGetExhibition} from "../../pages/Exhibition/config";
-import Card from "../Card";
+import {Menu} from "./components/Menu";
 
 import "./styles.scss";
+import HeaderMobileMenu from "./components/HeaderMobileMenu";
+
 
 const presidium = {
     rkf: {
@@ -223,28 +225,10 @@ const presidiumRfls = <>
         </tbody>
     </table>
 </>;
-const showPresidium = (currentPageAlias) => {
-    if (currentPageAlias === 'rfls') {
-        return presidiumRfls
-    } else {
-        return <>
-            <ol className="menu-component-new__wrap-list">
-                {presidium[currentPageAlias].members.map((member, i) =>
-                    <li className="menu-component__wrap-item" key={i}>{member}</li>
-                )}
-            </ol>
-        </>
-    }
-};
 
-const MenuComponentNew = ({isDocsPage}) => {
+const MenuComponentNew = () => {
     const [showModal, setShowModal] = useState(false);
     const [exhibAlias, setExhibAlias] = useState(null);
-
-    const [linkForName, setLinkForName] = useState('');
-    const [name, setName] = useState(null);
-    const [headliner, setHeadliner] = useState('');
-    const [logoLink, setLogoLink] = useState('');
     const [alert, setAlert] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isUserPages, setIsUserPages] = useState(true);
@@ -341,6 +325,21 @@ const MenuComponentNew = ({isDocsPage}) => {
         (userType === 4) && setCurrentPageNav(kennelNavDocs(userAlias));
     };
 
+    const showPresidium = (currentPageAlias) => {
+        if (currentPageAlias === 'rfls') {
+            return presidiumRfls
+        } else {
+            return <>
+                <ol className="menu-component-new__wrap-list">
+                    {presidium[currentPageAlias].members.map((member, i) =>
+                        <li className="menu-component__wrap-item" key={i}>{member}</li>
+                    )}
+                </ol>
+            </>
+        }
+
+    };
+
     const checkIsProfilePage = (exhibAlias) => {
         //проверяем страницы на котрых будем показывать то или иное меню
         if(exhibAlias) { //проверка на страницу определенного события (exhibition), где мы должны подтягивать меню клуба или фед, которые проводят это событик
@@ -429,70 +428,6 @@ const MenuComponentNew = ({isDocsPage}) => {
         setLoading(false);
     };
 
-    const getMeLinkForName = () => {
-        switch(currentPageUserInfo?.user_type || userType) {
-            case 5:
-                setLinkForName(`/${currentPageUserInfo?.club_alias}`);
-                break;
-            case 4:
-                setLinkForName(`/kennel/${currentPageUserInfo?.alias}`);
-                break;
-            case 3:
-                if(currentPageUserInfo?.club_alias === "rkf") {
-                    setLinkForName("/rkf")
-                } else {
-                    setLinkForName(`/club/${currentPageUserInfo?.club_alias}`);
-                }
-                break;
-            case 1:
-                setLinkForName(`/user/${currentPageUserInfo?.alias}`);
-                break;
-            default:
-                break;
-        }
-    };
-
-    const getMeName = () => {
-        switch(currentPageUserInfo?.user_type || userType) {
-            case 1:
-                setName(`${currentPageUserInfo?.personal_information.first_name} ${currentPageUserInfo?.personal_information.last_name}`);
-                break;
-            case 4:
-                setName(`${currentPageUserInfo?.name}`);
-                break;
-            case 3:
-                if(currentPageUserInfo?.club_alias === "rkf") {
-                    setName(`${currentPageUserInfo?.federation_name}`);
-                } else {
-                    setName(`${currentPageUserInfo?.short_name}`);
-                }
-                break;
-            case 5:
-                setName(`${currentPageUserInfo?.federation_name}`);
-                break;
-            default:
-                break;
-        }
-    };
-
-    const getMeHeadliner = () => {
-        if (currentPageUserInfo?.headliner_link) {
-            setHeadliner(currentPageUserInfo.headliner_link);
-        } else if(currentPageUserInfo?.club_alias === "rkf") {
-            setHeadliner("/static/images/slider/1.jpg");
-        } else {
-            setHeadliner("/static/images/noimg/no-banner.png");
-        }
-    };
-
-    const getMeLogoLink = () => {
-        if(currentPageUserInfo?.logo_link) {
-            setLogoLink(currentPageUserInfo.logo_link);
-        } else {
-            setLogoLink(null);
-        }
-    };
-
     const getNotifications = async () => {
         await Request({
             url: `/api/article/notifications`,
@@ -501,18 +436,6 @@ const MenuComponentNew = ({isDocsPage}) => {
         }, error => {
             console.log(error);
         });
-    };
-
-    const clickOnDisabledLink = e => {
-        e.preventDefault();
-        setOpenUserMenu(false);
-        setAlert(true);
-    };
-
-    const clickOnPresidium = (e) => {
-        e.preventDefault();
-        setOpenUserMenu(false);
-        setShowModal('presidium');
     };
 
     const getExhibition = async(exhibitionId) => { //подтягиваем инфу о клубе или федерации, которые проводят выставку, если мы находимся на странице выставки
@@ -594,13 +517,6 @@ const MenuComponentNew = ({isDocsPage}) => {
     }, [linkFeesId, linkFedDetails, currentPageUserInfo]);
 
     useEffect(() => {
-        getMeLogoLink();
-        getMeHeadliner();
-        getMeName();
-        getMeLinkForName();
-    }, [currentPageUserInfo]);
-
-    useEffect(() => {
         if(location.pathname.includes('exhibitions/')) {
             const exhibitionId = location.pathname.split('/')[2]
             getExhibition(exhibitionId);
@@ -634,112 +550,35 @@ const MenuComponentNew = ({isDocsPage}) => {
                             bottomStyle
                         >
                             <div className="menu-component-new__inner">
-                                <div className="menu-component-new__bg-wrap">
-                                    <img src={headliner} alt="menu-background" />
-                                    <div className="menu-component-new__userpic">
-                                        {
-                                            logoLink
-                                                ?
-                                                <img src={logoLink} alt="menu-logo" />
-                                                :
-                                                (currentPageUserInfo?.user_type === 3 || userType === 3)
-                                                    ?
-                                                    <img src={'/static/icons/default/club-avatar.svg'} />
-                                                    :
-                                                    <InitialsAvatar card="mobile-user-menu" name={`${name}`} />
-                                        }
-                                    </div>
-                                </div>
-                                <div className="menu-component-new__alias-name">
-                                    <a href={linkForName}>
-                                    {name}
-                                </a>
-                                </div>
+                                <HeaderMobileMenu
+                                    currentPageUserInfo={currentPageUserInfo}
+                                    userType={userType}
+                                />
                                 <ul className="menu-component-new__list">
-                                    {
-                                        currentPageNav?.map(navItem => <li
-                                            className={`menu-component-new__item${(navItem.title === 'Уведомления' && (!isUserProfilePage || !isAuth)) ? ' _hidden' : ''}`}
-                                            key={navItem.id}>
-                                            {navItem.title === 'Уведомления' &&
-                                                notificationCounter !== 0 &&
-                                                notificationCounter &&
-                                                <span
-                                                    className={`menu-component-new__item-notification${notificationCounter > 99 ? ' _plus' : ''}`}
-                                                >
-                                                { notificationCounter > 99 ? 99 : notificationCounter }
-                                            </span>
-                                            }
-                                            {
-                                                navItem.onClick
-                                                    ?
-                                                    <NavLink
-                                                        to={navItem.to}
-                                                        exact={navItem.exact}
-                                                        className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                        onClick={e => clickOnPresidium(e, currentPageUserInfo?.club_alias)}
-                                                    >
-                                                        {navItem.icon}
-                                                        <span>{navItem.title}</span>
-                                                    </NavLink>
-                                                    :
-                                                    <NavLink
-                                                        to={navItem.to}
-                                                        exact={navItem.exact}
-                                                        className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
-                                                        onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
-                                                    >
-                                                        {navItem.icon}
-                                                        <span>{navItem.title}</span>
-                                                    </NavLink>
-                                            }
-                                        </li>)
-                                    }
+                                    <Menu
+                                        currentPageNav={currentPageNav}
+                                        notificationCounter={notificationCounter}
+                                        setShowModal={setShowModal}
+                                        showModal={showModal}
+                                        setOpenUserMenu={setOpenUserMenu}
+                                        setAlert={setAlert}
+                                        currentPageUserInfo={currentPageUserInfo}
+                                        isMobile
+                                    />
                                 </ul>
                             </div>
-
                         </PopupModal>
                     </>
                 :
-                    <Card>
-                        <ul className="menu-component-new__list">
-                            {
-                                currentPageNav?.map(navItem => <li
-                                    className={`menu-component-new__item${(navItem.title === 'Уведомления' && !isUserProfilePage) ? ' _hidden' : ''}`}
-                                    key={navItem.id}>
-                                    {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter && //по какой то причине не работают, проверить
-                                        <span
-                                            className={`menu-component-new__notifications${notificationCounter > 99 ? ' _plus' : ''}`}>
-                                    {notificationCounter > 99 ? 99 : notificationCounter}
-                                </span>
-                                    }
-                                    {
-                                        navItem.onClick
-                                            ?
-                                            <NavLink
-                                                to={navItem.to}
-                                                exact={navItem.exact}
-                                                onClick={e => navItem.onClick(e, setShowModal)}
-                                                className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
-                                            >
-                                                {navItem.icon}
-                                                <span>{navItem.title}123</span>
-                                            </NavLink>
-                                            :
-                                            <NavLink
-                                                to={navItem.to}
-                                                exact={navItem.exact}
-                                                className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
-                                            >
-                                                {navItem.icon}
-                                                <span>{navItem.title}1234</span>
-                                            </NavLink>
-                                    }
-                                </li>)
-                            }
-                        </ul>
-                    </Card>
-
-
+                <Menu
+                    currentPageNav={currentPageNav}
+                    notificationCounter={notificationCounter}
+                    setShowModal={setShowModal}
+                    showModal={showModal}
+                    setOpenUserMenu={setOpenUserMenu}
+                    setAlert={setAlert}
+                    currentPageUserInfo={currentPageUserInfo}
+                />
             }
             {showModal &&
                 <Modal
