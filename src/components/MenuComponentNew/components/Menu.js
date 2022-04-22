@@ -4,9 +4,13 @@ import Card from "../../Card";
 import {presidium, presidiumRfls} from "../config";
 import Modal from "../../Modal";
 import {blockContent} from "../../../utils/blockContent";
+import Alert from "../../Alert";
+import {Request} from "../../../utils/request";
 
-export const Menu = ({currentPageNav, notificationCounter, setOpenUserMenu, setAlert, currentPageUserInfo, isMobile, openUserMenu}) => {
+export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMobile, openUserMenu}) => {
     const [showModal, setShowModal] = useState(false);
+    const [alert, setAlert] = useState(false);
+    const [notificationCounter, setNotificationCounter] = useState(null);
 
     const clickOnDisabledLink = e => {
         e.preventDefault();
@@ -34,6 +38,16 @@ export const Menu = ({currentPageNav, notificationCounter, setOpenUserMenu, setA
         }
     };
 
+    const getNotifications = async () => {
+        await Request({
+            url: `/api/article/notifications`,
+        }, (data) => {
+            setNotificationCounter(data?.counters?.counter_of_new);
+        }, error => {
+            console.log(error);
+        });
+    };
+
     useEffect(() => {
         if (openUserMenu || showModal) {
             blockContent(true)
@@ -41,6 +55,10 @@ export const Menu = ({currentPageNav, notificationCounter, setOpenUserMenu, setA
             blockContent(false)
         }
     }, [openUserMenu, showModal]);
+
+    useEffect(() => {
+        getNotifications()
+    }, []);
 
     return (
         <>
@@ -87,7 +105,7 @@ export const Menu = ({currentPageNav, notificationCounter, setOpenUserMenu, setA
                         <ul className="menu-component-new__list">
                             {
                                 currentPageNav?.map(navItem => <li
-                                    className={`menu-component-new__item${(navItem.title === 'Уведомления') ? ' _hidden' : ''}`}
+                                    className="menu-component-new__item"
                                     key={navItem.id}>
                                     {navItem.title === 'Уведомления' && notificationCounter !== 0 && notificationCounter &&
                                         <span
@@ -112,6 +130,7 @@ export const Menu = ({currentPageNav, notificationCounter, setOpenUserMenu, setA
                                                 to={navItem.to}
                                                 exact={navItem.exact}
                                                 className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                                             >
                                                 {navItem.icon}
                                                 <span>{navItem.title}1234</span>
@@ -134,6 +153,12 @@ export const Menu = ({currentPageNav, notificationCounter, setOpenUserMenu, setA
                     </div>
                 </Modal>
             }
+            {alert && <Alert
+                title="Внимание!"
+                text="Раздел находится в разработке."
+                autoclose={1.5}
+                onOk={() => setAlert(false)}
+            />}
         </>
     );
 };
