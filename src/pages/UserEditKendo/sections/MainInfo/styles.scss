@@ -49,15 +49,24 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 20px;
-        @media (max-width: 600px) {
-            flex-direction: column;
-        }
     }
     &__box {
         display: flex;
         align-items: center;
         div {
             padding: 0 5px;
+        }
+    }
+    &__name {
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &-wrap {
+            min-width: 0;
+
+            .flex-column {
+                overflow: hidden;
+            }
         }
     }
 }
