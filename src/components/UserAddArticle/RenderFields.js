@@ -79,7 +79,6 @@ const RenderFields = ({ fields,
 
         if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
-            setContent(content);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
             setLoadFile(true);
@@ -92,7 +91,7 @@ const RenderFields = ({ fields,
         acceptType(file).then(descision => {
             if (!descision) {
                 window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
-                formik.setFieldValue('', '');
+                formik.setFieldValue('file', '');
             }
         });
     };
@@ -115,7 +114,6 @@ const RenderFields = ({ fields,
 
     const handleClose = () => {
         formik.setFieldValue('file', '');
-        setContent('');
         setSrc('');
         setLoadFile(false);
     };
