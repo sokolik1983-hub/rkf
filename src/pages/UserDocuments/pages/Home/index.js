@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import {Route, Switch, useLocation} from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import ls from "local-storage";
 import Loading from "../../../../components/Loading";
@@ -33,6 +33,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
+    const location = useLocation();
     const isMobile = useIsMobile(1080);
 
     useEffect(() => {
@@ -60,13 +61,11 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
 
     return (
         <div className="user-documents">
-
-
             {loading ?
                 <Loading /> :
 
                 <Container className="user-documents__content">
-                    {history.location.pathname === `/user/${ls.get('user_info').alias}/documents` &&
+                    {location.pathname.indexOf(`/user/${ls.get('user_info').alias}/documents`) !== -1 &&
                         <aside className="user-documents__left">
                         <StickyBox offsetTop={60}>
                             <Card>
