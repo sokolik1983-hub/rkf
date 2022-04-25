@@ -209,8 +209,8 @@
     &-logo {
       display: flex;
       flex-shrink: 0;
-      width: 100px;
-      height: 100px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       margin: 0 10px 0 0;
     }
@@ -277,6 +277,10 @@
         }
       }
     }
+
+    a {
+      text-decoration: none;
+    }
   }
 
   &__right {
@@ -333,7 +337,7 @@
   }
 
   &__text-wrap {
-    max-height: 130px;
+    max-height: 100px;
     margin: 5px 10px 0;
     overflow: hidden;
 
@@ -355,9 +359,8 @@
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
-    line-height: 16px;
+    line-height: 20px;
     color: #72839c;
-    white-space: pre-wrap;
     word-wrap: break-word;
     transition: height 0.2s linear;
     margin-bottom: 0 !important;
@@ -383,7 +386,6 @@
     word-wrap: break-word;
     transition: height 0.2s linear;
 
-    &-breed,
     &-price {
       margin-bottom: 10px !important;
       display: flex;
@@ -393,10 +395,12 @@
 
     &-breed {
       margin: 15px 0!important;
+      & span:first-child {
+        color: #B9B9B9;
+      }
     }
 
     &-breed {
-
       span:first-child {
         white-space: nowrap;
         overflow: hidden;
@@ -410,14 +414,24 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      & p span:first-child {
+        color: #B9B9B9;
+      }
     }
 
     &-inactive {
       color: red;
     }
 
-    &-city, &-age, &-sex, &-name, &-color {
+    &-city,
+    &-age,
+    &-sex,
+    &-name,
+    &-color {
       margin-bottom: 10px;
+      & span:first-child {
+        color: #B9B9B9;
+      }
     }
   }
 
@@ -581,7 +595,7 @@
     margin: 0 10px;
   }
 
-  .DocumentItem {
+  .document-item {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -616,17 +630,6 @@
 
       svg {
         fill: red !important;
-      }
-    }
-
-    .k-svg-i-file-pdf {
-      width: 22px;
-      height: 22px;
-      margin-right: 10px;
-      flex-shrink: 0;
-
-      svg {
-        fill: #3366ff !important;
       }
     }
 
@@ -675,6 +678,10 @@
     &-value {
       width: fit-content;
       font-weight: 600;
+    }
+
+    &-name {
+      color: #B9B9B9;
     }
   }
 }

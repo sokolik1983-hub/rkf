@@ -32,6 +32,7 @@
   }
 
   &__container {
+    padding-left: 15px;
     @media (max-width: 580px) {
       width: 70%
     }
@@ -73,10 +74,10 @@
     width: 110px;
     height: 110px;
     border-radius: 50%;
-    margin: 0 10px 0 0;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    overflow: hidden;
 
     @media (max-width: 700px) {
       width: 52px;
@@ -156,7 +157,7 @@
       position: absolute;
       width: 17px;
       height: 17px;
-      left: -4px;
+      left: -3px;
       top: 1px;
       background: url("/static/icons/ico-pointer2.svg") center no-repeat;
       background-size: contain;
@@ -256,6 +257,29 @@
           margin-left: -63px;
           margin-top: -15px;
         }
+      }
+    }
+  }
+  &.nkp-layout {
+    & .nkp-card {
+      min-height: 110px;
+      min-width: 110px;
+      max-height: 110px;
+      max-width: 110px;
+      @media (max-width: 600px) {
+        min-height: 52px;
+        min-width: 52px;
+        max-height: 52px;
+        max-width: 52px;
+      }
+    }
+    @media (max-width: 600px) {
+      & .card-organization__special-position_left__fed {
+        margin-top: 0;
+        margin-left: 0;
+      }
+      & .card-organization__heading {
+        height: auto;
       }
     }
   }

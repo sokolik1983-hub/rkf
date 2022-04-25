@@ -55,23 +55,24 @@
       }
 
       &__logo-wrap {
-        padding: 10px 10px 5px;
-        max-height: 500px;
-        overflow: hidden;
         position: relative;
+        max-height: 500px;
+        padding: 10px 10px 5px;
+        overflow: hidden;
+        z-index: 1;
         @media (max-width: 1080px) {
           padding-bottom: 0;
           border-bottom: none;
           margin-right: 10px;
+          & .avatar__wrap {
+            width: 100px;
+            height: 100px;
+          }
         }
 
         &.empty {
           @media (min-width: 1080px) {
             height: 291px;
-            .user-info__logo {
-              max-height: 190px;
-              margin: 45px 0 0;
-            }
           }
         }
       }
@@ -213,7 +214,7 @@
       width: 100%;
       min-height: 22px;
       height: auto;
-
+      margin-bottom: 14px;
       .Share {
         align-self: center;
       }
@@ -232,20 +233,6 @@
 
     &__logo {
       width: 100%;
-      min-width: 162px;
-      height: 158px;
-      margin: auto;
-      background-repeat: no-repeat;
-      background-position: 50%;
-      background-size: contain;
-      border-radius: 0;
-      @media (max-width: 990px) {
-        width: 120px;
-        min-width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background-size: cover;
-      }
     }
 
     &__wrap {
@@ -326,7 +313,7 @@
       text-decoration: none;
       font-weight: normal;
       font-size: 16px;
-      line-height: 24px;
+      line-height: 20px;
       letter-spacing: 0.2px;
       color: #72839c;
       transition: color 0.2s linear;

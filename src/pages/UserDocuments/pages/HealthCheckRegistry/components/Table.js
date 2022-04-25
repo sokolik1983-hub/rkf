@@ -280,14 +280,14 @@ const Table = ({ documents, fullScreen, exporting, setExporting, distinction, se
                             style={{ height: "700px", width: "auto", margin: '0 auto' }}>
                             <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции" cell={props => OptionsCell(props, setErrorReport, setNeedUpdateTable)} />
                             <GridColumn field="status_value" cell={StatusCell} title="Статус" width={fullScreen ? '62px' : '61px'} />
-                            <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} />
-                            <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} />
-                            <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '100px'} columnMenu={ColumnMenu} />
-                            <GridColumn field="pedigree_number" title="Номер родословной" width={fullScreen ? '130px' : '60px'} columnMenu={ColumnMenu} />
-                            <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '97px'} columnMenu={ColumnMenu} />
+                            <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                            <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                            <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '235px'} columnMenu={ColumnMenu} />
+                            <GridColumn field="pedigree_number" title="Номер родословной" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
+                            <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '169px'} columnMenu={ColumnMenu} />
                             <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
-                            <GridColumn field="certificate_document_id" title="Сертификат" width={fullScreen ? '100px' : '80px'} columnMenu={ColumnMenu} cell={props => LinkCell(props)} />
-                            <GridColumn field="date_archive" width={fullScreen ? '130px' : '98px'} title="Архивировано" columnMenu={ColumnMenu} cell={props => ArchiveCell(props)} />
+                            <GridColumn field="certificate_document_id" title="Сертификат" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} cell={props => LinkCell(props)} />
+                            <GridColumn field="date_archive" width={fullScreen ? '130px' : '110px'} title="Архивировано" columnMenu={ColumnMenu} cell={props => ArchiveCell(props)} />
                         </Grid></>}
                     <GridPDFExport
                         fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}

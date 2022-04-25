@@ -26,16 +26,17 @@
   .FormInput__input {
     box-sizing: border-box;
     letter-spacing: .2px;
-    font-family: 'Futura New', Helvetica, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     padding: 12px 14px;
     font-size: 16px;
     line-height: 24px;
-    font-weight: 200;
+    font-weight: 400;
     border-radius: 6px;
     border-style: solid;
     border-width: 1px;
     border-color: #EBF0F2;
     background-color: white;
+    color: #72839C;
     &:hover {
       border-color: #b3b3b3;
     }

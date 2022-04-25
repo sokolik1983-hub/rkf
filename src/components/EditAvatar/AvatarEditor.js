@@ -1,4 +1,5 @@
 import React, {memo, useRef, useState} from 'react';
+import {useSelector} from "react-redux";
 import Dropzone from 'react-dropzone';
 import AvatarEditor from 'react-avatar-editor';
 import { Slider } from '@material-ui/core';
@@ -7,6 +8,7 @@ import LightTooltip from '../LightTooltip';
 import { Request } from '../../utils/request';
 import Alert from '../Alert';
 import ls from 'local-storage';
+import InitialsAvatar from "../InitialsAvatar";
 
 import './index.scss';
 
@@ -17,7 +19,9 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     const [rotate, setRotate] = useState(0);
     const [editorErrors, setEditorErrors] = useState([]);
     const editor = useRef(null);
-    const UPLOAD_AVATAR = `/static/icons/default/user-avatar-upload.svg`;
+    const reduxUserType = useSelector(state => state.authentication.user_info.user_type);
+    const reduxUserName = useSelector(state => state.authentication.user_info.name);
+    const UPLOAD_AVATAR = `/static/icons/default/club-avatar-new.png`;
     const currentLink = pageBanner ? '/api/headerpicture/full_v3' : '/api/avatar/full_v3';
 
     const handleSubmit = () => {
@@ -72,8 +76,17 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 borderRadius={pageBanner ? 0 : 166}
                                 image={image}
                                 className="avatar-editor__canvas"
-                                style={image ? {} : { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
+                                style={(image && reduxUserType !== 1 && reduxUserType !== 4) ?
+                                    {} :
+                                    { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
                             />
+                            {
+                                !image && (reduxUserType === 1 || reduxUserType === 4) &&
+                                <InitialsAvatar
+                                    card="editor"
+                                    name={reduxUserType === 4 ? reduxUserName : null}
+                                />
+                            }
                             <div className="avatar-editor__add-file">
                                 <label htmlFor="avatar" className="avatar-editor__add-label">
                                     <LightTooltip title="Добавить файл">

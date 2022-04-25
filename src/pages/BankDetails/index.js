@@ -74,6 +74,7 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                         name={name ? name : ``}
                         canEdit={false}
                         withShare={false}
+                        userType={user_type}
                         bank_details
                     />}
 
@@ -82,11 +83,12 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                             <UserInfo
                                 canEdit={canEdit}
                                 logo_link={userInfo.logo_link}
-                                share_link={`https://rkf.online/user/${alias}`}
+                                share_link={`${window.location.host}/user/${alias}`}
                                 first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
                                 last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
                                 alias={alias}
                                 updateInfo={getUserInfo}
+                                judgeInfo={userInfo.open_roles}
                             />
                         </Card>}
                         <div className={`base-search__content ${user_type === 1 ? `_user_page` : ``}`}>
@@ -129,12 +131,12 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                                                 <UserInfo
                                                     canEdit={canEdit}
                                                     logo_link={userInfo.logo_link}
-                                                    share_link={`https://rkf.online/user/${alias}`}
+                                                    share_link={`${window.location.host}/user/${alias}`}
                                                     first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
                                                     last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
                                                     alias={alias}
                                                     updateInfo={getUserInfo}
-                                                />
+                                                    judgeInfo={userInfo.open_roles}                                                />
                                             </Card>}
                                             {!isMobile && <UserMenu
                                                 userNav={userNav(alias)}

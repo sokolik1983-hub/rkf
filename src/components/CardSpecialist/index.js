@@ -7,9 +7,9 @@ import LightTooltip from '../../components/LightTooltip';
 import Card from '../Card';
 import CardFooter from '../CardFooter';
 import {judgeIcon} from "../Layouts/UserLayout/config";
+import InitialsAvatar from "../InitialsAvatar";
 
 import './index.scss';
-
 
 const CardSpecialist = ({
                             id,
@@ -60,13 +60,23 @@ const CardSpecialist = ({
         }))();
     };
 
-
     return (
         <Card className="card-specialists">
             <div className="card-specialists__wrap">
                 <div className="card-specialists__part card-specialists__part_top">
-                    <span className="card-specialists__photo" to={picture_link} style={{ backgroundImage: `url(${picture_link || DEFAULT_IMG.userAvatar})` }} />
-
+                    {picture_link
+                            ?
+                            <span
+                                className="card-specialists__photo"
+                                to={picture_link}
+                                style={{ backgroundImage: `url(${picture_link})` }}
+                            />
+                            :
+                            <InitialsAvatar
+                                name={`${first_name} ${last_name}`}
+                                card="specialist-card" id={id}
+                            />
+                    }
                     <div className="card-specialists__inner">
                         <div className="card-specialists__info">
 
@@ -356,7 +366,7 @@ const CardSpecialist = ({
             <div className={`card-specialists__controls`}>
                 <CardFooter
                     id={id}
-                    share_link={window.location.host === 'rkf.online' ? `https://rkf.online/specialists?&SearchTypeId=${searchTypeId}#${id}` : `https://stage.uep24.ru/specialists?&SearchTypeId=${searchTypeId}#${id}`}
+                    share_link={owner_alias ? `${window.location.host}/user/${owner_alias}` : document.location.href}
                     is_liked={is_liked}
                     like_count={like_count}
                     likesOn={true}

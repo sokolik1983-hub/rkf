@@ -1,4 +1,6 @@
 import { object, string, number, array, boolean } from 'yup';
+import { DEFAULT_PHONE_INPUT_MASK } from "../../appConfig"
+
 
 const emptyFieldMsg = 'Поле не может быть пустым';
 const lat = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей' })
@@ -172,7 +174,15 @@ export const editForm = {
             label: "Скрыть личную информацию",
             fieldType: "customCheckbox"
         },
-        contacts: [],
+        contacts: {
+            phone: {
+                mask: DEFAULT_PHONE_INPUT_MASK,
+                label: 'phone',
+                type: 'tel',
+                placeholder: '+7(___)___-__-__',
+                title: 'Формат номера: +7(999)999-99-99',
+            },
+        },
         documents: [],
         socials: [],
         work_time: []
@@ -207,8 +217,7 @@ export const editForm = {
             value: string().when(['contact_type_id'], {
                 is: 1,
                 then: string()
-                    .max(16, 'Формат номера: +7(999)999-99-99')
-                    .matches(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/, 'Формат номера: +7(999)999-99-99')
+                    .min(16, 'Формат номера: +7(999)999-99-99')
                     .required('Введите номер телефона'),
                 otherwise: string()
                     .email('Неверный формат электронного адреса')

@@ -1,0 +1,112 @@
+.avatar {
+  &__name-wrap {
+    display: flex;
+  }
+  &__initials {
+    font-family: Source Sans Pro, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    @media (max-width: 600px) {
+      font-size: 25px;
+    }
+  }
+  &__wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    color: #72839C;
+    &.specialist-card {
+      min-height: 130px;
+      min-width: 130px;
+      max-height: 130px;
+      max-width: 130px;
+      margin-right: 15px;
+      span {
+        font-size: 45px;
+        line-height: 57px;
+        letter-spacing: 3px;
+      }
+    }
+    &.widget-login {
+      span {
+        font-size: 30px;
+        line-height: 45px;
+      }
+      @media (max-width: 1080px) {
+        width: 100%;
+        height: 100%;
+        margin-top: 0;
+        span {
+          font-size: 19px;
+          line-height: 25px;
+        }
+      }
+    }
+    &.user-icon {
+      span {
+        margin-top: 0;
+        font-size: 10px;
+      }
+      span:first-child {
+        padding-right: 0px;
+      }
+    }
+    &.mobile-user-menu {
+      width: 100%;
+      height: 100%;
+    }
+    &.cardnewsnew {
+      margin-right: 0;
+      span {
+        font-size: 25px;
+      }
+    }
+    &.article {
+      width: 40px;
+      height:40px;
+      align-self: flex-start;
+      span {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+    &.editor {
+      position: absolute;
+      width: 332px;
+      height: 332px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      & .avatar__initials {
+        font-size: 85px;
+      }
+    }
+    &.profile {
+      & .avatar__initials {
+        font-size: 85px;
+      }
+      @media (max-width: 1080px) {
+        width: 90px;
+        height: 90px;
+        & .avatar__initials {
+          font-size: 25px;
+        }
+      }
+    }
+    &.nursery-edit-avatar {
+      height: 291px;
+      margin: 0 auto;
+      .avatar__initials {
+        font-size: 85px;
+      }
+    }
+    &.nursery-docs {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+    }
+  }
+}

@@ -14,13 +14,13 @@ import AddVideoLink from "./AddVideoLink";
 import AttachFile from "./AttachFile";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
-import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
+import { BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
-
+import InitialsAvatar from "../InitialsAvatar";
 
 const RenderFields = ({ fields,
                           logo,
@@ -53,7 +53,10 @@ const RenderFields = ({ fields,
                           setIsTypeId,
                           isTypeId,
                           isAllCities,
-                          setIsAllCities
+                          setIsAllCities,
+                          name,
+                          userType,
+                          setContent,
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -61,7 +64,6 @@ const RenderFields = ({ fields,
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
-
 
     const { content, file } = formik.values;
 
@@ -194,11 +196,21 @@ const RenderFields = ({ fields,
         isAllCities && formik.setFieldValue('dog_city', []);
     }, [isAllCities]);
 
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="article-create-form__wrap article-create-form__textarea-wrap">
-                    <ClientAvatar size={40} avatar={logo || DEFAULT_IMG.clubAvatar} />
+                    {logo && logo !== "/static/icons/default/default_avatar.svg"
+                        ?
+                        <ClientAvatar size={40} avatar={logo} />
+                        :
+                        (userType === 4 || userType === 1)
+                            ?
+                            <InitialsAvatar card="article" name={name}/>
+                            :
+                            <ClientAvatar size={40} avatar={"/static/icons/default/club-avatar-new.png"} />
+                    }
                         <FormField
                             {...fields.content}
                             onChange={handleKeyDown}
@@ -253,6 +265,8 @@ const RenderFields = ({ fields,
                                 className="article-create-form__ad"
                                 checked={isAd}
                                 onChange={() => {
+                                    setContent(content);
+
                                     if (isAd) {
                                         setIsAd(false);
                                         setIsMust(false);
@@ -274,6 +288,8 @@ const RenderFields = ({ fields,
                                     className="article-create-form__ad"
                                     checked={isCheckedAddTypes}
                                     onChange={() => {
+                                        setContent(content);
+
                                         if (isCheckedAddTypes) {
                                             setIsCheckedAddTypes(false);
                                             setIsMust(false);
@@ -338,8 +354,8 @@ const RenderFields = ({ fields,
                         <FormField className="article-create-form__input-sex_new" {...fields.dog_sex_type_id} />
                         <FormField className="article-create-form__input-color_new" {...fields.dog_color} />
                         <FormField className="article-create-form__input-age_new" {...fields.dog_age} />
-                        <CustomNumber cName={' article-create-form__input-cost_new'} {...fields.advert_cost} maxLength={10}  />
-                        {!isMating && <CustomNumber cName={' article-create-form__input-puppies_new'} {...fields.advert_number_of_puppies} />}
+                        <CustomNumber cName=" article-create-form__input-cost_new" {...fields.advert_cost} maxLength={10}  />
+                        {!isMating && <CustomNumber cName=" article-create-form__input-puppies_new" {...fields.advert_number_of_puppies} />}
                     </FormGroup>
                 </div>
             }

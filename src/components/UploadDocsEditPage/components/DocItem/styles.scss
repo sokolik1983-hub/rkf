@@ -1,5 +1,5 @@
 .main-info {
-  $font-family: "Source Sans Pro", Helvetica, sans-serif;
+  $font-family: "Source Sans Pro", sans-serif;
   @import "../../../../../node_modules/@progress/kendo-theme-bootstrap/dist/all";
   @import "../../../../../node_modules/bootstrap/scss/bootstrap";
   &__private-docs-wrap {
@@ -15,6 +15,19 @@
       font-size: 12px;
       line-height: 15px;
       color: #b9b9b9;
+    }
+    
+    &__name {
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      &-wrap {
+        min-width: 0;
+
+        .flex-column {
+          overflow: hidden;
+        }
+      }
     }
     &__link {
       display: block;
@@ -75,9 +88,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      @media (max-width: 600px) {
-        flex-direction: column;
-      }
       div {
         padding: 0 5px;
       }

@@ -38,7 +38,7 @@
             justify-content: space-between;
             min-height: 22px;
             height: auto;
-
+            margin-bottom: 14px;
             .Share {
                 align-self: center;
             }
@@ -57,20 +57,7 @@
 
         &__logo {
             width: 100%;
-            min-width: 162px;
-            height: 158px;
-            margin: auto;
-            background-repeat: no-repeat;
-            background-position: 50%;
-            background-size: contain;
-            border-radius: 0;
-            @media (max-width: 990px) {
-                width: 120px;
-                min-width: 120px;
-                height: 120px;
-                border-radius: 50%;
-                background-size: cover;
-            }
+            text-align: center;
         }
 
         &__wrap {
@@ -141,11 +128,10 @@
         &__federation {
             display: block;
             margin-bottom: 0 !important;
-            padding-top: 10px;
             text-decoration: none;
             font-weight: normal;
             font-size: 16px;
-            line-height: 24px;
+            line-height: 20px;
             letter-spacing: 0.2px;
             color: #72839c;
             transition: color 0.2s linear;
@@ -225,5 +211,17 @@
         display: flex;
         margin-left: 5px;
         align-items: center;
+    }
+}
+.user-header {
+    &__logo {
+        text-align: center;
+        & img {
+            width: 100%;
+        }
+    }
+
+    .widget-login__button {
+        margin-top: 20px;
     }
 }

@@ -205,7 +205,7 @@ const KennelRegistration = () => {
                         setAlertText('');
                         setAlert(false);
                         if (isCodeFormSend) {
-                            history.push('/login');
+                            history.push('/auth/login');
                         }
                     }}
                 />

@@ -14,7 +14,9 @@ import {DEFAULT_IMG} from "../../../../appConfig";
 import history from "../../../../utils/history";
 import {Request} from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
-
+import InitialsAvatar from "../../../InitialsAvatar";
+import { blockContent } from "../../../../utils/blockContent";
+import {getInitials} from "../../../../utils/getInitials";
 
 const WidgetLogin = forwardRef(
     ({
@@ -48,6 +50,10 @@ const WidgetLogin = forwardRef(
         setOpen(desktop);
     }, [desktop]);
 
+    useEffect(() => {
+        blockContent(open);
+    }, [open])
+
     const handleChecked = () => {
         setDesktop(!desktop);
     };
@@ -66,7 +72,6 @@ const WidgetLogin = forwardRef(
         });
     };
 
-
     return (
         <div className={`widget-login class-for-grid-block3 ${login_page ? "active" : !isAuthenticated && "__no-auth"}`}>
             {isAuthenticated ?
@@ -76,19 +81,36 @@ const WidgetLogin = forwardRef(
                         ref={widgetLoginRef}
                         onClick={handleChecked}
                     >
-                        {isMobile1080 ?
+                        {isMobile1080
+                            ?
                             <div className={`widget-login__user-icon`}>
                                 {footerNav?.image}
-                                <span style={{color: open && '#3366FF'}}>
+                                <span>
                                     {footerNav?.title}
                                 </span>
-                            </div> :
-                            <div className={`widget-login__user-icon ${open && ' _active'}`}
-                                style={{backgroundImage: `url(${logo ? logo : user_type === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})`}}
-                            />
+                            </div>
+                            :
+                                logo
+                                ?
+                                <div className={`widget-login__user-icon ${open && ' _active'}`}
+                                     style={{backgroundImage: `url(${logo})`}}
+                                />
+                                :
+                                (user_type === 1 || user_type === 4)
+                                    ?
+                                    <div className={`widget-login__user-icon ${open && ' _active'}`}>
+                                        <InitialsAvatar
+                                            name={user_type === 1 ? getInitials(name) : name}
+                                            card="user-icon"
+                                        />
+                                    </div>
+                                    :
+                                    <div className={`widget-login__user-icon ${open && ' _active'}`}
+                                         style={{backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`}}
+                                    />
                         }
                         {!isMobile1080 &&
-                            <span style={{color: open && '#3366FF'}}>
+                            <span>
                                 Профиль
                             </span>
                         }
@@ -128,23 +150,30 @@ const WidgetLogin = forwardRef(
                                         />
                                     </div>
                                 </PopupModal> :
-                                <Content
-                                    open={open}
-                                    name={name}
-                                    logo={logo}
-                                    alias={alias}
-                                    setOpen={setOpen}
-                                    userType={user_type}
-                                    lastName={last_name}
-                                    firstName={first_name}
-                                    logOutUser={logOutUser}
-                                    accountType={account_type}
-                                    setShowModal={setShowModal}
-                                    isMobile1080={isMobile1080}
-                                    menuBackground={menuBackground}
-                                    loginUserSuccess={loginUserSuccess}
-                                    is_active_profile={is_active_profile}
-                                />
+                                <PopupModal
+                                    showModal={open}
+                                    handleClose={(event) => {
+                                        !widgetLoginRef.current.contains(event.target) && setOpen(false)
+                                    }}
+                                >
+                                    <Content
+                                        open={open}
+                                        name={name}
+                                        logo={logo}
+                                        alias={alias}
+                                        setOpen={setOpen}
+                                        userType={user_type}
+                                        lastName={last_name}
+                                        firstName={first_name}
+                                        logOutUser={logOutUser}
+                                        accountType={account_type}
+                                        setShowModal={setShowModal}
+                                        isMobile1080={isMobile1080}
+                                        menuBackground={menuBackground}
+                                        loginUserSuccess={loginUserSuccess}
+                                        is_active_profile={is_active_profile}
+                                    />
+                                </PopupModal>
                             }
                         </CSSTransition>
                     </OutsideClickHandler>

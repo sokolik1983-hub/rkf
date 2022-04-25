@@ -5,11 +5,24 @@ import { DEFAULT_IMG } from "../../appConfig";
 import Share from "components/Share";
 import UserActionControls from "components/UserActionControls";
 import "./index.scss";
+import InitialsAvatar from "../InitialsAvatar";
 
-const TopComponent = ({ logo, name, withShare = true, withSubscribe, isAuthenticated, canEdit, bank_details, banner_link, subscribed, subscribed_id, member, onSubscriptionUpdate }) => {
+const TopComponent = ({
+                          logo,
+                          name,
+                          withShare = true,
+                          withSubscribe,
+                          isAuthenticated,
+                          canEdit,
+                          bank_details,
+                          banner_link,
+                          subscribed,
+                          subscribed_id,
+                          member,
+                          onSubscriptionUpdate,
+                          userType
+}) => {
     const [shareAlert, setShareAlert] = useState(false);
-    // const { userAgent, clipboard } = navigator;
-    // const isSafari = userAgent.match(/safari|ipad|iphone/i) && !userAgent.match(/chrome/i);
 
     window.Clipboard = ((window, document) => { // Safari fix
         let textArea, copy;
@@ -43,13 +56,6 @@ const TopComponent = ({ logo, name, withShare = true, withSubscribe, isAuthentic
         return { copy: copy };
     })(window, document);
 
-    // const share = () => {
-    //     isSafari
-    //         ? window.Clipboard.copy(window.location.href)
-    //         : clipboard.writeText(window.location.href);
-    //     setShareAlert(true);
-    // };
-
     return (
         <Card className={`top-component ${bank_details ? `_bank_details` : ``}`}>
             {banner_link &&
@@ -57,7 +63,15 @@ const TopComponent = ({ logo, name, withShare = true, withSubscribe, isAuthentic
             }
             <div className="top-component__content">
                 <div className="top-component__info">
-                    <div style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }} className="top-component__logo" />
+                    {
+                        userType === 4 ?
+                            <InitialsAvatar name={name} card="nursery-docs"/> :
+                            <div
+                                style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }}
+                                className="top-component__logo"
+                            />
+                    }
+
                     <div className="top-component__title">
                         <h2>{name}</h2>
                     </div>

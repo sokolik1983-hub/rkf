@@ -27,7 +27,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [activeElem, setActiveElem] = useState(null);
     const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
-
+    const [content, setContent] = useState('');
 
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
@@ -55,7 +55,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_color: '',
         dog_sex_type_id: '',
         dog_age: '',
-        content: ''
+        content: content ? content : '',
+        file: '',
     }; //Initial Values для объявлений категории 1
     const initialValueCatTwo = {
         advert_breed_id: '',
@@ -67,14 +68,14 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_age: '',
         dog_name: '',
         dog_city: '',
-        content: ''
+        content: content ? content : '',
+        file: '',
     } //Initial Values для объявлений категории 2
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
 
     const transformValues = values => {
-
         if (isAd || isCheckedAddTypes) {
             return {
                 ...values,
@@ -109,6 +110,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         setActiveElem(null);
         setIsAd(false);
         setIsCheckedAddTypes(false);
+        setContent('');
         setBlured();
     };
 
@@ -172,6 +174,9 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     setIsTypeId={setIsTypeId}
                     isAllCities={isAllCities}
                     setIsAllCities={setIsAllCities}
+                    name={profileInfo?.name}
+                    userType={profileInfo?.user_type}
+                    setContent={setContent}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

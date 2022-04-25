@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import StickyBox from 'react-sticky-box';
 import Loading from '../../../../components/Loading';
-import UserHeader from '../../../../components/redesign/UserHeader';
 import BreedsFilter from '../../../../components/Filters/BreedsFilter';
 import RegionsFilter from '../../../../components/Filters/RegionsFilter';
 import RanksFilter from '../../../../components/Filters/RanksFilter';
@@ -12,7 +11,7 @@ import PaymentFormFilter from '../../../../components/Filters/PaymentFormFilter'
 import CalendarFilter from '../../../../components/Filters/CalendarFilter';
 import { connectShowFilters } from '../../../../components/Layouts/connectors';
 import { setFiltersToUrl, getEmptyFilters } from '../../utils';
-import { isFederationAlias, setOverflow } from '../../../../utils';
+import { setOverflow } from '../../../../utils';
 import Card from '../../../../components/Card';
 import {PromiseRequest, Request} from '../../../../utils/request';
 import {
@@ -21,37 +20,28 @@ import {
 } from '../../config';
 import RangeCalendarExhibitions from '../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js';
 import CopyrightInfo from '../../../../components/CopyrightInfo';
-import { clubNav } from '../../../Club/config';
-import UserMenu from '../../../../components/Layouts/UserMenu';
-import MenuComponent from '../../../../components/MenuComponent';
 import { connectAuthVisible } from 'pages/Login/connectors';
 import useIsMobile from '../../../../utils/useIsMobile';
-import PhotoComponent from '../../../../components/PhotoComponent';
 import ls from 'local-storage';
 
 import './index.scss';
-
-
+import {endpointGetKennelBreeds, endpointGetNKPBreeds} from "../../../Organizations/config";
 
 const Filters = ({
         club,
-        logo,
         filters,
         setClub,
         clubName,
         profileId,
-        IsPopular,
-        active_member,
         isOpenFilters,
         isEducational,
-        federationName,
-        active_rkf_user,
         isAuthenticated,
         federationAlias,
-        notificationsLength
 }) => {
     const [ranks, setRanks] = useState([]);
+    const [currentRanks, setCurrentRanks] = useState([]);
     const [types, setTypes] = useState([]);
+    const [currentTypes, setCurrentTypes] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [breeds, setBreeds] = useState([]);
     const [regionLabels, setRegionLabels] = useState([]);
@@ -153,6 +143,26 @@ const Filters = ({
         setFiltersToUrl({ CityIds: filter });
     };
 
+    const handleChangeType = async (filter) => {
+        setFiltersToUrl({ TypeIds: filter });
+        setCurrentTypes(filter);
+
+        const newFilterString = `${filter.map(item => `TypeIds=${item}`)}`.replace(/\,/g, '&');
+
+        await Request({
+            url: "api/exhibitions/Exhibition/filter?" + newFilterString
+        }, data => {
+            setRanks(data.ranks)
+        }, error => {
+            console.log(error.response);
+        });
+    };
+
+    const handleChangeRank = (filter) => {
+        setCurrentRanks(filter);
+        setFiltersToUrl({ RankIds: filter });
+    };
+
     useEffect(() => {
         if(federationAlias) {
             let url = `/api/Club/federation_base_info?alias=` + federationAlias;
@@ -162,6 +172,7 @@ const Filters = ({
             getFedInfo(url);
         }
     }, []);
+
     useEffect(() => {
         if(currentExhibRegions && currentExhibRegions.length > 0){
             (() => Request({
@@ -177,6 +188,24 @@ const Filters = ({
             goToLink(startCities, currentCityIds);
         }
     }, [currentExhibRegions]);
+
+    useEffect(() => {
+        if(currentTypes && !!currentTypes.length) {
+            const newArr = [];
+            ranks.map(item => item.value).forEach(item => {
+                currentRanks.forEach(elem => {
+                    if(item === elem) {
+                        newArr.push(item);
+                    }
+                })
+            });
+            setCurrentRanks(newArr);
+            setFiltersToUrl({ RankIds: newArr});
+        } else {
+            setCurrentRanks([]);
+            setFiltersToUrl({ RankIds: [] });
+        }
+    }, [currentTypes, ranks]);
 
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
@@ -245,7 +274,7 @@ const Filters = ({
                             <TypeFilter
                                 types={types}
                                 type_ids={filters.TypeIds}
-                                onChange={filter => setFiltersToUrl({ TypeIds: filter })}
+                                onChange={filter => handleChangeType(filter)}
                                 is_club_link={clubName && filters.Alias}
                             />
                             }
@@ -258,7 +287,7 @@ const Filters = ({
                                 : <RanksFilter
                                     ranks={ranks}
                                     rank_ids={filters.RankIds}
-                                    onChange={filter => setFiltersToUrl({ RankIds: filter })}
+                                    onChange={filter => handleChangeRank(filter)}
                                     is_club_link={clubName && filters.Alias}
                                 />}
                             <CopyrightInfo withSocials={true} />

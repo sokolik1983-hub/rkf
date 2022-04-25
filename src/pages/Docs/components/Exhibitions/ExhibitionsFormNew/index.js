@@ -1,30 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
-import { Form, Field, FieldArray, FormElement } from '@progress/kendo-react-form';
-import { Fade } from '@progress/kendo-react-animation';
-import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
-import Loading from '../../../../../components/Loading';
-import Card from '../../../../../components/Card';
-import AdditionalDocuments from './components/AdditionalDocuments';
-import FormContactsFieldArray from './components/FormContactsFieldArray';
-import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
-import FormDatePicker from '../../../../../components/kendo/Form/FormDatePicker';
-import FormDropDownList from '../../../../../components/kendo/Form/FormDropDownList';
-import FormMultiSelect from '../../../../../components/kendo/Form/FormMultiSelect';
-import FormTextArea from '../../../../../components/kendo/Form/FormTextArea';
-import { requiredValidator } from '../../../../../components/kendo/Form/validators';
-import { Request } from '../../../../../utils/request';
-import ruMessages from '../../../../../kendoMessages.json';
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+import moment from "moment";
+import {Field, FieldArray, Form, FormElement} from "@progress/kendo-react-form";
+import {Fade} from "@progress/kendo-react-animation";
+import {Notification, NotificationGroup} from "@progress/kendo-react-notification";
+import {IntlProvider, loadMessages, LocalizationProvider} from "@progress/kendo-react-intl";
+import AdditionalDocuments from "./components/AdditionalDocuments";
+import FormContactsFieldArray from "./components/FormContactsFieldArray";
+import Loading from "../../../../../components/Loading";
+import Card from "../../../../../components/Card";
+import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
+import FormMultiSelect from "../../../../../components/kendo/Form/FormMultiSelect";
+import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
+import {DateInput} from "../../../../../components/materialUI/DateTime";
+import {requiredValidator} from "../../../../../components/kendo/Form/validators";
+import FormComboBox from "../../../../UserEditKendo/components/FormComboBox";
 import {
-    phoneRequiredValidator,
-    phoneValidator,
     emailRequiredValidator,
-    emailValidator
-} from 'pages/UserEditKendo/validators';
+    emailValidator,
+    phoneRequiredValidator,
+    phoneValidator
+} from "../../../../UserEditKendo/validators";
+import {Request} from "../../../../../utils/request";
+import ruMessages from "../../../../../kendoMessages.json";
 
-import './index.scss';
+import "./index.scss";
+
 
 loadMessages(ruMessages, 'ru');
 
@@ -226,7 +227,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
         //групповые до 4-х включительно
 
         //получаю выбранный юзером год
-        const pickedYear = formProps.valueGetter('date_begin') ? formProps.valueGetter('date_begin').getFullYear() : null;
+        const pickedYear = formProps.valueGetter('date_begin') ? formProps.valueGetter('date_begin').substring(4, 0) : null;
 
         //получаю счетчик поданных заявок на выбранный год общий и по отдельным рангам
         let currentRankCounter = pickedYear ? exhibitionProperties?.year_rank_counters[pickedYear] : null;
@@ -301,7 +302,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                             const ranksIds = formRenderProps.valueGetter('rank_ids');
                             const ncpIds = formRenderProps.valueGetter('national_breed_club_ids');
                             const pickedYear = formRenderProps.valueGetter('date_begin') ?
-                                formRenderProps.valueGetter('date_begin').getFullYear() :
+                                formRenderProps.valueGetter('date_begin').substring(4, 0):
                                 null;
 
                             return (
@@ -379,11 +380,15 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     id="date_begin"
                                                     name="date_begin"
                                                     label="Дата начала проведения"
-                                                    min={isCACIB ?
-                                                        new Date(new Date().getFullYear() + (exhibitionProperties?.current_month <= 4 ? 1 : 2), 12, 1)
-                                                        : new Date(new Date().getFullYear() + (exhibitionProperties?.current_month <= 4 ? 0 : 1), 12, 1)
+                                                    minDate={isCACIB ?
+                                                        moment().add(1, 'y').set({'month': 12, 'date': 1}).format('YYYY-MM-DD')
+                                                        : moment().add((exhibitionProperties?.current_month <= 4 ? 1 : 0), "y").set({'month': 12, 'date': 1}).format('YYYY-MM-DD')
                                                     }
-                                                    component={FormDatePicker}
+                                                    component={DateInput}
+                                                    value={formProps?.valueGetter('date_begin')}
+                                                    onChange={date => formProps.onChange('date_begin', {
+                                                        value: date,
+                                                    })}
                                                     validator={dateRequiredValidator}
                                                     disabled={(!status && !formRenderProps.valueGetter('format_id')) || disableAllFields || statusId === 3}
                                                 />
@@ -393,13 +398,17 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     id="date_end"
                                                     name="date_end"
                                                     label="Дата окончания"
-                                                    min={formRenderProps.valueGetter('date_begin')
-                                                        ? new Date(formRenderProps.valueGetter('date_begin'))
+                                                    minDate={formRenderProps.valueGetter('date_begin')
+                                                        ? formRenderProps.valueGetter('date_begin')
                                                         : null}
-                                                    max={formRenderProps.valueGetter('date_begin')
+                                                    maxDate={formRenderProps.valueGetter('date_begin')
                                                         ? setMaxDate()
                                                         : null}
-                                                    component={FormDatePicker}
+                                                    component={DateInput}
+                                                    value={formProps?.valueGetter('date_end')}
+                                                    onChange={date => formProps.onChange('date_end', {
+                                                        value: date,
+                                                    })}
                                                     validator={dateRequiredValidator}
                                                     disabled={!formRenderProps.valueGetter('date_begin') || disableAllFields || statusId === 3}
                                                 />

@@ -1,7 +1,9 @@
-import React, {useContext} from "react";
-import {FormField, FormGroup} from "../../../../../../components/Form";
-import {clubClubContactsConfig} from "../../config";
-import {ContactTypeContext} from "../../context";
+import React, { useContext } from "react";
+import MaskedInput from "../../../../../../components/Form/Field/MaskedInput";
+import { FormField, FormGroup } from "../../../../../../components/Form";
+import { DEFAULT_PHONE_INPUT_MASK } from "../../../../../../appConfig";
+import { clubClubContactsConfig } from "../../config";
+import { ContactTypeContext } from "../../context";
 
 
 const {fields} = clubClubContactsConfig;
@@ -12,13 +14,14 @@ const RenderFields = ({disabled, isMaskedTel}) => {
     return (
         <FormGroup inline>
             {isMaskedTel ?
-                <FormField
+                <MaskedInput
                     disabled={disabled}
                     {...fields.value}
                     label={contactType.label}
-                    type='tel'
-                    placeholder="+7(999)999-99-99"
-                    title='Формат номера: +7(999)999-99-99'
+                    mask={DEFAULT_PHONE_INPUT_MASK}
+                    type="tel"
+                    placeholder="+7(___)___-__-__"
+                    title="Формат номера: +7(999)999-99-99"
                 /> :
                 <FormField
                     disabled={disabled}

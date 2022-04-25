@@ -34,13 +34,15 @@
   }
   @media (max-width: 1079px) {
     display: flex;
+    align-items: center;
   }
   &__logo-wrap {
+    position: relative;
+    max-height: 500px;
     padding-bottom: 10px;
     border-bottom: 1px solid #e8e8e8;
-    max-height: 500px;
     overflow: hidden;
-    position: relative;
+    z-index: 1;
     @media (max-width: 1079px) {
       padding-bottom: 0;
       border-bottom: none;
@@ -54,6 +56,9 @@
           margin: 45px 0 0;
         }
       }
+    }
+    & .avatar__initials {
+      font-size: 4.5rem;
     }
   }
   &__logo {
@@ -113,10 +118,9 @@
       color: #3366ff;
       font-size: 18px;
       text-overflow: ellipsis;
-      overflow: hidden;
       white-space: pre-line;
       display: flex;
-      @media (max-width: 375px) {
+      @media (max-width: 400px) {
         font-size: 16px;
         line-height: 20px;
         display: inline;
@@ -130,6 +134,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    & p {
+      position: relative;
+      & svg {
+        margin-left: 5px;
+        @media (max-width: 400px) {
+          position: absolute;
+        }
+      }
+    }
   }
   &__transition {
     &-enter,

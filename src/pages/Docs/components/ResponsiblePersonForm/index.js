@@ -91,7 +91,7 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
                         <FormField {...ResponsibleFormConfig.fields.email} />
                     </FormGroup>
                     <FormGroup inline className="responsible-person__three-inline-columns">
-                        <CustomNumber {...ResponsibleFormConfig.fields.index} />
+                        <FormField {...ResponsibleFormConfig.fields.index} />
                         <FormField {...ResponsibleFormConfig.fields.city_id} options={cities} />
                         <FormField {...ResponsibleFormConfig.fields.subscriber_mail} />
                     </FormGroup>

@@ -5,12 +5,12 @@ import { pencil, trash } from '@progress/kendo-svg-icons';
 import { CSSTransition } from 'react-transition-group';
 import Share from '../../Share';
 import ModalDeleteAvatar from './ModalDeleteAvatar';
-import { DEFAULT_IMG } from '../../../appConfig';
 import LightTooltip from '../../LightTooltip';
 import UserActionControls from 'components/UserActionControls';
 import { connectAuthVisible } from 'pages/Login/connectors';
 import EditAvatar from '../../EditAvatar';
 import { judgeIcon } from '../UserLayout/config.js';
+import InitialsAvatar from "../../InitialsAvatar";
 
 import './index.scss';
 
@@ -38,7 +38,12 @@ const UserInfo = ({
             <div className="user-info">
                 <div
                     className={logo_link ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
-                    onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                    onTouchStart={() => {
+                        setHover(true);
+                        setTimeout(() => setHover(false), 3000);
+                    }}
                 >
                     {canEdit &&
                         <>
@@ -78,13 +83,19 @@ const UserInfo = ({
                             }
                         </>
                     }
-                    <img className="user-info__logo" src={logo_link ? logo_link : DEFAULT_IMG.userAvatar} alt="" />
+                    {
+                        logo_link
+                            ?
+                            <img className="user-info__logo" src={logo_link} alt="" />
+                            :
+                            <InitialsAvatar  name={`${first_name} ${last_name}`} card="profile"/>
+                    }
                 </div>
                 <div className="user-info__info">
                     {share_link 
                         ?
                             <div className="user-info__with-share" >
-                                <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}{last_name ? ' ' + last_name : ''}{(judgeInfo?.length && judgeInfo[0].description !== null) && judgeIcon}</p>
+                                <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}{last_name ? ' ' + last_name : ''}{(!!judgeInfo?.length && judgeInfo[0].description !== null) && judgeIcon}</p>
                                 <Share url={share_link}
                                         className={!first_name && !last_name
                                                         ? '_no_share_name'
