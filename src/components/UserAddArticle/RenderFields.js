@@ -67,6 +67,10 @@ const RenderFields = ({ fields,
     const isMobile = useIsMobile();
 
     const { content, file } = formik.values;
+    console.log('formik.values', formik.values)
+
+    console.log('content fffff', content)
+    console.log('file ffffff', file)
 
     useEffect(() => {
         Request({ url: '/api/article/article_ad_types' },
@@ -120,6 +124,7 @@ const RenderFields = ({ fields,
     const handleClose = () => {
         formik.setFieldValue('file', '');
         setFile('');
+        setContent('');
         setSrc('');
         setLoadFile(false);
     };
@@ -494,6 +499,10 @@ const RenderFields = ({ fields,
                     <SubmitButton
                         type="submit"
                         className={`article-create-form__button ${formik.isValid ? 'active' : ''}`}
+                        // onSubmit={() => {
+                        //     formik.setFieldValue('content', '');
+                        //     formik.setFieldValue('file', '');
+                        // } }
                     >
                         Опубликовать
                     </SubmitButton>

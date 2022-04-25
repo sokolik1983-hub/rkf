@@ -29,7 +29,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isTypeId, setIsTypeId] = useState(null);
     const [content, setContent] = useState('');
     const [file, setFile] = useState('');
-    const [clearFormicValues, setClearFormicValues] = useState(false);
 
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
@@ -57,8 +56,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_color: '',
         dog_sex_type_id: '',
         dog_age: '',
-        content: content && !clearFormicValues ? content : '',
-        file: file && !clearFormicValues ? file : '',
+        content: content ? content : '',
+        file: file ? file : '',
     }; //Initial Values для объявлений категории 1
     const initialValueCatTwo = {
         advert_breed_id: '',
@@ -70,8 +69,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_age: '',
         dog_name: '',
         dog_city: '',
-        content: content && !clearFormicValues ? content : '',
-        file: file && !clearFormicValues ? file : '',
+        content: content ? content : '',
+        file: file ? file : '',
     } //Initial Values для объявлений категории 2
 
     useEffect(() => {
@@ -83,7 +82,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
 
     const transformValues = values => {
-
+console.log('transformValues')
         if (isAd || isCheckedAddTypes) {
             return {
                 ...values,
@@ -120,7 +119,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         setIsCheckedAddTypes(false);
         setContent('');
         setFile('');
-        setClearFormicValues(true);
         setBlured();
     };
 
