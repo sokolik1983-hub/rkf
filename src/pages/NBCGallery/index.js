@@ -36,7 +36,7 @@ const NBCGallery = ({ isAuthenticated, is_active_profile, profile_id, match, use
     // const [startElement, setStartElement] = useState(1);
     // const [hasMore, setHasMore] = useState(true);
     // const [notificationsLength, setNotificationsLength] = useState(0);
-    const {id} = useParams();
+    const {alias} = useParams();
     // const history = useHistory();
     // const alias = match.params.id;
     // const isMobile = useIsMobile(1080);
@@ -172,7 +172,7 @@ const NBCGallery = ({ isAuthenticated, is_active_profile, profile_id, match, use
         <>
             <Container>
                 <p>Здесь галлерея Фото</p>
-                <NavLink to={`/nbc/${id}/gallery/edit`}>Редактировать</NavLink>
+                <NavLink to={`/nbc/${alias}/gallery/edit`}>Редактировать</NavLink>
             </Container>
             {/*{!pageLoaded && !nursery*/}
             {/*    ? <Loading />*/}

@@ -6,12 +6,12 @@ import "./styles.scss"
 
 const NBCVideo = () => {
 
-    const {id} = useParams();
+    const {alias} = useParams();
 
     return (
         <Layout className="pt-150">
                 <p>Здесь будет страница с видео!</p>
-                <NavLink to={`/nbc/${id}`}>На страницу профиля</NavLink>
+                <NavLink to={`/nbc/${alias}`}>На страницу профиля</NavLink>
         </Layout>
     )
 };

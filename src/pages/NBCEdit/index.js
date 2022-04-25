@@ -7,13 +7,13 @@ import "./styles.scss"
 
 const NBCEdit = () => {
 
-    const {id} = useParams();
+    const {alias} = useParams();
 
     return (
         <Layout >
             <Container className="pt-150">
                 <p>Здесь будет страница редактирования профиля НКП</p>
-                <NavLink to={`/nbc/${id}`}>На страницу профиля</NavLink>
+                <NavLink to={`/nbc/${alias}`}>На страницу профиля</NavLink>
             </Container>
         </Layout>
     );

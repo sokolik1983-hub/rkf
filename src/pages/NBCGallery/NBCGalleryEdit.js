@@ -42,7 +42,7 @@ const NBCGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match,
     // let params = useParams();
     // const alias = match.params.id;
     // const isMobile = useIsMobile(1080);
-    const {id} = useParams();
+    const {alias} = useParams();
     //
     // useEffect(() => {
     //     Promise.all([getImages(1), getNursery()])
@@ -182,7 +182,7 @@ const NBCGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match,
         <>
             <Container>
                 <p>Здесь страница редактирования Фотогаллереи</p>
-                <NavLink to={`/nbc/${id}/`}>На страницу профиля</NavLink>
+                <NavLink to={`/nbc/${alias}/`}>На страницу профиля</NavLink>
             </Container>
         </>
 

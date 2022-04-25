@@ -20,16 +20,36 @@ import { connectAuthVisible } from 'pages/Login/connectors';
 // import { Fade } from '@progress/kendo-react-animation';
 // import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
+import {Request} from "../../../utils/request";
 
 import './index.scss';
 import {Redirect, useParams} from "react-router-dom";
 import Container from "../Container";
+import {endpointGetNBCInfo} from "./config";
+import Loading from "../../Loading";
 import StickyBox from "react-sticky-box";
-import {kennelNav} from "../NurseryLayout/config";
+import useIsMobile from "../../../utils/useIsMobile";
+import Aside from "../Aside";
+import UserHeader from "../../UserHeader";
+import Banner from "../../Banner";
+import UserPhotoGallery from "../UserGallerys/UserPhotoGallery";
+import UserVideoGallery from "../UserGallerys/UserVideoGallery";
+import CopyrightInfo from "../../CopyrightInfo";
+import {BANNER_TYPES} from "../../../appConfig";
+
 
 // { profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }
 
 const NBCLayout = ({children}) => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [nbcInfo, setNBCInfo] = useState(null);
+    const [nbcProfileId, setNBCProfileId] = useState(null);
+    const [notificationsLength, setNotificationsLength] = useState(0);
+    const [needRequest, setNeedRequest] = useState(true);
+    const isMobile = useIsMobile(1080);
+    const [canEdit, setCanEdit] = useState(false);
+
     // const [loading, setLoading] = useState(true);
     // const [success, setSuccess] = useState(false);
     // const [error, setError] = useState(false);
@@ -137,165 +157,113 @@ const NBCLayout = ({children}) => {
     //     checkLinkUserPage();
     // },[]);
 
-    const {id} = useParams();
+    const { alias } = useParams();
 
-    const userInfo = {
-            "id": 3433,
-            "club_alias": "8a07aafe5d9541f0a2f9478e5ae5a795",
-            "owner_name": "test test test",
-            "owner_position": "Контактное лицо",
-            "headliner_link": "/media/YzBmODk0ZTYtYzljOC00MzE2LTk0NjQtNDQwZTdjZjc0OWRiX0NsdWJIZWFkZXI.JPG",
-            "logo_link": "/media/YzBmODk0ZTYtYzljOC00MzE2LTk0NjQtNDQwZTdjZjc0OWRiX0NsdWJIZWFkZXI.JPG",
-            "shortcut_route_name": "8a07aafe5d9541f0a2f9478e5ae5a795",
-            "name": "Питомник Ильича",
-            "short_name": "Питомник Ильича",
-            "site": "",
-            "description": "Наш питомник отличается культурой питания! Собачки нашего клуба - самые воспитанные, они не едят с пола и тем более из мусорного ведра!   ",
-            "address": null,
-            "city": null,
-            "legal_address": "323223, Красноярский край, Посёлок Абан, бульвар 23, корпус 32, комната 32",
-            "legal_city": {
-                "id": 3,
-                "name": "Абан",
-                "name_eng": null
-            },
-            "inn": "",
-            "kpp": "",
-            "ogrn": "",
-            "bank_name": null,
-            "rs_number": null,
-            "bic": null,
-            "bank_comment": null,
-            "work_time_from": null,
-            "work_time_to": null,
-            "work_time": [
-                {
-                    "id": 62,
-                    "week_day_id": 1,
-                    "time_from": "05:00:00",
-                    "time_to": "18:00:00"
-                }
-            ],
-            "contacts": [
-                {
-                    "id": 22056,
-                    "value": "+7(999)999-99-99",
-                    "description": "Из заявки на регистрацию питомника.",
-                    "is_main": false,
-                    "contact_type_id": 1
-                }
-            ],
-            "documents": [],
-            "title": "Питомник Ильича",
-            "content": "Наш питомник отличается культурой питания! Собачки нашего клуба - самые воспитанные, они не едят с пола и тем более из мусорного ведра!   ",
-            "picture_link": null,
-            "create_date": "2022-04-20T15:36:08.9264+03:00",
-            "geo_lat": "",
-            "geo_lon": "",
-            "organization_status_id": 1,
-            "organization_status_name": "Действующая",
-            "federation_name": "РФЛС",
-            "federation_alias": "rfls",
-            "is_active": true,
-            "user_type": 4,
-            "counters": {
-                "publications_count": 43,
-                "photos_count": 14,
-                "videos_count": 2,
-                "exhibitions_count": 0,
-                "documents_count": 8
-            },
-            "active_rkf_user": false,
-            "active_member": false,
-            "subscribed": false,
-            "member": false
+    const getNBCInfo = async () => {
+        Request({
+            url: endpointGetNBCInfo + '?alias=' + alias
+        }, data => {
+            setNBCInfo(data);
+            setNBCProfileId(data.profile_id);
+        }, error => {
+            console.log(error.response);
+            setError(error.response);
+            setLoading(false);
+        });
     }
 
+    useEffect(() => {
+        (() => getNBCInfo())();
+    }, []);
+
+
+    useEffect(() => {
+        console.log('nbcInfo', nbcInfo);
+        console.log('nbcProfileId', nbcProfileId);
+    }, [nbcInfo, nbcProfileId]);
+
+
+
     return (
-        <Layout>
-            <Container className="pt-150">
-                <p>Здесь будет страница НКП</p>
-                <ul>
-                    <li><a href={`/nbc/${id}/edit`}>Редачить профиль</a></li>
-                    <li><a href={`/nbc/${id}/gallery`}>Фото</a></li>
-                    <li><a href={`/nbc/${id}/video`}>Видео</a></li>
-                    <li><a href={`/nbc/${id}/documents`}>Документы</a></li>
-                    {children}
-                </ul>
-            </Container>
-        </Layout>
+        loading ?
+            <Loading /> :
+                <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+                    <div className="redesign">
+                        <Container className="content club-page">
+                            <div className="club-page__content-wrap">
+                                <div className="club-page__content">
+                                    {
+                                        React.cloneElement(children, {
+                                            isMobile,
+                                            userInfo: nbcInfo,
+                                            getUserInfo: getNBCInfo,
+                                            canEdit,
+                                            alias,
+                                            id: nbcProfileId,
+                                            setNeedRequest,
+                                            needRequest,
+                                            setUserInfo: setNBCInfo
+                                        })
+                                    }
+                                </div>
+                                <Aside className="club-page__info">
+                                    <StickyBox offsetTop={60}>
+                                        <div className="club-page__info-inner">
+                                            {!isMobile &&
+                                                <UserHeader
+                                                    canEdit={canEdit}
+                                                    user='nbc'
+                                                    logo={nbcInfo?.avatar || 'https://sun9-71.userapi.com/s/v1/if1/3W325abgVVW87kjXZY6uhbvLOVMGwgyl_bbqnMYyt9AP1QXqp4L_uzvBD_Q8SlPcEhSkZDeS.jpg?size=853x1280&quality=96&type=album'}
+                                                    name={nbcInfo?.name || 'Название клуба отсутствует'}
+                                                    alias={nbcInfo?.club_alias}
+                                                    profileId={nbcInfo?.profile_id}
+                                                    // federationName={nbcInfo?.federation_name}
+                                                    // federationAlias={nbcInfo?.federation_alias}
+                                                    // active_rkf_user={nbcInfo?.active_rkf_user}
+                                                    // active_member={nbcInfo?.active_member}
+                                                />
+                                            }
+                                            {/*{!isMobile && <UserMenu  userNav={canEdit*/}
+                                            {/*    ? clubNav(alias) // Show NewsFeed menu item to current user only*/}
+                                            {/*    : clubNav(alias).filter(i => i.id !== 2)}*/}
+                                            {/*                         notificationsLength={notificationsLength}*/}
+                                            {/*/>}*/}
+                                            {!isMobile &&
+                                                <>
+                                                    <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
+                                                    <UserPhotoGallery
+                                                        alias={alias}
+                                                        pageLink={`/nbc/${alias}/gallery`}
+                                                        canEdit={canEdit}
+                                                    />
+                                                    <UserVideoGallery
+                                                        alias={alias}
+                                                        pageLink={`/nbc/${alias}/video`}
+                                                        canEdit={canEdit}
+                                                    />
+                                                    <CopyrightInfo withSocials={true} />
+                                                </>
+                                            }
+                                        </div>
+                                    </StickyBox>
+                                </Aside>
+                            </div>
+                        </Container>
+                    </div>
+                </Layout>
+        // <Layout>
+        //     <Container className="pt-150">
+        //         <p>Здесь будет страница НКП</p>
+        //         <ul>
+        //             <li><a href={`/nbc/${alias}/edit`}>Редачить профиль</a></li>
+        //             <li><a href={`/nbc/${alias}/gallery`}>Фото</a></li>
+        //             <li><a href={`/nbc/${alias}/video`}>Видео</a></li>
+        //             <li><a href={`/nbc/${alias}/documents`}>Документы</a></li>
+        //             {children}
+        //         </ul>
+        //     </Container>
+        // </Layout>
     )
-    // loading ?
-    //     <Loading /> :
-    //     error ?
-    //         error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
-    //         <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
-    //             <div className="redesign">
-    //                 <Container className="content nursery-page">
-    //                     <div className="nursery-page__content-wrap">
-    //                         <div className="nursery-page__content">
-    //                             {
-    //                                 React.cloneElement(children, {
-    //                                     isMobile,
-    //                                     userInfo: nursery,
-    //                                     getUserInfo: getNurserynfo,
-    //                                     canEdit,
-    //                                     alias,
-    //                                     id: profile_id,
-    //                                     setNeedRequest,
-    //                                     needRequest,
-    //                                     setUserInfo: setNursery
-    //                                 })
-    //                             }
-    //                         </div>
-    //                         <Aside className="nursery-page__info">
-    //                             <StickyBox offsetTop={60}>
-    //                                 <div className="nursery-page__info-inner">
-    //                                     {!isMobile &&
-    //                                         <UserHeader
-    //                                             canEdit={canEdit}
-    //                                             user="nursery"
-    //                                             logo={nursery.logo_link}
-    //                                             name={nursery.name || 'Имя отсутствует'}
-    //                                             alias={alias}
-    //                                             profileId={nursery.id}
-    //                                             federationName={nursery.federation_name}
-    //                                             federationAlias={nursery.federation_alias}
-    //                                             active_rkf_user={nursery.active_rkf_user}
-    //                                             active_member={nursery.active_member}
-    //                                         />
-    //                                     }
-    //                                     {!isMobile && <UserMenu userNav={canEdit
-    //                                         ? kennelNav(alias) // Show NewsFeed menu item to current user only
-    //                                         : kennelNav(alias).filter(i => i.id !== 2)}
-    //                                                             notificationsLength={notificationsLength}
-    //                                     />}
-    //                                     {!isMobile &&
-    //                                         <>
-    //                                             {nursery.breeds && !!nursery.breeds.length &&
-    //                                                 <BreedsList breeds={nursery.breeds} />
-    //                                             }
-    //                                             <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />
-    //                                             <UserPhotoGallery
-    //                                                 alias={alias}
-    //                                                 pageLink={`/kennel/${alias}/gallery`}
-    //                                                 canEdit={canEdit}
-    //                                             />
-    //                                             <UserVideoGallery
-    //                                                 alias={alias}
-    //                                                 pageLink={`/kennel/${alias}/video`}
-    //                                                 canEdit={canEdit}
-    //                                             />
-    //                                             <CopyrightInfo withSocials={true} />
-    //                                         </>
-    //                                     }
-    //                                 </div>
-    //                             </StickyBox>
-    //                         </Aside>
-    //                     </div>
-    //                 </Container>
-    //             </div>
-    //         </Layout>
 };
 
 export default React.memo(connectAuthVisible(connectShowFilters(NBCLayout)));
