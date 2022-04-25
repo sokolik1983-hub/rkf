@@ -3,7 +3,7 @@ import Modal from './Modal';
 import CustomAvatarEditor from './AvatarEditor';
 
 
-const EditAvatar = ({ avatar, setModalType, onSubmitSuccess, userType, pageBanner }) => {
+const EditAvatar = ({ avatar, setModalType, onSubmitSuccess, userType, pageBanner, owner }) => {
     const [canvasWidth, setCanvasWidth] = useState(null);
 
     return (
@@ -21,6 +21,7 @@ const EditAvatar = ({ avatar, setModalType, onSubmitSuccess, userType, pageBanne
                     onSubmitSuccess={onSubmitSuccess}
                     pageBanner={pageBanner}
                     canvasWidth={canvasWidth}
+                    owner={owner}
                 />
             </div>
         </Modal>

@@ -12,7 +12,7 @@ import InitialsAvatar from "../InitialsAvatar";
 
 import './index.scss';
 
-const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth }) => {
+const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth, owner }) => {
     const [image, setImage] = useState(avatar || '');
     const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
     const [scale, setScale] = useState(1);
@@ -22,7 +22,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     const reduxUserType = useSelector(state => state.authentication.user_info.user_type);
     const reduxUserName = useSelector(state => state.authentication.user_info.name);
     const UPLOAD_AVATAR = `/static/icons/default/club-avatar-new.png`;
-    const currentLink = pageBanner ? '/api/headerpicture/full_v3' : '/api/avatar/full_v3';
+    const currentLink = pageBanner ? '/api/headerpicture/full_v3' : owner ? '/api/nbcownerpicture' : '/api/avatar/full_v3';
 
     const handleSubmit = () => {
         Request({

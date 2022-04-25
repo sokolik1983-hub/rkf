@@ -29,6 +29,7 @@ import {Request} from "../../utils/request";
 import {endpointGetNBCInfo} from "../../components/Layouts/NBCLayout/config";
 
 import "./index.scss"
+import PhotoComponent from "../../components/PhotoComponent";
 
 const NBCPage = (props) => {
 
@@ -86,23 +87,32 @@ const NBCPage = (props) => {
                             <StickyBox offsetTop={60}>
                                 <div className="club-page__info-inner">
                                     {!isMobile && nbcInfo &&
-                                        <UserHeader
-                                            user='nbc'
-                                            logo={nbcInfo.avatar}
-                                            name={nbcInfo.name || 'Название клуба отсутствует'}
-                                            alias={nbcInfo.alias}
-                                            profileId={nbcProfileId}
-                                            // federationName={clubInfo.federation_name}
-                                            // federationAlias={clubInfo.federation_alias}
-                                            // active_rkf_user={clubInfo.active_rkf_user}
-                                            // active_member={clubInfo.active_member}
-                                            canEdit={true}
-                                            subscribed={nbcInfo.subscribed}
-                                            // member={clubInfo.member}
-                                            onSubscriptionUpdate={onSubscriptionUpdate}
-                                            isAuthenticated={isAuthenticated}
-                                        />
+                                        <>
+                                            <UserHeader
+                                                user='nbc'
+                                                logo={nbcInfo.logo_link}
+                                                name={nbcInfo.name || 'Название клуба отсутствует'}
+                                                alias={nbcInfo.alias}
+                                                profileId={nbcProfileId}
+                                                // federationName={clubInfo.federation_name}
+                                                // federationAlias={clubInfo.federation_alias}
+                                                // active_rkf_user={clubInfo.active_rkf_user}
+                                                // active_member={clubInfo.active_member}
+                                                canEdit={true}
+                                                subscribed={nbcInfo.subscribed}
+                                                // member={clubInfo.member}
+                                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                                isAuthenticated={isAuthenticated}
+                                            />
+                                            <PhotoComponent
+                                                photo={nbcInfo.owner_photo || '/media/YTdmMmM2MzktNWFjYi00NzA1LWI4ODYtZGZjNjEyYmVjOGU3X0NsdWJPd25lcg.jpeg'}
+                                                name={nbcInfo.owner_name}
+                                                position={nbcInfo.owner_position}
+                                                canEdit={true}
+                                            />
+                                        </>
                                     }
+
                                     {/*{!isMobile && <UserMenu userNav={canEdit*/}
                                     {/*    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only*/}
                                     {/*    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}*/}
@@ -129,11 +139,11 @@ const NBCPage = (props) => {
                         </Aside>
                         <div className="nbc-page__content">
                             <UserBanner
-                                link={nbcInfo?.header_picture_link || 'https://s00.yaplakal.com/pics/pics_preview/7/6/8/16697867.jpg'} //сюда добавить, когда будет готово на беке   nbcInfo.headliner_link ||
+                                link={nbcInfo?.headliner_link || 'https://s00.yaplakal.com/pics/pics_preview/7/6/8/16697867.jpg'} //сюда добавить, когда будет готово на беке   nbcInfo.headliner_link ||
                                 canEdit={canEdit}
                                 updateInfo={getNBCInfo}
                             />
-                            {isMobile &&
+                            {isMobile && nbcInfo &&
                                 <UserHeader
                                     user={alias !== 'rkf-online' ? 'club' : ''}
                                     logo={nbcInfo.logo_link}
@@ -156,7 +166,7 @@ const NBCPage = (props) => {
                             <div className="club-page__exhibitions">
                                 <ExhibitionsComponent alias={alias} />
                             </div>
-                            {isMobile &&
+                            {isMobile && nbcInfo &&
                                 <>
                                     <UserPhotoGallery
                                         alias={nbcInfo.alias}
@@ -170,7 +180,7 @@ const NBCPage = (props) => {
                                     />
                                 </>
                             }
-                            {canEdit &&
+                            {canEdit && nbcInfo &&
                                 <AddArticle
                                     id={nbcProfileId}
                                     logo={nbcInfo.avatar}

@@ -1,4 +1,7 @@
 .photo-component {
+  & button {
+    z-index: 999;
+  }
   position: relative;
   box-shadow: 0 4px 12px rgba(51, 102, 255, 0.08);
   border-radius: 6px;

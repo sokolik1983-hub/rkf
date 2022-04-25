@@ -9,10 +9,10 @@ import {blockContent} from '../../../../utils/blockContent';
 import './index.scss';
 
 
-const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner }) => {
+const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
-    const currentLink = pageBanner ? '/api/headerpicture' : '/api/avatar';
+    const currentLink = pageBanner ? '/api/headerpicture' : owner ? '/api/nbcownerpicture' : '/api/avatar';
 
     const handleError = e => {
         if (e.response) {

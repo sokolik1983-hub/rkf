@@ -176,7 +176,6 @@ const UserHeader = ({
                                         Редактировать профиль
                                     </Link>
                                 </div>
-
                             }
                             {
                                 !canEdit && isAuthenticated && <>
