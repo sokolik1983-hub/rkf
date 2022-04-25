@@ -63,7 +63,6 @@ const CheckLitterStatus = ({ cardClicked }) => {
         </p>
         <form onSubmit={handleSubmit}>
             <div className="check-status__wrap">
-                <label htmlFor="check-status-letter-track" className="search-form__label">Номер родословной</label>
                 <input
                     id="check-status-letter-track"
                     className="check-status__input"

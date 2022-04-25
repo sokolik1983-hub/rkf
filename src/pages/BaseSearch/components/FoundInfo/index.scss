@@ -20,7 +20,7 @@
     &__wrap {
         position: relative;
         width: 314px;
-        margin: 0 6px 24px 0;
+        margin: 0 6px 4px 0;
         &:not(:first-child) {
             @media (max-width: 768px) {
                 margin-left: 0;
@@ -39,7 +39,7 @@
             right: 40px;
         }
         .search-form__button{
-            margin: 26px 0 0 6px;
+            margin: 20px 0 0 6px;
         }
       .search-form__button--clear{
         margin: 23px 0 0 3px;
@@ -110,6 +110,8 @@
         justify-content: flex-end;
         align-items: center;
         word-break: normal;
+        margin-top: 15px;
+
         button {
             display: flex;
             height: 32px;
@@ -162,6 +164,11 @@
     &.registration {
         .search-form__wrap:first-of-type, input {
             width: 152px;
+        }
+        .search-form__wrap-with_but {
+            .search-form__cancel {
+                right: 170px;
+            }
         }
     }
 }
