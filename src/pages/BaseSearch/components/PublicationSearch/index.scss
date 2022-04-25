@@ -3,16 +3,12 @@
 
     &__filters {
         display: flex;
-        width: calc(100% - 32px);
-        @media (max-width: 1079px) and (min-width: 561px) {
-            width: calc(100% - 217px);
-        }
-        @media (max-width: 560px) {
+        @media (max-width: 640px) {
             flex-direction: column;
         }
         & > div {
             flex-grow: 1;
-            @media (max-width: 560px) {
+            @media (max-width: 640px) {
                 width: 100%;
                 padding: 0;
             }
@@ -20,13 +16,19 @@
                 margin-right: 10px;
                 width: 342px;
                 max-width: 342px;
-                @media (max-width: 560px) {
+                @media (max-width: 640px) {
                     padding-right: 0;
+                    width: 100%;
+                    max-width: unset;
                 }
             }
             &:last-child {
                 width: 217px;
                 max-width: 217px;
+                @media (max-width: 640px) {
+                    width: 100%;
+                    max-width: unset;
+                }
             }
         }
         &-title {
@@ -63,28 +65,27 @@
     .infinite-scroll-component {
         overflow: visible!important;
       }
-    .search-form {
-        @media (max-width: 560px) {
-            display: block;
-        }
-    }
     .search-form__wrap-with_but .search-form__button{
         margin: 5px 0 0 6px;
+    }
+    .search-form {
+        max-width: 433px;
+        &__wrap:first-of-type {
+            margin-right: 10px;
+        }
     }
     .search-form__wrap-with_but {
         margin-right: 0;
         input {
             width: 152px;
+            @media (max-width: 640px) {
+                width: inherit;
+            }
         }
         .search-form__cancel {
             right: 12px;
-            //right: 170px;
         }
         @media (max-width: 738px) {
-            input {
-                margin-top: 0;
-                gap: 5px;
-            }
             .search-form__button {
                 margin-top: 5px;
             }
@@ -93,14 +94,12 @@
     .search-form__wrap{
         width: 152px;
         margin-bottom: 0;
-    }
-    .search-form div:first-of-type {
-        @media (max-width: 738px) {
-            input {
-                width: calc(100% - 26px);
-            }
+        @media (max-width: 640px) {
+            width: auto;
+
         }
     }
+
     .search-form__input{
         margin: 17px 0 12px 0;
     }
