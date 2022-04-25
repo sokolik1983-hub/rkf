@@ -5,8 +5,8 @@ import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
 import CardOrganization from "../../../../components/CardOrganization";
-import './index.scss';
 import Button from "../../../../components/Button";
+import './index.scss';
 
 
 const FoundInfo = ({cardClicked}) => {
@@ -69,7 +69,7 @@ const FoundInfo = ({cardClicked}) => {
                         pattern="[A-Za-z]{3}"
                         onChange={({ target }) => setStampCode(target.value.slice(0, 3).replace(/[^A-Za-z]/ig, ''))}
                         value={stamp_code}
-                        title=""
+                        title="Введите 3 латинских символа"
                         placeholder="Код клейма"
                         disabled={loading || status ? true : false}
                         required

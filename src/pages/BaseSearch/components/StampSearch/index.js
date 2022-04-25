@@ -5,8 +5,8 @@ import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
 import CardOrganization from "../../../../components/CardOrganization";
-import '../FoundInfo/index.scss';
 import Button from "../../../../components/Button";
+import '../FoundInfo/index.scss';
 
 
 const StampSearch = ({cardClicked}) => {

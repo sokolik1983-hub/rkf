@@ -4,8 +4,8 @@ import Card from "../../../../components/Card";
 import { Request } from "utils/request";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
-import './styles.scss';
 import Button from "../../../../components/Button";
+import './styles.scss';
 
 const CheckStatus = ({cardClicked}) => {
     const [barcode, setBarcode] = useState('');

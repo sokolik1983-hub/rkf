@@ -8,8 +8,8 @@ import List from "components/List";
 import BreedsFilterKendo from "../../../../components/kendo/Filters/BreedsFilter";
 import CitiesFilterKendo from "../../../../components/kendo/Filters/CitiesFilter";
 import { DEFAULT_IMG } from "../../../../appConfig";
-import './index.scss';
 import Button from "../../../../components/Button";
+import './index.scss';
 
 const PublicationSearch = ({ cardClicked }) => {
     const [items, setItems] = useState([]);

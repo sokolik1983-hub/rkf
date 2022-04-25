@@ -6,8 +6,8 @@ import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
 import CardOrganization from "../../../../components/CardOrganization";
 import { DEFAULT_IMG } from "../../../../appConfig";
-import '../FoundInfo/index.scss';
 import Button from "../../../../components/Button";
+import '../FoundInfo/index.scss';
 
 
 const CheckRegistration = ({ cardClicked }) => {

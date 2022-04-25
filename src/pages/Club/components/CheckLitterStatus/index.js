@@ -5,9 +5,9 @@ import Card from "../../../../components/Card";
 import { Request } from "utils/request";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
+import Button from "../../../../components/Button";
 
 import './styles.scss';
-import Button from "../../../../components/Button";
 
 const CheckLitterStatus = ({ cardClicked }) => {
     const [code, setCode] = useState('');
