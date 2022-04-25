@@ -44,6 +44,8 @@ const UserHeader = ({
             return 'Федерация';
         } else if (user === 'nursery') {
             return 'Питомник';
+        } else if (user === 'nbc') {
+            return 'НКП';
         } else {
             return 'Клуб';
         }
@@ -109,7 +111,7 @@ const UserHeader = ({
                     ?
                         <img className="user-info__logo" src={logo} alt=""/>
                         :
-                        (user === 'nursery')
+                        (user === 'nursery' || user === 'nbc')
                             ?
                             <InitialsAvatar name={name} card="profile" />
                             :
@@ -162,7 +164,13 @@ const UserHeader = ({
                                 canEdit &&
                                 <div className="widget-login__button-wrap">
                                     <Link
-                                        to={`/${setUserType(user, alias) === 'Питомник' ? 'kennel' : 'client'}/${alias}/edit`}
+                                        to={`/${
+                                            setUserType(user, alias) === 'Питомник' ?
+                                            'kennel' :
+                                                setUserType(user, alias) === 'НКП' ?
+                                                    'nbc' : 'client'
+                                        }/${alias}/edit`
+                                    }
                                         className="widget-login__button"
                                     >
                                         Редактировать профиль

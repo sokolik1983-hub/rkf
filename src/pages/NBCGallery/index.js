@@ -171,7 +171,7 @@ const NBCGallery = ({ isAuthenticated, is_active_profile, profile_id, match, use
     return (
         <>
             <Container>
-                <p>Здесь галлерея Фото</p>
+                <p className="pt-150">Здесь галлерея Фото</p>
                 <NavLink to={`/nbc/${alias}/gallery/edit`}>Редактировать</NavLink>
             </Container>
             {/*{!pageLoaded && !nursery*/}

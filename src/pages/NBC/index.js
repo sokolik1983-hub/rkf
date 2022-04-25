@@ -21,12 +21,14 @@ import {kennelNav} from "../Nursery/config";
 import Banner from "../../components/Banner";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import useIsMobile from "../../utils/useIsMobile";
-import UserHeader from "../../components/UserHeader";
+import UserHeader from "../../components/redesign/UserHeader";
 import UserContacts from "../../components/redesign/UserContacts";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import {clubNav} from "../Club/config";
 import {Request} from "../../utils/request";
 import {endpointGetNBCInfo} from "../../components/Layouts/NBCLayout/config";
+
+import "./index.scss"
 
 const NBCPage = (props) => {
 
@@ -78,11 +80,56 @@ const NBCPage = (props) => {
             :
         <Layout setNotificationsLength={setNotificationsLength}>
             <div className="redesign">
-                <Container className="content club-page">
-                    <div className="club-page__content-wrap">
-                        <div className="club-page__content">
+                <Container className="content nbc-page">
+                    <div className="nbc-page__content-wrap">
+                        <Aside className="nbc-page__info">
+                            <StickyBox offsetTop={60}>
+                                <div className="club-page__info-inner">
+                                    {!isMobile && nbcInfo &&
+                                        <UserHeader
+                                            user='nbc'
+                                            logo={nbcInfo.avatar}
+                                            name={nbcInfo.name || 'Название клуба отсутствует'}
+                                            alias={nbcInfo.alias}
+                                            profileId={nbcProfileId}
+                                            // federationName={clubInfo.federation_name}
+                                            // federationAlias={clubInfo.federation_alias}
+                                            // active_rkf_user={clubInfo.active_rkf_user}
+                                            // active_member={clubInfo.active_member}
+                                            canEdit={true}
+                                            subscribed={nbcInfo.subscribed}
+                                            // member={clubInfo.member}
+                                            onSubscriptionUpdate={onSubscriptionUpdate}
+                                            isAuthenticated={isAuthenticated}
+                                        />
+                                    }
+                                    {/*{!isMobile && <UserMenu userNav={canEdit*/}
+                                    {/*    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only*/}
+                                    {/*    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}*/}
+                                    {/*                        notificationsLength={notificationsLength}*/}
+                                    {/*/>}*/}
+                                    {!isMobile && nbcInfo &&
+                                        <>
+                                            <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
+                                            <UserPhotoGallery
+                                                alias={nbcInfo.alias}
+                                                pageLink={`/nbc/${alias}/gallery`}
+                                                canEdit={canEdit}
+                                            />
+                                            <UserVideoGallery
+                                                alias={nbcInfo.alias}
+                                                pageLink={`/nbc/${alias}/video`}
+                                                canEdit={canEdit}
+                                            />
+                                            <CopyrightInfo withSocials={true} />
+                                        </>
+                                    }
+                                </div>
+                            </StickyBox>
+                        </Aside>
+                        <div className="nbc-page__content">
                             <UserBanner
-                                link={'https://s00.yaplakal.com/pics/pics_preview/7/6/8/16697867.jpg'} //сюда добавить, когда будет готово на беке   nbcInfo.headliner_link ||
+                                link={nbcInfo?.header_picture_link || 'https://s00.yaplakal.com/pics/pics_preview/7/6/8/16697867.jpg'} //сюда добавить, когда будет готово на беке   nbcInfo.headliner_link ||
                                 canEdit={canEdit}
                                 updateInfo={getNBCInfo}
                             />
@@ -141,51 +188,6 @@ const NBCPage = (props) => {
                                 setProfileInfo={setNBCInfo}
                             />
                         </div>
-                        <Aside className="club-page__info">
-                            <StickyBox offsetTop={60}>
-                                <div className="club-page__info-inner">
-                                    {!isMobile && nbcInfo &&
-                                        <UserHeader
-                                            user='nbc'
-                                            logo={nbcInfo.avatar || 'https://s00.yaplakal.com/pics/pics_preview/6/4/0/16698046.jpg'}
-                                            name={nbcInfo.name || 'Название клуба отсутствует'}
-                                            alias={nbcInfo.alias}
-                                            profileId={nbcProfileId}
-                                            // federationName={clubInfo.federation_name}
-                                            // federationAlias={clubInfo.federation_alias}
-                                            // active_rkf_user={clubInfo.active_rkf_user}
-                                            // active_member={clubInfo.active_member}
-                                            canEdit={canEdit}
-                                            subscribed={nbcInfo.subscribed}
-                                            // member={clubInfo.member}
-                                            onSubscriptionUpdate={onSubscriptionUpdate}
-                                            isAuthenticated={isAuthenticated}
-                                        />
-                                    }
-                                    {/*{!isMobile && <UserMenu userNav={canEdit*/}
-                                    {/*    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only*/}
-                                    {/*    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}*/}
-                                    {/*                        notificationsLength={notificationsLength}*/}
-                                    {/*/>}*/}
-                                    {!isMobile && nbcInfo &&
-                                        <>
-                                            <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
-                                            <UserPhotoGallery
-                                                alias={nbcInfo.alias}
-                                                pageLink={`/${nbcInfo.alias}/gallery`}
-                                                canEdit={canEdit}
-                                            />
-                                            <UserVideoGallery
-                                                alias={nbcInfo.alias}
-                                                pageLink={`/${nbcInfo.alias}/video`}
-                                                canEdit={canEdit}
-                                            />
-                                            <CopyrightInfo withSocials={true} />
-                                        </>
-                                    }
-                                </div>
-                            </StickyBox>
-                        </Aside>
                     </div>
                 </Container>
             </div>

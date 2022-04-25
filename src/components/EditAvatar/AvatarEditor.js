@@ -81,10 +81,10 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                     { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
                             />
                             {
-                                !image && (reduxUserType === 1 || reduxUserType === 4) &&
+                                !image && (reduxUserType === 1 || reduxUserType === 4 || reduxUserType === 7) &&
                                 <InitialsAvatar
                                     card="editor"
-                                    name={reduxUserType === 4 ? reduxUserName : null}
+                                    name={(reduxUserType === 4 || reduxUserType === 7) ? reduxUserName : null}
                                 />
                             }
                             <div className="avatar-editor__add-file">

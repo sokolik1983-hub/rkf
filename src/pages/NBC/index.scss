@@ -1,0 +1,26 @@
+.nbc-page {
+  &__content-wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__content {
+    width: calc(100% - 316px);
+    margin-left: 16px;
+    order: 1;
+  }
+  &__info {
+    width: 300px;
+    min-width: 300px;
+    padding-bottom: 16px;
+  }
+  & .user-info {
+    &__logo-wrap {
+      border-bottom: none;
+    }
+  }
+  //& .user-header {
+  //  padding: 0 !important;
+  //  margin-bottom: 16px;
+  //  word-break: break-word;
+  //}
+}
