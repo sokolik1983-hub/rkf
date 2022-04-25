@@ -57,7 +57,6 @@ const RenderFields = ({ fields,
                           name,
                           userType,
                           setContent,
-                          setFile,
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -67,10 +66,6 @@ const RenderFields = ({ fields,
     const isMobile = useIsMobile();
 
     const { content, file } = formik.values;
-    console.log('formik.values', formik.values)
-
-    console.log('content fffff', content)
-    console.log('file ffffff', file)
 
     useEffect(() => {
         Request({ url: '/api/article/article_ad_types' },
@@ -84,7 +79,6 @@ const RenderFields = ({ fields,
 
         if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
-            setFile(file);
             setContent(content);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
@@ -92,7 +86,6 @@ const RenderFields = ({ fields,
         } else {
             window.alert(`Размер изображения не должен превышать 20 мб`);
             formik.setFieldValue('file', '');
-            setFile('');
             setSrc('');
             setLoadFile(false);
         }
@@ -100,7 +93,6 @@ const RenderFields = ({ fields,
             if (!descision) {
                 window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
                 formik.setFieldValue('', '');
-                setFile(file);
             }
         });
     };
@@ -123,7 +115,6 @@ const RenderFields = ({ fields,
 
     const handleClose = () => {
         formik.setFieldValue('file', '');
-        setFile('');
         setContent('');
         setSrc('');
         setLoadFile(false);
@@ -499,10 +490,6 @@ const RenderFields = ({ fields,
                     <SubmitButton
                         type="submit"
                         className={`article-create-form__button ${formik.isValid ? 'active' : ''}`}
-                        // onSubmit={() => {
-                        //     formik.setFieldValue('content', '');
-                        //     formik.setFieldValue('file', '');
-                        // } }
                     >
                         Опубликовать
                     </SubmitButton>
