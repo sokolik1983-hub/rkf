@@ -55,7 +55,9 @@ const RenderFields = ({ fields,
                           isAllCities,
                           setIsAllCities,
                           name,
-                          userType
+                          userType,
+                          setContent,
+                          setFile,
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -63,7 +65,6 @@ const RenderFields = ({ fields,
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
-
 
     const { content, file } = formik.values;
 
@@ -79,6 +80,7 @@ const RenderFields = ({ fields,
 
         if (file && file.size < 20971520) {
             formik.setFieldValue('file', file);
+            setFile(file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
             setLoadFile(true);
@@ -265,6 +267,8 @@ const RenderFields = ({ fields,
                                 className="article-create-form__ad"
                                 checked={isAd}
                                 onChange={() => {
+                                    setContent(content);
+
                                     if (isAd) {
                                         setIsAd(false);
                                         setIsMust(false);
@@ -286,6 +290,8 @@ const RenderFields = ({ fields,
                                     className="article-create-form__ad"
                                     checked={isCheckedAddTypes}
                                     onChange={() => {
+                                        setContent(content);
+
                                         if (isCheckedAddTypes) {
                                             setIsCheckedAddTypes(false);
                                             setIsMust(false);
@@ -350,8 +356,8 @@ const RenderFields = ({ fields,
                         <FormField className="article-create-form__input-sex_new" {...fields.dog_sex_type_id} />
                         <FormField className="article-create-form__input-color_new" {...fields.dog_color} />
                         <FormField className="article-create-form__input-age_new" {...fields.dog_age} />
-                        <CustomNumber cName={' article-create-form__input-cost_new'} {...fields.advert_cost} maxLength={10}  />
-                        {!isMating && <CustomNumber cName={' article-create-form__input-puppies_new'} {...fields.advert_number_of_puppies} />}
+                        <CustomNumber cName=" article-create-form__input-cost_new" {...fields.advert_cost} maxLength={10}  />
+                        {!isMating && <CustomNumber cName=" article-create-form__input-puppies_new" {...fields.advert_number_of_puppies} />}
                     </FormGroup>
                 </div>
             }

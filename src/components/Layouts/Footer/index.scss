@@ -170,4 +170,15 @@
       font-weight: 400;
     }
   }
+
+  &__policy {
+    text-align: justify;
+    text-align-last: justify;
+    text-decoration: none;
+    color: #72839c !important;
+    &:hover {
+      color: #3366ff !important;
+      text-decoration: underline;
+    }
+  }
 }

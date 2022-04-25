@@ -1,6 +1,5 @@
 .breeds {
   width: 300px;
-  min-width: 300px;
   margin-bottom: 16px;
   padding: 10px !important;
 
@@ -21,6 +20,7 @@
     padding-top: 12px;
 
     &-item {
+      max-width: 100%;
       color: #72839c;
       background-color: #e5e5e5;
       border-radius: 33px;
@@ -29,6 +29,9 @@
       margin-right: 5px;
       display: inline-block;
       text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 

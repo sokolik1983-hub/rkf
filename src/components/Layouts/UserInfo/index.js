@@ -38,7 +38,12 @@ const UserInfo = ({
             <div className="user-info">
                 <div
                     className={logo_link ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
-                    onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                    onTouchStart={() => {
+                        setHover(true);
+                        setTimeout(() => setHover(false), 3000);
+                    }}
                 >
                     {canEdit &&
                         <>

@@ -1,5 +1,7 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import Container from "../Container";
+import personalDataProcessingPolicyDoc from "./../../../pages/PersonalDataProcessingPolicy/Politika_PDn.pdf";
 import './index.scss';
 
 
@@ -17,7 +19,16 @@ const Footer = ({ showCopyright = true }) => (
                     {/*<a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>*/}
                     <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
                 </div>
-                <p>{showCopyright && 'Политика обработки персональных данных'}</p>
+                {showCopyright &&
+                    <Link
+                        className="Footer__policy"
+                        to={personalDataProcessingPolicyDoc}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Политика обработки персональных данных
+                    </Link>
+                }
             </div>
         </Container>
     </footer>
