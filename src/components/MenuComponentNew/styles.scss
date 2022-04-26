@@ -62,6 +62,9 @@
     & svg {
       transition: color .2s linear;
       margin-right: 10px;
+      width: 22px;
+      height: 22px;
+      fill: #72839c;
     }
     &:hover, &.active  {
       color: #3366ff;

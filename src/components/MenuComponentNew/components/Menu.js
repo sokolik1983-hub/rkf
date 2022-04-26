@@ -12,6 +12,8 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
     const [alert, setAlert] = useState(false);
     const [notificationCounter, setNotificationCounter] = useState(null);
 
+    console.log('currentPageNav', currentPageNav);
+
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setOpenUserMenu(false);
@@ -86,7 +88,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                     onClick={e => clickOnPresidium(e, currentPageUserInfo?.club_alias)}
                                 >
                                     {navItem.icon}
-                                    <span>{navItem.title}</span>
+                                    <span>{navItem.title}555</span>
                                 </NavLink>
                                 :
                                 <NavLink
@@ -96,7 +98,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                     onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                                 >
                                     {navItem.icon}
-                                    <span>{navItem.title}</span>
+                                    <span>{navItem.title}6666</span>
                                 </NavLink>
                         }
                     </li>)
