@@ -114,8 +114,9 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             federationName={organizer_name}
                                             federationAlias={organizer_alias}
                                         />
-                                        {/*{!isMobile && <MenuComponentNew /> Страница в проекте, - когда будет существовать, то прописать в компоненте условия, чтобы меню отображалось нормально*/}
-                                        {/*}*/}
+                                        {
+                                            !isMobile && <MenuComponentNew />
+                                        }
                                         <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                         <UserPhotoGallery
                                             alias={organizer_alias}

@@ -50,26 +50,34 @@ const MenuComponentNew = () => {
         || location.search.includes(userAlias)
     ); // страницы профиля залогиненного юзера?
 
+
+    const deleteNotification = (currentPageNav) => {
+        return currentPageNav?.filter(item => (item.title !== 'Уведомления') && item);
+    }
+
+    const getMenu = (url, linkAlias) => {
+        return isFederationAlias(url) ?
+            federationNav(url) :
+            (url === 'club' && linkAlias) ?
+                clubNav(linkAlias) :
+                (url === 'kennel' && linkAlias) ?
+                    kennelNav(linkAlias) :
+                    userNav(linkAlias)
+    }
+
     const getMenuInfoCurrentUserPage = (url, linkAlias, isUserDocuments) => {
-        if(isUserDocuments) {
+        if(isUserDocuments) { //подтягиваем меню юзера, на странице которого находимся
             (userType === 1) && setCurrentPageNav(userNavDocs(userAlias));
             (userType === 3 || userType === 5) && setCurrentPageNav(clubNavDocs(userAlias));
             (userType === 4) && setCurrentPageNav(kennelNavDocs(userAlias));
         } else {
-            if(isFederationAlias(url)) {
-                setCurrentPageNav(federationNav(url));
-            }
-            if(url === 'club' && linkAlias) {
-                setCurrentPageNav(clubNav(linkAlias));
-            }
-            if(url === 'kennel' && linkAlias) {
-                setCurrentPageNav(kennelNav(linkAlias));
-            }
-            if(url === 'user' && linkAlias) {
-                setCurrentPageNav(userNav(linkAlias))
-            }
+            setCurrentPageNav(isUserProfilePage ?
+                getMenu(url, linkAlias)
+                :
+                deleteNotification(getMenu(url, linkAlias))
+            )
         }
-        Request({
+        Request({ //подтягиваем инфу о юзере, на странице которого находимся (нужно для моб. меню)
             url:
                 url === "club"
                     ?
@@ -120,24 +128,24 @@ const MenuComponentNew = () => {
                             getMenuInfoCurrentUserPage(checkUserType(userType), userAlias, isUserDocuments);
                         } else {
                             //Это страница нашего профиля, подтягиваем меню юзера
-                            getMenuInfoCurrentUserPage(checkUserType(userType), userAlias);
+                            isFederationAlias(url) ? getMenuInfoCurrentUserPage(url, url) : getMenuInfoCurrentUserPage(url , userAlias);
                         }
                     } else {
-                    if (isFederationAlias(url)
-                        || url === 'kennel'
-                        || url === 'club'
-                        || url === 'user'
-                        || url === 'referee'
-                        || url === 'client'
-                    ) {//Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся
-                        isFederationAlias(url) ? getMenuInfoCurrentUserPage(url, url) : getMenuInfoCurrentUserPage(url , linkAlias);
-                    } else {
-                        getMenuInfoCurrentUserPage(checkUserType(userType), userAlias);
-                    }
+                            if (isFederationAlias(url)
+                                || url === 'kennel'
+                                || url === 'club'
+                                || url === 'user'
+                                || url === 'referee'
+                                || url === 'client'
+                            ) {//Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся
+                                isFederationAlias(url) ? getMenuInfoCurrentUserPage(url, url) : getMenuInfoCurrentUserPage(url , linkAlias);
+                            } else {
+                                getMenuInfoCurrentUserPage(checkUserType(userType), userAlias);
+                            }
                 }
         } else {
             //Юзер не залогинен, подтягиваем меню клуба-питомника-федерации на странице которого находимся
-            isFederationAlias(url) ? getMenuInfoCurrentUserPage( 'club', url) : getMenuInfoCurrentUserPage( url, linkAlias);
+            isFederationAlias(url) ? getMenuInfoCurrentUserPage(url, url) : getMenuInfoCurrentUserPage(url , linkAlias);
         }
     };
 
@@ -212,6 +220,10 @@ const MenuComponentNew = () => {
     useEffect(() => {
         checkIsPage(exhibAlias)
     }, [exhibAlias]);
+
+    useEffect(() => {
+        console.log('99999999999999999999999999', currentPageUserInfo)
+    }, [currentPageUserInfo])
 
     return (
         <>

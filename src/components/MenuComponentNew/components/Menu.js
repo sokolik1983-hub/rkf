@@ -12,8 +12,6 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
     const [alert, setAlert] = useState(false);
     const [notificationCounter, setNotificationCounter] = useState(null);
 
-    console.log('currentPageNav', currentPageNav);
-
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setOpenUserMenu(false);
