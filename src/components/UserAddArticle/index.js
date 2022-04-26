@@ -56,6 +56,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_sex_type_id: '',
         dog_age: '',
         content: content ? content : '',
+        file: '',
     }; //Initial Values для объявлений категории 1
     const initialValueCatTwo = {
         advert_breed_id: '',
@@ -68,13 +69,13 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_name: '',
         dog_city: '',
         content: content ? content : '',
+        file: '',
     } //Initial Values для объявлений категории 2
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isFederation = alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo' || alias === 'rkf-online';
 
     const transformValues = values => {
-
         if (isAd || isCheckedAddTypes) {
             return {
                 ...values,
@@ -109,6 +110,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         setActiveElem(null);
         setIsAd(false);
         setIsCheckedAddTypes(false);
+        setContent('');
         setBlured();
     };
 

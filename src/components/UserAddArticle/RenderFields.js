@@ -65,7 +65,6 @@ const RenderFields = ({ fields,
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
 
-
     const { content, file } = formik.values;
 
     useEffect(() => {
@@ -134,7 +133,6 @@ const RenderFields = ({ fields,
             });
 
         formik.setFieldValue('content', text);
-        setContent(content);
     };
 
     const addRow = () => {
@@ -267,6 +265,8 @@ const RenderFields = ({ fields,
                                 className="article-create-form__ad"
                                 checked={isAd}
                                 onChange={() => {
+                                    setContent(content);
+
                                     if (isAd) {
                                         setIsAd(false);
                                         setIsMust(false);
@@ -288,6 +288,8 @@ const RenderFields = ({ fields,
                                     className="article-create-form__ad"
                                     checked={isCheckedAddTypes}
                                     onChange={() => {
+                                        setContent(content);
+
                                         if (isCheckedAddTypes) {
                                             setIsCheckedAddTypes(false);
                                             setIsMust(false);

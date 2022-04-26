@@ -12,6 +12,8 @@ import { formatText } from '../../utils';
 import { Request } from '../../utils/request';
 import { endpointGetNews } from './config';
 import { connectAuthVisible } from '../Login/connectors';
+import DocumentLink from "../../components/DocumentLink";
+import {endpointGetLinkNewsFeed} from "../../components/CardNewsNew/config";
 
 import './index.scss';
 
@@ -132,12 +134,12 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                             <ul className="news__documents-list">
                                                 {news.documents.map(doc =>
                                                     <li className="news__documents-item" key={doc.id}>
-                                                        <Link
-                                                            to={`/documents/${doc.id}`}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="news__documents-link"
-                                                        >{doc.name}</Link>
+                                                        <DocumentLink
+                                                            docId={doc.id}
+                                                            document={doc}
+                                                            endpoint={endpointGetLinkNewsFeed}
+                                                            CardNewsNew
+                                                        />
                                                     </li>
                                                 )}
                                             </ul>

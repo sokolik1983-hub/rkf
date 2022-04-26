@@ -48,6 +48,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/Politika_PDn.pdf',
+        component: LoadableModules.LoadablePersonalDataProcessingPolicyPage
+    },
+    {
+        exact: true,
         path: '/search',
         component: LoadableModules.LoadableSearchPage
     },

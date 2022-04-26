@@ -217,7 +217,11 @@
     &__logo {
         text-align: center;
         & img {
-            width: 158px;
+            width: 100%;
         }
+    }
+
+    .widget-login__button {
+        margin-top: 20px;
     }
 }
