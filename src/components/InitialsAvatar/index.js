@@ -26,13 +26,13 @@ const InitialsAvatar = ({card, id, name}) => {
         let firstName;
         let lastName;
         if(!name) {
-            firstName = useSelector(state => state.authentication.user_info.first_name);
+            firstName = useSelector(state => state.authentication.user_info.first_name).replace(/["-']/g, '');
             lastName = useSelector(state => state.authentication.user_info.last_name);
         } else if(name && name.split(' ').length > 1) {
-            firstName = name.split(' ')[0];
+            firstName = name.split(' ')[0].replace(/["-']/g, '');
             lastName = name.split(' ')[1];
         } else {
-            firstName = name.split('')[0];
+            firstName = name.split('')[0].replace(/["-']/g, '');
             lastName = name.split('')[1];
         }
         return firstName[0] + lastName[0]
