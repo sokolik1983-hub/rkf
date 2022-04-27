@@ -31,7 +31,7 @@ import {endpointGetNBCInfo} from "../../components/Layouts/NBCLayout/config";
 import "./index.scss"
 import PhotoComponent from "../../components/PhotoComponent";
 
-const NBCPage = (props) => {
+const NBCPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [nbcInfo, setNBCInfo] = useState(null);
@@ -43,7 +43,7 @@ const NBCPage = (props) => {
     const isAuthenticated = useSelector(state => state.authentication.isAuthenticated);
 
     const { alias } = useParams();
-    const aliasRedux = useSelector(state => state?.authentication?.user_info.alias);
+    const aliasRedux = useSelector(state => state?.authentication?.user_info?.alias);
 
     const getNBCInfo = async () => {
         Request({
