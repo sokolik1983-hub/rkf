@@ -32,7 +32,6 @@ import "./index.scss"
 import PhotoComponent from "../../components/PhotoComponent";
 
 const NBCPage = (props) => {
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [nbcInfo, setNBCInfo] = useState(null);
@@ -44,6 +43,7 @@ const NBCPage = (props) => {
     const isAuthenticated = useSelector(state => state.authentication.isAuthenticated);
 
     const { alias } = useParams();
+    const aliasRedux = useSelector(state => state?.authentication?.user_info.alias);
 
     const getNBCInfo = async () => {
         Request({
@@ -60,6 +60,7 @@ const NBCPage = (props) => {
 
     useEffect(() => {
         (() => getNBCInfo())();
+        setCanEdit((aliasRedux === alias));
     }, []);
 
     const onSubscriptionUpdate = (subscribed) => {
@@ -71,137 +72,137 @@ const NBCPage = (props) => {
 
 
     useEffect(() => {
-        console.log('nbcInfo', nbcInfo);
-        console.log('nbcProfileId', nbcProfileId);
+        console.log('aliasRedux', aliasRedux);
+        console.log('alias', alias);
     }, [nbcInfo, nbcProfileId]);
 
     return (
         loading ?
             <Loading />
             :
-        <Layout setNotificationsLength={setNotificationsLength}>
-            <div className="redesign">
-                <Container className="content nbc-page">
-                    <div className="nbc-page__content-wrap">
-                        <Aside className="nbc-page__info">
-                            <StickyBox offsetTop={60}>
-                                <div className="club-page__info-inner">
-                                    {!isMobile && nbcInfo &&
-                                        <>
-                                            <UserHeader
-                                                user='nbc'
-                                                logo={nbcInfo.logo_link}
-                                                name={nbcInfo.name || 'Название клуба отсутствует'}
-                                                alias={nbcInfo.alias}
-                                                profileId={nbcProfileId}
-                                                // federationName={clubInfo.federation_name}
-                                                // federationAlias={clubInfo.federation_alias}
-                                                // active_rkf_user={clubInfo.active_rkf_user}
-                                                // active_member={clubInfo.active_member}
-                                                canEdit={true}
-                                                subscribed={nbcInfo.subscribed}
-                                                // member={clubInfo.member}
-                                                onSubscriptionUpdate={onSubscriptionUpdate}
-                                                isAuthenticated={isAuthenticated}
-                                            />
-                                            <PhotoComponent
-                                                photo={nbcInfo.owner_photo || '/media/YTdmMmM2MzktNWFjYi00NzA1LWI4ODYtZGZjNjEyYmVjOGU3X0NsdWJPd25lcg.jpeg'}
-                                                name={nbcInfo.owner_name}
-                                                position={nbcInfo.owner_position}
-                                                canEdit={true}
-                                            />
-                                        </>
-                                    }
+            <Layout setNotificationsLength={setNotificationsLength}>
+                <div className="redesign">
+                    <Container className="content nbc-page">
+                        <div className="nbc-page__content-wrap">
+                            <Aside className="nbc-page__info">
+                                <StickyBox offsetTop={60}>
+                                    <div className="club-page__info-inner">
+                                        {!isMobile && nbcInfo &&
+                                            <>
+                                                <UserHeader
+                                                    user='nbc'
+                                                    logo={nbcInfo.logo_link}
+                                                    name={nbcInfo.name || 'Название клуба отсутствует'}
+                                                    alias={nbcInfo.alias}
+                                                    profileId={nbcProfileId}
+                                                    // federationName={clubInfo.federation_name}
+                                                    // federationAlias={clubInfo.federation_alias}
+                                                    // active_rkf_user={clubInfo.active_rkf_user}
+                                                    // active_member={clubInfo.active_member}
+                                                    canEdit={canEdit}
+                                                    subscribed={nbcInfo.subscribed}
+                                                    // member={clubInfo.member}
+                                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                                    isAuthenticated={isAuthenticated}
+                                                />
+                                                <PhotoComponent
+                                                    photo={nbcInfo.owner_photo}
+                                                    name={nbcInfo.owner_name}
+                                                    position={nbcInfo.owner_position}
+                                                    canEdit={canEdit}
+                                                />
+                                            </>
+                                        }
 
-                                    {/*{!isMobile && <UserMenu userNav={canEdit*/}
-                                    {/*    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only*/}
-                                    {/*    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}*/}
-                                    {/*                        notificationsLength={notificationsLength}*/}
-                                    {/*/>}*/}
-                                    {!isMobile && nbcInfo &&
-                                        <>
-                                            <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
-                                            <UserPhotoGallery
-                                                alias={nbcInfo.alias}
-                                                pageLink={`/nbc/${alias}/gallery`}
-                                                canEdit={canEdit}
-                                            />
-                                            <UserVideoGallery
-                                                alias={nbcInfo.alias}
-                                                pageLink={`/nbc/${alias}/video`}
-                                                canEdit={canEdit}
-                                            />
-                                            <CopyrightInfo withSocials={true} />
-                                        </>
-                                    }
-                                </div>
-                            </StickyBox>
-                        </Aside>
-                        <div className="nbc-page__content">
-                            <UserBanner
-                                link={nbcInfo?.headliner_link || 'https://s00.yaplakal.com/pics/pics_preview/7/6/8/16697867.jpg'} //сюда добавить, когда будет готово на беке   nbcInfo.headliner_link ||
-                                canEdit={canEdit}
-                                updateInfo={getNBCInfo}
-                            />
-                            {isMobile && nbcInfo &&
-                                <UserHeader
-                                    user={alias !== 'rkf-online' ? 'club' : ''}
-                                    logo={nbcInfo.logo_link}
-                                    name={'Название клуба отсутствует'} //сюда добавить, когда будет готово на беке => nbcInfo.name ||
-                                    alias={nbcInfo.alias}
-                                    profileId={nbcProfileId}
-                                    // federationName={nbcInfo.federation_name}
-                                    // federationAlias={nbcInfo.federation_alias}
-                                    // active_rkf_user={nbcInfo.active_rkf_user}
-                                    // active_member={nbcInfo.active_member}
+                                        {/*{!isMobile && <UserMenu userNav={canEdit*/}
+                                        {/*    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only*/}
+                                        {/*    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}*/}
+                                        {/*                        notificationsLength={notificationsLength}*/}
+                                        {/*/>}*/}
+                                        {!isMobile && nbcInfo &&
+                                            <>
+                                                <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
+                                                <UserPhotoGallery
+                                                    alias={alias}
+                                                    pageLink={`/nbc/${alias}/gallery`}
+                                                    canEdit={canEdit}
+                                                />
+                                                <UserVideoGallery
+                                                    alias={alias}
+                                                    pageLink={`/nbc/${alias}/video`}
+                                                    canEdit={canEdit}
+                                                />
+                                                <CopyrightInfo withSocials={true} />
+                                            </>
+                                        }
+                                    </div>
+                                </StickyBox>
+                            </Aside>
+                            <div className="nbc-page__content">
+                                <UserBanner
+                                    link={nbcInfo?.headliner_link || '/static/images/noimg/no-banner.png'} //сюда добавить, когда будет готово на беке   nbcInfo.headliner_link ||
                                     canEdit={canEdit}
-                                    subscribed={nbcInfo.subscribed}
-                                    // member={nbcInfo.member}
-                                    onSubscriptionUpdate={onSubscriptionUpdate}
-                                    isAuthenticated={isAuthenticated}
+                                    updateInfo={getNBCInfo}
                                 />
-                            }
-                            {/*<UserDescription description={nbcInfo.description} />*/}
-                            <UserContacts {...nbcInfo} profileAlias={alias} />
-                            <div className="club-page__exhibitions">
-                                <ExhibitionsComponent alias={alias} />
-                            </div>
-                            {isMobile && nbcInfo &&
-                                <>
-                                    <UserPhotoGallery
+                                {isMobile && nbcInfo &&
+                                    <UserHeader
+                                        user={alias !== 'rkf-online' ? 'club' : ''}
+                                        logo={nbcInfo.logo_link}
+                                        name={'Название клуба отсутствует'} //сюда добавить, когда будет готово на беке => nbcInfo.name ||
                                         alias={nbcInfo.alias}
-                                        pageLink={`/nbc/${nbcInfo.alias}/gallery`}
+                                        profileId={nbcProfileId}
+                                        // federationName={nbcInfo.federation_name}
+                                        // federationAlias={nbcInfo.federation_alias}
+                                        // active_rkf_user={nbcInfo.active_rkf_user}
+                                        // active_member={nbcInfo.active_member}
                                         canEdit={canEdit}
+                                        subscribed={nbcInfo.subscribed}
+                                        // member={nbcInfo.member}
+                                        onSubscriptionUpdate={onSubscriptionUpdate}
+                                        isAuthenticated={isAuthenticated}
                                     />
-                                    <UserVideoGallery
-                                        alias={nbcInfo.alias}
-                                        pageLink={`/nbc/${nbcInfo.alias}/video`}
-                                        canEdit={canEdit}
+                                }
+                                {/*<UserDescription description={nbcInfo.description} />*/}
+                                <UserContacts {...nbcInfo} profileAlias={alias} />
+                                <div className="club-page__exhibitions">
+                                    <ExhibitionsComponent alias={alias} />
+                                </div>
+                                {isMobile && nbcInfo &&
+                                    <>
+                                        <UserPhotoGallery
+                                            alias={nbcInfo.alias}
+                                            pageLink={`/nbc/${nbcInfo.alias}/gallery`}
+                                            canEdit={canEdit}
+                                        />
+                                        <UserVideoGallery
+                                            alias={nbcInfo.alias}
+                                            pageLink={`/nbc/${nbcInfo.alias}/video`}
+                                            canEdit={canEdit}
+                                        />
+                                    </>
+                                }
+                                {canEdit && nbcInfo &&
+                                    <AddArticle
+                                        id={nbcProfileId}
+                                        logo={nbcInfo.avatar}
+                                        setNeedRequest={setNeedRequest}
+                                        profileInfo={nbcInfo}
+                                        setProfileInfo={setNBCInfo}
                                     />
-                                </>
-                            }
-                            {canEdit && nbcInfo &&
-                                <AddArticle
-                                    id={nbcProfileId}
-                                    logo={nbcInfo.avatar}
+                                }
+                                <UserNews
+                                    canEdit={canEdit}
+                                    alias={alias}
+                                    needRequest={needRequest}
                                     setNeedRequest={setNeedRequest}
                                     profileInfo={nbcInfo}
                                     setProfileInfo={setNBCInfo}
                                 />
-                            }
-                            <UserNews
-                                canEdit={canEdit}
-                                alias={alias}
-                                needRequest={needRequest}
-                                setNeedRequest={setNeedRequest}
-                                profileInfo={nbcInfo}
-                                setProfileInfo={setNBCInfo}
-                            />
+                            </div>
                         </div>
-                    </div>
-                </Container>
-            </div>
-        </Layout>
+                    </Container>
+                </div>
+            </Layout>
     )
 };
 

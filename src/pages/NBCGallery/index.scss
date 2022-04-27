@@ -1,11 +1,26 @@
-p {
-  font-size: 30px;
-  text-align: center;
+.nbc-page {
+  &__content-wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__content {
+    width: calc(100% - 316px);
+    margin-left: 16px;
+    order: 1;
+    .Card:not(.club-page__content-banner) {
+      padding: 10px;
+      margin-bottom: 20px !important;
+    }
+  }
+  &__info {
+    width: 300px;
+    min-width: 300px;
+    padding-bottom: 16px;
+  }
+  & .user-info {
+    &__logo-wrap {
+      border-bottom: none;
+    }
+  }
 }
-a {
-  text-align: center;
-  margin: 0 auto;
-}
-.pt-150 {
-  padding-top: 150px;
-}
+

@@ -19,20 +19,23 @@ const MenuLinks = ({
         return userTypes === 'user' ? `/user/${alias}/edit` :
             userTypes === 'club' ? '/client' :
             userTypes === 'federation' ? '/client' :
-            userTypes === 'kennel' && `/kennel/${alias}/edit`;
+            userTypes === 'kennel' ? `/kennel/${alias}/edit` :
+            userTypes === 'nbc' && `/nbc/${alias}/edit`;
     };
 
     const profileCabinet = () => {
         return userTypes === 'user' ? `/user/${alias}/documents` :
             userTypes === 'club' ? `/club/${alias}/documents/` :
             userTypes === 'federation' ? `/${alias}/documents/` :
-            userTypes === 'kennel' && `/kennel/${alias}/documents`;
+            userTypes === 'kennel' ? `/kennel/${alias}/documents` :
+            userTypes === 'nbc' && `/nbc/${alias}/documents`;
     };
 
     const profilePage = () => {
         return userTypes === 'user' ? `/user/${alias}` :
             userTypes === 'club' ? is_active_profile ? `/club/${alias}` : '/not-confirmed' :
             userTypes === 'federation' ? is_active_profile ? `/${alias}` : '/not-confirmed' :
+            userTypes === 'nbc' ? is_active_profile ? `/nbc/${alias}` : '/not-confirmed' :
             userTypes === 'kennel' && is_active_profile ? `/kennel/${alias}` : '/kennel/activation';
     };
 

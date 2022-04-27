@@ -182,6 +182,10 @@ export const LoadableNBCDocuments = Loadable({
     loader: () => import('./pages/NBCDocuments'),
     loading: Loading
 });
+export const LoadableNBCUploadedDocuments = Loadable({
+    loader: () => import('./pages/NBCUploadedDocuments'),
+    loading: Loading
+});
 export const LoadableUserVideo = Loadable({
     loader: () => import('./pages/UserVideo'),
     loading: Loading

@@ -7,6 +7,10 @@
     width: calc(100% - 316px);
     margin-left: 16px;
     order: 1;
+    .Card:not(.club-page__content-banner) {
+      padding: 10px;
+      margin-bottom: 20px !important;
+    }
   }
   &__info {
     width: 300px;
@@ -18,9 +22,4 @@
       border-bottom: none;
     }
   }
-  //& .user-header {
-  //  padding: 0 !important;
-  //  margin-bottom: 16px;
-  //  word-break: break-word;
-  //}
 }
