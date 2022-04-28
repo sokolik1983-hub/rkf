@@ -221,10 +221,6 @@ const MenuComponentNew = () => {
         checkIsPage(exhibAlias)
     }, [exhibAlias]);
 
-    useEffect(() => {
-        console.log('99999999999999999999999999', currentPageUserInfo)
-    }, [currentPageUserInfo])
-
     return (
         <>
             {

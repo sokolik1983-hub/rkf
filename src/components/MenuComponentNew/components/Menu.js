@@ -123,7 +123,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                                 className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
                                             >
                                                 {navItem.icon}
-                                                <span>{navItem.title}123</span>
+                                                <span>{navItem.title}</span>
                                             </NavLink>
                                             :
                                             <NavLink
@@ -133,7 +133,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                                 onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                                             >
                                                 {navItem.icon}
-                                                <span>{navItem.title}1234</span>
+                                                <span>{navItem.title}</span>
                                             </NavLink>
                                     }
                                 </li>)

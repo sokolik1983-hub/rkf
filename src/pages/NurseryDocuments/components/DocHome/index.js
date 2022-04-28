@@ -262,7 +262,9 @@ const DocHome = ({ nurseryAlias }) => {
         }))();
     }, []);
 
-    return (loading ? <Loading /> : <div className="documents-page__info">
+    return (loading ?
+            <Loading /> :
+            <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={60}>
                 {!isMobile && <MenuComponentNew />}

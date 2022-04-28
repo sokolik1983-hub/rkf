@@ -166,14 +166,24 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     }
 
     const Breadcrumbs = () => {
-        return <div className="NurseryGallery__breadcrumbs wrap">
-            <div>
-                <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
-                <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
-                {album ? <> / <Link className="btn-backward" to={`/kennel/${alias}/gallery/${params.album}`}>{album.name}</Link></> : ''}
-                &nbsp;/&nbsp;Редактирование
-        </div>
-        </div>
+        return (
+            <div className="NurseryGallery__breadcrumbs wrap">
+                <div>
+                    <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
+                    <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
+                    {
+                        album &&
+                            <Link
+                                className="btn-backward"
+                                to={`/kennel/${alias}/gallery/${params.album}`}
+                            >
+                                / {album.name}
+                            </Link>
+                    }
+                        &nbsp;/&nbsp;Редактирование
+                </div>
+            </div>
+        )
     }
 
     return (
