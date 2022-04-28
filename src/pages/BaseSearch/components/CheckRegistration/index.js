@@ -121,7 +121,8 @@ const CheckRegistration = ({ cardClicked }) => {
                                 className="btn-primary"
                                 type="submit"
                                 disabled={loading}
-                            >Поиск
+                            >
+                                Поиск
                             </Button>
                         </div>
                     }

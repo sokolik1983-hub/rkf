@@ -13,9 +13,9 @@
                 padding: 0;
             }
             &:first-child {
-                margin-right: 10px;
                 width: 342px;
                 max-width: 342px;
+                margin-right: 10px;
                 @media (max-width: 640px) {
                     padding-right: 0;
                     width: 100%;

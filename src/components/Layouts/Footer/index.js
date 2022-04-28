@@ -20,14 +20,16 @@ const Footer = ({ showCopyright = true }) => (
                     <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
                 </div>
                 {showCopyright &&
-                    <Link
-                        className="Footer__policy"
-                        to={personalDataProcessingPolicyDoc}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Политика обработки персональных данных
-                    </Link>
+                    //временное исправление ссылки на span по таске
+                    // <Link
+                    //     className="Footer__policy"
+                    //     to={personalDataProcessingPolicyDoc}
+                    //     target="_blank"
+                    //     rel="noopener noreferrer"
+                    // >
+                    //     Политика обработки персональных данных
+                    // </Link>
+                    <span className="Footer__policy">Политика обработки персональных данных</span>
                 }
             </div>
         </Container>

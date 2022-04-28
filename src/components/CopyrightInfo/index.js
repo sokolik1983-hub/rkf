@@ -34,27 +34,31 @@ const CopyrightInfo = ({ withSocials }) => {
                         <Link to="/about" className="copyright-link">О RKF.Online</Link>
                     </div>
                     <div>
-                        <Link
-                            className="copyright-link copyright-policy"
-                            to={personalDataProcessingPolicyDoc}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Политика обработки персональных данных
-                        </Link>
+                        {/*временное исправление ссылки на span по таске*/}
+                        {/*<Link*/}
+                        {/*    className="copyright-link copyright-policy"*/}
+                        {/*    to={personalDataProcessingPolicyDoc}*/}
+                        {/*    target="_blank"*/}
+                        {/*    rel="noopener noreferrer"*/}
+                        {/*>*/}
+                        {/*    Политика обработки персональных данных*/}
+                        {/*</Link>*/}
+                        <span className="copyright-policy">Политика обработки персональных данных</span>
                     </div>
                 </div>
             </Card>
             : <div className="copyright-info">
                 <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                <Link
-                    className="copyright-policy"
-                    to={personalDataProcessingPolicyDoc}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Политика обработки персональных данных
-                </Link>
+                {/*временное исправление ссылки на span по таске*/}
+                {/*<Link*/}
+                {/*    className="copyright-policy"*/}
+                {/*    to={personalDataProcessingPolicyDoc}*/}
+                {/*    target="_blank"*/}
+                {/*    rel="noopener noreferrer"*/}
+                {/*>*/}
+                {/*    Политика обработки персональных данных*/}
+                {/*</Link>*/}
+                <span  className="copyright-policy">Политика обработки персональных данных</span>
             </div>
     );
 }
