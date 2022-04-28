@@ -12,14 +12,14 @@ import UserHeader from './components/UserHeader';
 import CopyrightInfo from '../../components/CopyrightInfo';
 import StickyBox from 'react-sticky-box';
 import useIsMobile from '../../utils/useIsMobile';
-import UserMenu from '../../components/Layouts/UserMenu';
 import {endpointGetNurseryInfo, kennelNav} from '../../components/Layouts/NurseryLayout/config';
 import {Redirect} from 'react-router-dom';
 import ClickGuard from '../../components/ClickGuard';
 import BreedsList from '../../components/BreedsList';
 import {connectAuthVisible} from '../Login/connectors';
 import {connectShowFilters} from '../../components/Layouts/connectors';
-import randomKeyGenerator from '../../utils/randomKeyGenerator'
+import randomKeyGenerator from '../../utils/randomKeyGenerator';
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import './styles.scss';
 
@@ -190,11 +190,7 @@ const NurseryEdit = ({
                                 {nursery.breeds && !!nursery.breeds.length &&
                                     <BreedsList breeds={nursery.breeds}/>
                                 }
-                                {!isMobile && <UserMenu userNav={canEdit
-                                    ? kennelNav(alias)
-                                    : kennelNav(alias).filter(i => i.id !== 2)}
-                                                        notificationsLength={notificationsLength}
-                                />}
+                                {!isMobile && <MenuComponentNew />}
                                 <CopyrightInfo withSocials={true}/>
                             </StickyBox>
                         </aside>

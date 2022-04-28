@@ -15,14 +15,14 @@ import UserContacts from "../../components/redesign/UserContacts";
 import UserDescription from "../../components/redesign/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
-import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
-import { clubNav, endpointGetClubInfo } from "./config";
+import {endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import UserBanner from "../../components/Layouts/UserBanner";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
 
@@ -143,30 +143,24 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     <StickyBox offsetTop={60}>
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
-                                                <UserHeader
-                                                    user={alias !== 'rkf-online' ? 'club' : ''}
-                                                    logo={clubInfo.logo_link}
-                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                    alias={clubInfo.club_alias}
-                                                    profileId={clubInfo.id}
-                                                    federationName={clubInfo.federation_name}
-                                                    federationAlias={clubInfo.federation_alias}
-                                                    active_rkf_user={clubInfo.active_rkf_user}
-                                                    active_member={clubInfo.active_member}
-                                                    canEdit={canEdit}
-                                                    subscribed={clubInfo.subscribed}
-                                                    member={clubInfo.member}
-                                                    onSubscriptionUpdate={onSubscriptionUpdate}
-                                                    isAuthenticated={isAuthenticated}
-                                                />
-                                            }
-                                            {!isMobile && <UserMenu userNav={canEdit
-                                                ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                                : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
-                                                       notificationsLength={notificationsLength}
-                                            />}
-                                            {!isMobile &&
                                                 <>
+                                                    <UserHeader
+                                                        user={alias !== 'rkf-online' ? 'club' : ''}
+                                                        logo={clubInfo.logo_link}
+                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                        alias={clubInfo.club_alias}
+                                                        profileId={clubInfo.id}
+                                                        federationName={clubInfo.federation_name}
+                                                        federationAlias={clubInfo.federation_alias}
+                                                        active_rkf_user={clubInfo.active_rkf_user}
+                                                        active_member={clubInfo.active_member}
+                                                        canEdit={canEdit}
+                                                        subscribed={clubInfo.subscribed}
+                                                        member={clubInfo.member}
+                                                        onSubscriptionUpdate={onSubscriptionUpdate}
+                                                        isAuthenticated={isAuthenticated}
+                                                    />
+                                                    <MenuComponentNew />
                                                     <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}

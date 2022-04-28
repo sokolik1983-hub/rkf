@@ -5,7 +5,6 @@ import Loading from "components/Loading";
 import Layout from "components/Layouts";
 import Container from "components/Layouts/Container";
 import Aside from "components/Layouts/Aside";
-import UserMenu from "components/Layouts/UserMenu";
 import UserHeader from "components/redesign/UserHeader";
 import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
@@ -17,11 +16,10 @@ import useIsMobile from "utils/useIsMobile";
 import { BANNER_TYPES } from "appConfig";
 import Banner from "components/Banner";
 import BreedsList from "components/BreedsList";
-import {connectShowFilters} from "../../../components/Layouts/connectors"
+import {connectShowFilters} from "../../../components/Layouts/connectors";
+import MenuComponentNew from "../../MenuComponentNew";
 
 import "./index.scss";
-
-
 
 const getAddressString = addressObj => {
     let address = '';
@@ -112,13 +110,9 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
                                                 active_member={nursery.active_member}
                                             />
                                         }
-                                        {!isMobile && <UserMenu userNav={canEdit
-                                            ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                            : kennelNav(alias).filter(i => i.id !== 2)}
-                                                   notificationsLength={notificationsLength}
-                                        />}
                                         {!isMobile &&
                                             <>
+                                                <MenuComponentNew />
                                                 {nursery.breeds && !!nursery.breeds.length &&
                                                     <BreedsList breeds={nursery.breeds} />
                                                 }

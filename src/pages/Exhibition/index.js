@@ -8,8 +8,6 @@ import PropertyP from "../../components/PropertyP";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { clubNav } from "../Club/config";
-import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../dictionaries";
@@ -19,10 +17,9 @@ import UserHeader from "../../components/redesign/UserHeader";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import StickyBox from "react-sticky-box";
 import Banner from "../../components/Banner";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
 import useIsMobile from "../../utils/useIsMobile";
 import PhotoComponent from "../../components/PhotoComponent";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
 
@@ -207,25 +204,16 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                 position={fedInfo.owner_position}
                                             />
                                         }
-                                        {!isMobile && isFederationAlias(club_alias) ?
-                                            <MenuComponent
-                                                club_alias={club_alias}
-                                                name={display_name || club_fact_name || ''}
-                                                isFederation={true}
-                                            />
-                                            :
-                                            !isMobile &&
-                                            <UserMenu
-                                                userNav={clubNav(club_alias)}
-                                                isExhibitionPage={true}
-                                            />
-                                        }
-                                        {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} /> }
                                         {!isMobile &&
-                                        <UserPhotoGallery
-                                            alias={club_alias}
-                                            pageLink={`/${club_alias}/gallery`}
-                                        />}
+                                            <>
+                                                <MenuComponentNew />
+                                                <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
+                                                <UserPhotoGallery
+                                                    alias={club_alias}
+                                                    pageLink={`/${club_alias}/gallery`}
+                                                />
+                                            </>
+                                        }
 
                                         <CopyrightInfo withSocials={true} />
 

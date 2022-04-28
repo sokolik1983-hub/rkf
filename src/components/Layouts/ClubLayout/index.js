@@ -10,17 +10,16 @@ import CopyrightInfo from "components/CopyrightInfo";
 import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
 import UserHeader from "components/redesign/UserHeader";
-import UserMenu from "components/Layouts/UserMenu";
 import { Request } from "utils/request";
-import { clubNav, endpointGetClubInfo } from "./config";
+import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "pages/Login/connectors";
 import useIsMobile from "utils/useIsMobile";
 import { BANNER_TYPES } from "appConfig";
 import Banner from "components/Banner";
 import {connectShowFilters} from "../../../components/Layouts/connectors"
+import MenuComponentNew from "../../MenuComponentNew";
 
 import "./index.scss";
-
 
 const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthenticated, user, children, setShowFilters, isOpenFilters }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -85,26 +84,20 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
                                     <StickyBox offsetTop={60}>
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
-                                                <UserHeader
-                                                    canEdit={canEdit}
-                                                    user={alias !== 'rkf-online' ? 'club' : ''}
-                                                    logo={clubInfo.logo_link}
-                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                    alias={clubInfo.club_alias}
-                                                    profileId={clubInfo.id}
-                                                    federationName={clubInfo.federation_name}
-                                                    federationAlias={clubInfo.federation_alias}
-                                                    active_rkf_user={clubInfo.active_rkf_user}
-                                                    active_member={clubInfo.active_member}
-                                                />
-                                            }
-                                            {!isMobile && <UserMenu  userNav={canEdit
-                                                ? clubNav(alias) // Show NewsFeed menu item to current user only
-                                                : clubNav(alias).filter(i => i.id !== 2)}
-                                                       notificationsLength={notificationsLength}
-                                            />}
-                                            {!isMobile &&
                                                 <>
+                                                    <UserHeader
+                                                        canEdit={canEdit}
+                                                        user={alias !== 'rkf-online' ? 'club' : ''}
+                                                        logo={clubInfo.logo_link}
+                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                        alias={clubInfo.club_alias}
+                                                        profileId={clubInfo.id}
+                                                        federationName={clubInfo.federation_name}
+                                                        federationAlias={clubInfo.federation_alias}
+                                                        active_rkf_user={clubInfo.active_rkf_user}
+                                                        active_member={clubInfo.active_member}
+                                                    />
+                                                    <MenuComponentNew />
                                                     <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
