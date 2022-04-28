@@ -11,7 +11,7 @@ import './styles.scss';
 const Schedule = ({ work_time }) => {
 
     const handleDayClick = (id, arrayHelpers) => {
-        let index = work_time.findIndex(i => i.week_day_id === id);
+        let index = work_time.findIndex(item => item.week_day_id === id);
         if (index !== -1) {
             arrayHelpers.remove(index);
         } else {
@@ -35,7 +35,7 @@ const Schedule = ({ work_time }) => {
                             <li className="Nursery-Schedule__days-item" key={day.id}>
                                 <button
                                     type="button"
-                                    className={`Nursery-Schedule__days-btn${work_time.find(i => i.week_day_id === day.id) ? " _active" : ""}`}
+                                    className={`Nursery-Schedule__days-btn${work_time.find(item => item.week_day_id === day.id) ? " _active" : ""}`}
                                     onClick={() => handleDayClick(day.id, arrayHelpers)}>
                                     {day.name}
                                 </button>
@@ -47,7 +47,7 @@ const Schedule = ({ work_time }) => {
                         .map((day, index) => (
                             <FormGroup inline key={index}>
                                 <span className="Nursery-Schedule__days-form-day">
-                                    {days.find(d => d.id === day.week_day_id).fullName}
+                                    {days.find(day => day.id === day.week_day_id).fullName}
                                 </span>
                                 <FormField
                                     label="Время работы с"
