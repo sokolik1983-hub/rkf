@@ -1,11 +1,7 @@
 .search-form {
     font-weight: normal;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    @media (max-width: 560px) {
-        justify-content: flex-end;
-    }
     h3 {
         margin-bottom: 20px;
     }
@@ -19,8 +15,8 @@
     }
     &__wrap {
         position: relative;
-        flex-grow: 1;
-        margin: 0 6px 24px 0;
+        width: 314px;
+        margin: 0 6px 4px 0;
         &:not(:first-child) {
             @media (max-width: 768px) {
                 margin-left: 0;
@@ -39,7 +35,7 @@
             right: 40px;
         }
         .search-form__button{
-            margin: 26px 0 0 6px;
+            margin: 20px 0 0 6px;
         }
       .search-form__button--clear{
         margin: 23px 0 0 3px;
@@ -50,7 +46,7 @@
         border-radius: 0.25rem;
         padding: 5px 34px 5px 10px;
         margin: 26px 0 6px 0;
-        height: calc( 1.5em + 0.75rem + 2px);
+        height: 32px;
         width: 100%;
     }
     &__cancel {
@@ -88,21 +84,12 @@
             width: 100px;
             height: 100px;
         }
-        &.stamp-search {
-            background-image: url("/static/images/base_search/stamp-search.svg");
-        }
         &.found-info {
             background-image: url("/static/images/base_search/found-info.svg");
             
         }
-        &.check-registration {
-            background-image: url("/static/images/base_search/check-registration.svg");
-        }
         &.referee_search {
             background-image: url("/static/images/base_search/referee_search.svg");
-        }
-        &.publication-search {
-            background-image: url("/static/images/base_search/publication-search.svg");
         }
     }
     &__default-content {
@@ -119,21 +106,11 @@
         justify-content: flex-end;
         align-items: center;
         word-break: normal;
+        margin-top: 15px;
         button {
-            margin-left: 6px;
-            padding: 0;
-            display: block;
-            border: none;
-            background: #ffffff;
-            box-sizing: border-box;
-            & svg:hover {
-                fill: #3366ff;
-                transition: fill 0.2s linear;
-            }
-            &:disabled svg {
-                fill: #90999e;
-                cursor: not-allowed;
-            }
+            display: flex;
+            height: 32px;
+            align-items: center;
         }
         &--clear {
             button {
@@ -179,8 +156,36 @@
         margin: 20px 0;
         padding: 12px 16px;
     }
-    &__button--clear{
-
+    &.registration {
+        .search-form__wrap:first-of-type {
+            margin-right: 10px;
+        }
+        .search-form__wrap:first-of-type, input {
+            width: 152px;
+            @media (max-width: 640px) {
+                width: 100%;
+            }
+        }
+        .search-form__wrap-with_but {
+            .search-form__cancel {
+                right: 170px;
+                @media (max-width: 640px) {
+                    right: 130px;
+                }
+            }
+        }
+        @media(max-width: 640px) {
+            flex-direction: column;
+            align-items: flex-start;
+            .search-form__wrap-with_but {
+                width: 100%;
+                max-width: 433px;
+            }
+            .search-form__wrap:first-of-type {
+                width: calc(100% - 119px);
+                max-width: 314px;
+            }
+        }
     }
 }
 ._hide {
