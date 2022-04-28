@@ -5,10 +5,9 @@ import RenderFields from "./RenderFields";
 import { formConfig, formConfigSecondCat, defaultValues, apiBreedsEndpoint, apiSexEndpoint, apiCityEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
 import {boolean, number, object, string, array} from "yup";
+import ls from "local-storage";
 
 import "./index.scss";
-import {Formik} from "formik";
-import ls from "local-storage";
 
 
 const Edit = ({ id,
@@ -305,8 +304,6 @@ const Edit = ({ id,
         }
     };
 
-console.log(user_type, alias)
-
     return (
         <>
             <Form
@@ -322,10 +319,6 @@ console.log(user_type, alias)
                             `/user/${alias}`
                             :
                             `/${alias}`)
-                   
-
-
-
                 }}
                 onError={onError}
                 isEditPage
