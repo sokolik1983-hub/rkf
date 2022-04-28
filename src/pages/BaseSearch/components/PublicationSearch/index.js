@@ -119,11 +119,11 @@ const PublicationSearch = ({ cardClicked }) => {
     };
 
     return (
-        <Card className={`PublicationSearch ${cardClicked === 6 && `_active_card`}`} id="publication-search-anchor">
-            <div className="PublicationSearch__text_wrap">
+        <Card className={`publication-search${cardClicked === 6 ? ` _active_card` : ''}`} id="publication-search-anchor">
+            <div className="publication-search__text_wrap">
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
-            <p className="PublicationSearch__price">Цена</p>
+            <p className="publication-search__price">Цена</p>
             <form className="search-form" onSubmit={handleSubmit}>
                 <div className="search-form__wrap">
                     <input
@@ -173,21 +173,21 @@ const PublicationSearch = ({ cardClicked }) => {
                         </div>}
                 </div>
             </form>
-            <div className="PublicationSearch__filters">
+            <div className="publication-search__filters">
                 <div>
-                    <p className="PublicationSearch__filters-title">Породы</p>
+                    <p className="publication-search__filters-title">Породы</p>
                     <BreedsFilterKendo
                         data={breeds}
                         onChange={ids => setBreedIds(ids)}
-                        className="PublicationSearch__breeds-filter"
+                        className="publication-search__breeds-filter"
                     />
                 </div>
                 <div>
-                    <p className="PublicationSearch__filters-title">Города</p>
+                    <p className="publication-search__filters-title">Города</p>
                     <CitiesFilterKendo
                         data={cities}
                         onChange={ids => setCityIds(ids)}
-                        className="PublicationSearch__cities-filter"
+                        className="publication-search__cities-filter"
                     />
                 </div>
             </div>
