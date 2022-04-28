@@ -1,6 +1,33 @@
 .photo-component {
   & button {
     z-index: 999;
+    &.user-info__edit-btn,
+    &.user-info__delete-btn {
+      padding: 0;
+      border: none;
+      border-radius: 50% !important;
+      background-color: #e4e6eb;
+      display: flex;
+      width: 24px;
+      height: 24px;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      bottom: 15px;
+    }
+    &.user-info__edit-btn {
+      right: 50px;
+      &.empty-photo {
+        right: 15px;
+      }
+    }
+    &.user-info__delete-btn {
+      right: 15px;
+
+      svg {
+        fill: red !important;
+      }
+    }
   }
   position: relative;
   box-shadow: 0 4px 12px rgba(51, 102, 255, 0.08);
@@ -36,5 +63,32 @@
     line-height: 20px;
     letter-spacing: 0.2px;
     color: #fff;
+  }
+}
+.user-info {
+  &__transition {
+    &-enter,
+    &-appear {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    &-enter-active,
+    &-appear-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    &-exit {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &-exit-active {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
   }
 }

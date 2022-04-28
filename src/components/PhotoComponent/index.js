@@ -36,7 +36,7 @@ const PhotoComponent = ({photo, name, position, canEdit}) => {
                             enterDelay={200}
                             leaveDelay={200}>
                             <button
-                                className="user-info__edit-btn"
+                                className={`user-info__edit-btn ${!photo && 'empty-photo' }`}
                                 type="button"
                                 onClick={() => setModalType('edit-owner')}
                             >

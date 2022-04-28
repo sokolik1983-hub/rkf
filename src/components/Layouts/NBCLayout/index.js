@@ -22,7 +22,7 @@ import { connectAuthVisible } from 'pages/Login/connectors';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 import {Request} from "../../../utils/request";
 
-import './index.scss';
+
 import {Redirect, useParams} from "react-router-dom";
 import Container from "../Container";
 import {endpointGetNBCInfo} from "./config";
@@ -30,15 +30,24 @@ import Loading from "../../Loading";
 import StickyBox from "react-sticky-box";
 import useIsMobile from "../../../utils/useIsMobile";
 import Aside from "../Aside";
-import UserHeader from "../../UserHeader";
+import UserHeader from "../../redesign/UserHeader";
 import Banner from "../../Banner";
 import UserPhotoGallery from "../UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../CopyrightInfo";
 import {BANNER_TYPES} from "../../../appConfig";
+import PhotoComponent from "../../PhotoComponent";
+import UserBanner from "../UserBanner";
+import UserContacts from "../../redesign/UserContacts";
+import ExhibitionsComponent from "../../ExhibitionsComponent";
+import AddArticle from "../../UserAddArticle";
+import UserNews from "../UserNews";
+import {useSelector} from "react-redux";
 
 
-// { profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }
+
+import './index.scss';
+
 
 const NBCLayout = ({children}) => {
     const [loading, setLoading] = useState(false);
@@ -49,220 +58,114 @@ const NBCLayout = ({children}) => {
     const [needRequest, setNeedRequest] = useState(true);
     const isMobile = useIsMobile(1080);
     const [canEdit, setCanEdit] = useState(false);
-
-    // const [loading, setLoading] = useState(true);
-    // const [success, setSuccess] = useState(false);
-    // const [error, setError] = useState(false);
-    // const [errorMessage, setErrorMessage] = useState(false);
-    // const [errorRedirect, setErrorRedirect] = useState(false);
-    // const [userInfo, setUserInfo] = useState({});
-    // const [rolesInfo, setRolesInfo] = useState([]);
-    // const [judgeInfo, setJudgeInfo] = useState([]);
-    // const [canEdit, setCanEdit] = useState(false);
-    // const [needRequest, setNeedRequest] = useState(true);
-    // const [notificationsLength, setNotificationsLength] = useState(0);
-    // const [checkLink, setCheckLink] = useState(false);
-    // const { route: alias, id } = useParams();
-    // const isMobile = useIsMobile(1080);
-    //
-    // useEffect(() => {
-    //     (() => getUserInfo())();
-    // }, []);
-    //
-    // useEffect(() => {
-    //     userInfo?.profile_id &&
-    //     (() => getRolesInfo())();
-    // }, [userInfo]);
-    //
-    // useEffect(() => {
-    //     !!rolesInfo &&
-    //     setJudgeInfo(rolesInfo.open_roles?.map(item => item.key_name === "role_judge" && item.role_data));
-    // }, [rolesInfo]);
-    //
-    // const getUserInfo = async needUpdateAvatar => {
-    //     setLoading(true);
-    //
-    //     await Request({
-    //         url: endpointGetUserInfo + alias
-    //     }, data => {
-    //         if (needUpdateAvatar) {
-    //             ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
-    //         }
-    //         setUserInfo(data);
-    //         setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
-    //     }, error => {
-    //         console.log(error.response);
-    //         setErrorRedirect(error.response);
-    //     });
-    //
-    //     setNeedRequest(true);
-    //     setLoading(false);
-    // };
-    //
-    // const getRolesInfo = async() => {
-    //     await Request({
-    //         url: endpointGetRolesInfo + userInfo.profile_id
-    //     }, data => {
-    //         setRolesInfo(data);
-    //     }, error => {
-    //         console.log(error.response);
-    //         setErrorRedirect(error.response);
-    //     });
-    // };
-    //
-    // const notifySuccess = (message) => {
-    //     setSuccess({ status: true, message: message });
-    //     !success && setTimeout(() => {
-    //         setSuccess(false);
-    //     }, 3000);
-    // };
-    //
-    // const notifyError = e => {
-    //     if (e.response) {
-    //         let message;
-    //         if (e.response.data) {
-    //             message = e.response.data.errors
-    //                 ? Object.values(e.response.data.errors)
-    //                 : `${e.response.status} ${e.response.statusText}`;
-    //         } else if (e.response.errors) {
-    //             message = e.response.errors
-    //                 ? Object.values(e.response.errors)
-    //                 : `${e.response.status} ${e.response.statusText}`;
-    //         } else {
-    //             message = 'Произошла ошибка';
-    //         }
-    //         setErrorMessage(message);
-    //         setError(true);
-    //         !error && setTimeout(() => {
-    //             setError(false);
-    //         }, 5000);
-    //     }
-    // };
-    //
-    // const onSubscriptionUpdate = (subscribed) => {
-    //     setUserInfo({
-    //         ...userInfo,
-    //         subscribed: subscribed
-    //     })
-    // }
-    //
-    // const link = useLocation();
-    //
-    // function checkLinkUserPage() {
-    //     let checkLink = link.pathname.includes('news-feed');
-    //     setCheckLink(checkLink)
-    // }
-    //
-    // useEffect(() => {
-    //     checkLinkUserPage();
-    // },[]);
+    const isAuthenticated = useSelector(state => state.authentication.isAuthenticated);
 
     const { alias } = useParams();
+    const aliasRedux = useSelector(state => state?.authentication?.user_info?.alias);
 
     const getNBCInfo = async () => {
+        setLoading(true)
         Request({
             url: endpointGetNBCInfo + '?alias=' + alias
         }, data => {
+            console.log('data33333333', data);
             setNBCInfo(data);
             setNBCProfileId(data.profile_id);
         }, error => {
             console.log(error.response);
             setError(error.response);
-            setLoading(false);
         });
+        setLoading(false);
     }
 
     useEffect(() => {
         (() => getNBCInfo())();
+        setCanEdit((aliasRedux === alias));
     }, []);
 
 
-    useEffect(() => {
-        console.log('nbcInfo', nbcInfo);
-        console.log('nbcProfileId', nbcProfileId);
-    }, [nbcInfo, nbcProfileId]);
-
-
+    const onSubscriptionUpdate = (subscribed) => {
+        setNBCInfo({
+            ...nbcInfo,
+            subscribed: subscribed
+        })
+    };
 
     return (
         loading ?
             <Loading /> :
-                <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
-                    <div className="redesign">
-                        <Container className="content club-page">
-                            <div className="club-page__content-wrap">
-                                <div className="club-page__content">
-                                    {
-                                        React.cloneElement(children, {
-                                            isMobile,
-                                            userInfo: nbcInfo,
-                                            getUserInfo: getNBCInfo,
-                                            canEdit,
-                                            alias,
-                                            id: nbcProfileId,
-                                            setNeedRequest,
-                                            needRequest,
-                                            setUserInfo: setNBCInfo
-                                        })
+            <div className="redesign">
+                <Container className="content nbc-page">
+                    <div className="nbc-page__content-wrap">
+                        <Aside className="nbc-page__info">
+                            <StickyBox offsetTop={60}>
+                                <div className="nbc-page__info-inner">
+                                    {!isMobile && nbcInfo &&
+                                        <>
+                                            <UserHeader
+                                                user='nbc'
+                                                logo={nbcInfo.logo_link}
+                                                name={nbcInfo.name || 'Название клуба отсутствует'}
+                                                alias={nbcInfo.alias}
+                                                profileId={nbcProfileId}
+                                                canEdit={canEdit}
+                                                subscribed={nbcInfo.subscribed}
+                                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                                isAuthenticated={isAuthenticated}
+                                            />
+                                            <PhotoComponent
+                                                photo={nbcInfo.owner_photo}
+                                                name={nbcInfo.owner_name}
+                                                position={nbcInfo.owner_position}
+                                                canEdit={canEdit}
+                                            />
+                                        </>
+                                    }
+
+                                    {/*{!isMobile && <UserMenu userNav={canEdit*/}
+                                    {/*    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only*/}
+                                    {/*    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}*/}
+                                    {/*                        notificationsLength={notificationsLength}*/}
+                                    {/*/>}*/}
+                                    {!isMobile && nbcInfo &&
+                                        <>
+                                            <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
+                                            <UserPhotoGallery
+                                                alias={alias}
+                                                pageLink={`/nbc/${alias}/gallery`}
+                                                canEdit={canEdit}
+                                            />
+                                            <UserVideoGallery
+                                                alias={alias}
+                                                pageLink={`/nbc/${alias}/video`}
+                                                canEdit={canEdit}
+                                            />
+                                            <CopyrightInfo withSocials={true} />
+                                        </>
                                     }
                                 </div>
-                                <Aside className="club-page__info">
-                                    <StickyBox offsetTop={60}>
-                                        <div className="club-page__info-inner">
-                                            {!isMobile &&
-                                                <UserHeader
-                                                    canEdit={canEdit}
-                                                    user='nbc'
-                                                    logo={nbcInfo?.avatar || 'https://sun9-71.userapi.com/s/v1/if1/3W325abgVVW87kjXZY6uhbvLOVMGwgyl_bbqnMYyt9AP1QXqp4L_uzvBD_Q8SlPcEhSkZDeS.jpg?size=853x1280&quality=96&type=album'}
-                                                    name={nbcInfo?.name || 'Название клуба отсутствует'}
-                                                    alias={nbcInfo?.club_alias}
-                                                    profileId={nbcInfo?.profile_id}
-                                                    // federationName={nbcInfo?.federation_name}
-                                                    // federationAlias={nbcInfo?.federation_alias}
-                                                    // active_rkf_user={nbcInfo?.active_rkf_user}
-                                                    // active_member={nbcInfo?.active_member}
-                                                />
-                                            }
-                                            {/*{!isMobile && <UserMenu  userNav={canEdit*/}
-                                            {/*    ? clubNav(alias) // Show NewsFeed menu item to current user only*/}
-                                            {/*    : clubNav(alias).filter(i => i.id !== 2)}*/}
-                                            {/*                         notificationsLength={notificationsLength}*/}
-                                            {/*/>}*/}
-                                            {!isMobile &&
-                                                <>
-                                                    <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
-                                                    <UserPhotoGallery
-                                                        alias={alias}
-                                                        pageLink={`/nbc/${alias}/gallery`}
-                                                        canEdit={canEdit}
-                                                    />
-                                                    <UserVideoGallery
-                                                        alias={alias}
-                                                        pageLink={`/nbc/${alias}/video`}
-                                                        canEdit={canEdit}
-                                                    />
-                                                    <CopyrightInfo withSocials={true} />
-                                                </>
-                                            }
-                                        </div>
-                                    </StickyBox>
-                                </Aside>
-                            </div>
-                        </Container>
+                            </StickyBox>
+                        </Aside>
+                        <div className="nbc-page__content">
+                            {
+                                React.cloneElement(children, {
+                                    isMobile,
+                                    nbcInfo: nbcInfo,
+                                    canEdit,
+                                    getNBCInfo: getNBCInfo,
+                                    alias: alias,
+                                    nbcProfileId: nbcProfileId,
+                                    onSubscriptionUpdate: onSubscriptionUpdate,
+                                    isAuthenticated,
+                                    setNeedRequest: setNeedRequest,
+                                    setNBCInfo: setNBCInfo,
+                                    needRequest: needRequest
+                                })
+                            }
+                        </div>
                     </div>
-                </Layout>
-        // <Layout>
-        //     <Container className="pt-150">
-        //         <p>Здесь будет страница НКП</p>
-        //         <ul>
-        //             <li><a href={`/nbc/${alias}/edit`}>Редачить профиль</a></li>
-        //             <li><a href={`/nbc/${alias}/gallery`}>Фото</a></li>
-        //             <li><a href={`/nbc/${alias}/video`}>Видео</a></li>
-        //             <li><a href={`/nbc/${alias}/documents`}>Документы</a></li>
-        //             {children}
-        //         </ul>
-        //     </Container>
-        // </Layout>
+                </Container>
+            </div>
     )
 };
 
