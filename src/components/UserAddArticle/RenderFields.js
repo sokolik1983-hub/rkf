@@ -21,6 +21,7 @@ import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 import InitialsAvatar from "../InitialsAvatar";
+import randomKeyGenerator from '../../utils/randomKeyGenerator'
 
 const RenderFields = ({ fields,
                           logo,
@@ -63,6 +64,7 @@ const RenderFields = ({ fields,
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
+    const [pictures, setPictures] = useState([]);
     const isMobile = useIsMobile();
 
     const { content, file } = formik.values;
@@ -74,27 +76,52 @@ const RenderFields = ({ fields,
         )
     }, []);
 
-    const handleChange = e => {
-        const file = e.target.files[0];
+    // const handleChange = e => {
+    //     const file = e.target.files[0];
+    //
+    //     if (file && file.size < 20971520) {
+    //         formik.setFieldValue('file', file);
+    //         setSrc(URL.createObjectURL(file));
+    //         e.target.value = '';
+    //         setLoadFile(true);/**/
+    //     } else {
+    //         window.alert(`Размер изображения не должен превышать 20 мб`);
+    //         formik.setFieldValue('file', '');
+    //         setSrc('');
+    //         setLoadFile(false);
+    //     }
+    //     acceptType(file).then(descision => {
+    //         if (!descision) {
+    //             window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
+    //             formik.setFieldValue('file', '');
+    //         }
+    //     });
+    // };
 
-        if (file && file.size < 20971520) {
-            formik.setFieldValue('file', file);
-            setSrc(URL.createObjectURL(file));
-            e.target.value = '';
-            setLoadFile(true);
-        } else {
-            window.alert(`Размер изображения не должен превышать 20 мб`);
-            formik.setFieldValue('file', '');
-            setSrc('');
-            setLoadFile(false);
+
+    const handleChange = e => {
+        // console.log(e.target.files[0])
+        // let pics = [...pictures, e.target.files[0]];
+        // setPictures([...pictures, e.target.files[0]]);
+        // console.log(pics)
+
+        // setPictures(pics);
+        // console.log(pictures)
+        let copy = Object.assign([], pictures);
+        copy.push(e.target.files[0]);
+        setPictures(copy)
+        console.log(pictures)
+    }
+
+    const handleClose = (picture) => {
+        console.log(picture, pictures);
+        let i = pictures.indexOf(picture);
+        console.log(i)
+        if (i >= 0) {
+            setPictures(pictures.splice(i, 1));
         }
-        acceptType(file).then(descision => {
-            if (!descision) {
-                window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
-                formik.setFieldValue('file', '');
-            }
-        });
-    };
+        console.log(pictures)
+    }
 
     const addVideoLink = link => {
         formik.setFieldValue('video_link', link);
@@ -112,11 +139,12 @@ const RenderFields = ({ fields,
         }
     };
 
-    const handleClose = () => {
-        formik.setFieldValue('file', '');
-        setSrc('');
-        setLoadFile(false);
-    };
+    // const handleClose = () => {
+    //     formik.setFieldValue('file', '');
+    //     setSrc('');
+    //     setLoadFile(false);
+    // };
+
 
     const handleKeyDown = e => {
         let text = e.target.value;
@@ -196,6 +224,11 @@ const RenderFields = ({ fields,
         isAllCities && formik.setFieldValue('dog_city', []);
     }, [isAllCities]);
 
+    useEffect((e) => {
+        handleChange(e)
+    })
+
+
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -221,6 +254,10 @@ const RenderFields = ({ fields,
                             className={focus ? `_textarea_focus` : ``}
                         />
                 </FormGroup>
+
+
+
+
                 <div className="article-create-form__controls-wrap">
                     <FormControls className={`article-create-form__controls ${focus ? ' _focus' : ''}`}>
                         <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
@@ -232,7 +269,7 @@ const RenderFields = ({ fields,
                             id="file"
                             accept="image/*"
                             className="article-create-form__inputfile"
-                            onChange={handleChange}
+                            onInput={handleChange}
                         />
                         {!videoLink &&
                             <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
@@ -449,16 +486,34 @@ const RenderFields = ({ fields,
         }
 
             <>
-                {file &&
-                    <div className="ImagePreview__wrap">
-                        <ImagePreview src={src} />
-                        <img src="/static/icons/file-cross.svg"
-                            className="ImagePreview__close"
-                            alt=""
-                            onClick={handleClose}
-                        />
-                    </div>
-                }
+                {/*{file &&*/}
+                {/*    <div className="ImagePreview__wrap">*/}
+                {/*        <ImagePreview src={src} />*/}
+                {/*        <img src="/static/icons/file-cross.svg"*/}
+                {/*            className="ImagePreview__close"*/}
+                {/*            alt=""*/}
+                {/*            onClick={handleClose}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*}*/}
+
+                {pictures && <ul>
+                    {pictures.map(picture =>
+                        <li className="ImagePreview__wrap" key={randomKeyGenerator()}>
+                                <ImagePreview src={URL.createObjectURL(picture)} />
+                                <img src="/static/icons/file-cross.svg"
+                                    className="ImagePreview__close"
+                                    alt=""
+                                    onClick={ () => handleClose(picture)}
+                                />
+                        </li>)}
+                </ul>}
+
+
+
+
+
+
                 {videoLink &&
                     <div className="ImagePreview__wrap">
                         <ImagePreview src={`https://img.youtube.com/vi/${getYouTubeID(videoLink)}/mqdefault.jpg`} />
