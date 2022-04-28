@@ -7,6 +7,8 @@ import { Request } from "../../../../utils/request";
 import {boolean, number, object, string, array} from "yup";
 
 import "./index.scss";
+import {Formik} from "formik";
+import ls from "local-storage";
 
 
 const Edit = ({ id,
@@ -38,6 +40,9 @@ const Edit = ({ id,
     const [showAlert, setShowAlert] = useState('');
     const [cities, setCities] = useState(null);
     const [liveAdvertId, setLiveAdvertId] = useState(advertTypeId);
+    const user_type = ls.get('user_info').user_type;
+    const alias = ls.get('user_info').alias;
+
 
     const currentCityId = (advertTypeId !==6)
         ?
@@ -300,14 +305,28 @@ const Edit = ({ id,
         }
     };
 
-
+console.log(user_type, alias)
 
     return (
         <>
             <Form
                 className="article-edit"
                 withLoading={true}
-                onSuccess={() => history.replace(`/news/${id}`)}
+                onSuccess={() => {
+                    history.replace(user_type === 4
+                        ?
+                        `/kennel/${alias}`
+                        :
+                        user_type === 1
+                            ?
+                            `/user/${alias}`
+                            :
+                            `/${alias}`)
+                   
+
+
+
+                }}
                 onError={onError}
                 isEditPage
                 history={history}
