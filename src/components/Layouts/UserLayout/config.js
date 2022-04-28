@@ -56,7 +56,6 @@ export const userNav = alias => [
                     </clipPath>
                 </defs>
             </svg>
-
     },
     {
         id: 2,

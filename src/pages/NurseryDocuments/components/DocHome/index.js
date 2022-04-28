@@ -5,16 +5,15 @@ import Card from "../../../../components/Card";
 import BookformCard from "../../../../components/BookformCard";
 import { LoadableNotFound } from "../../../../appModules";
 import Alert from "../../../../components/Alert";
-import UserMenu from "../../../../components/Layouts/UserMenu";
 import { Request } from "../../../../utils/request";
-import { kennelNav } from "../../config";
 import Loading from "../../../../components/Loading";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
 import Banner from "../../../../components/Banner";
 import useIsMobile from "../../../../utils/useIsMobile";
-import "./styles.scss";
 import CardMessage from "../../../../components/CardMessage";
+import MenuComponentNew from "../../../../components/MenuComponentNew";
 
+import "./styles.scss";
 
 //method statuses
 const _pedigree = 11;
@@ -263,10 +262,12 @@ const DocHome = ({ nurseryAlias }) => {
         }))();
     }, []);
 
-    return (loading ? <Loading /> : <div className="documents-page__info">
+    return (loading ?
+            <Loading /> :
+            <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={60}>
-                {!isMobile && <UserMenu userNav={kennelNav(nurseryAlias)} />}
+                {!isMobile && <MenuComponentNew />}
                 {!isMobile && <Banner type={9} />}
                 <CopyrightInfo withSocials={true} />
             </StickyBox>
