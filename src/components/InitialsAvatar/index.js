@@ -26,9 +26,11 @@ const InitialsAvatar = ({card, id, name}) => {
         let firstName;
         let lastName;
         if(!name) {
-            firstName = useSelector(state => state.authentication.user_info.first_name).replace(/["-']/g, '');
-            lastName = useSelector(state => state.authentication.user_info.last_name);
-        } else if(name && name.split(' ').length > 1) {
+            firstName = useSelector(state => state.authentication.user_info.first_name ? state.authentication.user_info.first_name : state.authentication.user_info.name.split(' ')[0]).replace(/["-']/g, '');
+            lastName = useSelector(state => state.authentication.user_info.last_name ? state.authentication.user_info.last_name : state.authentication.user_info.name.split(' ')[1]);
+
+        } else
+            if(name && name.split(' ').length > 1) {
             firstName = name.split(' ')[0].replace(/["-']/g, '');
             lastName = name.split(' ')[1];
         } else {
@@ -37,7 +39,7 @@ const InitialsAvatar = ({card, id, name}) => {
         }
         return firstName[0] + lastName[0]
     };
-
+console.log(useSelector(state => state))
     return (
         <div className={`avatar__wrap ${card ? card : ""}`} style={{backgroundColor: getBgColorAvatar()}}>
             <div className="avatar__name-wrap">
