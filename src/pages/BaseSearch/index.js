@@ -15,21 +15,18 @@ import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
 import TopComponent from "../../components/TopComponent";
-import UserMenu from "../../components/Layouts/UserMenu";
 import Banner from "../../components/Banner";
 import PublicationSearch from "./components/PublicationSearch";
 import {parseLocationSearch} from "./utils.js";
 import {Request} from "../../utils/request";
-import {clubNav} from "../Docs/config";
-import {kennelNav} from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
 import {connectAuthVisible} from "../Login/connectors";
 import LeftMenu from "./components/LeftMenu/LeftMenu";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import ClickGuard from "../../components/ClickGuard";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
-
 
 const BaseSearch = props => {
     const {
@@ -123,7 +120,7 @@ const BaseSearch = props => {
                                                     userType={userType}
                                                     setCardClicked={setCardClicked}
                                                 />
-                                                <UserMenu userNav={clubNav(clubData.club_alias)}/>
+                                                <MenuComponentNew />
                                             </> :
                                         nurseryData ?
                                             <>
@@ -136,7 +133,7 @@ const BaseSearch = props => {
                                                     userType={userType}
                                                     setCardClicked={setCardClicked}
                                                 />
-                                                <UserMenu userNav={kennelNav(nurseryData.alias)}/>
+                                                <MenuComponentNew />
                                             </> :
                                             <>
                                                 <LeftMenu

@@ -12,8 +12,7 @@ const RegistrationForm = () => {
     const tabs = useMemo(() => [
         {title: 'Физическое лицо', value: 0},
         {title: 'Питомник', value: 1},
-        {title: 'Клуб', value: 2},
-        {title: 'НКП', value: 3, disabled: true}
+        {title: 'Клуб', value: 2}
     ], []);
 
     return (

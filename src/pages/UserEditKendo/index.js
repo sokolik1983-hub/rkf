@@ -13,11 +13,9 @@ import Alert from "../../components/Alert";
 import Layout from "../../components/Layouts";
 import Loading from "../../components/Loading";
 import ClickGuard from "../../components/ClickGuard";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserInfo from "../../components/Layouts/UserInfo";
 import Container from "../../components/Layouts/Container";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import UserBanner from "../../components/Layouts/UserBanner";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { endpointGetRolesInfo, endpointGetUserInfo, userNav } from "../../components/Layouts/UserLayout/config";
 import About from "./sections/About";
@@ -27,6 +25,7 @@ import Security from "./sections/Security";
 import DeletePage from "./sections/DeletePage";
 import { connectAuthVisible } from "../Login/connectors";
 import { sections, defaultValues, phoneMask } from "./config";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./styles.scss";
 
@@ -283,7 +282,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         judgeInfo={userInfo.open_roles}
                                     />
                                 </Card>
-                                {!isMobile && <UserMenu userNav={userNav(alias)} notificationsLength={notificationsLength} />}
+                                {!isMobile && <MenuComponentNew />}
                                 <CopyrightInfo withSocials={true} />
                             </StickyBox>
                         </aside>

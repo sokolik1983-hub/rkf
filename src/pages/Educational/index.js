@@ -16,12 +16,9 @@ import UserHeader from "../../components/redesign/UserHeader";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import StickyBox from "react-sticky-box";
 import Banner from "../../components/Banner";
-import { isFederationAlias } from "../../utils";
-import { clubNav } from "../Club/config";
-import UserMenu from "../../components/Layouts/UserMenu";
-import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "./components/SignUpModal";
 import useIsMobile from "../../utils/useIsMobile";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
 
@@ -117,18 +114,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             federationName={organizer_name}
                                             federationAlias={organizer_alias}
                                         />
-                                        {!isMobile && isFederationAlias(organizer_alias) ?
-                                            <MenuComponent
-                                                alias={organizer_alias}
-                                                name={federation_name || ''}
-                                                isFederation={true}
-                                            />
-                                            :
-                                            !isMobile &&
-                                            <UserMenu
-                                                userNav={clubNav(organizer_alias)}
-                                                isExhibitionPage={true}
-                                            />
+                                        {
+                                            !isMobile && <MenuComponentNew />
                                         }
                                         <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                         <UserPhotoGallery

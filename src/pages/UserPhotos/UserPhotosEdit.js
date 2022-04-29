@@ -10,7 +10,6 @@ import Card from "../../components/Card";
 import Alert from "../../components/Alert";
 import UserBanner from "../../components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import { Gallery, EditAlbum, DndImageUpload } from "../../components/Gallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
@@ -20,9 +19,10 @@ import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/conf
 import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "../../appConfig";
 import declension from "../../utils/declension";
-import "./index.scss";
 import ls from "local-storage";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
+import "./index.scss";
 
 const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
@@ -64,7 +64,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
 
     const getImages = async (startElem = 1) => {
         setImagesLoading(true);
-        return Request({
+        await Request({
             url: `/api/photogallery/gallery?alias=${params.id}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`
         }, data => {
             if (data.photos.length) {
@@ -194,12 +194,9 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                                 updateInfo={getUserInfo}
                                             />
                                         </Card>
-                                        {!isMobile && <UserMenu
-                                            userNav={userNav(alias)}
-                                            notificationsLength={notificationsLength}
-                                        />}
                                         {!isMobile &&
                                             <>
+                                                <MenuComponentNew />
                                                 <UserVideoGallery
                                                     alias={alias}
                                                     pageLink={`/user/${alias}/video`}

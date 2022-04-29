@@ -8,7 +8,6 @@ import { Redirect } from 'react-router-dom';
 import Container from 'components/Layouts/Container';
 import UserBanner from 'components/Layouts/UserBanner';
 import UserInfo from 'components/Layouts/UserInfo';
-import UserMenu from 'components/Layouts/UserMenu';
 import UserPhotoGallery from 'components/Layouts/UserGallerys/UserPhotoGallery';
 import UserVideoGallery from 'components/Layouts/UserGallerys/UserVideoGallery';
 import Card from 'components/Card';
@@ -20,6 +19,7 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
+import MenuComponentNew from "../../MenuComponentNew";
 
 import './index.scss';
 
@@ -152,7 +152,6 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}
-                                        judgeInfo={judgeInfo}
                                         subscribed={userInfo.subscribed}
                                         subscribed_id={userInfo.profile_id}
                                         onSubscriptionUpdate={onSubscriptionUpdate}
@@ -161,14 +160,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     />
                                 </Card>
                                 {!isMobile &&
-                                    <UserMenu userNav={canEdit
-                                        ? userNav(alias) // Show NewsFeed menu item to current user only
-                                        : userNav(alias).filter(i => i.id !== 2)}
-                                              notificationsLength={notificationsLength}
-                                    />
-                                }
-                                {!isMobile &&
                                     <>
+                                        <MenuComponentNew />
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}

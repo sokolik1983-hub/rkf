@@ -8,7 +8,6 @@ import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
 import Alert from "../../components/Alert";
 import UserInfo from "../../components/Layouts/UserInfo";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import { Gallery, AddPhotoModal } from "../../components/Gallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
@@ -18,9 +17,9 @@ import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/conf
 import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "../../appConfig";
 import ls from "local-storage";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
-
 
 const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
@@ -198,13 +197,9 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                         judgeInfo={userInfo.open_roles}
                                     />
                                 </Card>
-                                {!isMobile && <UserMenu userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                           notificationsLength={notificationsLength}
-                                />}
                                 {!isMobile &&
                                     <>
+                                        <MenuComponentNew />
                                         <UserVideoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/video`}
