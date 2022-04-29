@@ -25,10 +25,10 @@ const InitialsAvatar = ({card, id, name}) => {
     const getInitialName = () => {
         let firstName;
         let lastName;
-        if(!name) {
-            firstName = useSelector(state => state.authentication.user_info.first_name).replace(/["-']/g, '');
-            lastName = useSelector(state => state.authentication.user_info.last_name);
-        } else if(name && name.split(' ').length > 1) {
+        if (!name) {
+            firstName = useSelector(state => state.authentication.user_info.first_name ? state.authentication.user_info.first_name : state.authentication.user_info.name.split(' ')[0]).replace(/["-']/g, '');
+            lastName = useSelector(state => state.authentication.user_info.last_name ? state.authentication.user_info.last_name : state.authentication.user_info.name.split(' ')[1]);
+        } else if (name && name.split(' ').length > 1) {
             firstName = name.split(' ')[0].replace(/["-']/g, '');
             lastName = name.split(' ')[1];
         } else {
