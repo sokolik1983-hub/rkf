@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import getYouTubeID from "get-youtube-id";
 import {connect} from "formik";
 
@@ -99,7 +99,13 @@ const RenderFields = ({ fields,
     // };
 
 
-    const handleChange = e => {
+    // const handleChange = (e) => {
+    //         setPictures([...pictures, e.target.files[0]])
+    // }
+    const handleChange = useCallback((e)=> {
+        setPictures([...pictures, e.target.files[0]])
+        formik.setFieldValue('file', e.target.files[0])
+    })
         // console.log(e.target.files[0])
         // let pics = [...pictures, e.target.files[0]];
         // setPictures([...pictures, e.target.files[0]]);
@@ -107,20 +113,23 @@ const RenderFields = ({ fields,
 
         // setPictures(pics);
         // console.log(pictures)
-        let copy = Object.assign([], pictures);
-        copy.push(e.target.files[0]);
-        setPictures(copy)
-        console.log(pictures)
-    }
+        // let copy = Object.assign([], pictures);
+        // copy.push(e.target.files[0]);
+        // setPictures(copy)
+        // console.log(pictures)
+
+
+
+
+
 
     const handleClose = (picture) => {
-        console.log(picture, pictures);
         let i = pictures.indexOf(picture);
-        console.log(i)
         if (i >= 0) {
-            setPictures(pictures.splice(i, 1));
+            pictures.splice(i, 1);
+            setPictures(pictures);
+            formik.setFieldValue('file', '');
         }
-        console.log(pictures)
     }
 
     const addVideoLink = link => {
@@ -223,12 +232,6 @@ const RenderFields = ({ fields,
         formik.setFieldValue('is_all_cities', isAllCities);
         isAllCities && formik.setFieldValue('dog_city', []);
     }, [isAllCities]);
-
-    useEffect((e) => {
-        handleChange(e)
-    })
-
-
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
