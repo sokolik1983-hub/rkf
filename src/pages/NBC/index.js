@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import UserBanner from "../../components/Layouts/UserBanner";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
@@ -33,7 +33,7 @@ const Content = ({
             />
             {isMobile && nbcInfo &&
                 <UserHeader
-                    user={alias !== 'rkf-online' ? 'club' : ''}
+                    user='nbc'
                     logo={nbcInfo.logo_link}
                     name={'Название клуба отсутствует'} //сюда добавить, когда будет готово на беке => nbcInfo.name ||
                     alias={nbcInfo.alias}
