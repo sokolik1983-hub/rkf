@@ -14,20 +14,6 @@ import MenuComponentNew from "../../../../components/MenuComponentNew";
 
 import "./styles.scss";
 
-//temporarily hidden
-//
-// const replacePedigreeOld = authorizedAccess?.includes(_replacePedigreeOld);
-// const replacePedigreeChangeOwner = authorizedAccess?.includes(_replacePedigreeChangeOwner);
-// const replacePedigreeRkfFc1 = authorizedAccess?.includes(_replacePedigreeRkfFc1);
-// const replacePedigreeDuplicate = authorizedAccess?.includes(_replacePedigreeDuplicate);
-// const replacePedigreeForeignRegistration = authorizedAccess?.includes(_replacePedigreeForeignRegistration);
-// const replacePedigreeDeclarantError = authorizedAccess?.includes(_replacePedigreeDeclarantError);
-// const dogHealthCheckDysplasia = authorizedAccess?.includes(_dogHealthCheckDysplasia);
-// const dogHealthCheckPatella = authorizedAccess?.includes(_dogHealthCheckPatella);
-// const getRKFDocument = authorizedAccess?.includes(_getRKFDocument);
-
-
-
 const DocHome = ({ nurseryAlias }) => {
     const [loading, setLoading] = useState(true);
     const [authorizedAccess, setAuthorizedAccess] = useState(null);

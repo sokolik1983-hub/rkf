@@ -25,7 +25,6 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess, membershipPaid }) => {
     const [alert, seAlert] = useState(false);
     const pedigree = authorizedAccess?.includes(_pedigree);
     const litter = authorizedAccess?.includes(_litter);
-    // const hasAccess = pedigree && litter && replacePedigreeExportOld;
 
     const replacePedigreeExportOld = authorizedAccess?.includes(_replacePedigreeExportOld);
     const replacePedigreeChangeOwner = authorizedAccess?.includes(_replacePedigreeChangeOwner);

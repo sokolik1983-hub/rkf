@@ -157,10 +157,10 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                             }
                                         </>
                                     }
-                                    <div className="NurseryVideo__content">
+                                    <div className="nursery-video__content">
                                         <Card>
-                                            <div className="NurseryVideo__breadcrumbs">
-                                                <div className="NurseryVideo__breadcrumbs-title">
+                                            <div className="nursery-video__breadcrumbs">
+                                                <div className="nursery-video__breadcrumbs-title">
                                                     Видеозаписи
                                                 </div>
                                             </div>

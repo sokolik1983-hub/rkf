@@ -195,9 +195,9 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                 }
                                             </>
                                         }
-                                        <div className="NurseryGallery__content">
+                                        <div className="nursery-gallery__content">
                                             <Card>
-                                                <div className="NurseryGallery__breadcrumbs wrap">
+                                                <div className="nursery-gallery__breadcrumbs wrap">
                                                     <div>
                                                         <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
                                                         <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
@@ -214,19 +214,19 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                     </div>
                                                 </div>
                                                 {album && album.addition && <>
-                                                    <div className="NurseryGallery__edit-wrap">
-                                                        <div className="NurseryGallery__edit-cover">
+                                                    <div className="nursery-gallery__edit-wrap">
+                                                        <div className="nursery-gallery__edit-cover">
                                                             <h4>Обложка альбома</h4>
-                                                            <div className="NurseryGallery__edit-cover-image" style={{ backgroundImage: `url(${album.cover || DEFAULT_IMG.noImage})` }} />
+                                                            <div className="nursery-gallery__edit-cover-image" style={{ backgroundImage: `url(${album.cover || DEFAULT_IMG.noImage})` }} />
                                                         </div>
                                                         <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />
                                                     </div>
                                                 </>}
                                                 {canEdit &&
                                                     <>
-                                                        <hr className="NurseryGallery__content-divider" />
+                                                        <hr className="nursery-gallery__content-divider" />
                                                         {album && album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
-                                                        <div className="NurseryGallery__count">
+                                                        <div className="nursery-gallery__count">
                                                             <h4>
                                                                 {album
                                                                     ? selectedImages.length
@@ -235,7 +235,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                                     : null
                                                                 }
                                                             </h4>
-                                                            <div className="NurseryGallery__count-buttons">
+                                                            <div className="nursery-gallery__count-buttons">
                                                                 {!!selectedImages.length &&
                                                                     <span onClick={handleDelete}>
                                                                         <svg width="12" height="16" viewBox="0 0 14 18" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
@@ -259,7 +259,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             hasMore={hasMore}
                                                             loader={imagesLoading && <Loading centered={false} />}
                                                             endMessage={!images.length &&
-                                                                <div className="NurseryGallery__no-images">
+                                                                <div className="nursery-gallery__no-images">
                                                                     <h4>Изображений больше нет</h4>
                                                                     <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
                                                                 </div>
