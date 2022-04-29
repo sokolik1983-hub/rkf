@@ -42,7 +42,6 @@ const Edit = ({ id,
     const user_type = ls.get('user_info').user_type;
     const alias = ls.get('user_info').alias;
 
-
     const currentCityId = (advertTypeId !==6)
         ?
         (dogCity?.length > 0) ? dogCity[0].id : null
@@ -310,16 +309,8 @@ const Edit = ({ id,
                 className="article-edit"
                 withLoading={true}
                 onSuccess={() => {
-                    history.replace(user_type === 4
-                        ?
-                        `/kennel/${alias}`
-                        :
-                        user_type === 1
-                            ?
-                            `/user/${alias}`
-                            :
-                            `/${alias}`)
-                }}
+                    history.replace(user_type === 4 ? `/kennel/${alias}` :
+                        user_type === 1 ? `/user/${alias}` : `/${alias}`)}}
                 onError={onError}
                 isEditPage
                 history={history}
