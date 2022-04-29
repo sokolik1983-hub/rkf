@@ -99,28 +99,9 @@ const RenderFields = ({ fields,
     // };
 
 
-    // const handleChange = (e) => {
-    //         setPictures([...pictures, e.target.files[0]])
-    // }
-    const handleChange = useCallback((e)=> {
+    const handleChange = (e)=> {
         setPictures([...pictures, e.target.files[0]])
-        formik.setFieldValue('file', e.target.files[0])
-    })
-        // console.log(e.target.files[0])
-        // let pics = [...pictures, e.target.files[0]];
-        // setPictures([...pictures, e.target.files[0]]);
-        // console.log(pics)
-
-        // setPictures(pics);
-        // console.log(pictures)
-        // let copy = Object.assign([], pictures);
-        // copy.push(e.target.files[0]);
-        // setPictures(copy)
-        // console.log(pictures)
-
-
-
-
+    }
 
 
     const handleClose = (picture) => {
