@@ -48,7 +48,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
 
     const getImages = async (startElem = 1) => {
         setImagesLoading(true);
-        return Request({
+        await Request({
             url: `/api/photogallery/gallery?alias=${alias}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`,
             method: 'GET'
         }, data => {

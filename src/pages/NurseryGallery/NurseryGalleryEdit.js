@@ -49,9 +49,8 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
 
     const getImages = async (startElem = 1) => {
         setImagesLoading(true);
-        return Request({
+        await Request({
             url: `/api/photogallery/gallery?alias=${params.id}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`,
-            method: 'GET'
         }, data => {
             if (data.photos.length) {
                 const modifiedNews = data.photos.map(p => {
@@ -90,8 +89,8 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
         }
     };
 
-    const getNursery = () => {
-        return Request({
+    const getNursery = async () => {
+        await Request({
             url: '/api/nurseries/nursery/public/' + params.id
         }, data => {
             setNursery(data);
@@ -130,7 +129,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     };
 
     const handleError = e => {
-        let errorText = e.response.data.errors
+        const errorText = e.response.data.errors
             ? Object.values(e.response.data.errors)
             : `${e.response.status} ${e.response.statusText}`;
         setShowAlert({
@@ -163,28 +162,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
         setImages(imgs);
         setSelectedImages(imgs.filter(i => i.isSelected === true));
         setAllSelected(!allSelected);
-    }
-
-    const Breadcrumbs = () => {
-        return (
-            <div className="NurseryGallery__breadcrumbs wrap">
-                <div>
-                    <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
-                    <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
-                    {
-                        album &&
-                            <Link
-                                className="btn-backward"
-                                to={`/kennel/${alias}/gallery/${params.album}`}
-                            >
-                                / {album.name}
-                            </Link>
-                    }
-                        &nbsp;/&nbsp;Редактирование
-                </div>
-            </div>
-        )
-    }
+    };
 
     return (
         <AuthOrLogin>
@@ -219,7 +197,22 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                         }
                                         <div className="NurseryGallery__content">
                                             <Card>
-                                                <Breadcrumbs />
+                                                <div className="NurseryGallery__breadcrumbs wrap">
+                                                    <div>
+                                                        <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
+                                                        <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
+                                                        {
+                                                            album &&
+                                                            <Link
+                                                                className="btn-backward"
+                                                                to={`/kennel/${alias}/gallery/${params.album}`}
+                                                            >
+                                                                / {album.name}
+                                                            </Link>
+                                                        }
+                                                        &nbsp;/&nbsp;Редактирование
+                                                    </div>
+                                                </div>
                                                 {album && album.addition && <>
                                                     <div className="NurseryGallery__edit-wrap">
                                                         <div className="NurseryGallery__edit-cover">

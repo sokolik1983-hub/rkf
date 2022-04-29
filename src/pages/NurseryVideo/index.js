@@ -119,14 +119,6 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
         }
     };
 
-    const Breadcrumbs = () => {
-        return <div className="NurseryVideo__breadcrumbs">
-            <div className="NurseryVideo__breadcrumbs-title">
-                Видеозаписи
-            </div>
-        </div>
-    };
-
     const onSubscriptionUpdate = (subscribed) => {
         setNursery({
             ...nursery,
@@ -167,7 +159,11 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                     }
                                     <div className="NurseryVideo__content">
                                         <Card>
-                                            <Breadcrumbs />
+                                            <div className="NurseryVideo__breadcrumbs">
+                                                <div className="NurseryVideo__breadcrumbs-title">
+                                                    Видеозаписи
+                                                </div>
+                                            </div>
                                             {
                                                 !pageLoaded
                                                     ? <Loading centered={false} />
