@@ -7,7 +7,6 @@ import {days} from '../../config';
 
 import './styles.scss';
 
-
 const Schedule = ({ work_time }) => {
 
     const handleDayClick = (id, arrayHelpers) => {
@@ -22,7 +21,7 @@ const Schedule = ({ work_time }) => {
                 time_to: '18:00:00'
             });
         }
-    }
+    };
 
     return <Card className="nursery-schedule">
         <h3>График работы</h3>
