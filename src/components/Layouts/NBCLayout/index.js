@@ -65,7 +65,7 @@ const NBCLayout = ({children}) => {
 
     const getNBCInfo = async () => {
         setLoading(true)
-        Request({
+        await Request({
             url: endpointGetNBCInfo + '?alias=' + alias
         }, data => {
             console.log('data33333333', data);

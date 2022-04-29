@@ -27,7 +27,7 @@ const Content = ({
     return (
         <>
             <UserBanner
-                link={nbcInfo?.headliner_link} //сюда добавить, когда будет готово на беке   nbcInfo.headliner_link ||
+                link={nbcInfo?.headliner_link}
                 canEdit={canEdit}
                 updateInfo={getNBCInfo}
             />
@@ -35,7 +35,7 @@ const Content = ({
                 <UserHeader
                     user='nbc'
                     logo={nbcInfo.logo_link}
-                    name={'Название клуба отсутствует'} //сюда добавить, когда будет готово на беке => nbcInfo.name ||
+                    name={nbcInfo.name || 'Название НКП отсутствует'}
                     alias={nbcInfo.alias}
                     profileId={nbcProfileId}
                     canEdit={canEdit}
