@@ -24,18 +24,18 @@ const Schedule = ({ work_time }) => {
         }
     }
 
-    return <Card className="Nursery-Schedule">
+    return <Card className="nursery-schedule">
         <h3>График работы</h3>
         <FieldArray
             name="work_time"
             render={arrayHelpers => (
                 <div>
-                    <ul className="Nursery-Schedule__days">
+                    <ul className="nursery-schedule__days">
                         {days.map(day => (
-                            <li className="Nursery-Schedule__days-item" key={day.id}>
+                            <li className="nursery-schedule__days-item" key={day.id}>
                                 <button
                                     type="button"
-                                    className={`Nursery-Schedule__days-btn${work_time.find(item => item.week_day_id === day.id) ? " _active" : ""}`}
+                                    className={`nursery-schedule__days-btn${work_time.find(item => item.week_day_id === day.id) ? " _active" : ""}`}
                                     onClick={() => handleDayClick(day.id, arrayHelpers)}>
                                     {day.name}
                                 </button>
@@ -46,7 +46,7 @@ const Schedule = ({ work_time }) => {
                         .sort((a, b) => a.week_day_id - b.week_day_id)
                         .map((day, index) => (
                             <FormGroup inline key={index}>
-                                <span className="Nursery-Schedule__days-form-day">
+                                <span className="nursery-schedule__days-form-day">
                                     {days.find(day => day.id === day.week_day_id).fullName}
                                 </span>
                                 <FormField
