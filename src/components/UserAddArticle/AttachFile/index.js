@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Fade } from '@progress/kendo-react-animation';
+import { SvgIcon } from "@progress/kendo-react-common";
+import { Button, Chip } from "@progress/kendo-react-buttons";
+import { folder, chevronLeft } from "@progress/kendo-svg-icons";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-import { Fade } from '@progress/kendo-react-animation';
 import FormUpload from "./components/FormUpload";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { file, folder, chevronLeft } from "@progress/kendo-svg-icons";
-import { Button, Chip } from '@progress/kendo-react-buttons';
-import Loading from "components/Loading";
-import { Request, getHeaders } from "utils/request";
-import moment from "moment";
+import Loading from "../../../components/Loading";
+import { getHeaders, Request } from "../../../utils/request";
+import DocumentItemReadOnly from "../../UploadedDocuments/components/DocumentItemReadOnly";
+
 import "./index.scss";
 
 
@@ -201,27 +201,15 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
                                 ? <div className="AttachFile__documents">
                                     {categories
                                         .filter(c => c.category_id === activeCategory.id)[0].documents
-                                        .map(d => <div
+                                        .map((d, i) => <div
                                             key={d.id}
                                             className="AttachFile__document">
-                                            <div className="AttachFile__document-info-wrap">
-                                                <SvgIcon icon={file} size="default" />
-                                                <div className="AttachFile__document-info">
-                                                    <span className="AttachFile__document-name">
-                                                        <Link
-                                                            to={`/docs/${d.id}`}
-                                                            target="_blank"
-                                                            className="d-flex align-items-center"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            {d.name}
-                                                        </Link>
-                                                    </span>
-                                                    <span className="AttachFile__document-date">
-                                                        {`Добавлено ${moment(d.date_create).format('D MMMM YYYY')} в ${moment(d.date_create).format('HH:mm')}`}
-                                                    </span>
-                                                </div>
-                                            </div>
+                                            <DocumentItemReadOnly
+                                                {...d}
+                                                key={i}
+                                                categories={categories}
+                                                editable={false}
+                                            />
                                             <div className="AttachFile__document-chip">
                                                 <Chip
                                                     text="Прикрепить"
