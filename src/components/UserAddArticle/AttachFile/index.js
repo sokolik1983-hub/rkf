@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Fade } from '@progress/kendo-react-animation';
+import { Fade } from "@progress/kendo-react-animation";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { Button, Chip } from "@progress/kendo-react-buttons";
 import { folder, chevronLeft } from "@progress/kendo-svg-icons";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
-import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
 import FormUpload from "./components/FormUpload";
 import Loading from "../../../components/Loading";
 import { getHeaders, Request } from "../../../utils/request";
