@@ -31,18 +31,19 @@ const ListFilter = ({
         setIsFilter(!isFilter);
         setIsPopular(false);
         setIsVerified(false);
+        setFiltersToUrl({IsPopular: false , isVerified: false})
     }
 
     const handlePopular = () => {
         setIsPopular(!isPopular);
         setIsVerified(false);
-        setFiltersToUrl({IsPopular: !isPopular , isVerified: !!isVerified})
+        setFiltersToUrl({IsPopular: !isPopular , isVerified: false})
     }
 
     const handleVerified = () => {
         setIsVerified(!isVerified);
         setIsPopular(false);
-        setFiltersToUrl({IsPopular: !!isPopular, isVerified: !isVerified})
+        setFiltersToUrl({IsPopular: false, isVerified: !isVerified})
     }
 
     useEffect(()=>{
