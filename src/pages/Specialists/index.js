@@ -110,6 +110,8 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
         }
     }, [url, allBreeder]);
 
+    console.log(filters)
+
 
     return loading ?
         <Loading /> :
@@ -126,10 +128,11 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
                     <div className="specialists-page__content">
                         <ListFilter
                             searchTypeId={filters.SearchTypeId}
+                            is_verified={filters.isVerified}
                             is_popular={filters.IsPopular}
                             RegionIds={filters.RegionIds}
                             CityIds={filters.CityIds}
-                            onChange={filters => setFiltersToUrl({ IsPopular: filters })}
+                            onChange={filters => setFiltersToUrl({ IsPopular: filters, isVerified : filters})}
                         />
                         {listLoading ?
                             <Loading centered={false} /> :

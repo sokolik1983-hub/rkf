@@ -22,12 +22,27 @@ const ListFilter = ({
     }, []);
 
     const [isFilter, setIsFilter] = useState(false);
+    const [isPopular, setIsPopular] = useState(false);
+    const [isVerified, setIsVerified] = useState(false);
 
     const location = useLocation();
 
     const handleFilter = () => {
         setIsFilter(!isFilter);
-        setFiltersToUrl({IsPopular: !isFilter})
+        setIsPopular(false);
+        setIsVerified(false);
+    }
+
+    const handlePopular = () => {
+        setIsPopular(!isPopular);
+        setIsVerified(false);
+        setFiltersToUrl({IsPopular: !isPopular , isVerified: !!isVerified})
+    }
+
+    const handleVerified = () => {
+        setIsVerified(!isVerified);
+        setIsPopular(false);
+        setFiltersToUrl({IsPopular: !!isPopular, isVerified: !isVerified})
     }
 
     useEffect(()=>{
@@ -57,13 +72,22 @@ const ListFilter = ({
                         SearchTypeId: search_type
                     })}
                 /> :
-                <CustomCheckbox
-                    id="most-liked"
-                    label="По популярности"
-                    checked={!!isFilter}
-                    onChange={handleFilter}
-                    cName="like-filter"
-                />}
+                <div className="specialists-page__checkbox-wrap">
+                    <CustomCheckbox
+                        id="most-liked"
+                        label="По популярности"
+                        checked={!!isPopular}
+                        onChange={handlePopular}
+                        cName="like-filter"
+                    />
+                    <CustomCheckbox
+                        id="verified"
+                        label="По верифицированным специалистам"
+                        checked={!!isVerified}
+                        onChange={handleVerified}
+                        cName="verified-filter"
+                    />
+                </div>}
         </div>
     )
 };
