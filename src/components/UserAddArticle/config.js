@@ -1,5 +1,5 @@
 export const newsArticleFormConfig = {
-    action: '/api/Article/full',
+    action: '/api/article/create',
     format: "multipart/form-data",
     fields: {
         content: {
@@ -7,10 +7,10 @@ export const newsArticleFormConfig = {
             fieldType: 'textarea',
             placeholder: 'Напишите что-нибудь...',
         },
-        file: {
-            name: 'file',
+        pictures: {
+            name: 'pictures',
             fieldType: 'image',
-            type: 'file',
+            type: 'IFormFileCollection',
             placeholder: 'Загрузить фото...',
         },
         video_link: {

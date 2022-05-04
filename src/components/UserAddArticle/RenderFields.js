@@ -58,13 +58,14 @@ const RenderFields = ({ fields,
                           name,
                           userType,
                           setContent,
+                            pictures,
+                            setPictures
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
-    const [pictures, setPictures] = useState([]);
     const isMobile = useIsMobile();
 
     const { content, file } = formik.values;
@@ -100,7 +101,36 @@ const RenderFields = ({ fields,
 
 
     const handleChange = (e)=> {
-        setPictures([...pictures, e.target.files[0]])
+        // setPictures([...pictures, e.target.files[0]])
+        // formik.setFieldValue('file', e.target.files[0])
+
+        const file = e.target.files[0];
+
+        if (file && file.size < 20971520) {
+            if (pictures.length < 5) {
+                setPictures([...pictures, e.target.files[0]])
+                formik.setFieldValue('pictures', pictures);
+                e.target.value = '';
+            } else {
+                window.alert('Вы не можете прикрепить больше 5 изображений');
+                return null
+            }
+
+            //         setLoadFile(true);/**/
+                } else {
+                    window.alert(`Размер изображения не должен превышать 20 мб`);
+                    formik.setFieldValue('pictures', pictures);
+            //         setSrc('');
+            //         setLoadFile(false);
+                }
+                acceptType(file).then(descision => {
+                    if (!descision) {
+                        window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
+                        console.log(pictures)
+                        setPictures([...pictures])
+                    }
+                });
+        formik.setFieldValue('pictures', pictures);
     }
 
 
@@ -108,10 +138,16 @@ const RenderFields = ({ fields,
         let i = pictures.indexOf(picture);
         if (i >= 0) {
             pictures.splice(i, 1);
-            setPictures(pictures);
-            formik.setFieldValue('file', '');
+            setPictures([...pictures]);
+            formik.setFieldValue('pictures', pictures);
+            console.log(pictures, picture)
+            // return pictures;
         }
     }
+
+    // useEffect(() => {
+    //     console.log(pictures)
+    // }, [pictures])
 
     const addVideoLink = link => {
         formik.setFieldValue('video_link', link);
@@ -527,6 +563,7 @@ const RenderFields = ({ fields,
                     <SubmitButton
                         type="submit"
                         className={`article-create-form__button ${formik.isValid ? 'active' : ''}`}
+                        onClick={()=> {console.log(formik)}}
                     >
                         Опубликовать
                     </SubmitButton>

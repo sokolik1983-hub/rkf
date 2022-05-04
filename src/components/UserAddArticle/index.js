@@ -28,6 +28,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
     const [content, setContent] = useState('');
+    const [pictures, setPictures] = useState([]);
 
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
@@ -177,6 +178,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     name={profileInfo?.name}
                     userType={profileInfo?.user_type}
                     setContent={setContent}
+                    pictures={pictures}
+                    setPictures={setPictures}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
