@@ -64,7 +64,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
 
     const getImages = async (startElem = 1) => {
         setImagesLoading(true);
-        return Request({
+        await Request({
             url: `/api/photogallery/gallery?alias=${params.id}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`
         }, data => {
             if (data.photos.length) {
