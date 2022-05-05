@@ -86,7 +86,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                     onClick={e => clickOnPresidium(e, currentPageUserInfo?.club_alias)}
                                 >
                                     {navItem.icon}
-                                    <span>{navItem.title}555</span>
+                                    <span>{navItem.title}</span>
                                 </NavLink>
                                 :
                                 <NavLink
@@ -96,7 +96,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                     onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
                                 >
                                     {navItem.icon}
-                                    <span>{navItem.title}6666</span>
+                                    <span>{navItem.title}</span>
                                 </NavLink>
                         }
                     </li>)

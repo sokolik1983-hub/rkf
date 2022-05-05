@@ -49,9 +49,8 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
 
     const getImages = async (startElem = 1) => {
         setImagesLoading(true);
-        return Request({
+        await Request({
             url: `/api/photogallery/gallery?alias=${params.id}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`,
-            method: 'GET'
         }, data => {
             if (data.photos.length) {
                 const modifiedNews = data.photos.map(p => {
@@ -90,8 +89,8 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
         }
     };
 
-    const getNursery = () => {
-        return Request({
+    const getNursery = async () => {
+        await Request({
             url: '/api/nurseries/nursery/public/' + params.id
         }, data => {
             setNursery(data);
@@ -130,7 +129,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     };
 
     const handleError = e => {
-        let errorText = e.response.data.errors
+        const errorText = e.response.data.errors
             ? Object.values(e.response.data.errors)
             : `${e.response.status} ${e.response.statusText}`;
         setShowAlert({
@@ -163,28 +162,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
         setImages(imgs);
         setSelectedImages(imgs.filter(i => i.isSelected === true));
         setAllSelected(!allSelected);
-    }
-
-    const Breadcrumbs = () => {
-        return (
-            <div className="NurseryGallery__breadcrumbs wrap">
-                <div>
-                    <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
-                    <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
-                    {
-                        album &&
-                            <Link
-                                className="btn-backward"
-                                to={`/kennel/${alias}/gallery/${params.album}`}
-                            >
-                                / {album.name}
-                            </Link>
-                    }
-                        &nbsp;/&nbsp;Редактирование
-                </div>
-            </div>
-        )
-    }
+    };
 
     return (
         <AuthOrLogin>
@@ -217,23 +195,38 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                 }
                                             </>
                                         }
-                                        <div className="NurseryGallery__content">
+                                        <div className="nursery-gallery__content">
                                             <Card>
-                                                <Breadcrumbs />
+                                                <div className="nursery-gallery__breadcrumbs wrap">
+                                                    <div>
+                                                        <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
+                                                        <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
+                                                        {
+                                                            album &&
+                                                            <Link
+                                                                className="btn-backward"
+                                                                to={`/kennel/${alias}/gallery/${params.album}`}
+                                                            >
+                                                                / {album.name}
+                                                            </Link>
+                                                        }
+                                                        &nbsp;/&nbsp;Редактирование
+                                                    </div>
+                                                </div>
                                                 {album && album.addition && <>
-                                                    <div className="NurseryGallery__edit-wrap">
-                                                        <div className="NurseryGallery__edit-cover">
+                                                    <div className="nursery-gallery__edit-wrap">
+                                                        <div className="nursery-gallery__edit-cover">
                                                             <h4>Обложка альбома</h4>
-                                                            <div className="NurseryGallery__edit-cover-image" style={{ backgroundImage: `url(${album.cover || DEFAULT_IMG.noImage})` }} />
+                                                            <div className="nursery-gallery__edit-cover-image" style={{ backgroundImage: `url(${album.cover || DEFAULT_IMG.noImage})` }} />
                                                         </div>
                                                         <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />
                                                     </div>
                                                 </>}
                                                 {canEdit &&
                                                     <>
-                                                        <hr className="NurseryGallery__content-divider" />
+                                                        <hr className="nursery-gallery__content-divider" />
                                                         {album && album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
-                                                        <div className="NurseryGallery__count">
+                                                        <div className="nursery-gallery__count">
                                                             <h4>
                                                                 {album
                                                                     ? selectedImages.length
@@ -242,7 +235,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                                     : null
                                                                 }
                                                             </h4>
-                                                            <div className="NurseryGallery__count-buttons">
+                                                            <div className="nursery-gallery__count-buttons">
                                                                 {!!selectedImages.length &&
                                                                     <span onClick={handleDelete}>
                                                                         <svg width="12" height="16" viewBox="0 0 14 18" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
@@ -266,7 +259,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             hasMore={hasMore}
                                                             loader={imagesLoading && <Loading centered={false} />}
                                                             endMessage={!images.length &&
-                                                                <div className="NurseryGallery__no-images">
+                                                                <div className="nursery-gallery__no-images">
                                                                     <h4>Изображений больше нет</h4>
                                                                     <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
                                                                 </div>
