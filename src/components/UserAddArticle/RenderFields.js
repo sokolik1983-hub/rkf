@@ -128,8 +128,6 @@ const RenderFields = ({ fields,
                         setLoadPictures([...loadPictures])
                     }
                 });
-        console.log(formik.values)
-        console.log(loadPictures)
     }
 
 
