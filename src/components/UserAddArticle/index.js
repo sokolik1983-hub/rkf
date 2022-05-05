@@ -28,7 +28,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
     const [content, setContent] = useState('');
-    const [pictures, setPictures] = useState([]);
+    const [loadPictures, setLoadPictures] = useState([]);
 
     const CategoryNullSchema = object().shape({
         content: string().required('Поле не может быть пустым'),
@@ -57,7 +57,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_sex_type_id: '',
         dog_age: '',
         content: content ? content : '',
-        file: '',
+        pictures: '',
     }; //Initial Values для объявлений категории 1
     const initialValueCatTwo = {
         advert_breed_id: '',
@@ -70,7 +70,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_name: '',
         dog_city: '',
         content: content ? content : '',
-        file: '',
+        pictures: '',
     } //Initial Values для объявлений категории 2
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
@@ -87,7 +87,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         } else {
             return {
                 content: values.content,
-                file: values.file,
+                pictures: values.pictures,
                 video_link: values.video_link || '',
                 documents,
                 is_must_read: isMust
@@ -112,6 +112,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         setIsAd(false);
         setIsCheckedAddTypes(false);
         setContent('');
+        setLoadPictures([])
         setBlured();
     };
 
@@ -178,8 +179,8 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     name={profileInfo?.name}
                     userType={profileInfo?.user_type}
                     setContent={setContent}
-                    pictures={pictures}
-                    setPictures={setPictures}
+                    loadPictures={loadPictures}
+                    setLoadPictures={setLoadPictures}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

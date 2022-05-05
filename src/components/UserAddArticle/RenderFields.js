@@ -58,8 +58,8 @@ const RenderFields = ({ fields,
                           name,
                           userType,
                           setContent,
-                            pictures,
-                            setPictures
+                            loadPictures,
+                            setLoadPictures
                             }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -68,7 +68,7 @@ const RenderFields = ({ fields,
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
 
-    const { content, file } = formik.values;
+    const { content, pictures } = formik.values;
 
     useEffect(() => {
         Request({ url: '/api/article/article_ad_types' },
@@ -107,9 +107,8 @@ const RenderFields = ({ fields,
         const file = e.target.files[0];
 
         if (file && file.size < 20971520) {
-            if (pictures.length < 5) {
-                setPictures([...pictures, e.target.files[0]])
-                formik.setFieldValue('pictures', pictures);
+            if (loadPictures.length < 5) {
+                setLoadPictures([...loadPictures, e.target.files[0]])
                 e.target.value = '';
             } else {
                 window.alert('Вы не можете прикрепить больше 5 изображений');
@@ -119,28 +118,27 @@ const RenderFields = ({ fields,
             //         setLoadFile(true);/**/
                 } else {
                     window.alert(`Размер изображения не должен превышать 20 мб`);
-                    formik.setFieldValue('pictures', pictures);
             //         setSrc('');
             //         setLoadFile(false);
                 }
                 acceptType(file).then(descision => {
                     if (!descision) {
                         window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
-                        console.log(pictures)
-                        setPictures([...pictures])
+                        console.log(loadPictures)
+                        setLoadPictures([...loadPictures])
                     }
                 });
-        formik.setFieldValue('pictures', pictures);
+        console.log(formik.values)
+        console.log(loadPictures)
     }
 
 
     const handleClose = (picture) => {
-        let i = pictures.indexOf(picture);
+        let i = loadPictures.indexOf(picture);
         if (i >= 0) {
-            pictures.splice(i, 1);
-            setPictures([...pictures]);
-            formik.setFieldValue('pictures', pictures);
-            console.log(pictures, picture)
+            loadPictures.splice(i, 1);
+            setLoadPictures([...loadPictures]);
+            console.log(loadPictures, picture)
             // return pictures;
         }
     }
@@ -249,6 +247,10 @@ const RenderFields = ({ fields,
         formik.setFieldValue('is_all_cities', isAllCities);
         isAllCities && formik.setFieldValue('dog_city', []);
     }, [isAllCities]);
+
+    useEffect(() => {
+        formik.setFieldValue('pictures', loadPictures)
+    }, [loadPictures])
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -517,8 +519,8 @@ const RenderFields = ({ fields,
                 {/*    </div>*/}
                 {/*}*/}
 
-                {pictures && <ul>
-                    {pictures.map(picture =>
+                {loadPictures && <ul>
+                    {loadPictures.map(picture =>
                         <li className="ImagePreview__wrap" key={randomKeyGenerator()}>
                                 <ImagePreview src={URL.createObjectURL(picture)} />
                                 <img src="/static/icons/file-cross.svg"
@@ -563,7 +565,6 @@ const RenderFields = ({ fields,
                     <SubmitButton
                         type="submit"
                         className={`article-create-form__button ${formik.isValid ? 'active' : ''}`}
-                        onClick={()=> {console.log(formik)}}
                     >
                         Опубликовать
                     </SubmitButton>
