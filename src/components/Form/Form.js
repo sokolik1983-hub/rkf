@@ -8,7 +8,10 @@ import flatten from 'utils/flatten';
 
 const getFormData = data => {
     const formData = new FormData();
-    Object.keys(data).forEach(key => formData.append(key, data[key]));
+    Object.keys(data).forEach(key => {
+        if (Array.isArray(data[key])) data[key].forEach(el => formData.append(key, el))
+        else formData.append(key, data[key])
+    });
     return formData;
 };
 /**

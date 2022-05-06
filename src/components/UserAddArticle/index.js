@@ -91,7 +91,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
 
             return {
                 content: values.content,
-                pictures: JSON.stringify(values.pictures),
+                pictures: values.pictures,
                 video_link: values.video_link || '',
                 documents,
                 is_must_read: isMust
