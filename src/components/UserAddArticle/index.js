@@ -57,7 +57,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_sex_type_id: '',
         dog_age: '',
         content: content ? content : '',
-        pictures: array(),
+        pictures: '',
     }; //Initial Values для объявлений категории 1
     const initialValueCatTwo = {
         advert_breed_id: '',
@@ -70,7 +70,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         dog_name: '',
         dog_city: '',
         content: content ? content : '',
-        pictures: array(),
+        pictures: '',
     } //Initial Values для объявлений категории 2
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
@@ -78,7 +78,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
 
     const transformValues = values => {
         if (isAd || isCheckedAddTypes) {
-            console.log(values.dog_city)
             return {
                 ...values,
                 advert_number_of_puppies: isMating ? `` : +values.advert_number_of_puppies,
@@ -86,10 +85,13 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 documents
             }
         } else {
-            console.log(values.dog_city)
+
+            console.log('массив стандартный', values.pictures);
+            console.log('массив json', JSON.stringify(values.pictures))
+
             return {
                 content: values.content,
-                pictures: [...values.pictures],
+                pictures: JSON.stringify(values.pictures),
                 video_link: values.video_link || '',
                 documents,
                 is_must_read: isMust
