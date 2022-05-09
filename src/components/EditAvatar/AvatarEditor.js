@@ -22,6 +22,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     const reduxUserType = useSelector(state => state.authentication.user_info.user_type);
     const reduxUserName = useSelector(state => state.authentication.user_info.name);
     const UPLOAD_AVATAR = `/static/icons/default/club-avatar-new.png`;
+    const OWNER_DEFAULT_AVATAR = '/static/images/noimg/icon-no-image.svg';
     const currentLink = pageBanner ? '/api/headerpicture/full_v3' : owner ? '/api/nbcownerpicture' : '/api/avatar/full_v3';
 
     const handleSubmit = () => {
@@ -77,11 +78,12 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 image={image}
                                 className="avatar-editor__canvas"
                                 style={(image && reduxUserType !== 1 && reduxUserType !== 4) ?
-                                    {} :
-                                    { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
+                                    {} : (owner) ?
+                                        { background: `url(${OWNER_DEFAULT_AVATAR}) no-repeat center / cover` } :
+                                        { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
                             />
                             {
-                                !image && (reduxUserType === 1 || reduxUserType === 4 || reduxUserType === 7) &&
+                                !image && (reduxUserType === 1 || reduxUserType === 4 || reduxUserType === 7) && !owner &&
                                 <InitialsAvatar
                                     card="editor"
                                     name={(reduxUserType === 4 || reduxUserType === 7) ? reduxUserName : null}

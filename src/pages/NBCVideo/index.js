@@ -45,7 +45,6 @@ const Content = ({
         return Request({
             url: `/api/videogallery/gallery?alias=${alias}&start_element=${startElem}`
         }, data => {
-            console.log('data5555', data);
             if (data.length) {
                 if (data.length < 15) {
                     setHasMore(false);

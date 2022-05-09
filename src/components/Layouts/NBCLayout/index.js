@@ -68,7 +68,6 @@ const NBCLayout = ({children}) => {
         await Request({
             url: endpointGetNBCInfo + '?alias=' + alias
         }, data => {
-            console.log('data33333333', data);
             setNBCInfo(data);
             setNBCProfileId(data.profile_id);
         }, error => {
@@ -105,7 +104,7 @@ const NBCLayout = ({children}) => {
                                             <UserHeader
                                                 user='nbc'
                                                 logo={nbcInfo.logo_link}
-                                                name={nbcInfo.name || 'Название клуба отсутствует'}
+                                                name={nbcInfo.name || 'Название НКП отсутствует'}
                                                 alias={nbcInfo.alias}
                                                 profileId={nbcProfileId}
                                                 canEdit={canEdit}

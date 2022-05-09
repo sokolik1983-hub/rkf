@@ -74,7 +74,6 @@ const NBCGallery = ({ isAuthenticated, is_active_profile, profile_id, match, use
             url: `/api/photogallery/gallery?alias=${alias}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`,
             method: 'GET'
         }, data => {
-            console.log('data1111', data);
             if (data.photos.length) {
                 const modifiedNews = data.photos.map(p => {
                     return {

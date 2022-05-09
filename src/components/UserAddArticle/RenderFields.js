@@ -196,7 +196,6 @@ const RenderFields = ({ fields,
         isAllCities && formik.setFieldValue('dog_city', []);
     }, [isAllCities]);
 
-
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
@@ -205,7 +204,7 @@ const RenderFields = ({ fields,
                         ?
                         <ClientAvatar size={40} avatar={logo} />
                         :
-                        (userType === 4 || userType === 1)
+                        (userType === 4 || userType === 1|| userType === 7)
                             ?
                             <InitialsAvatar card="article" name={name}/>
                             :

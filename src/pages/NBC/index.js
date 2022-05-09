@@ -10,6 +10,7 @@ import UserContacts from "../../components/redesign/UserContacts";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 
 import "./index.scss"
+import UserDescription from "../../components/UserDescription";
 
 const Content = ({
                      isMobile,
@@ -24,6 +25,7 @@ const Content = ({
                      setNBCInfo,
                      needRequest
                  }) => {
+
     return (
         <>
             <UserBanner
@@ -44,10 +46,11 @@ const Content = ({
                     isAuthenticated={isAuthenticated}
                 />
             }
-            {/*<UserDescription description={nbcInfo.description} />*/}
+            <UserDescription description={nbcInfo?.description} />
             <UserContacts {...nbcInfo} profileAlias={alias} />
             <div className="club-page__exhibitions">
-                <ExhibitionsComponent alias={alias} />
+                {/*//Временный тестовый алиас*/}
+                <ExhibitionsComponent alias={'kdtf180320'} />
             </div>
             {isMobile && nbcInfo &&
                 <>
@@ -66,7 +69,7 @@ const Content = ({
             {canEdit && nbcInfo &&
                 <AddArticle
                     id={nbcProfileId}
-                    logo={nbcInfo.avatar}
+                    logo={nbcInfo.logo_link}
                     setNeedRequest={setNeedRequest}
                     profileInfo={nbcInfo}
                     setProfileInfo={setNBCInfo}

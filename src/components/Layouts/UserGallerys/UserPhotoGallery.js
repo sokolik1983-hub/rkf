@@ -51,7 +51,6 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
         await Request({
             url: `/api/photogallery/gallery?alias=${alias}&element_count=${countImages}`
         }, data => {
-                console.log('data', data);
             if (data.photos.length) {
                 const { photos } = data;
                 let imagesArr = [];
