@@ -8,9 +8,9 @@ import NBCLayout from "../../components/Layouts/NBCLayout";
 import UserHeader from "../../components/redesign/UserHeader";
 import UserContacts from "../../components/redesign/UserContacts";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
+import UserDescription from "../../components/UserDescription";
 
 import "./index.scss"
-import UserDescription from "../../components/UserDescription";
 
 const Content = ({
                      isMobile,
@@ -28,24 +28,6 @@ const Content = ({
 
     return (
         <>
-            <UserBanner
-                link={nbcInfo?.headliner_link}
-                canEdit={canEdit}
-                updateInfo={getNBCInfo}
-            />
-            {isMobile && nbcInfo &&
-                <UserHeader
-                    user='nbc'
-                    logo={nbcInfo.logo_link}
-                    name={nbcInfo.name || 'Название НКП отсутствует'}
-                    alias={nbcInfo.alias}
-                    profileId={nbcProfileId}
-                    canEdit={canEdit}
-                    subscribed={nbcInfo.subscribed}
-                    onSubscriptionUpdate={onSubscriptionUpdate}
-                    isAuthenticated={isAuthenticated}
-                />
-            }
             <UserDescription description={nbcInfo?.description} />
             <UserContacts {...nbcInfo} profileAlias={alias} />
             <div className="club-page__exhibitions">

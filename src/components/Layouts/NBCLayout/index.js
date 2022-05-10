@@ -1,29 +1,8 @@
 import React, { useEffect, useState } from 'react';
-// import {useLocation, useParams} from 'react-router-dom';
-// import ls from 'local-storage';
-// import StickyBox from 'react-sticky-box';
-// import Loading from 'components/Loading';
-import Layout from "../index";
-// import { Redirect } from 'react-router-dom';
-// import Container from 'components/Layouts/Container';
-// import UserBanner from 'components/Layouts/UserBanner';
-// import UserInfo from 'components/Layouts/UserInfo';
-// import UserMenu from 'components/Layouts/UserMenu';
-// import UserPhotoGallery from 'components/Layouts/UserGallerys/UserPhotoGallery';
-// import UserVideoGallery from 'components/Layouts/UserGallerys/UserVideoGallery';
-// import Card from 'components/Card';
-// import CopyrightInfo from 'components/CopyrightInfo';
-// import { Request } from 'utils/request';
 import { connectAuthVisible } from 'pages/Login/connectors';
-// import { endpointGetUserInfo, endpointGetRolesInfo, userNav } from './config';
-// import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-// import { Fade } from '@progress/kendo-react-animation';
-// import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 import {Request} from "../../../utils/request";
-
-
-import {Redirect, useParams} from "react-router-dom";
+import {useHistory, useLocation, useParams, withRouter} from "react-router-dom";
 import Container from "../Container";
 import {endpointGetNBCInfo} from "./config";
 import Loading from "../../Loading";
@@ -37,31 +16,38 @@ import UserVideoGallery from "../UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../CopyrightInfo";
 import {BANNER_TYPES} from "../../../appConfig";
 import PhotoComponent from "../../PhotoComponent";
-import UserBanner from "../UserBanner";
-import UserContacts from "../../redesign/UserContacts";
-import ExhibitionsComponent from "../../ExhibitionsComponent";
-import AddArticle from "../../UserAddArticle";
-import UserNews from "../UserNews";
 import {useSelector} from "react-redux";
 
-
-
 import './index.scss';
-
+import Card from "../../Card";
+import UserBanner from "../UserBanner";
 
 const NBCLayout = ({children}) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [imagesLoading, setImagesLoading] = useState(false);
+    const [images, setImages] = useState([]);
     const [nbcInfo, setNBCInfo] = useState(null);
     const [nbcProfileId, setNBCProfileId] = useState(null);
     const [notificationsLength, setNotificationsLength] = useState(0);
+    const [album, setAlbum] = useState(null);
     const [needRequest, setNeedRequest] = useState(true);
     const isMobile = useIsMobile(1080);
     const [canEdit, setCanEdit] = useState(false);
     const isAuthenticated = useSelector(state => state.authentication.isAuthenticated);
+    const history = useHistory();
+    const [hasMore, setHasMore] = useState(true);
+    const [startElement, setStartElement] = useState(1);
+    const [showAlert, setShowAlert] = useState(false);
+    const [pageLoaded, setPageLoaded] = useState(false);
+    const [albums, setAlbums] = useState(null);
+    const [selectedImages, setSelectedImages] = useState([]);
+    const [allSelected, setAllSelected] = useState(false);
 
     const { alias } = useParams();
     const aliasRedux = useSelector(state => state?.authentication?.user_info?.alias);
+    const params = useParams();
+    const location = useLocation();
 
     const getNBCInfo = async () => {
         setLoading(true)
@@ -77,11 +63,90 @@ const NBCLayout = ({children}) => {
         setLoading(false);
     }
 
+    const handleAlbumDelete = (id) => {
+        if (window.confirm('Действительно удалить?')) {
+            Request({
+                    url: `/api/photogallery/albums`,
+                    method: 'DELETE',
+                    data: JSON.stringify([id])
+                }, () => {
+                    history.push(`/nbc/${alias}/gallery`)
+                    getAlbums();
+                },
+                error => handleError(error));
+        }
+    };
+
+
+    const getImages = async startElem => {
+        setImagesLoading(true);
+        await Request({
+            url: `/api/photogallery/gallery?alias=${alias}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`,
+            method: 'GET'
+        }, data => {
+            if (data.photos.length) {
+                const modifiedNews = data.photos.map(p => {
+                    return {
+                        id: p.id,
+                        src: p.link,
+                        thumbnail: p.small_photo.link,
+                        thumbnailWidth: p.small_photo.width,
+                        thumbnailHeight: p.small_photo.height,
+                        caption: p.caption
+                    };
+                });
+
+                if (data.photos.length < 25) {
+                    setHasMore(false);
+                } else {
+                    setHasMore(true);
+                }
+                setImages(startElem === 1 ? modifiedNews : [...images, ...modifiedNews]);
+            } else {
+                if (startElem === 1) {
+                    setImages([]);
+                }
+                setHasMore(false);
+            }
+            setAlbum(data.album);
+            setImagesLoading(false);
+        }, error => handleError(error));
+    };
+
+    const getNextImages = () => {
+        if (hasMore) {
+            setStartElement(startElement + 25);
+            (() => getImages(startElement + 25))();
+        }
+    };
+
+    const getAlbums = (page = 0) => {
+        setImagesLoading(true);
+        return Request({
+            url: `/api/photogallery/albums?alias=${alias}`,
+            method: 'GET'
+        }, (albums) => {
+            setAlbums(albums);
+            setImagesLoading(false);
+        }, error => handleError(error));
+    };
+
+    const handleError = e => {
+        let errorText = e.response.data.errors
+            ? Object.values(e.response.data.errors)
+            : `${e.response.status} ${e.response.statusText}`;
+        setShowAlert({
+            title: `Ошибка: ${errorText}`,
+            text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
+            autoclose: 7.5,
+            onOk: () => setShowAlert(false)
+        });
+    };
+
     useEffect(() => {
         (() => getNBCInfo())();
         setCanEdit((aliasRedux === alias));
     }, []);
-
 
     const onSubscriptionUpdate = (subscribed) => {
         setNBCInfo({
@@ -89,6 +154,71 @@ const NBCLayout = ({children}) => {
             subscribed: subscribed
         })
     };
+
+    const onAlbumAddSuccess = () => {
+        setShowAlert({
+            title: 'Информация сохранена!',
+            autoclose: 2.5,
+            onOk: () => setShowAlert(false)
+        });
+        getImages();
+    };
+
+    const handleDelete = async () => {
+        if (window.confirm('Вы уверены111?')) {
+            await Request({
+                url: '/api/photogallery/gallery',
+                method: "DELETE",
+                data: JSON.stringify(selectedImages.map(i => i.id))
+            }, () => {
+                setShowAlert({
+                    title: 'Успешно удалено!',
+                    autoclose: 1.5,
+                    onOk: () => setShowAlert(false)
+                });
+                setSelectedImages([]);
+                getImages(1);
+            }, error => handleError(error));
+        }
+    };
+
+    const onSelectImage = (index, image) => {
+        var imgs = images.slice();
+        var img = imgs[index];
+        if (img.hasOwnProperty("isSelected")) {
+            img.isSelected = !img.isSelected;
+        } else {
+            img.isSelected = true;
+        }
+        setImages(imgs);
+        setSelectedImages(imgs.filter(i => i.isSelected === true));
+    }
+
+
+
+    const onSelectAll = () => {
+        let imgs = images;
+        if (!allSelected) {
+            for (let i = 0; i < imgs.length; i++)
+                imgs[i].isSelected = true;
+        }
+        else {
+            for (let i = 0; i < imgs.length; i++)
+                imgs[i].isSelected = false;
+        }
+        setImages(imgs);
+        setSelectedImages(imgs.filter(i => i.isSelected === true));
+        setAllSelected(!allSelected);
+    }
+
+    useEffect(() => {
+        setPageLoaded(false);
+        Promise.all([getImages(1), !album && getAlbums(), !nbcInfo && getNBCInfo()])
+            .then(() => {
+                setStartElement(1);
+                setPageLoaded(true);
+            });
+    }, [params]);
 
     return (
         loading ?
@@ -146,6 +276,24 @@ const NBCLayout = ({children}) => {
                             </StickyBox>
                         </Aside>
                         <div className="nbc-page__content">
+                            <UserBanner
+                                link={nbcInfo?.headliner_link}
+                                canEdit={canEdit}
+                                updateInfo={getNBCInfo}
+                            />
+                            {isMobile && nbcInfo &&
+                                <UserHeader
+                                    user='nbc'
+                                    logo={nbcInfo.logo_link}
+                                    name={nbcInfo.name || 'Название НКП отсутствует'}
+                                    alias={nbcInfo.alias}
+                                    profileId={nbcProfileId}
+                                    canEdit={canEdit}
+                                    subscribed={nbcInfo.subscribed}
+                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                    isAuthenticated={isAuthenticated}
+                                />
+                            }
                             {
                                 React.cloneElement(children, {
                                     isMobile,
@@ -158,7 +306,30 @@ const NBCLayout = ({children}) => {
                                     isAuthenticated,
                                     setNeedRequest: setNeedRequest,
                                     setNBCInfo: setNBCInfo,
-                                    needRequest: needRequest
+                                    needRequest: needRequest,
+                                    handleAlbumDelete: handleAlbumDelete,
+                                    getImages: getImages,
+                                    getNextImages: getNextImages,
+                                    getAlbums: getAlbums,
+                                    handleError: handleError,
+                                    params: params,
+                                    images: images,
+                                    album: album,
+                                    setStartElement: setStartElement,
+                                    showAlert: showAlert,
+                                    imagesLoading: imagesLoading,
+                                    hasMore: hasMore,
+                                    pageLoaded: pageLoaded,
+                                    albums: albums,
+                                    location: location,
+                                    onAlbumAddSuccess: onAlbumAddSuccess,
+                                    handleDelete: handleDelete,
+                                    selectedImages: selectedImages,
+                                    setSelectedImages: setSelectedImages,
+                                    setImages: setImages,
+                                    onSelectImage: onSelectImage,
+                                    onSelectAll: onSelectAll,
+                                    allSelected: allSelected,
                                 })
                             }
                         </div>
@@ -168,4 +339,4 @@ const NBCLayout = ({children}) => {
     )
 };
 
-export default React.memo(connectAuthVisible(connectShowFilters(NBCLayout)));
+export default withRouter(React.memo(connectAuthVisible(connectShowFilters(NBCLayout))));

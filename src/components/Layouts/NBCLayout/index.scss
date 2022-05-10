@@ -19,6 +19,9 @@
       margin-bottom: 20px !important;
     }
   }
+  &__inner {
+    width: 100%;
+  }
   &__info {
     width: 300px;
     min-width: 300px;
@@ -44,6 +47,9 @@
       text-overflow: ellipsis;
       font-size: 18px;
       line-height: 24px;
+      & a:hover {
+        color: #36f;
+      }
     }
   }
   & .user-header {
@@ -98,6 +104,78 @@
         align-items: center;
         justify-content: space-between;
         padding-right: 35px;
+      }
+    }
+  }
+  &__count-buttons {
+    text-align: right;
+    color: #72839c;
+    font-weight: 400;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 24px 0 8px;
+    & span:first-child {
+      margin-right: 10px;
+    }
+  }
+  &__content-banner {
+    div {
+      height: 235px;
+      background-size: cover;
+      background-position: center center;
+    }
+  }
+  &__no-images {
+    text-align: center;
+    & img {
+      width: 150px;
+    }
+  }
+  &__breadcrumbs {
+    font-size: 18px;
+    line-height: 32px;
+    display: flex;
+    white-space: nowrap;
+    justify-content: space-between;
+    &-title {
+      max-width: 644px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 18px;
+      line-height: 24px;
+    }
+    & .btn-backward {
+      text-decoration: none;
+      font-size: 18px;
+      line-height: 24px;
+      color: #72839c;
+    }
+  }
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    &-link {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+      color: #72839c;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 20px;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover {
+        color: #36f;
+        & svg {
+          fill: #36f;
+        }
+      }
+      &__icon {
+        width: 15px;
+        height: 20px;
+        margin-right: 3px;
       }
     }
   }

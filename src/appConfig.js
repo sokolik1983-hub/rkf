@@ -1,5 +1,6 @@
 import React from 'react';
 import * as LoadableModules from './appModules';
+import {LoadableNBCGalleryEdit} from "./appModules";
 
 const SERVER = 'http://dev.uep24.ru';
 const DEFAULT_PHONE_INPUT_MASK = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
@@ -228,13 +229,13 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/nbc/:alias/gallery/:album?',
-        component: LoadableModules.LoadableNBCGallery
+        path: '/nbc/:alias/gallery/edit',
+        component: LoadableModules.LoadableNBCGalleryEdit
     },
     {
         exact: true,
-        path: '/nbc/:alias/gallery/edit',
-        component: LoadableModules.LoadableNBCGalleryEdit
+        path: '/nbc/:alias/gallery/:album?',
+        component: LoadableModules.LoadableNBCGallery
     },
     {
         exact: true,
