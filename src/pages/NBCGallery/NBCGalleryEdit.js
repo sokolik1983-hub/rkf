@@ -48,15 +48,15 @@ const Content = ({   match,
                                     &nbsp;/&nbsp;Редактирование
                                 </div>
                             </div>
-                            {album && album.addition && <>
-                                <div className="NurseryGallery__edit-wrap">
-                                    <div className="NurseryGallery__edit-cover">
-                                        <h4>Обложка альбома</h4>
-                                        <div className="NurseryGallery__edit-cover-image" style={{ backgroundImage: `url(${album.cover || DEFAULT_IMG.noImage})` }} />
-                                    </div>
-                                    <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />
-                                </div>
-                            </>}
+                            {/*{album && album.addition && <>*/}
+                            {/*    <div className="NurseryGallery__edit-wrap">*/}
+                            {/*        <div className="NurseryGallery__edit-cover">*/}
+                            {/*            <h4>Обложка альбома</h4>*/}
+                            {/*            <div className="NurseryGallery__edit-cover-image" style={{ backgroundImage: `url(${album.cover || DEFAULT_IMG.noImage})` }} />*/}
+                            {/*        </div>*/}
+                            {/*        <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />*/}
+                            {/*    </div>*/}
+                            {/*</>}*/}
                             {canEdit &&
                                 <>
                                     {album && album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}

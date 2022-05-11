@@ -1,22 +1,48 @@
-import React from "react";
-import {NavLink, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {NavLink, Redirect, useParams} from "react-router-dom";
 import Container from "../../components/Layouts/Container";
-import Layout from "../../components/Layouts";
+import NBCLayout from "../../components/Layouts/NBCLayout";
 
 import "./styles.scss"
+import AuthOrLogin from "../Login/components/AuthOrLogin";
+import Loading from "../../components/Loading";
+import Layout from "../../components/Layouts";
+import ClickGuard from "../../components/ClickGuard";
+import StickyBox from "react-sticky-box";
+import UserHeader from "../ClubEdit/components/UserHeader";
+import MenuComponentNew from "../../components/MenuComponentNew";
+import CopyrightInfo from "../../components/CopyrightInfo";
+import RenderFields from "../ClubEdit/RenderFields";
+import Alert from "../../components/Alert";
+import useIsMobile from "../../utils/useIsMobile";
+import ls from "local-storage";
+import {useResourceAndStoreToRedux} from "../../shared/hooks";
+import {endpointUrl} from "../ClubEdit/config";
+import {Request} from "../../utils/request";
+import {endpointGetClubInfo} from "../../components/Layouts/ClubLayout/config";
 
-const NBCEdit = () => {
+const Content = () => {
 
-    const {alias} = useParams();
+    // const {alias} = useParams();
+    //
+    // console.log('alias', alias)
 
     return (
-        <Layout >
-            <Container className="pt-150">
+        <AuthOrLogin>
+            <Container>
                 <p>Здесь будет страница редактирования профиля НКП</p>
-                <NavLink to={`/nbc/${alias}`}>На страницу профиля</NavLink>
+                {/*<NavLink to={`/nbc/${alias}`}>На страницу профиля</NavLink>*/}
             </Container>
-        </Layout>
+        </AuthOrLogin>
     );
+};
+
+const NBCEdit = (props) => {
+    return (
+        <NBCLayout {...props}>
+            <Content />
+        </NBCLayout>
+    )
 };
 
 export default NBCEdit;

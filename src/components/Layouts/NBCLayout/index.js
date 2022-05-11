@@ -43,6 +43,9 @@ const NBCLayout = ({children}) => {
     const [albums, setAlbums] = useState(null);
     const [selectedImages, setSelectedImages] = useState([]);
     const [allSelected, setAllSelected] = useState(false);
+    const [editInfo, setEditInfo] = useState(null);
+
+    console.log('editInfo', editInfo);
 
     const { alias } = useParams();
     const aliasRedux = useSelector(state => state?.authentication?.user_info?.alias);
@@ -63,6 +66,22 @@ const NBCLayout = ({children}) => {
         setLoading(false);
     }
 
+    const getEditInfo = async () => {
+        // setLoading(true)
+        await Request({
+            url: "/api/NationalBreedClub/edit_info?alias=" + alias
+        }, data => {
+            setEditInfo(data);
+        }, error => {
+            // console.log(error.response);
+            // setError(error.response);
+        });
+        // setLoading(false);
+    }
+
+
+
+
     const handleAlbumDelete = (id) => {
         if (window.confirm('Действительно удалить?')) {
             Request({
@@ -76,7 +95,6 @@ const NBCLayout = ({children}) => {
                 error => handleError(error));
         }
     };
-
 
     const getImages = async startElem => {
         setImagesLoading(true);
@@ -194,8 +212,6 @@ const NBCLayout = ({children}) => {
         setSelectedImages(imgs.filter(i => i.isSelected === true));
     }
 
-
-
     const onSelectAll = () => {
         let imgs = images;
         if (!allSelected) {
@@ -219,6 +235,14 @@ const NBCLayout = ({children}) => {
                 setPageLoaded(true);
             });
     }, [params]);
+
+    useEffect(() => {
+        console.log('editInfo', editInfo)
+    }, [editInfo]);
+
+    useEffect(() => {
+        getEditInfo();
+    }, []);
 
     return (
         loading ?
