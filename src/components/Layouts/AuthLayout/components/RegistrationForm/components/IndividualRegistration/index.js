@@ -77,7 +77,7 @@ const IndividualRegistration = () => {
                     onChange={onPrivacyChange}
                 />
                 <label htmlFor="individual-registration__data-privacy">
-                    Я принимаю условия
+                    Я принимаю условия&nbsp;
                         <Link
                             to={personalDataProcessingPolicyDoc}
                             target="_blank"
