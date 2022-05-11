@@ -272,7 +272,7 @@
         position: relative;
         margin-bottom: 14px;
         @media (max-width: 1080px) {
-          margin-bottom: 0px!important;
+          margin-bottom: 0!important;
         }
 
         &::before {
