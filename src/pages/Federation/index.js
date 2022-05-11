@@ -9,7 +9,7 @@ import AboutComponent from "../../components/AboutComponent";
 import AddArticle from "../../components/UserAddArticle";
 import NewsComponent from "../../components/NewsComponent";
 import PhotoComponent from "../../components/PhotoComponent";
-import MenuComponent from "../../components/MenuComponent";
+import MenuComponentNew from "../../components/MenuComponentNew";
 import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import { Request } from "../../utils/request";
@@ -74,11 +74,6 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                             name={federation.owner_name}
                             position={federation.owner_position}
                         />
-                        {!isMobile && <MenuComponent
-                            alias={alias}
-                            name={federation.name}
-                            isFederation={true}
-                        />}
                     </div>
                     <div className="federation-page__info">
                         <aside className="federation-page__left">
@@ -87,11 +82,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                                 name={federation.owner_name}
                                 position={federation.owner_position}
                             />
-                            {!isMobile && <MenuComponent
-                                alias={alias}
-                                name={federation.name}
-                                isFederation={true}
-                            />}
+                            {!isMobile && <MenuComponentNew />}
                             <ContactsComponent {...federation} />
                             {federation.documents && !!federation.documents.length &&
                                 <DocumentsComponent documents={federation.documents} />

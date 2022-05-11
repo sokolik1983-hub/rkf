@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import {Route, Switch, useLocation} from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import ls from "local-storage";
 import Loading from "../../../../components/Loading";
@@ -7,7 +7,6 @@ import Container from "../../../../components/Layouts/Container";
 import Card from "../../../../components/Card";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
 import UserInfo from "../../../../components/Layouts/UserInfo";
-import UserMenu from "../../../../components/Layouts/UserMenu";
 import Documents from "../Documents";
 import HealthCheckRegistry from "../HealthCheckRegistry";
 import Specialization from "../Specialization";
@@ -18,21 +17,20 @@ import DysplasiaForm from "../Dysplasia";
 import Application from "../Application/Form";
 import PageNotFound from "../404";
 import { Request } from "../../../../utils/request";
-import { userNav } from "../../config";
 import { connectAuthVisible } from "../../../Login/connectors";
 import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import ApplicationRegistry from "../Application/ApplicationRegistry";
 import Banner from "../../../../components/Banner";
 import useIsMobile from "../../../../utils/useIsMobile";
+import MenuComponentNew from "../../../../components/MenuComponentNew";
 
 import "./index.scss";
-
-
 
 const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
+    const location = useLocation();
     const isMobile = useIsMobile(1080);
 
     useEffect(() => {
@@ -60,13 +58,11 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
 
     return (
         <div className="user-documents">
-
-
             {loading ?
                 <Loading /> :
 
                 <Container className="user-documents__content">
-                    {history.location.pathname === `/user/${ls.get('user_info').alias}/documents` &&
+                    {location.pathname.indexOf(`/user/${ls.get('user_info').alias}/documents`) !== -1 &&
                         <aside className="user-documents__left">
                         <StickyBox offsetTop={60}>
                             <Card>
@@ -82,7 +78,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     judgeInfo={userInfo.open_roles}
                                 />
                             </Card>
-                            {!isMobile && <UserMenu userNav={userNav(userAlias)} />}
+                            {!isMobile && <MenuComponentNew />}
                             {!isMobile && <Banner type={10} />}
                             <CopyrightInfo withSocials={true} />
                         </StickyBox>

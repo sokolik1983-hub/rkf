@@ -13,19 +13,15 @@ import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
 import { formatDateCommon } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
-import UserMenu from "../../components/Layouts/UserMenu";
-import { clubNav } from "../Club/config";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "pages/Educational/components/SignUpModal";
-import ls from "local-storage";
 import useIsMobile from "../../utils/useIsMobile";
+import MenuComponentNew from "../../components/MenuComponentNew";
+
 import './index.scss';
 
 import moment from "moment";
 import "moment/locale/ru";
 moment.locale('ru');
-
 
 const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [loading, setLoading] = useState(true);
@@ -197,20 +193,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
                             <div className="exhibitions-page__mobile-only">
-                                {!isMobile && isFederationAlias(filters.Alias) ?
-                                    <MenuComponent
-                                        alias={filters.Alias}
-                                        name={shorten(displayName)}
-                                        isFederation={true}
-                                    />
-                                    :
-                                    !isMobile &&
-                                    <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                        notificationsLength={notificationsLength}
-                                    />
-                                }
+                                {!isMobile && <MenuComponentNew />}
                             </div>
                         }
                         <ListFilter

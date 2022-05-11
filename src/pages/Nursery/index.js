@@ -7,7 +7,6 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserHeader from "components/redesign/UserHeader";
 import UserDescription from "components/redesign/UserDescription";
 import UserContacts from "components/redesign/UserContacts";
@@ -22,9 +21,9 @@ import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import BreedsList from "../../components/BreedsList";
 import UserBanner from "../../components/Layouts/UserBanner";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
-
 
 const getAddressString = addressObj => {
     let address = '';
@@ -172,11 +171,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 isAuthenticated={isAuthenticated}
                                             />
                                         }
-                                        {!isMobile && <UserMenu userNav={canEdit
-                                            ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                            : kennelNav(alias).filter(i => i.id !== 2)}
-                                                   notificationsLength={notificationsLength}
-                                        />}
+                                        {!isMobile && <MenuComponentNew />}
                                         {!isMobile &&
                                             <>
                                                 <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />

@@ -22,7 +22,7 @@ export const clubNav = alias => [
     {
         id: 2,
         title: 'Уведомления',
-        to: `/${alias}/news-feed/`,
+        to: `/club/${alias}/news-feed/`,
         exact: true,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2.75049 9.70055C2.34549 9.70055 2.01549 9.38555 2.00049 8.98055C2.00049 8.80055 1.89549 4.70555 4.76049 2.36555C5.07549 2.09555 5.55549 2.15555 5.81049 2.47055C6.08049 2.78555 6.02049 3.26555 5.70549 3.52055C3.42549 5.39555 3.50049 8.90555 3.50049 8.93555C3.51549 9.35555 3.18549 9.70055 2.78049 9.70055C2.76549 9.70055 2.76549 9.70055 2.75049 9.70055Z" fill="#8F989D"/>
@@ -46,7 +46,7 @@ export const clubNav = alias => [
     {
         id: 4,
         title: 'Документы',
-        to: `/${alias}/uploaded-documents/`,
+        to: `/club/${alias}/uploaded-documents/`,
         exact: false,
         icon:   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1666_818)">
@@ -66,7 +66,7 @@ export const clubNav = alias => [
     {
         id: 5,
         title: 'Фотогалерея',
-        to: `/${alias}/gallery`,
+        to: `/club/${alias}/gallery`,
         exact: false,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1672_2123)">
@@ -83,7 +83,7 @@ export const clubNav = alias => [
     {
         id: 6,
         title: 'Видеозаписи',
-        to: `/${alias}/video`,
+        to: `/club/${alias}/video`,
         exact: true,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1672_2124)">
@@ -100,7 +100,7 @@ export const clubNav = alias => [
     {
         id: 7,
         title: 'Cтраница клуба',
-        to: `/${alias}`,
+        to: `/club/${alias}`,
         exact: true,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1669_1909)">

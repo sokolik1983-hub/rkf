@@ -60,7 +60,6 @@ function Form({
             if (bindSubmitForm) bindSubmitForm.getErrors({});
             actions.setSubmitting(false);
             if (resetForm) actions.resetForm(initialValues);
-            if (isEditPage) history.goBack();
         };
         const onRequestError = (error) => {
             setLoading(false);

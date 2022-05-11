@@ -445,6 +445,10 @@
   }
   &__no-specialists {
     text-align: center;
+    @media(max-width: 1079px) {
+      margin-top: 25px;
+      margin-bottom: 35px;
+    }
     h4 {
       font-weight: normal;
     }

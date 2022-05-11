@@ -5,7 +5,6 @@ import Layout from "../../components/Layouts";
 import { Redirect, useParams } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import UserInfo from "../../components/Layouts/UserInfo";
-import UserMenu from "../../components/Layouts/UserMenu";
 import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
@@ -16,9 +15,10 @@ import useIsMobile from "../../utils/useIsMobile";
 import InfiniteScroll from "react-infinite-scroll-component";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import Alert from "../../components/Alert";
-import "./index.scss";
 import ls from "local-storage";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
+import "./index.scss";
 
 const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
@@ -173,13 +173,9 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                         judgeInfo={userInfo.open_roles}
                                     />
                                 </Card>
-                                {!isMobile && <UserMenu userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                           notificationsLength={notificationsLength}
-                                />}
                                 {!isMobile &&
                                     <>
+                                        <MenuComponentNew />
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}
