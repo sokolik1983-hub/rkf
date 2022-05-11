@@ -60,7 +60,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                     maxSize={20971520} //20MB
                     noClick
                     multiple={false}
-                    onDrop={acceptedFiles => setImage(acceptedFiles[0])}
+                    onDropAccepted={acceptedFiles => setImage(acceptedFiles[0])}
                     onDropRejected={handleError}
                 >
                     {({ getRootProps, getInputProps }) => (
