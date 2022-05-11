@@ -13,9 +13,9 @@ import Statistics from "../../Statistics";
 import ClubsMap from "../../ClubsMap";
 import InitialsAvatar from "../../InitialsAvatar";
 import history from "../../../utils/history";
+import LightTooltip from "../../LightTooltip";
 
 import './index.scss';
-import LightTooltip from "../../LightTooltip";
 
 const JudgeLayout = () => {
     const [loading, setLoading] = useState(true);
@@ -228,20 +228,19 @@ const JudgeLayout = () => {
                                                                 <div className="judge-info__add-info">
                                                                     <p>Дисциплины:</p>
                                                                     <ul>
-                                                                        {item?.disciplines?.map((discipline, index, arr) => {
-                                                                            return (
+                                                                        {item?.disciplines?.map((discipline, index) =>
+                                                                            <li>
                                                                                 <LightTooltip
                                                                                     title={ discipline.discipline_name || 'title' }
                                                                                     enterDelay={ 100 } leaveDelay={ 50 }
                                                                                     key={ index }>
-                                                                                    <span
-                                                                                        className="card-specialists__discipline">
-                                                                                        { discipline.discipline_short_name }
-                                                                                        { index < arr.length - 1 && "," }&nbsp;
-                                                                                    </span>
+                                                                                <span
+                                                                                    className="card-specialists__discipline">
+                                                                                    { discipline.discipline_short_name }
+                                                                                </span>
                                                                                 </LightTooltip>
-                                                                            )
-                                                                        })}
+                                                                            </li>
+                                                                        )}
                                                                     </ul>
                                                                 </div>
                                                             }

@@ -12,7 +12,6 @@ import DocumentItemReadOnly from "../../UploadedDocuments/components/DocumentIte
 
 import "./index.scss";
 
-
 const AttachFile = ({ documents, categories, setDocuments, setCategories, closeModal, isFederation }) => {
     const [formProps, setFormProps] = useState(null);
     const [activeCategory, setActiveCategory] = useState('');
@@ -201,12 +200,11 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
                                 ? <div className="AttachFile__documents">
                                     {categories
                                         .filter(c => c.category_id === activeCategory.id)[0].documents
-                                        .map((d, i) => <div
-                                            key={d.id}
+                                        .map(doc => <div
+                                            key={doc.id}
                                             className="AttachFile__document">
                                             <DocumentItemReadOnly
-                                                {...d}
-                                                key={i}
+                                                {...doc}
                                                 categories={categories}
                                                 editable={false}
                                             />
@@ -214,9 +212,9 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
                                                 <Chip
                                                     text="Прикрепить"
                                                     value="chip"
-                                                    disabled={attachBlocked && !isSelected(d.id)}
-                                                    onClick={() => handleChipClick(d, activeCategory)}
-                                                    selected={isSelected(d.id)}
+                                                    disabled={attachBlocked && !isSelected(doc.id)}
+                                                    onClick={() => handleChipClick(doc, activeCategory)}
+                                                    selected={isSelected(doc.id)}
                                                 />
                                             </div>
                                         </div>)}

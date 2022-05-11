@@ -1,6 +1,6 @@
-import Card from "../Card";
-import {Link} from "react-router-dom";
 import React from "react";
+import {Link} from "react-router-dom";
+import Card from "../Card";
 
 const _checkMembership = 23;
 
@@ -20,7 +20,7 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-        <Card className={checkMembership ? `` : `_inactive`}>
+        <Card className={checkMembership ? '' : `_inactive`}>
             <div className="documents-page__icon membership-icon" />
             <h3>ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ</h3>
             <p>
