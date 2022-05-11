@@ -2,36 +2,21 @@ import React, {useEffect, useState} from "react";
 import {NavLink, Redirect, useParams} from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import NBCLayout from "../../components/Layouts/NBCLayout";
+import AuthOrLogin from "../Login/components/AuthOrLogin";
 
 import "./styles.scss"
-import AuthOrLogin from "../Login/components/AuthOrLogin";
-import Loading from "../../components/Loading";
-import Layout from "../../components/Layouts";
-import ClickGuard from "../../components/ClickGuard";
-import StickyBox from "react-sticky-box";
-import UserHeader from "../ClubEdit/components/UserHeader";
-import MenuComponentNew from "../../components/MenuComponentNew";
-import CopyrightInfo from "../../components/CopyrightInfo";
-import RenderFields from "../ClubEdit/RenderFields";
-import Alert from "../../components/Alert";
-import useIsMobile from "../../utils/useIsMobile";
-import ls from "local-storage";
-import {useResourceAndStoreToRedux} from "../../shared/hooks";
-import {endpointUrl} from "../ClubEdit/config";
-import {Request} from "../../utils/request";
-import {endpointGetClubInfo} from "../../components/Layouts/ClubLayout/config";
 
 const Content = () => {
 
-    // const {alias} = useParams();
-    //
-    // console.log('alias', alias)
+    const {alias} = useParams();
+
+    console.log('alias', alias)
 
     return (
         <AuthOrLogin>
             <Container>
                 <p>Здесь будет страница редактирования профиля НКП</p>
-                {/*<NavLink to={`/nbc/${alias}`}>На страницу профиля</NavLink>*/}
+                <NavLink to={`/nbc/${alias}`}>На страницу профиля</NavLink>
             </Container>
         </AuthOrLogin>
     );
