@@ -135,4 +135,8 @@
       background: url(/static/icons/downloadIcon.svg) no-repeat center / cover;
     }
   }
+  &__checkbox-wrap {
+    display: flex;
+    justify-content: flex-start;
+  }
 }
