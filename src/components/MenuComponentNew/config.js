@@ -93,7 +93,7 @@ export const presidiumRfls = <>
             <td>2.</td>
             <td>Бычкова Елена Ивановна</td>
             <td>Тел.: +7-918-748-85-20</td>
-            <td>E-mail:elena 69@bk.ru</td>
+            <td>E-mail:elena69@bk.ru</td>
         </tr>
         <tr>
             <td>3.</td>
