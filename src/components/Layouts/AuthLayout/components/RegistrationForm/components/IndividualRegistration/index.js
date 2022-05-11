@@ -1,9 +1,13 @@
 import React, {memo, useState} from "react";
 import {useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Alert from "../../../../../../Alert";
 import {Form, FormField, SubmitButton} from "../../../../../../Form";
 import CustomCheckbox from "../../../../../../Form/CustomCheckbox";
 import {config, fields} from "./config";
+import personalDataProcessingPolicyDoc from "../../../../../../../pages/PersonalDataProcessingPolicy/Politika_PDn.pdf";
+import personalDataProcessingPolicyPDF from "../../../../../../../pages/PersonalDataProcessingPolicy/PPDn.pdf";
+
 import "./index.scss";
 
 
@@ -69,10 +73,27 @@ const IndividualRegistration = () => {
                 </div>
                 <CustomCheckbox
                     id="individual-registration__data-privacy"
-                    label="Я согласен с правилами сервиса и даю согласие на обработку моих персональных данных"
                     checked={!!isChecked}
                     onChange={onPrivacyChange}
                 />
+                <label htmlFor="individual-registration__data-privacy">
+                    Я принимаю условия
+                        <Link
+                            to={personalDataProcessingPolicyDoc}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Пользовательского соглашение&nbsp;
+                        </Link>
+                    и даю свое согласие на обработку моей персональной информации на условиях, определенных&nbsp;
+                        <Link
+                            to={personalDataProcessingPolicyPDF}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Политикой&nbsp;конфиденциальности.
+                        </Link>
+                </label>
                 <SubmitButton
                     className="individual-registration__form-submit btn btn-primary"
                     disabled={!isChecked}

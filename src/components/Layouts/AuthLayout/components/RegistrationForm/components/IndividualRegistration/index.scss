@@ -46,4 +46,24 @@
   #passwordConfirm {
     padding-right: 38px;
   }
+
+  .custom-checkbox {
+    margin-top: -15px;
+  }
+
+  label[for=individual-registration__data-privacy] {
+    display: inline-block;
+    top: 12px;
+    margin-bottom: 0 !important;
+    padding-top: 5px;
+    padding-left: 30px;
+    max-width: 330px;
+    font-size: 14px;
+    line-height: 14px;
+    cursor: pointer;
+
+    a {
+      text-decoration: none;
+    }
+  }
 }
