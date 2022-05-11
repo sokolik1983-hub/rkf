@@ -20,7 +20,7 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-        <Card className={checkMembership ? '' : `_inactive`}>
+        <Card className={checkMembership ? '' : '_inactive'}>
             <div className="documents-page__icon membership-icon" />
             <h3>ОТЧЁТЫ О ПЛЕМЕННОЙ ДЕЯТЕЛЬНОСТИ</h3>
             <p>
