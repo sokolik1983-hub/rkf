@@ -21,6 +21,7 @@ import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 import InitialsAvatar from "../InitialsAvatar";
+import Avatar from "../Layouts/Avatar";
 
 const RenderFields = ({ fields,
                           logo,
@@ -201,25 +202,22 @@ const RenderFields = ({ fields,
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="article-create-form__wrap article-create-form__textarea-wrap">
-                    {logo && logo !== "/static/icons/default/default_avatar.svg"
-                        ?
-                        <ClientAvatar size={40} avatar={logo} />
-                        :
-                        (userType === 4 || userType === 1)
-                            ?
-                            <InitialsAvatar card="article" name={name}/>
-                            :
-                            <ClientAvatar size={40} avatar={"/static/icons/default/club-avatar-new.png"} />
-                    }
-                        <FormField
-                            {...fields.content}
-                            onChange={handleKeyDown}
-                            onFocus={setFocused}
-                            maxLength="1000"
-                            value={content ? content : ''}
-                            rows={content ? addRow() : focus ? "2" : "1"}
-                            className={focus ? `_textarea_focus` : ``}
-                        />
+                    <Avatar
+                        card="article"
+                        data="article"
+                        logo={logo}
+                        name={name}
+                        userType={userType}
+                    />
+                    <FormField
+                        {...fields.content}
+                        onChange={handleKeyDown}
+                        onFocus={setFocused}
+                        maxLength="1000"
+                        value={content ? content : ''}
+                        rows={content ? addRow() : focus ? "2" : "1"}
+                        className={focus ? `_textarea_focus` : ``}
+                    />
                 </FormGroup>
                 <div className="article-create-form__controls-wrap">
                     <FormControls className={`article-create-form__controls ${focus ? ' _focus' : ''}`}>

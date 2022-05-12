@@ -5,8 +5,7 @@ import Alert from '../../../../components/Alert';
 import Share from '../../../../components/Share';
 import UserActionControls from '../../../../components/UserActionControls';
 import { ActiveUserMark, FederationChoiceMark } from '../../../../components/Marks';
-import InitialsAvatar from "../../../../components/InitialsAvatar";
-
+import Avatar from "../../../../components/Layouts/Avatar";
 import './style.scss';
 
 const UserHeader = ({
@@ -44,10 +43,13 @@ const UserHeader = ({
         <Card className="user-header">
             <div className="user-header__logo-wrap">
                 <div className="user-header__logo">
-                    {logo ?
-                        <img src={logo} className="user-header__logo-img" alt="logo" /> :
-                        <InitialsAvatar name={name} card="nursery-edit-avatar"/>
-                    }
+                    <Avatar
+                        data="header"
+                        card="nursery-edit-avatar"
+                        logo={logo}
+                        name={name}
+                        subclass="user-header__logo-img"
+                    />
                 </div>
             </div>
             <div className="user-header__content">

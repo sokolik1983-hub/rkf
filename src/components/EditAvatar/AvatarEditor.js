@@ -1,16 +1,17 @@
-import React, {memo, useRef, useState} from 'react';
+import React, {memo, useRef, useState} from "react";
 import {useSelector} from "react-redux";
-import Dropzone from 'react-dropzone';
-import AvatarEditor from 'react-avatar-editor';
-import { Slider } from '@material-ui/core';
-import { Button } from '@progress/kendo-react-buttons';
-import LightTooltip from '../LightTooltip';
-import { Request } from '../../utils/request';
-import Alert from '../Alert';
-import ls from 'local-storage';
-import InitialsAvatar from "../InitialsAvatar";
+import Dropzone from "react-dropzone";
+import AvatarEditor from "react-avatar-editor";
+import {Slider} from "@material-ui/core";
+import {Button} from "@progress/kendo-react-buttons";
+import Alert from "../Alert";
+import Avatar from "../Layouts/Avatar";
+import LightTooltip from "../LightTooltip";
+import {Request} from "../../utils/request";
+import ls from "local-storage";
 
-import './index.scss';
+import "./index.scss";
+
 
 const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth }) => {
     const [image, setImage] = useState(avatar || '');
@@ -82,9 +83,9 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                             />
                             {
                                 !image && (reduxUserType === 1 || reduxUserType === 4) &&
-                                <InitialsAvatar
+                                <Avatar
                                     card="editor"
-                                    name={reduxUserType === 4 ? reduxUserName : null}
+                                    avatarName={reduxUserType === 4 ? reduxUserName : null}
                                 />
                             }
                             <div className="avatar-editor__add-file">

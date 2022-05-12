@@ -1,5 +1,6 @@
-import InitialsAvatar from "../../InitialsAvatar";
 import React, {useEffect, useState} from "react";
+import Avatar from "../../Layouts/Avatar";
+
 
 const HeaderMobileMenu = ({currentPageUserInfo, userType}) => {
     const [linkForName, setLinkForName] = useState('');
@@ -83,17 +84,14 @@ const HeaderMobileMenu = ({currentPageUserInfo, userType}) => {
             <div className="menu-component-new__bg-wrap">
                 <img src={headliner} alt="menu-background" />
                 <div className="menu-component-new__userpic">
-                    {
-                        logoLink
-                            ?
-                            <img src={logoLink} alt="menu-logo" />
-                            :
-                            (currentPageUserInfo?.user_type === 3 || userType === 3)
-                                ?
-                                <img src={'/static/icons/default/club-avatar.svg'} />
-                                :
-                                <InitialsAvatar card="mobile-user-menu" name={`${name}`} />
-                    }
+                    <Avatar
+                        card="mobile-user-menu"
+                        currentPageUserInfo={currentPageUserInfo}
+                        data="mobile-user-menu"
+                        logo={logoLink}
+                        name={`${name}`}
+                        userType={userType}
+                    />
                 </div>
             </div>
             <div className="menu-component-new__alias-name">
