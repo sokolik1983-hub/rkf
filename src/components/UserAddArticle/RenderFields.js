@@ -124,7 +124,6 @@ const RenderFields = ({ fields,
                 acceptType(file).then(descision => {
                     if (!descision) {
                         window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
-                        console.log(loadPictures)
                         setLoadPictures([...loadPictures])
                     }
                 });
@@ -136,14 +135,8 @@ const RenderFields = ({ fields,
         if (i >= 0) {
             loadPictures.splice(i, 1);
             setLoadPictures([...loadPictures]);
-            console.log(loadPictures, picture)
-            // return pictures;
         }
     }
-
-    // useEffect(() => {
-    //     console.log(pictures)
-    // }, [pictures])
 
     const addVideoLink = link => {
         formik.setFieldValue('video_link', link);

@@ -10,7 +10,7 @@ export const newsArticleFormConfig = {
         pictures: {
             name: 'pictures',
             fieldType: 'image',
-            type: 'iFormFile',
+            type: 'files',
             placeholder: 'Загрузить фото...',
         },
         video_link: {

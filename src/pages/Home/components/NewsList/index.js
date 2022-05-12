@@ -239,8 +239,7 @@ const NewsList = ({isFullDate = true}) => {
                                     city={item.fact_city_name}
                                     date={item.create_date}
                                     isFullDate={isFullDate}
-                                    small_photo={item.picture_short_link}
-                                    photo={item.picture_link}
+                                    pictures={item.pictures}
                                     text={item.content}
                                     url={`/news/${item.id}`}
                                     changeCityFilter={changeCityFilter}

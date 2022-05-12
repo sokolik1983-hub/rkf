@@ -85,10 +85,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 documents
             }
         } else {
-
-            console.log('массив стандартный', values.pictures);
-            console.log('массив json', JSON.stringify(values.pictures))
-
             return {
                 content: values.content,
                 pictures: values.pictures,

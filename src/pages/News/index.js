@@ -91,7 +91,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     advertCategoryId={news.advert_category_id}
                                     isHalfBreed={news.is_halfbreed}
                                     text={news.content}
-                                    img={news.picture_link || ''}
+                                    pictures={news.pictures || ''}
                                     videoLink={news.video_link || ''}
                                     documents={news.documents}
                                     isAd={news.is_advert}
@@ -118,7 +118,9 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                         </>
                                     }
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
-                                    {news.picture_link && <img src={news.picture_link} alt="" className="news__img" />}
+                                    {news.pictures && news.pictures.map(picture =>
+                                        <img src={picture.picture_link} alt="" className="news__img" />
+                                    )}
                                     {news.video_link &&
                                         <iframe
                                             className="news__video"
