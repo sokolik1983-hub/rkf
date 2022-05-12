@@ -11,6 +11,7 @@ const ContactsPage = ({
         // socials,
         // working,
         phones,
+        emails,
         // postcode,
         // flat_name,
         // is_public,
@@ -34,6 +35,7 @@ const ContactsPage = ({
             </div>
             <Contacts
                 phones={phones}
+                emails={emails}
                 // is_public={is_public}
                 errors={formik.errors}
                 randomKeyGenerator={randomKeyGenerator}

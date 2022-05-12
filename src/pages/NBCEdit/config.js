@@ -72,18 +72,7 @@ export const editForm = {
         alias: {
             name: "alias",
             label: "Название НКП на латинице",
-            // label: "rkf.online/nbc/",
-            // fieldType: "customAliasInput",
-            // baseUrl: "rkf.online/nbc/"
         },
-        // name: {
-        //     name: "name",
-        //     label: "Название питомника",
-        // },
-        // name_lat: {
-        //     name: "name_lat",
-        //     label: "Название питомника (на латинице)",
-        // },
         comment: {
             name: "comment",
             label: "Краткая информация о НКП",
@@ -188,6 +177,14 @@ export const editForm = {
                 label: 'phone',
                 type: 'tel',
                 placeholder: '+7(___)___-__-__',
+                title: '222',
+            },
+        },
+        emails: {
+            email: {
+                label: 'email',
+                type: 'email',
+                placeholder: 'Введите электронную почту1',
                 title: 'Формат номера: +7(999)999-99-99',
             },
         },
@@ -227,14 +224,28 @@ export const editForm = {
             value: string().when(['contact_type_id'], {
                 is: 1,
                 then: string()
-                    .min(16, 'Формат номера: +7(999)999-99-99'),
-                    // .required('Введите номер телефона'),
+                    .min(16, 'Формат номера: +7(999)999-99-99')
+                    .required('Введите номер телефона'),
                 otherwise: string()
                     .email('Неверный формат электронного адреса')
+                    .required('Введите e-mail')
+            }),
+            comment: string(),
+            contact_type_id: number(),
+            is_main: boolean()
+        })),
+        emails: array().of(object().shape({
+            value: string().when(['contact_type_id'], {
+                is: 2,
+                then: string()
+                    .email('Неверный формат электронного адреса'),
+                    // .required('Введите e-mail'),
+                otherwise: string()
+                    .email('Неверный формат электронного адреса'),
                     // .required('Введите e-mail')
             }),
             comment: string(),
-            // contact_type_id: number(),
+            contact_type_id: number(),
             is_main: boolean()
         })),
         // documents: array().of(object().shape({
@@ -282,11 +293,16 @@ export const defaultValues = {
     //     flat_name: null,
     // },
     phones: [{
-        id: null,
         value: '',
         description: '',
         is_main: false,
         contact_type_id: 1
+    }],
+    emails: [{
+        value: '',
+        description: '',
+        is_main: false,
+        contact_type_id: 2
     }],
     // documents: [{
     //     id: null,

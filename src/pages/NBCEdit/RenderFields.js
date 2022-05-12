@@ -44,6 +44,7 @@ const RenderFields = ({
 
     const {
         phones,
+        emails,
         // documents,
         // socials,
         // work_time
@@ -78,6 +79,7 @@ const RenderFields = ({
                         // socials={socials}
                         // working={working}
                         phones={phones}
+                        emails={emails}
                         // postcode={postcode}
                         // flat_name={flat_name}
                         // is_public={is_public}

@@ -10,19 +10,22 @@ import "./styles.scss";
 
 const Contacts = ({
      phones,
+     emails,
     // is_public,
     errors,
     randomKeyGenerator,
 }) => {
     const [countPhone, setCountPhone] = useState(true);
     const [countEmail, setCountEmail] = useState(true);
-    const [isChange, setIsChange] = useState(false);
+    const [isChangePhones, setIsChangePhones] = useState(false);
+    const [isChangeEmails, setIsChangeEmails] = useState(false);
 
     const {fields} = editForm;
 
     useEffect(() => {
-        isChange && checkForCount();
-    }, [isChange]);
+        isChangePhones && checkForCount();
+        isChangeEmails && checkForCount();
+    }, [isChangePhones, isChangeEmails]);
 
     const checkForErrors = (type) => {
         const {contacts} = errors;
@@ -41,13 +44,18 @@ const Contacts = ({
         }
     };
     const checkForCount = () => {
-        phones.filter(({contact_type_id}) => contact_type_id === 1).length > 2 && setCountPhone(false);
-        phones.filter(({contact_type_id}) => contact_type_id === 2).length > 2 && setCountEmail(false);
-        setIsChange(false);
+        phones.filter(({contact_type_id}) => contact_type_id === 1).length > 2 && setCountPhone(false) && setIsChangePhones(false);;
+        phones.filter(({contact_type_id}) => contact_type_id === 2).length > 2 && setCountEmail(false) && setIsChangeEmails(false);
+
     };
-    const handleChange = (index) => {
+    const handleChangePhone = (index) => {
         phones.map(elem => elem.is_main = false);
         phones[index].is_main = true;
+    };
+
+    const handleChangeEmail = (index) => {
+        emails.map(elem => elem.is_main = false);
+        emails[index].is_main = true;
     };
 
     console.log('fields', fields);
@@ -58,7 +66,6 @@ const Contacts = ({
             name="phones"
             render={arrayHelpers => (
                 <div className="Contacts">
-                    {/*<FormField {...is_public} />*/}
                     <h4>Телефон</h4>
                     {phones?.map(({contact_type_id, value}, index) => (
                         contact_type_id === 1 &&
@@ -74,7 +81,7 @@ const Contacts = ({
                             <div className="Contacts__checkbox-wrap">
                                 <div>Основной</div>
                                 <FormField
-                                    onChange={() => handleChange(index)}
+                                    onChange={() => handleChangePhone(index)}
                                     name={`phones[${index}].is_main`}
                                     fieldType="customCheckbox"
                                 />
@@ -99,54 +106,61 @@ const Contacts = ({
                                         : ""}`}
                                 onClick={() => {
                                     arrayHelpers.push({
-                                        id: null,
+                                        id: 1111111,
                                         value: "",
                                         description: "",
                                         is_main: false,
                                         contact_type_id: 1
                                     });
-                                    setIsChange(true)
+                                    setIsChangePhones(true)
                                 }}>Добавить телефон
                             </Button>}
                     </div>
+                </div>
+            )}
+        />
+        <FieldArray
+            name="emails"
+            render={arrayHelpers => (
+                <div className="Contacts">
                     <h4>E-mail</h4>
-                    {/*{phones.map(({contact_type_id}, index) => (*/}
-                    {/*    (contact_type_id !== 1) &&*/}
-                    {/*    <FormGroup key={index}>*/}
-                    {/*        <FormField*/}
-                    {/*            placeholder="Введите e-mail"*/}
-                    {/*            name={`contacts[${index}].value`}*/}
-                    {/*        />*/}
-                    {/*        <FormField*/}
-                    {/*            placeholder="Введите описание"*/}
-                    {/*            name={`contacts[${index}].description`}*/}
-                    {/*        />*/}
-                    {/*        <div className="Contacts__checkbox-wrap">*/}
-                    {/*            <div>Основной</div>*/}
-                    {/*            <FormField*/}
-                    {/*                onChange={() => handleChange(index)}*/}
-                    {/*                name={`contacts[${index}].is_main`}*/}
-                    {/*                fieldType="customCheckbox"*/}
-                    {/*            />*/}
-                    {/*        </div>*/}
-                    {/*        <Button className="btn Contacts__button-delete"*/}
-                    {/*                onClick={() => {*/}
-                    {/*                    arrayHelpers.remove(index);*/}
-                    {/*                    (arrayHelpers.form.values.contacts.filter(({contact_type_id}) => contact_type_id === 1).length <= 3*/}
-                    {/*                        && setCountEmail(true))*/}
-                    {/*                }}*/}
-                    {/*        >*/}
-                    {/*        </Button>*/}
-                    {/*    </FormGroup>*/}
-                    {/*))}*/}
+                    {emails?.map(({contact_type_id, value}, index) => (
+                        (contact_type_id !== 1) &&
+                        <FormGroup key={index}>
+                            <FormField
+                                placeholder="Введите e-mail"
+                                name={`emails[${index}].value`}
+                            />
+                            <FormField
+                                placeholder="Введите описание"
+                                name={`emails[${index}].description`}
+                            />
+                            <div className="Contacts__checkbox-wrap">
+                                <div>Основной</div>
+                                <FormField
+                                    onChange={() => handleChangeEmail(index)}
+                                    name={`emails[${index}].is_main`}
+                                    fieldType="customCheckbox"
+                                />
+                            </div>
+                            <Button className="btn Contacts__button-delete"
+                                    onClick={() => {
+                                        arrayHelpers.remove(index);
+                                        (arrayHelpers.form.values.emails.filter(({contact_type_id}) => contact_type_id === 1).length <= 3
+                                            && setCountEmail(true))
+                                    }}
+                            >
+                            </Button>
+                        </FormGroup>
+                    ))}
                     <div className="Contacts__buttons-wrap">
                         {countEmail &&
                             <Button
-                                // className={`btn-green Contacts__button-add ${checkForErrors(2)
-                                //     ? "disabled btn-mini"
-                                //     : (arrayHelpers.form.values.contacts.filter(({contact_type_id}) => contact_type_id === 2).length > 0)
-                                //         ? "btn-mini"
-                                //         : ""}`}
+                                className={`btn-green Contacts__button-add ${checkForErrors(2)
+                                    ? "disabled btn-mini"
+                                    : (arrayHelpers.form.values.emails.filter(({contact_type_id}) => contact_type_id === 2).length > 0)
+                                        ? "btn-mini"
+                                        : ""}`}
                                 onClick={() => {
                                     arrayHelpers.push({
                                         id: null,
@@ -155,7 +169,7 @@ const Contacts = ({
                                         is_main: false,
                                         contact_type_id: 2
                                     });
-                                    setIsChange(true)
+                                    setIsChangeEmails(true)
                                 }}
                             >
                                 Добавить e-mail
