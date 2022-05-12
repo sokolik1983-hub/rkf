@@ -46,7 +46,7 @@ const Schedule = ({ work_time }) => {
                         .map((day, index) => (
                             <FormGroup inline key={index}>
                                 <span className="nursery-schedule__days-form-day">
-                                    {days.find(day => day.id === day.week_day_id).fullName}
+                                    {days.find(item => item.id === day.week_day_id).fullName}
                                 </span>
                                 <FormField
                                     label="Время работы с"
