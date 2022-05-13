@@ -68,8 +68,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         })
     }
 
-    console.log(clubInfo);
-
     return loading ?
         <Loading /> :
         error ?
