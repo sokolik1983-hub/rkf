@@ -112,8 +112,8 @@ const JudgeLayout = () => {
                                             card="specialist-card"
                                             data="header"
                                             logo={judgeInfoLink}
-                                            subclass={null}
                                             name={`${judgePersInfo?.first_name} ${judgePersInfo?.last_name}`}
+                                            subclass={null}
                                         />
                                         <div className="judge-info__inner">
                                             <div className="judge-info__name-location">
