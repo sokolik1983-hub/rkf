@@ -93,7 +93,7 @@ const WidgetLogin = forwardRef(
                                 logo={logo}
                                 card="user-icon"
                                 open={open}
-                                user_type={user_type}
+                                userType={user_type}
                                 name={name}
                                 subclass="user-icon"
                             />

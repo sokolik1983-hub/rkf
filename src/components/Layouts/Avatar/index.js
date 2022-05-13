@@ -14,10 +14,8 @@ import { isFederationAlias } from "../../../utils";
 
 const Avatar = ({
     alias,
-    avatarName,
     canEdit,
     card,
-    currentPageUserInfo,
     data,
     id,
     logo,
@@ -27,7 +25,6 @@ const Avatar = ({
     updateInfo,
     user,
     userType,
-    user_type,
 }) => {
 
 const [hover, setHover] = useState(false);
@@ -129,11 +126,11 @@ const [modalType, setModalType] = useState('');
                              style={{backgroundImage: `url(${logo})`}}
                         />
                         :
-                        (user_type === 1 || user_type === 4) ?
+                        (userType === 1 || userType === 4) ?
                             <div className={`widget-login__${subclass} ${open && ' _active'}`}>
                                 <InitialsAvatar
                                     card={card}
-                                    name={user_type === 1 ? getInitials(name) : name}
+                                    name={userType === 1 ? getInitials(name) : name}
                                 />
                             </div>
                             :
@@ -164,7 +161,7 @@ const [modalType, setModalType] = useState('');
         case 'organization':
             return(
                 <>
-                    {(user_type === 3 || user_type === 5) ?
+                    {(userType === 3 || userType === 5) ?
                         <img src={logo || DEFAULT_IMG.clubAvatar} alt="logo"/>
                         :
                         logo ?
@@ -242,7 +239,7 @@ const [modalType, setModalType] = useState('');
                     {logo ?
                         <img src={logo} alt="menu-logo" />
                         :
-                        (currentPageUserInfo?.user_type === 3 || userType === 3) ?
+                        userType === 3 ?
                             <img src={'/static/icons/default/club-avatar.svg'} alt="menu-logo" />
                             :
                             <InitialsAvatar
@@ -261,7 +258,7 @@ const [modalType, setModalType] = useState('');
                              style={{background: `url(${logo}) center center/cover no-repeat`}}
                         />
                         :
-                        (user_type === 1 || user_type === 4) ?
+                        (userType === 1 || userType === 4) ?
                             <div className="card-news-new__left-logo">
                                 <InitialsAvatar
                                     card={card}
@@ -316,7 +313,7 @@ const [modalType, setModalType] = useState('');
                 <InitialsAvatar
                     id={id}
                     card={card}
-                    name={avatarName}
+                    name={name}
                 />
             );
     }

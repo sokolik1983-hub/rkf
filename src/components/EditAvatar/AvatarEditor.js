@@ -85,7 +85,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 !image && (reduxUserType === 1 || reduxUserType === 4) &&
                                 <Avatar
                                     card="editor"
-                                    avatarName={reduxUserType === 4 ? reduxUserName : null}
+                                    name={reduxUserType === 4 ? reduxUserName : null}
                                 />
                             }
                             <div className="avatar-editor__add-file">

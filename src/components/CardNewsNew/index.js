@@ -126,7 +126,7 @@ const CardNewsNew = forwardRef(({
                                 data="cardnewsnew"
                                 logo={logo_link}
                                 name={user_type === 1 ? `${first_name} ${last_name}` : name}
-                                user_type={user_type}
+                                userType={user_type}
                             />
                         </Link>
                         <span className="card-news-new__left-name">

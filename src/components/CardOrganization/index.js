@@ -64,7 +64,7 @@ const CardOrganization = (props) => {
                                     id={id}
                                     logo={logo}
                                     name={name}
-                                    user_type={user_type}
+                                    userType={user_type}
                                 />
                             </Link>
                             <div className="card-organization__container">

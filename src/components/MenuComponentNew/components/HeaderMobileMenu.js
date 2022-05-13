@@ -86,11 +86,10 @@ const HeaderMobileMenu = ({currentPageUserInfo, userType}) => {
                 <div className="menu-component-new__userpic">
                     <Avatar
                         card="mobile-user-menu"
-                        currentPageUserInfo={currentPageUserInfo}
                         data="mobile-user-menu"
                         logo={logoLink}
                         name={`${name}`}
-                        userType={userType}
+                        userType={currentPageUserInfo?.user_type === 3 ? 3 : {userType}}
                     />
                 </div>
             </div>

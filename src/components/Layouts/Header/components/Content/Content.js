@@ -35,7 +35,7 @@ const Content = ({
                     card="widget-login"
                     logo={logo}
                     open={open}
-                    user_type={userType}
+                    userType={userType}
                     name={name}
                     subclass="userpic"
                 />
