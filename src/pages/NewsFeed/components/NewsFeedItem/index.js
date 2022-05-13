@@ -180,7 +180,7 @@ const NewsFeedItem = forwardRef(({
                                                 <FederationChoiceMark />
                                             }
                                         </span>
-                                        <div>
+                                        <div className="news-feed-item__date-city">
                                             {formatDateTime(create_date)}
                                             {fact_city_name &&
                                                 <span className="news-feed-item__city" title={fact_city_name}>

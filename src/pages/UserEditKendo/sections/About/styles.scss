@@ -36,7 +36,7 @@
                 margin-top: 0;
             }
             .form-group {
-                @media (max-width: 560px){
+                @media (max-width: 860px){
                     .form-row {
                         &:nth-child(1) {
                             max-width: 100%;
@@ -67,12 +67,10 @@
                 &:nth-child(3) {
                     margin-left: 50px;
                     min-width: 80%;
-                    @media (min-width: 769px){
-                    }
                     @media (min-width: 1025px){
                         min-width: 84%;
                     }
-                    @media (max-width: 560px){
+                    @media (max-width: 860px){
                         margin-left: 0;
                         min-width: 100%;
                     }
@@ -121,5 +119,16 @@
                 font-size: 16px !important;
             }
         }
+        .d-sm-block {
+            @media (max-width: 860px) {
+                display: none!important;
+            }
+        }
+        .d-block {
+            @media (max-width: 860px) {
+                display: block!important;
+            }
+        }
     }
+
 }
