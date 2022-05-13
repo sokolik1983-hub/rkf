@@ -80,6 +80,41 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
                                         })
                                     }
                                 </div>
+                                <Aside className="club-page__info">
+                                    <StickyBox offsetTop={60}>
+                                        <div className="club-page__info-inner">
+                                            {!isMobile &&
+                                                <>
+                                                    <UserHeader
+                                                        canEdit={canEdit}
+                                                        user={alias !== 'rkf-online' ? 'club' : ''}
+                                                        logo={clubInfo.logo_link}
+                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                        alias={clubInfo.club_alias}
+                                                        profileId={clubInfo.id}
+                                                        federationName={clubInfo.federation_name}
+                                                        federationAlias={clubInfo.federation_alias}
+                                                        active_rkf_user={clubInfo.active_rkf_user}
+                                                        active_member={clubInfo.active_member}
+                                                    />
+                                                    <MenuComponentNew />
+                                                    <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
+                                                    <UserPhotoGallery
+                                                        alias={clubInfo.club_alias}
+                                                        pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                        canEdit={canEdit}
+                                                    />
+                                                    <UserVideoGallery
+                                                        alias={clubInfo.club_alias}
+                                                        pageLink={`/${clubInfo.club_alias}/video`}
+                                                        canEdit={canEdit}
+                                                    />
+                                                    <CopyrightInfo withSocials={true} />
+                                                </>
+                                            }
+                                        </div>
+                                    </StickyBox>
+                                </Aside>
                             </div>
                         </Container>
                     </div>
