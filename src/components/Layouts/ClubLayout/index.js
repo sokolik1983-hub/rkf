@@ -87,7 +87,7 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
                                                 <>
                                                     <UserHeader
                                                         canEdit={canEdit}
-                                                        user={alias !== 'rkf-online' ? 'club' : ''}
+                                                        user={alias !== 'rkf-online' && 'club'}
                                                         logo={clubInfo.logo_link}
                                                         name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                         alias={clubInfo.club_alias}
