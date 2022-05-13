@@ -29,9 +29,9 @@ const ListFilter = ({
 
     const handleFilter = () => {
         setIsFilter(!isFilter);
-        setIsPopular(false);
+        setIsPopular(true);
         setIsVerified(false);
-        setFiltersToUrl({IsPopular: false , isVerified: false})
+        setFiltersToUrl({IsPopular: true , isVerified: false})
     }
 
     const handlePopular = () => {
