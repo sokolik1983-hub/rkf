@@ -35,7 +35,6 @@ const RenderFields = ({
         // setShowFilters({isOpenFilters: false});
     };
 
-
     return (
         <div className="nursery-edit__inner">
             <div className="nursery-edit__inner-left">

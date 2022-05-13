@@ -1,11 +1,9 @@
 import React from "react";
-import UserBanner from "../../components/Layouts/UserBanner";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import NBCLayout from "../../components/Layouts/NBCLayout";
-import UserHeader from "../../components/redesign/UserHeader";
 import UserContacts from "./UserContacts/index";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import UserDescription from "../../components/UserDescription";
@@ -32,7 +30,7 @@ const Content = ({
             <UserContacts {...nbcInfo} profileAlias={alias} />
             <div className="club-page__exhibitions">
                 {/*//Временный тестовый алиас*/}
-                <ExhibitionsComponent alias={'kdtf180320'} />
+                <ExhibitionsComponent alias={alias} nbcId={nbcInfo?.nbc_id} />
             </div>
             {isMobile && nbcInfo &&
                 <>

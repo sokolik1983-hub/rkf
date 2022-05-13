@@ -16,13 +16,19 @@ import "./index.scss";
 
 const Placeholders = [0, 1, 2, 3];
 
-const ExhibitionsComponent = ({ alias }) => {
+const ExhibitionsComponent = ({ alias, nbcId }) => {
+
+    console.log('nbcId', nbcId);
     const [exhibitions, setExhibitions] = useState(null);
     const [isRequestEnd, setIsRequestEnd] = useState(false);
     const [needBlock, setNeedBkock] = useState(false);
-    const endpoint = alias
-        ? `/api/exhibitions/Exhibition/featured?Alias=${alias}&All=true`
-        : '/api/exhibitions/Exhibition/featured?ElementsCount=14';
+    const endpoint = nbcId ?
+        `/api/exhibitions/exhibition/nbc?nbc_id=${nbcId}` :
+        alias ?
+            `/api/exhibitions/Exhibition/featured?Alias=${alias}&All=true` :
+            '/api/exhibitions/Exhibition/featured?ElementsCount=14';
+
+    // api/exhibitions/exhibition/nbc?nbc_id=145
 
     const history = useHistory();
 
@@ -32,7 +38,6 @@ const ExhibitionsComponent = ({ alias }) => {
         if (window.innerWidth > 1180) {
             setNeedBkock(true);
         }
-
         window.addEventListener("resize", () => {
             if (window.innerWidth > 1180) {
                 setNeedBkock(true);
