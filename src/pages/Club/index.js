@@ -68,6 +68,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         })
     }
 
+    console.log(clubInfo);
+
     return loading ?
         <Loading /> :
         error ?
@@ -87,6 +89,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     {isMobile &&
                                         <UserHeader
                                             user={alias !== 'rkf-online' ? 'club' : ''}
+                                            userType={clubInfo.user_type}
                                             logo={clubInfo.logo_link}
                                             name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                             alias={clubInfo.club_alias}

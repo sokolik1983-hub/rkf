@@ -12,6 +12,7 @@ import "./index.scss";
 
 const UserHeader = ({
     user,
+    userType,
     logo,
     name,
     alias,
@@ -41,6 +42,8 @@ const UserHeader = ({
         }
     };
 
+    console.log(user);
+
     return (
         <Card className="user-header">
             <Avatar
@@ -50,7 +53,7 @@ const UserHeader = ({
                 data="canEdit"
                 logo={logo}
                 name={name}
-                user={user}
+                userType={userType}
             />
             <div className="user-header__content">
                 <div className="user-header__info">

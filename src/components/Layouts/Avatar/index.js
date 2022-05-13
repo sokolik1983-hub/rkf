@@ -23,7 +23,6 @@ const Avatar = ({
     open,
     subclass,
     updateInfo,
-    user,
     userType,
 }) => {
 
@@ -90,7 +89,7 @@ const [modalType, setModalType] = useState('');
                     {logo ?
                         <img className="user-info__logo" src={logo} alt="logo"/>
                         :
-                        (user === 'club') ?
+                        (userType === 3) ?
                             <img className="user-info__logo" src={DEFAULT_IMG.clubAvatar} alt="logo"/>
                             :
                             isFederationAlias(alias) ?
@@ -186,26 +185,6 @@ const [modalType, setModalType] = useState('');
                             card={card}
                             name={name}
                         />
-                    }
-                </>
-            );
-
-        case 'headerRedesign':
-            return(
-                <>
-                    {logo ?
-                        <img className="user-info__logo" src={logo} alt=""/>
-                        :
-                        (user === 'nursery') ?
-                            <InitialsAvatar
-                                card={card}
-                                name={name}
-                            />
-                            :
-                            (user === 'club') ?
-                                <img className="user-info__logo" src={DEFAULT_IMG.clubAvatar} alt=""/>
-                                :
-                                <img className="user-info__logo" src={DEFAULT_IMG.userAvatar} alt=""/>
                     }
                 </>
             );
