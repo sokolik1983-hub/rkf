@@ -1,28 +1,30 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Card from '../../../../components/Card';
-import Alert from '../../../../components/Alert';
-import Share from '../../../../components/Share';
-import UserActionControls from '../../../../components/UserActionControls';
-import { ActiveUserMark, FederationChoiceMark } from '../../../../components/Marks';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Card from "../../../../components/Card";
+import Alert from "../../../../components/Alert";
+import Share from "../../../../components/Share";
 import Avatar from "../../../../components/Layouts/Avatar";
-import './style.scss';
+import UserActionControls from "../../../../components/UserActionControls";
+import { ActiveUserMark, FederationChoiceMark } from "../../../../components/Marks";
+
+import "./style.scss";
+
 
 const UserHeader = ({
-                        user,
-                        logo,
-                        name,
-                        alias,
-                        profileId,
-                        subscribed,
-                        member,
-                        onSubscriptionUpdate,
-                        federationName,
-                        federationAlias,
-                        active_rkf_user,
-                        active_member,
-                        isAuthenticated,
-                        canEdit
+    user,
+    logo,
+    name,
+    alias,
+    profileId,
+    subscribed,
+    member,
+    onSubscriptionUpdate,
+    federationName,
+    federationAlias,
+    active_rkf_user,
+    active_member,
+    isAuthenticated,
+    canEdit,
 }) => {
     const [shareAlert, setShareAlert] = useState(false);
     const shareOk = () => setShareAlert(false);

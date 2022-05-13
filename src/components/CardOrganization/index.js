@@ -59,12 +59,12 @@ const CardOrganization = (props) => {
                                 className={ `card-organization__logo ${ user_type === 3 || user_type === 4  ? `item-card__logo--club` : `` }` }
                             >
                                 <Avatar
-                                    user_type={user_type}
-                                    data="organization"
                                     card="nkp-card"
+                                    data="organization"
+                                    id={id}
                                     logo={logo}
                                     name={name}
-                                    id={id}
+                                    user_type={user_type}
                                 />
                             </Link>
                             <div className="card-organization__container">
@@ -183,11 +183,11 @@ const CardOrganization = (props) => {
                         </div> :
                         <div className="card-organization__author card-organization__no-url">
                             <Avatar
-                                data="nkp"
                                 card="nkp-card"
+                                data="nkp"
+                                id={id}
                                 logo={logo}
                                 name={name}
-                                id={id}
                             />
                             <div className="card-organization__container">
                                 <div className="card-organization__heading">
