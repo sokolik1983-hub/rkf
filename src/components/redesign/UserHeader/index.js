@@ -46,6 +46,7 @@ const UserHeader = ({
             <Avatar
                 alias={alias}
                 avatarName={name}
+                canEdit={canEdit}
                 card="profile"
                 data="canEdit"
                 logo_link={logo}

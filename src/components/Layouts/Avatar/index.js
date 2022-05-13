@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {CSSTransition} from "react-transition-group";
-import {SvgIcon} from "@progress/kendo-react-common";
-import {pencil, trash} from "@progress/kendo-svg-icons";
+import React, { useState } from "react";
+import { CSSTransition } from "react-transition-group";
+import { SvgIcon } from "@progress/kendo-react-common";
+import { pencil, trash } from "@progress/kendo-svg-icons";
 import LightTooltip from "../../LightTooltip";
 import InitialsAvatar from "../../InitialsAvatar";
-import {getInitials} from "../../../utils/getInitials";
-import {DEFAULT_IMG} from "../../../appConfig";
+import { getInitials } from "../../../utils/getInitials";
+import { DEFAULT_IMG } from "../../../appConfig";
 import ClientAvatar from "../../ClientAvatar";
 import EditAvatar from "../../EditAvatar";
 import ModalDeleteAvatar from "../UserInfo/ModalDeleteAvatar";
@@ -33,19 +33,16 @@ const Avatar = ({
 const [hover, setHover] = useState(false);
 const [modalType, setModalType] = useState('');
 
-
     switch (data) {
-
         case 'canEdit':
             return(
-                <div
-                    className={logo_link ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
-                    onMouseEnter={() => setHover(true)}
-                    onMouseLeave={() => setHover(false)}
-                    onTouchStart={() => {
-                        setHover(true);
-                        setTimeout(() => setHover(false), 3000);
-                    }}
+                <div className={logo_link ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
+                     onMouseEnter={() => setHover(true)}
+                     onMouseLeave={() => setHover(false)}
+                     onTouchStart={() => {
+                         setHover(true);
+                         setTimeout(() => setHover(false), 3000);
+                     }}
                 >
                     {canEdit &&
                         <>
@@ -58,7 +55,8 @@ const [modalType, setModalType] = useState('');
                                 <LightTooltip
                                     title="Редактировать"
                                     enterDelay={200}
-                                    leaveDelay={200}>
+                                    leaveDelay={200}
+                                >
                                     <button
                                         className="user-info__edit-btn"
                                         type="button"
@@ -78,7 +76,8 @@ const [modalType, setModalType] = useState('');
                                     <LightTooltip
                                         title="Удалить"
                                         enterDelay={200}
-                                        leaveDelay={200}>
+                                        leaveDelay={200}
+                                    >
                                         <button
                                             className="user-info__delete-btn"
                                             type="button"
@@ -92,17 +91,17 @@ const [modalType, setModalType] = useState('');
                         </>
                     }
                     {logo_link ?
-                        <img className="user-info__logo" src={logo_link} alt=""/>
+                        <img className="user-info__logo" src={logo_link} alt="logo"/>
                         :
                         (user === 'club') ?
-                            <img className="user-info__logo" src={DEFAULT_IMG.clubAvatar} alt=""/>
+                            <img className="user-info__logo" src={DEFAULT_IMG.clubAvatar} alt="logo"/>
                             :
                             (alias === 'rkf' ||
                             alias === 'rfss' ||
                             alias === 'rfls' ||
                             alias === 'rfos' ||
                             alias === 'oankoo') ?
-                                <img className="user-info__logo" src={DEFAULT_IMG.userAvatar} alt=""/>
+                                <img className="user-info__logo" src={DEFAULT_IMG.userAvatar} alt="logo"/>
                                 :
                                 <InitialsAvatar
                                     card={card}
@@ -153,10 +152,8 @@ const [modalType, setModalType] = useState('');
             return(
                 <>
                     {logo ?
-                        <span
-                            className="card-organization__logo"
-                            style={{
-                                backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`}}
+                        <span className="card-organization__logo"
+                              style={{ backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`}}
                         />
                         :
                         <InitialsAvatar
@@ -172,14 +169,14 @@ const [modalType, setModalType] = useState('');
             return(
                 <>
                     {(user_type === 3 || user_type === 5) ?
-                        <img src={logo || DEFAULT_IMG.clubAvatar} alt=""/>
+                        <img src={logo || DEFAULT_IMG.clubAvatar} alt="logo"/>
                         :
                         logo ?
-                            <img src={logo} alt=""/>
+                            <img src={logo} alt="logo"/>
                             :
                             <InitialsAvatar
                                 id={id}
-                                card="nkp-card"
+                                card={card}
                                 name={name}
                             />
                     }
@@ -264,9 +261,8 @@ const [modalType, setModalType] = useState('');
             return(
                 <>
                     {logo_link ?
-                        <div
-                            className="card-news-new__left-logo"
-                            style={{background: `url(${logo_link}) center center/cover no-repeat`}}
+                        <div className="card-news-new__left-logo"
+                             style={{background: `url(${logo_link}) center center/cover no-repeat`}}
                         />
                         :
                         (user_type === 1 || user_type === 4) ?
@@ -277,9 +273,8 @@ const [modalType, setModalType] = useState('');
                                 />
                             </div>
                             :
-                            <div
-                                className="card-news-new__left-logo"
-                                style={{background: `url(${DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`}}
+                            <div className="card-news-new__left-logo"
+                                 style={{background: `url(${DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`}}
                             />
                     }
                 </>
@@ -294,9 +289,8 @@ const [modalType, setModalType] = useState('');
                             name={name}
                         />
                         :
-                        <div
-                            style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }}
-                            className="top-component__logo"
+                        <div style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }}
+                             className="top-component__logo"
                         />
                     }
                 </>
@@ -307,10 +301,9 @@ const [modalType, setModalType] = useState('');
                 <>
                     {logo
                         ?
-                        <span
-                            className="card-specialists__photo"
-                            to={logo}
-                            style={{ backgroundImage: `url(${logo})` }}
+                        <span className="card-specialists__photo"
+                              to={logo}
+                              style={{ backgroundImage: `url(${logo})` }}
                         />
                         :
                         <InitialsAvatar
