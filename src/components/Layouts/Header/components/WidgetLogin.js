@@ -43,7 +43,7 @@ const WidgetLogin = forwardRef(
     const widgetLoginRef = useRef();
 
     useEffect(() => {
-        backgroundForPage(alias);
+        alias && backgroundForPage(alias);
     }, [alias]);
 
     useEffect(() => {
