@@ -106,7 +106,6 @@ const Contacts = ({
                                         : ""}`}
                                 onClick={() => {
                                     arrayHelpers.push({
-                                        id: 1111111,
                                         value: "",
                                         description: "",
                                         is_main: false,
@@ -163,7 +162,6 @@ const Contacts = ({
                                         : ""}`}
                                 onClick={() => {
                                     arrayHelpers.push({
-                                        id: null,
                                         value: "",
                                         description: "",
                                         is_main: false,

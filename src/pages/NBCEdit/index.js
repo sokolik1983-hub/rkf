@@ -1,14 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {NavLink, Redirect, useParams} from "react-router-dom";
-import Container from "../../components/Layouts/Container";
 import NBCLayout from "../../components/Layouts/NBCLayout";
 import AuthOrLogin from "../Login/components/AuthOrLogin";
-
-import "./styles.scss"
 import {defaultValues, editForm} from "./config";
 import {Request} from "../../utils/request";
-import useIsMobile from "../../utils/useIsMobile";
-import {endpointGetNurseryInfo} from "../../components/Layouts/NurseryLayout/config";
 import ls from "local-storage";
 import Loading from "../../components/Loading";
 import {Form} from "../../components/Form";
@@ -17,17 +11,11 @@ import randomKeyGenerator from "../../utils/randomKeyGenerator";
 import Alert from "../../components/Alert";
 import ClickGuard from "../../components/ClickGuard";
 
-
-
-let unblock;
+import "./styles.scss"
 
 const Content = ({
-                     history,
-                     profile_id,
-                     isAuthenticated,
                      isOpenFilters,
                      setShowFilters,
-                     match,
                  }) => {
 
     const [initialValues, setInitialValues] = useState(defaultValues);
@@ -36,40 +24,6 @@ const Content = ({
     const [success, setSuccess] = useState(false);
 
     const PromiseRequest = url => new Promise((res, rej) => Request({url}, res, rej));
-    const isMobile = useIsMobile(1080);
-    // const alias = match.params.id;
-
-    // useEffect(() => {
-    //     unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
-    //     return () => unblock();
-    // }, []);
-
-    // useEffect(() => {
-    //     Promise.all([getInfo()])
-    //         .then(() => setLoading(true))
-    //         .catch(e => handleError(e));
-    // }, []);
-
-    // useEffect(() => {
-    //     (() => Request({
-    //         url: endpointGetNurseryInfo + alias
-    //     }, data => {
-    //         if (data.user_type !== 4) {
-    //             history.replace(`/club/${alias}`);
-    //         } else {
-    //             const legal_address = data.legal_address ? getAddressString(data.legal_address) : '';
-    //             const address = data.fact_address ? getAddressString(data.fact_address) : legal_address;
-    //             const city_name = data.fact_address ? data.fact_address.city_name : data.legal_address ? data.legal_address.city_name : '';
-    //
-    //             setNursery({...data, legal_address, address, city: {name: city_name}});
-    //             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-    //             setLoading(false);
-    //         }
-    //     }, error => {
-    //         setError(error.response);
-    //         setLoading(false);
-    //     }))();
-    // }, [alias]);
 
     const getInfo = () => PromiseRequest('/api/NationalBreedClub/edit_info')
         .then(data => {
@@ -95,26 +49,6 @@ const Content = ({
     useEffect(() => {
         getInfo();
     }, [])
-
-    // const getAddresses = () => PromiseRequest('/api/Address/all_address_types')
-    //     .then(data => {
-    //         if (data) {
-    //             const {street_types, house_types, flat_types} = data;
-    //             setStreetTypes(street_types.map(item => ({value: item.id, label: item.name})));
-    //             setHouseTypes(house_types.map(item => ({value: item.id, label: item.name})));
-    //             setFlatTypes(flat_types.map(item => ({value: item.id, label: item.name})));
-    //         }
-    //     });
-
-    // const getAddressString = addressObj => {
-    //     let address = '';
-    //     if (addressObj.postcode) address += `${addressObj.postcode}, `;
-    //     if (addressObj.city_name) address += `${addressObj.city_name}, `;
-    //     if (addressObj.street_type_name && addressObj.street_name) address += `${addressObj.street_type_name} ${addressObj.street_name}, `;
-    //     if (addressObj.house_type_name && addressObj.house_name) address += `${addressObj.house_type_name} ${addressObj.house_name}, `;
-    //     if (addressObj.flat_type_name && addressObj.flat_name) address += `${addressObj.flat_type_name} ${addressObj.flat_name}`;
-    //     return address;
-    // };
 
     const transformValues = values => {
         const newValues = {...values};
@@ -157,9 +91,6 @@ const Content = ({
             });
         }
     };
-
-
-
 
     return (
         <AuthOrLogin>

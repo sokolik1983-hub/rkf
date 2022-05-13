@@ -6,7 +6,7 @@ import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import NBCLayout from "../../components/Layouts/NBCLayout";
 import UserHeader from "../../components/redesign/UserHeader";
-import UserContacts from "../../components/redesign/UserContacts";
+import UserContacts from "./UserContacts/index";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import UserDescription from "../../components/UserDescription";
 
@@ -28,7 +28,7 @@ const Content = ({
 
     return (
         <>
-            <UserDescription description={nbcInfo?.description} />
+            <UserDescription description={nbcInfo?.comment} />
             <UserContacts {...nbcInfo} profileAlias={alias} />
             <div className="club-page__exhibitions">
                 {/*//Временный тестовый алиас*/}

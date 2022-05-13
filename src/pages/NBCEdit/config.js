@@ -20,12 +20,7 @@ export const sections = {
         id: 2,
         name: 'Банковские реквизиты',
         icon: 'icon-schedule'
-    },
-    // delete: {
-    //     id: 3,
-    //     name: 'Удаление страницы',
-    //     icon: 'icon-trash'
-    // }
+    }
 };
 
 export const days = [
@@ -90,87 +85,6 @@ export const editForm = {
             rows: 6,
             maxLength: '1500'
         },
-        // co_owner_last_name: {
-        //     name: "co_owner_last_name",
-        //     label: "Фамилия совладельца",
-        // },
-        // co_owner_first_name: {
-        //     name: "co_owner_first_name",
-        //     label: "Имя совладельца",
-        // },
-        // co_owner_second_name: {
-        //     name: "co_owner_second_name",
-        //     label: "Отчество совладельца",
-        // },
-        // co_owner_mail: {
-        //     name: "co_owner_mail",
-        //     label: "E-mail совладельца",
-        //     type: 'email'
-        // },
-        // address: {
-        //     postcode: {
-        //         name: "address.postcode",
-        //         label: "Индекс",
-        //         placeholder: 'Введите индекс'
-        //     },
-        //     city_id: {
-        //         name: "address.city_id",
-        //         label: "Населенный пункт",
-        //         fieldType: 'reactSelectAsync',
-        //         type: 'select',
-        //         optionsEndpoint: '/api/city'
-        //     },
-        //     street_type_id: {
-        //         name: "address.street_type_id",
-        //         label: "Тип улицы",
-        //         placeholder: 'Тип улицы',
-        //         fieldType: 'reactSelect',
-        //         type: 'select'
-        //     },
-        //     street_name: {
-        //         name: "address.street_name",
-        //         label: "Улица",
-        //         placeholder: 'Введите название'
-        //     },
-        //     house_type_id: {
-        //         name: "address.house_type_id",
-        //         label: "Тип здания",
-        //         placeholder: 'Тип здания',
-        //         fieldType: 'reactSelect',
-        //         type: 'select'
-        //     },
-        //     house_name: {
-        //         name: "address.house_name",
-        //         label: "Здание",
-        //         placeholder: 'Введите номер'
-        //     },
-        //     flat_type_id: {
-        //         name: "address.flat_type_id",
-        //         label: "Тип помещения",
-        //         placeholder: 'Тип помещения',
-        //         fieldType: 'reactSelect',
-        //         type: 'select'
-        //     },
-        //     flat_name: {
-        //         name: "address.flat_name",
-        //         label: "Помещение",
-        //         placeholder: 'Введите номер'
-        //     },
-        // },
-        // logo: {
-        //     name: 'logo',
-        //     accept: '.jpg, .gif'
-        // },
-        // banner: {
-        //     name: "banner",
-        //     label: "Баннер",
-        //     fieldType: "image"
-        // },
-        // is_public: {
-        //     name: "is_public",
-        //     label: "Скрыть личную информацию",
-        //     fieldType: "customCheckbox"
-        // },
         phones: {
             phone: {
                 mask: DEFAULT_PHONE_INPUT_MASK,
@@ -188,110 +102,42 @@ export const editForm = {
                 title: 'Формат номера: +7(999)999-99-99',
             },
         },
-        // documents: [],
-        // socials: [],
-        // work_time: []
-
+        social_networks: [],
     },
     validationSchema: object().shape({
         alias: string()
             .matches(/^\w+$/, 'Допускаются цифры, латинские буквы и нижнее подчеркивание')
             .required(emptyFieldMsg),
-        // name: string()
-        //     .required(emptyFieldMsg),
-        // name_lat: lat()
-        //     .required(emptyFieldMsg),
         web_site: string()
             .url('Адрес сайта должен начинаться с "http://" либо "https://"'),
         bank_comment: string(),
-        // co_owner_mail: string().email('Неверный формат E-mail'),
-        // address: object().shape({
-        //     city_id: string()
-        //         .required(emptyFieldMsg),
-        //     postcode: string()
-        //         .required(emptyFieldMsg),
-        //     street_type_id: string()
-        //         .required(emptyFieldMsg),
-        //     street_name: string()
-        //         .required(emptyFieldMsg),
-        //     house_type_id: string()
-        //         .required(emptyFieldMsg),
-        //     house_name: string()
-        //         .required(emptyFieldMsg)
-        //
-        // }),
         phones: array().of(object().shape({
-            value: string().when(['contact_type_id'], {
-                is: 1,
-                then: string()
-                    .min(16, 'Формат номера: +7(999)999-99-99')
-                    .required('Введите номер телефона'),
-                otherwise: string()
-                    .email('Неверный формат электронного адреса')
-                    .required('Введите e-mail')
-            }),
+            value: string().min(16, 'Формат номера: +7(999)999-99-99').required('Введите номер телефона'),
             comment: string(),
             contact_type_id: number(),
             is_main: boolean()
         })),
         emails: array().of(object().shape({
-            value: string().when(['contact_type_id'], {
-                is: 2,
-                then: string()
-                    .email('Неверный формат электронного адреса'),
-                    // .required('Введите e-mail'),
-                otherwise: string()
-                    .email('Неверный формат электронного адреса'),
-                    // .required('Введите e-mail')
-            }),
+            value: string().email('Неверный формат электронного адреса'),
             comment: string(),
             contact_type_id: number(),
             is_main: boolean()
         })),
-        // documents: array().of(object().shape({
-        //     name: string()
-        //         .required(emptyFieldMsg),
-        //     url: string()
-        //         .url('Ссылка должна начинаться с "http://" либо "https://"')
-        //         .required(emptyFieldMsg)
-        // })),
-        // socials: array().of(object().shape({
-        //     site: string()
-        //         .url('Ссылка должна начинаться с "http://" либо "https://"')
-        //         .required(emptyFieldMsg),
-        //     description: string()
-        //         .required(emptyFieldMsg)
-        // })),
-        // work_time: array().of(object().shape({
-        //     time_from: string()
-        //         .required(emptyFieldMsg),
-        //     time_to: string()
-        //         .required(emptyFieldMsg)
-        // }))
+        social_networks: array().of(object().shape({
+            site: string()
+                .url('Ссылка должна начинаться с "http://" либо "https://"')
+                .required(emptyFieldMsg),
+            description: string()
+                .required(emptyFieldMsg)
+        })),
     })
 };
 
 export const defaultValues = {
     alias: '',
-    // name: '',
-    // name_lat: '',
     comment: '',
     web_site: '',
     bank_comment: '',
-    // co_owner_last_name: '',
-    // co_owner_first_name: '',
-    // co_owner_second_name: '',
-    // co_owner_mail: '',
-    // address: {
-    //     postcode: '',
-    //     city_id: '',
-    //     street_type_id: '',
-    //     street_name: '',
-    //     house_type_id: '',
-    //     house_name: '',
-    //     flat_type_id: '',
-    //     flat_name: null,
-    // },
     phones: [{
         value: '',
         description: '',
@@ -304,25 +150,9 @@ export const defaultValues = {
         is_main: false,
         contact_type_id: 2
     }],
-    // documents: [{
-    //     id: null,
-    //     name: '',
-    //     url: ''
-    // }],
-    // socials: [{
-    //     id: null,
-    //     site: '',
-    //     description: '',
-    //     social_network_type_id: 1
-    // }],
-    // work_time: [{
-    //     id: null,
-    //     week_day_id: null,
-    //     time_from: '',
-    //     time_to: ''
-    // }],
-    // logo: '',
-    // logo_link: '',
-    // banner: '',
-    // banner_link: ''
+    social_networks: [{
+        site: '',
+        description: '',
+        social_network_type_id: 1
+    }],
 };

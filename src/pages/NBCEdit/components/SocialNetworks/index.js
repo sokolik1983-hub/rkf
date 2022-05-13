@@ -6,23 +6,23 @@ import Button from '../../../../components/Button';
 import './styles.scss';
 
 
-const SocialNetworks = ({ socials }) => {
+const SocialNetworks = ({ social_networks }) => {
 
     return <div className="SocialNetworks">
         <FieldArray
-            name="socials"
+            name="social_networks"
             render={arrayHelpers => (
                 <div>
-                    {socials.map((social, index) => (
+                    {social_networks.map((social, index) => (
                         <FormGroup key={index}>
                             <FormField
                                 label="Социальная сеть"
                                 placeholder="Введите ссылку"
-                                name={`socials[${index}].site`}
+                                name={`social_networks[${index}].site`}
                             />
                             <FormField
                                 placeholder="Введите название"
-                                name={`socials[${index}].description`}
+                                name={`social_networks[${index}].description`}
                             />
                             <Button
                                 className="btn SocialNetworks__button-delete"
@@ -33,9 +33,8 @@ const SocialNetworks = ({ socials }) => {
                     ))}
                     <div className="SocialNetworks__buttons-wrap">
                         <Button
-                            className={`btn-green SocialNetworks__button-add ${(arrayHelpers.form.values.socials.length > 0) && "btn-mini"}`}
+                            className={`btn-green SocialNetworks__button-add ${(arrayHelpers.form.values.social_networks.length > 0) && "btn-mini"}`}
                             onClick={() => arrayHelpers.push({
-                                id: null,
                                 site: "",
                                 description: "",
                                 social_network_type_id: 1

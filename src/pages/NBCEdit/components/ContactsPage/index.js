@@ -7,44 +7,26 @@ import SubmitButton from '../../../../components/Form/SubmitButton';
 
 const ContactsPage = ({
         formik,
-        // city_id,
-        // socials,
-        // working,
         phones,
         emails,
-        // postcode,
-        // flat_name,
-        // is_public,
-        // house_name,
-        // street_name,
+        social_networks,
         randomKeyGenerator,
 }) => {
     return (
         <Card className="nursery-contacts">
             <h3>Контакты</h3>
             <div className="nursery-contacts__address">
-                {/*<FormGroup inline>*/}
-                {/*    <FormField {...city_id} className="nursery-activation__select"/>*/}
-                {/*    <FormField {...postcode} />*/}
-                {/*</FormGroup>*/}
-                {/*<FormGroup inline>*/}
-                {/*    <FormField {...street_name} />*/}
-                {/*    <FormField {...house_name} label="Дом"/>*/}
-                {/*    <FormField {...flat_name} label="Пом."/>*/}
-                {/*</FormGroup>*/}
             </div>
             <Contacts
                 phones={phones}
                 emails={emails}
-                // is_public={is_public}
                 errors={formik.errors}
                 randomKeyGenerator={randomKeyGenerator}
             />
-            {/*<SocialNetworks socials={socials}/>*/}
+            <SocialNetworks social_networks={social_networks} />
             <SubmitButton>Сохранить</SubmitButton>
             {formik.errors && !!Object.keys(formik.errors).length
                 && <div className="nursery-edit__is-valid">Не все необходимые поля заполнены</div>}
-            {/*{working && <div className="nursery-edit__is-valid">Идёт загрузка файла...</div>}*/}
         </Card>
     );
 };
