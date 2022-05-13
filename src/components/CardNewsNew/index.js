@@ -124,7 +124,7 @@ const CardNewsNew = forwardRef(({
                             <Avatar
                                 card="cardnewsnew"
                                 data="cardnewsnew"
-                                logo_link={logo_link}
+                                logo={logo_link}
                                 name={user_type === 1 ? `${first_name} ${last_name}` : name}
                                 user_type={user_type}
                             />

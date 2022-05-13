@@ -9,6 +9,7 @@ import { DEFAULT_IMG } from "../../../appConfig";
 import ClientAvatar from "../../ClientAvatar";
 import EditAvatar from "../../EditAvatar";
 import ModalDeleteAvatar from "../UserInfo/ModalDeleteAvatar";
+import { isFederationAlias } from "../../../utils";
 
 
 const Avatar = ({
@@ -20,7 +21,6 @@ const Avatar = ({
     data,
     id,
     logo,
-    logo_link,
     name,
     open,
     subclass,
@@ -36,7 +36,7 @@ const [modalType, setModalType] = useState('');
     switch (data) {
         case 'canEdit':
             return(
-                <div className={logo_link ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
+                <div className={logo ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
                      onMouseEnter={() => setHover(true)}
                      onMouseLeave={() => setHover(false)}
                      onTouchStart={() => {
@@ -47,9 +47,9 @@ const [modalType, setModalType] = useState('');
                     {canEdit &&
                         <>
                             <CSSTransition
+                                classNames="user-info__transition"
                                 in={hover}
                                 timeout={350}
-                                classNames="user-info__transition"
                                 unmountOnExit
                             >
                                 <LightTooltip
@@ -66,11 +66,11 @@ const [modalType, setModalType] = useState('');
                                     </button>
                                 </LightTooltip>
                             </CSSTransition>
-                            {logo_link &&
+                            {logo &&
                                 <CSSTransition
+                                    classNames="user-info__transition"
                                     in={hover}
                                     timeout={350}
-                                    classNames="user-info__transition"
                                     unmountOnExit
                                 >
                                     <LightTooltip
@@ -90,28 +90,24 @@ const [modalType, setModalType] = useState('');
                             }
                         </>
                     }
-                    {logo_link ?
-                        <img className="user-info__logo" src={logo_link} alt="logo"/>
+                    {logo ?
+                        <img className="user-info__logo" src={logo} alt="logo"/>
                         :
                         (user === 'club') ?
                             <img className="user-info__logo" src={DEFAULT_IMG.clubAvatar} alt="logo"/>
                             :
-                            (alias === 'rkf' ||
-                            alias === 'rfss' ||
-                            alias === 'rfls' ||
-                            alias === 'rfos' ||
-                            alias === 'oankoo') ?
+                            isFederationAlias(alias) ?
                                 <img className="user-info__logo" src={DEFAULT_IMG.userAvatar} alt="logo"/>
                                 :
                                 <InitialsAvatar
                                     card={card}
-                                    name={avatarName}
+                                    name={name}
                                 />
                     }
                     {modalType === 'edit' &&
                         <EditAvatar
                             setModalType={setModalType}
-                            avatar={logo_link}
+                            avatar={logo}
                             pageBanner={false}
                         />
                     }
@@ -260,9 +256,9 @@ const [modalType, setModalType] = useState('');
         case 'cardnewsnew':
             return(
                 <>
-                    {logo_link ?
+                    {logo ?
                         <div className="card-news-new__left-logo"
-                             style={{background: `url(${logo_link}) center center/cover no-repeat`}}
+                             style={{background: `url(${logo}) center center/cover no-repeat`}}
                         />
                         :
                         (user_type === 1 || user_type === 4) ?

@@ -25,7 +25,7 @@ const UserHeader = ({
     active_rkf_user,
     active_member,
     isAuthenticated,
-    canEdit
+    canEdit,
 }) => {
 
     const [shareAlert, setShareAlert] = useState(false);
@@ -45,11 +45,11 @@ const UserHeader = ({
         <Card className="user-header">
             <Avatar
                 alias={alias}
-                avatarName={name}
                 canEdit={canEdit}
                 card="profile"
                 data="canEdit"
-                logo_link={logo}
+                logo={logo}
+                name={name}
                 user={user}
             />
             <div className="user-header__content">

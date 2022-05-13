@@ -30,11 +30,11 @@ const UserInfo = ({
         <>
             <div className="user-info">
                 <Avatar
-                    avatarName={`${first_name} ${last_name}`}
                     canEdit={canEdit}
                     card="profile"
                     data="canEdit"
-                    logo_link={logo_link}
+                    logo={logo_link}
+                    name={`${first_name} ${last_name}`}
                     updateInfo={updateInfo}
                 />
                 <div className="user-info__info">

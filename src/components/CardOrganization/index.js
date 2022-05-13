@@ -49,14 +49,14 @@ const CardOrganization = (props) => {
                 `/${ alias }/`;
 
     return (
-        <Card className={`card-organization ${ user_type === 7 ? `nkp-layout` : `` }`}>
+        <Card className={`card-organization ${ user_type === 7 && 'nkp-layout'}`}>
             <div className="card-organization__content">
                 <div className="card-organization__header">
                     { url ?
                         <div className="card-organization__author">
                             <Link
                                 to={ url }
-                                className={ `card-organization__logo ${ user_type === 3 || user_type === 4  ? `item-card__logo--club` : `` }` }
+                                className={`card-organization__logo ${(user_type === 3 || user_type === 4 ) && 'item-card__logo--club'}`}
                             >
                                 <Avatar
                                     card="nkp-card"
