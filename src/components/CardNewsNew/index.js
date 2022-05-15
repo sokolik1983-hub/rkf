@@ -18,6 +18,7 @@ import randomKeyGenerator from '../../utils/randomKeyGenerator'
 import useIsMobile from "../../utils/useIsMobile";
 
 import './index.scss';
+import Gallery from "react-grid-gallery";
 
 const CardNewsNew = forwardRef(({
     id,
@@ -74,6 +75,8 @@ const CardNewsNew = forwardRef(({
 }, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
+    const [showNews, setShowNews] = useState(false);
+    const [showModal, setShowModal] = useState(false)
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
     const [photoLink, setPhotoLink] = useState('');
@@ -91,6 +94,10 @@ const CardNewsNew = forwardRef(({
             setCityLabel('нахождения');
         }
     }, [advert_type_id]);
+
+    const closeModal = () => {
+        setShowNews(false);
+    }
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -304,27 +311,42 @@ const CardNewsNew = forwardRef(({
                     }
                 </div>
                 <div className="card-news-new__show-all-wrap">
-                    {
-                        <div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}
-                            onClick={() => canCollapse && setCollapsed(!collapsed)}>
-                            {
-                                (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
-                            }
+                        {/*<div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}*/}
+                        {/*    onClick={() => canCollapse && setCollapsed(!collapsed)}>*/}
+                        {/*    {*/}
+                        {/*        (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''*/}
+                        {/*    }*/}
+                        {/*</div>*/}
 
+                        {/*по клику на кнопку открывается модалка с новостью, кнопка появляется при излишнем тексте \\ при наличии фото*/}
+
+                        <div className={`card-news-new__show-all${!canCollapse && !pictures ? ' _disabled' : ''}`}
+                            onClick={() => {
+                                setShowNews(true);
+                            }}>
+                            {
+                                (advert_type_id < 1) ? 'Подробнее...' : ''
+                            }
                         </div>
-                    }
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
-                        {pictures && pictures.map(picture =>
-                            <div className="card-news-new__photo"
-                                style={{ backgroundImage: `url(${picture.picture_link})` }}
-                                onClick={() => {
-                                    setPhotoLink(picture.picture_link);
-                                    setShowPhoto(true);
-                                }}
-                            />
-                        )}
+
+                        {/*класс должен зависеть от количества фоток*/}
+                        {/*<ul className="card-news-new__photo-wrap">*/}
+                        <ul className={`card-news-new__photo-wrap __${pictures.length === 1 ? 'one' : pictures.length === 2 ? 'two' : pictures.length === 3 ? 'three' : pictures.length === 4 ? 'four' : pictures.length === 5 && 'five'}`}>
+                            {pictures && pictures.map(picture =>
+                                    <li className="card-news-new__photo"
+                                         style={{ backgroundImage: `url(${picture.picture_link})` }}
+                                         key={randomKeyGenerator()}
+                                         onClick={() => {
+                                             setPhotoLink(picture.picture_link);
+                                             setShowPhoto(true);
+                                         }}
+                                    />
+                            )}
+                        </ul>
+
                         {video_link &&
                             <div className="card-news-new__video">
                                 <iframe
@@ -382,7 +404,11 @@ const CardNewsNew = forwardRef(({
                         showImageCount={false}
                     />
                 </Modal>
+                }
+                {showNews &&
+                    <Modal handleClose={() => setShowNews(false)}>
 
+                    </Modal>
                 }
             </div>
         </Card>
