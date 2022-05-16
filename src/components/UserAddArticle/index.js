@@ -93,8 +93,6 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                 is_must_read: isMust
             }
         }
-
-
     };
 
     const onSuccess = () => {
