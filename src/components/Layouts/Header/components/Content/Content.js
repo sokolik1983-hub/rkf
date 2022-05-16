@@ -1,9 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {DEFAULT_IMG, widgetLoginIcon} from "../../../../../appConfig";
+import {widgetLoginIcon} from "../../../../../appConfig";
 import MenuLinks from "./MenuLinks";
-import InitialsAvatar from "../../../../InitialsAvatar";
 import {getInitials} from "../../../../../utils/getInitials";
+import Avatar from "../../../Avatar";
 
 const Content = ({
     accountType,
@@ -30,26 +30,15 @@ const Content = ({
                         <img src='/static/images/widget-login/userpic-bg.jpg' alt=""/>
                     }
                 </div>
-                {logo
-                    ?
-                    <div className={`widget-login__userpic${open && ' _active'}`}
-                         style={{ backgroundImage: `url(${logo})` }}
-                    />
-                    :
-                    userType === 1 || userType === 4 || userType === 7
-                        ?
-                        <div className={`widget-login__userpic${open && ' _active'}`}
-                        >
-                            <InitialsAvatar
-                                name={userType === 1 ? getInitials(name) : name}
-                                card="widget-login"
-                            />
-                        </div>
-                        :
-                        <div className={`widget-login__userpic${open && ' _active'}`}
-                             style={{ backgroundImage: `url(${DEFAULT_IMG.clubAvatar})` }}
-                        />
-                }
+                <Avatar
+                    data="logo"
+                    card="widget-login"
+                    logo={logo}
+                    open={open}
+                    userType={userType}
+                    name={name}
+                    subclass="userpic"
+                />
             </div>
             <div className="widget-login__username">
                 {userType === 1 &&

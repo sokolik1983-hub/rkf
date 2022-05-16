@@ -10,13 +10,11 @@ import LoginAsUser from "./LoginAsUser";
 import Content from "./Content/Content";
 import Modal from "../../../Modal";
 import PopupModal from "../../../PopupModal";
-import {DEFAULT_IMG} from "../../../../appConfig";
 import history from "../../../../utils/history";
 import {Request} from "../../../../utils/request";
 import useIsMobile from "../../../../utils/useIsMobile";
-import InitialsAvatar from "../../../InitialsAvatar";
 import { blockContent } from "../../../../utils/blockContent";
-import {getInitials} from "../../../../utils/getInitials";
+import Avatar from "../../Avatar";
 
 const WidgetLogin = forwardRef(
     ({
@@ -90,24 +88,15 @@ const WidgetLogin = forwardRef(
                                 </span>
                             </div>
                             :
-                                logo
-                                ?
-                                <div className={`widget-login__user-icon ${open && ' _active'}`}
-                                     style={{backgroundImage: `url(${logo})`}}
-                                />
-                                :
-                                (user_type === 1 || user_type === 4 || user_type === 7)
-                                    ?
-                                    <div className={`widget-login__user-icon ${open && ' _active'}`}>
-                                        <InitialsAvatar
-                                            name={user_type === 1 ? getInitials(name) : name}
-                                            card="user-icon"
-                                        />
-                                    </div>
-                                    :
-                                    <div className={`widget-login__user-icon ${open && ' _active'}`}
-                                         style={{backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`}}
-                                    />
+                            <Avatar
+                                data="logo"
+                                logo={logo}
+                                card="user-icon"
+                                open={open}
+                                userType={user_type}
+                                name={name}
+                                subclass="user-icon"
+                            />
                         }
                         {!isMobile1080 &&
                             <span>

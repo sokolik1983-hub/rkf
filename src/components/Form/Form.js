@@ -6,11 +6,6 @@ import { Request } from '../../utils/request';
 import Loading from '../Loading';
 import flatten from 'utils/flatten';
 
-const getFormData = data => {
-    const formData = new FormData();
-    Object.keys(data).forEach(key => formData.append(key, data[key]));
-    return formData;
-};
 /**
  * Functional component encapsulate Formik functionality and form submit request.
  * @param {string} method POST if create, PUT/UPDATE if Update
@@ -43,6 +38,15 @@ function Form({
 }) {
     const [loading, setLoading] = useState(false);
     const isMultipartData = format === "multipart/form-data";
+
+    const getFormData = data => {
+        const formData = new FormData();
+        Object.keys(data).forEach(key => {
+            if (Array.isArray(data[key])) data[key].forEach(el => formData.append(key, el))
+            else formData.append(key, data[key])
+        });
+        return formData;
+    };
 
     const formatData = useCallback((values) => {
         const data = transformValues(values);

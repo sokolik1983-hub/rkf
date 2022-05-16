@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Card from '../../../../components/Card';
-import Alert from '../../../../components/Alert';
-import Share from '../../../../components/Share';
-import UserActionControls from '../../../../components/UserActionControls';
-import { ActiveUserMark, FederationChoiceMark } from '../../../../components/Marks';
-import InitialsAvatar from "../../../../components/InitialsAvatar";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Card from "../../../../components/Card";
+import Alert from "../../../../components/Alert";
+import Share from "../../../../components/Share";
+import Avatar from "../../../../components/Layouts/Avatar";
+import UserActionControls from "../../../../components/UserActionControls";
+import { ActiveUserMark, FederationChoiceMark } from "../../../../components/Marks";
 
-import './style.scss';
+import "./style.scss";
+
 
 const UserHeader = ({
-                        user,
-                        logo,
-                        name,
-                        alias,
-                        profileId,
-                        subscribed,
-                        member,
-                        onSubscriptionUpdate,
-                        federationName,
-                        federationAlias,
-                        active_rkf_user,
-                        active_member,
-                        isAuthenticated,
-                        canEdit
+    user,
+    logo,
+    name,
+    alias,
+    profileId,
+    subscribed,
+    member,
+    onSubscriptionUpdate,
+    federationName,
+    federationAlias,
+    active_rkf_user,
+    active_member,
+    isAuthenticated,
+    canEdit,
 }) => {
     const [shareAlert, setShareAlert] = useState(false);
     const shareOk = () => setShareAlert(false);
@@ -44,10 +45,13 @@ const UserHeader = ({
         <Card className="user-header">
             <div className="user-header__logo-wrap">
                 <div className="user-header__logo">
-                    {logo ?
-                        <img src={logo} className="user-header__logo-img" alt="logo" /> :
-                        <InitialsAvatar name={name} card="nursery-edit-avatar"/>
-                    }
+                    <Avatar
+                        data="header"
+                        card="nursery-edit-avatar"
+                        logo={logo}
+                        name={name}
+                        subclass="user-header__logo-img"
+                    />
                 </div>
             </div>
             <div className="user-header__content">

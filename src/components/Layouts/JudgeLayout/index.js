@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import {useLocation, useParams, Link} from 'react-router-dom';
-import Loading from 'components/Loading';
-import Layout from 'components/Layouts';
-import Container from 'components/Layouts/Container';
-import Card from 'components/Card';
-import CopyrightInfo from 'components/CopyrightInfo';
-import { Request } from 'utils/request';
-import { connectAuthVisible } from 'pages/Login/connectors';
-import {connectShowFilters} from '../../../components/Layouts/connectors';
-import transliterate from '../../../utils/transliterate';
+import React, {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
+import Loading from "../../../components/Loading";
+import Layout from "../../../components/Layouts";
+import Container from "../../../components/Layouts/Container";
+import Card from "../../../components/Card";
+import CopyrightInfo from "../../../components/CopyrightInfo";
+import {Request} from "../../../utils/request";
+import {connectAuthVisible} from "../../../pages/Login/connectors";
+import {connectShowFilters} from "../connectors";
+import transliterate from "../../../utils/transliterate";
 import Statistics from "../../Statistics";
 import ClubsMap from "../../ClubsMap";
-import InitialsAvatar from "../../InitialsAvatar";
 import history from "../../../utils/history";
 import LightTooltip from "../../LightTooltip";
+import Avatar from "../Avatar";
 
-import './index.scss';
+import "./index.scss";
+
 
 const JudgeLayout = () => {
     const [loading, setLoading] = useState(true);
@@ -107,15 +108,13 @@ const JudgeLayout = () => {
                                     <Loading />
                                     :
                                     <div className="judge-info__wrap">
-                                        {judgeInfoLink
-                                            ?
-                                            <img src={judgeInfoLink} alt="avatar-img" />
-                                            :
-                                            <InitialsAvatar
-                                                name={`${judgePersInfo?.first_name} ${judgePersInfo?.last_name}`}
-                                                card="specialist-card"
-                                            />
-                                        }
+                                        <Avatar
+                                            card="specialist-card"
+                                            data="header"
+                                            logo={judgeInfoLink}
+                                            name={`${judgePersInfo?.first_name} ${judgePersInfo?.last_name}`}
+                                            subclass={null}
+                                        />
                                         <div className="judge-info__inner">
                                             <div className="judge-info__name-location">
                                                 <div className="judge-info__name-block">
