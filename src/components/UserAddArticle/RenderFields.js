@@ -231,10 +231,6 @@ const RenderFields = ({ fields,
                             className={focus ? `_textarea_focus` : ``}
                         />
                 </FormGroup>
-
-
-
-
                 <div className="article-create-form__controls-wrap">
                     <FormControls className={`article-create-form__controls ${focus ? ' _focus' : ''}`}>
                         <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>

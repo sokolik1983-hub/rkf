@@ -81,19 +81,6 @@
         grid-template-areas:
       "first first second second"
       "first first third third";
-
-        //& li {
-        //  &:first-of-type {
-        //    grid-area: first;
-        //    height: auto;
-        //  }
-        //  &:nth-of-type(2) {
-        //    grid-area: second;
-        //  }
-        //  &:nth-of-type(3) {
-        //    grid-area: third;
-        //  }
-        //}
       }
 
       &.__four {

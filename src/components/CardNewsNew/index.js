@@ -18,7 +18,6 @@ import randomKeyGenerator from '../../utils/randomKeyGenerator'
 import useIsMobile from "../../utils/useIsMobile";
 
 import './index.scss';
-import Gallery from "react-grid-gallery";
 
 const CardNewsNew = forwardRef(({
     id,
@@ -75,8 +74,6 @@ const CardNewsNew = forwardRef(({
 }, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
-    const [showNews, setShowNews] = useState(false);
-    const [showModal, setShowModal] = useState(false)
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
     const [photoLink, setPhotoLink] = useState('');
@@ -94,10 +91,6 @@ const CardNewsNew = forwardRef(({
             setCityLabel('нахождения');
         }
     }, [advert_type_id]);
-
-    const closeModal = () => {
-        setShowNews(false);
-    }
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -317,17 +310,6 @@ const CardNewsNew = forwardRef(({
                                 (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
                             }
                         </div>
-
-                        {/*по клику на кнопку открывается модалка с новостью, кнопка появляется при излишнем тексте \\ при наличии фото*/}
-
-                        {/*<div className={`card-news-new__show-all${!canCollapse && !pictures ? ' _disabled' : ''}`}*/}
-                        {/*    onClick={() => {*/}
-                        {/*        setShowNews(true);*/}
-                        {/*    }}>*/}
-                        {/*    {*/}
-                        {/*        (advert_type_id < 1) ? 'Подробнее...' : ''*/}
-                        {/*    }*/}
-                        {/*</div>*/}
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
@@ -401,11 +383,6 @@ const CardNewsNew = forwardRef(({
                         showImageCount={false}
                     />
                 </Modal>
-                }
-                {showNews &&
-                    <Modal handleClose={() => setShowNews(false)}>
-
-                    </Modal>
                 }
             </div>
         </Card>
