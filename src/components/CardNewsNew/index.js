@@ -74,6 +74,7 @@ const CardNewsNew = forwardRef(({
 }, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
     const [photoLink, setPhotoLink] = useState('');
@@ -295,12 +296,23 @@ const CardNewsNew = forwardRef(({
                     }
                 </div>
                 <div className="card-news-new__show-all-wrap">
-                        <div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}
-                            onClick={() => canCollapse && setCollapsed(!collapsed)}>
+                        {/*<div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}*/}
+                        {/*    onClick={() => canCollapse && setCollapsed(!collapsed)}>*/}
+                        {/*    {*/}
+                        {/*        (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''*/}
+                        {/*    }*/}
+                        {/*</div>*/}
+
+
+                    <div className={`card-news-new__show-all${!canCollapse && !pictures ? ' _disabled' : ''}`}
+                        onClick={() => setShowModal(true)}
+                    >
                             {
-                                (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
+                                (advert_type_id < 1) ? 'Подробнее...' : ''
                             }
-                        </div>
+                    </div>
+
+
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
@@ -358,6 +370,15 @@ const CardNewsNew = forwardRef(({
                     type="news"
                 />
             </div>
+            {showModal &&
+                <Modal handleClose={() => {
+                    showModal && setShowModal(false);
+                    console.log(showModal);
+                }} showModal={showModal}>
+                    <div>прв</div>
+                </Modal>
+
+            }
         </>
     };
 
