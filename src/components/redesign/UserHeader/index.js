@@ -42,8 +42,6 @@ const UserHeader = ({
         }
     };
 
-    console.log(user);
-
     return (
         <Card className="user-header">
             <Avatar

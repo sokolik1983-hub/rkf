@@ -80,7 +80,7 @@ const RenderFields = ({ fields,
         const file = e.target.files[0];
 
         if (file && file.size < 20971520) {
-            if (loadPictures.length < 5) {
+            if (loadPictures.length <= 5) {
                 setLoadPictures([...loadPictures, e.target.files[0]])
                 e.target.value = '';
             } else {
@@ -103,9 +103,9 @@ const RenderFields = ({ fields,
 
 
     const handleClose = (picture) => {
-        let i = loadPictures.indexOf(picture);
-        if (i >= 0) {
-            loadPictures.splice(i, 1);
+        let index = loadPictures.indexOf(picture);
+        if (index >= 0) {
+            loadPictures.splice(index, 1);
             setLoadPictures([...loadPictures]);
         }
     }
@@ -461,9 +461,8 @@ const RenderFields = ({ fields,
                     {loadPictures.map((picture, index) =>
                         <li className="ImagePreview__wrap" key={index}>
                                 <ImagePreview src={URL.createObjectURL(picture)} />
-                                <img src="/static/icons/file-cross.svg"
+                                <button
                                     className="ImagePreview__close"
-                                    alt=""
                                     onClick={ () => handleClose(picture)}
                                 />
                         </li>)}
@@ -471,9 +470,8 @@ const RenderFields = ({ fields,
                 {videoLink &&
                     <div className="ImagePreview__wrap">
                         <ImagePreview src={`https://img.youtube.com/vi/${getYouTubeID(videoLink)}/mqdefault.jpg`} />
-                        <img src="/static/icons/file-cross.svg"
+                        <button
                             className="ImagePreview__close"
-                            alt=""
                             onClick={removeVideoLink}
                         />
                     </div>

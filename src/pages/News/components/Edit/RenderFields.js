@@ -170,15 +170,13 @@ const RenderFields = ({ fields,
         if (newPictures.includes(picture)) {
             const i = newPictures.indexOf(picture);
             if (i >= 0) {
-                newPictures.splice(i, 1);
-                setNewPictures([...newPictures]);
+                setNewPictures([...newPictures.filter(picture => picture !== newPictures[i])]);
                 formik.setFieldValue('new_pictures', [newPictures])
             }
         } else {
             const i = oldPictures.indexOf(picture);
             if (i >= 0) {
-                oldPictures.splice(i, 1);
-                setOldPictures([...oldPictures]);
+                setOldPictures([...oldPictures.filter(picture=> picture !== oldPictures[i])]);
                 formik.setFieldValue('pictures', getPictureId())
             }
         }
