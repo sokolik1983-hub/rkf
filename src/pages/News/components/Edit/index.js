@@ -8,8 +8,6 @@ import {boolean, number, object, string, array} from "yup";
 import ls from "local-storage";
 
 import "./index.scss";
-import {reqText} from "../../../Docs/components/ReplacePedigree/config";
-
 
 const Edit = ({ id,
                   text,
@@ -259,8 +257,8 @@ const Edit = ({ id,
             advert_cost: is_advert ? advert_cost : '',
             advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : '',
             advert_type_id: is_advert ? advert_type_id : '',
-            pictures: pictures || '',
-            new_pictures: new_pictures || '',
+            pictures: pictures || [],
+            new_pictures: new_pictures || [],
             video_link: video_link || '',
             documents
         };
@@ -286,8 +284,8 @@ const Edit = ({ id,
             content: content.replace(/<[^>]*>/g, ''),
             id,
             is_advert,
-            pictures: pictures || '',
-            new_pictures: new_pictures || '',
+            pictures: pictures || [],
+            new_pictures: new_pictures || [],
             video_link: video_link || '',
             documents
         };

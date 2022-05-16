@@ -158,8 +158,8 @@ export const defaultValues = {
     advert_number_of_puppies: '',
     advert_type_id: '',
     content: '',
-    pictures: '',
-    new_pictures: '',
+    pictures: [],
+    new_pictures: [],
     dog_color: '',
     dog_age: '',
     dog_city: ''
