@@ -41,7 +41,7 @@ const UserHeader = ({
             return 'Клуб';
         }
     };
-    
+
     return (
         <Card className="user-header">
             <Avatar
