@@ -311,34 +311,31 @@ const CardNewsNew = forwardRef(({
                     }
                 </div>
                 <div className="card-news-new__show-all-wrap">
-                        {/*<div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}*/}
-                        {/*    onClick={() => canCollapse && setCollapsed(!collapsed)}>*/}
-                        {/*    {*/}
-                        {/*        (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''*/}
-                        {/*    }*/}
-                        {/*</div>*/}
+                        <div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}
+                            onClick={() => canCollapse && setCollapsed(!collapsed)}>
+                            {
+                                (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
+                            }
+                        </div>
 
                         {/*по клику на кнопку открывается модалка с новостью, кнопка появляется при излишнем тексте \\ при наличии фото*/}
 
-                        <div className={`card-news-new__show-all${!canCollapse && !pictures ? ' _disabled' : ''}`}
-                            onClick={() => {
-                                setShowNews(true);
-                            }}>
-                            {
-                                (advert_type_id < 1) ? 'Подробнее...' : ''
-                            }
-                        </div>
+                        {/*<div className={`card-news-new__show-all${!canCollapse && !pictures ? ' _disabled' : ''}`}*/}
+                        {/*    onClick={() => {*/}
+                        {/*        setShowNews(true);*/}
+                        {/*    }}>*/}
+                        {/*    {*/}
+                        {/*        (advert_type_id < 1) ? 'Подробнее...' : ''*/}
+                        {/*    }*/}
+                        {/*</div>*/}
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
-
-                        {/*класс должен зависеть от количества фоток*/}
-                        {/*<ul className="card-news-new__photo-wrap">*/}
                         <ul className={`card-news-new__photo-wrap __${pictures.length === 1 ? 'one' : pictures.length === 2 ? 'two' : pictures.length === 3 ? 'three' : pictures.length === 4 ? 'four' : pictures.length === 5 && 'five'}`}>
-                            {pictures && pictures.map(picture =>
+                            {pictures && pictures.map((picture, i) =>
                                     <li className="card-news-new__photo"
-                                         style={{ backgroundImage: `url(${picture.picture_link})` }}
-                                         key={randomKeyGenerator()}
+                                         style={{ backgroundImage: `url(${pictures.length !== 5 ? picture.picture_link : picture.picture_short_link})` }}
+                                         key={i}
                                          onClick={() => {
                                              setPhotoLink(picture.picture_link);
                                              setShowPhoto(true);
