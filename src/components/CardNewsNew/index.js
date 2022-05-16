@@ -53,8 +53,7 @@ const CardNewsNew = forwardRef(({
     dog_city,
     dog_name,
     active_rkf_user,
-    picture_link,
-    picture_short_link,
+    pictures,
     video_link,
     fact_city_name,
     fact_city_id,
@@ -77,6 +76,7 @@ const CardNewsNew = forwardRef(({
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
+    const [photoLink, setPhotoLink] = useState('');
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isMobile = useIsMobile(1080);
 
@@ -295,24 +295,28 @@ const CardNewsNew = forwardRef(({
                     }
                 </div>
                 <div className="card-news-new__show-all-wrap">
-                    {
                         <div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}
                             onClick={() => canCollapse && setCollapsed(!collapsed)}>
                             {
                                 (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
                             }
-
                         </div>
-                    }
                 </div>
-                {(picture_link || video_link) &&
+                {(pictures || video_link) &&
                     <div className="card-news-new__media">
-                        {picture_link &&
-                            <div className="card-news-new__photo"
-                                style={{ backgroundImage: `url(${picture_link})` }}
-                                onClick={() => setShowPhoto(true)}
-                            />
-                        }
+                        <ul className={`card-news-new__photo-wrap __${pictures.length === 1 ? 'one' : pictures.length === 2 ? 'two' : pictures.length === 3 ? 'three' : pictures.length === 4 ? 'four' : pictures.length === 5 && 'five'}`}>
+                            {pictures && pictures.map((picture, i) =>
+                                    <li className="card-news-new__photo"
+                                         style={{ backgroundImage: `url(${pictures.length !== 5 ? picture.picture_link : picture.picture_short_link})` }}
+                                         key={i}
+                                         onClick={() => {
+                                             setPhotoLink(picture.picture_link);
+                                             setShowPhoto(true);
+                                         }}
+                                    />
+                            )}
+                        </ul>
+
                         {video_link &&
                             <div className="card-news-new__video">
                                 <iframe
@@ -364,12 +368,12 @@ const CardNewsNew = forwardRef(({
                 <ViewItem />
                 {showPhoto &&
                     <Modal handleClose={() => setShowPhoto(false)}>
-                        <Lightbox
-                            images={[{ src: picture_link }]}
-                            isOpen={showPhoto}
-                            showImageCount={false}
-                        />
-                    </Modal>
+                    <Lightbox
+                        images={[{ src: photoLink }]}
+                        isOpen={showPhoto}
+                        showImageCount={false}
+                    />
+                </Modal>
                 }
             </div>
         </Card>
