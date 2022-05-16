@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "../Card";
 import { ActiveUserMark, FederationChoiceMark } from "../Marks";
-import { DEFAULT_IMG } from "../../appConfig";
-import CardFooter from '../CardFooter';
-import InitialsAvatar from "../InitialsAvatar";
+import CardFooter from "../CardFooter";
+import Avatar from "../Layouts/Avatar";
 
 import "./index.scss";
+
 
 const CardOrganization = (props) => {
 
@@ -49,30 +49,23 @@ const CardOrganization = (props) => {
                 `/${ alias }/`;
 
     return (
-        <Card className={`card-organization ${ user_type === 7 ? `nkp-layout` : `` }`}>
+        <Card className={`card-organization ${ user_type === 7 && 'nkp-layout'}`}>
             <div className="card-organization__content">
                 <div className="card-organization__header">
                     { url ?
                         <div className="card-organization__author">
                             <Link
                                 to={ url }
-                                className={ `card-organization__logo ${ user_type === 3 || user_type === 4  ? `item-card__logo--club` : `` }` }
+                                className={`card-organization__logo ${(user_type === 3 || user_type === 4 ) && 'item-card__logo--club'}`}
                             >
-                                {
-                                    (user_type === 3 || user_type === 5)
-                                        ?
-                                        <img src={logo || DEFAULT_IMG.clubAvatar} alt=""/>
-                                        :
-                                        logo
-                                            ?
-                                            <img src={logo} alt=""/>
-                                            :
-                                            <InitialsAvatar
-                                                id={id}
-                                                card="nkp-card"
-                                                name={name}
-                                            />
-                                }
+                                <Avatar
+                                    card="nkp-card"
+                                    data="organization"
+                                    id={id}
+                                    logo={logo}
+                                    name={name}
+                                    userType={user_type}
+                                />
                             </Link>
                             <div className="card-organization__container">
                                 <div className="card-organization__name-wrap">
@@ -189,21 +182,13 @@ const CardOrganization = (props) => {
                             </div>
                         </div> :
                         <div className="card-organization__author card-organization__no-url">
-                            {
-                                logo
-                                    ?
-                                    <span
-                                        className="card-organization__logo"
-                                        style={{
-                                            backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`}}
-                                    />
-                                    :
-                                    <InitialsAvatar
-                                        id={id}
-                                        card="nkp-card"
-                                        name={name}
-                                    />
-                            }
+                            <Avatar
+                                card="nkp-card"
+                                data="nkp"
+                                id={id}
+                                logo={logo}
+                                name={name}
+                            />
                             <div className="card-organization__container">
                                 <div className="card-organization__heading">
                                     <span
