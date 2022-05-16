@@ -65,7 +65,7 @@ const MenuLinks = ({
                     Редактировать профиль
                 </Link>
             </li>
-            <li className="widget-login__item" onClick={() => setOpen(false)}>
+            <li className={`widget-login__item ${userTypes === 'nbc' && 'disabled'}`} onClick={() => setOpen(false)}>
                 <Link to={profileCabinet} >
                     {widgetLoginIcon.lk}
                     Личный кабинет

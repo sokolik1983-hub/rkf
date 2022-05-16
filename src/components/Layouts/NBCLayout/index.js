@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useSelector} from "react-redux";
 import { connectAuthVisible } from 'pages/Login/connectors';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 import {Request} from "../../../utils/request";
@@ -16,11 +17,9 @@ import UserVideoGallery from "../UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../CopyrightInfo";
 import {BANNER_TYPES} from "../../../appConfig";
 import PhotoComponent from "../../PhotoComponent";
-import {useSelector} from "react-redux";
+import UserBanner from "../UserBanner";
 
 import './index.scss';
-import Card from "../../Card";
-import UserBanner from "../UserBanner";
 
 const NBCLayout = ({children}) => {
     const [loading, setLoading] = useState(false);
@@ -45,8 +44,6 @@ const NBCLayout = ({children}) => {
     const [allSelected, setAllSelected] = useState(false);
     const [editInfo, setEditInfo] = useState(null);
 
-    console.log('editInfo', editInfo);
-
     const { alias } = useParams();
     const aliasRedux = useSelector(state => state?.authentication?.user_info?.alias);
     const params = useParams();
@@ -64,27 +61,24 @@ const NBCLayout = ({children}) => {
             setError(error.response);
         });
         setLoading(false);
-    }
+    };
 
     const getEditInfo = async () => {
-        // setLoading(true)
+        setLoading(true)
         await Request({
             url: "/api/NationalBreedClub/edit_info?alias=" + alias
         }, data => {
             setEditInfo(data);
         }, error => {
-            // console.log(error.response);
-            // setError(error.response);
+            console.log(error.response);
+            setError(error.response);
         });
-        // setLoading(false);
-    }
+        setLoading(false);
+    };
 
-
-
-
-    const handleAlbumDelete = (id) => {
+    const handleAlbumDelete = async (id) => {
         if (window.confirm('Действительно удалить?')) {
-            Request({
+            await Request({
                     url: `/api/photogallery/albums`,
                     method: 'DELETE',
                     data: JSON.stringify([id])
@@ -210,7 +204,7 @@ const NBCLayout = ({children}) => {
         }
         setImages(imgs);
         setSelectedImages(imgs.filter(i => i.isSelected === true));
-    }
+    };
 
     const onSelectAll = () => {
         let imgs = images;
@@ -225,7 +219,7 @@ const NBCLayout = ({children}) => {
         setImages(imgs);
         setSelectedImages(imgs.filter(i => i.isSelected === true));
         setAllSelected(!allSelected);
-    }
+    };
 
     useEffect(() => {
         setPageLoaded(false);
@@ -235,10 +229,6 @@ const NBCLayout = ({children}) => {
                 setPageLoaded(true);
             });
     }, [params]);
-
-    useEffect(() => {
-        console.log('editInfo', editInfo)
-    }, [editInfo]);
 
     useEffect(() => {
         getEditInfo();

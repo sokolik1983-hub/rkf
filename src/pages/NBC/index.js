@@ -25,11 +25,11 @@ const Content = ({
                  }) => {
 
     return (
+
         <>
             <UserDescription description={nbcInfo?.comment} />
-            <UserContacts {...nbcInfo} profileAlias={alias} />
+            <UserContacts {...nbcInfo} alias={`nbc/${nbcInfo?.alias}`} />
             <div className="club-page__exhibitions">
-                {/*//Временный тестовый алиас*/}
                 <ExhibitionsComponent alias={alias} nbcId={nbcInfo?.nbc_id} />
             </div>
             {isMobile && nbcInfo &&
@@ -70,6 +70,9 @@ const Content = ({
 const NBCPage = (props) => {
     return (
             <NBCLayout {...props}>
+                {
+                    console.log('props', props)
+                }
                 <Content />
             </NBCLayout>
     )

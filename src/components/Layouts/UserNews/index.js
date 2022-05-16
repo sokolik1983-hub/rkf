@@ -27,7 +27,6 @@ const UserNews = ({
 
     const getNews = async startElem => {
         setLoading(true);
-
         await Request({
             url: `${endpointGetNews}?alias=${alias}&start_element=
             ${startElem}${filters?.is_must_read ? '&is_must_read=' + filters.is_must_read : filters 
@@ -61,6 +60,7 @@ const UserNews = ({
 
                     setHasMore(false);
                 }
+                setNeedRequest(true);
             }, error => {
                 console.log(error.response);
             });
