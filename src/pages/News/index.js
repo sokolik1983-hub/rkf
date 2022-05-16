@@ -121,7 +121,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     <ul className={`news__pictures-wrap __${news.pictures.length === 1 ? 'one' : news.pictures.length === 2 ? 'two' : news.pictures.length === 3 ? 'three' : news.pictures.length === 4 ? 'four' : news.pictures.length === 5 && 'five'}`}>
                                         {news.pictures && news.pictures.map((picture, i) =>
                                             <li key={i}
-                                                style={{ backgroundImage: `url(${news.pictures.length !== 5 ? picture.picture_link : picture.picture_short_link})` }}
+                                                style={{ backgroundImage: `url(${picture.picture_link})` }}
                                                 alt="" className="news__pictures">
                                             </li>
                                         )}
