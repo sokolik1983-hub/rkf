@@ -41,9 +41,7 @@ const UserHeader = ({
             return 'Клуб';
         }
     };
-
-    console.log(user);
-
+    
     return (
         <Card className="user-header">
             <Avatar
