@@ -304,26 +304,30 @@ const CardNewsNew = forwardRef(({
                     }
                 </div>
                 <div className="card-news-new__show-all-wrap">
-                    {!pictures ? <div className={`card-news-new__show-all${pictures?.length || !canCollapse ? ' _disabled' : ''}`}
-                          onClick={() => setCollapsed(!collapsed)}>
+                    <div className={`card-news-new__show-all${pictures?.length || !canCollapse ? ' _disabled' : ''}`}
+                         onClick={() => setCollapsed(!collapsed)}>
                         {
-                            (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
+                            // (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
+                            advert_type_id < 1 && !collapsed ? 'Подробнее...' : 'Свернуть'
                         }
-                    </div> :
+                    </div>
                     <div className={`card-news-new__show-all${!pictures || !pictures?.length ? ' _disabled' : ''}`}
-                        onClick={() => setShowModal(true)}
+                         onClick={() => setShowModal(true)}
                     >
                             {
-                                (advert_type_id < 1) ? 'Подробнее...' : ''
+                                advert_type_id < 1 && 'Подробнее...'
                             }
-                    </div>}
+                    </div>
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
                         {pictures && <ul className={`card-news-new__photo-wrap __${pictures.length === 1 ? 'one' : pictures.length === 2 ? 'two' : pictures.length === 3 ? 'three' : pictures.length === 4 ? 'four' : pictures.length === 5 && 'five'}`}>
                             {pictures.map((picture, index) =>
                                     <li className="card-news-new__photo"
-                                         style={{ backgroundImage: `url(${pictures.length !== 5 ? picture.picture_link : picture.picture_short_link})` }}
+                                         style={{ backgroundImage: `url(${pictures.length !== 5 ? 
+                                                 picture.picture_link : 
+                                                 picture.picture_short_link
+                                         })` }}
                                          key={index}
                                          onClick={() => {
                                              setPhotoLink(picture.picture_link);
@@ -450,8 +454,10 @@ const CardNewsNew = forwardRef(({
                         </span>
                             </div>
                         </div>
-                        <div className={(!collapsed && (advert_type_id < 1))  ? 'card-news-new__text-wrap' : 'card-news-new__text-wrap__collapsed'}>
-
+                        <div className={(!collapsed && (advert_type_id < 1))  ?
+                            'card-news-new__text-wrap' :
+                            'card-news-new__text-wrap__collapsed'
+                        }>
                             {is_advert && <div className="card-news-new__ad">
                                 {advert_type_name &&
                                     <div className = "card-news-new__category-wrap">
