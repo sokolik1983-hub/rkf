@@ -89,6 +89,8 @@
     text-align: right;
     &-control {
       position: relative;
+      right: 20px;
+      bottom: 2px;
       & > button {
         outline: none !important;
       }
