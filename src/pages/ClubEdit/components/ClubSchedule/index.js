@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Request} from '../../../../utils/request';
-import {connectClubScheduleForm} from '../../connectors';
 import {Form, FormField, FormGroup} from '../../../../components/Form';
 
 import './style.scss';
@@ -137,4 +136,4 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
     )
 };
 
-export default connectClubScheduleForm(React.memo(ClubSchedule));
+export default React.memo(ClubSchedule);

@@ -9,10 +9,9 @@ import ls from "local-storage";
 
 import "./index.scss";
 
-
 const Edit = ({ id,
                   text,
-                  img,
+                  pictures,
                   videoLink,
                   documents,
                   history,
@@ -35,7 +34,6 @@ const Edit = ({ id,
     const [docs, setDocs] = useState(documents || []);
     const [categories, setCategories] = useState(null);
     const [isMating, setIsMating] = useState(false);
-    const [isImageDelete, setIsImageDelete] = useState(false);
     const [showAlert, setShowAlert] = useState('');
     const [cities, setCities] = useState(null);
     const [liveAdvertId, setLiveAdvertId] = useState(advertTypeId);
@@ -112,7 +110,7 @@ const Edit = ({ id,
         advert_cost: adCost,
         advert_number_of_puppies: adNumberOfPuppies,
         content: text,
-        img: img,
+        pictures: pictures,
         video_link: videoLink,
         dog_color: dogColor,
         dog_age: dogAge,
@@ -125,7 +123,7 @@ const Edit = ({ id,
         is_advert: isAd,
         advert_breed_id: adBreedId,
         content: text,
-        img: img,
+        pictures: pictures,
         video_link: videoLink,
         dog_color: dogColor,
         dog_name: dogName,
@@ -185,7 +183,8 @@ const Edit = ({ id,
             dog_color,
             dog_age,
             dog_sex_type_id,
-            file,
+            pictures,
+            new_pictures,
         } = values;
 
         const documents = docs.map(item => {
@@ -207,8 +206,8 @@ const Edit = ({ id,
             advert_cost: is_advert ? advert_cost : '',
             advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : '',
             advert_type_id: is_advert ? advert_type_id : '',
-            image: isImageDelete ? file : '',
-            is_image_delete: isImageDelete,
+            pictures: pictures || '',
+            new_pictures: new_pictures || '',
             video_link: video_link || '',
             documents
         };
@@ -229,7 +228,8 @@ const Edit = ({ id,
             dog_age,
             dog_sex_type_id,
             dog_city,
-            file,
+            pictures,
+            new_pictures,
             is_halfbreed,
             is_all_cities
         } = values;
@@ -257,8 +257,8 @@ const Edit = ({ id,
             advert_cost: is_advert ? advert_cost : '',
             advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : '',
             advert_type_id: is_advert ? advert_type_id : '',
-            image: isImageDelete ? file : '',
-            is_image_delete: isImageDelete,
+            pictures: pictures || [],
+            new_pictures: new_pictures || [],
             video_link: video_link || '',
             documents
         };
@@ -269,7 +269,8 @@ const Edit = ({ id,
             content,
             is_advert,
             video_link,
-            file,
+            pictures,
+            new_pictures
         } = values;
 
         const documents = docs.map(item => {
@@ -283,8 +284,8 @@ const Edit = ({ id,
             content: content.replace(/<[^>]*>/g, ''),
             id,
             is_advert,
-            image: isImageDelete ? file : '',
-            is_image_delete: isImageDelete,
+            pictures: pictures || [],
+            new_pictures: new_pictures || [],
             video_link: video_link || '',
             documents
         };
@@ -325,7 +326,7 @@ const Edit = ({ id,
                     breeds={breeds}
                     sex={sex}
                     text={text}
-                    imgSrc={img}
+                    imgSrc={pictures}
                     videoLink={videoLink}
                     docs={docs}
                     setDocs={setDocs}
@@ -334,7 +335,6 @@ const Edit = ({ id,
                     onCancel={() => history.replace(`/news/${id}`)}
                     isMating={isMating}
                     setIsMating={setIsMating}
-                    setIsImageDelete={setIsImageDelete}
                     dogSex={dogSex}
                     advertTypeId={advertTypeId}
                     advertCategoryId={advertCategoryId}

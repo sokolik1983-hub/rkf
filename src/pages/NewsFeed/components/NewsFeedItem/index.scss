@@ -51,7 +51,7 @@
     }
   }
   &__content {
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
   &__media {
     & > div + div {
@@ -89,6 +89,8 @@
     text-align: right;
     &-control {
       position: relative;
+      right: 20px;
+      bottom: 2px;
       & > button {
         outline: none !important;
       }
@@ -163,11 +165,17 @@
       }
     }
   }
+
+  &__date-city {
+    flex-direction: column-reverse !important;
+  }
+
   &__left {
     display: flex;
     height: 62px;
     overflow: hidden;
     flex-grow: 1;
+    margin-bottom: 8px;
     @media (max-width: 560px) {
       width: 100%;
     }

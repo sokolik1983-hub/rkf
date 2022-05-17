@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { SvgIcon } from '@progress/kendo-react-common';
-import { pencil, trash } from '@progress/kendo-svg-icons';
-import { CSSTransition } from 'react-transition-group';
-import Share from '../../Share';
-import ModalDeleteAvatar from './ModalDeleteAvatar';
-import LightTooltip from '../../LightTooltip';
-import UserActionControls from 'components/UserActionControls';
-import { connectAuthVisible } from 'pages/Login/connectors';
-import EditAvatar from '../../EditAvatar';
-import { judgeIcon } from '../UserLayout/config.js';
-import InitialsAvatar from "../../InitialsAvatar";
+import React from "react";
+import {Link} from "react-router-dom";
+import {judgeIcon} from "../UserLayout/config.js";
+import Avatar from "../Avatar";
+import Share from "../../Share";
+import UserActionControls from "../../../components/UserActionControls";
+import {connectAuthVisible} from "../../../pages/Login/connectors";
 
-import './index.scss';
+import "./index.scss";
+
 
 const UserInfo = ({
     isAuthenticated,
@@ -30,67 +25,18 @@ const UserInfo = ({
     onError,
     judgeInfo,
 }) => {
-    const [hover, setHover] = useState(false);
-    const [modalType, setModalType] = useState('');
 
     return (
         <>
             <div className="user-info">
-                <div
-                    className={logo_link ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
-                    onMouseEnter={() => setHover(true)}
-                    onMouseLeave={() => setHover(false)}
-                    onTouchStart={() => {
-                        setHover(true);
-                        setTimeout(() => setHover(false), 3000);
-                    }}
-                >
-                    {canEdit &&
-                        <>
-                            <CSSTransition
-                                in={hover}
-                                timeout={350}
-                                classNames="user-info__transition"
-                                unmountOnExit
-                            >
-                                <LightTooltip title="Редактировать" enterDelay={200} leaveDelay={200}>
-                                    <button
-                                        className="user-info__edit-btn"
-                                        type="button"
-                                        onClick={() => setModalType('edit')}
-                                    >
-                                        <SvgIcon icon={pencil} size="default" />
-                                    </button>
-                                </LightTooltip>
-                            </CSSTransition>
-                            {logo_link &&
-                                <CSSTransition
-                                    in={hover}
-                                    timeout={350}
-                                    classNames="user-info__transition"
-                                    unmountOnExit
-                                >
-                                    <LightTooltip title="Удалить" enterDelay={200} leaveDelay={200}>
-                                        <button
-                                            className="user-info__delete-btn"
-                                            type="button"
-                                            onClick={() => setModalType('delete')}
-                                        >
-                                            <SvgIcon icon={trash} size="default" />
-                                        </button>
-                                    </LightTooltip>
-                                </CSSTransition>
-                            }
-                        </>
-                    }
-                    {
-                        logo_link
-                            ?
-                            <img className="user-info__logo" src={logo_link} alt="" />
-                            :
-                            <InitialsAvatar  name={`${first_name} ${last_name}`} card="profile"/>
-                    }
-                </div>
+                <Avatar
+                    canEdit={canEdit}
+                    card="profile"
+                    data="canEdit"
+                    logo={logo_link}
+                    name={`${first_name} ${last_name}`}
+                    updateInfo={updateInfo}
+                />
                 <div className="user-info__info">
                     {share_link 
                         ?
@@ -119,14 +65,6 @@ const UserInfo = ({
                         onSuccess={onSuccess}
                         onError={onError}
                     />
-            }
-            {modalType === 'edit' && <EditAvatar
-                setModalType={setModalType}
-                avatar={logo_link}
-                pageBanner={false}
-            />}
-            {modalType === 'delete' &&
-                    <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} pageBanner={false} />
             }
         </>
     )

@@ -146,6 +146,7 @@
 
     &-wrap {
       display: flex;
+      flex-direction: column-reverse;
       justify-content: space-between;
       @media (max-width: 750px) {
         margin-left: 5px;
@@ -528,13 +529,18 @@
 
     &__wrap {
       position: relative;
+      list-style-type: none;
     }
 
     &__close {
+      width: 30px;
+      height: 30px;
+      background: url(/static/icons/file-cross.svg) no-repeat top -4px center;
+      border: none;
+      padding: 0;
       position: absolute;
-      top: 0;
-      right: 0;
-      cursor: pointer;
+      top: 6px;
+      right: 6px;
     }
 
     img {

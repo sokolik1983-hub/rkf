@@ -66,11 +66,16 @@ export const formConfig = {
             fieldType: 'textarea',
             placeholder: 'Напишите что-нибудь...',
         },
-        file: {
-            name: 'file',
+        pictures: {
+            name: 'pictures',
             fieldType: 'image',
-            type: 'file',
+            type: 'files',
             placeholder: 'Загрузить фото...',
+        },
+        new_pictures: {
+          name: 'new_pictures',
+            fieldType: 'image',
+            type: 'files'
         },
         video_link: {
             name: 'video_link'
@@ -130,10 +135,10 @@ export const formConfigSecondCat = {
             fieldType: 'textarea',
             placeholder: 'Напишите что-нибудь...',
         },
-        file: {
-            name: 'file',
+        pictures: {
+            name: 'pictures',
             fieldType: 'image',
-            type: 'file',
+            type: 'files',
             placeholder: 'Загрузить фото...',
         },
         video_link: {
@@ -153,7 +158,8 @@ export const defaultValues = {
     advert_number_of_puppies: '',
     advert_type_id: '',
     content: '',
-    file: '',
+    pictures: [],
+    new_pictures: [],
     dog_color: '',
     dog_age: '',
     dog_city: ''

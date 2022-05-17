@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Card from "../Card";
 import Alert from "../Alert";
-import { DEFAULT_IMG } from "../../appConfig";
-import Share from "components/Share";
-import UserActionControls from "components/UserActionControls";
+import Share from "../Share";
+import UserActionControls from "../UserActionControls";
+import Avatar from "../Layouts/Avatar";
+
 import "./index.scss";
-import InitialsAvatar from "../InitialsAvatar";
+
 
 const TopComponent = ({
                           logo,
@@ -63,15 +64,13 @@ const TopComponent = ({
             }
             <div className="top-component__content">
                 <div className="top-component__info">
-                    {
-                        userType === 4 ?
-                            <InitialsAvatar name={name} card="nursery-docs"/> :
-                            <div
-                                style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }}
-                                className="top-component__logo"
-                            />
-                    }
-
+                    <Avatar
+                        card="nursery-docs"
+                        data="nursery-docs"
+                        logo={logo}
+                        name={name}
+                        userType={userType}
+                    />
                     <div className="top-component__title">
                         <h2>{name}</h2>
                     </div>

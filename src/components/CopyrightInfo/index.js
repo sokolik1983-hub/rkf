@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "components/Card";
 import useIsMobile from "utils/useIsMobile";
-import personalDataProcessingPolicyDoc from "./../../pages/PersonalDataProcessingPolicy/Politika_PDn.pdf";
+import personalDataProcessingPolicyDoc from "./../../pages/PersonalDataProcessingPolicy/PPDn.pdf";
 import "./index.scss";
 
 const CopyrightInfo = ({ withSocials }) => {
@@ -34,31 +34,27 @@ const CopyrightInfo = ({ withSocials }) => {
                         <Link to="/about" className="copyright-link">О RKF.Online</Link>
                     </div>
                     <div>
-                        {/*временное исправление ссылки на span по таске*/}
-                        {/*<Link*/}
-                        {/*    className="copyright-link copyright-policy"*/}
-                        {/*    to={personalDataProcessingPolicyDoc}*/}
-                        {/*    target="_blank"*/}
-                        {/*    rel="noopener noreferrer"*/}
-                        {/*>*/}
-                        {/*    Политика обработки персональных данных*/}
-                        {/*</Link>*/}
-                        <span className="copyright-policy">Политика обработки персональных данных</span>
+                        <Link
+                            className="copyright-link copyright-policy"
+                            to={personalDataProcessingPolicyDoc}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Политика обработки персональных данных
+                        </Link>
                     </div>
                 </div>
             </Card>
             : <div className="copyright-info">
                 <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                {/*временное исправление ссылки на span по таске*/}
-                {/*<Link*/}
-                {/*    className="copyright-policy"*/}
-                {/*    to={personalDataProcessingPolicyDoc}*/}
-                {/*    target="_blank"*/}
-                {/*    rel="noopener noreferrer"*/}
-                {/*>*/}
-                {/*    Политика обработки персональных данных*/}
-                {/*</Link>*/}
-                <span  className="copyright-policy">Политика обработки персональных данных</span>
+                <Link
+                    className="copyright-policy"
+                    to={personalDataProcessingPolicyDoc}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Политика обработки персональных данных
+                </Link>
             </div>
     );
 }

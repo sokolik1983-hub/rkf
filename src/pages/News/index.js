@@ -91,7 +91,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     advertCategoryId={news.advert_category_id}
                                     isHalfBreed={news.is_halfbreed}
                                     text={news.content}
-                                    img={news.picture_link || ''}
+                                    pictures={news.pictures || ''}
                                     videoLink={news.video_link || ''}
                                     documents={news.documents}
                                     isAd={news.is_advert}
@@ -118,7 +118,14 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                         </>
                                     }
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
-                                    {news.picture_link && <img src={news.picture_link} alt="" className="news__img" />}
+                                    <ul className={`news__pictures-wrap __${news.pictures.length === 1 ? 'one' : news.pictures.length === 2 ? 'two' : news.pictures.length === 3 ? 'three' : news.pictures.length === 4 ? 'four' : news.pictures.length === 5 && 'five'}`}>
+                                        {news.pictures && news.pictures.map((picture, i) =>
+                                            <li key={i}
+                                                style={{ backgroundImage: `url(${picture.picture_link})` }}
+                                                alt="" className="news__pictures">
+                                            </li>
+                                        )}
+                                    </ul>
                                     {news.video_link &&
                                         <iframe
                                             className="news__video"
