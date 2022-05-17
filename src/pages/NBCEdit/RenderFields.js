@@ -54,28 +54,25 @@ const RenderFields = ({
                     activeSection === 2 && <BankInfo
                         bank_comment={bank_comment}
                     />
-
                 }
             </div>
             <div>
-                <StickyBox offsetTop={0}>
-                    <Card>
-                        <span className="nursery-edit__profile-label">Профиль</span>
-                        <ul className="nursery-edit__inner-list">
-                            {Object.keys(sections).map((type, key) => <div
-                                    className={sections[type].id === activeSection
-                                        ? "nursery-edit__inner-item active"
-                                        : "nursery-edit__inner-item"}
-                                    key={key}
-                                    onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
-                                >
-                                    <SvgSelector icon={sections[type].icon} />
-                                    <li>{sections[type].name}</li>
-                                </div>
-                            )}
-                        </ul>
-                    </Card>
-                </StickyBox>
+                <Card>
+                    <span className="nursery-edit__profile-label">Профиль</span>
+                    <ul className="nursery-edit__inner-list">
+                        {Object.keys(sections).map((type, key) => <div
+                                className={sections[type].id === activeSection
+                                    ? "nursery-edit__inner-item active"
+                                    : "nursery-edit__inner-item"}
+                                key={key}
+                                onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                            >
+                                <SvgSelector icon={sections[type].icon} />
+                                <li>{sections[type].name}</li>
+                            </div>
+                        )}
+                    </ul>
+                </Card>
             </div>
         </div>
     )

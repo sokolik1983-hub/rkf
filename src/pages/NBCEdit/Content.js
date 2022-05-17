@@ -17,6 +17,7 @@ const Content = ({
                      initialValues,
                      showAlert,
                      loading,
+                     nbcInfo
                  }) => {
 
     return (
@@ -33,6 +34,7 @@ const Content = ({
                         onError={handleError}
                         className="nursery-edit__form"
                         withLoading={false}
+                        nbcInfo={nbcInfo}
                     >
                         <RenderFields
                             isOpenFilters={isOpenFilters}

@@ -270,14 +270,14 @@ const NBCLayout = ({children}) => {
         return newValues;
     };
 
-    const handleSuccess = (data, {alias, name}) => {
+    const handleSuccess = (data, name) => {
         setSuccess(true);
         !success && setTimeout(() => {
             setSuccess(false);
         }, 3000);
+
         let updatedUserInfo = {
             ...ls.get('user_info'),
-            alias,
             name
         };
         ls.set('user_info', updatedUserInfo);

@@ -1,22 +1,25 @@
 import React from "react";
 import {NavLink, useParams} from "react-router-dom";
 import Container from "../../components/Layouts/Container";
-import Layout from "../../components/Layouts";
+import NBCLayout from "../../components/Layouts/NBCLayout";
 
 import "./styles.scss"
+import {connectAuthVisible} from "../Login/connectors";
 
-const NBCUploadedDocuments = () => {
 
-    const {alias} = useParams();
-
+const Content = () => {
     return (
-        <Layout >
-            <Container className="pt-150">
-                <p>Здесь будет страница документов</p>
-                <NavLink to={`/nbc/${alias}`}>На страницу профиля</NavLink>
-            </Container>
-        </Layout>
-    );
+        <p>1111111111111111111111111111</p>
+    )
+}
+
+
+const NBCUploadedDocuments = (props) => {
+    return (
+        <NBCLayout {...props}>
+            <Content />
+        </NBCLayout>
+    )
 };
 
-export default NBCUploadedDocuments;
+export default React.memo(NBCUploadedDocuments);
