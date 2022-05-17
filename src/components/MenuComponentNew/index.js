@@ -7,6 +7,7 @@ import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo} from "
 import {Request} from "../../utils/request";
 import {clubNav} from "../../pages/Club/config";
 import {kennelNav} from "../../pages/Nursery/config";
+import {NBCNav} from "../Layouts/NBCLayout/config";
 import {userNav} from "../Layouts/UserLayout/config";
 import {federationNav} from "../../pages/Federation/config";
 import {clubNav as clubNavDocs} from "../../pages/Docs/config";
@@ -56,13 +57,16 @@ const MenuComponentNew = () => {
     }
 
     const getMenu = (url, linkAlias) => {
+
         return isFederationAlias(url) ?
             federationNav(url) :
             (url === 'club' && linkAlias) ?
                 clubNav(linkAlias) :
                 (url === 'kennel' && linkAlias) ?
                     kennelNav(linkAlias) :
-                    userNav(linkAlias)
+                    (url === 'nbc' && linkAlias) ?
+                        NBCNav(linkAlias) :
+                        userNav(linkAlias)
     }
 
     const getMenuInfoCurrentUserPage = (url, linkAlias, isUserDocuments) => {
@@ -104,9 +108,11 @@ const MenuComponentNew = () => {
             return 'club';
         } else if(userType === 4) {
             return 'kennel';
+        } else if(userType === 7) {
+            return 'nbc';
         } else {
-            return 'user';
-        }
+                return 'user';
+            }
     };
 
     const checkIsPage = (exhibAlias) => {
@@ -137,6 +143,7 @@ const MenuComponentNew = () => {
                                 || url === 'user'
                                 || url === 'referee'
                                 || url === 'client'
+                                || url === 'nbc'
                             ) {//Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся
                                 isFederationAlias(url) ? getMenuInfoCurrentUserPage(url, url) : getMenuInfoCurrentUserPage(url , linkAlias);
                             } else {

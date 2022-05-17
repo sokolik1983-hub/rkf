@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {DEFAULT_IMG} from "../../appConfig";
-import "./index.scss";
 import {CSSTransition} from "react-transition-group";
 import LightTooltip from "../LightTooltip";
 import {SvgIcon} from "@progress/kendo-react-common";
@@ -8,6 +7,7 @@ import {pencil, trash} from "@progress/kendo-svg-icons";
 import EditAvatar from "../EditAvatar";
 import ModalDeleteAvatar from "../Layouts/UserInfo/ModalDeleteAvatar";
 
+import "./index.scss";
 
 const PhotoComponent = ({photo, name, position, canEdit}) => {
 

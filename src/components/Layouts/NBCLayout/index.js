@@ -20,17 +20,17 @@ import PhotoComponent from "../../PhotoComponent";
 import UserBanner from "../UserBanner";
 import ls from "local-storage";
 import {defaultValues} from "../../../pages/NBCEdit/config";
+import MenuComponentNew from "../../MenuComponentNew";
 
 import './index.scss';
 
-const NBCLayout = ({children, match}) => {
+const NBCLayout = ({children}) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [imagesLoading, setImagesLoading] = useState(false);
     const [images, setImages] = useState([]);
     const [nbcInfo, setNBCInfo] = useState(null);
     const [nbcProfileId, setNBCProfileId] = useState(null);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [album, setAlbum] = useState(null);
     const [needRequest, setNeedRequest] = useState(true);
     const isMobile = useIsMobile(1080);
@@ -324,11 +324,7 @@ const NBCLayout = ({children, match}) => {
                                         </>
                                     }
 
-                                    {/*{!isMobile && <UserMenu userNav={canEdit*/}
-                                    {/*    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only*/}
-                                    {/*    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}*/}
-                                    {/*                        notificationsLength={notificationsLength}*/}
-                                    {/*/>}*/}
+                                    <MenuComponentNew />
                                     {!isMobile && nbcInfo &&
                                         <>
                                             <Banner type={BANNER_TYPES.clubPageUnderPhotos} />

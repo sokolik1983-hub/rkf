@@ -111,15 +111,16 @@ const CardNewsNew = forwardRef(({
             <div className="card-news-new__content">
                 <div className="card-news-new__head">
                     <div className="card-news-new__left">
-                        <Link to={user_type === 4
-                                    ?
-                                    `/kennel/${alias}`
-                                    :
-                                    user_type === 1
-                                        ?
-                                        `/user/${alias}`
-                                        :
-                                        `/${alias}`}
+                        <Link to={user_type === 4 ?
+                                    `/kennel/${alias}` :
+                                    user_type === 1 ?
+                                        `/user/${alias}` :
+                                        user_type === 3 ?
+                                        `/club/${alias}` :
+                                            user_type === 7 ?
+                                                `/nbc/${alias}` :
+                                                `/${alias}`
+                        }
                         >
                             <Avatar
                                 card="cardnewsnew"
@@ -133,7 +134,7 @@ const CardNewsNew = forwardRef(({
                             <span className="card-news-new__left-city">
                                 <div className="card-news-new__left-inner">
                                     <div className="card-news-new__add-wrap">
-                                        {(user_type === 3 || user_type === 4 || user_type === 5) &&
+                                        {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
                                         <span>
                                             {user_type === 3
                                                 ? 'Клуб'
@@ -141,18 +142,23 @@ const CardNewsNew = forwardRef(({
                                                     ? 'Питомник'
                                                     : user_type === 5
                                                         ? 'Федерация'
-                                                        : ''
+                                                        : user_type === 7
+                                                            ? 'НКП'
+                                                            : ''
                                             }
                                             &nbsp;
                                     </span>
                                         }
-                                        <Link to={user_type === 4
-                                            ? `/kennel/${alias}`
-                                            : user_type === 1
-                                                ? `/user/${alias}`
-                                                : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
-                                                    ? `/club/${alias}`
-                                        : `/${alias}`}>
+                                        <Link to={user_type === 7 ?
+                                            `/nbc/${alias}` :
+                                            user_type === 4 ?
+                                                `/kennel/${alias}` :
+                                                user_type === 1 ?
+                                                    `/user/${alias}` :
+                                                    user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online' ?
+                                                        `/club/${alias}` :
+                                                        `/${alias}`}
+                                        >
                                         {user_type === 1 ? first_name + ' ' + last_name : name}
                                     </Link>
                                     <span className="card-news-new__left-mark">
