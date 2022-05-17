@@ -105,6 +105,7 @@ const [modalType, setModalType] = useState('');
                             setModalType={setModalType}
                             avatar={logo}
                             pageBanner={false}
+                            name={name}
                         />
                     }
                     {modalType === 'delete' &&

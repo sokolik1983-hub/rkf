@@ -20,6 +20,8 @@ import PhotoComponent from "../../PhotoComponent";
 import UserBanner from "../UserBanner";
 
 import './index.scss';
+import ls from "local-storage";
+import {defaultValues} from "../../../pages/NBCEdit/config";
 
 const NBCLayout = ({children}) => {
     const [loading, setLoading] = useState(false);
@@ -48,9 +50,11 @@ const NBCLayout = ({children}) => {
     const aliasRedux = useSelector(state => state?.authentication?.user_info?.alias);
     const params = useParams();
     const location = useLocation();
+    const [initialValues, setInitialValues] = useState(defaultValues);
+    const [success, setSuccess] = useState(false);
 
     const getNBCInfo = async () => {
-        setLoading(true)
+        setLoading(true);
         await Request({
             url: endpointGetNBCInfo + '?alias=' + alias
         }, data => {
@@ -230,6 +234,61 @@ const NBCLayout = ({children}) => {
             });
     }, [params]);
 
+    const PromiseRequest = url => new Promise((res, rej) => Request({url}, res, rej));
+
+    const getInfo = () => PromiseRequest('/api/NationalBreedClub/edit_info')
+        .then(data => {
+            setLoading(false)
+            if (data) {
+                if (data.phones && data.phones.length) {
+                    data.phones.map(item => {
+                        if (item.contact_type_id === 1 && !/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/.test(item.value)) {
+                            const valueArr = item.value.split(' ');
+                            item.value = '+' + valueArr[0] + valueArr[1].slice(0, 6) + '-' + valueArr[1].slice(-2);
+                        }
+                        return item;
+                    });
+                }
+                data.is_public = !data.is_public; // Backend workaround
+                setInitialValues({
+                    ...initialValues,
+                    ...data
+                });
+            }
+        });
+
+    useEffect(() => {
+        getInfo();
+    }, [])
+
+    const transformValues = values => {
+        const newValues = {...values};
+        delete newValues.banner;
+        delete newValues.logo;
+        newValues.is_public = !newValues.is_public; // Backend workaround
+
+        return newValues;
+    };
+
+    const handleSuccess = (data, {alias, name}) => {
+        setSuccess(true);
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+        let updatedUserInfo = {
+            ...ls.get('user_info'),
+            alias,
+            name
+        };
+        ls.set('user_info', updatedUserInfo);
+        setShowAlert({
+            title: 'Сохранение данных',
+            text: 'Данные сохранены!',
+            autoclose: 2.5,
+            onOk: () => setShowAlert(false)
+        });
+    };
+
     useEffect(() => {
         getEditInfo();
     }, []);
@@ -344,6 +403,9 @@ const NBCLayout = ({children}) => {
                                     onSelectImage: onSelectImage,
                                     onSelectAll: onSelectAll,
                                     allSelected: allSelected,
+                                    handleSuccess: handleSuccess,
+                                    transformValues: transformValues,
+                                    initialValues: initialValues,
                                 })
                             }
                         </div>

@@ -60,7 +60,6 @@ const UserNews = ({
 
                     setHasMore(false);
                 }
-                setNeedRequest(true);
             }, error => {
                 console.log(error.response);
             });

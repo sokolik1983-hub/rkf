@@ -18,7 +18,6 @@ const Placeholders = [0, 1, 2, 3];
 
 const ExhibitionsComponent = ({ alias, nbcId }) => {
 
-    console.log('nbcId', nbcId);
     const [exhibitions, setExhibitions] = useState(null);
     const [isRequestEnd, setIsRequestEnd] = useState(false);
     const [needBlock, setNeedBkock] = useState(false);

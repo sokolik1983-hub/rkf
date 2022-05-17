@@ -364,7 +364,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: ['/club/:route/news-feed/:id?', '/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?'],
+        path: ['/club/:route/news-feed/:id?', '/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?', '/nbc/:alias/news-feed/:id?'],
         component: LoadableModules.LoadableNewsFeed
     },
     {
