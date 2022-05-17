@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import UserDescription from "../../components/UserDescription";
 import UserContacts from "./UserContacts";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
@@ -13,11 +13,9 @@ const Content = ({
                      canEdit,
                      alias,
                      nbcProfileId,
-                     setNeedRequest,
                      setNBCInfo,
-                     needRequest
                  }) => {
-
+    const [needRequest, setNeedRequest] = useState(true);
     return (
         <>
             <UserDescription description={nbcInfo?.comment} />

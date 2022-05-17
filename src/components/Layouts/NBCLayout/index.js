@@ -18,10 +18,10 @@ import CopyrightInfo from "../../CopyrightInfo";
 import {BANNER_TYPES} from "../../../appConfig";
 import PhotoComponent from "../../PhotoComponent";
 import UserBanner from "../UserBanner";
-
-import './index.scss';
 import ls from "local-storage";
 import {defaultValues} from "../../../pages/NBCEdit/config";
+
+import './index.scss';
 
 const NBCLayout = ({children, match}) => {
     const [loading, setLoading] = useState(false);

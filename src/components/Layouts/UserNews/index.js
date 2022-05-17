@@ -6,8 +6,8 @@ import ListFilter from './ListFilter';
 import { Request } from "../../../utils/request";
 import { endpointGetNews, endpointDeleteArticle } from "./config";
 import { DEFAULT_IMG } from "../../../appConfig";
-import "./index.scss";
 
+import "./index.scss";
 
 const UserNews = ({
                       canEdit,
@@ -63,6 +63,7 @@ const UserNews = ({
             }, error => {
                 console.log(error.response);
             });
+        setNeedRequest(false);
         setLoading(false);
     };
 
