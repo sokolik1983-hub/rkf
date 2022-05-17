@@ -23,7 +23,7 @@ import './index.scss';
 import ls from "local-storage";
 import {defaultValues} from "../../../pages/NBCEdit/config";
 
-const NBCLayout = ({children}) => {
+const NBCLayout = ({children, match}) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [imagesLoading, setImagesLoading] = useState(false);

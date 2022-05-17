@@ -63,8 +63,6 @@ const UserNews = ({
             }, error => {
                 console.log(error.response);
             });
-
-        setNeedRequest(false);
         setLoading(false);
     };
 

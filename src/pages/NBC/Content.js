@@ -48,9 +48,6 @@ const Content = ({
                     setProfileInfo={setNBCInfo}
                 />
             }
-            {
-                console.log('props dlya news', canEdit, alias, needRequest, nbcInfo)
-            }
             <UserNews
                 canEdit={canEdit}
                 alias={alias}
