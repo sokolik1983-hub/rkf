@@ -208,7 +208,50 @@
         }
       }
     }
+
+    .DocumentItem {
+      display: flex;
+      margin: 0 10px 16px 10px;
+      flex-direction: row;
+      justify-content: space-between;
+
+      & > a {
+        &:hover {
+          text-decoration: none;
+        }
+
+        & > span {
+          width: 20px;
+          height: 20px;
+          margin-right: 10px;
+        }
+
+        & > div {
+
+          & > span {
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 1;
+            color: #b9b9b9;
+          }
+        }
+      }
+
+      &__delete-btn {
+        border: none;
+
+        & > span {
+          width: 20px;
+          height: 20px;
+
+          &> svg {
+            fill: red
+          }
+        }
+      }
+    }
   }
+
   &__advert {
     margin: 8px 0 16px;
   }
