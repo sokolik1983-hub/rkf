@@ -747,28 +747,40 @@
   &__photo-modal {
     .slick-slide img {
       width: 100%;
+      max-height: 420px;
+      object-fit: cover;
     }
+
     @media (min-width: 1079px) {
       &>div {
         width: 982px;
-        .slick-prev {
-          left: 20px;
-          background: url("/static/new-icons/arrow-left.svg") no-repeat center;
-        }
-        .slick-next {
-          right: 20px;
-          background: url("/static/new-icons/arrow-right.svg") no-repeat center;
-        }
-        .slick-arrow {
-          width: 21px;
-          height: 42px;
-          z-index: 1;
-          &:before {
-            content: '';
-          }
+        
+        .Modal__inner {
+          max-height: 800px;
         }
       }
     }
+
+    .slick-prev {
+      left: 20px;
+      background: url("/static/new-icons/arrow-left.svg") no-repeat center;
+    }
+
+    .slick-next {
+      right: 20px;
+      background: url("/static/new-icons/arrow-right.svg") no-repeat center;
+    }
+
+    .slick-arrow {
+      width: 21px;
+      height: 42px;
+      z-index: 1;
+
+      &:before {
+        content: '';
+      }
+    }
+
     &__count {
       position: relative;
       top: -7px;
@@ -778,6 +790,11 @@
       padding-left: 30px;
       line-height: 52px;
       color: white;
+    }
+
+    .card-news-new__text-wrap {
+      margin-bottom: 5px;
+      overflow: auto;
     }
   }
 }

@@ -18,9 +18,9 @@ import Avatar from "../Layouts/Avatar";
 import Slider from "react-slick";
 import {blockContent} from "../../utils/blockContent";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
-
-
 
 const CardNewsNew = forwardRef(({
     id,
@@ -103,6 +103,7 @@ const CardNewsNew = forwardRef(({
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
+        const [ind, setInd] = useState();
 
         switch (dog_sex_type_id) {
             case 1:
@@ -303,19 +304,19 @@ const CardNewsNew = forwardRef(({
                     }
                 </div>
                 <div className="card-news-new__show-all-wrap">
-                    {<div className={`card-news-new__show-all${!canCollapse ? ' _disabled' : ''}`}
+                    {!pictures ? <div className={`card-news-new__show-all${pictures?.length || !canCollapse ? ' _disabled' : ''}`}
                           onClick={() => setCollapsed(!collapsed)}>
                         {
                             (advert_type_id < 1) ? (!collapsed ? 'Подробнее...' : 'Свернуть') : ''
                         }
-                    </div>}
+                    </div> :
                     <div className={`card-news-new__show-all${!pictures || !pictures?.length ? ' _disabled' : ''}`}
                         onClick={() => setShowModal(true)}
                     >
                             {
                                 (advert_type_id < 1) ? 'Подробнее...' : ''
                             }
-                    </div>
+                    </div>}
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
@@ -524,28 +525,22 @@ const CardNewsNew = forwardRef(({
                         </div>
                     </div>
                     <Slider
-                        arrows={true}
-                        dots={false}
-                        infinite={true}
-                        autoplay={false}
-                        fade={true}
-                        adaptiveHeight={true}
-                        rows={1}
+                       adaptiveHeight={true}>
+                        {pictures.map((picture, index) =>
+                                <div>
+                                    <img src={picture.picture_link} alt="" key={index}/>
+                                    <div className="card-news-new__photo-modal__count">
+                                        {`${index + 1} из ${pictures.length}`}
+                                    </div>
+                                </div>
+                            )}
 
-                    >
-                        {
-                            pictures.map((picture, index) => <img src={picture.picture_link} alt="" key={index}/>)
-                        }
                     </Slider>
-                    <div className="card-news-new__photo-modal__count">
-                        {/*{() => $('.slider').slick('slickCurrentSlide') + 1}*/}
-                    </div>
                 </Modal>
 
             }
         </>
     };
-
 
     return (
         <Card className={`card-news-new`}>
