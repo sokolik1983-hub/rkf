@@ -375,7 +375,7 @@ const CardNewsNew = forwardRef(({
                 />
             </div>
             {showModal &&
-                <Modal handleClose={() => setShowModal(false)} showModal={showModal} className="card-news-new__photo-modal">
+                <Modal handleClose={() => setShowModal(false)} handleX={() => setShowModal(false)} showModal={showModal} className="card-news-new__photo-modal">
                     <div>
                         <div className="card-news-new__head">
                             <div className="card-news-new__left">
@@ -534,10 +534,8 @@ const CardNewsNew = forwardRef(({
                                     </div>
                                 </div>
                             )}
-
                     </Slider>
                 </Modal>
-
             }
         </>
     };
