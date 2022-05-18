@@ -207,7 +207,7 @@ const RenderFields = ({ fields,
     useEffect(() => {
         formik.setFieldValue('pictures', loadPictures)
     }, [loadPictures])
-    
+
     return (<>
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="article-create-form__wrap article-create-form__textarea-wrap">
@@ -460,7 +460,8 @@ const RenderFields = ({ fields,
             }
 
             <>
-                {loadPictures && <ul>
+                {loadPictures &&
+                    <ul>
                     {loadPictures.map((picture, index) =>
                         <li className="ImagePreview__wrap" key={index}>
                                 <ImagePreview src={URL.createObjectURL(picture)} />
@@ -469,7 +470,8 @@ const RenderFields = ({ fields,
                                     onClick={ () => handleClose(picture)}
                                 />
                         </li>)}
-                </ul>}
+                    </ul>
+                }
                 {videoLink &&
                     <div className="ImagePreview__wrap">
                         <ImagePreview src={`https://img.youtube.com/vi/${getYouTubeID(videoLink)}/mqdefault.jpg`} />
