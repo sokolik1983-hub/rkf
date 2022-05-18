@@ -54,6 +54,10 @@ const Header = ({
         return () => window.removeEventListener('resize', () => setOverflowFilter(isOpenFilters));
     }, [isOpenFilters]);
 
+    console.log('2222222222222222', isOpenFilters);
+    console.log('2222222222222222', open);
+    console.log('2222222222222222', isOpen);
+
     return (
         <header className="header">
             <Container className="header__content">

@@ -6,7 +6,7 @@ import "./styles.scss"
 
 const NBCUploadedDocuments = (props) => {
     return (
-        <NBCLayout {...props}>
+        <NBCLayout layoutWithFilters {...props}>
             <Content />
         </NBCLayout>
     )

@@ -37,7 +37,7 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
     }, []);
 
     const getClubInfo = async () => {
-        Request({
+        await Request({
             url: endpointGetClubInfo + alias
         }, data => {
             if (data.user_type === 4) {
@@ -53,7 +53,7 @@ const ClubLayout = ({ history, match, profile_id, is_active_profile, isAuthentic
             setError(error.response);
             setLoading(false);
         });
-    }
+    };
 
     return loading
         ? <Loading />

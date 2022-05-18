@@ -21,10 +21,15 @@ import UserBanner from "../UserBanner";
 import ls from "local-storage";
 import {defaultValues} from "../../../pages/NBCEdit/config";
 import MenuComponentNew from "../../MenuComponentNew";
+import Layout from "components/Layouts";
 
 import './index.scss';
+import injectReducer from "../../../utils/injectReducer";
+import reducer from "../reducer";
+import {compose} from "redux";
 
-const NBCLayout = ({children}) => {
+const NBCLayout = (props) => {
+    const { children, login_page, setShowFilters, layoutWithFilters } = props;
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [imagesLoading, setImagesLoading] = useState(false);
@@ -293,121 +298,127 @@ const NBCLayout = ({children}) => {
         getEditInfo();
     }, []);
 
+    useEffect(() => {
+        setShowFilters({ withFilters: layoutWithFilters, login_page: login_page, isOpen: false});
+    }, []);
+
     return (
         loading ?
             <Loading /> :
-            <div className="redesign">
-                <Container className="content nbc-page">
-                    <div className="nbc-page__content-wrap">
-                        <Aside className="nbc-page__info">
-                            <StickyBox offsetTop={60}>
-                                <div className="nbc-page__info-inner">
-                                    {!isMobile && nbcInfo &&
-                                        <>
-                                            <UserHeader
-                                                user='nbc'
-                                                logo={nbcInfo.logo_link}
-                                                name={nbcInfo.name || 'Название НКП отсутствует'}
-                                                alias={nbcInfo.alias}
-                                                profileId={nbcProfileId}
-                                                canEdit={canEdit}
-                                                subscribed={nbcInfo.subscribed}
-                                                onSubscriptionUpdate={onSubscriptionUpdate}
-                                                isAuthenticated={isAuthenticated}
-                                            />
-                                            <PhotoComponent
-                                                photo={nbcInfo.owner_photo}
-                                                name={nbcInfo.owner_name}
-                                                position={nbcInfo.owner_position}
-                                                canEdit={canEdit}
-                                            />
-                                            <MenuComponentNew />
-                                        </>
-                                    }
-                                    {!isMobile && nbcInfo &&
-                                        <>
-                                            <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
-                                            <UserPhotoGallery
-                                                alias={alias}
-                                                pageLink={`/nbc/${alias}/gallery`}
-                                                canEdit={canEdit}
-                                            />
-                                            <UserVideoGallery
-                                                alias={alias}
-                                                pageLink={`/nbc/${alias}/video`}
-                                                canEdit={canEdit}
-                                            />
-                                            <CopyrightInfo withSocials={true} />
-                                        </>
-                                    }
-                                </div>
-                            </StickyBox>
-                        </Aside>
-                        <div className="nbc-page__content">
-                            <UserBanner
-                                link={nbcInfo?.headliner_link}
-                                canEdit={canEdit}
-                                updateInfo={getNBCInfo}
-                            />
-                            {isMobile && nbcInfo &&
-                                <UserHeader
-                                    user='nbc'
-                                    logo={nbcInfo.logo_link}
-                                    name={nbcInfo.name || 'Название НКП отсутствует'}
-                                    alias={nbcInfo.alias}
-                                    profileId={nbcProfileId}
+                <div className="redesign">
+                    <Container className="content nbc-page">
+                        <div className="nbc-page__content-wrap">
+                            <Aside className="nbc-page__info">
+                                <StickyBox offsetTop={60}>
+                                    <div className="nbc-page__info-inner">
+                                        {!isMobile && nbcInfo &&
+                                            <>
+                                                <UserHeader
+                                                    user='nbc'
+                                                    logo={nbcInfo.logo_link}
+                                                    name={nbcInfo.name || 'Название НКП отсутствует'}
+                                                    alias={nbcInfo.alias}
+                                                    profileId={nbcProfileId}
+                                                    canEdit={canEdit}
+                                                    subscribed={nbcInfo.subscribed}
+                                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                                    isAuthenticated={isAuthenticated}
+                                                />
+                                                <PhotoComponent
+                                                    photo={nbcInfo.owner_photo}
+                                                    name={nbcInfo.owner_name}
+                                                    position={nbcInfo.owner_position}
+                                                    canEdit={canEdit}
+                                                />
+                                                <MenuComponentNew />
+                                            </>
+                                        }
+                                        {!isMobile && nbcInfo &&
+                                            <>
+                                                <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
+                                                <UserPhotoGallery
+                                                    alias={alias}
+                                                    pageLink={`/nbc/${alias}/gallery`}
+                                                    canEdit={canEdit}
+                                                />
+                                                <UserVideoGallery
+                                                    alias={alias}
+                                                    pageLink={`/nbc/${alias}/video`}
+                                                    canEdit={canEdit}
+                                                />
+                                                <CopyrightInfo withSocials={true} />
+                                            </>
+                                        }
+                                    </div>
+                                </StickyBox>
+                            </Aside>
+                            <div className="nbc-page__content">
+                                <UserBanner
+                                    link={nbcInfo?.headliner_link}
                                     canEdit={canEdit}
-                                    subscribed={nbcInfo.subscribed}
-                                    onSubscriptionUpdate={onSubscriptionUpdate}
-                                    isAuthenticated={isAuthenticated}
+                                    updateInfo={getNBCInfo}
                                 />
-                            }
-                            {
-                                React.cloneElement(children, {
-                                    isMobile,
-                                    nbcInfo: nbcInfo,
-                                    canEdit,
-                                    getNBCInfo: getNBCInfo,
-                                    alias: alias,
-                                    nbcProfileId: nbcProfileId,
-                                    onSubscriptionUpdate: onSubscriptionUpdate,
-                                    isAuthenticated,
-                                    setNeedRequest: setNeedRequest,
-                                    setNBCInfo: setNBCInfo,
-                                    needRequest: needRequest,
-                                    handleAlbumDelete: handleAlbumDelete,
-                                    getImages: getImages,
-                                    getNextImages: getNextImages,
-                                    getAlbums: getAlbums,
-                                    handleError: handleError,
-                                    params: params,
-                                    images: images,
-                                    album: album,
-                                    setStartElement: setStartElement,
-                                    showAlert: showAlert,
-                                    imagesLoading: imagesLoading,
-                                    hasMore: hasMore,
-                                    pageLoaded: pageLoaded,
-                                    albums: albums,
-                                    location: location,
-                                    onAlbumAddSuccess: onAlbumAddSuccess,
-                                    handleDelete: handleDelete,
-                                    selectedImages: selectedImages,
-                                    setSelectedImages: setSelectedImages,
-                                    setImages: setImages,
-                                    onSelectImage: onSelectImage,
-                                    onSelectAll: onSelectAll,
-                                    allSelected: allSelected,
-                                    handleSuccess: handleSuccess,
-                                    transformValues: transformValues,
-                                    initialValues: initialValues,
-                                })
-                            }
+                                {isMobile && nbcInfo &&
+                                    <UserHeader
+                                        user='nbc'
+                                        logo={nbcInfo.logo_link}
+                                        name={nbcInfo.name || 'Название НКП отсутствует'}
+                                        alias={nbcInfo.alias}
+                                        profileId={nbcProfileId}
+                                        canEdit={canEdit}
+                                        subscribed={nbcInfo.subscribed}
+                                        onSubscriptionUpdate={onSubscriptionUpdate}
+                                        isAuthenticated={isAuthenticated}
+                                    />
+                                }
+                                {
+                                    React.cloneElement(children, {
+                                        isMobile,
+                                        nbcInfo: nbcInfo,
+                                        canEdit,
+                                        getNBCInfo: getNBCInfo,
+                                        alias: alias,
+                                        nbcProfileId: nbcProfileId,
+                                        onSubscriptionUpdate: onSubscriptionUpdate,
+                                        isAuthenticated,
+                                        setNeedRequest: setNeedRequest,
+                                        setNBCInfo: setNBCInfo,
+                                        needRequest: needRequest,
+                                        handleAlbumDelete: handleAlbumDelete,
+                                        getImages: getImages,
+                                        getNextImages: getNextImages,
+                                        getAlbums: getAlbums,
+                                        handleError: handleError,
+                                        params: params,
+                                        images: images,
+                                        album: album,
+                                        setStartElement: setStartElement,
+                                        showAlert: showAlert,
+                                        imagesLoading: imagesLoading,
+                                        hasMore: hasMore,
+                                        pageLoaded: pageLoaded,
+                                        albums: albums,
+                                        location: location,
+                                        onAlbumAddSuccess: onAlbumAddSuccess,
+                                        handleDelete: handleDelete,
+                                        selectedImages: selectedImages,
+                                        setSelectedImages: setSelectedImages,
+                                        setImages: setImages,
+                                        onSelectImage: onSelectImage,
+                                        onSelectAll: onSelectAll,
+                                        allSelected: allSelected,
+                                        handleSuccess: handleSuccess,
+                                        transformValues: transformValues,
+                                        initialValues: initialValues,
+                                    })
+                                }
+                            </div>
                         </div>
-                    </div>
-                </Container>
-            </div>
+                    </Container>
+                </div>
     )
 };
 
-export default withRouter(React.memo(connectAuthVisible(connectShowFilters(NBCLayout))));
+const withReducer = injectReducer({ key: 'layout', reducer: reducer });
+
+export default compose(withReducer)(withRouter(React.memo(connectAuthVisible(connectShowFilters(NBCLayout)))));

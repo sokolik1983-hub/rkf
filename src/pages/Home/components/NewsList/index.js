@@ -47,8 +47,6 @@ const NewsList = ({isFullDate = true}) => {
         isAdvert: null
     });
 
-    console.log('news', news)
-
     const doTheFilter = (currentCities) => {
         if(newsFilter.regions.length === 0) {
             setNewsFilter({...newsFilter, regions:newsFilter.regions,  cities: []});

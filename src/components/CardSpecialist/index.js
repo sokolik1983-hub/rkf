@@ -77,7 +77,8 @@ const CardSpecialist = ({
                             <div className="card-specialists__names">
                                 {owner_alias ?
                                     <Link className="card-specialists__name"
-                                        to={`/user/${owner_alias}`}>
+                                        to={`/user/${owner_alias}`}
+                                    >
                                         <span>
                                             {last_name}
                                         </span>

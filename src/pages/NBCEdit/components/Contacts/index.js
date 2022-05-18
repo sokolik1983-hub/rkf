@@ -58,9 +58,6 @@ const Contacts = ({
         emails[index].is_main = true;
     };
 
-    console.log('fields', fields);
-
-
     return <div className="nursery-contacts__contacts">
         <FieldArray
             name="phones"
