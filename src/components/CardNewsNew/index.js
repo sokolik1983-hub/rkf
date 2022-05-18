@@ -313,35 +313,41 @@ const CardNewsNew = forwardRef(({
                     <div className={`card-news-new__show-all${pictures?.length || !canCollapse ? ' _disabled' : ''}`}
                          onClick={() => setCollapsed(!collapsed)}>
                         {
-                            advert_type_id < 1 && !collapsed ? 'Подробнее...' : 'Свернуть'
+                            advert_type_id < 1 && (!collapsed ? 'Подробнее...' : 'Свернуть')
                         }
                     </div>
                     <div className={`card-news-new__show-all${!pictures || !pictures?.length ? ' _disabled' : ''}`}
                          onClick={() => setShowModal(true)}
                     >
-                            {
-                                advert_type_id < 1 && 'Подробнее...'
-                            }
+                        Подробнее...
                     </div>
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
-                        {pictures && <ul className={`card-news-new__photo-wrap __${pictures.length === 1 ? 'one' : pictures.length === 2 ? 'two' : pictures.length === 3 ? 'three' : pictures.length === 4 ? 'four' : pictures.length === 5 && 'five'}`}>
-                            {pictures.map((picture, index) =>
-                                    <li className="card-news-new__photo"
-                                         style={{ backgroundImage: `url(${pictures.length !== 5 ? 
-                                                 picture.picture_link : 
-                                                 picture.picture_short_link
-                                         })` }}
-                                         key={index}
-                                         onClick={() => {
-                                             setPhotoLink(picture.picture_link);
-                                             setShowPhoto(true);
-                                         }}
-                                    />
-                            )}
-                        </ul>}
-
+                        {pictures &&
+                            <ul className={`card-news-new__photo-wrap __${
+                                pictures.length === 1 ? 'one' : 
+                                    pictures.length === 2 ? 'two' : 
+                                        pictures.length === 3 ? 'three' : 
+                                            pictures.length === 4 ? 'four' : 
+                                                pictures.length === 5 && 'five'
+                            }`}
+                            >
+                                {pictures.map((picture, index) =>
+                                        <li className="card-news-new__photo"
+                                             style={{ backgroundImage: `url(${pictures.length !== 5 ? 
+                                                     picture.picture_link : 
+                                                     picture.picture_short_link
+                                             })` }}
+                                             key={index}
+                                             onClick={() => {
+                                                 setPhotoLink(picture.picture_link);
+                                                 setShowPhoto(true);
+                                             }}
+                                        />
+                                )}
+                            </ul>
+                        }
                         {video_link &&
                             <div className="card-news-new__video">
                                 <iframe
@@ -536,7 +542,7 @@ const CardNewsNew = forwardRef(({
                         </div>
                     </div>
                     <Slider
-                       adaptiveHeight={true}>
+                       adaptiveHeight={false}>
                         {pictures.map((picture, index) =>
                                 <div>
                                     <img src={picture.picture_link} alt="" key={index}/>

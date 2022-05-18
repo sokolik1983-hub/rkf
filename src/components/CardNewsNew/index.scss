@@ -745,9 +745,14 @@
   }
 
   &__photo-modal {
+    .slick-slider {
+      background-color: #4B4B4B;
+    }
     .slick-slide img {
-      width: 100%;
-      max-height: 420px;
+      width: auto;
+      max-width: 100%;
+      height: 420px;
+      margin: 0 auto;
       object-fit: cover;
     }
 
@@ -786,10 +791,10 @@
       top: -7px;
       width: 100%;
       height: 52px;
-      background-color: #4B4B4B;
       padding-left: 30px;
-      line-height: 52px;
       color: white;
+      background-color: #4B4B4B;
+      line-height: 52px;
     }
 
     .card-news-new__text-wrap {
