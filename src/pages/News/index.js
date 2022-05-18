@@ -118,14 +118,17 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                         </>
                                     }
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
-                                    <ul className={`news__pictures-wrap __${news.pictures.length === 1 ? 'one' : news.pictures.length === 2 ? 'two' : news.pictures.length === 3 ? 'three' : news.pictures.length === 4 ? 'four' : news.pictures.length === 5 && 'five'}`}>
+                                    {news.pictures?.length !== 0 &&
+                                        <ul
+                                        className={`news__pictures-wrap __${news.pictures.length === 1 ? 'one' : news.pictures.length === 2 ? 'two' : news.pictures.length === 3 ? 'three' : news.pictures.length === 4 ? 'four' : news.pictures.length === 5 && 'five'}`}>
                                         {news.pictures && news.pictures.map((picture, i) =>
                                             <li key={i}
-                                                style={{ backgroundImage: `url(${picture.picture_link})` }}
+                                                style={{backgroundImage: `url(${picture.picture_link})`}}
                                                 alt="" className="news__pictures">
                                             </li>
-                                        )}
-                                    </ul>
+                                            )}
+                                        </ul>
+                                    }
                                     {news.video_link &&
                                         <iframe
                                             className="news__video"

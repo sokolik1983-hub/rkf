@@ -80,7 +80,7 @@ const RenderFields = ({ fields,
         const file = e.target.files[0];
 
         if (file && file.size < 20971520) {
-            if (loadPictures.length <= 5) {
+            if (loadPictures.length < 5) {
                 setLoadPictures([...loadPictures, e.target.files[0]])
                 e.target.value = '';
             } else {
@@ -207,9 +207,8 @@ const RenderFields = ({ fields,
     useEffect(() => {
         formik.setFieldValue('pictures', loadPictures)
     }, [loadPictures])
-
-    return (
-        <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+    
+    return (<>
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="article-create-form__wrap article-create-form__textarea-wrap">
                     <Avatar
@@ -231,17 +230,21 @@ const RenderFields = ({ fields,
                 </FormGroup>
                 <div className="article-create-form__controls-wrap">
                     <FormControls className={`article-create-form__controls ${focus ? ' _focus' : ''}`}>
-                        <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
-                            <label htmlFor="file" className="article-create-form__labelfile" />
-                        </LightTooltip>
-                        <input
-                            type="file"
-                            name="file"
-                            id="file"
-                            accept="image/*"
-                            className="article-create-form__inputfile"
-                            onInput={handleChange}
-                        />
+                        {loadPictures?.length < 5 &&
+                            <>
+                                <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
+                                    <label htmlFor="file" className="article-create-form__labelfile" />
+                                </LightTooltip>
+                                <input
+                                    type="file"
+                                    name="file"
+                                    id="file"
+                                    accept="image/*"
+                                    className="article-create-form__inputfile"
+                                    onInput={handleChange}
+                                />
+                            </>
+                        }
                         {!videoLink &&
                             <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
                                 <button
@@ -523,7 +526,7 @@ const RenderFields = ({ fields,
                     />
                 }
             </Modal>
-        </OutsideClickHandler>
+        </>
     )
 };
 

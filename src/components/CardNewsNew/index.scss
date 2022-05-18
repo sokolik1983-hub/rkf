@@ -745,6 +745,9 @@
   }
 
   &__photo-modal {
+    .slick-slider {
+      background-color: #4B4B4B;
+    }
     .slick-slide img {
       width: auto;
       max-width: 100%;
