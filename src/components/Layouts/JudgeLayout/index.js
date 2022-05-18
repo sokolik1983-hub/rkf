@@ -16,6 +16,7 @@ import LightTooltip from "../../LightTooltip";
 import Avatar from "../Avatar";
 
 import "./index.scss";
+import { judgeIcon } from "../UserLayout/config";
 
 
 const JudgeLayout = () => {
@@ -118,7 +119,7 @@ const JudgeLayout = () => {
                                         <div className="judge-info__inner">
                                             <div className="judge-info__name-location">
                                                 <div className="judge-info__name-block">
-                                                    <p className="judge-info__name-rus">{judgePersInfo && judgePersInfo.first_name + ' ' + judgePersInfo.last_name}</p>
+                                                    <p className="judge-info__name-rus">{judgePersInfo && judgePersInfo.first_name + ' ' + judgePersInfo.last_name} {judgeAlias && judgeIcon} </p>
                                                     <p className="judge-info__name-lat">{judgePersInfo && transliterate(`${judgePersInfo.first_name} ${judgePersInfo.last_name}`)}</p>
                                                 </div>
                                                 <div className="judge-info__location-block">
