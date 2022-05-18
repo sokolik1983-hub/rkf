@@ -121,10 +121,11 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     maxFileSize={10485760}
                     accept={isFederation ? `.pdf, .doc, .docx` : `.pdf`}
                     restrictions={{
-                        allowedExtensions: isFederation ? ['.pdf', '.doc', '.docx'] : ['.pdf']
+                        allowedExtensions: isFederation ? ['.pdf', '.doc', '.docx'] : ['.pdf'],
+                        maxFileSize: 10485760
                     }}
                     withCredentials={false}
-                    showFileList={false}
+                    showFileList={true}
                     defaultFiles={[]}
                     onBeforeUpload={onBeforeUpload}
                     onStatusChange={onStatusChange}
