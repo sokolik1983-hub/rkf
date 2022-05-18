@@ -2,11 +2,11 @@ import React from "react";
 
 export const endpointGetNBCInfo = '/api/nationalbreedclub/full';
 
-export const NBCNav = alias => [
+export const NBCNav = (alias, strOfBreeds) => [
     {
         id: 1,
         title: 'Мероприятия',
-        to: `/exhibitions?Alias=${alias}`,
+        to: `/exhibitions?${strOfBreeds}`,
         exact: true,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.99404 18.7406C9.60402 18.7406 9.28491 18.4215 9.28491 18.0315V13.6349C9.28491 13.2449 9.60402 12.9258 9.99404 12.9258C10.3841 12.9258 10.7032 13.2449 10.7032 13.6349V18.0315C10.7032 18.4333 10.3841 18.7406 9.99404 18.7406Z" fill="#8F989D"/>
@@ -33,7 +33,6 @@ export const NBCNav = alias => [
     {
         id: 4,
         title: 'Документы',
-        disabled: true,
         to: `/nbc/${alias}/uploaded-documents/`,
         exact: false,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

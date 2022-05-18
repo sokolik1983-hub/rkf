@@ -126,7 +126,7 @@ const [modalType, setModalType] = useState('');
                              style={{backgroundImage: `url(${logo})`}}
                         />
                         :
-                        (userType === 1 || userType === 4) ?
+                        (userType === 1 || userType === 4 || userType === 7) ?
                             <div className={`widget-login__${subclass} ${open && ' _active'}`}>
                                 <InitialsAvatar
                                     card={card}
@@ -199,7 +199,7 @@ const [modalType, setModalType] = useState('');
                             avatar={logo}
                         />
                         :
-                        (userType === 4 || userType === 1) ?
+                        (userType === 4 || userType === 1 || userType === 7) ?
                             <InitialsAvatar
                                 card={card}
                                 name={name}
@@ -238,7 +238,7 @@ const [modalType, setModalType] = useState('');
                              style={{background: `url(${logo}) center center/cover no-repeat`}}
                         />
                         :
-                        (userType === 1 || userType === 4) ?
+                        (userType === 1 || userType === 4 || userType === 7) ?
                             <div className="card-news-new__left-logo">
                                 <InitialsAvatar
                                     card={card}
@@ -256,7 +256,7 @@ const [modalType, setModalType] = useState('');
         case 'nursery-docs':
             return(
                 <>
-                    {userType === 4 ?
+                    {(userType === 4|| userType === 7) ?
                         <InitialsAvatar
                             card={card}
                             name={name}

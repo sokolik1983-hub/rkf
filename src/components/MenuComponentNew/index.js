@@ -20,7 +20,7 @@ import HeaderMobileMenu from "./components/HeaderMobileMenu";
 
 import "./styles.scss";
 
-const MenuComponentNew = () => {
+const MenuComponentNew = ({breeds}) => {
     const [exhibAlias, setExhibAlias] = useState(null);
     const [currentPageUserInfo, setCurrentPageUserInfo] = useState(null);
     const [currentPageNav, setCurrentPageNav] = useState(null);
@@ -29,6 +29,7 @@ const MenuComponentNew = () => {
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
     const [openUserMenu, setOpenUserMenu] = useState(false);
+    const strOfBreeds = breeds?.map(obj => `BreedIds=${obj.breed_id}`);
 
     const moreRef = useRef();
 
@@ -65,7 +66,7 @@ const MenuComponentNew = () => {
                 (url === 'kennel' && linkAlias) ?
                     kennelNav(linkAlias) :
                     (url === 'nbc' && linkAlias) ?
-                        NBCNav(linkAlias) :
+                        NBCNav(linkAlias, strOfBreeds) :
                         userNav(linkAlias)
     }
 

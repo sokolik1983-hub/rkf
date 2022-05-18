@@ -23,7 +23,7 @@ import './styles.scss';
 
 const UploadedDocuments = ({ canEdit, location, match, setShowFilters, isOpenFilters }) => {
     const [loaded, setLoaded] = useState(false);
-    const alias = match.params.route;
+    const alias = match.params.route || match.params.alias;
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
