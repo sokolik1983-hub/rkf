@@ -71,21 +71,42 @@ const CardOrganization = (props) => {
                                 <div className="card-organization__name-wrap">
                                     <div>
                                         <div className="card-organization__name-inner">
-                                            <Link
-                                                to={ url }
-                                                className="card-organization__name"
-                                                title={ name || 'Название отсутствует' }
-                                            >
-                                                { (user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
+                                            {
+                                                alias ?
+                                                    <Link
+                                                        to={ url }
+                                                        className="card-organization__name"
+                                                        title={ name || 'Название отсутствует' }
+                                                    >
+                                                        { (user_type === 3 ||
+                                                                user_type === 4 ||
+                                                                user_type === 5 ||
+                                                                user_type === 7
+                                                            ) &&
+                                                            <>
+                                                                <span>
+                                                                    { user_type === 3 ? 'Клуб' :
+                                                                        user_type === 4 ? 'Питомник' :
+                                                                            user_type === 5 ? 'Федерация' :
+                                                                                user_type === 7 ? 'НКП' : '' }
+                                                                </span>
+                                                                &nbsp;
+                                                            </>
+                                                        }
+                                                        <span>{ name || 'Название отсутствует' }</span>
+                                                    </Link>
+                                                    :
                                                     <>
                                                         <span>
-                                                            { user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : '' }
-                                                        </span>
-                                                            &nbsp;
+                                                                    { user_type === 3 ? 'Клуб' :
+                                                                        user_type === 4 ? 'Питомник' :
+                                                                            user_type === 5 ? 'Федерация' :
+                                                                                user_type === 7 ? 'НКП' : '' }
+                                                                </span>
+                                                        &nbsp;
+                                                        <span>{ name || 'Название отсутствует' }</span>
                                                     </>
-                                                }
-                                                <span>{ name || 'Название отсутствует' }</span>
-                                            </Link>
+                                            }
                                             <span className="card-organization__mark">
                                                 { active_rkf_user &&
                                                     <ActiveUserMark/>
