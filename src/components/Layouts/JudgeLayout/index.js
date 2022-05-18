@@ -13,10 +13,10 @@ import Statistics from "../../Statistics";
 import ClubsMap from "../../ClubsMap";
 import history from "../../../utils/history";
 import LightTooltip from "../../LightTooltip";
+import { judgeIcon } from "../UserLayout/config";
 import Avatar from "../Avatar";
 
 import "./index.scss";
-import { judgeIcon } from "../UserLayout/config";
 
 
 const JudgeLayout = () => {
