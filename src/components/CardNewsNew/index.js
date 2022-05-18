@@ -307,15 +307,13 @@ const CardNewsNew = forwardRef(({
                     <div className={`card-news-new__show-all${pictures?.length || !canCollapse ? ' _disabled' : ''}`}
                          onClick={() => setCollapsed(!collapsed)}>
                         {
-                            advert_type_id < 1 && !collapsed ? 'Подробнее...' : 'Свернуть'
+                            advert_type_id < 1 && (!collapsed ? 'Подробнее...' : 'Свернуть')
                         }
                     </div>
                     <div className={`card-news-new__show-all${!pictures || !pictures?.length ? ' _disabled' : ''}`}
                          onClick={() => setShowModal(true)}
                     >
-                            {
-                                advert_type_id < 1 && 'Подробнее...'
-                            }
+                        Подробнее...
                     </div>
                 </div>
                 {(pictures || video_link) &&
@@ -530,7 +528,7 @@ const CardNewsNew = forwardRef(({
                         </div>
                     </div>
                     <Slider
-                       adaptiveHeight={true}>
+                       adaptiveHeight={false}>
                         {pictures.map((picture, index) =>
                                 <div>
                                     <img src={picture.picture_link} alt="" key={index}/>
