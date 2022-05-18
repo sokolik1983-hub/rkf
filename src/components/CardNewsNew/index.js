@@ -314,7 +314,7 @@ const CardNewsNew = forwardRef(({
                          onClick={() => setShowModal(true)}
                     >
                             {
-                                advert_type_id < 1 && 'Подробнее...'
+                                'Подробнее...'
                             }
                     </div>
                 </div>
@@ -530,7 +530,7 @@ const CardNewsNew = forwardRef(({
                         </div>
                     </div>
                     <Slider
-                       adaptiveHeight={true}>
+                       adaptiveHeight={false}>
                         {pictures.map((picture, index) =>
                                 <div>
                                     <img src={picture.picture_link} alt="" key={index}/>
