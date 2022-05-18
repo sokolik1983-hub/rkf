@@ -96,7 +96,7 @@ const ClubEditPage = ({
             setError(error.response);
             setLoading(false);
         }))();
-    }, [alias]);
+    }, [alias, isSubmit]);
 
     useEffect(() => {
         unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
@@ -273,6 +273,8 @@ const ClubEditPage = ({
                             </aside>
                             <div className="ClubEdit__inner">
                                 <RenderFields
+                                    club_id={club.id}
+                                    work_time={club.work_time}
                                     club_alias={club_alias}
                                     is_federation={is_federation}
                                     isOpenFilters={isOpenFilters}

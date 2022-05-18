@@ -52,7 +52,7 @@ const UserHeader = ({
                 data="canEdit"
                 logo={logo}
                 name={name}
-                userType={userType}
+                userType={userType ? userType : user === 'club' ? 3 : 1}
             />
             <div className="user-header__content">
                 <div className="user-header__info">

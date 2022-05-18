@@ -39,4 +39,21 @@
   .copyright-wrap {
     box-shadow: none;
   }
+
+  .FormInput {
+    margin-bottom: 15px;
+
+    label {
+      margin-bottom: 7px;
+      margin-left: 3px;
+      line-height: 16px
+    }
+
+    input {
+      height: 38px;
+      padding-left: 10px;
+      border-radius: 3px;
+      border: 1px solid #CED4DA;
+    }
+  }
 }
