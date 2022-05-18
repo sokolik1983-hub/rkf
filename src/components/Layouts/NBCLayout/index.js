@@ -321,10 +321,9 @@ const NBCLayout = ({children}) => {
                                                 position={nbcInfo.owner_position}
                                                 canEdit={canEdit}
                                             />
+                                            <MenuComponentNew />
                                         </>
                                     }
-
-                                    <MenuComponentNew breeds={nbcInfo?.breeds} />
                                     {!isMobile && nbcInfo &&
                                         <>
                                             <Banner type={BANNER_TYPES.clubPageUnderPhotos} />

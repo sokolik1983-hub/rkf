@@ -40,7 +40,7 @@ const CardOrganization = (props) => {
         :
         user_type === 7
             ?
-            null
+            `/nbc/${ alias }`
             :
             (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online')
                 ?

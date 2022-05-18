@@ -34,7 +34,7 @@ const Content = ({
 
     const handleAddPhoto = () => {
         setShowModal(true);
-    }
+    };
 
     const onModalClose = (e) => {
         if(!e.target.closest('.Alert')) {
@@ -49,19 +49,6 @@ const Content = ({
 
     return (
         <>
-            { isMobile && nbcInfo &&
-                <UserHeader
-                    user='nbc'
-                    logo={nbcInfo.logo_link}
-                    name={nbcInfo.name || 'Название НКП отсутствует'}
-                    alias={nbcInfo.alias}
-                    profileId={nbcProfileId}
-                    canEdit={canEdit}
-                    subscribed={nbcInfo.subscribed}
-                    onSubscriptionUpdate={onSubscriptionUpdate}
-                    isAuthenticated={isAuthenticated}
-                />
-            }
             <Card>
                 <div className="nbc-page__breadcrumbs">
                     <div className="nbc-page__breadcrumbs-title">

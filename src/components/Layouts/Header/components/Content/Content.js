@@ -21,8 +21,6 @@ const Content = ({
     userType,
 }) => {
 
-    console.log('name', name)
-
     return (
         <div className="widget-login__content">
             <div className="widget-login__userpic-wrap">

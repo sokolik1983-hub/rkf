@@ -3,7 +3,7 @@ import {isFederationAlias} from "../../utils";
 import {useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import useIsMobile from "../../utils/useIsMobile";
-import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo} from "./config";
+import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo, endpointGetNBCInfo} from "./config";
 import {Request} from "../../utils/request";
 import {clubNav} from "../../pages/Club/config";
 import {kennelNav} from "../../pages/Nursery/config";
@@ -20,7 +20,7 @@ import HeaderMobileMenu from "./components/HeaderMobileMenu";
 
 import "./styles.scss";
 
-const MenuComponentNew = ({breeds}) => {
+const MenuComponentNew = () => {
     const [exhibAlias, setExhibAlias] = useState(null);
     const [currentPageUserInfo, setCurrentPageUserInfo] = useState(null);
     const [currentPageNav, setCurrentPageNav] = useState(null);
@@ -29,7 +29,6 @@ const MenuComponentNew = ({breeds}) => {
     const [linkFeesId, setLinkFeesId] = useState('');
     const [linkFedDetails, setLinkFedDetails] = useState('');
     const [openUserMenu, setOpenUserMenu] = useState(false);
-    const strOfBreeds = breeds?.map(obj => `BreedIds=${obj.breed_id}`);
 
     const moreRef = useRef();
 
@@ -66,7 +65,7 @@ const MenuComponentNew = ({breeds}) => {
                 (url === 'kennel' && linkAlias) ?
                     kennelNav(linkAlias) :
                     (url === 'nbc' && linkAlias) ?
-                        NBCNav(linkAlias, strOfBreeds) :
+                        NBCNav(linkAlias) :
                         userNav(linkAlias)
     }
 
@@ -75,6 +74,7 @@ const MenuComponentNew = ({breeds}) => {
             (userType === 1) && setCurrentPageNav(userNavDocs(userAlias));
             (userType === 3 || userType === 5) && setCurrentPageNav(clubNavDocs(userAlias));
             (userType === 4) && setCurrentPageNav(kennelNavDocs(userAlias));
+            (userType === 7) && setCurrentPageNav(NBCNav(userAlias));
         } else {
             setCurrentPageNav(isUserProfilePage ?
                 getMenu(url, linkAlias)
@@ -84,19 +84,15 @@ const MenuComponentNew = ({breeds}) => {
         }
         Request({ //подтягиваем инфу о юзере, на странице которого находимся (нужно для моб. меню)
             url:
-                url === "club"
-                    ?
-                    endpointGetClubInfo + linkAlias
-                    :
-                    url === "kennel"
-                        ?
-                        endpointGetNurseryInfo + linkAlias
-                        :
-                        url === "user"
-                            ?
-                            endpointGetUserInfo + linkAlias
-                            :
-                            endpointGetClubInfo + linkAlias
+                url === "nbc" ?
+                    endpointGetNBCInfo + linkAlias :
+                        url === "club" ?
+                        endpointGetClubInfo + linkAlias :
+                            url === "kennel" ?
+                                endpointGetNurseryInfo + linkAlias :
+                                url === "user" ?
+                                    endpointGetUserInfo + linkAlias :
+                                    endpointGetClubInfo + linkAlias
         }, data => {
             setCurrentPageUserInfo({...data });
         }, error => {
@@ -209,7 +205,6 @@ const MenuComponentNew = ({breeds}) => {
             if(currentPageUserInfo?.club_alias === 'rkf' || currentPageUserInfo?.club_alias === 'rkf-online') {
                 const newNavWithoutDocLinks = currentPageNav.filter(item =>(item.id !== 7 && item.id !== 8));
                 setCurrentPageNav(newNavWithoutDocLinks);
-
             } else {
                 const newNavWithDocLinks = currentPageNav?.map(item => (item.id === 7) ? {...item, to: linkFeesId} : (item.id === 8) ? {...item, to: linkFedDetails}  : item)
                 setCurrentPageNav(newNavWithDocLinks);
@@ -228,6 +223,17 @@ const MenuComponentNew = ({breeds}) => {
     useEffect(() => {
         checkIsPage(exhibAlias)
     }, [exhibAlias]);
+
+    useEffect(() => {
+        const strOfBreeds = currentPageUserInfo?.breeds?.map(obj => `BreedIds=${obj.breed_id}`);
+        if(currentPageUserInfo?.user_type === 7) {
+            if(isUserProfilePage) {
+                setCurrentPageNav(NBCNav(currentPageUserInfo?.alias, strOfBreeds));
+            } else {
+                setCurrentPageNav(deleteNotification(NBCNav(currentPageUserInfo?.alias, strOfBreeds)));
+            }
+        }
+    }, [currentPageUserInfo]);
 
     return (
         <>
