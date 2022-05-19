@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from 'formik';
 import {SvgSelector} from './icons';
-import StickyBox from 'react-sticky-box';
 import Card from '../../components/Card';
 import {editForm, sections} from './config';
 import MainPage from './components/MainPage';
@@ -11,13 +10,12 @@ import BankInfo from "./components/BankInfo";
 
 const RenderFields = ({
         formik,
-        isOpenFilters,
-        setShowFilters,
         randomKeyGenerator,
 }) => {
     const [activeSection, setActiveSection] = useState(0);
 
     const {
+        name,
         alias,
         comment,
         web_site,
@@ -39,6 +37,7 @@ const RenderFields = ({
         <div className="nursery-edit__inner">
             <div className="nursery-edit__inner-left">
                 {activeSection === 0 ? <MainPage
+                        name={name}
                         alias={alias}
                         formik={formik}
                         web_site={web_site}

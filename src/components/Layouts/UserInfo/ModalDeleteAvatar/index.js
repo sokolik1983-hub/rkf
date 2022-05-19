@@ -31,18 +31,17 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
 
     const deleteAvatar = async () => {
         setLoading(true);
-
-        await Request({
-            url: currentLink,
-            method: 'DELETE'
-        }, () => {
-            closeModal();
-            // updateInfo(true);
-            !pageBanner && ls.set('user_info', { ...ls.get('user_info'), logo_link: '' });
-            window.location.reload();
-        }, error => {
-            handleError(error);
-        });
+            await Request({
+                url: currentLink,
+                method: 'DELETE'
+            }, () => {
+                closeModal();
+                // updateInfo(true);
+                !pageBanner && !owner && ls.set('user_info', { ...ls.get('user_info'), logo_link: '' });
+                window.location.reload();
+            }, error => {
+                handleError(error);
+            });
 
         setLoading(false);
     };
@@ -53,7 +52,15 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
     }
 
     return (
-        <Modal className="delete-avatar-modal" showModal={true} handleClose={handleClose} handleX={handleClose} headerName={pageBanner ? "Удаление заставки" : "Удаление аватара"}>
+        <Modal
+            className="delete-avatar-modal"
+            showModal={true}
+            handleClose={handleClose}
+            handleX={handleClose}
+            headerName={pageBanner ?
+                "Удаление заставки" :
+                "Удаление аватара"
+        }>
             <div className="delete-avatar-modal__content">
                 {loading ?
                     <Loading centered={false} /> :

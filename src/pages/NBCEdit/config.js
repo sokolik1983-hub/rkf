@@ -64,9 +64,13 @@ export const editForm = {
     method: 'PUT',
     action: '/api/NationalBreedClub/update',
     fields: {
+        // name: {
+        //     name: "name",
+        //     label: "Название НКП",
+        // },
         alias: {
             name: "alias",
-            label: "Название НКП на латинице",
+            label: "rkf.online/",
         },
         comment: {
             name: "comment",
@@ -103,11 +107,14 @@ export const editForm = {
             },
         },
         social_networks: [],
+        documents: [],
     },
     validationSchema: object().shape({
         alias: string()
             .matches(/^\w+$/, 'Допускаются цифры, латинские буквы и нижнее подчеркивание')
             .required(emptyFieldMsg),
+        // name: string()
+        //     .required(emptyFieldMsg),
         web_site: string()
             .url('Адрес сайта должен начинаться с "http://" либо "https://"'),
         bank_comment: string(),
@@ -123,6 +130,13 @@ export const editForm = {
             contact_type_id: number(),
             is_main: boolean()
         })),
+        // documents: array().of(object().shape({
+        //     name: string()
+        //         .required(emptyFieldMsg),
+        //     url: string()
+        //         .url('Ссылка должна начинаться с "http://" либо "https://"')
+        //         .required(emptyFieldMsg)
+        // })),
         social_networks: array().of(object().shape({
             site: string()
                 .url('Ссылка должна начинаться с "http://" либо "https://"')
@@ -134,6 +148,7 @@ export const editForm = {
 };
 
 export const defaultValues = {
+    // name: '',
     alias: '',
     comment: '',
     web_site: '',
@@ -154,5 +169,10 @@ export const defaultValues = {
         site: '',
         description: '',
         social_network_type_id: 1
+    }],
+    documents: [{
+        id: null,
+        name: '',
+        url: ''
     }],
 };

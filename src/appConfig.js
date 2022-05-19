@@ -253,7 +253,7 @@ const appRoutes = [
         component: LoadableModules.LoadableNBCDocuments
     },
     {
-        exact: true,
+        exact: false,
         path: '/nbc/:alias/uploaded-documents/',
         component: LoadableModules.LoadableNBCUploadedDocuments
     },
