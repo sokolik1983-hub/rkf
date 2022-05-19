@@ -69,7 +69,7 @@
       .ReactCollapse--collapse {
         min-height: 175px;
         transition: height 500ms;
-        margin-bottom: -15px;
+        margin-bottom: -25px;
 
         @media (max-width: 440px) {
           min-height: 115px;
@@ -183,9 +183,9 @@
         &:before {
           content: "";
           display: inline-block;
-          width: 12px;
-          height: 16px;
-          margin-right: 6px;
+          width: 20px;
+          height: 20px;
+          margin:3px 9px -5px 1px;
           background: url("/static/icons/ico-document-link.svg") no-repeat center;
         }
       }
