@@ -21,22 +21,24 @@ import "./index.scss";
 
 
 const ExhibitionInfo = ({
-                            breed_types,
-                            canEdit,
-                            comments,
-                            dateEnd,
-                            dateStart,
-                            dates,
-                            description,
-                            documents_links,
-                            exhibitionId,
-                            judges,
-                            national_breed_club_name,
-                            rank_types,
-                            reportsDateEnd,
-                            reports_link,
-                        }) => {
+    breed_types,
+    canEdit,
+    comments,
+    dateEnd,
+    dateStart,
+    dates,
+    description,
+    documents_links,
+    exhibitionId,
+    judges,
+    national_breed_club_name,
+    rank_types,
+    reportsDateEnd,
+    reports_link,
+}) => {
     const [judge, setJudge] = useState([]);
+    const [judgeSent, setJudgeSent] = useState([]);
+    const [judgeIds, setJudgeIds] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const {dictionary: rankDictionary} = useDictionary('rank_type');
     const {dictionary: breedDictionary} = useDictionary('breed_types');
@@ -45,12 +47,37 @@ const ExhibitionInfo = ({
     const isMobile = useIsMobile(990);
 
     useEffect(() => {
-        if (showModal) {
-            blockContent(true);
-        } else {
-            blockContent(false);
-        }
+            blockContent(showModal);
     }, [showModal]);
+
+    const onChange = (id) => {
+        setJudgeIds(
+            judgeIds.includes(id) ?
+                judgeIds.filter(elem => elem !== id )
+                :
+                [...judgeIds, id]
+        );
+    }
+
+    console.log(judgeIds)
+    console.log(judge)
+
+
+
+    const handleSubmit = async () => {
+        await Request({
+                url: `/api/exhibitions/invite?exhibitionId=${exhibitionId}`,
+                method: 'POST',
+                data: judgeIds
+
+            }, () => {
+                setJudgeSent(judgeIds);
+            },
+            error => {
+                console.log(error);
+            }
+        )
+    };
 
     const getJudgeList = async () => {
         await Request({
@@ -83,11 +110,17 @@ const ExhibitionInfo = ({
                     <h4 className="exhibition-info__title">Информация о мероприятии</h4>
                     {dates &&
                         <>
-                            <h5 className="exhibition-info__subtitle">{`${declension(dates.length, ['Дата', 'Даты', 'Даты'])} проведения:`}</h5>
+                            <h5 className="exhibition-info__subtitle">
+                                {`${declension(dates.length, ['Дата', 'Даты', 'Даты'])} проведения:`}
+                            </h5>
                             <div className="exhibition-info__dates">
                                 {dates.map((date, i) => (
                                     <p key={i} className="exhibition-info__date">
-                                        {`${capitalizeFirstLetter(getLocalizedWeekDay(transformDateSafariFriendly(date)))}, ${date.day < 10 ? '0' + date.day : date.day}.${date.month < 10 ? '0' + date.month : date.month}.${date.year}${date.time_start ? ' c ' + timeSecondsCutter(date.time_start) : ''}${date.time_end ? ' до ' + timeSecondsCutter(date.time_end) + ' по МСК' : ''}`}
+                                        {`${capitalizeFirstLetter(getLocalizedWeekDay(transformDateSafariFriendly(date)))}, 
+                                        ${date.day < 10 ? '0' + date.day : date.day}.
+                                        ${date.month < 10 ? '0' + date.month : date.month}.
+                                        ${date.year}${date.time_start ? ' c ' + timeSecondsCutter(date.time_start) : ''}
+                                        ${date.time_end ? ' до ' + timeSecondsCutter(date.time_end) + ' по МСК' : ''}`}
                                     </p>
                                 ))}
                             </div>
@@ -201,112 +234,128 @@ const ExhibitionInfo = ({
                         <>
                             <h3>Список судей/специалистов</h3>
                             <ul className="exhibition-page__judge-list">
-                                {judge.map(data =>
-                                    <li key={data.id} className="exhibition-page__judge-item judge-item">
+                                {judge.map(judge_item =>
+                                    <li key={judge_item.id} className="exhibition-page__judge-item judge-item">
                                         {!isMobile ?
                                             <div className="judge-item__wrap">
                                                 <div className="judge-item__name">
-                                                    {data.owner_alias ?
+                                                    {judge_item.owner_alias ?
                                                         <Link
                                                             className="judge-item__name-rus"
-                                                            to={`/user/${data.owner_alias}`}
+                                                            to={`/user/${judge_item.owner_alias}`}
                                                         >
-                                                            <p>{data.last_name && `${data.last_name} `}</p>
-                                                            <p>{data.first_name && `${data.first_name} `}
-                                                                {data.second_name}
-                                                                {data.owner_alias && judgeIcon}
-                                                                {data.all_breeder &&
+                                                            <p>{judge_item.last_name && `${judge_item.last_name} `}</p>
+                                                            <p>{judge_item.first_name && `${judge_item.first_name} `}
+                                                                {judge_item.second_name}
+                                                                {judge_item.owner_alias && judgeIcon}
+                                                                {judge_item.all_breeder &&
                                                                     allbreedJudgeIcon
                                                                 }
                                                             </p>
                                                         </Link>
                                                         :
                                                         <span className="judge-item__name-rus">
-                                                            <p>{data.last_name && `${data.last_name} `}</p>
-                                                            <p>{data.first_name && `${data.first_name} `}
-                                                                {data.second_name}
-                                                                {data.owner_alias && judgeIcon}
-                                                                {data.all_breeder &&
+                                                            <p>{judge_item.last_name && `${judge_item.last_name} `}</p>
+                                                            <p>{judge_item.first_name && `${judge_item.first_name} `}
+                                                                {judge_item.second_name}
+                                                                {judge_item.owner_alias && judgeIcon}
+                                                                {judge_item.all_breeder &&
                                                                     allbreedJudgeIcon
                                                                 }
                                                             </p>
                                                         </span>
                                                     }
                                                     <span className="judge-item__name-eng">
-                                                        {data.last_name_lat}{data.first_name_lat ? ' ' + data.first_name_lat : ''}
+                                                        {judge_item.last_name_lat}
+                                                        {judge_item.first_name_lat ? ' ' + judge_item.first_name_lat : ''}
                                                     </span>
                                                     <span className="judge-item__cert-number">
-                                                        Лист судьи №{data.cert_number}
+                                                        Лист судьи №{judge_item.cert_number}
                                                     </span>
                                                 </div>
                                                 <div className="judge-item__info">
                                                     <span>
                                                         Город:
-                                                        <p>{data.city_name}</p>
+                                                        <p>{judge_item.city_name}</p>
                                                     </span>
                                                     <span>
                                                         Телефон:
-                                                        <p>{data.phone}</p>
+                                                        <p>{judge_item.phone}</p>
                                                     </span>
                                                     <span>
                                                         E-mail:
-                                                        <p>{data.email}</p>
+                                                        <p>{judge_item.email}</p>
                                                     </span>
                                                 </div>
                                                 <div className="judge-item__checkbox-wrap">
                                                     <input type="checkbox"
-                                                           className="judge-item__checkbox"
-                                                           id={data.id}
+                                                           className={`judge-item__checkbox${(judge_item.is_invited || 
+                                                               judgeSent.includes(judge_item.id)) ? 
+                                                                   '__disabled' 
+                                                                   : 
+                                                                   ''}`}
+                                                           id={judge_item.id}
+                                                           onChange={() => onChange(judge_item.id)}
+                                                           disabled={judge_item.is_invited || judgeSent.includes(judge_item.id) || false}
+                                                           checked={judge_item.is_invited ? true : null}
                                                     />
-                                                    <label htmlFor={data.id}></label>
+                                                    <label htmlFor={judge_item.id}></label>
                                                 </div>
                                             </div>
                                             :
                                             <div className="judge-item__wrap">
                                                 <div className="judge-item__name">
-                                                    {data.owner_alias ?
+                                                    {judge_item.owner_alias ?
                                                         <Link
                                                             className="judge-item__name-rus"
-                                                            to={`/user/${data.owner_alias}`}
+                                                            to={`/user/${judge_item.owner_alias}`}
                                                         >
-                                                            <p>{data.last_name && `${data.last_name} `}</p>
-                                                            <p>{data.first_name && `${data.first_name} `}
-                                                                {data.second_name}
-                                                                {data.owner_alias && judgeIcon}
-                                                                {data.all_breeder &&
+                                                            <p>{judge_item.last_name && `${judge_item.last_name} `}</p>
+                                                            <p>{judge_item.first_name && `${judge_item.first_name} `}
+                                                                {judge_item.second_name}
+                                                                {judge_item.owner_alias && judgeIcon}
+                                                                {judge_item.all_breeder &&
                                                                     allbreedJudgeIcon
                                                                 }
                                                             </p>
                                                         </Link>
                                                         :
                                                         <span className="judge-item__name-rus">
-                                                            <p>{data.last_name && `${data.last_name} `}</p>
-                                                            <p>{data.first_name && `${data.first_name} `}
-                                                                {data.second_name}
-                                                                {data.owner_alias && judgeIcon}
-                                                                {data.all_breeder &&
+                                                            <p>{judge_item.last_name && `${judge_item.last_name} `}</p>
+                                                            <p>{judge_item.first_name && `${judge_item.first_name} `}
+                                                                {judge_item.second_name}
+                                                                {judge_item.owner_alias && judgeIcon}
+                                                                {judge_item.all_breeder &&
                                                                     allbreedJudgeIcon
                                                                 }
                                                             </p>
                                                         </span>
                                                     }
                                                     <span className="judge-item__name-eng">
-                                                        {data.last_name_lat}{data.first_name_lat ? ' ' + data.first_name_lat : ''}
+                                                        {judge_item.last_name_lat}
+                                                        {judge_item.first_name_lat ? ' ' + judge_item.first_name_lat : ''}
                                                     </span>
                                                     <span className="judge-item__cert-number">
-                                                        Лист судьи №{data.cert_number}
+                                                        Лист судьи №{judge_item.cert_number}
                                                     </span>
                                                 </div>
                                                 <div className="judge-item__info">
                                                     <span>
-                                                        {data.city_name}
+                                                        {judge_item.city_name}
                                                     </span>
                                                     <div className="judge-item__checkbox-wrap">
                                                         <input type="checkbox"
-                                                               className="judge-item__checkbox"
-                                                               id={data.id}
+                                                               className={`judge-item__checkbox${(judge_item.is_invited || 
+                                                                   judgeSent.includes(judge_item.id)) ?
+                                                                       '__disabled'
+                                                                       :
+                                                                       ''}`}
+                                                               id={judge_item.id}
+                                                               onChange={() => onChange(judge_item.id)}
+                                                               disabled={judge_item.is_invited || judgeSent.includes(judge_item.id) || false}
+                                                               checked={judge_item.is_invited ? true : null}
                                                         />
-                                                        <label htmlFor={data.id}></label>
+                                                        <label htmlFor={judge_item.id}></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -314,12 +363,13 @@ const ExhibitionInfo = ({
                                     </li>
                                 )}
                             </ul>
-                            {/*Кнопка закомментирована дл появления функционала*/}
-                            {/*<Button*/}
-                            {/*    primary={true}*/}
-                            {/*>*/}
-                            {/*    Выбрать*/}
-                            {/*</Button>*/}
+                            <Button
+                                primary={true}
+                                disabled={judgeIds.length === 0}
+                                onClick={handleSubmit}
+                            >
+                                Выбрать
+                            </Button>
                         </> :
                         <p>Подходящих судей не найдено</p>
                     }
