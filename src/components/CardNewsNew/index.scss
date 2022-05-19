@@ -43,7 +43,7 @@
       display: grid;
       grid-template-rows: 1fr 1fr;
       margin: 0 10px;
-      gap: 10px;
+      gap: 2px;
       list-style-type: none;
 
       & li {
@@ -67,6 +67,9 @@
 
       &.__one {
         display: block;
+        & li {
+          background-size: contain;
+        }
       }
 
       &.__two {
@@ -93,6 +96,11 @@
         grid-template-areas:
         "first first first second second second"
         "third third fourth fourth fifth fifth";
+      }
+
+      &.__all {
+        display: flex;
+        flex-direction: column;
       }
 
 
