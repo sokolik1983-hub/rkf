@@ -9,7 +9,6 @@ import Counter from "../../CounterComponent";
 
 import "./index.scss";
 
-
 const UserContacts = ({
     id,
     legal_city,
