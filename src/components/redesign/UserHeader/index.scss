@@ -22,7 +22,9 @@
         top: 50%;
         right: 0;
         transform: translateY(-50%);
-
+        @media (max-width: 450px) {
+          top: 0;
+        }
         & .ya-share2__popup {
           top: 77px;
         }
@@ -228,6 +230,14 @@
       display: flex;
       flex-direction: column;
       align-items: normal;
+      position: relative;
+      @media (max-width: 450px) {
+        & .Share {
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
     }
 
     &__logo-wrap {
