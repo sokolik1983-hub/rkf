@@ -18,7 +18,7 @@ const MyComponent = ({
         <Card>
             <h3>Основная информация</h3>
             <div className="nursery-edit__main-info">
-                {/*<FormField {...name} />*/}
+                <FormField {...name} />
                 <FormField {...alias} disabled />
                 <FormField {...comment} />
             </div>

@@ -17,11 +17,14 @@ const UserContacts = ({
                           owner_name,
                           owner_position,
                           city_name,
-                          counters
+                          counters,
+                          breeds,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isHidden, setIsHidden] = useState(true);
     const CollapseRef = useRef(null);
+
+    console.log('breeds', breeds);
 
     const handleClick = e => {
         e.preventDefault();
@@ -30,7 +33,7 @@ const UserContacts = ({
 
     if (isHidden && CollapseRef && CollapseRef.current) {
         CollapseRef.current.content.offsetHeight > 150 && setIsHidden(false);
-    }
+    };
 
     const mainEmail = emails && emails.filter(item => item.contact_type_id === 2)[0];
     const mainPhone = phones && phones.filter(item => item.contact_type_id === 1)[0];
@@ -108,7 +111,11 @@ const UserContacts = ({
                 <a className={`user-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>
             }
             {!!counters &&
-                <Counter counters = {counters} profileAlias = {alias}/>
+                <Counter
+                    counters={counters}
+                    profileAlias={alias}
+                    breeds={breeds}
+                />
             }
         </Card>
     );

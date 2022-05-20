@@ -225,7 +225,7 @@ const MenuComponentNew = () => {
     }, [exhibAlias]);
 
     useEffect(() => {
-        const strOfBreeds = currentPageUserInfo?.breeds?.map(obj => `BreedIds=${obj.breed_id}`);
+        const strOfBreeds = currentPageUserInfo?.breeds?.map(obj => `BreedIds=${obj.breed_id}`).join().replaceAll(',', '&');
         if(currentPageUserInfo?.user_type === 7) {
             if(isUserProfilePage) {
                 setCurrentPageNav(NBCNav(currentPageUserInfo?.alias, strOfBreeds));

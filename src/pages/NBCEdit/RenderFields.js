@@ -30,7 +30,6 @@ const RenderFields = ({
 
     const handleSectionSwitch = (id) => {
         setActiveSection(id);
-        // setShowFilters({isOpenFilters: false});
     };
 
     return (

@@ -21,12 +21,11 @@ import UserBanner from "../UserBanner";
 import ls from "local-storage";
 import {defaultValues} from "../../../pages/NBCEdit/config";
 import MenuComponentNew from "../../MenuComponentNew";
-import Layout from "components/Layouts";
-
-import './index.scss';
 import injectReducer from "../../../utils/injectReducer";
 import reducer from "../reducer";
 import {compose} from "redux";
+
+import './index.scss';
 
 const NBCLayout = (props) => {
     const { children, login_page, setShowFilters, layoutWithFilters } = props;
