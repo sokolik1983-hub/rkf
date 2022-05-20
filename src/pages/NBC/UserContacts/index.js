@@ -24,8 +24,6 @@ const UserContacts = ({
     const [isHidden, setIsHidden] = useState(true);
     const CollapseRef = useRef(null);
 
-    console.log('breeds', breeds);
-
     const handleClick = e => {
         e.preventDefault();
         setIsOpen(!isOpen);
