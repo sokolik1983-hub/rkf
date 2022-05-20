@@ -59,19 +59,14 @@ const ExhibitionInfo = ({
         );
     }
 
-    console.log(judgeIds)
-    console.log(judge)
-
-
-
     const handleSubmit = async () => {
         await Request({
                 url: `/api/exhibitions/invite?exhibitionId=${exhibitionId}`,
                 method: 'POST',
                 data: judgeIds
-
             }, () => {
                 setJudgeSent(judgeIds);
+                setJudgeIds([])
             },
             error => {
                 console.log(error);
@@ -290,13 +285,15 @@ const ExhibitionInfo = ({
                                                 <div className="judge-item__checkbox-wrap">
                                                     <input type="checkbox"
                                                            className={`judge-item__checkbox${(judge_item.is_invited || 
-                                                               judgeSent.includes(judge_item.id)) ? 
+                                                               judgeSent.includes(judge_item.id || judgeIds.map(item=>item))) ? 
                                                                    '__disabled' 
                                                                    : 
                                                                    ''}`}
                                                            id={judge_item.id}
                                                            onChange={() => onChange(judge_item.id)}
-                                                           disabled={judge_item.is_invited || judgeSent.includes(judge_item.id) || false}
+                                                           disabled={judge_item.is_invited ||
+                                                               judgeSent.includes(judge_item.id || judgeIds.map(item=>item)) ||
+                                                               false}
                                                            checked={judge_item.is_invited ? true : null}
                                                     />
                                                     <label htmlFor={judge_item.id}></label>
@@ -346,13 +343,15 @@ const ExhibitionInfo = ({
                                                     <div className="judge-item__checkbox-wrap">
                                                         <input type="checkbox"
                                                                className={`judge-item__checkbox${(judge_item.is_invited || 
-                                                                   judgeSent.includes(judge_item.id)) ?
+                                                                   judgeSent.includes(judge_item.id || judgeIds.map(item=>item))) ?
                                                                        '__disabled'
                                                                        :
                                                                        ''}`}
                                                                id={judge_item.id}
                                                                onChange={() => onChange(judge_item.id)}
-                                                               disabled={judge_item.is_invited || judgeSent.includes(judge_item.id) || false}
+                                                               disabled={judge_item.is_invited ||
+                                                                   judgeSent.includes(judge_item.id || judgeIds.map(item=>item)) ||
+                                                                   false}
                                                                checked={judge_item.is_invited ? true : null}
                                                         />
                                                         <label htmlFor={judge_item.id}></label>
