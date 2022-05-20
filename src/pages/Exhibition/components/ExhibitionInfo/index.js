@@ -297,6 +297,11 @@ const ExhibitionInfo = ({
                                                            checked={judge_item.is_invited ? true : null}
                                                     />
                                                     <label htmlFor={judge_item.id}></label>
+                                                    {judge_item.is_invited &&
+                                                    <span>
+                                                         приглашение отправлено
+                                                    </span>
+                                                    }
                                                 </div>
                                             </div>
                                             :
@@ -354,7 +359,7 @@ const ExhibitionInfo = ({
                                                                    false}
                                                                checked={judge_item.is_invited ? true : null}
                                                         />
-                                                        <label htmlFor={judge_item.id}></label>
+                                                        <label htmlFor={judge_item.id}>111</label>
                                                     </div>
                                                 </div>
                                             </div>

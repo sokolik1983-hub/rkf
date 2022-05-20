@@ -347,6 +347,17 @@
 
             &-wrap {
               align-self: center;
+              position: relative;
+
+              & > span {
+                position: absolute;
+                top: 25px;
+                left: -25px;
+                text-align: center;
+                line-height: 12px;
+                font-size: 12px;
+                font-weight: normal;
+              }
             }
 
             &+label::before {
