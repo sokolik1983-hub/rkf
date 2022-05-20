@@ -4,7 +4,7 @@ import Card from "../../Card";
 import {formatWorkTime} from "../../../utils";
 import {timeSecondsCutter} from "../../../utils/datetime";
 import {Request} from "../../../utils/request";
-import {beautify} from "../../../utils/phone";
+import {getPhoneString} from "../../../utils/getPhoneString";
 import Counter from "../../CounterComponent";
 
 import "./index.scss";
@@ -63,20 +63,6 @@ const UserContacts = ({
     const mainEmail = contacts && contacts.filter(item => item.contact_type_id === 2)[0];
     const mainPhone = contacts && contacts.filter(item => item.contact_type_id === 1)[0];
     const showRequisites = !is_active && (!!inn || !!kpp || !!ogrn || !!bank_name || !!bic || !!rs_number);
-
-    const getPhoneString = (main_phone, contactsList) => {
-        let phonesStr = '';
-
-        if (main_phone) phonesStr += `${main_phone.value}, `;
-
-        if (contactsList && !!contactsList.length) {
-            contactsList.filter(item => item.contact_type_id === 1).slice(1).map(contact => (
-                phonesStr += `${beautify(contact.value)}, `
-            ))
-        };
-
-        return phonesStr.substring(0, phonesStr.length - 2);
-    };
 
     return (
         <Card className="user-contacts__info-wrap">

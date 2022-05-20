@@ -4,6 +4,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import ls from "local-storage";
 import {endpointGetClubInfo} from "../../ClubLayout/config";
 import {endpointGetUserInfo} from "../../UserLayout/config";
+import {endpointGetNBCInfo} from "../../../MenuComponentNew/config";
 import {connectLogin, connectWidgetLogin} from "../../../../pages/Login/connectors";
 import AuthButtons from "./AuthButtons";
 import LoginAsUser from "./LoginAsUser";
@@ -62,7 +63,7 @@ const WidgetLogin = forwardRef(
 
     const backgroundForPage = async (alias) => {
         await Request({
-            url: `${(user_type === 1) ? endpointGetUserInfo : endpointGetClubInfo}${alias}`
+            url: `${(user_type === 1) ? endpointGetUserInfo : (user_type === 7) ? endpointGetNBCInfo : endpointGetClubInfo}${alias}`
         }, data => {
             setMenuBackground(data.headliner_link);
         }, error => {

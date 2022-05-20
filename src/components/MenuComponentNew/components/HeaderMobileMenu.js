@@ -10,6 +10,9 @@ const HeaderMobileMenu = ({currentPageUserInfo, userType}) => {
 
     const getMeLinkForName = () => {
         switch(currentPageUserInfo?.user_type || userType) {
+            case 7:
+                setLinkForName(`/nbc/${currentPageUserInfo?.club_alias}`);
+                break;
             case 5:
                 setLinkForName(`/${currentPageUserInfo?.club_alias}`);
                 break;
@@ -48,6 +51,9 @@ const HeaderMobileMenu = ({currentPageUserInfo, userType}) => {
                 break;
             case 5:
                 setName(`${currentPageUserInfo?.federation_name}`);
+                break;
+            case 7:
+                setName(`${currentPageUserInfo?.name}`);
                 break;
             default:
                 break;

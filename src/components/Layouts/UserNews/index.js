@@ -6,8 +6,8 @@ import ListFilter from './ListFilter';
 import { Request } from "../../../utils/request";
 import { endpointGetNews, endpointDeleteArticle } from "./config";
 import { DEFAULT_IMG } from "../../../appConfig";
-import "./index.scss";
 
+import "./index.scss";
 
 const UserNews = ({
                       canEdit,
@@ -27,7 +27,6 @@ const UserNews = ({
 
     const getNews = async startElem => {
         setLoading(true);
-
         await Request({
             url: `${endpointGetNews}?alias=${alias}&start_element=
             ${startElem}${filters?.is_must_read ? '&is_must_read=' + filters.is_must_read : filters 
@@ -64,7 +63,6 @@ const UserNews = ({
             }, error => {
                 console.log(error.response);
             });
-
         setNeedRequest(false);
         setLoading(false);
     };
