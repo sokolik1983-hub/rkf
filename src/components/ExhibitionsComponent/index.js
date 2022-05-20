@@ -27,8 +27,6 @@ const ExhibitionsComponent = ({ alias, nbcId }) => {
             `/api/exhibitions/Exhibition/featured?Alias=${alias}&All=true` :
             '/api/exhibitions/Exhibition/featured?ElementsCount=14';
 
-    // api/exhibitions/exhibition/nbc?nbc_id=145
-
     const history = useHistory();
 
     const isMobile = useIsMobile(600);
