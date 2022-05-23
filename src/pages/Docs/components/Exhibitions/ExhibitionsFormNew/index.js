@@ -15,7 +15,6 @@ import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import {DateInput} from "../../../../../components/materialUI/DateTime";
 import {requiredValidator} from "../../../../../components/kendo/Form/validators";
 import FormComboBox from "../../../../UserEditKendo/components/FormComboBox";
-
 import {
     emailRequiredValidator,
     emailValidator,
