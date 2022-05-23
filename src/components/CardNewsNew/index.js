@@ -333,7 +333,7 @@ const CardNewsNew = forwardRef(({
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
-                        {pictures &&
+                        {pictures?.length &&
                             !showPublication ?
                             <div className={`card-news-new__media-wrap _${
                                 pictures.length === 1 ? 'one' :
@@ -354,7 +354,7 @@ const CardNewsNew = forwardRef(({
                              :
                             <ul className="card-news-new__photo-wrap __all"
                             >
-                                {pictures.map((picture, index) =>
+                                {pictures?.map((picture, index) =>
                                     <li className="card-news-new__photo"
                                         style={{
                                             backgroundImage: `url(${picture.picture_link})`
