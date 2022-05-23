@@ -359,7 +359,7 @@ const ExhibitionInfo = ({
                                                                    false}
                                                                checked={judge_item.is_invited ? true : null}
                                                         />
-                                                        <label htmlFor={judge_item.id}>111</label>
+                                                        <label htmlFor={judge_item.id}></label>
                                                     </div>
                                                 </div>
                                             </div>
