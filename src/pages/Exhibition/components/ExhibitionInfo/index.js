@@ -66,7 +66,7 @@ const ExhibitionInfo = ({
                 data: judgeIds
             }, () => {
                 setJudgeSent(judgeIds);
-                setJudgeIds([])
+                setJudgeIds([]);
             },
             error => {
                 console.log(error);
