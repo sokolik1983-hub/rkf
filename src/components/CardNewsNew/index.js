@@ -83,7 +83,6 @@ const CardNewsNew = forwardRef(({
 
     useEffect(() => {
         if ( (!isMobile && ref.current && ref.current.clientHeight > 100) || (isMobile && ref.current && ref.current.clientHeight > 200)) setCanCollapse(true);
-        console.log(ref.current.clientHeight, canCollapse);
     }, []);
 
     useEffect(() => {
@@ -320,7 +319,10 @@ const CardNewsNew = forwardRef(({
                     }
                 </div>
                 <div className="card-news-new__show-all-wrap">
-                    <div className={`card-news-new__show-all${(!pictures?.length || pictures?.length <= 1) && !canCollapse ? ' _disabled' : ''}`}
+                    <div className={`card-news-new__show-all${
+                        (!pictures?.length || pictures?.length <= 1) && 
+                        !canCollapse ? ' _disabled' : ''
+                    }`}
                             onClick={() => {
                                 pictures?.length > 1 && setShowPublication(!showPublication);
                                 canCollapse && setCollapsed(!collapsed);
