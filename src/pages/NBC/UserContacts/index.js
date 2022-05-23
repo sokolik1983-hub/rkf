@@ -53,11 +53,11 @@ const UserContacts = ({
                 {mainEmail ?
                     <div className="user-contacts__info-email">
                         <p>
-                            <span style={{ color: '#253c5e' }}>{mainEmail.description || 'E-mail'}:&nbsp;</span>
+                            <span>{mainEmail.description || 'E-mail'}:&nbsp;</span>
                             <a href={`mailto:${mainEmail.value}`}>{mainEmail.value}</a>
                         </p>
                     </div>
-                    : <div className="user-contacts__info-email"><p><span style={{ color: '#253c5e' }}>E-mail:&nbsp;</span>Не указан</p></div>
+                    : <div className="user-contacts__info-email"><p><span>E-mail:&nbsp;</span>Не указан</p></div>
                 }
                 {mainPhone || phones
                     ? <div className="user-contacts__info-phone">

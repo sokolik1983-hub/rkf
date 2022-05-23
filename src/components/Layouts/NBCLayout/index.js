@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {useSelector} from "react-redux";
-import { connectAuthVisible } from 'pages/Login/connectors';
+import { connectAuthVisible } from "pages/Login/connectors";
 import {connectShowFilters} from '../../../components/Layouts/connectors';
 import {Request} from "../../../utils/request";
 import {useHistory, useLocation, useParams, withRouter} from "react-router-dom";
@@ -25,7 +25,7 @@ import injectReducer from "../../../utils/injectReducer";
 import reducer from "../reducer";
 import {compose} from "redux";
 
-import './index.scss';
+import "./index.scss";
 
 const NBCLayout = (props) => {
     const { children, login_page, setShowFilters, layoutWithFilters } = props;
@@ -102,17 +102,16 @@ const NBCLayout = (props) => {
         setImagesLoading(true);
         await Request({
             url: `/api/photogallery/gallery?alias=${alias}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`,
-            method: 'GET'
         }, data => {
             if (data.photos.length) {
-                const modifiedNews = data.photos.map(p => {
+                const modifiedNews = data.photos.map(photo => {
                     return {
-                        id: p.id,
-                        src: p.link,
-                        thumbnail: p.small_photo.link,
-                        thumbnailWidth: p.small_photo.width,
-                        thumbnailHeight: p.small_photo.height,
-                        caption: p.caption
+                        id: photo.id,
+                        src: photo.link,
+                        thumbnail: photo.small_photo.link,
+                        thumbnailWidth: photo.small_photo.width,
+                        thumbnailHeight: photo.small_photo.height,
+                        caption: photo.caption
                     };
                 });
 
@@ -185,10 +184,10 @@ const NBCLayout = (props) => {
     };
 
     const handleDelete = async () => {
-        if (window.confirm('Вы уверены111?')) {
+        if (window.confirm('Вы уверены?')) {
             await Request({
                 url: '/api/photogallery/gallery',
-                method: "DELETE",
+                method: 'DELETE',
                 data: JSON.stringify(selectedImages.map(i => i.id))
             }, () => {
                 setShowAlert({
@@ -203,8 +202,8 @@ const NBCLayout = (props) => {
     };
 
     const onSelectImage = (index, image) => {
-        var imgs = images.slice();
-        var img = imgs[index];
+        let imgs = images.slice();
+        let img = imgs[index];
         if (img.hasOwnProperty("isSelected")) {
             img.isSelected = !img.isSelected;
         } else {
@@ -217,12 +216,10 @@ const NBCLayout = (props) => {
     const onSelectAll = () => {
         let imgs = images;
         if (!allSelected) {
-            for (let i = 0; i < imgs.length; i++)
-                imgs[i].isSelected = true;
+            imgs.forEach(img => img.isSelected = true);
         }
         else {
-            for (let i = 0; i < imgs.length; i++)
-                imgs[i].isSelected = false;
+            imgs.forEach(img => img.isSelected = false);
         }
         setImages(imgs);
         setSelectedImages(imgs.filter(i => i.isSelected === true));
@@ -242,7 +239,6 @@ const NBCLayout = (props) => {
 
     const getInfo = () => PromiseRequest('/api/NationalBreedClub/edit_info')
         .then(data => {
-            setLoading(false)
             if (data) {
                 if (data.phones && data.phones.length) {
                     data.phones.map(item => {
@@ -259,6 +255,7 @@ const NBCLayout = (props) => {
                     ...data
                 });
             }
+            setLoading(false);
         });
 
     useEffect(() => {

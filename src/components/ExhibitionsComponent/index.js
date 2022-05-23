@@ -10,17 +10,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import KendoCard from "../kendo/Card";
 import useIsMobile from "../../utils/useIsMobile";
+
 import "./index.scss";
-
-
 
 const Placeholders = [0, 1, 2, 3];
 
 const ExhibitionsComponent = ({ alias, nbcId }) => {
-
     const [exhibitions, setExhibitions] = useState(null);
-    const [isRequestEnd, setIsRequestEnd] = useState(false);
-    const [needBlock, setNeedBkock] = useState(false);
+    const [needBlock, setNeedBlock] = useState(false);
     const endpoint = nbcId ?
         `/api/exhibitions/exhibition/nbc?nbc_id=${nbcId}` :
         alias ?
@@ -33,17 +30,17 @@ const ExhibitionsComponent = ({ alias, nbcId }) => {
 
     useEffect(() => {
         if (window.innerWidth > 1180) {
-            setNeedBkock(true);
+            setNeedBlock(true);
         }
         window.addEventListener("resize", () => {
             if (window.innerWidth > 1180) {
-                setNeedBkock(true);
+                setNeedBlock(true);
             }
         });
 
         return window.removeEventListener("resize", () => {
             if (window.innerWidth > 1180) {
-                setNeedBkock(true);
+                setNeedBlock(true);
             }
         });
     }, []);
@@ -53,19 +50,19 @@ const ExhibitionsComponent = ({ alias, nbcId }) => {
             url: endpoint
         }, data => {
             setExhibitions(data);
-            setIsRequestEnd(true);
         },
             error => {
                 console.log(error.response);
                 if (error.response) alert(`Ошибка: ${error.response.status}`);
-                setIsRequestEnd(true);
             }))();
-    }, [alias ? alias : null]);
-
-    if (isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
+    }, [alias]);
 
     return (
-        <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'} ${(exhibitions?.length === 1 && isMobile) ? 'exhibitions-component__one-slide' : ''} ${alias === 'rkf' && 'rkf_profile-slider'}`}>
+        <div
+            className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'}
+             ${(exhibitions?.length === 1 && isMobile) ? 'exhibitions-component__one-slide' : ''} 
+             ${alias === 'rkf' && 'rkf_profile-slider'}`}
+        >
             <Slider
                 arrows={!!exhibitions}
                 infinite={false}
@@ -78,11 +75,8 @@ const ExhibitionsComponent = ({ alias, nbcId }) => {
                 variableWidth={true}
                 responsive={responsiveSliderConfig}
             >
-                {exhibitions ?
-                    exhibitions.map(exhibition => history.location.hash === '#kendo'
-                        ? <KendoCard className={exhibitions.length === 0} key={exhibition.id} {...exhibition} />
-                        : <ExhibitionCard isOne={exhibitions.length === 1} key={exhibition.id} {...exhibition} />) :
-                    Placeholders.map(item => <Placeholder key={item} />)
+                {exhibitions &&
+                    exhibitions.map(exhibition => <ExhibitionCard isOne={exhibitions.length === 1} key={exhibition.id} {...exhibition} />)
                 }
                 {alias && alias !== 'rkf'  && needBlock &&
                     <div className="exhibition-card__additional-block" />

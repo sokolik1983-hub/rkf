@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { AddAlbum } from "components/Gallery";
 import { Link } from "react-router-dom";
-import { DEFAULT_IMG } from 'appConfig';
-import './styles.scss';
+import { DEFAULT_IMG } from "appConfig";
+
+import "./styles.scss";
 
 const GalleryAlbums = ({ albums, match, getAlbums, canEdit }) => {
     const [showModal, setShowModal] = useState(false);

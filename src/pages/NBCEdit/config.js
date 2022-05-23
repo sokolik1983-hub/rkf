@@ -96,15 +96,14 @@ export const editForm = {
                 label: 'phone',
                 type: 'tel',
                 placeholder: '+7(___)___-__-__',
-                title: '222',
+                title: 'Формат номера: +7(999)999-99-99',
             },
         },
         emails: {
             email: {
                 label: 'email',
                 type: 'email',
-                placeholder: 'Введите электронную почту1',
-                title: 'Формат номера: +7(999)999-99-99',
+                placeholder: 'Введите электронную почту',
             },
         },
         social_networks: [],

@@ -17,64 +17,66 @@ import useIsMobile from "../../utils/useIsMobile";
 import Avatar from "../Layouts/Avatar";
 import Slider from "react-slick";
 import {blockContent} from "../../utils/blockContent";
+import {linkForUserType} from "../../utils/linkForUserType";
+import {nameForUserType} from "../../utils/nameForUserType";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
 
 const CardNewsNew = forwardRef(({
-    id,
-    name,
-    alias,
-    city,
-    create_date,
-    logo_link,
-    content,
-    url,
-    removable,
-    onAdClose,
-    citiesDict,
-    videoLink,
-    documents,
-    changeCityFilter,
-    is_advert,
-    advert_breed_id,
-    advert_breed_name,
-    advert_code,
-    advert_cost,
-    advert_number_of_puppies,
-    advert_type_name,
-    advert_type_id,
-    is_closed_advert,
-    history,
-    first_name,
-    last_name,
-    active_member,
-    dog_color,
-    dog_age,
-    dog_sex_type_id,
-    dog_city,
-    dog_name,
-    active_rkf_user,
-    pictures,
-    video_link,
-    fact_city_name,
-    fact_city_id,
-    canEdit,
-    onDelete,
-    handleSuccess,
-    redirect_link,
-    profile_id, // News item profile ID
-    profileId, // User profile ID
-    handleUnsubscribe,
-    is_liked,
-    like_count,
-    user_type,
-    member = false,
-    isFederation,
-    is_halfbreed,
-    is_all_cities
-}, CardNewsNewRef) => {
+                                    id,
+                                    name,
+                                    alias,
+                                    city,
+                                    create_date,
+                                    logo_link,
+                                    content,
+                                    url,
+                                    removable,
+                                    onAdClose,
+                                    citiesDict,
+                                    videoLink,
+                                    documents,
+                                    changeCityFilter,
+                                    is_advert,
+                                    advert_breed_id,
+                                    advert_breed_name,
+                                    advert_code,
+                                    advert_cost,
+                                    advert_number_of_puppies,
+                                    advert_type_name,
+                                    advert_type_id,
+                                    is_closed_advert,
+                                    history,
+                                    first_name,
+                                    last_name,
+                                    active_member,
+                                    dog_color,
+                                    dog_age,
+                                    dog_sex_type_id,
+                                    dog_city,
+                                    dog_name,
+                                    active_rkf_user,
+                                    pictures,
+                                    video_link,
+                                    fact_city_name,
+                                    fact_city_id,
+                                    canEdit,
+                                    onDelete,
+                                    handleSuccess,
+                                    redirect_link,
+                                    profile_id, // News item profile ID
+                                    profileId, // User profile ID
+                                    handleUnsubscribe,
+                                    is_liked,
+                                    like_count,
+                                    user_type,
+                                    member = false,
+                                    isFederation,
+                                    is_halfbreed,
+                                    is_all_cities
+                                }, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -120,17 +122,7 @@ const CardNewsNew = forwardRef(({
             <div className="card-news-new__content">
                 <div className="card-news-new__head">
                     <div className="card-news-new__left">
-                        <Link to={user_type === 4 ?
-                                    `/kennel/${alias}` :
-                                    user_type === 1 ?
-                                        `/user/${alias}` :
-                                        user_type === 3 ?
-                                        `/club/${alias}` :
-                                            user_type === 7 ?
-                                                `/nbc/${alias}` :
-                                                `/${alias}`
-                        }
-                        >
+                        <Link to={linkForUserType(user_type, alias)}>
                             <Avatar
                                 card="cardnewsnew"
                                 data="cardnewsnew"
@@ -144,50 +136,35 @@ const CardNewsNew = forwardRef(({
                                 <div className="card-news-new__left-inner">
                                     <div className="card-news-new__add-wrap">
                                         {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                        <span>
-                                            {user_type === 3
-                                                ? 'Клуб'
-                                                : user_type === 4
-                                                    ? 'Питомник'
-                                                    : user_type === 5
-                                                        ? 'Федерация'
-                                                        : user_type === 7
-                                                            ? 'НКП'
-                                                            : ''
-                                            }
-                                            &nbsp;
-                                    </span>
+                                            <span>
+                                                {nameForUserType(user_type)}
+                                                &nbsp;
+                                            </span>
                                         }
-                                        <Link to={user_type === 7 ?
-                                            `/nbc/${alias}` :
-                                            user_type === 4 ?
-                                                `/kennel/${alias}` :
-                                                user_type === 1 ?
-                                                    `/user/${alias}` :
-                                                    user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online' ?
-                                                        `/club/${alias}` :
-                                                        `/${alias}`}
-                                        >
-                                        {user_type === 1 ? first_name + ' ' + last_name : name}
-                                    </Link>
-                                    <span className="card-news-new__left-mark">
-                                        <span>
-                                            {active_rkf_user &&
-                                            <ActiveUserMark />
-                                            }</span>
-                                        <span>
-                                            {active_member &&
-                                            <FederationChoiceMark />
-                                            }
+                                        <Link to={linkForUserType(user_type, alias)}>
+                                            {user_type === 1 ? first_name + ' ' + last_name : name}
+                                        </Link>
+                                        <span className="card-news-new__left-mark">
+                                            <span>
+                                                {active_rkf_user &&
+                                                    <ActiveUserMark />
+                                                }
+                                            </span>
+                                            <span>
+                                                {active_member &&
+                                                    <FederationChoiceMark />
+                                                }
+                                            </span>
                                         </span>
-                                    </span>
                                     </div>
                                     {fact_city_name &&
-                                    <span className="card-news-new__city"
-                                          onClick={() => changeCityFilter([fact_city_id])}
-                                          title={fact_city_name}>
+                                        <span
+                                            className="card-news-new__city"
+                                            onClick={() => changeCityFilter([fact_city_id])}
+                                            title={fact_city_name}
+                                        >
                                           {fact_city_name}
-                                    </span>
+                                        </span>
                                     }
                                 </div>
                             </span>
@@ -236,8 +213,11 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={(!collapsed && (advert_type_id < 1))  ? 'card-news-new__text-wrap' : 'card-news-new__text-wrap__collapsed'}>
-
+                <div
+                    className={(!collapsed && (advert_type_id < 1))  ?
+                        'card-news-new__text-wrap' :
+                        'card-news-new__text-wrap__collapsed'}
+                >
                     {is_advert && <div className="card-news-new__ad">
                         {advert_type_name &&
                             <div className = "card-news-new__category-wrap">
@@ -248,19 +228,21 @@ const CardNewsNew = forwardRef(({
                                 <span>№{advert_code}</span>
                             </div>}
                         {
-                                <p className="card-news-new__ad-breed">
-                                    <span>Порода: </span>
-                                    <span>{!is_halfbreed ? advert_breed_name : 'Метис'}</span>
-                                </p>
+                            <p className="card-news-new__ad-breed">
+                                <span>Порода: </span>
+                                <span>{!is_halfbreed ? advert_breed_name : 'Метис'}</span>
+                            </p>
                         }
                         {
-                            dog_color && <p className="card-news-new__ad-color">
+                            dog_color &&
+                            <p className="card-news-new__ad-color">
                                 <span>Окрас: </span>
                                 <span>{dog_color}</span>
                             </p>
                         }
                         {
-                            dog_name && <p className="card-news-new__ad-name">
+                            dog_name &&
+                            <p className="card-news-new__ad-name">
                                 <span>Кличка собаки: </span>
                                 <span>{dog_name}</span>
                             </p>
@@ -277,7 +259,7 @@ const CardNewsNew = forwardRef(({
                                     }
                                 </span>
                             </p>
-                            }
+                        }
                         {
                             dog_age && <p className="card-news-new__ad-age">
                                 <span>Возраст {(advert_type_id === 5) && '(примерный)'}: </span>
@@ -310,14 +292,17 @@ const CardNewsNew = forwardRef(({
                     }
                 </div>
                 <div className="card-news-new__show-all-wrap">
-                    <div className={`card-news-new__show-all${pictures?.length || !canCollapse ? ' _disabled' : ''}`}
-                         onClick={() => setCollapsed(!collapsed)}>
+                    <div
+                        className={`card-news-new__show-all${pictures?.length || !canCollapse ? ' _disabled' : ''}`}
+                        onClick={() => setCollapsed(!collapsed)}
+                    >
                         {
                             advert_type_id < 1 && (!collapsed ? 'Подробнее...' : 'Свернуть')
                         }
                     </div>
-                    <div className={`card-news-new__show-all${!pictures || !pictures?.length ? ' _disabled' : ''}`}
-                         onClick={() => setShowModal(true)}
+                    <div
+                        className={`card-news-new__show-all${!pictures || !pictures?.length ? ' _disabled' : ''}`}
+                        onClick={() => setShowModal(true)}
                     >
                         Подробнее...
                     </div>
@@ -326,25 +311,25 @@ const CardNewsNew = forwardRef(({
                     <div className="card-news-new__media">
                         {pictures &&
                             <ul className={`card-news-new__photo-wrap __${
-                                pictures.length === 1 ? 'one' : 
-                                    pictures.length === 2 ? 'two' : 
-                                        pictures.length === 3 ? 'three' : 
-                                            pictures.length === 4 ? 'four' : 
+                                pictures.length === 1 ? 'one' :
+                                    pictures.length === 2 ? 'two' :
+                                        pictures.length === 3 ? 'three' :
+                                            pictures.length === 4 ? 'four' :
                                                 pictures.length === 5 && 'five'
                             }`}
                             >
                                 {pictures.map((picture, index) =>
-                                        <li className="card-news-new__photo"
-                                             style={{ backgroundImage: `url(${pictures.length !== 5 ? 
-                                                     picture.picture_link : 
-                                                     picture.picture_short_link
-                                             })` }}
-                                             key={index}
-                                             onClick={() => {
-                                                 setPhotoLink(picture.picture_link);
-                                                 setShowPhoto(true);
-                                             }}
-                                        />
+                                    <li className="card-news-new__photo"
+                                        style={{ backgroundImage: `url(${pictures.length !== 5 ?
+                                                picture.picture_link :
+                                                picture.picture_short_link
+                                            })` }}
+                                        key={index}
+                                        onClick={() => {
+                                            setPhotoLink(picture.picture_link);
+                                            setShowPhoto(true);
+                                        }}
+                                    />
                                 )}
                             </ul>
                         }
@@ -390,20 +375,16 @@ const CardNewsNew = forwardRef(({
                 />
             </div>
             {showModal &&
-                <Modal handleClose={() => setShowModal(false)} handleX={() => setShowModal(false)} showModal={showModal} className="card-news-new__photo-modal">
+                <Modal
+                    handleClose={() => setShowModal(false)}
+                    handleX={() => setShowModal(false)}
+                    showModal={showModal}
+                    className="card-news-new__photo-modal"
+                >
                     <div>
                         <div className="card-news-new__head">
                             <div className="card-news-new__left">
-                                <Link to={user_type === 4
-                                    ?
-                                    `/kennel/${alias}`
-                                    :
-                                    user_type === 1
-                                        ?
-                                        `/user/${alias}`
-                                        :
-                                        `/${alias}`}
-                                >
+                                <Link to={linkForUserType(user_type, alias)}>
                                     <Avatar
                                         card="cardnewsnew"
                                         data="cardnewsnew"
@@ -413,31 +394,18 @@ const CardNewsNew = forwardRef(({
                                     />
                                 </Link>
                                 <span className="card-news-new__left-name">
-                            <span className="card-news-new__left-city">
-                                <div className="card-news-new__left-inner">
+                                <span className="card-news-new__left-city">
+                                    <div className="card-news-new__left-inner">
                                     <div className="card-news-new__add-wrap">
                                         {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                             <span>
-                                            {user_type === 3
-                                                ? 'Клуб'
-                                                : user_type === 4
-                                                    ? 'Питомник'
-                                                    : user_type === 5
-                                                        ? 'Федерация'
-                                                        : ''
-                                            }
+                                            {nameForUserType(user_type)}
                                                 &nbsp;
                                     </span>
                                         }
-                                        <Link to={user_type === 4
-                                            ? `/kennel/${alias}`
-                                            : user_type === 1
-                                                ? `/user/${alias}`
-                                                : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
-                                                    ? `/club/${alias}`
-                                                    : `/${alias}`}>
-                                        {user_type === 1 ? first_name + ' ' + last_name : name}
-                                    </Link>
+                                        <Link to={linkForUserType(user_type, alias)}>
+                                            {user_type === 1 ? first_name + ' ' + last_name : name}
+                                        </Link>
                                     <span className="card-news-new__left-mark">
                                         <span>
                                             {active_rkf_user &&
@@ -451,18 +419,20 @@ const CardNewsNew = forwardRef(({
                                     </span>
                                     </div>
                                     {fact_city_name &&
-                                        <span className="card-news-new__city"
-                                              onClick={() => changeCityFilter([fact_city_id])}
-                                              title={fact_city_name}>
+                                        <span
+                                            className="card-news-new__city"
+                                            onClick={() => changeCityFilter([fact_city_id])}
+                                            title={fact_city_name}
+                                        >
                                           {fact_city_name}
-                                    </span>
+                                        </span>
                                     }
                                 </div>
-                            </span>
-                            <div className="card-news-new__left__city-inner">
-                                {formatDateTime(create_date)}
-                            </div>
-                        </span>
+                                </span>
+                                <div className="card-news-new__left__city-inner">
+                                    {formatDateTime(create_date)}
+                                </div>
+                                </span>
                             </div>
                         </div>
                         <div className={(!collapsed && (advert_type_id < 1))  ?
@@ -477,7 +447,8 @@ const CardNewsNew = forwardRef(({
                                             <p className = "card-news-new__category-value">{advert_type_name}</p>
                                         </div>
                                         <span>№{advert_code}</span>
-                                    </div>}
+                                    </div>
+                                }
                                 {
                                     <p className="card-news-new__ad-breed">
                                         <span>Порода: </span>
@@ -485,13 +456,15 @@ const CardNewsNew = forwardRef(({
                                     </p>
                                 }
                                 {
-                                    dog_color && <p className="card-news-new__ad-color">
+                                    dog_color &&
+                                    <p className="card-news-new__ad-color">
                                         <span>Окрас: </span>
                                         <span>{dog_color}</span>
                                     </p>
                                 }
                                 {
-                                    dog_name && <p className="card-news-new__ad-name">
+                                    dog_name &&
+                                    <p className="card-news-new__ad-name">
                                         <span>Кличка собаки: </span>
                                         <span>{dog_name}</span>
                                     </p>
@@ -500,13 +473,11 @@ const CardNewsNew = forwardRef(({
                                     <p className="card-news-new__ad-city">
                                         <span>Место{cityLabel && ' ' + cityLabel}: </span>
                                         <span>
-                                    {!is_all_cities && dog_city && (advert_type_id > 1)
-                                        ?
-                                        dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `)
-                                        :
-                                        'Все города'
-                                    }
-                                </span>
+                                            {!is_all_cities && dog_city && (advert_type_id > 1) ?
+                                                dog_city.map((item, i) => dog_city.length === i + 1 ? item.name : `${item.name}, `) :
+                                                'Все города'
+                                            }
+                                        </span>
                                     </p>
                                 }
                                 {
@@ -534,23 +505,24 @@ const CardNewsNew = forwardRef(({
                                 </div>}
                             </div>}
                             {!!content &&
-                                <p className={`card-news-new__text${!canCollapse ? ' _disabled' : ''}`}
-                                   ref={ref}
-                                   dangerouslySetInnerHTML={{ __html: formatText(content) }}
+                                <p
+                                    className={`card-news-new__text${!canCollapse ? ' _disabled' : ''}`}
+                                    ref={ref}
+                                    dangerouslySetInnerHTML={{ __html: formatText(content) }}
                                 />
                             }
                         </div>
                     </div>
                     <Slider
-                       adaptiveHeight={false}>
+                        adaptiveHeight={false}>
                         {pictures.map((picture, index) =>
-                                <div>
-                                    <img src={picture.picture_link} alt="" key={index}/>
-                                    <div className="card-news-new__photo-modal__count">
-                                        {`${index + 1} из ${pictures.length}`}
-                                    </div>
+                            <div>
+                                <img src={picture.picture_link} alt="" key={index}/>
+                                <div className="card-news-new__photo-modal__count">
+                                    {`${index + 1} из ${pictures.length}`}
                                 </div>
-                            )}
+                            </div>
+                        )}
                     </Slider>
                 </Modal>
             }
@@ -563,12 +535,12 @@ const CardNewsNew = forwardRef(({
                 <ViewItem />
                 {showPhoto &&
                     <Modal handleClose={() => setShowPhoto(false)}>
-                    <Lightbox
-                        images={[{ src: photoLink }]}
-                        isOpen={showPhoto}
-                        showImageCount={false}
-                    />
-                </Modal>
+                        <Lightbox
+                            images={[{ src: photoLink }]}
+                            isOpen={showPhoto}
+                            showImageCount={false}
+                        />
+                    </Modal>
                 }
             </div>
         </Card>

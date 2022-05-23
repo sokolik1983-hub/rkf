@@ -170,7 +170,7 @@ export const LoadableNBCGallery = Loadable({
 });
 
 export const LoadableNBCGalleryEdit = Loadable({
-    loader: () => import('./pages/NBCGallery/NBCGalleryEdit'),
+    loader: () => import('./pages/NBCGallery/components/NBCGalleryEdit'),
     loading: Loading
 });
 

@@ -74,7 +74,6 @@ const Counter = ({ counters, profileAlias, breeds }) => {
                         title="Мероприятия"
                     >
                         <div className="counter_component__block">
-
                             <div className="counter_component__count">
                                 <p>{counters.exhibitions_count}</p>
                             </div>

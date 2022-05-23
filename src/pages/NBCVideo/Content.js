@@ -25,7 +25,7 @@ const Content = ({
     const [hasMore, setHasMore] = useState(true);
     const [videosLoading, setVideosLoading] = useState(false);
     const {alias} = useParams();
-    let params = useParams();
+    const params = useParams();
 
     useEffect(() => {
         setPageLoaded(false);

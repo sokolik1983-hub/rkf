@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useMemo } from 'react'
-import { useDropzone } from 'react-dropzone'
-import Loading from 'components/Loading'
-import Button from 'components/Button'
-import Alert from 'components/Alert'
+import React, { useEffect, useState, useMemo } from "react"
+import { useDropzone } from "react-dropzone"
+import Loading from "components/Loading"
+import Button from "components/Button"
+import Alert from "components/Alert"
 import { Request } from "utils/request"
-import './styles.scss'
+
+import "./styles.scss"
 
 const baseStyle = {
     flex: 1,
@@ -67,14 +68,13 @@ const DndImageUpload = ({ callback, album_id }) => {
 
     const handleCaptionInput = ({ target }, name) => {
         let updatedFiles = [...files];
-        updatedFiles.find(f => f.name === name).caption = target.value;
+        updatedFiles.find(file => file.name === name).caption = target.value;
         setFiles([
             ...updatedFiles
         ]);
     };
 
     const uploadFile = (file) => {
-        console.log('file', file);
         const url = album_id
             ? `/api/photogallery?album_id=${album_id}`
             : '/api/photogallery';
@@ -93,7 +93,7 @@ const DndImageUpload = ({ callback, album_id }) => {
 
     const onSubmit = () => {
         setLoading(true);
-        Promise.all(files.map(f => uploadFile(f)))
+        Promise.all(files.map(file => uploadFile(file)))
             .then(data => {
                 setShowAlert({
                     title: "Изображения загружены!",
