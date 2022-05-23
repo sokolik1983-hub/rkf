@@ -13,6 +13,10 @@ import {endpointGetLinkNewsFeed} from "./config";
 import randomKeyGenerator from "../../utils/randomKeyGenerator";
 import useIsMobile from "../../utils/useIsMobile";
 import Avatar from "../Layouts/Avatar";
+import Slider from "react-slick";
+import {blockContent} from "../../utils/blockContent";
+import {linkForUserType} from "../../utils/linkForUserType";
+import {nameForUserType} from "../../utils/nameForUserType";
 import {Gallery} from "../Gallery";
 
 import "slick-carousel/slick/slick.css";
@@ -130,17 +134,7 @@ const CardNewsNew = forwardRef(({
             <div className="card-news-new__content">
                 <div className="card-news-new__head">
                     <div className="card-news-new__left">
-                        <Link to={user_type === 4 ?
-                                    `/kennel/${alias}` :
-                                    user_type === 1 ?
-                                        `/user/${alias}` :
-                                        user_type === 3 ?
-                                        `/club/${alias}` :
-                                            user_type === 7 ?
-                                                `/nbc/${alias}` :
-                                                `/${alias}`
-                        }
-                        >
+                        <Link to={linkForUserType(user_type, alias)}>
                             <Avatar
                                 card="cardnewsnew"
                                 data="cardnewsnew"
@@ -154,43 +148,26 @@ const CardNewsNew = forwardRef(({
                                 <div className="card-news-new__left-inner">
                                     <div className="card-news-new__add-wrap">
                                         {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                        <span>
-                                            {user_type === 3
-                                                ? 'Клуб'
-                                                : user_type === 4
-                                                    ? 'Питомник'
-                                                    : user_type === 5
-                                                        ? 'Федерация'
-                                                        : user_type === 7
-                                                            ? 'НКП'
-                                                            : ''
-                                            }
-                                            &nbsp;
-                                    </span>
+                                            <span>
+                                                {nameForUserType(user_type)}
+                                                &nbsp;
+                                            </span>
                                         }
-                                        <Link to={user_type === 7 ?
-                                            `/nbc/${alias}` :
-                                            user_type === 4 ?
-                                                `/kennel/${alias}` :
-                                                user_type === 1 ?
-                                                    `/user/${alias}` :
-                                                    user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online' ?
-                                                        `/club/${alias}` :
-                                                        `/${alias}`}
-                                        >
-                                        {user_type === 1 ? first_name + ' ' + last_name : name}
-                                    </Link>
-                                    <span className="card-news-new__left-mark">
-                                        <span>
-                                            {active_rkf_user &&
-                                            <ActiveUserMark />
-                                            }</span>
-                                        <span>
-                                            {active_member &&
-                                            <FederationChoiceMark />
-                                            }
+                                        <Link to={linkForUserType(user_type, alias)}>
+                                            {user_type === 1 ? first_name + ' ' + last_name : name}
+                                        </Link>
+                                        <span className="card-news-new__left-mark">
+                                            <span>
+                                                {active_rkf_user &&
+                                                    <ActiveUserMark />
+                                                }
+                                            </span>
+                                            <span>
+                                                {active_member &&
+                                                    <FederationChoiceMark />
+                                                }
+                                            </span>
                                         </span>
-                                    </span>
                                     </div>
                                     {fact_city_name &&
                                     <span className="card-news-new__city"
@@ -286,7 +263,7 @@ const CardNewsNew = forwardRef(({
                                     }
                                 </span>
                             </p>
-                            }
+                        }
                         {
                             dog_age && <p className="card-news-new__ad-age">
                                 <span>Возраст {(advert_type_id === 5) && '(примерный)'}: </span>

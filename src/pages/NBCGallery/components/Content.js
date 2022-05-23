@@ -1,25 +1,18 @@
-import React from "react";
 import {Link} from "react-router-dom";
-import Loading from "components/Loading";
-import Card from "components/Card";
-import { Gallery, DndImageUpload } from "components/Gallery";
-import AuthOrLogin from "pages/Login/components/AuthOrLogin";
-import Alert from "components/Alert";
-import { connectAuthVisible } from "../Login/connectors";
-import { EditAlbum } from "components/Gallery";
 import InfiniteScroll from "react-infinite-scroll-component";
-import declension from "utils/declension";
+import React from "react";
+import AuthOrLogin from "../../Login/components/AuthOrLogin";
+import Loading from "../../../components/Loading";
+import {Alert, Card} from "react-bootstrap";
+import {DndImageUpload, Gallery} from "../../../components/Gallery";
+import declension from "../../../utils/declension";
 import { DEFAULT_IMG } from "appConfig";
-import NBCLayout from "../../components/Layouts/NBCLayout";
-
-import "./index.scss";
 
 const Content = ({   match,
                      pageLoaded,
                      params,
                      canEdit,
                      album,
-                     onAlbumAddSuccess,
                      images,
                      selectedImages,
                      handleDelete,
@@ -32,7 +25,7 @@ const Content = ({   match,
                      onSelectAll,
                      imagesLoading,
                      allSelected,
-}) => {
+                 }) => {
     return (
         <AuthOrLogin>
             <>
@@ -106,12 +99,4 @@ const Content = ({   match,
     )
 };
 
-const NBCGalleryEdit = (props) => {
-    return (
-        <NBCLayout {...props}>
-            <Content />
-        </NBCLayout>
-    )
-};
-
-export default connectAuthVisible(React.memo(NBCGalleryEdit));
+export default Content;

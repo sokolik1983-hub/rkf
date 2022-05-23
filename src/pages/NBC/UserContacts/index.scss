@@ -9,6 +9,11 @@
         flex-wrap: wrap;
       }
     }
+    &-email {
+      span {
+        color: #253c5e;
+      }
+    }
 
     @media (max-width: 990px) {
       margin-top: 0;
