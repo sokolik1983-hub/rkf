@@ -110,6 +110,36 @@
     flex-flow: row;
     align-items: flex-start;
     justify-content: flex-start;
+    & .date-input__wrap {
+      position: relative;
+      & .date-input {
+        z-index: 2;
+      }
+      & .custom-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 36px;
+        height: 36px;
+        margin-top: 2px;
+        border-radius: 0 4px 4px 0;
+        background-color: #e4e7eb;
+        color: grey;
+        z-index: 1;
+        cursor: default;
+      }
+    }
+    & .date-input__wrap:nth-child(2) {
+      & .custom-icon {
+        right: 17px;
+        @media (max-width: 560px) {
+          right: 0;
+        }
+      }
+    }
     @media (max-width: 560px) {
       display: block;
       & > div:not(:last-child) {
