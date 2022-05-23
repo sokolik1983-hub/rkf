@@ -2,9 +2,7 @@ import React, {forwardRef, useEffect, useRef, useState} from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import {Link} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
-import Lightbox from "react-images";
 import ls from "local-storage";
-import Modal from "../Modal";
 import Card from "../Card";
 import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import {formatText} from "../../utils";
@@ -15,6 +13,7 @@ import {endpointGetLinkNewsFeed} from "./config";
 import randomKeyGenerator from "../../utils/randomKeyGenerator";
 import useIsMobile from "../../utils/useIsMobile";
 import Avatar from "../Layouts/Avatar";
+import {Gallery} from "../Gallery";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -84,6 +83,7 @@ const CardNewsNew = forwardRef(({
 
     useEffect(() => {
         if ( (!isMobile && ref.current && ref.current.clientHeight > 100) || (isMobile && ref.current && ref.current.clientHeight > 200)) setCanCollapse(true);
+        console.log(ref.current.clientHeight, canCollapse);
     }, []);
 
     useEffect(() => {
@@ -93,6 +93,24 @@ const CardNewsNew = forwardRef(({
             setCityLabel('нахождения');
         }
     }, [advert_type_id]);
+
+    const squareStyle = () => {
+            return {
+                height: '100%',
+                width: '100%',
+                objectFit: 'cover',
+                cursor: 'pointer'
+            }
+    };
+
+    const imagesArray = pictures?.map(picture => {
+        if (picture) {
+            return {
+                src: picture.picture_link,
+                thumbnail: picture.picture_link,
+            }
+        }
+    });
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -229,8 +247,7 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={((!collapsed && !showPublication) && (advert_type_id < 1))  ? 'card-news-new__text-wrap' : 'card-news-new__text-wrap__collapsed'}>
-
+                <div className={(!collapsed && advert_type_id < 1)  ? 'card-news-new__text-wrap' : 'card-news-new__text-wrap__collapsed'}>
                     {is_advert && <div className="card-news-new__ad">
                         {advert_type_name &&
                             <div className = "card-news-new__category-wrap">
@@ -315,32 +332,35 @@ const CardNewsNew = forwardRef(({
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
                         {pictures &&
-                            <ul className={`card-news-new__photo-wrap __${
-                                showPublication ? 'all' :
-                                    pictures.length === 1 ? 'one' :
-                                        pictures.length === 2 ? 'two' :
-                                            pictures.length === 3 ? 'three' :
-                                                pictures.length === 4 ? 'four' :
-                                                    pictures.length === 5 && 'five'
-                            }`}
+                            !showPublication ?
+                            <div className={`card-news-new__media-wrap _${
+                                pictures.length === 1 ? 'one' :
+                                    pictures.length === 2 ? 'two' :
+                                        pictures.length === 3 ? 'three' :
+                                            pictures.length === 4 ? 'four' :
+                                                pictures.length === 5 && 'five'
+                            }`}>
+                                <Gallery
+                                    items={imagesArray}
+                                    enableImageSelection={false}
+                                    imageCountSeparator="&nbsp;из&nbsp;"
+                                    tileViewportStyle={squareStyle}
+                                    thumbnailStyle={squareStyle}
+                                    backdropClosesModal={true}
+                                />
+                            </div>
+                             :
+                            <ul className="card-news-new__photo-wrap __all"
                             >
                                 {pictures.map((picture, index) =>
                                     <li className="card-news-new__photo"
                                         style={{
-                                            backgroundImage: `url(${pictures.length !== 5 ?
-                                                picture.picture_link :
-                                                picture.picture_short_link
-                                            })`
+                                            backgroundImage: `url(${picture.picture_link})`
                                         }}
                                         key={index}
-                                        onClick={() => {
-                                            setPhotoLink(picture.picture_link);
-                                            setShowPhoto(true);
-                                        }}
                                     />
                                 )}
                             </ul>
-
                         }
                         {video_link &&
                             <div className="card-news-new__video">
@@ -390,18 +410,6 @@ const CardNewsNew = forwardRef(({
         <Card className={`card-news-new`}>
             <div className={`card-news-new__wrap${is_closed_advert ? ' is_closed' : ''}`}>
                 <ViewItem />
-                {showPhoto &&
-                    <Modal handleClose={() => {
-                        setShowPhoto(false);
-                    }}
-                    >
-                    <Lightbox
-                        images={[{ src: photoLink }]}
-                        isOpen={showPhoto}
-                        showImageCount={false}
-                    />
-                </Modal>
-                }
             </div>
         </Card>
     )
