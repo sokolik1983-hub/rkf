@@ -74,6 +74,7 @@ const DndImageUpload = ({ callback, album_id }) => {
     };
 
     const uploadFile = (file) => {
+        console.log('file', file);
         const url = album_id
             ? `/api/photogallery?album_id=${album_id}`
             : '/api/photogallery';

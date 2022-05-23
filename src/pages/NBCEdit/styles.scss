@@ -1,0 +1,515 @@
+.nursery-edit {
+  $font-family: "Source Sans Pro", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 60px;
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  @media (max-width: 560px) {
+    display: block;
+  }
+
+  &__main-info > div:nth-child(2) {
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &__left {
+    width: 300px;
+    min-width: 300px;
+    margin: 0 16px 16px 0;
+    @media (max-width: 1024px) {
+      display: none !important;
+      width: 100%;
+      min-width: auto;
+      margin: 0;
+      & > div {
+        display: none;
+        position: static !important;
+      }
+    }
+
+    .Card {
+      padding: 10px !important;
+    }
+
+    .user-header {
+      padding: 0 !important;
+
+      &__content {
+        padding: 10px;
+      }
+
+      &__container {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        height: 22px;
+        margin-bottom: 14px;
+      }
+
+      &__info {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: normal;
+      }
+
+      &__logo-wrap {
+        padding: 10px;
+      }
+
+      &__logo {
+        width: 100%;
+      }
+
+      &__user {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        color: #72839c;
+
+        &-wrap {
+          position: relative;
+          margin-bottom: 10px;
+
+          &::before {
+            content: '';
+            position: absolute;
+            display: block;
+            top: -7px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #e8e8e8;
+          }
+        }
+      }
+
+      &__name {
+        color: #36f;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 20px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0;
+      }
+
+      &__federation {
+        display: block;
+        margin-bottom: 0 !important;
+        text-decoration: none;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.2px;
+        color: #72839c;
+        transition: color 0.2s linear;
+        position: relative;
+
+        &:hover {
+          color: #3366ff;
+        }
+      }
+
+      &-link {
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          display: block;
+          left: 0;
+          bottom: -10px;
+          width: 100%;
+          height: 1px;
+          background: #e8e8e8;
+        }
+      }
+
+      .btn-share {
+        margin-left: 8px;
+        width: 15px;
+        height: 20px;
+        border: none;
+        background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
+      }
+
+      .ya-share2__icon_more {
+        height: 16px;
+        background-color: white;
+
+        &:after {
+          background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
+          background-color: white;
+        }
+
+        &:hover:after {
+          background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
+          background-color: white;
+        }
+      }
+    }
+  }
+
+  &__right {
+    width: 100%;
+    @media (max-width: 560px) {
+      width: 100% !important;
+      margin-top: 0;
+      padding-bottom: 1px;
+    }
+    @media (max-width: 1024px) {
+      margin-top: 0;
+      padding-bottom: 1px;
+    }
+  }
+
+  &__inner {
+    display: flex;
+    width: 100%;
+    @media (max-width: 560px) {
+      flex-direction: column-reverse;
+    }
+
+    &-item {
+      cursor: pointer;
+      display: flex;
+      align-items: baseline;
+      color: #72839c;
+
+      svg {
+        height: 18px;
+        position: relative;
+        top: 2px;
+        font-size: 20px;
+      }
+
+      &:hover,
+      &.active {
+        color: #3366ff;
+        transition: all 0.2s linear;
+
+        & > svg > path,
+        & > svg > g > path {
+          fill: #3366ff;
+        }
+      }
+    }
+
+    &-list {
+      list-style: none;
+      margin-bottom: 0;
+      margin-right: 10px;
+
+      & li {
+        margin-left: 6px;
+        margin-top: 10px;
+      }
+    }
+
+    &-left {
+      margin-right: 16px;
+      width: 100%;
+
+      .Card {
+        margin-top: 0 !important;
+
+        h3 {
+          margin-top: 3px;
+          margin-bottom: 10px;
+          font-size: 18px;
+          line-height: 24px;
+          font-weight: normal;
+          color: #030404;
+
+          border-bottom: 1px solid #E5E5E5;
+        }
+
+        .support-link {
+          display: block;
+          margin-bottom: 12px;
+          padding-bottom: 8px;
+          text-align: end;
+          text-decoration: none;
+          color: #3366FF;
+          border-bottom: 1px solid #E5E5E5;
+        }
+      }
+
+      .k-form {
+        max-width: none !important;
+      }
+    }
+
+    &-right {
+      flex-grow: 1;
+      @media (max-width: 680px) {
+        position: fixed;
+        width: 100%;
+        top: 62px;
+        right: 0;
+        z-index: 99;
+        padding: 16px;
+        height: 100%;
+        overflow-y: auto;
+        border-radius: 5px 0 0 5px;
+        transform: translateX(100%);
+        transition: all 0.2s ease-out;
+        background: #fff;
+        &._open {
+          transform: translateX(0);
+
+          .Card {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-shadow: none;
+          }
+        }
+      }
+
+      & > .Card {
+        @media (min-width: 561px) {
+          position: fixed;
+          max-width: 230px;
+          min-width: 230px;
+        }
+      }
+    }
+
+    .Card {
+      min-width: 230px;
+      padding: 12px !important;
+    }
+
+    .k-form-buttons {
+      margin-top: unset !important;
+    }
+
+    .k-notification-group {
+      position: absolute;
+      right: 1vh;
+      top: 80vh;
+    }
+
+    .ProfileEditPageControls__save {
+      display: block;
+      margin: 0 auto;
+      padding: 0;
+      width: 154px;
+      height: 38px;
+      background: #3366FF;
+      border-radius: 4px;
+      font-size: 16px;
+      line-height: 20px;
+      color: #FFFFFF;
+
+      &:hover {
+        box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+      }
+    }
+  }
+
+  .Card {
+    margin: 0 0 16px 0;
+    padding: 25px;
+
+    div {
+      font-weight: normal;
+    }
+
+    .nursery-page__delete {
+      display: flex;
+      flex-direction: column;
+      min-height: 160px;
+
+      p {
+        text-align: center;
+        margin: 25px auto 40px;
+      }
+    ;
+
+      .button-delete__disable {
+        width: 155px;
+        height: 38px;
+        padding: 0;
+        align-self: center;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        vertical-align: center;
+        color: #FFFFFF;
+        background: #D6D6D6;
+        border: 1px solid #D6D6D6;
+        border-radius: 4px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      padding: 16px;
+    }
+    @media (min-width: 560px) {
+      .nursery-edit__profile-label {
+        display: block !important;
+        margin-top: 3px;
+        font-size: 18px;
+        color: #030404;
+        border-bottom: 1px solid #E5E5E5;
+      }
+    }
+  }
+
+  .FormGroup--inline {
+    margin-bottom: 0;
+  }
+
+  .FormInput__error {
+    position: absolute;
+    font-size: 12px;
+    line-height: 12px;
+    left: 125px;
+    bottom: -16px;
+    background-color: rgba(255, 255, 255, 0);
+    @media (max-width: 1024px) {
+      left: 0;
+    }
+  }
+
+  .FormInput {
+    display: grid;
+    grid-template-columns: 19% 79%;
+    margin-bottom: 15px;
+    justify-content: space-between;
+    flex-flow: unset;
+    align-items: center;
+    position: relative;
+    @media (max-width: 1024px) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__input,
+    &__input:disabled {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      width: 100%;
+      height: 38px;
+      border-width: 2px;
+    }
+
+    #description {
+      height: 227px;
+      @media (max-width: 768px) {
+        height: 160px;
+      }
+    }
+
+    .AliasInput {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      & > span {
+        margin-bottom: 5px;
+        margin-left: 2px;
+        color: #979797;
+      }
+
+      .FormInput__input {
+        width: 100%;
+
+      }
+    }
+
+    label {
+      text-align: right;
+      line-height: 16px;
+      grid-column: 1 / 2;
+      margin-bottom: 5px;
+      overflow: hidden;
+      @media (max-width: 1024px) {
+        display: block;
+        text-align: left;
+        white-space: normal;
+        margin-left: 2px;
+      }
+
+      &[for="name_lat"] {
+        position: relative;
+        height: 36px;
+        overflow: visible;
+      }
+
+
+      &[for="description"] {
+        position: relative;
+        top: -70px;
+        @media (max-width: 1024px) {
+          top: 0;
+        }
+      }
+
+      &[for="alias"] {
+        white-space: nowrap;
+        position: relative;
+        top: 14px;
+        @media (max-width: 1220px) {
+          white-space: unset;
+        }
+        @media (max-width: 1024px) {
+          top: 5px;
+        }
+        @media (max-width: 560px) {
+          top: 0;
+        }
+      }
+    }
+
+    &--select > div:nth-child(2) {
+      display: block;
+      height: 42px;
+
+      > div {
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
+    }
+
+    input[name='address.postcode'] {
+      height: 42px;
+    }
+  }
+
+  &__is-valid {
+    display: flex;
+    justify-content: center;
+    text-align: right;
+    color: red;
+  }
+}
+.header__filters {
+  & > span {
+    font-size: 0;
+
+    &::before {
+      display: block;
+      padding-top: .5px;
+      font-size: 13px;
+      content: "Разделы";
+    }
+  }
+  @media (min-width: 681px) {
+    display: none;
+  }
+}
+

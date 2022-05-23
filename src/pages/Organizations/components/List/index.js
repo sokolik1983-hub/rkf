@@ -18,6 +18,7 @@ const OrganizationsList = (filters) => {
         await Request({
             url: `${endpointGetOrganizations}${buildUrlParams({ ...filters , start_element: startElem})}`
         }, data => {
+            console.log('data', data);
             if (data.length) {
                 if (data.length < 10) {
                     setHasMore(false);

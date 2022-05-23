@@ -116,11 +116,12 @@ const Notifications = forwardRef(
         }
 
         const getNewsFeedLink = (noId = false) => {
-            const buildUrl = (id = '') => user_type === 1
-                ? `/user/${alias}/news-feed/${id}`
-                : user_type === 3 || user_type === 5
-                    ? `/${alias}/news-feed/${id}`
-                    : `/kennel/${alias}/news-feed/${id}`;
+            const buildUrl = (id = '') => user_type === 1 ?
+                `/user/${alias}/news-feed/${id}` : user_type === 3 ?
+                    `/club/${alias}/news-feed/${id}` : user_type === 5 ?
+                        `/${alias}/news-feed/${id}` : user_type === 7 ?
+                            `/nbc/${alias}/news-feed/${id}` :
+                            `/kennel/${alias}/news-feed/${id}`;
             if (noId) return buildUrl();
             if (currentCategory === 3) {
                 return buildUrl(4);

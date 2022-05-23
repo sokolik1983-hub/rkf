@@ -9,10 +9,10 @@ import {blockContent} from '../../../../utils/blockContent';
 import './index.scss';
 
 
-const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner }) => {
+const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
-    const currentLink = pageBanner ? '/api/headerpicture' : '/api/avatar';
+    const currentLink = pageBanner ? '/api/headerpicture' : owner ? '/api/nbcownerpicture' : '/api/avatar';
 
     const handleError = e => {
         if (e.response) {
@@ -31,18 +31,16 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner }) => {
 
     const deleteAvatar = async () => {
         setLoading(true);
-
-        await Request({
-            url: currentLink,
-            method: 'DELETE'
-        }, () => {
-            closeModal();
-            // updateInfo(true);
-            !pageBanner && ls.set('user_info', { ...ls.get('user_info'), logo_link: '' });
-            window.location.reload();
-        }, error => {
-            handleError(error);
-        });
+            await Request({
+                url: currentLink,
+                method: 'DELETE'
+            }, () => {
+                closeModal();
+                !pageBanner && !owner && ls.set('user_info', { ...ls.get('user_info'), logo_link: '' });
+                window.location.reload();
+            }, error => {
+                handleError(error);
+            });
 
         setLoading(false);
     };
@@ -53,7 +51,15 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner }) => {
     }
 
     return (
-        <Modal className="delete-avatar-modal" showModal={true} handleClose={handleClose} handleX={handleClose} headerName={pageBanner ? "Удаление заставки" : "Удаление аватара"}>
+        <Modal
+            className="delete-avatar-modal"
+            showModal={true}
+            handleClose={handleClose}
+            handleX={handleClose}
+            headerName={pageBanner ?
+                "Удаление заставки" :
+                "Удаление аватара"
+        }>
             <div className="delete-avatar-modal__content">
                 {loading ?
                     <Loading centered={false} /> :

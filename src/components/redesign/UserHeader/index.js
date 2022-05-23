@@ -9,7 +9,6 @@ import UserActionControls from "../../../components/UserActionControls";
 
 import "./index.scss";
 
-
 const UserHeader = ({
     user,
     userType,
@@ -37,6 +36,8 @@ const UserHeader = ({
             return 'Федерация';
         } else if (user === 'nursery') {
             return 'Питомник';
+        } else if (user === 'nbc') {
+            return 'НКП';
         } else {
             return 'Клуб';
         }
@@ -56,7 +57,7 @@ const UserHeader = ({
             <div className="user-header__content">
                 <div className="user-header__info">
                     <div className="user-header__wrap">
-                        <div>
+                        <div className="user-header__inner">
                             <section
                                 className={`user-header__name-wrap${setUserType(user, alias) === 'Федерация' && canEdit ? ' _editable' : ''}`}>
                                 <div className="user-header__user-wrap">
@@ -95,13 +96,18 @@ const UserHeader = ({
                                 canEdit &&
                                 <div className="widget-login__button-wrap">
                                     <Link
-                                        to={`/${setUserType(user, alias) === 'Питомник' ? 'kennel' : 'client'}/${alias}/edit`}
+                                        to={`/${
+                                            setUserType(user, alias) === 'Питомник' ?
+                                            'kennel' :
+                                                setUserType(user, alias) === 'НКП' ?
+                                                    'nbc' : 'client'
+                                        }/${alias}/edit`
+                                    }
                                         className="widget-login__button"
                                     >
                                         Редактировать профиль
                                     </Link>
                                 </div>
-
                             }
                             {
                                 !canEdit && isAuthenticated && <>
