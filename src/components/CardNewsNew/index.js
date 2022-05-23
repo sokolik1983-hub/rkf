@@ -333,8 +333,8 @@ const CardNewsNew = forwardRef(({
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
-                        {pictures &&
-                            !showPublication ?
+                        {pictures?.length &&
+                            (!showPublication ?
                             <div className={`card-news-new__media-wrap _${
                                 pictures.length === 1 ? 'one' :
                                     pictures.length === 2 ? 'two' :
@@ -362,7 +362,7 @@ const CardNewsNew = forwardRef(({
                                         key={index}
                                     />
                                 )}
-                            </ul>
+                            </ul>)
                         }
                         {video_link &&
                             <div className="card-news-new__video">
