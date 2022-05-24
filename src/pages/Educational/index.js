@@ -72,7 +72,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const { id,
         organizer_name,
         organizer_alias,
-        federation_name,
         organizer_logo,
         picture_link,
         date_begin,
@@ -150,7 +149,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 <Card className="educational-page__payment-info">
                                     <div className="educational-page__payment">
                                         <h4 className="educational-page__payment-title">Реквизиты для оплаты</h4>
-                                        {/* <PropertyP name="Получатель платежа" value={club_legal_name} /> */}
                                         <PropertyP name="ИНН" value={inn} />
                                         <PropertyP name="КПП" value={kpp} />
                                         <PropertyP name="Банк" value={bank_name} />

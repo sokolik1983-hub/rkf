@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import Loading from "../../../../components/Loading";
 import Card from "../../../../components/Card";
 import {Form, FormField, FormGroup, SubmitButton} from "../../../../components/Form";
-import CustomNumber from "../../../../components/Form/Field/CustomNumber";
 import Alert from "../../../../components/Alert";
 import {ResponsibleFormConfig} from "./config";
 import {Request} from "../../../../utils/request";

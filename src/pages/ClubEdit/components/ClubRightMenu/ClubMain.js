@@ -1,6 +1,5 @@
 import React from 'react';
 import ClubInfo from '../ClubInfo';
-import ClubDocuments from '../ClubDocuments';
 import EditPageButtons from '../EditPageButtons';
 import Card from '../../../../components/Card';
 import {withRouter} from 'react-router-dom';

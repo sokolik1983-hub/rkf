@@ -87,14 +87,13 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                     <label className="сontacts__checkbox-wrap-label">Основной</label>
                                     <div className="сontacts__checkbox-wrap-inner">
                                         <FormField
-                                            disabled={phone.value.length < 16}
                                             name={`phones[${index}].is_main`}
                                             fieldType="customCheckbox"
-                                            disabled={phone.is_main}
                                             onChange={e => {
                                                 phones.forEach(phone => phone.is_main = false);
                                                 formik.setFieldValue(e.currentTarget.checked);
                                             }}
+                                            disabled={phone.value.length < 16 || phone.is_main}
                                         />
                                         {
                                             phone.is_main
