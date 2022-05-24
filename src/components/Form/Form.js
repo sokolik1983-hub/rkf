@@ -61,7 +61,7 @@ function Form({
 
         const onRequestSuccess = (data) => {
             setLoading(false);
-            onSuccess(data, nbcInfo?.name);
+            // onSuccess(data, nbcInfo ? nbcInfo?.name : name);
             if (bindSubmitForm) bindSubmitForm.getErrors({});
             actions.setSubmitting(false);
             if (resetForm) actions.resetForm(initialValues);
