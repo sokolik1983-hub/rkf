@@ -247,7 +247,7 @@ const appRoutes = [
         component: LoadableModules.LoadableNBCVideo
     },
     {
-        exact: true,
+        exact: false,
         path: '/nbc/:alias/documents/',
         component: LoadableModules.LoadableNBCDocuments
     },
