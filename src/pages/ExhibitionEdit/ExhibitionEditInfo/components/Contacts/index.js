@@ -140,9 +140,8 @@ const Contacts = ({ phones, emails, errors, formik }) => {
                                     <label className="сontacts__checkbox-wrap-label">Основной</label>
                                     <div className="сontacts__checkbox-wrap-inner">
                                         <FormField
-                                            disabled={email.value.length < 7}
+                                            disabled={email.value.length < 7 || email.is_main}
                                             name={`emails[${index}].is_main`}
-                                            disabled={email.is_main}
                                             fieldType="customCheckbox"
                                             onChange={e => {
                                                 emails.forEach(email => email.is_main = false);

@@ -17,7 +17,7 @@ import UserInfo from "../../components/Layouts/UserInfo";
 import Container from "../../components/Layouts/Container";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { connectShowFilters } from "../../components/Layouts/connectors";
-import { endpointGetRolesInfo, endpointGetUserInfo, userNav } from "../../components/Layouts/UserLayout/config";
+import { endpointGetRolesInfo, endpointGetUserInfo } from "../../components/Layouts/UserLayout/config";
 import About from "./sections/About";
 import MainInfo from "./sections/MainInfo";
 import Contacts from "./sections/Contacts";
@@ -48,7 +48,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [errorMessage, setErrorMessage] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
     const [formBusy, setFormBusy] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [rolesInfo, setRolesInfo] = useState([]);
     const [judgeInfo, setJudgeInfo] = useState([]);
     const prevRequestData = useRef();
@@ -264,7 +263,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+            : <Layout layoutWithFilters>
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="UserEdit__wrap">
                     <Container className="UserEdit content">

@@ -15,7 +15,6 @@ import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownL
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import FormComboBox from './components/FormComboBox';
 import DocumentLink from "../../../../../components/DocumentLink";
-import DocumentLinksArray from "../../DocumentLinksArray";
 import {
     nameRequiredValidator,
     documentRequiredValidator,
@@ -392,14 +391,6 @@ const Application = ({ alias, history, status }) => {
         setDocumentTypeIds(documentTypes.documents.filter(d => d.document_type_id === value));
         formProps.onChange('document_type_id', { value: docType });
         formProps.onChange('rkf_document_type_id', { value: 0 });
-    };
-
-    const handleDocumentRemove = id => {
-        formProps.valueGetter('documents').length + (values.documents.length - 1) <= 20 && setDocumentsOverflow(false);
-        setValues({
-            ...values,
-            documents: values.documents.filter(d => d.id !== id)
-        })
     };
 
     const handleRKFDocTypeChange = docType => {

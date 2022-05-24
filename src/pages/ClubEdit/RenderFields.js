@@ -15,7 +15,6 @@ import ClubContactsCard from './components/ClubRightMenu/ClubContacts';
 const RenderFields = ({
         bindSubmitClubAlias,
         bindSubmitClubBankInfo,
-        bindSubmitClubDocuments,
         bindSubmitClubEmail,
         bindSubmitClubInfo,
         bindSubmitClubLegalInfo,

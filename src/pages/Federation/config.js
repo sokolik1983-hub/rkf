@@ -1,5 +1,5 @@
 import React from "react";
-import {getPresidium, getFedFeesIdLink} from "../../components/MenuComponentNew/utils";
+import {getPresidium} from "../../components/MenuComponentNew/utils";
 
 export const federationNav = (alias) => [
     {
