@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useRef, useState} from "react";
+import React, {memo, useEffect, useRef, useState} from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import {Link} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
@@ -21,7 +21,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
 
-const CardNewsNew = forwardRef(({
+
+const CardNewsNew = ({
     id,
     name,
     alias,
@@ -73,16 +74,18 @@ const CardNewsNew = forwardRef(({
     isFederation,
     is_halfbreed,
     is_all_cities
-}, CardNewsNewRef) => {
+}) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [showPublication, setShowPublication] = useState(false);
-    const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isMobile = useIsMobile(1080);
+    const ref = useRef(null);
 
     useEffect(() => {
-        if ( (!isMobile && ref.current && ref.current.clientHeight > 100) || (isMobile && ref.current && ref.current.clientHeight > 200)) setCanCollapse(true);
+        if ((!isMobile && ref?.current?.clientHeight > 100) || (isMobile && ref?.current?.clientHeight > 200)) {
+            setCanCollapse(true);
+        }
     }, []);
 
     useEffect(() => {
@@ -93,23 +96,18 @@ const CardNewsNew = forwardRef(({
         }
     }, [advert_type_id]);
 
-    const squareStyle = () => {
-            return {
-                height: '100%',
-                width: '100%',
-                objectFit: 'cover',
-                cursor: 'pointer'
-            }
-    };
-
-    const imagesArray = pictures?.map(picture => {
-        const pictureInfo = {
-            src: picture.picture_link,
-            thumbnail: picture.picture_link,
-        }
-
-        return picture && pictureInfo;
+    //Убрать потом это говно
+    const squareStyle = () => ({
+        height: '100%',
+        width: '100%',
+        objectFit: 'cover',
+        cursor: 'pointer'
     });
+
+    const imagesArray = pictures?.filter(picture => !!picture && !!Object.keys(picture).length).map(picture => ({
+        src: picture.picture_link,
+        thumbnail: picture.picture_short_link
+    }));
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -388,6 +386,6 @@ const CardNewsNew = forwardRef(({
             </div>
         </Card>
     )
-});
+};
 
-export default React.memo(CardNewsNew);
+export default memo(CardNewsNew);
