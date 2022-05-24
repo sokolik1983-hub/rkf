@@ -13,8 +13,6 @@ import {endpointGetLinkNewsFeed} from "./config";
 import randomKeyGenerator from "../../utils/randomKeyGenerator";
 import useIsMobile from "../../utils/useIsMobile";
 import Avatar from "../Layouts/Avatar";
-import Slider from "react-slick";
-import {blockContent} from "../../utils/blockContent";
 import {linkForUserType} from "../../utils/linkForUserType";
 import {nameForUserType} from "../../utils/nameForUserType";
 import {Gallery} from "../Gallery";
@@ -77,11 +75,9 @@ const CardNewsNew = forwardRef(({
     is_all_cities
 }, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
-    const [showPhoto, setShowPhoto] = useState(false);
     const [showPublication, setShowPublication] = useState(false);
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
-    const [photoLink, setPhotoLink] = useState('');
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const isMobile = useIsMobile(1080);
 
@@ -107,12 +103,12 @@ const CardNewsNew = forwardRef(({
     };
 
     const imagesArray = pictures?.map(picture => {
-        if (picture) {
-            return {
-                src: picture.picture_link,
-                thumbnail: picture.picture_link,
-            }
+        const pictureInfo = {
+            src: picture.picture_link,
+            thumbnail: picture.picture_link,
         }
+
+        return picture && pictureInfo;
     });
 
     const ViewItem = () => {

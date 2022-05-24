@@ -15,7 +15,7 @@ import { Gallery, EditAlbum, DndImageUpload } from "../../components/Gallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
+import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "../../appConfig";
 import declension from "../../utils/declension";
@@ -37,7 +37,6 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
     const [selectedImages, setSelectedImages] = useState([]);
     const [allSelected, setAllSelected] = useState(false);
     const [startElement, setStartElement] = useState(1);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.id;
     const isMobile = useIsMobile(1080);
     const params = useParams();
@@ -175,7 +174,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                 <Loading /> :
                 error ?
                     <Redirect to="/404" /> :
-                    <Layout setNotificationsLength={setNotificationsLength}>
+                    <Layout>
                         <div className="user-page">
                             <Container className="user-page__content content">
                                 <aside className="user-page__left">

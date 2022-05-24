@@ -14,7 +14,7 @@ import Card from 'components/Card';
 import CopyrightInfo from 'components/CopyrightInfo';
 import { Request } from 'utils/request';
 import { connectAuthVisible } from 'pages/Login/connectors';
-import { endpointGetUserInfo, endpointGetRolesInfo, userNav } from './config';
+import { endpointGetUserInfo, endpointGetRolesInfo } from './config';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
@@ -34,7 +34,6 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
     const [judgeInfo, setJudgeInfo] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [checkLink, setCheckLink] = useState(false);
     const { route: alias, id } = useParams();
     const isMobile = useIsMobile(1080);
@@ -135,7 +134,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         <Loading /> :
         errorRedirect ?
             <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters={checkLink} >
+            <Layout layoutWithFilters={checkLink} >
 
                 <div className="user-page">
                     <Container className="user-page__content content">

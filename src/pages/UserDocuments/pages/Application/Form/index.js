@@ -351,14 +351,6 @@ const Application = ({ alias, history, status, owner }) => {
         formProps.onChange('rkf_document_type_id', { value: 0 });
     };
 
-    const handleDocumentRemove = id => {
-        formProps.valueGetter('documents').length + (values.documents.length - 1) <= 20 && setDocumentsOverflow(false);
-        setValues({
-            ...values,
-            documents: values.documents.filter(d => d.id !== id)
-        })
-    };
-
     const handleRKFDocTypeChange = docType => {
         const { value } = docType;
         formProps.onChange('rkf_document_type_id', docType);

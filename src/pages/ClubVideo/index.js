@@ -32,7 +32,6 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     let params = useParams();
     const alias = params.id;
     const isMobile = useIsMobile(1080);
@@ -159,7 +158,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
         <>
             {!pageLoaded && !clubInfo
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength}>
+                : <Layout>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className={`club-page__content-wrap${clubInfo.federation_name ? ' _isFederation' : ''}`}>

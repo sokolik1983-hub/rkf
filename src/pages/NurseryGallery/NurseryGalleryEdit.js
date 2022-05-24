@@ -37,7 +37,6 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     const [album, setAlbum] = useState(null);
     const [selectedImages, setSelectedImages] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     let params = useParams();
     const alias = match.params.id;
     const isMobile = useIsMobile(1080);
@@ -169,7 +168,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
             <>
                 {!pageLoaded
                     ? <Loading />
-                    : <Layout setNotificationsLength={setNotificationsLength}>
+                    : <Layout>
                         <div className="redesign">
                             <Container className="content nursery-page">
                                 <div className="nursery-page__content-wrap">

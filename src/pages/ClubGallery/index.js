@@ -36,7 +36,6 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
     const [hasMore, setHasMore] = useState(true);
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     let params = useParams();
     const history = useHistory();
     const alias = params.id;
@@ -192,7 +191,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
         <>
             {!pageLoaded && !clubInfo
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength}>
+                : <Layout>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className={`club-page__content-wrap${clubInfo.federation_name ? ' _isFederation' : ''}`}>

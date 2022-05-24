@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {connect, FieldArray} from "formik";
-import {phoneNumberMask, editForm} from "../../config";
+import {editForm} from "../../config";
 import Button from "../../../../components/Button";
 import {FormField, FormGroup} from "../../../../components/Form";
 import MaskedInput from "../../../../components/Form/Field/MaskedInput";
@@ -12,7 +12,6 @@ const Contacts = ({
     contacts,
     is_public,
     errors,
-    randomKeyGenerator,
 }) => {
     const [countPhone, setCountPhone] = useState(true);
     const [countEmail, setCountEmail] = useState(true);

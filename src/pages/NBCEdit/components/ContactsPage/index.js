@@ -2,7 +2,6 @@ import React from 'react';
 import Contacts from '../Contacts';
 import SocialNetworks from '../SocialNetworks';
 import Card from '../../../../components/Card';
-import {FormField, FormGroup} from '../../../../components/Form';
 import SubmitButton from '../../../../components/Form/SubmitButton';
 
 const ContactsPage = ({
