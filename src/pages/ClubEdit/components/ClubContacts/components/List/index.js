@@ -39,7 +39,6 @@ const ClientContactList = props => {
     return (
         <Provider value={{ contactType }}>
             <div className="ClientClubList" ref={triggerRef}>
-                22222222222222
                 {listIds.map(id => (
                     <ListContact
                         checkForDelete={checkForDelete}
@@ -51,7 +50,6 @@ const ClientContactList = props => {
                 ))}
             </div>
             <>
-                333333333333333333
                 {visibility &&
                     <ClubContactsForm
                         hideForm={setInvisible}

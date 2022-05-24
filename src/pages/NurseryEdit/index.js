@@ -133,11 +133,6 @@ const NurseryEdit = ({
     };
 
     const handleSuccess = (data, {alias, name}) => {
-
-        console.log('data', data);
-        console.log('alias', alias);
-        console.log('name', name);
-
         setSuccess(true);
         !success && setTimeout(() => {
             setSuccess(false);

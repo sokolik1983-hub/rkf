@@ -45,11 +45,10 @@ const Contacts = ({
         setIsChange(false);
     };
     const handleChange = (index, contact_type_id) => {
-        console.log('contact_type_id', contact_type_id);
-            contacts.map((elem) => (elem.contact_type_id === contact_type_id) ? elem.is_main = false :  elem.is_main = elem.is_main);
-        console.log('contacts', contacts)
+            contacts.map((elem) => (elem.contact_type_id === contact_type_id) ?
+                elem.is_main = false :
+                elem.is_main = elem.is_main);
             contacts[index].is_main = true;
-
     };
 
 
