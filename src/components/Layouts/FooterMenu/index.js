@@ -16,6 +16,7 @@ import MenuComponentNew from "../../MenuComponentNew";
 
 import './footerMenu.scss';
 
+
 const FooterMenu = ({
     match,
     is_active_profile,
