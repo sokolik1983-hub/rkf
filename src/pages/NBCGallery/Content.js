@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import UserHeader from "../../components/redesign/UserHeader";
 import {Link} from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Card from '../../components/Card';

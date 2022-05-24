@@ -34,7 +34,6 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
     const [showModal, setShowModal] = useState(false);
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const history = useHistory();
     const alias = match.params.id;
@@ -171,7 +170,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
         <>
             {!pageLoaded && !nursery
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength}>
+                : <Layout>
                     <div className="redesign">
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">

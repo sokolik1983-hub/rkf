@@ -108,8 +108,8 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                 {filtersValue.SearchTypeId !== 3 &&
                                     <RankFilter
                                         ranks={filters.ranks}
-                                        rank_id={filtersValue.RankId}
-                                        onChange={filter => setFiltersToUrl({RankId: filter})}
+                                        rank_ids={filtersValue.RankIds}
+                                        onChange={filter => setFiltersToUrl({RankIds: filter})}
                                         searchTypeId={filtersValue.SearchTypeId}
                                     />
                                 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import Documents from '../Documents';
 import Card from '../../../../components/Card';
 import Transliteratable from '../Transliteratable';
 import {FormField, FormGroup} from '../../../../components/Form';

@@ -9,7 +9,7 @@ import UserHeader from './components/UserHeader';
 import RenderFields from './RenderFields'
 import AuthOrLogin from '../Login/components/AuthOrLogin';
 import {connectAuthVisible} from '../Login/connectors';
-import {endpointGetClubInfo, clubNav} from '../../components/Layouts/ClubLayout/config';
+import {endpointGetClubInfo} from '../../components/Layouts/ClubLayout/config';
 import {connectShowFilters} from '../../components/Layouts/connectors';
 import Container from '../../components/Layouts/Container';
 import CopyrightInfo from '../../components/CopyrightInfo';
@@ -40,7 +40,6 @@ const ClubEditPage = ({
         is_active_profile,
 }) => {
 
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [queryCount, setQueryCount] = useState(0);
     const [serverErrors, setErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
@@ -249,7 +248,7 @@ const ClubEditPage = ({
             ? <Loading/>
             : error ?
                 <Redirect to="404"/> :
-                <Layout layoutWithFilters setNotificationsLength={setNotificationsLength}>
+                <Layout layoutWithFilters>
                     <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
                     <div className="ClubEdit__wrap">
                         <Container className="ClubEdit content">
@@ -287,7 +286,6 @@ const ClubEditPage = ({
                                     bindSubmitClubSocials={bindSubmitClubSocials}
                                     bindSubmitClubSchedule={bindSubmitClubSchedule}
                                     bindSubmitClubBankInfo={bindSubmitClubBankInfo}
-                                    setNotificationsLength={setNotificationsLength}
                                     bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
                                     bindSubmitClubDocuments={bindSubmitClubDocuments}
                                 />

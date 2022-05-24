@@ -10,7 +10,7 @@ import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "components/CopyrightInfo";
 import { Request } from "utils/request";
-import { endpointGetNurseryInfo, kennelNav } from "./config";
+import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "pages/Login/connectors";
 import useIsMobile from "utils/useIsMobile";
 import { BANNER_TYPES } from "appConfig";
@@ -37,7 +37,6 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.route;
     const isMobile = useIsMobile(1080);
 
@@ -72,7 +71,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
         <Loading /> :
         error ?
             error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
-            <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+            <Layout layoutWithFilters>
                 <div className="redesign">
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">

@@ -25,7 +25,6 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
     const [pageLoaded, setPageLoaded] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.route;
     const isMobile = useIsMobile(1080);
@@ -75,7 +74,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
         <>
             {!pageLoaded && !nursery
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+                : <Layout layoutWithFilters>
                     <div className="redesign">
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">

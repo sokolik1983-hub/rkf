@@ -45,7 +45,6 @@ const RenderFields = ({
 
     const {
         contacts,
-        documents,
         socials,
         work_time
     } = formik.values;

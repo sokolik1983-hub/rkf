@@ -5,10 +5,7 @@ import WidgetLogin from '../Header/components/WidgetLogin';
 import ls from 'local-storage';
 import { connectAuthVisible } from '../../../pages/Authorization/connectors';
 import { footerNav } from '../../../appConfig';
-import { isFederationAlias } from '../../../utils';
 import { connectShowFilters } from '../connectors';
-import { Request } from '../../../utils/request';
-import { endpointGetClubInfo } from '../../../pages/Club/config';
 import ZlineWidget from "../../ZLineWidget";
 import {blockContent} from "../../../utils/blockContent";
 import { checkAliasUrl } from '../../../utils/checkAliasUrl';
@@ -17,38 +14,14 @@ import MenuComponentNew from "../../MenuComponentNew";
 import './footerMenu.scss';
 
 const FooterMenu = ({
-    match,
-    is_active_profile,
-    profile_id,
     isAuthenticated,
     setShowFilters
 }) => {
     const isMobile1080 = useIsMobile(1080);
-    const { alias, id, user_type } = ls.get('user_info') || {};
+    const { alias } = ls.get('user_info') || {};
     const { pathname } = useLocation();
-    const [canEdit, setCanEdit] = useState(false);
     const [showZlineModal, setShowZlineModal] = useState(false);
     const [open, setOpen] = useState(false);
-    const [fedInfo, setFedInfo] = useState(null);
-
-    useEffect(() => {
-        if (isFederationAlias(checkAliasUrl(pathname, alias) || alias)) {
-            (() => Request({
-                url: endpointGetClubInfo + (checkAliasUrl(pathname, alias) || alias)
-            }, data => {
-                setFedInfo(data);
-                setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-            }, error => {
-                console.log(error.response);
-            }))();
-        }
-    }, [match]);
-
-    useEffect(() => {
-        if (alias) {
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === id);
-        }
-    }, []);
 
     const hideSideMenu = () => {
         setShowFilters({ isOpenFilters: false, isOpen: false });

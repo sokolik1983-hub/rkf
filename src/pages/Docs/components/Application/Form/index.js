@@ -385,14 +385,6 @@ const Application = ({ alias, history, status }) => {
         }
     };
 
-    const handleDocumentRemove = id => {
-        formProps.valueGetter('documents').length + (values.documents.length - 1) <= 20 && setDocumentsOverflow(false);
-        setValues({
-            ...values,
-            documents: values.documents.filter(d => d.id !== id)
-        })
-    };
-
     return (
         <div className="application-form">
             <Card>

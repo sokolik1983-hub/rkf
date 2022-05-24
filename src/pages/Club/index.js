@@ -33,7 +33,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [notActiveProfile, setNotActiveProfile] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const isMobile = useIsMobile(1080);
     const alias = match.params.route
 
@@ -74,7 +73,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             <Redirect to="404" /> :
             notActiveProfile ?
                 <NotConfirmed /> :
-                <Layout setNotificationsLength={setNotificationsLength}>
+                <Layout>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
