@@ -26,7 +26,6 @@ import ruMessages from "../../../../../kendoMessages.json";
 
 import "./index.scss";
 
-
 loadMessages(ruMessages, 'ru');
 
 const requiredMessage = 'Обязательное поле';
@@ -375,7 +374,7 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                             </div>
                                         </div>
                                         <div className="application-form__row two-column">
-                                            <div>
+                                            <div className="application-form__row date-input__wrap">
                                                 <Field
                                                     id="date_begin"
                                                     name="date_begin"
@@ -392,8 +391,11 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     validator={dateRequiredValidator}
                                                     disabled={(!status && !formRenderProps.valueGetter('format_id')) || disableAllFields || statusId === 3}
                                                 />
+                                                <div className="custom-icon">
+                                                    <span className="k-icon k-i-calendar"></span>
+                                                </div>
                                             </div>
-                                            <div>
+                                            <div className="application-form__row date-input__wrap">
                                                 <Field
                                                     id="date_end"
                                                     name="date_end"
@@ -412,6 +414,9 @@ const ExhibitionsFormNew = ({ clubAlias, history, status }) => {
                                                     validator={dateRequiredValidator}
                                                     disabled={!formRenderProps.valueGetter('date_begin') || disableAllFields || statusId === 3}
                                                 />
+                                                <div className="custom-icon">
+                                                    <span className="k-icon k-i-calendar"></span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="application-form__row two-thirds-column">

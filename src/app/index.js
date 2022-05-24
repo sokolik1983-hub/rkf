@@ -6,14 +6,12 @@ import { appRoutes } from '../appConfig';
 import IframePage from '../pages/Static/IframePage';
 import { LoadableNotFound } from '../appModules';
 import NotificationsProvider from './context';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Header from '../components/Layouts/Header';
 import FooterMenu from '../components/Layouts/FooterMenu';
 
 import './kendo.scss';
 import './index.scss';
-
-
 
 const App = ({history}) => {
     const layout = useSelector(state => state.layout);

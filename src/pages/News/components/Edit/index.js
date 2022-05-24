@@ -310,8 +310,18 @@ const Edit = ({ id,
                 className="article-edit"
                 withLoading={true}
                 onSuccess={() => {
-                    history.replace(user_type === 4 ? `/kennel/${alias}` :
-                        user_type === 1 ? `/user/${alias}` : `/${alias}`)}}
+                    history.replace(user_type === 4 ?
+                        `/kennel/${alias}` :
+                            user_type === 1 ?
+                                `/user/${alias}` :
+                                user_type === 3 ?
+                                    `/club/${alias}` :
+                                    user_type === 7 ?
+                                        `/nbc/${alias}`
+                                            :
+                                            `/${alias}`)
+                }
+            }
                 onError={onError}
                 isEditPage
                 history={history}

@@ -3,10 +3,11 @@ import {isFederationAlias} from "../../utils";
 import {useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import useIsMobile from "../../utils/useIsMobile";
-import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo} from "./config";
+import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo, endpointGetNBCInfo} from "./config";
 import {Request} from "../../utils/request";
 import {clubNav} from "../../pages/Club/config";
 import {kennelNav} from "../../pages/Nursery/config";
+import {NBCNav} from "../Layouts/NBCLayout/config";
 import {userNav} from "../Layouts/UserLayout/config";
 import {federationNav} from "../../pages/Federation/config";
 import {clubNav as clubNavDocs} from "../../pages/Docs/config";
@@ -56,13 +57,16 @@ const MenuComponentNew = () => {
     }
 
     const getMenu = (url, linkAlias) => {
+
         return isFederationAlias(url) ?
             federationNav(url) :
             (url === 'club' && linkAlias) ?
                 clubNav(linkAlias) :
                 (url === 'kennel' && linkAlias) ?
                     kennelNav(linkAlias) :
-                    userNav(linkAlias)
+                    (url === 'nbc' && linkAlias) ?
+                        NBCNav(linkAlias) :
+                        userNav(linkAlias)
     }
 
     const getMenuInfoCurrentUserPage = (url, linkAlias, isUserDocuments) => {
@@ -70,6 +74,7 @@ const MenuComponentNew = () => {
             (userType === 1) && setCurrentPageNav(userNavDocs(userAlias));
             (userType === 3 || userType === 5) && setCurrentPageNav(clubNavDocs(userAlias));
             (userType === 4) && setCurrentPageNav(kennelNavDocs(userAlias));
+            (userType === 7) && setCurrentPageNav(NBCNav(userAlias));
         } else {
             setCurrentPageNav(isUserProfilePage ?
                 getMenu(url, linkAlias)
@@ -79,19 +84,15 @@ const MenuComponentNew = () => {
         }
         Request({ //подтягиваем инфу о юзере, на странице которого находимся (нужно для моб. меню)
             url:
-                url === "club"
-                    ?
-                    endpointGetClubInfo + linkAlias
-                    :
-                    url === "kennel"
-                        ?
-                        endpointGetNurseryInfo + linkAlias
-                        :
-                        url === "user"
-                            ?
-                            endpointGetUserInfo + linkAlias
-                            :
-                            endpointGetClubInfo + linkAlias
+                url === "nbc" ?
+                    endpointGetNBCInfo + linkAlias :
+                        url === "club" ?
+                        endpointGetClubInfo + linkAlias :
+                            url === "kennel" ?
+                                endpointGetNurseryInfo + linkAlias :
+                                url === "user" ?
+                                    endpointGetUserInfo + linkAlias :
+                                    endpointGetClubInfo + linkAlias
         }, data => {
             setCurrentPageUserInfo({...data });
         }, error => {
@@ -104,9 +105,11 @@ const MenuComponentNew = () => {
             return 'club';
         } else if(userType === 4) {
             return 'kennel';
+        } else if(userType === 7) {
+            return 'nbc';
         } else {
-            return 'user';
-        }
+                return 'user';
+            }
     };
 
     const checkIsPage = (exhibAlias) => {
@@ -137,6 +140,7 @@ const MenuComponentNew = () => {
                                 || url === 'user'
                                 || url === 'referee'
                                 || url === 'client'
+                                || url === 'nbc'
                             ) {//Это не страница залогиненного юзера, подтягиваем меню клуба-питомника-федерации на странице которого находимся
                                 isFederationAlias(url) ? getMenuInfoCurrentUserPage(url, url) : getMenuInfoCurrentUserPage(url , linkAlias);
                             } else {
@@ -201,7 +205,6 @@ const MenuComponentNew = () => {
             if(currentPageUserInfo?.club_alias === 'rkf' || currentPageUserInfo?.club_alias === 'rkf-online') {
                 const newNavWithoutDocLinks = currentPageNav.filter(item =>(item.id !== 7 && item.id !== 8));
                 setCurrentPageNav(newNavWithoutDocLinks);
-
             } else {
                 const newNavWithDocLinks = currentPageNav?.map(item => (item.id === 7) ? {...item, to: linkFeesId} : (item.id === 8) ? {...item, to: linkFedDetails}  : item)
                 setCurrentPageNav(newNavWithDocLinks);
@@ -220,6 +223,17 @@ const MenuComponentNew = () => {
     useEffect(() => {
         checkIsPage(exhibAlias)
     }, [exhibAlias]);
+
+    useEffect(() => {
+        const strOfBreeds = currentPageUserInfo?.breeds?.map(obj => `BreedIds=${obj.breed_id}`).join().replaceAll(',', '&');
+        if(currentPageUserInfo?.user_type === 7) {
+            if(isUserProfilePage) {
+                setCurrentPageNav(NBCNav(currentPageUserInfo?.alias, strOfBreeds));
+            } else {
+                setCurrentPageNav(deleteNotification(NBCNav(currentPageUserInfo?.alias, strOfBreeds)));
+            }
+        }
+    }, [currentPageUserInfo]);
 
     return (
         <>

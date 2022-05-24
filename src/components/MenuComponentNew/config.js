@@ -3,6 +3,7 @@ import React from "react";
 export const endpointGetUserInfo = '/api/owners/owner/public/';
 export const endpointGetNurseryInfo = '/api/nurseries/nursery/public/';
 export const endpointGetClubInfo = '/api/Club/public/';
+export const endpointGetNBCInfo = '/api/NationalBreedClub/full?alias=';
 
 export const presidium = {
     rkf: {

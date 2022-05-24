@@ -130,6 +130,11 @@
       margin-right: 5px;
     }
   }
+
+  & + .UserActionControls {
+    margin: 0;
+  }
+
   &__with-share {
     display: flex;
     align-items: center;

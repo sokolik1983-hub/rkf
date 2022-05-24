@@ -112,12 +112,12 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         <>
                                             <UserPhotoGallery
                                                 alias={clubInfo.club_alias}
-                                                pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                pageLink={`/club/${clubInfo.club_alias}/gallery`}
                                                 canEdit={canEdit}
                                             />
                                             <UserVideoGallery
                                                 alias={clubInfo.club_alias}
-                                                pageLink={`/${clubInfo.club_alias}/video`}
+                                                pageLink={`/club/${clubInfo.club_alias}/video`}
                                                 canEdit={canEdit}
                                             />
                                         </>

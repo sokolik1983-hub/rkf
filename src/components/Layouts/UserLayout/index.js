@@ -151,6 +151,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                         share_link={`${window.location.host}/user/${alias}`}
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                        judgeInfo={judgeInfo}
                                         alias={alias}
                                         subscribed={userInfo.subscribed}
                                         subscribed_id={userInfo.profile_id}

@@ -35,6 +35,7 @@ function Form({
     resetForm = false,
     isEditPage,
     history,
+    nbcInfo
 }) {
     const [loading, setLoading] = useState(false);
     const isMultipartData = format === "multipart/form-data";
@@ -60,7 +61,7 @@ function Form({
 
         const onRequestSuccess = (data) => {
             setLoading(false);
-            onSuccess(data, values);
+            onSuccess(data, nbcInfo?.name);
             if (bindSubmitForm) bindSubmitForm.getErrors({});
             actions.setSubmitting(false);
             if (resetForm) actions.resetForm(initialValues);

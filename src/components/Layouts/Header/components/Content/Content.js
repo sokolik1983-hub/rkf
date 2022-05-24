@@ -53,6 +53,9 @@ const Content = ({
                 {userType === 4 &&
                     <Link to={is_active_profile ? `/kennel/${alias}` : '/kennel/activation'}>{name}</Link>
                 }
+                {userType === 7 &&
+                    <Link to={is_active_profile ? `/nbc/${alias}` : '/not-confirmed'}>{name}</Link>
+                }
             </div>
             <ul className="widget-login__list">
                 {is_active_profile &&
@@ -67,7 +70,8 @@ const Content = ({
                             userType === 1 ? "user" :
                             userType === 3 && alias !== "rkf" && alias !== "rkf-online" ? "club" :
                             userType === 5 || alias === "rkf" || alias === "rkf-online" ? "federation" :
-                            userType === 4 && "kennel"
+                            userType === 4 ? "kennel" :
+                            userType === 7 && "nbc"
                         }
                         logInLogOut={
                             accountType === 5 && (userType === 5 || alias === "rkf" || alias === "rkf-online") ? "in" :

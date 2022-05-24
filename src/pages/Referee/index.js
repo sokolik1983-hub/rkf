@@ -67,7 +67,6 @@ const RefereePage = (props) => {
         <JudgeLayout {...props}>
             <Content />
         </JudgeLayout>
-
     );
 };
 

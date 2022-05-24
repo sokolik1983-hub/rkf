@@ -10,7 +10,7 @@ import { connectShowFilters } from '../../components/Layouts/connectors';
 import {blockContent} from "../../utils/blockContent";
 
 import "./styles.scss";
-
+import NBCLayout from "../../components/Layouts/NBCLayout";
 
 const user_type = ls.get('user_info').user_type;
 
@@ -20,6 +20,8 @@ const Layout = props => {
     }
     else if (user_type === 4) {
         return <NurseryLayout {...props} />
+    } else if (user_type === 7) {
+        return <NBCLayout {...props} />
     }
     else {
         return <ClubLayout {...props} />
@@ -27,7 +29,6 @@ const Layout = props => {
 };
 
 const Content = props => { //Дополнительные props берутся из Layout. Это неочевидно и лучше так не делать.
-
     const {
         showMustRead,
         notificationUrlIndex,

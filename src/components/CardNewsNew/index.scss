@@ -29,6 +29,110 @@
     & > div + div {
       margin-top: 3px;
     }
+    .ReactGridGallery {
+      display: grid;
+      grid-template-rows: 50% 50%;
+      margin: 0 10px;
+      gap: 2px;
+      list-style-type: none;
+      &_tile {
+        margin: 0!important;
+      }
+      &_tile:first-of-type{
+        grid-area: first;
+      }
+      &_tile:nth-of-type(2){
+        grid-area: second;
+      }
+      &_tile:nth-of-type(3){
+        grid-area: third;
+      }
+      &_tile:nth-of-type(4){
+        grid-area: fourth;
+      }
+      &_tile:nth-of-type(5){
+        grid-area: fifth;
+      }
+    }
+    &-wrap {
+      &._one {
+        .ReactGridGallery {
+          display: flex;
+          justify-content: center;
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+      &._two {
+        .ReactGridGallery {
+          display: flex;
+          flex-direction: row;
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+      &._three {
+        .ReactGridGallery {
+          display: grid;
+          grid-template-areas:
+            "first first second second"
+            "first first third third";
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+      &._four {
+        .ReactGridGallery {
+          display: grid;
+          grid-template-areas:
+            "first first second second"
+            "first first third fourth";
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+      &._five {
+        .ReactGridGallery {
+          display: grid;
+          grid-template-areas:
+            "first first first second second second"
+            "third third fourth fourth fifth fifth";
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+    }
+
   }
 
   &__photo {
@@ -43,59 +147,19 @@
       display: grid;
       grid-template-rows: 1fr 1fr;
       margin: 0 10px;
-      gap: 10px;
+      gap: 2px;
       list-style-type: none;
 
       & li {
         height: auto;
-        &:first-of-type {
-          grid-area: first;
-        }
-        &:nth-of-type(2) {
-          grid-area: second;
-        }
-        &:nth-of-type(3) {
-          grid-area: third;
-        }
-        &:nth-of-type(4) {
-          grid-area: fourth;
-        }
-        &:nth-of-type(5) {
-          grid-area: fifth;
-        }
       }
-
-      &.__one {
-        display: block;
-      }
-
-      &.__two {
+      &.__all {
         display: flex;
-        flex-direction: row;
-        & li {
-          width: 100%;
+        flex-direction: column;
+        .card-news-new__photo {
+          cursor: unset;
         }
       }
-
-      &.__three {
-        grid-template-areas:
-      "first first second second"
-      "first first third third";
-      }
-
-      &.__four {
-        grid-template-areas:
-        "first first second second"
-        "first first third fourth";
-      }
-
-      &.__five {
-        grid-template-areas:
-        "first first first second second second"
-        "third third fourth fourth fifth fifth";
-      }
-
-
     }
   }
 
@@ -741,6 +805,65 @@
 
     &-name {
       color: #B9B9B9;
+    }
+  }
+
+  &__photo-modal {
+    .slick-slider {
+      background-color: #4B4B4B;
+    }
+    .slick-slide img {
+      width: auto;
+      max-width: 100%;
+      height: 420px;
+      margin: 0 auto;
+      object-fit: cover;
+    }
+
+    @media (min-width: 1079px) {
+      &>div {
+        width: 982px;
+        
+        .Modal__inner {
+          max-height: 800px;
+        }
+      }
+    }
+
+    .slick-prev {
+      left: 20px;
+      background: url("/static/new-icons/arrow-left.svg") no-repeat center;
+    }
+
+    .slick-next {
+      right: 20px;
+      background: url("/static/new-icons/arrow-right.svg") no-repeat center;
+    }
+
+    .slick-arrow {
+      width: 21px;
+      height: 42px;
+      z-index: 1;
+
+      &:before {
+        content: '';
+      }
+    }
+
+    &__count {
+      position: relative;
+      top: -7px;
+      width: 100%;
+      height: 52px;
+      padding-left: 30px;
+      color: white;
+      background-color: #4B4B4B;
+      line-height: 52px;
+    }
+
+    .card-news-new__text-wrap {
+      margin-bottom: 5px;
+      overflow: auto;
     }
   }
 }

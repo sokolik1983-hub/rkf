@@ -10,11 +10,6 @@ import Share from "components/Share";
 const UserHeader = ({user, logo, banner, name, federationName, federationAlias}) => {
     const [shareAlert, setShareAlert] = useState(false);
 
-    // const share = () => {
-    //     navigator.clipboard.writeText(window.location.href);
-    //     setShareAlert(true);
-    // };
-
     const shareOk = () => setShareAlert(false);
 
     return (
@@ -25,7 +20,12 @@ const UserHeader = ({user, logo, banner, name, federationName, federationAlias})
                     <div className="user-header__logo" style={{backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`}} />
                     <div className="user-header__wrap">
                         <p className="user-header__user">
-                            {user === 'club' ? 'Клуб' : user === 'nursery' ? 'Питомник' : ''}
+                            {user === 'club' ?
+                                'Клуб' :
+                                user === 'nursery' ?
+                                    'Питомник' :
+                                    user === 'nbc' ?
+                                        'НКП' : ''}
                         </p>
                         <h3 className="user-header__name">{name}</h3>
                         {federationName && federationAlias &&
