@@ -18,7 +18,6 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { useFocus } from '../../../../shared/hooks';
 import CustomSelect from 'react-select';
 import CustomCheckbox from '../../../../components/Form/CustomCheckbox';
-import {picture} from "caniuse-lite/data/features";
 
 
 const RenderFields = ({ fields,
@@ -389,7 +388,7 @@ const RenderFields = ({ fields,
                 }
             </div>
             <div className="article-edit__controls">
-                {!allPictures || allPictures.length < 5 &&
+                {(!allPictures || allPictures.length < 5) &&
                     <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
                         <div className="article-edit__attach-img">
                             <input

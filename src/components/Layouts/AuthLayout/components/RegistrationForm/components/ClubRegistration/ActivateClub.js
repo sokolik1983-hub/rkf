@@ -57,7 +57,7 @@ const ActivateClub = ({club, history, logOutUser, close}) => {
                     alert('Регистрация завершена.\nДанные для входа отправлены на указанную почту.');
                     logOutUser();
                     history.push('/');
-                } else if (response.returnCode == 422) {
+                } else if (response.returnCode === 422) {
                     setCode('');
                     setErrorCode(true);
                 } else {

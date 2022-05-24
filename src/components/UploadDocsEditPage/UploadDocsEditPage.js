@@ -44,18 +44,6 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
 
     const handleError = e => {
         if (e.response) {
-            let message;
-            if (e.response.data) {
-                message = e.response.data.errors
-                    ? Object.values(e.response.data.errors)
-                    : `${e.response.status} ${e.response.statusText}`;
-            } else if (e.response.errors) {
-                message = e.response.errors
-                    ? Object.values(e.response.errors)
-                    : `${e.response.status} ${e.response.statusText}`;
-            } else {
-                message = 'Произошла ошибка';
-            }
             setError(true);
             !error && setTimeout(() => {
                 setError(false);
@@ -63,7 +51,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
         }
     };
 
-    const handleSuccess = (message) => {
+    const handleSuccess = () => {
         setSuccess(true);
         !success && setTimeout(() => {
             setSuccess(false);
@@ -95,7 +83,7 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                                                          key={item.id}
                                                          id={item.id}
                                                          name={item.name}
-                                                         link={item.link} 
+                                                         link={item.link}
                                                          date_create={item.date_create}
                                                          setModal={setModal}
                                                          isPrivate

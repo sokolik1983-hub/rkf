@@ -21,28 +21,21 @@ import {
 import RangeCalendarExhibitions from '../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js';
 import CopyrightInfo from '../../../../components/CopyrightInfo';
 import { connectAuthVisible } from 'pages/Login/connectors';
-import useIsMobile from '../../../../utils/useIsMobile';
-import ls from 'local-storage';
 
 import './index.scss';
-import {endpointGetKennelBreeds, endpointGetNKPBreeds} from "../../../Organizations/config";
 
 const Filters = ({
         club,
         filters,
-        setClub,
         clubName,
-        profileId,
         isOpenFilters,
         isEducational,
-        isAuthenticated,
         federationAlias,
 }) => {
     const [ranks, setRanks] = useState([]);
     const [currentRanks, setCurrentRanks] = useState([]);
     const [types, setTypes] = useState([]);
     const [currentTypes, setCurrentTypes] = useState([]);
-    const [canEdit, setCanEdit] = useState(false);
     const [breeds, setBreeds] = useState([]);
     const [regionLabels, setRegionLabels] = useState([]);
     const [cities, setCities] = useState({ exhibitionCities: [], educationalCities: [] });
@@ -54,14 +47,11 @@ const Filters = ({
     const [loading, setLoading] = useState(true);
     const [clear_filter, setClearFilter] = useState(false);
     const [range_clicked, setRangeClicked] = useState(false);
-    const [fedInfo, setFedInfo] = useState(null);
-    const isMobile = useIsMobile(1080);
 
     const getFedInfo = (url) => {
         Request({
             url: url
         }, data => {
-            setFedInfo(data);
             setLoading(false);
         }, error => {
             console.log(error.response);
@@ -103,7 +93,6 @@ const Filters = ({
             setRegionLabels(data[0].regions.filter(item => item.label !== 1));
             setLoading(false);
             window.scrollTo(0, 0);
-            setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
         }).catch(error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -125,13 +114,6 @@ const Filters = ({
         setClearFilter(true);
     };
 
-    const onSubscriptionUpdate = (subscribed) => {
-        setClub({
-            ...club,
-            subscribed: subscribed
-        })
-    };
-
     const handleChangeRegionFilter = (filter) => {
         setcurrentExhibRegions(filter);
         setIsUserFiltered(true);
@@ -147,7 +129,7 @@ const Filters = ({
         setFiltersToUrl({ TypeIds: filter });
         setCurrentTypes(filter);
 
-        const newFilterString = `${filter.map(item => `TypeIds=${item}`)}`.replace(/\,/g, '&');
+        const newFilterString = `${filter.map(item => `TypeIds=${item}`)}`.replace(/,/g, '&');
 
         await Request({
             url: "api/exhibitions/Exhibition/filter?" + newFilterString

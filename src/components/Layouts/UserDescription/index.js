@@ -9,12 +9,10 @@ import './index.scss';
 
 const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, judgeInfo }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [judge, setJudge] = useState(null);
     const [specializations, setSpecializations] = useState(null);
 
     useEffect(() => {
         !!judgeInfo && !!judgeInfo[0] && setSpecializations(judgeInfo.map(item => item.specializations))
-        !!judgeInfo && !!judgeInfo[0] && setJudge(judgeInfo)
     }, [judgeInfo]);
 
     const normalizeLink = link => {

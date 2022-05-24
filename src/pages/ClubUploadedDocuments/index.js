@@ -24,7 +24,6 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
     const [fedInfo, setFedInfo] = useState(null);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     let params = useParams();
     const alias = params.route;
     const isMobile = useIsMobile(1080);
@@ -76,7 +75,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
         <>
             {!pageLoaded && !clubInfo
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+                : <Layout layoutWithFilters>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className={`club-page__content-wrap${clubInfo.federation_name ? ' _isFederation' : ''}`}>

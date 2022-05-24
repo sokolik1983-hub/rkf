@@ -7,7 +7,7 @@ import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
 import { Request } from "../../utils/request";
-import { endpointGetNurseryInfo, kennelNav } from "./config";
+import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";

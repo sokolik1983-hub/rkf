@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect} from "react";
 import getYouTubeID from "get-youtube-id";
 import {connect} from "formik";
 
 import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
-import OutsideClickHandler from "react-outside-click-handler";
 
 import { SubmitButton, FormControls, FormGroup, FormField } from '../Form';
 import CustomCheckbox from "../Form/CustomCheckbox";
@@ -12,7 +11,6 @@ import CustomNumber from "../Form/Field/CustomNumber";
 import CustomChipList from "../Form/Field/CustomChipList";
 import AddVideoLink from "./AddVideoLink";
 import AttachFile from "./AttachFile";
-import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import { BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
@@ -20,7 +18,6 @@ import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
-import InitialsAvatar from "../InitialsAvatar";
 import Avatar from "../Layouts/Avatar";
 
 const RenderFields = ({ fields,
@@ -159,11 +156,6 @@ const RenderFields = ({ fields,
     const closeModal = () => {
         setModalType('');
         setShowModal(false);
-    };
-
-    const handleOutsideClick = () => {
-        !content && setBlured();
-        setIsAd(false);
     };
 
     const handleChangeHalfBreed = () => {

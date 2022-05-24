@@ -9,7 +9,7 @@ import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
+import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import { VideoGallery } from "../../components/Gallery";
 import useIsMobile from "../../utils/useIsMobile";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -31,7 +31,6 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const [hasMore, setHasMore] = useState(true);
     const [videos, setVideos] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.id;
     const isMobile = useIsMobile(1080);
@@ -153,7 +152,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
         <Loading /> :
         error ?
             <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength}>
+            <Layout>
                 <div className="user-page">
                     <Container className="user-page__content content">
                         <aside className="user-page__left">

@@ -6,7 +6,6 @@ import BookformCard from "../../../../components/BookformCard";
 import { LoadableNotFound } from "../../../../appModules";
 import Registry from "../Stamps/Registry";
 import Alert from "../../../../components/Alert";
-import { clubNav } from "../../config";
 import Loading from "../../../../components/Loading";
 import { Request } from "../../../../utils/request";
 import CopyrightInfo from "../../../../components/CopyrightInfo";

@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import Card from '../../../../components/Card';
 import Share from '../../../../components/Share';
 import Alert from '../../../../components/Alert';
-import {DEFAULT_IMG} from '../../../../appConfig';
 import UserActionControls from '../../../../components/UserActionControls';
 import {ActiveUserMark, FederationChoiceMark} from '../../../../components/Marks';
 
