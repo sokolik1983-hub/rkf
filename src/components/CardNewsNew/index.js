@@ -306,7 +306,7 @@ const CardNewsNew = forwardRef(({
                 </div>
                 {(pictures || video_link) &&
                     <div className="card-news-new__media">
-                        {pictures?.length &&
+                        {!!pictures?.length &&
                             (!showPublication ?
                             <div className={`card-news-new__media-wrap _${
                                 pictures.length === 1 ? 'one' :
