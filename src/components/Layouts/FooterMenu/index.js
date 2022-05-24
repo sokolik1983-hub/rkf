@@ -13,6 +13,7 @@ import MenuComponentNew from "../../MenuComponentNew";
 
 import './footerMenu.scss';
 
+
 const FooterMenu = ({
     isAuthenticated,
     setShowFilters
