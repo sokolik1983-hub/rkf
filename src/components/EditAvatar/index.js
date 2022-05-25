@@ -1,11 +1,18 @@
-import React, {memo, useState} from 'react';
+import React, {memo} from 'react';
 import Modal from './Modal';
 import CustomAvatarEditor from './AvatarEditor';
 
 
-const EditAvatar = ({ avatar, setModalType, onSubmitSuccess, userType, pageBanner, owner, name }) => {
-    const [canvasWidth, setCanvasWidth] = useState(null);
-
+const EditAvatar = ({
+                        avatar,
+                        setModalType,
+                        onSubmitSuccess,
+                        userType,
+                        pageBanner,
+                        owner,
+                        name,
+                        size,
+}) => {
     return (
         <Modal
             open={true}
@@ -13,16 +20,16 @@ const EditAvatar = ({ avatar, setModalType, onSubmitSuccess, userType, pageBanne
             title={pageBanner ? "Редактирование заставки" : "Редактирование аватара"}
             pageBanner={pageBanner}
         >
-            <div ref={el => {el && setCanvasWidth(el.getBoundingClientRect().width * .9)}}>
+            <div>
                 <CustomAvatarEditor
                     avatar={avatar}
                     setModalType={setModalType}
                     userType={userType}
                     onSubmitSuccess={onSubmitSuccess}
                     pageBanner={pageBanner}
-                    canvasWidth={canvasWidth}
                     owner={owner}
                     name={name}
+                    size={size}
                 />
             </div>
         </Modal>
