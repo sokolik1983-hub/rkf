@@ -5,8 +5,6 @@ import ls from "local-storage";
 import Card from "../../components/Card";
 import Banner from "../../components/Banner";
 import Layout from "../../components/Layouts";
-import TopComponent from "../../components/TopComponent";
-import Container from "../../components/Layouts/Container";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import MenuComponentNew from "../../components/MenuComponentNew";
 import { LoadableNotFound } from "../../appModules";
@@ -26,8 +24,7 @@ const ExhibitionsCards = ({ alias }) => {
                 </p>
                 <hr />
                 <div className="Card__links">
-                    <Link to={`/nbc/${alias}/documents/exhibitions/application/form`}>Подать заявку</Link>
-                    <Link to={`/nbc/${alias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
+                    <Link to={`/nbc/${alias}/documents/exhibitions/invite/registry`}>Реестр заявок</Link>
                 </div>
             </Card>
         }
@@ -35,19 +32,11 @@ const ExhibitionsCards = ({ alias }) => {
 };
 
 const NBCDocuments = () => {
-    const { alias, name, logo_link } = ls.get('user_info') || {};
+    const { alias } = ls.get('user_info') || {};
     const isMobile = useIsMobile(1080);
 
     return <Layout>
         <div className="documents-page content">
-            <Container className="documents-page__content">
-                <TopComponent
-                    logo={logo_link}
-                    name={name}
-                    canEdit={false}
-                    withShare={false}
-                    userType ={7}
-                />
                 <div className="documents-page__info">
                     <aside className="documents-page__left">
                         <StickyBox offsetTop={60}>
@@ -65,7 +54,6 @@ const NBCDocuments = () => {
                         <Route component={LoadableNotFound} />
                     </Switch>
                 </div>
-            </Container>
         </div>
     </Layout>;
 };

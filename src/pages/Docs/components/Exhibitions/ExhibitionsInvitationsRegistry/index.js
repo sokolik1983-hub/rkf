@@ -9,7 +9,7 @@ import moment from "moment";
 import "./index.scss";
 
 
-const ExhibitionsRegistry = ({ history, clubAlias }) => {
+const ExhibitionsInventionsRegistry = ({ history, alias, userType }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
@@ -18,15 +18,16 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
 
     useEffect(() => {
         (() => Request({
-            url: `/api/requests/exhibition_request/clubexhibitionrequest/register_of_requests?typeId=1`,
+            url: `/api/exhibitions/invite/register_of_requests`,
         }, data => {
+            console.log('data', data)
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
-            }).map(({ date_change, date_create, date_begin, date_end, ...rest }) => ({
-                date_change: moment(date_change).format('DD.MM.YY'),
+            }).map(({ date_create, end_date, start_date, nbc_breed, ...rest }) => ({
                 date_create: moment(date_create).format('DD.MM.YY'),
-                date_begin: moment(date_begin).format('DD.MM.YY'),
-                date_end: moment(date_end).format('DD.MM.YY'),
+                end_date: moment(end_date).format('DD.MM.YY'),
+                start_date: moment(start_date).format('DD.MM.YY'),
+                nbc_breed: getBreeds(nbc_breed),
                 ...rest
             })));
             setLoading(false);
@@ -36,6 +37,12 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
         }))();
     }, []);
 
+    const getBreeds = breeds => {
+        const breedsArray = [];
+        breeds.map((breed, index) => breedsArray.push(`${index !== 0 ? ' ' : ''}${breed.name}`));
+        return breedsArray;
+    }
+
     return loading ?
         <Loading /> :
         !standardView ?
@@ -44,7 +51,7 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                     {document_id && <button
                         className="user-documents-status__control user-documents-status__control--resetIcon"
                     >
-                        <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>
+                        <Link to={`/${alias}/documents/exhibitions/application/registry`}>
                             Вернуться к списку
                         </Link>
                     </button>}
@@ -69,9 +76,9 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
             :
             <Card className="user-documents-status">
                 <div className="user-documents-status__head">
-                    <Link className="btn-backward" to={`/${clubAlias}/documents/exhibitions`}>Личный кабинет</Link>
+                    <Link className="btn-backward" to={`/${alias}/documents/exhibitions`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    Заявка на проведение выставки
+                    Приглашения на мероприятия
                 </div>
                 {documents && !!documents.length
                     ? <div>
@@ -79,7 +86,7 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                             {document_id && <button
                                 className="user-documents-status__control user-documents-status__control--resetIcon"
                             >
-                                <Link to={`/${clubAlias}/documents/exhibitions/application/registry`}>
+                                <Link to={`/${alias}/documents/exhibitions/application/registry`}>
                                     Вернуться к списку
                                 </Link>
                             </button>}
@@ -89,7 +96,7 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                                 disabled={exporting}
                             >
                                 Скачать PDF
-                                </button>
+                            </button>
                             <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                                 Увеличить таблицу
                             </button>
@@ -98,6 +105,7 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                             documents={documents}
                             exporting={exporting}
                             setExporting={setExporting}
+                            userType={userType}
                         />
                     </div>
                     : <div className="user-documents-status__plug">
@@ -108,4 +116,4 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
             </Card>
 };
 
-export default React.memo(ExhibitionsRegistry);
+export default React.memo(ExhibitionsInventionsRegistry);

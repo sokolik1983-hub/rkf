@@ -30,6 +30,7 @@ import ExhibitionsFormNew from "./components/Exhibitions/ExhibitionsFormNew";
 import ExhibitionsRegistry from "./components/Exhibitions/ExhibitionsRegistry";
 import ExhibitionsCancellationForm from "./components/ExhibitionsCancellation/ExhibitionsCancellationForm";
 import ExhibitionsCancellationRegistry from "./components/ExhibitionsCancellation/ExhibitionsCancellationRegistry";
+import ExhibitionsInventionsRegistry from "./components/Exhibitions/ExhibitionsInvitationsRegistry";
 
 import "./index.scss";
 
@@ -155,6 +156,9 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         />
                         <Route exact={true} path='/club/:route/documents/exhibitions/application/registry' component={() =>
                             <ExhibitionsRegistry clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/club/:route/documents/exhibitions/invite/registry' component={() =>
+                            <ExhibitionsInventionsRegistry clubAlias={clubAlias} userType="club" component/>}
                         />
                         <Route exact={true} path='/club/:route/documents/exhibitions/application/form/view/:docId' component={() =>
                             <ExhibitionsForm clubAlias={clubAlias} history={history} status="view" />}
@@ -315,6 +319,9 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         />
                         <Route exact={true} path='/:route/documents/exhibitions/application/registry' component={() =>
                             <ExhibitionsRegistry clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/exhibitions/invite/registry' component={() =>
+                            <ExhibitionsInventionsRegistry alias={clubAlias} userType="club" />}
                         />
                         <Route exact={true} path='/:route/documents/exhibitions/application/form/view/:docId' component={() =>
                             <ExhibitionsForm clubAlias={clubAlias} history={history} status="view" />}
