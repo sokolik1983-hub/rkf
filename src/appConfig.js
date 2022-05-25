@@ -8,6 +8,10 @@ const DEFAULT_EMAIL_INPUT_PLACEHOLDER = 'Введите ваш E-mail';
 const LOGIN_URL = '/auth/login';
 const REGISTRATION_URL = '/auth/registration';
 
+const DISABLE_NOTIFICATIONS_IN_DEV = process.env.NODE_ENV === 'development';
+
+const DISABLE_SHARE_IN_DEV = process.env.NODE_ENV === 'development';
+
 export const MOMENT_LOCALE_DEFINITION = {
     week: {
         dow: 1,
@@ -933,6 +937,8 @@ const responsiveSliderConfig = [
 ];
 
 export {
+    DISABLE_NOTIFICATIONS_IN_DEV,
+    DISABLE_SHARE_IN_DEV,
     WEEKDAYS,
     WEEKDAYS_SHORT,
     MONTHS,
