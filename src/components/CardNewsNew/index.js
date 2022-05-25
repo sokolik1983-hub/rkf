@@ -75,7 +75,6 @@ const CardNewsNew = forwardRef(({
     is_all_cities
 }, CardNewsNewRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
-    const [showPublication, setShowPublication] = useState(false);
     const ref = useRef(null);
     const [cityLabel, setCityLabel] = useState('');
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
@@ -114,6 +113,7 @@ const CardNewsNew = forwardRef(({
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
+        const [showPublication, setShowPublication] = useState(false);
 
         switch (dog_sex_type_id) {
             case 1:
