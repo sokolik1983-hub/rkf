@@ -3,7 +3,7 @@
     display: none;
   }
   &__content {
-    padding-top: 105px;
+    padding-top: 75px;
   }
   &__contacts {
     color: #72839c;
@@ -56,7 +56,7 @@
     display: block;
     //border-radius: 6px;
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
     @media (max-width: 768px) {
       margin-bottom: 12px;
     }
@@ -97,6 +97,11 @@
   }
   &__title {
     margin-right: 12px;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 38px;
+    color: #253C5E;
+
     @media (max-width: 990px) {
       font-size: 24px;
       line-height: 1.2;
