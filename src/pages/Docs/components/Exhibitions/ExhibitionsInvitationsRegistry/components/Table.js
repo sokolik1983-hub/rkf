@@ -47,7 +47,8 @@ const OptionsCell = ({ dataItem }) => {
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
-            to={`/${route}/documents/exhibitions/application/form/view/${id}`}
+            // to={`/${route}/documents/exhibitions/application/form/view/${id}`}
+            to={`/${route}/exhibitions/invite`}
             className="row-control__link">{item.text}</Link>
     }];
 

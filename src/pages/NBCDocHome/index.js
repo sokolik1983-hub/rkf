@@ -1,17 +1,15 @@
 import React from "react";
-import { Link, Route, Switch } from "react-router-dom";
-import StickyBox from "react-sticky-box";
+import { Route, Switch } from "react-router-dom";
 import ls from "local-storage";
-import Card from "../../components/Card";
-import Banner from "../../components/Banner";
 import Layout from "../../components/Layouts";
 import TopComponent from "../../components/TopComponent";
 import Container from "../../components/Layouts/Container";
 import NBCDocuments from "../NBCDocuments"
 import { LoadableNotFound } from "../../appModules";
+import ExhibitionsInventionsRegistry from "../Docs/components/Exhibitions/ExhibitionsInvitationsRegistry";
+import NBCInvite from "../NBCInvite";
 
 import "./styles.scss";
-import ExhibitionsInventionsRegistry from "../Docs/components/Exhibitions/ExhibitionsInvitationsRegistry";
 
 
 const NBCDocHome = () => {
@@ -36,7 +34,12 @@ const NBCDocHome = () => {
                         <Route
                             exact={false}
                             path='/nbc/:route/documents/exhibitions/invite/registry'
-                            component={() => <ExhibitionsInventionsRegistry alias={alias} userType="nbc"/>}
+                            component={() => <ExhibitionsInventionsRegistry alias={alias} userType="nbc" />}
+                        />
+                        <Route
+                            exact={false}
+                            path='/nbc/:route/exhibitions/invite'
+                            component={() => <NBCInvite alias={alias} userType="nbc"/>}
                         />
                         <Route component={LoadableNotFound} />
                     </Switch>

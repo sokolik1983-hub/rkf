@@ -160,6 +160,9 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/club/:route/documents/exhibitions/invite/registry' component={() =>
                             <ExhibitionsInventionsRegistry clubAlias={clubAlias} userType="club" component/>}
                         />
+                        <Route exact={true} path='/club/:route/exhibitions/invite' component={() =>
+                            <ExhibitionsInventionsRegistry clubAlias={clubAlias} userType="club" component/>}
+                        />
                         <Route exact={true} path='/club/:route/documents/exhibitions/application/form/view/:docId' component={() =>
                             <ExhibitionsForm clubAlias={clubAlias} history={history} status="view" />}
                         />
