@@ -17,20 +17,16 @@ loadMessages(kendoMessages, 'ru-RU');
 const categories = [
     {
         text: 'Отклоненные',
-        value: '1',
-    },
-    {
-        text: 'В работе',
-        value: '2',
-    },
-    {
-        text: 'Выполненные',
         value: '3',
     },
     {
-        text: 'Неотправленные',
-        value: '6',
-    }
+        text: 'В работе',
+        value: '1',
+    },
+    {
+        text: 'Выполненные',
+        value: '2',
+    },
 ];
 
 const ColumnMenu = (props) => {
@@ -39,16 +35,14 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const OptionsCell = ({ dataItem }) => {
-    console.log('dataItem', dataItem)
+const OptionsCell = ({ dataItem }, userType) => {
     const [open, setOpen] = useState(false);
-    const { id } = dataItem;
+    const { exhibition_id } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
-            // to={`/${route}/documents/exhibitions/application/form/view/${id}`}
-            to={`/${route}/exhibitions/invite`}
+            to={`/${userType}/${route}/documents/exhibitions/invite?exhibitionId=${exhibition_id}`}
             className="row-control__link">{item.text}</Link>
     }];
 
@@ -61,7 +55,6 @@ const OptionsCell = ({ dataItem }) => {
 
 const Table = ({
                    documents,
-                   profileType,
                    fullScreen,
                    exporting,
                    setExporting,
@@ -91,35 +84,40 @@ const Table = ({
         setGridData(newDataState);
     };
 
+    //TODO: доделать кнопульки, для этого нужны минимум три заявки с разными статусами
     const handleDropDownChange = (e) => {
+        console.log('e.value', e.value)
+
         let newDataState = { ...gridData }
-        if (e.value === "3" || e.value === "6") {
-            newDataState.filter = {
-                logic: 'and',
-                filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]
-            }
-            newDataState.skip = 0
-        } else if (e.value === "1") {
+        if (e.value === "1") {
             newDataState.filter = {
                 logic: 'or',
-                filters: [{ field: 'status_id', operator: 'eq', value: "1" },
-                { field: 'status_id', operator: 'eq', value: "5" }]
+                filters: [{ field: 'invite_status', operator: 'eq', value: "1" },
+                { field: 'invite_status', operator: 'eq', value: "1" }]
             }
             newDataState.skip = 0
         } else if (e.value === "2") {
             newDataState.filter = {
                 logic: 'or',
-                filters: [{ field: 'status_id', operator: 'eq', value: "2" },
-                { field: 'status_id', operator: 'eq', value: "7" }]
+                filters: [{ field: 'invite_status', operator: 'eq', value: "2" },
+                { field: 'invite_status', operator: 'eq', value: "2" }]
             }
             newDataState.skip = 0
-        } else {
+        } else if (e.value === "3") {
+            newDataState.filter = {
+                logic: 'and',
+                filters: [{ field: 'invite_status', operator: 'eq', value: e.value[0] }]
+            }
+            newDataState.skip = 0
+        }  else {
             newDataState.filter = {
                 filters: []
             }
             newDataState.skip = 0
         }
+
         setGridData(newDataState);
+        console.log('newDataState', newDataState)
     };
 
     const handleGridDataChange = (e) => {
@@ -154,16 +152,16 @@ const Table = ({
         <GridColumn field="nbc_status_name" title="Статус согласования с НКП"/> }
         { userType !== 'nbc' &&
         <GridColumn field="judge_status_name" title="Статус приглашения судьи"/> }
-        <GridColumn field="status_name" title="Статус" />
+        <GridColumn field="invite_status_name" title="Статус" />
     </Grid>;
 
     const rowRender = (trElement, props) => {
-        const status = props.dataItem.status_id;
+        console.log('props', props)
+        const status = props.dataItem.invite_status;
         const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
         const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
         const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
-        const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
-        const trProps = { style: status === 1 || status === 5 ? rejected : status === 2 || status === 7 ? in_work : status === 3 ? done : not_sent };
+        const trProps = { style: status === 1 ? in_work : status === 2 ? done : rejected };
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
     };
 
@@ -190,7 +188,7 @@ const Table = ({
                         onDataStateChange={handleGridDataChange}
                         style={{ height: "700px", width: "auto", margin: '0 auto' }}>
 
-                        <GridColumn field="options" title="Опции" width={fullScreen ? '62px' : '62px'} cell={props => OptionsCell(props, profileType)} />
+                        <GridColumn field="options" title="Опции" width={fullScreen ? '62px' : '62px'} cell={props => OptionsCell(props, userType)} />
                         <GridColumn field="date_create" title="Дата получения запроса" width={fullScreen ? 'auto' : '160px'} columnMenu={ColumnMenu} />
                         <GridColumn field="exhibition_name" title="Название выставки" width={fullScreen ? 'auto' : '196px'} columnMenu={ColumnMenu} />
                         <GridColumn field="start_date" title="Дата начала выставки" width={fullScreen ? 'auto' : '150px'} columnMenu={ColumnMenu} />
@@ -208,7 +206,7 @@ const Table = ({
                         { userType !== 'nbc' &&
                         <GridColumn field="judge_status_name" title="Статус приглашения судьи"
                                     width={ fullScreen ? 'auto' : '172px' } columnMenu={ ColumnMenu }/> }
-                        <GridColumn field="status_name" title="Статус" width={fullScreen ? 'auto' : '120px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="invite_status_name" title="Статус" width={fullScreen ? 'auto' : '120px'} columnMenu={ColumnMenu} />
                     </Grid>}
 
                     <GridPDFExport

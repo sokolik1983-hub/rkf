@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Loading from "../../components/Loading";
-import Request from "../../utils/request";
-import Card from "../../components/Card";
+import Loading from "../../../../components/Loading";
+import Request from "../../../../utils/request";
+import Card from "../../../../components/Card";
 import "./index.scss";
 
 
-const NBCInvite = ({ alias, userType }) => {
-    // const [loading, setLoading] = useState(true);
+const JudgeInvite = ({ alias, userType }) => {
     const [loading, setLoading] = useState(false);
-    console.log('NBCInvite')
-
     const location = useLocation();
     const id = location.search.replace('?exhibitionId=', '');
-    console.log(id)
 
     useEffect(() => {
         (() => Request({
@@ -23,7 +19,6 @@ const NBCInvite = ({ alias, userType }) => {
 
             setLoading(false);
         }, error => {
-            console.log('error.response');
             console.log(error.response);
             setLoading(false);
         }))();
@@ -32,8 +27,8 @@ const NBCInvite = ({ alias, userType }) => {
     return loading ?
         <Loading /> :
         <Card className="exhibitions-invite">
-            пурум пум пум nbc
+            пурум пум пум judge
         </Card>
 };
 
-export default React.memo(NBCInvite);
+export default React.memo(JudgeInvite);

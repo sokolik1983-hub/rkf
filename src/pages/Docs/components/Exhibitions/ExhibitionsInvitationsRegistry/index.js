@@ -9,12 +9,16 @@ import moment from "moment";
 import "./index.scss";
 
 
-const ExhibitionsInventionsRegistry = ({ history, alias, userType }) => {
+const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
     const document_id = window.location.href.split('=')[1];
+
+    useEffect(() => {
+        console.log('documents', documents)
+    }, [documents])
 
     useEffect(() => {
         (() => Request({
@@ -32,6 +36,7 @@ const ExhibitionsInventionsRegistry = ({ history, alias, userType }) => {
             })));
             setLoading(false);
         }, error => {
+            console.log('error.response');
             console.log(error.response);
             setLoading(false);
         }))();
@@ -39,7 +44,7 @@ const ExhibitionsInventionsRegistry = ({ history, alias, userType }) => {
 
     const getBreeds = breeds => {
         const breedsArray = [];
-        breeds.map((breed, index) => breedsArray.push(`${index !== 0 ? ' ' : ''}${breed.name}`));
+        breeds && breeds.map((breed, index) => breedsArray.push(`${index !== 0 ? ' ' : ''}${breed.name}`));
         return breedsArray;
     }
 
@@ -70,6 +75,7 @@ const ExhibitionsInventionsRegistry = ({ history, alias, userType }) => {
                     documents={documents}
                     exporting={exporting}
                     setExporting={setExporting}
+                    userType={userType}
                     fullScreen
                 />
             </Card>

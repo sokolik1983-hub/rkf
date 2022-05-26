@@ -38,7 +38,7 @@ const NBCDocHome = () => {
                         />
                         <Route
                             exact={false}
-                            path='/nbc/:route/exhibitions/invite'
+                            path='/nbc/:route/documents/exhibitions/invite'
                             component={() => <NBCInvite alias={alias} userType="nbc"/>}
                         />
                         <Route component={LoadableNotFound} />

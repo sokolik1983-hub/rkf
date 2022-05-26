@@ -33,6 +33,7 @@ import ExhibitionsCancellationRegistry from "./components/ExhibitionsCancellatio
 import ExhibitionsInventionsRegistry from "./components/Exhibitions/ExhibitionsInvitationsRegistry";
 
 import "./index.scss";
+import ExhibitionsInviteClub from "./components/Exhibitions/ExhibitionsInviteClub";
 
 const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const clubAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
@@ -160,8 +161,8 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/club/:route/documents/exhibitions/invite/registry' component={() =>
                             <ExhibitionsInventionsRegistry clubAlias={clubAlias} userType="club" component/>}
                         />
-                        <Route exact={true} path='/club/:route/exhibitions/invite' component={() =>
-                            <ExhibitionsInventionsRegistry clubAlias={clubAlias} userType="club" component/>}
+                        <Route exact={false} path='/club/:route/documents/exhibitions/invite' component={() =>
+                            <ExhibitionsInviteClub clubAlias={clubAlias} userType="club" component/>}
                         />
                         <Route exact={true} path='/club/:route/documents/exhibitions/application/form/view/:docId' component={() =>
                             <ExhibitionsForm clubAlias={clubAlias} history={history} status="view" />}
