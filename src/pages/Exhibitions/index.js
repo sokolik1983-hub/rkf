@@ -64,7 +64,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
         setExhibitionsLoading(true);
 
         await Request({
-            url: `${url}&StartElement=${startElem}&ElementCount=50`
+            url: `${url.replace('club/', '')}&StartElement=${startElem}&ElementCount=50`
         }, data => {
             if (data.exhibitions?.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
