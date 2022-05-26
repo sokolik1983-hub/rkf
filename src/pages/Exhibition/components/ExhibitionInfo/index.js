@@ -23,13 +23,13 @@ import "./index.scss";
 const ExhibitionInfo = ({
     breed_types,
     canEdit,
-    comments,
     dateEnd,
     dateStart,
     dates,
     description,
     documents_links,
     exhibitionId,
+    exhibition_avatar_link,
     judges,
     national_breed_club_name,
     rank_types,
@@ -84,7 +84,6 @@ const ExhibitionInfo = ({
 
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 
-    // костыль, а че делать?
     const resolveBreeds = (ranks, breeds) => {
         if (breeds && !!breeds.length && ranks && !!ranks.length && 'Все породы' === breeds.join(', ')) {
             let a = [];
@@ -100,8 +99,10 @@ const ExhibitionInfo = ({
 
     return (
         <>
-            <Card className="exhibition-info two main-info">
-                <div className="exhibition-info__left">
+            <Card className="exhibition-info">
+                <div className="exhibition-page__wrap" >
+                    <img src={exhibition_avatar_link} alt="" className="exhibition-page__img" />
+                    <div className="exhibition-page__right">
                     <h4 className="exhibition-info__title">Информация о мероприятии</h4>
                     {dates &&
                         <>
@@ -114,8 +115,8 @@ const ExhibitionInfo = ({
                                         {`${capitalizeFirstLetter(getLocalizedWeekDay(transformDateSafariFriendly(date)))}, 
                                         ${date.day < 10 ? '0' + date.day : date.day}.
                                         ${date.month < 10 ? '0' + date.month : date.month}.
-                                        ${date.year}${date.time_start ? ' c ' + timeSecondsCutter(date.time_start) : ''}
-                                        ${date.time_end ? ' до ' + timeSecondsCutter(date.time_end) + ' по МСК' : ''}`}
+                                        ${date.year}${date.time_start && ' c ' + timeSecondsCutter(date.time_start)}
+                                        ${date.time_end && ' до ' + timeSecondsCutter(date.time_end) + ' по МСК'}`}
                                     </p>
                                 ))}
                             </div>
@@ -135,23 +136,26 @@ const ExhibitionInfo = ({
                             value={national_breed_club_name}
                         />}
                     </div>
+                    <div className={reports_link.length ?
+                        'exhibition-info__right reports'
+                        :
+                        'exhibition-info__right'}
+                    >
+                        {dates && !!dates.length &&
+                            <CountDown
+                                startDate={dateStart}
+                                endDate={dateEnd}
+                                reportsDateEnd={reportsDateEnd}
+                                reportsLinks={reports_link}
+                            />
+                        }
+                    </div>
                 </div>
-                <div className={reports_link.length ? 'exhibition-info__right reports' : 'exhibition-info__right'}>
-                    {dates && !!dates.length &&
-                        <CountDown
-                            startDate={dateStart}
-                            endDate={dateEnd}
-                            reportsDateEnd={reportsDateEnd}
-                            reportsLinks={reports_link}
-                        />
-                    }
                 </div>
-            </Card>
-            <Card className="exhibition-info two">
-                <div className="exhibition-page__description judge-info">
+                <div className="exhibition-page__judge-info">
                     <div className="judge-info__header-wrap">
-                        <h4 className="exhibition-page__description-title">Судьи</h4>
-                        {canEdit &&
+                        <h4 className="exhibition-page__description-title">Судьи/Специалисты</h4>
+                        {canEdit && new Date(dateEnd) >= new Date &&
                         <div className="exhibition-page__judge-select">
                             <Button
                                 primary={true}
@@ -164,11 +168,11 @@ const ExhibitionInfo = ({
                             </Button>
                         </div>}
                     </div>
-                    {judges && <p>{judges}</p>}
-                </div>
-                <div className="exhibition-page__description">
-                    <h4 className="exhibition-page__description-title">Комментарий</h4>
-                    {comments && <p>{comments}</p>}
+                    {judges &&
+                    <ul className="exhibition-page__judge-item">
+                        {judges.split('\r\n').map(item => <li>{item}</li>)}
+                    </ul>
+                    }
                 </div>
             </Card>
             <Card className="exhibition-info two">
