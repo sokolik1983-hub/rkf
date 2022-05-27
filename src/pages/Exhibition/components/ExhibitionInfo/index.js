@@ -195,29 +195,6 @@ const ExhibitionInfo = ({
                     }
                 </div>
             </Card>
-            {/*блок закоментирован по просьбе аналитика, по макету*/}
-            {/*            <Card className="exhibition-info">
-                <div className="exhibition-page__schedule">
-                    <h4 className="exhibition-page__schedule-title">Расписание</h4>
-                    <p className="exhibition-documents__doc">
-                        {schedule_link ?
-                            <a href={schedule_link.url} target="__blank">{schedule_link.name}</a> :
-                            'Расписание отсутствует'
-                        }
-                    </p>
-                </div>
-            </Card>
-            <Card className="exhibition-info">
-                <div className="exhibition-page__catalog">
-                    <h4 className="exhibition-page__catalog-title">Каталог</h4>
-                    <p className="exhibition-documents__doc">
-                        {catalog_link ?
-                            <a href={catalog_link.url} target="__blank">{catalog_link.name}</a> :
-                            'Каталог отсутствует'
-                        }
-                    </p>
-                </div>
-            </Card>*/}
             {showModal &&
                 <Modal showModal={showModal}
                        handleClose={() => setShowModal(false)}
