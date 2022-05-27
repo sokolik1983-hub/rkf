@@ -44,7 +44,7 @@ const ExhibitionInfo = ({
     const {dictionary: breedDictionary} = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
-    const isMobile = useIsMobile(990);
+    const isMobile = useIsMobile(1080);
 
     useEffect(() => {
             blockContent(showModal);
@@ -101,7 +101,7 @@ const ExhibitionInfo = ({
         <>
             <Card className="exhibition-info">
                 <div className="exhibition-page__wrap" >
-                    <img src={exhibition_avatar_link} alt="" className="exhibition-page__img" />
+                    {!isMobile && <img src={exhibition_avatar_link} alt="" className="exhibition-page__img" />}
                     <div className="exhibition-page__right">
                     <h4 className="exhibition-info__title">Информация о мероприятии</h4>
                     {dates &&
@@ -170,7 +170,7 @@ const ExhibitionInfo = ({
                     </div>
                     {judges &&
                     <ul className="exhibition-page__judge-item">
-                        {judges.split('\r\n').map(item => <li>{item}</li>)}
+                        {judges.split('\r\n').map(item => <li key={item}>{item}</li>)}
                     </ul>
                     }
                 </div>
