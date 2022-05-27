@@ -48,28 +48,32 @@ const IndividualRegistration = () => {
             >
                 {fields.map(field => <FormField key={field.name} {...field} />)}
                 <div className="individual-registration__psw-wrap">
-                    <FormField
-                        name="password"
-                        type={showPassword ? 'text' : 'password'}
-                        label="Пароль"
-                        placeholder="Введите пароль"
-                    />
-                    <button
-                        className={`individual-registration__psw${showPassword ? ' _show-password' : ''}`}
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                    />
-                    <FormField
-                        name="passwordConfirm"
-                        type={showPasswordConfirm ? 'text' : 'password'}
-                        label="Подтверждение пароля"
-                        placeholder="Введите подтверждение пароля"
-                    />
-                    <button
-                        className={`individual-registration__psw-confirm${showPasswordConfirm ? ' _show-confirm' : ''}`}
-                        type="button"
-                        onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
-                    />
+                    <div>
+                        <FormField
+                            name="password"
+                            type={showPassword ? 'text' : 'password'}
+                            label="Пароль"
+                            placeholder="Введите пароль"
+                        />
+                        <button
+                            className={`individual-registration__psw${showPassword ? ' _show-password' : ''}`}
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                        />
+                    </div>
+                    <div>
+                        <FormField
+                            name="passwordConfirm"
+                            type={showPasswordConfirm ? 'text' : 'password'}
+                            label="Подтверждение пароля"
+                            placeholder="Введите подтверждение пароля"
+                        />
+                        <button
+                            className={`individual-registration__psw-confirm${showPasswordConfirm ? ' _show-confirm' : ''}`}
+                            type="button"
+                            onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
+                        />
+                    </div>
                 </div>
                 <CustomCheckbox
                     id="individual-registration__data-privacy"
