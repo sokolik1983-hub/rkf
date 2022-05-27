@@ -14,11 +14,7 @@ import useIsMobile from "../../utils/useIsMobile";
 import Avatar from "../Layouts/Avatar";
 import {linkForUserType} from "../../utils/linkForUserType";
 import {nameForUserType} from "../../utils/nameForUserType";
-import {Gallery} from "../Gallery";
-import Slider from "react-slick";
-
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import CardGallery from "../CardGallery";
 import "./index.scss";
 
 
@@ -79,7 +75,7 @@ const CardNewsNew = ({
 
     const imagesArray = pictures?.filter(picture => !!picture && !!Object.keys(picture).length).map(picture => ({
         src: picture.picture_link,
-        thumbnail: picture.picture_short_link
+        thumbnail: picture.picture_short_link || picture.picture_link
     }));
 
     return (
@@ -288,36 +284,26 @@ const CardNewsNew = ({
                                             pictures.length === 5 && 'five'
                                         }`}
                                     >
-                                        <Gallery
-                                            items={imagesArray}
-                                            enableImageSelection={false}
-                                            imageCountSeparator="&nbsp;из&nbsp;"
-                                            tileViewportStyle={() =>({
-                                                height: '100%',
-                                                width: '100%',
-                                                objectFit: 'cover',
-                                                cursor: 'pointer'
-                                            })}
-                                            thumbnailStyle={() => ({
-                                                height: '100%',
-                                                width: '100%',
-                                                objectFit: 'cover',
-                                                cursor: 'pointer'
-                                            })}
-                                            backdropClosesModal={true}
+                                        {/*<Gallery*/}
+                                        {/*    items={imagesArray}*/}
+                                        {/*    enableImageSelection={false}*/}
+                                        {/*    tileViewportStyle={() =>({*/}
+                                        {/*        height: '100%',*/}
+                                        {/*        width: '100%',*/}
+                                        {/*        objectFit: 'cover',*/}
+                                        {/*        cursor: 'pointer'*/}
+                                        {/*    })}*/}
+                                        {/*    thumbnailStyle={() => ({*/}
+                                        {/*        height: '100%',*/}
+                                        {/*        width: '100%',*/}
+                                        {/*        objectFit: 'cover',*/}
+                                        {/*        cursor: 'pointer'*/}
+                                        {/*    })}*/}
+                                        {/*    backdropClosesModal={true}*/}
+                                        {/*/>*/}
+                                        <CardGallery
+                                            images={imagesArray}
                                         />
-                                        {/*<Slider*/}
-                                        {/*    slidesToShow={1}*/}
-                                        {/*    slidesToScroll={1}*/}
-                                        {/*>*/}
-                                        {/*    {pictures.map((picture, i) =>*/}
-                                        {/*        <img*/}
-                                        {/*            key={i}*/}
-                                        {/*            src={picture.picture_link}*/}
-                                        {/*            alt=""*/}
-                                        {/*        />*/}
-                                        {/*    )}*/}
-                                        {/*</Slider>*/}
                                     </div>
                                     :
                                     <ul className="card-news-new__photo-wrap __all">
