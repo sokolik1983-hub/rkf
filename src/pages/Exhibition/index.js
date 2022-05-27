@@ -11,7 +11,6 @@ import Card from "../../components/Card";
 import Banner from "../../components/Banner";
 import Layout from "../../components/Layouts";
 import Loading from "../../components/Loading";
-import CountDown from "../../components/CountDown";
 import PropertyP from "../../components/PropertyP";
 import Container from "../../components/Layouts/Container";
 import CopyrightInfo from "../../components/CopyrightInfo";
@@ -20,9 +19,7 @@ import UserHeader from "../../components/redesign/UserHeader";
 import MenuComponentNew from "../../components/MenuComponentNew";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import { Request } from "../../utils/request";
-import declension from "../../utils/declension";
 import useIsMobile from "../../utils/useIsMobile";
-import {getLocalizedWeekDay, timeSecondsCutter, transformDateSafariFriendly} from "../../utils/datetime";
 
 import "./index.scss";
 
@@ -322,14 +319,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                         }
                                     </Card>
                                 </div>
-                                {/*{isMobile && <div style={{ marginTop: '16px' }}>*/}
-                                {/*    <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />*/}
-                                {/*</div>}*/}
-                                {/*{isMobile &&  <UserPhotoGallery*/}
-                                {/*            alias={club_alias}*/}
-                                {/*            pageLink={`/${club_alias}/gallery`}*/}
-                                {/*        />}*/}
-
                             </div>
                         </div>
                     </Container>
