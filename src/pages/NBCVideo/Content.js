@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Request} from "../../utils/request";
-import UserHeader from "../../components/redesign/UserHeader";
 import Loading from "../../components/Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {VideoGallery} from "../../components/Gallery";
@@ -9,13 +8,9 @@ import Alert from "../../components/Alert";
 import Card from "../../components/Card";
 
 const Content = ({
-                     isMobile,
                      nbcInfo,
                      canEdit,
                      getNBCInfo,
-                     nbcProfileId,
-                     isAuthenticated,
-                     onSubscriptionUpdate,
                      match
                  }) => {
     const [pageLoaded, setPageLoaded] = useState(false);

@@ -30,7 +30,6 @@ import "./index.scss";
 const NBCLayout = ({ newsFeed, ...props } ) => {
     const { children, login_page, setShowFilters, layoutWithFilters } = props;
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
     const [imagesLoading, setImagesLoading] = useState(false);
     const [images, setImages] = useState([]);
     const [nbcInfo, setNBCInfo] = useState(null);
@@ -66,7 +65,6 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
             setNBCProfileId(data.profile_id);
         }, error => {
             console.log(error.response);
-            setError(error.response);
         });
         setLoading(false);
     };
@@ -79,7 +77,6 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
             setEditInfo(data);
         }, error => {
             console.log(error.response);
-            setError(error.response);
         });
         setLoading(false);
     };
@@ -408,6 +405,7 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
                                         handleSuccess: handleSuccess,
                                         transformValues: transformValues,
                                         initialValues: initialValues,
+                                        editInfo: editInfo,
                                     })
                                 }
                             </div>
