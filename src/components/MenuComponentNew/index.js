@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import {isFederationAlias} from "../../utils";
-import {useLocation} from "react-router-dom";
+import {useLocation, useRouteMatch} from "react-router-dom";
 import {useSelector} from "react-redux";
 import useIsMobile from "../../utils/useIsMobile";
 import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo, endpointGetNBCInfo} from "./config";
@@ -51,6 +51,7 @@ const MenuComponentNew = () => {
         || location.search.includes(userAlias)
     ); // страницы профиля залогиненного юзера?
 
+    const isExhibitionPage = useRouteMatch();
 
     const deleteNotification = (currentPageNav) => {
         return currentPageNav?.filter(item => (item.title !== 'Уведомления') && item);
@@ -213,9 +214,8 @@ const MenuComponentNew = () => {
     }, [linkFeesId, linkFedDetails, currentPageUserInfo]);
 
     useEffect(() => {
-        if(location.pathname.includes('exhibitions/')) {
-            const exhibitionId = location.pathname.split('/')[2]
-            getExhibition(exhibitionId);
+        if(isExhibitionPage.path === '/exhibitions/:id') {
+            getExhibition(isExhibitionPage.params.id);
         }
         checkIsPage();
     }, [location]);
