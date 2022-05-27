@@ -75,13 +75,6 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
                 {documents && !!documents.length
                     ? <div>
                         <div className="user-documents-status__controls">
-                            {/*{document_id && <button*/}
-                            {/*    className="user-documents-status__control user-documents-status__control--resetIcon"*/}
-                            {/*>*/}
-                            {/*    <Link to={`/${alias}/documents/exhibitions/application/registry`}>*/}
-                            {/*        Вернуться к списку*/}
-                            {/*    </Link>*/}
-                            {/*</button>}*/}
                             <button
                                 className="user-documents-status__control user-documents-status__control--downloadIcon"
                                 onClick={() => setExporting(true)}
