@@ -17,14 +17,9 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
     const document_id = window.location.href.split('=')[1];
 
     useEffect(() => {
-        console.log('documents', documents)
-    }, [documents])
-
-    useEffect(() => {
         (() => Request({
             url: `/api/exhibitions/invite/register_of_requests`,
         }, data => {
-            console.log('data', data)
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
             }).map(({ date_create, end_date, start_date, nbc_breed, ...rest }) => ({
@@ -36,7 +31,6 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
             })));
             setLoading(false);
         }, error => {
-            console.log('error.response');
             console.log(error.response);
             setLoading(false);
         }))();

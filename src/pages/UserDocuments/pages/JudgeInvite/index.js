@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Loading from "../../../../components/Loading";
-import Request from "../../../../utils/request";
+import { Request, getHeaders } from "../../../../utils/request";
 import Card from "../../../../components/Card";
 import "./index.scss";
 
 
 const JudgeInvite = ({ alias, userType }) => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const location = useLocation();
     const id = location.search.replace('?exhibitionId=', '');
 
     useEffect(() => {
         (() => Request({
             url: `/api/exhibitions/invite?exhibitionId=${id}`,
+            headers: getHeaders(),
         }, data => {
             console.log('data', data)
 

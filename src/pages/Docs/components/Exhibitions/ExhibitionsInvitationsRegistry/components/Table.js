@@ -86,8 +86,6 @@ const Table = ({
 
     //TODO: доделать кнопульки, для этого нужны минимум три заявки с разными статусами
     const handleDropDownChange = (e) => {
-        console.log('e.value', e.value)
-
         let newDataState = { ...gridData }
         if (e.value === "1") {
             newDataState.filter = {
@@ -117,7 +115,6 @@ const Table = ({
         }
 
         setGridData(newDataState);
-        console.log('newDataState', newDataState)
     };
 
     const handleGridDataChange = (e) => {
@@ -156,7 +153,6 @@ const Table = ({
     </Grid>;
 
     const rowRender = (trElement, props) => {
-        console.log('props', props)
         const status = props.dataItem.invite_status;
         const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
         const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
