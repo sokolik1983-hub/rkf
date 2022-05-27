@@ -47,7 +47,7 @@ const Contacts = ({
     const handleChange = (index, contact_type_id) => {
             contacts.map((elem) => (elem.contact_type_id === contact_type_id) ?
                 elem.is_main = false :
-                elem.is_main = elem.is_main);
+                elem.is_main);
             contacts[index].is_main = true;
     };
 

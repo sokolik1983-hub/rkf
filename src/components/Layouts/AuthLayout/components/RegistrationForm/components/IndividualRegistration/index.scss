@@ -13,6 +13,20 @@
   &__psw {
     &-wrap {
       position: relative;
+      & > div {
+        position: relative;
+
+        .FormInput__error {
+          position: relative;
+          white-space: unset;
+          top: 0;
+        }
+        &:last-of-type {
+          .individual-registration__psw-confirm {
+            top: 30px;
+          }
+        }
+      }
     }
     width: 24px;
     height: 24px;
