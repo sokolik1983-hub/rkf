@@ -6,7 +6,7 @@ import ExhibitionInfo from "./components/ExhibitionInfo";
 import PageNotFound from "../404";
 import { connectAuthVisible } from "../Login/connectors";
 import { DEFAULT_IMG, BANNER_TYPES } from "../../appConfig";
-import {useDictionary, getDictElement, getDictElementsArray} from "../../dictionaries";
+import { useDictionary, getDictElement } from "../../dictionaries";
 import Card from "../../components/Card";
 import Banner from "../../components/Banner";
 import Layout from "../../components/Layouts";
@@ -42,10 +42,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
     const [loading, setLoading] = useState(true);
     const exhibitionId = match.params.id;
     const { dictionary } = useDictionary('cities');
-    const {dictionary: rankDictionary} = useDictionary('rank_type');
-    const {dictionary: breedDictionary} = useDictionary('breed_types');
-    const rankTypes = exhibition?.rank_types && getDictElementsArray(rankDictionary, exhibition.rank_types);
-    const breedTypes = exhibition?.breed_types && getDictElementsArray(breedDictionary, exhibition.breed_types);
     const city = exhibition ? getDictElement(dictionary, exhibition.city_id) : null;
     const canEdit = isAuthenticated && is_active_profile && exhibition && profile_id === exhibition.club_id;
     const exhibition_avatar_link = exhibition && exhibition.exhibition_avatar_link;
@@ -120,10 +116,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
         club_avatar,
         club_information,
         contacts,
-        dates,
         exhibition_map_link,
-        national_breed_club_name,
-        reports_link,
     } = exhibition;
 
     const {
