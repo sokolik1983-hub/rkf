@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
-import { process } from '@progress/kendo-data-query';
-import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
+import { process } from "@progress/kendo-data-query";
+import { Grid, GridColumn, GridColumnMenuFilter } from "@progress/kendo-react-grid";
 import { DropDownButton, ChipList } from '@progress/kendo-react-buttons';
-import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
+import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import { GridPDFExport } from "@progress/kendo-react-pdf";
-import kendoMessages from 'kendoMessages.json';
+import kendoMessages from "kendoMessages.json";
 import moment from "moment";
 import PdfPageTemplate from "../../../../../../components/PdfPageTemplate";
-import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-import { Fade } from '@progress/kendo-react-animation';
+import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
+import { Fade } from "@progress/kendo-react-animation";
 import "./index.scss";
+
 
 loadMessages(kendoMessages, 'ru-RU');
 

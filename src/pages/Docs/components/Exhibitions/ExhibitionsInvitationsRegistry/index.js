@@ -14,7 +14,6 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
-    const document_id = window.location.href.split('=')[1];
 
     useEffect(() => {
         (() => Request({
@@ -47,13 +46,6 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
         !standardView ?
             <Card className="user-documents-status__popup">
                 <div className="user-documents-status__controls">
-                    {document_id && <button
-                        className="user-documents-status__control user-documents-status__control--resetIcon"
-                    >
-                        <Link to={`/${alias}/documents/exhibitions/application/registry`}>
-                            Вернуться к списку
-                        </Link>
-                    </button>}
                     <button
                         className="user-documents-status__control user-documents-status__control--downloadIcon"
                         onClick={() => setExporting(true)}

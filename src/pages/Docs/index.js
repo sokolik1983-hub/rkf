@@ -31,9 +31,9 @@ import ExhibitionsRegistry from "./components/Exhibitions/ExhibitionsRegistry";
 import ExhibitionsCancellationForm from "./components/ExhibitionsCancellation/ExhibitionsCancellationForm";
 import ExhibitionsCancellationRegistry from "./components/ExhibitionsCancellation/ExhibitionsCancellationRegistry";
 import ExhibitionsInventionsRegistry from "./components/Exhibitions/ExhibitionsInvitationsRegistry";
+import ExhibitionsInviteClub from "./components/Exhibitions/ExhibitionsInviteClub";
 
 import "./index.scss";
-import ExhibitionsInviteClub from "./components/Exhibitions/ExhibitionsInviteClub";
 
 const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const clubAlias = ls.get('user_info') ? ls.get('user_info').alias : '';

@@ -110,7 +110,6 @@ const Filters = ({
         const calendarButton = document.getElementsByClassName('calendar-filter__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
-        console.log('filters.Alias', filters.Alias)
         setFiltersToUrl(getEmptyFilters(filters.Alias));
         setClearFilter(true);
     };

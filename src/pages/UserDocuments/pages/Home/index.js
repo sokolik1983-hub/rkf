@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import ls from "local-storage";
 import Loading from "../../../../components/Loading";
 import Container from "../../../../components/Layouts/Container";
@@ -16,19 +16,16 @@ import { Request } from "../../../../utils/request";
 import { connectAuthVisible } from "../../../Login/connectors";
 import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import ApplicationRegistry from "../Application/ApplicationRegistry";
-import useIsMobile from "../../../../utils/useIsMobile";
 import ExhibitionsInventionsRegistry from "../../../Docs/components/Exhibitions/ExhibitionsInvitationsRegistry";
 import JudgeInvite from "../JudgeInvite";
 import TopComponent from "../../../../components/TopComponent";
 
 import "./index.scss";
 
-const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticated }) => {
+
+const Home = ({ userAlias, history }) => {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
-    const [canEdit, setCanEdit] = useState(false);
-    const location = useLocation();
-    const isMobile = useIsMobile(1080);
 
     const { alias, name, logo_link } = ls.get('user_info') || {};
 
@@ -47,7 +44,6 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
             }
 
             setUserInfo(data);
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
         }, error => {
             console.log(error.response);
         });
