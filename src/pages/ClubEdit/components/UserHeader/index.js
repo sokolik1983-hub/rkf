@@ -84,7 +84,6 @@ const UserHeader = ({
                                         </div>
                                     </div>
                                 </div>
-
                             </section>
                             {
                                 canEdit &&

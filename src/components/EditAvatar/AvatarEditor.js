@@ -109,7 +109,7 @@ const CustomAvatarEditor = ({
                             <div className="avatar-editor__add-file">
                                 <label htmlFor="avatar" className="avatar-editor__add-label">
                                     <LightTooltip title="Добавить файл">
-                                        <span className="k-icon k-i-plus"> </span>
+                                        <span className="k-icon k-i-plus" />
                                     </LightTooltip>
                                 </label>
                                 <input
@@ -138,12 +138,12 @@ const CustomAvatarEditor = ({
                 </LightTooltip>
                 <LightTooltip title="Повернуть">
                     <button className="avatar-editor__btn" onClick={() => setRotate(rotate - 90)}>
-                        <span className="k-icon k-i-reset"> </span>
+                        <span className="k-icon k-i-reset" />
                     </button>
                 </LightTooltip>
                 <LightTooltip title="Повернуть">
                     <button className="avatar-editor__btn" onClick={() => setRotate(rotate + 90)}>
-                        <span className="k-icon k-i-reload"> </span>
+                        <span className="k-icon k-i-reload" />
                     </button>
                 </LightTooltip>
             </div>

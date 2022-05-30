@@ -7,12 +7,6 @@ import { DEFAULT_IMG } from "../../appConfig";
 import {blockContent} from "../../utils/blockContent";
 import './styles.scss';
 
-const CustomContainer = (props) => {
-    console.log('props', props);
-
-    return <div></div>
-}
-
 
 const GalleryComponent = ({ items, albums, album, match, withLoading = true, getAlbums, getImages, canEdit, alias, isClub = false, isUser = false, isNBC, ...rest }) => {
     const [showModal, setShowModal] = useState(false);
