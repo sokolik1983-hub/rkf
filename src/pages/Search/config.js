@@ -6,7 +6,7 @@ export const defaultFilters = [
         count: 0,
         items: [
             {name: 'РКФ и Федерации', search_type: 101, count: 0, filters: []},
-            {name: 'Клубы', search_type: 102, count: 0, filters: ['federations', 'active_member', 'activated', 'cities']},
+            {name: 'Клубы', search_type: 102, count: 0, filters: ['federations', 'active_member', 'activated', 'regions', 'cities']},
             {name: 'Питомники', search_type: 103, count: 0, filters: ['federations', 'active_member', 'activated', 'breeds', 'cities']},
             {name: 'НКП', search_type: 104, count: 0, filters: ['breeds']}
         ]

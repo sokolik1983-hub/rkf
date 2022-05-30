@@ -27,10 +27,9 @@ import {compose} from "redux";
 
 import "./index.scss";
 
-const NBCLayout = (props) => {
+const NBCLayout = ({ newsFeed, ...props } ) => {
     const { children, login_page, setShowFilters, layoutWithFilters } = props;
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
     const [imagesLoading, setImagesLoading] = useState(false);
     const [images, setImages] = useState([]);
     const [nbcInfo, setNBCInfo] = useState(null);
@@ -66,7 +65,6 @@ const NBCLayout = (props) => {
             setNBCProfileId(data.profile_id);
         }, error => {
             console.log(error.response);
-            setError(error.response);
         });
         setLoading(false);
     };
@@ -79,7 +77,6 @@ const NBCLayout = (props) => {
             setEditInfo(data);
         }, error => {
             console.log(error.response);
-            setError(error.response);
         });
         setLoading(false);
     };
@@ -349,11 +346,13 @@ const NBCLayout = (props) => {
                                 </StickyBox>
                             </Aside>
                             <div className="nbc-page__content">
-                                <UserBanner
-                                    link={nbcInfo?.headliner_link}
-                                    canEdit={canEdit}
-                                    updateInfo={getNBCInfo}
-                                />
+                                {!newsFeed &&
+                                    <UserBanner
+                                        link={nbcInfo?.headliner_link}
+                                        canEdit={canEdit}
+                                        updateInfo={getNBCInfo}
+                                    />
+                                }
                                 {isMobile && nbcInfo &&
                                     <UserHeader
                                         user='nbc'
@@ -406,6 +405,7 @@ const NBCLayout = (props) => {
                                         handleSuccess: handleSuccess,
                                         transformValues: transformValues,
                                         initialValues: initialValues,
+                                        editInfo: editInfo,
                                     })
                                 }
                             </div>

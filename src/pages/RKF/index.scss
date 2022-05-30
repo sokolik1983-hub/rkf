@@ -17,18 +17,17 @@
     padding-bottom: 16px;
   }
   h4 {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
     margin-bottom: 8px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    color: #253C5E;
   }
   & + .Footer {
     display: none;
   }
   &__banner {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(51, 102, 255, 0.08);
     border-radius: 6px;
