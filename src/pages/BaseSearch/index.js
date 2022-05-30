@@ -36,6 +36,7 @@ const BaseSearch = props => {
     } = props;
 
     const [clubData, setClubData] = useState(null);
+    const [nbcData, setNbcData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
     const [activeSection, setActiveSection] = useState(0);
     const [cardClicked, setCardClicked] = useState(0);
@@ -48,9 +49,13 @@ const BaseSearch = props => {
 
         if(orgType && alias) {
             (() => Request({
-                url: orgType === 'clubAlias' ? `/api/Club/public/${alias}` : `/api/nurseries/nursery/public/${alias}`
+                url: orgType === 'clubAlias' ? `/api/Club/public/${alias}`
+                    : orgType === 'nbcAlias' ? `/api/NationalBreedClub/full?alias=${alias}`
+                    :`/api/nurseries/nursery/public/${alias}`
             }, data => {
-                orgType === 'clubAlias' ? setClubData(data) : setNurseryData(data);
+                orgType === 'clubAlias' ? setClubData(data)
+                    : orgType === 'nbcAlias' ?setNbcData(data)
+                    : setNurseryData(data);
             }, error => {
                 console.log(error.response);
             }))();
@@ -122,7 +127,7 @@ const BaseSearch = props => {
                                                 />
                                                 <MenuComponentNew />
                                             </> :
-                                        nurseryData ?
+                                        nurseryData || nbcData ?
                                             <>
                                                 <LeftMenu
                                                     setActiveSection={setActiveSection}

@@ -1,132 +1,73 @@
-import React, {useState} from "react";
-import {Link, Route, Switch, useParams} from "react-router-dom";
+import React from "react";
+import { Link, Route, Switch } from "react-router-dom";
+import StickyBox from "react-sticky-box";
+import ls from "local-storage";
+import Card from "../../components/Card";
+import Banner from "../../components/Banner";
+import Layout from "../../components/Layouts";
+import TopComponent from "../../components/TopComponent";
 import Container from "../../components/Layouts/Container";
+import CopyrightInfo from "../../components/CopyrightInfo";
+import MenuComponentNew from "../../components/MenuComponentNew";
+import { LoadableNotFound } from "../../appModules";
+import useIsMobile from "../../utils/useIsMobile";
 
 import "./styles.scss";
-import Loading from "../../components/Loading";
-import StickyBox from "react-sticky-box";
-import MenuComponentNew from "../../components/MenuComponentNew";
-import Banner from "../../components/Banner";
-import CopyrightInfo from "../../components/CopyrightInfo";
-import BookformCard from "../../components/BookformCard";
-import {LoadableNotFound} from "../../appModules";
-import useIsMobile from "../../utils/useIsMobile";
-import ls from "local-storage";
-import CardMessage from "../../components/CardMessage";
-import Card from "../../components/Card";
 
-const _exhibitionApplication = 24;
-const _exhibitionCancellation = 25;
 
-const ExhibitionsCards = ({ alias, authorizedAccess, membershipPaid }) => {
-    const exhibitionApplication = authorizedAccess?.includes(_exhibitionApplication);
-    const exhibitionCancellation = authorizedAccess?.includes(_exhibitionCancellation);
-    const { user_type } = ls.get('user_info') || {};
-    // const hasAccess = exhibitionApplication && exhibitionCancellation;
-
-    const url = user_type === 7 ? '/nbc' : '';
-
-    return (
-            <>
-                {/*{!authorizedAccess*/}
-                {/*    ? <Loading />*/}
-                {/*    :*/}
-                    <>
-                        {!membershipPaid && <CardMessage>
-                            <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
-                            <p>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
-                        </CardMessage>}
-                        <Card className={exhibitionApplication ? `` : `_inactive`}>
-                            <div className="documents-page__icon exhibitions-icon" />
-                            <h3>ПОДАТЬ ЗАЯВКУ НА ПРОВЕДЕНИЕ ВЫСТАВКИ</h3>
-                            <p>
-                                Для подачи заявки Вы должны указать место проведения выставки, ранг выставки, дату начала и окончания мероприятия и т.д.  После одобрения заявки со стороны выставочной комиссии РКФ выставка появится в календаре мероприятий. Данные, указанные в заявке могут быть изменены или дополнены в любое время, до отправки в производственный департамент.</p>
-                            <hr />
-                            <div className="Card__links">
-                                <Link to={`${url}/${alias}/documents/exhibitions/application/form`}>Подать заявку</Link>
-                                <Link to={`${url}/${alias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
-                            </div>
-                        </Card>
-                        {/*<Card className={exhibitionCancellation ? `` : `_inactive`}>*/}
-                        {/*    <div className="documents-page__icon cancellation-icon" />*/}
-                        {/*    <h3>ПОДАТЬ ЗАЯВКУ НА ПЕРЕНОС/ОТМЕНУ ВЫСТАВКИ</h3>*/}
-                        {/*    <p>*/}
-                        {/*        Здесь вы можете внести изменения в утверждённую выставку. После одобрения заявки со стороны выставочной комиссии РКФ внесённые изменения отобразятся в календаре мероприятий.</p>*/}
-                        {/*    <hr />*/}
-                        {/*    <div className="Card__links">*/}
-                        {/*        <Link to={`${url}/${alias}/documents/exhibitions/cancellation/form`}>Подать заявку</Link>*/}
-                        {/*        <Link to={`${url}/${alias}/documents/exhibitions/cancellation/registry`}>Реестр заявок</Link>*/}
-                        {/*    </div>*/}
-                        {/*</Card>*/}
-                    </>
-                {/*}*/}
-            </>
-        )
+const ExhibitionsCards = ({ alias }) => {
+    return <div className="documents-page__right">
+        {
+            <Card>
+                <div className="documents-page__icon exhibitions-icon" />
+                <h3>ПРИГЛАШЕНИЯ СУДЕЙ НА МЕРОПРИЯТИЯ</h3>
+                <p>
+                    В данном разделе НКП предоставлена возможность согласовать судей на мероприятия, после согласования их списка со стороны клуба, который проводит выставку
+                </p>
+                <hr />
+                <div className="Card__links">
+                    <Link to={`/nbc/${alias}/documents/exhibitions/application/form`}>Подать заявку</Link>
+                    <Link to={`/nbc/${alias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
+                </div>
+            </Card>
+        }
+    </div>
 };
 
-const Content = ({
-                 }) => {
-    const [loading, setLoading] = useState(false);
-    const [authorizedAccess, setAuthorizedAccess] = useState(null);
-    const [membershipPaid, setMembershipPaid] = useState(false);
+const NBCDocuments = () => {
+    const { alias, name, logo_link } = ls.get('user_info') || {};
     const isMobile = useIsMobile(1080);
-    const {alias} = useParams();
 
-    return (
-        loading ? <Loading /> :
-            <Container>
-                <div className="documents-page content">
-                    <div className="documents-page__info">
-                        <aside className="documents-page__left">
-                            <StickyBox offsetTop={60}>
-                                <Card>
-                                    <ul className="menu-component-new__list">
-                                        <li className="menu-component-new__item">
-                                            <a aria-current="page" className="menu-component-new__link active"
-                                               href="/nbc/tumbayumba/documents/exhibitions">
-                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                     xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M10.0074 13.9357C7.83677 13.9357 6.07959 12.1638 6.07959 10.0079C6.07959 7.85202 7.85153 6.08008 10.0074 6.08008C12.1633 6.08008 13.9352 7.85202 13.9352 10.0079C13.9352 12.1638 12.178 13.9357 10.0074 13.9357ZM10.0074 7.5567C8.64891 7.5567 7.55621 8.66416 7.55621 10.0079C7.55621 11.3516 8.64891 12.4591 10.0074 12.4591C11.3659 12.4591 12.4586 11.3664 12.4586 10.0079C12.4586 8.6494 11.3659 7.5567 10.0074 7.5567Z"
-                                                        fill="#8F989D"></path>
-                                                    <path
-                                                        d="M10.0074 19.0148C9.22477 19.0148 8.81132 18.2617 8.45693 17.612C8.36834 17.4495 8.22067 17.1838 8.11731 17.0509C7.95488 17.1247 7.68909 17.2871 7.51189 17.3905C6.87695 17.7744 6.16817 18.2026 5.50369 17.8187C4.82445 17.4348 4.85398 16.5931 4.86874 15.84C4.86874 15.6481 4.88351 15.338 4.85398 15.1608C4.67678 15.1313 4.38146 15.146 4.17473 15.146C3.43642 15.1608 2.59475 15.1903 2.19606 14.5111C1.82691 13.8466 2.25513 13.1378 2.63905 12.5029C2.74241 12.3257 2.90484 12.0599 2.97867 11.8975C2.83101 11.7941 2.57998 11.6464 2.41756 11.5578C1.75308 11.2034 1 10.79 1 10.0074C1 9.22477 1.75308 8.81132 2.40279 8.45693C2.56522 8.36834 2.83101 8.22067 2.9639 8.11731C2.90484 7.95488 2.74241 7.68909 2.63905 7.51189C2.25513 6.87695 1.82691 6.16817 2.21083 5.50369C2.59475 4.82445 3.43642 4.85398 4.1895 4.86874C4.38146 4.86874 4.69155 4.88351 4.86874 4.85398C4.88351 4.67678 4.88351 4.36669 4.88351 4.17473C4.86875 3.43642 4.83921 2.59475 5.51846 2.19606C6.16817 1.82691 6.87695 2.25513 7.51189 2.63905C7.68909 2.74241 7.95488 2.90484 8.11731 2.97867C8.22067 2.83101 8.36834 2.57998 8.45693 2.41756C8.81132 1.75308 9.22477 1 10.0074 1C10.79 1 11.2034 1.75308 11.5578 2.40279C11.6464 2.56522 11.7941 2.83101 11.8975 2.9639C12.0747 2.90484 12.3257 2.74241 12.5029 2.63905C13.1378 2.25513 13.8466 1.82691 14.5111 2.21083C15.1903 2.59475 15.1608 3.43642 15.146 4.1895C15.146 4.38146 15.1313 4.69155 15.1608 4.86874C15.338 4.88351 15.6481 4.88351 15.84 4.88351C16.5783 4.86875 17.42 4.83921 17.8039 5.51846C18.1879 6.18294 17.7596 6.90648 17.3757 7.52666C17.2724 7.70386 17.1099 7.96965 17.0361 8.13208C17.1838 8.23544 17.4348 8.3831 17.5972 8.4717C18.2617 8.82609 19 9.23954 19 10.0222C19 10.8048 18.2469 11.2182 17.5972 11.5726C17.4348 11.6612 17.169 11.8089 17.0361 11.9122C17.1099 12.0747 17.2724 12.3404 17.3757 12.5176C17.7596 13.1526 18.1879 13.8614 17.8039 14.5258C17.42 15.2051 16.5636 15.1756 15.8253 15.1608C15.6333 15.1608 15.3232 15.146 15.146 15.1756C15.1313 15.3527 15.1313 15.6628 15.1313 15.8548C15.146 16.5931 15.1756 17.4348 14.4963 17.8335C13.8318 18.2174 13.1083 17.7892 12.4881 17.4053C12.3109 17.3019 12.0451 17.1395 11.8827 17.0656C11.7793 17.2133 11.6317 17.4643 11.5431 17.6267C11.2034 18.2617 10.79 19.0148 10.0074 19.0148ZM8.20591 15.5299C8.30927 15.5299 8.41263 15.5447 8.516 15.5742C9.10665 15.7367 9.4315 16.3273 9.74159 16.9032C9.81542 17.0361 9.90402 17.2133 10.0074 17.361C10.096 17.2133 10.1993 17.0361 10.2732 16.9032C10.5833 16.3273 10.9081 15.7367 11.4988 15.5742C12.1042 15.4118 12.6948 15.7662 13.2707 16.1206C13.3888 16.1944 13.5365 16.283 13.6694 16.3568C13.6694 16.1944 13.6694 16.0172 13.6694 15.8696C13.6546 15.2051 13.6399 14.5258 14.0829 14.0829C14.5258 13.6399 15.2051 13.6546 15.8696 13.6694C16.0025 13.6694 16.1944 13.6694 16.3568 13.6694C16.283 13.5365 16.1944 13.3741 16.1206 13.2559C15.7662 12.6948 15.4118 12.1042 15.5742 11.4988C15.7367 10.9081 16.3273 10.5833 16.9032 10.2732C17.0361 10.1993 17.2133 10.1107 17.361 10.0074C17.2133 9.91879 17.0361 9.81542 16.9032 9.74159C16.3273 9.4315 15.7367 9.10665 15.5742 8.516C15.4118 7.91058 15.7662 7.31993 16.1206 6.74405C16.1944 6.62592 16.283 6.47826 16.3568 6.34537C16.1944 6.34537 16.0172 6.34537 15.8696 6.34537C15.2051 6.36013 14.5258 6.3749 14.0829 5.93191C13.6399 5.48893 13.6546 4.80968 13.6694 4.1452C13.6694 4.01231 13.6842 3.82034 13.6694 3.65792C13.5365 3.73175 13.3741 3.82034 13.2707 3.89418C12.6948 4.24856 12.1042 4.60295 11.4988 4.44053C10.9081 4.2781 10.5833 3.68745 10.2732 3.11157C10.1993 2.97867 10.096 2.80148 10.0074 2.65381C9.91879 2.80148 9.81542 2.97867 9.74159 3.11157C9.4315 3.68745 9.10665 4.2781 8.516 4.44053C7.91058 4.60295 7.31993 4.24856 6.74405 3.89418C6.62592 3.83511 6.47826 3.73175 6.34537 3.65792C6.34537 3.82034 6.34537 3.99754 6.34537 4.1452C6.36013 4.80968 6.3749 5.50369 5.93191 5.93191C5.48893 6.3749 4.79491 6.36013 4.1452 6.34537C4.01231 6.34537 3.82034 6.34537 3.65792 6.34537C3.73175 6.47826 3.82034 6.64069 3.89418 6.74405C4.24856 7.31993 4.60295 7.91058 4.44053 8.516C4.2781 9.10665 3.68745 9.4315 3.11157 9.74159C2.97867 9.81542 2.80148 9.91879 2.65381 10.0074C2.80148 10.096 2.97867 10.1993 3.11157 10.2732C3.68745 10.5833 4.2781 10.9081 4.44053 11.4988C4.60295 12.1042 4.24856 12.6948 3.89418 13.2707C3.83511 13.3888 3.73175 13.5365 3.65792 13.6694C3.82034 13.6694 4.01231 13.6694 4.1452 13.6694C4.80968 13.6546 5.48893 13.6399 5.93191 14.0829C6.3749 14.5258 6.36013 15.2051 6.34537 15.8696C6.34537 16.0025 6.3306 16.1944 6.34537 16.3568C6.47826 16.283 6.64069 16.1944 6.74405 16.1206C7.21657 15.8253 7.70386 15.5299 8.20591 15.5299ZM17.5824 10.1846H17.5972H17.5824Z"
-                                                        fill="#8F989D"></path>
-                                                </svg>
-                                                <span>Проведение выставок</span></a>
-                                        </li>
-                                    </ul>
-
-                                </Card>
-                                {/*{!isMobile && <MenuComponentNew />}*/}
-                                {!isMobile && <Banner type={8} />}
-                                <CopyrightInfo withSocials={true} />
-                            </StickyBox>
-                        </aside>
-                        <div className="documents-page__right">
-                            <Switch>
-                                <Route
-                                    path='/nbc/:alias/documents/'
-                                    component={() => <ExhibitionsCards
-                                        clubAlias={alias}
-                                        authorizedAccess={authorizedAccess}
-                                        membershipPaid={membershipPaid}
-                                    />}
-                                />
-                                {/*<Route component={LoadableNotFound} />*/}
-                            </Switch>
-                        </div>
-                    </div>
+    return <Layout>
+        <div className="documents-page content">
+            <Container className="documents-page__content">
+                <TopComponent
+                    logo={logo_link}
+                    name={name}
+                    canEdit={false}
+                    withShare={false}
+                    userType ={7}
+                />
+                <div className="documents-page__info">
+                    <aside className="documents-page__left">
+                        <StickyBox offsetTop={60}>
+                            {!isMobile && <MenuComponentNew />}
+                            {!isMobile && <Banner type={8} />}
+                            <CopyrightInfo withSocials={true} />
+                        </StickyBox>
+                    </aside>
+                    <Switch>
+                        <Route
+                            exact={true}
+                            path='/nbc/:route/documents/'
+                            component={() => <ExhibitionsCards alias={alias}/>}
+                        />
+                        <Route component={LoadableNotFound} />
+                    </Switch>
                 </div>
             </Container>
-    )
-}
-
-const NBCDocuments = (props) => {
-
-    return (
-        <Content />
-    );
+        </div>
+    </Layout>;
 };
 
 export default NBCDocuments;

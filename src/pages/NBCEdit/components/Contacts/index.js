@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {connect, FieldArray} from "formik";
-import {phoneNumberMask, editForm} from "../../config";
+import {editForm} from "../../config";
 import Button from "../../../../components/Button";
 import {FormField, FormGroup} from "../../../../components/Form";
 import MaskedInput from "../../../../components/Form/Field/MaskedInput";

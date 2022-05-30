@@ -106,7 +106,7 @@ const DropdownItem = ({
                             filter === 'activated' ?
                                 <ActivatedFilter
                                     activated={filtersValue.activated}
-                                    label={`Активированные ${search_type === 2 ? 'клубы' : 'питомники'}`}
+                                    label={`Активированные ${search_type === 2 || search_type === 102 ? 'клубы' : 'питомники'}`}
                                     onChange={filter => setFiltersToUrl({activated: filter})}
                                     key="activated-filter"
                                 /> :
