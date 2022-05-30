@@ -275,36 +275,9 @@ const CardNewsNew = ({
                         <div className="card-news-new__media">
                             {pictures?.length &&
                                 (!showPublication ?
-                                    <div
-                                        className={`card-news-new__media-wrap _${
-                                            pictures.length === 1 ? 'one' :
-                                            pictures.length === 2 ? 'two' : 
-                                            pictures.length === 3 ? 'three' :
-                                            pictures.length === 4 ? 'four' :
-                                            pictures.length === 5 && 'five'
-                                        }`}
-                                    >
-                                        {/*<Gallery*/}
-                                        {/*    items={imagesArray}*/}
-                                        {/*    enableImageSelection={false}*/}
-                                        {/*    tileViewportStyle={() =>({*/}
-                                        {/*        height: '100%',*/}
-                                        {/*        width: '100%',*/}
-                                        {/*        objectFit: 'cover',*/}
-                                        {/*        cursor: 'pointer'*/}
-                                        {/*    })}*/}
-                                        {/*    thumbnailStyle={() => ({*/}
-                                        {/*        height: '100%',*/}
-                                        {/*        width: '100%',*/}
-                                        {/*        objectFit: 'cover',*/}
-                                        {/*        cursor: 'pointer'*/}
-                                        {/*    })}*/}
-                                        {/*    backdropClosesModal={true}*/}
-                                        {/*/>*/}
-                                        <CardGallery
-                                            images={imagesArray}
-                                        />
-                                    </div>
+                                    <CardGallery
+                                        images={imagesArray}
+                                    />
                                     :
                                     <ul className="card-news-new__photo-wrap __all">
                                         {pictures.map((picture, index) =>
