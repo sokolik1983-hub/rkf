@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import { Redirect, Link } from "react-router-dom";
-import {CSSTransition} from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler";
 import Edit from "./components/Edit";
 import { endpointGetNews } from "./config";
