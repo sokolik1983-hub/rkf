@@ -68,6 +68,8 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
         description
     } = additionalInfo || {};
 
+    console.log(judgeInfo)
+
     return (
         <Card className="user-description">
             <div className="user-description__head">
@@ -102,28 +104,52 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
                 <span>{getPhoneString(main_phone_value, main_phone_status, phones)}</span>
             </p>
             {!!specializations?.length &&
-                <div className="user-description__item _specialization">
-                    <div className="user-description__item-title">Специализация:</div>
-                    <div className="user-description__item-specs">
-                        {judgeInfo.map(item =>
-                            item.specializations[0] !== 'Судья по породам' ?
-                                item.specializations.map(value =>
+                <>
+                    <div className="user-description__item _specialization">
+                        <div className="user-description__item-title">Специализация:</div>
+                        <div className="user-description__item-specs">
+                            {judgeInfo.map(item =>
+                                item.specializations[0] !== 'Судья по породам' ?
+                                    item.specializations.map(value =>
+                                        <Link key={RandomKeyGenerator()}
+                                              className="user-description__item-spec"
+                                              to={`/referee/${item.judge_id}/2`}>
+                                            {value}
+                                        </Link>
+
+                                    ) :
                                     <Link key={RandomKeyGenerator()}
                                           className="user-description__item-spec"
-                                          to={`/referee/${item.judge_id}/2`}>
-                                        {value}
+                                          to={`/referee/${item.judge_id}/1`}>
+                                        {item.specializations}
                                     </Link>
-
-                                ) :
+                                )
+                            }
+                        </div>
+                    </div>
+                    <div className="user-description__item _lists">
+                        <div className="user-description__item-title">Лист судьи/специалиста:</div>
+                        <div className="user-description__item-lists">
+                            {judgeInfo.map(item =>
                                 <Link key={RandomKeyGenerator()}
-                                      className="user-description__item-spec"
+                                      className="user-description__item-list"
                                       to={`/referee/${item.judge_id}/1`}>
-                                    {item.specializations}
+                                    {item.referee_type_id === 1 &&
+                                        <span>
+                                            Лист судьи по породам №{item.cert_number}&nbsp;
+                                        </span>
+                                    }
+                                    {item.referee_type_id === 2 &&
+                                        <span>
+                                            Лист судьи/специалиста по рабочим качествам №{item.cert_number}&nbsp;
+                                        </span>
+                                    }
                                 </Link>
                             )
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
+                </>
             }
             {additionalInfo &&
                 <>
