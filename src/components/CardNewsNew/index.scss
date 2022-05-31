@@ -53,6 +53,7 @@
         flex-direction: column;
         .card-news-new__photo {
           cursor: unset;
+          background-size: contain;
         }
       }
     }
