@@ -47,16 +47,22 @@
     &-lists{
       display: flex!important;
       flex-direction: row;
+      padding-top: 3px;
       @media (max-width: 860px) {
         display: block!important;
       }
     }
 
     &-list {
-      display: block;
+      display: inline-block;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 16px;
+      color: #3366FF;
     }
     &-list + &-list {
       margin-left: 10px;
+
       @media (max-width: 600px) {
         margin-top: 10px;
         margin-left: 0;
