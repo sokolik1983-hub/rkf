@@ -22,13 +22,19 @@ const CardGallery = ({images}) => {
         let cols = 1;
         let rows = 1;
 
-        if(i === 0 && arr.length !== 3) {
+        if(arr.length !== 1 && i === 0) {
             cols = 2;
             rows = 2;
-        } else if(arr.length === 4 && i === 3) {
+        } else if(arr.length === 4 && i === 1) {
             cols = 2;
         } else if(arr.length === 2 && i === 1) {
             cols = 2;
+            rows = 2;
+        } else if (arr.length === 3 && (i === 1||2)) {
+            cols = 2;
+            rows = 1;
+        } else if (arr.length === 1 && i === 0) {
+            cols = 4;
             rows = 2;
         }
 
