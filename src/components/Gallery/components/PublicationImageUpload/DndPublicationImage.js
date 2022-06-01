@@ -32,7 +32,7 @@ const activeStyle = {
 };
 
 
-const DndPublicationImage = ({loadPictures, setLoadPictures}) => {
+const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeModal}) => {
 
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -46,57 +46,24 @@ const DndPublicationImage = ({loadPictures, setLoadPictures}) => {
         isDragActive
     ]);
 
-    const uploadFile = (file, files) => {
-        // console.log(file);
-        // console.log(files)
-        // console.log(loadPictures);
+    const onSubmit = () => {
         console.log(loadPictures)
-
-    };
-
-    const onSubmit = (e) => {
-        setLoadPictures(files);
-        console.log(loadPictures)
-        /*setLoading(true);
-        Promise.all(
-        //     files.map(file => {
-        //     console.log(files);
-        //     console.log(loadPictures)
-        // }
-        setLoadPictures([files])
-            // setLoadPictures(...loadPictures, files.map(file => {
-            //     console.log(file);
-            //     return file;
-            // }))
-        )
-            .then(data => {
-                setShowAlert({
-                    title: "Изображения загружены!",
+        setLoading(true);
+        setLoadPictures(...loadPictures, files.map(pic => {
+            console.log(pic);
+            return pic;
+        }))
+        setShowAlert({
+            title: "Изображения загружены!",
                     autoclose: 1.5,
                     onOk: () => {
                         setShowAlert(false);
                         setLoading(false);
                         setFiles([]);
                         setLoading(false);
-                    }
-                });
-            })
-            .catch(e => {
-                handleError(e);
-                setLoading(false);
-            })*/
-    };
-
-    const handleError = e => {
-        let errorText = e.response.data.errors
-            ? Object.values(e.response.data.errors)
-            : `${e.response.status} ${e.response.statusText}`;
-        setShowAlert({
-            title: `Ошибка: ${errorText}`,
-            text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
-            autoclose: 7.5,
-            onOk: () => setShowAlert(false)
-        });
+                        closeModal();
+                    }}
+        )
     };
 
     useEffect( () =>() => {
@@ -119,6 +86,17 @@ const DndPublicationImage = ({loadPictures, setLoadPictures}) => {
                         setShowAlert(false);
                     }
                 });
+            };
+
+            if ((!!oldPictures ? (oldPictures?.length + loadPictures?.length + acceptedFiles?.length + files?.length) : (loadPictures?.length + acceptedFiles?.length + files?.length)) > 5) {
+                setShowAlert({
+                    text:"Ошибка: Нельзя загрузить больше 5 файлов",
+                    okButton: true,
+                    onOk:() => {
+                        setLoadPictures([])
+                        setShowAlert(false);
+                    }
+                })
             }
         }
     });

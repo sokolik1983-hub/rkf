@@ -75,32 +75,6 @@ const RenderFields = ({ fields,
         )
     }, []);
 
-    // const handleChange = (e)=> {
-    //     const file = e.target.files[0];
-    //
-    //     if (file && file.size < 20971520) {
-    //         if (loadPictures.length < 5) {
-    //             setLoadPictures([...loadPictures, e.target.files[0]])
-    //             e.target.value = '';
-    //         } else {
-    //             window.alert('Вы не можете прикрепить больше 5 изображений');
-    //             return null
-    //         }
-    //
-    //                 setLoadFile(true);
-    //             } else {
-    //                 window.alert(`Размер изображения не должен превышать 20 мб`);
-    //                 setLoadFile(false);
-    //             }
-    //             acceptType(file).then(descision => {
-    //                 if (!descision) {
-    //                     window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
-    //                     setLoadPictures([...loadPictures])
-    //                 }
-    //             });
-    // }
-
-
     const handleClose = (picture) => {
         let index = loadPictures.indexOf(picture);
         if (index >= 0) {
@@ -199,8 +173,7 @@ const RenderFields = ({ fields,
     }, [isAllCities]);
 
     useEffect(() => {
-        loadPictures.map(picture => formik.setFieldValue('pictures', picture));
-        // formik.setFieldValue('pictures', loadPictures)
+        formik.setFieldValue('pictures', loadPictures)
     }, [loadPictures])
 
     return (<>
@@ -233,15 +206,6 @@ const RenderFields = ({ fields,
                                         setShowModal(true);
                                     }}/>
                                 </LightTooltip>
-                                {/*<input*/}
-                                {/*    type="file"*/}
-                                {/*    name="file"*/}
-                                {/*    id="file"*/}
-                                {/*    accept="image/*"*/}
-                                {/*    className="article-create-form__inputfile"*/}
-                                {/*    onInput={handleChange}*/}
-                                {/*/>*/}
-
                             </>
                         }
                         {!videoLink &&
@@ -459,8 +423,20 @@ const RenderFields = ({ fields,
             }
 
             <>
-                {loadPictures &&
-                    <ul>
+                {!!loadPictures?.length &&
+                    <ul className={`article-create-form__images __${loadPictures.length === 1 ?
+                        'one'
+                        :
+                        loadPictures.length === 2 ?
+                            'two'
+                            :
+                            loadPictures.length === 3 ?
+                                'three'
+                                :
+                                loadPictures.length === 4 ?
+                                    'four'
+                                    :
+                                    loadPictures.length === 5 && 'five'}`}>
                     {loadPictures.map((picture, index) =>
                         <li className="ImagePreview__wrap" key={index}>
                                 <ImagePreview src={URL.createObjectURL(picture)} />
@@ -512,7 +488,11 @@ const RenderFields = ({ fields,
                 headerName={modalType === 'video' ? 'Добавление видео' : 'Прикрепление файла'}
             >
                 {modalType === 'photo' &&
-                    <DndPublicationImage loadPictures={loadPictures} setLoadPictures={setLoadPictures}/>
+                    <DndPublicationImage
+                        loadPictures={loadPictures}
+                        setLoadPictures={setLoadPictures}
+                        closeModal={closeModal}
+                    />
                 }
                 {modalType === 'video' &&
                     <AddVideoLink
