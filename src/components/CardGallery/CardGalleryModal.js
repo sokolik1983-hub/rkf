@@ -24,7 +24,6 @@ const CardGalleryModal = ({images, activeIndex, isOpen, onClose}) => (
                 touchThreshold={20}
                 adaptiveHeight={true}
                 lazyLoad={'progressive'}
-
                 responsive={[{
                     breakpoint: 750,
                     settings: {

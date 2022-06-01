@@ -273,7 +273,7 @@ const CardNewsNew = ({
                     </div>
                     {(pictures || video_link) &&
                         <div className="card-news-new__media">
-                            {pictures?.length &&
+                            {!!pictures?.length &&
                                 (!showPublication ?
                                     <CardGallery
                                         images={imagesArray}
