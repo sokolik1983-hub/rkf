@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {DEFAULT_IMG} from "../../appConfig";
 import {CSSTransition} from "react-transition-group";
 import LightTooltip from "../LightTooltip";
@@ -13,6 +13,16 @@ const PhotoComponent = ({photo, name, position, canEdit}) => {
 
     const [modalType, setModalType] = useState('');
     const [hover, setHover] = useState(false);
+    const [photoSize, setPhotoSize] = useState({});
+
+    const ref = useRef(null);
+
+    useEffect(() => {
+        ref.current && setPhotoSize({
+            width: ref.current.clientWidth,
+            height: ref.current.clientHeight,
+        })
+    }, [ref]);
 
     return (
         <div className="photo-component"
@@ -72,13 +82,14 @@ const PhotoComponent = ({photo, name, position, canEdit}) => {
                     setModalType={setModalType}
                     avatar={photo}
                     owner
+                    size={photoSize}
                 />}
             {modalType === "delete-owner" &&
                 <ModalDeleteAvatar
                     closeModal={() => setModalType("")}
                     owner
                 />}
-            <img src={photo || DEFAULT_IMG.noImage} alt="" className="photo-component__photo"/>
+            <img src={photo || DEFAULT_IMG.noImage} alt="" className="photo-component__photo" ref={ref}/>
             <div className="photo-component__description">
                 <h5 className="photo-component__title">{name}</h5>
                 <p className="photo-component__subtitle">{position || "Руководитель"}</p>
