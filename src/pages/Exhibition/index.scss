@@ -120,7 +120,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 10px 0 30px;
+      margin: 10px 0;
       @media (max-width: 560px) {
         display: block;
       }
@@ -155,9 +155,7 @@
     margin: 0 auto;
     border-radius: 0;
     box-shadow: none;
-    @media (max-width: 990px) {
-      margin-bottom: 24px;
-    }
+
     &-info {
       margin-bottom: 0;
     }
@@ -189,7 +187,8 @@
   &__address {
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
+    margin: auto 10px;
+    padding: 10px 0;
     border-bottom: 1px solid #E5E5E5;
     box-shadow: none;
     border-radius: 0;
@@ -319,9 +318,6 @@
     padding: 0;
     order: 1;
     background-color: #FFFFFF;
-    @media (max-width: 990px) {
-      padding-bottom: 24px;
-    }
   }
   &__map {
     img {
