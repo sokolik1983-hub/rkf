@@ -472,7 +472,7 @@ const RenderFields = ({ fields,
                     </div>
                 }
                 {focus && <div className="article-create-form__button-wrap">
-                    {(!!loadPictures?.length || !!videoLink) &&
+                    {!content && (!!loadPictures?.length || !!videoLink) &&
                         <span className="article-create-form__text-error">
                             Заполните текст для публикации
                         </span>
