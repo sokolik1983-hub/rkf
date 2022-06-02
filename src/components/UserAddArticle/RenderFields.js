@@ -174,7 +174,7 @@ const RenderFields = ({ fields,
 
     useEffect(() => {
         formik.setFieldValue('pictures', loadPictures);
-    }, [loadPictures, isCheckedAddTypes, isAd])
+    }, [loadPictures, isCheckedAddTypes, isAd]);
 
     return (<>
             <div className={focus ? `_focus` : `_no_focus`}>

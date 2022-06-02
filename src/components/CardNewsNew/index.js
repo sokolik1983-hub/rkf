@@ -15,8 +15,8 @@ import Avatar from "../Layouts/Avatar";
 import {linkForUserType} from "../../utils/linkForUserType";
 import {nameForUserType} from "../../utils/nameForUserType";
 import CardGallery from "../CardGallery";
-import "./index.scss";
 import {Gallery} from "../Gallery";
+import "./index.scss";
 
 
 const CardNewsNew = ({
