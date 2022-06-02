@@ -305,16 +305,11 @@ const CardNewsNew = ({
                                             />
                                         </div>)
                                     :
-                                    <ul className="card-news-new__photo-wrap __all">
-                                        {pictures.map((picture, index) =>
-                                            <li className="card-news-new__photo"
-                                                style={{
-                                                    backgroundImage: `url(${picture.picture_link})`
-                                                }}
-                                                key={index}
-                                            />
+                                    <div className="card-news-new__photo-wrap __all">
+                                        {pictures.map(picture =>
+                                            <img className="card-news-new__photo" src={picture.picture_link} alt=""/>
                                         )}
-                                    </ul>
+                                    </div>
                                 )
                             }
                             {video_link &&
