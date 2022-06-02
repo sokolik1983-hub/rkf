@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DEFAULT_IMG } from "../../../../../../appConfig";
 import { connectClientClubLogoPicture } from "../../../../connectors";
 // import ActiveImageWrapper from "../../../../../../components/ActiveImageWrapper";
@@ -8,7 +8,17 @@ import "./styles.scss";
 
 const ClubLogoPicture = ({ backgroundImage, clubLogoUpdateSuccess }) => {
     const [modalType, setModalType] = useState('');
+    const [logoSize, setLogoSize] = useState({});
+
     const ref = useRef(null);
+
+    useEffect(() => {
+        ref.current && setLogoSize({
+            width: ref.current.clientWidth,
+            height: ref.current.clientHeight,
+        })
+    }, [ref]);
+
 
     return (<>
         <div className="ClubLogoPicture__holder" onClick={() => setModalType('edit')}>
@@ -23,6 +33,7 @@ const ClubLogoPicture = ({ backgroundImage, clubLogoUpdateSuccess }) => {
             avatar={backgroundImage}
             userType="club"
             onSubmitSuccess={clubLogoUpdateSuccess}
+            size={logoSize}
         />}
     </>
     )
