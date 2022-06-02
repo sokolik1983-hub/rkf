@@ -47,10 +47,8 @@ const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeMo
     ]);
 
     const onSubmit = () => {
-        console.log(loadPictures)
         setLoading(true);
         setLoadPictures(...loadPictures, files.map(pic => {
-            console.log(pic);
             return pic;
         }))
         setShowAlert({
