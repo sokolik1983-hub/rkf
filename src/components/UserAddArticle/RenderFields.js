@@ -173,8 +173,8 @@ const RenderFields = ({ fields,
     }, [isAllCities]);
 
     useEffect(() => {
-        formik.setFieldValue('pictures', loadPictures)
-    }, [loadPictures])
+        formik.setFieldValue('pictures', loadPictures);
+    }, [loadPictures, isCheckedAddTypes, isAd]);
 
     return (<>
             <div className={focus ? `_focus` : `_no_focus`}>
@@ -472,6 +472,11 @@ const RenderFields = ({ fields,
                     </div>
                 }
                 {focus && <div className="article-create-form__button-wrap">
+                    {(!!loadPictures?.length || !!videoLink) &&
+                        <span className="article-create-form__text-error">
+                            Заполните текст для публикации
+                        </span>
+                    }
                     <SubmitButton
                         type="submit"
                         className={`article-create-form__button ${formik.isValid ? 'active' : ''}`}

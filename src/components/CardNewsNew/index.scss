@@ -28,6 +28,109 @@
     & > div + div {
       margin-top: 3px;
     }
+    .ReactGridGallery {
+      display: grid;
+      grid-template-rows: 50% 50%;
+      margin: 0 10px;
+      gap: 2px;
+      list-style-type: none;
+      &_tile {
+        margin: 0!important;
+      }
+      &_tile:first-of-type{
+        grid-area: first;
+      }
+      &_tile:nth-of-type(2){
+        grid-area: second;
+      }
+      &_tile:nth-of-type(3){
+        grid-area: third;
+      }
+      &_tile:nth-of-type(4){
+        grid-area: fourth;
+      }
+      &_tile:nth-of-type(5){
+        grid-area: fifth;
+      }
+    }
+    &-wrap {
+      &._one {
+        .ReactGridGallery {
+          display: flex;
+          justify-content: center;
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+      &._two {
+        .ReactGridGallery {
+          display: flex;
+          flex-direction: row;
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+      &._three {
+        .ReactGridGallery {
+          display: grid;
+          grid-template-areas:
+            "first first second second"
+            "first first third third";
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+      &._four {
+        .ReactGridGallery {
+          display: grid;
+          grid-template-areas:
+            "first first second second"
+            "first first third fourth";
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+      &._five {
+        .ReactGridGallery {
+          display: grid;
+          grid-template-areas:
+            "first first first second second second"
+            "third third fourth fourth fifth fifth";
+          &_tile {
+            width: auto;
+            height: auto;
+            img {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+      }
+    }
   }
 
   &__photo {
@@ -53,7 +156,6 @@
         flex-direction: column;
         .card-news-new__photo {
           cursor: unset;
-          background-size: contain;
         }
       }
     }

@@ -169,6 +169,7 @@
     grid-template-rows: 50% 50%;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
+    max-height: 500px;
     margin-bottom: 15px;
     list-style-type: none;
     .article-edit__image:first-of-type {
@@ -188,7 +189,7 @@
     }
 
     &.__one {
-      display: block;
+      display: flex;
     }
 
     &.__two {
@@ -245,10 +246,6 @@
       height: 100% !important;
       width: 100%;
       object-fit: cover;
-      @media (max-width: 560px) {
-        width: 100%;
-        height: auto !important;
-      }
     }
   }
 
