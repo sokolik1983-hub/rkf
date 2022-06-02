@@ -48,9 +48,7 @@ const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeMo
 
     const onSubmit = () => {
         setLoading(true);
-        setLoadPictures(...loadPictures, files.map(pic => {
-            return pic;
-        }))
+        setLoadPictures(loadPictures.concat(files))
         setShowAlert({
             title: "Изображения загружены!",
                     autoclose: 1.5,

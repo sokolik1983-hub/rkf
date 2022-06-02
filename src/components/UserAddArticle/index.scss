@@ -18,6 +18,11 @@
 .article-create-form {
   position: relative;
 
+  &__text-error {
+    color: #FA5D50;
+    font-size: 15px;
+  }
+
   textarea {
     resize: initial;
   }
@@ -277,15 +282,19 @@
     display: flex;
     align-items: center;
     margin-top: 20px;
+    justify-content: flex-end;
 
     @media (max-width: 750px) {
+      flex-direction: column;
       margin-top: 0;
     }
 
     button {
       margin-right: 0;
+      margin-left: 20px;
       width: 154px;
       @media (max-width: 750px) {
+        margin-left: auto;
         width: 136px;
       }
     }
@@ -528,7 +537,7 @@
     margin: 0;
     grid-template-rows: 50% 50%;
     grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
+    gap: 4px;
     margin-bottom: 15px;
     margin-top: 15px;
     list-style-type: none;
@@ -550,7 +559,7 @@
     }
 
     &.__one {
-      display: block;
+      display: flex;
     }
 
     &.__two {

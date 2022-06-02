@@ -16,6 +16,7 @@ import {linkForUserType} from "../../utils/linkForUserType";
 import {nameForUserType} from "../../utils/nameForUserType";
 import CardGallery from "../CardGallery";
 import "./index.scss";
+import {Gallery} from "../Gallery";
 
 
 const CardNewsNew = ({
@@ -72,6 +73,15 @@ const CardNewsNew = ({
             setCanCollapse(true);
         }
     }, []);
+
+    const squareStyle = () =>{
+    return {
+        height: '100%',
+        width: '100%',
+        objectFit: 'cover',
+        cursor: 'pointer'
+    }
+};
 
     const imagesArray = pictures?.filter(picture => !!picture && !!Object.keys(picture).length).map(picture => ({
         src: picture.picture_link,
@@ -275,9 +285,25 @@ const CardNewsNew = ({
                         <div className="card-news-new__media">
                             {!!pictures?.length &&
                                 (!showPublication ?
-                                    <CardGallery
+                                    (isMobile ? <CardGallery
                                         images={imagesArray}
-                                    />
+                                    /> :
+                                        <div className={`card-news-new__media-wrap _${
+                                            pictures.length === 1 ? 'one' :
+                                                pictures.length === 2 ? 'two' :
+                                                    pictures.length === 3 ? 'three' :
+                                                        pictures.length === 4 ? 'four' :
+                                                            pictures.length === 5 && 'five' }`
+                                        }>
+                                            <Gallery
+                                                items={imagesArray}
+                                                enableImageSelection={false}
+                                                imageCountSeparator="&nbsp;из&nbsp;"
+                                                tileViewportStyle={squareStyle}
+                                                thumbnailStyle={squareStyle}
+                                                backdropClosesModal={true}
+                                            />
+                                        </div>)
                                     :
                                     <ul className="card-news-new__photo-wrap __all">
                                         {pictures.map((picture, index) =>
