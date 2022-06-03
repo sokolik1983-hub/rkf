@@ -136,7 +136,7 @@ const UserDescription = ({
                                     {item.referee_type_id === 1 &&
                                         <Link key={RandomKeyGenerator()} to={`/referee/${item.judge_id}/1`}>
                                             <span className="user-description__item-list">
-                                                Лист судьи по породам №{item.cert_number}{judgeInfo.length > 1 ? ','  : '  '}
+                                                Лист судьи по породам №{item.cert_number}{judgeInfo.length > 1 && ','}
                                             </span>
                                         </Link>
                                     }
