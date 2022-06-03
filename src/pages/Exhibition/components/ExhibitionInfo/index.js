@@ -115,8 +115,8 @@ const ExhibitionInfo = ({
                                         {`${capitalizeFirstLetter(getLocalizedWeekDay(transformDateSafariFriendly(date)))}, 
                                         ${date.day < 10 ? '0' + date.day : date.day}.
                                         ${date.month < 10 ? '0' + date.month : date.month}.
-                                        ${date.year}${date.time_start && ' c ' + timeSecondsCutter(date.time_start)}
-                                        ${date.time_end && ' до ' + timeSecondsCutter(date.time_end) + ' по МСК'}`}
+                                        ${date.year}${!!date.time_start ? ' c ' + timeSecondsCutter(date.time_start):''}
+                                        ${!!date.time_end ? ' до ' + timeSecondsCutter(date.time_end) + ' по МСК': ''}`}
                                     </p>
                                 ))}
                             </div>

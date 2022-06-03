@@ -6,7 +6,7 @@ import "./index.scss";
 
 const Share = ({url, className}) => {
     //Убрать, если нужно при разработке
-    if(DISABLE_SHARE_IN_DEV) return null;
+    // if(DISABLE_SHARE_IN_DEV) return null;
 
     return (
         <div className={`Share ${url ? 'has-url' : ''} ${className}`}>

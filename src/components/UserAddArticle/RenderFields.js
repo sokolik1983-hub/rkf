@@ -19,6 +19,8 @@ import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 import Avatar from "../Layouts/Avatar";
+import {AddPhotoModal, DndImageUpload} from "../Gallery";
+import DndPublicationImage from "../Gallery/components/PublicationImageUpload/DndPublicationImage";
 
 const RenderFields = ({ fields,
                           logo,
@@ -72,32 +74,6 @@ const RenderFields = ({ fields,
             error => console.log(error.response)
         )
     }, []);
-
-    const handleChange = (e)=> {
-        const file = e.target.files[0];
-
-        if (file && file.size < 20971520) {
-            if (loadPictures.length < 5) {
-                setLoadPictures([...loadPictures, e.target.files[0]])
-                e.target.value = '';
-            } else {
-                window.alert('Вы не можете прикрепить больше 5 изображений');
-                return null
-            }
-
-                    setLoadFile(true);
-                } else {
-                    window.alert(`Размер изображения не должен превышать 20 мб`);
-                    setLoadFile(false);
-                }
-                acceptType(file).then(descision => {
-                    if (!descision) {
-                        window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
-                        setLoadPictures([...loadPictures])
-                    }
-                });
-    }
-
 
     const handleClose = (picture) => {
         let index = loadPictures.indexOf(picture);
@@ -197,8 +173,8 @@ const RenderFields = ({ fields,
     }, [isAllCities]);
 
     useEffect(() => {
-        formik.setFieldValue('pictures', loadPictures)
-    }, [loadPictures])
+        formik.setFieldValue('pictures', loadPictures);
+    }, [loadPictures, isCheckedAddTypes, isAd]);
 
     return (<>
             <div className={focus ? `_focus` : `_no_focus`}>
@@ -225,16 +201,11 @@ const RenderFields = ({ fields,
                         {loadPictures?.length < 5 &&
                             <>
                                 <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
-                                    <label htmlFor="file" className="article-create-form__labelfile" />
+                                    <label htmlFor="file" className="article-create-form__labelfile" onClick={() => {
+                                        setModalType('photo');
+                                        setShowModal(true);
+                                    }}/>
                                 </LightTooltip>
-                                <input
-                                    type="file"
-                                    name="file"
-                                    id="file"
-                                    accept="image/*"
-                                    className="article-create-form__inputfile"
-                                    onInput={handleChange}
-                                />
                             </>
                         }
                         {!videoLink &&
@@ -452,8 +423,20 @@ const RenderFields = ({ fields,
             }
 
             <>
-                {loadPictures &&
-                    <ul>
+                {!!loadPictures?.length &&
+                    <ul className={`article-create-form__images __${loadPictures.length === 1 ?
+                        'one'
+                        :
+                        loadPictures.length === 2 ?
+                            'two'
+                            :
+                            loadPictures.length === 3 ?
+                                'three'
+                                :
+                                loadPictures.length === 4 ?
+                                    'four'
+                                    :
+                                    loadPictures.length === 5 && 'five'}`}>
                     {loadPictures.map((picture, index) =>
                         <li className="ImagePreview__wrap" key={index}>
                                 <ImagePreview src={URL.createObjectURL(picture)} />
@@ -489,6 +472,11 @@ const RenderFields = ({ fields,
                     </div>
                 }
                 {focus && <div className="article-create-form__button-wrap">
+                    {!content && (!!loadPictures?.length || !!videoLink) &&
+                        <span className="article-create-form__text-error">
+                            Заполните текст для публикации
+                        </span>
+                    }
                     <SubmitButton
                         type="submit"
                         className={`article-create-form__button ${formik.isValid ? 'active' : ''}`}
@@ -504,6 +492,13 @@ const RenderFields = ({ fields,
                 handleX={closeModal}
                 headerName={modalType === 'video' ? 'Добавление видео' : 'Прикрепление файла'}
             >
+                {modalType === 'photo' &&
+                    <DndPublicationImage
+                        loadPictures={loadPictures}
+                        setLoadPictures={setLoadPictures}
+                        closeModal={closeModal}
+                    />
+                }
                 {modalType === 'video' &&
                     <AddVideoLink
                         setVideoLink={addVideoLink}

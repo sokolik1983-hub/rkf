@@ -236,7 +236,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                     </div>
                                 </StickyBox>
                             </aside>
-                            <div className="exhibition-page__right">
+                            <Card className="exhibition-page__right">
                                 <div className="desktop-only">
                                     <div className="exhibition-page__title-wrap">
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
@@ -279,9 +279,8 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                 })
                                             : ''
                                     }
-
                                         <br />
-                                        <h4 className="exhibition-page__address-title">Дополнительная информация</h4>
+                                        <h4 className="exhibition-page__address-title">дополнительная информация</h4>
                                         {address_additional_info ?
                                             <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: address_additional_info }} /> :
                                             <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
@@ -312,7 +311,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                         }
                                     </Card>
                                 </div>
-                            </div>
+                            </Card>
                         </div>
                     </Container>
                 </div>
