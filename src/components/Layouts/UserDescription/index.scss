@@ -58,9 +58,18 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 16px;
-      color: #3366FF;
     }
-    &-list + &-list {
+
+    a {
+      text-decoration: none;
+      color: #72839c;
+      &:hover {
+        color: #3366ff;
+      }
+    }
+
+    &-list + &-list,
+    a + a {
       margin-left: 10px;
 
       @media (max-width: 600px) {

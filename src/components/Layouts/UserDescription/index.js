@@ -134,14 +134,18 @@ const UserDescription = ({
                             {judgeInfo.map(item =>
                                 <>
                                     {item.referee_type_id === 1 &&
-                                        <span className="user-description__item-list">
-                                            Лист судьи по породам №{item.cert_number}{judgeInfo.length > 1 ? ','  : '  '}
-                                        </span>
+                                        <Link key={RandomKeyGenerator()} to={`/referee/${item.judge_id}/1`}>
+                                            <span className="user-description__item-list">
+                                                Лист судьи по породам №{item.cert_number}{judgeInfo.length > 1 && ','}
+                                            </span>
+                                        </Link>
                                     }
                                     {item.referee_type_id === 2 &&
-                                        <span className="user-description__item-list">
-                                            Лист судьи/специалиста по рабочим качествам №{item.cert_number}&nbsp;
-                                        </span>
+                                        <Link key={RandomKeyGenerator()} to={`/referee/${item.judge_id}/2`}>
+                                            <span className="user-description__item-list">
+                                                Лист судьи/специалиста по рабочим качествам №{item.cert_number}&nbsp;
+                                            </span>
+                                        </Link>
                                     }
                                 </>
                             )}
