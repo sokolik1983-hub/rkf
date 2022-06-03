@@ -288,13 +288,7 @@ const CardNewsNew = ({
                                     (isMobile ? <CardGallery
                                         images={imagesArray}
                                     /> :
-                                        <div className={`card-news-new__media-wrap _${
-                                            pictures.length === 1 ? 'one' :
-                                                pictures.length === 2 ? 'two' :
-                                                    pictures.length === 3 ? 'three' :
-                                                        pictures.length === 4 ? 'four' :
-                                                            pictures.length === 5 && 'five' }`
-                                        }>
+                                        <div className={`card-news-new__media-wrap _${pictures.length}`}>
                                             <Gallery
                                                 items={imagesArray}
                                                 enableImageSelection={false}
