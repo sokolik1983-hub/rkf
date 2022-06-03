@@ -23,7 +23,7 @@ const CardGalleryModal = ({images, activeIndex, isOpen, onClose}) => (
                 prevArrow={<img className="slick-prev" src="/static/icons/chevron_left.svg" alt="prev" />}
                 touchThreshold={20}
                 adaptiveHeight={true}
-                lazyLoad={"progressive"}
+                lazyLoad="progressive"
                 responsive={[{
                     breakpoint: 750,
                     settings: {

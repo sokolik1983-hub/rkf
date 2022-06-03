@@ -424,19 +424,7 @@ const RenderFields = ({ fields,
 
             <>
                 {!!loadPictures?.length &&
-                    <ul className={`article-create-form__images __${loadPictures.length === 1 ?
-                        'one'
-                        :
-                        loadPictures.length === 2 ?
-                            'two'
-                            :
-                            loadPictures.length === 3 ?
-                                'three'
-                                :
-                                loadPictures.length === 4 ?
-                                    'four'
-                                    :
-                                    loadPictures.length === 5 && 'five'}`}>
+                    <ul className={`article-create-form__images __${loadPictures.length}`}>
                     {loadPictures.map((picture, index) =>
                         <li className="ImagePreview__wrap" key={index}>
                                 <ImagePreview src={URL.createObjectURL(picture)} />

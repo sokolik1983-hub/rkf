@@ -35,7 +35,7 @@ const CardGallery = ({images}) => {
         } else  if(arr.length === 2 && i === 1) {
             cols = 3;
             rows = 2;
-        } else if (arr.length === 3 && (i === 1||2)) {
+        } else if (arr.length === 3 && (i === 1||i === 2)) {
             cols = 3;
             rows = 1;
         } else if (arr.length === 1) {
