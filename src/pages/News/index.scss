@@ -350,11 +350,11 @@
         }
       }
 
-      &.__one {
+      &.__1 {
         display: block;
       }
 
-      &.__two {
+      &.__2 {
         display: flex;
         flex-direction: row;
         & li {
@@ -362,19 +362,19 @@
         }
       }
 
-      &.__three {
+      &.__3 {
         grid-template-areas:
       "first first second second"
       "first first third third";
       }
 
-      &.__four {
+      &.__4 {
         grid-template-areas:
         "first first second second"
         "first first third fourth";
       }
 
-      &.__five {
+      &.__5 {
         grid-template-areas:
         "first first first second second second"
         "third third fourth fourth fifth fifth";

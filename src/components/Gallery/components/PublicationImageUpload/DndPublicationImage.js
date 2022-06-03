@@ -62,7 +62,7 @@ const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeMo
         )
     };
 
-    useEffect( () =>() => {
+    useEffect( () => {
         files.forEach(file => URL.revokeObjectURL(file.preview));
     }, [files]);
 
@@ -99,13 +99,15 @@ const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeMo
 
     return (
         <section className="DndImageUpload__wrap">
-            <div {...getRootProps({ style })}>
+            <div
+                {...getRootProps({ style })}
+            >
                 <input {...getInputProps()} />
-                <div>
-                    <img src="/static/icons/camera.svg" alt="" /><br />
+                <div className="DndImageUpload__text">
+                    <img src="/static/icons/camera.svg" alt="" />
                     <h3>Загрузка изображений</h3>
-                    Перетащите файлы в эту область<br />
-                    Поддерживаемые форматы: JPG и JPEG
+                    <p>Перетащите файлы в эту область</p>
+                    <p>Поддерживаемые форматы: JPG и JPEG</p>
                 </div>
             </div>
             <div className="DndImageUpload__preview">

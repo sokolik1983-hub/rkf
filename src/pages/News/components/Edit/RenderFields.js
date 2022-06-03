@@ -403,19 +403,7 @@ const RenderFields = ({ fields,
             </div>
             {(allPictures || video) &&
                 <div className="article-edit__media">
-                    {!!allPictures && <div className={`article-edit__images __${allPictures.length === 1 ?
-                        'one'
-                        :
-                        allPictures.length === 2 ?
-                            'two'
-                            :
-                            allPictures.length === 3 ?
-                                'three'
-                                :
-                                allPictures.length === 4 ?
-                                    'four'
-                                    :
-                                    allPictures.length === 5 && 'five'}`}>
+                    {!!allPictures && <div className={`article-edit__images __${allPictures.length}`}>
                         {!!allPictures?.length && allPictures.map(picture =>
                             <div className="article-edit__image">
                                 <img src={picture.picture_link || URL.createObjectURL(picture)} alt=""/>
