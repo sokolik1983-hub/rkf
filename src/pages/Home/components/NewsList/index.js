@@ -46,7 +46,7 @@ const NewsList = ({isFullDate = true}) => {
         activeType: null,
         isAdvert: null
     });
-    const scrollRef = React.createRef();
+    const scrollRef = React.useRef();
 
     const doTheFilter = (currentCities) => {
         if(newsFilter.regions.length === 0) {
