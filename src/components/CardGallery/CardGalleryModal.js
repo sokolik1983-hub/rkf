@@ -15,7 +15,7 @@ const CardGalleryModal = ({images, activeIndex, isOpen, onClose}) => (
         {isOpen &&
             <Slider
                 initialSlide={activeIndex}
-                infinite={false}
+                infinite={true}
                 speed={500}
                 slidesToShow={1}
                 slidesToScroll={1}
@@ -23,6 +23,7 @@ const CardGalleryModal = ({images, activeIndex, isOpen, onClose}) => (
                 prevArrow={<img className="slick-prev" src="/static/icons/chevron_left.svg" alt="prev" />}
                 touchThreshold={20}
                 adaptiveHeight={true}
+                lazyLoad="progressive"
                 responsive={[{
                     breakpoint: 750,
                     settings: {

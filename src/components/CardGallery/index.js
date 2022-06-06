@@ -22,14 +22,33 @@ const CardGallery = ({images}) => {
         let cols = 1;
         let rows = 1;
 
-        if(i === 0 && arr.length !== 3) {
+        if(arr.length === 4 && (i === 0 || i === 1)) {
             cols = 2;
+            if (i === 0) {
+                rows = 2;
+            }
+        } else
+
+        if(arr.length !== 1 && arr.length !== 5 && i === 0) {
+            cols = 3;
             rows = 2;
-        } else if(arr.length === 4 && i === 3) {
-            cols = 2;
-        } else if(arr.length === 2 && i === 1) {
-            cols = 2;
+        } else  if(arr.length === 2 && i === 1) {
+            cols = 3;
             rows = 2;
+        } else if (arr.length === 3 && (i === 1||i === 2)) {
+            cols = 3;
+            rows = 1;
+        } else if (arr.length === 1) {
+            cols = 6;
+            rows = 2;
+        } else if (arr.length === 5) {
+            if (i === 0 || i === 1) {
+                cols = 3;
+                rows = 1;
+            } else {
+                cols = 2;
+                rows = 1;
+            }
         }
 
         return {
@@ -43,8 +62,9 @@ const CardGallery = ({images}) => {
         <div className="card-gallery">
             <ImageList
                 variant="quilted"
-                cols={4}
-                rowHeight={150}
+                cols={images.length !== 4 ? 6 : 4}
+                rowHeight={220}
+                gap={2}
             >
                 {modifiedImages.map((item, i) =>
                     <ImageListItem key={i} cols={item.cols || 1} rows={item.rows || 1}>

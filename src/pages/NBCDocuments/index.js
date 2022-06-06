@@ -15,45 +15,53 @@ import "./styles.scss";
 
 const ExhibitionsCards = ({ alias }) => {
     return <div className="documents-page__right">
-        {
-            <Card>
-                <div className="documents-page__icon exhibitions-icon" />
-                <h3>ПРИГЛАШЕНИЯ СУДЕЙ НА МЕРОПРИЯТИЯ</h3>
-                <p>
-                    В данном разделе НКП предоставлена возможность согласовать судей на мероприятия, после согласования их списка со стороны клуба, который проводит выставку
-                </p>
-                <hr />
-                <div className="Card__links">
-                    <Link to={`/nbc/${alias}/documents/exhibitions/invite/registry`}>Реестр заявок</Link>
-                </div>
-            </Card>
-        }
+        <Card>
+            <div className="documents-page__icon exhibitions-icon" />
+            <h3>ПРИГЛАШЕНИЯ СУДЕЙ НА МЕРОПРИЯТИЯ</h3>
+            <p>
+                В данном разделе НКП предоставлена возможность согласовать судей на мероприятия, после согласования их списка со стороны клуба, который проводит выставку
+            </p>
+            <hr />
+            <div className="Card__links">
+                <Link to={`/nbc/${alias}/documents/exhibitions/application/form`}>Подать заявку</Link>
+                <Link to={`/nbc/${alias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
+            </div>
+        </Card>
     </div>
 };
 
 const NBCDocuments = () => {
-    const { alias } = ls.get('user_info') || {};
+    const { alias, name, logo_link } = ls.get('user_info') || {};
     const isMobile = useIsMobile(1080);
 
     return <Layout>
-        <div className="documents-page">
-            <div className="documents-page__info">
-                <aside className="documents-page__left">
-                    <StickyBox offsetTop={60}>
-                        {!isMobile && <MenuComponentNew />}
-                        {!isMobile && <Banner type={8} />}
-                        <CopyrightInfo withSocials={true} />
-                    </StickyBox>
-                </aside>
-                <Switch>
-                    <Route
-                        exact={true}
-                        path='/nbc/:route/documents/'
-                        component={() => <ExhibitionsCards alias={alias}/>}
-                    />
-                    <Route component={LoadableNotFound} />
-                </Switch>
-            </div>
+        <div className="documents-page content">
+            <Container className="documents-page__content">
+                <TopComponent
+                    logo={logo_link}
+                    name={name}
+                    canEdit={false}
+                    withShare={false}
+                    userType ={7}
+                />
+                <div className="documents-page__info">
+                    <aside className="documents-page__left">
+                        <StickyBox offsetTop={60}>
+                            {!isMobile && <MenuComponentNew />}
+                            {!isMobile && <Banner type={8} />}
+                            <CopyrightInfo withSocials={true} />
+                        </StickyBox>
+                    </aside>
+                    <Switch>
+                        <Route
+                            exact={true}
+                            path='/nbc/:route/documents/'
+                            component={() => <ExhibitionsCards alias={alias}/>}
+                        />
+                        <Route component={LoadableNotFound} />
+                    </Switch>
+                </div>
+            </Container>
         </div>
     </Layout>;
 };

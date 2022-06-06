@@ -25,9 +25,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
             headers: getHeaders(),
         }, data => {
             setMainInfo(data);
-            data.invited_judges_groups.forEach(group => setJudgeList([...judgeList,group.invited_judges[0]]));
-
-
+            data.invited_judges.forEach(judge => setJudgeList([...judgeList, judge]))
             setLoading(false);
         }, error => {
             console.log(error.response);
@@ -108,7 +106,11 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                         </span>
                                     </div>
                                     <div className="judge-item__agreement">
-                                        {judge_item.nbc_invite_status_name}
+                                        {judge_item.nbc_invite_status === 2 ?
+                                            <span>Получено согласование от НКП</span> :
+                                            judge_item.nbc_invite_status === 3 &&
+                                            <span>Получен отказ от НКП, причина: {judge_item.nbc_invite_comment}</span>
+                                        }
                                     </div>
                                     <div className="judge-item__invite">
                                         {/*если не отправлено приглашение, то "Отправить приглашение судье"*/}
@@ -118,19 +120,56 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                         {/*если "Судья отозвал согласие на свое участие, причина:" то "причина" (по наличию), "Подтвердить" либо "Участие судьи отменено", кнопка "Подтвердить" засерена, "Участие судьи отменено"*/}
                                         {/*если "получен отказ от НКП" в соседнем поле, то тут ничего*/}
 
-                                        {/*{judge_item.nbc_invite_status === 2 ?*/}
-                                        {/*    ((judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?*/}
-                                        {/*        <Button>Отправить приглашение судье</Button> :*/}
-                                        {/*        (judge_item.judge_invite_status === 1 && !judge_item.is_invited_by_club) ? */}
-                                        {/*            'Приглашение судье отправлено' : */}
-                                        {/*            judge_item.judge_invite_status === 2 ? */}
-                                        {/*                'Приглашение принято' :*/}
-                                        {/*                judge_item.judge_invite_status === 3 ? */}
-                                        {/*                    <div>*/}
-                                        {/*                        <span>Приглашение отклонено</span>*/}
-                                        {/*                        <span></span>*/}
-                                        {/*                    </div>)*/}
-                                        {/*}*/}
+                                        {judge_item.nbc_invite_status === 2 &&
+                                            ((judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?
+                                                <Button>Отправить приглашение судье</Button> :
+                                                (judge_item.judge_invite_status === 1 && !judge_item.is_invited_by_club) ?
+                                                    'Приглашение судье отправлено' :
+                                                    judge_item.judge_invite_status === 2 ?
+                                                        'Приглашение принято' :
+                                                        judge_item.judge_invite_status === 3 ?
+                                                            <div>
+                                                                <span>Приглашение отклонено</span>
+                                                                {!!judge_item.judge_invite_comment &&
+                                                                    <span>Причина:
+                                                                        {judge_item.judge_invite_comment || 'Не указана'}
+                                                                    </span>
+                                                                }
+                                                                <Button>Пригласить повторно</Button>
+                                                            </div> :
+                                                            judge_item.judge_invite_status === 4 ?
+                                                                <div>
+                                                                    <span>
+                                                                        Судья отозвал согласие на свое участие, причина:
+                                                                    </span>
+                                                                    <span>
+                                                                        {judge_item.judge_invite_comment || 'Не указана'}
+                                                                    </span>
+                                                                    <Button>
+                                                                        Подтвердить
+                                                                    </Button>
+                                                                    {/*<span>*/}
+                                                                    {/*    Участие судьи отменено*/}
+                                                                    {/*</span>*/}
+                                                                {/*при нажатии на кнопку кнопка дизеблится, под ней появляется надпись "участие судьи отменено". при следующем запросе с бэка меняется статус заявки => кейс меняется    */}
+                                                                </div> :
+                                                                judge_item.judge_invite_status === 5 &&
+                                                                <div>
+                                                                    <span>
+                                                                        Судья отозвал согласие на свое участие, причина:
+                                                                    </span>
+                                                                    <span>
+                                                                        {judge_item.judge_invite_comment || 'Не указана'}
+                                                                    </span>
+                                                                    <span>
+                                                                        Участе судьи отменено
+                                                                    </span>
+                                                                    <Button>
+                                                                        Пригласить повторно
+                                                                    </Button>
+                                                                </div>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </li>)}

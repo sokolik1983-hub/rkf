@@ -156,7 +156,7 @@
       .user-header {
         order: -4;
         flex-direction: row;
-        height: 105px;
+        height: 130px;
         margin-bottom: 0 !important;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -169,7 +169,6 @@
         &__name-wrap {
           .user-header__user-wrap {
             display: flex;
-            flex-direction: row;
             margin-bottom: 5px;
 
             &:before {
@@ -199,14 +198,14 @@
           .UserActionControls, .widget-login__button-wrap {
             position: relative;
             bottom: 86px;
-            margin: 0 40px 0 auto;
+            margin: 0 0 0 auto;
             width: 40%;
             min-width: 200px;
           }
 
           .widget-login__button-wrap {
             justify-content: flex-end;
-            bottom: 58px;
+            bottom: 75px;
 
             .widget-login__button {
               width: 200px;

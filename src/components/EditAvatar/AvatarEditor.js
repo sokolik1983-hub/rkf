@@ -9,21 +9,11 @@ import Avatar from "../Layouts/Avatar";
 import LightTooltip from "../LightTooltip";
 import {Request} from "../../utils/request";
 import ls from "local-storage";
-import useIsMobile from "../../utils/useIsMobile";
 
 import "./index.scss";
 
 
-const CustomAvatarEditor = ({
-                                avatar,
-                                setModalType,
-                                userType,
-                                onSubmitSuccess,
-                                pageBanner,
-                                owner,
-                                name,
-                                size,
-}) => {
+const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth, owner, name }) => {
     const [image, setImage] = useState(avatar || '');
     const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
     const [scale, setScale] = useState(1);
@@ -36,9 +26,6 @@ const CustomAvatarEditor = ({
     const OWNER_DEFAULT_AVATAR = '/static/images/noimg/icon-no-image.svg';
     const BANNER_DEFAULT_AVATAR = '/static/images/noimg/no-banner.png';
     const currentLink = pageBanner ? '/api/headerpicture/full_v3' : owner ? '/api/nbcownerpicture' : '/api/avatar/full_v3';
-
-    const isMobile = useIsMobile(1080);
-    const multiple = isMobile ? 0.9 : 1.2;
 
     const handleSubmit = async () => {
         await Request({
@@ -70,7 +57,7 @@ const CustomAvatarEditor = ({
 
     return (
         <div className="avatar-editor">
-            <div className="avatar-editor__dropzone" style={{width: (size.width + 50) * multiple, height: (size.height + 50) * multiple}}>
+            <div className="avatar-editor__dropzone" style={{width: canvasWidth}}>
                 <Dropzone
                     accept={['.jpg', '.jpeg']}
                     maxSize={20971520} //20MB
@@ -84,8 +71,8 @@ const CustomAvatarEditor = ({
                             <AvatarEditor
                                 ref={editor}
                                 scale={parseFloat(scale)}
-                                width={size.width * multiple}
-                                height={size.height * multiple}
+                                width={pageBanner ? canvasWidth : 332}
+                                height={332}
                                 position={position}
                                 onPositionChange={pos => setPosition(pos)}
                                 rotate={parseFloat(rotate)}
@@ -109,7 +96,7 @@ const CustomAvatarEditor = ({
                             <div className="avatar-editor__add-file">
                                 <label htmlFor="avatar" className="avatar-editor__add-label">
                                     <LightTooltip title="Добавить файл">
-                                        <span className="k-icon k-i-plus"> </span>
+                                        <span className="k-icon k-i-plus" />
                                     </LightTooltip>
                                 </label>
                                 <input
@@ -138,12 +125,12 @@ const CustomAvatarEditor = ({
                 </LightTooltip>
                 <LightTooltip title="Повернуть">
                     <button className="avatar-editor__btn" onClick={() => setRotate(rotate - 90)}>
-                        <span className="k-icon k-i-reset"> </span>
+                        <span className="k-icon k-i-reset" />
                     </button>
                 </LightTooltip>
                 <LightTooltip title="Повернуть">
                     <button className="avatar-editor__btn" onClick={() => setRotate(rotate + 90)}>
-                        <span className="k-icon k-i-reload"> </span>
+                        <span className="k-icon k-i-reload" />
                     </button>
                 </LightTooltip>
             </div>
