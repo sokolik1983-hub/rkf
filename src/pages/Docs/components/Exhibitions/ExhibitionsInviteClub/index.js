@@ -73,23 +73,23 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                 </p>
                                             </Link>
                                             :
-                                            <span className="judge-item__name-rus">
-                                                <p>{judge_item.judge_last_name && `${judge_item.judge_last_name} `}</p>
-                                                <p>{judge_item.judge_name && `${judge_item.judge_name} `}
+                                            <p className="judge-item__name-rus">
+                                                <span>{judge_item.judge_last_name && `${judge_item.judge_last_name} `}</span>
+                                                <span>{judge_item.judge_name && `${judge_item.judge_name} `}
                                                     {judge_item.judge_second_name}
                                                     {judge_item.judge_alias && judgeIcon}
                                                     {judge_item.is_all_breeder &&
                                                         allbreedJudgeIcon
                                                     }
-                                                </p>
-                                            </span>
+                                                </span>
+                                            </p>
                                         }
-                                        <span className="judge-item__name-eng">
+                                        <p className="judge-item__name-eng">
                                             {judge_item.judge_en_full_name}
-                                        </span>
-                                        <span className="judge-item__cert-number">
+                                        </p>
+                                        <p className="judge-item__cert-number">
                                             Лист судьи №{judge_item.judge_cert_number}
-                                        </span>
+                                        </p>
                                     </div>
                                     <div className="judge-item__info">
                                         <span>
@@ -129,25 +129,37 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                         'Приглашение принято' :
                                                         judge_item.judge_invite_status === 3 ?
                                                             <div>
-                                                                <span>Приглашение отклонено</span>
+                                                                <p>Приглашение отклонено</p>
                                                                 {!!judge_item.judge_invite_comment &&
-                                                                    <span>Причина:
+                                                                    <p>Причина:
                                                                         {judge_item.judge_invite_comment || 'Не указана'}
-                                                                    </span>
+                                                                    </p>
                                                                 }
                                                                 <Button>Пригласить повторно</Button>
                                                             </div> :
                                                             judge_item.judge_invite_status === 4 ?
                                                                 <div>
-                                                                    <span>
+                                                                    <p>
                                                                         Судья отозвал согласие на свое участие, причина:
-                                                                    </span>
-                                                                    <span>
-                                                                        {judge_item.judge_invite_comment || 'Не указана'}
-                                                                    </span>
-                                                                    <Button>
+                                                                        <span>
+                                                                            {judge_item.judge_invite_comment || 'Не указана'}
+                                                                        </span>
+                                                                    </p>
+                                                                    {/*<Button primary={true} onClick={ async () => await Request({
+                                                                        url: '/api/exhibitions/invite/confirm_reject',
+                                                                        method: 'PUT',
+                                                                        data: JSON.stringify({
+                                                                            invite_id: judge_item.invite_id,
+                                                                            judge_id: judge_item.id,
+                                                                            judge_invite_status: 3,
+                                                                        })
+                                                                    }, data => {
+                                                                        setVideos(data);
+                                                                    }, error => handleError(error));
+
+                                                                    }>
                                                                         Подтвердить
-                                                                    </Button>
+                                                                    </Button>*/}
                                                                     {/*<span>*/}
                                                                     {/*    Участие судьи отменено*/}
                                                                     {/*</span>*/}
@@ -155,15 +167,15 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                 </div> :
                                                                 judge_item.judge_invite_status === 5 &&
                                                                 <div>
-                                                                    <span>
+                                                                    <p>
                                                                         Судья отозвал согласие на свое участие, причина:
-                                                                    </span>
-                                                                    <span>
+                                                                    </p>
+                                                                    <p>
                                                                         {judge_item.judge_invite_comment || 'Не указана'}
-                                                                    </span>
-                                                                    <span>
+                                                                    </p>
+                                                                    <p>
                                                                         Участе судьи отменено
-                                                                    </span>
+                                                                    </p>
                                                                     <Button>
                                                                         Пригласить повторно
                                                                     </Button>

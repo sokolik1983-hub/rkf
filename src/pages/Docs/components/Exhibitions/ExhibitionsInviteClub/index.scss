@@ -80,6 +80,17 @@
 
       &__invite {
         text-align: center;
+        button {
+          margin-bottom: 15px;
+        }
+        p {
+          display: flex;
+          flex-direction: column;
+          span {
+            font-style: italic;
+            color: #72839C;
+          }
+        }
       }
     }
   }

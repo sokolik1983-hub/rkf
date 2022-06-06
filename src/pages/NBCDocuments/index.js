@@ -3,6 +3,8 @@ import { Link, Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import ls from "local-storage";
 import Card from "../../components/Card";
+import Container from "../../components/Layouts/Container";
+import TopComponent from "../../components/TopComponent";
 import Banner from "../../components/Banner";
 import Layout from "../../components/Layouts";
 import CopyrightInfo from "../../components/CopyrightInfo";
