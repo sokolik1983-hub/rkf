@@ -1,4 +1,4 @@
-import React, {memo, useState, useEffect} from 'react';
+import React, {memo, useState, useEffect, useRef} from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../../../../components/Loading';
 import CardNewsNew from '../../../../components/CardNewsNew';
@@ -46,7 +46,12 @@ const NewsList = ({isFullDate = true}) => {
         activeType: null,
         isAdvert: null
     });
-    const scrollRef = React.useRef();
+
+    const scrollRef = useRef();
+
+    const scrollFunc = () => {
+        if (!!scrollRef) window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
+    }
 
     const doTheFilter = (currentCities) => {
         if(newsFilter.regions.length === 0) {
@@ -215,11 +220,6 @@ const NewsList = ({isFullDate = true}) => {
         (() => getNews(1, {...newsFilter, is_popular: mostLiked}))();
         scrollFunc();
     };
-
-    const scrollFunc = () => {
-        window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
-    }
-
 
     return (
         <div className="news-list" ref={scrollRef}>
