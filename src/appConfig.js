@@ -8,6 +8,10 @@ const DEFAULT_EMAIL_INPUT_PLACEHOLDER = 'Введите ваш E-mail';
 const LOGIN_URL = '/auth/login';
 const REGISTRATION_URL = '/auth/registration';
 
+const DISABLE_NOTIFICATIONS_IN_DEV = process.env.NODE_ENV === 'development';
+
+const DISABLE_SHARE_IN_DEV = process.env.NODE_ENV === 'development';
+
 export const MOMENT_LOCALE_DEFINITION = {
     week: {
         dow: 1,
@@ -213,6 +217,51 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/nbc/:alias',
+        component: LoadableModules.LoadableNBCPage
+    },
+    {
+        exact: false,
+        path: '/nbc/:alias/edit',
+        component: LoadableModules.LoadableNBCPageEdit
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery',
+        component: LoadableModules.LoadableNBCGallery
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery/edit',
+        component: LoadableModules.LoadableNBCGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery/:album?',
+        component: LoadableModules.LoadableNBCGallery
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery/:album?/edit',
+        component: LoadableModules.LoadableNBCGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/video',
+        component: LoadableModules.LoadableNBCVideo
+    },
+    {
+        exact: false,
+        path: '/nbc/:alias/documents/',
+        component: LoadableModules.LoadableNBCDocuments
+    },
+    {
+        exact: false,
+        path: '/nbc/:alias/uploaded-documents/',
+        component: LoadableModules.LoadableNBCUploadedDocuments
+    },
+    {
+        exact: true,
         path: '/user/:id/video',
         component: LoadableModules.LoadableUserVideo
     },
@@ -318,7 +367,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: ['/club/:route/news-feed/:id?', '/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?'],
+        path: ['/club/:route/news-feed/:id?', '/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?', '/nbc/:alias/news-feed/:id?'],
         component: LoadableModules.LoadableNewsFeed
     },
     {
@@ -888,6 +937,8 @@ const responsiveSliderConfig = [
 ];
 
 export {
+    DISABLE_NOTIFICATIONS_IN_DEV,
+    DISABLE_SHARE_IN_DEV,
     WEEKDAYS,
     WEEKDAYS_SHORT,
     MONTHS,

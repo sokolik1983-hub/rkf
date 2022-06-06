@@ -13,13 +13,11 @@ import Alert from "../../components/Alert";
 import Layout from "../../components/Layouts";
 import Loading from "../../components/Loading";
 import ClickGuard from "../../components/ClickGuard";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserInfo from "../../components/Layouts/UserInfo";
 import Container from "../../components/Layouts/Container";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import UserBanner from "../../components/Layouts/UserBanner";
 import { connectShowFilters } from "../../components/Layouts/connectors";
-import { endpointGetRolesInfo, endpointGetUserInfo, userNav } from "../../components/Layouts/UserLayout/config";
+import { endpointGetRolesInfo, endpointGetUserInfo } from "../../components/Layouts/UserLayout/config";
 import About from "./sections/About";
 import MainInfo from "./sections/MainInfo";
 import Contacts from "./sections/Contacts";
@@ -27,6 +25,7 @@ import Security from "./sections/Security";
 import DeletePage from "./sections/DeletePage";
 import { connectAuthVisible } from "../Login/connectors";
 import { sections, defaultValues, phoneMask } from "./config";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./styles.scss";
 
@@ -49,7 +48,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [errorMessage, setErrorMessage] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
     const [formBusy, setFormBusy] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [rolesInfo, setRolesInfo] = useState([]);
     const [judgeInfo, setJudgeInfo] = useState([]);
     const prevRequestData = useRef();
@@ -265,7 +263,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+            : <Layout layoutWithFilters>
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="UserEdit__wrap">
                     <Container className="UserEdit content">
@@ -283,7 +281,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         judgeInfo={userInfo.open_roles}
                                     />
                                 </Card>
-                                {!isMobile && <UserMenu userNav={userNav(alias)} notificationsLength={notificationsLength} />}
+                                {!isMobile && <MenuComponentNew />}
                                 <CopyrightInfo withSocials={true} />
                             </StickyBox>
                         </aside>

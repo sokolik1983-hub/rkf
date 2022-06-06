@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import {useLocation, useParams, Link} from 'react-router-dom';
-import Loading from 'components/Loading';
-import Layout from 'components/Layouts';
-import Container from 'components/Layouts/Container';
-import Card from 'components/Card';
-import CopyrightInfo from 'components/CopyrightInfo';
-import { Request } from 'utils/request';
-import { connectAuthVisible } from 'pages/Login/connectors';
-import {connectShowFilters} from '../../../components/Layouts/connectors';
-import transliterate from '../../../utils/transliterate';
+import React, {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
+import Loading from "../../../components/Loading";
+import Layout from "../../../components/Layouts";
+import Container from "../../../components/Layouts/Container";
+import Card from "../../../components/Card";
+import CopyrightInfo from "../../../components/CopyrightInfo";
+import {Request} from "../../../utils/request";
+import {connectAuthVisible} from "../../../pages/Login/connectors";
+import {connectShowFilters} from "../connectors";
+import transliterate from "../../../utils/transliterate";
 import Statistics from "../../Statistics";
 import ClubsMap from "../../ClubsMap";
-import InitialsAvatar from "../../InitialsAvatar";
 import history from "../../../utils/history";
+import LightTooltip from "../../LightTooltip";
+import { judgeIcon } from "../UserLayout/config";
+import Avatar from "../Avatar";
 
-import './index.scss';
+import "./index.scss";
+
 
 const JudgeLayout = () => {
     const [loading, setLoading] = useState(true);
@@ -106,20 +109,23 @@ const JudgeLayout = () => {
                                     <Loading />
                                     :
                                     <div className="judge-info__wrap">
-                                        {judgeInfoLink
-                                            ?
-                                            <img src={judgeInfoLink} alt="avatar-img" />
-                                            :
-                                            <InitialsAvatar
-                                                name={`${judgePersInfo?.first_name} ${judgePersInfo?.last_name}`}
-                                                card="specialist-card"
-                                            />
-                                        }
+                                        <Avatar
+                                            card="specialist-card"
+                                            data="header"
+                                            logo={judgeInfoLink}
+                                            name={`${judgePersInfo?.first_name} ${judgePersInfo?.last_name}`}
+                                            subclass={null}
+                                        />
                                         <div className="judge-info__inner">
                                             <div className="judge-info__name-location">
                                                 <div className="judge-info__name-block">
-                                                    <p className="judge-info__name-rus">{judgePersInfo && judgePersInfo.first_name + ' ' + judgePersInfo.last_name}</p>
-                                                    <p className="judge-info__name-lat">{judgePersInfo && transliterate(`${judgePersInfo.first_name} ${judgePersInfo.last_name}`)}</p>
+                                                    <p className="judge-info__name-rus">
+                                                        {judgePersInfo && judgePersInfo.first_name + ' ' + judgePersInfo.last_name}
+                                                        {judgeAlias && judgeIcon}
+                                                    </p>
+                                                    <p className="judge-info__name-lat">
+                                                        {judgePersInfo && transliterate(`${judgePersInfo.first_name} ${judgePersInfo.last_name}`)}
+                                                    </p>
                                                 </div>
                                                 <div className="judge-info__location-block">
                                                     <p className="judge-info__city">{judgeCity && judgeCity.city_name}</p>
@@ -227,11 +233,19 @@ const JudgeLayout = () => {
                                                                 <div className="judge-info__add-info">
                                                                     <p>Дисциплины:</p>
                                                                     <ul>
-                                                                        {
-                                                                            item.disciplines.map((item, i) =>
-                                                                                <li>{item.discipline_short_name}</li>
-                                                                            )
-                                                                        }
+                                                                        {item?.disciplines?.map((discipline, index) =>
+                                                                            <li>
+                                                                                <LightTooltip
+                                                                                    title={ discipline.discipline_name || 'title' }
+                                                                                    enterDelay={ 100 } leaveDelay={ 50 }
+                                                                                    key={ index }>
+                                                                                <span
+                                                                                    className="card-specialists__discipline">
+                                                                                    { discipline.discipline_short_name }
+                                                                                </span>
+                                                                                </LightTooltip>
+                                                                            </li>
+                                                                        )}
                                                                     </ul>
                                                                 </div>
                                                             }

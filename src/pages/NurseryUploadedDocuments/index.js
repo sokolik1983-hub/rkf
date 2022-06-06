@@ -8,25 +8,23 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UserHeader from "../../components/redesign/UserHeader";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import UploadedDocuments from "components/UploadedDocuments";
-import { kennelNav } from "../Nursery/config";
 import BreedsList from "../../components/BreedsList";
+import MenuComponentNew from "../../components/MenuComponentNew";
+
 import "./styles.scss";
 import "pages/Nursery/index.scss";
-
 
 const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.route;
     const isMobile = useIsMobile(1080);
@@ -76,7 +74,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
         <>
             {!pageLoaded && !nursery
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+                : <Layout layoutWithFilters>
                     <div className="redesign">
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">
@@ -131,13 +129,9 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            {!isMobile && <UserMenu userNav={canEdit
-                                                ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                                : kennelNav(alias).filter(i => i.id !== 2)}
-                                                       notificationsLength={notificationsLength}
-                                            />}
                                             {!isMobile &&
                                                 <>
+                                                    <MenuComponentNew />
                                                     {nursery.breeds && !!nursery.breeds.length &&
                                                         <BreedsList breeds={nursery.breeds} />
                                                     }

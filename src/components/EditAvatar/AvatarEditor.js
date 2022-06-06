@@ -1,18 +1,19 @@
-import React, {memo, useRef, useState} from 'react';
+import React, {memo, useRef, useState} from "react";
 import {useSelector} from "react-redux";
-import Dropzone from 'react-dropzone';
-import AvatarEditor from 'react-avatar-editor';
-import { Slider } from '@material-ui/core';
-import { Button } from '@progress/kendo-react-buttons';
-import LightTooltip from '../LightTooltip';
-import { Request } from '../../utils/request';
-import Alert from '../Alert';
-import ls from 'local-storage';
-import InitialsAvatar from "../InitialsAvatar";
+import Dropzone from "react-dropzone";
+import AvatarEditor from "react-avatar-editor";
+import {Slider} from "@material-ui/core";
+import {Button} from "@progress/kendo-react-buttons";
+import Alert from "../Alert";
+import Avatar from "../Layouts/Avatar";
+import LightTooltip from "../LightTooltip";
+import {Request} from "../../utils/request";
+import ls from "local-storage";
 
-import './index.scss';
+import "./index.scss";
 
-const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth }) => {
+
+const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth, owner, name }) => {
     const [image, setImage] = useState(avatar || '');
     const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
     const [scale, setScale] = useState(1);
@@ -20,12 +21,14 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     const [editorErrors, setEditorErrors] = useState([]);
     const editor = useRef(null);
     const reduxUserType = useSelector(state => state.authentication.user_info.user_type);
-    const reduxUserName = useSelector(state => state.authentication.user_info.name);
+    const reduxUserName = name ? name : useSelector(state => state.authentication.user_info.name);
     const UPLOAD_AVATAR = `/static/icons/default/club-avatar-new.png`;
-    const currentLink = pageBanner ? '/api/headerpicture/full_v3' : '/api/avatar/full_v3';
+    const OWNER_DEFAULT_AVATAR = '/static/images/noimg/icon-no-image.svg';
+    const BANNER_DEFAULT_AVATAR = '/static/images/noimg/no-banner.png';
+    const currentLink = pageBanner ? '/api/headerpicture/full_v3' : owner ? '/api/nbcownerpicture' : '/api/avatar/full_v3';
 
-    const handleSubmit = () => {
-        Request({
+    const handleSubmit = async () => {
+        await Request({
             url: currentLink,
             method: 'POST',
             data: {
@@ -34,7 +37,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
         }, data => {
             if (data) {
                 userType === 'club' && onSubmitSuccess({ image_link: data });
-                !pageBanner && ls.set('user_info', { ...ls.get('user_info'), logo_link: data });
+                !pageBanner && !owner && ls.set('user_info', { ...ls.get('user_info'), logo_link: data });
                 setModalType('');
                 window.location.reload();
             }
@@ -60,7 +63,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                     maxSize={20971520} //20MB
                     noClick
                     multiple={false}
-                    onDrop={acceptedFiles => setImage(acceptedFiles[0])}
+                    onDropAccepted={acceptedFiles => setImage(acceptedFiles[0])}
                     onDropRejected={handleError}
                 >
                     {({ getRootProps, getInputProps }) => (
@@ -76,21 +79,24 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 borderRadius={pageBanner ? 0 : 166}
                                 image={image}
                                 className="avatar-editor__canvas"
-                                style={(image && reduxUserType !== 1 && reduxUserType !== 4) ?
-                                    {} :
-                                    { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
+                                style={(image && reduxUserType !== 1 && reduxUserType !== 4 && reduxUserType !== 7) ?
+                                    {} : (owner) ?
+                                        { background: `url(${OWNER_DEFAULT_AVATAR}) no-repeat center / cover` } :
+                                        pageBanner ?
+                                            { background: `url(${BANNER_DEFAULT_AVATAR}) no-repeat center / cover`} :
+                                            { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
                             />
                             {
-                                !image && (reduxUserType === 1 || reduxUserType === 4) &&
-                                <InitialsAvatar
+                                !image && (reduxUserType === 1 || reduxUserType === 4 || reduxUserType === 7) && !owner && !pageBanner &&
+                                <Avatar
                                     card="editor"
-                                    name={reduxUserType === 4 ? reduxUserName : null}
+                                    name={(reduxUserType === 4 || reduxUserType === 7) ? reduxUserName : null}
                                 />
                             }
                             <div className="avatar-editor__add-file">
                                 <label htmlFor="avatar" className="avatar-editor__add-label">
                                     <LightTooltip title="Добавить файл">
-                                        <span className="k-icon k-i-plus"></span>
+                                        <span className="k-icon k-i-plus" />
                                     </LightTooltip>
                                 </label>
                                 <input
@@ -119,12 +125,12 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                 </LightTooltip>
                 <LightTooltip title="Повернуть">
                     <button className="avatar-editor__btn" onClick={() => setRotate(rotate - 90)}>
-                        <span className="k-icon k-i-reset"></span>
+                        <span className="k-icon k-i-reset" />
                     </button>
                 </LightTooltip>
                 <LightTooltip title="Повернуть">
                     <button className="avatar-editor__btn" onClick={() => setRotate(rotate + 90)}>
-                        <span className="k-icon k-i-reload"></span>
+                        <span className="k-icon k-i-reload" />
                     </button>
                 </LightTooltip>
             </div>

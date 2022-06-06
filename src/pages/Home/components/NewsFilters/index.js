@@ -41,7 +41,7 @@ const NewsFilters = ({
                             onChange={changeRegionFilter}
                         />
                         <CitiesFilter
-                            withOpenButton={false}
+                            withOpenButton={true}
                             cities={cities}
                             city_ids={newsFilter.cities}
                             onChange={changeCityFilter}

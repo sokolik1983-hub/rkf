@@ -7,9 +7,8 @@ import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
 import CheckStatus from './components/CheckStatus';
-import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
-import { clubNav, endpointGetClubInfo } from "./config";
+import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
@@ -17,13 +16,12 @@ import useIsMobile from "../../utils/useIsMobile";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
+import MenuComponentNew from "../../components/MenuComponentNew";
 import PhotoComponent from "../../components/PhotoComponent";
 
 import "./index.scss";
 
-const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, isAuthenticated }) => {
+const DocumentStatus = ({ history, match, is_active_profile, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [fedInfo, setFedInfo] = useState(null);
     const [error, setError] = useState(null);
@@ -148,18 +146,9 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                                                 position={fedInfo.owner_position}
                                             />
                                         }
-                                        {!isMobile && isFederationAlias(clubInfo.club_alias) ?
-                                            <MenuComponent
-                                                alias={clubInfo.club_alias}
-                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                isFederation={true}
-                                            />
-                                            :
-                                            !isMobile &&
-                                            <UserMenu userNav={clubNav(clubInfo.club_alias)} />
-                                        }
                                         {!isMobile &&
                                             <>
+                                                <MenuComponentNew />
                                                 <UserPhotoGallery
                                                     alias={clubInfo.club_alias}
                                                     pageLink={`/${clubInfo.club_alias}/gallery`}

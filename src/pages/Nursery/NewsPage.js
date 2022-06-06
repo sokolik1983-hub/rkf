@@ -8,18 +8,18 @@ import UserNews from "../../components/Layouts/UserNews";
 import Loading from "../../components/Loading";
 import UserHeader from "../../components/redesign/UserHeader";
 import { Request } from "../../utils/request";
-import { endpointGetNurseryInfo, kennelNav } from "./config";
+import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
-import UserMenu from "../../components/Layouts/UserMenu";
 import useIsMobile from "../../utils/useIsMobile";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import BreedsList from "../../components/BreedsList";
-import "./index.scss";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
+import "./index.scss";
 
 const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
     const [nursery, setNurseryInfo] = useState(null);
@@ -115,9 +115,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             />
                                         }
                                         {!isMobile &&
-                                        <UserMenu userNav={canEdit
-                                            ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                            : kennelNav(alias).filter(i => i.id !== 2)} />}
+                                        <MenuComponentNew />}
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&

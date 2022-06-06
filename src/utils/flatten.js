@@ -5,8 +5,8 @@ const flatten = ob => {
     for (let i in ob) {
 
         if (!ob.hasOwnProperty(i)) continue;
-        if ((typeof ob[i]) == 'object' && ob[i] !== null && !(ob[i] instanceof File) && !(ob[i] instanceof Date)) {
-            //пропускает файл
+        if ((typeof ob[i]) == 'object' && ob[i] !== null && !(ob[i] instanceof File) && !(ob[i] instanceof Date) && !(Array.isArray(ob[i]) && ob[i][0] instanceof File)) {
+            //пропускает файл и массив файлов
             let flatObject = flatten(ob[i]);
             for (let x in flatObject) {
                 if (!flatObject.hasOwnProperty(x)) continue;

@@ -18,6 +18,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { useFocus } from '../../../../shared/hooks';
 import CustomSelect from 'react-select';
 import CustomCheckbox from '../../../../components/Form/CustomCheckbox';
+import DndPublicationImage from "../../../../components/Gallery/components/PublicationImageUpload/DndPublicationImage";
 
 
 const RenderFields = ({ fields,
@@ -34,7 +35,6 @@ const RenderFields = ({ fields,
                           onCancel,
                           isMating,
                           setIsMating,
-                          setIsImageDelete,
                           dogSex,
                           advertTypeId,
                           advertCategoryId,
@@ -45,19 +45,21 @@ const RenderFields = ({ fields,
                           isAllCities,
                           setLiveAdvertId
 }) => {
-    const [src, setSrc] = useState(imgSrc);
-    const [sexId, setSex] = useState(imgSrc);
-    const [sexIdNumber, setSexIdNumber] = useState(dogSex)
-    const [video, setVideo] = useState(videoLink);
-    const [advertTypes, setAdvertTypes] = useState([]);
-    const [modalType, setModalType] = useState('');
-    const [showModal, setShowModal] = useState(false);
-    const [isHalfBreedEdit, setIsHalfBreedEdit] = useState(isHalfBreed);
     const [activeElem, setActiveElem] = useState(advertTypeId);
+    const [advertTypes, setAdvertTypes] = useState([]);
+    const [allPictures, setAllPictures] = useState(imgSrc);
     const [breedValue, setBreedValue] = useState(adBreedId);
     const [cityLabel, setCityLabel] = useState('');
     const [currentCities, setCurrentCities] = useState(currentCityId);
     const [isAllCitiesEdit, setIsAllCitiesEdit] = useState(isAllCities);
+    const [isHalfBreedEdit, setIsHalfBreedEdit] = useState(isHalfBreed);
+    const [modalType, setModalType] = useState('');
+    const [newPictures, setNewPictures] = useState([]);
+    const [oldPictures, setOldPictures] = useState(imgSrc);
+    const [sexId, setSex] = useState(imgSrc);
+    const [sexIdNumber, setSexIdNumber] = useState(dogSex)
+    const [showModal, setShowModal] = useState(false);
+    const [video, setVideo] = useState(videoLink);
 
     const { setBlured } = useFocus(false);
     const { content, is_advert, dog_sex_type_id, advert_type_id } = formik.values;
@@ -70,7 +72,7 @@ const RenderFields = ({ fields,
 
     useEffect(() => {
         formik.setFieldValue('content', text);
-        formik.setFieldValue('file', imgSrc);
+        formik.setFieldValue('pictures', getPictureId());
         formik.setFieldValue('video_link', videoLink);
 
         Request({ url: '/api/article/article_ad_types' },
@@ -91,6 +93,41 @@ const RenderFields = ({ fields,
         }
     }, [activeElem]);
 
+    useEffect(() => {
+        formik.setFieldValue('dog_sex_type_id', sexIdNumber);
+    }, [sexIdNumber]);
+
+    useEffect(() => {
+        formik.setFieldValue('is_halfbreed', isHalfBreedEdit);
+        isHalfBreedEdit && formik.setFieldValue('advert_breed_id', '');
+    }, [isHalfBreedEdit]);
+
+    useEffect(() => {
+        setAllPictures(oldPictures.concat(newPictures))
+    }, [oldPictures, newPictures])
+
+    useEffect(() => {
+        formik.setFieldValue('pictures', getPictureId());
+        formik.setFieldValue('new_pictures', newPictures);
+    }, [allPictures])
+
+    useEffect(() => {
+        setLiveAdvertId(advert_type_id);
+        if(advert_type_id === 4 || advert_type_id === 5) {
+            formik.setFieldValue('is_all_cities', false);
+        } else if (advert_type_id === 6) {
+            formik.setFieldValue('dog_city', []);
+        }
+    }, [advert_type_id]);
+
+    const getPictureId = () => {
+        const arr = [];
+        for (let i= 0; i < oldPictures.length; i++) {
+            arr.push(oldPictures[i].picture_id);
+        };
+        return arr;
+    }
+
     const handleChangeText = (e) => {
         let text = e.target.value;
 
@@ -108,33 +145,21 @@ const RenderFields = ({ fields,
         formik.setFieldValue('content', text);
     };
 
-    const handleChangeImg = e => {
-        const file = e.target.files[0];
-
-        if (file && file.size < 20971520) {
-            formik.setFieldValue('file', file);
-            setSrc(URL.createObjectURL(file));
-            e.target.value = '';
-        } else {
-            window.alert(`Размер изображения не должен превышать 20 мб`);
-            formik.setFieldValue('file', '');
-            setSrc('');
-        }
-        setIsImageDelete(true);
-        acceptType(file).then(descision => {
-            if (!descision) {
-                window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
-                formik.setFieldValue('file', '');
-                setSrc('');
+    const handleDeleteImg = (picture, e) => {
+        if (newPictures?.includes(picture)) {
+            const i = newPictures.indexOf(picture);
+            if (i >= 0) {
+                setNewPictures([...newPictures.filter(picture => picture !== newPictures[i])]);
+                formik.setFieldValue('new_pictures', [newPictures])
             }
-        });
-    };
-
-    const handleDeleteImg = () => {
-        formik.setFieldValue('file', '');
-        setSrc('');
-        setIsImageDelete(true);
-    };
+        } else {
+            const i = oldPictures.indexOf(picture);
+            if (i >= 0) {
+                setOldPictures([...oldPictures.filter(picture=> picture !== oldPictures[i])]);
+                formik.setFieldValue('pictures', getPictureId())
+            }
+        }
+    }
 
     const handleAddVideoLink = link => {
         formik.setFieldValue('video_link', link);
@@ -189,14 +214,6 @@ const RenderFields = ({ fields,
         setBreedValue(e.value);
     };
 
-    useEffect(() => {
-        formik.setFieldValue('dog_sex_type_id', sexIdNumber);
-    }, [sexIdNumber]);
-    useEffect(() => {
-        formik.setFieldValue('is_halfbreed', isHalfBreedEdit);
-        isHalfBreedEdit && formik.setFieldValue('advert_breed_id', '');
-    }, [isHalfBreedEdit]);
-
     const handleCitySelect = (e) => {
         setCurrentCities(e);
         formik.setFieldValue('dog_city', e.map(m => m.value));
@@ -212,15 +229,6 @@ const RenderFields = ({ fields,
             setCurrentCities('');
         }
     };
-
-    useEffect(() => {
-        setLiveAdvertId(advert_type_id);
-        if(advert_type_id === 4 || advert_type_id === 5) {
-            formik.setFieldValue('is_all_cities', false);
-        } else if (advert_type_id === 6) {
-            formik.setFieldValue('dog_city', []);
-        }
-    }, [advert_type_id]);
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
@@ -360,19 +368,12 @@ const RenderFields = ({ fields,
                 }
             </div>
             <div className="article-edit__controls">
-                {!src &&
+                {(!allPictures || allPictures.length < 5) &&
                     <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
-                        <div className="article-edit__attach-img">
-                            <input
-                                type="file"
-                                name="file"
-                                id="file"
-                                className="article-edit__image-input"
-                                accept=".jpg, .jpeg"
-                                onChange={handleChangeImg}
-                            />
-                            <label htmlFor="file" className="article-edit__attach-img-label"></label>
-                        </div>
+                        <label htmlFor="file" className="article-edit__attach-img" onClick={() => {
+                            setModalType('photo');
+                            setShowModal(true);
+                        }}/>
                     </LightTooltip>
                 }
                 {!is_advert && !video &&
@@ -400,14 +401,19 @@ const RenderFields = ({ fields,
                     </LightTooltip>
                 }
             </div>
-            {(src || video) &&
+            {(allPictures || video) &&
                 <div className="article-edit__media">
-                    {src &&
-                        <div className="article-edit__image">
-                            <img src={src} alt="" />
-                            <button className="article-edit__image-delete" onClick={handleDeleteImg} />
-                        </div>
-                    }
+                    {!!allPictures && <div className={`article-edit__images __${allPictures.length}`}>
+                        {!!allPictures?.length && allPictures.map(picture =>
+                            <div className="article-edit__image">
+                                <img src={picture.picture_link || URL.createObjectURL(picture)} alt=""/>
+                                <button className="article-edit__image-delete" type="button"
+                                        onClick={() => handleDeleteImg(picture)}/>
+                            </div>
+                        )
+                        }
+                    </div>}
+
                     {video &&
                         <div className="article-edit__video">
                             <img src={`https://img.youtube.com/vi/${getYouTubeID(video)}/mqdefault.jpg`} alt="" />
@@ -461,6 +467,14 @@ const RenderFields = ({ fields,
                 noBackdrop={true}
                 headerName={modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
             >
+                {modalType === 'photo' &&
+                    <DndPublicationImage
+                        loadPictures={newPictures}
+                        setLoadPictures={setNewPictures}
+                        oldPictures={oldPictures}
+                        closeModal={closeModal}
+                    />
+                }
                 {modalType === 'video' &&
                     <AddVideoLink
                         setVideoLink={handleAddVideoLink}

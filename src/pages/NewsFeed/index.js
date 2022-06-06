@@ -1,5 +1,6 @@
 import React, {memo, useState, useEffect} from "react";
 import ls from "local-storage";
+import NBCLayout from "../../components/Layouts/NBCLayout";
 import UserLayout from "../../components/Layouts/UserLayout";
 import ClubLayout from "../../components/Layouts/ClubLayout";
 import NurseryLayout from "../../components/Layouts/NurseryLayout";
@@ -11,7 +12,6 @@ import {blockContent} from "../../utils/blockContent";
 
 import "./styles.scss";
 
-
 const user_type = ls.get('user_info').user_type;
 
 const Layout = props => {
@@ -20,6 +20,8 @@ const Layout = props => {
     }
     else if (user_type === 4) {
         return <NurseryLayout {...props} />
+    } else if (user_type === 7) {
+        return <NBCLayout newsFeed={true} {...props} />
     }
     else {
         return <ClubLayout {...props} />
@@ -27,7 +29,6 @@ const Layout = props => {
 };
 
 const Content = props => { //Дополнительные props берутся из Layout. Это неочевидно и лучше так не делать.
-
     const {
         showMustRead,
         notificationUrlIndex,

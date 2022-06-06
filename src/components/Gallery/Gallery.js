@@ -8,7 +8,7 @@ import {blockContent} from "../../utils/blockContent";
 import './styles.scss';
 
 
-const GalleryComponent = ({ items, albums, album, match, withLoading = true, getAlbums, getImages, canEdit, alias, isClub = false, isUser = false, ...rest }) => {
+const GalleryComponent = ({ items, albums, album, match, withLoading = true, getAlbums, getImages, canEdit, alias, isClub = false, isUser = false, isNBC, ...rest }) => {
     const [showModal, setShowModal] = useState(false);
     let params = useParams();
     const isAlbum = !!params.album;
@@ -29,6 +29,7 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
         getImages(1);
         blockContent(false);
     };
+
     return (
         <div className="ReactGridGallery__wrap">
             {albums && !!albums.length && !isAlbum &&
@@ -42,7 +43,10 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
                             {!!items.length &&
                                 <Link
                                     className="ReactGridGallery__controls-link"
-                                    to={isClub ? `/${alias}/gallery/edit` : isUser ? `/user/${alias}/gallery/edit` : `/kennel/${alias}/gallery/edit`}
+                                    to={isClub ? `/club/${alias}/gallery/edit` :
+                                        isUser ? `/user/${alias}/gallery/edit` :
+                                            isNBC ? `/nbc/${alias}/gallery/edit` :
+                                                `/kennel/${alias}/gallery/edit`}
                                 >
                                     <div className="ReactGridGallery__controls-link__icon">
                                         <svg width="15" height="15" viewBox="0 0 19 19" fill="#72839c" xmlns="http://www.w3.org/2000/svg">

@@ -16,11 +16,11 @@ import UserDescription from '../../components/redesign/UserDescription';
 import AddArticle from '../../components/UserAddArticle';
 import UserNews from '../../components/Layouts/UserNews';
 import { Request } from '../../utils/request';
-import MenuComponent from '../../components/MenuComponent';
 import PhotoComponent from '../../components/PhotoComponent';
 import { connectAuthVisible } from '../Login/connectors';
 import useIsMobile from '../../utils/useIsMobile';
 import UserBanner from '../../components/Layouts/UserBanner';
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import './index.scss';
 
@@ -96,8 +96,8 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                         />
                                     </>
                                     }
-                                    <UserContacts {...fedInfo} profileAlias={alias} />
                                     <UserDescription description={fedInfo.description} />
+                                    <UserContacts {...fedInfo} profileAlias={alias} />
                                     <div className="club-page__exhibitions">
                                         <ExhibitionsComponent alias={alias} />
                                     </div>
@@ -157,11 +157,7 @@ const FederationPage = ({ profile_id, is_active_profile, isAuthenticated, match 
                                                 />
                                             </>
                                             }
-                                            {!isMobile && <MenuComponent
-                                                alias={alias}
-                                                name={fedInfo.name}
-                                                isFederation={true}
-                                            />}
+                                            {!isMobile && <MenuComponentNew />}
                                             {!isMobile &&
                                                 <>
                                                     <UserPhotoGallery

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import { DEFAULT_IMG } from '../../appConfig';
-import { Request } from '../../utils/request';
-import { setFiltersToUrl } from '../../pages/Specialists/utils';
-import LightTooltip from '../../components/LightTooltip';
-import Card from '../Card';
-import CardFooter from '../CardFooter';
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
+import {Request} from "../../utils/request";
+import {setFiltersToUrl} from "../../pages/Specialists/utils";
+import LightTooltip from "../../components/LightTooltip";
+import Card from "../Card";
+import CardFooter from "../CardFooter";
 import {judgeIcon} from "../Layouts/UserLayout/config";
-import InitialsAvatar from "../InitialsAvatar";
+import Avatar from "../Layouts/Avatar";
 
-import './index.scss';
+import "./index.scss";
+
 
 const CardSpecialist = ({
                             id,
@@ -64,26 +64,21 @@ const CardSpecialist = ({
         <Card className="card-specialists">
             <div className="card-specialists__wrap">
                 <div className="card-specialists__part card-specialists__part_top">
-                    {picture_link
-                            ?
-                            <span
-                                className="card-specialists__photo"
-                                to={picture_link}
-                                style={{ backgroundImage: `url(${picture_link})` }}
-                            />
-                            :
-                            <InitialsAvatar
-                                name={`${first_name} ${last_name}`}
-                                card="specialist-card" id={id}
-                            />
-                    }
+                    <Avatar
+                        card="specialist-card"
+                        data="specialist-card"
+                        id={id}
+                        logo={picture_link}
+                        name={`${first_name} ${last_name}`}
+                    />
                     <div className="card-specialists__inner">
                         <div className="card-specialists__info">
 
                             <div className="card-specialists__names">
                                 {owner_alias ?
                                     <Link className="card-specialists__name"
-                                        to={`/user/${owner_alias}`}>
+                                        to={`/user/${owner_alias}`}
+                                    >
                                         <span>
                                             {last_name}
                                         </span>

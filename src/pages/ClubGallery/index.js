@@ -16,14 +16,12 @@ import { DEFAULT_IMG } from "appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
-import UserMenu from "../../components/Layouts/UserMenu";
-import { clubNav } from "../Club/config";
+import MenuComponentNew from "../../components/MenuComponentNew";
 import PhotoComponent from "../../components/PhotoComponent";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
+
 
 const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -38,7 +36,6 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
     const [hasMore, setHasMore] = useState(true);
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     let params = useParams();
     const history = useHistory();
     const alias = params.id;
@@ -194,7 +191,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
         <>
             {!pageLoaded && !clubInfo
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength}>
+                : <Layout>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className={`club-page__content-wrap${clubInfo.federation_name ? ' _isFederation' : ''}`}>
@@ -223,7 +220,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                         <Card>
                                             <Breadcrumbs />
                                             <div className="ClubGallery__buttons">
-                                                {album && canEdit && <Link className="ClubGallery__buttons-link" to={`/${alias}/gallery/${params.album}/edit`}>
+                                                {album && canEdit && <Link className="ClubGallery__buttons-link" to={`/club/${alias}/gallery/${params.album}/edit`}>
                                                     <div className="ClubGallery__buttons-link__icon">
                                                         <svg width="15" height="15" viewBox="0 0 19 19" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M17.71 4.0425C18.1 3.6525 18.1 3.0025 17.71 2.6325L15.37 0.2925C15 -0.0975 14.35 -0.0975 13.96 0.2925L12.12 2.1225L15.87 5.8725L17.71 4.0425ZM0 14.2525V18.0025H3.75L14.81 6.9325L11.06 3.1825L0 14.2525Z" />
@@ -311,22 +308,9 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                     position={fedInfo.owner_position}
                                                 />
                                             }
-                                            {!isMobile && isFederationAlias(clubInfo.club_alias) ?
-                                                <MenuComponent
-                                                    alias={clubInfo.club_alias}
-                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                    isFederation={true}
-                                                />
-                                                :
-                                                !isMobile &&
-                                                <UserMenu userNav={canEdit
-                                                    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
-                                                    notificationsLength={notificationsLength}
-                                                />
-                                            }
                                             {!isMobile &&
                                                 <>
+                                                    <MenuComponentNew />
                                                     <UserVideoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/video`}

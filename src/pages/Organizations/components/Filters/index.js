@@ -49,7 +49,6 @@ const Filters = ({
     const [loading, setLoading] = useState(true);
     const [federations, setFederations] = useState([]);
     const [cities, setCities] = useState([]);
-    const [currentCities, setCurrentCities] = useState(cities);
     const [breeds, setBreeds] = useState([]);
     const [regions, setRegions] = useState([]);
     const [currentCityIds, setCurrentCityIds] = useState([]);
@@ -267,7 +266,6 @@ const Filters = ({
                                     <RegionsFilter
                                         regions={regions}
                                         region_ids={filtersValue.region_ids}
-                                        currentCities={currentCities}
                                         onChange={filter => handleChangeRegions(filter)}
                                     />
                             }

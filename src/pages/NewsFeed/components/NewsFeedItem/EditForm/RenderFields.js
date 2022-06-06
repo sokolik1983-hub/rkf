@@ -90,7 +90,6 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     };
 
     const handleDeleteDocument = index => {
-        console.log('here');
         setDocs([...docs].filter((item, i) => i !== index));
     };
 
@@ -109,12 +108,12 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                 <FormField
                     {...fields.content}
                     onChange={handleChangeText}
-                    maxLength="4096"
+                    maxLength="1000"
                     rows="5"
                 />
                 {content &&
                     <span className="article-edit__content-length">
-                        {`осталось ${4096 - content.length} знаков`}
+                        {`осталось ${1000 - content.length} знаков`}
                     </span>
                 }
             </div>

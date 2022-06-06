@@ -3,9 +3,13 @@ import {Link, NavLink} from "react-router-dom";
 
 import "./styles.scss";
 
-const Counter = ({ counters, profileAlias }) => {
+const Counter = ({ counters, profileAlias, breeds }) => {
+    const alias = profileAlias.search('kennel') === 1 || profileAlias.search('user') === 1 ? profileAlias : `/${profileAlias}`;
 
-    const alias = profileAlias.search('kennel') === 1 || profileAlias.search('user') === 1 ? profileAlias : `/${profileAlias}`
+    const linkForExhibitionsNBC = (breeds) => {
+        const addBreedsToLink = breeds?.map(obj => `BreedIds=${obj.breed_id}`).join().replaceAll(',', '&');
+        return `/exhibitions?${addBreedsToLink}`;
+    }
 
     return (
         !!counters &&
@@ -62,9 +66,14 @@ const Counter = ({ counters, profileAlias }) => {
                 }
                 {
                     (!!counters.exhibitions_count || counters.exhibitions_count === 0) &&
-                    <NavLink exact to={`/exhibitions?Alias=${profileAlias}`} title="Мероприятия">
+                    <NavLink
+                        exact to={breeds ?
+                        linkForExhibitionsNBC(breeds) :
+                        `/exhibitions?Alias=${profileAlias}`
+                    }
+                        title="Мероприятия"
+                    >
                         <div className="counter_component__block">
-
                             <div className="counter_component__count">
                                 <p>{counters.exhibitions_count}</p>
                             </div>
@@ -73,7 +82,6 @@ const Counter = ({ counters, profileAlias }) => {
                             </div>
                         </div>
                     </NavLink>
-
                 }
             </div>
         </div>

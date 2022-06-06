@@ -1,10 +1,9 @@
-import React, { useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import getYouTubeID from "get-youtube-id";
 import {connect} from "formik";
 
 import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
-import OutsideClickHandler from "react-outside-click-handler";
 
 import { SubmitButton, FormControls, FormGroup, FormField } from '../Form';
 import CustomCheckbox from "../Form/CustomCheckbox";
@@ -12,7 +11,6 @@ import CustomNumber from "../Form/Field/CustomNumber";
 import CustomChipList from "../Form/Field/CustomChipList";
 import AddVideoLink from "./AddVideoLink";
 import AttachFile from "./AttachFile";
-import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import { BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
@@ -20,7 +18,9 @@ import LightTooltip from "../LightTooltip";
 import Modal from "../Modal";
 import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
-import InitialsAvatar from "../InitialsAvatar";
+import Avatar from "../Layouts/Avatar";
+import {AddPhotoModal, DndImageUpload} from "../Gallery";
+import DndPublicationImage from "../Gallery/components/PublicationImageUpload/DndPublicationImage";
 
 const RenderFields = ({ fields,
                           logo,
@@ -57,15 +57,16 @@ const RenderFields = ({ fields,
                           name,
                           userType,
                           setContent,
+                            loadPictures,
+                            setLoadPictures
                             }) => {
-    const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
 
-    const { content, file } = formik.values;
+    const { content } = formik.values;
 
     useEffect(() => {
         Request({ url: '/api/article/article_ad_types' },
@@ -74,27 +75,13 @@ const RenderFields = ({ fields,
         )
     }, []);
 
-    const handleChange = e => {
-        const file = e.target.files[0];
-
-        if (file && file.size < 20971520) {
-            formik.setFieldValue('file', file);
-            setSrc(URL.createObjectURL(file));
-            e.target.value = '';
-            setLoadFile(true);
-        } else {
-            window.alert(`Размер изображения не должен превышать 20 мб`);
-            formik.setFieldValue('file', '');
-            setSrc('');
-            setLoadFile(false);
+    const handleClose = (picture) => {
+        let index = loadPictures.indexOf(picture);
+        if (index >= 0) {
+            loadPictures.splice(index, 1);
+            setLoadPictures([...loadPictures]);
         }
-        acceptType(file).then(descision => {
-            if (!descision) {
-                window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
-                formik.setFieldValue('file', '');
-            }
-        });
-    };
+    }
 
     const addVideoLink = link => {
         formik.setFieldValue('video_link', link);
@@ -110,12 +97,6 @@ const RenderFields = ({ fields,
         if (window.confirm('Вы действительно хотите удалить этот файл?')) {
             setDocuments([...documents].filter((item, i) => i !== index));
         }
-    };
-
-    const handleClose = () => {
-        formik.setFieldValue('file', '');
-        setSrc('');
-        setLoadFile(false);
     };
 
     const handleKeyDown = e => {
@@ -151,11 +132,6 @@ const RenderFields = ({ fields,
     const closeModal = () => {
         setModalType('');
         setShowModal(false);
-    };
-
-    const handleOutsideClick = () => {
-        !content && setBlured();
-        setIsAd(false);
     };
 
     const handleChangeHalfBreed = () => {
@@ -196,44 +172,42 @@ const RenderFields = ({ fields,
         isAllCities && formik.setFieldValue('dog_city', []);
     }, [isAllCities]);
 
+    useEffect(() => {
+        formik.setFieldValue('pictures', loadPictures);
+    }, [loadPictures, isCheckedAddTypes, isAd]);
 
-    return (
-        <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+    return (<>
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="article-create-form__wrap article-create-form__textarea-wrap">
-                    {logo && logo !== "/static/icons/default/default_avatar.svg"
-                        ?
-                        <ClientAvatar size={40} avatar={logo} />
-                        :
-                        (userType === 4 || userType === 1)
-                            ?
-                            <InitialsAvatar card="article" name={name}/>
-                            :
-                            <ClientAvatar size={40} avatar={"/static/icons/default/club-avatar-new.png"} />
-                    }
-                        <FormField
-                            {...fields.content}
-                            onChange={handleKeyDown}
-                            onFocus={setFocused}
-                            maxLength="1000"
-                            value={content ? content : ''}
-                            rows={content ? addRow() : focus ? "2" : "1"}
-                            className={focus ? `_textarea_focus` : ``}
-                        />
+                    <Avatar
+                        card="article"
+                        data="article"
+                        logo={logo}
+                        name={name}
+                        userType={userType}
+                    />
+                    <FormField
+                        {...fields.content}
+                        onChange={handleKeyDown}
+                        onFocus={setFocused}
+                        maxLength="1000"
+                        value={content ? content : ''}
+                        rows={content ? addRow() : focus ? "2" : "1"}
+                        className={focus ? `_textarea_focus` : ``}
+                    />
                 </FormGroup>
                 <div className="article-create-form__controls-wrap">
                     <FormControls className={`article-create-form__controls ${focus ? ' _focus' : ''}`}>
-                        <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
-                            <label htmlFor="file" className="article-create-form__labelfile" />
-                        </LightTooltip>
-                        <input
-                            type="file"
-                            name="file"
-                            id="file"
-                            accept="image/*"
-                            className="article-create-form__inputfile"
-                            onChange={handleChange}
-                        />
+                        {loadPictures?.length < 5 &&
+                            <>
+                                <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
+                                    <label htmlFor="file" className="article-create-form__labelfile" onClick={() => {
+                                        setModalType('photo');
+                                        setShowModal(true);
+                                    }}/>
+                                </LightTooltip>
+                            </>
+                        }
                         {!videoLink &&
                             <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
                                 <button
@@ -446,25 +420,26 @@ const RenderFields = ({ fields,
                         <FormField className="article-create-form__input-color" {...fields.dog_color} />
                 </FormGroup>
             </div>
-        }
+            }
 
             <>
-                {file &&
-                    <div className="ImagePreview__wrap">
-                        <ImagePreview src={src} />
-                        <img src="/static/icons/file-cross.svg"
-                            className="ImagePreview__close"
-                            alt=""
-                            onClick={handleClose}
-                        />
-                    </div>
+                {!!loadPictures?.length &&
+                    <ul className={`article-create-form__images __${loadPictures.length}`}>
+                    {loadPictures.map((picture, index) =>
+                        <li className="ImagePreview__wrap" key={index}>
+                                <ImagePreview src={URL.createObjectURL(picture)} />
+                                <button
+                                    className="ImagePreview__close"
+                                    onClick={ () => handleClose(picture)}
+                                />
+                        </li>)}
+                    </ul>
                 }
                 {videoLink &&
                     <div className="ImagePreview__wrap">
                         <ImagePreview src={`https://img.youtube.com/vi/${getYouTubeID(videoLink)}/mqdefault.jpg`} />
-                        <img src="/static/icons/file-cross.svg"
+                        <button
                             className="ImagePreview__close"
-                            alt=""
                             onClick={removeVideoLink}
                         />
                     </div>
@@ -485,6 +460,11 @@ const RenderFields = ({ fields,
                     </div>
                 }
                 {focus && <div className="article-create-form__button-wrap">
+                    {!content && (!!loadPictures?.length || !!videoLink) &&
+                        <span className="article-create-form__text-error">
+                            Заполните текст для публикации
+                        </span>
+                    }
                     <SubmitButton
                         type="submit"
                         className={`article-create-form__button ${formik.isValid ? 'active' : ''}`}
@@ -500,6 +480,13 @@ const RenderFields = ({ fields,
                 handleX={closeModal}
                 headerName={modalType === 'video' ? 'Добавление видео' : 'Прикрепление файла'}
             >
+                {modalType === 'photo' &&
+                    <DndPublicationImage
+                        loadPictures={loadPictures}
+                        setLoadPictures={setLoadPictures}
+                        closeModal={closeModal}
+                    />
+                }
                 {modalType === 'video' &&
                     <AddVideoLink
                         setVideoLink={addVideoLink}
@@ -516,7 +503,7 @@ const RenderFields = ({ fields,
                     />
                 }
             </Modal>
-        </OutsideClickHandler>
+        </>
     )
 };
 

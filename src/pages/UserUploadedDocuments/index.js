@@ -9,8 +9,7 @@ import { connectAuthVisible } from "pages/Login/connectors";
 import StickyBox from "react-sticky-box";
 import UserBanner from "components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
-import UserMenu from "components/Layouts/UserMenu"
-import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
+import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import useIsMobile from "utils/useIsMobile";
 import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
@@ -18,6 +17,7 @@ import CopyrightInfo from "components/CopyrightInfo";
 import ls from "local-storage";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import UploadedDocuments from "components/UploadedDocuments";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./styles.scss";
 
@@ -25,7 +25,6 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
     const [loaded, setLoaded] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.route;
     const isMobile = useIsMobile(1080);
     const [error, setError] = useState(false);
@@ -67,7 +66,7 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+            : <Layout layoutWithFilters>
                 <Container className="UserUploadedDocuments content">
                     <aside className="UserUploadedDocuments__left">
                         <StickyBox offsetTop={60}>
@@ -89,13 +88,9 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
                                     judgeInfo={userInfo.open_roles}
                                 />
                             </Card>
-                            {!isMobile && <UserMenu userNav={canEdit
-                                ? userNav(alias) // Show NewsFeed menu item to current user only
-                                : userNav(alias).filter(i => i.id !== 2)}
-                                       notificationsLength={notificationsLength}
-                            />}
                             {!isMobile &&
                                 <>
+                                    <MenuComponentNew />
                                     <UserPhotoGallery
                                         alias={alias}
                                         pageLink={`/user/${alias}/gallery`}

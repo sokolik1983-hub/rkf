@@ -1516,10 +1516,12 @@ span.position-relative {
     &__active {
         stroke: #3366FF;
     }
-
     &__inactive {
         stroke: #90999E;
     }
 }
 
-
+li.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}

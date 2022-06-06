@@ -9,10 +9,8 @@ import UserHeader from './components/UserHeader';
 import RenderFields from './RenderFields'
 import AuthOrLogin from '../Login/components/AuthOrLogin';
 import {connectAuthVisible} from '../Login/connectors';
-import {endpointGetClubInfo, clubNav} from '../../components/Layouts/ClubLayout/config';
+import {endpointGetClubInfo} from '../../components/Layouts/ClubLayout/config';
 import {connectShowFilters} from '../../components/Layouts/connectors';
-import UserMenu from '../../components/Layouts/UserMenu';
-import MenuComponent from '../../components/MenuComponent';
 import Container from '../../components/Layouts/Container';
 import CopyrightInfo from '../../components/CopyrightInfo';
 import ClickGuard from '../../components/ClickGuard';
@@ -24,9 +22,9 @@ import injectReducer from '../../utils/injectReducer';
 import useIsMobile from '../../utils/useIsMobile';
 import {Request} from '../../utils/request';
 import ls from 'local-storage';
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import './styles.scss';
-
 
 let unblock;
 
@@ -42,7 +40,6 @@ const ClubEditPage = ({
         is_active_profile,
 }) => {
 
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [queryCount, setQueryCount] = useState(0);
     const [serverErrors, setErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
@@ -98,7 +95,7 @@ const ClubEditPage = ({
             setError(error.response);
             setLoading(false);
         }))();
-    }, [alias]);
+    }, [alias, isSubmit]);
 
     useEffect(() => {
         unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
@@ -251,7 +248,7 @@ const ClubEditPage = ({
             ? <Loading/>
             : error ?
                 <Redirect to="404"/> :
-                <Layout layoutWithFilters setNotificationsLength={setNotificationsLength}>
+                <Layout layoutWithFilters>
                     <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
                     <div className="ClubEdit__wrap">
                         <Container className="ClubEdit content">
@@ -268,21 +265,15 @@ const ClubEditPage = ({
                                         canEdit={canEdit}
                                         isAuthenticated={isAuthenticated}
                                     />
-                                    {!isMobile && !isFed && <UserMenu userNav={canEdit
-                                        ? clubNav(alias)
-                                        : clubNav(alias).filter(i => i.id !== 2)}
-                                                            notificationsLength={notificationsLength}
-                                    />}
-                                    {!isMobile && isFed && <MenuComponent
-                                        alias={alias}
-                                        name={club.name}
-                                        isFederation={true}
-                                    />}
+                                    {!isMobile && <MenuComponentNew />}
+
                                     <CopyrightInfo withSocials={true}/>
                                 </StickyBox>
                             </aside>
                             <div className="ClubEdit__inner">
                                 <RenderFields
+                                    club_id={club.id}
+                                    work_time={club.work_time}
                                     club_alias={club_alias}
                                     is_federation={is_federation}
                                     isOpenFilters={isOpenFilters}
@@ -295,7 +286,6 @@ const ClubEditPage = ({
                                     bindSubmitClubSocials={bindSubmitClubSocials}
                                     bindSubmitClubSchedule={bindSubmitClubSchedule}
                                     bindSubmitClubBankInfo={bindSubmitClubBankInfo}
-                                    setNotificationsLength={setNotificationsLength}
                                     bindSubmitClubLegalInfo={bindSubmitClubLegalInfo}
                                     bindSubmitClubDocuments={bindSubmitClubDocuments}
                                 />

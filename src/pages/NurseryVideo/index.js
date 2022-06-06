@@ -10,17 +10,16 @@ import Card from "components/Card";
 import Alert from "components/Alert";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UserHeader from "../../components/redesign/UserHeader";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import { VideoGallery } from "components/Gallery";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
-import { kennelNav } from "../Nursery/config";
 import BreedsList from "../../components/BreedsList";
+import MenuComponentNew from "../../components/MenuComponentNew";
+
 import "./styles.scss";
 import "pages/Nursery/index.scss";
-
 
 const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
@@ -31,7 +30,6 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.id;
     const isMobile = useIsMobile(1080);
@@ -120,14 +118,6 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
         }
     };
 
-    const Breadcrumbs = () => {
-        return <div className="NurseryVideo__breadcrumbs">
-            <div className="NurseryVideo__breadcrumbs-title">
-                Видеозаписи
-            </div>
-        </div>
-    };
-
     const onSubscriptionUpdate = (subscribed) => {
         setNursery({
             ...nursery,
@@ -139,7 +129,7 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
         <>
             {!pageLoaded && !nursery
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength}>
+                : <Layout>
                     <div className="redesign">
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">
@@ -166,9 +156,13 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                             }
                                         </>
                                     }
-                                    <div className="NurseryVideo__content">
+                                    <div className="nursery-video__content">
                                         <Card>
-                                            <Breadcrumbs />
+                                            <div className="nursery-video__breadcrumbs">
+                                                <div className="nursery-video__breadcrumbs-title">
+                                                    Видеозаписи
+                                                </div>
+                                            </div>
                                             {
                                                 !pageLoaded
                                                     ? <Loading centered={false} />
@@ -221,13 +215,9 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                                     isAuthenticated={isAuthenticated}
                                                 />
                                             }
-                                            {!isMobile && <UserMenu userNav={canEdit
-                                                ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                                : kennelNav(alias).filter(i => i.id !== 2)}
-                                                       notificationsLength={notificationsLength}
-                                            />}
                                             {!isMobile &&
                                                 <>
+                                                    <MenuComponentNew />
                                                     {nursery.breeds && !!nursery.breeds.length &&
                                                         <BreedsList breeds={nursery.breeds} />
                                                     }

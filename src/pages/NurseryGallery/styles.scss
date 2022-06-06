@@ -1,8 +1,8 @@
-.NurseryGallery {
+.nursery-gallery {
     &__content {
         width: 100%;
         order: 1;
-        .NurseryGallery__no-images {
+        .nursery-gallery__no-images {
             display: none;
         }
         @media (max-width: 990px) {

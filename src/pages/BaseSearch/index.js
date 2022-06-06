@@ -15,21 +15,18 @@ import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
 import TopComponent from "../../components/TopComponent";
-import UserMenu from "../../components/Layouts/UserMenu";
 import Banner from "../../components/Banner";
 import PublicationSearch from "./components/PublicationSearch";
 import {parseLocationSearch} from "./utils.js";
 import {Request} from "../../utils/request";
-import {clubNav} from "../Docs/config";
-import {kennelNav} from "../NurseryDocuments/config";
 import useIsMobile from "../../utils/useIsMobile";
 import {connectAuthVisible} from "../Login/connectors";
 import LeftMenu from "./components/LeftMenu/LeftMenu";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import ClickGuard from "../../components/ClickGuard";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
-
 
 const BaseSearch = props => {
     const {
@@ -39,6 +36,7 @@ const BaseSearch = props => {
     } = props;
 
     const [clubData, setClubData] = useState(null);
+    const [nbcData, setNbcData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
     const [activeSection, setActiveSection] = useState(0);
     const [cardClicked, setCardClicked] = useState(0);
@@ -51,9 +49,13 @@ const BaseSearch = props => {
 
         if(orgType && alias) {
             (() => Request({
-                url: orgType === 'clubAlias' ? `/api/Club/public/${alias}` : `/api/nurseries/nursery/public/${alias}`
+                url: orgType === 'clubAlias' ? `/api/Club/public/${alias}`
+                    : orgType === 'nbcAlias' ? `/api/NationalBreedClub/full?alias=${alias}`
+                    :`/api/nurseries/nursery/public/${alias}`
             }, data => {
-                orgType === 'clubAlias' ? setClubData(data) : setNurseryData(data);
+                orgType === 'clubAlias' ? setClubData(data)
+                    : orgType === 'nbcAlias' ?setNbcData(data)
+                    : setNurseryData(data);
             }, error => {
                 console.log(error.response);
             }))();
@@ -123,9 +125,9 @@ const BaseSearch = props => {
                                                     userType={userType}
                                                     setCardClicked={setCardClicked}
                                                 />
-                                                <UserMenu userNav={clubNav(clubData.club_alias)}/>
+                                                <MenuComponentNew />
                                             </> :
-                                        nurseryData ?
+                                        nurseryData || nbcData ?
                                             <>
                                                 <LeftMenu
                                                     setActiveSection={setActiveSection}
@@ -136,7 +138,7 @@ const BaseSearch = props => {
                                                     userType={userType}
                                                     setCardClicked={setCardClicked}
                                                 />
-                                                <UserMenu userNav={kennelNav(nurseryData.alias)}/>
+                                                <MenuComponentNew />
                                             </> :
                                             <>
                                                 <LeftMenu

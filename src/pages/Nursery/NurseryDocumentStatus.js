@@ -7,22 +7,21 @@ import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
 import { Request } from "../../utils/request";
-import { endpointGetNurseryInfo, kennelNav } from "./config";
+import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
-import MenuComponent from "../../components/MenuComponent";
+import MenuComponentNew from "../../components/MenuComponentNew";
 import CheckStatus from "../Club/components/CheckStatus";
 import useIsMobile from "../../utils/useIsMobile";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import UserMenu from "../../components/Layouts/UserMenu";
 import BreedsList from "../../components/BreedsList";
 
 import "./index.scss";
 
-const NurseryDocumentStatus = ({ history, match, user }) => {
+const NurseryDocumentStatus = ({ history, match }) => {
     const [nursery, setNurseryInfo] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -91,21 +90,19 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                 <StickyBox offsetTop={60}>
                                     <div className="nursery-page__info-inner">
                                         {!isMobile &&
-                                            <UserHeader
-                                                user="nursery"
-                                                logo={nursery.logo_link}
-                                                name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
-                                                alias={alias}
-                                                profileId={nursery.id}
-                                                federationName={nursery.federation_name}
-                                                federationAlias={nursery.federation_alias}
-                                                active_rkf_user={nursery.active_rkf_user}
-                                                active_member={nursery.active_member}
-                                            />
-                                        }
-                                        {!isMobile && <UserMenu userNav={kennelNav(alias)} />}
-                                        {!isMobile &&
                                             <>
+                                                <UserHeader
+                                                    user="nursery"
+                                                    logo={nursery.logo_link}
+                                                    name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                    alias={alias}
+                                                    profileId={nursery.id}
+                                                    federationName={nursery.federation_name}
+                                                    federationAlias={nursery.federation_alias}
+                                                    active_rkf_user={nursery.active_rkf_user}
+                                                    active_member={nursery.active_member}
+                                                />
+                                                <MenuComponentNew  />
                                                 {nursery.breeds && !!nursery.breeds.length &&
                                                     <BreedsList breeds={nursery.breeds} />
                                                 }
@@ -119,14 +116,6 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                 />
                                                 <CopyrightInfo withSocials={true} />
                                             </>
-                                        }
-                                        {!isMobile &&
-                                            <MenuComponent
-                                                alias={alias}
-                                                user={user}
-                                                profileId={nursery.id}
-                                                noCard={true}
-                                            />
                                         }
                                     </div>
                                 </StickyBox>

@@ -8,18 +8,18 @@ import { Redirect } from 'react-router-dom';
 import Container from 'components/Layouts/Container';
 import UserBanner from 'components/Layouts/UserBanner';
 import UserInfo from 'components/Layouts/UserInfo';
-import UserMenu from 'components/Layouts/UserMenu';
 import UserPhotoGallery from 'components/Layouts/UserGallerys/UserPhotoGallery';
 import UserVideoGallery from 'components/Layouts/UserGallerys/UserVideoGallery';
 import Card from 'components/Card';
 import CopyrightInfo from 'components/CopyrightInfo';
 import { Request } from 'utils/request';
 import { connectAuthVisible } from 'pages/Login/connectors';
-import { endpointGetUserInfo, endpointGetRolesInfo, userNav } from './config';
+import { endpointGetUserInfo, endpointGetRolesInfo } from './config';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from 'utils/useIsMobile';
 import {connectShowFilters} from '../../../components/Layouts/connectors';
+import MenuComponentNew from "../../MenuComponentNew";
 
 import './index.scss';
 
@@ -34,7 +34,6 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
     const [judgeInfo, setJudgeInfo] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [checkLink, setCheckLink] = useState(false);
     const { route: alias, id } = useParams();
     const isMobile = useIsMobile(1080);
@@ -135,7 +134,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
         <Loading /> :
         errorRedirect ?
             <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters={checkLink} >
+            <Layout layoutWithFilters={checkLink} >
 
                 <div className="user-page">
                     <Container className="user-page__content content">
@@ -151,8 +150,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                         share_link={`${window.location.host}/user/${alias}`}
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                        alias={alias}
                                         judgeInfo={judgeInfo}
+                                        alias={alias}
                                         subscribed={userInfo.subscribed}
                                         subscribed_id={userInfo.profile_id}
                                         onSubscriptionUpdate={onSubscriptionUpdate}
@@ -161,14 +160,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     />
                                 </Card>
                                 {!isMobile &&
-                                    <UserMenu userNav={canEdit
-                                        ? userNav(alias) // Show NewsFeed menu item to current user only
-                                        : userNav(alias).filter(i => i.id !== 2)}
-                                              notificationsLength={notificationsLength}
-                                    />
-                                }
-                                {!isMobile &&
                                     <>
+                                        <MenuComponentNew />
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}

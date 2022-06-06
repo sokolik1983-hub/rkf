@@ -18,6 +18,12 @@
 .article-create-form {
   position: relative;
 
+  &__text-error {
+    margin-left: auto;
+    color: #FA5D50;
+    font-size: 15px;
+  }
+
   textarea {
     resize: initial;
   }
@@ -146,6 +152,7 @@
 
     &-wrap {
       display: flex;
+      flex-direction: column-reverse;
       justify-content: space-between;
       @media (max-width: 750px) {
         margin-left: 5px;
@@ -276,15 +283,19 @@
     display: flex;
     align-items: center;
     margin-top: 20px;
+    justify-content: flex-end;
 
     @media (max-width: 750px) {
+      flex-direction: column;
       margin-top: 0;
     }
 
     button {
       margin-right: 0;
+      margin-left: 20px;
       width: 154px;
       @media (max-width: 750px) {
+        margin-left: auto;
         width: 136px;
       }
     }
@@ -522,24 +533,87 @@
     }
   }
 
+  &__images {
+    display: grid;
+    margin: 0;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    max-height: 500px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    list-style-type: none;
+
+    .ImagePreview__wrap:first-of-type {
+      grid-area: first;
+    }
+    .ImagePreview__wrap:nth-of-type(2) {
+      grid-area: second;
+    }
+    .ImagePreview__wrap:nth-of-type(3) {
+      grid-area: third;
+    }
+    .ImagePreview__wrap:nth-of-type(4) {
+      grid-area: fourth;
+    }
+    .ImagePreview__wrap:nth-of-type(5) {
+      grid-area: fifth;
+    }
+
+    &.__1 {
+      display: flex;
+    }
+
+    &.__2 {
+      display: flex;
+      flex-direction: row;
+      & div {
+        width: 100%;
+      }
+    }
+
+    &.__3 {
+      grid-template-areas:
+      "first first first second second second"
+      "first first first third third third";
+    }
+
+    &.__4 {
+      grid-template-areas:
+        "first first second second"
+        "first first third fourth";
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    &.__5 {
+      grid-template-areas:
+        "first first first second second second"
+        "third third fourth fourth fifth fifth";
+    }
+  }
+
   .ImagePreview {
     text-align: center;
-    margin: 16px 0 12px;
+    height: 100%;
 
     &__wrap {
       position: relative;
+      list-style-type: none;
     }
 
     &__close {
+      width: 30px;
+      height: 30px;
+      background: url(/static/icons/file-cross.svg) no-repeat top -4px center;
+      border: none;
+      padding: 0;
       position: absolute;
-      top: 0;
-      right: 0;
-      cursor: pointer;
+      top: 6px;
+      right: 6px;
     }
 
     img {
       display: block;
-      max-height: 680px;
       max-width: 100%;
       width: 100%;
       height: 100%;

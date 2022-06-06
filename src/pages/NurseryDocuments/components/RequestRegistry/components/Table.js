@@ -34,7 +34,7 @@ const categories = [
         value: '3',
     },
     {
-        text: 'Не отправленные',
+        text: 'Неотправленные',
         value: '4',
     }
 ];

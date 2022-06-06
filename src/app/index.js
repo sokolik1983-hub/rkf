@@ -6,7 +6,6 @@ import { appRoutes } from '../appConfig';
 import IframePage from '../pages/Static/IframePage';
 import { LoadableNotFound } from '../appModules';
 import NotificationsProvider from './context';
-import {useSelector} from 'react-redux';
 import Header from '../components/Layouts/Header';
 import FooterMenu from '../components/Layouts/FooterMenu';
 
@@ -14,10 +13,7 @@ import './kendo.scss';
 import './index.scss';
 
 
-
 const App = ({history}) => {
-    const layout = useSelector(state => state.layout);
-
     const resetFilters = () => {
         ls.remove('ClubsFiltersValues');
         ls.remove('FiltersValues');
@@ -48,7 +44,7 @@ const App = ({history}) => {
 
     return (
         <NotificationsProvider>
-            <Header withFilters={layout?.withFilters} login_page={layout?.login_page} isOpen={layout?.isOpen} />
+            <Header />
             <Switch>
                 {!!appRoutes.length && appRoutes.map(route =>
                     <Route
@@ -62,7 +58,7 @@ const App = ({history}) => {
                 <Route exact={true} path='/results/cacib' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblResExhibitionCACIB.aspx" />} />
                 <Route component={LoadableNotFound} />
             </Switch>
-            <FooterMenu login_page={layout?.login_page} isOpen={layout?.isOpen} />
+            <FooterMenu />
         </NotificationsProvider>
     )
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "components/Card";
 import useIsMobile from "utils/useIsMobile";
-import personalDataProcessingPolicyDoc from "./../../pages/PersonalDataProcessingPolicy/Politika_PDn.pdf";
+import personalDataProcessingPolicyDoc from "./../../pages/PersonalDataProcessingPolicy/PPDn.pdf";
 import "./index.scss";
 
 const CopyrightInfo = ({ withSocials }) => {

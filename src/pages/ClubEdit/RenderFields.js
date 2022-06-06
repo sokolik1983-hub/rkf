@@ -13,20 +13,21 @@ import ClubContactsCard from './components/ClubRightMenu/ClubContacts';
 
 
 const RenderFields = ({
+        bindSubmitClubAlias,
+        bindSubmitClubBankInfo,
+        bindSubmitClubEmail,
+        bindSubmitClubInfo,
+        bindSubmitClubLegalInfo,
+        bindSubmitClubPhone,
+        bindSubmitClubSchedule,
+        bindSubmitClubSocials,
         club_alias,
+        club_id,
+        handleSubmitForms,
         isOpenFilters,
         is_federation,
         setShowFilters,
-        handleSubmitForms,
-        bindSubmitClubInfo,
-        bindSubmitClubEmail,
-        bindSubmitClubAlias,
-        bindSubmitClubPhone,
-        bindSubmitClubSocials,
-        bindSubmitClubBankInfo,
-        bindSubmitClubSchedule,
-        bindSubmitClubLegalInfo,
-        bindSubmitClubDocuments,
+        work_time,
 }) => {
     const [activeSection, setActiveSection] = useState(0);
 
@@ -54,6 +55,8 @@ const RenderFields = ({
                         bindSubmitClubSocials={bindSubmitClubSocials}
                     /> :
                     activeSection === 2 ? <ClubScheduleCard
+                        work_time={work_time}
+                        club_id={club_id}
                         handleSubmitForms={handleSubmitForms}
                         bindSubmitClubSchedule={bindSubmitClubSchedule}
                     /> :

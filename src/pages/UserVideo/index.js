@@ -5,20 +5,20 @@ import Layout from "../../components/Layouts";
 import { Redirect, useParams } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import UserInfo from "../../components/Layouts/UserInfo";
-import UserMenu from "../../components/Layouts/UserMenu";
 import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
+import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import { VideoGallery } from "../../components/Gallery";
 import useIsMobile from "../../utils/useIsMobile";
 import InfiniteScroll from "react-infinite-scroll-component";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import Alert from "../../components/Alert";
-import "./index.scss";
 import ls from "local-storage";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
+import "./index.scss";
 
 const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
@@ -31,7 +31,6 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const [hasMore, setHasMore] = useState(true);
     const [videos, setVideos] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.id;
     const isMobile = useIsMobile(1080);
@@ -153,7 +152,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
         <Loading /> :
         error ?
             <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength}>
+            <Layout>
                 <div className="user-page">
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
@@ -173,13 +172,9 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                         judgeInfo={userInfo.open_roles}
                                     />
                                 </Card>
-                                {!isMobile && <UserMenu userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                           notificationsLength={notificationsLength}
-                                />}
                                 {!isMobile &&
                                     <>
+                                        <MenuComponentNew />
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}

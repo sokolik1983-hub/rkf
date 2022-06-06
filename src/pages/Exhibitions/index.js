@@ -13,19 +13,15 @@ import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
 import { formatDateCommon } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
-import UserMenu from "../../components/Layouts/UserMenu";
-import { clubNav } from "../Club/config";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
 import SignUpModal from "pages/Educational/components/SignUpModal";
-import ls from "local-storage";
 import useIsMobile from "../../utils/useIsMobile";
+import MenuComponentNew from "../../components/MenuComponentNew";
+
 import './index.scss';
 
 import moment from "moment";
 import "moment/locale/ru";
 moment.locale('ru');
-
 
 const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [loading, setLoading] = useState(true);
@@ -49,7 +45,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [count, setCount] = useState(0);
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
     const [exporting, setExporting] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const isMobile = useIsMobile(1080);
     const isEducational = parseInt(filters.CategoryId) === 4 ? true : false;
@@ -69,7 +64,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
         setExhibitionsLoading(true);
 
         await Request({
-            url: `${url}&StartElement=${startElem}&ElementCount=50`
+            url: `${url.replace('club/', '')}&StartElement=${startElem}&ElementCount=50`
         }, data => {
             if (data.exhibitions?.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
@@ -173,10 +168,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading ?
         <Loading /> :
-        <Layout
-            layoutWithFilters
-            setNotificationsLength={setNotificationsLength}
-        >
+        <Layout layoutWithFilters>
             <div className="exhibitions-page__wrap redesign">
                 <Container className="exhibitions-page content">
                     <Filters
@@ -191,26 +183,12 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                         federationAlias={federationAlias}
                         club={club}
                         setClub={setClub}
-                        notificationsLength={notificationsLength}
                         isEducational={isEducational}
                     />
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
                             <div className="exhibitions-page__mobile-only">
-                                {!isMobile && isFederationAlias(filters.Alias) ?
-                                    <MenuComponent
-                                        alias={filters.Alias}
-                                        name={shorten(displayName)}
-                                        isFederation={true}
-                                    />
-                                    :
-                                    !isMobile &&
-                                    <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
-                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
-                                        notificationsLength={notificationsLength}
-                                    />
-                                }
+                                {!isMobile && <MenuComponentNew />}
                             </div>
                         }
                         <ListFilter

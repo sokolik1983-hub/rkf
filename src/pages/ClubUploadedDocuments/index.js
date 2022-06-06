@@ -13,11 +13,8 @@ import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGal
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UploadedDocuments from "components/UploadedDocuments";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
-import UserMenu from "../../components/Layouts/UserMenu";
-import { clubNav } from "../Club/config";
 import PhotoComponent from "../../components/PhotoComponent";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
@@ -27,7 +24,6 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
     const [fedInfo, setFedInfo] = useState(null);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     let params = useParams();
     const alias = params.route;
     const isMobile = useIsMobile(1080);
@@ -79,7 +75,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
         <>
             {!pageLoaded && !clubInfo
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength} layoutWithFilters>
+                : <Layout layoutWithFilters>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className={`club-page__content-wrap${clubInfo.federation_name ? ' _isFederation' : ''}`}>
@@ -139,22 +135,9 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                     position={fedInfo.owner_position}
                                                 />
                                             }
-                                            {!isMobile && isFederationAlias(clubInfo.club_alias) ?
-                                                <MenuComponent
-                                                    alias={clubInfo.club_alias}
-                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                    isFederation={true}
-                                                />
-                                                :
-                                                !isMobile &&
-                                                <UserMenu userNav={canEdit
-                                                    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
-                                                    notificationsLength={notificationsLength}
-                                                />
-                                            }
                                             {!isMobile &&
                                                 <>
+                                                    <MenuComponentNew />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/gallery`}

@@ -11,8 +11,6 @@ import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import Aside from "components/Layouts/Aside";
 import StickyBox from "react-sticky-box";
-import UserMenu from "../../components/Layouts/UserMenu";
-import { clubNav } from "../Club/config";
 import UserHeader from "../../components/redesign/UserHeader";
 import { EditAlbum } from "components/Gallery";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -21,8 +19,7 @@ import { DEFAULT_IMG } from "appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import { isFederationAlias } from "../../utils";
-import MenuComponent from "../../components/MenuComponent";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "pages/Club/index.scss";
 import "./styles.scss";
@@ -39,7 +36,6 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
     const [allSelected, setAllSelected] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = params.id;
     const isMobile = useIsMobile(1080);
@@ -51,9 +47,8 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
 
     const getImages = async (startElem = 1) => {
         setImagesLoading(true);
-        return Request({
+        await Request({
             url: `/api/photogallery/gallery?alias=${alias}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`,
-            method: 'GET'
         }, data => {
             if (data.photos.length) {
                 const modifiedNews = data.photos.map(p => {
@@ -182,7 +177,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
             <>
                 {!pageLoaded
                     ? <Loading />
-                    : <Layout setNotificationsLength={setNotificationsLength}>
+                    : <Layout>
                         <div className="redesign">
                             <Container className="content club-page">
                                 <div className="club-page__content-wrap">
@@ -285,21 +280,9 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                         active_member={clubInfo.active_member}
                                                     />
                                                 }
-                                                {!isMobile && isFederationAlias(clubInfo.club_alias) ?
-                                                    <MenuComponent
-                                                        alias={clubInfo.club_alias}
-                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                        isFederation={true}
-                                                    />
-                                                    :
-                                                    !isMobile &&
-                                                    <UserMenu
-                                                        userNav={clubNav(clubInfo.club_alias)}
-                                                        notificationsLength={notificationsLength}
-                                                    />
-                                                }
                                                 {!isMobile &&
                                                     <>
+                                                        <MenuComponentNew />
                                                         <UserVideoGallery
                                                             alias={clubInfo.club_alias}
                                                             pageLink={`/${clubInfo.club_alias}/video`}

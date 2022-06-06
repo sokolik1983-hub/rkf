@@ -6,8 +6,6 @@ import BookformCard from "../../../../components/BookformCard";
 import { LoadableNotFound } from "../../../../appModules";
 import Registry from "../Stamps/Registry";
 import Alert from "../../../../components/Alert";
-import UserMenu from "../../../../components/Layouts/UserMenu";
-import { clubNav } from "../../config";
 import Loading from "../../../../components/Loading";
 import { Request } from "../../../../utils/request";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
@@ -15,9 +13,9 @@ import Banner from "../../../../components/Banner";
 import useIsMobile from "../../../../utils/useIsMobile";
 import CardMessage from "../../../../components/CardMessage";
 import ls from 'local-storage';
+import MenuComponentNew from "../../../../components/MenuComponentNew";
 
 import "./styles.scss";
-
 
 //Access method statuses
 const _pedigree = 11;
@@ -76,8 +74,13 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
             ? <Loading />
             : <>
                 {!membershipPaid && <CardMessage>
-                    <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
-                    <p>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
+                    <h3>Уважаемые пользователи портала RKF.ONLINE!</h3>
+                    <p>Ввиду того, что некоторые посетители офиса РКФ регулярно пропускают время своей записи,
+                        не отменив ее и не освободив тем самым «окно» для других желающих, мы вынуждены ввести
+                        ограничительные меры. Если в течение 30 календарных дней вы трижды пропустили запись
+                        на посещение офиса РКФ и не отменили ее в личном кабинете, на следующие 30 дней
+                        возможность зарегистрироваться на прием будет для вас ограничена.
+                        Просим своевременно отменять запись в случае невозможности ею воспользоваться!</p>
                 </CardMessage>}
                 <Card className={litter ? `` : `_inactive`}>
                     <div className="documents-page__icon litter-icon" />
@@ -256,8 +259,13 @@ const ExhibitionsCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
             ? <Loading />
             : <>
                 {!membershipPaid && <CardMessage>
-                    <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
-                    <p>Для продолжения работы в личном кабинете Вам необходимо отчитаться о племенной деятельности за прошедший год и направить квитанцию об оплате ежегодного членского взноса. Для этого Вам необходимо перейти в раздел "Организационная информация".</p>
+                    <h3>Уважаемые пользователи портала RKF.ONLINE!</h3>
+                    <p>Ввиду того, что некоторые посетители офиса РКФ регулярно пропускают время своей записи,
+                        не отменив ее и не освободив тем самым «окно» для других желающих, мы вынуждены ввести
+                        ограничительные меры. Если в течение 30 календарных дней вы трижды пропустили запись
+                        на посещение офиса РКФ и не отменили ее в личном кабинете, на следующие 30 дней
+                        возможность зарегистрироваться на прием будет для вас ограничена.
+                        Просим своевременно отменять запись в случае невозможности ею воспользоваться!</p>
                 </CardMessage>}
                 <Card className={exhibitionApplication ? `` : `_inactive`}>
                     <div className="documents-page__icon exhibitions-icon" />
@@ -342,7 +350,7 @@ const DocHome = ({ clubAlias }) => {
     return (loading ? <Loading /> : <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={60}>
-                {!isMobile && <UserMenu userNav={clubNav(clubAlias)} />}
+                {!isMobile && <MenuComponentNew />}
                 {!isMobile && <Banner type={8} />}
                 <CopyrightInfo withSocials={true} />
             </StickyBox>

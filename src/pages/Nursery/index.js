@@ -7,7 +7,6 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserHeader from "components/redesign/UserHeader";
 import UserDescription from "components/redesign/UserDescription";
 import UserContacts from "components/redesign/UserContacts";
@@ -15,16 +14,16 @@ import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGal
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
-import { endpointGetNurseryInfo, kennelNav } from "./config";
+import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import BreedsList from "../../components/BreedsList";
 import UserBanner from "../../components/Layouts/UserBanner";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
-
 
 const getAddressString = addressObj => {
     let address = '';
@@ -43,7 +42,6 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.id;
     const isMobile = useIsMobile(1080);
 
@@ -86,7 +84,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
         <Loading /> :
         error ?
             error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
-            <Layout setNotificationsLength={setNotificationsLength}>
+            <Layout>
                 <div className="redesign">
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
@@ -172,11 +170,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 isAuthenticated={isAuthenticated}
                                             />
                                         }
-                                        {!isMobile && <UserMenu userNav={canEdit
-                                            ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                            : kennelNav(alias).filter(i => i.id !== 2)}
-                                                   notificationsLength={notificationsLength}
-                                        />}
+                                        {!isMobile && <MenuComponentNew />}
                                         {!isMobile &&
                                             <>
                                                 <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />

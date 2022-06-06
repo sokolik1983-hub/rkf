@@ -8,19 +8,18 @@ import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
 import Alert from "../../components/Alert";
 import UserInfo from "../../components/Layouts/UserInfo";
-import UserMenu from "../../components/Layouts/UserMenu";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import { Gallery, AddPhotoModal } from "../../components/Gallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
+import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "../../appConfig";
 import ls from "local-storage";
+import MenuComponentNew from "../../components/MenuComponentNew";
 
 import "./index.scss";
-
 
 const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
@@ -36,7 +35,6 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
     const [images, setImages] = useState([]);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [startElement, setStartElement] = useState(1);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.id;
     const isMobile = useIsMobile(1080);
     const params = useParams();
@@ -175,7 +173,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
         <Loading /> :
         error ?
             <Redirect to="/404" /> :
-            <Layout setNotificationsLength={setNotificationsLength}>
+            <Layout>
                 <div className="user-page">
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
@@ -198,13 +196,9 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                         judgeInfo={userInfo.open_roles}
                                     />
                                 </Card>
-                                {!isMobile && <UserMenu userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                           notificationsLength={notificationsLength}
-                                />}
                                 {!isMobile &&
                                     <>
+                                        <MenuComponentNew />
                                         <UserVideoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/video`}
