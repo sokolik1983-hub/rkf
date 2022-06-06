@@ -56,6 +56,7 @@ const FoundInfo = ({cardClicked}) => {
 
     return (
         <Card id="found-info-anchor" className={cardClicked === 1 && `_active_card`}>
+            <div className="search-form__image found-info"/>
             <div className="search-form__text_wrap">
             <h3>Информация о найденных собаках</h3>
             <p className="search-form__text">Если Вами была найдена собака, на теле которой проставлено клеймо - введите его код в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, зарегистрировавший собаку, в который Вы можете обратиться для уточнения любой интересующей Вас информации.</p>

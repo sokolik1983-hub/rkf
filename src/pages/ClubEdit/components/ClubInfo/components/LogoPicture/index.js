@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { DEFAULT_IMG } from "../../../../../../appConfig";
 import { connectClientClubLogoPicture } from "../../../../connectors";
-// import ActiveImageWrapper from "../../../../../../components/ActiveImageWrapper";
 import EditAvatar from "../../../../../../components/EditAvatar";
 import "./styles.scss";
 

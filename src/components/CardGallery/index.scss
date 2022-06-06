@@ -1,21 +1,11 @@
 .card-gallery {
+  margin: 0 10px;
   .MuiImageListItem-img {
     cursor: pointer;
   }
-  .MuiImageList-root {
-    @media (max-width: 600px) {
-      display: block;
-    }
-  }
-  .MuiImageListItem-root {
-    @media (max-width: 600px) {
-      width: 100%;
-      height: auto !important;
-    }
-  }
   &__modal {
     & > div {
-      width: 85% !important;
+      width: 50% !important;
       @media (max-width: 750px) {
         width: 95% !important;
       }
