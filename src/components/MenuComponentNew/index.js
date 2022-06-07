@@ -61,7 +61,7 @@ const MenuComponentNew = () => {
 
         return isFederationAlias(url) ?
             federationNav(url) :
-            (url === 'club' && linkAlias) ?
+            ((url === 'club' || url === 'client') && linkAlias) ?
                 clubNav(linkAlias) :
                 (url === 'kennel' && linkAlias) ?
                     kennelNav(linkAlias) :
@@ -126,8 +126,7 @@ const MenuComponentNew = () => {
                 if(addLink === "documents" ||
                     linkAlias === "documents" ||
                     url === "bank-details" ||
-                    url.includes('base-search') ||
-                    url.includes('client')
+                    url.includes('base-search')
                 ) { //Это страница личного кабинета залогиненного юзера с документами
                     const isUserDocuments = true;
                     getMenuInfoCurrentUserPage(checkUserType(userType), userAlias, isUserDocuments);
