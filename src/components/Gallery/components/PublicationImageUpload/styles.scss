@@ -27,6 +27,9 @@
             cursor: pointer;
         }
     }
+    &__text {
+        display: block;
+    }
     &__preview {
         display: flex;
         flex-wrap: wrap;

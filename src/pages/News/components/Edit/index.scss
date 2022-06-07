@@ -188,11 +188,11 @@
       grid-area: fifth;
     }
 
-    &.__one {
+    &.__1 {
       display: flex;
     }
 
-    &.__two {
+    &.__2 {
       display: flex;
       flex-direction: row;
       & div {
@@ -200,20 +200,20 @@
       }
     }
 
-    &.__three {
+    &.__3 {
       grid-template-areas:
       "first first first second second second"
       "first first first third third third";
     }
 
-    &.__four {
+    &.__4 {
       grid-template-areas:
         "first first second second"
         "first first third fourth";
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 
-    &.__five {
+    &.__5 {
       grid-template-areas:
         "first first first second second second"
         "third third fourth fourth fifth fifth";

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState} from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { pencil, trash } from '@progress/kendo-svg-icons';
@@ -13,16 +13,6 @@ import './index.scss';
 const UserBanner = ({ link, canEdit, updateInfo }) => {
     const [hover, setHover] = useState(false);
     const [modalType, setModalType] = useState('');
-    const [userBannerSize, setUserBannerSize] = useState({});
-
-    const userBannerRef = useRef();
-
-    useEffect(() => {
-        userBannerRef.current && setUserBannerSize({
-            width: userBannerRef.current.clientWidth,
-            height: userBannerRef.current.clientHeight,
-        })
-    }, [userBannerRef])
 
     return (
         <Card
@@ -73,17 +63,12 @@ const UserBanner = ({ link, canEdit, updateInfo }) => {
                 </>
             }
             {link &&
-                <div
-                    className="user-banner__img"
-                    style={{ background: `url(${link}) no-repeat center / cover` }}
-                    ref={userBannerRef}
-                />
+                <div className="user-banner__img" style={{ background: `url(${link}) no-repeat center / cover` }} />
             }
             {modalType === 'edit' && <EditAvatar
                 setModalType={setModalType}
                 avatar={link}
                 pageBanner
-                size={userBannerSize}
             />}
             {modalType === 'delete' &&
                 <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} pageBanner/>

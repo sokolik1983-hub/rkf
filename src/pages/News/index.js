@@ -292,20 +292,7 @@ const NewsPage = ({
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
                                     {news.pictures?.length !== 0 &&
                                         <ul
-                                            className={`news__pictures-wrap __${news.pictures.length === 1 ? 
-                                                'one' 
-                                                : 
-                                                news.pictures.length === 2 ? 
-                                                    'two' 
-                                                    : 
-                                                    news.pictures.length === 3 ? 
-                                                        'three' 
-                                                        : 
-                                                        news.pictures.length === 4 ? 
-                                                            'four' 
-                                                            : 
-                                                            news.pictures.length === 5 && 'five'}`}
-                                        >
+                                            className={`news__pictures-wrap __${news.pictures.length}`}>
                                         {news.pictures && news.pictures.map((picture, i) =>
                                             <li key={i}
                                                 style={{backgroundImage: `url(${picture.picture_link})`}}
