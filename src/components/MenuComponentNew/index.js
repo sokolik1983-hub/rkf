@@ -126,7 +126,8 @@ const MenuComponentNew = () => {
                 if(addLink === "documents" ||
                     linkAlias === "documents" ||
                     url === "bank-details" ||
-                    url.includes('base-search')
+                    url.includes('base-search') ||
+                    url.includes('client')
                 ) { //Это страница личного кабинета залогиненного юзера с документами
                     const isUserDocuments = true;
                     getMenuInfoCurrentUserPage(checkUserType(userType), userAlias, isUserDocuments);
