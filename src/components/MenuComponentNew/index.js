@@ -61,7 +61,7 @@ const MenuComponentNew = () => {
 
         return isFederationAlias(url) ?
             federationNav(url) :
-            (url === 'club' && linkAlias) ?
+            ((url === 'club' || url === 'client') && linkAlias) ?
                 clubNav(linkAlias) :
                 (url === 'kennel' && linkAlias) ?
                     kennelNav(linkAlias) :
