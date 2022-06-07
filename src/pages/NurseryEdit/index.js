@@ -12,7 +12,7 @@ import UserHeader from './components/UserHeader';
 import CopyrightInfo from '../../components/CopyrightInfo';
 import StickyBox from 'react-sticky-box';
 import useIsMobile from '../../utils/useIsMobile';
-import {endpointGetNurseryInfo, kennelNav} from '../../components/Layouts/NurseryLayout/config';
+import {endpointGetNurseryInfo} from '../../components/Layouts/NurseryLayout/config';
 import {Redirect} from 'react-router-dom';
 import ClickGuard from '../../components/ClickGuard';
 import BreedsList from '../../components/BreedsList';
@@ -43,7 +43,6 @@ const NurseryEdit = ({
     const [working, setWorking] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
 
@@ -170,7 +169,7 @@ const NurseryEdit = ({
         ? <Loading/>
         : error ?
             <Redirect to="404"/> :
-            <Layout layoutWithFilters setNotificationsLength={setNotificationsLength}>
+            <Layout layoutWithFilters>
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
                 <div className="nursery-edit__wrap">
                     <Container className="nursery-edit content">

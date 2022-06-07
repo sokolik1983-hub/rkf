@@ -1,29 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
-import Container from '../Container';
-import Search from './components/Search';
-import Nav from './components/Nav';
-import WidgetLogin from './components/WidgetLogin';
-import Notifications from './components/Notifications';
-import Feedback from '../../Feedback';
-import {connectShowFilters} from '../connectors';
-import {connectAuthVisible} from '../../../pages/Login/connectors';
-import useIsMobile from '../../../utils/useIsMobile';
+import React, {useEffect, useState} from "react";
+import {Link, useLocation} from "react-router-dom";
+import {useSelector} from "react-redux";
+import Container from "../Container";
+import Search from "./components/Search";
+import Nav from "./components/Nav";
+import WidgetLogin from "./components/WidgetLogin";
+import Notifications from "./components/Notifications";
+import Feedback from "../../Feedback";
+import {connectShowFilters} from "../connectors";
+import {connectAuthVisible} from "../../../pages/Login/connectors";
+import useIsMobile from "../../../utils/useIsMobile";
+import "./index.scss";
 
-import './index.scss';
 
-const Header = ({
-    isAuthenticated,
-    withFilters,
-    isOpenFilters,
-    setShowFilters,
-    login_page,
-    isOpen,
-}) => {
+const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
     const [openWidgets, setOpenWidgets] = useState(false);
     const [open, setOpen] = useState(false);
     const isMobile = useIsMobile(1080);
     const {pathname} = useLocation();
+    const {withFilters, login_page, isOpen} = useSelector(state => state.layout) || {};
 
     const needChangeIsOpen = valueIsOpen => {
         if (valueIsOpen) {

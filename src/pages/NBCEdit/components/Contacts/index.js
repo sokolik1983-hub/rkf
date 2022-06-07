@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {connect, FieldArray} from "formik";
-import {phoneNumberMask, editForm} from "../../config";
+import {editForm} from "../../config";
 import Button from "../../../../components/Button";
 import {FormField, FormGroup} from "../../../../components/Form";
 import MaskedInput from "../../../../components/Form/Field/MaskedInput";
@@ -9,11 +9,9 @@ import "./styles.scss";
 
 
 const Contacts = ({
-     phones,
-     emails,
-    // is_public,
-    errors,
-    randomKeyGenerator,
+                      phones,
+                      emails,
+                      errors,
 }) => {
     const [countPhone, setCountPhone] = useState(true);
     const [countEmail, setCountEmail] = useState(true);
@@ -44,9 +42,8 @@ const Contacts = ({
         }
     };
     const checkForCount = () => {
-        phones.filter(({contact_type_id}) => contact_type_id === 1).length > 2 && setCountPhone(false) && setIsChangePhones(false);;
-        phones.filter(({contact_type_id}) => contact_type_id === 2).length > 2 && setCountEmail(false) && setIsChangeEmails(false);
-
+        phones.filter(({contact_type_id}) => contact_type_id === 1).length > 2 && setCountPhone(false) && setIsChangePhones(false);
+        emails.filter(({contact_type_id}) => contact_type_id === 2).length > 2 && setCountEmail(false) && setIsChangeEmails(false);
     };
     const handleChangePhone = (index) => {
         phones.map(elem => elem.is_main = false);

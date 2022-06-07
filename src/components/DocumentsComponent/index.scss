@@ -2,12 +2,13 @@
   padding: 14px 16px;
   margin-bottom: 24px;
   &__title {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
     margin-bottom: 12px !important;
+    padding-bottom: 10px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+    color: #253C5E;
+    border-bottom: 1px solid #E5E5E5;
   }
   &__list {
     list-style: none;

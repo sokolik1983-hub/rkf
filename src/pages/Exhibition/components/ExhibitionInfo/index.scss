@@ -1,9 +1,6 @@
 .exhibition-info {
-  display: flex;
-  justify-content: space-between;
   font-weight: 400;
   overflow: hidden;
-  width: 98%;
   margin: 0 auto;
   box-shadow: none;
   border-radius: 0;
@@ -41,25 +38,29 @@
   }
 
   &__title {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
     margin-bottom: 12px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    color: #253C5E;
   }
 
   &__subtitle {
+    margin-bottom: 16px;
     font-weight: 400;
     font-size: 16px;
-    line-height: 18px;
-    color: #72839c;
-    margin-bottom: 6px;
+    line-height: 16px;
+    color: #90999E;
   }
 
   &__right {
     width: 300px;
     min-width: 300px;
+
+    &:last-child {
+      margin-top: 15px;
+    }
 
     &.reports {
       width: 100%;
@@ -84,9 +85,14 @@
 
   &__dates {
     margin-bottom: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #253C5E;
   }
 
   &__date {
+    margin-bottom: 16px;
     font-weight: 600;
   }
 
@@ -164,6 +170,7 @@
 }
 
 .exhibition-page {
+  &__judges-info,
   &__description,
   &__schedule,
   &__catalog,
@@ -172,18 +179,25 @@
     font-weight: 300;
 
     &-title {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
       margin-bottom: 12px;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 16px;
+      letter-spacing: 0.4px;
+      color: #253C5E;
     }
   }
 
   .judge-info__header-wrap {
     display: flex;
-    justify-content: space-between;
+    margin-top: 15px;
+    justify-content: flex-start;
+    column-gap: 50px;
+
+    @media (max-width: 450px) {
+      flex-direction: column;
+      gap: 20px;
+    }
   }
 
   &__judge {
@@ -212,17 +226,20 @@
       width: 154px;
 
       .btn {
-        padding: 10px;
+        width: 165px;
+        height: 38px;
+        margin-top: 5px;
+        margin-right: 10px;
+        padding: 10px 10px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 16px;
       }
+    }
 
-      @media (max-width: 990px) {
-        bottom: 0;
-
-        .btn {
-          padding-top: 5px;
-          padding-bottom: 5px;
-        }
-      }
+    &-item > li {
+      display: inline-block;
+      margin: 15px  30px 15px 0;
     }
 
     &__modal .Modal__body {

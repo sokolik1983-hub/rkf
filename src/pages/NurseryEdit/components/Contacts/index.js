@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {connect, FieldArray} from "formik";
-import {phoneNumberMask, editForm} from "../../config";
+import {editForm} from "../../config";
 import Button from "../../../../components/Button";
 import {FormField, FormGroup} from "../../../../components/Form";
 import MaskedInput from "../../../../components/Form/Field/MaskedInput";
@@ -12,7 +12,6 @@ const Contacts = ({
     contacts,
     is_public,
     errors,
-    randomKeyGenerator,
 }) => {
     const [countPhone, setCountPhone] = useState(true);
     const [countEmail, setCountEmail] = useState(true);
@@ -45,9 +44,11 @@ const Contacts = ({
         contacts.filter(({contact_type_id}) => contact_type_id === 2).length > 2 && setCountEmail(false);
         setIsChange(false);
     };
-    const handleChange = (index) => {
-        contacts.map(elem => elem.is_main = false);
-        contacts[index].is_main = true;
+    const handleChange = (index, contact_type_id) => {
+            contacts.map((elem) => (elem.contact_type_id === contact_type_id) ?
+                elem.is_main = false :
+                elem.is_main);
+            contacts[index].is_main = true;
     };
 
 
@@ -72,7 +73,7 @@ const Contacts = ({
                             <div className="Contacts__checkbox-wrap">
                                 <div>Основной</div>
                                 <FormField
-                                    onChange={() => handleChange(index)}
+                                    onChange={() => handleChange(index, contact_type_id)}
                                     name={`contacts[${index}].is_main`}
                                     fieldType="customCheckbox"
                                 />
@@ -122,7 +123,7 @@ const Contacts = ({
                             <div className="Contacts__checkbox-wrap">
                                 <div>Основной</div>
                                 <FormField
-                                    onChange={() => handleChange(index)}
+                                    onChange={() => handleChange(index, contact_type_id)}
                                     name={`contacts[${index}].is_main`}
                                     fieldType="customCheckbox"
                                 />

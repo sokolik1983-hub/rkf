@@ -29,6 +29,7 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
         getImages(1);
         blockContent(false);
     };
+
     return (
         <div className="ReactGridGallery__wrap">
             {albums && !!albums.length && !isAlbum &&

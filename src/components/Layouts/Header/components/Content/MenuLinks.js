@@ -65,7 +65,7 @@ const MenuLinks = ({
                     Редактировать профиль
                 </Link>
             </li>
-            <li className={`widget-login__item ${userTypes === 'nbc' && 'disabled'}`} onClick={() => setOpen(false)}>
+            <li className="widget-login__item" onClick={() => setOpen(false)}>
                 <Link to={profileCabinet} >
                     {widgetLoginIcon.lk}
                     Личный кабинет
@@ -78,7 +78,8 @@ const MenuLinks = ({
                         userTypes === 'user' ? 'пользователя' :
                         userTypes === 'club' ? 'клуба' :
                         userTypes === 'federation' ? 'федерации' :
-                        userTypes === 'kennel' && 'питомника'}
+                        userTypes === 'kennel' ? 'питомника' :
+                        userTypes === 'nbc' && 'НКП'}
                 </Link>
             </li>
             {accountType === 5 &&

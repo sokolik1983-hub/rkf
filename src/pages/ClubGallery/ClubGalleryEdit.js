@@ -36,7 +36,6 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
     const [allSelected, setAllSelected] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = params.id;
     const isMobile = useIsMobile(1080);
@@ -178,7 +177,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
             <>
                 {!pageLoaded
                     ? <Loading />
-                    : <Layout setNotificationsLength={setNotificationsLength}>
+                    : <Layout>
                         <div className="redesign">
                             <Container className="content club-page">
                                 <div className="club-page__content-wrap">

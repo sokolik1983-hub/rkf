@@ -30,7 +30,6 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [showAlert, setShowAlert] = useState(false);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.id;
     const isMobile = useIsMobile(1080);
@@ -130,7 +129,7 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
         <>
             {!pageLoaded && !nursery
                 ? <Loading />
-                : <Layout setNotificationsLength={setNotificationsLength}>
+                : <Layout>
                     <div className="redesign">
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import BookformCard from "../../../../components/BookformCard";
 import ResponsibleCards from "../../../../components/ResponsibleCards";

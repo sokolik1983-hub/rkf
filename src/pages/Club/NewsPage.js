@@ -8,7 +8,7 @@ import UserHeader from "../../components/redesign/UserHeader";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import { Request } from "../../utils/request";
-import { clubNav, endpointGetClubInfo } from "./config";
+import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";

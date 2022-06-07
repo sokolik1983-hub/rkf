@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ExhibitionCard from "../ExhibitionCard";
 import Slider from "react-slick";
 import CustomArrow from "../../components/CustomArrow";
-import Placeholder from "../ExhibitionCard/Placeholder";
 import { Request } from "../../utils/request";
 import { responsiveSliderConfig } from "../../appConfig";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import KendoCard from "../kendo/Card";
 import useIsMobile from "../../utils/useIsMobile";
 
 import "./index.scss";
 
-const Placeholders = [0, 1, 2, 3];
 
 const ExhibitionsComponent = ({ alias, nbcId }) => {
     const [exhibitions, setExhibitions] = useState(null);
@@ -23,8 +20,6 @@ const ExhibitionsComponent = ({ alias, nbcId }) => {
         alias ?
             `/api/exhibitions/Exhibition/featured?Alias=${alias}&All=true` :
             '/api/exhibitions/Exhibition/featured?ElementsCount=14';
-
-    const history = useHistory();
 
     const isMobile = useIsMobile(600);
 
