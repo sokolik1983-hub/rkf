@@ -1,4 +1,8 @@
 .exhibitions-invite {
+  .exhibitions-invite__judges_list-wrap p {
+      margin-bottom: 5px;
+      letter-spacing: normal;
+  }
   &__main-info {
     display: grid;
     grid-template-areas:
@@ -21,14 +25,25 @@
     span:nth-of-type(5) {
       grid-area: edate;
     }
+
+    a {
+      text-decoration: none;
+      color: black;
+      &:hover {
+        color: #3366FF;
+      }
+    }
   }
   &__judges_list-wrap {
     margin-top: 30px;
     .judge-item {
+      border: 1px solid #CED4DA;
+      border-radius: 3px;
+      padding-left: 45px;
       list-style-type: none;
       &__wrap {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 25% 27% 23% 25%;
       }
       &__name,  &__info {
         display: flex;
@@ -40,7 +55,43 @@
           flex-direction: row;
         }
       }
-    }
+      &__name {
+        &-rus {
+          text-decoration: none;
+          color: black;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 18px;
+          &:hover {
+            color: #3366FF;
+          }
+          p:last-of-type {
+            display: flex;
+          }
+        }
+      }
+      &__name-eng, &__cert-number {
+        font-style: normal;
+        font-weight: 400;
+        line-height: 17px;
+        color: #72839C;
+      }
 
+      &__invite {
+        text-align: center;
+        button {
+          margin-bottom: 15px;
+        }
+        p {
+          display: flex;
+          flex-direction: column;
+          span {
+            font-style: italic;
+            color: #72839C;
+          }
+        }
+      }
+    }
   }
 }
