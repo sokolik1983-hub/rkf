@@ -254,7 +254,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                     <MenuComponentNew />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
-                                                        pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                        pageLink={`/club/${clubInfo.club_alias}/gallery`}
                                                         canEdit={canEdit}
                                                     />
                                                     <CopyrightInfo withSocials={true} />
