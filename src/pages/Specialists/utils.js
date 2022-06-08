@@ -110,8 +110,7 @@ export const setFiltersToUrl = (filters, initial = false) => {
 };
 
 export const getEmptyFilters = () => ({
-    isVerified: false,
-    IsPopular: false,
+    sortType: 0,
     RegionIds: [],
     CityIds: [],
     BreedGroupIds: [],
