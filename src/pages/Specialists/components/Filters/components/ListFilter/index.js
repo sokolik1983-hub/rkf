@@ -35,7 +35,7 @@ const ListFilter = ({
         1 - по алфавиту (по алфавиту от а до я)
         2 - по алф  наоборот
         3 - подтверждённые
-        5 - по популярности
+        4 - по популярности
     */
 
     const handleFilter = () => {
@@ -72,7 +72,7 @@ const ListFilter = ({
         setIsAlphabetAZ(false);
         setIsAlphabetZA(false);
         setIsVerified(false);
-        setFiltersToUrl({sortType: !isPopular ? 5 : 0});
+        setFiltersToUrl({sortType: !isPopular ? 4 : 0});
     }
 
     useEffect(()=>{
