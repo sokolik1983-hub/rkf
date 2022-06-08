@@ -107,9 +107,9 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                     </div>
                                     <div className="judge-item__agreement">
                                         {judge_item.nbc_invite_status === 2 ?
-                                            <span>Получено согласование от НКП</span> :
+                                            <p>Получено согласование от НКП</p> :
                                             judge_item.nbc_invite_status === 3 &&
-                                            <span>Получен отказ от НКП, причина: {judge_item.nbc_invite_comment}</span>
+                                            <span>Получен отказ от НКП, причина: <p>{!!judge_item.nbc_invite_comment ? judge_item.nbc_invite_comment : 'Не указано'}</p></span>
                                         }
                                     </div>
                                     <div className="judge-item__invite">
@@ -121,9 +121,9 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                         {/*если "получен отказ от НКП" в соседнем поле, то тут ничего*/}
 
                                         {judge_item.nbc_invite_status === 2 &&
-                                            ((judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?
+                                            ((judge_item.judge_invite_status === 1 && !judge_item.is_invited_by_club) ?
                                                 <Button>Отправить приглашение судье</Button> :
-                                                (judge_item.judge_invite_status === 1 && !judge_item.is_invited_by_club) ?
+                                                ((judge_item.judge_invite_status === 1 || judge_item.judge_invite_status === 5) && judge_item.is_invited_by_club) ?
                                                     'Приглашение судье отправлено' :
                                                     judge_item.judge_invite_status === 2 ?
                                                         'Приглашение принято' :
@@ -135,37 +135,48 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                         {judge_item.judge_invite_comment || 'Не указана'}
                                                                     </p>
                                                                 }
-                                                                <Button>Пригласить повторно</Button>
+                                                                <Button primary={true} onClick={ async () => await Request({
+                                                                        // url: `/api/exhibitions/invite/invite_judges?exhibitionId=${mainInfo.exhibition_id}&judgeId=${judge_item.judge_id}`,
+                                                                        // url: `/api/exhibitions/invite/invite_judges?exhibitionId=${mainInfo.exhibition_id}`,
+                                                                        url: `/api/exhibitions/invite/invite_judges?exhibitionId=16076`,
+                                                                        method: 'PUT',
+                                                                        data: JSON.stringify(
+                                                                            // exhibition_id: mainInfo.exhibition_id,
+                                                                           [judge_item.judge_id]
+                                                                        )
+                                                                    }, data => {
+                                                                        console.log(data, 'успех')
+                                                                    }, error => console.log(error, 'ошибка')
+                                                                )}>Пригласить повторно</Button>
                                                             </div> :
                                                             judge_item.judge_invite_status === 4 ?
-                                                                <div>
+                                                                <div style={{display: "block"}}>
                                                                     <p>
                                                                         Судья отозвал согласие на свое участие, причина:
                                                                         <span>
                                                                             {judge_item.judge_invite_comment || 'Не указана'}
                                                                         </span>
                                                                     </p>
-                                                                    {/*<Button primary={true} onClick={ async () => await Request({
-                                                                        url: '/api/exhibitions/invite/confirm_reject',
+                                                                    <Button primary={true} onClick={ async () => await Request({
+                                                                        url: `/api/exhibitions/invite/confirm_reject?judgeId=${judge_item.judge_id}&inviteId=${judge_item.invite_id}`,
                                                                         method: 'PUT',
-                                                                        data: JSON.stringify({
-                                                                            invite_id: judge_item.invite_id,
-                                                                            judge_id: judge_item.id,
-                                                                            judge_invite_status: 3,
-                                                                        })
+                                                                        // data: JSON.stringify({
+                                                                        //     invite_id: judge_item.invite_id,
+                                                                        //     judge_id: judge_item.judge_id,
+                                                                        //     judge_invite_status: 3,
+                                                                        // })
                                                                     }, data => {
-                                                                        setVideos(data);
-                                                                    }, error => handleError(error));
-
-                                                                    }>
+                                                                        console.log(data, 'успех')
+                                                                    }, error => console.log(error, 'ошибка')
+                                                                    )}>
                                                                         Подтвердить
-                                                                    </Button>*/}
-                                                                    {/*<span>*/}
-                                                                    {/*    Участие судьи отменено*/}
-                                                                    {/*</span>*/}
+                                                                    </Button>
+                                                                    <p>
+                                                                        Участие судьи отменено
+                                                                    </p>
                                                                 {/*при нажатии на кнопку кнопка дизеблится, под ней появляется надпись "участие судьи отменено". при следующем запросе с бэка меняется статус заявки => кейс меняется    */}
                                                                 </div> :
-                                                                judge_item.judge_invite_status === 5 &&
+                                                                (judge_item.judge_invite_status === 5 && !judge_item.is_invited_by_club) &&
                                                                 <div>
                                                                     <p>
                                                                         Судья отозвал согласие на свое участие, причина:
@@ -176,9 +187,19 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                     <p>
                                                                         Участе судьи отменено
                                                                     </p>
-                                                                    <Button>
-                                                                        Пригласить повторно
-                                                                    </Button>
+                                                                    <Button primary={true} onClick={ async () => await Request({
+                                                                            // url: `/api/exhibitions/invite/invite_judges?exhibitionId=${mainInfo.exhibition_id}&judgeId=${judge_item.judge_id}`,
+                                                                            // url: `/api/exhibitions/invite/invite_judges?exhibitionId=${mainInfo.exhibition_id}`,
+                                                                            url: `/api/exhibitions/invite/invite_judges`,
+                                                                            method: 'PUT',
+                                                                            data: JSON.stringify({
+                                                                                exhibition_id: mainInfo.exhibition_id,
+                                                                                judge_ids: [judge_item.judge_id],
+                                                                            })
+                                                                        }, data => {
+                                                                            console.log(data, 'успех')
+                                                                        }, error => console.log(error, 'ошибка')
+                                                                    )}>Пригласить повторно</Button>
                                                                 </div>
                                             )
                                         }
