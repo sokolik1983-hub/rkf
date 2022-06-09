@@ -4,7 +4,7 @@ import Container from "../../components/Layouts/Container";
 import "./index.scss";
 
 const PageNotFound = ({history}) => {
-    if(history && history.location.pathname !== '/404') history.push('/404');
+    // if(history && history.location.pathname !== '/404') history.push('/404');
 
     return (
         <Layout>

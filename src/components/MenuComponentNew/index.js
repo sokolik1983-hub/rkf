@@ -30,6 +30,10 @@ const MenuComponentNew = () => {
     const [linkFedDetails, setLinkFedDetails] = useState('');
     const [openUserMenu, setOpenUserMenu] = useState(false);
 
+    useEffect(() => {
+       console.log('currentPageNav', currentPageNav)
+    },[currentPageNav])
+
     const moreRef = useRef();
 
     const userAlias = useSelector(state => state.authentication.user_info?.alias);
@@ -165,7 +169,7 @@ const MenuComponentNew = () => {
     };
 
     useEffect(() => {
-        if (currentPageUserInfo?.club_alias) {
+        if (!!currentPageUserInfo?.club_alias) {
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({

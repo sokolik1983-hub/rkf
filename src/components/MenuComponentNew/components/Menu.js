@@ -25,6 +25,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
     };
 
     const showPresidium = (currentPageAlias) => {
+        console.log('currentPageAlias', currentPageAlias)
         if (currentPageAlias === 'rfls') {
             return presidiumRfls
         } else {
@@ -84,6 +85,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                     exact={navItem.exact}
                                     className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
                                     onClick={e => clickOnPresidium(e, currentPageUserInfo?.club_alias)}
+                                    target={(navItem.id === 7 || navItem.id === 8) ? '_blank' : ''}
                                 >
                                     {navItem.icon}
                                     <span>{navItem.title}</span>
@@ -94,6 +96,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                     exact={navItem.exact}
                                     className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
                                     onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                    target={(navItem.id === 7 || navItem.id === 8) ? '_blank' : ''}
                                 >
                                     {navItem.icon}
                                     <span>{navItem.title}</span>
@@ -121,6 +124,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                                 exact={navItem.exact}
                                                 onClick={e => navItem.onClick(e, setShowModal)}
                                                 className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
+                                                target={(navItem.id === 7 || navItem.id === 8) ? '_blank' : ''}
                                             >
                                                 {navItem.icon}
                                                 <span>{navItem.title}</span>
@@ -131,6 +135,7 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
                                                 exact={navItem.exact}
                                                 className={`menu-component-new__link${navItem.disabled ? ' _disabled' : ''}`}
                                                 onClick={e => navItem.disabled ? clickOnDisabledLink(e) : setOpenUserMenu(false)}
+                                                target={(navItem.id === 7 || navItem.id === 8) ? '_blank' : ''}
                                             >
                                                 {navItem.icon}
                                                 <span>{navItem.title}</span>
