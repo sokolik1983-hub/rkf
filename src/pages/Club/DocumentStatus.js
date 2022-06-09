@@ -107,11 +107,11 @@ const DocumentStatus = ({ history, match, is_active_profile, profile_id, isAuthe
                                         />
                                         <UserPhotoGallery
                                             alias={clubInfo.club_alias}
-                                            pageLink={`/${clubInfo.club_alias}/gallery`}
+                                            pageLink={`/club/${clubInfo.club_alias}/gallery`}
                                         />
                                         <UserVideoGallery
                                             alias={clubInfo.club_alias}
-                                            pageLink={`/${clubInfo.club_alias}/video`}
+                                            pageLink={`/club/${clubInfo.club_alias}/video`}
                                         />
                                     </>
                                 }
@@ -151,11 +151,11 @@ const DocumentStatus = ({ history, match, is_active_profile, profile_id, isAuthe
                                                 <MenuComponentNew />
                                                 <UserPhotoGallery
                                                     alias={clubInfo.club_alias}
-                                                    pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                    pageLink={`/club/${clubInfo.club_alias}/gallery`}
                                                 />
                                                 <UserVideoGallery
                                                     alias={clubInfo.club_alias}
-                                                    pageLink={`/${clubInfo.club_alias}/video`}
+                                                    pageLink={`/club/${clubInfo.club_alias}/video`}
                                                 />
                                                 <CopyrightInfo withSocials={true} />
                                             </>

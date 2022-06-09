@@ -140,12 +140,12 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                     <MenuComponentNew />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
-                                                        pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                        pageLink={`/club/${clubInfo.club_alias}/gallery`}
                                                         canEdit={canEdit}
                                                     />
                                                     <UserVideoGallery
                                                         alias={clubInfo.club_alias}
-                                                        pageLink={`/${clubInfo.club_alias}/video`}
+                                                        pageLink={`/club/${clubInfo.club_alias}/video`}
                                                         canEdit={canEdit}
                                                     />
                                                     <CopyrightInfo withSocials={true} />
