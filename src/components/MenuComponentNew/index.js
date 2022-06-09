@@ -30,10 +30,6 @@ const MenuComponentNew = () => {
     const [linkFedDetails, setLinkFedDetails] = useState('');
     const [openUserMenu, setOpenUserMenu] = useState(false);
 
-    useEffect(() => {
-       console.log('currentPageNav', currentPageNav)
-    },[currentPageNav])
-
     const moreRef = useRef();
 
     const userAlias = useSelector(state => state.authentication.user_info?.alias);

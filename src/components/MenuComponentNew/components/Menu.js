@@ -25,7 +25,6 @@ export const Menu = ({currentPageNav, setOpenUserMenu, currentPageUserInfo, isMo
     };
 
     const showPresidium = (currentPageAlias) => {
-        console.log('currentPageAlias', currentPageAlias)
         if (currentPageAlias === 'rfls') {
             return presidiumRfls
         } else {
