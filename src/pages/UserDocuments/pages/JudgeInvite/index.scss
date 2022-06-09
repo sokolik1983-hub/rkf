@@ -7,23 +7,26 @@
       "nkp nkp nkp nkp nkp nkp";
     gap: 30px 0;
     margin-top: 25px;
-    span:first-of-type{
+    p:first-of-type{
       grid-area: club;
     }
-    span:nth-of-type(2) {
+    p:nth-of-type(2) {
       grid-area: exh;
     }
-    span:nth-of-type(3) {
+    p:nth-of-type(3) {
       grid-area: city;
     }
-    span:nth-of-type(4) {
+    p:nth-of-type(4) {
       grid-area: sdate;
     }
-    span:nth-of-type(5) {
+    p:nth-of-type(5) {
       grid-area: edate;
     }
-    span:nth-of-type(6) {
+    p:nth-of-type(6) {
       grid-area: nkp;
     }
+  }
+  &__buttons {
+    text-align: center;
   }
 }

@@ -44,7 +44,7 @@ export const clubNav = alias => [
     //     </svg>
     // },
     {
-        id: 4,
+        id: 3,
         title: 'Документы',
         to: `/club/${alias}/uploaded-documents/`,
         exact: false,
@@ -64,7 +64,7 @@ export const clubNav = alias => [
             </svg>
     },
     {
-        id: 5,
+        id: 4,
         title: 'Фотогалерея',
         to: `/club/${alias}/gallery`,
         exact: false,
@@ -81,7 +81,7 @@ export const clubNav = alias => [
             </svg>
     },
     {
-        id: 6,
+        id: 5,
         title: 'Видеозаписи',
         to: `/club/${alias}/video`,
         exact: true,
@@ -98,8 +98,8 @@ export const clubNav = alias => [
             </svg>
     },
     {
-        id: 7,
-        title: 'Cтраница клуба',
+        id: 6,
+        title: 'Страница клуба',
         to: `/club/${alias}`,
         exact: true,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
