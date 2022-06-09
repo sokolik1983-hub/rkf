@@ -71,7 +71,7 @@ const CardExhibition = ({
                                     &nbsp;
                                 </>
                                 }
-                                    <Link to={`/${club_alias}`}>{club_name}</Link>
+                                    <Link to={`/club/${club_alias}`}>{club_name}</Link>
                                 </div>
                                 <div className="card-exhibition__federation-wrap">
                                     {federation_name && federation_link ?
