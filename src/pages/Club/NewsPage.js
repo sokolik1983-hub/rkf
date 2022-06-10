@@ -105,11 +105,11 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                         />
                                         <UserPhotoGallery
                                             alias={clubInfo.club_alias}
-                                            pageLink={`/${clubInfo.club_alias}/gallery`}
+                                            pageLink={`/club/${clubInfo.club_alias}/gallery`}
                                         />
                                         <UserVideoGallery
                                             alias={clubInfo.club_alias}
-                                            pageLink={`/${clubInfo.club_alias}/video`}
+                                            pageLink={`/club/${clubInfo.club_alias}/video`}
                                         />
                                     </>
                                 }
@@ -160,11 +160,11 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                                 <MenuComponentNew />
                                                 <UserPhotoGallery
                                                     alias={clubInfo.club_alias}
-                                                    pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                    pageLink={`/club/${clubInfo.club_alias}/gallery`}
                                                 />
                                                 <UserVideoGallery
                                                     alias={clubInfo.club_alias}
-                                                    pageLink={`/${clubInfo.club_alias}/video`}
+                                                    pageLink={`/club/${clubInfo.club_alias}/video`}
                                                 />
                                                 <CopyrightInfo withSocials={true} />
                                             </>
