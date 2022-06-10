@@ -11,7 +11,6 @@ import "./index.scss";
 const TopComponent = ({
                           logo,
                           name,
-                          withShare = true,
                           withSubscribe,
                           isAuthenticated,
                           canEdit,
@@ -85,8 +84,6 @@ const TopComponent = ({
                             member={member}
                             onSubscriptionUpdate={onSubscriptionUpdate}
                             isTopComponent
-                        // onSuccess={onSuccess}
-                        // onError={onError}
                         />
                     }
                     <Share />

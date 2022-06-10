@@ -3,7 +3,6 @@ import { useDropzone } from "react-dropzone"
 import Loading from "components/Loading"
 import Button from "components/Button"
 import Alert from "components/Alert"
-import { Request } from "utils/request"
 
 import "./styles.scss"
 
