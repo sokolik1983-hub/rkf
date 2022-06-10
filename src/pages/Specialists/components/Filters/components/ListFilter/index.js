@@ -5,6 +5,9 @@ import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
 import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
 
 import "./index.scss";
+import { CSSTransition } from "react-transition-group";
+import Select from "react-select";
+import Card from "../../../../../../components/Card";
 
 
 const ListFilter = ({
@@ -21,11 +24,21 @@ const ListFilter = ({
         ];
     }, []);
 
+    const sortItems = useMemo(() => {
+        return [
+            {title: 'По умолчанию', search_type: 1},
+            {title: 'По алфавиту', search_type: 2},
+            {title: 'По верифицированным', search_type: 3},
+            {title: 'По популярности', search_type: 4},
+        ];
+    }, []);
+
     const [isFilter, setIsFilter] = useState(false);
     const [isVerified, setIsVerified] = useState(false);
     const [isAlphabetAZ, setIsAlphabetAZ] = useState(false);
     const [isAlphabetZA, setIsAlphabetZA] = useState(false);
     const [isPopular, setIsPopular] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const location = useLocation();
 
@@ -37,6 +50,10 @@ const ListFilter = ({
         3 - подтверждённые
         4 - по популярности
     */
+
+    const handleChange = (itemId) => {
+
+    }
 
     const handleFilter = () => {
         setIsFilter(!isFilter);
@@ -90,6 +107,50 @@ const ListFilter = ({
                     onChange={handleFilter}
                     cName="sorting-filter"
                 />
+                <Card className="cities-filter-regions">
+                    <div className="cities-filter-regions__head" onClick={() => setIsOpen(!isOpen)}>
+                        <h5 className="cities-filter-regions__title">Сортировка</h5>
+                        <span className={`cities-filter-regions__chevron ${isOpen ? `_dropdown_open` : ``}`} />
+                    </div>
+                    <CSSTransition
+                        in={isOpen}
+                        timeout={50}
+                        unmountOnExit
+                        classNames="dropdown__filters-regions"
+                    >
+                        <div className="cities-filter__wrap-regions">
+                            <Select
+                                id="cities-filter-regions"
+                                isMulti={true}
+                                closeMenuOnSelect={false}
+                                options={tabItems}
+                                defaultMenuIsOpen={true}
+                                hideSelectedOptions={false}
+                                menuIsOpen={true}
+                                controlShouldRenderValue={false}
+                                onChange={handleChange}
+                                clearable={true}
+                                isSearchable
+                                classNamePrefix="cities-filter-regions"
+                                placeholder="Начните вводить город"
+                                noOptionsMessage={() => 'Город не найден'}
+                                value={tabItems}
+                                components={{ Option }}
+                                maxMenuHeight={170}
+                            />
+
+                            {!!tabItems.length &&
+                                <ul className="cities-filter-regions__values">
+                                    {tabItems.map(item =>
+                                        <li className="cities-filter-regions__values-item" key={item.value}>
+                                            <span>{item.label}</span>
+                                        </li>
+                                    )}
+                                </ul>
+                            }
+                        </div>
+                    </CSSTransition>
+                </Card>
             </div>
 
             {!isFilter ? <SwipeTabs
