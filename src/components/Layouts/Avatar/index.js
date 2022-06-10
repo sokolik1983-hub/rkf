@@ -256,7 +256,7 @@ const [modalType, setModalType] = useState('');
         case 'nursery-docs':
             return(
                 <>
-                    {logo || userType === 3 ?
+                    {logo || userType === 3 || !userType ?
                         <div className="top-component__logo"
                              style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }}
                         />
