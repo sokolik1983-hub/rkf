@@ -11,7 +11,6 @@ import Modal from '../../../../components/Modal';
 import LightTooltip from '../../../../components/LightTooltip';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { trash } from '@progress/kendo-svg-icons';
-import { acceptType } from '../../../../utils/checkImgType';
 import useIsMobile from '../../../../utils/useIsMobile';
 import { blockContent } from '../../../../utils/blockContent';
 import OutsideClickHandler from 'react-outside-click-handler';
