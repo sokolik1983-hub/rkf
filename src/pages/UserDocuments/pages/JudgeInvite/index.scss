@@ -7,6 +7,7 @@
       "nkp nkp nkp nkp nkp nkp";
     gap: 30px 0;
     margin-top: 25px;
+    margin-bottom: 50px;
     p:first-of-type{
       grid-area: club;
     }
@@ -28,5 +29,11 @@
   }
   &__buttons {
     text-align: center;
+  }
+  .green {
+    color: #51DEA3;
+  }
+  .red {
+    color: #FF6977;
   }
 }
