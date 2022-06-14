@@ -25,13 +25,15 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
             headers: getHeaders(),
         }, data => {
             setMainInfo(data);
-            data.invited_judges.forEach(judge => setJudgeList([...judgeList, judge]))
+            setJudgeList(data.invited_judges)
             setLoading(false);
         }, error => {
             console.log(error.response);
             setLoading(false);
         }))();
     }, []);
+
+    console.log(judgeList)
 
     return loading ?
         <Loading /> :
@@ -44,11 +46,11 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                 </div>
 
                 <div className="exhibitions-invite__main-info">
-                    <span>Клуб: <a href={`/club/${mainInfo.club_alias}`}>{mainInfo.club_name}</a></span>
-                    <span>Мероприятие: <a href={`/exhibitions/${mainInfo.exhibition_id}`}>{mainInfo.exhibition_name}</a></span>
-                    <span>Город проведения выставки: {mainInfo.exhibition_city}</span>
-                    <span>Дата начала: {formatDate(mainInfo.exhibition_date_start)}</span>
-                    <span>Дата окончания: {formatDate(mainInfo.exhibition_date_end)}</span>
+                    <p>Клуб: <a href={`/club/${mainInfo.club_alias}`}>{mainInfo.club_name}</a></p>
+                    <p>Мероприятие: <a href={`/exhibitions/${mainInfo.exhibition_id}`}>{mainInfo.exhibition_name}</a></p>
+                    <p>Город проведения выставки: <span>{mainInfo.exhibition_city}</span></p>
+                    <p>Дата начала: <span>{formatDate(mainInfo.exhibition_date_start)}</span></p>
+                    <p>Дата окончания: <span>{formatDate(mainInfo.exhibition_date_end)}</span></p>
                 </div>
 
                 <div className="exhibitions-invite__judges_list-wrap">
@@ -92,24 +94,24 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                         </p>
                                     </div>
                                     <div className="judge-item__info">
-                                        <span>
+                                        <p>
                                             Город:
-                                            <p>{judge_item.city}</p>
-                                        </span>
-                                        <span>
+                                            <span>{judge_item.city}</span>
+                                        </p>
+                                        <p>
                                             Телефон:
-                                            <p>{judge_item.phone_number}</p>
-                                        </span>
-                                        <span>
+                                            <span>{judge_item.phone_number}</span>
+                                        </p>
+                                        <p>
                                             E-mail:
-                                            <p>{judge_item.email}</p>
-                                        </span>
+                                            <span>{judge_item.email}</span>
+                                        </p>
                                     </div>
                                     <div className="judge-item__agreement">
                                         {judge_item.nbc_invite_status === 2 ?
                                             <p>Получено согласование от НКП</p> :
                                             judge_item.nbc_invite_status === 3 &&
-                                            <span>Получен отказ от НКП, причина: <p>{!!judge_item.nbc_invite_comment ? judge_item.nbc_invite_comment : 'Не указано'}</p></span>
+                                            <p>Получен отказ от НКП, причина: <span>{!!judge_item.nbc_invite_comment ? judge_item.nbc_invite_comment : 'Не указано'}</span></p>
                                         }
                                     </div>
                                     <div className="judge-item__invite">
@@ -123,7 +125,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                         {judge_item.nbc_invite_status === 2 &&
                                             ((judge_item.judge_invite_status === 1 && !judge_item.is_invited_by_club) ?
                                                 <Button>Отправить приглашение судье</Button> :
-                                                ((judge_item.judge_invite_status === 1 || judge_item.judge_invite_status === 5) && judge_item.is_invited_by_club) ?
+                                                (judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?
                                                     'Приглашение судье отправлено' :
                                                     judge_item.judge_invite_status === 2 ?
                                                         'Приглашение принято' :
@@ -132,20 +134,19 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                 <p>Приглашение отклонено</p>
                                                                 {!!judge_item.judge_invite_comment &&
                                                                     <p>Причина:
-                                                                        {judge_item.judge_invite_comment || 'Не указана'}
+                                                                        <span>{judge_item.judge_invite_comment || 'Не указана'}</span>
                                                                     </p>
                                                                 }
                                                                 <Button primary={true} onClick={ async () => await Request({
-                                                                        // url: `/api/exhibitions/invite/invite_judges?exhibitionId=${mainInfo.exhibition_id}&judgeId=${judge_item.judge_id}`,
-                                                                        // url: `/api/exhibitions/invite/invite_judges?exhibitionId=${mainInfo.exhibition_id}`,
-                                                                        url: `/api/exhibitions/invite/invite_judges?exhibitionId=16076`,
+                                                                        url: `/api/exhibitions/invite/invite_judges`,
                                                                         method: 'PUT',
-                                                                        data: JSON.stringify(
-                                                                            // exhibition_id: mainInfo.exhibition_id,
-                                                                           [judge_item.judge_id]
-                                                                        )
+                                                                        data: JSON.stringify({
+                                                                            exhibition_id: mainInfo.exhibition_id,
+                                                                            judge_ids: [judge_item.judge_id],
+                                                                        })
                                                                     }, data => {
-                                                                        console.log(data, 'успех')
+                                                                        console.log(data, 'успех');
+                                                                        window.location.reload();
                                                                     }, error => console.log(error, 'ошибка')
                                                                 )}>Пригласить повторно</Button>
                                                             </div> :
@@ -158,38 +159,34 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                         </span>
                                                                     </p>
                                                                     <Button primary={true} onClick={ async () => await Request({
-                                                                        url: `/api/exhibitions/invite/confirm_reject?judgeId=${judge_item.judge_id}&inviteId=${judge_item.invite_id}`,
+                                                                        url: `/api/exhibitions/invite/confirm_reject`,
                                                                         method: 'PUT',
-                                                                        // data: JSON.stringify({
-                                                                        //     invite_id: judge_item.invite_id,
-                                                                        //     judge_id: judge_item.judge_id,
-                                                                        //     judge_invite_status: 3,
-                                                                        // })
+                                                                        data: JSON.stringify({
+                                                                            invite_id: judge_item.invite_id,
+                                                                            judge_id: judge_item.judge_id,
+                                                                            judge_invite_status: 3,
+                                                                        })
                                                                     }, data => {
-                                                                        console.log(data, 'успех')
+                                                                        console.log(data, 'успех');
+                                                                        window.location.reload();
                                                                     }, error => console.log(error, 'ошибка')
                                                                     )}>
                                                                         Подтвердить
                                                                     </Button>
-                                                                    <p>
-                                                                        Участие судьи отменено
-                                                                    </p>
                                                                 {/*при нажатии на кнопку кнопка дизеблится, под ней появляется надпись "участие судьи отменено". при следующем запросе с бэка меняется статус заявки => кейс меняется    */}
                                                                 </div> :
-                                                                (judge_item.judge_invite_status === 5 && !judge_item.is_invited_by_club) &&
+                                                                (judge_item.judge_invite_status === 5 && judge_item.is_invited_by_club) &&
                                                                 <div>
                                                                     <p>
                                                                         Судья отозвал согласие на свое участие, причина:
-                                                                    </p>
-                                                                    <p>
-                                                                        {judge_item.judge_invite_comment || 'Не указана'}
+                                                                        <span>
+                                                                            {judge_item.judge_invite_comment || 'Не указана'}
+                                                                        </span>
                                                                     </p>
                                                                     <p>
                                                                         Участе судьи отменено
                                                                     </p>
                                                                     <Button primary={true} onClick={ async () => await Request({
-                                                                            // url: `/api/exhibitions/invite/invite_judges?exhibitionId=${mainInfo.exhibition_id}&judgeId=${judge_item.judge_id}`,
-                                                                            // url: `/api/exhibitions/invite/invite_judges?exhibitionId=${mainInfo.exhibition_id}`,
                                                                             url: `/api/exhibitions/invite/invite_judges`,
                                                                             method: 'PUT',
                                                                             data: JSON.stringify({
@@ -197,7 +194,8 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                                 judge_ids: [judge_item.judge_id],
                                                                             })
                                                                         }, data => {
-                                                                            console.log(data, 'успех')
+                                                                            console.log(data, 'успех');
+                                                                            window.location.reload();
                                                                         }, error => console.log(error, 'ошибка')
                                                                     )}>Пригласить повторно</Button>
                                                                 </div>

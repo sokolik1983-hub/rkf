@@ -10,19 +10,19 @@
       "city city sdate sdate edate edate";
     gap: 30px 0;
     margin-top: 25px;
-    span:first-of-type{
+    p:first-of-type{
       grid-area: club;
     }
-    span:nth-of-type(2) {
+    p:nth-of-type(2) {
       grid-area: exh;
     }
-    span:nth-of-type(3) {
+    p:nth-of-type(3) {
       grid-area: city;
     }
-    span:nth-of-type(4) {
+    p:nth-of-type(4) {
       grid-area: sdate;
     }
-    span:nth-of-type(5) {
+    p:nth-of-type(5) {
       grid-area: edate;
     }
 
@@ -38,9 +38,12 @@
     margin-top: 30px;
     .judge-item {
       border: 1px solid #CED4DA;
-      border-radius: 3px;
+      border-bottom: none;
       padding-left: 45px;
       list-style-type: none;
+      &:last-of-type {
+        border: 1px solid #CED4DA;
+      }
       &__wrap {
         display: grid;
         grid-template-columns: 25% 27% 23% 25%;
@@ -50,9 +53,14 @@
         flex-direction: column;
       }
       &__info {
-        span {
+        p {
           display: flex;
           flex-direction: row;
+          font-weight: 600;
+          color: #72839c;
+          span {
+            font-weight: 400;
+          }
         }
       }
       &__name {
@@ -89,6 +97,25 @@
           span {
             font-style: italic;
             color: #72839C;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 1079px) {
+    &__main-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    &__judges_list-wrap {
+      margin-top: 5px;
+      .judge-item {
+        padding-left: 0;
+        &__wrap {
+          //тут нужно распределить по макету элементы для мобилки(скорее всегу через гриды; надо в этом файле добавить .green и .red)
+          .judge-item__info {
+            display: none;
           }
         }
       }
