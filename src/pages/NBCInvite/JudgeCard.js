@@ -1,24 +1,23 @@
-import React from "react";
+import React, { memo } from "react";
 import {allbreedJudgeIcon, judgeIcon} from "../../components/Layouts/UserLayout/config";
 
 const JudgeCard = ({
-                       authAndReject,
-                       city,
-                       disabled,
-                       email,
-                       id,
-                       is_all_breeder,
-                       judge_alias,
-                       judge_cert_number,
-                       judge_en_full_name,
-                       judge_id,
-                       judge_last_name,
-                       judge_name,
-                       judge_second_name,
-                       nbc_invite_status,
-                       phone_number,
-                   }) => {
-
+    authAndReject,
+    city,
+    disabled,
+    email,
+    id,
+    is_all_breeder,
+    judge_alias,
+    judge_cert_number,
+    judge_en_full_name,
+    judge_id,
+    judge_last_name,
+    judge_name,
+    judge_second_name,
+    nbc_invite_status,
+    phone_number,
+}) => {
     const fullName = `${judge_last_name} ${judge_name} ${judge_second_name}`
 
     return (
@@ -86,4 +85,4 @@ const JudgeCard = ({
     )
 }
 
-export default JudgeCard;
+export default memo(JudgeCard);
