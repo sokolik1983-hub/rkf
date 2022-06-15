@@ -1,4 +1,4 @@
-import React, {memo, useState, useEffect} from 'react';
+import React, {memo, useState, useEffect, useRef} from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../../../../components/Loading';
 import CardNewsNew from '../../../../components/CardNewsNew';
@@ -46,6 +46,12 @@ const NewsList = ({isFullDate = true}) => {
         activeType: null,
         isAdvert: null
     });
+
+    const scrollRef = useRef();
+
+    const scrollFunc = () => {
+        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
+    }
 
     const doTheFilter = (currentCities) => {
         if(newsFilter.regions.length === 0) {
@@ -169,12 +175,14 @@ const NewsList = ({isFullDate = true}) => {
         setStartElement(1);
         setNewsFilter(newFilters);
         (() => getNews(1, newFilters))();
+        scrollFunc();
     };
 
     const changeOrganizationFilters = activeFiltername => {
         setNewsFilter({...newsFilter, activeType: activeFiltername});
 
         (() => getNews(1, {...newsFilter, activeType: activeFiltername}))();
+        scrollFunc();
     };
 
     const changeCityFilter = citiesIds => {
@@ -182,6 +190,7 @@ const NewsList = ({isFullDate = true}) => {
         setNewsFilter({...newsFilter, cities: citiesIds});
         setStartElement(1);
         (() => getNews(1, {...newsFilter, cities: citiesIds}))();
+        scrollFunc();
     };
 
     const changeRegionFilter = regionIds => {
@@ -190,6 +199,7 @@ const NewsList = ({isFullDate = true}) => {
         setNewsFilter({...newsFilter, regions: regionIds});
         setStartElement(1);
         (() => getNews(1, {...newsFilter, regions: regionIds}))();
+        scrollFunc();
     };
 
     useEffect(() => {
@@ -208,11 +218,11 @@ const NewsList = ({isFullDate = true}) => {
     const changeIsPopular = mostLiked => {
         setNewsFilter({...newsFilter, is_popular: mostLiked});
         (() => getNews(1, {...newsFilter, is_popular: mostLiked}))();
+        scrollFunc();
     };
 
-
     return (
-        <div className="news-list">
+        <div className="news-list" ref={scrollRef}>
                 <InfiniteScroll
                     dataLength={news.length}
                     next={getNextNews}

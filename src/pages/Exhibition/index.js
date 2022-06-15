@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import PageNotFound from "../404";
-import Layout from "../../components/Layouts";
-import Container from "../../components/Layouts/Container";
-import Card from "../../components/Card";
-import PropertyP from "../../components/PropertyP";
-import Loading from "../../components/Loading";
-import ExhibitionInfo from "./components/ExhibitionInfo";
-import CopyrightInfo from "../../components/CopyrightInfo";
-import { Request } from "../../utils/request";
+import StickyBox from "react-sticky-box";
 import { endpointGetExhibition } from "./config";
-import { useDictionary, getDictElement } from "../../dictionaries";
+import ExhibitionInfo from "./components/ExhibitionInfo";
+import PageNotFound from "../404";
 import { connectAuthVisible } from "../Login/connectors";
 import { DEFAULT_IMG, BANNER_TYPES } from "../../appConfig";
-import UserHeader from "../../components/redesign/UserHeader";
-import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
-import StickyBox from "react-sticky-box";
+import { useDictionary, getDictElement } from "../../dictionaries";
+import Card from "../../components/Card";
 import Banner from "../../components/Banner";
-import useIsMobile from "../../utils/useIsMobile";
+import Layout from "../../components/Layouts";
+import Loading from "../../components/Loading";
+import PropertyP from "../../components/PropertyP";
+import Container from "../../components/Layouts/Container";
+import CopyrightInfo from "../../components/CopyrightInfo";
 import PhotoComponent from "../../components/PhotoComponent";
+import UserHeader from "../../components/redesign/UserHeader";
 import MenuComponentNew from "../../components/MenuComponentNew";
+import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
+import { Request } from "../../utils/request";
+import useIsMobile from "../../utils/useIsMobile";
 
 import "./index.scss";
+
 
 const urlRegexp = new RegExp(/^((http|https):\/\/?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
 
@@ -32,6 +33,7 @@ const checkUrl = (url) => {
         return <span>{url}</span>;
     }
 };
+
 const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_profile }) => {
     const isMobile = useIsMobile(1080);
     const [exhibition, setExhibition] = useState({ club_information: {} });
@@ -45,6 +47,8 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
     const exhibition_avatar_link = exhibition && exhibition.exhibition_avatar_link;
     const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : DEFAULT_IMG.exhibitionPicture;
     const comments = exhibition && (typeof exhibition.comments === 'string' ? exhibition.comments.split(';').join('\n') : exhibition.comments);
+    const dayTimer = exhibition.type_id === 5 ? 5 : 14; // Племенной смотр - 5 дней до подачи отчетов, остальные 14.
+
     const dateStart = exhibition && exhibition.dates && exhibition.dates.length ?
         new Date(
             exhibition.dates[0].year,
@@ -53,6 +57,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
             exhibition.dates[0].time_start ? exhibition.dates[0].time_start.slice(0, 2) : 0,
             exhibition.dates[0].time_start ? exhibition.dates[0].time_start.slice(3, 5) : 0
         ).toISOString() : null;
+
     const dateEnd = exhibition && exhibition.dates && exhibition.dates.length ?
         exhibition.dates.length > 1 ?
             new Date(
@@ -77,8 +82,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                     24,
                     0
                 ).toISOString() : null;
-
-    const dayTimer = exhibition.type_id === 5 ? 5 : 14; // Племенной смотр - 5 дней до подачи отчетов, остальные 14.
 
     const reportsDateEnd = dateEnd ?
         new Date(
@@ -106,29 +109,31 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
         getExhibition();
     }, []);
 
-    const { club_information,
-        club_avatar,
+    const {
+        additional_info,
         address,
         address_additional_info,
-        additional_info,
+        club_avatar,
+        club_information,
+        contacts,
         exhibition_map_link,
-        contacts
-        } = exhibition;
+    } = exhibition;
 
-    const { club_alias,
-        display_name,
-        club_fact_name,
-        federation_name,
-        federation_alias,
-        club_legal_name,
-        inn,
-        kpp,
-        bank_name,
-        bic,
+    const {
         account_number,
         active_member,
         active_rkf_user,
-        subscribed
+        bank_name,
+        bic,
+        club_alias,
+        club_fact_name,
+        club_legal_name,
+        display_name,
+        federation_alias,
+        federation_name,
+        inn,
+        kpp,
+        subscribed,
     } = club_information;
 
     const onSubscriptionUpdate = (subscribed) => {
@@ -138,7 +143,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                 ...club_information,
                 subscribed: subscribed
             }
-        })
+        });
     }
 
     const getFedInfo = () => {
@@ -210,31 +215,39 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                 <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                                 <UserPhotoGallery
                                                     alias={club_alias}
-                                                    pageLink={`/${club_alias}/gallery`}
+                                                    pageLink={`/club/${club_alias}/gallery`}
                                                 />
                                             </>
                                         }
-
                                         <CopyrightInfo withSocials={true} />
-
                                         <div className="mobile-only">
-
                                             <div className="exhibition-page__title-wrap">
                                                 <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                                {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
+                                                {canEdit && new Date(dateEnd) >= new Date() &&
+                                                    <Link className="btn__blue"
+                                                          to={`/exhibitions/${exhibition.id}/edit`}
+                                                    >
+                                                        Редактировать
+                                                    </Link>
+                                                }
                                             </div>
                                             <img src={avatarLink} alt="" className="exhibition-page__img" />
                                         </div>
                                     </div>
                                 </StickyBox>
                             </aside>
-                            <div className="exhibition-page__right">
+                            <Card className="exhibition-page__right">
                                 <div className="desktop-only">
                                     <div className="exhibition-page__title-wrap">
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                        {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
+                                        {canEdit && new Date(dateEnd) >= new Date() &&
+                                            <Link className="btn__blue"
+                                                  to={`/exhibitions/${exhibition.id}/edit`}
+                                            >
+                                                Редактировать
+                                            </Link>
+                                        }
                                     </div>
-                                    <img src={exhibition_avatar_link} alt="" className="exhibition-page__img" />
                                 </div>
                                 <ExhibitionInfo
                                     city={city}
@@ -266,9 +279,8 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                 })
                                             : ''
                                     }
-
                                         <br />
-                                        <h4 className="exhibition-page__address-title">Дополнительная информация</h4>
+                                        <h4 className="exhibition-page__address-title">дополнительная информация</h4>
                                         {address_additional_info ?
                                             <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: address_additional_info }} /> :
                                             <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
@@ -299,15 +311,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                         }
                                     </Card>
                                 </div>
-                                {/*{isMobile && <div style={{ marginTop: '16px' }}>*/}
-                                {/*    <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />*/}
-                                {/*</div>}*/}
-                                {/*{isMobile &&  <UserPhotoGallery*/}
-                                {/*            alias={club_alias}*/}
-                                {/*            pageLink={`/${club_alias}/gallery`}*/}
-                                {/*        />}*/}
-
-                            </div>
+                            </Card>
                         </div>
                     </Container>
                 </div>

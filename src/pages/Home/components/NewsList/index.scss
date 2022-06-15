@@ -17,6 +17,13 @@
   }
   .infinite-scroll-component__outerdiv {
     width: calc(100% - 266px);
+
+    .swiper-wrapper {
+      @media(min-width: 1080px) {
+        transform: none!important;
+      }
+    }
+
     @media (max-width: 1079px) {
       width: 100%;
     }

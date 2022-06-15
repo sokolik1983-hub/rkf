@@ -61,7 +61,7 @@ const MenuComponentNew = () => {
 
         return isFederationAlias(url) ?
             federationNav(url) :
-            (url === 'club' && linkAlias) ?
+            ((url === 'club' || url === 'client') && linkAlias) ?
                 clubNav(linkAlias) :
                 (url === 'kennel' && linkAlias) ?
                     kennelNav(linkAlias) :
@@ -165,7 +165,7 @@ const MenuComponentNew = () => {
     };
 
     useEffect(() => {
-        if (currentPageUserInfo?.club_alias) {
+        if (!!currentPageUserInfo?.club_alias) {
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({

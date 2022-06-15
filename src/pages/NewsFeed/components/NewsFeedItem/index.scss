@@ -267,13 +267,18 @@
   }
   &__right {
     display: flex;
-    padding-top: 6px;
+    padding-top: 0;
     .k-chip.k-chip-filled,
     .k-chip.k-chip-filled.k-chip-selected {
       height: 26px;
       padding: 4px 6px !important;
       background-color: #7899ff4d !important;
       color: #72839c !important;
+      @media (max-width: 550px) {
+        &:not(:last-child) {
+          display: none;
+        }
+      }
       &:hover {
         background: #7899ff5d;
       }
@@ -574,7 +579,7 @@
     flex-grow: 0;
     border: 1px solid #CED4DA;
     border-radius: 3px;
-    margin-right: 9px;
+    margin-right: 1px;
     background-repeat: no-repeat;
     background-position: center center;
   }

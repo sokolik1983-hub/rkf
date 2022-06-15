@@ -61,36 +61,39 @@ const UserHeader = ({
                             <section
                                 className={`user-header__name-wrap${setUserType(user, alias) === 'Федерация' && canEdit ? ' _editable' : ''}`}>
                                 <div className="user-header__user-wrap">
-                                    <p className="user-header__user">
-                                        {setUserType(user, alias)}
-                                    </p>
-                                    <div className="user-header__user">
-                                        {active_rkf_user &&
-                                            <ActiveUserMark/>
-                                        }
-                                        {active_member &&
-                                            <FederationChoiceMark/>
-                                        }
+                                    {setUserType(user, alias) === 'Федерация' &&
+                                        <div className="user-header__federation"/>}
+                                    {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
+                                        <div className='user-header-link'>
+                                            <Link to={`/${federationAlias}`}
+                                                  className={name.length > 50
+                                                      ? "user-header__federation long-bottom"
+                                                      : name.length > 30
+                                                          ? "user-header__federation middle-bottom"
+                                                          : "user-header__federation"}>
+                                                {federationName}
+                                            </Link>
+                                        </div>
+                                    }
+                                    <div className="user-header__container">
+                                        <h3 className="user-header__name">{name}</h3>
+                                        <Share/>
+                                    </div>
+                                    <div className="user-header__user-org">
+                                        <p className="user-header__user">
+                                            {setUserType(user, alias)}
+                                        </p>
+                                        <div className="user-header__user">
+                                            {active_rkf_user &&
+                                                <ActiveUserMark/>
+                                            }
+                                            {active_member &&
+                                                <FederationChoiceMark/>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="user-header__container">
-                                    <h3 className="user-header__name">{name}</h3>
-                                    <Share/>
-                                </div>
-                                {setUserType(user, alias) === 'Федерация' &&
-                                    <div className="user-header__federation"/>}
-                                {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
-                                    <div className='user-header-link'>
-                                        <Link to={`/${federationAlias}`}
-                                              className={name.length > 50
-                                                  ? "user-header__federation long-bottom"
-                                                  : name.length > 30
-                                                      ? "user-header__federation middle-bottom"
-                                                      : "user-header__federation"}>
-                                            {federationName}
-                                        </Link>
-                                    </div>
-                                }
+
                             </section>
                             {
                                 canEdit &&

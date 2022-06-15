@@ -56,6 +56,7 @@ const CheckLitterStatus = ({ cardClicked }) => {
     };
 
     return <Card className={`check-status ${cardClicked === 5 && `_active_card`}`} id="check-status__letter">
+        <div className="search-form__image documents-status"/>
         <div className="check-status__icon" />
         <div className="check-status__text_wrap">
         <h3>Информация о ПОМЁТАХ</h3>

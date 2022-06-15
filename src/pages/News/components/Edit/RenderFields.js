@@ -11,13 +11,13 @@ import Modal from '../../../../components/Modal';
 import LightTooltip from '../../../../components/LightTooltip';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { trash } from '@progress/kendo-svg-icons';
-import { acceptType } from '../../../../utils/checkImgType';
 import useIsMobile from '../../../../utils/useIsMobile';
 import { blockContent } from '../../../../utils/blockContent';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useFocus } from '../../../../shared/hooks';
 import CustomSelect from 'react-select';
 import CustomCheckbox from '../../../../components/Form/CustomCheckbox';
+import DndPublicationImage from "../../../../components/Gallery/components/PublicationImageUpload/DndPublicationImage";
 
 
 const RenderFields = ({ fields,
@@ -144,29 +144,8 @@ const RenderFields = ({ fields,
         formik.setFieldValue('content', text);
     };
 
-    const handleChangeImg = e => {
-        const file = e.target.files[0];
-
-        if (file && file.size < 20971520) {
-            formik.setFieldValue('new_pictures', file);
-            setNewPictures([...newPictures, file])
-            e.target.value = '';
-        } else {
-            window.alert(`Размер изображения не должен превышать 20 мб`);
-            formik.setFieldValue('new_pictures', '');
-            setOldPictures('');
-        }
-        acceptType(file).then(descision => {
-            if (!descision) {
-                window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
-                formik.setFieldValue('new_pictures', '');
-                setOldPictures('');
-            }
-        });
-    };
-
     const handleDeleteImg = (picture, e) => {
-        if (newPictures.includes(picture)) {
+        if (newPictures?.includes(picture)) {
             const i = newPictures.indexOf(picture);
             if (i >= 0) {
                 setNewPictures([...newPictures.filter(picture => picture !== newPictures[i])]);
@@ -390,17 +369,10 @@ const RenderFields = ({ fields,
             <div className="article-edit__controls">
                 {(!allPictures || allPictures.length < 5) &&
                     <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
-                        <div className="article-edit__attach-img">
-                            <input
-                                type="file"
-                                name="file"
-                                id="file"
-                                className="article-edit__image-input"
-                                accept=".jpg, .jpeg"
-                                onChange={handleChangeImg}
-                            />
-                            <label htmlFor="file" className="article-edit__attach-img-label"></label>
-                        </div>
+                        <label htmlFor="file" className="article-edit__attach-img" onClick={() => {
+                            setModalType('photo');
+                            setShowModal(true);
+                        }}/>
                     </LightTooltip>
                 }
                 {!is_advert && !video &&
@@ -430,14 +402,17 @@ const RenderFields = ({ fields,
             </div>
             {(allPictures || video) &&
                 <div className="article-edit__media">
-                    {allPictures && allPictures.map(picture =>
-                        <div className="article-edit__image">
-                            <img src={picture.picture_link || URL.createObjectURL(picture)} alt="" />
-                            <button className="article-edit__image-delete" type="button" onClick={() => handleDeleteImg(picture)} />
-                        </div>
-                    )
+                    {!!allPictures && <div className={`article-edit__images __${allPictures.length}`}>
+                        {!!allPictures?.length && allPictures.map(picture =>
+                            <div className="article-edit__image">
+                                <img src={picture.picture_link || URL.createObjectURL(picture)} alt=""/>
+                                <button className="article-edit__image-delete" type="button"
+                                        onClick={() => handleDeleteImg(picture)}/>
+                            </div>
+                        )
+                        }
+                    </div>}
 
-                    }
                     {video &&
                         <div className="article-edit__video">
                             <img src={`https://img.youtube.com/vi/${getYouTubeID(video)}/mqdefault.jpg`} alt="" />
@@ -491,6 +466,14 @@ const RenderFields = ({ fields,
                 noBackdrop={true}
                 headerName={modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
             >
+                {modalType === 'photo' &&
+                    <DndPublicationImage
+                        loadPictures={newPictures}
+                        setLoadPictures={setNewPictures}
+                        oldPictures={oldPictures}
+                        closeModal={closeModal}
+                    />
+                }
                 {modalType === 'video' &&
                     <AddVideoLink
                         setVideoLink={handleAddVideoLink}

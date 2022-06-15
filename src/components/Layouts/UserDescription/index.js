@@ -1,13 +1,20 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import { Collapse } from 'react-collapse';
-import {Link} from 'react-router-dom';
-import Card from '../../Card';
-import Counter from '../../CounterComponent';
+import React, { Fragment, useEffect, useState } from "react";
+import { Collapse } from "react-collapse";
+import { Link } from "react-router-dom";
+import Card from "../../Card";
+import Counter from "../../CounterComponent";
 import RandomKeyGenerator from "../../../utils/randomKeyGenerator";
 
-import './index.scss';
+import "./index.scss";
 
-const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, judgeInfo }) => {
+
+const UserDescription = ({
+    mainInfo,
+    additionalInfo,
+    counters,
+    profileAlias,
+    judgeInfo,
+}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [specializations, setSpecializations] = useState(null);
 
@@ -24,7 +31,6 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
 
     const getAddressString = addressObj => {
         let address = '';
-
         if (addressObj) {
             if (addressObj.postcode) address += `${addressObj.postcode}, `;
             if (addressObj.city_name) address += `${addressObj.city_name}${addressObj.street_name ? addressObj.street_name && `, ` : ''}`;
@@ -33,17 +39,13 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
             if (addressObj.building_name) address += `стр. ${addressObj.building_name}${addressObj.flat_name && `, `}`;
             if (addressObj.flat_name) address += `кв. ${addressObj.flat_name}`;
         }
-
         return address;
     };
 
     const getPhoneString = (main_phone, phone_status, phonesList) => {
         let phonesStr = '';
-
         if (main_phone || phone_status) phonesStr += `${main_phone || phone_status}, `;
-
         if (phonesList && !!phonesList.length) phonesList.map((phone) => phonesStr += `${phone.value}, `);
-
         return phonesStr.substring(0, phonesStr.length - 2);
     };
 
@@ -67,6 +69,7 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
         web_site,
         description
     } = additionalInfo || {};
+
 
     return (
         <Card className="user-description">
@@ -102,28 +105,53 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
                 <span>{getPhoneString(main_phone_value, main_phone_status, phones)}</span>
             </p>
             {!!specializations?.length &&
-                <div className="user-description__item _specialization">
-                    <div className="user-description__item-title">Специализация:</div>
-                    <div className="user-description__item-specs">
-                        {judgeInfo.map(item =>
-                            item.specializations[0] !== 'Судья по породам' ?
-                                item.specializations.map(value =>
+                <>
+                    <div className="user-description__item _specialization">
+                        <div className="user-description__item-title">Специализация:&nbsp;&nbsp;</div>
+                        <div className="user-description__item-specs">
+                            {judgeInfo.map(item =>
+                                item.specializations[0] !== 'Судья по породам' ?
+                                    item.specializations.map(value =>
+                                        <Link key={RandomKeyGenerator()}
+                                              className="user-description__item-spec"
+                                              to={`/referee/${item.judge_id}/2`}>
+                                            {value}
+                                        </Link>
+
+                                    ) :
                                     <Link key={RandomKeyGenerator()}
                                           className="user-description__item-spec"
-                                          to={`/referee/${item.judge_id}/2`}>
-                                        {value}
+                                          to={`/referee/${item.judge_id}/1`}>
+                                        {item.specializations}
                                     </Link>
-
-                                ) :
-                                <Link key={RandomKeyGenerator()}
-                                      className="user-description__item-spec"
-                                      to={`/referee/${item.judge_id}/1`}>
-                                    {item.specializations}
-                                </Link>
-                            )
-                        }
+                                )
+                            }
+                        </div>
                     </div>
-                </div>
+                    <div className="user-description__item _lists">
+                        <div className="user-description__item-title">Лист судьи/специалиста:&nbsp;&nbsp;</div>
+                        <div className="user-description__item-lists">
+                            {judgeInfo.map(item =>
+                                <>
+                                    {item.referee_type_id === 1 &&
+                                        <Link key={RandomKeyGenerator()} to={`/referee/${item.judge_id}/1`}>
+                                            <span className="user-description__item-list">
+                                                Лист судьи по породам №{item.cert_number}{judgeInfo.length > 1 && ','}
+                                            </span>
+                                        </Link>
+                                    }
+                                    {item.referee_type_id === 2 &&
+                                        <Link key={RandomKeyGenerator()} to={`/referee/${item.judge_id}/2`}>
+                                            <span className="user-description__item-list">
+                                                Лист судьи/специалиста по рабочим качествам №{item.cert_number}&nbsp;
+                                            </span>
+                                        </Link>
+                                    }
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </>
             }
             {additionalInfo &&
                 <>
@@ -137,7 +165,13 @@ const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias, jud
                         {web_site &&
                             <p className="user-description__item _site">
                                 <span className="user-description__item-title">Сайт:</span>&nbsp;
-                                <a href={web_site} title={web_site} target="_blank" rel="noopener noreferrer">{web_site}</a>
+                                <a href={web_site}
+                                   title={web_site}
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                >
+                                    {web_site}
+                                </a>
                             </p>
                         }
                         {social_networks && !!social_networks.length &&

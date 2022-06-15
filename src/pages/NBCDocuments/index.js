@@ -15,19 +15,17 @@ import "./styles.scss";
 
 const ExhibitionsCards = ({ alias }) => {
     return <div className="documents-page__right">
-        {
-            <Card>
-                <div className="documents-page__icon exhibitions-icon" />
-                <h3>ПРИГЛАШЕНИЯ СУДЕЙ НА МЕРОПРИЯТИЯ</h3>
-                <p>
-                    В данном разделе НКП предоставлена возможность согласовать судей на мероприятия, после согласования их списка со стороны клуба, который проводит выставку
-                </p>
-                <hr />
-                <div className="Card__links">
-                    <Link to={`/nbc/${alias}/documents/exhibitions/invite/registry`}>Реестр заявок</Link>
-                </div>
-            </Card>
-        }
+        <Card>
+            <div className="documents-page__icon exhibitions-icon" />
+            <h3>ПРИГЛАШЕНИЯ СУДЕЙ НА МЕРОПРИЯТИЯ</h3>
+            <p>
+                В данном разделе НКП предоставлена возможность согласовать судей на мероприятия, после согласования их списка со стороны клуба, который проводит выставку
+            </p>
+            <hr />
+            <div className="Card__links">
+                <Link to={`/nbc/${alias}/documents/exhibitions/invite/registry`}>Реестр заявок</Link>
+            </div>
+        </Card>
     </div>
 };
 

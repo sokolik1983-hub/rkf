@@ -56,6 +56,7 @@ const StampSearch = ({cardClicked}) => {
 
     return (
         <Card id="stamp-search-anchor" className={cardClicked === 4 && `_active_card`}>
+            <div className="search-form__image stamp-search"/>
             <div className="search-form__text_wrap">
             <h3>Поиск клуба/питомника по клейму</h3>
             <p className="search-form__text">Введите код клейма в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, за которым закреплено указанное Вами клеймо.</p>
@@ -69,7 +70,7 @@ const StampSearch = ({cardClicked}) => {
                         onChange={({ target }) => setStampCode(target.value.slice(0,3).replace(/[^A-Za-z]/ig, ''))}
                         value={stamp_code}
                         title="Введите 3 латинских символа"
-                        placeholder="Введите трек-номер"
+                        placeholder="Введите код клейма"
                         disabled={loading || status ? true : false}
                         required
                     />

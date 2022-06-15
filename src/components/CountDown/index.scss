@@ -1,28 +1,30 @@
 .countdown {
+  margin-right: 20px;
   &__title {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
     margin-bottom: 12px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    color: #253C5E;
   }
   &__timer {
     display: flex;
+    justify-content: center;
     padding-bottom: 28px;
     &-item {
       display: flex;
       align-items: center;
       justify-content: center;
       color: #3366ff;
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 24px;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 16px;
       position: relative;
       min-width: 53px;
       min-height: 53px;
       box-shadow: 0 8px 15px rgba(29, 110, 227, 0.2);
-      margin-right: 40px;
+      margin-right: 57px;
       &:last-child {
         margin-right: 0;
         &:before {
@@ -32,14 +34,14 @@
       &:before {
         position: absolute;
         content: ":";
-        right: -20px;
+        right: -32px;
       }
       &:after {
         position: absolute;
         bottom: -28px;
         font-weight: normal;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: 18px;
+        line-height: 16px;
         content: "Минута";
       }
       &._days:after {

@@ -1,5 +1,5 @@
 .top-component {
-  margin: 1px 0 24px;
+  margin: 1px 0 16px;
   padding: 0 !important;
   &._bank_details {
     margin: 1px 0 16px;
@@ -64,8 +64,8 @@
     flex: 1;
     h2 {
       font-weight: 600;
-      font-size: 26px;
-      line-height: 32px;
+      font-size: 21px;
+      line-height: 26px;
       margin-bottom: 4px;
       @media (max-width: 560px) {
         font-size: 14px;

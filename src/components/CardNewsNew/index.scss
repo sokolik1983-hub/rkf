@@ -25,7 +25,6 @@
   }
 
   &__media {
-
     & > div + div {
       margin-top: 3px;
     }
@@ -34,6 +33,7 @@
       grid-template-rows: 50% 50%;
       margin: 0 10px;
       gap: 2px;
+      max-height: 500px;
       list-style-type: none;
       &_tile {
         margin: 0!important;
@@ -55,12 +55,12 @@
       }
     }
     &-wrap {
-      &._one {
+      &._1 {
         .ReactGridGallery {
           display: flex;
           justify-content: center;
           &_tile {
-            width: auto;
+            width: 100%;
             height: auto;
             img {
               width: 100% !important;
@@ -69,12 +69,12 @@
           }
         }
       }
-      &._two {
+      &._2 {
         .ReactGridGallery {
           display: flex;
           flex-direction: row;
           &_tile {
-            width: auto;
+            width: 50%;
             height: auto;
             img {
               width: 100% !important;
@@ -83,7 +83,7 @@
           }
         }
       }
-      &._three {
+      &._3 {
         .ReactGridGallery {
           display: grid;
           grid-template-areas:
@@ -99,7 +99,7 @@
           }
         }
       }
-      &._four {
+      &._4 {
         .ReactGridGallery {
           display: grid;
           grid-template-areas:
@@ -115,7 +115,7 @@
           }
         }
       }
-      &._five {
+      &._5 {
         .ReactGridGallery {
           display: grid;
           grid-template-areas:
@@ -132,7 +132,6 @@
         }
       }
     }
-
   }
 
   &__photo {
@@ -157,6 +156,9 @@
         display: flex;
         flex-direction: column;
         .card-news-new__photo {
+          padding: 0;
+          height: auto;
+          width: 100%;
           cursor: unset;
         }
       }

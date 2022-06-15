@@ -5,10 +5,7 @@
     overflow: hidden;
   }
   & .slick-list {
-    padding-bottom: 24px;
-    @media (max-width: 1080px) {
-      padding-bottom: 16px;
-    }
+    padding-bottom: 16px;
   }
   &__header {
     margin-bottom: 12px;

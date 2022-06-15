@@ -31,8 +31,8 @@ const ListFilter = ({changeFilter}) => {
                     <li className={activeType === 'nurseries' ? 'active' : ''}>
                         <a href="/" name="nurseries" onClick={handleClick} className={activeType === 'nurseries' ? 'active' : ''}>Питомники</a>
                     </li>
-                    <li style={{ opacity: 0.5, cursor: 'default' }}>
-                        <span>НКП</span>
+                    <li className={activeType === 'nbc' ? 'active' : ''}>
+                        <a href="/" name="nbc" onClick={handleClick} className={activeType === 'nbc' ? 'active' : ''}>НКП</a>
                     </li>
                 </ul>
             </div>

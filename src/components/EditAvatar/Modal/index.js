@@ -14,10 +14,10 @@ const Modal = ({open, onClose, title, children, pageBanner}) => (
         <div className="avatar__header">
             <AppBar position="static" className="modal__top">
                 <Toolbar className="modal__title">
-                    <div className="avatar_icon"> </div>
+                    <div className="avatar_icon" />
                     <div className="avatar__title">{title}</div>
                     <div className="avatar__close">
-                        <span className="modal-close" onClick={onClose}> </span>
+                        <span className="modal-close" onClick={onClose} />
                     </div>
                 </Toolbar>
             </AppBar>

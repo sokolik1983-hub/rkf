@@ -2,6 +2,18 @@
   min-height: 100vh;
   .Card{
     padding: 10px;
+
+    .search-form__image  {
+      float: right;
+      width: 145px;
+      height: 145px;
+      margin: 0 0 10px 10px;
+      &.found-info {background: url("/static/images/base_search/found-info.svg");}
+      &.documents-status {background: url("/static/images/base_search/documents-status.svg");}
+      &.check-registration {background: url("/static/images/base_search/check-registration.svg");}
+      &.stamp-search {background: url("/static/images/base_search/stamp-search.svg");}
+      &.publication-search {background: url("/static/images/base_search/publication-search.svg");}
+    }
   }
   & + .Footer {
     display: none;
@@ -62,7 +74,7 @@
       }
     }  
     &__content {
-      width: 697px;
+      width: 870px;
       margin-left: 16px;
       order: 1;
       @media (max-width: 1080px) {
@@ -70,8 +82,8 @@
         margin-left: 0;
       }
     }
-    &__info {
 
+    &__info {
       width: 302px;
       min-width: 302px;
       @media (max-width: 990px) {

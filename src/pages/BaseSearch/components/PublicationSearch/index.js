@@ -120,6 +120,7 @@ const PublicationSearch = ({ cardClicked }) => {
 
     return (
         <Card className={`publication-search${cardClicked === 6 ? ` _active_card` : ''}`} id="publication-search-anchor">
+            <div className="search-form__image publication-search"/>
             <div className="publication-search__text_wrap">
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>

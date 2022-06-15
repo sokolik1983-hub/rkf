@@ -1,31 +1,73 @@
-import React, { useEffect, useState } from 'react';
-import { Redirect, Link } from 'react-router-dom';
-
-import Layout from '../../components/Layouts';
-import Container from '../../components/Layouts/Container';
-import Loading from '../../components/Loading';
-import Card from '../../components/Card';
-import Edit from './components/Edit';
-import { DEFAULT_IMG } from '../../appConfig';
-import { formatDateTime } from '../../utils/datetime';
-import { formatText } from '../../utils';
-import { Request } from '../../utils/request';
-import { endpointGetNews } from './config';
-import { connectAuthVisible } from '../Login/connectors';
+import React, {useEffect, useRef, useState} from "react";
+import { Redirect, Link } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+import OutsideClickHandler from "react-outside-click-handler";
+import Edit from "./components/Edit";
+import { endpointGetNews } from "./config";
+import { connectAuthVisible } from "../Login/connectors";
+import Card from "../../components/Card";
+import Layout from "../../components/Layouts";
+import Loading from "../../components/Loading";
+import CardFooter from "../../components/CardFooter";
 import DocumentLink from "../../components/DocumentLink";
-import {endpointGetLinkNewsFeed} from "../../components/CardNewsNew/config";
+import Container from "../../components/Layouts/Container";
+import { endpointGetLinkNewsFeed } from "../../components/CardNewsNew/config";
+import { endpointDeleteArticle } from "../../components/Layouts/UserNews/config";
+import { formatText } from "../../utils";
+import { Request } from "../../utils/request";
+import { formatDateTime } from "../../utils/datetime";
+import { DEFAULT_IMG } from "../../appConfig";
 
-import './index.scss';
+import "./index.scss";
 
 
-const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
+const NewsPage = ({
+    history,
+    isAuthenticated,
+    match,
+    profile_id,
+}) => {
+    const [isOpenControls, setIsOpenControls] = useState(false);
     const [news, setNews] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
     const [isError, setIsError] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const ref = useRef(null);
     const id = match.params.id;
     const canEdit = isAuthenticated && news && profile_id === news.profile_id;
+
+    const onDelete = async id => {
+        if (window.confirm('Вы действительно хотите удалить эту новость?')) {
+            await Request({
+                    url: '/api/Article/' + id,
+                    method: 'DELETE'
+                }, () => {
+                    setLoading(true);
+                    history.goBack();
+                },
+                error => {
+                    console.log(error);
+                    alert('Новость не удалена');
+                });
+        }
+    };
+
+    const onAdClose = async (id) => {
+        if (window.confirm('Вы действительно хотите закрыть объявление?')) {
+            await Request({
+                    url: endpointDeleteArticle,
+                    method: 'PUT',
+                    data: JSON.stringify({ "id": id, "is_closed_advert": true })
+                }, () => {
+                    setNeedRequest(true);
+                },
+                error => {
+                    console.log(error);
+                    alert('Объявление не закрыто');
+                });
+        }
+    };
 
     useEffect(() => {
         const isEditUrl = match.url.split('/')[3] === 'edit';
@@ -80,9 +122,71 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                 />
                                 <div className="news__about">
                                     <h5 className="news__name">{news.name}</h5>
+                                    {news.fact_city_name &&
+                                        <span
+                                            className="news__city"
+                                        >
+                                            {news.fact_city_name}
+                                        </span>
+                                    }
                                     <p className="news__date">{formatDateTime(news.create_date)}</p>
                                 </div>
                             </Link>
+                            <div className="news__buttons">
+                                {!isEdit &&
+                                    <button className="back-button" onClick={() => history.goBack()}>Назад</button>
+                                }
+                                {canEdit &&
+                                    <div className="news__right" >
+                                        <div className="news__head-control">
+                                            <button
+                                                className={`news__head-control-btn${isOpenControls ? ' _open' : ''}`}
+                                                onClick={() => setIsOpenControls(!isOpenControls)}
+                                            />
+                                            {isOpenControls &&
+                                                <OutsideClickHandler
+                                                    ref={ref}
+                                                    onOutsideClick={({ target }) => {
+                                                        if(!target.classList.contains('_open')) {
+                                                            setIsOpenControls(false);
+                                                        }
+                                                    }}
+                                                >
+                                                    <CSSTransition
+                                                        classNames="news__transition"
+                                                        in={isOpenControls}
+                                                        timeout={350}
+                                                        unmountOnExit
+                                                    >
+                                                        <ul className="news__head-control-list">
+                                                            {!news.is_closed_advert &&
+                                                                <li className="news__head-control-item">
+                                                                    {news.user_type === 5 ?
+                                                                        <Link to={`/news/${id}`}>Подробнее...</Link> :
+                                                                        <Link to={`${id}/edit`}>Редактировать</Link>
+                                                                    }
+                                                                </li>
+                                                            }
+                                                            {news.is_advert && !news.is_closed_advert &&
+                                                                <li className="news__head-control-item"
+                                                                    onClick={() => onAdClose(id)}
+                                                                >
+                                                                    <span className="news__remove">Закрыть объявление</span>
+                                                                </li>
+                                                            }
+                                                            <li className="news__head-control-item"
+                                                                onClick={() => onDelete(id)}
+                                                            >
+                                                                <span className="news__remove">Удалить</span>
+                                                            </li>
+                                                        </ul>
+                                                    </CSSTransition>
+                                                </OutsideClickHandler>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
                         <div className="news__item-body">
                             {isEdit && canEdit ?
@@ -109,18 +213,86 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                 <>
                                     {news.advert_breed_id &&
                                         <>
-                                            <h1>Объявление</h1>
-                                            <p>Порода: {news.advert_breed_name}</p>
-                                            <p>Стоимость: {news.advert_cost}</p>
-                                            <p>Кол-во щенков: {news.advert_number_of_puppies}</p>
-                                            {news.advert_type_name && <p>Категория: {news.advert_type_name}</p>}
-                                            <br />
+                                            {news.advert_type_name &&
+                                                <div className="news__category-wrap">
+                                                    <div>
+                                                        <span className="news_category-name">Категория:&nbsp;</span>
+                                                        <p className = "news__category-value">{news.advert_type_name}</p>
+                                                    </div>
+                                                    {news.advert_code &&
+                                                        <span>№{news.advert_code}</span>
+                                                    }
+                                                </div>
+                                            }
+                                            <p className="news__ad-breed">
+                                                <span>Порода: </span>
+                                                <span>{!news.is_halfbreed ? news.advert_breed_name : 'Метис'}</span>
+                                            </p>
+                                            {news.dog_color &&
+                                                <p className="news__ad-color">
+                                                    <span>Окрас: </span>
+                                                    <span>{news.dog_color}</span>
+                                                </p>
+                                            }
+                                            {news.dog_name &&
+                                                <p className="news__ad-name">
+                                                    <span>Кличка собаки: </span>
+                                                    <span>{news.dog_name}</span>
+                                                </p>
+                                            }
+                                            <p className="news__ad-city">
+                                                <span>
+                                                    {`Место${news.advert_type_id === 4 ? 
+                                                        ' потери' 
+                                                        : 
+                                                        news.advert_type_id === 5 ? 
+                                                            ' нахождения' 
+                                                            : 
+                                                            ''}: `}
+                                                </span>
+                                                <span>
+                                                    {!news.is_all_cities && news.dog_city && (news.advert_type_id > 1) ?
+                                                        news.dog_city.map((item, i) => news.dog_city.length === i + 1 ?
+                                                            item.name
+                                                            :
+                                                            `${item.name}, `)
+                                                            :
+                                                        'Все города'}
+                                                </span>
+                                            </p>
+                                            {news.dog_age &&
+                                                <p className="news__ad-age">
+                                                    <span>Возраст{(news.advert_type_id === 5) && ' (примерный)'}: </span>
+                                                    <span>{news.dog_age}</span>
+                                                </p>
+                                            }
+                                            {news.dog_sex_type_id &&
+                                                <p className="news__ad-sex">
+                                                    <span>Пол: </span>
+                                                    <span>{news.dog_sex_type_id === 1 ? 'кобель' : 'сука'}</span>
+                                                </p>
+                                            }
+                                            {news.advert_type_id < 4 &&
+                                                <div className="news__ad-price">
+                                                    <p>
+                                                        <span>Стоимость: </span>
+                                                        <span>{news.advert_cost ? `${news.advert_cost} руб.` : '-'}</span>
+                                                    </p>
+                                                    <p>
+                                                        <span>Кол-во щенков: </span>
+                                                        <span>{news.advert_number_of_puppies}</span>
+                                                    </p>
+                                                    {news.is_closed_advert &&
+                                                        <div className="news__ad-inactive">Объявление не активно</div>
+                                                    }
+                                                </div>
+                                            }
                                         </>
                                     }
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
                                     {news.pictures?.length !== 0 &&
                                         <ul
-                                        className={`news__pictures-wrap __${news.pictures.length === 1 ? 'one' : news.pictures.length === 2 ? 'two' : news.pictures.length === 3 ? 'three' : news.pictures.length === 4 ? 'four' : news.pictures.length === 5 && 'five'}`}>
+                                            className={`news__pictures-wrap __${news.pictures.length}`}>
                                         {news.pictures && news.pictures.map((picture, i) =>
                                             <li key={i}
                                                 style={{backgroundImage: `url(${picture.picture_link})`}}
@@ -158,13 +330,17 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                 </>
                             }
                         </div>
-                        <div className="news__buttons">
-                            {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}
-                            {canEdit && !isEdit &&
-                                <button
-                                    className="edit-button" onClick={() => history.replace(`/news/${id}/edit`)}>Редактировать</button>
+                        <CardFooter
+                            id={id}
+                            share_link={window.location.host === 'rkf.online' ?
+                                `https://rkf.online/news/${id}` :
+                                `https://stage.uep24.ru/news/${id}`
                             }
-                        </div>
+                            is_liked={news.is_liked}
+                            like_count={news.like_count}
+                            likesOn={true}
+                            type="news"
+                        />
                     </Card>
                 </Container>
             </Layout>
