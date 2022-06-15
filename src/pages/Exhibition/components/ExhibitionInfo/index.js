@@ -155,7 +155,7 @@ const ExhibitionInfo = ({
                 <div className="exhibition-page__judge-info">
                     <div className="judge-info__header-wrap">
                         <h4 className="exhibition-page__description-title">Судьи/Специалисты</h4>
-                        {canEdit && new Date(dateEnd) >= new Date &&
+                        {canEdit && new Date(dateEnd) >= new Date() &&
                         <div className="exhibition-page__judge-select">
                             <Button
                                 primary={true}
