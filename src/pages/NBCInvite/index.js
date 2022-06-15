@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import JudgeCard from "./JudgeCard";
 import Card from "../../components/Card";
 import Loading from "../../components/Loading";
@@ -117,7 +117,7 @@ const NBCInvite = ({ alias }) => {
                 <div className="club-info__left">
                     <div className="club-info__inner">
                         <p className="club-info__title">Клуб</p>
-                        <a href={`/club/${alias}`}>{data?.club_name}</a>
+                        <Link to={`/club/${alias}`}>{data?.club_name}</Link>
                     </div>
                     <div className="club-info__inner">
                         <p className="club-info__title">Город&nbsp;проведения&nbsp;выставки</p>
