@@ -9,7 +9,7 @@ import { Request, getHeaders } from "../../utils/request";
 import "./index.scss";
 
 
-const NBCInvite = ({ alias, history }) => {
+const NBCInvite = ({ alias }) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
     const [form, setForm] = useState([]);
@@ -110,7 +110,7 @@ const NBCInvite = ({ alias, history }) => {
         <Loading /> :
         <Card className="exhibitions-invite">
             <div className="exhibitions-invite__head">
-                <button onClick={() => history.goBack()} className="btn-backward">Личный кабинет</button>
+                <button className="btn-backward" onClick={() => window.history.go(-1)} >Личный кабинет</button>
                 &nbsp;/&nbsp;Приглашение на участие в мероприятии
             </div>
             <div className="club-info">
