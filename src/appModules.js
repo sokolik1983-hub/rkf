@@ -179,7 +179,7 @@ export const LoadableNBCVideo = Loadable({
     loading: Loading
 });
 export const LoadableNBCDocuments = Loadable({
-    loader: () => import('./pages/NBCDocuments'),
+    loader: () => import('./pages/NBCDocHome'),
     loading: Loading
 });
 export const LoadableNBCUploadedDocuments = Loadable({
