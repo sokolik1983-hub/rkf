@@ -62,12 +62,30 @@ const JudgeInvite = ({ alias, userType }) => {
                 Авторизация на участие в мероприятии
             </div>
             <div className="exhibitions-invite__main-info">
-                <p>Клуб: <a href={`/club/${mainInfo.club_alias}`}>{mainInfo.club_name}</a></p>
-                <p>Мероприятие: <a href={`/exhibitions/${mainInfo.exhibition_id}`}>{mainInfo.exhibition_name}</a></p>
-                <p>Город проведения выставки: <span>{mainInfo.exhibition_city}</span></p>
-                <p>Дата начала: <span>{formatDate(mainInfo.exhibition_date_start)}</span></p>
-                <p>Дата окончания: <span>{formatDate(mainInfo.exhibition_date_end)}</span></p>
-                <p><span>НКП: <a href={`/exhibitions/${mainInfo.nbc_alias}`}>{mainInfo.nbc_name}</a></span> {mainInfo.invited_judges[0].nbc_invite_status === 2 ? <span className="green">Ваше участие согласовано</span> : <span className="red">В авторизации отказано</span>}</p>
+                <p>Клуб:
+                    <Link to={`/club/${mainInfo.club_alias}`}>{mainInfo.club_name}</Link>
+                </p>
+                <p>Мероприятие:
+                    <Link to={`/exhibitions/${mainInfo.exhibition_id}`}>{mainInfo.exhibition_name}</Link>
+                </p>
+                <p>Город проведения выставки:
+                    <span>{mainInfo.exhibition_city}</span>
+                </p>
+                <p>Дата начала:
+                    <span>{formatDate(mainInfo.exhibition_date_start)}</span>
+                </p>
+                <p>Дата окончания:
+                    <span>{formatDate(mainInfo.exhibition_date_end)}</span>
+                </p>
+                <p>
+                    <span>НКП:
+                        <Link to={`/exhibitions/${mainInfo.nbc_alias}`}>{mainInfo.nbc_name}</Link>
+                    </span>
+                    {mainInfo.invited_judges[0].nbc_invite_status === 2 ?
+                        <span className="green">Ваше участие согласовано</span> :
+                        <span className="red">В авторизации отказано</span>
+                    }
+                </p>
             </div>
             {mainInfo.invited_judges[0].nbc_invite_status === 3 &&
                 <p>
@@ -89,7 +107,11 @@ const JudgeInvite = ({ alias, userType }) => {
                         </div> : (mainInfo.invited_judges[0].judge_invite_status === 2 &&
                         <div className='exhibitions-invite__buttons _reject'>
                             <p>Вы приняли приглашение на судейство в данном мероприятии.</p>
-                            <Button primary={true} onClick={() => setInviteReject(true)} disabled={!!inviteReject}>Отказаться от судейства</Button>
+                            <Button primary={true}
+                                    onClick={() => setInviteReject(true)}
+                                    disabled={!!inviteReject}>
+                                Отказаться от судейства
+                            </Button>
                         </div>
                         )
                     )
@@ -100,7 +122,11 @@ const JudgeInvite = ({ alias, userType }) => {
                     <p>Укажите причину отказа</p>
                     <textarea type="text" onChange={e => setComment(e.target.value)}/>
                     {!comment && <p className="red">*обязательно к заполнению</p>}
-                    <Button primary={true} onClick={() => setShowModal(true)} disabled={!comment}>Отправить</Button>
+                    <Button primary={true}
+                            onClick={() => setShowModal(true)}
+                            disabled={!comment}>
+                        Отправить
+                    </Button>
                 </div>
             }
             {!!showModal &&

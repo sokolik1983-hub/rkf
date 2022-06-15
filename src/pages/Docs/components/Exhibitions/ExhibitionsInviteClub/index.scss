@@ -1,5 +1,5 @@
 .exhibitions-invite {
-  .exhibitions-invite__judges_list-wrap p {
+  .exhibitions-invite__judges-wrap p {
       margin-bottom: 5px;
       letter-spacing: normal;
   }
@@ -42,13 +42,13 @@
     }
   }
 
-  &__judges_list-wrap {
+  &__judges-wrap {
     margin-top: 30px;
 
     .judge-item {
+      padding-left: 45px;
       border: 1px solid #CED4DA;
       border-bottom: none;
-      padding-left: 45px;
       list-style-type: none;
 
       &:last-of-type {
@@ -60,7 +60,7 @@
         grid-template-columns: 25% 27% 23% 25%;
       }
 
-      &__name,  &__info {
+      &__name-wrap,  &__info {
         display: flex;
         flex-direction: column;
       }
@@ -78,8 +78,8 @@
         }
       }
 
-      &__name {
-        &-rus {
+      &__name-wrap {
+        .judge-item__name-rus {
           text-decoration: none;
           color: black;
           font-style: normal;
@@ -139,7 +139,7 @@
       gap: 15px;
     }
 
-    &__judges_list-wrap {
+    &__judges-wrap {
       margin-top: 5px;
 
       .judge-item {
@@ -157,7 +157,7 @@
           }
         }
 
-        &__name {
+        &__name-wrap {
           grid-area: name;
         }
 

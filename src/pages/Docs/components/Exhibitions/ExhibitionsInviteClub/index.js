@@ -16,7 +16,30 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
 
     const location = useLocation();
     const id = location.search.replace('?exhibitionId=', '');
-    const clubAlias = useSelector(state => state.authentication.user_info.alias)
+    const clubAlias = useSelector(state => state.authentication.user_info.alias);
+
+    const inviteJudges = async (judge_item) => await Request({
+                url: `/api/exhibitions/invite/invite_judges`,
+                method: 'PUT',
+                data: JSON.stringify({
+                    exhibition_id: mainInfo.exhibition_id,
+                    judge_ids: [judge_item.judge_id],
+                })
+            }, data => window.location.reload(),
+            error => console.log(error, 'ошибка')
+        );
+
+    const confirmReject = async (judge_item) => await Request({
+            url: `/api/exhibitions/invite/confirm_reject`,
+            method: 'PUT',
+            data: JSON.stringify({
+                invite_id: judge_item.invite_id,
+                judge_id: judge_item.judge_id,
+                judge_invite_status: 3,
+            })
+        }, data => window.location.reload(),
+        error => console.log(error, 'ошибка')
+    );
 
     useEffect( () => {
         (async () => await Request({
@@ -24,7 +47,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
             headers: getHeaders(),
         }, data => {
             setMainInfo(data);
-            setJudgeList(data.invited_judges)
+            setJudgeList(data.invited_judges);
             setLoading(false);
         }, error => {
             console.log(error.response);
@@ -36,24 +59,37 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
         <Loading /> :
             <Card className="exhibitions-invite">
                 <div className="user-documents-status__head">
-                    <Link className="btn-backward" to={`/club/${clubAlias}/documents/exhibitions/invite/registry`}>Личный кабинет</Link>
+                    <Link className="btn-backward"
+                          to={`/club/${clubAlias}/documents/exhibitions/invite/registry`}>
+                        Личный кабинет
+                    </Link>
                     &nbsp;/&nbsp;
                     Приглашение на участие в мероприятии
                 </div>
                 <div className="exhibitions-invite__main-info">
-                    <p>Клуб: <a href={`/club/${mainInfo.club_alias}`}>{mainInfo.club_name}</a></p>
-                    <p>Мероприятие: <a href={`/exhibitions/${mainInfo.exhibition_id}`}>{mainInfo.exhibition_name}</a></p>
-                    <p>Город проведения выставки: <span>{mainInfo.exhibition_city}</span></p>
-                    <p>Дата начала: <span>{formatDate(mainInfo.exhibition_date_start)}</span></p>
-                    <p>Дата окончания: <span>{formatDate(mainInfo.exhibition_date_end)}</span></p>
+                    <p>Клуб:
+                        <Link to={`/club/${mainInfo.club_alias}`}>{mainInfo.club_name}</Link>
+                    </p>
+                    <p>Мероприятие:
+                        <Link to={`/exhibitions/${mainInfo.exhibition_id}`}>{mainInfo.exhibition_name}</Link>
+                    </p>
+                    <p>Город проведения выставки:
+                        <span>{mainInfo.exhibition_city}</span>
+                    </p>
+                    <p>Дата начала:
+                        <span>{formatDate(mainInfo.exhibition_date_start)}</span>
+                    </p>
+                    <p>Дата окончания:
+                        <span>{formatDate(mainInfo.exhibition_date_end)}</span>
+                    </p>
                 </div>
-                <div className="exhibitions-invite__judges_list-wrap">
+                <div className="exhibitions-invite__judges-wrap">
                     <span>Список судей/специалистов</span>
                     <ul>
                         {judgeList.map(judge_item =>
                             <li className="exhibition-page__judge-item judge-item" key={id}>
                                 <div className="judge-item__wrap">
-                                    <div className="judge-item__name">
+                                    <div className="judge-item__name-wrap">
                                         {judge_item.judge_alias ?
                                             <Link
                                                 className="judge-item__name-rus"
@@ -105,14 +141,14 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                         {judge_item.nbc_invite_status === 2 ?
                                             <p>Получено согласование от НКП</p> :
                                             judge_item.nbc_invite_status === 3 &&
-                                            <p>Получен отказ от НКП, причина: <span>{!!judge_item.nbc_invite_comment ? judge_item.nbc_invite_comment : 'Не указано'}</span></p>
+                                            <p>Получен отказ от НКП, причина:
+                                                <span>{!!judge_item.nbc_invite_comment ? judge_item.nbc_invite_comment : 'Не указано'}</span>
+                                            </p>
                                         }
                                     </div>
                                     <div className="judge-item__invite">
                                         {judge_item.nbc_invite_status === 2 &&
-                                            ((judge_item.judge_invite_status === 1 && !judge_item.is_invited_by_club) ?
-                                                <Button>Отправить приглашение судье</Button> :
-                                                (judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?
+                                            ((judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?
                                                     'Приглашение судье отправлено' :
                                                     judge_item.judge_invite_status === 2 ?
                                                         <p className="green">Приглашение принято</p> :
@@ -124,16 +160,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                         <span>{judge_item.judge_invite_comment || 'Не указана'}</span>
                                                                     </p>
                                                                 }
-                                                                <Button primary={true} onClick={ async () => await Request({
-                                                                        url: `/api/exhibitions/invite/invite_judges`,
-                                                                        method: 'PUT',
-                                                                        data: JSON.stringify({
-                                                                            exhibition_id: mainInfo.exhibition_id,
-                                                                            judge_ids: [judge_item.judge_id],
-                                                                        })
-                                                                    }, data => window.location.reload(),
-                                                                    error => console.log(error, 'ошибка')
-                                                                )}>Пригласить повторно</Button>
+                                                                <Button primary={true} onClick={() => inviteJudges(judge_item)}>Пригласить повторно</Button>
                                                             </div> :
                                                             judge_item.judge_invite_status === 4 ?
                                                                 <div style={{display: "block"}}>
@@ -143,17 +170,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                             {judge_item.judge_invite_comment || 'Не указана'}
                                                                         </span>
                                                                     </p>
-                                                                    <Button primary={true} onClick={ async () => await Request({
-                                                                        url: `/api/exhibitions/invite/confirm_reject`,
-                                                                        method: 'PUT',
-                                                                        data: JSON.stringify({
-                                                                            invite_id: judge_item.invite_id,
-                                                                            judge_id: judge_item.judge_id,
-                                                                            judge_invite_status: 3,
-                                                                        })
-                                                                    }, data => window.location.reload(),
-                                                                        error => console.log(error, 'ошибка')
-                                                                    )}>
+                                                                    <Button primary={true} onClick={() => confirmReject(judge_item)}>
                                                                         Подтвердить
                                                                     </Button>
                                                                 </div> :
@@ -168,16 +185,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                     <p>
                                                                         Участе судьи отменено
                                                                     </p>
-                                                                    <Button primary={true} onClick={ async () => await Request({
-                                                                            url: `/api/exhibitions/invite/invite_judges`,
-                                                                            method: 'PUT',
-                                                                            data: JSON.stringify({
-                                                                                exhibition_id: mainInfo.exhibition_id,
-                                                                                judge_ids: [judge_item.judge_id],
-                                                                            })
-                                                                        }, data => window.location.reload()
-                                                                        , error => console.log(error, 'ошибка')
-                                                                    )}>Пригласить повторно</Button>
+                                                                    <Button primary={true} onClick={() =>inviteJudges(judge_item)}>Пригласить повторно</Button>
                                                                 </div>
                                             )
                                         }
