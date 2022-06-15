@@ -86,7 +86,10 @@ const NBCInvite = ({ alias, history }) => {
     }
 
     const rejectMassage = (e, id) => {
-        setForm(form.map(item => item.judge_id === id ? { ...item, nbc_invite_comment: e.target.value} : {...item}));
+        setForm(form.map(item => item.judge_id === id ?
+            { ...item, nbc_invite_comment: e.target.value}
+            :
+            {...item}));
     }
 
     const sendInfo = async () => {
