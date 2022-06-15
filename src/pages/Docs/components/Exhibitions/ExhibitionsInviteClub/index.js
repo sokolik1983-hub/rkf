@@ -14,7 +14,6 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
     const [mainInfo, setMainInfo] = useState(null);
     const [judgeList, setJudgeList] = useState([]);
 
-
     const location = useLocation();
     const id = location.search.replace('?exhibitionId=', '');
     const clubAlias = useSelector(state => state.authentication.user_info.alias)
@@ -33,18 +32,14 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
         }))();
     }, []);
 
-    console.log(judgeList)
-
     return loading ?
         <Loading /> :
             <Card className="exhibitions-invite">
-                {/*кнопка ЛК, "Авторизация на участие в мероприятии"*/}
                 <div className="user-documents-status__head">
                     <Link className="btn-backward" to={`/club/${clubAlias}/documents/exhibitions/invite/registry`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     Приглашение на участие в мероприятии
                 </div>
-
                 <div className="exhibitions-invite__main-info">
                     <p>Клуб: <a href={`/club/${mainInfo.club_alias}`}>{mainInfo.club_name}</a></p>
                     <p>Мероприятие: <a href={`/exhibitions/${mainInfo.exhibition_id}`}>{mainInfo.exhibition_name}</a></p>
@@ -52,7 +47,6 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                     <p>Дата начала: <span>{formatDate(mainInfo.exhibition_date_start)}</span></p>
                     <p>Дата окончания: <span>{formatDate(mainInfo.exhibition_date_end)}</span></p>
                 </div>
-
                 <div className="exhibitions-invite__judges_list-wrap">
                     <span>Список судей/специалистов</span>
                     <ul>
@@ -115,23 +109,16 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                         }
                                     </div>
                                     <div className="judge-item__invite">
-                                        {/*если не отправлено приглашение, то "Отправить приглашение судье"*/}
-                                        {/*если приглашение судье отправлено, то "приглашение судье отправлено"    */}
-                                        {/*если приглашение принято, то "приглашение принято"    */}
-                                        {/*если приглашение отклонено, то "приглашение отклонено", "причина"(по наличию), "Пригласить повторно"    */}
-                                        {/*если "Судья отозвал согласие на свое участие, причина:" то "причина" (по наличию), "Подтвердить" либо "Участие судьи отменено", кнопка "Подтвердить" засерена, "Участие судьи отменено"*/}
-                                        {/*если "получен отказ от НКП" в соседнем поле, то тут ничего*/}
-
                                         {judge_item.nbc_invite_status === 2 &&
                                             ((judge_item.judge_invite_status === 1 && !judge_item.is_invited_by_club) ?
                                                 <Button>Отправить приглашение судье</Button> :
                                                 (judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?
                                                     'Приглашение судье отправлено' :
                                                     judge_item.judge_invite_status === 2 ?
-                                                        'Приглашение принято' :
+                                                        <p className="green">Приглашение принято</p> :
                                                         judge_item.judge_invite_status === 3 ?
                                                             <div>
-                                                                <p>Приглашение отклонено</p>
+                                                                <p className="red">Приглашение отклонено</p>
                                                                 {!!judge_item.judge_invite_comment &&
                                                                     <p>Причина:
                                                                         <span>{judge_item.judge_invite_comment || 'Не указана'}</span>
@@ -144,10 +131,8 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                             exhibition_id: mainInfo.exhibition_id,
                                                                             judge_ids: [judge_item.judge_id],
                                                                         })
-                                                                    }, data => {
-                                                                        console.log(data, 'успех');
-                                                                        window.location.reload();
-                                                                    }, error => console.log(error, 'ошибка')
+                                                                    }, data => window.location.reload(),
+                                                                    error => console.log(error, 'ошибка')
                                                                 )}>Пригласить повторно</Button>
                                                             </div> :
                                                             judge_item.judge_invite_status === 4 ?
@@ -166,14 +151,11 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                             judge_id: judge_item.judge_id,
                                                                             judge_invite_status: 3,
                                                                         })
-                                                                    }, data => {
-                                                                        console.log(data, 'успех');
-                                                                        window.location.reload();
-                                                                    }, error => console.log(error, 'ошибка')
+                                                                    }, data => window.location.reload(),
+                                                                        error => console.log(error, 'ошибка')
                                                                     )}>
                                                                         Подтвердить
                                                                     </Button>
-                                                                {/*при нажатии на кнопку кнопка дизеблится, под ней появляется надпись "участие судьи отменено". при следующем запросе с бэка меняется статус заявки => кейс меняется    */}
                                                                 </div> :
                                                                 (judge_item.judge_invite_status === 5 && judge_item.is_invited_by_club) &&
                                                                 <div>
@@ -193,10 +175,8 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                                 exhibition_id: mainInfo.exhibition_id,
                                                                                 judge_ids: [judge_item.judge_id],
                                                                             })
-                                                                        }, data => {
-                                                                            console.log(data, 'успех');
-                                                                            window.location.reload();
-                                                                        }, error => console.log(error, 'ошибка')
+                                                                        }, data => window.location.reload()
+                                                                        , error => console.log(error, 'ошибка')
                                                                     )}>Пригласить повторно</Button>
                                                                 </div>
                                             )

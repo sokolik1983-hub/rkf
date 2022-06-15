@@ -18,7 +18,6 @@ const JudgeInvite = ({ alias, userType }) => {
     const [showModal, setShowModal] = useState(false);
     const location = useLocation();
     const id = location.search.replace('?exhibitionId=', '');
-    const profileId = useSelector(state => state.authentication.profile_id);
 
     const changeInviteStatus = async (x) => {
             await Request({
@@ -46,7 +45,6 @@ const JudgeInvite = ({ alias, userType }) => {
             url: `/api/exhibitions/invite?exhibitionId=${id}`,
             headers: getHeaders(),
         }, data => {
-            console.log('data', data, 'id', profileId, alias, data.nbc_alias);
             setMainInfo(data);
             setLoading(false);
         }, error => {
@@ -54,8 +52,6 @@ const JudgeInvite = ({ alias, userType }) => {
             setLoading(false);
         }))();
     }, []);
-
-    console.log(mainInfo,comment);
 
     return loading ?
         <Loading /> :
@@ -78,15 +74,12 @@ const JudgeInvite = ({ alias, userType }) => {
                     Причина <span>{!!mainInfo.invited_judges[0].nbc_invite_status_name ? mainInfo.invited_judges[0].nbc_invite_comment : 'не указана'}</span>
                 </p>
             }
-
             {(mainInfo.invited_judges[0].judge_invite_status === 4 || mainInfo.invited_judges[0].judge_invite_status === 5) &&
                 <div>
                     <p>Вы отозвали свое согласие на участие в данном мероприятии. {mainInfo.invited_judges[0].judge_invite_status === 4 ? 'Клуб уведомлен о вашем отказе.' : 'Клуб подтвердил ваш отказ.'}</p>
                     <p>Причина <span>{!!mainInfo.invited_judges[0].judge_invite_comment ? mainInfo.invited_judges[0].judge_invite_comment : 'не указана'}</span></p>
                 </div>
             }
-
-
             <div className="exhibitions-invite__buttons">
                 {mainInfo.invited_judges[0].nbc_invite_status === 2 && (
                     mainInfo.invited_judges[0].judge_invite_status === 1 ?
@@ -119,12 +112,11 @@ const JudgeInvite = ({ alias, userType }) => {
                     headerName="Информация"
                 >
                     <p>Вы отказались от судейства по причине:</p>
-                    <p>{comment}</p>
+                    <p >"{comment}"</p>
                     <p>Клуб уведомлен о вашем решении</p>
                     <Button primary={true} onClick={() => changeInviteStatus(3)}>Ок</Button>
                 </Modal>
             }
-
         </Card>
 };
 

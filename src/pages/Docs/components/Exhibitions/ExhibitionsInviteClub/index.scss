@@ -3,6 +3,7 @@
       margin-bottom: 5px;
       letter-spacing: normal;
   }
+
   &__main-info {
     display: grid;
     grid-template-areas:
@@ -10,18 +11,23 @@
       "city city sdate sdate edate edate";
     gap: 30px 0;
     margin-top: 25px;
+
     p:first-of-type{
       grid-area: club;
     }
+
     p:nth-of-type(2) {
       grid-area: exh;
     }
+
     p:nth-of-type(3) {
       grid-area: city;
     }
+
     p:nth-of-type(4) {
       grid-area: sdate;
     }
+
     p:nth-of-type(5) {
       grid-area: edate;
     }
@@ -29,40 +35,49 @@
     a {
       text-decoration: none;
       color: black;
+
       &:hover {
         color: #3366FF;
       }
     }
   }
+
   &__judges_list-wrap {
     margin-top: 30px;
+
     .judge-item {
       border: 1px solid #CED4DA;
       border-bottom: none;
       padding-left: 45px;
       list-style-type: none;
+
       &:last-of-type {
         border: 1px solid #CED4DA;
       }
+
       &__wrap {
         display: grid;
         grid-template-columns: 25% 27% 23% 25%;
       }
+
       &__name,  &__info {
         display: flex;
         flex-direction: column;
       }
+
       &__info {
         p {
           display: flex;
           flex-direction: row;
           font-weight: 600;
           color: #72839c;
+
           span {
             font-weight: 400;
           }
         }
       }
+
       &__name {
         &-rus {
           text-decoration: none;
@@ -71,14 +86,17 @@
           font-weight: 600;
           font-size: 18px;
           line-height: 18px;
+
           &:hover {
             color: #3366FF;
           }
+
           p:last-of-type {
             display: flex;
           }
         }
       }
+
       &__name-eng, &__cert-number {
         font-style: normal;
         font-weight: 400;
@@ -88,12 +106,15 @@
 
       &__invite {
         text-align: center;
+
         button {
           margin-bottom: 15px;
         }
+
         p {
           display: flex;
           flex-direction: column;
+
           span {
             font-style: italic;
             color: #72839C;
@@ -102,20 +123,58 @@
       }
     }
   }
+
+  .green {
+    color: #51DEA3;
+  }
+
+  .red {
+    color: #FF6977;
+  }
+
   @media (max-width: 1079px) {
     &__main-info {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
+
     &__judges_list-wrap {
       margin-top: 5px;
+
       .judge-item {
-        padding-left: 0;
+        padding: 10px;
+
         &__wrap {
-          //тут нужно распределить по макету элементы для мобилки(скорее всегу через гриды; надо в этом файле добавить .green и .red)
+          grid-template-areas:
+            "name agreement"
+            "invite invite";
+          grid-template-rows: 1fr auto;
+          grid-template-columns: 50% 50%;
+
           .judge-item__info {
             display: none;
+          }
+        }
+
+        &__name {
+          grid-area: name;
+        }
+
+        &__agreement {
+          grid-area: agreement;
+        }
+
+        &__invite {
+          grid-area:invite;
+          justify-self: flex-end;
+          text-align: end;
+          width: 60%;
+
+          button {
+            margin-right: 0;
+            padding: 10px;
+            white-space: nowrap;
           }
         }
       }
