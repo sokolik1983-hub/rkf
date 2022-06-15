@@ -47,15 +47,14 @@ const NBCInvite = ({ alias, history }) => {
 
     useEffect(() => {
         setDisableButton(listJudges.map(item => item.nbc_invite_status === 1).some(elem => elem === true) ||
-            disableRadio.map(item => item[1] > 1).some(elem => elem === true))
+            disableRadio.map(item => item[1] > 1).some(elem => elem === true));
     }, [listJudges, disableRadio]);
-
 
     useEffect(() => {
         setNotification(listJudges.map(item =>
             item.nbc_invite_status === 3 && form
                 .filter(elem => item.judge_id === elem.judge_id && elem.nbc_invite_comment.length < 3))
-            .some(key => key.length))
+            .some(key => key.length));
     }, [form]);
 
     const authAndReject = (judge_full_name, event, id) => {
@@ -97,7 +96,7 @@ const NBCInvite = ({ alias, history }) => {
             data: form
         }, () => {
             console.log('данные отправлены!');
-            setDisableRadio(form.map(elem=>[elem.judge_id, elem.nbc_invite_status]))
+            setDisableRadio(form.map(elem=>[elem.judge_id, elem.nbc_invite_status]));
         }, error => {
             console.log(error);
         })
