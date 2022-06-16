@@ -279,10 +279,10 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                         <PropertyP name="Телефон" value={item.value} /> :
                                                         item.contact_type_id === 2 ?
                                                             <PropertyP name="Email" value={item.value} email/> :
-                                                            item.contact_type_id === 3 ?
+                                                            item.contact_type_id === 3 &&
                                                                 <p className="exhibition-page__contacts" key={index}>
                                                                     Сайт:  {checkUrl(item.value)}
-                                                                </p> : null
+                                                                </p>
                                                 })
                                             : ''
                                         }
