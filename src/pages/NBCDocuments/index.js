@@ -3,6 +3,8 @@ import { Link, Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import ls from "local-storage";
 import Card from "../../components/Card";
+import Container from "../../components/Layouts/Container";
+import TopComponent from "../../components/TopComponent";
 import Banner from "../../components/Banner";
 import Layout from "../../components/Layouts";
 import CopyrightInfo from "../../components/CopyrightInfo";
@@ -30,28 +32,37 @@ const ExhibitionsCards = ({ alias }) => {
 };
 
 const NBCDocuments = () => {
-    const { alias } = ls.get('user_info') || {};
+    const { alias, name, logo_link } = ls.get('user_info') || {};
     const isMobile = useIsMobile(1080);
 
     return <Layout>
-        <div className="documents-page">
-            <div className="documents-page__info">
-                <aside className="documents-page__left">
-                    <StickyBox offsetTop={60}>
-                        {!isMobile && <MenuComponentNew />}
-                        {!isMobile && <Banner type={8} />}
-                        <CopyrightInfo withSocials={true} />
-                    </StickyBox>
-                </aside>
-                <Switch>
-                    <Route
-                        exact={true}
-                        path='/nbc/:route/documents/'
-                        component={() => <ExhibitionsCards alias={alias}/>}
-                    />
-                    <Route component={LoadableNotFound} />
-                </Switch>
-            </div>
+        <div className="documents-page content">
+            <Container className="documents-page__content">
+                <TopComponent
+                    logo={logo_link}
+                    name={name}
+                    canEdit={false}
+                    withShare={false}
+                    userType ={7}
+                />
+                <div className="documents-page__info">
+                    <aside className="documents-page__left">
+                        <StickyBox offsetTop={60}>
+                            {!isMobile && <MenuComponentNew />}
+                            {!isMobile && <Banner type={8} />}
+                            <CopyrightInfo withSocials={true} />
+                        </StickyBox>
+                    </aside>
+                    <Switch>
+                        <Route
+                            exact={true}
+                            path='/nbc/:route/documents/'
+                            component={() => <ExhibitionsCards alias={alias}/>}
+                        />
+                        <Route component={LoadableNotFound} />
+                    </Switch>
+                </div>
+            </Container>
         </div>
     </Layout>;
 };

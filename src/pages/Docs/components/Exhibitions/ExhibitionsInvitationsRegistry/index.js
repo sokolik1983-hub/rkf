@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "../../../../../components/Loading";
 import Card from "../../../../../components/Card";
 import Table from "./components/Table";
-import { Request } from "../../../../../utils/request";
+import {getHeaders, Request} from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
 import { Link } from 'react-router-dom';
 import moment from "moment";
@@ -18,6 +18,7 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
     useEffect(() => {
         (() => Request({
             url: `/api/exhibitions/invite/register_of_requests`,
+            headers: getHeaders(),
         }, data => {
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
