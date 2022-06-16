@@ -24,11 +24,9 @@ const NBCInvite = ({ alias }) => {
     useEffect(() => {
         (() => Request({
             url: `/api/exhibitions/invite?exhibitionId=${id}`,
-            headers: getHeaders(),
         }, data => {
             setData(data);
-            const arrOfJudges = [];
-            data.invited_judges.forEach(elem => arrOfJudges.push(elem));
+            const arrOfJudges = [...data.invited_judges]
             setListJudges(arrOfJudges);
             setDisableRadio(data.invited_judges.map(elem => [elem.judge_id, elem.nbc_invite_status]))
             const newArray = arrOfJudges.map(item => ({
@@ -110,7 +108,7 @@ const NBCInvite = ({ alias }) => {
         <Loading /> :
         <Card className="exhibitions-invite">
             <div className="exhibitions-invite__head">
-                <button className="btn-backward" onClick={() => window.history.go(-1)} >Личный кабинет</button>
+                <Link className="btn-backward" to={`/nbc/${alias}/documents/`} >Личный кабинет</Link>
                 &nbsp;/&nbsp;Приглашение на участие в мероприятии
             </div>
             <div className="club-info">
@@ -158,7 +156,7 @@ const NBCInvite = ({ alias }) => {
                         </p>
                     }
                 </div>
-                {rejected.length > 0 && rejected.map(item =>
+                {!!rejected.length && rejected.map(item =>
                     <div className="rejected-judges" key={item}>
                         <div className="rejected-judges__title">
                             <p>{item[0]}</p>
