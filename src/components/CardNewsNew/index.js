@@ -17,6 +17,7 @@ import {nameForUserType} from "../../utils/nameForUserType";
 import CardGallery from "../CardGallery";
 import {Gallery} from "../Gallery";
 import "./index.scss";
+import {auto} from "html-webpack-plugin/lib/chunksorter";
 
 
 const CardNewsNew = ({
@@ -85,7 +86,9 @@ const CardNewsNew = ({
 
     const imagesArray = pictures?.filter(picture => !!picture && !!Object.keys(picture).length).map(picture => ({
         src: picture.picture_link,
-        thumbnail: picture.picture_short_link || picture.picture_link
+        thumbnail: picture.picture_short_link || picture.picture_link,
+        thumbnailWidth: 320,
+        thumbnailHeight: 174,
     }));
 
     return (
@@ -300,8 +303,8 @@ const CardNewsNew = ({
                                         </div>)
                                     :
                                     <div className="card-news-new__photo-wrap __all">
-                                        {pictures.map(picture =>
-                                            <img className="card-news-new__photo" src={picture.picture_link} alt=""/>
+                                        {pictures.map((picture, index) =>
+                                            <img className="card-news-new__photo" src={picture.picture_link} alt="" key={index}/>
                                         )}
                                     </div>
                                 )
