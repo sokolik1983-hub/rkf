@@ -229,12 +229,11 @@
       flex-direction: column;
       align-items: normal;
       position: relative;
-      @media (max-width: 450px) {
-        & .Share {
-          position: absolute;
-          right: 0;
-          top: 0;
-        }
+
+      & .Share {
+        position: absolute;
+        right: 0;
+        top: 25px;
       }
     }
 
@@ -428,7 +427,6 @@
       .UserActionControls {
         margin-top: 21px;
         padding-top: 2px;
-        border-top: 1px solid #E5E5E5;
       }
 
       .widget-login__button-wrap {

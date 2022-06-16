@@ -279,21 +279,16 @@
         order: -3;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        //padding-top: 0;
         border-top: 1px solid #E5E5E5;
 
-
-        .Collapse {
-          //padding-top: 10px;
-
+        @media (max-width: 560px) {
+          border-top: none;
         }
 
         .ReactCollapse--collapse {
-          //border-top: 1px solid #E5E5E5
-        }
-
-        .ReactCollapse--content {
-          //padding-top: 10px;
+          @media (max-width: 560px) {
+            border-top: 1px solid #E5E5E5;
+          }
         }
       }
 
