@@ -5,6 +5,7 @@ import Share from '../../../../components/Share';
 import Alert from '../../../../components/Alert';
 import UserActionControls from '../../../../components/UserActionControls';
 import {ActiveUserMark, FederationChoiceMark} from '../../../../components/Marks';
+import {DEFAULT_IMG} from "../../../../appConfig";
 
 import './style.scss';
 
@@ -43,7 +44,10 @@ const UserHeader = ({
     return (
         <Card className="user-header">
             <div className="user-header__logo-wrap">
-                <img className="user-header__logo" src={logo} alt=""/>
+                <img className="user-header__logo"
+                     src={logo ? logo : DEFAULT_IMG.clubAvatar}
+                     alt="Logo"
+                />
             </div>
             <div className="user-header__content">
                 <div className="user-header__info">
