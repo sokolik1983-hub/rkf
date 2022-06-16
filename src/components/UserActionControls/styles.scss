@@ -62,5 +62,14 @@
         @media (max-width: 1079px) {
             padding-right: 32px;
         }
+        @media (max-width: 991px) {
+            margin-top: 0 !important;
+        }
+    }
+}
+
+.club-page .UserActionControls {
+    @media (max-width: 991px) {
+        margin-right: 40px !important;
     }
 }

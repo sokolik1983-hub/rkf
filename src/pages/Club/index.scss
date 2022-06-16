@@ -216,7 +216,7 @@
           .UserActionControls {
             display: flex;
             flex-flow: column;
-            
+
             &__subscribe-text._subscribed {
               padding-right: 0;
             }
@@ -248,11 +248,7 @@
         order: -3;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        padding-top: 0;
-
-        .ReactCollapse--collapse {
-          border-top: 1px solid #E5E5E5
-        }
+        border-top: 1px solid #E5E5E5;
       }
 
       .user-gallery {
