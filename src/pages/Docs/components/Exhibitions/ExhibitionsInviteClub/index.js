@@ -179,7 +179,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                         Подтвердить
                                                                     </Button>
                                                                 </div> :
-                                                                (judge_item.judge_invite_status === 5 && judge_item.is_invited_by_club) &&
+                                                                (judge_item.judge_invite_status === 5 &&
                                                                 <div>
                                                                     <p>
                                                                         Судья отозвал согласие на свое участие, причина:
