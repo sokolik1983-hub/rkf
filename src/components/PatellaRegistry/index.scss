@@ -201,6 +201,19 @@
       background: url(/static/icons/downloadIcon.svg) no-repeat center / cover;
     }
 
+    &--registryIcon {
+      z-index: 99;
+
+      &:before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        margin-right: 10px;
+        background: url(/static/icons/registryIcon.svg) no-repeat center / cover;
+      }
+    }
+
     &--resetIcon:before {
       content: '';
       width: 18px;
@@ -224,6 +237,18 @@
       & td {
         border-bottom: 1px solid rgba(33, 37, 41, 0.125);
         text-align: center;
+      }
+    }
+  }
+
+  &__modal {
+    & > div {
+      width: 1184px;
+    }
+
+    .Modal {
+      &__inner {
+        max-width: 1184px;
       }
     }
   }

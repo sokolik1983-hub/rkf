@@ -1,24 +1,28 @@
-import React, {useEffect, useState} from "react";
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ls from "local-storage";
 import moment from "moment";
-import Loading from "components/Loading";
-import Card from "components/Card";
-import Table from './components/Table';
-import {PromiseRequest} from "utils/request";
-import {DEFAULT_IMG} from "../../appConfig";
-import ReportError from './components/ReportError';
+import Card from "../Card";
+import Modal from "../Modal";
+import Loading from "../Loading";
+import Table from "./components/Table";
+import ReportError from "./components/ReportError";
+import { PromiseRequest } from "../../utils/request";
+import { DEFAULT_IMG } from "../../appConfig";
 
 import "./index.scss";
+import {blockContent} from "../../utils/blockContent";
+import TableModal from "./components/TableModal";
 
 const ReplaceRegistry = ({distinction, profileType}) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const [exporting, setExporting] = useState(false);
     const [errorReport, setErrorReport] = useState(null);
-    const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
+    const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     useEffect(() => {
         (() => PromiseRequest({
@@ -42,58 +46,17 @@ const ReplaceRegistry = ({distinction, profileType}) => {
             }))();
     }, [needUpdateTable]);
 
-    return loading
-        ?
-        <Loading/>
-        : !standardView
-            ?
-            <Card className="club-documents-status__popup">
-                <div className="club-documents-status__controls" style={{position: 'relative', top: '29px'}}>
-                    <button
-                        className="club-documents-status__control club-documents-status__control--downloadIcon"
-                        onClick={() => setExporting(true)}
-                        disabled={exporting}
-                    >
-                        Скачать PDF
-                    </button>
-                    <button className="club-documents-status__control club-documents-status__control--tableIcon"
-                            onClick={() => setStandardView(true)}>
-                        Уменьшить таблицу
-                    </button>
-                </div>
-                <Table
-                    documents={documents}
-                    profileType={profileType}
-                    exporting={exporting}
-                    setExporting={setExporting}
-                    setErrorReport={setErrorReport}
-                    fullScreen
-                    setNeedUpdateTable={setNeedUpdateTable}
-                />
-                {errorReport &&
-                    <ReportError
-                        setNeedUpdateTable={setNeedUpdateTable}
-                        id={errorReport}
-                        onErrorReport={id => setErrorReport(id)}
-                        profileType={profileType}
-                    />
-                }
-            </Card>
-            :
-            <Card className="club-documents-status">
-                <div className="club-documents-status__head">
-                    <Link
-                        className="btn-backward"
-                        to={profileType === "kennel" ? `/kennel/${alias}/documents` : `/club/${alias}/documents`}
-                    >
-                        Личный кабинет
-                    </Link>
-                    &nbsp;/&nbsp;
-                    {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
-                </div>
-                {documents && !!documents.length
-                    ? <div>
-                        <div className="club-documents-status__controls _patella_controls">
+    const closeModal = () => {
+        setShowModal(false);
+        blockContent(false);
+    };
+
+    return loading ?
+        <Loading/> :
+            <>
+                {!standardView ?
+                    <Card className="club-documents-status__popup">
+                        <div className="club-documents-status__controls" style={{position: "relative", top: "29px"}}>
                             <button
                                 className="club-documents-status__control club-documents-status__control--downloadIcon"
                                 onClick={() => setExporting(true)}
@@ -102,11 +65,98 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                                 Скачать PDF
                             </button>
                             <button className="club-documents-status__control club-documents-status__control--tableIcon"
-                                    onClick={() => setStandardView(false)}>
-                                Увеличить таблицу
+                                    onClick={() => setStandardView(true)}>
+                                Уменьшить таблицу
                             </button>
                         </div>
                         <Table
+                            documents={documents}
+                            profileType={profileType}
+                            exporting={exporting}
+                            setExporting={setExporting}
+                            setErrorReport={setErrorReport}
+                            fullScreen
+                            setNeedUpdateTable={setNeedUpdateTable}
+                        />
+                        {errorReport &&
+                            <ReportError
+                                setNeedUpdateTable={setNeedUpdateTable}
+                                id={errorReport}
+                                onErrorReport={id => setErrorReport(id)}
+                                profileType={profileType}
+                            />
+                        }
+                    </Card>
+                    :
+                    <Card className="club-documents-status">
+                        <div className="club-documents-status__head">
+                            <Link
+                                className="btn-backward"
+                                to={profileType === "kennel" ? `/kennel/${alias}/documents` : `/club/${alias}/documents`}
+                            >
+                                Личный кабинет
+                            </Link>
+                            &nbsp;/&nbsp;
+                            {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
+                        </div>
+                        {documents && !!documents.length
+                            ? <div>
+                                <div className="club-documents-status__controls _patella_controls">
+                                    <button
+                                        className="club-documents-status__control club-documents-status__control--registryIcon"
+                                        onClick={() => setShowModal(true)}
+                                        disabled={exporting}
+                                    >
+                                        Реестр
+                                    </button>
+                                    <button
+                                        className="club-documents-status__control club-documents-status__control--downloadIcon"
+                                        onClick={() => setExporting(true)}
+                                        disabled={exporting}
+                                    >
+                                        Скачать PDF
+                                    </button>
+                                    <button
+                                        className="club-documents-status__control club-documents-status__control--tableIcon"
+                                        onClick={() => setStandardView(false)}>
+                                        Увеличить таблицу
+                                    </button>
+                                </div>
+                                <Table
+                                    documents={documents}
+                                    profileType={profileType}
+                                    exporting={exporting}
+                                    setExporting={setExporting}
+                                    distinction={distinction}
+                                    setErrorReport={setErrorReport}
+                                    setNeedUpdateTable={setNeedUpdateTable}
+                                />
+                            </div>
+                            : <div className="club-documents-status__plug">
+                                <h4 className="club-documents-status__text">Заявок не найдено</h4>
+                                <img className="club-documents-status__img" src={DEFAULT_IMG.noNews}
+                                     alt="Заявок не найдено"/>
+                            </div>
+                        }
+                        {errorReport &&
+                            <ReportError
+                                setNeedUpdateTable={setNeedUpdateTable}
+                                id={errorReport}
+                                onErrorReport={id => setErrorReport(id)}
+                                profileType={profileType}
+                            />
+                        }
+                    </Card>
+                }
+                {showModal &&
+                    <Modal
+                        className="club-documents-status__modal"
+                        showModal={showModal}
+                        handleClose={closeModal}
+                        handleX={closeModal}
+                        headerName="Реестр"
+                    >
+                        <TableModal
                             documents={documents}
                             profileType={profileType}
                             exporting={exporting}
@@ -115,20 +165,9 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                             setErrorReport={setErrorReport}
                             setNeedUpdateTable={setNeedUpdateTable}
                         />
-                    </div>
-                    : <div className="club-documents-status__plug">
-                        <h4 className="club-documents-status__text">Заявок не найдено</h4>
-                        <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено"/>
-                    </div>
+                    </Modal>
                 }
-                {errorReport &&
-                    <ReportError
-                        setNeedUpdateTable={setNeedUpdateTable}
-                        id={errorReport}
-                        onErrorReport={id => setErrorReport(id)}
-                        profileType={profileType}
-                    />}
-            </Card>
-};
+            </>
+    };
 
 export default React.memo(ReplaceRegistry);
