@@ -16,6 +16,7 @@ const JudgeInvite = ({ alias, userType }) => {
     const [comment, setComment] = useState('');
     const [inviteReject, setInviteReject] = useState(false);
     const [showModal, setShowModal] = useState(false);
+
     const location = useLocation();
     const id = location.search.replace('?exhibitionId=', '');
 
