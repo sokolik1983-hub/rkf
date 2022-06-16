@@ -180,18 +180,19 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                     </Button>
                                                                 </div> :
                                                                 (judge_item.judge_invite_status === 5 &&
-                                                                <div>
-                                                                    <p>
-                                                                        Судья отозвал согласие на свое участие, причина:
-                                                                        <span>
-                                                                            {judge_item.judge_invite_comment || 'Не указана'}
-                                                                        </span>
-                                                                    </p>
-                                                                    <p>
-                                                                        Участе судьи отменено
-                                                                    </p>
-                                                                    <Button primary={true} onClick={() =>inviteJudges(judge_item)}>Пригласить повторно</Button>
-                                                                </div>
+                                                                    <div>
+                                                                        <p>
+                                                                            Судья отозвал согласие на свое участие, причина:
+                                                                            <span>
+                                                                                {judge_item.judge_invite_comment || 'Не указана'}
+                                                                            </span>
+                                                                        </p>
+                                                                        <p>
+                                                                            Участе судьи отменено
+                                                                        </p>
+                                                                        <Button primary={true} onClick={() =>inviteJudges(judge_item)}>Пригласить повторно</Button>
+                                                                    </div>
+                                                                )
                                             )
                                         }
                                     </div>
