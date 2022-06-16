@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import {allbreedJudgeIcon, judgeIcon} from "../../components/Layouts/UserLayout/config";
+import {Link} from "react-router-dom";
 
 const JudgeCard = ({
     authAndReject,
@@ -18,16 +19,18 @@ const JudgeCard = ({
     nbc_invite_status,
     phone_number,
 }) => {
-    const fullName = `${judge_last_name} ${judge_name} ${judge_second_name}`
+    const fullName = `${judge_last_name ? judge_last_name : ''} 
+        ${judge_name ? judge_name : ''} 
+        ${judge_second_name ? judge_second_name : ''}`
 
     return (
         <div className="judges-list__item">
             <div className="judges-list__wrap">
                 <div className="judges-list__link">
-                    <a href={`/user/${judge_alias}`}>
+                    <Link to={`/user/${judge_alias}`}>
                         <p>{judge_last_name}</p>
                         <p>{`${judge_name} ${judge_second_name}`}</p>
-                    </a>
+                    </Link>
                     {judgeIcon}
                     {is_all_breeder && allbreedJudgeIcon}
                 </div>
