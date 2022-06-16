@@ -148,7 +148,12 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                     </div>
                                     <div className="judge-item__invite">
                                         {judge_item.nbc_invite_status === 2 &&
-                                            ((judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?
+                                            ((judge_item.judge_invite_status === 1 && !judge_item.is_invited_by_club) ?
+                                                    <Button primary={true}
+                                                            onClick={() => inviteJudges(judge_item)}>
+                                                        Отправить приглашение судье
+                                                    </Button> :
+                                                    (judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?
                                                     'Приглашение судье отправлено' :
                                                     judge_item.judge_invite_status === 2 ?
                                                         <p className="green">Приглашение принято</p> :
