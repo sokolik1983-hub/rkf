@@ -431,11 +431,6 @@ const appRoutes = [
         component: LoadableModules.LoadablePedigreeViewer
     },
     {
-        exact: true,
-        path: '/:route',
-        component: LoadableModules.LoadableClubPage
-    },
-    {
         exact: false,
         path: '/:route/uploaded-documents/',
         component: LoadableModules.LoadableClubUploadedDocuments

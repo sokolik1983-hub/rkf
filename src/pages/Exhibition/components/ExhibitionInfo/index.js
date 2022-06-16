@@ -61,9 +61,13 @@ const ExhibitionInfo = ({
 
     const handleSubmit = async () => {
         await Request({
-                url: `/api/exhibitions/invite?exhibitionId=${exhibitionId}`,
+                url: `/api/exhibitions/invite`,
                 method: 'POST',
-                data: judgeIds
+                data: JSON.stringify({
+                        exhibition_id : exhibitionId,
+                        judge_ids: judgeIds,
+                    }
+                )
             }, () => {
                 setJudgeSent(judgeIds);
                 setJudgeIds([]);
@@ -155,7 +159,7 @@ const ExhibitionInfo = ({
                 <div className="exhibition-page__judge-info">
                     <div className="judge-info__header-wrap">
                         <h4 className="exhibition-page__description-title">Судьи/Специалисты</h4>
-                        {canEdit && new Date(dateEnd) >= new Date &&
+                        {canEdit && new Date(dateEnd) >= new Date() &&
                         <div className="exhibition-page__judge-select">
                             <Button
                                 primary={true}

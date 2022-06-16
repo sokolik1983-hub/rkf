@@ -165,7 +165,7 @@ const MenuComponentNew = () => {
     };
 
     useEffect(() => {
-        if (currentPageUserInfo?.club_alias) {
+        if (!!currentPageUserInfo?.club_alias) {
             //FederationDocumentType (1 - Реквизиты, 2 - членские взносы)
             //Alias (алиас федерации)
             (() => Request({

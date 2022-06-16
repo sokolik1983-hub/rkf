@@ -70,7 +70,7 @@ const StampSearch = ({cardClicked}) => {
                         onChange={({ target }) => setStampCode(target.value.slice(0,3).replace(/[^A-Za-z]/ig, ''))}
                         value={stamp_code}
                         title="Введите 3 латинских символа"
-                        placeholder="Введите трек-номер"
+                        placeholder="Введите код клейма"
                         disabled={loading || status ? true : false}
                         required
                     />

@@ -1,4 +1,8 @@
 .must-read {
+    position: fixed;
+    top: 350px;
+    max-width: 250px;
+    min-width: 250px;
     padding: 12px;
     border-radius: 6px;
     background-color: white;
@@ -7,10 +11,14 @@
     margin-bottom: 16px;
     line-height: 1;
 
-    @media (min-width: 560px) {
-        max-width: 250px;
-        min-width: 250px;
+    @media (max-width: 1080px) {
+        top: 270px;
+        left: 7px;
+        box-shadow: none;
+    }
+
+    @media (max-width: 560px) {
         position: fixed;
-        top: 350px;
+        left: 11px;
     }
 }

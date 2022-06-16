@@ -215,7 +215,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                                 <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                                 <UserPhotoGallery
                                                     alias={club_alias}
-                                                    pageLink={`/${club_alias}/gallery`}
+                                                    pageLink={`/club/${club_alias}/gallery`}
                                                 />
                                             </>
                                         }
@@ -223,7 +223,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                         <div className="mobile-only">
                                             <div className="exhibition-page__title-wrap">
                                                 <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                                {canEdit && new Date(dateEnd) >= new Date &&
+                                                {canEdit && new Date(dateEnd) >= new Date() &&
                                                     <Link className="btn__blue"
                                                           to={`/exhibitions/${exhibition.id}/edit`}
                                                     >
@@ -240,7 +240,7 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                 <div className="desktop-only">
                                     <div className="exhibition-page__title-wrap">
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                        {canEdit && new Date(dateEnd) >= new Date &&
+                                        {canEdit && new Date(dateEnd) >= new Date() &&
                                             <Link className="btn__blue"
                                                   to={`/exhibitions/${exhibition.id}/edit`}
                                             >
