@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import Card from '../../../../components/Card';
-import Share from '../../../../components/Share';
-import Alert from '../../../../components/Alert';
-import UserActionControls from '../../../../components/UserActionControls';
-import {ActiveUserMark, FederationChoiceMark} from '../../../../components/Marks';
-import {DEFAULT_IMG} from "../../../../appConfig";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Card from "../../../../components/Card";
+import Share from "../../../../components/Share";
+import Alert from "../../../../components/Alert";
+import UserActionControls from "../../../../components/UserActionControls";
+import { ActiveUserMark, FederationChoiceMark } from "../../../../components/Marks";
+import { DEFAULT_IMG } from "../../../../appConfig";
 
 import './style.scss';
 
