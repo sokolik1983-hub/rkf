@@ -42,7 +42,7 @@ const JudgeInvite = ({ alias, userType }) => {
     };
 
     useEffect(() => {
-        !!needRequest &&(async () => await Request({
+        needRequest &&(async () => await Request({
             url: `/api/exhibitions/invite?exhibitionId=${id}`,
             headers: getHeaders(),
         }, data => {
