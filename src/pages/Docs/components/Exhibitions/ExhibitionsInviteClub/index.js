@@ -43,7 +43,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
     );
 
     useEffect( () => {
-        (async () => await Request({
+        !!needRequest && (async () => await Request({
             url: `/api/exhibitions/invite?exhibitionId=${id}`,
             headers: getHeaders(),
         }, data => {
