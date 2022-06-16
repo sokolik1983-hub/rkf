@@ -4,7 +4,6 @@ import Loading from "../../../../components/Loading";
 import { Request, getHeaders } from "../../../../utils/request";
 import Card from "../../../../components/Card";
 import formatDate from "../../../../utils/formatDate";
-import {useSelector} from "react-redux";
 import Button from "../../../../components/Button";
 import Modal from "../../../../components/Modal";
 import {blockContent} from "../../../../utils/blockContent";
@@ -16,22 +15,23 @@ const JudgeInvite = ({ alias, userType }) => {
     const [comment, setComment] = useState('');
     const [inviteReject, setInviteReject] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [needRequest, setNeedRequest] = useState(true)
 
     const location = useLocation();
     const id = location.search.replace('?exhibitionId=', '');
 
-    const changeInviteStatus = async (x) => {
+    const changeInviteStatus = async (status) => {
             await Request({
                 url: `/api/exhibitions/invite/change_judge_status`,
                 headers: getHeaders(),
                 method: 'PUT',
                 data: JSON.stringify({
                         invite_id : mainInfo.invited_judges[0].invite_id,
-                        judge_invite_status: x,
+                        judge_invite_status: status,
                         judge_invite_comment : comment,
                     }
                 )
-            },data =>  x === 2 ? window.location.reload() : window.location.href = `/user/${alias}/documents/exhibitions/invite/registry`
+            },data =>  status === 2 ? setNeedRequest(true) : window.location.href = `/user/${alias}/documents/exhibitions/invite/registry`
         , error => console.log(error))
 
     };
@@ -42,17 +42,18 @@ const JudgeInvite = ({ alias, userType }) => {
     };
 
     useEffect(() => {
-        (() => Request({
+        needRequest &&(async () => await Request({
             url: `/api/exhibitions/invite?exhibitionId=${id}`,
             headers: getHeaders(),
         }, data => {
             setMainInfo(data);
+            setNeedRequest(false);
             setLoading(false);
         }, error => {
             console.log(error.response);
             setLoading(false);
         }))();
-    }, []);
+    }, [needRequest]);
 
     return loading ?
         <Loading /> :
@@ -83,8 +84,8 @@ const JudgeInvite = ({ alias, userType }) => {
                         <Link to={`/exhibitions/${mainInfo.nbc_alias}`}>{mainInfo.nbc_name}</Link>
                     </span>
                     {mainInfo.invited_judges[0].nbc_invite_status === 2 ?
-                        <span className="green">Ваше участие согласовано</span> :
-                        <span className="red">В авторизации отказано</span>
+                        <span className="_green">Ваше участие согласовано</span> :
+                        <span className="_red">В авторизации отказано</span>
                     }
                 </p>
             </div>
@@ -122,7 +123,7 @@ const JudgeInvite = ({ alias, userType }) => {
                 <div>
                     <p>Укажите причину отказа</p>
                     <textarea type="text" onChange={e => setComment(e.target.value)}/>
-                    {!comment && <p className="red">*обязательно к заполнению</p>}
+                    {!comment && <p className="_red">*обязательно к заполнению</p>}
                     <Button primary={true}
                             onClick={() => setShowModal(true)}
                             disabled={!comment}>
