@@ -4,7 +4,7 @@ import JudgeCard from "./JudgeCard";
 import Card from "../../components/Card";
 import Loading from "../../components/Loading";
 import formatDate from "../../utils/formatDate";
-import { Request, getHeaders } from "../../utils/request";
+import { Request } from "../../utils/request";
 
 import "./index.scss";
 
@@ -102,10 +102,6 @@ const NBCInvite = ({ alias }) => {
             console.log(error);
         })
     }
-
-    console.log(form)
-    console.log(rejected)
-    console.log(disableRadio)
 
     return (
         loading ?
