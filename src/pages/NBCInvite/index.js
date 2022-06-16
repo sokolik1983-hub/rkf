@@ -33,7 +33,7 @@ const NBCInvite = ({ alias }) => {
                 invite_id: item.invite_id,
                 judge_id: item.judge_id,
                 nbc_invite_status: item.nbc_invite_status,
-                nbc_invite_comment: item.nbc_invite_comment
+                nbc_invite_comment: item.nbc_invite_comment ? item.nbc_invite_comment : ''
             }));
             setForm(newArray);
             setLoading(false);
@@ -51,7 +51,7 @@ const NBCInvite = ({ alias }) => {
     useEffect(() => {
         setNotification(listJudges.map(item =>
             item.nbc_invite_status === 3 && form
-                .filter(elem => item.judge_id === elem.judge_id && elem.nbc_invite_comment.length < 3))
+                .filter(elem => item.judge_id === elem.judge_id && elem.nbc_invite_comment?.length < 3))
             .some(key => key.length));
     }, [form]);
 
@@ -67,11 +67,11 @@ const NBCInvite = ({ alias }) => {
                     {...item}));
                 return;
             case 3:
-                setForm(form.filter(item => item.judge_id === id ?
-                    item.nbc_invite_status = 3 :
+                setForm(form.map(item => item.judge_id === id ?
+                    {...item, nbc_invite_status: 3, nbc_invite_comment: ''} :
                     {...item}));
                 setListJudges(listJudges.map( item => item.judge_id === id ?
-                    {...item, nbc_invite_status: 3} :
+                    {...item, nbc_invite_status: 3, nbc_invite_comment: ''} :
                     {...item}));
                 setRejected(([
                     ...rejected,
@@ -102,6 +102,10 @@ const NBCInvite = ({ alias }) => {
             console.log(error);
         })
     }
+
+    console.log(form)
+    console.log(rejected)
+    console.log(disableRadio)
 
     return (
         loading ?
@@ -166,17 +170,17 @@ const NBCInvite = ({ alias }) => {
                             type="text"
                             value={form.filter(elem => elem.judge_id === item[1]).nbc_invite_comment}
                             onChange={e => rejectMassage(e, item[1])}
-                            disabled={disableRadio.map(item => item[1] > 1).some(elem => elem === true)}
+                            disabled={disableRadio.map(elem => elem[0] === item[1] && elem[1] > 1).some(elem => elem === true)}
                         />
                         {+form.filter(elem => elem.judge_id === item[1])
-                                .map(key=>key.nbc_invite_comment.length !== 0 &&
-                                    key.nbc_invite_comment.length)  < 3 &&
+                                .map(key=>key.nbc_invite_comment?.length !== 0 &&
+                                    key.nbc_invite_comment?.length)  < 3 &&
                             <p className="rejected-judges__notification">
                                 Введите не менее трех символов
                             </p>
                         }
                         {+form.filter(elem => elem.judge_id === item[1])
-                                .filter(key=>key.nbc_invite_comment.length) === 0 &&
+                                .filter(key=>key.nbc_invite_comment?.length) === 0 &&
                             <p className="rejected-judges__notification">
                                 Необходимо указать причину отказа
                             </p>
