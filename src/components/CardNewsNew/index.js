@@ -17,8 +17,6 @@ import {nameForUserType} from "../../utils/nameForUserType";
 import CardGallery from "../CardGallery";
 import {Gallery} from "../Gallery";
 import "./index.scss";
-import {auto} from "html-webpack-plugin/lib/chunksorter";
-
 
 const CardNewsNew = ({
     id,

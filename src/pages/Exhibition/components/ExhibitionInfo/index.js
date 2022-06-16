@@ -61,9 +61,13 @@ const ExhibitionInfo = ({
 
     const handleSubmit = async () => {
         await Request({
-                url: `/api/exhibitions/invite?exhibitionId=${exhibitionId}`,
+                url: `/api/exhibitions/invite`,
                 method: 'POST',
-                data: judgeIds
+                data: JSON.stringify({
+                        exhibition_id : exhibitionId,
+                        judge_ids: judgeIds,
+                    }
+                )
             }, () => {
                 setJudgeSent(judgeIds);
                 setJudgeIds([]);

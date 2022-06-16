@@ -6,13 +6,14 @@ import { Request, getHeaders } from "../../../../../utils/request";
 import Card from "../../../../../components/Card";
 import formatDate from "../../../../../utils/formatDate";
 import {allbreedJudgeIcon, judgeIcon} from "../../../../../components/Layouts/UserLayout/config";
-import "./index.scss";
 import Button from "../../../../../components/Button";
+import "./index.scss";
 
 const ExhibitionsInviteClub = ({ alias, userType }) => {
     const [loading, setLoading] = useState(true);
     const [mainInfo, setMainInfo] = useState(null);
     const [judgeList, setJudgeList] = useState([]);
+    const [needRequest, setNeedRequest] = useState(true);
 
     const location = useLocation();
     const id = location.search.replace('?exhibitionId=', '');
@@ -25,7 +26,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                     exhibition_id: mainInfo.exhibition_id,
                     judge_ids: [judge_item.judge_id],
                 })
-            }, data => window.location.reload(),
+            }, data => setNeedRequest(true),
             error => console.log(error, 'ошибка')
         );
 
@@ -37,7 +38,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                 judge_id: judge_item.judge_id,
                 judge_invite_status: 3,
             })
-        }, data => window.location.reload(),
+        }, data => setNeedRequest(true),
         error => console.log(error, 'ошибка')
     );
 
@@ -48,12 +49,13 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
         }, data => {
             setMainInfo(data);
             setJudgeList(data.invited_judges);
+            setNeedRequest(false);
             setLoading(false);
         }, error => {
             console.log(error.response);
             setLoading(false);
         }))();
-    }, []);
+    }, [needRequest]);
 
     return loading ?
         <Loading /> :
@@ -97,7 +99,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                             >
                                                 <p>{!!judge_item.judge_last_name && `${judge_item.judge_last_name} `}</p>
                                                 <p>{!!judge_item.judge_name && `${judge_item.judge_name} `}
-                                                    {judge_item.judge_second_name}
+                                                    {!!judge_item.judge_second_name && `${judge_item.judge_second_name}`}
                                                     {judge_item.judge_alias && judgeIcon}
                                                     {judge_item.is_all_breeder &&
                                                         allbreedJudgeIcon
@@ -108,7 +110,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                             <p className="judge-item__name-rus">
                                                 <span>{judge_item.judge_last_name && `${judge_item.judge_last_name} `}</span>
                                                 <span>{judge_item.judge_name && `${judge_item.judge_name} `}
-                                                    {judge_item.judge_second_name}
+                                                    {!!judge_item.judge_second_name && `${judge_item.judge_second_name}`}
                                                     {judge_item.judge_alias && judgeIcon}
                                                     {judge_item.is_all_breeder &&
                                                         allbreedJudgeIcon
@@ -156,10 +158,10 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                     (judge_item.judge_invite_status === 1 && judge_item.is_invited_by_club) ?
                                                     'Приглашение судье отправлено' :
                                                     judge_item.judge_invite_status === 2 ?
-                                                        <p className="green">Приглашение принято</p> :
+                                                        <p className="_green">Приглашение принято</p> :
                                                         judge_item.judge_invite_status === 3 ?
                                                             <div>
-                                                                <p className="red">Приглашение отклонено</p>
+                                                                <p className="_red">Приглашение отклонено</p>
                                                                 {!!judge_item.judge_invite_comment &&
                                                                     <p>Причина:
                                                                         <span>{judge_item.judge_invite_comment || 'Не указана'}</span>
@@ -168,7 +170,7 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                 <Button primary={true} onClick={() => inviteJudges(judge_item)}>Пригласить повторно</Button>
                                                             </div> :
                                                             judge_item.judge_invite_status === 4 ?
-                                                                <div style={{display: "block"}}>
+                                                                <div>
                                                                     <p>
                                                                         Судья отозвал согласие на свое участие, причина:
                                                                         <span>
