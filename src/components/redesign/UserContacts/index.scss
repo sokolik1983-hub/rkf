@@ -98,13 +98,14 @@
 
       &:before {
         content: "";
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 18px;
         position: absolute;
-        left: 0;
-        top: 1px;
+        top: 3px;
+        left: 4px;
         background-repeat: no-repeat;
         background-position: 50%;
+        background-size: contain;
       }
 
       span:first-child {
@@ -114,6 +115,7 @@
 
     &-address:before {
       background-image: url("/static/icons/ico-pointer2.svg");
+      left: 5px;
     }
 
     &-owner:before {
@@ -122,14 +124,12 @@
 
     &-name:before {
       background-image: url("/static/icons/icon-name2.svg");
-      width: 18px;
-      height: 18px;
-      background-size: contain;
-      margin: 2px 0 0 2px;
+      left: 5px;
     }
 
     &-site:before {
       background-image: url("/static/icons/ico-web2.svg");
+      left: 5px;
     }
 
     &-email:not(:empty):before {
