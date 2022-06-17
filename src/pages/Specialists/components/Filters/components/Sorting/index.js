@@ -1,0 +1,129 @@
+import React, { useMemo, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { setFiltersToUrl } from "../../../../utils";
+import { CSSTransition } from "react-transition-group";
+import "./index.scss";
+
+export const Sorting = ({ isOpen, setIsOpen }) => {
+    /*
+        типы сортировок:
+        1 - по умолчанию
+        2 - по алфавиту (по алфавиту от а до я)
+        3 - по алф  наоборот
+        4 - подтверждённые
+        5 - по популярности
+    */
+
+    const sortItems = useMemo(() => {
+        return [
+            {
+                id: 0,
+                title: 'По умолчанию',
+                sortType: 1,
+            },
+            {
+                id: 1,
+                title: 'По алфавиту',
+                sortType: [2, 3],
+            },
+            {
+                id: 2,
+                title: 'По верифицированным',
+                sortType: 4,
+            },
+            {
+                id: 3,
+                title: 'По популярности',
+                sortType: 5,
+            },
+        ];
+    }, []);
+
+    const [isAlphabetAZ, setIsAlphabetAZ] = useState(false);
+    const [isAlphabetZA, setIsAlphabetZA] = useState(false);
+
+    const location = useLocation();
+    const urlSortFilter = location.search.match(/sortType=\d/);
+    const urlSortType = urlSortFilter && +urlSortFilter[0].replace('sortType=', '');
+
+
+    const handleChange = (itemId) => {
+        let filterType;
+
+        sortItems.forEach(item => {
+            if (item.id === itemId) filterType = item.sortType;
+        })
+
+        if (urlSortType !== filterType) {
+            if (itemId === 1) {
+                if ( !isAlphabetAZ && !isAlphabetZA) {
+                    setIsAlphabetAZ(true);
+
+                    setFiltersToUrl({ sortType: filterType[0] });
+                } else if (isAlphabetAZ) {
+                    setIsAlphabetAZ(false);
+                    setIsAlphabetZA(true);
+
+                    setFiltersToUrl({ sortType: filterType[1] });
+                } else {
+                    setIsAlphabetZA(false);
+                    setIsAlphabetAZ(true);
+
+                    setFiltersToUrl({ sortType: filterType[0] });
+                }
+            } else {
+                isAlphabetAZ && setIsAlphabetAZ(false);
+                isAlphabetZA && setIsAlphabetZA(false);
+
+                setFiltersToUrl({ sortType: filterType });
+            }
+        }
+
+        setIsOpen(!isOpen);
+    }
+
+    const checkIsActive = (id, type) => {
+        if ((urlSortType === type) || ((urlSortType === 2 || urlSortType === 3) && id === 1)) {
+            return true;
+        }
+    }
+
+
+    return (
+        <div className="sorting">
+            <div
+                className="sorting__header"
+                onClick={ () => setIsOpen( !isOpen) }
+            >
+                <span className={ `sorting__header-chevron${ isOpen ? ' _dropdown_open' : '' }` }/>
+                <span className="sorting__header-name">
+                        Сортировка
+                    </span>
+            </div>
+
+            <CSSTransition
+                in={ isOpen }
+                timeout={ 50 }
+                unmountOnExit
+                classNames="sorting__dropdown-transition"
+            >
+                <ul className="sorting__dropdown-menu">
+                    { sortItems.map(item =>
+                        <li
+                            className={ `sorting__dropdown-menu-item${
+                                checkIsActive(item.id, item.sortType) ? ' _active' : '' }`
+                            }
+                            key={ item.id }
+                            onClick={ () => handleChange(item.id) }
+                        >
+                            { item.id === 1 &&
+                            <span className={ `alphabet-icon${ isAlphabetZA ? ' _reverse' : '' }` }/>
+                            }
+                            <span>{ item.title }</span>
+                        </li>
+                    ) }
+                </ul>
+            </CSSTransition>
+        </div>
+    )
+};

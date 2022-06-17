@@ -1,9 +1,7 @@
-import React, {memo, useEffect, useMemo, useState} from "react";
-import {useLocation} from "react-router-dom";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import SwipeTabs from "../../../../../../components/SwipeTabs";
 import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
-import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
-
+import { Sorting } from "../Sorting";
 import "./index.scss";
 
 
@@ -21,74 +19,32 @@ const ListFilter = ({
         ];
     }, []);
 
-    const [isFilter, setIsFilter] = useState(false);
-    const [isPopular, setIsPopular] = useState(false);
-    const [isVerified, setIsVerified] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-    const location = useLocation();
+    const handleChange = (id) => {
+        setIsOpen(false);
 
-    const handleFilter = () => {
-        setIsFilter(!isFilter);
-        setIsPopular(true);
-        setIsVerified(false);
-        setFiltersToUrl({IsPopular: true , isVerified: false})
+        setFiltersToUrl({
+            ...getEmptyFilters(),
+            RegionIds: RegionIds,
+            CityIds: CityIds,
+            SearchTypeId: id,
+        });
     }
 
-    const handlePopular = () => {
-        setIsPopular(!isPopular);
-        setIsVerified(false);
-        setFiltersToUrl({IsPopular: !isPopular , isVerified: false})
-    }
-
-    const handleVerified = () => {
-        setIsVerified(!isVerified);
-        setIsPopular(false);
-        setFiltersToUrl({IsPopular: false, isVerified: !isVerified})
-    }
-
-    useEffect(()=>{
-        location.search.indexOf('IsPopular=true') !== -1 && setIsFilter(!isFilter)
-    }, []);
 
     return (
         <div className="specialists-page__list-filter">
             <div className="specialists-page__list-filter_header">
                 <h4 className="list-filter__title">Судьи и специалисты</h4>
-                <CustomCheckbox
-                    id="need-filter"
-                    label="Сортировка"
-                    checked={!!isFilter}
-                    onChange={handleFilter}
-                    cName="sorting-filter"
-                />
+                <Sorting isOpen={isOpen} setIsOpen={setIsOpen}/>
             </div>
 
-            {!isFilter ? <SwipeTabs
-                    items={tabItems}
-                    activeTabIndex={tabItems.findIndex(item => item.search_type === searchTypeId)}
-                    onChange={({search_type}) => setFiltersToUrl({
-                        ...getEmptyFilters(),
-                        RegionIds: RegionIds,
-                        CityIds: CityIds,
-                        SearchTypeId: search_type
-                    })}
-                /> :
-                <div className="specialists-page__checkbox-wrap">
-                    <CustomCheckbox
-                        id="most-liked"
-                        label="По популярности"
-                        checked={!!isPopular}
-                        onChange={handlePopular}
-                        cName="like-filter"
-                    />
-                    <CustomCheckbox
-                        id="verified"
-                        label="По верифицированным специалистам"
-                        checked={!!isVerified}
-                        onChange={handleVerified}
-                        cName="verified-filter"
-                    />
-                </div>}
+            <SwipeTabs
+                items={tabItems}
+                activeTabIndex={tabItems.findIndex(item => item.search_type === searchTypeId)}
+                onChange={({search_type}) => { handleChange(search_type)}}
+            />
         </div>
     )
 };
