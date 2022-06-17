@@ -40,19 +40,19 @@ const CitiesFilter = ({ cities, city_ids, onChange, needOpen }) => {
 
     return (
         <Card className="cities-filter-regions">
-            <div className="cities-filter-regions__head" onClick={() => setIsOpen(!isOpen)}>
-                <h5 className="cities-filter-regions__title">Города</h5>
-                <span className={`cities-filter-regions__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
-            </div>
-            <CSSTransition
-                in={isOpen}
-                timeout={50}
-                unmountOnExit
-                classNames="dropdown__filters-regions"
-            >
-                <div className="cities-filter__wrap-regions">
-                    <Select
-                        id="cities-filter-regions"
+                        <div className="cities-filter-regions__head" onClick={() => setIsOpen(!isOpen)}>
+                            <h5 className="cities-filter-regions__title">Города</h5>
+                            <span className={`cities-filter-regions__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+                        </div>
+                        <CSSTransition
+                            in={isOpen}
+                            timeout={50}
+                            unmountOnExit
+                            classNames="dropdown__filters-regions"
+                        >
+                            <div className="cities-filter__wrap-regions">
+                                <Select
+                                    id="cities-filter-regions"
                         isMulti={true}
                         closeMenuOnSelect={false}
                         options={[...values, ...optionsNotInValues]}
