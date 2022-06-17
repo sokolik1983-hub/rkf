@@ -121,7 +121,7 @@
         align-items: center;
         position: absolute;
         right: 0;
-        top: 50%;
+        top: 39px;
         width: 36px;
         height: 36px;
         margin-top: 2px;
@@ -132,8 +132,8 @@
         cursor: default;
       }
       & .MuiFormHelperText-root.Mui-error {
-        position: absolute;
-        top: 38px;
+        //position: absolute;
+        //top: 38px;
       }
     }
     & .date-input__wrap:nth-child(2) {
