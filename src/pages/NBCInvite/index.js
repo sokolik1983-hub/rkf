@@ -45,7 +45,7 @@ const NBCInvite = ({ alias }) => {
 
     useEffect(() => {
         setDisableButton(listJudges.map(item => item.nbc_invite_status === 1).some(elem => elem === true) ||
-            disableRadio.map(item => item[1] > 1).some(elem => elem === true));
+            disableRadio.map(item => item[1] > 1).every(elem => elem === true));
     }, [listJudges, disableRadio]);
 
     useEffect(() => {
