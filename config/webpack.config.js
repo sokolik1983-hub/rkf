@@ -212,7 +212,7 @@ module.exports = function(webpackEnv) {
           // default number of concurrent runs: os.cpus().length - 1
           parallel: true,
           // Enable file caching
-          cache: true,
+          // cache: true,
           sourceMap: shouldUseSourceMap,
         }),
         // This is only used in production mode
@@ -350,7 +350,7 @@ module.exports = function(webpackEnv) {
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
                 // directory for faster rebuilds.
-                cacheDirectory: true,
+                // cacheDirectory: true,
                 cacheCompression: isEnvProduction,
                 compact: isEnvProduction,
               },
@@ -371,7 +371,7 @@ module.exports = function(webpackEnv) {
                     { helpers: true },
                   ],
                 ],
-                cacheDirectory: true,
+                // cacheDirectory: true,
                 cacheCompression: isEnvProduction,
                 
                 // If an error happens in a package, it's possible to be
