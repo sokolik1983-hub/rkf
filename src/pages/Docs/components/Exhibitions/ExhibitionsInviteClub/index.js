@@ -69,19 +69,19 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                     Приглашение на участие в мероприятии
                 </div>
                 <div className="exhibitions-invite__main-info">
-                    <p>Клуб:
+                    <p>Клуб:&nbsp;
                         <Link to={`/club/${mainInfo.club_alias}`}>{mainInfo.club_name}</Link>
                     </p>
-                    <p>Мероприятие:
+                    <p>Мероприятие:&nbsp;
                         <Link to={`/exhibitions/${mainInfo.exhibition_id}`}>{mainInfo.exhibition_name}</Link>
                     </p>
-                    <p>Город проведения выставки:
+                    <p>Город проведения выставки:&nbsp;
                         <span>{mainInfo.exhibition_city}</span>
                     </p>
-                    <p>Дата начала:
+                    <p>Дата начала:&nbsp;
                         <span>{formatDate(mainInfo.exhibition_date_start)}</span>
                     </p>
-                    <p>Дата окончания:
+                    <p>Дата окончания:&nbsp;
                         <span>{formatDate(mainInfo.exhibition_date_end)}</span>
                     </p>
                 </div>
@@ -127,15 +127,15 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                     </div>
                                     <div className="judge-item__info">
                                         <p>
-                                            Город:
+                                            Город:&nbsp;
                                             <span>{judge_item.city}</span>
                                         </p>
                                         <p>
-                                            Телефон:
+                                            Телефон:&nbsp;
                                             <span>{judge_item.phone_number}</span>
                                         </p>
                                         <p>
-                                            E-mail:
+                                            E-mail:&nbsp;
                                             <span>{judge_item.email}</span>
                                         </p>
                                     </div>

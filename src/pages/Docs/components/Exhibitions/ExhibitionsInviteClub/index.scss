@@ -58,6 +58,7 @@
       &__wrap {
         display: grid;
         grid-template-columns: 25% 27% 23% 25%;
+        padding-bottom: 10px;
       }
 
       &__name-wrap,  &__info {
@@ -66,9 +67,12 @@
       }
 
       &__info {
+        justify-content: center;
+
         p {
           display: flex;
           flex-direction: row;
+          margin: 0;
           font-weight: 600;
           color: #72839c;
 
@@ -104,11 +108,24 @@
         color: #72839C;
       }
 
+      &__agreement {
+        align-self: center;
+
+        p {
+          margin: 0;
+        }
+      }
+
       &__invite {
         text-align: center;
+        align-self: center;
 
-        button {
-          margin-bottom: 15px;
+        .btn {
+          padding: 0 10px;
+          margin: 0;
+          width: 160px;
+          height: 38px;
+          line-height: 18px;
         }
 
         p {
