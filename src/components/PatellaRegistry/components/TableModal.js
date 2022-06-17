@@ -15,6 +15,7 @@ import CopyCell from '../../../pages/Docs/components/CopyCell';
 import declension from "../../../utils/declension";
 
 import "./index.scss";
+import CustomCheckbox from "../../Form/CustomCheckbox";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -24,7 +25,7 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => {
+/*const DateCell = ({ dataItem }, field) => {
     return (dataItem[field] === null ? <td></td> : <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>);
 };
 
@@ -36,21 +37,21 @@ const ArchiveCell = ({ dataItem }) => {
     return isArchive ? <td>{date_change}</td> : (countStatus && archive_days_left > 0) ?
         <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ?
             <td>{`В очереди на архивацию`}</td> : <td></td>;
-};
+};*/
 
-const LinkCell = ({ dataItem }, profileType) => {
-    const { certificate_document_id } = dataItem;
-    return <td>
-        {certificate_document_id &&
-            <LightTooltip title="Скачать файл" enterDelay={200} leaveDelay={200}>
-                <span className="download-document"
-                    onClick={e => handleClick(e, certificate_document_id, profileType)}></span>
-            </LightTooltip>
-        }
-    </td>
-};
+// const LinkCell = ({ dataItem }, profileType) => {
+//     const { certificate_document_id } = dataItem;
+//     return <td>
+//         {certificate_document_id &&
+//             <LightTooltip title="Скачать файл" enterDelay={200} leaveDelay={200}>
+//                 <span className="download-document"
+//                     onClick={e => handleClick(e, certificate_document_id, profileType)}></span>
+//             </LightTooltip>
+//         }
+//     </td>
+// };
 
-const handleExtract = async (e, request_id, type_id, setNeedUpdateTable) => {
+/*const handleExtract = async (e, request_id, type_id, setNeedUpdateTable) => {
     e.preventDefault();
     await fetch(`/api/requests/commonrequest/dearchive_request`, {
         method: 'POST',
@@ -63,50 +64,15 @@ const handleExtract = async (e, request_id, type_id, setNeedUpdateTable) => {
         .then(data => alert('Заявка извлечена из архива'))
         .then(() => setNeedUpdateTable(true))
         .catch(error => console.log(error))
-};
+};*/
 
-const OptionsCell = ({ dataItem }, profileType, setErrorReport, setNeedUpdateTable) => {
-    const [open, setOpen] = useState(false);
-    const { type_id, status_id, id, dearchiving_allowed, can_error_report } = dataItem;
-    const { route } = useParams();
-    const options = [{
-        text: 'Подробнее',
-        disabled: status_id === 8,
-        render: ({ item }) => <Link
-            to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/view/${id}`}
-            className="row-control__link">{item.text}
-        </Link>
-    },
-    {
-        text: 'Ответить',
-        disabled: status_id !== 1,
-        render: ({ item }) => <Link
-            to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/edit/${id}`}
-            className="row-control__link">{item.text}
-        </Link>
-    },
-    {
-        text: 'Сообщить об ошибке',
-        disabled: (status_id === 3) || can_error_report ? false : true,
-        render: ({ item }) => <span className="row-control__link"
-            onClick={() => setErrorReport(id)}>{item.text}
-        </span>
-    },
-    {
-        text: 'Восстановить',
-        disabled: dearchiving_allowed ? false : true,
-        render: ({ item }) => <span className="row-control__link"
-            onClick={e => handleExtract(e, id, type_id, setNeedUpdateTable)}>{item.text}
-        </span>
-    }].filter(o => !o.disabled);
-
+const OptionsCell = () => {
     return <td>
-        <DropDownButton icon={`k-icon k-i-arrow-chevron-${open ? `up` : `down`}`} onOpen={() => setOpen(true)}
-            onClose={() => setOpen(false)} items={options} />
+        <CustomCheckbox />
     </td>
 };
 
-const handleClick = async (e, id, profileType) => {
+/*const handleClick = async (e, id, profileType) => {
     e.preventDefault();
     let el = e.target;
     el.className = 'stamp-loading';
@@ -127,18 +93,17 @@ const handleClick = async (e, id, profileType) => {
         });
     el.innerText = '';
     el.className = 'download-document';
-};
+};*/
 
 const Table = ({ documents, profileType, exporting, setExporting, fullScreen, distinction, setErrorReport, setNeedUpdateTable }) => {
     const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
-    const [isArchive, setIsArchive] = useState(false);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: []
     });
 
-    let filteredDocuments = isArchive ? documents : documents?.filter(doc => doc.status_id !== 8);
+    let filteredDocuments = documents?.filter(doc => doc.status_id !== 8);
 
     useEffect(() => {
         setSelectedDocument();
@@ -161,7 +126,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
         setGridData(e.data);
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (exporting) {
             gridPDFExport.current.save(process(filteredDocuments, gridData).data, () => setExporting(false));
         }
@@ -187,7 +152,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
             columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
         <GridColumn field="date_archive" title="Архивировано" columnMenu={ColumnMenu}
             cell={props => ArchiveCell(props)} />
-    </Grid>;
+    </Grid>;*/
 
     const rowRender = (trElement, props) => {
         const status = props.dataItem.status_id;
@@ -233,40 +198,36 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                             onDataStateChange={handleGridDataChange}
                             style={{ height: "700px", width: "auto", margin: "0 auto" }}>
 
-                            <GridColumn width={fullScreen ? '100px' : '70px'} title="Опции"
-                                cell={props => OptionsCell(props, profileType, setErrorReport, setNeedUpdateTable)} />
+                            <GridColumn width={fullScreen ? '70px' : '70px'} title="Опции"
+                                cell={props => OptionsCell(props)} />
 
-                            <GridColumn field="status_value" cell={StatusCell} title="Статус"
-                                width={fullScreen ? '62px' : '61px'} />
+                            <GridColumn field="document_short_name" cell={StatusCell} title="Название Документа (титул)"
+                                width={fullScreen ? '120px' : '61px'} />
 
-                            <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '160px' : '80px'}
-                                columnMenu={ColumnMenu} />
+                            <GridColumn field="dog_breed_name" title="Порода"
+                                width={fullScreen ? '157px' : '80px'} columnMenu={ColumnMenu} />
 
-                            <GridColumn field="date_change" title="Дата последнего изменения статуса"
-                                width={fullScreen ? '160px' : '80px'} columnMenu={ColumnMenu} />
+                            <GridColumn field="dog_name" title="Кличка"
+                                width={fullScreen ? '270px' : '80px'} columnMenu={ColumnMenu} />
 
-                            <GridColumn field="declarant_full_name" title="ФИО ответственного лица"
-                                width={fullScreen ? 'auto' : '220px'} columnMenu={ColumnMenu} />
+                            <GridColumn field="rkf_number" title="№ РКФ"
+                                width={fullScreen ? '80' : '220px'} columnMenu={ColumnMenu} />
 
-                            <GridColumn field="pedigree_number" title="Номер родословной"
-                                width={fullScreen ? '130px' : '100px'} columnMenu={ColumnMenu} />
+                            <GridColumn field="cert_number" title="Номер сертификата (пателла, дисплазия, рабочий племенной)"
+                                width={fullScreen ? '140px' : '100px'} columnMenu={ColumnMenu} />
 
-                            <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '189px'}
-                                columnMenu={ColumnMenu} />
+                            <GridColumn field="barcode" title="Трек номер"
+                                width={fullScreen ? '130' : '189px'} columnMenu={ColumnMenu} />
 
-                            <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'}
-                                columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
+                            <GridColumn field="rkf_creation_date" title="Дата сдачи в РКФ"
+                                width={fullScreen ? '100px' : '120px'} columnMenu={ColumnMenu} />
 
-                            <GridColumn field="certificate_document_id" title="Сертификат"
-                                width={fullScreen ? '150px' : '100px'} columnMenu={ColumnMenu}
-                                cell={props => LinkCell(props, profileType)} />
-
-                            <GridColumn field="date_archive" width={fullScreen ? '130px' : '98px'} title="Архивировано"
-                                columnMenu={ColumnMenu} cell={props => ArchiveCell(props)} />
+                            <GridColumn field="complition_date" title="Дата печати диплома"
+                                width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
 
                         </Grid></>
                     }
-                    <GridPDFExport
+                    {/*<GridPDFExport
                         fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
                         scale={0.5}
@@ -277,7 +238,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                         />}
                     >
                         {gridForExport}
-                    </GridPDFExport>
+                    </GridPDFExport>*/}
                 </IntlProvider>
             </LocalizationProvider>
         </>

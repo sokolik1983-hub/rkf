@@ -17,6 +17,7 @@ import TableModal from "./components/TableModal";
 const ReplaceRegistry = ({distinction, profileType}) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
+    const [registry, setRegistry] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [exporting, setExporting] = useState(false);
@@ -43,6 +44,23 @@ const ReplaceRegistry = ({distinction, profileType}) => {
             error => {
                 console.log(error.response);
                 setLoading(false);
+            }))();
+
+        (() => PromiseRequest({
+            url: '/api/requests/commonrequest/completed_requests_registry',
+            method: 'GET',
+        }).then(
+            data => {
+                setRegistry(data.sort(function (a, b) {
+                    return new Date(b.rkf_creation_date) - new Date(a.rkf_creation_date);
+                }).map(({complition_date, rkf_creation_date, ...rest}) => ({
+                    complition_date: moment(complition_date).format('DD.MM.YY'),
+                    rkf_creation_date: moment(rkf_creation_date).format('DD.MM.YY'),
+                    ...rest
+                })));
+            }).catch(
+            error => {
+                console.log(error.response);
             }))();
     }, [needUpdateTable]);
 
@@ -157,13 +175,14 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                         headerName="Реестр"
                     >
                         <TableModal
-                            documents={documents}
+                            documents={registry}
                             profileType={profileType}
                             exporting={exporting}
                             setExporting={setExporting}
                             distinction={distinction}
                             setErrorReport={setErrorReport}
                             setNeedUpdateTable={setNeedUpdateTable}
+                            fullScreen={true}
                         />
                     </Modal>
                 }

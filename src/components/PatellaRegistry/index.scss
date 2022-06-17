@@ -251,6 +251,32 @@
         max-width: 1184px;
       }
     }
+
+    .k-header {
+      font-size: 12px;
+      vertical-align: middle
+    }
+
+    .k-link {
+      padding: 0 12px !important;
+      white-space: break-spaces;
+      text-align: center;
+      vertical-align: middle
+    }
+
+  
+    .custom-checkbox__label {
+      display: block;
+    }
+
+    .k-grid {
+      font-size: 14px;
+
+      & td {
+        border-bottom: 1px solid rgba(33, 37, 41, 0.125);
+        text-align: center;
+      }
+    }
   }
 
   .k-grid {
