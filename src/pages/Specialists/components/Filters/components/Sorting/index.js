@@ -41,7 +41,6 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
 
     const [isAlphabetAZ, setIsAlphabetAZ] = useState(false);
     const [isAlphabetZA, setIsAlphabetZA] = useState(false);
-    const [activeSortType, setActiveSortType] = useState(1);
 
     const location = useLocation();
     const urlSortFilter = location.search.match(/sortType=\d/);
@@ -81,7 +80,6 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
         }
 
         setIsOpen(!isOpen);
-        setActiveSortType(filterType);
     }
 
     const checkIsActive = (id, type) => {
@@ -107,7 +105,7 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
                 in={ isOpen }
                 timeout={ 50 }
                 unmountOnExit
-                classNames="dropdown__filters-regions"
+                classNames="sorting__dropdown-transition"
             >
                 <ul className="sorting__dropdown-menu">
                     { sortItems.map(item =>
