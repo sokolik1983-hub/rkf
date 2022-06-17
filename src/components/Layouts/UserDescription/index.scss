@@ -141,7 +141,6 @@
     span:last-child {
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
       display: block;
       & > a, & > span {
         text-overflow: ellipsis;
