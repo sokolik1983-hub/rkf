@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { setFiltersToUrl } from "../../../../utils";
 import { CSSTransition } from "react-transition-group";

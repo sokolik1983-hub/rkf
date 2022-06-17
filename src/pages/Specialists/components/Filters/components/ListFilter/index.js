@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useMemo, useState } from "react";
 import SwipeTabs from "../../../../../../components/SwipeTabs";
 import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
 import { Sorting } from "../Sorting";
