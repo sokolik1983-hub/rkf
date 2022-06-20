@@ -79,6 +79,10 @@
     @media (max-width: 550px) {
       margin-right: 15px;
       flex: 30%;
+      min-width: 110px;
+      min-height: 110px;
+      max-width: 110px;
+      max-height: 110px;
     }
   }
 
@@ -94,8 +98,8 @@
     }
 
     @media (max-width: 550px) {
-      width: calc(100% + 116px);
-      margin: 5px 0 0 -116px;
+      width: calc(100% + 125px);
+      margin: 5px 0 0 -125px;
     }
 
     &-title {
@@ -448,6 +452,15 @@
     display: flex;
     flex-wrap: wrap;
     line-height: 18px;
+  }
+
+  .avatar__wrap {
+    @media (max-width: 550px) {
+      min-width: 110px;
+      min-height: 110px;
+      max-width: 110px;
+      max-height: 110px;
+    }
   }
 }
 

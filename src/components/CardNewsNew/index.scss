@@ -31,7 +31,7 @@
     .ReactGridGallery {
       display: grid;
       grid-template-rows: 50% 50%;
-      margin: 0 10px;
+      margin: 10px 10px 0 ;
       gap: 2px;
       max-height: 500px;
       list-style-type: none;
@@ -188,7 +188,7 @@
     justify-content: space-between;
     align-items: flex-start;
     text-align: right;
-    margin: 0 10px 15px 10px;
+    margin: 0 10px 5px 10px;
     &-control {
       position: relative;
 
@@ -620,7 +620,7 @@
     letter-spacing: 0.2px;
     color: #36f;
     cursor: pointer;
-    margin: 10px 0;
+    //margin: 10px 0;
 
     &:hover {
       color: #36f;
