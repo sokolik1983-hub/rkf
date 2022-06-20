@@ -1,245 +1,136 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
-import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
-import { DropDownButton } from '@progress/kendo-react-buttons';
-import { getHeaders } from "../../../utils/request";
-import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
+import { Grid, GridColumn } from '@progress/kendo-react-grid';
+import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import kendoMessages from "kendoMessages.json";
-import moment from "moment";
 import PdfPageTemplate from "../../PdfPageTemplate";
-import LightTooltip from "../../LightTooltip";
-import CopyCell from '../../../pages/Docs/components/CopyCell';
-
-import declension from "../../../utils/declension";
+import moment from "moment";
 
 import "./index.scss";
-import CustomCheckbox from "../../Form/CustomCheckbox";
 
 loadMessages(kendoMessages, 'ru-RU');
 
-const ColumnMenu = (props) => {
-    return <div>
-        <GridColumnMenuFilter {...props} expanded={true} />
-    </div>
-};
-
-/*const DateCell = ({ dataItem }, field) => {
-    return (dataItem[field] === null ? <td></td> : <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>);
-};
-
-const ArchiveCell = ({ dataItem }) => {
-    const { status_id, archive_days_left, date_change } = dataItem;
-    const countStatus = status_id === 1 || status_id === 3;
-    const isArchive = status_id === 8;
-
-    return isArchive ? <td>{date_change}</td> : (countStatus && archive_days_left > 0) ?
-        <td>{`До архивации ${archive_days_left} ${declension(archive_days_left, ['день', 'дня', 'дней'])}`}</td> : (countStatus && archive_days_left < 1) ?
-            <td>{`В очереди на архивацию`}</td> : <td></td>;
-};*/
-
-// const LinkCell = ({ dataItem }, profileType) => {
-//     const { certificate_document_id } = dataItem;
-//     return <td>
-//         {certificate_document_id &&
-//             <LightTooltip title="Скачать файл" enterDelay={200} leaveDelay={200}>
-//                 <span className="download-document"
-//                     onClick={e => handleClick(e, certificate_document_id, profileType)}></span>
-//             </LightTooltip>
-//         }
-//     </td>
-// };
-
-/*const handleExtract = async (e, request_id, type_id, setNeedUpdateTable) => {
-    e.preventDefault();
-    await fetch(`/api/requests/commonrequest/dearchive_request`, {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify({
-            "request_id": request_id,
-            "request_type": type_id === 1 ? 4 : 5,
-        })
-    })
-        .then(data => alert('Заявка извлечена из архива'))
-        .then(() => setNeedUpdateTable(true))
-        .catch(error => console.log(error))
-};*/
-
-const OptionsCell = () => {
-    return <td>
-        <CustomCheckbox />
-    </td>
-};
-
-/*const handleClick = async (e, id, profileType) => {
-    e.preventDefault();
-    let el = e.target;
-    el.className = 'stamp-loading';
-    el.innerText = 'Загрузка...';
-    await fetch(`/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheckdocument?id=${id}`, {
-        method: 'GET',
-        headers: getHeaders()
-    })
-        .then(response => response.blob())
-        .then(blob => {
-            let url = window.URL.createObjectURL(blob),
-                a = document.createElement('a');
-            a.href = url;
-            a.download = `Сертификат ${id}`;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-        });
-    el.innerText = '';
-    el.className = 'download-document';
-};*/
-
-const Table = ({ documents, profileType, exporting, setExporting, fullScreen, distinction, setErrorReport, setNeedUpdateTable }) => {
-    const [success, setSuccess] = useState(false);
+const Table = ({ documents, fullScreen }) => {
+    const [exporting, setExporting] = useState(false);
+    const [printData, setPrintData] = useState([]);
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: []
     });
 
-    let filteredDocuments = documents?.filter(doc => doc.status_id !== 8);
-
-    useEffect(() => {
-        setSelectedDocument();
-    }, []);
-
-    const setSelectedDocument = () => {
-        const document_id = window.location.href.split('=')[1];
-        let newDataState = { ...gridData }
-        if (document_id) {
-            newDataState.filter = {
-                logic: 'and',
-                filters: [{ field: 'barcode', operator: 'eq', value: document_id }]
-            }
-            newDataState.skip = 0
-        }
-        setGridData(newDataState);
+    const OptionsCell = (props) => {
+        return <td>
+            <input type="checkbox"
+                   id="print"
+                   className="custom-checkbox__input"
+                   checked={!!printData.filter(item => item.barcode === props.barcode).length}
+                   onChange={() => handleChange(props)}
+            />
+        </td>
     };
+
+    const handleChange = (props) => {
+        printData.includes(props) ?
+            setPrintData(printData.filter(item => item.barcode !== props.barcode)) :
+            setPrintData([props, ...printData]);
+    }
 
     const handleGridDataChange = (e) => {
         setGridData(e.data);
     }
 
-    /*useEffect(() => {
+    useEffect(() => {
         if (exporting) {
-            gridPDFExport.current.save(process(filteredDocuments, gridData).data, () => setExporting(false));
+            gridPDFExport.current.save(process(printData, gridData).data, () => setExporting(false));
         }
     }, [exporting]);
 
     const gridForExport = <Grid
-        data={process(filteredDocuments, gridData)}
+        data={process(printData, gridData)}
         pageable
         sortable
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_name" title="Статус" />
-        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
-        <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} />
-        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
-        <GridColumn field="certificate_document_id" title="Сертификат" columnMenu={ColumnMenu}
-            cell={props => LinkCell(props, profileType)} />
-        <GridColumn field="production_department_date" title="Дата передачи в производственный департамент"
-            columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
-        <GridColumn field="date_archive" title="Архивировано" columnMenu={ColumnMenu}
-            cell={props => ArchiveCell(props)} />
-    </Grid>;*/
+        <GridColumn field="document_short_name" title="Название Документа" />
+        <GridColumn field="dog_breed_name" title="Порода" />
+        <GridColumn field="dog_name" title="Кличка" />
+        <GridColumn field="rkf_number" title="№ РКФ" />
+        <GridColumn field="cert_number" title="Номер сертификата" />
+        <GridColumn field="barcode" title="Трек номер" />
+        <GridColumn field="rkf_creation_date" title="Дата сдачи в РКФ" />
+        <GridColumn field="complition_date" title="Дата печати диплома" />
+    </Grid>;
 
-    const rowRender = (trElement, props) => {
-        const status = props.dataItem.status_id;
-        const isArchive = props.dataItem.status_id === 8;
-        const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
-        const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
-        const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
-        const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
-        const archive = { backgroundColor: "rgb(210, 215, 218)" };
-        const trProps = { style: isArchive ? archive : status === 1 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
+    const rowRender = (trElement) => {
+        const trProps = { style: {backgroundColor: '#DCF1F4'}};
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
-    };
-
-    const StatusCell = (props) => {
-        return (
-            <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-                <td>
-                    {props.dataItem.status_value}
-                </td>
-            </LightTooltip>
-        );
-    };
-
-    const handleSuccess = (message) => {
-        setSuccess({ status: true, message: message });
-        !success && setTimeout(() => {
-            setSuccess(false);
-        }, 3000);
     };
 
     return (
         <>
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale="ru">
-                    {filteredDocuments && <>
+                    {documents && <>
                         <Grid
-                            data={process(filteredDocuments, gridData)}
+                            data={process(documents, gridData)}
                             rowRender={rowRender}
                             pageable
                             sortable
-                            resizable
                             {...gridData}
                             onDataStateChange={handleGridDataChange}
-                            style={{ height: "700px", width: "auto", margin: "0 auto" }}>
-
-                            <GridColumn width={fullScreen ? '70px' : '70px'} title="Опции"
-                                cell={props => OptionsCell(props)} />
-
-                            <GridColumn field="document_short_name" cell={StatusCell} title="Название Документа (титул)"
+                            style={{ height: "600px", width: "auto", margin: "0 auto" }}>
+                            <GridColumn width={fullScreen ? '60px' : '60px'} title="Опции"
+                                cell={props => OptionsCell(props.dataItem)} />
+                            <GridColumn field="document_short_name"
+                                title="Название документа (титул)"
                                 width={fullScreen ? '120px' : '61px'} />
-
-                            <GridColumn field="dog_breed_name" title="Порода"
-                                width={fullScreen ? '157px' : '80px'} columnMenu={ColumnMenu} />
-
-                            <GridColumn field="dog_name" title="Кличка"
-                                width={fullScreen ? '270px' : '80px'} columnMenu={ColumnMenu} />
-
-                            <GridColumn field="rkf_number" title="№ РКФ"
-                                width={fullScreen ? '80' : '220px'} columnMenu={ColumnMenu} />
-
-                            <GridColumn field="cert_number" title="Номер сертификата (пателла, дисплазия, рабочий племенной)"
-                                width={fullScreen ? '140px' : '100px'} columnMenu={ColumnMenu} />
-
-                            <GridColumn field="barcode" title="Трек номер"
-                                width={fullScreen ? '130' : '189px'} columnMenu={ColumnMenu} />
-
-                            <GridColumn field="rkf_creation_date" title="Дата сдачи в РКФ"
-                                width={fullScreen ? '100px' : '120px'} columnMenu={ColumnMenu} />
-
-                            <GridColumn field="complition_date" title="Дата печати диплома"
-                                width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
-
+                            <GridColumn field="dog_breed_name"
+                                title="Порода"
+                                width={fullScreen ? '150px' : '80px'} />
+                            <GridColumn field="dog_name"
+                                title="Кличка"
+                                width={fullScreen ? '260px' : '80px'} />
+                            <GridColumn field="rkf_number"
+                                title="№ РКФ"
+                                width={fullScreen ? '80px' : '220px'} />
+                            <GridColumn field="cert_number"
+                                title="Номер сертификата (пателла, дисплазия, рабочий племенной)"
+                                width={fullScreen ? '140px' : '100px'} />
+                            <GridColumn field="barcode"
+                                title="Трек номер"
+                                width={fullScreen ? '130px' : '189px'} />
+                            <GridColumn field="rkf_creation_date"
+                                title="Дата сдачи в РКФ"
+                                width={fullScreen ? '100px' : '120px'} />
+                            <GridColumn field="complition_date"
+                                title="Дата печати диплома"
+                                width={fullScreen ? '100px' : '100px'} />
                         </Grid></>
                     }
-                    {/*<GridPDFExport
-                        fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                    <GridPDFExport
+                        fileName={`Реестр от ${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
                         pageTemplate={() => <PdfPageTemplate
-                            title={distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
+                            title={"РЕЕСТР"}
                         />}
                     >
                         {gridForExport}
-                    </GridPDFExport>*/}
+                    </GridPDFExport>
                 </IntlProvider>
+                <div className="modal-save">
+                    <button className="modal-save__button"
+                            onClick={() => setExporting(true)}
+                            disabled={exporting}
+                    >
+                        Печать
+                    </button>
+                </div>
             </LocalizationProvider>
         </>
     )

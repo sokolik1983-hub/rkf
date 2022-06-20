@@ -264,9 +264,14 @@
       vertical-align: middle
     }
 
-  
-    .custom-checkbox__label {
-      display: block;
+    .custom-checkbox {
+      &__label {
+        display: block;
+      }
+      &__input {
+        display: block;
+        margin: 0 auto;
+      }
     }
 
     .k-grid {
@@ -275,6 +280,27 @@
       & td {
         border-bottom: 1px solid rgba(33, 37, 41, 0.125);
         text-align: center;
+      }
+    }
+
+    .modal-save {
+
+      &__button {
+        display: block;
+        margin: 15px auto 0;
+        padding: 8px 12px;
+        width: 155px;
+        height: 36px;
+        font-size: 16px;
+        line-height: 16px;
+        color: #FFFFFF;
+        border: 1px solid #3366ff;
+        border-radius: 3px;
+        background-color: #3366FF;
+
+        &:hover {
+          box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+        }
       }
     }
   }
@@ -301,7 +327,6 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
-    font-weight: normal;
     text-align: center;
     text-decoration: none;
     color: #253c5e;
