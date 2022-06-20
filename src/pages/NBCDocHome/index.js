@@ -18,13 +18,6 @@ const NBCDocHome = () => {
     return <Layout>
         <div className="documents-page content">
             <Container className="documents-page__content">
-                <TopComponent
-                    logo={logo_link}
-                    name={name}
-                    canEdit={false}
-                    withShare={false}
-                    userType ={7}
-                />
                     <Switch>
                         <Route
                             exact={true}

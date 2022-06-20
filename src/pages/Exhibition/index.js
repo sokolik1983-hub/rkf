@@ -98,7 +98,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
         }, data => {
             setExhibition(data);
         }, error => {
-            console.log(error.response);
             setIsError(true);
         });
 
