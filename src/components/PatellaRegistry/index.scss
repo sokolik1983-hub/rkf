@@ -128,11 +128,11 @@
   }
 
   &__controls {
+    position: relative;
     display: flex;
+    top: 29px;
     align-items: center;
     justify-content: flex-end;
-    position: relative;
-    top: 29px;
 
     @media (max-width: 500px) {
       flex-direction: column;

@@ -76,7 +76,7 @@ const ReplaceRegistry = ({distinction, profileType}) => {
         <>
             {!standardView ?
                 <Card className="club-documents-status__popup">
-                    <div className="club-documents-status__controls" style={{position: "relative", top: "29px"}}>
+                    <div className="club-documents-status__controls">
                         <button
                             className="club-documents-status__control club-documents-status__control--downloadIcon"
                             onClick={() => setExporting(true)}
