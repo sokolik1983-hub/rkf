@@ -86,7 +86,7 @@ const Table = ({ documents, fullScreen }) => {
                                 cell={props => OptionsCell(props.dataItem)} />
                             <GridColumn field="document_short_name"
                                 title="Название документа (титул)"
-                                width={fullScreen ? '120px' : '61px'} />
+                                width={fullScreen ? '120px' : '100px'} />
                             <GridColumn field="dog_breed_name"
                                 title="Порода"
                                 width={fullScreen ? '150px' : '80px'} />
@@ -95,19 +95,19 @@ const Table = ({ documents, fullScreen }) => {
                                 width={fullScreen ? '260px' : '80px'} />
                             <GridColumn field="rkf_number"
                                 title="№ РКФ"
-                                width={fullScreen ? '80px' : '220px'} />
+                                width={fullScreen ? '80px' : '80px'} />
                             <GridColumn field="cert_number"
                                 title="Номер сертификата (пателла, дисплазия, рабочий племенной)"
                                 width={fullScreen ? '140px' : '100px'} />
                             <GridColumn field="barcode"
                                 title="Трек номер"
-                                width={fullScreen ? '130px' : '189px'} />
+                                width={fullScreen ? '130px' : '100px'} />
                             <GridColumn field="rkf_creation_date"
                                 title="Дата сдачи в РКФ"
-                                width={fullScreen ? '100px' : '120px'} />
+                                width={fullScreen ? '100px' : '80px'} />
                             <GridColumn field="complition_date"
                                 title="Дата печати диплома"
-                                width={fullScreen ? '100px' : '100px'} />
+                                width={fullScreen ? '100px' : '80px'} />
                         </Grid></>
                     }
                     <GridPDFExport
