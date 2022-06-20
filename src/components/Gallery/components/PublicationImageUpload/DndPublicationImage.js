@@ -38,13 +38,6 @@ const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeMo
     const [showAlert, setShowAlert] = useState(false);
     const [showAlertImg, setShowAlertImg] = useState(false);
 
-    const style = useMemo(() => ({
-        ...baseStyle,
-        ...(isDragActive ? activeStyle : {})
-    }), [
-        isDragActive
-    ]);
-
     const onSubmit = () => {
         setLoading(true);
         setLoadPictures(loadPictures.concat(files))
@@ -95,6 +88,13 @@ const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeMo
             }
         }
     });
+
+    const style = useMemo(() => ({
+        ...baseStyle,
+        ...(isDragActive ? activeStyle : {})
+    }), [
+        isDragActive
+    ]);
 
     return (
         <section className="DndImageUpload__wrap">
