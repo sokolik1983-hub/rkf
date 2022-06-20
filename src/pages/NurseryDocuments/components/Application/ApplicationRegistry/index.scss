@@ -154,7 +154,11 @@
         height: 17px;
         display: inline-block;
         margin-right: 10px;
-        background: url(/static/icons/full-screen.svg) no-repeat center / cover;
+        background: url(/static/icons/full-screen.svg) no-repeat center / cover,
+        url(/static/icons/full-screen-blue.svg) no-repeat center / cover;
+      }
+      &--tableIcon:hover:before {
+        background: url(/static/icons/full-screen-blue.svg) no-repeat center / cover;
       }
       &--downloadIcon {
         z-index: 99;
@@ -165,7 +169,11 @@
         height: 20px;
         display: inline-block;
         margin-right: 10px;
-        background: url(/static/icons/downloadIcon.svg) no-repeat center / cover;
+        background: url(/static/icons/downloadIcon.svg) no-repeat center / cover,
+        url(/static/icons/downloadIcon-blue.svg) no-repeat center / cover;
+      }
+      &--downloadIcon:hover:before {
+        background: url(/static/icons/downloadIcon-blue.svg) no-repeat center / cover;
       }
       &--resetIcon:before {
         content: '';
