@@ -29,7 +29,6 @@ const ApplicationRegistry = () => {
     const document_id = window.location.href.split('=')[1];
     const isMobile = useIsMobile(1200);
 
-
     useEffect(() => {
         (() => Request({
             url: `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest/register_of_requests`,
