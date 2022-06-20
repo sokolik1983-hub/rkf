@@ -1,13 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { process } from '@progress/kendo-data-query';
+import React, { useState, useRef, useEffect } from "react";
+import { process } from "@progress/kendo-data-query";
 import { GridPDFExport } from "@progress/kendo-react-pdf";
-import { Grid, GridColumn } from '@progress/kendo-react-grid';
-import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
-import kendoMessages from "kendoMessages.json";
+import { Grid, GridColumn } from "@progress/kendo-react-grid";
+import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import PdfPageTemplate from "../../PdfPageTemplate";
+import kendoMessages from "kendoMessages.json";
 import moment from "moment";
 
 import "./index.scss";
+
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -81,7 +82,7 @@ const Table = ({ documents, fullScreen }) => {
                             sortable
                             {...gridData}
                             onDataStateChange={handleGridDataChange}
-                            style={{ height: "600px", width: "auto", margin: "0 auto" }}>
+                            style={{ height: '600px', width: 'auto', margin: '0 auto' }}>
                             <GridColumn width={fullScreen ? '60px' : '60px'} title="Опции"
                                 cell={props => OptionsCell(props.dataItem)} />
                             <GridColumn field="document_short_name"
@@ -115,7 +116,7 @@ const Table = ({ documents, fullScreen }) => {
                         ref={gridPDFExport}
                         scale={0.5}
                         margin="1cm"
-                        paperSize={["297mm", "210mm"]}
+                        paperSize={['297mm', '210mm']}
                         pageTemplate={() => <PdfPageTemplate
                             title={"РЕЕСТР"}
                         />}

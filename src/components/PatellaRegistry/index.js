@@ -31,7 +31,7 @@ const ReplaceRegistry = ({distinction, profileType}) => {
         (() => PromiseRequest({
             url: `/api/requests/dog_health_check_request/${profileType === "kennel" ? 'kennel' : ''}doghealthcheckrequest/register_of_requests`,
             method: 'POST',
-            data: {type_id: distinction === "dysplasia" ? 1 : 2}
+            data: {type_id: distinction === 'dysplasia' ? 1 : 2}
         }).then(
             data => {
                 setDocuments(data.sort(function (a, b) {
@@ -112,15 +112,15 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                     <div className="club-documents-status__head">
                         <Link
                             className="btn-backward"
-                            to={profileType === "kennel" ? `/kennel/${alias}/documents` : `/club/${alias}/documents`}
+                            to={profileType === 'kennel' ? `/kennel/${alias}/documents` : `/club/${alias}/documents`}
                         >
                             Личный кабинет
                         </Link>
                         &nbsp;/&nbsp;
-                        {distinction === "dysplasia" ?
-                            "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ"
+                        {distinction === 'dysplasia' ?
+                            'СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ'
                             :
-                            "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
+                            'СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)'}
                     </div>
                     {documents && !!documents.length ?
                         <div>
