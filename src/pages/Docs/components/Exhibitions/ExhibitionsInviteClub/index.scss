@@ -67,7 +67,7 @@
       }
 
       &__info {
-        justify-content: center;
+        margin-top: 18px;
 
         p {
           display: flex;
@@ -109,7 +109,7 @@
       }
 
       &__agreement {
-        align-self: center;
+        margin-top: 35px;
 
         p {
           margin: 0;
@@ -159,6 +159,10 @@
     &__judges-wrap {
       margin-top: 5px;
 
+      ul {
+        margin-top: 10px;
+      }
+
       .judge-item {
         padding: 10px;
 
@@ -176,10 +180,38 @@
 
         &__name-wrap {
           grid-area: name;
+
+          .judge-item__name-rus {
+            svg {
+              min-width: fit-content;
+            }
+
+            p:last-of-type {
+              width: max-content;
+            }
+          }
         }
 
         &__agreement {
           grid-area: agreement;
+          margin-top: 0;
+
+          &._agree {
+            width: min-content;
+            margin-left: auto;
+          }
+
+          &._disagree {
+            display: flex;
+            flex-direction: column;
+            margin-left: auto;
+            width: 70%;
+
+            span {
+              font-style: italic;
+              color: #72839C;
+            }
+          }
         }
 
         &__invite {
@@ -188,9 +220,9 @@
           text-align: end;
           width: 60%;
 
-          button {
+          .btn {
             margin-right: 0;
-            padding: 10px;
+            padding: 0;
             white-space: nowrap;
           }
         }
