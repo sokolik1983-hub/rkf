@@ -216,9 +216,9 @@
 
     &--resetIcon:before {
       content: '';
+      display: inline-block;
       width: 18px;
       height: 18px;
-      display: inline-block;
       margin-right: 10px;
       background: url(/static/icons/arrow-left.svg) no-repeat center / cover;
     }
