@@ -30,7 +30,6 @@ const activeStyle = {
     borderColor: '#3366ff'
 };
 
-
 const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeModal}) => {
 
     const [files, setFiles] = useState([]);
