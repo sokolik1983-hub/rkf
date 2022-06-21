@@ -33,9 +33,7 @@
 
   &__container {
     padding-left: 15px;
-    @media (max-width: 580px) {
-      width: 70%
-    }
+    width: 80%;
   }
 
   &__heading {
@@ -99,6 +97,10 @@
     text-overflow: ellipsis;
     display: block;
     overflow: hidden;
+    @media (max-width: 700px) {
+      margin-bottom: 0;
+    }
+
 
     span:first-child {
       color: #72839c;
@@ -112,17 +114,27 @@
       width: 100%;
       overflow: hidden;
       @media (max-width: 700px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 10px;
         height: 70px;
       }
 
       & > div {
         display: flex;
         align-items: center;
-        margin-bottom: 5px;
 
         @media (max-width: 700px) {
           display: block;
         }
+      }
+    }
+
+    &-fed {
+      @media (max-width: 700px) {
+        margin-top: -10px;
+        margin-bottom: 20px;
       }
     }
 
@@ -136,10 +148,16 @@
     margin-left: 6px;
   }
 
+  &__federation + &__city {
+    margin-left: 20px;
+    @media (max-width: 700px) {
+      margin-left: 0;
+    }
+  }
+
   &__city {
     position: relative;
     padding-left: 16px;
-    margin-left: 20px;
     line-height: 20px;
     letter-spacing: 0.2px;
     color: #72839c;
@@ -215,16 +233,21 @@
     width: 100%;
     letter-spacing: 0.2px;
     color: #72839c;
-    max-height: 44px;
+    max-height: 72px;
     overflow: hidden;
-    margin: 10px 0 2px;
-    line-height: 20px;
+    text-overflow: ellipsis;
+    margin: 10px 0 0;
+    line-height: 18px;
+
 
     &._centered {
       text-align: center;
     }
 
     @media (max-width: 560px) {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
       text-align: left !important;
     }
   }
@@ -251,8 +274,16 @@
 
   &__special-position {
     &_left {
+
       @media (max-width: 700px) {
         margin-left: -63px;
+
+        .card-organization__text {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+
         &__fed {
           margin-left: -63px;
           margin-top: -15px;
@@ -274,10 +305,6 @@
       }
     }
     @media (max-width: 600px) {
-      & .card-organization__special-position_left__fed {
-        margin-top: 0;
-        margin-left: 0;
-      }
       & .card-organization__heading {
         height: auto;
       }
