@@ -69,7 +69,9 @@ const Counter = ({ counters, profileAlias, breeds }) => {
                     <NavLink
                         exact to={breeds ?
                         linkForExhibitionsNBC(breeds) :
-                        `/exhibitions?Alias=${profileAlias}`
+                             !!profileAlias.match(/club/) ?
+                                 `/exhibitions?Alias=${profileAlias.replace('club/', '')}` :
+                                    `/exhibitions?Alias=${profileAlias}`
                     }
                         title="Мероприятия"
                     >
