@@ -21,13 +21,24 @@ const Table = ({ documents, fullScreen }) => {
         sort: []
     });
 
-    const OptionsCell = (props) => {
+    const optionsCell = (props) => {
         return <td>
             <input type="checkbox"
                    id="print"
                    className="custom-checkbox__input"
                    checked={!!printData.filter(item => item.barcode === props.barcode).length}
                    onChange={() => handleChange(props)}
+            />
+        </td>
+    };
+
+    const headerCell = () => {
+        return <td>
+            <input type="checkbox"
+                   id="print"
+                   className="custom-checkbox__input"
+                   checked={printData.length === documents.length}
+                   onChange={() =>  setPrintData(printData.length === documents.length ? [] : documents)}
             />
         </td>
     };
@@ -84,7 +95,8 @@ const Table = ({ documents, fullScreen }) => {
                             onDataStateChange={handleGridDataChange}
                             style={{ height: '600px', width: 'auto', margin: '0 auto' }}>
                             <GridColumn width={fullScreen ? '60px' : '60px'} title="Опции"
-                                cell={props => OptionsCell(props.dataItem)} />
+                                cell={props => optionsCell(props.dataItem)}
+                                headerCell={() => headerCell()}/>
                             <GridColumn field="document_short_name"
                                 title="Название документа (титул)"
                                 width={fullScreen ? '120px' : '100px'} />
