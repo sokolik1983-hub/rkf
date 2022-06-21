@@ -5,17 +5,17 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import CountDown from "../../../../components/CountDown";
 import PropertyP from "../../../../components/PropertyP";
-import declension from "../../../../utils/declension";
-import {Request} from "../../../../utils/request";
-import {blockContent} from "../../../../utils/blockContent";
-import {
-    getLocalizedWeekDay,
-    timeSecondsCutter,
-    transformDateSafariFriendly
-} from "../../../../utils/datetime";
-import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {judgeIcon, allbreedJudgeIcon} from "../../../../components/Layouts/UserLayout/config";
+import {
+    getLocalizedWeekDay as week,
+    timeSecondsCutter,
+    transformDateSafariFriendly as safari
+} from "../../../../utils/datetime";
+import {Request} from "../../../../utils/request";
+import declension from "../../../../utils/declension";
 import useIsMobile from "../../../../utils/useIsMobile";
+import {blockContent} from "../../../../utils/blockContent";
+import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 
 import "./index.scss";
 
@@ -104,10 +104,11 @@ const ExhibitionInfo = ({
     return (
         <>
             <Card className="exhibition-info">
-                <div className="exhibition-page__wrap" >
-                    {!isMobile && <img src={exhibition_avatar_link} alt="" className="exhibition-page__img" />}
-                    <div className="exhibition-page__right">
-                    <h4 className="exhibition-info__title">Информация о мероприятии</h4>
+                <div className="exhibition-page__wrap two" >
+                    <div className="exhibition-page__content-left">
+                        {!isMobile && <img src={exhibition_avatar_link} alt="" className="exhibition-page__img" />}
+                    </div>
+                    <div className="exhibition-page__content-right">
                     {dates &&
                         <>
                             <h5 className="exhibition-info__subtitle">
@@ -116,11 +117,12 @@ const ExhibitionInfo = ({
                             <div className="exhibition-info__dates">
                                 {dates.map((date, i) => (
                                     <p key={i} className="exhibition-info__date">
-                                        {`${capitalizeFirstLetter(getLocalizedWeekDay(transformDateSafariFriendly(date)))}, 
+                                        {`${capitalizeFirstLetter(week(safari(date), 'ru', 'short'))}, 
                                         ${date.day < 10 ? '0' + date.day : date.day}.
                                         ${date.month < 10 ? '0' + date.month : date.month}.
-                                        ${date.year}${!!date.time_start ? ' c ' + timeSecondsCutter(date.time_start):''}
-                                        ${!!date.time_end ? ' до ' + timeSecondsCutter(date.time_end) + ' по МСК': ''}`}
+                                        ${date.year}`}
+                                        {`${!!date.time_start ?  ' c '  + timeSecondsCutter(date.time_start):''}
+                                        ${!!date.time_end ? ' до ' + timeSecondsCutter(date.time_end) + ' по МСК':''}`}
                                     </p>
                                 ))}
                             </div>
