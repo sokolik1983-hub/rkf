@@ -2,6 +2,10 @@
     min-height: 96vh;
     background-color: #f5f8ff;
 
+    &:first-child {
+        padding-top: 0;
+    }
+
     & + .Footer {
         display: none;
     }
@@ -11,6 +15,7 @@
     }
 
     &__content {
+        padding-top: 0;
         padding-bottom: 50px;
         @media (max-width: 560px) {
             padding-bottom: 16px;

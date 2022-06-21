@@ -141,9 +141,9 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                     </div>
                                     <div className="judge-item__agreement">
                                         {judge_item.nbc_invite_status === 2 ?
-                                            <p>Получено согласование от НКП</p> :
+                                            <p className="judge-item__agreement _agree">Получено согласование от НКП</p> :
                                             judge_item.nbc_invite_status === 3 &&
-                                            <p>Получен отказ от НКП, причина:
+                                            <p className="judge-item__agreement _disagree">Получен отказ от НКП, причина:
                                                 <span>{!!judge_item.nbc_invite_comment ? judge_item.nbc_invite_comment : 'Не указано'}</span>
                                             </p>
                                         }
