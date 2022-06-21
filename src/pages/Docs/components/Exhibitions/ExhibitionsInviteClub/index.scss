@@ -58,6 +58,7 @@
       &__wrap {
         display: grid;
         grid-template-columns: 25% 27% 23% 25%;
+        padding-bottom: 10px;
       }
 
       &__name-wrap,  &__info {
@@ -66,9 +67,12 @@
       }
 
       &__info {
+        margin-top: 18px;
+
         p {
           display: flex;
           flex-direction: row;
+          margin: 0;
           font-weight: 600;
           color: #72839c;
 
@@ -104,11 +108,24 @@
         color: #72839C;
       }
 
+      &__agreement {
+        margin-top: 35px;
+
+        p {
+          margin: 0;
+        }
+      }
+
       &__invite {
         text-align: center;
+        align-self: center;
 
-        button {
-          margin-bottom: 15px;
+        .btn {
+          padding: 0 10px;
+          margin: 0;
+          width: 160px;
+          height: 38px;
+          line-height: 18px;
         }
 
         p {
@@ -142,6 +159,10 @@
     &__judges-wrap {
       margin-top: 5px;
 
+      ul {
+        margin-top: 10px;
+      }
+
       .judge-item {
         padding: 10px;
 
@@ -159,10 +180,38 @@
 
         &__name-wrap {
           grid-area: name;
+
+          .judge-item__name-rus {
+            svg {
+              min-width: fit-content;
+            }
+
+            p:last-of-type {
+              width: max-content;
+            }
+          }
         }
 
         &__agreement {
           grid-area: agreement;
+          margin-top: 0;
+
+          &._agree {
+            width: min-content;
+            margin-left: auto;
+          }
+
+          &._disagree {
+            display: flex;
+            flex-direction: column;
+            margin-left: auto;
+            width: 70%;
+
+            span {
+              font-style: italic;
+              color: #72839C;
+            }
+          }
         }
 
         &__invite {
@@ -171,9 +220,9 @@
           text-align: end;
           width: 60%;
 
-          button {
+          .btn {
             margin-right: 0;
-            padding: 10px;
+            padding: 0;
             white-space: nowrap;
           }
         }
