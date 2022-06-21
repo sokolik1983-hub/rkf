@@ -116,6 +116,10 @@
     &._litter {
       background-image: url("/static/images/documents/litter-icon.svg");
     }
+    &._events {
+      background-image: url("/static/images/documents/events-icon.svg");
+    }
+
     @media (max-width: 560px) {
       width: 100px;
       min-width: 100px;
