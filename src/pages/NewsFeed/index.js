@@ -4,10 +4,10 @@ import NBCLayout from "../../components/Layouts/NBCLayout";
 import UserLayout from "../../components/Layouts/UserLayout";
 import ClubLayout from "../../components/Layouts/ClubLayout";
 import NurseryLayout from "../../components/Layouts/NurseryLayout";
+import { connectShowFilters } from '../../components/Layouts/connectors';
 import CategoriesList from "./components/CategoriesList";
 import MustRead from "./components/MustRead";
 import NewsList from "./components/NewsList";
-import { connectShowFilters } from '../../components/Layouts/connectors';
 import {blockContent} from "../../utils/blockContent";
 
 import "./styles.scss";
@@ -60,7 +60,7 @@ const Content = props => { //Дополнительные props берутся �
                                     countersChanges={countersChanges}
                                     setCountersChanges={setCountersChanges}
                                 />
-                                {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 4)) &&
+                                {(showMustRead || (notificationUrlIndex === 4 && activeCategoryId === 5)) &&
                                     <MustRead
                                         {...props}
                                         notificationUrlIndex={notificationUrlIndex}

@@ -32,7 +32,7 @@ const CategoriesList = ({
     const handleCategoryClick = (id) => {
         setActiveCategoryId(id);
         setShowFilters({ isOpenFilters: false });
-        if (id === 4) {
+        if (id === 5) {
             setShowMustRead(true);
         } else {
             setShowMustRead(false);
