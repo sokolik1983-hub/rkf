@@ -74,8 +74,8 @@ const Content = ({
                             userType === 7 && "nbc"
                         }
                         logInLogOut={
-                            accountType === 5 && (userType === 5 || alias === "rkf" || alias === "rkf-online") ? "in" :
-                            accountType === 5 && userType !== 5 && alias !== "rkf" && alias !== "rkf-online" && "out"
+                            accountType === 5 && (userType === 5 || alias === "rkf") ? "in" :
+                            accountType === 5 && userType !== 5 && alias !== "rkf" && "out"
                         }
                     />
                 }
