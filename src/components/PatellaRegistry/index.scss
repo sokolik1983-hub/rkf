@@ -128,11 +128,11 @@
   }
 
   &__controls {
+    position: relative;
     display: flex;
+    top: 29px;
     align-items: center;
     justify-content: flex-end;
-    position: relative;
-    top: 29px;
 
     @media (max-width: 500px) {
       flex-direction: column;
@@ -209,11 +209,24 @@
       background: url(/static/icons/downloadIcon-blue.svg) no-repeat center / cover;
     }
 
+    &--registryIcon {
+      z-index: 99;
+
+      &:before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        margin-right: 10px;
+        background: url(/static/icons/registryIcon.svg) no-repeat center / cover;
+      }
+    }
+
     &--resetIcon:before {
       content: '';
+      display: inline-block;
       width: 18px;
       height: 18px;
-      display: inline-block;
       margin-right: 10px;
       background: url(/static/icons/arrow-left.svg) no-repeat center / cover;
     }
@@ -232,6 +245,70 @@
       & td {
         border-bottom: 1px solid rgba(33, 37, 41, 0.125);
         text-align: center;
+      }
+    }
+  }
+
+  &__modal {
+    & > div {
+      width: 1184px;
+    }
+
+    .Modal {
+      &__inner {
+        max-width: 1184px;
+      }
+    }
+
+    .k-header {
+      font-size: 12px;
+      vertical-align: middle
+    }
+
+    .k-link {
+      padding: 0 12px !important;
+      white-space: break-spaces;
+      text-align: center;
+      vertical-align: middle
+    }
+
+    .custom-checkbox {
+      &__label {
+        display: block;
+      }
+      &__input {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+
+    .k-grid {
+      font-size: 14px;
+
+      & td {
+        border-bottom: 1px solid rgba(33, 37, 41, 0.125);
+        text-align: center;
+      }
+    }
+
+    .modal-save {
+
+      &__button {
+        display: block;
+        margin: 15px auto 0;
+        padding: 8px 12px;
+        width: 155px;
+        height: 36px;
+        font-size: 16px;
+        line-height: 16px;
+        color: #FFFFFF;
+        border: 1px solid #3366ff;
+        border-radius: 3px;
+        background-color: #3366FF;
+
+        &:hover {
+          box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+        }
       }
     }
   }
@@ -258,7 +335,6 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
-    font-weight: normal;
     text-align: center;
     text-decoration: none;
     color: #253c5e;

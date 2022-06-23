@@ -60,10 +60,14 @@
     }
   }
   &__img {
+    position: absolute;
     display: block;
-    width: 50%;
-    padding-right: 15px;
+    width: content-box;
+    height: content-box;
+    padding-right: 10px;
+    overflow: hidden;
     @media (max-width: 1080px) {
+      position: unset;
       margin-left: 10px;
       width: 100%;
     }
@@ -100,7 +104,6 @@
         display: inline-block;
         margin: 8px 0 0;
         padding: 8px 24px !important;
-        letter-spacing: normal;
         line-height: 1;
       }
     }
@@ -118,7 +121,7 @@
     }
     &-wrap {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       margin: 10px 0 30px;
       @media (max-width: 560px) {
@@ -139,7 +142,6 @@
     font-size: 16px;
     line-height: 16px;
     text-align: center;
-    letter-spacing: 0.2px;
     margin: 0;
     @media (max-width: 560px) {
       display: inline-block;
@@ -167,7 +169,6 @@
       font-weight: 400;
       font-size: 18px;
       line-height: 16px;
-      letter-spacing: 0.4px;
       color: #253C5E;
     }
   }
@@ -184,7 +185,6 @@
       font-weight: 400;
       font-size: 18px;
       line-height: 16px;
-      letter-spacing: 0.4px;
       color: #253C5E;
     }
     &-info, p {
@@ -207,7 +207,6 @@
       font-weight: 400;
       font-size: 18px;
       line-height: 16px;
-      letter-spacing: 0.4px;
       color: #253C5E;
     }
     &-subtitle {
@@ -315,6 +314,7 @@
   &__wrap {
     display: flex;
     flex-direction: row;
+    gap: 10px;
     padding-bottom: 15px;
     border-bottom: 1px solid #E5E5E5;
   }
@@ -326,6 +326,29 @@
     order: 1;
     background-color: #FFFFFF;
   }
+
+  &__content {
+    &-right {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      background-color: #FFFFFF;
+    }
+    &-left {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      @media (max-width: 1080px) {
+        display: none;
+      }
+
+      img {
+        max-width: 140%;
+        right: -20%;
+      }
+    }
+  }
+
   &__map {
     img {
       background: #f3f4f4;
@@ -385,7 +408,6 @@
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: 0.2px;
     position: relative;
     align-self: flex-end;
     padding-left: 12px;

@@ -71,8 +71,7 @@ const Search = ({ withFilters, hideSideMenu }) => {
                     { isClicked &&
                         <input
                             className={ `header__search-control${ isClicked ? ' _open' : '' }` }
-                            type='text'
-                            placeholder='Введите поисковой запрос'
+                            type="text"
                             onChange={ ({ target }) => setSearchValue(target.value) }
                             onClick={ () => setIsClicked(true) }
                             value={ searchValue }
