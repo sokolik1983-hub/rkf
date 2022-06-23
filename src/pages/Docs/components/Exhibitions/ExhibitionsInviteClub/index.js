@@ -42,6 +42,17 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
         error => console.log(error, 'ошибка')
     );
 
+    const inviteNbc = async (judge_item) => await Request({
+            url: `/api/exhibitions/invite/repeat_autorize_request`,
+            method: 'PUT',
+            data: JSON.stringify({
+                judge_id: judge_item.judge_id,
+                invite_id: judge_item.invite_id,
+            })
+        }, data => setNeedRequest(true),
+        error => console.log(error, 'ошибка')
+    );
+
     useEffect( () => {
         needRequest && (async () => await Request({
             url: `/api/exhibitions/invite?exhibitionId=${id}`,
@@ -142,14 +153,19 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                     <div className="judge-item__agreement">
                                         {judge_item.nbc_invite_status === 2 ?
                                             <p className="judge-item__agreement _agree">Получено согласование от НКП</p> :
-                                            judge_item.nbc_invite_status === 3 &&
-                                            <p className="judge-item__agreement _disagree">Получен отказ от НКП, причина:
-                                                <span>{!!judge_item.nbc_invite_comment ? judge_item.nbc_invite_comment : 'Не указано'}</span>
-                                            </p>
+                                            (judge_item.nbc_invite_status === 3 || judge_item.nbc_invite_status === 1) &&
+                                            (!!judge_item.nbc_invite_comment ?
+                                                <p className="judge-item__agreement _disagree">Получен отказ от НКП, причина:
+                                                    <span>{judge_item.nbc_invite_comment}</span>
+                                                </p> :
+                                                    <p className="judge-item__agreement _disagree">
+                                                        Запрос в НКП отправлен
+                                                    </p>
+                                            )
                                         }
                                     </div>
                                     <div className="judge-item__invite">
-                                        {judge_item.nbc_invite_status === 2 &&
+                                        {judge_item.nbc_invite_status === 2 ?
                                             ((judge_item.judge_invite_status === 1 && !judge_item.is_invited_by_club) ?
                                                     <Button primary={true}
                                                             onClick={() => inviteJudges(judge_item)}>
@@ -195,6 +211,16 @@ const ExhibitionsInviteClub = ({ alias, userType }) => {
                                                                         <Button primary={true} onClick={() =>inviteJudges(judge_item)}>Пригласить повторно</Button>
                                                                     </div>
                                                                 )
+                                            ) :
+                                            (judge_item.nbc_invite_status === 3 ?
+                                                <Button primary={true} onClick={() => inviteNbc(judge_item)}>
+                                                    Пригласить повторно
+                                                </Button> :
+                                                    ((judge_item.nbc_invite_status === 1 && !!judge_item.nbc_invite_comment) &&
+                                                        <p>
+                                                            Запрос отправлен повторно
+                                                        </p>
+                                                    )
                                             )
                                         }
                                     </div>
