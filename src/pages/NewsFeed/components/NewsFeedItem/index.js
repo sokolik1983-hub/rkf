@@ -115,9 +115,6 @@ const NewsFeedItem = forwardRef(({
         });
     }
 
-    console.log(alias);
-    console.log(user_type);
-
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
