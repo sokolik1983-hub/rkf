@@ -115,6 +115,9 @@ const NewsFeedItem = forwardRef(({
         });
     }
 
+    console.log(alias);
+    console.log(user_type);
+
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
@@ -130,7 +133,9 @@ const NewsFeedItem = forwardRef(({
                                     ? `/user/${alias}`
                                     : user_type === 3 && alias !== 'rkf'&& alias !== 'rkf-online'
                                         ? `/club/${alias}`
-                                        : `/${alias}`}>
+                                        : user_type === 0 && alias === 'rkf-online'
+                                            ? `/club/${alias}`
+                                            :`/${alias}`}>
                                 <div
                                     className="news-feed-item__left-logo"
                                     style={{background: `url(${logo_link ?
@@ -150,7 +155,9 @@ const NewsFeedItem = forwardRef(({
                                                 ? `/user/${alias}`
                                                 : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
                                                     ? `/club/${alias}`
-                                                    : `/${alias}`}>
+                                                    : user_type === 0 && alias === 'rkf-online'
+                                                        ? `/club/${alias}`
+                                                        :`/${alias}`}>
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
                                         </Link>
                                         <span>{formatDateTime(create_date)}</span>
