@@ -137,8 +137,8 @@ const Notifications = ({isAuthenticated}) => {
         if (noId) return buildUrl();
 
         if (currentCategory === 3) {
-            return buildUrl(4);
-        } else if (currentCategory === 4) {
+            return buildUrl(5);
+        } else if (currentCategory === 5) {
             return buildUrl(6);
         } else if (currentCategory === 2) {
             return buildUrl(7);
