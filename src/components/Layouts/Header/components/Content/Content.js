@@ -68,7 +68,7 @@ const Content = ({
                         is_active_profile={is_active_profile}
                         userTypes={
                             userType === 1 ? "user" :
-                            userType === 3 && alias !== "rkf" && alias === "rkf-online" ? "club" :
+                            userType === 3 && (alias !== "rkf" || alias === "rkf-online") ? "club" :
                             userType === 5 || alias === "rkf" ? "federation" :
                             userType === 4 ? "kennel" :
                             userType === 7 && "nbc"
