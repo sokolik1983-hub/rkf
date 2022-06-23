@@ -132,23 +132,23 @@
     line-height: 26px;
     letter-spacing: 0.4px;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 15px;
   }
   &__about {
-    letter-spacing: 0.2px;
-    margin-bottom: 6px;
+    margin-bottom: 20px;
     padding-right: 180px;
+    letter-spacing: 0.2px;
     @media (max-width: 560px) {
       padding-right: 0;
     }
   }
   &__controls {
-    padding: 6px 180px 0 0;
-    border-top: 1px solid #e8e8e8;
     display: flex;
-    justify-content: space-between;
+    padding: 6px 180px 6px 0;
+    border-top: 1px solid #e8e8e8;
     clear: both;
-    @media (max-width: 560px) {
+    @media (max-width: 720px) {
+      display: block;
       padding-right: 0;
     }
     &-links {
@@ -160,6 +160,7 @@
     }
   }
   &__link {
+    margin-right: 30px;
     text-decoration: none;
     font-weight: 600;
     &:hover {
@@ -170,6 +171,10 @@
       cursor: default;
       color: #72839c;
       opacity: 0.5;
+    }
+    @media (max-width: 720px) {
+      display: block;
+      margin: 0;
     }
   }
   &__modal {
