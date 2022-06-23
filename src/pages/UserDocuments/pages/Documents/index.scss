@@ -132,21 +132,21 @@
     line-height: 26px;
     letter-spacing: 0.4px;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 15px;
   }
   &__about {
-    letter-spacing: 0.2px;
-    margin-bottom: 6px;
+    margin-bottom: 20px;
     padding-right: 180px;
+    letter-spacing: 0.2px;
     @media (max-width: 560px) {
       padding-right: 0;
     }
   }
   &__controls {
-    padding: 6px 180px 0 0;
+    padding: 6px 180px 6px 0;
     border-top: 1px solid #e8e8e8;
     display: flex;
-    justify-content: space-between;
+    //justify-content: space-between;
     clear: both;
     @media (max-width: 560px) {
       padding-right: 0;

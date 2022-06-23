@@ -21,10 +21,10 @@
             font-size: 18px;
             line-height: 26px;
             letter-spacing: 0.4px;
-            margin-bottom: 6px;
+            margin-bottom: 15px;
         }
         p {
-            margin-bottom: 6px;
+            margin-bottom: 20px;
             letter-spacing: 0.2px;
         }
         hr {
@@ -51,10 +51,9 @@
             display: flex;
             flex-wrap: wrap;
             font-weight: normal;
-            padding: 6px 0 0;
+            padding: 6px 0;
             @media (max-width: 405px) {
                 display: block;
-                padding-bottom: 6px;
             }
             a {
                 text-decoration: none;
