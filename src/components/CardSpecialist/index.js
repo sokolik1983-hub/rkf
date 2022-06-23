@@ -110,7 +110,7 @@ const CardSpecialist = ({
 
                             <div className="card-specialists__sertificate-block">
                                 <span className="card-specialists__sertificate">
-                                    {`Лист ${!isSpecialist ? 'судьи' : 'специалиста'} №`}<span>{cert_number}</span>
+                                    {`Лист ${!isSpecialist ? 'судьи' : 'специалиста'} № `}<span>{cert_number}</span>
                                 </span>
                             </div>
                         </div>
