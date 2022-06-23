@@ -44,10 +44,10 @@ const Content = ({
                 {userType === 1 &&
                     <Link to={`/user/${alias}`}>{name ? getInitials(name) : 'Аноним'}</Link>
                 }
-                {userType === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
+                {userType === 3  && (alias !== 'rkf' || alias === 'rkf-online') &&
                     <Link to={is_active_profile ? `/club/${alias}` : '/not-confirmed'}>{name}</Link>
                 }
-                {(userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
+                {(userType === 5 || alias === 'rkf') &&
                     <Link to={is_active_profile ? `/${alias}` : '/not-confirmed'}>{name}</Link>
                 }
                 {userType === 4 &&
