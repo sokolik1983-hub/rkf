@@ -37,7 +37,7 @@ const DocumentItemReadOnly = ({ id, name, date_create }) => {
             >
                 <SvgIcon icon={filePdf} size="default" />
                 <div className="d-flex flex-column">
-                    {name}
+                    <p>{name}</p>
                     <span className="DocumentItem__date">
                         {`Добавлено ${moment(date_create).format('D MMMM YYYY')} в ${moment(date_create).format('HH:mm')}`}
                     </span>
