@@ -19,21 +19,25 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
             {
                 id: 0,
                 title: 'По умолчанию',
+                header: 'Сортировка',
                 sortType: 1,
             },
             {
                 id: 1,
                 title: 'По алфавиту',
+                header: 'По алфавиту',
                 sortType: [2, 3],
             },
             {
                 id: 2,
                 title: 'Подтвержденные',
+                header: 'По активностти',
                 sortType: 4,
             },
             {
                 id: 3,
                 title: 'По популярности',
+                header: 'По популярности',
                 sortType: 5,
             },
         ];
@@ -54,7 +58,7 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
         sortItems.forEach(item => {
             if (item.id === itemId) {
                 filterType = item.sortType;
-                setNameOfSort(itemId === 0 ? 'Сортировка' : item.title);
+                setNameOfSort(item.header);
             }
         })
 
