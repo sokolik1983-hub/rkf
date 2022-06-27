@@ -30,7 +30,7 @@
         top: 35px;
         right: 0;
         z-index: 9;
-        width: 200px;
+        width: 180px;
         background-color: #fff;
         list-style: none;
         box-shadow: 0 0 6px rgba(120, 153, 255, 0.3);
@@ -38,7 +38,8 @@
 
         &-item {
             display: flex;
-            justify-content: center;
+            margin-left: 10px;
+            justify-content: flex-start;
             align-items:center;
             height: 30px;
             line-height: 30px;

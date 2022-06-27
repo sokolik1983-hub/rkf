@@ -41,6 +41,7 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
 
     const [isAlphabetAZ, setIsAlphabetAZ] = useState(false);
     const [isAlphabetZA, setIsAlphabetZA] = useState(false);
+    const [nameOfSort, setNameOfSort] = useState('Сортировка');
 
     const location = useLocation();
     const urlSortFilter = location.search.match(/sortType=\d/);
@@ -51,7 +52,10 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
         let filterType;
 
         sortItems.forEach(item => {
-            if (item.id === itemId) filterType = item.sortType;
+            if (item.id === itemId) {
+                filterType = item.sortType;
+                setNameOfSort(itemId === 0 ? 'Сортировка' : item.title);
+            }
         })
 
         if (urlSortType !== filterType) {
@@ -95,10 +99,10 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
                 className="sorting__header"
                 onClick={ () => setIsOpen( !isOpen) }
             >
-                <span className={ `sorting__header-chevron${ isOpen ? ' _dropdown_open' : '' }` }/>
                 <span className="sorting__header-name">
-                        Сортировка
-                    </span>
+                    {nameOfSort}
+                </span>
+                <span className={ `sorting__header-chevron${ isOpen ? ' _dropdown_open' : '' }` }/>
             </div>
 
             <CSSTransition
@@ -116,10 +120,10 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
                             key={ item.id }
                             onClick={ () => handleChange(item.id) }
                         >
-                            { item.id === 1 &&
-                            <span className={ `alphabet-icon${ isAlphabetZA ? ' _reverse' : '' }` }/>
-                            }
                             <span>{ item.title }</span>
+                            { item.id === 1 &&
+                                <span className={ `alphabet-icon${ isAlphabetZA ? ' _reverse' : '' }` }/>
+                            }
                         </li>
                     ) }
                 </ul>
