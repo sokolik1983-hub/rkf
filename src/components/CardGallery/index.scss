@@ -44,15 +44,14 @@
       &.slick-disabled {
         display: none !important;
       }
-      @media (max-width: 750px) {
-        display: none !important;
-      }
     }
     .slick-prev {
-      left: -50px;
+      left: 0;
+      z-index: 100;
     }
     .slick-next {
-      right: -50px;
+      right: 0;
+      z-index: 100;
     }
   }
 }
