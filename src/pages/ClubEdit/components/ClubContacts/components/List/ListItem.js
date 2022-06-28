@@ -6,7 +6,6 @@ import {useVisibility} from '../../../../../../shared/hooks';
 import {connectClientClubContactListItem} from '../../connectors';
 import {ENDPOINT_URL} from '../../config';
 
-
 const ClientClubContactListItem = ({
         type,
         clubContact,
@@ -30,7 +29,6 @@ const ClientClubContactListItem = ({
         checkForDelete();
         onDeleteSuccess();
     }
-
 
     return (
         <Form
