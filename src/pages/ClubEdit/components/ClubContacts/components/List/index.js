@@ -8,7 +8,6 @@ import {useVisibility} from '../../../../../../shared/hooks';
 
 import './styles.scss';
 
-
 const {Provider} = ContactTypeContext;
 
 const ClientContactList = props => {
@@ -18,8 +17,6 @@ const ClientContactList = props => {
     const [triggerDell, setTriggerDell] = useState(false);
     const listIds = props[contactType.storeListIds];
     const triggerRef = useRef();
-    const [needUpdate, setNeedUpdate] = useState(false);
-    const [checkedId, setCheckedId] = useState(0);
 
     const checkForDelete = () => {
         setTriggerDell(!triggerDell);
@@ -48,10 +45,6 @@ const ClientContactList = props => {
                         id={id}
                         type={contactType.type}
                         bindSubmitForm={bindSubmitForm}
-                        needUpdate={needUpdate}
-                        setNeedUpdate={setNeedUpdate}
-                        checkedId={checkedId}
-                        setCheckedId={setCheckedId}
                     />
                 ))}
             </div>
