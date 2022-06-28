@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import DeleteButton from '../../../../../../components/DeleteButton';
 import {Form} from '../../../../../../components/Form';
 import RenderFields from '../../components/Form/RenderFields';
@@ -14,8 +14,13 @@ const ClientClubContactListItem = ({
         bindSubmitForm,
         updateClubContactSuccess,
         deleteClubContactSuccess,
+        setNeedUpdate,
+        needUpdate,
+                                       setCheckedId,
+    checkedId
 }) => {
     const {setInvisible} = useVisibility(false);
+    const [isMain, setIsMain] = useState(clubContact.is_main)
 
     const onUpdateSuccess = values => {
         updateClubContactSuccess(values);
@@ -31,6 +36,23 @@ const ClientClubContactListItem = ({
         onDeleteSuccess();
     }
 
+    const handleChecked = () => {
+        setIsMain(!isMain);
+        clubContact.is_main = !isMain;
+        // setNeedUpdate(true);
+        // setCheckedId(clubContact.id);
+    };
+
+    // useEffect(() => {
+    //     if(checkedId == clubContact.id) {
+    //         console.log('11111111111111111', checkedId)
+    //     } else if(checkedId !== 0) {
+    //         setIsMain(false);
+    //     }
+    // }, [checkedId]);
+
+    console.log('111111111111111')
+
 
     return (
         <Form
@@ -43,6 +65,7 @@ const ClientClubContactListItem = ({
         >
             <RenderFields isMaskedTel={type === "phone"} />
                 <div className="ClientClubListItem__controls">
+                    <input onChange={handleChecked} name="contacts" type="checkbox" checked={isMain} id={clubContact.id}/>
                     <DeleteButton
                         onDeleteSuccess={successDelete}
                         windowed

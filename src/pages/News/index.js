@@ -105,33 +105,48 @@ const NewsPage = ({
                 <Container className="content news-page">
                     <Card className={'news' + (!!isEdit ? ' edit' : '')}>
                         <div className="news__wrap-head">
-                            <Link
-                                to={news.user_type === 1 ? `/user/${news.alias}` :
-                                    news.user_type === 4 ? `/kennel/${news.alias}` :
-                                    `/${news.alias}`
-                                }
-                                className="news__item-head"
-                            >
-                                <div
-                                    className="news__avatar"
-                                    style={{backgroundImage: `url(${
-                                        news.logo_link ? news.logo_link : 
-                                        news.user_type === 1 ? DEFAULT_IMG.userAvatar :
-                                        DEFAULT_IMG.clubAvatar
-                                    })`}}
-                                />
-                                <div className="news__about">
-                                    <h5 className="news__name">{news.name}</h5>
-                                    {news.fact_city_name &&
-                                        <span
-                                            className="news__city"
+                            <div className="news__inner-head">
+                                <Link
+                                    to={news.user_type === 1 ? `/user/${news.alias}` :
+                                        news.user_type === 4 ? `/kennel/${news.alias}` :
+                                            news.user_type === 3 ? `/club/${news.alias}` :
+                                                news.user_type === 7 ? `/nbc/${news.alias}` :
+                                            `/${news.alias}`
+                                    }
+                                    className="news__item-head"
+                                >
+                                    <div
+                                        className="news__avatar"
+                                        style={{backgroundImage: `url(${
+                                                news.logo_link ? news.logo_link :
+                                                    news.user_type === 1 ? DEFAULT_IMG.userAvatar :
+                                                        DEFAULT_IMG.clubAvatar
+                                            })`}}
+                                    />
+                                </Link>
+                                    <div className="news__about">
+                                        <Link
+                                            to={news.user_type === 1 ? `/user/${news.alias}` :
+                                                news.user_type === 4 ? `/kennel/${news.alias}` :
+                                                    news.user_type === 3 ? `/club/${news.alias}` :
+                                                        news.user_type === 7 ? `/nbc/${news.alias}` :
+                                                    `/${news.alias}`
+                                            }
+                                            className="news__item-head"
                                         >
+                                        <h5 className="news__name">{news.name}</h5>
+                                        </Link>
+                                        {news.fact_city_name &&
+                                            <span
+                                                className="news__city"
+                                            >
                                             {news.fact_city_name}
                                         </span>
-                                    }
-                                    <p className="news__date">{formatDateTime(news.create_date)}</p>
-                                </div>
-                            </Link>
+                                        }
+                                        <p className="news__date">{formatDateTime(news.create_date)}</p>
+                                    </div>
+
+                            </div>
                             <div className="news__buttons">
                                 {!isEdit &&
                                     <button className="back-button" onClick={() => history.goBack()}>Назад</button>

@@ -135,14 +135,20 @@
   &__wrap-head {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center;;
     @media (max-width: 560px) {
       display: block;
+      position: relative;
       .btn {
         padding: 8px 24px;
       }
     }
   }
+
+  &__inner-head {
+    display: flex;
+  }
+
   &__item-head {
     display: flex;
     align-items: center;
@@ -204,7 +210,6 @@
     letter-spacing: 0.2px;
     color: #72839c;
     white-space: nowrap;
-    cursor: pointer;
 
     &:before {
       content: "";
@@ -450,6 +455,10 @@
     height: 25px;
     justify-content: space-between;
     text-align: right;
+    @media (max-width: 560px) {
+      position: absolute;
+      right: 0;
+    }
 
     button + div {
       margin-left: 50px;
