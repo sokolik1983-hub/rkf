@@ -19,21 +19,25 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
             {
                 id: 0,
                 title: 'По умолчанию',
+                header: 'Сортировка',
                 sortType: 1,
             },
             {
                 id: 1,
                 title: 'По алфавиту',
+                header: 'По алфавиту',
                 sortType: [2, 3],
             },
             {
                 id: 2,
                 title: 'Подтвержденные',
+                header: 'По активностти',
                 sortType: 4,
             },
             {
                 id: 3,
                 title: 'По популярности',
+                header: 'По популярности',
                 sortType: 5,
             },
         ];
@@ -41,6 +45,7 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
 
     const [isAlphabetAZ, setIsAlphabetAZ] = useState(false);
     const [isAlphabetZA, setIsAlphabetZA] = useState(false);
+    const [nameOfSort, setNameOfSort] = useState('Сортировка');
 
     const location = useLocation();
     const urlSortFilter = location.search.match(/sortType=\d/);
@@ -51,7 +56,10 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
         let filterType;
 
         sortItems.forEach(item => {
-            if (item.id === itemId) filterType = item.sortType;
+            if (item.id === itemId) {
+                filterType = item.sortType;
+                setNameOfSort(item.header);
+            }
         })
 
         if (urlSortType !== filterType) {
@@ -95,10 +103,10 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
                 className="sorting__header"
                 onClick={ () => setIsOpen( !isOpen) }
             >
-                <span className={ `sorting__header-chevron${ isOpen ? ' _dropdown_open' : '' }` }/>
                 <span className="sorting__header-name">
-                        Сортировка
-                    </span>
+                    {nameOfSort}
+                </span>
+                <span className={ `sorting__header-chevron${ isOpen ? ' _dropdown_open' : '' }` }/>
             </div>
 
             <CSSTransition
@@ -116,10 +124,10 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
                             key={ item.id }
                             onClick={ () => handleChange(item.id) }
                         >
-                            { item.id === 1 &&
-                            <span className={ `alphabet-icon${ isAlphabetZA ? ' _reverse' : '' }` }/>
-                            }
                             <span>{ item.title }</span>
+                            { item.id === 1 &&
+                                <span className={ `alphabet-icon${ isAlphabetZA ? ' _reverse' : '' }` }/>
+                            }
                         </li>
                     ) }
                 </ul>
