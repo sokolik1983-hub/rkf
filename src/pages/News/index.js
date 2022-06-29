@@ -20,7 +20,6 @@ import { DEFAULT_IMG } from "../../appConfig";
 
 import "./index.scss";
 
-
 const NewsPage = ({
     history,
     isAuthenticated,

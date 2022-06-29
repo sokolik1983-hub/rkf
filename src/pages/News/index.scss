@@ -1,8 +1,10 @@
 .news {
   display: flex;
   margin: 0 auto 40px;
-  width: calc(100% - 316px);
+  width: 100%;
   flex-direction: column;
+  word-wrap: break-word;
+  overflow: hidden;
 
   @media (max-width: 1080px) {
     width: 100%;
