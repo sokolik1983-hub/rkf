@@ -353,7 +353,7 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
                                         updateInfo={getNBCInfo}
                                     />
                                 }
-                                {isMobile && nbcInfo &&
+                                {isMobile && nbcInfo && !newsFeed &&
                                     <UserHeader
                                         user='nbc'
                                         logo={nbcInfo.logo_link}
