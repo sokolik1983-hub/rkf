@@ -26,6 +26,9 @@
     width: 300px;
     min-width: 300px;
     padding-bottom: 16px;
+    @media (max-width: 1080px) {
+      display: none;
+    }
   }
   & .user-info {
     &__logo-wrap {
@@ -54,48 +57,7 @@
   }
   & .user-header {
     @media (max-width: 1080px) {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      & .user-info {
-        &__logo {
-          min-width: 80px;
-          width: 80px;
-          height: 80px;
-          &-wrap {
-              padding: 10px;
-          }
-        }
-      }
-      &__user-wrap {
-        padding: 0 0 10px 0;
-        &:before {
-            display: none;
-        }
-      }
-      &__content {
-        width: 100%;
-        padding: 10px;
-      }
-      &__name-wrap {
-        min-height: auto!important;
-      }
-      &__wrap {
-        position: relative;
-        & div {
-          & .widget-login {
-            &__button-wrap {
-              position: static;
-              margin: 0;
-              padding: 0;
-            }
-          }
-        }
-        & .Share {
-          position: absolute;
-          right: 0;
-        }
-      }
+      display: none;
     }
   }
   &__count-buttons {
