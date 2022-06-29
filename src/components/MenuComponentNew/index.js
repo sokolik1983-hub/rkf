@@ -209,7 +209,7 @@ const MenuComponentNew = () => {
             } else {
                 //На странице документов личного кабинета федерации, цеплялись ссылки от пдф документов основного меню, поэтому ставим условие
                 const newNavWithDocLinks = (linkAlias === 'documents') ?
-                    currentPageNav?.map(item => (item.id === 7) ? {...item, to: '/bank-details'} : (item.id === 8) ? {...item, to: `/${url}/documents/bookform`}  : item) :
+                    currentPageNav?.map(item => (item.id === 7) ? {...item, to: linkFedDetails} : (item.id === 8) ? {...item, to: `/${url}/documents/bookform`}  : item) :
                     currentPageNav?.map(item => (item.id === 7) ? {...item, to: linkFeesId} : (item.id === 8) ? {...item, to: linkFedDetails}  : item);
                 setCurrentPageNav(newNavWithDocLinks);
             }
