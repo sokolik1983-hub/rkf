@@ -178,8 +178,9 @@
             flex-direction: column;
             align-items: flex-start;
             .search-form__wrap-with_but {
+                margin-top: -20px;
                 width: 100%;
-                max-width: 433px;
+                max-width: 436px;
             }
             .search-form__wrap:first-of-type {
                 width: calc(100% - 119px);
