@@ -163,7 +163,6 @@
 
     &-first {
       display: block;
-      //min-width: 220px;
       @media (max-width: 450px) {
         min-width: unset;
       }
