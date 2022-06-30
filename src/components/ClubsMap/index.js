@@ -27,6 +27,11 @@ const ClubsMap = ({ fullScreen }) => {
         await Request({
             url: '/api/club/club_yandex_maps'
         }, result => {
+            console.log('result', result.features);
+            result.features.forEach(feature => {
+                console.log('feature.properties', feature.properties.balloonContentHeader)
+                feature.properties.balloonContentHeader = `<a href="https://www.youtube.com/">${feature.properties.balloonContentHeader}</a>`
+            })
             setData(JSON.stringify(result));
         });
     };
