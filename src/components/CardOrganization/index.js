@@ -7,7 +7,6 @@ import Avatar from "../Layouts/Avatar";
 
 import "./index.scss";
 
-
 const CardOrganization = (props) => {
 
     const {

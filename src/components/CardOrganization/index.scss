@@ -33,7 +33,7 @@
 
   &__container {
     padding-left: 15px;
-    width: 80%;
+    width: 100%;
   }
 
   &__heading {
@@ -274,10 +274,10 @@
 
   &__special-position {
     &_left {
-
+      width: 90%;
       @media (max-width: 700px) {
         margin-left: -63px;
-
+        width: 100%;
         .card-organization__text {
           display: -webkit-box;
           -webkit-line-clamp: 2;
