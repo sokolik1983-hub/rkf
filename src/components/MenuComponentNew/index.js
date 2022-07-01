@@ -133,8 +133,6 @@ const MenuComponentNew = () => {
                     getMenuInfoCurrentUserPage(checkUserType(userType), userAlias, isUserDocuments);
                 } else {
                     //Это страница нашего профиля, подтягиваем меню юзера
-                    console.log('url', url);
-                    console.log('userAlias', userAlias);
                     isFederationAlias(url) ? getMenuInfoCurrentUserPage(url, url) : getMenuInfoCurrentUserPage(url , userAlias);
                 }
             } else {
