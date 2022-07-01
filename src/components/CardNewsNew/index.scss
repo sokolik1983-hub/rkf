@@ -16,7 +16,6 @@
   }
 
   &__content {
-    margin-bottom: 15px;
     position: initial;
 
       @media (max-width: 560px) {
@@ -31,7 +30,7 @@
     .ReactGridGallery {
       display: grid;
       grid-template-rows: 50% 50%;
-      margin: 10px 10px 0 ;
+      margin: 0 10px 15px 10px ;
       gap: 2px;
       max-height: 500px;
       list-style-type: none;
@@ -463,12 +462,15 @@
 
   &__text-wrap {
     max-height: 100px;
-    margin: 5px 10px 0;
+    margin: 5px 10px 10px 10px;
     overflow: hidden;
+    & p {
+      margin: 0;
+    }
 
     &__collapsed {
       height: auto;
-      margin: 5px 10px 0;
+      margin: 5px 10px 10px;
       max-height: none;
       min-height: 100px;
     }
@@ -490,10 +492,6 @@
     transition: height 0.2s linear;
     margin-bottom: 0 !important;
 
-    &._disabled {
-      margin-bottom: 10px !important;
-    }
-
     * {
       max-width: 100% !important;
       line-height: 20px;
@@ -510,6 +508,10 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     transition: height 0.2s linear;
+
+    & ._disabled {
+      margin-bottom: 10px !important;
+    }
 
     &-price {
       margin-bottom: 10px !important;
