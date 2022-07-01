@@ -1,21 +1,22 @@
-import React, {memo, forwardRef, useEffect, useRef, useState} from 'react';
-import OutsideClickHandler from 'react-outside-click-handler';
-import {Link} from 'react-router-dom';
-import {CSSTransition} from 'react-transition-group';
-import Lightbox from 'react-images';
-import {Chip} from '@progress/kendo-react-buttons';
-import Card from '../../../../components/Card';
-import Share from '../../../../components/Share';
-import {ActiveUserMark, FederationChoiceMark} from '../../../../components/Marks';
-import EditForm from './EditForm';
-import {formatText} from '../../../../utils';
-import {formatDateTime} from '../../../../utils/datetime';
-import {DEFAULT_IMG} from '../../../../appConfig';
-import CardFooter from '../../../../components/CardFooter';
-import DocumentLink from '../../../../components/DocumentLink';
-import { Request } from 'utils/request';
+import React, { memo, forwardRef, useEffect, useRef, useState } from "react";
+import OutsideClickHandler from "react-outside-click-handler";
+import { Link } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+import Lightbox from "react-images";
+import { Chip } from "@progress/kendo-react-buttons";
+import EditForm from "./EditForm";
+import { DEFAULT_IMG } from "../../../../appConfig";
+import Card from "../../../../components/Card";
+import Share from "../../../../components/Share";
+import CardFooter from "../../../../components/CardFooter";
+import DocumentLink from "../../../../components/DocumentLink";
+import { ActiveUserMark, FederationChoiceMark } from "../../../../components/Marks";
+import { formatText } from "../../../../utils";
+import { Request } from "../../../../utils/request";
+import { formatDateTime } from "../../../../utils/datetime";
+import { linkForUserType } from "../../../../utils/linkForUserType";
 
-import './index.scss';
+import "./index.scss";
 
 
 const NewsFeedItem = forwardRef(({
@@ -78,6 +79,7 @@ const NewsFeedItem = forwardRef(({
     const [isChecked, setIsChecked] = useState(checkedAll);
 
     const ref = useRef(null);
+    const userLink = linkForUserType(user_type, alias);
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100) || videoLink) setCanCollapse(true);
@@ -113,7 +115,7 @@ const NewsFeedItem = forwardRef(({
         }, error => {
             console.log(error);
         });
-    }
+    };
 
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
@@ -124,15 +126,7 @@ const NewsFeedItem = forwardRef(({
                 <div className="news-feed-item__content">
                     <div className="news-feed-item__head" style={{margin: '0 10px 0 10px'}}>
                         <div className="news-feed-item__left">
-                            <Link to={user_type === 4
-                                ? `/kennel/${alias}`
-                                : user_type === 1
-                                    ? `/user/${alias}`
-                                    : user_type === 3 && alias !== 'rkf'&& alias !== 'rkf-online'
-                                        ? `/club/${alias}`
-                                        : user_type === 0 && alias === 'rkf-online'
-                                            ? `/club/${alias}`
-                                            :`/${alias}`}>
+                            <Link to={userLink}>
                                 <div
                                     className="news-feed-item__left-logo"
                                     style={{background: `url(${logo_link ?
@@ -146,15 +140,7 @@ const NewsFeedItem = forwardRef(({
                             <span className="news-feed-item__left-name">
                                 {is_request_article ?
                                     <div>
-                                        <Link to={user_type === 4
-                                            ? `/kennel/${alias}`
-                                            : user_type === 1
-                                                ? `/user/${alias}`
-                                                : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
-                                                    ? `/club/${alias}`
-                                                    : user_type === 0 && alias === 'rkf-online'
-                                                        ? `/club/${alias}`
-                                                        :`/${alias}`}>
+                                        <Link to={userLink}>
                                             {user_type === 1 ? first_name + ' ' + last_name : name}
                                         </Link>
                                         <span>{formatDateTime(create_date)}</span>
@@ -168,13 +154,7 @@ const NewsFeedItem = forwardRef(({
                                                     &nbsp;
                                                 </>
                                             }
-                                            <Link to={user_type === 4
-                                                ? `/kennel/${alias}`
-                                                : user_type === 1
-                                                    ? `/user/${alias}`
-                                                    : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
-                                                        ? `/club/${alias}`
-                                                        : `/${alias}`}>
+                                            <Link to={userLink}>
                                                 {user_type === 1 ? first_name + ' ' + last_name : name}
                                             </Link>
                                             {active_rkf_user &&
@@ -373,13 +353,7 @@ const NewsFeedItem = forwardRef(({
         <div className="news-feed-item__content">
             <div className="news-feed-item__head">
                 <div className="news-feed-item__left">
-                    <Link to={user_type === 4
-                        ? `/kennel/${alias}`
-                        : user_type === 1
-                            ? `/user/${alias}`
-                            : user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online'
-                                ? `/club/${alias}`
-                                : `/${alias}`}>
+                    <Link to={userLink}>
                         <div className="news-feed-item__left-logo" style={{
                             background: `url(${logo_link ?
                                 logo_link :
@@ -391,13 +365,7 @@ const NewsFeedItem = forwardRef(({
                     </Link>
                     <span className="news-feed-item__left-name">
                         <span>
-                            <Link to={user_type === 4
-                                ? `/kennel/${alias}`
-                                : user_type === 1
-                                    ? `/user/${alias}`
-                                    : user_type === 3 && alias !== 'rkf'&& alias !== 'rkf-online'
-                                        ? `/club/${alias}`
-                                        : `/${alias}`}>
+                            <Link to={userLink}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                     <>
                                         <span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
