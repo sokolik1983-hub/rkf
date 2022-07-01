@@ -1,7 +1,9 @@
 import React, { memo, forwardRef, useEffect, useRef, useState } from "react";
+/* закомментированно по задаче #5399
 import OutsideClickHandler from "react-outside-click-handler";
-import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+*/
+import { Link } from "react-router-dom";
 import Lightbox from "react-images";
 import { Chip } from "@progress/kendo-react-buttons";
 import EditForm from "./EditForm";
@@ -118,7 +120,7 @@ const NewsFeedItem = forwardRef(({
     };
 
     const ViewItem = () => {
-        const [isOpenControls, setIsOpenControls] = useState(false);
+        // const [isOpenControls, setIsOpenControls] = useState(false);  закомментированно по задаче #5399
         const [collapsed, setCollapsed] = useState(false);
 
         return (
@@ -155,7 +157,7 @@ const NewsFeedItem = forwardRef(({
                                                 </>
                                             }
                                             <Link to={userLink}>
-                                                {user_type === 1 ? first_name + ' ' + last_name : name}
+                                                {user_type === 1 && (first_name && last_name) ? first_name + ' ' + last_name : name}
                                             </Link>
                                             {active_rkf_user &&
                                                 <ActiveUserMark />
@@ -196,7 +198,9 @@ const NewsFeedItem = forwardRef(({
                                     className={'must-read__chip'}
                                 />
                             }*/}
-                            {canEdit && profileId === profile_id && alias === userAlias &&
+
+                            {/* закомментированно по задаче #5399 */}
+                            {/*{canEdit && profileId === profile_id && alias === userAlias &&
                                 <div className="news-feed-item__head-control">
                                     <button
                                         className={`news-feed-item__head-control-btn${isOpenControls ? ' _open' : ''}`}
@@ -232,8 +236,7 @@ const NewsFeedItem = forwardRef(({
                                         </OutsideClickHandler>
                                     }
                                 </div>
-                            }
-
+                            }*/}
                             <div className="news-feed-item__control-checkbox">
                                 <label className="news-feed-item__control-checkbox-label">
                                     <input
