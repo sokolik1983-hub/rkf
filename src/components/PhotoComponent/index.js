@@ -1,11 +1,12 @@
-import React, {useState} from "react";
-import {DEFAULT_IMG} from "../../appConfig";
-import {CSSTransition} from "react-transition-group";
+import React, { useState } from "react";
+import { DEFAULT_IMG } from "../../appConfig";
+import { CSSTransition } from "react-transition-group";
 import LightTooltip from "../LightTooltip";
-import {SvgIcon} from "@progress/kendo-react-common";
-import {pencil, trash} from "@progress/kendo-svg-icons";
+import { SvgIcon } from "@progress/kendo-react-common";
+import { pencil, trash } from "@progress/kendo-svg-icons";
 import EditAvatar from "../EditAvatar";
 import ModalDeleteAvatar from "../Layouts/UserInfo/ModalDeleteAvatar";
+import useIsMobile from "../../utils/useIsMobile";
 
 import "./index.scss";
 
@@ -13,6 +14,12 @@ const PhotoComponent = ({photo, name, position, canEdit}) => {
 
     const [modalType, setModalType] = useState('');
     const [hover, setHover] = useState(false);
+    const isTable = useIsMobile(990);
+    const isMobile = useIsMobile(561);
+    const firstName = name.split(' ')[0];
+    const secondName = name.split(' ')[1] + ' ' + name.split(' ')[2];
+    const stylePosition = position.charAt(0).toUpperCase() + position.slice(1).toLowerCase();
+
 
     return (
         <div className="photo-component"
@@ -80,8 +87,18 @@ const PhotoComponent = ({photo, name, position, canEdit}) => {
                 />}
             <img src={photo || DEFAULT_IMG.noImage} alt="" className="photo-component__photo"/>
             <div className="photo-component__description">
-                <h5 className="photo-component__title">{name}</h5>
-                <p className="photo-component__subtitle">{position || "Руководитель"}</p>
+                {isMobile || (!isMobile && !isTable ) ?
+                    <>
+                        <h5 className="photo-component__title">{name}</h5>
+                        <p className="photo-component__subtitle">{position || "Руководитель"}</p>
+                    </>
+                    : isTable &&
+                    <>
+                        <h5 className="photo-component__title">{firstName}</h5>
+                        <h5 className="photo-component__title">{secondName}</h5>
+                        <p className="photo-component__subtitle">{stylePosition || "Руководитель"}</p>
+                    </>
+                }
             </div>
         </div>
     )
