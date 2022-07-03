@@ -27,6 +27,10 @@ const ClubsMap = ({ fullScreen }) => {
         await Request({
             url: '/api/club/club_yandex_maps'
         }, result => {
+            result.features.forEach( club => {
+                club.properties.balloonContentHeader = `<a style="text-decoration: none" href="/club/${club.alias}">${club.properties.balloonContentHeader}</a>`;
+                club.properties.balloonContentBody = `<a style="text-decoration: none; color: #36f; font-size: 16px" href="/club/${club.alias}">${club.properties.clusterCaption}</a><br><div className="inner" style="padding-top: 10px">${club.properties.balloonContentBody}</div>`;
+            });
             setData(JSON.stringify(result));
         });
     };
