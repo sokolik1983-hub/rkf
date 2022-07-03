@@ -58,16 +58,17 @@ const MenuComponentNew = () => {
     }
 
     const getMenu = (url, linkAlias) => {
-
         return isFederationAlias(url) ?
             federationNav(url) :
             ((url === 'club' || url === 'client') && linkAlias) ?
-                clubNav(linkAlias) :
-                (url === 'kennel' && linkAlias) ?
-                    kennelNav(linkAlias) :
-                    (url === 'nbc' && linkAlias) ?
-                        NBCNav(linkAlias) :
-                        userNav(linkAlias)
+                isFederationAlias(linkAlias) ?
+                    federationNav(linkAlias) :
+                        clubNav(linkAlias) :
+                        (url === 'kennel' && linkAlias) ?
+                            kennelNav(linkAlias) :
+                            (url === 'nbc' && linkAlias) ?
+                                NBCNav(linkAlias) :
+                                userNav(linkAlias)
     }
 
     const getMenuInfoCurrentUserPage = (url, linkAlias, isUserDocuments) => {
