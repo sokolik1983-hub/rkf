@@ -79,12 +79,12 @@ const CardSpecialist = ({
                                     <Link className="card-specialists__name"
                                         to={`/user/${owner_alias}`}
                                     >
-                                        <span>
-                                            {last_name}
-                                        </span>
+                                        <div className="card-specialists__name-first">
+                                            <span>{last_name}</span>
+                                            {owner_alias && judgeIcon}
+                                        </div>
                                         <span>
                                             {first_name || ''}{second_name ? ' ' + second_name : ''}
-                                            {owner_alias && judgeIcon}
                                         </span>
                                     </Link>
                                     :

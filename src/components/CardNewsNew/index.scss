@@ -863,6 +863,7 @@
     }
 
     .card-news-new__text-wrap {
+      word-wrap: break-word;
       margin-bottom: 5px;
       overflow: auto;
     }

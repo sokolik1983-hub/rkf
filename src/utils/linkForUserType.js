@@ -1,14 +1,18 @@
 export function linkForUserType(userType, alias) {
     switch (userType) {
         case 0:
-            return `/${alias}`;
+            if (alias === 'rkf-online') {
+                return `/club/${alias}`;
+            } else {
+                return `/${alias}`;
+            }
         case 1:
             return `/user/${alias}`;
         case 3:
-            if(alias !== 'rkf' && alias !== 'rkf-online') {
+            if(alias !== 'rkf') {
                 return `/club/${alias}`
             } else {
-                return '/rkf'
+                return '/rkf';
             }
         case 4:
             return `/kennel/${alias}`;
