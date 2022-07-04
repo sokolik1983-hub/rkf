@@ -31,7 +31,7 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
             {
                 id: 2,
                 title: 'Подтвержденные',
-                header: 'По активностти',
+                header: 'По активности',
                 sortType: 4,
             },
             {
