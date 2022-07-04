@@ -40,15 +40,15 @@ const ClientClubContactListItem = ({
             bindSubmitForm={bindSubmitForm}
         >
             <RenderFields isMaskedTel={type === "phone"} />
-                <div className="ClientClubListItem__controls">
-                    <DeleteButton
-                        onDeleteSuccess={successDelete}
-                        windowed
-                        actionUrl={`${ENDPOINT_URL}/${clubContact.id}`}
-                    >
-                        Удалить
-                    </DeleteButton>
-                </div>
+            <div className="ClientClubListItem__controls">
+                <DeleteButton
+                    onDeleteSuccess={successDelete}
+                    windowed
+                    actionUrl={`${ENDPOINT_URL}/${clubContact.id}`}
+                >
+                    Удалить
+                </DeleteButton>
+            </div>
         </Form>
     )
 };
