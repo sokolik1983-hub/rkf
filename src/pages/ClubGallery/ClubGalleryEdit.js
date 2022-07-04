@@ -164,9 +164,9 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
     const Breadcrumbs = () => {
         return <div className="ClubGallery__breadcrumbs wrap">
             <div>
-                <Link className="btn-backward" to={`/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link> /
-                        <Link className="btn-backward" to={`/${alias}/gallery`}> Фотогалерея</Link>
-                {album ? <> / <Link className="btn-backward" to={`/${alias}/gallery/${params.album}`}>{album.name}</Link></> : ''}
+                <Link className="btn-backward" to={`/club/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link> /
+                        <Link className="btn-backward" to={`/club/${alias}/gallery`}> Фотогалерея</Link>
+                {album ? <> / <Link className="btn-backward" to={`/club/${alias}/gallery/${params.album}`}>{album.name}</Link></> : ''}
                         &nbsp;/&nbsp;Редактирование
                 </div>
         </div>

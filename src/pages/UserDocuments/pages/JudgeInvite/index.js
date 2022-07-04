@@ -81,7 +81,7 @@ const JudgeInvite = ({ alias, userType }) => {
                 </p>
                 <p>
                     <span>НКП:
-                        <Link to={`/exhibitions/${mainInfo.nbc_alias}`}>{mainInfo.nbc_name}</Link>
+                        <Link to={`/nbc/${mainInfo.nbc_alias}`}>{mainInfo.nbc_name}</Link>
                     </span>
                     {mainInfo.invited_judges[0].nbc_invite_status === 2 ?
                         <span className="_green">Ваше участие согласовано</span> :

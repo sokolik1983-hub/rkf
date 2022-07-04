@@ -162,14 +162,9 @@
     transition: color 0.2s linear;
 
     &-first {
-      display: flex;
-
-      & > span {
-        width: 120px;
-      }
-
-      & > svg {
-        margin-left: 5%;
+      display: block;
+      @media (max-width: 450px) {
+        min-width: unset;
       }
     }
 
@@ -185,7 +180,7 @@
       color: #3366ff;
     }
     span:last-child {
-      display: flex;
+      display: inline-block;
       svg {
         align-self: center;
         margin-left: 5px;
@@ -335,10 +330,6 @@
     line-height: 24px;
 
     @media (max-width: 550px) {
-      margin-right: 100px;
-    }
-
-    @media (max-width: 425px) {
       margin-right: 0;
     }
 
