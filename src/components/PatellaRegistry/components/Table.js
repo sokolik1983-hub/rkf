@@ -329,7 +329,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
             </LocalizationProvider>
             <NotificationGroup
                 style={{
-                    position: 'absolute',
+                    position: 'fixed',
                     right: '1vh',
                     top: '80vh',
                 }}

@@ -818,7 +818,7 @@ const Application = ({ alias, history, status, owner }) => {
             </Card>
             <NotificationGroup
                 style={{
-                    position: 'absolute',
+                    position: 'fixed',
                     right: '1vh',
                     top: '80vh',
                 }}
