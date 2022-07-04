@@ -6,8 +6,8 @@ import {getHeaders, Request} from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
 import { Link } from 'react-router-dom';
 import moment from "moment";
-import "./index.scss";
 
+import "./index.scss";
 
 const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
     const [loading, setLoading] = useState(true);
@@ -74,7 +74,7 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
                     Приглашения на мероприятия
                 </div>
                 {documents && !!documents.length
-                    ? <div>
+                    ? <div className="user-documents-status__inner">
                         <div className="user-documents-status__controls">
                             <button
                                 className="user-documents-status__control user-documents-status__control--downloadIcon"
