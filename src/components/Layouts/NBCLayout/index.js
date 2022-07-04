@@ -145,7 +145,6 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
         }, (albums) => {
             setAlbums(albums);
             setImagesLoading(false);
-            console.log('44444444')
         }, error => handleError(error));
     },[alias]);
 
