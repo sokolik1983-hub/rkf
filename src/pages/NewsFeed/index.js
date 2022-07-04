@@ -21,7 +21,8 @@ const Layout = props => {
     else if (user_type === 4) {
         return <NurseryLayout {...props} />
     } else if (user_type === 7) {
-        return <NBCLayout newsFeed={true} {...props} />
+        console.log('props', props)
+        return <NBCLayout newsFeed={true} {...props} layoutWithFilters={true} />
     }
     else {
         return <ClubLayout {...props} />
