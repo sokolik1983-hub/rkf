@@ -123,7 +123,7 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                             'СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)'}
                     </div>
                     {documents && !!documents.length ?
-                        <div>
+                        <div className="club-documents-status__inner">
                             <div className="club-documents-status__controls _patella_controls">
                                 {registry && !isMobile && <button
                                     className="club-documents-status__control club-documents-status__control--registryIcon"
