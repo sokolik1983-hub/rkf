@@ -622,16 +622,11 @@
     }
   }
   &__modal {
-    &>div {
-      max-width: 600px;
-    }
-
     .Modal__header {
       line-height: 1;
     }
 
     .Modal__body {
-      padding: 12px;
       min-width: auto;
 
       .k-file-validation-message.k-text-success:before {
