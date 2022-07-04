@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, {memo, useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import ls from "local-storage";
 import moment from "moment";
 import Card from "../Card";
@@ -9,11 +9,11 @@ import Table from "./components/Table";
 import ReportError from "./components/ReportError";
 import TableModal from "./components/TableModal";
 import useIsMobile from "../../utils/useIsMobile";
-import { PromiseRequest } from "../../utils/request";
-import { blockContent } from "../../utils/blockContent";
-import { DEFAULT_IMG } from "../../appConfig";
-
+import {Request} from "../../utils/request";
+import {blockContent} from "../../utils/blockContent";
+import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
+
 
 const ReplaceRegistry = ({distinction, profileType}) => {
     const [loading, setLoading] = useState(true);
@@ -28,42 +28,37 @@ const ReplaceRegistry = ({distinction, profileType}) => {
     const isMobile = useIsMobile(1200);
 
     useEffect(() => {
-        (() => PromiseRequest({
+        (() => Request({
             url: `/api/requests/dog_health_check_request/${profileType === "kennel" ? 'kennel' : ''}doghealthcheckrequest/register_of_requests`,
             method: 'POST',
             data: {type_id: distinction === 'dysplasia' ? 1 : 2}
-        }).then(
-            data => {
-                setDocuments(data.sort(function (a, b) {
-                    return new Date(b.date_create) - new Date(a.date_create);
-                }).map(({date_change, date_create, ...rest}) => ({
+        }, data => {
+            setDocuments(data.sort((a, b) => new Date(b.date_create) - new Date(a.date_create))
+                .map(({date_change, date_create, ...rest}) => ({
                     date_change: moment(date_change).format('DD.MM.YY'),
                     date_create: moment(date_create).format('DD.MM.YY'),
                     ...rest
-                })));
-                setLoading(false);
-            }).catch(
-            error => {
-                console.log(error.response);
-                setLoading(false);
-            }))();
+                }))
+            );
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setLoading(false);
+        }))();
 
-        (() => PromiseRequest({
+        (() => Request({
             url: '/api/requests/commonrequest/completed_requests_registry',
-            method: 'GET',
-        }).then(
-            data => {
-                setRegistry(data.sort(function (a, b) {
-                    return new Date(b.rkf_creation_date) - new Date(a.rkf_creation_date);
-                }).map(({complition_date, rkf_creation_date, ...rest}) => ({
+        }, data => {
+            setRegistry(data.sort((a, b) => new Date(b.rkf_creation_date) - new Date(a.rkf_creation_date))
+                .map(({complition_date, rkf_creation_date, ...rest}) => ({
                     complition_date: moment(complition_date).format('DD.MM.YY'),
                     rkf_creation_date: moment(rkf_creation_date).format('DD.MM.YY'),
                     ...rest
-                })));
-            }).catch(
-            error => {
-                console.log(error.response);
-            }))();
+                }))
+            );
+        }, error => {
+            console.log(error.response);
+        }))();
     }, [needUpdateTable]);
 
     const closeModal = () => {
@@ -77,6 +72,15 @@ const ReplaceRegistry = ({distinction, profileType}) => {
             {!standardView ?
                 <Card className="club-documents-status__popup">
                     <div className="club-documents-status__controls">
+                        {registry && !isMobile &&
+                            <button
+                                className="club-documents-status__control club-documents-status__control--registryIcon"
+                                onClick={() => setShowModal(true)}
+                                disabled={exporting}
+                            >
+                                Реестр
+                            </button>
+                        }
                         <button
                             className="club-documents-status__control club-documents-status__control--downloadIcon"
                             onClick={() => setExporting(true)}
@@ -125,13 +129,15 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                     {documents && !!documents.length ?
                         <div className="club-documents-status__inner">
                             <div className="club-documents-status__controls _patella_controls">
-                                {registry && !isMobile && <button
-                                    className="club-documents-status__control club-documents-status__control--registryIcon"
-                                    onClick={() => setShowModal(true)}
-                                    disabled={exporting}
-                                >
-                                    Реестр
-                                </button>}
+                                {registry && !isMobile &&
+                                    <button
+                                        className="club-documents-status__control club-documents-status__control--registryIcon"
+                                        onClick={() => setShowModal(true)}
+                                        disabled={exporting}
+                                    >
+                                        Реестр
+                                    </button>
+                                }
                                 <button
                                     className="club-documents-status__control club-documents-status__control--downloadIcon"
                                     onClick={() => setExporting(true)}
@@ -192,4 +198,4 @@ const ReplaceRegistry = ({distinction, profileType}) => {
     )
 };
 
-export default React.memo(ReplaceRegistry);
+export default memo(ReplaceRegistry);
