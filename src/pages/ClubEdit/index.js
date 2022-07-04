@@ -70,7 +70,7 @@ const ClubEditPage = ({
         (() => Request({
             url: endpointGetClubInfo + alias
         }, data => {
-            if (data.user_type === 5) {
+            if (data.user_type === 5 || data.club_alias === 'rkf') {
                 (() => Request({
                     url: `/api/Club/federation_base_info?alias=${alias}`
                 }, data => {
@@ -275,7 +275,7 @@ const ClubEditPage = ({
                                     club_id={club.id}
                                     work_time={club.work_time}
                                     club_alias={club_alias}
-                                    is_federation={is_federation}
+                                    is_federation={isFed || is_federation}
                                     isOpenFilters={isOpenFilters}
                                     setShowFilters={setShowFilters}
                                     handleSubmitForms={handleSubmitForms}
