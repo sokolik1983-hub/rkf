@@ -204,7 +204,7 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
             </LocalizationProvider>
             <NotificationGroup
                 style={{
-                    position: 'absolute',
+                    position:  'fixed',
                     right: '1vh',
                     top: '80vh',
                 }}

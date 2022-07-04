@@ -292,7 +292,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         </LocalizationProvider>
         <NotificationGroup
             style={{
-                position: 'absolute',
+                position: 'fixed',
                 right: '1vh',
                 top: '80vh',
             }}
