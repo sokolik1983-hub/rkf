@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { setFiltersToUrl } from "../../../../utils";
 import { CSSTransition } from "react-transition-group";
+
 import "./index.scss";
 
 export const Sorting = ({ isOpen, setIsOpen, setSortId }) => {
@@ -54,8 +55,6 @@ export const Sorting = ({ isOpen, setIsOpen, setSortId }) => {
 
     const handleChange = (itemId) => {
         let filterType;
-
-        console.log('itemId', itemId);
 
         sortItems.forEach(item => {
             if (item.id === itemId) {
