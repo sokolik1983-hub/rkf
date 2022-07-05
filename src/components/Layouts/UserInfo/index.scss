@@ -50,10 +50,6 @@
     &.empty {
       @media (min-width: 1079px) {
         height: 291px;
-        .user-info__logo {
-          max-height: 190px;
-          margin: 45px 0 0;
-        }
       }
     }
     & .avatar__initials {
