@@ -6,7 +6,7 @@ import "moment/locale/ru";
 moment.locale('ru');
 
 const NotificationItem = ({ article_id, id, profile_name, short_content, create_date, logo_link, profile_alias, user_type, is_read, redirect_link, setOpen }) => {
-    const profileLink = user_type === 1 ? `/user/${profile_alias}` : user_type === 3 ? `/${profile_alias}` : `/nursery/${profile_alias}`;
+    const profileLink = user_type === 1 ? `/user/${profile_alias}` : user_type === 3 ? `/club/${profile_alias}` : `/nursery/${profile_alias}`;
     const handleItemClick = async ({ target }) => {
         await Request({
             url: `/api/article/article_is_read?id=${id}`,

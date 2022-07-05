@@ -26,6 +26,9 @@
     width: 300px;
     min-width: 300px;
     padding-bottom: 16px;
+    @media (max-width: 1080px) {
+      padding-bottom: 0;
+    }
   }
   & .user-info {
     &__logo-wrap {

@@ -8,7 +8,6 @@ import {useVisibility} from '../../../../../../shared/hooks';
 
 import './styles.scss';
 
-
 const {Provider} = ContactTypeContext;
 
 const ClientContactList = props => {

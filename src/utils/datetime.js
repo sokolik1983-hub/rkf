@@ -64,10 +64,10 @@ export const getLocalizedMonth = (date, locale = 'ru') => {
     }
 };
 
-export const getLocalizedWeekDay = (date, locale = 'ru') => {
+export const getLocalizedWeekDay = (date, locale = 'ru', weekday) => {
     try {
         return date.toLocaleString(locale, {
-            weekday: 'long'
+            weekday: weekday ? weekday : 'long'
         });
     } catch (e) {
         return e;

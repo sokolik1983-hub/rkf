@@ -289,6 +289,17 @@ const ExhibitionsCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                         <Link to={`${url}/${clubAlias}/documents/exhibitions/cancellation/registry`}>Реестр заявок</Link>
                     </div>
                 </Card>
+                <Card>
+                    <div className="documents-page__icon exhibitions-icon" />
+                    <h3>ПРИГЛАШЕНИЯ СУДЕЙ НА МЕРОПРИЯТИЯ</h3>
+                    <p>
+                        В данном разделе НКП предоставлена возможность согласовать судей на мероприятия, после согласования их списка со стороны клуба, который проводит выставку
+                    </p>
+                    <hr />
+                    <div className="Card__links">
+                        <Link to={`${url}/${clubAlias}/documents/exhibitions/invite/registry`}>Реестр заявок</Link>
+                    </div>
+                </Card>
             </>
         }
     </div>

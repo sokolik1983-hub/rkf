@@ -58,16 +58,17 @@ const MenuComponentNew = () => {
     }
 
     const getMenu = (url, linkAlias) => {
-
         return isFederationAlias(url) ?
             federationNav(url) :
             ((url === 'club' || url === 'client') && linkAlias) ?
-                clubNav(linkAlias) :
-                (url === 'kennel' && linkAlias) ?
-                    kennelNav(linkAlias) :
-                    (url === 'nbc' && linkAlias) ?
-                        NBCNav(linkAlias) :
-                        userNav(linkAlias)
+                isFederationAlias(linkAlias) ?
+                    federationNav(linkAlias) :
+                        clubNav(linkAlias) :
+                        (url === 'kennel' && linkAlias) ?
+                            kennelNav(linkAlias) :
+                            (url === 'nbc' && linkAlias) ?
+                                NBCNav(linkAlias) :
+                                userNav(linkAlias)
     }
 
     const getMenuInfoCurrentUserPage = (url, linkAlias, isUserDocuments) => {
@@ -207,7 +208,10 @@ const MenuComponentNew = () => {
                 const newNavWithoutDocLinks = currentPageNav.filter(item =>(item.id !== 7 && item.id !== 8));
                 setCurrentPageNav(newNavWithoutDocLinks);
             } else {
-                const newNavWithDocLinks = currentPageNav?.map(item => (item.id === 7) ? {...item, to: linkFeesId} : (item.id === 8) ? {...item, to: linkFedDetails}  : item)
+                //На странице документов личного кабинета федерации, цеплялись ссылки от пдф документов основного меню, поэтому ставим условие
+                const newNavWithDocLinks = (linkAlias === 'documents') ?
+                    currentPageNav?.map(item => (item.id === 7) ? {...item, to: linkFedDetails} : (item.id === 8) ? {...item, to: `/${url}/documents/bookform`}  : item) :
+                    currentPageNav?.map(item => (item.id === 7) ? {...item, to: linkFeesId} : (item.id === 8) ? {...item, to: linkFedDetails}  : item);
                 setCurrentPageNav(newNavWithDocLinks);
             }
         }

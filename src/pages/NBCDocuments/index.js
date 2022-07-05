@@ -3,10 +3,10 @@ import { Link, Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import ls from "local-storage";
 import Card from "../../components/Card";
+import Container from "../../components/Layouts/Container";
+import TopComponent from "../../components/TopComponent";
 import Banner from "../../components/Banner";
 import Layout from "../../components/Layouts";
-import TopComponent from "../../components/TopComponent";
-import Container from "../../components/Layouts/Container";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import MenuComponentNew from "../../components/MenuComponentNew";
 import { LoadableNotFound } from "../../appModules";
@@ -25,8 +25,7 @@ const ExhibitionsCards = ({ alias }) => {
             </p>
             <hr />
             <div className="Card__links">
-                <Link to={`/nbc/${alias}/documents/exhibitions/application/form`}>Подать заявку</Link>
-                <Link to={`/nbc/${alias}/documents/exhibitions/application/registry`}>Реестр заявок</Link>
+                <Link to={`/nbc/${alias}/documents/exhibitions/invite/registry`}>Реестр заявок</Link>
             </div>
         </Card>
     </div>

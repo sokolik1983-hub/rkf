@@ -1,0 +1,204 @@
+.user-documents {
+  min-height: 100vh;
+  @media (max-width: 990px) {
+    min-height: calc(100vh - 108px);
+    .user-banner {
+      display: none;
+    }
+  }
+  & + .Footer {
+    display: none;
+  }
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 990px) {
+      display: block;
+    }
+  }
+  &__right {
+    width: 100%;
+    padding-bottom: 60px;
+    @media (max-width: 990px) {
+      width: 100%;
+    }
+  }
+  &__right + &__left {
+    &__right {
+      width: calc(100% - 316px);
+    }
+  }
+  &__left {
+    width: 300px;
+    min-width: 300px;
+    margin: 0 16px 0 0;
+    padding-bottom: 16px;
+    @media (max-width: 990px) {
+      width: 100%;
+      min-width: auto;
+      margin-right: 0;
+      & > div {
+        position: static !important;
+      }
+    }
+  }
+  &__breadcrumbs {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #cbcbcb;
+    &-link {
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #253c5e;
+      &:first-child {
+        position: relative;
+        padding-left: 14px;
+        &:before {
+          content: "\2039";
+          font-size: 32px;
+          line-height: 1;
+          position: absolute;
+          left: 0;
+          top: -6px;
+        }
+      }
+    }
+    @media (max-width: 560px) {
+      font-size: 16px;
+      line-height: 20px;
+      &-link:first-child:before {
+        top: -9px;
+      }
+    }
+  }
+  .Card {
+    padding: 10px;
+    margin-bottom: 16px;
+  }
+}
+
+.documents-card {
+  @media (max-width: 560px) {
+    padding: 10px !important;
+  }
+  &__icon {
+    width: 145px;
+    min-width: 145px;
+    height: 145px;
+    float: right;
+    margin: 0 0 10px 35px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    &._judge {
+      background-image: url("/static/images/documents/icon-judge-status.svg");
+    }
+    &._specialist {
+      background-image: url("/static/images/documents/icon-specialist-status.svg");
+    }
+    &._registration {
+      background-image: url("/static/images/documents/registration-icon.svg");
+    }
+    &._federation-quality {
+      background-image: url("/static/images/documents/federation-quality-icon.svg");
+    }
+    &._federation-support-quality {
+      background-image: url("/static/images/documents/federation-support-quality-icon.svg");
+    }
+    &._dysplasia {
+      background-image: url("/static/images/documents/dysplasia-icon.svg");
+    }
+    &._patella {
+      background-image: url("/static/images/documents/patella-icon.svg");
+    }
+    &._litter {
+      background-image: url("/static/images/documents/litter-icon.svg");
+    }
+    &._events {
+      background-image: url("/static/images/documents/events-icon.svg");
+    }
+
+    @media (max-width: 560px) {
+      width: 100px;
+      min-width: 100px;
+      height: 100px;
+      margin: 0 0 5px 10px;
+    }
+  }
+  &__title {
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+  &__about {
+    margin-bottom: 20px;
+    padding-right: 180px;
+    letter-spacing: 0.2px;
+    @media (max-width: 560px) {
+      padding-right: 0;
+    }
+  }
+  &__controls {
+    display: flex;
+    padding: 6px 180px 6px 0;
+    border-top: 1px solid #e8e8e8;
+    clear: both;
+    @media (max-width: 720px) {
+      display: block;
+      padding-right: 0;
+    }
+    &-links {
+      a {
+        &:first-child {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+  &__link {
+    margin-right: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    &:hover {
+      text-decoration: underline;
+    }
+    &._disabled {
+      text-decoration: none;
+      cursor: default;
+      color: #72839c;
+      opacity: 0.5;
+    }
+    @media (max-width: 720px) {
+      display: block;
+      margin: 0;
+    }
+  }
+  &__modal {
+    &._blue {
+      & > div {
+        max-width: 600px;
+      }
+      .Modal__inner {
+        background: #f0f2f3;
+      }
+    }
+    & > div {
+      height: 80% !important;
+    }
+    .Modal__inner {
+      height: 100%;
+      max-height: none;
+      overflow-y: unset;
+      padding: 0;
+    }
+    iframe {
+      width: 100%;
+      height: calc(100% - 109px);
+      border: none;
+    }
+  }
+}

@@ -315,7 +315,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                         </div>
                         <NotificationGroup
                             style={{
-                                position: 'absolute',
+                                position: 'fixed',
                                 right: '1vh',
                                 top: '80vh',
                             }}

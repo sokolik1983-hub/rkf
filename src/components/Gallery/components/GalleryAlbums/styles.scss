@@ -68,12 +68,6 @@
     }
 }
 .AddAlbum__modal {
-    & > div {
-        width: 50%;
-        @media (max-width: 560px) {
-            width: 92%;
-        }
-    }
     &-btnFrame {
         display: flex;
         justify-content: center;
@@ -81,6 +75,7 @@
     &-button {
         margin-bottom: 20px;
     }
+
     .Form{
         padding-top: 15px;
     }

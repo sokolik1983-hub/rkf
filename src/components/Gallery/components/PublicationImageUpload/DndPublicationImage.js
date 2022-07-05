@@ -3,7 +3,6 @@ import { useDropzone } from "react-dropzone"
 import Loading from "components/Loading"
 import Button from "components/Button"
 import Alert from "components/Alert"
-import { Request } from "utils/request"
 
 import "./styles.scss"
 
@@ -31,20 +30,12 @@ const activeStyle = {
     borderColor: '#3366ff'
 };
 
-
 const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeModal}) => {
 
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [showAlertImg, setShowAlertImg] = useState(false);
-
-    const style = useMemo(() => ({
-        ...baseStyle,
-        ...(isDragActive ? activeStyle : {})
-    }), [
-        isDragActive
-    ]);
 
     const onSubmit = () => {
         setLoading(true);
@@ -96,6 +87,13 @@ const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeMo
             }
         }
     });
+
+    const style = useMemo(() => ({
+        ...baseStyle,
+        ...(isDragActive ? activeStyle : {})
+    }), [
+        isDragActive
+    ]);
 
     return (
         <section className="DndImageUpload__wrap">

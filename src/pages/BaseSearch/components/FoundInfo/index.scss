@@ -16,7 +16,7 @@
     &__wrap {
         position: relative;
         width: 314px;
-        margin: 0 6px 4px 0;
+        margin: 0 10px 4px 0;
         &:not(:first-child) {
             @media (max-width: 768px) {
                 margin-left: 0;
@@ -35,7 +35,7 @@
             right: 40px;
         }
         .search-form__button{
-            margin: 20px 0 0 6px;
+            margin: 20px 0 0 10px;
         }
       .search-form__button--clear{
         margin: 23px 0 0 3px;
@@ -86,7 +86,7 @@
         }
         &.found-info {
             background-image: url("/static/images/base_search/found-info.svg");
-            
+
         }
         &.referee_search {
             background-image: url("/static/images/base_search/referee_search.svg");
@@ -178,8 +178,9 @@
             flex-direction: column;
             align-items: flex-start;
             .search-form__wrap-with_but {
+                margin-top: -20px;
                 width: 100%;
-                max-width: 433px;
+                max-width: 436px;
             }
             .search-form__wrap:first-of-type {
                 width: calc(100% - 119px);
@@ -204,6 +205,6 @@
         margin-bottom: 0;
     }
     .search-form__button{
-        margin-top: 0px;
+        margin-top: 0;
     }
 }

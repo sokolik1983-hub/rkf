@@ -22,14 +22,21 @@ const LoginPage = ({isAuthenticated, is_active_profile, user_type}) => {
         if (!is_active_profile && user_type === 3) return <Redirect to="/not-confirmed" />
         if (!is_active_profile && user_type === 4) return <Redirect to="/kennel/activation" />
 
-        if (is_active_profile && user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') {
+
+        if (is_active_profile && user_type === 0){
+            return <Redirect to={`/${alias}`}/>
+        } else if (is_active_profile && user_type === 0 && alias === 'rkf-online'){
+            return <Redirect to={`/club/${alias}`}/>
+        } else if (user_type === 1) {
+            return <Redirect to={`/user/${alias}`}/>
+        } else if (is_active_profile && user_type === 3 && alias !== 'rkf') {
             return <Redirect to={`/club/${alias}`} />
-        } else if (is_active_profile && (user_type === 5 || alias === 'rkf' || alias === 'rkf-online')) {
-            return <Redirect to={`/${alias}`} />
         } else if (is_active_profile && user_type === 4) {
             return <Redirect to={`/kennel/${alias}`} />
-        } else if (user_type === 1) {
-            return <Redirect to={`/user/${alias}`} />
+        } else if (is_active_profile && (user_type === 5 || alias === 'rkf')) {
+            return <Redirect to={`/${alias}`}/>
+        } else if (user_type === 7) {
+            return <Redirect to={`/nbc/${alias}`}/>
         } else {
             return <Redirect to="/" />
         }

@@ -1,0 +1,232 @@
+.exhibitions-invite {
+  .exhibitions-invite__judges-wrap p {
+      margin-bottom: 5px;
+      letter-spacing: normal;
+  }
+
+  &__main-info {
+    display: grid;
+    grid-template-areas:
+      "club club exh exh exh exh"
+      "city city sdate sdate edate edate";
+    gap: 30px 0;
+    margin-top: 25px;
+
+    p:first-of-type{
+      grid-area: club;
+    }
+
+    p:nth-of-type(2) {
+      grid-area: exh;
+    }
+
+    p:nth-of-type(3) {
+      grid-area: city;
+    }
+
+    p:nth-of-type(4) {
+      grid-area: sdate;
+    }
+
+    p:nth-of-type(5) {
+      grid-area: edate;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+
+      &:hover {
+        color: #3366FF;
+      }
+    }
+  }
+
+  &__judges-wrap {
+    margin-top: 30px;
+
+    .judge-item {
+      padding-left: 45px;
+      border: 1px solid #CED4DA;
+      border-bottom: none;
+      list-style-type: none;
+
+      &:last-of-type {
+        border: 1px solid #CED4DA;
+      }
+
+      &__wrap {
+        display: grid;
+        grid-template-columns: 25% 27% 23% 25%;
+        padding-bottom: 10px;
+      }
+
+      &__name-wrap,  &__info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__info {
+        margin-top: 18px;
+
+        p {
+          display: flex;
+          flex-direction: row;
+          margin: 0;
+          font-weight: 600;
+          color: #72839c;
+
+          span {
+            font-weight: 400;
+          }
+        }
+      }
+
+      &__name-wrap {
+        .judge-item__name-rus {
+          text-decoration: none;
+          color: black;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 18px;
+
+          &:hover {
+            color: #3366FF;
+          }
+
+          p:last-of-type {
+            display: flex;
+          }
+        }
+      }
+
+      &__name-eng, &__cert-number {
+        font-style: normal;
+        font-weight: 400;
+        line-height: 17px;
+        color: #72839C;
+      }
+
+      &__agreement {
+        margin-top: 35px;
+
+        p {
+          margin: 0;
+        }
+      }
+
+      &__invite {
+        text-align: center;
+        align-self: center;
+
+        .btn {
+          padding: 0 10px;
+          margin: 0;
+          width: 160px;
+          height: 38px;
+          line-height: 18px;
+        }
+
+        p {
+          display: flex;
+          flex-direction: column;
+
+          span {
+            font-style: italic;
+            color: #72839C;
+          }
+        }
+      }
+    }
+  }
+
+  ._green {
+    color: #51DEA3;
+  }
+
+  ._red {
+    color: #FF6977;
+  }
+
+  @media (max-width: 1079px) {
+    &__main-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    &__judges-wrap {
+      margin-top: 5px;
+
+      ul {
+        margin-top: 10px;
+      }
+
+      .judge-item {
+        padding: 10px;
+
+        &__wrap {
+          grid-template-areas:
+            "name agreement"
+            "invite invite";
+          grid-template-rows: 1fr auto;
+          grid-template-columns: 50% 50%;
+
+          .judge-item__info {
+            display: none;
+          }
+        }
+
+        &__name-wrap {
+          grid-area: name;
+
+          .judge-item__name-rus {
+            svg {
+              min-width: fit-content;
+            }
+
+            p:last-of-type {
+              width: max-content;
+            }
+          }
+        }
+
+        &__agreement {
+          grid-area: agreement;
+          margin-top: 0;
+
+          &._agree {
+            width: min-content;
+            margin-left: auto;
+          }
+
+          &._disagree {
+            display: flex;
+            flex-direction: column;
+            margin-left: auto;
+            width: 70%;
+
+            span {
+              font-style: italic;
+              color: #72839C;
+            }
+          }
+        }
+
+        &__invite {
+          grid-area:invite;
+          justify-self: flex-end;
+          text-align: end;
+          width: 60%;
+
+          .btn {
+            margin-right: 0;
+            padding: 0;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}

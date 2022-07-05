@@ -109,6 +109,10 @@
       }
     }
 
+    &__inner {
+      position: relative;
+    }
+
     &__info {
       width: 300px;
       min-width: 300px;
@@ -173,21 +177,20 @@
           height: 110px;
 
           .UserActionControls {
-            display: flex;
-            position: relative;
-            bottom: 41px;
+            position: absolute;
+            top: 6px;
+            right: 0;
             justify-content: flex-end;
             margin-right: 30px;
             width: auto;
 
             &__message-btn {
-              width: 170px;
               padding: 0;
             }
 
             &__subscribe-btn {
               width: 170px;
-              margin: 10px 10px 0;
+              margin: 10px 10px 0 0;
               padding: 0;
 
               span {
@@ -209,10 +212,6 @@
               top: 8px;
             }
           }
-
-          &__user-wrap {
-            top: 62px;
-          }
         }
 
         ._editable {
@@ -223,10 +222,6 @@
               position: relative;
               top: 8px;
             }
-          }
-
-          .user-header__user-wrap {
-            top: 62px;
           }
         }
 

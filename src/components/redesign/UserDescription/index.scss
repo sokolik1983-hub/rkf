@@ -34,6 +34,7 @@
       min-height: 52px;
       transition: height 500ms;
       .ReactCollapse--content {
+        padding-top: 10px;
         white-space: break-spaces;
       }
     }

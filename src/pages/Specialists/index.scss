@@ -35,7 +35,6 @@
   }
   &__list-filter {
     width: 100%;
-    overflow: hidden;
     padding: 10px 10px 0;
     border-radius: 6px;
     position: sticky;
@@ -113,7 +112,11 @@
       height: 20px;
       display: inline-block;
       margin-right: 10px;
-      background: url(/static/icons/tableIcon.svg) no-repeat center / cover;
+      background: url(/static/icons/full-screen.svg) no-repeat center / cover,
+      url(/static/icons/full-screen-blue.svg) no-repeat center / cover;
+    }
+    &--tableIcon:hover:before {
+      background: url(/static/icons/full-screen-blue.svg) no-repeat center / cover;
     }
     &--backIcon:before {
       content: "";
@@ -132,7 +135,11 @@
       height: 20px;
       display: inline-block;
       margin-right: 10px;
-      background: url(/static/icons/downloadIcon.svg) no-repeat center / cover;
+      background: url(/static/icons/downloadIcon.svg) no-repeat center / cover,
+      url(/static/icons/downloadIcon-blue.svg) no-repeat center / cover;
+    }
+    &--downloadIcon:hover:before {
+      background: url(/static/icons/downloadIcon-blue.svg) no-repeat center / cover;
     }
   }
   &__checkbox-wrap {

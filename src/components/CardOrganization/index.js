@@ -7,7 +7,6 @@ import Avatar from "../Layouts/Avatar";
 
 import "./index.scss";
 
-
 const CardOrganization = (props) => {
 
     const {
@@ -68,7 +67,11 @@ const CardOrganization = (props) => {
                                 />
                             </Link>
                             <div className="card-organization__container">
-                                <div className="card-organization__name-wrap">
+                                <div className={`card-organization__name-wrap
+                                    ${(user_type === 0 || user_type === 5 || user_type === 7) ? 
+                                    ' card-organization__name-fed' 
+                                    : ''}`}
+                                >
                                     <div>
                                         <div className="card-organization__name-inner">
                                             {
@@ -87,8 +90,7 @@ const CardOrganization = (props) => {
                                                                 <span>
                                                                     { user_type === 3 ? 'Клуб' :
                                                                         user_type === 4 ? 'Питомник' :
-                                                                            user_type === 5 ? 'Федерация' :
-                                                                                user_type === 7 ? 'НКП' : '' }
+                                                                            user_type === 7 ? 'НКП' : '' }
                                                                 </span>
                                                                 &nbsp;
                                                             </>
@@ -100,8 +102,7 @@ const CardOrganization = (props) => {
                                                         <span>
                                                                     { user_type === 3 ? 'Клуб' :
                                                                         user_type === 4 ? 'Питомник' :
-                                                                            user_type === 5 ? 'Федерация' :
-                                                                                user_type === 7 ? 'НКП' : '' }
+                                                                            user_type === 7 ? 'НКП' : '' }
                                                                 </span>
                                                         &nbsp;
                                                         <span>{ name || 'Название отсутствует' }</span>
@@ -118,20 +119,20 @@ const CardOrganization = (props) => {
                                             </span>
                                         </div>
                                     </div>
-                                    { (user_type !== 0 && user_type !== 5 && user_type !== 7) &&
+                                    {user_type !== 7 &&
                                         <div className="card-organization__info-item">
-                                            <span>
-                                                { federation_name && federation_alias
-                                                    ?
-                                                    <Link to={ `/${ federation_alias }` }>
-                                                        { federation_name }
-                                                    </Link>
-                                                    :
-                                                    'Федерация не указана'
-                                                }
-                                            </span>
-
-                                            { city_name &&
+                                            {user_type !== 0 && user_type !== 5 &&
+                                                <span className="card-organization__federation">
+                                                    {federation_name && federation_alias ?
+                                                        <Link to={`/${federation_alias}`}>
+                                                            {federation_name}
+                                                        </Link>
+                                                        :
+                                                        "Федерация не указана"
+                                                    }
+                                                </span>
+                                            }
+                                            {city_name &&
                                                 <span
                                                     className="card-organization__city"
                                                     title={ city_name }

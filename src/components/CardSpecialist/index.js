@@ -12,25 +12,25 @@ import "./index.scss";
 
 
 const CardSpecialist = ({
-                            id,
-                            cert_number,
-                            last_name,
-                            first_name,
-                            second_name,
-                            last_name_lat,
-                            first_name_lat,
-                            picture_link,
-                            city_id,
-                            city_name,
-                            phone,
-                            email,
-                            searchTypeId,
-                            opened_group_and_breed,
-                            ranks,
-                            is_liked,
-                            like_count,
-                            owner_alias,
-                        }) => {
+    id,
+    cert_number,
+    last_name,
+    first_name,
+    second_name,
+    last_name_lat,
+    first_name_lat,
+    picture_link,
+    city_id,
+    city_name,
+    phone,
+    email,
+    searchTypeId,
+    opened_group_and_breed,
+    ranks,
+    is_liked,
+    like_count,
+    owner_alias,
+}) => {
     const [additionalDisciplines, setAdditionalDisciplines] = useState(null);
     const [additionalGroups, setAdditionalGroups] = useState(null);
     const [additionalContests, setAdditionalContests] = useState(null);
@@ -79,13 +79,14 @@ const CardSpecialist = ({
                                     <Link className="card-specialists__name"
                                         to={`/user/${owner_alias}`}
                                     >
-                                        <span>
-                                            {last_name}
-                                        </span>
-                                        <span>
-                                            {first_name || ''}{second_name ? ' ' + second_name : ''}
-                                            {owner_alias && judgeIcon}
-                                        </span>
+                                        <span>{last_name}</span>
+                                        <div className="card-specialists__name-first">
+                                            <span>{first_name || ''}</span>
+                                            <span>
+                                                {second_name ? ' ' + second_name : ''}
+                                                {owner_alias && judgeIcon}
+                                            </span>
+                                        </div>
                                     </Link>
                                     :
                                     <span className="card-specialists__name">
@@ -110,7 +111,7 @@ const CardSpecialist = ({
 
                             <div className="card-specialists__sertificate-block">
                                 <span className="card-specialists__sertificate">
-                                    {`Лист ${!isSpecialist ? 'судьи' : 'специалиста'} №`}<span>{cert_number}</span>
+                                    {`Лист ${!isSpecialist ? 'судьи' : 'специалиста'} № `}<span>{cert_number}</span>
                                 </span>
                             </div>
                         </div>
@@ -374,4 +375,3 @@ const CardSpecialist = ({
 };
 
 export default React.memo(CardSpecialist);
-
