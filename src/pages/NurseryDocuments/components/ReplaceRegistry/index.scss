@@ -200,18 +200,14 @@
   &__controls {
     &._replace_registry {
       position: absolute;
-      top: 14px;
+      top: 24px;
       z-index: 9;
       right: 0;
       @media (max-width: 1110px) {
         top: 0;
       }
       @media (max-width: 990px) {
-        top: -35px;
-        z-index: 1;
-      }
-      @media (max-width: 990px) {
-        top: -10px;
+        top: 8px;
       }
       @media (max-width: 600px) {
         display: flex;
@@ -224,6 +220,19 @@
         @media (max-width: 600px) {
           margin: 10px 0 0 0;
         }
+      }
+    }
+  }
+  &__popup {
+    & ._replace_registry {
+      top: 44px;
+      right: 33px;
+      z-index: 9;
+      @media (max-width: 900px) {
+        top: 52px;
+      }
+      @media (max-width: 600px) {
+        left: 12px;
       }
     }
   }

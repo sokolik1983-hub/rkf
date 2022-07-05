@@ -44,8 +44,19 @@
       z-index: 9;
       right: 0;
       &.non-standart-view {
-        top: 45px;
+        top: 25px;
         right: 33px;
+        margin-bottom: 5px;
+        @media (max-width: 768px) {
+          position: absolute;
+          margin-bottom: 15px;
+          top: 5px;
+        }
+        @media (max-width: 600px) {
+          margin-bottom: 0;
+          left: 12px;
+          top: 35px;
+        }
       }
       @media (max-width: 1110px) {
         top: 0;

@@ -239,10 +239,26 @@
 
   &__popup {
     position: absolute;
-    top: 40px;
+    top: 60px;
     left: 0;
     width: 100vw;
     height: 100vh;
+
+    & ._full-registry-wrap {
+      top: 0;
+    }
+
+    & .club-documents-status {
+      &__controls {
+        position: absolute;
+        right: 20px;
+        top: 5px;
+        @media (max-width: 768px) {
+          position: static;
+          margin-bottom: 25px;
+        }
+      }
+    }
 
     .k-grid {
       font-size: 16px;
