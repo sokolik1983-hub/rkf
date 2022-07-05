@@ -5,8 +5,9 @@ import 'swiper/modules/free-mode/free-mode.scss';
 import 'swiper/modules/scrollbar/scrollbar.scss';
 import 'swiper/swiper.scss';
 import {Link as LinkScroll} from 'react-scroll';
-import './index.scss';
 
+import './index.scss';
+import {setFiltersToUrl} from "../../pages/Search/utils";
 
 const SwipeTabs = ({items, activeTabIndex, onChange}) => {
     const [activeIndex, setActiveIndex] = useState(activeTabIndex !== -1 ? activeTabIndex : 0);
@@ -25,6 +26,8 @@ const SwipeTabs = ({items, activeTabIndex, onChange}) => {
     useEffect(()=>{
         swiperRef.current.swiper.slideTo(activeTabIndex);
     }, [activeTabIndex]);
+
+    let filterType;
 
     const handleMoveToActive = index => {
         if(swiperRef?.current) {

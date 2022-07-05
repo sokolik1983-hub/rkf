@@ -4,7 +4,7 @@ import { setFiltersToUrl } from "../../../../utils";
 import { CSSTransition } from "react-transition-group";
 import "./index.scss";
 
-export const Sorting = ({ isOpen, setIsOpen }) => {
+export const Sorting = ({ isOpen, setIsOpen, setSortId }) => {
     /*
         типы сортировок:
         1 - по умолчанию
@@ -55,6 +55,8 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
     const handleChange = (itemId) => {
         let filterType;
 
+        console.log('itemId', itemId);
+
         sortItems.forEach(item => {
             if (item.id === itemId) {
                 filterType = item.sortType;
@@ -68,22 +70,26 @@ export const Sorting = ({ isOpen, setIsOpen }) => {
                     setIsAlphabetAZ(true);
 
                     setFiltersToUrl({ sortType: filterType[0] });
+                    setSortId(filterType[0])
                 } else if (isAlphabetAZ) {
                     setIsAlphabetAZ(false);
                     setIsAlphabetZA(true);
 
                     setFiltersToUrl({ sortType: filterType[1] });
+                    setSortId(filterType[1])
                 } else {
                     setIsAlphabetZA(false);
                     setIsAlphabetAZ(true);
 
                     setFiltersToUrl({ sortType: filterType[0] });
+                    setSortId(filterType[0])
                 }
             } else {
                 isAlphabetAZ && setIsAlphabetAZ(false);
                 isAlphabetZA && setIsAlphabetZA(false);
 
                 setFiltersToUrl({ sortType: filterType });
+                setSortId(filterType)
             }
         }
 
