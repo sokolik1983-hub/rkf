@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import ls from "local-storage";
 import moment from "moment";
-
-import Loading from "components/Loading";
-import Card from "components/Card";
 import Table from "./components/Table";
 import ReportError from './components/ReportError';
-import { PromiseRequest } from "utils/request";
+import Card from "../../../../../components/Card";
+import Loading from "../../../../../components/Loading";
+import { Request } from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
 
 import "./index.scss";
@@ -23,12 +22,10 @@ const ApplicationRegistry = ({ history }) => {
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
     useEffect(() => {
-
-        (() => PromiseRequest({
+        (() => Request({
             url: `/api/requests/get_rkf_document_request/ownergetrkfdocumentrequest/register_of_requests`,
             method: 'GET'
-        }).then(
-            data => {
+            }, data => {
                 setDocuments(data.sort(function (a, b) {
                     return new Date(b.date_create) - new Date(a.date_create);
                 }).map(({ date_change, date_create, ...rest }) => ({
@@ -37,22 +34,22 @@ const ApplicationRegistry = ({ history }) => {
                     ...rest
                 })));
                 setLoading(false);
-            }).catch(
-                error => {
-                    console.log(error.response);
-                    setLoading(false);
-                }))();
+            }, error => {
+                console.log(error.response);
+                setLoading(false);
+            }
+        ))();
     }, [needUpdateTable]);
 
     return loading ? <Loading /> : !standardView ? <Card className="user-documents-status__popup">
         <div className="user-documents-status__controls">
-            {document_id && <button
-                className="user-documents-status__control user-documents-status__control--resetIcon"
-            >
-                <Link to={`/user/${alias}/documents`}>
+            {document_id && <Link
+                    className="user-documents-status__control user-documents-status__control--resetIcon"
+                    to={`/user/${alias}/documents`}
+                >
                     Вернуться к списку
                 </Link>
-            </button>}
+            }
             <button
                 className="user-documents-status__control user-documents-status__control--downloadIcon"
                 onClick={() => setExporting(true)}
@@ -60,7 +57,10 @@ const ApplicationRegistry = ({ history }) => {
             >
                 Скачать PDF
             </button>
-            <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+            <button
+                className="user-documents-status__control user-documents-status__control--tableIcon"
+                onClick={() => setStandardView(true)}
+            >
                 Уменьшить таблицу
             </button>
         </div>
@@ -83,21 +83,25 @@ const ApplicationRegistry = ({ history }) => {
             {documents && !!documents.length
                 ? <div className="user-documents-status__controls-wrap">
                     <div className="user-documents-status__controls">
-                        {document_id && <button
-                            className="user-documents-status__control user-documents-status__control--resetIcon"
-                        >
-                            <Link to={`/user/${alias}/documents/application/registry`}>
+                        {document_id &&
+                            <Link
+                                className="user-documents-status__control user-documents-status__control--resetIcon"
+                                to={`/user/${alias}/documents/application/registry`}
+                            >
                                 Вернуться к списку
                             </Link>
-                        </button>}
+                        }
                         <button
                             className="user-documents-status__control user-documents-status__control--downloadIcon"
                             onClick={() => setExporting(true)}
                             disabled={exporting}
                         >
                             Скачать PDF
-                            </button>
-                        <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                        </button>
+                        <button
+                            className="user-documents-status__control user-documents-status__control--tableIcon"
+                            onClick={() => setStandardView(false)}
+                        >
                             Увеличить таблицу
                         </button>
                     </div>
@@ -109,7 +113,8 @@ const ApplicationRegistry = ({ history }) => {
                         setNeedUpdateTable={setNeedUpdateTable}
                     />
                 </div>
-                : <div className="user-documents-status__plug">
+                :
+                <div className="user-documents-status__plug">
                     <h4 className="user-documents-status__text">Заявок не найдено</h4>
                     <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                 </div>
