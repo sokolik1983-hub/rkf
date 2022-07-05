@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from "react";
+import React, {memo, useEffect, useRef, useState} from "react";
 import ClickGuard from "../../components/ClickGuard";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -23,12 +23,16 @@ const Organizations = ({history, isOpenFilters, setShowFilters}) => {
         return () => unListen();
     }, []);
 
+    const scrollRef = useRef();
+
+
+
     return (
         <Layout layoutWithFilters>
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
-            <div className="organizations-page__wrap">
+            <div className="organizations-page__wrap" ref={scrollRef}>
                 <Container className="content organizations-page">
-                    <Filters filtersValue={filtersValue} {...filtersValue} isOpenFilters={isOpenFilters}/>
+                    <Filters filtersValue={filtersValue} {...filtersValue} isOpenFilters={isOpenFilters} scrollRef={scrollRef}/>
                     <div className="organizations-page__content">
                         <OrganizationsFilter organization_type={filtersValue.organization_type}/>
                         <OrganizationsList {...filtersValue}/>
