@@ -197,6 +197,14 @@
           text-align: center;
         }
       }
+      .user-documents-status {
+        &__controls {
+          right: 20px;
+          @media (max-width: 600px) {
+            left: 12px;
+          }
+        }
+      }
     }
     .k-grid {
       font-size: 14px;
@@ -215,7 +223,6 @@
         font-weight: 400;
         font-size: 18px;
         line-height: 24px;
-        font-weight: normal;
         text-align: center;
         text-decoration: none;
         color: #253c5e;

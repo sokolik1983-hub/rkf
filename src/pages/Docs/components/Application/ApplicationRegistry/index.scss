@@ -184,8 +184,8 @@
       }
     }
     &__popup {
-      position: absolute;
-      top: 35px;
+      position: absolute!important;
+      top: 70px!important;
       left: 0;
       width: 100vw;
       height: 100vh;
@@ -196,7 +196,10 @@
           text-align: center;
         }
       }
-    }
+      .user-documents-status__controls {
+        right: 20px;
+      }
+     }
     .k-grid {
       font-size: 14px;
     }
@@ -289,3 +292,10 @@
       }
     }
   }
+
+.user-documents-status__popup {
+  @media (max-width: 950px) {
+    position: absolute;
+    top: 70px;
+  }
+}

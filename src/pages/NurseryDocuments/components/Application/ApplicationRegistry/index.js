@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import ls from "local-storage";
 import moment from "moment";
-
 import Loading from "../../../../../components/Loading";
 import Card from "../../../../../components/Card";
 import Table from "./components/Table";
@@ -11,7 +10,6 @@ import { DEFAULT_IMG } from "../../../../../appConfig";
 import ReportError from './components/ReportError';
 
 import "./index.scss";
-
 
 const ApplicationRegistry = ({ history }) => {
     const [loading, setLoading] = useState(true);

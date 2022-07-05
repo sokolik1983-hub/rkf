@@ -11,6 +11,7 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import { Link } from 'react-router-dom';
 import ls from "local-storage";
 import moment from "moment";
+
 import "./index.scss";
 
 const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
@@ -63,7 +64,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading
         ? <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-            <div className="nursery-documents-status__controls _replace_registry" style={{ top: '44px', right: '33px' }}>
+            <div className="nursery-documents-status__controls _replace_registry">
                 {document_id && <button
                     className="nursery-documents-status__control nursery-documents-status__control--resetIcon"
                 >

@@ -213,6 +213,14 @@
         text-align: center;
       }
     }
+    ._nursery_request_controls {
+      position: relative;
+      right: 20px;
+      top: 28px;
+      @media (max-width: 600px) {
+        right: 0;
+      }
+    }
   }
   .k-grid {
     font-size: 14px;

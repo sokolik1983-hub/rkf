@@ -15,7 +15,6 @@ import { DEFAULT_IMG } from "../../../../../appConfig";
 
 import "./index.scss";
 
-
 const ApplicationRegistry = () => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
@@ -112,7 +111,7 @@ const ApplicationRegistry = () => {
                         Заявка на получение документов РКФ
                     </div>
                     {documents && !!documents.length
-                        ? <div>
+                        ? <div className="user-documents-status__inner">
                             <div className="user-documents-status__controls">
                                 {document_id && <button
                                     className="user-documents-status__control user-documents-status__control--resetIcon"
