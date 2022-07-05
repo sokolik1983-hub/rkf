@@ -4,7 +4,7 @@ import "./index.scss";
 
 
 const MustRead = ({ setActiveCategoryId, notificationUrlIndex, setShowFilters }) => {
-    const [isChecked, setIsChecked] = useState(notificationUrlIndex === 4 ? true : false);
+    const [isChecked, setIsChecked] = useState(notificationUrlIndex === 5);
 
     useEffect(() => {
         if (notificationUrlIndex === 4) {

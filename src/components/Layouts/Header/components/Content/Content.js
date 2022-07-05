@@ -44,10 +44,10 @@ const Content = ({
                 {userType === 1 &&
                     <Link to={`/user/${alias}`}>{name ? getInitials(name) : 'Аноним'}</Link>
                 }
-                {userType === 3  && alias !== 'rkf' && alias !== 'rkf-online' &&
+                {userType === 3  && (alias !== 'rkf' || alias === 'rkf-online') &&
                     <Link to={is_active_profile ? `/club/${alias}` : '/not-confirmed'}>{name}</Link>
                 }
-                {(userType === 5 || alias === 'rkf' || alias === 'rkf-online') &&
+                {(userType === 5 || alias === 'rkf') &&
                     <Link to={is_active_profile ? `/${alias}` : '/not-confirmed'}>{name}</Link>
                 }
                 {userType === 4 &&
@@ -68,14 +68,14 @@ const Content = ({
                         is_active_profile={is_active_profile}
                         userTypes={
                             userType === 1 ? "user" :
-                            userType === 3 && alias !== "rkf" && alias !== "rkf-online" ? "club" :
-                            userType === 5 || alias === "rkf" || alias === "rkf-online" ? "federation" :
+                            userType === 3 && (alias !== "rkf" || alias === "rkf-online") ? "club" :
+                            userType === 5 || alias === "rkf" ? "federation" :
                             userType === 4 ? "kennel" :
                             userType === 7 && "nbc"
                         }
                         logInLogOut={
-                            accountType === 5 && (userType === 5 || alias === "rkf" || alias === "rkf-online") ? "in" :
-                            accountType === 5 && userType !== 5 && alias !== "rkf" && alias !== "rkf-online" && "out"
+                            accountType === 5 && (userType === 5 || alias === "rkf") ? "in" :
+                            accountType === 5 && userType !== 5 && alias !== "rkf" && "out"
                         }
                     />
                 }

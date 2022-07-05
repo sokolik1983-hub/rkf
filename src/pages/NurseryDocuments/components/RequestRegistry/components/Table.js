@@ -290,7 +290,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
             </LocalizationProvider>
             <NotificationGroup
                 style={{
-                    position: 'absolute',
+                    position: 'fixed',
                     right: '1vh',
                     top: '80vh',
                 }}

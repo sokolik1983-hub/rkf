@@ -105,6 +105,7 @@ const Documents = ({ alias }) => {
                         </div>
                     </Card>
                     <Card className="documents-card">
+                        <div className="documents-card__icon _events"/>
                         <h3 className="documents-card__title">ПРИГЛАШЕНИЯ СУДЕЙ НА МЕРОПРИЯТИЯ</h3>
                         <p className="documents-card__about">
                             В данном разделе НКП предоставлена возможность согласовать судей на мероприятия, после

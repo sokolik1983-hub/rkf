@@ -98,7 +98,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
         }, data => {
             setExhibition(data);
         }, error => {
-            console.log(error.response);
             setIsError(true);
         });
 
@@ -262,27 +261,36 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                 <Card className="exhibition-page__address">
                                     <div className="exhibition-page__address-left">
                                         <h4 className="exhibition-page__address-title">Адрес проведения и контакты</h4>
-                                        {city && <p>{`г. ${city}`}</p>}
-                                        {address && <p>{address}</p>}
+                                        {city &&
+                                            <PropertyP name="Город" value={city} />
+                                        }
+                                        {address &&
+                                            <PropertyP name="Адрес" value={address} />
+                                        }
                                         <br />
-
-                                    {
-                                        contacts && !!contacts.length
+                                        {contacts && !!contacts.length
                                             ? contacts.sort((a,b) => {
                                                 if(a.is_main > b.is_main) return -1
                                                 if(a.is_main < b.is_main) return 1
                                                 else return 0
                                                 }).sort((a, b) => a.contact_type_id - b.contact_type_id).map((item, index) => {
-                                                    return item.contact_type_id === 1 ? <p className="exhibition-page__contacts" key={index}>Телефон: <span>{item.value}</span></p> :
-                                                        item.contact_type_id === 2 ? <p className="exhibition-page__contacts" key={index}>Email: <a href={`mailto:${item.value}`}>{item.value}</a></p> :
-                                                            item.contact_type_id === 3 ? <p className="exhibition-page__contacts" key={index}>Сайт: {checkUrl(item.value)}</p> : null
+                                                    return item.contact_type_id === 1 ?
+                                                        <PropertyP name="Телефон" value={item.value} /> :
+                                                        item.contact_type_id === 2 ?
+                                                            <PropertyP name="Email" value={item.value} email/> :
+                                                            item.contact_type_id === 3 &&
+                                                                <p className="exhibition-page__contacts" key={index}>
+                                                                    Сайт:  {checkUrl(item.value)}
+                                                                </p>
                                                 })
                                             : ''
-                                    }
+                                        }
                                         <br />
-                                        <h4 className="exhibition-page__address-title">дополнительная информация</h4>
                                         {address_additional_info ?
-                                            <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: address_additional_info }} /> :
+                                            <>
+                                                <h4 className="exhibition-page__address-title">дополнительная информация</h4>
+                                                <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: address_additional_info }} />
+                                            </>:
                                             <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
                                         }
                                     </div>

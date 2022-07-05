@@ -38,19 +38,18 @@
   }
 
   &__title {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     font-weight: 400;
     font-size: 18px;
     line-height: 16px;
-    letter-spacing: 0.4px;
     color: #253C5E;
   }
 
   &__subtitle {
-    margin-bottom: 16px;
+    margin-bottom: 15px;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 16px;
+    font-size: 18px;
+    line-height: 18px;
     color: #90999E;
   }
 
@@ -92,7 +91,7 @@
   }
 
   &__date {
-    margin-bottom: 16px;
+    margin-bottom: 15px;
     font-weight: 600;
   }
 
@@ -104,7 +103,6 @@
     margin-bottom: 16px;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: 0.2px;
     padding-left: 30px;
     background: url("/static/icons/exhibitions/pin.svg") 0 no-repeat;
   }
@@ -183,8 +181,11 @@
       font-weight: 400;
       font-size: 18px;
       line-height: 16px;
-      letter-spacing: 0.4px;
       color: #253C5E;
+    }
+
+    p{
+      color: #72839C;
     }
   }
 
@@ -269,7 +270,6 @@
         font-style: normal;
         font-weight: 400;
         line-height: 18px;
-        letter-spacing: 0em;
         text-align: left;
         color: #253C5E;
       }

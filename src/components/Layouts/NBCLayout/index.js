@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from "react";
-import {useSelector} from "react-redux";
-import { connectAuthVisible } from "pages/Login/connectors";
-import {connectShowFilters} from '../../../components/Layouts/connectors';
-import {Request} from "../../../utils/request";
-import {useHistory, useLocation, useParams, withRouter} from "react-router-dom";
-import Container from "../Container";
-import {endpointGetNBCInfo} from "./config";
-import Loading from "../../Loading";
+import React, { useEffect, useState, useCallback } from "react";
+import { useHistory, useLocation, useParams, withRouter } from "react-router-dom";
 import StickyBox from "react-sticky-box";
-import useIsMobile from "../../../utils/useIsMobile";
-import Aside from "../Aside";
-import UserHeader from "../../redesign/UserHeader";
-import Banner from "../../Banner";
-import UserPhotoGallery from "../UserGallerys/UserPhotoGallery";
-import UserVideoGallery from "../UserGallerys/UserVideoGallery";
-import CopyrightInfo from "../../CopyrightInfo";
-import {BANNER_TYPES} from "../../../appConfig";
-import PhotoComponent from "../../PhotoComponent";
-import UserBanner from "../UserBanner";
+import { compose } from "redux";
+import { useSelector } from "react-redux";
 import ls from "local-storage";
-import {defaultValues} from "../../../pages/NBCEdit/config";
-import MenuComponentNew from "../../MenuComponentNew";
-import injectReducer from "../../../utils/injectReducer";
+import { endpointGetNBCInfo } from "./config";
+import Aside from "../Aside";
 import reducer from "../reducer";
-import {compose} from "redux";
+import Container from "../Container";
+import UserBanner from "../UserBanner";
+import { connectShowFilters } from "../connectors";
+import UserVideoGallery from "../UserGallerys/UserVideoGallery";
+import UserPhotoGallery from "../UserGallerys/UserPhotoGallery";
+import Banner from "../../Banner";
+import Loading from "../../Loading";
+import UserHeader from "../../redesign/UserHeader";
+import CopyrightInfo from "../../CopyrightInfo";
+import PhotoComponent from "../../PhotoComponent";
+import MenuComponentNew from "../../MenuComponentNew";
+import { defaultValues } from "../../../pages/NBCEdit/config";
+import { connectAuthVisible } from "../../../pages/Login/connectors";
+import { BANNER_TYPES } from "../../../appConfig";
+import { Request } from "../../../utils/request";
+import useIsMobile from "../../../utils/useIsMobile";
+import injectReducer from "../../../utils/injectReducer";
 
 import "./index.scss";
+
 
 const NBCLayout = ({ newsFeed, ...props } ) => {
     const { children, login_page, setShowFilters, layoutWithFilters } = props;
@@ -56,7 +57,7 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
     const [initialValues, setInitialValues] = useState(defaultValues);
     const [success, setSuccess] = useState(false);
 
-    const getNBCInfo = async () => {
+    const getNBCInfo = useCallback(async () => {
         setLoading(true);
         await Request({
             url: endpointGetNBCInfo + '?alias=' + alias
@@ -67,9 +68,9 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
             console.log(error.response);
         });
         setLoading(false);
-    };
+    },[alias]);
 
-    const getEditInfo = async () => {
+    const getEditInfo = useCallback(async () => {
         setLoading(true)
         await Request({
             url: "/api/NationalBreedClub/edit_info?alias=" + alias
@@ -79,7 +80,7 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
             console.log(error.response);
         });
         setLoading(false);
-    };
+    },[alias]);
 
     const handleAlbumDelete = async (id) => {
         if (window.confirm('Действительно удалить?')) {
@@ -136,7 +137,7 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
         }
     };
 
-    const getAlbums = (page = 0) => {
+    const getAlbums = useCallback((page = 0) => {
         setImagesLoading(true);
         return Request({
             url: `/api/photogallery/albums?alias=${alias}`,
@@ -145,7 +146,7 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
             setAlbums(albums);
             setImagesLoading(false);
         }, error => handleError(error));
-    };
+    },[alias]);
 
     const handleError = e => {
         let errorText = e.response.data.errors
@@ -158,11 +159,6 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
             onOk: () => setShowAlert(false)
         });
     };
-
-    useEffect(() => {
-        (() => getNBCInfo())();
-        setCanEdit((aliasRedux === alias));
-    }, []);
 
     const onSubscriptionUpdate = (subscribed) => {
         setNBCInfo({
@@ -223,15 +219,6 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
         setAllSelected(!allSelected);
     };
 
-    useEffect(() => {
-        setPageLoaded(false);
-        Promise.all([getImages(1), !album && getAlbums(), !nbcInfo && getNBCInfo()])
-            .then(() => {
-                setStartElement(1);
-                setPageLoaded(true);
-            });
-    }, [params]);
-
     const PromiseRequest = url => new Promise((res, rej) => Request({url}, res, rej));
 
     const getInfo = () => PromiseRequest('/api/NationalBreedClub/edit_info')
@@ -254,10 +241,6 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
             }
             setLoading(false);
         });
-
-    useEffect(() => {
-        getInfo();
-    }, [])
 
     const transformValues = values => {
         const newValues = {...values};
@@ -288,8 +271,19 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
     };
 
     useEffect(() => {
+        setPageLoaded(false);
+        Promise.all([getImages(1), !album && getAlbums(), !nbcInfo && getNBCInfo()])
+            .then(() => {
+                setStartElement(1);
+                setPageLoaded(true);
+            });
+    }, [params]);
+
+    useEffect(() => {
+        setCanEdit((aliasRedux === alias));
+        getInfo();
         getEditInfo();
-    }, []);
+    }, [alias]);
 
     useEffect(() => {
         setShowFilters({ withFilters: layoutWithFilters, login_page: login_page, isOpen: false});
@@ -346,14 +340,14 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
                                 </StickyBox>
                             </Aside>
                             <div className="nbc-page__content">
-                                {!newsFeed &&
+                                {!newsFeed && !editInfo &&
                                     <UserBanner
                                         link={nbcInfo?.headliner_link}
                                         canEdit={canEdit}
                                         updateInfo={getNBCInfo}
                                     />
                                 }
-                                {isMobile && nbcInfo &&
+                                {isMobile && nbcInfo && !editInfo && !newsFeed &&
                                     <UserHeader
                                         user='nbc'
                                         logo={nbcInfo.logo_link}
@@ -366,8 +360,8 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
                                         isAuthenticated={isAuthenticated}
                                     />
                                 }
-                                {
-                                    React.cloneElement(children, {
+                                {React.cloneElement(children,
+                                    {
                                         isMobile,
                                         nbcInfo: nbcInfo,
                                         canEdit,
@@ -406,8 +400,8 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
                                         transformValues: transformValues,
                                         initialValues: initialValues,
                                         editInfo: editInfo,
-                                    })
-                                }
+                                    }
+                                )}
                             </div>
                         </div>
                     </Container>

@@ -1,6 +1,9 @@
 .PropertyP {
+    a {
+        text-decoration: none;
+    }
     &__name {
-        color: #72839c;
+        color: #253C5E;
     }
     &__name::after {
         content: " ";
@@ -8,6 +11,7 @@
         display: inline-block;
     }
     &__value {
-
+        text-decoration: none;
+        color: #72839C;
     }
 }

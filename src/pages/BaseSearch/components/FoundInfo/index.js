@@ -59,7 +59,7 @@ const FoundInfo = ({cardClicked}) => {
             <div className="search-form__image found-info"/>
             <div className="search-form__text_wrap">
             <h3>Информация о найденных собаках</h3>
-            <p className="search-form__text">Если Вами была найдена собака, на теле которой проставлено клеймо - введите его код в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, зарегистрировавший собаку, в который Вы можете обратиться для уточнения любой интересующей Вас информации.</p>
+            <p className="search-form__text">Если Вами была найдена собака, на&nbsp;теле которой проставлено клеймо - введите его код в&nbsp;поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в&nbsp;Базе РКФ, Вам будет показан клуб/питомник, зарегистрировавший собаку, в&nbsp;который Вы можете обратиться для уточнения любой интересующей Вас информации.</p>
             <form className="search-form" onSubmit={handleSubmit}>
                 <div className="search-form__wrap">
                     <input
@@ -71,7 +71,7 @@ const FoundInfo = ({cardClicked}) => {
                         value={stamp_code}
                         title="Введите 3 латинских символа"
                         placeholder="Код клейма"
-                        disabled={loading || status ? true : false}
+                        disabled={loading || status}
                         required
                     />
                     {stamp_code &&
