@@ -5,8 +5,8 @@ import 'swiper/modules/free-mode/free-mode.scss';
 import 'swiper/modules/scrollbar/scrollbar.scss';
 import 'swiper/swiper.scss';
 import {Link as LinkScroll} from 'react-scroll';
-import './index.scss';
 
+import './index.scss';
 
 const SwipeTabs = ({items, activeTabIndex, onChange}) => {
     const [activeIndex, setActiveIndex] = useState(activeTabIndex !== -1 ? activeTabIndex : 0);

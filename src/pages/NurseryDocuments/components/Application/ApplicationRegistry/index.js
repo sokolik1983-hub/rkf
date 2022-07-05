@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import ls from "local-storage";
 import moment from "moment";
-import Loading from "../../../../../components/Loading";
-import Card from "../../../../../components/Card";
 import Table from "./components/Table";
+import ReportError from './components/ReportError';
+import Card from "../../../../../components/Card";
+import Loading from "../../../../../components/Loading";
 import { Request } from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
-import ReportError from './components/ReportError';
 
 import "./index.scss";
+
 
 const ApplicationRegistry = ({ history }) => {
     const [loading, setLoading] = useState(true);
@@ -45,23 +46,27 @@ const ApplicationRegistry = ({ history }) => {
         !standardView ?
             <Card className="user-documents-status__popup">
                 <div className="user-documents-status__controls">
-                    {document_id && <button
-                        className="user-documents-status__control user-documents-status__control--resetIcon"
-                    >
-                        <Link to={`/kennel/${alias}/documents/application/registry`}>
+                    {document_id &&
+                        <Link
+                            className="user-documents-status__control user-documents-status__control--resetIcon"
+                            to={`/kennel/${alias}/documents/application/registry`}
+                        >
                             Вернуться к списку
                         </Link>
-                    </button>}
+                    }
                     <button
                         className="user-documents-status__control user-documents-status__control--downloadIcon"
                         onClick={() => setExporting(true)}
                         disabled={exporting}
                     >
                         Скачать PDF
-                        </button>
-                    <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                    </button>
+                    <button
+                        className="user-documents-status__control user-documents-status__control--tableIcon"
+                        onClick={() => setStandardView(true)}
+                    >
                         Уменьшить таблицу
-                        </button>
+                    </button>
                 </div>
                 <Table
                     documents={documents}
@@ -82,21 +87,25 @@ const ApplicationRegistry = ({ history }) => {
                 {documents && !!documents.length
                     ? <div style={{ marginTop: '-16px' }}>
                         <div className="user-documents-status__controls">
-                            {document_id && <button
-                                className="user-documents-status__control user-documents-status__control--resetIcon"
-                            >
-                                <Link to={`/kennel/${alias}/documents/application/registry`}>
+                            {document_id &&
+                                <Link
+                                    className="user-documents-status__control user-documents-status__control--resetIcon"
+                                    to={`/kennel/${alias}/documents/application/registry`}
+                                >
                                     Вернуться к списку
                                 </Link>
-                            </button>}
+                            }
                             <button
                                 className="user-documents-status__control user-documents-status__control--downloadIcon"
                                 onClick={() => setExporting(true)}
                                 disabled={exporting}
                             >
                                 Скачать PDF
-                                </button>
-                            <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                            </button>
+                            <button
+                                className="user-documents-status__control user-documents-status__control--tableIcon"
+                                onClick={() => setStandardView(false)}
+                            >
                                 Увеличить таблицу
                             </button>
                         </div>

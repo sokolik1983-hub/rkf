@@ -46,13 +46,14 @@ const ApplicationRegistry = ({ history }) => {
         !standardView ?
             <Card className="user-documents-status__popup">
                 <div className="user-documents-status__controls">
-                    {document_id && <button
-                        className="user-documents-status__control user-documents-status__control--resetIcon"
-                    >
-                        <Link to={`/kennel/${alias}/documents/responsible/checkmembership/registry`}>
+                    {document_id &&
+                        <Link
+                            className="user-documents-status__control user-documents-status__control--resetIcon"
+                            to={`/kennel/${alias}/documents/responsible/checkmembership/registry`}
+                        >
                             Вернуться к списку
-                    </Link>
-                    </button>}
+                        </Link>
+                    }
                     <button
                         className="user-documents-status__control user-documents-status__control--downloadIcon"
                         onClick={() => setExporting(true)}
@@ -60,7 +61,10 @@ const ApplicationRegistry = ({ history }) => {
                     >
                         Скачать PDF
                     </button>
-                    <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                    <button
+                        className="user-documents-status__control user-documents-status__control--tableIcon"
+                        onClick={() => setStandardView(true)}
+                    >
                         Уменьшить таблицу
                     </button>
                 </div>
@@ -82,21 +86,25 @@ const ApplicationRegistry = ({ history }) => {
                 {documents && !!documents.length
                     ? <div className="user-documents-status__wrap">
                         <div className="user-documents-status__controls">
-                            {document_id && <button
-                                className="user-documents-status__control user-documents-status__control--resetIcon"
-                            >
-                                <Link to={`/kennel/${alias}/documents/responsible/checkmembership/registry`}>
+                            {document_id &&
+                                <Link
+                                    className="user-documents-status__control user-documents-status__control--resetIcon"
+                                    to={`/kennel/${alias}/documents/responsible/checkmembership/registry`}
+                                >
                                     Вернуться к списку
-                            </Link>
-                            </button>}
+                                </Link>
+                            }
                             <button
                                 className="user-documents-status__control user-documents-status__control--downloadIcon"
                                 onClick={() => setExporting(true)}
                                 disabled={exporting}
                             >
                                 Скачать PDF
-                                </button>
-                            <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                            </button>
+                            <button
+                                className="user-documents-status__control user-documents-status__control--tableIcon"
+                                onClick={() => setStandardView(false)}
+                            >
                                 Увеличить таблицу
                             </button>
                         </div>
@@ -108,12 +116,17 @@ const ApplicationRegistry = ({ history }) => {
                             fullScreen
                         />
                     </div>
-                    : <div className="user-documents-status__plug">
+                    :
+                    <div className="user-documents-status__plug">
                         <h4 className="user-documents-status__text">Заявок не найдено</h4>
                         <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>
                 }
-                {errorReport && <ReportError setNeedUpdateTable={setNeedUpdateTable} id={errorReport} onErrorReport={id => setErrorReport(id)} />}
+                {errorReport && <ReportError
+                    setNeedUpdateTable={setNeedUpdateTable}
+                    id={errorReport}
+                    onErrorReport={id => setErrorReport(id)}
+                />}
             </Card>
 };
 
