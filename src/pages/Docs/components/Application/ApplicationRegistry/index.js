@@ -76,13 +76,13 @@ const ApplicationRegistry = () => {
             {!standardView ?
                 <Card className="user-documents-status__popup">
                     <div className="user-documents-status__controls">
-                        {document_id && <button
-                            className="user-documents-status__control user-documents-status__control--resetIcon"
-                        >
-                            <Link to={`/${alias}/documents/application/registry`}>
+                        {document_id &&
+                            <Link className="user-documents-status__control user-documents-status__control--resetIcon"
+                                  to={`/${alias}/documents/application/registry`}
+                            >
                                 Вернуться к списку
                             </Link>
-                        </button>}
+                        }
                         <button
                             className="user-documents-status__control user-documents-status__control--downloadIcon"
                             onClick={() => setExporting(true)}
@@ -114,13 +114,14 @@ const ApplicationRegistry = () => {
                     {documents && !!documents.length
                         ? <div>
                             <div className="user-documents-status__controls">
-                                {document_id && <button
-                                    className="user-documents-status__control user-documents-status__control--resetIcon"
-                                >
-                                    <Link to={`/${alias}/documents/application/registry`}>
+                                {document_id &&
+                                    <Link
+                                        className="user-documents-status__control user-documents-status__control--resetIcon"
+                                        to={`/${alias}/documents/application/registry`}
+                                    >
                                         Вернуться к списку
                                     </Link>
-                                </button>}
+                                }
                                 {registry && !isMobile && <button
                                     className="club-documents-status__control club-documents-status__control--registryIcon"
                                     onClick={() => setShowModal(true)}
@@ -135,8 +136,10 @@ const ApplicationRegistry = () => {
                                 >
                                     Скачать PDF
                                 </button>
-                                <button className="user-documents-status__control user-documents-status__control--tableIcon"
-                                        onClick={() => setStandardView(false)}>
+                                <button
+                                    className="user-documents-status__control user-documents-status__control--tableIcon"
+                                    onClick={() => setStandardView(false)}
+                                >
                                     Увеличить таблицу
                                 </button>
                             </div>
