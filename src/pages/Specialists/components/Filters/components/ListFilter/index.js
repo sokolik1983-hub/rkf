@@ -20,6 +20,7 @@ const ListFilter = ({
     }, []);
 
     const [isOpen, setIsOpen] = useState(false);
+    const [sortId, setSortId] = useState(1);
 
     const handleChange = (id) => {
         setIsOpen(false);
@@ -29,6 +30,7 @@ const ListFilter = ({
             RegionIds: RegionIds,
             CityIds: CityIds,
             SearchTypeId: id,
+            sortType: sortId,
         });
     }
 
@@ -37,7 +39,7 @@ const ListFilter = ({
         <div className="specialists-page__list-filter">
             <div className="specialists-page__list-filter_header">
                 <h4 className="list-filter__title">Судьи и специалисты</h4>
-                <Sorting isOpen={isOpen} setIsOpen={setIsOpen}/>
+                <Sorting isOpen={isOpen} setIsOpen={setIsOpen} setSortId={setSortId} />
             </div>
 
             <SwipeTabs
