@@ -16,6 +16,8 @@
 
             &__error {
                 left: 48px;
+                bottom: -20px;
+                padding: 0 4px 4px;
                 @media (max-width: 768px) {
                     left: 0;
                 }
