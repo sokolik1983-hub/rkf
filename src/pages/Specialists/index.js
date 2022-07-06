@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from "react";
+import React, {memo, useEffect, useRef, useState} from "react";
 import moment from "moment";
 import "moment/locale/ru";
 import Layout from "../../components/Layouts";
@@ -102,6 +102,8 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
         }
     };
 
+    const scrollRef = useRef();
+
     useEffect(() => {
         if (url) {
             setListLoading(true);
@@ -115,13 +117,14 @@ const Specialists = ({history, isOpenFilters, setShowFilters}) => {
         <Loading /> :
         <Layout layoutWithFilters>
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
-            <div className="specialists-page__wrap redesign">
+            <div className="specialists-page__wrap redesign" ref={scrollRef}>
                 <Container className="specialists-page content">
                     <Filters
                         allBreeder={allBreeder}
                         setAllBreeder={setAllBreeder}
                         isOpenFilters={isOpenFilters}
                         filtersValue={filters}
+                        scrollRef={scrollRef}
                     />
                     <div className="specialists-page__content">
                         <ListFilter
