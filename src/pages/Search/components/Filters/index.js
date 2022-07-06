@@ -13,6 +13,7 @@ const Filters = ({
                      filtersValue,
                      filters,
                      additionalFilters,
+                     scrollRef,
 }) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
@@ -22,8 +23,7 @@ const Filters = ({
 
     const checkFilter = (filter) => {
         if (filter.items[0].search_type.toString()[0] === filtersValue.search_type.toString()[0]) return true;
-    }
-
+    };
 
     return (
         <Aside className={`search-page__left${isOpenFilters ? ' _open' : ''}`}>
@@ -36,6 +36,7 @@ const Filters = ({
                                 filtersValue={filtersValue}
                                 {...filter}
                                 additionalFilters={additionalFilters}
+                                scrollRef={scrollRef}
                             />
                         </Card>
                     )}
