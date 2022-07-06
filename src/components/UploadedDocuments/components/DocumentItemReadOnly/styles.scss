@@ -24,6 +24,7 @@
             margin-right: 10px;
             svg {
                 fill: #3366ff !important;
+                width: 22px;
             }
         }
         &__delete-btn {
@@ -31,5 +32,27 @@
                 fill: red !important;
             }
         }
+    }
+}
+.AttachFile__document {
+    .mb-3 {
+        display: flex;
+        width: calc(100% - 119px);
+        justify-content: flex-start;
+    }
+
+    .k-svg-i-file-pdf {
+        width: 22px;
+        height: 22px;
+        margin-right: 10px;
+
+        svg {
+            width: 22px;
+            fill: #3366ff !important;
+        }
+    }
+
+    > div {
+        overflow: hidden;
     }
 }
