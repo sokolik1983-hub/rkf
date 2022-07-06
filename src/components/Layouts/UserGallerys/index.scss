@@ -1,8 +1,8 @@
 .user-gallery {
   padding: 10px !important;
   margin-top: 16px;
-  @media (max-width: 560px) {
-    margin-top: 12px;
+  @media (max-width: 900px) {
+    margin-top: 0;
   }
 
   &__dropdown-wrap {
