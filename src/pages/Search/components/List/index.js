@@ -9,10 +9,9 @@ import {DEFAULT_IMG} from "../../../../appConfig";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {formatDateCommon} from "../../../../utils/datetime";
 import CardSpecialist from "../../../../components/CardSpecialist";
-
-import "./index.scss";
 import {setFiltersToUrl} from "../../utils";
 
+import "./index.scss";
 
 const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
     const {dictionary} = useDictionary('rank_type');
