@@ -8,6 +8,7 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import { Link } from 'react-router-dom';
 import ls from "local-storage";
 import moment from "moment";
+
 import "./index.scss";
 
 const RequestRegistry = ({ history, distinction }) => {

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import Table from "./components/Table";
 import Loading from "../../../../../components/Loading";
 import Card from "../../../../../components/Card";
-import Table from "./components/Table";
 import { Request } from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
-import { Link } from 'react-router-dom';
-import moment from "moment";
+
 import "./index.scss";
 
 
@@ -42,13 +43,12 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
         !standardView ?
             <Card className="user-documents-status__popup">
                 <div className="user-documents-status__controls">
-                    {document_id && <button
-                        className="user-documents-status__control user-documents-status__control--resetIcon"
-                    >
-                        <Link to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}>
+                    {document_id &&
+                        <Link className="user-documents-status__control user-documents-status__control--resetIcon"
+                              to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}>
                             Вернуться к списку
                         </Link>
-                    </button>}
+                    }
                     <button
                         className="user-documents-status__control user-documents-status__control--downloadIcon"
                         onClick={() => setExporting(true)}
@@ -56,7 +56,10 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                     >
                         Скачать PDF
                     </button>
-                    <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                    <button
+                        className="user-documents-status__control user-documents-status__control--tableIcon"
+                        onClick={() => setStandardView(true)}
+                    >
                         Уменьшить таблицу
                     </button>
                 </div>
@@ -77,21 +80,25 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                 {documents && !!documents.length
                     ? <div>
                         <div className="user-documents-status__controls">
-                            {document_id && <button
-                                className="user-documents-status__control user-documents-status__control--resetIcon"
-                            >
-                                <Link to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}>
+                            {document_id &&
+                                <Link
+                                    className="user-documents-status__control user-documents-status__control--resetIcon"
+                                    to={`/${clubAlias}/documents/exhibitions/cancellation/registry`}
+                                >
                                     Вернуться к списку
                                 </Link>
-                            </button>}
+                            }
                             <button
                                 className="user-documents-status__control user-documents-status__control--downloadIcon"
                                 onClick={() => setExporting(true)}
                                 disabled={exporting}
                             >
                                 Скачать PDF
-                                </button>
-                            <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                            </button>
+                            <button
+                                className="user-documents-status__control user-documents-status__control--tableIcon"
+                                onClick={() => setStandardView(false)}
+                            >
                                 Увеличить таблицу
                             </button>
                         </div>
@@ -101,7 +108,8 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
                             setExporting={setExporting}
                         />
                     </div>
-                    : <div className="user-documents-status__plug">
+                    :
+                    <div className="user-documents-status__plug">
                         <h4 className="user-documents-status__text">Заявок не найдено</h4>
                         <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>

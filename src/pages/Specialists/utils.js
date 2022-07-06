@@ -90,7 +90,6 @@ export const getFiltersFromUrl = () => {
 };
 
 export const setFiltersToUrl = (filters, initial = false) => {
-
     if(filters.filteredCities) {
         const newArr = [];
         filters.filteredCities.forEach(item => {
