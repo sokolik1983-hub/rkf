@@ -31,6 +31,7 @@ const Filters = ({
         isOpenFilters,
         isEducational,
         federationAlias,
+        scrollRef,
 }) => {
     const [ranks, setRanks] = useState([]);
     const [currentRanks, setCurrentRanks] = useState([]);
@@ -77,6 +78,7 @@ const Filters = ({
             setFiltersToUrl({ CityIds: newArr});
         }
         setIsUserFiltered(false);
+        scrollFunc();
     };
 
     useEffect(() => {
@@ -106,23 +108,30 @@ const Filters = ({
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
 
+    const scrollFunc = () => {
+        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
+    }
+
     const clearAll = () => {
         const calendarButton = document.getElementsByClassName('calendar-filter__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
         setFiltersToUrl(getEmptyFilters(filters.Alias));
         setClearFilter(true);
+        scrollFunc();
     };
 
     const handleChangeRegionFilter = (filter) => {
         setcurrentExhibRegions(filter);
         setIsUserFiltered(true);
         setFiltersToUrl({RegionIds: filter});
+        scrollFunc();
     };
 
     const handleChangeCityFilter = (filter) => {
         setCurrentCityIds(filter);
         setFiltersToUrl({ CityIds: filter });
+        scrollFunc();
     };
 
     const handleChangeType = async (filter) => {
@@ -138,11 +147,13 @@ const Filters = ({
         }, error => {
             console.log(error.response);
         });
+        scrollFunc();
     };
 
     const handleChangeRank = (filter) => {
         setCurrentRanks(filter);
         setFiltersToUrl({ RankIds: filter });
+        scrollFunc();
     };
 
     useEffect(() => {
@@ -186,7 +197,8 @@ const Filters = ({
         } else {
             setCurrentRanks([]);
             setFiltersToUrl({ RankIds: [] });
-        }
+        };
+        scrollFunc();
     }, [currentTypes, ranks]);
 
     return (
@@ -216,7 +228,10 @@ const Filters = ({
                                     <RangeCalendarExhibitions
                                         date_from={filters.DateFrom}
                                         date_to={filters.DateTo}
-                                        handleRangeClick={() => setRangeClicked(true)}
+                                        handleRangeClick={() => {
+                                            setRangeClicked(true);
+                                            scrollFunc();
+                                        }}
                                     />
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
@@ -224,7 +239,10 @@ const Filters = ({
                                         is_club_link={clubName && filters.Alias}
                                         clear_filter={clear_filter}
                                         range_clicked={range_clicked}
-                                        handleRangeReset={() => setRangeClicked(false)}
+                                        handleRangeReset={() => {
+                                            setRangeClicked(false);
+                                            scrollFunc();
+                                        }}
                                     />
                                 </div>
                             </Card>

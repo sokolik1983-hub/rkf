@@ -13,6 +13,8 @@ import "./index.scss";
 const Organizations = ({history, isOpenFilters, setShowFilters}) => {
     const [filtersValue, setFiltersValue] = useState({...getFiltersFromUrl()});
 
+    const scrollRef = useRef();
+
     useEffect(() => {
         const unListen = history.listen(() => {
             if(history.location.pathname === '/organizations') {
@@ -22,10 +24,6 @@ const Organizations = ({history, isOpenFilters, setShowFilters}) => {
 
         return () => unListen();
     }, []);
-
-    const scrollRef = useRef();
-
-
 
     return (
         <Layout layoutWithFilters>
