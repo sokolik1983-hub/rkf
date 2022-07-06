@@ -11,6 +11,7 @@ import {formatDateCommon} from "../../../../utils/datetime";
 import CardSpecialist from "../../../../components/CardSpecialist";
 
 import "./index.scss";
+import {setFiltersToUrl} from "../../utils";
 
 
 const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
@@ -51,7 +52,7 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                     {searchResult.map(item => (
                         <li className="search-list__item" key={item.id}>
                             {filtersSearchType.toString()[0] === '1' &&
-                                <CardOrganization {...item} />
+                                <CardOrganization setFilters={setFiltersToUrl} {...item} />
                             }
 
                             {filtersSearchType.toString()[0] === '3' &&
