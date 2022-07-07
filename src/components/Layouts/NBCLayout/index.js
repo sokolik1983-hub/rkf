@@ -340,14 +340,14 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
                                 </StickyBox>
                             </Aside>
                             <div className="nbc-page__content">
-                                {!newsFeed && !editInfo &&
+                                {!newsFeed &&
                                     <UserBanner
                                         link={nbcInfo?.headliner_link}
                                         canEdit={canEdit}
                                         updateInfo={getNBCInfo}
                                     />
                                 }
-                                {isMobile && nbcInfo && !editInfo && !newsFeed &&
+                                {isMobile && nbcInfo && !newsFeed &&
                                     <UserHeader
                                         user='nbc'
                                         logo={nbcInfo.logo_link}
