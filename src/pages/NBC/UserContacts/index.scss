@@ -42,6 +42,15 @@
       position: relative;
       padding: 10px 10px 12px;
 
+      &.collapse {
+        & .counter_component__body {
+          margin-top: -20px;
+        }
+        & .user-contacts__info-show-more {
+          bottom: 0;
+        }
+      }
+
       a {
         border: none;
         text-decoration: none;
@@ -259,5 +268,6 @@
         }
       }
     }
+
   }
 }
