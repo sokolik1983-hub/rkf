@@ -296,7 +296,12 @@ const NewsFeedItem = forwardRef(({
                             </div>
                         }
                         {is_request_article &&
-                                <Share  url={`https://rkf.online/news/${id}`}/>
+                            <Share
+                                url={window.location.host === "rkf.online" ?
+                                `https://rkf.online/news/${id}`
+                                :
+                                `https://stage.uep24.ru/news/${id}`}
+                            />
                         }
                     </div>
                     {(picture_link || video_link) &&
