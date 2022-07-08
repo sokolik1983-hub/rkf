@@ -17,6 +17,7 @@ import ClubsMap from '../../../../components/ClubsMap';
 import {RKFInfo} from '../../../Home/config';
 import {setOverflow} from '../../../../utils';
 import {Request} from '../../../../utils/request';
+import {scrollFunc} from "../../../../utils/scrollToContent";
 import {
     endpointGetClubsCities,
     endpointGetFederations,
@@ -56,8 +57,8 @@ const Filters = ({
     const [isUserFiltered, setIsUserFiltered] = useState(false);
 
     useEffect(() => {
-        scrollFunc();
-    }, [city_ids]);
+        scrollFunc(scrollRef);
+    }, [city_ids, filtersValue]);
 
     const getBreeds = async () => {
         await Request({
@@ -127,7 +128,7 @@ const Filters = ({
 
             setLoading(false);
         })();
-        scrollFunc();
+        // scrollFunc(scrollRef);
     }, [organization_type]);
 
     useEffect(() => {
@@ -145,22 +146,16 @@ const Filters = ({
 
     }, [region_ids]);
 
-    const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) {
-            window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
-        };
-    };
-
     const handleChangeRegions = filter => {
         setIsUserFiltered(true);
         setFiltersToUrl({region_ids: filter});
-        scrollFunc();
+        // scrollFunc(scrollRef);
     };
 
     const handleChangeCities = filter => {
         setCurrentCityIds(filter);
         setFiltersToUrl({city_ids: filter});
-        scrollFunc();
+        // scrollFunc(scrollRef);
     };
 
     const goToLink = (cities, currentCityIds) => {
@@ -179,7 +174,7 @@ const Filters = ({
             setFiltersToUrl({ city_ids: newArr});
         }
         setIsUserFiltered(false);
-        scrollFunc();
+        // scrollFunc(scrollRef);
     };
 
     return (
@@ -230,7 +225,7 @@ const Filters = ({
                                         federation_ids={federation_ids}
                                         onChange={filter => {
                                             setFiltersToUrl({federation_ids: filter});
-                                            scrollFunc();
+                                            // scrollFunc(scrollRef);
                                         }}
                                     />
                                     <Card className="organizations-page__other">
@@ -246,14 +241,14 @@ const Filters = ({
                                             active_rkf_user={active_rkf_user}
                                             onChange={filter => {
                                                 setFiltersToUrl({not_activated: false, active_rkf_user: filter});
-                                                scrollFunc();
+                                                // scrollFunc(scrollRef);
                                             }}
                                         />
                                         <FederationChoiceFilter
                                             active_member={active_member}
                                             onChange={filter => {
                                                 setFiltersToUrl({not_activated: false, active_member: filter});
-                                                scrollFunc();
+                                                // scrollFunc(scrollRef);
                                             }}
                                         />
                                         <ActivatedFilter
@@ -261,7 +256,7 @@ const Filters = ({
                                             label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
                                             onChange={filter => {
                                                 setFiltersToUrl({not_activated: false, activated: filter});
-                                                scrollFunc();
+                                                // scrollFunc(scrollRef);
                                             }}
                                         />
                                         <NotActivatedFilter
@@ -278,7 +273,7 @@ const Filters = ({
                                                     } :
                                                     {not_activated: filter}
                                                 );
-                                                scrollFunc();
+                                                // scrollFunc(scrollRef);
                                             }}
                                         />
                                     </Card>
