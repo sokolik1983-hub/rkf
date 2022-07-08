@@ -85,8 +85,12 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 10px;
+    margin: 0 10px;
     text-align: right;
+    @media (max-width: 600px) {
+      position: relative;
+      margin: 0 20px 0 10px;
+    }
     &-control {
       position: relative;
       right: 20px;
@@ -268,6 +272,10 @@
   &__right {
     display: flex;
     padding-top: 0;
+    @media (max-width: 600px) {
+      position: absolute;
+      right: -18px;
+    }
     .k-chip.k-chip-filled,
     .k-chip.k-chip-filled.k-chip-selected {
       height: 26px;
@@ -329,6 +337,7 @@
   &__text-wrap {
     max-height: 140px;
     overflow: hidden;
+    margin: 0 10px;
     &._collapsed {
       height: auto;
       max-height: none;
@@ -399,7 +408,7 @@
     padding-bottom: 5px;
     padding-top: 5px;
     border-top: 1px solid #e5e5e5;
-    margin: 10px 0;
+    margin: 0 10px;
     &-list {
       list-style: none;
       margin-bottom: 0 !important;
