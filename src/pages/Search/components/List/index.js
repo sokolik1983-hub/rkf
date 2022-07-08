@@ -1,6 +1,5 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import Loading from "../../../../components/Loading";
 import CardOrganization from "../../../../components/CardOrganization";
 import CardExhibition from "../../../../components/CardExhibition";
@@ -9,7 +8,7 @@ import {DEFAULT_IMG} from "../../../../appConfig";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {formatDateCommon} from "../../../../utils/datetime";
 import CardSpecialist from "../../../../components/CardSpecialist";
-
+import {setFiltersToUrl} from "../../utils";
 import "./index.scss";
 
 
@@ -51,7 +50,7 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                     {searchResult.map(item => (
                         <li className="search-list__item" key={item.id}>
                             {filtersSearchType.toString()[0] === '1' &&
-                                <CardOrganization {...item} />
+                                <CardOrganization setFilters={setFiltersToUrl} {...item} />
                             }
 
                             {filtersSearchType.toString()[0] === '3' &&
