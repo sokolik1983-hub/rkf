@@ -4,7 +4,7 @@
         justify-content: flex-start !important;
     }
     &__inner {
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             margin-top: 18px;
             position: relative;
         }
@@ -112,7 +112,7 @@
             top: -3px;
         }
         @media (max-width: 550px) {
-            flex-direction: column;
+            flex-direction: row;
             align-items: flex-start;
             position: static;
         }
@@ -127,6 +127,9 @@
         color: #72839c;
         transition: color .2s linear;
         position: relative;
+        @media (max-width: 550px) {
+            margin: 0 10px 0 0;
+        }
         & a {
             text-decoration: none;
             color: #72839c;
