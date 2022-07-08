@@ -8,7 +8,7 @@ import {Request} from "../../utils/request";
 import {clubNav} from "../../pages/Club/config";
 import {kennelNav} from "../../pages/Nursery/config";
 import {NBCNav, NBCNavDocs} from "../Layouts/NBCLayout/config";
-import {userNav} from "../Layouts/UserLayout/config";
+import {userNav, judgeNav} from "../Layouts/UserLayout/config";
 import {federationNav} from "../../pages/Federation/config";
 import {clubNav as clubNavDocs} from "../../pages/Docs/config";
 import {kennelNav as kennelNavDocs} from "../../pages/NurseryDocuments/config";
@@ -243,6 +243,11 @@ const MenuComponentNew = () => {
                     setCurrentPageNav(deleteNotification(NBCNav(currentPageUserInfo?.alias, strOfBreeds)));
                 }
             }
+        }
+        if(currentPageUserInfo?.open_roles[0]?.name === 'Судья') {
+            isUserProfilePage ?
+                setCurrentPageNav(judgeNav(linkAlias)) :
+                setCurrentPageNav(deleteNotification(judgeNav(linkAlias)));
         }
     }, [currentPageUserInfo]);
 
