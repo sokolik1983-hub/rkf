@@ -37,7 +37,8 @@ const ListFilter = ({
 
         if (type === 3) {
             setFiltersToUrl({CityIds: []});
-        }
+        };
+        scrollFunc(scrollRef);
     };
 
     const handleFilter = () => {
@@ -95,7 +96,6 @@ const ListFilter = ({
                 activeTabIndex={tabItems.findIndex(item => item.type === +categoryId)}
                 onChange={item => {
                     handleClick(item);
-                    scrollFunc(scrollRef);
                 }}
             /> :
             <CustomCheckbox
