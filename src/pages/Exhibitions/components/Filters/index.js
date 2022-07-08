@@ -109,8 +109,8 @@ const Filters = ({
     }, [isOpenFilters]);
 
     const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
-    }
+        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY);
+    };
 
     const clearAll = () => {
         const calendarButton = document.getElementsByClassName('calendar-filter__button active')[0];

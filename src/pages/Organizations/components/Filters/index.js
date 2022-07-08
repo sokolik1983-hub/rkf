@@ -45,7 +45,7 @@ const Filters = ({
     isOpenFilters,
     filtersValue,
     region_ids,
-    scrollRef
+    scrollRef,
 }) => {
     const [loading, setLoading] = useState(true);
     const [federations, setFederations] = useState([]);
@@ -57,7 +57,7 @@ const Filters = ({
 
     useEffect(() => {
         scrollFunc();
-    }, [city_ids])
+    }, [city_ids]);
 
     const getBreeds = async () => {
         await Request({
@@ -146,7 +146,7 @@ const Filters = ({
     }, [region_ids]);
 
     const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
+        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY);
     };
 
     const handleChangeRegions = filter => {
