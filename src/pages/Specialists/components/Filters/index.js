@@ -17,7 +17,13 @@ import {Request} from "../../../../utils/request";
 
 import "./index.scss";
 
-const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder, scrollRef}) => {
+const Filters = ({
+                     isOpenFilters,
+                     filtersValue,
+                     allBreeder,
+                     setAllBreeder,
+                     scrollRef,
+}) => {
     const [loading, setLoading] = useState(true);
     const [isUserFiltered, setIsUserFiltered] = useState(false);
     const [isFirstTimeFiltersRequest, setIsFirstTimeFiltersRequest] = useState({
@@ -41,8 +47,10 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder, scroll
     const isJudges = parseInt(filtersValue.SearchTypeId) === 4;
 
     const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
-    }
+        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) {
+            window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
+        };
+    };
 
     const handleChangeRegionFilter = (filter) => {
         setIsUserFiltered(true);
@@ -67,7 +75,7 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder, scroll
 
     useEffect(() => {
         scrollFunc()
-    }, [allBreeder])
+    }, [allBreeder]);
 
     useEffect(() => {
         (() => Request({

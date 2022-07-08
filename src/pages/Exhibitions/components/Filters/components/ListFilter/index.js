@@ -51,7 +51,9 @@ const ListFilter = ({
     };
 
     const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY);
+        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) {
+            window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
+        };
     };
 
     return (
