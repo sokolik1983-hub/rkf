@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -157,6 +157,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
         (() => getExhibitions(buildUrl({ ...filters }), startElem))();
     };
 
+    const scrollRef = useRef();
+
     useEffect(() => {
         if (url) {
             setListLoading(true);
@@ -169,7 +171,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     return loading ?
         <Loading /> :
         <Layout layoutWithFilters>
-            <div className="exhibitions-page__wrap redesign">
+            <div className="exhibitions-page__wrap redesign" ref={scrollRef}>
                 <Container className="exhibitions-page content">
                     <Filters
                         IsPopular={filters.IsPopular}
@@ -184,6 +186,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                         club={club}
                         setClub={setClub}
                         isEducational={isEducational}
+                        scrollRef={scrollRef}
                     />
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
@@ -198,6 +201,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                             setExporting={setExporting}
                             exporting={exporting}
                             setStandardView={setStandardView}
+                            scrollRef={scrollRef}
                         />
                         {
                             listLoading
