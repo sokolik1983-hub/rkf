@@ -113,9 +113,8 @@ const Notifications = ({isAuthenticated}) => {
     };
 
     const handleIconClick = async () => {
-        if(!open) await getNotifications(currentCategory, startElement);
-
         setOpen(!open);
+        if(!open) await getNotifications(currentCategory, startElement);
     };
 
     const handleTabClick = async categoryId => {
