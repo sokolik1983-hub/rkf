@@ -9,9 +9,9 @@ import {DEFAULT_IMG} from "../../../../appConfig";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {formatDateCommon} from "../../../../utils/datetime";
 import CardSpecialist from "../../../../components/CardSpecialist";
+import {setFiltersToUrl} from "../../utils";
 
 import "./index.scss";
-
 
 const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
     const {dictionary} = useDictionary('rank_type');
@@ -51,7 +51,7 @@ const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) 
                     {searchResult.map(item => (
                         <li className="search-list__item" key={item.id}>
                             {filtersSearchType.toString()[0] === '1' &&
-                                <CardOrganization {...item} />
+                                <CardOrganization setFilters={setFiltersToUrl} {...item} />
                             }
 
                             {filtersSearchType.toString()[0] === '3' &&
