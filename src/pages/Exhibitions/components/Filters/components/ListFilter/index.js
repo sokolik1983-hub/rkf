@@ -6,7 +6,15 @@ import CustomCheckbox from '../../../../../../components/Form/CustomCheckbox';
 import './index.scss';
 
 
-const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardView, exporting, setExporting}) => {
+const ListFilter = ({
+                        categoryId,
+                        exhibitionsForTable,
+                        standardView,
+                        setStandardView,
+                        exporting,
+                        setExporting,
+                        scrollRef,
+}) => {
     const clientWidth = window.innerWidth;
 
     const [isFilter, setIsFilter] = useState(false);
@@ -34,13 +42,19 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
     const handleFilter = () => {
         setIsFilter(!isFilter);
         setFiltersToUrl({IsPopular: !isFilter})
-    }
+    };
 
     const checkIos = () => {
         if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
             return true;
         }
-    }
+    };
+
+    const scrollFunc = () => {
+        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) {
+            window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
+        };
+    };
 
     return (
         <div className="exhibitions-page__list-filter">
@@ -84,7 +98,10 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
             {!isFilter ? <SwipeTabs
                 items={tabItems}
                 activeTabIndex={tabItems.findIndex(item => item.type === +categoryId)}
-                onChange={item => handleClick(item)}
+                onChange={item => {
+                    handleClick(item);
+                    scrollFunc();
+                }}
             /> :
             <CustomCheckbox
                 id="most-liked"
