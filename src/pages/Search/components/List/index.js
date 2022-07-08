@@ -1,6 +1,5 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import Loading from "../../../../components/Loading";
 import CardOrganization from "../../../../components/CardOrganization";
 import CardExhibition from "../../../../components/CardExhibition";
@@ -10,8 +9,8 @@ import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {formatDateCommon} from "../../../../utils/datetime";
 import CardSpecialist from "../../../../components/CardSpecialist";
 import {setFiltersToUrl} from "../../utils";
-
 import "./index.scss";
+
 
 const SearchList = ({filtersSearchType, searchResult, hasMore, getNextResults}) => {
     const {dictionary} = useDictionary('rank_type');

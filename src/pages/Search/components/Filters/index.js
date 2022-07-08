@@ -8,13 +8,7 @@ import {setOverflow} from "../../../../utils";
 import "./index.scss";
 
 
-const Filters = ({
-                     isOpenFilters,
-                     filtersValue,
-                     filters,
-                     additionalFilters,
-                     scrollRef,
-}) => {
+const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters, scrollRef}) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));

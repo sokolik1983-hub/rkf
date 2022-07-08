@@ -147,7 +147,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         setSearchResult([]);
         setSearchTabActiveName(tabActiveName);
         setIsMenuChanges(true);
-    }
+    };
 
     const clearFilterCounts = () => {
         const clearedFilters = filters.map(filter => {
@@ -157,10 +157,10 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                 return item;
             })
             return filter;
-        })
+        });
 
         setFilters(clearedFilters);
-    }
+    };
 
     return (
         <Layout layoutWithFilters>
