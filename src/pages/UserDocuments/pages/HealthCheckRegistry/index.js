@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ls from "local-storage";
 import moment from "moment";
-import Table from './components/Table';
-import ReportError from './components/ReportError';
+import Table from "./components/Table";
+import ReportError from "./components/ReportError";
 import Card from "../../../../components/Card";
 import Loading from "../../../../components/Loading";
 import { Request } from "../../../../utils/request";
@@ -47,7 +47,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                 {document_id &&
                     <Link
                         className="user-documents-status__control user-documents-status__control--resetIcon"
-                        to={`/user/${alias}/documents/${distinction === "dysplasia" ? `dysplasia` : `patella`}/registry`}
+                        to={`/user/${alias}/documents/${distinction === 'dysplasia' ? 'dysplasia' : 'patella'}/registry`}
                     >
                         Вернуться к списку
                     </Link>
