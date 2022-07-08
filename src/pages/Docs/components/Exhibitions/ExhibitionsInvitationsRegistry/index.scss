@@ -112,7 +112,8 @@
             top: -3px;
         }
         @media (max-width: 550px) {
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: flex-start;
             align-items: flex-start;
             position: static;
         }
@@ -127,6 +128,9 @@
         color: #72839c;
         transition: color .2s linear;
         position: relative;
+        @media (max-width: 550px) {
+            margin: 0 10px 0 0;
+        }
         & a {
             text-decoration: none;
             color: #72839c;
@@ -150,6 +154,9 @@
             margin-right: 10px;
             background: url(/static/icons/full-screen.svg) no-repeat center / cover,
             url(/static/icons/full-screen-blue.svg) no-repeat center / cover;
+            @media (max-width: 550px) {
+                margin-right: 5px;
+            }
         }
         &--tableIcon:hover:before {
             background: url(/static/icons/full-screen-blue.svg) no-repeat center / cover;
@@ -165,6 +172,9 @@
             margin-right: 10px;
             background: url(/static/icons/downloadIcon.svg) no-repeat center / cover,
             url(/static/icons/downloadIcon-blue.svg) no-repeat center / cover;
+            @media (max-width: 550px) {
+                margin-right: 5px;
+            }
         }
         &--downloadIcon:hover:before {
             background: url(/static/icons/downloadIcon-blue.svg) no-repeat center / cover;
