@@ -24,7 +24,6 @@ const ApplicationRegistry = ({ history }) => {
     useEffect(() => {
         (() => Request({
             url: `/api/requests/get_rkf_document_request/ownergetrkfdocumentrequest/register_of_requests`,
-            method: 'GET'
             }, data => {
                 setDocuments(data.sort(function (a, b) {
                     return new Date(b.date_create) - new Date(a.date_create);

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ls from "local-storage";
 import moment from "moment";
 import Table from "./components/Table";
-import ReportError from './components/ReportError';
+import ReportError from "./components/ReportError";
 import Card from "../../../../../components/Card";
 import Loading from "../../../../../components/Loading";
 import { Request } from "../../../../../utils/request";
