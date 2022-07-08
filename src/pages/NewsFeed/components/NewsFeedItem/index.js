@@ -20,7 +20,6 @@ import { linkForUserType } from "../../../../utils/linkForUserType";
 
 import "./index.scss";
 
-
 const NewsFeedItem = forwardRef(({
     id,
     name,
@@ -126,7 +125,7 @@ const NewsFeedItem = forwardRef(({
         return (
             <>
                 <div className="news-feed-item__content">
-                    <div className="news-feed-item__head" style={{margin: '0 10px 0 10px'}}>
+                    <div className="news-feed-item__head">
                         <div className="news-feed-item__left">
                             <Link to={userLink}>
                                 <div
@@ -249,7 +248,7 @@ const NewsFeedItem = forwardRef(({
                             </div>
                         </div>
                     </div>
-                    <div className={!collapsed ? 'news-feed-item__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
+                    <div className={!collapsed ? 'news-feed-item__text-wrap' : ''}>
                         {is_advert &&
                             <div className="news-feed-item__ad">
                                 <p className="news-feed-item__ad-breed">
@@ -327,7 +326,7 @@ const NewsFeedItem = forwardRef(({
                     }
                 </div>
                 {documents && !!documents.length &&
-                    <div className="news-feed-item__documents" style={{ margin: '0 10px 0 10px' }}>
+                    <div className="news-feed-item__documents">
                         <ul className="news-feed-item__documents-list">
                             {documents.map(doc =>
                                 <li className="DocumentItem" key={doc.id}>
