@@ -18,6 +18,7 @@ import RegionsFilter from "../../../../../components/Filters/RegionsFilter";
 import RankFilter from "../../../../../components/Filters/RankFilter";
 import {formatDateToString} from "../../../../../utils/datetime";
 import {getEmptyFilters, setFiltersToUrl} from "../../../utils";
+import {scrollFunc} from "../../../../../utils/scrollToContent";
 
 
 const DropdownItem = ({
@@ -46,12 +47,6 @@ const DropdownItem = ({
         setIsOpen(search_type === filtersValue.search_type);
     }, [filtersValue.search_type]);
 
-    const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) {
-            window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
-        };
-    };
-
     const handleClick = () => {
         if (count) {
             setIsOpen(!isOpen);
@@ -59,8 +54,11 @@ const DropdownItem = ({
                 setFiltersToUrl({...getEmptyFilters(), string_filter: filtersValue.string_filter, search_type});
             }
         };
-        scrollFunc();
     };
+
+    useEffect(() => {
+        scrollFunc(scrollRef);
+    }, [range_clicked, filtersValue]);
 
     return (
         <li className={`dropdown__item${filtersValue.search_type === search_type ? ' _active' : ''}${!count ? ' _disabled' : ''}`}>
@@ -86,7 +84,6 @@ const DropdownItem = ({
                                         date_to={filtersValue.date_to}
                                         handleRangeClick={() => {
                                             setRangeClicked(true);
-                                            scrollFunc();
                                         }}
                                     />
                                     <CalendarFilter
@@ -98,7 +95,6 @@ const DropdownItem = ({
                                                 date_from: filter.DateFrom,
                                                 date_to: filter.DateTo
                                             });
-                                            scrollFunc();
                                         }}
                                         range_clicked={range_clicked}
                                         handleRangeReset={() => setRangeClicked(false)}
@@ -110,7 +106,6 @@ const DropdownItem = ({
                                     federation_ids={filtersValue.federation_ids}
                                     onChange={filter => {
                                         setFiltersToUrl({federation_ids: filter});
-                                        scrollFunc();
                                     }}
                                     key="federations-filter"
                                 /> :
@@ -119,7 +114,6 @@ const DropdownItem = ({
                                     active_member={filtersValue.active_member}
                                     onChange={filter => {
                                         setFiltersToUrl({active_member: filter});
-                                        scrollFunc();
                                     }}
                                     key="active-filter"
                                 /> :
@@ -129,7 +123,6 @@ const DropdownItem = ({
                                     label={`Активированные ${search_type === 2 || search_type === 102 ? 'клубы' : 'питомники'}`}
                                     onChange={filter => {
                                         setFiltersToUrl({activated: filter});
-                                        scrollFunc();
                                     }}
                                     key="activated-filter"
                                 /> :
@@ -139,7 +132,6 @@ const DropdownItem = ({
                                     region_ids={filtersValue.region_ids}
                                     onChange={filter => {
                                         setFiltersToUrl({region_ids: filter});
-                                        scrollFunc();
                                     }}
                                     key="regions-filter"
                                 /> :
@@ -149,7 +141,6 @@ const DropdownItem = ({
                                     city_ids={filtersValue.city_ids}
                                     onChange={filter => {
                                         setFiltersToUrl({city_ids: filter});
-                                        scrollFunc();
                                     }}
                                     key="cities-filter"
                                 /> :
@@ -159,7 +150,6 @@ const DropdownItem = ({
                                     breedGroupIds={filtersValue.breed_group_ids}
                                     onChange={filter => {
                                         setFiltersToUrl({breed_group_ids: filter});
-                                        scrollFunc();
                                     }}
                                     key="breed-groups-filter"
                                 /> :
@@ -169,7 +159,6 @@ const DropdownItem = ({
                                     breed_ids={filtersValue.breed_ids}
                                     onChange={filter => {
                                         setFiltersToUrl({breed_ids: filter});
-                                        scrollFunc();
                                     }}
                                     key="breeds-filter"
                                 /> :
@@ -179,7 +168,6 @@ const DropdownItem = ({
                                     rank_ids={filtersValue.rank_ids}
                                     onChange={filter => {
                                         setFiltersToUrl({rank_ids: filter});
-                                        scrollFunc();
                                     }}
                                     key="ranks-filter"
                                 /> :
@@ -189,7 +177,6 @@ const DropdownItem = ({
                                     rank_id={filtersValue.rank_id}
                                     onChange={filter => {
                                         setFiltersToUrl({rank_id: filter});
-                                        scrollFunc();
                                     }}
                                     key="rank-filter"
                                 /> :
@@ -199,7 +186,6 @@ const DropdownItem = ({
                                     type_ids={filtersValue.specialist_specialization_ids}
                                     onChange={filter => {
                                         setFiltersToUrl({specialist_specialization_ids: filter});
-                                        scrollFunc();
                                     }}
                                     key="specializations-filter"
                                 /> :
@@ -209,7 +195,6 @@ const DropdownItem = ({
                                     contest_ids={filtersValue.contest_ids}
                                     onChange={filter => {
                                         setFiltersToUrl({contest_ids: filter});
-                                        scrollFunc();
                                     }}
                                     key="contests-filter"
                                 /> :
@@ -219,7 +204,6 @@ const DropdownItem = ({
                                     event_id={filtersValue.specialist_classification_id}
                                     onChange={filter => {
                                         setFiltersToUrl({specialist_classification_id: filter});
-                                        scrollFunc();
                                     }}
                                     key="classifications-filter"
                                 /> :
@@ -229,7 +213,6 @@ const DropdownItem = ({
                                     discipline_ids={filtersValue.specialist_discipline_ids}
                                     onChange={filter => {
                                         setFiltersToUrl({specialist_discipline_ids: filter});
-                                        scrollFunc();
                                     }}
                                     key="disciplines-filter"
                                 /> :
@@ -239,7 +222,6 @@ const DropdownItem = ({
                                     price_to={filtersValue.price_to}
                                     onChange={filter => {
                                         setFiltersToUrl(filter);
-                                        scrollFunc();
                                     }}
                                     key="price-filter"
                                 /> :

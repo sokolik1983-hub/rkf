@@ -7,6 +7,7 @@ import PublicationFilter from './PublicationFilter';
 import {endpointGetNews, endpointNewsCity} from '../../config';
 import {Request} from '../../../../utils/request';
 import {DEFAULT_IMG} from '../../../../appConfig';
+import {scrollFunc} from "../../../../utils/scrollToContent";
 import './index.scss';
 
 
@@ -48,12 +49,6 @@ const NewsList = ({isFullDate = true}) => {
     });
 
     const scrollRef = useRef();
-
-    const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) {
-            window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
-        };
-    };
 
     const doTheFilter = (currentCities) => {
         if(newsFilter.regions.length === 0) {
@@ -177,14 +172,14 @@ const NewsList = ({isFullDate = true}) => {
         setStartElement(1);
         setNewsFilter(newFilters);
         (() => getNews(1, newFilters))();
-        scrollFunc();
+        scrollFunc(scrollRef);
     };
 
     const changeOrganizationFilters = activeFiltername => {
         setNewsFilter({...newsFilter, activeType: activeFiltername});
 
         (() => getNews(1, {...newsFilter, activeType: activeFiltername}))();
-        scrollFunc();
+        scrollFunc(scrollRef);
     };
 
     const changeCityFilter = citiesIds => {
@@ -192,7 +187,7 @@ const NewsList = ({isFullDate = true}) => {
         setNewsFilter({...newsFilter, cities: citiesIds});
         setStartElement(1);
         (() => getNews(1, {...newsFilter, cities: citiesIds}))();
-        scrollFunc();
+        scrollFunc(scrollRef);
     };
 
     const changeRegionFilter = regionIds => {
@@ -201,7 +196,7 @@ const NewsList = ({isFullDate = true}) => {
         setNewsFilter({...newsFilter, regions: regionIds});
         setStartElement(1);
         (() => getNews(1, {...newsFilter, regions: regionIds}))();
-        scrollFunc();
+        scrollFunc(scrollRef);
     };
 
     useEffect(() => {
@@ -220,7 +215,7 @@ const NewsList = ({isFullDate = true}) => {
     const changeIsPopular = mostLiked => {
         setNewsFilter({...newsFilter, is_popular: mostLiked});
         (() => getNews(1, {...newsFilter, is_popular: mostLiked}))();
-        scrollFunc();
+        scrollFunc(scrollRef);
     };
 
     return (

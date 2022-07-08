@@ -8,7 +8,7 @@ import Table from './components/Table';
 import ReportError from './components/ReportError';
 import { connectShowFilters } from "components/Layouts/connectors";
 import { DEFAULT_IMG } from "../../../../appConfig";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import ls from "local-storage";
 import moment from "moment";
 
