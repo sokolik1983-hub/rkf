@@ -11,7 +11,7 @@ const HeaderMobileMenu = ({currentPageUserInfo, userType}) => {
     const getMeLinkForName = () => {
         switch(currentPageUserInfo?.user_type || userType) {
             case 7:
-                setLinkForName(`/nbc/${currentPageUserInfo?.club_alias}`);
+                setLinkForName(`/nbc/${currentPageUserInfo?.alias}`);
                 break;
             case 5:
                 setLinkForName(`/${currentPageUserInfo?.club_alias}`);
