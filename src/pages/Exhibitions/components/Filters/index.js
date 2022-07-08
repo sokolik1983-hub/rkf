@@ -20,6 +20,7 @@ import {
 } from '../../config';
 import RangeCalendarExhibitions from '../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js';
 import CopyrightInfo from '../../../../components/CopyrightInfo';
+import { scrollFunc } from "../../../../utils/scrollToContent";
 import { connectAuthVisible } from 'pages/Login/connectors';
 
 import './index.scss';
@@ -78,7 +79,6 @@ const Filters = ({
             setFiltersToUrl({ CityIds: newArr});
         }
         setIsUserFiltered(false);
-        scrollFunc();
     };
 
     useEffect(() => {
@@ -108,32 +108,22 @@ const Filters = ({
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
 
-    const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) {
-            window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
-        };
-    };
-
     const clearAll = () => {
         const calendarButton = document.getElementsByClassName('calendar-filter__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
-
         setFiltersToUrl(getEmptyFilters(filters.Alias));
         setClearFilter(true);
-        scrollFunc();
     };
 
     const handleChangeRegionFilter = (filter) => {
         setcurrentExhibRegions(filter);
         setIsUserFiltered(true);
         setFiltersToUrl({RegionIds: filter});
-        scrollFunc();
     };
 
     const handleChangeCityFilter = (filter) => {
         setCurrentCityIds(filter);
         setFiltersToUrl({ CityIds: filter });
-        scrollFunc();
     };
 
     const handleChangeType = async (filter) => {
@@ -149,13 +139,11 @@ const Filters = ({
         }, error => {
             console.log(error.response);
         });
-        scrollFunc();
     };
 
     const handleChangeRank = (filter) => {
         setCurrentRanks(filter);
         setFiltersToUrl({ RankIds: filter });
-        scrollFunc();
     };
 
     useEffect(() => {
@@ -167,6 +155,10 @@ const Filters = ({
             getFedInfo(url);
         }
     }, []);
+
+    useEffect(() => {
+        scrollFunc(scrollRef);
+    }, [filters]);
 
     useEffect(() => {
         if(currentExhibRegions && currentExhibRegions.length > 0){
@@ -200,7 +192,6 @@ const Filters = ({
             setCurrentRanks([]);
             setFiltersToUrl({ RankIds: [] });
         };
-        scrollFunc();
     }, [currentTypes, ranks]);
 
     return (
@@ -232,7 +223,6 @@ const Filters = ({
                                         date_to={filters.DateTo}
                                         handleRangeClick={() => {
                                             setRangeClicked(true);
-                                            scrollFunc();
                                         }}
                                     />
                                     <CalendarFilter
@@ -243,7 +233,6 @@ const Filters = ({
                                         range_clicked={range_clicked}
                                         handleRangeReset={() => {
                                             setRangeClicked(false);
-                                            scrollFunc();
                                         }}
                                     />
                                 </div>
@@ -251,13 +240,17 @@ const Filters = ({
                             {parseInt(filters.CategoryId) === 4
                                 ? <FormatFilter
                                     format_ids={filters.TypeIds}
-                                    onChange={filter => setFiltersToUrl({ TypeIds: filter })}
+                                    onChange={filter => {
+                                        setFiltersToUrl({TypeIds: filter});
+                                    }}
                                     is_club_link={clubName && filters.Alias}
                                 />
                                 : <BreedsFilter
                                     breeds={breeds}
                                     breed_ids={filters.BreedIds}
-                                    onChange={filter => setFiltersToUrl({ BreedIds: filter })}
+                                    onChange={filter => {
+                                        setFiltersToUrl({BreedIds: filter});
+                                    }}
                                     is_club_link={clubName && filters.Alias}
                                 />}
                             <RegionsFilter

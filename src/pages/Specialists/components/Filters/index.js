@@ -14,6 +14,7 @@ import AllBbreedsFilter from "../../../../components/Filters/AllBbreedsFilter";
 import {buildFiltersUrl, setFiltersToUrl} from "../../utils";
 import {setOverflow} from "../../../../utils";
 import {Request} from "../../../../utils/request";
+import {scrollFunc} from "../../../../utils/scrollToContent";
 
 import "./index.scss";
 
@@ -46,21 +47,13 @@ const Filters = ({
     });
     const isJudges = parseInt(filtersValue.SearchTypeId) === 4;
 
-    const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) {
-            window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
-        };
-    };
-
     const handleChangeRegionFilter = (filter) => {
         setIsUserFiltered(true);
         setFiltersToUrl({RegionIds: filter});
-        scrollFunc();
     };
 
     const handleChangeCityFilter = (filter) => {
         setFiltersToUrl({ CityIds: filter });
-        scrollFunc();
     };
 
     const goToLink = (cities, currentCityIds) => {
@@ -70,12 +63,8 @@ const Filters = ({
             setFiltersToUrl({ CityIds: currentCityIds, filteredCities: cities.map(item => item.value)});
         }
         setIsUserFiltered(false);
-        scrollFunc();
     };
 
-    useEffect(() => {
-        scrollFunc()
-    }, [allBreeder]);
 
     useEffect(() => {
         (() => Request({
@@ -96,8 +85,11 @@ const Filters = ({
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
         }))();
-        scrollFunc();
     }, [filtersValue]);
+
+    useEffect(() => {
+        scrollFunc(scrollRef);
+    }, [filtersValue, allBreeder]);
 
     useEffect(() => {
         setOverflow(isOpenFilters);
@@ -131,7 +123,6 @@ const Filters = ({
                                         rank_ids={filtersValue.RankIds}
                                         onChange={filter => {
                                             setFiltersToUrl({RankIds: filter});
-                                            scrollFunc();
                                         }}
                                         searchTypeId={filtersValue.SearchTypeId}
                                     />
@@ -148,7 +139,6 @@ const Filters = ({
                                     breedGroupIds={filtersValue.BreedGroupIds}
                                     onChange={filter => {
                                         setFiltersToUrl({BreedGroupIds: filter});
-                                        scrollFunc();
                                     }}
                                 />
 
@@ -157,7 +147,6 @@ const Filters = ({
                                     breed_ids={filtersValue.BreedIds}
                                     onChange={filter => {
                                         setFiltersToUrl({BreedIds: filter});
-                                        scrollFunc();
                                     }}
                                 />
 
@@ -166,7 +155,6 @@ const Filters = ({
                                     contest_ids={filtersValue.ContestIds}
                                     onChange={filter => {
                                         setFiltersToUrl({ContestIds: filter});
-                                        scrollFunc();
                                     }}
                                 />
                             </> :
@@ -177,7 +165,6 @@ const Filters = ({
                                         type_ids={filtersValue.SpecializationIds}
                                         onChange={filter => {
                                             setFiltersToUrl({SpecializationIds: filter});
-                                            scrollFunc();
                                         }}
                                     />
                                 }
@@ -187,7 +174,6 @@ const Filters = ({
                                     rank_ids={filtersValue.RankIds}
                                     onChange={filter => {
                                         setFiltersToUrl({RankIds: filter});
-                                        scrollFunc();
                                     }}
                                 />
 
@@ -196,7 +182,6 @@ const Filters = ({
                                     discipline_ids={filtersValue.DisciplineIds}
                                     onChange={filter => {
                                         setFiltersToUrl({DisciplineIds: filter});
-                                        scrollFunc();
                                     }}
                                 />
                             </>

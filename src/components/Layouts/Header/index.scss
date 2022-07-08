@@ -113,7 +113,11 @@
                     left: 16px;
                     z-index: 1000;
                 }
-                @media (max-width: 560px) {
+                @media (max-width: 600px) {
+                    top: 50px;
+                    left: -20vw;
+                    max-width: 80vw;
+                    width: 80vw;
                     height: 43px;
                 }
             }
@@ -789,6 +793,11 @@
             @media (max-width: 1079px) {
                 margin-top: 5px;
                 margin-left: 20px;
+            }
+            @media (max-width: 600px) {
+                position: absolute;
+                margin-right: 25vw;
+                margin-top: 5px;
             }
 
             & .Notifications {
@@ -1467,14 +1476,14 @@ span.position-relative {
 }
 
 .form-search__wrap {
-    width: 230px;
     min-width: 230px;
     margin-right: 24px;
     @media (max-width: 1130px) {
-        width: 190px;
         min-width: 190px;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
+        position: absolute;
+        margin-left: 25vw;
         margin-right: 16px;
         min-width: auto;
     }

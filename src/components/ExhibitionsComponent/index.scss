@@ -71,6 +71,15 @@
       }
     }
   }
+  .slick-slide:first-child {
+    margin: 0 8px 0 0;
+    @media (max-width: 900px) {
+      margin: 0 12px;
+    }
+    @media (max-width: 600px) {
+      margin: 0 8px;
+    }
+  }
   .slick-next {
     width: 44px;
     height: 40px;

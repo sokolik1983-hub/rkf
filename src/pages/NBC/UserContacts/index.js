@@ -37,7 +37,7 @@ const UserContacts = ({
     const mainPhone = phones && phones.filter(item => item.contact_type_id === 1)[0];
 
     return (
-        <Card className={`user-contacts__info-wrap ${!isHidden ? 'collapse' : ''}`}>
+        <Card className={`user-contacts__info-wrap${!isHidden ? ' collapse' : ''}`}>
             <Collapse isOpened={isOpen} ref={CollapseRef}>
                 <div className="user-contacts__info-title-wrap">
                     <h4 className="user-contacts__info-title">Контакты</h4>

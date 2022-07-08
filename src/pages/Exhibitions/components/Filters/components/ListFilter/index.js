@@ -2,6 +2,7 @@ import React, {memo, useMemo, useState} from 'react';
 import SwipeTabs from '../../../../../../components/SwipeTabs';
 import {setFiltersToUrl} from '../../../../utils';
 import CustomCheckbox from '../../../../../../components/Form/CustomCheckbox';
+import {scrollFunc} from "../../../../../../utils/scrollToContent";
 
 import './index.scss';
 
@@ -36,7 +37,8 @@ const ListFilter = ({
 
         if (type === 3) {
             setFiltersToUrl({CityIds: []});
-        }
+        };
+        scrollFunc(scrollRef);
     };
 
     const handleFilter = () => {
@@ -48,12 +50,6 @@ const ListFilter = ({
         if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
             return true;
         }
-    };
-
-    const scrollFunc = () => {
-        if (!!scrollRef && window.scrollY > scrollRef.current.getBoundingClientRect().top + window.scrollY) {
-            window.scrollTo(0, scrollRef.current.getBoundingClientRect().top + window.scrollY)
-        };
     };
 
     return (
@@ -100,7 +96,6 @@ const ListFilter = ({
                 activeTabIndex={tabItems.findIndex(item => item.type === +categoryId)}
                 onChange={item => {
                     handleClick(item);
-                    scrollFunc();
                 }}
             /> :
             <CustomCheckbox
