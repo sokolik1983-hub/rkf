@@ -89,7 +89,7 @@ const Filters = ({
 
     useEffect(() => {
         scrollFunc(scrollRef);
-    }, [filtersValue, allBreeder])
+    }, [filtersValue, allBreeder]);
 
     useEffect(() => {
         setOverflow(isOpenFilters);

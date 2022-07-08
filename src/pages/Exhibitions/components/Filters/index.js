@@ -157,8 +157,8 @@ const Filters = ({
     }, []);
 
     useEffect(() => {
-        scrollFunc(scrollRef)
-    }, [filters])
+        scrollFunc(scrollRef);
+    }, [filters]);
 
     useEffect(() => {
         if(currentExhibRegions && currentExhibRegions.length > 0){

@@ -128,7 +128,6 @@ const Filters = ({
 
             setLoading(false);
         })();
-        // scrollFunc(scrollRef);
     }, [organization_type]);
 
     useEffect(() => {
@@ -149,13 +148,11 @@ const Filters = ({
     const handleChangeRegions = filter => {
         setIsUserFiltered(true);
         setFiltersToUrl({region_ids: filter});
-        // scrollFunc(scrollRef);
     };
 
     const handleChangeCities = filter => {
         setCurrentCityIds(filter);
         setFiltersToUrl({city_ids: filter});
-        // scrollFunc(scrollRef);
     };
 
     const goToLink = (cities, currentCityIds) => {
@@ -174,7 +171,6 @@ const Filters = ({
             setFiltersToUrl({ city_ids: newArr});
         }
         setIsUserFiltered(false);
-        // scrollFunc(scrollRef);
     };
 
     return (
@@ -225,7 +221,6 @@ const Filters = ({
                                         federation_ids={federation_ids}
                                         onChange={filter => {
                                             setFiltersToUrl({federation_ids: filter});
-                                            // scrollFunc(scrollRef);
                                         }}
                                     />
                                     <Card className="organizations-page__other">
@@ -241,14 +236,12 @@ const Filters = ({
                                             active_rkf_user={active_rkf_user}
                                             onChange={filter => {
                                                 setFiltersToUrl({not_activated: false, active_rkf_user: filter});
-                                                // scrollFunc(scrollRef);
                                             }}
                                         />
                                         <FederationChoiceFilter
                                             active_member={active_member}
                                             onChange={filter => {
                                                 setFiltersToUrl({not_activated: false, active_member: filter});
-                                                // scrollFunc(scrollRef);
                                             }}
                                         />
                                         <ActivatedFilter
@@ -256,7 +249,6 @@ const Filters = ({
                                             label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
                                             onChange={filter => {
                                                 setFiltersToUrl({not_activated: false, activated: filter});
-                                                // scrollFunc(scrollRef);
                                             }}
                                         />
                                         <NotActivatedFilter
@@ -273,7 +265,6 @@ const Filters = ({
                                                     } :
                                                     {not_activated: filter}
                                                 );
-                                                // scrollFunc(scrollRef);
                                             }}
                                         />
                                     </Card>

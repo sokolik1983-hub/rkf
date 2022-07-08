@@ -58,7 +58,7 @@ const DropdownItem = ({
 
     useEffect(() => {
         scrollFunc(scrollRef);
-    }, [range_clicked, filtersValue])
+    }, [range_clicked, filtersValue]);
 
     return (
         <li className={`dropdown__item${filtersValue.search_type === search_type ? ' _active' : ''}${!count ? ' _disabled' : ''}`}>
