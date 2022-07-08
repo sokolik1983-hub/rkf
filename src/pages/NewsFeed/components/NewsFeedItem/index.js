@@ -248,7 +248,7 @@ const NewsFeedItem = forwardRef(({
                             </div>
                         </div>
                     </div>
-                    <div className={!collapsed ? 'news-feed-item__text-wrap' : ''}>
+                    <div className={!collapsed && 'news-feed-item__text-wrap'}>
                         {is_advert &&
                             <div className="news-feed-item__ad">
                                 <p className="news-feed-item__ad-breed">
