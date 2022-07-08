@@ -244,7 +244,8 @@ const MenuComponentNew = () => {
                 }
             }
         }
-        if(currentPageUserInfo?.open_roles[0]?.name === 'Судья') {
+
+        if(currentPageUserInfo?.user_type === 1 && currentPageUserInfo?.open_roles[0]?.name === 'Судья') {
             isUserProfilePage ?
                 setCurrentPageNav(judgeNav(linkAlias)) :
                 setCurrentPageNav(deleteNotification(judgeNav(linkAlias)));
