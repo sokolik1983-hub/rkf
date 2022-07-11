@@ -23,16 +23,16 @@ const NewsList = ({isFullDate = true}) => {
     const [hasMore, setHasMore] = useState(true);
     const [untouchableMode, setUntouchableMode] = useState(false);
     const [newsFilter, setNewsFilter] = useState({
+        regions: getLSRegions(), //есть ли смысл писать города и регионы в localstorage, если при обновлении страницы они оттуда стираются?
         cities: getLSCities(),
-        regions: getLSRegions(),
         activeType: null,
-        isAdvert: null
+        isAdvert: null,
+        is_popular: false
     });
 
     const scrollRef = useRef();
 
     useEffect(() => {
-        console.log('NewsList useEffect');
         (async () => {
             await Request({url: 'api/city/article_regions'},
             data => {
@@ -55,61 +55,59 @@ const NewsList = ({isFullDate = true}) => {
             });
 
             setFiltersLoading(false);
-
-            // await getNews(1, newsFilter);
         })();
     }, []);
 
     useEffect(() => {
-        const currentRegions = getLSRegions();
-        (() => Request({
-            url: `${endpointNewsCity}?${currentRegions.map(reg => `regionIds=${reg}`).join('&')}`
-        }, data => {
-            setCities(data);
-            doTheFilter(data);
-        },error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-        }))();
-    }, [newsFilter.regions]);
+        (async () => {
+            await getNews();
 
-    const getNews = async (startElem, filters) => {
+            if(startElement === 1) scrollFunc(scrollRef);
+        })();
+    }, [startElement, newsFilter]);
+
+    const getUrlPath = () => {
+        let path = `${endpointGetNews}?start_element=${startElement}`;
+
+        if(newsFilter.regions.length) {
+            path += newsFilter.regions.map(id => `&fact_region_ids=${id}`).join('');
+        }
+
+        if(newsFilter.cities.length) {
+            path += newsFilter.cities.map(id => `&fact_city_ids=${id}`).join('');
+        }
+
+        if(newsFilter.activeType) {
+            path += `&${newsFilter.activeType}=true`;
+        }
+
+        if(newsFilter.isAdvert) {
+            path += `&is_advert=${newsFilter.isAdvert}&advert_category_id=${newsFilter.advert_category_id}`;
+        } else if(newsFilter.isAdvert !== null) {
+            path += '&is_advert=false';
+        }
+
+        path += `&is_popular=${newsFilter.is_popular}`;
+
+        return path;
+    };
+
+    const getNews = async () => {
         setNewsLoading(true);
 
-        console.log('NewsList getNews');
-
         await Request({
-            url: `${endpointGetNews}?start_element=
-                ${startElem}
-                ${filters.cities.length > 0 ? filters.cities.map(id => `&fact_city_ids=${id}`).join('') : ''}
-                ${filters.regions.length > 0 ? filters.regions.map(id => `&fact_region_ids=${id}`).join('') : ''}
-                ${filters.activeType ? `&${filters.activeType}=true` : ''}
-                ${filters.isAdvert !== null
-                ?
-                filters.isAdvert
-                    ?
-                    '&is_advert=' + filters.isAdvert +'&advert_category_id=' + filters.advert_category_id
-                    :
-                    '&is_advert=false'
-                : ''}
-                ${filters.is_popular ? '&is_popular='+ filters.is_popular : '&is_popular=false'}`
+            url: getUrlPath()
         }, data => {
             if (data.articles.length) {
-                const modifiedNews = data.articles.map(article => {
-                    article.title = article.club_name;
-                    article.url = `/news/${article.id}`;
-                    return article;
-                });
-
                 if (data.articles.length < 10) {
                     setHasMore(false);
                 } else {
                     setHasMore(true);
                 }
 
-                setNews(startElem === 1 ? modifiedNews : [...news, ...modifiedNews]);
+                setNews(prev => startElement === 1 ? data.articles : [...prev, ...data.articles]);
             } else {
-                if (startElem === 1) {
+                if (startElement === 1) {
                     setNews([]);
                 }
 
@@ -123,35 +121,7 @@ const NewsList = ({isFullDate = true}) => {
     const getNextNews = () => {
         if (hasMore) {
             setStartElement(startElement + 10);
-            (() => getNews(startElement + 10, newsFilter))();
         }
-    };
-
-    const doTheFilter = (currentCities) => {
-        if(newsFilter.regions.length === 0) {
-            setNewsFilter({...newsFilter, regions: newsFilter.regions,  cities: []});
-            console.log('doTheFilter if');
-            (() => getNews(1, {...newsFilter, regions: [], cities: []}))();
-        } else {
-            const newArr = [];
-            currentCities.forEach(item => {
-                newsFilter.cities.forEach(elem => {
-                    if(item.value === elem) {
-                        newArr.push(elem);
-                    }
-                })
-            });
-            setNewsFilter({...newsFilter, cities: newArr});
-            console.log('doTheFilter else');
-            (() => getNews(
-                1,
-                {
-                    ...newsFilter,
-                    regions: newsFilter.regions,
-                    cities: newArr
-                }))();
-        }
-        setUntouchableMode(false);
     };
 
     const changeTypeFilters = type => {
@@ -170,38 +140,51 @@ const NewsList = ({isFullDate = true}) => {
 
         setStartElement(1);
         setNewsFilter(newFilters);
-        (() => getNews(1, newFilters))();
-        scrollFunc(scrollRef);
     };
 
     const changeOrganizationFilters = activeFiltername => {
         setNewsFilter({...newsFilter, activeType: activeFiltername});
+    };
 
-        (() => getNews(1, {...newsFilter, activeType: activeFiltername}))();
-        scrollFunc(scrollRef);
+    const changeRegionFilter = async regionIds => {
+        setUntouchableMode(true);
+        setLSRegions(regionIds);
+
+        await Request({
+            url: `${endpointNewsCity}?${regionIds.map(id => `regionIds=${id}`).join('&')}`
+        }, data => {
+            setCities(data);
+
+            let citiesIds = [];
+
+            if(regionIds.length) {
+                data.forEach(item => {
+                    newsFilter.cities.forEach(id => {
+                        if(item.value === id) {
+                            citiesIds.push(id);
+                        }
+                    });
+                });
+            }
+
+            setNewsFilter({...newsFilter, regions: regionIds, cities: citiesIds});
+            setStartElement(1);
+        },error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        });
+
+        setUntouchableMode(false);
     };
 
     const changeCityFilter = citiesIds => {
         setLSCities(citiesIds);
         setNewsFilter({...newsFilter, cities: citiesIds});
         setStartElement(1);
-        (() => getNews(1, {...newsFilter, cities: citiesIds}))();
-        scrollFunc(scrollRef);
     };
 
-    const changeRegionFilter = regionIds => {
-        setUntouchableMode(true);
-        setLSRegions(regionIds);
-        setNewsFilter({...newsFilter, regions: regionIds});
-        setStartElement(1);
-        (() => getNews(1, {...newsFilter, regions: regionIds}))();
-        scrollFunc(scrollRef);
-    };
-
-    const changeIsPopular = mostLiked => {
-        setNewsFilter({...newsFilter, is_popular: mostLiked});
-        (() => getNews(1, {...newsFilter, is_popular: mostLiked}))();
-        scrollFunc(scrollRef);
+    const changeIsPopular = value => {
+        setNewsFilter({...newsFilter, is_popular: value});
     };
 
     return (
@@ -224,7 +207,7 @@ const NewsList = ({isFullDate = true}) => {
                     changeIsPopular={changeIsPopular}
                 />
                 <ul className="news-list__content">
-                    {news && !!news.length && news.map((item, index) => (
+                    {news && !!news.length && news.map(item => (
                         <li className="news-list__item" key={item.id}>
                             <CardNewsNew
                                 {...item}
