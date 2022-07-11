@@ -78,7 +78,6 @@ const NewsFeedItem = forwardRef(({
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const [isChecked, setIsChecked] = useState(checkedAll);
-    const {picture_link} = (photos?.length > 0) && photos[0];
 
     const ref = useRef(null);
     const userLink = linkForUserType(user_type, alias);
