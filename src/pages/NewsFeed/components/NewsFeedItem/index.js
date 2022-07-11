@@ -49,7 +49,6 @@ const NewsFeedItem = forwardRef(({
     last_name,
     active_member,
     active_rkf_user,
-    // picture_link,
     picture_short_link,
     video_link,
     fact_city_name,
@@ -426,13 +425,6 @@ const NewsFeedItem = forwardRef(({
             </div>
         </div>
     </>;
-
-    useEffect(() => {
-        console.log('photos', photos);
-        console.log('picture_link', picture_link);
-        // console.log('picture_short_link', picture_short_link);
-        // console.log('showPhoto', showPhoto);
-    }, [])
 
     return (
         <Card className={`news-feed-item${is_request_article ? ' is-request-article' : ''}`}>

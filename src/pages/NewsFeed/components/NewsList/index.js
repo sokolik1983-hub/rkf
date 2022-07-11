@@ -201,10 +201,6 @@ const NewsList = ({
         unReadMessages.length ? setIsUnreadMessages(true) : setIsUnreadMessages(false);
     }
 
-    useEffect(() => {
-        console.log('news', news)
-    }, [news])
-
     return loading
 
         ? <Loading centered={false} />
