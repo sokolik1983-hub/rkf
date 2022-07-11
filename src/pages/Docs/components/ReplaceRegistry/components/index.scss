@@ -1,11 +1,11 @@
 .club-documents-status__chips {
     .chip-list__wrap {
         margin-bottom: 15px;
-        @media (max-width: 1110px) {
+        @media (max-width: 720px) {
             margin-top: 35px;
         }
         @media (max-width: 600px) {
-            margin-top: 110px;
+            margin-top: 70px;
         }
     }
 }
