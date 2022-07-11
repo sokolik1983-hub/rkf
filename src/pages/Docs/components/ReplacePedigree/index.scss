@@ -249,6 +249,14 @@
     &__payment-receipt-wrap {
         display: grid;
         grid-template-columns: 2fr 1fr 49%;
+
+        .FormGroup--inline {
+            > div:last-child {
+                label {
+                    display: none;
+                }
+            }
+        }
     }
 
     @media (max-width: 1079px) {
