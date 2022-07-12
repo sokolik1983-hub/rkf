@@ -49,7 +49,6 @@ const NewsFeedItem = forwardRef(({
     last_name,
     active_member,
     active_rkf_user,
-    picture_link,
     picture_short_link,
     video_link,
     fact_city_name,
@@ -73,11 +72,13 @@ const NewsFeedItem = forwardRef(({
     unsetCheckedAll,
     isControlCheckedAll,
     clearChecks,
+    photos
 }, NewsFeedItemRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const [isChecked, setIsChecked] = useState(checkedAll);
+    const {picture_link} = (photos?.length > 0) && photos[0];
 
     const ref = useRef(null);
     const userLink = linkForUserType(user_type, alias);
@@ -305,11 +306,13 @@ const NewsFeedItem = forwardRef(({
                     </div>
                     {(picture_link || video_link) &&
                         <div className="news-feed-item__media">
-                            {picture_link &&
-                                <div className="news-feed-item__photo"
-                                     style={{ backgroundImage: `url(${picture_link})` }}
-                                     onClick={() => setShowPhoto(true)}
-                                />
+                            {photos?.length > 0 &&
+                                photos.map(photo =>
+                                    <div className="news-feed-item__photo"
+                                         style={{ backgroundImage: `url(${photo.picture_link})` }}
+                                         onClick={() => setShowPhoto(true)}
+                                    />
+                                )
                             }
                             {video_link &&
                                 <div className="news-feed-item__video">
