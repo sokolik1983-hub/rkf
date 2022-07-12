@@ -49,7 +49,6 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
         return () => window.removeEventListener('resize', () => setOverflowFilter(isOpenFilters));
     }, [isOpenFilters]);
 
-
     return (
         <header className="header">
             <Container className="header__content">
