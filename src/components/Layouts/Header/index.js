@@ -49,6 +49,8 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
         return () => window.removeEventListener('resize', () => setOverflowFilter(isOpenFilters));
     }, [isOpenFilters]);
 
+    console.log(withFilters);
+
     return (
         <header className="header">
             <Container className="header__content">
@@ -71,7 +73,12 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
                 <div className='header__widgets'>
                     {isAuthenticated &&
                         <>
-                            <div onClick={hideSideMenu} className='header__widgets-notifications-wrap'>
+                            <div className={withFilters || pathname === '/' ?
+                                    'header__widgets-notifications-wrap'
+                                    :
+                                    'header__widgets-notifications-wrap-nofilters'}
+                                 onClick={hideSideMenu}
+                            >
                                 <Notifications open={openWidgets}
                                                setOpen={setOpenWidgets}
                                 />
