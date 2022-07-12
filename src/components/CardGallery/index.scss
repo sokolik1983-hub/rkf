@@ -29,6 +29,13 @@
         overflow-x: hidden;
         overflow-y: auto;
       }
+      .Modal__close-btn {
+        @media (max-width: 600px) {
+          position: relative;
+          top: 0;
+          left: calc(100% - 30px);
+        }
+      }
     }
     .Modal__body {
       margin: 0;
