@@ -10,7 +10,6 @@ import Avatar from "../Layouts/Avatar";
 
 import "./index.scss";
 
-
 const CardSpecialist = ({
     id,
     cert_number,
@@ -82,7 +81,7 @@ const CardSpecialist = ({
                                         <span>{last_name}</span>
                                         <div className="card-specialists__name-first">
                                             <span>{first_name || ''}</span>
-                                            <span>
+                                            <span className="card-specialists__name-second">
                                                 {second_name ? ' ' + second_name : ''}
                                                 {owner_alias && judgeIcon}
                                             </span>

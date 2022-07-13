@@ -70,9 +70,18 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
                 }
                 <div className="header__widgets">
                     {isAuthenticated &&
-                        <div onClick={hideSideMenu} className="header__widgets-notifications-wrap">
-                            <Notifications open={openWidgets} setOpen={setOpenWidgets}/>
-                        </div>
+                        <>
+                            <div className={withFilters || pathname === '/' ?
+                                    'header__widgets-notifications-wrap'
+                                    :
+                                    'header__widgets-notifications-wrap-nofilters'}
+                                 onClick={hideSideMenu}
+                            >
+                                <Notifications open={openWidgets}
+                                               setOpen={setOpenWidgets}
+                                />
+                            </div>
+                        </>
                     }
                     {!isAuthenticated && isMobile &&
                         <div className={`header__widgets--feedback${login_page ? ' __hidden' : ''}`}>
