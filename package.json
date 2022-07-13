@@ -230,5 +230,5 @@
         "prettier": "^1.18.2",
         "react-dev-utils": "^8.0.0"
     },
-    "proxy": "https://rkf.online/"
+    "proxy": "https://stage.uep24.ru/"
 }
