@@ -12,5 +12,5 @@ export const connectLogin = connect(
 
 export const connectWidgetLogin = connect(
     selectWidgetLogin,
-    dispatch => bindActionCreators({ logOutUser }, dispatch)
+    dispatch => bindActionCreators({logOutUser, loginUserSuccess}, dispatch)
 );

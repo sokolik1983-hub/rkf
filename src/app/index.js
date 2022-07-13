@@ -1,37 +1,45 @@
-import React, {useEffect} from 'react';
-import {Route, Switch, withRouter } from 'react-router-dom';
-import ls from 'local-storage';
-import { Request } from '../utils/request';
-import { appRoutes } from '../appConfig';
-import IframePage from '../pages/Static/IframePage';
-import { LoadableNotFound } from '../appModules';
-import NotificationsProvider from './context';
-import Header from '../components/Layouts/Header';
-import FooterMenu from '../components/Layouts/FooterMenu';
-
-import './kendo.scss';
-import './index.scss';
+import React, {memo, useCallback, useEffect} from "react";
+import {Route, Switch, withRouter} from "react-router-dom";
+import ls from "local-storage";
+import NotificationsProvider from "./context";
+import Header from "../components/Layouts/Header";
+import FooterMenu from "../components/Layouts/FooterMenu";
+import IframePage from "../pages/Static/IframePage";
+import {appRoutes} from "../appConfig";
+import {LoadableNotFound} from "../appModules";
+import {Request} from "../utils/request";
+import useIsMobile from "../utils/useIsMobile";
+import "./kendo.scss";
+import "./index.scss";
 
 
 const App = ({history}) => {
-    const resetFilters = () => {
+    const isMobile1080 = useIsMobile(1080);
+
+    const resetFilters = useCallback(() => {
         ls.remove('ClubsFiltersValues');
         ls.remove('FiltersValues');
-    };
+    }, []);
 
-    const checkAlias = () => {
-        ls.get('profile_id') &&
+    const checkAlias = useCallback(() => {
+        const profileId = ls.get('profile_id');
+
+        if(profileId) {
+            const userInfo = ls.get('user_info') || {};
+
             Request({
-                url: `/api/Alias/profile/${ls.get('profile_id')}`
+                url: `/api/Alias/profile/${profileId}`
             }, result => {
-                if (result.alias_name !== ls.get('user_info').alias) { // Updating club alias if it changed
-                    ls.set('user_info', { ...ls.get('user_info'), alias: result.alias_name });
+                if (result.alias_name !== userInfo.alias) { //Перезаписываем алиас, если тот изменился
+                    ls.set('user_info', { ...userInfo, alias: result.alias_name });
                 }
             });
-    };
+        }
+    }, []);
 
     useEffect(() => {
         checkAlias();
+
         const unlisten = history.listen(() => checkAlias());
 
         window.addEventListener('beforeunload', resetFilters);
@@ -58,9 +66,11 @@ const App = ({history}) => {
                 <Route exact={true} path='/results/cacib' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblResExhibitionCACIB.aspx" />} />
                 <Route component={LoadableNotFound} />
             </Switch>
-            <FooterMenu />
+            {isMobile1080 &&
+                <FooterMenu />
+            }
         </NotificationsProvider>
     )
 };
 
-export default React.memo(withRouter(App));
+export default memo(withRouter(App));

@@ -56,7 +56,6 @@ const MenuLinks = ({
         });
     };
 
-
     return (
         <menu>
             <li className="widget-login__item" onClick={() => setOpen(false)}>
