@@ -1,7 +1,7 @@
 import React, {memo, useState, useEffect} from "react";
 import {Request} from "../../utils/request";
-import "./styles.scss";
 
+import "./styles.scss";
 
 const Banner = ({type, inputBanner}) => {
     const [banner, setBanner] = useState(inputBanner);
