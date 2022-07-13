@@ -167,6 +167,15 @@
         min-width: unset;
       }
     }
+    &-second {
+      position: relative;
+      & svg {
+        position: absolute;
+        top: 55%;
+        transform: translateY(-50%);
+        right: -25px;
+      }
+    }
 
     &-eng {
       color: #72839c;
