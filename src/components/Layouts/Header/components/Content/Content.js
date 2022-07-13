@@ -1,9 +1,10 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {widgetLoginIcon} from "../../../../../appConfig";
-import MenuLinks from "./MenuLinks";
-import {getInitials} from "../../../../../utils/getInitials";
 import Avatar from "../../../Avatar";
+import MenuLinks from "./MenuLinks";
+import {widgetLoginIcon} from "../../../../../appConfig";
+import {getInitials} from "../../../../../utils/getInitials";
+
 
 const Content = ({
     accountType,
@@ -18,7 +19,7 @@ const Content = ({
     open,
     setOpen,
     setShowModal,
-    userType,
+    userType
 }) => {
 
     return (

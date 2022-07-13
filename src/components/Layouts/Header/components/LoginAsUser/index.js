@@ -1,11 +1,14 @@
 import React, {useState} from "react";
+import {useHistory} from "react-router-dom";
 import {Form, FormField, SubmitButton} from "../../../../Form";
 import Alert from "../../../../Alert";
 import {loginForm} from "./config";
 import {connectLogin} from "../../../../../pages/Login/connectors";
 
-const LoginAsUser = ({loginUserSuccess, history, closeModal}) => {
+
+const LoginAsUser = ({loginUserSuccess, closeModal}) => {
     const [alert, setAlert] = useState(false);
+    const history = useHistory();
 
     const onSuccess = data => {
         loginUserSuccess(data);
