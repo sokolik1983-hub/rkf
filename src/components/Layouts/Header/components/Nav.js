@@ -1,22 +1,22 @@
-import React, {memo, useEffect, useState} from "react";
+import React, {memo, useEffect, useMemo, useState} from "react";
 import {Link, NavLink, useLocation} from "react-router-dom";
-import {mainNav} from "../../../../appConfig";
-import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
+import Feedback from "../../../Feedback";
+import ZlineWidget from "../../../ZLineWidget";
 import NavSublist from "./NavSublist";
+import MenuLink from "./MenuLink";
+import {mainNav} from "../../../../appConfig";
 import {connectAuthVisible} from "../../../../pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
-import MenuLink from "./MenuLink";
-import ZlineWidget from "../../../ZLineWidget";
 
 
 const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowFilters, setOpen}) => {
     const [showZlineModal, setShowZlineModal] = useState(false);
     const isMobile = useIsMobile(1080);
-    const apiKey = localStorage.getItem('apikey');
     const location = useLocation();
+    const apiKey = localStorage.getItem('apikey');
 
-    const links = [
+    const links = useMemo(() => [
         {
             name: 'RKF.org.ru',
             icon: '/static/images/header/rkf-logo-transparent.svg',
@@ -35,7 +35,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
             link: 'http://rkf.academy',
             class: 'rkf-academy',
         },
-    ];
+    ], []);
 
     const strokeColor = isOpen ? 'stroke-color__active' : 'stroke-color__inactive';
 

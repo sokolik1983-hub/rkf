@@ -62,7 +62,9 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
                             setShowFilters={setShowFilters}
                         />
                     </div> :
-                    <div><Link to='/' className="header__logo" /></div>
+                    <div>
+                        <Link to='/' className="header__logo" />
+                    </div>
                 }
                 <Search hideSideMenu={hideSideMenu} withFilters={withFilters} />
                 {!isMobile &&
