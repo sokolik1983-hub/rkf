@@ -13,7 +13,7 @@ import "./style.scss";
 
 
 const ClubsMap = ({fullScreen}) => {
-    const [data, setData] = useState({});
+    const [data, setData] = useState([]);
     const [cities, setCities] = useState([]);
     const [regions, setRegions] = useState([]);
     const [userTypes, setUserTypes] = useState(0);
