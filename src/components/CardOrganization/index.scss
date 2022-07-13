@@ -258,6 +258,9 @@
       -webkit-box-orient: vertical;
       text-align: left !important;
     }
+    & p {
+      word-break: break-all;
+    }
   }
 
   &__show-all {
