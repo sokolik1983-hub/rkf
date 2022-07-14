@@ -5,7 +5,6 @@ import Button from '../../../../components/Button';
 
 import './styles.scss';
 
-
 const SocialNetworks = ({ social_networks }) => {
 
     return <div className="SocialNetworks">

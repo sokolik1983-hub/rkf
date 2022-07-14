@@ -115,7 +115,7 @@ const Contacts = ({
         <FieldArray
             name="emails"
             render={arrayHelpers => (
-                <div className="Contacts">
+                <div className="Contacts email">
                     <h4>E-mail</h4>
                     {emails?.map(({contact_type_id, value}, index) => (
                         (contact_type_id !== 1) &&
