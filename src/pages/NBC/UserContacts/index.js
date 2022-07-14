@@ -30,14 +30,14 @@ const UserContacts = ({
     };
 
     if (isHidden && CollapseRef && CollapseRef.current) {
-        CollapseRef.current.content.offsetHeight > 150 && setIsHidden(false);
+        CollapseRef.current.content.offsetHeight > 130 && setIsHidden(false);
     };
 
     const mainEmail = emails && emails.filter(item => item.contact_type_id === 2)[0];
     const mainPhone = phones && phones.filter(item => item.contact_type_id === 1)[0];
 
     return (
-        <Card className="user-contacts__info-wrap">
+        <Card className={`user-contacts__info-wrap${!isHidden ? ' collapse' : ''}`}>
             <Collapse isOpened={isOpen} ref={CollapseRef}>
                 <div className="user-contacts__info-title-wrap">
                     <h4 className="user-contacts__info-title">Контакты</h4>

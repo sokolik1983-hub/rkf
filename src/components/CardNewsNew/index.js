@@ -85,7 +85,7 @@ const CardNewsNew = ({
 
     const imagesArray = pictures?.filter(picture => !!picture && !!Object.keys(picture).length).map(picture => ({
         src: picture.picture_link,
-        thumbnail: picture.picture_short_link || picture.picture_link,
+        thumbnail: (pictures.length > 4 && picture.picture_short_link) ? picture.picture_short_link : picture.picture_link,
         thumbnailWidth: 320,
         thumbnailHeight: 174,
     }));

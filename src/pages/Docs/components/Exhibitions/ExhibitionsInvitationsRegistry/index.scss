@@ -4,9 +4,12 @@
         justify-content: flex-start !important;
     }
     &__inner {
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             margin-top: 18px;
             position: relative;
+        }
+        @media (max-width: 720px) {
+            margin-top: 3px;
         }
     }
     &__head {
@@ -106,15 +109,17 @@
         justify-content: flex-end;
         position: relative;
         top: 29px;
-        @media (max-width: 950px) {
+        @media (max-width: 900px) {
             position: absolute;
             right: 0;
             top: -3px;
         }
-        @media (max-width: 550px) {
-            flex-direction: column;
-            align-items: flex-start;
+        @media (max-width: 720px) {
             position: static;
+            margin-bottom: 16px;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
         }
     }
     &__control {
@@ -127,6 +132,9 @@
         color: #72839c;
         transition: color .2s linear;
         position: relative;
+        @media (max-width: 550px) {
+            margin: 0 10px 0 0;
+        }
         & a {
             text-decoration: none;
             color: #72839c;
@@ -150,6 +158,9 @@
             margin-right: 10px;
             background: url(/static/icons/full-screen.svg) no-repeat center / cover,
             url(/static/icons/full-screen-blue.svg) no-repeat center / cover;
+            @media (max-width: 550px) {
+                margin-right: 5px;
+            }
         }
         &--tableIcon:hover:before {
             background: url(/static/icons/full-screen-blue.svg) no-repeat center / cover;
@@ -165,6 +176,9 @@
             margin-right: 10px;
             background: url(/static/icons/downloadIcon.svg) no-repeat center / cover,
             url(/static/icons/downloadIcon-blue.svg) no-repeat center / cover;
+            @media (max-width: 550px) {
+                margin-right: 5px;
+            }
         }
         &--downloadIcon:hover:before {
             background: url(/static/icons/downloadIcon-blue.svg) no-repeat center / cover;

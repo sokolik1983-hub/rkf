@@ -20,7 +20,6 @@ import { linkForUserType } from "../../../../utils/linkForUserType";
 
 import "./index.scss";
 
-
 const NewsFeedItem = forwardRef(({
     id,
     name,
@@ -50,7 +49,6 @@ const NewsFeedItem = forwardRef(({
     last_name,
     active_member,
     active_rkf_user,
-    picture_link,
     picture_short_link,
     video_link,
     fact_city_name,
@@ -74,11 +72,13 @@ const NewsFeedItem = forwardRef(({
     unsetCheckedAll,
     isControlCheckedAll,
     clearChecks,
+    photos
 }, NewsFeedItemRef) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const [isChecked, setIsChecked] = useState(checkedAll);
+    const {picture_link} = photos?.length && photos[0];
 
     const ref = useRef(null);
     const userLink = linkForUserType(user_type, alias);
@@ -126,7 +126,7 @@ const NewsFeedItem = forwardRef(({
         return (
             <>
                 <div className="news-feed-item__content">
-                    <div className="news-feed-item__head" style={{margin: '0 10px 0 10px'}}>
+                    <div className="news-feed-item__head">
                         <div className="news-feed-item__left">
                             <Link to={userLink}>
                                 <div
@@ -249,7 +249,7 @@ const NewsFeedItem = forwardRef(({
                             </div>
                         </div>
                     </div>
-                    <div className={!collapsed ? 'news-feed-item__text-wrap' : ''} style={{ margin: '0 10px 0 10px' }}>
+                    <div className={!collapsed && 'news-feed-item__text-wrap'}>
                         {is_advert &&
                             <div className="news-feed-item__ad">
                                 <p className="news-feed-item__ad-breed">
@@ -296,16 +296,23 @@ const NewsFeedItem = forwardRef(({
                             </div>
                         }
                         {is_request_article &&
-                                <Share  url={`https://rkf.online/news/${id}`}/>
+                            <Share
+                                url={window.location.host === "rkf.online" ?
+                                `https://rkf.online/news/${id}`
+                                :
+                                `https://stage.uep24.ru/news/${id}`}
+                            />
                         }
                     </div>
                     {(picture_link || video_link) &&
                         <div className="news-feed-item__media">
-                            {picture_link &&
-                                <div className="news-feed-item__photo"
-                                     style={{ backgroundImage: `url(${picture_link})` }}
-                                     onClick={() => setShowPhoto(true)}
-                                />
+                            {photos?.length &&
+                                photos.map(photo =>
+                                    <div className="news-feed-item__photo"
+                                         style={{ backgroundImage: `url(${photo.picture_link})` }}
+                                         onClick={() => setShowPhoto(true)}
+                                    />
+                                )
                             }
                             {video_link &&
                                 <div className="news-feed-item__video">
@@ -322,7 +329,7 @@ const NewsFeedItem = forwardRef(({
                     }
                 </div>
                 {documents && !!documents.length &&
-                    <div className="news-feed-item__documents" style={{ margin: '0 10px 0 10px' }}>
+                    <div className="news-feed-item__documents">
                         <ul className="news-feed-item__documents-list">
                             {documents.map(doc =>
                                 <li className="DocumentItem" key={doc.id}>

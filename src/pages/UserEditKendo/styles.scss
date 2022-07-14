@@ -2,7 +2,16 @@
     $font-family: "Source Sans Pro", sans-serif;
     @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
     @import "~bootstrap/scss/bootstrap.scss";
+    & a {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1;
+        letter-spacing: .2px;
+        color: #72839c;
+        transition: color .2s linear;
+    }
     a:hover {
+        color: #36f;
         text-decoration: none;
     }
     display: flex;

@@ -8,11 +8,16 @@ export const selectIsAuthenticated = state => {
 };
 
 export const selectWidgetLogin = state => {
-    const { isAuthenticated, user_info, is_active_profile } = state.authentication;
+    const {isAuthenticated, is_active_profile, account_type, user_info} = state.authentication;
+
     if (isAuthenticated) {
-        const { logo_link } = user_info;
-        return { isAuthenticated, is_active_profile, logo_link };
+        return {
+            isAuthenticated,
+            is_active_profile,
+            account_type,
+            user_info
+        };
     }
 
-    return { isAuthenticated };
+    return {isAuthenticated};
 };

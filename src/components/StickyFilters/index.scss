@@ -6,7 +6,15 @@
     background: white;
     z-index: 8;
     @media (max-width: 990px) {
-        padding: 0;
-        height: 120px;
+        height: 100px;
+    }
+    @media (max-width: 720px) {
+        height: 135px;
+    }
+    @media (max-width: 600px) {
+        height: 165px;
+    }
+    @media (max-width: 420px) {
+        height: 215px;
     }
 }

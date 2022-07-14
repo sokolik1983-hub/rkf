@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import Container from "../Container";
@@ -62,16 +62,23 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
                             setShowFilters={setShowFilters}
                         />
                     </div> :
-                    <div><Link to='/' className="header__logo" /></div>
+                    <div>
+                        <Link to='/' className="header__logo" />
+                    </div>
                 }
                 <Search hideSideMenu={hideSideMenu} withFilters={withFilters} />
                 {!isMobile &&
                     <Nav isAuthenticated={isAuthenticated} setOpen={setOpen} />
                 }
-                <div className='header__widgets'>
+                <div className="header__widgets">
                     {isAuthenticated &&
                         <>
-                            <div onClick={hideSideMenu} className='header__widgets-notifications-wrap'>
+                            <div className={withFilters || pathname === '/' ?
+                                    'header__widgets-notifications-wrap'
+                                    :
+                                    'header__widgets-notifications-wrap-nofilters'}
+                                 onClick={hideSideMenu}
+                            >
                                 <Notifications open={openWidgets}
                                                setOpen={setOpenWidgets}
                                 />
@@ -87,13 +94,12 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
                         <div className={withFilters || pathname === '/' ? 'header__filters' : 'header__filters __hidden'}
                              onClick={() => setShowFilters({ isOpenFilters: !isOpenFilters })}>
                             <div className={isOpenFilters ? 'open' : ''}>
-                                {
-                                    isOpenFilters ? <svg className={`no-scale ${strokeColor}`} width='20' height='20' viewBox='0 0 20 20' fill='none'
-                                                         xmlns='http://www.w3.org/2000/svg'>
+                                {isOpenFilters ?
+                                    <svg className={`no-scale ${strokeColor}`} width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                         <line y1='1' x1='1' x2='20' y2='20' strokeWidth='1.32' />
                                         <line y1='20' x1='1' x2='20' y2='1' strokeWidth='1.32' />
-                                    </svg> : <svg className={strokeColor} width='20' height='18' viewBox='0 0 20 18' fill='none'
-                                                  xmlns='http://www.w3.org/2000/svg'>
+                                    </svg> :
+                                    <svg className={strokeColor} width='20' height='18' viewBox='0 0 20 18' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                         <path d='M3.47827 12.6608V17.4434' strokeWidth='1.32'
                                               strokeMiterlimit='10' />
                                         <path d='M0 15.0521H3.47826' strokeWidth='1.32'
@@ -117,16 +123,17 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
                             </div>
                             <span style={{ color: isOpenFilters && '#3366ff', width: '50px' }}>
                                 {pathname.match (/uploaded-documents/) ?
-                                     (isOpenFilters ? 'Закрыть' : 'Категории') :
-                                     (isOpenFilters ? 'Закрыть' : 'Фильтр')
+                                    (isOpenFilters ? 'Закрыть' : 'Категории') :
+                                    (isOpenFilters ? 'Закрыть' : 'Фильтр')
                                 }
                             </span>
-                        </div>
-                        : <WidgetLogin login_page={login_page} setOpen={setOpen} open={open} />}
+                        </div> :
+                        <WidgetLogin login_page={login_page} setOpen={setOpen} open={open} />
+                    }
                 </div>
             </Container>
         </header>
     );
 };
 
-export default connectAuthVisible(connectShowFilters(React.memo(Header)));
+export default connectAuthVisible(connectShowFilters(memo(Header)));

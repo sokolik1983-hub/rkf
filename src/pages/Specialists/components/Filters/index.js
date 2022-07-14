@@ -14,10 +14,17 @@ import AllBbreedsFilter from "../../../../components/Filters/AllBbreedsFilter";
 import {buildFiltersUrl, setFiltersToUrl} from "../../utils";
 import {setOverflow} from "../../../../utils";
 import {Request} from "../../../../utils/request";
+import {scrollFunc} from "../../../../utils/scrollToContent";
 
 import "./index.scss";
 
-const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
+const Filters = ({
+                     isOpenFilters,
+                     filtersValue,
+                     allBreeder,
+                     setAllBreeder,
+                     scrollRef,
+}) => {
     const [loading, setLoading] = useState(true);
     const [isUserFiltered, setIsUserFiltered] = useState(false);
     const [isFirstTimeFiltersRequest, setIsFirstTimeFiltersRequest] = useState({
@@ -58,6 +65,7 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
         setIsUserFiltered(false);
     };
 
+
     useEffect(() => {
         (() => Request({
             url: buildFiltersUrl(filtersValue, isFirstTimeFiltersRequest[filtersValue.SearchTypeId])
@@ -78,6 +86,10 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
             setLoading(false);
         }))();
     }, [filtersValue]);
+
+    useEffect(() => {
+        scrollFunc(scrollRef);
+    }, [filtersValue, allBreeder]);
 
     useEffect(() => {
         setOverflow(isOpenFilters);
@@ -109,7 +121,9 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                     <RankFilter
                                         ranks={filters.ranks}
                                         rank_ids={filtersValue.RankIds}
-                                        onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                        onChange={filter => {
+                                            setFiltersToUrl({RankIds: filter});
+                                        }}
                                         searchTypeId={filtersValue.SearchTypeId}
                                     />
                                 }
@@ -123,19 +137,25 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                 <BreedGroupsFilter
                                     breedGroups={filters.breed_groups}
                                     breedGroupIds={filtersValue.BreedGroupIds}
-                                    onChange={filter => setFiltersToUrl({BreedGroupIds: filter})}
+                                    onChange={filter => {
+                                        setFiltersToUrl({BreedGroupIds: filter});
+                                    }}
                                 />
 
                                 <BreedsFilter
                                     breeds={filters.breeds}
                                     breed_ids={filtersValue.BreedIds}
-                                    onChange={filter => setFiltersToUrl({BreedIds: filter})}
+                                    onChange={filter => {
+                                        setFiltersToUrl({BreedIds: filter});
+                                    }}
                                 />
 
                                 <ContestsFilter
                                     contests={filters.contests}
                                     contest_ids={filtersValue.ContestIds}
-                                    onChange={filter => setFiltersToUrl({ContestIds: filter})}
+                                    onChange={filter => {
+                                        setFiltersToUrl({ContestIds: filter});
+                                    }}
                                 />
                             </> :
                             <>
@@ -143,20 +163,26 @@ const Filters = ({isOpenFilters, filtersValue, allBreeder, setAllBreeder}) => {
                                     <SpecializationsFilter
                                         types={filters.specializations}
                                         type_ids={filtersValue.SpecializationIds}
-                                        onChange={filter => setFiltersToUrl({SpecializationIds: filter})}
+                                        onChange={filter => {
+                                            setFiltersToUrl({SpecializationIds: filter});
+                                        }}
                                     />
                                 }
 
                                 <RankFilter
                                     ranks={filters.ranks}
                                     rank_ids={filtersValue.RankIds}
-                                    onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                    onChange={filter => {
+                                        setFiltersToUrl({RankIds: filter});
+                                    }}
                                 />
 
                                 <DisciplinesFilter
                                     disciplines={filters.disciplines}
                                     discipline_ids={filtersValue.DisciplineIds}
-                                    onChange={filter => setFiltersToUrl({DisciplineIds: filter})}
+                                    onChange={filter => {
+                                        setFiltersToUrl({DisciplineIds: filter});
+                                    }}
                                 />
                             </>
                         }

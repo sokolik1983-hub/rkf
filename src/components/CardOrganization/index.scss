@@ -1,6 +1,12 @@
 .card-organization {
   padding: 10px;
 
+  &__no-url {
+    .card-organization__name span:last-child {
+      color: #72839c;
+    }
+  }
+
   &__content {
     position: initial;
 
@@ -103,7 +109,6 @@
     @media (max-width: 700px) {
       margin-bottom: 0;
     }
-
 
     span:first-child {
       color: #72839c;
@@ -252,6 +257,9 @@
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       text-align: left !important;
+    }
+    & p {
+      word-break: break-all;
     }
   }
 

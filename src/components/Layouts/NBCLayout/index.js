@@ -49,6 +49,7 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [allSelected, setAllSelected] = useState(false);
     const [editInfo, setEditInfo] = useState(null);
+    const [edit, setEdit] = useState(false);
 
     const { alias } = useParams();
     const aliasRedux = useSelector(state => state?.authentication?.user_info?.alias);
@@ -340,14 +341,14 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
                                 </StickyBox>
                             </Aside>
                             <div className="nbc-page__content">
-                                {!newsFeed && !editInfo &&
+                                {!newsFeed && location.pathname.indexOf('edit') === -1 &&
                                     <UserBanner
                                         link={nbcInfo?.headliner_link}
                                         canEdit={canEdit}
                                         updateInfo={getNBCInfo}
                                     />
                                 }
-                                {isMobile && nbcInfo && !editInfo && !newsFeed &&
+                                {isMobile && nbcInfo && !newsFeed &&
                                     <UserHeader
                                         user='nbc'
                                         logo={nbcInfo.logo_link}

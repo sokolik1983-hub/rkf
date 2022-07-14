@@ -7,6 +7,8 @@ import RegionsFilter from "../Filters/RegionsFilter";
 import CopyrightInfo from "../CopyrightInfo";
 import useIsMobile from "../../utils/useIsMobile";
 import {Request} from "../../utils/request";
+import OrganizationsFilter from "./components/OrganizationsFilter";
+
 import "./style.scss";
 
 
@@ -14,6 +16,7 @@ const ClubsMap = ({fullScreen}) => {
     const [data, setData] = useState([]);
     const [cities, setCities] = useState([]);
     const [regions, setRegions] = useState([]);
+    const [userTypes, setUserTypes] = useState(0);
     const [loading, setLoading] = useState(true);
     const [targetCity, setTargetCity] = useState([1121]);
     const [targetZoom, setTargetZoom] = useState(10);
@@ -24,7 +27,7 @@ const ClubsMap = ({fullScreen}) => {
 
     const getOrganizations = async () => {
         await Request({
-            url: '/api/club/club_yandex_maps'
+            url: `/api/club/club_yandex_maps?user_type=${userTypes}`
         }, result => {
             const getLink = (userType, alias) => `/${userType === 4 ? 'kennel' : 'club'}/${alias}`;
 
@@ -48,6 +51,13 @@ const ClubsMap = ({fullScreen}) => {
     useEffect(() => {
         (async () => {
             await getOrganizations();
+
+            setLoading(false);
+        })();
+    }, [userTypes]);
+
+    useEffect(() => {
+        (async () => {
             await getRegions();
 
             setLoading(false);
@@ -88,6 +98,10 @@ const ClubsMap = ({fullScreen}) => {
         setTargetRegion(regionsIds.length ? [regionsIds[1] || regionsIds[0]] : [42]);
     };
 
+    const handleChangeOrganization = userType => {
+        setUserTypes(userType);
+    };
+
     return !!data.length &&
         <YMaps>
             <Map
@@ -105,6 +119,7 @@ const ClubsMap = ({fullScreen}) => {
                     }}
                     clusters={{preset: 'islands#greenClusterIcons'}}
                     defaultFeatures={data}
+                    features={data}
                     modules={[
                         'objectManager.addon.objectsBalloon',
                         'objectManager.addon.clustersBalloon',
@@ -129,6 +144,10 @@ const ClubsMap = ({fullScreen}) => {
                                 city_ids={targetCity}
                                 onChange={handleChangeCity}
                                 startOpen={!isMobile}
+                            />
+                            <OrganizationsFilter
+                                startOpen={!isMobile}
+                                onChange={handleChangeOrganization}
                             />
                             <CopyrightInfo withSocials={true} />
                         </div>

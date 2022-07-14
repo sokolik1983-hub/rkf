@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from "react";
+import React, {memo, useEffect, useRef, useState} from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import ClickGuard from "../../components/ClickGuard";
@@ -23,6 +23,8 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     const [startElement, setStartElement] = useState(1);
     const [searchTabActiveName, setSearchTabActiveName] = useState(null);
     const [isMenuChanges, setIsMenuChanges] = useState(false);
+
+    const scrollRef = useRef();
 
     useEffect(() => {
         if (filtersValue.search_type !== 8) {
@@ -145,7 +147,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         setSearchResult([]);
         setSearchTabActiveName(tabActiveName);
         setIsMenuChanges(true);
-    }
+    };
 
     const clearFilterCounts = () => {
         const clearedFilters = filters.map(filter => {
@@ -155,21 +157,22 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                 return item;
             })
             return filter;
-        })
+        });
 
         setFilters(clearedFilters);
-    }
+    };
 
     return (
         <Layout layoutWithFilters>
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
-            <div className="search-page__wrap">
+            <div className="search-page__wrap" ref={scrollRef}>
                 <Container className="search-page content">
                     <Filters
                         filtersValue={filtersValue}
                         filters={filters}
                         additionalFilters={additionalFilters}
                         isOpenFilters={isOpenFilters}
+                        scrollRef={scrollRef}
                     />
 
                     <div className="search-page__content">

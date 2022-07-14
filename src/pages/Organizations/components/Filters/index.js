@@ -17,6 +17,7 @@ import ClubsMap from '../../../../components/ClubsMap';
 import {RKFInfo} from '../../../Home/config';
 import {setOverflow} from '../../../../utils';
 import {Request} from '../../../../utils/request';
+import {scrollFunc} from "../../../../utils/scrollToContent";
 import {
     endpointGetClubsCities,
     endpointGetFederations,
@@ -45,6 +46,7 @@ const Filters = ({
     isOpenFilters,
     filtersValue,
     region_ids,
+    scrollRef,
 }) => {
     const [loading, setLoading] = useState(true);
     const [federations, setFederations] = useState([]);
@@ -53,6 +55,10 @@ const Filters = ({
     const [regions, setRegions] = useState([]);
     const [currentCityIds, setCurrentCityIds] = useState([]);
     const [isUserFiltered, setIsUserFiltered] = useState(false);
+
+    useEffect(() => {
+        scrollFunc(scrollRef);
+    }, [city_ids, filtersValue]);
 
     const getBreeds = async () => {
         await Request({
@@ -213,7 +219,9 @@ const Filters = ({
                                         loading={loading}
                                         federations={federations}
                                         federation_ids={federation_ids}
-                                        onChange={filter => setFiltersToUrl({federation_ids: filter})}
+                                        onChange={filter => {
+                                            setFiltersToUrl({federation_ids: filter});
+                                        }}
                                     />
                                     <Card className="organizations-page__other">
                                         <div className="organizations-page__other-info-wrap">
@@ -226,30 +234,38 @@ const Filters = ({
                                         </div>
                                         <ActiveUserFilter
                                             active_rkf_user={active_rkf_user}
-                                            onChange={filter => setFiltersToUrl({not_activated: false, active_rkf_user: filter})}
+                                            onChange={filter => {
+                                                setFiltersToUrl({not_activated: false, active_rkf_user: filter});
+                                            }}
                                         />
                                         <FederationChoiceFilter
                                             active_member={active_member}
-                                            onChange={filter => setFiltersToUrl({not_activated: false, active_member: filter})}
+                                            onChange={filter => {
+                                                setFiltersToUrl({not_activated: false, active_member: filter});
+                                            }}
                                         />
                                         <ActivatedFilter
                                             activated={activated}
                                             label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
-                                            onChange={filter => setFiltersToUrl({not_activated: false, activated: filter})}
+                                            onChange={filter => {
+                                                setFiltersToUrl({not_activated: false, activated: filter});
+                                            }}
                                         />
                                         <NotActivatedFilter
                                             not_activated={not_activated}
                                             label={`Неактивированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
-                                            onChange={filter => setFiltersToUrl(filter ?
-                                                {
-                                                    ...getEmptyFilters(),
-                                                    organization_type,
-                                                    active_rkf_user: false,
-                                                    activated: false,
-                                                    not_activated: filter
-                                                } :
-                                                {not_activated: filter}
-                                            )}
+                                            onChange={filter => {
+                                                setFiltersToUrl(filter ?
+                                                    {
+                                                        ...getEmptyFilters(),
+                                                        organization_type,
+                                                        active_rkf_user: false,
+                                                        activated: false,
+                                                        not_activated: filter
+                                                    } :
+                                                    {not_activated: filter}
+                                                );
+                                            }}
                                         />
                                     </Card>
                                 </>

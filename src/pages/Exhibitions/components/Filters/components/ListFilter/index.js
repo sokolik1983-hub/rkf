@@ -2,11 +2,20 @@ import React, {memo, useMemo, useState} from 'react';
 import SwipeTabs from '../../../../../../components/SwipeTabs';
 import {setFiltersToUrl} from '../../../../utils';
 import CustomCheckbox from '../../../../../../components/Form/CustomCheckbox';
+import {scrollFunc} from "../../../../../../utils/scrollToContent";
 
 import './index.scss';
 
 
-const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardView, exporting, setExporting}) => {
+const ListFilter = ({
+                        categoryId,
+                        exhibitionsForTable,
+                        standardView,
+                        setStandardView,
+                        exporting,
+                        setExporting,
+                        scrollRef,
+}) => {
     const clientWidth = window.innerWidth;
 
     const [isFilter, setIsFilter] = useState(false);
@@ -28,19 +37,20 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
 
         if (type === 3) {
             setFiltersToUrl({CityIds: []});
-        }
+        };
+        scrollFunc(scrollRef);
     };
 
     const handleFilter = () => {
         setIsFilter(!isFilter);
         setFiltersToUrl({IsPopular: !isFilter})
-    }
+    };
 
     const checkIos = () => {
         if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
             return true;
         }
-    }
+    };
 
     return (
         <div className="exhibitions-page__list-filter">
@@ -84,7 +94,9 @@ const ListFilter = ({categoryId, exhibitionsForTable, standardView, setStandardV
             {!isFilter ? <SwipeTabs
                 items={tabItems}
                 activeTabIndex={tabItems.findIndex(item => item.type === +categoryId)}
-                onChange={item => handleClick(item)}
+                onChange={item => {
+                    handleClick(item);
+                }}
             /> :
             <CustomCheckbox
                 id="most-liked"

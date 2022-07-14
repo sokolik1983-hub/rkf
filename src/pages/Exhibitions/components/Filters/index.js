@@ -20,6 +20,7 @@ import {
 } from '../../config';
 import RangeCalendarExhibitions from '../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js';
 import CopyrightInfo from '../../../../components/CopyrightInfo';
+import { scrollFunc } from "../../../../utils/scrollToContent";
 import { connectAuthVisible } from 'pages/Login/connectors';
 
 import './index.scss';
@@ -31,6 +32,7 @@ const Filters = ({
         isOpenFilters,
         isEducational,
         federationAlias,
+        scrollRef,
 }) => {
     const [ranks, setRanks] = useState([]);
     const [currentRanks, setCurrentRanks] = useState([]);
@@ -109,7 +111,6 @@ const Filters = ({
     const clearAll = () => {
         const calendarButton = document.getElementsByClassName('calendar-filter__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
-
         setFiltersToUrl(getEmptyFilters(filters.Alias));
         setClearFilter(true);
     };
@@ -156,6 +157,10 @@ const Filters = ({
     }, []);
 
     useEffect(() => {
+        scrollFunc(scrollRef);
+    }, [filters]);
+
+    useEffect(() => {
         if(currentExhibRegions && currentExhibRegions.length > 0){
             (() => Request({
                 url: `${endpointExhibitionsFilters}?${currentExhibRegions.map(reg => `RegionIds=${reg}`).join('&')}`
@@ -186,7 +191,7 @@ const Filters = ({
         } else {
             setCurrentRanks([]);
             setFiltersToUrl({ RankIds: [] });
-        }
+        };
     }, [currentTypes, ranks]);
 
     return (
@@ -216,7 +221,9 @@ const Filters = ({
                                     <RangeCalendarExhibitions
                                         date_from={filters.DateFrom}
                                         date_to={filters.DateTo}
-                                        handleRangeClick={() => setRangeClicked(true)}
+                                        handleRangeClick={() => {
+                                            setRangeClicked(true);
+                                        }}
                                     />
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
@@ -224,20 +231,26 @@ const Filters = ({
                                         is_club_link={clubName && filters.Alias}
                                         clear_filter={clear_filter}
                                         range_clicked={range_clicked}
-                                        handleRangeReset={() => setRangeClicked(false)}
+                                        handleRangeReset={() => {
+                                            setRangeClicked(false);
+                                        }}
                                     />
                                 </div>
                             </Card>
                             {parseInt(filters.CategoryId) === 4
                                 ? <FormatFilter
                                     format_ids={filters.TypeIds}
-                                    onChange={filter => setFiltersToUrl({ TypeIds: filter })}
+                                    onChange={filter => {
+                                        setFiltersToUrl({TypeIds: filter});
+                                    }}
                                     is_club_link={clubName && filters.Alias}
                                 />
                                 : <BreedsFilter
                                     breeds={breeds}
                                     breed_ids={filters.BreedIds}
-                                    onChange={filter => setFiltersToUrl({ BreedIds: filter })}
+                                    onChange={filter => {
+                                        setFiltersToUrl({BreedIds: filter});
+                                    }}
                                     is_club_link={clubName && filters.Alias}
                                 />}
                             <RegionsFilter

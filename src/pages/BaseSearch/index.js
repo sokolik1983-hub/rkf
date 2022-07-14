@@ -25,16 +25,10 @@ import LeftMenu from "./components/LeftMenu/LeftMenu";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import ClickGuard from "../../components/ClickGuard";
 import MenuComponentNew from "../../components/MenuComponentNew";
-
 import "./index.scss";
 
-const BaseSearch = props => {
-    const {
-        isAuthenticated,
-        isOpenFilters,
-        setShowFilters,
-    } = props;
 
+const BaseSearch = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
     const [clubData, setClubData] = useState(null);
     const [nbcData, setNbcData] = useState(null);
     const [nurseryData, setNurseryData] = useState(null);
@@ -61,7 +55,6 @@ const BaseSearch = props => {
             }))();
         }
     }, []);
-
 
     return (
         <Layout layoutWithFilters>

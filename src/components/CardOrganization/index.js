@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Card from "../Card";
-import { ActiveUserMark, FederationChoiceMark } from "../Marks";
+import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import CardFooter from "../CardFooter";
 import Avatar from "../Layouts/Avatar";
 
 import "./index.scss";
 
 const CardOrganization = (props) => {
-
     const {
         id,
         alias,
@@ -33,28 +32,20 @@ const CardOrganization = (props) => {
         like_count,
     } = props;
 
-    const url = user_type === 4
-        ?
-        `/kennel/${ alias }`
-        :
-        user_type === 7
-            ?
-            `/nbc/${ alias }`
-            :
-            (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online')
-                ?
-                `/club/${ alias }`
-                :
-                `/${ alias }/`;
+    const url = alias ?
+        user_type === 4 ? `/kennel/${ alias }` :
+        user_type === 7 ? `/nbc/${ alias }` :
+        (user_type === 3 && alias !== 'rkf' && alias !== 'rkf-online') ? `/club/${ alias }` :
+        `/${ alias }/` : null;
 
     return (
-        <Card className={`card-organization ${ user_type === 7 && 'nkp-layout'}`}>
+        <Card className={`card-organization${user_type === 7 ? ' nkp-layout' : ''}`}>
             <div className="card-organization__content">
                 <div className="card-organization__header">
-                    { url ?
+                    {url ?
                         <div className="card-organization__author">
                             <Link
-                                to={ url }
+                                to={url}
                                 className={`card-organization__logo ${(user_type === 3 || user_type === 4 ) && 'item-card__logo--club'}`}
                             >
                                 <Avatar
@@ -100,22 +91,19 @@ const CardOrganization = (props) => {
                                                     :
                                                     <>
                                                         <span>
-                                                                    { user_type === 3 ? 'Клуб' :
-                                                                        user_type === 4 ? 'Питомник' :
-                                                                            user_type === 7 ? 'НКП' : '' }
-                                                                </span>
+                                                            {
+                                                                user_type === 3 ? 'Клуб' :
+                                                                user_type === 4 ? 'Питомник' :
+                                                                user_type === 7 ? 'НКП' : ''
+                                                            }
+                                                        </span>
                                                         &nbsp;
                                                         <span>{ name || 'Название отсутствует' }</span>
                                                     </>
                                             }
                                             <span className="card-organization__mark">
-                                                { active_rkf_user &&
-                                                    <ActiveUserMark/>
-                                                }
-
-                                                { active_member &&
-                                                <FederationChoiceMark/>
-                                                }
+                                                {active_rkf_user && <ActiveUserMark/>}
+                                                {active_member && <FederationChoiceMark/>}
                                             </span>
                                         </div>
                                     </div>
@@ -198,7 +186,7 @@ const CardOrganization = (props) => {
                                         }
                                     </div>
                                     <div className="card-organization__text">
-                                        { content }
+                                        <p>{ content }</p>
                                     </div>
                                 </div>
                             </div>
@@ -217,29 +205,21 @@ const CardOrganization = (props) => {
                                         className="card-organization__name"
                                         title={ name || 'Название отсутствует' }
                                     >
-                                        { (user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                            <>
-                                                <span>
-                                                    { user_type === 3
-                                                        ? 'Клуб '
-                                                        : user_type === 4
-                                                            ? 'Питомник ' : user_type === 5
-                                                                ? 'Федерация ' : user_type === 7
-                                                                    ? 'НКП ' : ' '
-                                                    }
-                                                </span>
-                                            </>
+                                        {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
+                                            <span>
+                                                {
+                                                    user_type === 3 ? 'Клуб ' :
+                                                    user_type === 4 ? 'Питомник ' :
+                                                    user_type === 5 ? 'Федерация ' :
+                                                    user_type === 7 ? 'НКП ' : ' '
+                                                }
+                                            </span>
                                         }
                                         <span>{ name || 'Название отсутствует' }</span>
                                     </span>
                                     <div className="card-organization__icons">
-                                        { active_rkf_user &&
-                                            <ActiveUserMark/>
-                                        }
-
-                                        { active_member &&
-                                            <FederationChoiceMark/>
-                                        }
+                                        {active_rkf_user && <ActiveUserMark/>}
+                                        {active_member && <FederationChoiceMark/>}
                                     </div>
                                 </div>
                                 <div className={ `card-organization__special-position_left${ 
@@ -297,7 +277,7 @@ const CardOrganization = (props) => {
                                         }
                                     </div>
                                     <div className="card-organization__text">
-                                        { content }
+                                        <p>{ content }</p>
                                     </div>
                                 </div>
                             </div>
