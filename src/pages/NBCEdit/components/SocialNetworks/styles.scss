@@ -19,6 +19,8 @@
                 bottom: -20px;
                 padding: 0 4px 4px;
                 @media (max-width: 768px) {
+                    width: 100%;
+                    overflow: hidden;
                     left: 0;
                 }
             }
@@ -61,6 +63,9 @@
         border: none;
         border-radius: 50%;
         background: url("/static/icons/add-blue.svg") no-repeat center / contain;
+        @media (max-width: 768px) {
+            top: -49px;
+        }
     }
 
     &__button-delete {
@@ -84,6 +89,7 @@
         @media (max-width: 768px) {
             grid-column: 3 / 4;
             right: 70px;
+            top: 117px;
         }
         @media (max-width: 700px) {
             right: 60px;
