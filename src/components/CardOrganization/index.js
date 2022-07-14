@@ -187,7 +187,6 @@ const CardOrganization = (props) => {
                                     </div>
                                     <div className="card-organization__text">
                                         <p>{ content }</p>
-
                                     </div>
                                 </div>
                             </div>
