@@ -46,7 +46,6 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
     const handleClick = async (e, id) => {
         e.preventDefault();
         await fetch(`/api/document/publicdocument?id=${id}`, {
-            method: 'GET',
             headers: getHeaders()
         })
             .then(response => response.blob())

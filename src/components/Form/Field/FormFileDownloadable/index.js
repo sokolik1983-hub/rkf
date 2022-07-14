@@ -11,7 +11,6 @@ const FormFileDownloadable = ({ formik, onChange, name, url, id, loading, classN
             let el = e.target;
             el.innerText = 'Загрузка...';
             await fetch(`${url}?id=${id}`, {
-                method: 'GET',
                 headers: getHeaders()
             })
                 .then(response => response.blob())

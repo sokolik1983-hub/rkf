@@ -18,7 +18,6 @@ const UserVideoGallery = ({ alias, setShowModal, isKennel }) => {
         setLoading(true);
         Request({
             url: `/api/videogallery/gallery?alias=${alias}`,
-            method: 'GET'
         }, data => {
             setVideos(data);
             setLoading(false);
