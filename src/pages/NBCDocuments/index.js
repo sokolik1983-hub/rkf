@@ -11,6 +11,7 @@ import CopyrightInfo from "../../components/CopyrightInfo";
 import MenuComponentNew from "../../components/MenuComponentNew";
 import { LoadableNotFound } from "../../appModules";
 import useIsMobile from "../../utils/useIsMobile";
+import CardMessage from "../../components/CardMessage";
 
 import "./styles.scss";
 
@@ -53,14 +54,25 @@ const NBCDocuments = () => {
                             <CopyrightInfo withSocials={true} />
                         </StickyBox>
                     </aside>
-                    <Switch>
-                        <Route
-                            exact={true}
-                            path='/nbc/:route/documents/'
-                            component={() => <ExhibitionsCards alias={alias}/>}
-                        />
-                        <Route component={LoadableNotFound} />
-                    </Switch>
+                    <main className="documents-page__right">
+                        <CardMessage>
+                            <h3>Уважаемые пользователи портала RKF.ONLINE!</h3>
+                            <p>Ввиду того, что некоторые посетители офиса РКФ регулярно пропускают время своей записи,
+                                не отменив ее и не освободив тем самым «окно» для других желающих, мы вынуждены ввести
+                                ограничительные меры. Если в течение 30 календарных дней вы трижды пропустили запись
+                                на посещение офиса РКФ и не отменили ее в личном кабинете, на следующие 30 дней
+                                возможность зарегистрироваться на прием будет для вас ограничена.
+                                Просим своевременно отменять запись в случае невозможности ею воспользоваться!</p>
+                        </CardMessage>
+                        <Switch>
+                            <Route
+                                exact={true}
+                                path='/nbc/:route/documents/'
+                                component={() => <ExhibitionsCards alias={alias}/>}
+                            />
+                            <Route component={LoadableNotFound} />
+                        </Switch>
+                    </main>
                 </div>
             </Container>
         </div>
