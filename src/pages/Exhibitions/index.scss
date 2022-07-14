@@ -221,10 +221,6 @@
       background: url(/static/icons/full-screen-blue.svg) no-repeat center / cover;
     }
 
-    &--tableIcon:hover:before {
-      background: url(/static/icons/tableIcon-blue.svg) no-repeat center / cover;
-    }
-
     &--backIcon:before {
       content: "";
       width: 20px;

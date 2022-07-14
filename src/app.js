@@ -3,11 +3,12 @@ import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 import {ConnectedRouter} from "connected-react-router";
 import App from "./app/index";
-import configureStore from "./store";
-import {unregister} from "./registerServiceWorker";
-import history from "./utils/history";
 import ScrollToTop from "./utils/ScrollToTop";
-import SignalR from 'components/SignalR';
+import SignalR from "./components/SignalR";
+import configureStore from "./store";
+import history from "./utils/history";
+import {IS_DEV_MODE} from "./appConfig";
+import {unregister} from "./registerServiceWorker";
 
 
 //Store
@@ -15,7 +16,7 @@ export const store = configureStore({}, history);
 
 const Application = () => {
     useEffect(() => {
-        if(!process || !process.env || process.env.NODE_ENV !== 'development') {
+        if(!IS_DEV_MODE) {
             //Яндекс метрика
             let yMeta = document.createElement('meta');
             yMeta.name = 'yandex-verification';

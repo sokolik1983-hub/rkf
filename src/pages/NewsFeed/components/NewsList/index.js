@@ -201,7 +201,6 @@ const NewsList = ({
         unReadMessages.length ? setIsUnreadMessages(true) : setIsUnreadMessages(false);
     }
 
-
     return loading
 
         ? <Loading centered={false} />
@@ -252,6 +251,7 @@ const NewsList = ({
                                 unsetCheckedAll={unsetCheckedAll}
                                 isControlCheckedAll={isControlCheckedAll}
                                 clearChecks={clearChecks}
+                                photos={n.pictures}
                             />
                         )}
                     </div>

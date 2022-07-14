@@ -4,8 +4,8 @@ import Card from "../Card";
 import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import CardFooter from "../CardFooter";
 import Avatar from "../Layouts/Avatar";
-import "./index.scss";
 
+import "./index.scss";
 
 const CardOrganization = (props) => {
     const {
@@ -186,7 +186,8 @@ const CardOrganization = (props) => {
                                         }
                                     </div>
                                     <div className="card-organization__text">
-                                        { content }
+                                        <p>{ content }</p>
+
                                     </div>
                                 </div>
                             </div>
@@ -277,7 +278,7 @@ const CardOrganization = (props) => {
                                         }
                                     </div>
                                     <div className="card-organization__text">
-                                        { content }
+                                        <p>{ content }</p>
                                     </div>
                                 </div>
                             </div>

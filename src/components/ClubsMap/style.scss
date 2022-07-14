@@ -19,11 +19,15 @@
     }
   }
 }
-.map-page__filters .regions-filter {
-  margin-bottom: -5px;
-  &__title {
-    @media (max-width: 1079px) {
-      padding-right: 5px;
+.map-page__filters {
+  .regions-filter,
+  .cities-filter {
+    margin-bottom: -5px;
+
+    &__title {
+      @media (max-width: 1079px) {
+        padding-right: 5px;
+      }
     }
   }
 }
