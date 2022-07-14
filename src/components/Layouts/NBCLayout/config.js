@@ -85,7 +85,7 @@ export const NBCNav = (alias, strOfBreeds) => [
         </svg>
     },
     {
-        id: 7,
+        id: 15,
         title: 'Cтраница НКП',
         to: `/nbc/${alias}`,
         exact: true,
