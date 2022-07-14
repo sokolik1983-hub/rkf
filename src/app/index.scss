@@ -69,12 +69,16 @@ input::placeholder {
   display: none;
 }
 
+._display-inline-block {
+  display: inline-block;
+}
+
 ._flex {
   display: flex;
 }
 
 ._flex-align-top {
-  display: flex;
+  align-items: flex-start;
 }
 
 ._flex-start-wrap {

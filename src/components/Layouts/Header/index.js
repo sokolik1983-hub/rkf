@@ -121,7 +121,7 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
                                     </svg>
                                 }
                             </div>
-                            <span style={{ color: isOpenFilters && '#3366ff', width: '50px' }}>
+                            <span className={`header__filters-menu ${isOpenFilters ? ' _active' : ''}`}>
                                 {pathname.match (/uploaded-documents/) ?
                                     (isOpenFilters ? 'Закрыть' : 'Категории') :
                                     (isOpenFilters ? 'Закрыть' : 'Фильтр')
