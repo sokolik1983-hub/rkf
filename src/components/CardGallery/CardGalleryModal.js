@@ -1,13 +1,10 @@
-import React, {memo, useEffect, useState} from "react";
+import React, {memo} from "react";
 import Slider from "react-slick";
 import Modal from "../Modal";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const CardGalleryModal = ({images, activeIndex, isOpen, onClose}) => {
-
-    // const [loading, setLoading] = useState(false);
-
 
     return (
         <Modal
@@ -28,7 +25,6 @@ const CardGalleryModal = ({images, activeIndex, isOpen, onClose}) => {
                     touchThreshold={20}
                     adaptiveHeight={true}
                     lazyLoad="progressive"
-                    beforeChange={() => {console.log('s')}}
                 >
                     {images.map((item, i) =>
                         <img key={i} className="card-gallery__modal-img" src={item.src} alt="" loading="eager"/>
