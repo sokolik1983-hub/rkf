@@ -1,53 +1,87 @@
-import React from "react";
-import AuthOrLogin from "../Login/components/AuthOrLogin";
-import ClickGuard from "../../components/ClickGuard";
-import Loading from "../../components/Loading";
-import {Form} from "../../components/Form";
-import {editForm} from "./config";
-import RenderFields from "./RenderFields";
-import randomKeyGenerator from "../../utils/randomKeyGenerator";
-import Alert from "../../components/Alert";
+import React, {useState} from 'react';
+import {connect} from 'formik';
+import {SvgSelector} from './icons';
+import Card from '../../components/Card';
+import {editForm, sections} from './config';
+import MainPage from './components/MainPage';
+import ContactsPage from './components/ContactsPage';
+import BankInfo from "./components/BankInfo";
+import StickyBox from "react-sticky-box";
 
-const Content = ({
-                     isOpenFilters,
-                     setShowFilters,
-                     transformValues,
-                     handleSuccess,
-                     handleError,
-                     initialValues,
-                     showAlert,
-                     loading,
-                     nbcInfo
-                 }) => {
+
+const RenderFields = ({
+                          formik,
+                          randomKeyGenerator,
+                          isOpenFilters,
+                          setShowFilters,
+                      }) => {
+    const [activeSection, setActiveSection] = useState(0);
+
+    const {
+        name,
+        alias,
+        comment,
+        web_site,
+        bank_comment,
+    } = editForm.fields;
+
+    console.log('formik.values', formik.values)
+
+    const {
+        phones,
+        emails,
+        social_networks,
+    } = formik.values;
+
+    const handleSectionSwitch = (id) => {
+        setActiveSection(id);
+        setShowFilters({isOpenFilters: false});
+    };
 
     return (
-        <AuthOrLogin>
-            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
-            <div className="nursery-edit__right">
-                {loading
-                    ? <Loading/>
-                    : <Form
-                        {...editForm}
-                        initialValues={initialValues}
-                        transformValues={transformValues}
-                        onSuccess={handleSuccess}
-                        onError={handleError}
-                        className="nursery-edit__form"
-                        withLoading={false}
-                        nbcInfo={nbcInfo}
-                    >
-                        <RenderFields
-                            isOpenFilters={isOpenFilters}
-                            setShowFilters={setShowFilters}
-                            handleError={handleError}
+        <div className="nursery-edit__inner">
+            <div className="nursery-edit__inner-left">
+                {activeSection === 0 ? <MainPage
+                        name={name}
+                        alias={alias}
+                        formik={formik}
+                        web_site={web_site}
+                        comment={comment}
+                    /> :
+                    activeSection === 1 ? <ContactsPage
+                            formik={formik}
+                            social_networks={social_networks}
+                            phones={phones}
+                            emails={emails}
                             randomKeyGenerator={randomKeyGenerator}
+                        /> :
+                        activeSection === 2 && <BankInfo
+                            bank_comment={bank_comment}
                         />
-                    </Form>
                 }
-                {showAlert && <Alert {...showAlert} />}
             </div>
-        </AuthOrLogin>
-    );
+            <div className={`nursery-edit__inner-right${isOpenFilters ? " _open" : ""}`}>
+                <StickyBox offsetTop={0}>
+                    <Card>
+                        <span className="nursery-edit__profile-label">Профиль</span>
+                        <ul className="nursery-edit__inner-list">
+                            {Object.keys(sections).map((type, key) => <div
+                                    className={sections[type].id === activeSection
+                                        ? "nursery-edit__inner-item active"
+                                        : "nursery-edit__inner-item"}
+                                    key={key}
+                                    onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                                >
+                                    <SvgSelector icon={sections[type].icon} />
+                                    <li>{sections[type].name}</li>
+                                </div>
+                            )}
+                        </ul>
+                    </Card>
+                </StickyBox>
+            </div>
+        </div>
+    )
 };
 
-export default Content;
+export default connect(React.memo(RenderFields));
