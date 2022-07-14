@@ -860,8 +860,8 @@
   position: relative;
   @media (max-width: 1080px) {
     position: static;
-    margin-top: 5px;
-    height: 50px;
+    margin-top: -5px;
+    height: 45px;
   }
 
   &__inner {
@@ -940,6 +940,10 @@
       color: #979797;
       font-size: 13px;
       line-height: 15px;
+      margin-top: 10px;
+      @media (max-width: 1080px) {
+        margin-top: 0;
+      }
 
       &:hover {
         color: #3366FF;
