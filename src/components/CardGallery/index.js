@@ -63,7 +63,6 @@ const CardGallery = ({images}) => {
             <ImageList
                 variant="quilted"
                 cols={images.length !== 4 ? 6 : 4}
-                // rowHeight={220}
                 gap={2}
             >
                 {modifiedImages.map((item, i) =>
