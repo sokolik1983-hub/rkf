@@ -189,10 +189,10 @@
         }
 
         &__link {
+            position: relative;
             display: grid;
             grid-template-columns: 1fr 20px 35px;
             padding-bottom: 7px;
-            position: relative;
 
             & a {
                 margin-right: 10px;
