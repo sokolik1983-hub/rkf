@@ -1,19 +1,17 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useState} from "react";
 import {CSSTransition} from "react-transition-group";
-import {Link} from "react-router-dom";
 import Card from "../../../Card";
 
 import "./index.scss";
 
 
 const OrganizationsFilter = ({onChange, startOpen = true}) => {
-    const [activeType, setActiveType] = useState('0');
+    const [activeType, setActiveType] = useState(0);
     const [isOpen, setIsOpen] = useState(startOpen);
 
-    const handleClick = e => {
-        e.preventDefault();
-        setActiveType(e.target.name);
-        onChange(e.target.name);
+    const handleClick = (userType) => {
+        setActiveType(userType);
+        onChange(userType);
     };
 
     return (
@@ -30,35 +28,29 @@ const OrganizationsFilter = ({onChange, startOpen = true}) => {
             >
                 <div className="organizations-filter__wrap">
                     <ul className="ListFilter">
-                        <li className={activeType === '0' && 'active'}>
-                            <Link
-                                className={activeType === '0' && '_active'}
-                                to="/"
-                                name="0"
-                                onClick={handleClick}
+                        <li className={activeType === 0 && 'active'}>
+                            <span
+                                className={activeType === 0 && '_active'}
+                                onClick={()=>handleClick(0)}
                             >
                                 Все
-                            </Link>
+                            </span>
                         </li>
-                        <li className={activeType === '3' && 'active'}>
-                            <Link
-                                to="/"
-                                name="3"
-                                onClick={handleClick}
-                                className={activeType === '3' && '_active'}
+                        <li className={activeType === 3 && 'active'}>
+                            <span
+                                className={activeType === 3 && '_active'}
+                                onClick={()=>handleClick(3)}
                             >
                                 Клубы
-                            </Link>
+                            </span>
                         </li>
-                        <li className={activeType === '4' && 'active'}>
-                            <Link
-                                to="/"
-                                name="4"
-                                onClick={handleClick}
-                                className={activeType === '4' && '_active'}
+                        <li className={activeType === 4 && 'active'}>
+                            <span
+                                className={activeType === 4 && '_active'}
+                                onClick={()=>handleClick(4)}
                             >
                                 Питомники
-                            </Link>
+                            </span>
                         </li>
                     </ul>
                 </div>
