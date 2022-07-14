@@ -78,7 +78,7 @@ const NewsFeedItem = forwardRef(({
     const [isEditing, setIsEditing] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const [isChecked, setIsChecked] = useState(checkedAll);
-    const {picture_link} = (photos?.length > 0) && photos[0];
+    const {picture_link} = photos?.length && photos[0];
 
     const ref = useRef(null);
     const userLink = linkForUserType(user_type, alias);
@@ -306,7 +306,7 @@ const NewsFeedItem = forwardRef(({
                     </div>
                     {(picture_link || video_link) &&
                         <div className="news-feed-item__media">
-                            {photos?.length > 0 &&
+                            {photos?.length &&
                                 photos.map(photo =>
                                     <div className="news-feed-item__photo"
                                          style={{ backgroundImage: `url(${photo.picture_link})` }}
