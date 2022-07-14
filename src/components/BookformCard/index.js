@@ -144,7 +144,7 @@ const BookformCard = ({url, distinction}) => {
                         <p>В данном разделе Вы можете записаться на очный прием в офисе РКФ. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе. При посещении офиса необходимо иметь с собой документ, удостоверяющий личность.</p>
                         <p>Отменить запись в РКФ Вы можете в группе в Telegram по ссылке <a href="https://t.me/EntryRKFOnline" target="_blank" rel="noopener noreferrer">https://t.me/EntryRKFOnline</a></p>
                         <hr />
-                        <div style={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
+                        <div className="_flex-start-wrap">
                             <div className="Card__links">
                                 <span
                                     className={`Card__link${!federation ? ' _not-active' : ''}`}

@@ -101,7 +101,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <HideIf cond={false}>
             <div className={`DocItem`}>
                 <div className="flex-row heading-row">
-                    <h4 className="caps" style={{ marginTop: '10px' }}>Добавление заявки</h4>
+                    <h4 className="caps caps_margin-top">Добавление заявки</h4>
                     <FormField disabled={update} fieldType="customCheckbox" name={`express`} label='Срочное изготовление' />
                 </div>
                 <RadioGroup radios={[

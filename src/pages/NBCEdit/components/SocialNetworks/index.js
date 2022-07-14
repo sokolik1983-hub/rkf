@@ -14,22 +14,20 @@ const SocialNetworks = ({ social_networks }) => {
                 <div>
                     {social_networks.map((social, index) => (
                         <FormGroup key={index}>
-                            <div>
-                                <FormField
-                                    label="Социальная сеть"
-                                    placeholder="Введите ссылку"
-                                    name={`social_networks[${index}].site`}
-                                />
-                                <FormField
-                                    placeholder="Введите название"
-                                    name={`social_networks[${index}].description`}
-                                />
-                                <Button
-                                    className="btn SocialNetworks__button-delete"
-                                    onClick={() => arrayHelpers.remove(index)}
-                                >
-                                </Button>
-                            </div>
+                            <FormField
+                                label="Социальная сеть"
+                                placeholder="Введите ссылку"
+                                name={`social.site`}
+                            />
+                            <FormField
+                                placeholder="Введите название"
+                                name={`social.description`}
+                            />
+                            <Button
+                                className="btn SocialNetworks__button-delete"
+                                onClick={() => arrayHelpers.remove(index)}
+                            >
+                            </Button>
                         </FormGroup>
                     ))}
                     <div className="SocialNetworks__buttons-wrap">

@@ -49,7 +49,7 @@ const ModalEditCategory = ({ handleSuccess, handleError, getCategories, category
                         initialValues={{ name: categoryName }}
                         render={() => {
                             return (
-                                <FormElement style={{ maxWidth: 550 }} >
+                                <FormElement className="edit-category-modal__form-element">
                                     <Field
                                         id="category-name"
                                         name="name"

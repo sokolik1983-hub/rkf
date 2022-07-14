@@ -129,7 +129,7 @@
             justify-content: center;
             align-items: center;
             margin: 0 12px 12px 0;
-            .ActiveImageWrapper__controls button {
+            .active-image-wrapper__controls button {
                 background: #ebf0ff;
                 color: #3366ff !important;
                 padding: 6px 12px !important;
@@ -183,7 +183,7 @@
         &-wrap {
             max-width: 866px;
             margin: auto;
-            .ActiveImageWrapper__controls button {
+            .active-image-wrapper__controls button {
                 background: #ebf0ff;
                 color: #3366ff !important;
                 padding: 6px 12px !important;
@@ -280,6 +280,6 @@
         .k-input {
             margin-top: 4px;
             margin-left: 8px;
-        }    
+        }
     }
 }

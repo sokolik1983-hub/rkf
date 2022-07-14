@@ -22,7 +22,7 @@ const ListFilter = ({ setNewsFilter }) => {
         setNewsFilter({ city: city, activeType: activeType });
     }, [city, activeType]);
 
-    return <div className="ListFilter">
+    return <div className="list-filter">
         <ul>
             <li>
                 <a href="/" onClick={handleClick} className={!activeType ? 'active' : ''}>Все</a>
@@ -33,10 +33,10 @@ const ListFilter = ({ setNewsFilter }) => {
             <li>
                 <a href="/" name="clubs" onClick={handleClick} className={activeType === 'clubs' ? 'active' : ''}>Клубы</a>
             </li>
-            <li style={{ opacity: 0.5 }}>
+            <li className="_opacity">
                 <span>НКП</span>
             </li>
-            <li style={{ opacity: 0.5 }}>
+            <li className="_opacity">
                 <span>Питомники</span>
             </li>
         </ul>

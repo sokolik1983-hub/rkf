@@ -51,11 +51,18 @@ const ClubsMap = ({fullScreen}) => {
     useEffect(() => {
         (async () => {
             await getOrganizations();
-            await getRegions();
 
             setLoading(false);
         })();
     }, [userTypes]);
+
+    useEffect(() => {
+        (async () => {
+            await getRegions();
+
+            setLoading(false);
+        })();
+    }, []);
 
     useEffect(() => {
         (async () => {

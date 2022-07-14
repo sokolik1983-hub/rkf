@@ -1,0 +1,19 @@
+.active-image-wrapper {
+    &__input {
+        display: none;
+    }
+
+    &__button {
+        display: flex;
+        padding: 6px 0;
+        color: #3366FF;
+        flex: 1 0;
+    }
+
+    &__del-button {
+        display: flex;
+        font-size: smaller;
+        padding: 6px 0;
+        color: red;
+    }
+}

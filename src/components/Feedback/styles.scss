@@ -185,6 +185,20 @@
   &__table {
     td {
       white-space: nowrap;
+
+      &._align-center {
+        text-align: center;
+      }
+
+      &._indent {
+        &-3 {
+          text-indent: -3px;
+        }
+
+        &-16 {
+          text-indent: -16px;
+        }
+      }
     }
   }
 

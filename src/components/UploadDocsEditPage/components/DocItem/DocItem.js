@@ -18,7 +18,6 @@ const DocumentItem = (props) => {
 
     const handleClick = async (id) => {
         await fetch(`/api/document/document/private?id=` + id, {
-            method: 'GET',
             headers: getHeaders()
         })
             .then(response => response.blob())

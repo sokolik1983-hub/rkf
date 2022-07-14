@@ -203,7 +203,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                     {values && values.rejected_comment &&
                                         <p className="dysplasia-form__danger">{values.rejected_comment}</p>
                                     }
-                                    <h4 className="dysplasia-form__title" style={{ marginBottom: 0, marginTop: '10px' }}>
+                                    <h4 className="dysplasia-form__title dysplasia-form__title_main">
                                         {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                     </h4>
                                     <div className="dysplasia-form__row">
@@ -229,7 +229,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                     <div className="dysplasia-form__row _files">
                                         {disableAllFields && values &&
                                             <div>
-                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <div className="_flex-row">
                                                     <div className="dysplasia-form__file">
                                                         <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача</p>
                                                         <DocumentLink
@@ -246,13 +246,15 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                                     </div>
                                                 </div>
                                                 <div className="dysplasia-form__inner">
-                                                    {values.pedigree_document_id && <div className="dysplasia-form__file" style={{ marginRight: '50px' }}>
-                                                        <p className="k-label">Соглашение на обработку персональных данных</p>
-                                                        <DocumentLink
-                                                            docId={values.pedigree_document_id}
-                                                            endpoint={apiRequestRkfDocs}
-                                                        />
-                                                    </div>}
+                                                    {values.pedigree_document_id &&
+                                                        <div className="dysplasia-form__file dysplasia-form__file_agreement">
+                                                            <p className="k-label">Соглашение на обработку персональных данных</p>
+                                                            <DocumentLink
+                                                                docId={values.pedigree_document_id}
+                                                                endpoint={apiRequestRkfDocs}
+                                                            />
+                                                        </div>
+                                                    }
                                                     {values.personal_data_document_id && <div>
                                                         <p className="k-label">Родословная</p>
                                                         <DocumentLink
@@ -373,12 +375,18 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                     </div>
                                 </div>
                                 {!disableAllFields &&
-                                    <div className="dysplasia-form__row _files" style={{ marginTop: '16px' }}>
+                                    <div className="dysplasia-form__row dysplasia-form__row_personal_data _files">
                                         <div className="dysplasia-form__file">
                                             <Field
                                                 id="personal_data_document"
                                                 name="personal_data_document"
-                                                label={<div>Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br /><a href={privacyHref} style={{ textDecoration: "none" }}>Скачать форму соглашения</a></div>}
+                                                label={
+                                                    <div>Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br />
+                                                        <a href={privacyHref}>
+                                                            Скачать форму соглашения
+                                                        </a>
+                                                    </div>
+                                                }
                                                 fileFormats={[".pdf", ".jpg", ".jpeg"]}
                                                 component={FormUpload}
                                                 disabled={status === "edit" && values && values.personal_data_document_accept}
@@ -439,7 +447,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                 <div className="dysplasia-form__content">
                                     <h4 className="dysplasia-form__title">Информация о платеже</h4>
                                     {!disableAllFields && <>
-                                        <p style={{ marginBottom: '10px' }}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
+                                        <p className="dysplasia-form__receipt">Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
                                         <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
                                     </>
                                     }

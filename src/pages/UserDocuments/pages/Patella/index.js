@@ -179,7 +179,7 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                     {values && values.rejected_comment &&
                                         <p className="patella-form__danger">{values.rejected_comment}</p>
                                     }
-                                    <h4 className="patella-form__title" style={{ marginBottom: 0, marginTop: '10px' }}>
+                                    <h4 className="patella-form__title patella-form__title_main-name">
                                         {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                     </h4>
                                     <div className="patella-form__row">
@@ -204,7 +204,7 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                     <div className="patella-form__row">
                                         {disableAllFields && values &&
                                             <div>
-                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <div className="patella-form _flex-row">
                                                     <div className="patella-form__file">
                                                         <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG)</p>
                                                         <DocumentLink
@@ -214,7 +214,7 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                                     </div>
                                                 </div>
                                                 <div className="patella-form__inner">
-                                                    {values.pedigree_document_id && <div className="patella-form__file" style={{ marginRight: '50px' }}>
+                                                    {values.pedigree_document_id && <div className="patella-form__file patella-form__file_personal-data">
                                                         <p className="k-label">Соглашение на обработку персональных данных</p>
                                                         <DocumentLink
                                                             docId={values.pedigree_document_id}
@@ -259,7 +259,17 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                             <Field
                                                 id="personal_data_document"
                                                 name="personal_data_document"
-                                                label={<div>Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br /><a href={privacyHref} style={{ textDecoration: 'none' }}>Скачать форму соглашения</a></div>}
+                                                label={
+                                                    <div>
+                                                        Соглашение на обработку персональных данных (PDF, JPEG, JPG)<br />
+                                                        <a
+                                                            className="personal_data_document__link"
+                                                            href={privacyHref}
+                                                        >
+                                                            Скачать форму соглашения
+                                                        </a>
+                                                    </div>
+                                                }
                                                 fileFormats={['.pdf', '.jpg', '.jpeg']}
                                                 component={FormUpload}
                                                 disabled={status === 'edit' && values && values.personal_data_document_accept}
@@ -344,7 +354,7 @@ const PatellaForm = ({ alias, history, owner, status }) => {
                                     <h4 className="patella-form__title">Информация о платеже</h4>
                                     {!disableAllFields &&
                                         <>
-                                            <p style={{ marginBottom: '10px' }}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
+                                            <p className="patella-form__receipt">Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
                                             <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
                                         </>
                                     }
