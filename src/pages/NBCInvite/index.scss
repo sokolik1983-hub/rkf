@@ -192,6 +192,7 @@
             display: grid;
             grid-template-columns: 1fr 20px 35px;
             padding-bottom: 7px;
+            position: relative;
 
             & a {
                 margin-right: 10px;
@@ -212,14 +213,19 @@
             }
 
             & > svg {
-                position: relative;
-                top: 0;
+                position: absolute;
+                right: 0;
                 width: 20px;
                 height: 20px;
+                bottom: 13px;
 
                 + svg {
                     margin-right: 15px;
                 }
+            }
+            & > svg:nth-child(2) {
+                right: 30px;
+                margin-right: 5px;
             }
         }
 
