@@ -391,7 +391,7 @@ const NewsFeedItem = forwardRef(({
                                 <FederationChoiceMark />
                             }
                         </span>
-                        <div style={{ display: 'flex' }}>
+                        <div className="_flex">
                             {formatDateTime(create_date)}
                             {fact_city_name &&
                                 <span className="news-feed-item__city" title={fact_city_name}>
@@ -401,7 +401,7 @@ const NewsFeedItem = forwardRef(({
                         </div>
                     </span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'top' }}></div>
+                <div className="_flex _flex-align-top" />
             </div>
             <div>
                 <EditForm id={id}

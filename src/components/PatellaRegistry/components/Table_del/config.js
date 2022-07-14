@@ -53,7 +53,6 @@ export const getTableColumns = (sortingColumns, sortable, alias, profileType, se
         el.className = 'stamp-loading';
         el.innerText = 'Загрузка...';
         await fetch(`/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheckdocument?id=${id}`, {
-            method: 'GET',
             headers: getHeaders()
         })
             .then(response => response.blob())

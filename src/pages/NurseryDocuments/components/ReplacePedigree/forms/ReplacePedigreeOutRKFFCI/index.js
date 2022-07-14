@@ -47,7 +47,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
             <Title />
             {formik.values.rejected_comment && <div className="alert alert-danger">{formik.values.rejected_comment}</div>}
             <div className="flex-row heading-row">
-                <h4 className="caps" style={{marginTop: '10px'}}>Добавление заявки</h4>
+                <h4 className="caps caps_margin-top">Добавление заявки</h4>
             </div>
             <FormGroup inline className="DocApply__federation-info">
                 <FormField

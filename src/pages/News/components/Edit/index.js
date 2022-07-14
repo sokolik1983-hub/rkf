@@ -144,7 +144,6 @@ const Edit = ({ id,
     useEffect(() => {
         Request({
             url: apiBreedsEndpoint,
-            method: "GET"
         }, data => setBreeds(data
             .filter(f => typeof f.id === 'number' && f.id !== 1)
             .map(m => ({ value: m.id, label: m.name }))
@@ -154,7 +153,6 @@ const Edit = ({ id,
     useEffect(() => {
         Request({
             url: apiCityEndpoint,
-            method: "GET"
         }, data => setCities(data
             .filter(f => typeof f.id === 'number' && f.id !== 1)
             .map(m => ({ value: m.id, label: m.name }))
@@ -164,7 +162,6 @@ const Edit = ({ id,
     useEffect(() => {
         Request({
             url: apiSexEndpoint,
-            method: "GET"
         }, data => setSex(data.map(m => ({ label: m.name }))
         ),      e => console.log(e));
     }, []);

@@ -274,6 +274,14 @@
       left: -19%;
       bottom: -19px;
     }
+
+    &-menu {
+      width: 50px;
+
+      &._active {
+        color: #3366ff;
+      }
+    }
   }
 
   &__button {

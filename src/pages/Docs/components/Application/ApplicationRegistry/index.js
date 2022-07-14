@@ -31,7 +31,6 @@ const ApplicationRegistry = () => {
     useEffect(() => {
         (() => Request({
             url: `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest/register_of_requests`,
-            method: 'GET'
         }, data => {
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);
@@ -48,7 +47,6 @@ const ApplicationRegistry = () => {
 
         (() => PromiseRequest({
             url: '/api/requests/commonrequest/completed_requests_registry',
-            method: 'GET',
         }).then(
             data => {
                 setRegistry(data.sort(function (a, b) {

@@ -23,7 +23,6 @@ const ApplicationRegistry = ({ history, clubAlias }) => {
     useEffect(() => {
         (() => Request({
             url: `/api/requests/membership_confirmation_request/membershipconfirmationrequest/register_of_requests`,
-            method: 'GET'
         }, data => {
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);

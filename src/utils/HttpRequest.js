@@ -3,7 +3,6 @@ import {SERVER} from 'appConfig'
 import {getHeaders} from 'utils/request'
 
 const defaultOptions = {
-    method: "GET",
     headers: getHeaders()
 };
 

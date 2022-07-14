@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { object, string, func } from 'prop-types'
+import React, { useRef, useState } from "react";
+import { object, string, func } from "prop-types";
 import axios from "axios";
 import { getHeaders } from "utils/request";
 import { objectNotEmpty } from "utils/index";
 import { acceptType } from "../../utils/checkImgType";
+import Button from "components/Button";
 
-import Button from 'components/Button'
+import "./index.scss";
 
 
 function ActiveImageWrapper({
@@ -29,18 +30,7 @@ function ActiveImageWrapper({
     };
 
     const [state, setState] = useState(initialState);
-    const btnStyle = {
-        display: 'flex',
-        padding: '6px 0',
-        color: '#3366FF',
-        flex: '1 0'
-    };
-    const delBtnStyle = {
-        display: 'flex',
-        fontSize: 'smaller',
-        padding: '6px 0',
-        color: 'red'
-    };
+
     const onEdit = () => {
         setState({ ...state, isEdit: true });
         inputEl.current.click()
@@ -121,11 +111,6 @@ function ActiveImageWrapper({
 
     if (bindSubmitForm) bindSubmitForm(onSubmit);
 
-    const getChildElSize = () => {
-        // console.log('onSubmitSuccess', onSubmitSuccess)
-        //console.dir(children);
-    };
-    useEffect(() => getChildElSize(), []);
     const renderPreview = () => {
         // TODO throw error if not single child
         if (children.type === 'img') {
@@ -147,17 +132,18 @@ function ActiveImageWrapper({
     return (
         <>
             <input
-                style={{ display: 'none' }}
+                className="active-image-wrapper__input"
                 ref={inputEl}
                 onChange={onInputChange}
                 type="file"
                 accept=".jpg,.jpeg"
             />
-            <div onClick={onEdit}>{state.imagePreview ? renderPreview() : children}</div>
-            <div className="ActiveImageWrapper__controls">
+            <div onClick={onEdit}>
+                {state.imagePreview ? renderPreview() : children}
+            </div>
+            <div className="active-image-wrapper__controls">
                 <Button
-                    style={btnStyle}
-                    className="btn-transparent"
+                    className="active-image-wrapper__button btn-transparent"
                     condensed
                     disabled={state.loading}
                     onClick={onEdit}>
@@ -165,8 +151,7 @@ function ActiveImageWrapper({
                 </Button>
                 {club_id && backgroundImage &&
                     <Button
-                        style={delBtnStyle}
-                        className="btn-transparent"
+                        className="active-image-wrapper__del-button btn-transparent"
                         condensed
                         disabled={state.loading}
                         onClick={onDelete}>

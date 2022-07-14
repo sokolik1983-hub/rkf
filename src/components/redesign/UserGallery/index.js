@@ -18,7 +18,6 @@ const UserGallery = ({ alias, isKennel }) => {
         setLoading(true);
         Request({
             url: `/api/photogallery/gallery?alias=${alias}&elem_count=12`,
-            method: 'GET'
         }, data => {
             if (data.photos.length) {
                 const twelveItemsArray = Array.apply(null, Array(12)).map((x, i) => i);

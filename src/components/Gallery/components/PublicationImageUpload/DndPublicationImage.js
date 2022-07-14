@@ -112,7 +112,7 @@ const DndPublicationImage = ({loadPictures, setLoadPictures,oldPictures, closeMo
                 {
                     files.map(file => (
                         <div key={file.name} className="DndImageUpload__preview-item">
-                            <div alt="" style={{ backgroundImage: `url(${file.preview})` }} />
+                            <div style={{ backgroundImage: `url(${file.preview})` }} />
                         </div>
                     ))
                 }
