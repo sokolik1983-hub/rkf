@@ -9,6 +9,22 @@
   &__title {
     text-transform: uppercase;
     margin-bottom: 16px;
+    &_main-name {
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+  }
+  &__file {
+    &__personal-data {
+      margin-right: 50px;
+    }
+  }
+  &__receipt {
+    margin-bottom: 10px;
+  }
+  &._flex-row {
+    display: flex;
+    flex-direction: row;
   }
   &__row {
     display: flex;
@@ -98,5 +114,11 @@
       top: 48px;
       bottom: auto;
     }
+  }
+}
+
+.personal_data_document {
+  &__link {
+    text-decoration: none;
   }
 }

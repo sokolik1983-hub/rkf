@@ -1,4 +1,7 @@
 .application-form {
+  &__title-block {
+    margin-top: 20px;
+  }
   &__additional-title {
     text-transform: uppercase;
     margin-bottom: 15px !important;

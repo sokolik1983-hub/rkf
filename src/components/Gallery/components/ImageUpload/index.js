@@ -86,7 +86,7 @@ const ImageUpload = ({ callback }) => {
         <div className="ImageUpload__wrap">
             <h4>Загрузка изображений</h4>
             <input
-                style={{ display: 'none' }}
+                className="_display-none"
                 ref={inputRef}
                 onChange={onInputChange}
                 type="file"
@@ -95,7 +95,7 @@ const ImageUpload = ({ callback }) => {
             />
             <div className="ImageUpload__preview">
                 {previews.map(({ url, name }, index) => <div className="ImageUpload__preview-item" key={index}>
-                    <div alt="" style={{ backgroundImage: `url(${url})` }} />
+                    <div style={{ backgroundImage: `url(${url})` }} />
                     <input onChange={(e) => handleCaptionInput(e, name)} placeholder="Введите название" />
                 </div>)}
             </div>

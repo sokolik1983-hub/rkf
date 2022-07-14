@@ -15,7 +15,7 @@ const AdditionalDocuments = ({ id, documents, formRenderProps, setDisableSubmit,
         documents?.length >= 10 && setDocumentsOverflow(true);
     }, [documents])
 
-    return <div style={{ marginTop: '20px' }}>
+    return <div className="application-form__title-block">
         {
             (!status || (status && !!documents.length)) &&
             <div className="application-form__additional-title">{editable ? 'Загрузите дополнительный документ' : 'Дополнительные документы'}</div>

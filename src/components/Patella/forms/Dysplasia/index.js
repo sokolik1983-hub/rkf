@@ -28,7 +28,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
     const [everkAlert, setEverkAlert] = useState(false);
     const [everk, setEverk] = useState(false);
     const [init, setInit] = useState(false);
-    
+
     const isMobile = useIsMobile(1080);
 
     const apiPrivacyEndpointDysplasia = config.profileType === 'kennel' ? '/api/requests/dog_health_check_request/kenneldoghealthcheckdysplasiarequest/personal_data_document' : '/api/requests/dog_health_check_request/doghealthcheckdysplasiarequest/personal_data_document';
@@ -107,7 +107,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
             <Title />
             {formik.values.rejected_comment && <div className="alert alert-danger">{formik.values.rejected_comment}</div>}
             <div className="flex-row heading-row">
-                <h4 className="caps" style={{ marginTop: '10px' }}>Добавление заявки</h4>
+                <h4 className="caps caps_margin-top">Добавление заявки</h4>
             </div>
             <FormGroup>
                 <FormField

@@ -119,6 +119,11 @@
             display: inline-block;
             width: 100%;
         }
+
+        &-button {
+            align-self: flex-end;
+            padding: 12px;
+        }
     }
 
     &__name-warning-wrap {
@@ -129,14 +134,21 @@
             }
         }
     }
-}
 
-.DocItem.table:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, .05);
-}
+    &.table:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, .05);
+    }
 
+    &__pedigree-calendar {
+        width: 100%;
+    }
 
-.DocItem__pedigree-calendar {
-    width: 100%;
+    & .caps {
+        margin-top: 10px;
+    }
+
+    &__dog_sex_type {
+        min-width: 50%;
+    }
 }

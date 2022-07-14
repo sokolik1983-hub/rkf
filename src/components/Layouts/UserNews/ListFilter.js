@@ -23,37 +23,37 @@ const ListFilter = ({ setFilters, setNeedRequest, isFederation }) => {
 
     return (
         <div className="news-list__filter">
-            <div className="ListFilter__wrap">
+            <div className="list-filter__wrap">
                 <HorizontalSwipe id="news-list-filter">
-                    <ul className="ListFilter">
+                    <ul className="list-filter">
                         <li>
                             <span
-                                className={`ListFilter__item${activeType === 'all' ? ' _active' : ''}`}
+                                className={`list-filter__item${activeType === 'all' ? ' _active' : ''}`}
                                 onClick={() => handleClick('all')}
                             >Все</span>
                         </li>
                         <li>
                             <span
-                                className={`ListFilter__item${activeType === 'news' ? ' _active' : ''}`}
+                                className={`list-filter__item${activeType === 'news' ? ' _active' : ''}`}
                                 onClick={() => handleClick('news')}
                             >Новости</span>
                         </li>
                         <li>
                             <span
-                                className={`ListFilter__item${activeType === 'advert' ? ' _active' : ''}`}
+                                className={`list-filter__item${activeType === 'advert' ? ' _active' : ''}`}
                                 onClick={() => handleClick('advert')}
                             >Куплю/Продам</span>
                         </li>
                         <li>
                             <span
-                                className={`ListFilter__item${activeType === 'articles' ? ' _active' : ''}`}
+                                className={`list-filter__item${activeType === 'articles' ? ' _active' : ''}`}
                                 onClick={() => handleClick('articles')}
                             >Объявления</span>
                         </li>
                         {
                             isFederation && <li>
                                 <span
-                                    className={`ListFilter__item${activeType === 'is_must_read' ? ' _active' : ''}`}
+                                    className={`list-filter__item${activeType === 'is_must_read' ? ' _active' : ''}`}
                                     onClick={() => handleClick('is_must_read')}
                                 >Обязательные к прочтению</span>
                             </li>

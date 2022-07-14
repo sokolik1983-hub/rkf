@@ -76,18 +76,20 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                     />}
 
                     <div className="base-search__content-wrap">
-                        {isMobile && user_type === 1 && <Card style={{ margin: '16px 0 16px 0', padding: '10px' }}>
-                            <UserInfo
-                                canEdit={canEdit}
-                                logo_link={userInfo.logo_link}
-                                share_link={`${window.location.host}/user/${alias}`}
-                                first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
-                                last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
-                                alias={alias}
-                                updateInfo={getUserInfo}
-                                judgeInfo={userInfo.open_roles}
-                            />
-                        </Card>}
+                        {isMobile && user_type === 1 &&
+                            <Card className="base-search__content-card">
+                                <UserInfo
+                                    canEdit={canEdit}
+                                    logo_link={userInfo.logo_link}
+                                    share_link={`${window.location.host}/user/${alias}`}
+                                    first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
+                                    last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
+                                    alias={alias}
+                                    updateInfo={getUserInfo}
+                                    judgeInfo={userInfo.open_roles}
+                                />
+                            </Card>
+                        }
                         <div className={`base-search__content ${user_type === 1 ? `_user_page` : ``}`}>
                             {user_type !== 1 && fedIdList?.map((fed, i) => <DetailsCard
                                 key={i}
@@ -124,17 +126,19 @@ const BankDetails = ({ profile_id, is_active_profile, isAuthenticated, history }
                                 <div className="base-search__info-inner">
                                     {user_type === 1 &&
                                         <>
-                                            {!isMobile && <Card style={{ margin: '16px 0 16px 0' }}>
-                                                <UserInfo
-                                                    canEdit={canEdit}
-                                                    logo_link={userInfo.logo_link}
-                                                    share_link={`${window.location.host}/user/${alias}`}
-                                                    first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
-                                                    last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
-                                                    alias={alias}
-                                                    updateInfo={getUserInfo}
-                                                    judgeInfo={userInfo.open_roles}                                                />
-                                            </Card>}
+                                            {!isMobile &&
+                                                <Card className="base-search__info-card">
+                                                    <UserInfo
+                                                        canEdit={canEdit}
+                                                        logo_link={userInfo.logo_link}
+                                                        share_link={`${window.location.host}/user/${alias}`}
+                                                        first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
+                                                        last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
+                                                        alias={alias}
+                                                        updateInfo={getUserInfo}
+                                                        judgeInfo={userInfo.open_roles}                                                />
+                                                </Card>
+                                            }
                                         </>
                                     }
                                     {!isMobile &&  <MenuComponentNew />}

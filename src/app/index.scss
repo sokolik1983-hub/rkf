@@ -64,3 +64,25 @@ input::placeholder {
 .ymaps-2-1-79-map-copyrights-promo {
   display: none;
 }
+
+._display-none {
+  display: none;
+}
+
+._flex {
+  display: flex;
+}
+
+._flex-align-top {
+  display: flex;
+}
+
+._flex-start-wrap {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.caps_margin-top {
+  margin-top: 10px;
+}
