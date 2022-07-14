@@ -233,7 +233,14 @@
       & .Share {
         position: absolute;
         right: 0;
-        top: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        @media (max-width: 990px) {
+          right: 50%;
+        }
+        @media (max-width: 560px) {
+          right: 0;
+        }
       }
     }
 
