@@ -211,7 +211,6 @@ const Exhibition = ({ match, isAuthenticated, history, profile_id, is_active_pro
                                         {!isMobile &&
                                             <>
                                                 <MenuComponentNew />
-                                                <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                                 <UserPhotoGallery
                                                     alias={club_alias}
                                                     pageLink={`/club/${club_alias}/gallery`}

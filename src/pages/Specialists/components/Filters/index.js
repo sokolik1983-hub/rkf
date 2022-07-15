@@ -99,7 +99,7 @@ const Filters = ({
 
     return (
         <aside className={`specialists-page__filters specialists-filters${isOpenFilters ? ' _open' : ''}`}>
-            <StickyBox offsetTop={60} style={{top: "225px"}}>
+            <StickyBox offsetTop={60} className="specialists-filters__sticky-box">
                 {loading ?
                     <Loading centered={false} /> :
                     <div className="specialists-filters__wrap">

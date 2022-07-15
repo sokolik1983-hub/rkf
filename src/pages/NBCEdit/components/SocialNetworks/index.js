@@ -5,7 +5,6 @@ import Button from '../../../../components/Button';
 
 import './styles.scss';
 
-
 const SocialNetworks = ({ social_networks }) => {
 
     return <div className="SocialNetworks">
@@ -18,11 +17,11 @@ const SocialNetworks = ({ social_networks }) => {
                             <FormField
                                 label="Социальная сеть"
                                 placeholder="Введите ссылку"
-                                name={`social_networks[${index}].site`}
+                                name={`social.site`}
                             />
                             <FormField
                                 placeholder="Введите название"
-                                name={`social_networks[${index}].description`}
+                                name={`social.description`}
                             />
                             <Button
                                 className="btn SocialNetworks__button-delete"

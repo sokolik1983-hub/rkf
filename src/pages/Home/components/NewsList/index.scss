@@ -38,7 +38,7 @@
   .Card {
     padding: 10px;
   }
-  .ListFilter {
+  .list-filter {
     display: flex;
     flex-direction: column;
     list-style: none;
@@ -123,43 +123,43 @@
 }
 
 
-.Homepage__news-title-w  .ListFilter li:nth-child(2){
+.Homepage__news-title-w  .list-filter li:nth-child(2){
   background: url('/static/icons/home-filters/cards-variant.svg') left no-repeat;
   margin-left: -7px;
 }
-.Homepage__news-title-w  .ListFilter li:nth-child(3){
+.Homepage__news-title-w  .list-filter li:nth-child(3){
   background: url('/static/icons/home-filters/radio-tower.svg') left no-repeat;
   margin-left: -7px;
 }
-.Homepage__news-title-w  .ListFilter li:nth-child(4){
+.Homepage__news-title-w  .list-filter li:nth-child(4){
   background: url('/static/icons/home-filters/bullhorn.svg') left no-repeat;
   margin-left: -7px;
 }
-.ListFilter__wrap .ListFilter li:nth-child(2){
+.list-filter__wrap .list-filter li:nth-child(2){
   background: url('/static/icons/home-filters/cards-variant2.svg') left no-repeat;
 }
-.ListFilter__wrap .ListFilter .active:nth-child(2), .ListFilter__wrap .ListFilter li:nth-child(2):hover{
+.list-filter__wrap .list-filter .active:nth-child(2), .list-filter__wrap .list-filter li:nth-child(2):hover{
   background: url('/static/icons/home-filters/cards-variant2-blue.svg') left no-repeat;
 }
-.ListFilter__wrap .ListFilter li:nth-child(3){
+.list-filter__wrap .list-filter li:nth-child(3){
   background: url('/static/icons/home-filters/bank2.svg') left no-repeat;
 }
-.ListFilter__wrap .ListFilter .active:nth-child(3), .ListFilter__wrap .ListFilter li:nth-child(3):hover{
+.list-filter__wrap .list-filter .active:nth-child(3), .list-filter__wrap .list-filter li:nth-child(3):hover{
   background: url('/static/icons/home-filters/bank-blue2.svg') left no-repeat;
 }
-.ListFilter__wrap .ListFilter li:nth-child(4){
+.list-filter__wrap .list-filter li:nth-child(4){
   background: url('/static/icons/home-filters/club2.svg') left no-repeat;
 }
-.ListFilter__wrap .ListFilter .active:nth-child(4), .ListFilter__wrap .ListFilter li:nth-child(4):hover{
+.list-filter__wrap .list-filter .active:nth-child(4), .list-filter__wrap .list-filter li:nth-child(4):hover{
   background: url('/static/icons/home-filters/club2-blue.svg') left no-repeat;
 }
-.ListFilter__wrap .ListFilter li:nth-child(5){
+.list-filter__wrap .list-filter li:nth-child(5){
   background: url('/static/icons/home-filters/nursery2.svg') left no-repeat;
 }
-.ListFilter__wrap .ListFilter .active:nth-child(5), .ListFilter__wrap .ListFilter li:nth-child(5):hover{
+.list-filter__wrap .list-filter .active:nth-child(5), .list-filter__wrap .list-filter li:nth-child(5):hover{
   background: url('/static/icons/home-filters/nursery2-blue.svg') left no-repeat;
 }
-.ListFilter__wrap .ListFilter li:nth-child(6){
+.list-filter__wrap .list-filter li:nth-child(6){
   background: url('/static/icons/home-filters/dog2.svg') left no-repeat;
 }
 #news-list-filter li {

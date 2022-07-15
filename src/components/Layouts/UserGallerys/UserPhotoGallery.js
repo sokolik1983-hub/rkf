@@ -21,7 +21,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
     const [alert, setAlert] = useState(null);
     const [isOpen, setIsOpen] = useStickyState(true, "is_photo_gallery_open");
     const isMobile = useIsMobile(1080);
-    const countImages = 8;
+    const countImages = 9;
     const sizeImages = 115;
 
     useEffect(() => {

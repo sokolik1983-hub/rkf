@@ -15,8 +15,9 @@ import HideIf from "components/HideIf";
 import moment from "moment";
 import UserDatePicker from "../../../../../../components/kendo/DatePicker";
 import "./index.scss";
-const apiPrivacyEndpoint = '/api/requests/PedigreeRequest/personal_data_document';
 
+
+const apiPrivacyEndpoint = '/api/requests/PedigreeRequest/personal_data_document';
 const accept = ".pdf, .jpg, .jpeg";
 
 // pedigree
@@ -91,7 +92,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <HideIf cond={false}>
             <div className={`DocItem`}>
                 <div className="flex-row heading-row">
-                    <h4 className="caps" style={{ marginTop: '10px' }}>Добавление заявки</h4>
+                    <h4 className="caps">Добавление заявки</h4>
                     <FormField disabled={update} fieldType="customCheckbox" name={`express`} label='Срочное изготовление' />
                 </div>
                 <RadioGroup radios={[
@@ -115,9 +116,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         <FormField disabled={update || !!everkData} name={`stamp_number`} label='Номер клейма' placeholder="0000" />
                         <HideIf cond={!!everkData || update}>
                             <Button className="btn-primary" onClick={e => {
-                                //let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
-                                //if (!stamp_code) return;
-                                //stamp_code = stamp_code.label;
                                 getEverkData(declarant.stamp_number, declarant.stamp_code_name);
                             }}>Поиск</Button>
                         </HideIf>
@@ -143,9 +141,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         <FormField disabled={update} name={`breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..." />
                         <FormField disabled={update || filledEverk('dog_name')} name={`dog_name`} label='Кличка собаки' />
                         <Button
-                            className="btn-primary"
+                            className="DocItem__dog-name-inline-button btn-primary"
                             onClick={() => handleTransliterate(`dog_name`)}
-                            style={{ alignSelf: 'flex-end', padding: '12px' }}
                         >Транслитерировать</Button>
                     </FormGroup>
                     <FormGroup inline className="DocItem__three-inline-columns">
@@ -162,7 +159,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             />
                         </div>
                         <FormField disabled={update || filledEverk('color')} name={`color`} label='Окрас' />
-                        <FormField style={{ minWidth: '50%' }} disabled={update} name={`dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки' />
+                        <FormField className="DocItem__dog_sex_type" disabled={update} name={`dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки' />
                     </FormGroup>
 
                     <VerkParent
@@ -274,7 +271,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             </HideIf>
                         </FormGroup>)}
                         <HideIf cond={view || !statusAllowsUpdate || (declarant.documents && declarant.documents.length > 29)}>
-                            {/*<p>Вы можете добавить дополнительные документы</p>*/}
                             <div className="flex-row">
                                 <Button small className="btn-primary" onClick={() => push({ document_type_id: '', document: '' })}>Добавить доп. документ</Button>
                             </div>

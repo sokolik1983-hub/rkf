@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import { Redirect, Link } from "react-router-dom";
+import {Redirect, Link, useLocation} from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler";
 import Edit from "./components/Edit";
@@ -35,6 +35,7 @@ const NewsPage = ({
     const ref = useRef(null);
     const id = match.params.id;
     const canEdit = isAuthenticated && news && profile_id === news.profile_id;
+    const isEditPage = useLocation()?.pathname.includes('edit');
 
     const onDelete = async id => {
         if (window.confirm('Вы действительно хотите удалить эту новость?')) {
@@ -173,7 +174,7 @@ const NewsPage = ({
                                                         unmountOnExit
                                                     >
                                                         <ul className="news__head-control-list">
-                                                            {!news.is_closed_advert &&
+                                                            {!news.is_closed_advert && !isEditPage &&
                                                                 <li className="news__head-control-item">
                                                                     {news.user_type === 5 ?
                                                                         <Link to={`/news/${id}`}>Подробнее...</Link> :

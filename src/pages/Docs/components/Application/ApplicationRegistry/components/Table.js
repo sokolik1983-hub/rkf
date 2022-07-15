@@ -133,7 +133,6 @@ const handleClick = async (e, id) => {
     el.className = 'stamp-loading';
     el.innerText = 'Загрузка...';
     await fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=${id}`, {
-        method: 'GET',
         headers: getHeaders()
     })
         .then(response => response.blob())

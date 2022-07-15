@@ -93,17 +93,17 @@ const Feedback = ({className, title, HelpdeskApiKey, isMainNav }) => {
                             <tbody>
                                 <tr>
                                     <td>ОАНКОО/Фауна</td>
-                                    <td style={{ textAlign: 'center' }}>&nbsp;-&nbsp;
+                                    <td className="_text-align-center">&nbsp;-&nbsp;
                                         <a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a></td>
                                 </tr>
                                 <tr>
                                     <td>ОАНКОО/Элита</td>
-                                    <td style={{ textAlign: 'center', textIndent: '-3px' }}>&nbsp;-&nbsp;
+                                    <td className="_text-align-center _indent-3">&nbsp;-&nbsp;
                                         <a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a></td>
                                 </tr>
                                 <tr>
                                     <td>ОАНКОО/РКК</td>
-                                    <td style={{ textAlign: 'center', textIndent: '-16px' }}>&nbsp;-&nbsp;
+                                    <td className="_text-align-center _indent-16">&nbsp;-&nbsp;
                                         <a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a></td>
                                 </tr>
                             </tbody>

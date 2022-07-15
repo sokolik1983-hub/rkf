@@ -125,7 +125,7 @@ const NBCInvite = ({ alias }) => {
                 <div className="club-info__right">
                     <div className="club-info__inner">
                         <p className="club-info__title">Мероприятие</p>
-                        <p>{data?.exhibition_name}</p>
+                        <Link to={`/exhibitions/${id}`}>{data?.exhibition_name}</Link>
                     </div>
                     <div className="club-info__inner date">
                         <div className="club-info__inner">

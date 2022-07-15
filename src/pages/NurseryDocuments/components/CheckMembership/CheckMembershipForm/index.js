@@ -311,7 +311,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                     </div>
                                                 </div>
                                                 <div style={{ marginTop: '30px' }}>
-                                                    <div style={{ display: 'inline-block' }}>
+                                                    <div className="_display-inline-block">
                                                         Заявление о подтверждении членства
                                             </div>&nbsp;&nbsp;&nbsp;<a href={confirmationHref} style={{ textDecoration: 'none' }}>Скачать бланк</a>
                                                     <div className="application-form__file">

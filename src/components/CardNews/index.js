@@ -78,7 +78,7 @@ const CardNews = forwardRef(({
                                 }} />
                             </Link>
                             <span className="card-news__club-name">
-                                <span style={{display: 'flex'}}>
+                                <span className="_flex">
                                     <Link to={user === 4 ? `/kennel/${alias}` : user === 1 ? `/user/${alias}` : `/${alias}`}>
                                         {(user === 3 || user === 4 || user === 5) &&
                                             <>
@@ -98,7 +98,7 @@ const CardNews = forwardRef(({
                                 <span>{formatDateTime(date)}</span>
                             </span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'top' }}>
+                        <div className="_flex _flex-align-top">
                             {city &&
                                 <span className="card-news__city" title={city} onClick={handleCityChange}>
                                     {city}

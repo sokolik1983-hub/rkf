@@ -20,7 +20,6 @@ const ExhibitionsRegistry = ({ history, clubAlias }) => {
     useEffect(() => {
         (() => Request({
             url: `/api/requests/exhibition_request/clubexhibitionrequest/register_of_requests?typeId=2`,
-            method: 'GET'
         }, data => {
             setDocuments(data.sort(function (a, b) {
                 return new Date(b.date_create) - new Date(a.date_create);

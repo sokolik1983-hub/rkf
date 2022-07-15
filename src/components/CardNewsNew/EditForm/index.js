@@ -17,10 +17,9 @@ const EditForm = ({ id, text, img, videoLink, documents, history, isAd, adBreedI
     useEffect(() => {
         Request({
             url: apiBreedsEndpoint,
-            method: "GET"
         }, data => setBreeds(data
-            .filter(f => typeof f.id === 'number' && f.id !== 1)
-            .map(m => ({ value: m.id, label: m.name }))
+            .filter(item => typeof item.id === 'number' && item.id !== 1)
+            .map(item => ({ value: item.id, label: item.name }))
         ), e => console.log(e));
     }, []);
 

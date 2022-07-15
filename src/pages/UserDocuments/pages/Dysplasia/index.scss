@@ -9,6 +9,10 @@
   &__title {
     text-transform: uppercase;
     margin-bottom: 16px;
+    &_main {
+      margin-bottom: 0;
+      margin-top: 10px;
+    }
   }
   &__row {
     display: flex;
@@ -60,6 +64,12 @@
       &.btn-red {
         margin-right: 0;
       }
+    }
+    &_personal_data {
+      margin-top: 16px;
+    }
+    & a {
+      text-decoration: none;
     }
     &._files {
       @media (max-width: 1050px) {
@@ -158,5 +168,15 @@
         right: 0;
       }
     }
+    &_agreement {
+      margin-right: 50px;
+    }
+  }
+  &._flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  &__receipt {
+    margin-bottom: 10px;
   }
 }

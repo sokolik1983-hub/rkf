@@ -16,8 +16,8 @@ const ListFilter = ({changeFilter}) => {
     }
     return (
         <div className="news-list__filter">
-            <div className="ListFilter__wrap">
-                <ul className="ListFilter">
+            <div className="list-filter__wrap">
+                <ul className="list-filter">
                     <h3>Автор</h3>
                     <li className={activeType === null ? 'active' : ''}>
                         <a href="/" name="rkf_and_federations" onClick={showAll} className={activeType === null ? 'active' : ''}>Все</a>

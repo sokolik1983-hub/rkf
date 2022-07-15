@@ -1,15 +1,23 @@
-.ListFilter {
+.list-filter {
     margin-bottom: 40px;
     display: flex;
     justify-content: space-between;
+
     @media (max-width: 768px) {
       margin-bottom: 12px;
     }
+
     ul {
       display: flex;
       list-style: none;
+
       li {
         margin-right: 8px;
+
+          &._opacity {
+              opacity: 0.5;
+          }
+
         a,
         span {
           padding: 4px 15px;
@@ -21,6 +29,7 @@
           letter-spacing: 0.2px;
           color: #72839c;
           text-decoration: none;
+
           &.active {
             color: white;
             background: #3366ff;
