@@ -34,7 +34,7 @@ const NewsPage = ({
     const [loading, setLoading] = useState(true);
     const ref = useRef(null);
     const id = match.params.id;
-    const canEdit = isAuthenticated && news && profile_id === news.profile_id;
+    const canEdit = isAuthenticated && news && !news.is_article_request;
     const isEditPage = useLocation()?.pathname.includes('edit');
 
     const onDelete = async id => {

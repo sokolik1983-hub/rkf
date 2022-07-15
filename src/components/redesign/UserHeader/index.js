@@ -28,8 +28,17 @@ const UserHeader = ({
     canEdit,
 }) => {
 
+    console.log('alias', alias)
+
     const [shareAlert, setShareAlert] = useState(false);
     const shareOk = () => setShareAlert(false);
+
+    const checkIsFed = (alias) => {
+        if (alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo') {
+            return true;
+        }
+        return false;
+    }
 
     const setUserType = (user, alias) => {
         if (alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo') {
@@ -59,7 +68,7 @@ const UserHeader = ({
                     <div className="user-header__wrap">
                         <div className="user-header__inner">
                             <section
-                                className={`user-header__name-wrap${setUserType(user, alias) === 'Федерация' && canEdit ? ' _editable' : ''}`}>
+                                className={`user-header__name-wrap${setUserType(user, alias) === 'Федерация' && canEdit ? ' _editable' : ''} ${checkIsFed(alias) && ' fed-style'}`}>
                                 <div className="user-header__user-wrap">
                                     {setUserType(user, alias) === 'Федерация' &&
                                         <div className="user-header__federation"/>}

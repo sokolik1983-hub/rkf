@@ -863,6 +863,9 @@
     margin-top: -5px;
     height: 45px;
   }
+  @media (max-width: 600px) {
+    margin-top: 0;
+  }
 
   &__inner {
     @media (max-width: 1080px) {
