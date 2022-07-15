@@ -185,25 +185,32 @@ const Table = ({
                         onDataStateChange={handleGridDataChange}
                         style={{ height: "700px", width: "auto", margin: '0 auto' }}>
 
-                        <GridColumn field="options" title="Опции" width={fullScreen ? '62px' : '62px'} cell={props => OptionsCell(props, userType)} />
-                        <GridColumn field="date_create" title="Дата получения запроса" width={fullScreen ? 'auto' : '160px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="exhibition_name" title="Название выставки" width={fullScreen ? 'auto' : '196px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="start_date" title="Дата начала выставки" width={fullScreen ? 'auto' : '150px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="end_date" title="Дата окончания выставки" width={fullScreen ? 'auto' : '168px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="options" title="Опции" width={fullScreen ? '62px' : '62px'}
+                                    cell={props => OptionsCell(props, userType)} />
+                        <GridColumn field="date_create" title="Дата получения запроса" width={fullScreen ? '160' : '160px'}
+                                    columnMenu={ColumnMenu} />
+                        <GridColumn field="exhibition_name" title="Название выставки" width={fullScreen ? '250' : '196px'}
+                                    minWidth={'196px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="start_date" title="Дата начала выставки" width={fullScreen ? '150' : '150px'}
+                                    columnMenu={ColumnMenu} />
+                        <GridColumn field="end_date" title="Дата окончания выставки" width={fullScreen ? '150' : '168px'}
+                                    columnMenu={ColumnMenu} />
                         { userType === 'nbc' &&
-                        <GridColumn field="club_name" title="Название клуба" width={ fullScreen ? 'auto' : '168px' }
+                        <GridColumn field="club_name" title="Название клуба" width={ fullScreen ? '250' : '168px' }
                                     columnMenu={ ColumnMenu }/> }
-                        <GridColumn field="city" title="Место проведения" width={fullScreen ? 'auto' : '129px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="city" title="Место проведения" width={fullScreen ? 'auto' : '129px'}
+                                    columnMenu={ColumnMenu} />
                         { userType !== 'nbc' &&
-                        <GridColumn field="nbc_breed" title="Порода НКП" width={ fullScreen ? 'auto' : '189px' }
+                        <GridColumn field="nbc_breed" title="Порода НКП" width={ fullScreen ? '190' : '189px' }
                                     columnMenu={ ColumnMenu }/> }
                         { userType !== 'nbc' &&
                         <GridColumn field="nbc_status_name" title="Статус согласования с НКП"
-                                    width={ fullScreen ? 'auto' : '174px' } columnMenu={ ColumnMenu }/> }
+                                    width={ fullScreen ? '170' : '174px' } columnMenu={ ColumnMenu }/> }
                         { userType !== 'nbc' &&
                         <GridColumn field="judge_status_name" title="Статус приглашения судьи"
-                                    width={ fullScreen ? 'auto' : '172px' } columnMenu={ ColumnMenu }/> }
-                        <GridColumn field="invite_status_name" title="Статус" width={fullScreen ? 'auto' : '120px'} columnMenu={ColumnMenu} />
+                                    width={ fullScreen ? '170' : '172px' } columnMenu={ ColumnMenu }/> }
+                        <GridColumn field="invite_status_name" title="Статус" width={fullScreen ? '120' : '120px'}
+                                    columnMenu={ColumnMenu} />
                     </Grid>}
 
                     <GridPDFExport
