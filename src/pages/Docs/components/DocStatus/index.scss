@@ -1,5 +1,9 @@
 .club-documents-status {
   margin-bottom: 0 !important;
+
+  &__controls {
+    top: 0!important;
+  }
   &__disclaimer {
     font-weight: normal;
     font-size: 16px;
