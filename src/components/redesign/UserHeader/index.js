@@ -28,8 +28,6 @@ const UserHeader = ({
     canEdit,
 }) => {
 
-    console.log('alias', alias)
-
     const [shareAlert, setShareAlert] = useState(false);
     const shareOk = () => setShareAlert(false);
 
