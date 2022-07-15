@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useRef} from "react";
-import {isFederationAlias} from "../../utils";
+import React, {memo, useState, useEffect, useRef} from "react";
 import {useLocation, useRouteMatch} from "react-router-dom";
 import {useSelector} from "react-redux";
-import useIsMobile from "../../utils/useIsMobile";
-import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo, endpointGetNBCInfo} from "./config";
-import {Request} from "../../utils/request";
+import PopupModal from "../PopupModal";
+import Card from "../Card";
+import Menu from "./components/Menu";
+import HeaderMobileMenu from "./components/HeaderMobileMenu";
 import {clubNav} from "../../pages/Club/config";
 import {kennelNav} from "../../pages/Nursery/config";
 import {NBCNav, NBCNavDocs} from "../Layouts/NBCLayout/config";
@@ -13,12 +13,13 @@ import {federationNav} from "../../pages/Federation/config";
 import {clubNav as clubNavDocs} from "../../pages/Docs/config";
 import {kennelNav as kennelNavDocs} from "../../pages/NurseryDocuments/config";
 import {userNav as userNavDocs} from "../../pages/UserDocuments/config";
-import PopupModal from "../PopupModal";
+import {isFederationAlias} from "../../utils";
+import {Request} from "../../utils/request";
+import useIsMobile from "../../utils/useIsMobile";
+import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo, endpointGetNBCInfo} from "./config";
 import {endpointGetExhibition} from "../../pages/Exhibition/config";
-import {Menu} from "./components/Menu";
-import HeaderMobileMenu from "./components/HeaderMobileMenu";
-
 import "./styles.scss";
+
 
 const MenuComponentNew = () => {
     const [exhibAlias, setExhibAlias] = useState(null);
@@ -53,23 +54,27 @@ const MenuComponentNew = () => {
 
     const isExhibitionPage = useRouteMatch();
 
-    const deleteNotification = (currentPageNav) => {
-        return currentPageNav?.filter(item => (item.title !== 'Уведомления') && item);
-    }
+    const deleteNotification = currentPageNav => {
+        return currentPageNav?.filter(item => (item.title !== 'Уведомления') && item); //что за бред?
+    };
 
     const getMenu = (url, linkAlias) => {
-        return isFederationAlias(url) ?
-            federationNav(url) :
-            ((url === 'club' || url === 'client') && linkAlias) ?
-                isFederationAlias(linkAlias) ?
-                    federationNav(linkAlias) :
-                        clubNav(linkAlias) :
-                        (url === 'kennel' && linkAlias) ?
-                            kennelNav(linkAlias) :
-                            (url === 'nbc' && linkAlias) ?
-                                NBCNav(linkAlias) :
-                                userNav(linkAlias)
-    }
+        let menu = [];
+
+        if(isFederationAlias(url)) {
+            menu = federationNav(url);
+        } else  if((url === 'club' || url === 'client') && linkAlias) {
+            menu = isFederationAlias(linkAlias) ? federationNav(linkAlias) : clubNav(linkAlias);
+        } else if(url === 'kennel' && linkAlias) {
+            menu = kennelNav(linkAlias);
+        } else if(url === 'nbc' && linkAlias) {
+            menu = NBCNav(linkAlias);
+        } else {
+            menu = userNav(linkAlias);
+        }
+
+        return menu;
+    };
 
     const getMenuInfoCurrentUserPage = (url, linkAlias, isUserDocuments) => {
         if(isUserDocuments) { //подтягиваем меню юзера, на странице которого находимся
@@ -273,26 +278,24 @@ const MenuComponentNew = () => {
                         currentPageUserInfo={currentPageUserInfo}
                         userType={userType}
                     />
-                    <ul className="menu-component-new__list">
-                        <Menu
-                            currentPageNav={currentPageNav}
-                            setOpenUserMenu={setOpenUserMenu}
-                            currentPageUserInfo={currentPageUserInfo}
-                            isMobile
-                            openUserMenu={openUserMenu}
-                        />
-                    </ul>
+                    <Menu
+                        currentPageNav={currentPageNav}
+                        setOpenUserMenu={setOpenUserMenu}
+                        currentPageUserInfo={currentPageUserInfo}
+                        openUserMenu={openUserMenu}
+                    />
                 </div>
             </PopupModal>
         </>
         :
-        <Menu
-            currentPageNav={currentPageNav}
-            setOpenUserMenu={setOpenUserMenu}
-            isMobile={false}
-            currentPageUserInfo={currentPageUserInfo}
-            openUserMenu={openUserMenu}
-        />
+        <Card>
+            <Menu
+                currentPageNav={currentPageNav}
+                setOpenUserMenu={setOpenUserMenu}
+                currentPageUserInfo={currentPageUserInfo}
+                openUserMenu={openUserMenu}
+            />
+        </Card>
 };
 
-export default MenuComponentNew;
+export default memo(MenuComponentNew);

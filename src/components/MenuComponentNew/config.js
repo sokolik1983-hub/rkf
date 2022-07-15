@@ -83,122 +83,108 @@ export const presidium = {
     }
 };
 
-export const presidiumRfls = <>
-    <table className="menu-component__table">
-        <tbody>
-        <tr>
-            <td>1.</td>
-            <td>Голубев Владимир Семенович</td>
-        </tr>
-        <tr>
-            <td>2.</td>
-            <td>Бычкова Елена Ивановна</td>
-            <td>Тел.: +7-918-748-85-20</td>
-            <td>E-mail:elena69@bk.ru</td>
-        </tr>
-        <tr>
-            <td>3.</td>
-            <td>Ваулина Нина Павловна</td>
-            <td>Тел.: +7-922-236-44-13</td>
-            <td>E-mail:chelregools@gmail.com</td>
-        </tr>
-        <tr>
-            <td>4.</td>
-            <td>Горева Светлана Викторовна</td>
-            <td>Тел.: +7-926-580-79-29</td>
-            <td>E-mail: sgoreva@inbox.ru</td>
-        </tr>
-        <tr>
-            <td>5.</td>
-            <td>Городилов Станислав Валентинович</td>
-            <td>Тел.: +7-914-237-24-66</td>
-            <td>E-mail: yras89142732466@icloud.com</td>
-        </tr>
-        <tr>
-            <td>6.</td>
-            <td>Зубкова Людмила Анатольевна</td>
-            <td>Тел.: +7-903-947-07-35</td>
-            <td>E-mail: zubkova-69@mail.ru</td>
-        </tr>
-        <tr>
-            <td>7.</td>
-            <td>Купляускас Евгений Стасович</td>
-            <td>Тел.: +7-903-509-57-68</td>
-            <td>E-mail: koulstas@mail.ru</td>
-        </tr>
-        <tr>
-            <td>8.</td>
-            <td>Мазина Людмила Анатольевна</td>
-            <td>Тел.: +7-917-219-50-00</td>
-            <td>E-mail: volga.rfls.info@yandex.ru</td>
-        </tr>
-        <tr>
-            <td>9.</td>
-            <td>Набиева Марина Борисовна</td>
-            <td>Тел.: +7-921-261-72-12</td>
-            <td>E-mail: m.b.nabieva@yandex.ru</td>
-        </tr>
-        <tr>
-            <td>10.</td>
-            <td>Никитин Александр Владимирович</td>
-            <td>Тел.: +7-903-856-87-80</td>
-            <td>E-mail: cacchr@mail.ru</td>
-        </tr>
-        <tr>
-            <td>11.</td>
-            <td>Новиславский Олег Юрьевич</td>
-            <td>Тел.: +7-926-211-39-39</td>
-            <td>E-mail: denfris@gmail.com</td>
-        </tr>
-        <tr>
-            <td>12.</td>
-            <td>Седых Николай Борисович</td>
-            <td>Тел.: +7-911-241-34-16</td>
-            <td>E-mail: nik5978824@yandex.ru</td>
-        </tr>
-        <tr>
-            <td>13.</td>
-            <td>Швец Ирина Львовна</td>
-            <td>Тел.: +7-916-145-16-41</td>
-            <td>E-mail: icetoifel@mail.ru</td>
-        </tr>
-        </tbody>
-    </table>
-    <br/>
-    <h4 className="menu-component__wrap-title">СПИСОК ЧЛЕНОВ РЕВИЗИОННОЙ КОМИССИИ РФЛС:</h4>
-    <table className="menu-component__table" style={{maxWidth: '68%'}}>
-        <tbody>
-        <tr>
-            <td>
-                Председатель:
-            </td>
-            <td>
-                Бородин Дмитрий
-            </td>
-            <td>
-                Тел.: +7-919-247-69065
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Члены:
-            </td>
-            <td>
-                Бойко Надежда
-            </td>
-            <td>
-                Тел.: +7-915-089-81-58
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                Эглит Вероника
-            </td>
-            <td>
-                Тел.: +7-909-670-35-54
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</>;
+export const PresidiumRfls = () => (
+    <>
+        <table className="menu-component__table">
+            <tbody>
+                <tr>
+                    <td>1.</td>
+                    <td>Голубев Владимир Семенович</td>
+                </tr>
+                <tr>
+                    <td>2.</td>
+                    <td>Бычкова Елена Ивановна</td>
+                    <td>Тел.: +7-918-748-85-20</td>
+                    <td>E-mail:elena69@bk.ru</td>
+                </tr>
+                <tr>
+                    <td>3.</td>
+                    <td>Ваулина Нина Павловна</td>
+                    <td>Тел.: +7-922-236-44-13</td>
+                    <td>E-mail:chelregools@gmail.com</td>
+                </tr>
+                <tr>
+                    <td>4.</td>
+                    <td>Горева Светлана Викторовна</td>
+                    <td>Тел.: +7-926-580-79-29</td>
+                    <td>E-mail: sgoreva@inbox.ru</td>
+                </tr>
+                <tr>
+                    <td>5.</td>
+                    <td>Городилов Станислав Валентинович</td>
+                    <td>Тел.: +7-914-237-24-66</td>
+                    <td>E-mail: yras89142732466@icloud.com</td>
+                </tr>
+                <tr>
+                    <td>6.</td>
+                    <td>Зубкова Людмила Анатольевна</td>
+                    <td>Тел.: +7-903-947-07-35</td>
+                    <td>E-mail: zubkova-69@mail.ru</td>
+                </tr>
+                <tr>
+                    <td>7.</td>
+                    <td>Купляускас Евгений Стасович</td>
+                    <td>Тел.: +7-903-509-57-68</td>
+                    <td>E-mail: koulstas@mail.ru</td>
+                </tr>
+                <tr>
+                    <td>8.</td>
+                    <td>Мазина Людмила Анатольевна</td>
+                    <td>Тел.: +7-917-219-50-00</td>
+                    <td>E-mail: volga.rfls.info@yandex.ru</td>
+                </tr>
+                <tr>
+                    <td>9.</td>
+                    <td>Набиева Марина Борисовна</td>
+                    <td>Тел.: +7-921-261-72-12</td>
+                    <td>E-mail: m.b.nabieva@yandex.ru</td>
+                </tr>
+                <tr>
+                    <td>10.</td>
+                    <td>Никитин Александр Владимирович</td>
+                    <td>Тел.: +7-903-856-87-80</td>
+                    <td>E-mail: cacchr@mail.ru</td>
+                </tr>
+                <tr>
+                    <td>11.</td>
+                    <td>Новиславский Олег Юрьевич</td>
+                    <td>Тел.: +7-926-211-39-39</td>
+                    <td>E-mail: denfris@gmail.com</td>
+                </tr>
+                <tr>
+                    <td>12.</td>
+                    <td>Седых Николай Борисович</td>
+                    <td>Тел.: +7-911-241-34-16</td>
+                    <td>E-mail: nik5978824@yandex.ru</td>
+                </tr>
+                <tr>
+                    <td>13.</td>
+                    <td>Швец Ирина Львовна</td>
+                    <td>Тел.: +7-916-145-16-41</td>
+                    <td>E-mail: icetoifel@mail.ru</td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <h4 className="menu-component__wrap-title">СПИСОК ЧЛЕНОВ РЕВИЗИОННОЙ КОМИССИИ РФЛС:</h4>
+        <table className="menu-component__table" style={{maxWidth: '68%'}}>
+            <tbody>
+                <tr>
+                    <td>Председатель:</td>
+                    <td>Бородин Дмитрий</td>
+                    <td>Тел.: +7-919-247-69065</td>
+                </tr>
+                <tr>
+                    <td>Члены:</td>
+                    <td>Бойко Надежда</td>
+                    <td>Тел.: +7-915-089-81-58</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Эглит Вероника</td>
+                    <td>Тел.: +7-909-670-35-54</td>
+                </tr>
+            </tbody>
+        </table>
+    </>
+);
