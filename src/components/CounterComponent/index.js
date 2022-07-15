@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {Link, NavLink} from "react-router-dom";
 
 import "./styles.scss";
@@ -100,4 +100,4 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
     )
 };
 
-export default Counter;
+export default memo(Counter);
