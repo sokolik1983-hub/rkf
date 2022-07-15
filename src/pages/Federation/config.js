@@ -1,7 +1,6 @@
 import React from "react";
-import {getPresidium} from "../../components/MenuComponentNew/utils";
 
-export const federationNav = (alias) => [
+export const federationNav = alias => [
     {
         id: 1,
         title: 'Мероприятия',
@@ -32,7 +31,7 @@ export const federationNav = (alias) => [
         id: 2,
         title: 'Президиум',
         to: `/presidium`,
-        onClick: (e, setShowModal) => getPresidium(e, setShowModal),
+        isPresidium: true,
         exact: true,
         icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_1668_655)">

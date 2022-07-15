@@ -34,7 +34,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
             icon: '/static/images/about/rkf_academy.png',
             link: 'http://rkf.academy',
             class: 'rkf-academy',
-        },
+        }
     ], []);
 
     const strokeColor = isOpen ? 'stroke-color__active' : 'stroke-color__inactive';
@@ -114,7 +114,7 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
     }, [showZlineModal, isAuthenticated]);
 
     return (
-        <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
+        <nav className={`header__nav${!isMobile ? '--desktop' : ''}`}>
             {isMobile ?
                 <>
                     <ClickGuard value={isOpen} callback={() => setShowFilters({isOpen: false})} />
@@ -126,12 +126,13 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                         }}
                     >
                         <div>
-                            {
-                                isOpen ? <svg className={`no-scale ${strokeColor}`} width='20' height='20' viewBox='0 0 20 20' fill='none'
+                            {isOpen ?
+                                <svg className={`no-scale ${strokeColor}`} width='20' height='20' viewBox='0 0 20 20' fill='none'
                                               xmlns='http://www.w3.org/2000/svg'>
                                     <line y1='1' x1='1' x2='20' y2='20' strokeWidth='1.32' />
                                     <line y1='20' x1='1' x2='20' y2='1' strokeWidth='1.32' />
-                                </svg> : <svg className={`no-scale ${strokeColor}`} width='20' height='14' viewBox='0 0 20 14' fill='none'
+                                </svg> :
+                                <svg className={`no-scale ${strokeColor}`} width='20' height='14' viewBox='0 0 20 14' fill='none'
                                               xmlns='http://www.w3.org/2000/svg'>
                                     <line y1='1.34' x2='20' y2='1.34' strokeWidth='1.32' />
                                     <line y1='7.34' x2='20' y2='7.34' strokeWidth='1.32' />
@@ -139,21 +140,23 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                                 </svg>
                             }
                         </div>
-                        <span className={isOpen ? 'header__nav-menu _open' : 'header__nav-menu'}>
+                        <span className={`header__nav-menu${isOpen ? ' _open' : ''}`}>
                             {isOpen ? 'Закрыть' : 'Меню'}
                         </span>
                     </div>
                     <ul className={`header__nav-list${isOpen ? ' _open' : ''}`}>
-                        <h3 className='headerPopupH3'>Меню</h3>
-                        {mainNav.map((navItem, i, arr) =>
-                            <li className='header__nav-item' key={navItem.id}>
+                        <h3 className="headerPopupH3">Меню</h3> {/*если будет время, сделайте нормальное меню*/}
+                        {mainNav.map(navItem =>
+                            <li className="header__nav-item" key={navItem.id}>
                                 {navItem.children ?
                                     <NavSublist setShowFilters={setShowFilters} navItem={navItem} /> :
                                     <NavLink
                                         to={navItem.to}
                                         exact={navItem.exact}
                                         className={navItem.disabled ? '_disabled' : ''}
-                                        onClick={e => navItem.disabled ? e.preventDefault() : setShowFilters({isOpen: false})}
+                                        onClick={e => navItem.disabled ?
+                                            e.preventDefault() : setShowFilters({isOpen: false})
+                                        }
                                     >
                                         {navItem.image}
                                         <span>{navItem.name}</span>
@@ -161,16 +164,16 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                                 }
                             </li>
                         )}
-                        <li className='header__nav-item __about'>
-                            <NavLink to='/about' exact={false}>
+                        <li className="header__nav-item __about">
+                            <NavLink to="/about" exact={false}>
                                 <span>O RKF.Online</span>
                             </NavLink>
                         </li>
-                        <li className='widget-login__item widget-login__item--menu popup-menu auth-clubs'
+                        <li className="widget-login__item widget-login__item--menu popup-menu auth-clubs"
                             onClick={() => setShowFilters({isOpen: false})}>
                             <Link className="map-link" to="/clubs-map" target="_blank">Карта авторизованных клубов</Link>
                         </li>
-                        <li className='widget-login__item widget-login__item--menu popup-menu support-center'
+                        <li className="widget-login__item widget-login__item--menu popup-menu support-center"
                             onClick={() => setShowFilters({isOpen: false})}>
                             <Feedback />
                         </li>
@@ -182,13 +185,13 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                             >
                                 <a
                                     href={item.link}
-                                    target='_blank'
-                                    rel='noopener noreferrer'>
+                                    target="_blank"
+                                    rel="noopener noreferrer">
                                     <span>{item.name}</span>
                                 </a>
                             </li>
                         )}
-                        <li className='header__nav-socials'>
+                        <li className="header__nav-socials">
                             {/*<a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/">*/}
                             {/*    <img src="/static/icons/social/facebook-grey.svg" alt="" />*/}
                             {/*</a>*/}
@@ -209,19 +212,17 @@ const Nav = ({isAuthenticated, needChangeIsOpen, isOpenFilters, isOpen, setShowF
                 </>
                 :
                 <>
-                    <ul className={`header__nav-list--desktop ${isAuthenticated ? ` _uthenticated` : ``}`}>
+                    <ul className={`header__nav-list--desktop${isAuthenticated ? ' _uthenticated' : ''}`}>
                         {mainNav.map(navItem =>
-                            <li className='header__nav-item--desktop' key={navItem.id}>
-                                <MenuLink  {...navItem} />
+                            <li className="header__nav-item--desktop" key={navItem.id}>
+                                <MenuLink {...navItem} />
                             </li>
                         )}
-                        {!isMobile &&
-                        <li className='header__nav-item--desktop Feedback'>
-                            <Feedback isMainNav title='Поддержка' />
+                        <li className="header__nav-item--desktop Feedback">
+                            <Feedback isMainNav title="Поддержка" />
                         </li>
-                        }
                     </ul>
-                    <Link to="" className='header__nav-item--desktop recording' onClick={e => handleZlineClick(e)}>
+                    <Link to="/" className="header__nav-item--desktop recording" onClick={e => handleZlineClick(e)}>
                         <svg width='23' height='24' viewBox='0 0 23 25' fill='none' xmlns='http://www.w3.org/2000/svg'>
                             <path
                                 d='M20.6696 5.51138V2.97113C20.6696 1.8884 19.7951 1 18.6985 1H2.97113C1.87451 1 1 1.87451 1 2.97113V22.6408C1 23.7235 1.87451 24.6119 2.97113 24.6119H18.7124C19.7951 24.6119 20.6835 23.7374 20.6835 22.6408V11.7579'
