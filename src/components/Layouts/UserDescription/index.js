@@ -204,9 +204,12 @@ const UserDescription = ({
                     />
                 </>
             }
-            {
-                !!counters &&
-                <Counter counters={counters} profileAlias={profileAlias} />
+            {!!counters &&
+                <Counter
+                    counters={counters}
+                    profileAlias={profileAlias}
+                    judgeInfo={judgeInfo}
+                />
             }
         </Card>
     )
