@@ -8,7 +8,6 @@ import { Request } from "../../utils/request";
 
 import "./index.scss";
 
-
 const NBCInvite = ({ alias }) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
@@ -159,8 +158,7 @@ const NBCInvite = ({ alias }) => {
                 {!!rejected.length && rejected.map(item =>
                     <div className="rejected-judges" key={item}>
                         <div className="rejected-judges__title">
-                            <p>{item[0]}</p>
-                            <p>, причина отказа</p>
+                            <p>{item[0]}<span>, причина отказа</span></p>
                         </div>
                         <input
                             type="text"
@@ -186,8 +184,7 @@ const NBCInvite = ({ alias }) => {
                 {listJudges.map(item => item.nbc_invite_status === 3 && !!item.nbc_invite_comment &&
                     <div className="rejected-judges" key={item}>
                         <div className="rejected-judges__title">
-                            <p>{`${item.judge_last_name} ${item.judge_name} ${item.judge_second_name}` }</p>
-                            <p>, причина отказа</p>
+                            <p>{`${item.judge_last_name} ${item.judge_name} ${item.judge_second_name}` }<span>, причина отказа</span></p>
                         </div>
                         <input
                             type="text"
