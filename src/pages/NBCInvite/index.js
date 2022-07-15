@@ -24,6 +24,7 @@ const NBCInvite = ({ alias }) => {
         (() => Request({
             url: `/api/exhibitions/invite?exhibitionId=${id}`,
         }, data => {
+            console.log('data', data);
             setData(data);
             const arrOfJudges = [...data.invited_judges]
             setListJudges(arrOfJudges);
@@ -114,7 +115,7 @@ const NBCInvite = ({ alias }) => {
                 <div className="club-info__left">
                     <div className="club-info__inner">
                         <p className="club-info__title">Клуб</p>
-                        <Link to={`/club/${alias}`}>{data?.club_name}</Link>
+                        <Link to={`/club/${data?.club_alias}`}>{data?.club_name}</Link>
                     </div>
                     <div className="club-info__inner">
                         <p className="club-info__title">Город&nbsp;проведения&nbsp;выставки</p>
