@@ -203,7 +203,7 @@ const MenuComponentNew = () => {
     }, [fedDetails, fedFeesId, currentPageUserInfo]);//подтягиваем линки для документов федераций
 
     useEffect(() => {
-        if(url === 'client' || (isFederationAlias(url) && currentPageNav)) {
+        if(url === 'client' || (isFederationAlias(url) && currentPageNav) || currentPageUserInfo?.id === 1) {
             if(currentPageUserInfo?.club_alias === 'rkf' || currentPageUserInfo?.club_alias === 'rkf-online') {
                 const newNavWithoutDocLinks = currentPageNav.filter(item =>(item.id !== 7 && item.id !== 8));
                 setCurrentPageNav(newNavWithoutDocLinks);
