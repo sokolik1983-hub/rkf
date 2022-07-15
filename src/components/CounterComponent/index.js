@@ -64,8 +64,7 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
                         </div>
                     </div>
                 }
-                {!judgeInfo &&
-                    (!!counters.exhibitions_count || counters.exhibitions_count === 0) &&
+                {!judgeInfo && counters.exhibitions_count >= 0 &&
                     <NavLink
                         exact to={breeds ?
                         linkForExhibitionsNBC(breeds) :
@@ -85,7 +84,7 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
                         </div>
                     </NavLink>
                 }
-                {judgeInfo && (!!counters.exhibitions_count || counters.exhibitions_count === 0) &&
+                {judgeInfo && counters.exhibitions_count >= 0 &&
                     <div className="counter_component__block">
                         <div className="counter_component__count">
                             <p>{counters.exhibitions_count}</p>
