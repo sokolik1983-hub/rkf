@@ -24,7 +24,6 @@ const NBCInvite = ({ alias }) => {
         (() => Request({
             url: `/api/exhibitions/invite?exhibitionId=${id}`,
         }, data => {
-            console.log('data', data);
             setData(data);
             const arrOfJudges = [...data.invited_judges]
             setListJudges(arrOfJudges);
