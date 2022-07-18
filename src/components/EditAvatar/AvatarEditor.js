@@ -35,7 +35,9 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                 data: editor.current.getImageScaledToCanvas().toDataURL('image/jpeg', 1)
             }
         }, data => {
+                console.log('pageBanner', pageBanner)
             if (data) {
+                pageBanner && ls.set('user_info', { ...ls.get('user_info'), headliner_link: data });
                 userType === 'club' && onSubmitSuccess({ image_link: data });
                 !pageBanner && !owner && ls.set('user_info', { ...ls.get('user_info'), logo_link: data });
                 setModalType('');
