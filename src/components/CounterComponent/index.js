@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import {Link, NavLink} from "react-router-dom";
 
 import "./styles.scss";
 
-const Counter = ({ counters, profileAlias, breeds }) => {
+const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
     const alias = profileAlias.search('kennel') === 1 || profileAlias.search('user') === 1 ? profileAlias : `/${profileAlias}`;
 
     const linkForExhibitionsNBC = (breeds) => {
@@ -64,8 +64,7 @@ const Counter = ({ counters, profileAlias, breeds }) => {
                         </div>
                     </div>
                 }
-                {
-                    (!!counters.exhibitions_count || counters.exhibitions_count === 0) &&
+                {!judgeInfo && counters.exhibitions_count >= 0 &&
                     <NavLink
                         exact to={breeds ?
                         linkForExhibitionsNBC(breeds) :
@@ -85,9 +84,19 @@ const Counter = ({ counters, profileAlias, breeds }) => {
                         </div>
                     </NavLink>
                 }
+                {judgeInfo && counters.exhibitions_count >= 0 &&
+                    <div className="counter_component__block">
+                        <div className="counter_component__count">
+                            <p>{counters.exhibitions_count}</p>
+                        </div>
+                        <div className="counter_component__name">
+                            Мероприятия
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     )
 };
 
-export default Counter;
+export default memo(Counter);

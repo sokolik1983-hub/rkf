@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, memo } from "react";
 import { Collapse } from "react-collapse";
 import { Link } from "react-router-dom";
 import Card from "../../Card";
@@ -204,12 +204,13 @@ const UserDescription = ({
                     />
                 </>
             }
-            {
-                !!counters &&
-                <Counter counters={counters} profileAlias={profileAlias} />
-            }
+            {!!counters && <Counter
+                counters={counters}
+                profileAlias={profileAlias}
+                judgeInfo={judgeInfo}
+            />}
         </Card>
     )
 };
 
-export default React.memo(UserDescription);
+export default memo(UserDescription);
