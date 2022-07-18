@@ -83,7 +83,7 @@ export const judgeNav = alias => [
     //     </svg>
     // },
     {
-        id: 4,
+        id: 3,
         title: 'Документы',
         to: `/user/${alias}/uploaded-documents/`,
         exact: false,
@@ -103,7 +103,7 @@ export const judgeNav = alias => [
         </svg>
     },
     {
-        id: 5,
+        id: 4,
         title: 'Фотогалерея',
         to: `/user/${alias}/gallery`,
         exact: false,
@@ -120,7 +120,7 @@ export const judgeNav = alias => [
         </svg>
     },
     {
-        id: 6,
+        id: 5,
         title: 'Видеозаписи',
         to: `/user/${alias}/video`,
         exact: true,
@@ -148,7 +148,7 @@ export const judgeNav = alias => [
     //     </svg>
     // },
     {
-        id: 7,
+        id: 6,
         title: 'Cтраница специалиста',
         to: `/user/${alias}`,
         exact: true,
@@ -216,7 +216,7 @@ export const userNav = alias => [
     //     </svg>
     // },
     {
-        id: 4,
+        id: 3,
         title: 'Документы',
         to: `/user/${alias}/uploaded-documents/`,
         exact: false,
@@ -236,7 +236,7 @@ export const userNav = alias => [
             </svg>
     },
     {
-        id: 5,
+        id: 4,
         title: 'Фотогалерея',
         to: `/user/${alias}/gallery`,
         exact: false,
@@ -253,7 +253,7 @@ export const userNav = alias => [
             </svg>
     },
     {
-        id: 6,
+        id: 5,
         title: 'Видеозаписи',
         to: `/user/${alias}/video`,
         exact: true,
@@ -281,7 +281,7 @@ export const userNav = alias => [
     //     </svg>
     // },
     {
-        id: 7,
+        id: 6,
         title: 'Cтраница пользователя',
         to: `/user/${alias}`,
         exact: true,
