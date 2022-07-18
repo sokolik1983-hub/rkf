@@ -199,10 +199,12 @@
                 margin-bottom: 7px;
 
                 & p {
+                    display: inline-block;
                     font-size: 18px;
                     line-height: 18px;
                     font-weight: 600;
                     color: #253C5E;
+                    padding-right: 5px;
                 }
 
                 &:hover {
@@ -294,6 +296,17 @@
                 font-size: 14px;
                 line-height: 14px;
                 color: #FF6977;
+            }
+        }
+
+        &__second-name {
+            position: relative;
+            & svg {
+                position: absolute;
+                margin-left: 25px;
+                &:first-child {
+                    margin-left: 5px;
+                }
             }
         }
     }

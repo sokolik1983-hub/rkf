@@ -28,11 +28,10 @@ const JudgeCard = ({
             <div className="judges-list__wrap">
                 <div className="judges-list__link">
                     <Link to={`/user/${judge_alias}`}>
-                        <p>{judge_last_name}</p>
-                        <p>{`${judge_name} ${judge_second_name}`}</p>
+                        <p>{`${judge_last_name} `}</p><br />
+                        <p>{`${judge_name} `}</p>
+                        <p className="judges-list__second-name">{`${judge_second_name} `}{judgeIcon}{is_all_breeder && allbreedJudgeIcon}</p>
                     </Link>
-                    {judgeIcon}
-                    {is_all_breeder && allbreedJudgeIcon}
                 </div>
                 <div className="judges-list__inner">
                     <p>{judge_en_full_name}</p>
