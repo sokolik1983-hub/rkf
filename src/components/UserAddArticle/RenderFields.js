@@ -54,16 +54,15 @@ const RenderFields = ({ fields,
                           name,
                           userType,
                           setContent,
-                            loadPictures,
-                            setLoadPictures
+                          loadPictures,
+                          setLoadPictures,
+                          content
                             }) => {
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
-
-    const { content } = formik.values;
 
     useEffect(() => {
         Request({ url: '/api/article/article_ad_types' },
@@ -117,7 +116,7 @@ const RenderFields = ({ fields,
                 text = text.replace(x, '');
             });
 
-        formik.setFieldValue('content', text);
+        setContent(text);
     };
 
     const addRow = () => {
