@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Redirect } from 'react-router-dom';
+import React, {memo, useEffect, useState} from "react";
+import {Redirect} from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import NotConfirmed from "../NotConfirmed";
 import Layout from "../../components/Layouts";
@@ -23,10 +23,10 @@ import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import UserBanner from "../../components/Layouts/UserBanner";
 import MenuComponentNew from "../../components/MenuComponentNew";
-
 import "./index.scss";
 
-const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
+
+const ClubPage = ({history, match, profile_id, is_active_profile, isAuthenticated}) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -58,14 +58,14 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             setError(error.response);
             setLoading(false);
         });
-    }
+    };
 
-    const onSubscriptionUpdate = (subscribed) => {
+    const onSubscriptionUpdate = subscribed => {
         setClubInfo({
             ...clubInfo,
             subscribed: subscribed
         })
-    }
+    };
 
     return loading ?
         <Loading /> :
@@ -184,4 +184,4 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                 </Layout>
 };
 
-export default React.memo(connectAuthVisible(ClubPage));
+export default memo(connectAuthVisible(ClubPage));
