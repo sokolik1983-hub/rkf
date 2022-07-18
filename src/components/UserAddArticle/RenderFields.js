@@ -64,8 +64,6 @@ const RenderFields = ({ fields,
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
 
-    // const { content } = formik.values;
-
     useEffect(() => {
         Request({ url: '/api/article/article_ad_types' },
             data => setAdvertTypes(data.map(d => ({ text: d.name, value: d.id }))),
