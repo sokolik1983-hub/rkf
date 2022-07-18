@@ -12,8 +12,8 @@ import reducer from "./reducer";
 import injectReducer from "../../utils/injectReducer";
 import {connectAuthVisible} from "./connectors";
 import {LOGIN_URL, REGISTRATION_URL} from "../../appConfig";
-import "./index.scss";
 
+import "./index.scss";
 
 const LoginPage = ({isAuthenticated, is_active_profile, user_type}) => {
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';

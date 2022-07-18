@@ -38,6 +38,10 @@
   &__list {
     list-style: none;
     text-align: start;
+    @media (max-width: 350px) {
+      overflow: scroll;
+      height: calc(100vh - 225px);
+    }
   }
   &__item {
     position: relative;
