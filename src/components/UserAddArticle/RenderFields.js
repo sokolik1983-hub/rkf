@@ -80,12 +80,14 @@ const RenderFields = ({ fields,
         }
     }
 
-    const addVideoLink = async link => {
+    const addVideoLink =  link => {
         const id = getYouTubeID(link);
-        formik.setFieldValue('video_id', id);
-        formik.setFieldValue('video_link', link);
-        await getYoutubeTitle(id, function (err, title){formik.setFieldValue('video_name', title)});
-        setVideoLink(link);
+        getYoutubeTitle(id, function (err, title){
+            formik.setFieldValue('video_id', id);
+            formik.setFieldValue('video_link', link);
+            formik.setFieldValue('video_name', title);
+            setVideoLink(link);
+        });
     };
 
     const removeVideoLink = () => {
