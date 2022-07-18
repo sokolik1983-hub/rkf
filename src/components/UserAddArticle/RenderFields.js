@@ -19,6 +19,7 @@ import Modal from "../Modal";
 import useIsMobile from "../../utils/useIsMobile";
 import Avatar from "../Layouts/Avatar";
 import DndPublicationImage from "../Gallery/components/PublicationImageUpload/DndPublicationImage";
+import getYoutubeTitle from "get-youtube-title";
 
 const RenderFields = ({ fields,
                           logo,
@@ -79,13 +80,18 @@ const RenderFields = ({ fields,
         }
     }
 
-    const addVideoLink = link => {
+    const addVideoLink = async link => {
+        const id = getYouTubeID(link);
+        formik.setFieldValue('video_id', id);
         formik.setFieldValue('video_link', link);
+        await getYoutubeTitle(id, function (err, title){formik.setFieldValue('video_name', title)});
         setVideoLink(link);
     };
 
     const removeVideoLink = () => {
+        formik.setFieldValue('video_id', '');
         formik.setFieldValue('video_link', '');
+        formik.setFieldValue('video_name', '');
         setVideoLink('');
     };
 
