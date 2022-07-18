@@ -36,6 +36,7 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
                 method: 'DELETE'
             }, () => {
                 closeModal();
+                pageBanner && ls.set('user_info', { ...ls.get('user_info'), headliner_link: '' });
                 !pageBanner && !owner && ls.set('user_info', { ...ls.get('user_info'), logo_link: '' });
                 window.location.reload();
             }, error => {
