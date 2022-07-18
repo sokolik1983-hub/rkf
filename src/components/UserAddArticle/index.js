@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import {number, object, string, array} from 'yup';
-import Card from '../Card';
-import Alert from '../Alert';
-import { Form } from '../Form';
-import RenderFields from './RenderFields';
-import { newsArticleFormConfig } from './config';
-import ls from 'local-storage';
-import {useFocus} from '../../shared/hooks';
+import React, {useState} from "react";
+import {number, object, string, array} from "yup";
+import ls from "local-storage";
+import Card from "../Card";
+import Alert from "../Alert";
+import {Form} from "../Form";
+import {useFocus} from "../../shared/hooks";
+import RenderFields from "./RenderFields";
+import {newsArticleFormConfig} from "./config";
 
-import './index.scss';
+import "./index.scss";
 
 
 const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInfo}) => {
@@ -88,7 +88,9 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
             return {
                 content: values.content,
                 pictures: values.pictures,
+                video_id: values.video_id || '',
                 video_link: values.video_link || '',
+                video_name: values.video_name|| '',
                 documents,
                 is_must_read: isMust
             }
