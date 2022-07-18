@@ -183,6 +183,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
                     setContent={setContent}
                     loadPictures={loadPictures}
                     setLoadPictures={setLoadPictures}
+                    content={content}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}
