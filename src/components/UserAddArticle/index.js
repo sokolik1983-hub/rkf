@@ -116,6 +116,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
         setContent('');
         setLoadPictures([])
         setBlured();
+        setIsCategoryId(false);
     };
 
     const onError = e => {
