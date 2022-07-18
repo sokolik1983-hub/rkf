@@ -6,12 +6,15 @@ import {editForm, sections} from './config';
 import MainPage from './components/MainPage';
 import ContactsPage from './components/ContactsPage';
 import BankInfo from "./components/BankInfo";
+import StickyBox from "react-sticky-box";
 
 
 const RenderFields = ({
-        formik,
-        randomKeyGenerator,
-}) => {
+                          formik,
+                          randomKeyGenerator,
+                          isOpenFilters,
+                          setShowFilters,
+                      }) => {
     const [activeSection, setActiveSection] = useState(0);
 
     const {
@@ -30,6 +33,7 @@ const RenderFields = ({
 
     const handleSectionSwitch = (id) => {
         setActiveSection(id);
+        setShowFilters({isOpenFilters: false});
     };
 
     return (
@@ -43,34 +47,36 @@ const RenderFields = ({
                         comment={comment}
                     /> :
                     activeSection === 1 ? <ContactsPage
-                        formik={formik}
-                        social_networks={social_networks}
-                        phones={phones}
-                        emails={emails}
-                        randomKeyGenerator={randomKeyGenerator}
-                    /> :
-                    activeSection === 2 && <BankInfo
-                        bank_comment={bank_comment}
-                    />
+                            formik={formik}
+                            social_networks={social_networks}
+                            phones={phones}
+                            emails={emails}
+                            randomKeyGenerator={randomKeyGenerator}
+                        /> :
+                        activeSection === 2 && <BankInfo
+                            bank_comment={bank_comment}
+                        />
                 }
             </div>
-            <div>
-                <Card>
-                    <span className="nursery-edit__profile-label">Профиль</span>
-                    <ul className="nursery-edit__inner-list">
-                        {Object.keys(sections).map((type, key) => <div
-                                className={sections[type].id === activeSection
-                                    ? "nursery-edit__inner-item active"
-                                    : "nursery-edit__inner-item"}
-                                key={key}
-                                onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
-                            >
-                                <SvgSelector icon={sections[type].icon} />
-                                <li>{sections[type].name}</li>
-                            </div>
-                        )}
-                    </ul>
-                </Card>
+            <div className={`nursery-edit__inner-right${isOpenFilters ? " _open" : ""}`}>
+                <StickyBox offsetTop={0}>
+                    <Card>
+                        <span className="nursery-edit__profile-label">Профиль</span>
+                        <ul className="nursery-edit__inner-list">
+                            {Object.keys(sections).map((type, key) => <div
+                                    className={sections[type].id === activeSection
+                                        ? "nursery-edit__inner-item active"
+                                        : "nursery-edit__inner-item"}
+                                    key={key}
+                                    onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                                >
+                                    <SvgSelector icon={sections[type].icon} />
+                                    <li>{sections[type].name}</li>
+                                </div>
+                            )}
+                        </ul>
+                    </Card>
+                </StickyBox>
             </div>
         </div>
     )

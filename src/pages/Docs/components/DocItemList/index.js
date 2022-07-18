@@ -207,7 +207,6 @@ const DocItemList = ({ formik, view, update, clubAlias, distinction, stampCodes,
                                 disabled={view || formik.values.payment_document_accept || !statusAllowsUpdate}
                                 distinction={distinction}
                             />
-
                             <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" required={false} />
                             <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                         </FormGroup>
