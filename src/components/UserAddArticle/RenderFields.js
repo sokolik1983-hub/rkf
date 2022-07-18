@@ -54,8 +54,8 @@ const RenderFields = ({ fields,
                           name,
                           userType,
                           setContent,
-                            loadPictures,
-                            setLoadPictures,
+                          loadPictures,
+                          setLoadPictures,
                           content
                             }) => {
     const [advertTypes, setAdvertTypes] = useState([]);
