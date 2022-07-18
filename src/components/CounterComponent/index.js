@@ -9,7 +9,12 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
     const linkForExhibitionsNBC = (breeds) => {
         const addBreedsToLink = breeds?.map(obj => `BreedIds=${obj.breed_id}`).join().replaceAll(',', '&');
         return `/exhibitions?${addBreedsToLink}`;
-    }
+    };
+
+    const linkForExhibitionsJudges = (judgeInfo) => {
+        const judgeLink = judgeInfo?.map(item => `JudgeIds=${item.judge_id}`).join('&');
+        return `/exhibitions?${judgeLink}`;
+    };
 
     return (
         !!counters &&
@@ -64,13 +69,15 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
                         </div>
                     </div>
                 }
-                {!judgeInfo && counters.exhibitions_count >= 0 &&
+                {counters.exhibitions_count >= 0 &&
                     <NavLink
-                        exact to={breeds ?
-                        linkForExhibitionsNBC(breeds) :
-                             !!profileAlias.match(/club/) ?
-                                 `/exhibitions?Alias=${profileAlias.replace('club/', '')}` :
-                                    `/exhibitions?Alias=${profileAlias}`
+                        exact to={judgeInfo ?
+                            linkForExhibitionsJudges(judgeInfo) :
+                                breeds ?
+                                    linkForExhibitionsNBC(breeds) :
+                                         !!profileAlias.match(/club/) ?
+                                             `/exhibitions?Alias=${profileAlias.replace('club/', '')}` :
+                                                `/exhibitions?Alias=${profileAlias}`
                     }
                         title="Мероприятия"
                     >
@@ -83,16 +90,6 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
                             </div>
                         </div>
                     </NavLink>
-                }
-                {judgeInfo && counters.exhibitions_count >= 0 &&
-                    <div className="counter_component__block">
-                        <div className="counter_component__count">
-                            <p>{counters.exhibitions_count}</p>
-                        </div>
-                        <div className="counter_component__name">
-                            Мероприятия
-                        </div>
-                    </div>
                 }
             </div>
         </div>
