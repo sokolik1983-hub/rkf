@@ -70,20 +70,8 @@ export const judgeNav = alias => [
             <path d="M10.0255 18.9993C8.48047 18.9993 7.22047 17.7393 7.22047 16.1943C7.22047 15.7743 7.55047 15.4443 7.97047 15.4443C8.39047 15.4443 8.72047 15.7743 8.72047 16.1943C8.72047 16.9143 9.30547 17.4993 10.0255 17.4993C10.7455 17.4993 11.3305 16.9143 11.3305 16.1943C11.3305 15.7743 11.6605 15.4443 12.0805 15.4443C12.5005 15.4443 12.8305 15.7743 12.8305 16.1943C12.8305 17.7393 11.5705 18.9993 10.0255 18.9993Z" fill="#8F989D"/>
         </svg>
     },
-    // {
-    //     id: 3,
-    //     title: 'Публикации',
-    //     to: `/user/${alias}/news`,
-    //     exact: true,
-    //     disabled: true,
-    //     icon: <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-    //         <path d="M116.59.1,53.05,63.63h63.54Z" />
-    //         <path d="M383.84,0H146.59V93.64H53V436.8H383.84V0ZM322.06,289.84H114.74v-30H322.06Zm0-63.74H114.74v-30H322.06Zm0-63.73H114.74v-30H322.06Z" />
-    //         <path d="M413.84,75.2V466.8H128.16V512H459V75.2Z" />
-    //     </svg>
-    // },
     {
-        id: 4,
+        id: 3,
         title: 'Документы',
         to: `/user/${alias}/uploaded-documents/`,
         exact: false,
@@ -103,7 +91,7 @@ export const judgeNav = alias => [
         </svg>
     },
     {
-        id: 5,
+        id: 4,
         title: 'Фотогалерея',
         to: `/user/${alias}/gallery`,
         exact: false,
@@ -120,7 +108,7 @@ export const judgeNav = alias => [
         </svg>
     },
     {
-        id: 6,
+        id: 5,
         title: 'Видеозаписи',
         to: `/user/${alias}/video`,
         exact: true,
@@ -136,19 +124,8 @@ export const judgeNav = alias => [
             </defs>
         </svg>
     },
-    // {
-    //     id: 6,
-    //     title: 'Статус документов',
-    //     to: `/user/${alias}/documents-status`,
-    //     exact: true,
-    //     disabled: true,
-    //     icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    //         <path d="m24.7 10.9v7.2h50.3v64.1h7.2v-71.3h-57.5z" />
-    //         <path d="M17.8,89.1h52.7V22.7H17.8V89.1z M29.2,36.4H59V41H29.2V36.4z M29.2,47.9H59v4.6H29.2V47.9z M29.2,59.3H59v4.6H29.2V59.3z M29.2,70.8H59v4.6H29.2V70.8z" />
-    //     </svg>
-    // },
     {
-        id: 7,
+        id: 6,
         title: 'Cтраница специалиста',
         to: `/user/${alias}`,
         exact: true,
@@ -203,20 +180,8 @@ export const userNav = alias => [
                 <path d="M10.0255 18.9993C8.48047 18.9993 7.22047 17.7393 7.22047 16.1943C7.22047 15.7743 7.55047 15.4443 7.97047 15.4443C8.39047 15.4443 8.72047 15.7743 8.72047 16.1943C8.72047 16.9143 9.30547 17.4993 10.0255 17.4993C10.7455 17.4993 11.3305 16.9143 11.3305 16.1943C11.3305 15.7743 11.6605 15.4443 12.0805 15.4443C12.5005 15.4443 12.8305 15.7743 12.8305 16.1943C12.8305 17.7393 11.5705 18.9993 10.0255 18.9993Z" fill="#8F989D"/>
             </svg>
     },
-    // {
-    //     id: 3,
-    //     title: 'Публикации',
-    //     to: `/user/${alias}/news`,
-    //     exact: true,
-    //     disabled: true,
-    //     icon: <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-    //         <path d="M116.59.1,53.05,63.63h63.54Z" />
-    //         <path d="M383.84,0H146.59V93.64H53V436.8H383.84V0ZM322.06,289.84H114.74v-30H322.06Zm0-63.74H114.74v-30H322.06Zm0-63.73H114.74v-30H322.06Z" />
-    //         <path d="M413.84,75.2V466.8H128.16V512H459V75.2Z" />
-    //     </svg>
-    // },
     {
-        id: 4,
+        id: 3,
         title: 'Документы',
         to: `/user/${alias}/uploaded-documents/`,
         exact: false,
@@ -236,7 +201,7 @@ export const userNav = alias => [
             </svg>
     },
     {
-        id: 5,
+        id: 4,
         title: 'Фотогалерея',
         to: `/user/${alias}/gallery`,
         exact: false,
@@ -253,7 +218,7 @@ export const userNav = alias => [
             </svg>
     },
     {
-        id: 6,
+        id: 5,
         title: 'Видеозаписи',
         to: `/user/${alias}/video`,
         exact: true,
@@ -269,19 +234,8 @@ export const userNav = alias => [
                 </defs>
             </svg>
     },
-    // {
-    //     id: 6,
-    //     title: 'Статус документов',
-    //     to: `/user/${alias}/documents-status`,
-    //     exact: true,
-    //     disabled: true,
-    //     icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    //         <path d="m24.7 10.9v7.2h50.3v64.1h7.2v-71.3h-57.5z" />
-    //         <path d="M17.8,89.1h52.7V22.7H17.8V89.1z M29.2,36.4H59V41H29.2V36.4z M29.2,47.9H59v4.6H29.2V47.9z M29.2,59.3H59v4.6H29.2V59.3z M29.2,70.8H59v4.6H29.2V70.8z" />
-    //     </svg>
-    // },
     {
-        id: 7,
+        id: 6,
         title: 'Cтраница пользователя',
         to: `/user/${alias}`,
         exact: true,
