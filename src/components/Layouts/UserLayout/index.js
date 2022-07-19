@@ -23,7 +23,7 @@ import MenuComponentNew from "../../MenuComponentNew";
 
 import './index.scss';
 
-const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
+const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters, match }) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
@@ -40,7 +40,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
 
     useEffect(() => {
         (() => getUserInfo())();
-    }, []);
+        return () => setNeedRequest(true);
+    }, [match]);
 
     useEffect(() => {
         userInfo?.profile_id &&
@@ -192,7 +193,8 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     onSubscriptionUpdate,
                                     notifySuccess,
                                     notifyError,
-                                    judgeInfo
+                                    judgeInfo,
+                                    match
                                 })
                             }
                         </div>
