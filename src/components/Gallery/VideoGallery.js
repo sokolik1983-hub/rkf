@@ -8,6 +8,8 @@ import { DEFAULT_IMG } from "../../appConfig";
 import getYouTubeID from 'get-youtube-id';
 import {blockContent} from "../../utils/blockContent";
 import './styles.scss';
+import { metadata } from "youtube-metadata-from-url";
+import { Request } from "../../utils/request";
 
 const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, handleDeleteVideo, handleError, canEdit, alias, isClub = false }) => {
     const [showModal, setShowModal] = useState(false);
@@ -19,28 +21,27 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
 
     const onVideoAddSuccess = link => {
         const id = getYouTubeID(link);
-        getYoutubeTitle(id, function (err, title) {
-            if (err) {
+        metadata(`https://youtu.be/${id}`)
+            .then(function(json){
+                Request({
+                    url: `/api/videogallery/youtube_link`,
+                    method: 'POST',
+                    data: JSON.stringify({
+                        name: json.title,
+                        video_id: id
+                    })
+                }, () => {
+                    setStartElement(1);
+                    getVideos(1);
+                    setShowAlert({
+                        title: `Видеозапись добавлена`,
+                        autoclose: 1.5,
+                        onOk: () => setShowAlert(false)
+                    })
+                }, error => handleError(error));
+            }, function(err) {
                 handleError(err);
-                return;
-            }
-            PromiseRequest({
-                url: `/api/videogallery/youtube_link`,
-                method: 'POST',
-                data: JSON.stringify({
-                    name: title,
-                    video_id: id
-                })
-            }).then(() => {
-                setStartElement(1);
-                getVideos(1);
-                setShowAlert({
-                    title: `Видеозапись добавлена`,
-                    autoclose: 1.5,
-                    onOk: () => setShowAlert(false)
-                })
-            }).catch(error => handleError(error))
-        })
+        });
     };
 
     const VideoGalleryItem = ({ item }) => {

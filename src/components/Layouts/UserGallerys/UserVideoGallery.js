@@ -14,6 +14,7 @@ import { CSSTransition } from "react-transition-group";
 import useIsMobile from "../../../utils/useIsMobile";
 import useStickyState from "../../../utils/useStickyState";
 import "./index.scss";
+import { metadata } from "youtube-metadata-from-url";
 
 
 const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
@@ -59,27 +60,25 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
 
     const addVideo = link => {
         const id = getYouTubeID(link);
-
-        getYoutubeTitle(id, async (err, title) => {
-            if (err) {
+        metadata(`https://youtu.be/${id}`)
+            .then(function(json){
+                Request({
+                    url: `/api/videogallery/youtube_link`,
+                    method: 'POST',
+                    data: JSON.stringify({
+                        name: json.title,
+                        video_id: id
+                    })
+                }, () => {
+                getVideo()
+                    .then(() => setAlert({
+                        title: `Видеозапись добавлена`,
+                        autoclose: 1.5,
+                        onOk: () => setAlert(null)}
+                    ));
+                }, error => handleError(error));
+            }, function(err) {
                 handleError(err);
-                return;
-            }
-
-            await Request({
-                url: `/api/videogallery/youtube_link`,
-                method: 'POST',
-                data: JSON.stringify({
-                    name: title,
-                    video_id: id
-                })
-            }, data => {
-                getVideo().then(() => setAlert({
-                    title: `Видеозапись добавлена`,
-                    autoclose: 1.5,
-                    onOk: () => setAlert(null)
-                }));
-            }, error => handleError(error));
         });
     };
 

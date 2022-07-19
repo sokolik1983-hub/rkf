@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import getYouTubeID from "get-youtube-id";
-import {connect} from "formik";
+import { connect } from "formik";
 
 import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
 
-import { SubmitButton, FormControls, FormGroup, FormField } from '../Form';
+import { FormControls, FormField, FormGroup, SubmitButton } from "../Form";
 import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
 import CustomChipList from "../Form/Field/CustomChipList";
@@ -19,7 +19,7 @@ import Modal from "../Modal";
 import useIsMobile from "../../utils/useIsMobile";
 import Avatar from "../Layouts/Avatar";
 import DndPublicationImage from "../Gallery/components/PublicationImageUpload/DndPublicationImage";
-import getYoutubeTitle from "get-youtube-title";
+import { metadata } from "youtube-metadata-from-url";
 
 const RenderFields = ({ fields,
                           logo,
@@ -79,14 +79,17 @@ const RenderFields = ({ fields,
         }
     }
 
-    const addVideoLink =  link => {
+    const addVideoLink = link => {
         const id = getYouTubeID(link);
-        getYoutubeTitle(id, function (err, title){
-            formik.setFieldValue('video_id', id);
-            formik.setFieldValue('video_link', link);
-            formik.setFieldValue('video_name', title);
-            setVideoLink(link);
-        });
+        metadata(`https://youtu.be/${id}`)
+            .then(function(json) {
+                formik.setFieldValue("video_name", json.title);
+            }, function(err) {
+                console.log(err);
+            });
+        formik.setFieldValue("video_id", id);
+        formik.setFieldValue("video_link", link);
+        setVideoLink(link);
     };
 
     const removeVideoLink = () => {
