@@ -63,7 +63,7 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
         metadata(`https://youtu.be/${id}`)
             .then(function(json){
                 Request({
-                    url: `/api/videogallery/youtube_link`,
+                    url: '/api/videogallery/youtube_link',
                     method: 'POST',
                     data: JSON.stringify({
                         name: json.title,
@@ -72,7 +72,7 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
                 }, () => {
                 getVideo()
                     .then(() => setAlert({
-                        title: `Видеозапись добавлена`,
+                        title: 'Видеозапись добавлена',
                         autoclose: 1.5,
                         onOk: () => setAlert(null)}
                     ));

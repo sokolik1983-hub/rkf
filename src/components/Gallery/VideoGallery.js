@@ -24,7 +24,7 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
         metadata(`https://youtu.be/${id}`)
             .then(function(json){
                 Request({
-                    url: `/api/videogallery/youtube_link`,
+                    url: '/api/videogallery/youtube_link',
                     method: 'POST',
                     data: JSON.stringify({
                         name: json.title,
@@ -34,7 +34,7 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
                     setStartElement(1);
                     getVideos(1);
                     setShowAlert({
-                        title: `Видеозапись добавлена`,
+                        title: 'Видеозапись добавлена',
                         autoclose: 1.5,
                         onOk: () => setShowAlert(false)
                     })

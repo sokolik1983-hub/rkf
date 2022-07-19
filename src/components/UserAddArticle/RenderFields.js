@@ -81,12 +81,12 @@ const RenderFields = ({ fields,
         const id = getYouTubeID(link);
         metadata(`https://youtu.be/${id}`)
             .then(function(json) {
-                formik.setFieldValue("video_name", json.title);
+                formik.setFieldValue('video_name', json.title);
             }, function(err) {
                 console.log(err);
             });
-        formik.setFieldValue("video_id", id);
-        formik.setFieldValue("video_link", link);
+        formik.setFieldValue('video_id', id);
+        formik.setFieldValue('video_link', link);
         setVideoLink(link);
     };
 
