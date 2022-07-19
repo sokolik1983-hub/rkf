@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import { AddVideoModal } from "components/Gallery";
-import { VideoModal } from "components/Modal";
+import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import getYoutubeTitle from 'get-youtube-title';
-import { PromiseRequest } from 'utils/request';
-import { DEFAULT_IMG } from "../../appConfig";
-import getYouTubeID from 'get-youtube-id';
-import {blockContent} from "../../utils/blockContent";
-import './styles.scss';
+import getYouTubeID from "get-youtube-id";
 import { metadata } from "youtube-metadata-from-url";
+import { VideoModal } from "../Modal";
+import { DEFAULT_IMG } from "../../appConfig";
 import { Request } from "../../utils/request";
+import { blockContent } from "../../utils/blockContent";
+import { AddVideoModal } from "../../components/Gallery";
+
+import "./styles.scss";
+
 
 const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, handleDeleteVideo, handleError, canEdit, alias, isClub = false }) => {
     const [showModal, setShowModal] = useState(false);

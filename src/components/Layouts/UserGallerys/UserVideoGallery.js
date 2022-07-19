@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import getYouTubeID from "get-youtube-id";
-import getYoutubeTitle from "get-youtube-title";
-import Loading from "../../Loading";
+import { metadata } from "youtube-metadata-from-url";
+import { CSSTransition } from "react-transition-group";
 import Card from "../../Card";
 import Alert from "../../Alert";
-import LightTooltip from "../../LightTooltip";
+import Loading from "../../Loading";
 import { VideoModal } from "../../Modal";
+import LightTooltip from "../../LightTooltip";
 import { AddVideoModal } from "../../Gallery";
-import { Request } from "../../../utils/request";
 import { DEFAULT_IMG } from "../../../appConfig";
-import { CSSTransition } from "react-transition-group";
+import { Request } from "../../../utils/request";
 import useIsMobile from "../../../utils/useIsMobile";
 import useStickyState from "../../../utils/useStickyState";
+
 import "./index.scss";
-import { metadata } from "youtube-metadata-from-url";
 
 
 const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
