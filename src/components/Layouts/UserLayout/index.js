@@ -23,7 +23,12 @@ import MenuComponentNew from "../../MenuComponentNew";
 
 import './index.scss';
 
-const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters, match }) => {
+const UserLayout = ({   profile_id,
+                        is_active_profile,
+                        isAuthenticated,
+                        children,
+                        match
+}) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
