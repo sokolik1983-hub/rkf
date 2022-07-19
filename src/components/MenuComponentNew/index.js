@@ -210,8 +210,7 @@ const MenuComponentNew = () => {
     useEffect(() => {
         if(url === 'client' || (isFederationAlias(url) && currentPageNav) || currentPageUserInfo?.id === 1) {
             if(currentPageUserInfo?.club_alias === 'rkf' || currentPageUserInfo?.club_alias === 'rkf-online') {
-                const newNavWithoutDocLinks = currentPageNav.filter(item =>(item.id !== 7 && item.id !== 8));
-                setCurrentPageNav(newNavWithoutDocLinks);
+                setCurrentPageNav(currentPageNav);
             } else {
                 //На странице документов личного кабинета федерации, цеплялись ссылки от пдф документов основного меню, поэтому ставим условие
                 const newNavWithDocLinks = (linkAlias === 'documents') ?
