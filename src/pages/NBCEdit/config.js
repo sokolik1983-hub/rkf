@@ -132,10 +132,8 @@ export const editForm = {
         })),
         social_networks: array().of(object().shape({
             site: string()
-                .url('Ссылка должна начинаться с "http://" либо "https://"')
-                .required(emptyFieldMsg),
+                .url('Ссылка должна начинаться с "http://" либо "https://"'),
             description: string()
-                .required(emptyFieldMsg)
         })),
     })
 };
