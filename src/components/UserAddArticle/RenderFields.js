@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import getYouTubeID from "get-youtube-id";
 import { connect } from "formik";
-
 import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
-
+import { metadata } from "youtube-metadata-from-url";
 import { FormControls, FormField, FormGroup, SubmitButton } from "../Form";
 import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
@@ -19,7 +18,6 @@ import Modal from "../Modal";
 import useIsMobile from "../../utils/useIsMobile";
 import Avatar from "../Layouts/Avatar";
 import DndPublicationImage from "../Gallery/components/PublicationImageUpload/DndPublicationImage";
-import { metadata } from "youtube-metadata-from-url";
 
 const RenderFields = ({ fields,
                           logo,
