@@ -11,6 +11,7 @@ import { getHeaders, Request } from "../../../utils/request";
 import DocumentItemReadOnly from "../../UploadedDocuments/components/DocumentItemReadOnly";
 
 import "./index.scss";
+import Alert from "../../Alert";
 
 const AttachFile = ({ documents, categories, setDocuments, setCategories, closeModal, isFederation }) => {
     const [formProps, setFormProps] = useState(null);
@@ -23,6 +24,7 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
     const [loaded, setLoaded] = useState(false);
     const [attachedDocuments, setAttachedDocuments] = useState([]);
     const [uploadedDocuments, setUploadedDocuments] = useState([]);
+    const [alert, setAlert] = useState(false);
 
     useEffect(() => {
         !categories && getCategories();
@@ -116,8 +118,11 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
 
     const onAdd = (event) => {
         const { newState } = event;
+        console.log('newState', newState);
         if ((attachedDocuments.length + newState.length) <= 3) {
             formProps.onChange('documents', { value: newState })
+        } else {
+            setAlert(true);
         }
     }
 
@@ -274,6 +279,18 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
                     </Notification>}
                 </Fade>
             </NotificationGroup>
+            {alert &&
+                <Alert
+                    text="11111111"
+                    okButton={true}
+                    autoclose={1.5}
+                    onOk={() => {
+                        setAlert(false);
+                        closeModal();
+                        }
+                    }
+                />
+            }
         </div>
     )
 };
