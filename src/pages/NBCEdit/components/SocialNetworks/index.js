@@ -17,11 +17,11 @@ const SocialNetworks = ({ social_networks }) => {
                             <FormField
                                 label="Социальная сеть"
                                 placeholder="Введите ссылку"
-                                name={`social.site`}
+                                name={`social_networks[${index}].site`}
                             />
                             <FormField
                                 placeholder="Введите название"
-                                name={`social.description`}
+                                name={`social_networks[${index}].description`}
                             />
                             <Button
                                 className="btn SocialNetworks__button-delete"
