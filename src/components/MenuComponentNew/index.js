@@ -83,6 +83,9 @@ const MenuComponentNew = () => {
             (userType === 4) && setCurrentPageNav(kennelNavDocs(userAlias));
             (userType === 7) && setCurrentPageNav(NBCNavDocs(userAlias));
         } else {
+            if(url === '') { //если находимся на главной странице, чекаем залогиненого юзера
+                url = checkUserType(userType);
+            }
             setCurrentPageNav(isUserProfilePage ?
                 getMenu(url, linkAlias)
                 :
