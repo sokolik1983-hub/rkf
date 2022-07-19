@@ -193,8 +193,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
                                     onSubscriptionUpdate,
                                     notifySuccess,
                                     notifyError,
-                                    judgeInfo,
-                                    match
+                                    judgeInfo
                                 })
                             }
                         </div>
