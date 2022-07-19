@@ -4,6 +4,9 @@ import Avatar from "../../Layouts/Avatar";
 
 
 const HeaderMobileMenu = ({currentPageUserInfo, userType}) => {
+
+    console.log('currentPageUserInfo', currentPageUserInfo);
+
     const getLinkForName = () => {
         switch(currentPageUserInfo?.user_type || userType) {
             case 7:
