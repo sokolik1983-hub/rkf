@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import getYouTubeID from "get-youtube-id";
 import { metadata } from "youtube-metadata-from-url";
