@@ -871,8 +871,11 @@ const MONTHS = [
 ];
 
 const DEFAULT_IMG = {
+    uploadAvatar: '/static/icons/default/club-avatar-new.png',
     clubAvatar: '/static/icons/default/club-avatar-new.png',
     userAvatar: '/static/icons/default/default_avatar.svg',
+    ownerAvatar: '/static/images/noimg/icon-no-image.svg',
+    bannerAvatar: '/static/images/noimg/no-banner.png',
     exhibitionPicture: '/static/images/exhibitions/default.png',
     authPicture: '/static/images/registration/banner.png',
     noImage: '/static/images/noimg/icon-no-image.svg',

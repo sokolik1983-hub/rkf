@@ -185,13 +185,13 @@ const Table = ({
                         onDataStateChange={handleGridDataChange}
                         style={{ height: "700px", width: "auto", margin: '0 auto' }}>
 
-                        <GridColumn field="options" title="Опции" width={fullScreen ? '62px' : '62px'}
+                        <GridColumn field="options" title="Опции" width={'62px'}
                                     cell={props => OptionsCell(props, userType)} />
-                        <GridColumn field="date_create" title="Дата получения запроса" width={fullScreen ? '160' : '160px'}
+                        <GridColumn field="date_create" title="Дата получения запроса" width={'160px'}
                                     columnMenu={ColumnMenu} />
                         <GridColumn field="exhibition_name" title="Название выставки" width={fullScreen ? '250' : '196px'}
                                     minWidth={'196px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="start_date" title="Дата начала выставки" width={fullScreen ? '150' : '150px'}
+                        <GridColumn field="start_date" title="Дата начала выставки" width={'150px'}
                                     columnMenu={ColumnMenu} />
                         <GridColumn field="end_date" title="Дата окончания выставки" width={fullScreen ? '150' : '168px'}
                                     columnMenu={ColumnMenu} />
@@ -209,7 +209,7 @@ const Table = ({
                         { userType !== 'nbc' &&
                         <GridColumn field="judge_status_name" title="Статус приглашения судьи"
                                     width={ fullScreen ? '170' : '172px' } columnMenu={ ColumnMenu }/> }
-                        <GridColumn field="invite_status_name" title="Статус" width={fullScreen ? '120' : '120px'}
+                        <GridColumn field="invite_status_name" title="Статус" width={'120px'}
                                     columnMenu={ColumnMenu} />
                     </Grid>}
 

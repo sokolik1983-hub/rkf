@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "components/Button";
+import { Link } from "react-router-dom";
 import { apiPedigreeDocumentEndpoint, apiLitterDocumentEndpoint } from "../../config.js";
 
 const DocLink = ({ docId, label, showLabel, distinction }) => {
@@ -16,11 +16,13 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
             .then(url => setUrl(url));
     },[]);
 
+    useEffect()
+
     return (
         <>
             {!!docId && <div className="FormInput">
                 <label>{showLabel ? label : "\u00a0"}</label>
-                <a className="form-file__link" href={url} target="_blank">Посмотреть</a>
+                <Link className="form-file__link" to={url}>Посмотреть</Link>
             </div>}
         </>
     )
