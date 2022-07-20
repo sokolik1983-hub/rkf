@@ -80,14 +80,13 @@ const RenderFields = ({ fields,
     const addVideoLink = link => {
         const id = getYouTubeID(link);
         metadata(`https://youtu.be/${id}`)
-            .then(function(json) {
+            .then((json) => {
+                formik.setFieldValue('video_id', id);
+                formik.setFieldValue('video_link', link);
                 formik.setFieldValue('video_name', json.title);
-            }, function(err) {
-                console.log(err);
-            });
-        formik.setFieldValue('video_id', id);
-        formik.setFieldValue('video_link', link);
-        setVideoLink(link);
+                formik.values.content === '' && setContent(json.title);
+                setVideoLink(link);})
+            .catch((error) => console.log(error));
     };
 
     const removeVideoLink = () => {
@@ -463,7 +462,7 @@ const RenderFields = ({ fields,
                         </ul>
                     </div>
                 }
-                {focus && <div className="article-create-form__button-wrap">
+                {(focus || content) && <div className="article-create-form__button-wrap">
                     {!content && (!!loadPictures?.length || !!videoLink) &&
                         <span className="article-create-form__text-error">
                             Заполните текст для публикации
