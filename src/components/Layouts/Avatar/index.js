@@ -10,9 +10,11 @@ import ClientAvatar from "../../ClientAvatar";
 import EditAvatar from "../../EditAvatar";
 import ModalDeleteAvatar from "../UserInfo/ModalDeleteAvatar";
 import {isFederationAlias} from "../../../utils";
+import {connectAuthUserInfo} from "../../../pages/Login/connectors";
 
 
 const Avatar = ({
+    user_info,
     alias,
     canEdit,
     card,
@@ -22,15 +24,18 @@ const Avatar = ({
     name,
     open,
     subclass,
-    userType,
+    userType
 }) => {
-const [hover, setHover] = useState(false);
-const [modalType, setModalType] = useState('');
+    const [hover, setHover] = useState(false);
+    const [modalType, setModalType] = useState('');
+
+    const {logo_link} = user_info;
+    const logoLink = canEdit ? logo_link : logo;
 
     switch (data) {
         case 'canEdit':
             return(
-                <div className={logo ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
+                <div className={logoLink ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
                      onMouseEnter={() => setHover(true)}
                      onMouseLeave={() => setHover(false)}
                      onTouchStart={() => {
@@ -60,7 +65,7 @@ const [modalType, setModalType] = useState('');
                                     </button>
                                 </LightTooltip>
                             </CSSTransition>
-                            {logo &&
+                            {logoLink &&
                                 <CSSTransition
                                     classNames="user-info__transition"
                                     in={hover}
@@ -84,8 +89,8 @@ const [modalType, setModalType] = useState('');
                             }
                         </>
                     }
-                    {logo ?
-                        <img className="user-info__logo" src={logo} alt="logo"/>
+                    {logoLink ?
+                        <img className="user-info__logo" src={logoLink} alt="logo"/>
                         :
                         (userType === 3) ?
                             <img className="user-info__logo" src={DEFAULT_IMG.clubAvatar} alt="logo"/>
@@ -114,32 +119,27 @@ const [modalType, setModalType] = useState('');
             );
 
         case 'logo':
-            return(
-                <>
-                    {logo ?
-                        <div className={`widget-login__${subclass}${open ? ' _active' : ''}`}
-                             style={{backgroundImage: `url(${logo})`}}
+            return logoLink ?
+                <div className={`widget-login__${subclass}${open ? ' _active' : ''}`}
+                     style={{backgroundImage: `url(${logoLink})`}}
+                />
+                :
+                (userType === 1 || userType === 4 || userType === 7) ?
+                    <div className={`widget-login__${subclass}${open ? ' _active' : ''}`}>
+                        <InitialsAvatar
+                            card={card}
+                            name={userType === 1 ? getInitials(name) : name}
                         />
-                        :
-                        (userType === 1 || userType === 4 || userType === 7) ?
-                            <div className={`widget-login__${subclass}${open ? ' _active' : ''}`}>
-                                <InitialsAvatar
-                                    card={card}
-                                    name={userType === 1 ? getInitials(name) : name}
-                                />
-                            </div>
-                            :
-                            <div className={`widget-login__${subclass} ${open && ' _active'}`}
-                                 style={{backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`}}
-                            />
-                    }
-                </>
-            );
+                    </div>
+                    :
+                    <div className={`widget-login__${subclass} ${open && ' _active'}`}
+                         style={{backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`}}
+                    />
 
         case 'nkp':
-            return logo ?
+            return logoLink ?
                 <span className="card-organization__logo"
-                      style={{backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`}}
+                      style={{backgroundImage: `url(${logoLink})`}}
                 />
                 :
                 <InitialsAvatar
@@ -149,8 +149,8 @@ const [modalType, setModalType] = useState('');
                 />
 
         case 'organization':
-            return logo ?
-                <img src={logo} alt="logo"/>
+            return logoLink ?
+                <img src={logoLink} alt="logo"/>
                 :
                 (userType === 3 || userType === 5) ?
                     <img src={DEFAULT_IMG.clubAvatar} alt="logo"/>
@@ -162,8 +162,8 @@ const [modalType, setModalType] = useState('');
                     />
 
         case 'header':
-            return logo ?
-                <img src={logo} className={subclass} alt="logo" />
+            return logoLink ?
+                <img src={logoLink} className={subclass} alt="logo" />
                 :
                 <InitialsAvatar
                     card={card}
@@ -171,10 +171,10 @@ const [modalType, setModalType] = useState('');
                 />
 
         case 'article':
-            return logo && logo !== "/static/icons/default/default_avatar.svg" ?
+            return logoLink && logoLink !== "/static/icons/default/default_avatar.svg" ?
                 <ClientAvatar
                     size={40}
-                    avatar={logo}
+                    avatar={logoLink}
                 />
                 :
                 (userType === 4 || userType === 1 || userType === 7) ?
@@ -189,8 +189,8 @@ const [modalType, setModalType] = useState('');
                     />
 
         case 'mobile-user-menu':
-            return logo ?
-                <img src={logo} alt="menu-logo" />
+            return logoLink ?
+                <img src={logoLink} alt="menu-logo" />
                 :
                 userType === 3 ?
                     <img src={'/static/icons/default/club-avatar.svg'} alt="menu-logo" />
@@ -201,9 +201,9 @@ const [modalType, setModalType] = useState('');
                     />
 
         case 'cardnewsnew':
-            return logo ?
+            return logoLink ?
                 <div className="card-news-new__left-logo"
-                     style={{background: `url(${logo}) center center/cover no-repeat`}}
+                     style={{background: `url(${logoLink}) center center/cover no-repeat`}}
                 />
                 :
                 (userType === 1 || userType === 4 || userType === 7) ?
@@ -219,9 +219,9 @@ const [modalType, setModalType] = useState('');
                     />
 
         case 'nursery-docs':
-            return logo || userType === 3 || !userType ?
+            return logoLink || userType === 3 || !userType ?
                 <div className="top-component__logo"
-                     style={{backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`}}
+                     style={{backgroundImage: `url(${logoLink || DEFAULT_IMG.clubAvatar})`}}
                 />
                 :
                 <InitialsAvatar
@@ -230,9 +230,9 @@ const [modalType, setModalType] = useState('');
                 />
 
         case 'specialist-card':
-            return logo ?
+            return logoLink ?
                 <span className="card-specialists__photo"
-                      style={{backgroundImage: `url(${logo})`}}
+                      style={{backgroundImage: `url(${logoLink})`}}
                 />
                 :
                 <InitialsAvatar
@@ -252,4 +252,4 @@ const [modalType, setModalType] = useState('');
     }
 };
 
-export default memo(Avatar);
+export default memo(connectAuthUserInfo(Avatar));

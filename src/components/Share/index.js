@@ -1,13 +1,9 @@
 import React, {memo} from "react";
 import YandexShare from "react-yandex-share";
-import {DISABLE_SHARE_IN_DEV} from "../../appConfig";
 import "./index.scss";
 
 
 const Share = ({url, className}) => {
-    //Убрать, если нужно при разработке
-    // if(DISABLE_SHARE_IN_DEV) return null;
-
     return (
         <div className={`Share ${url ? 'has-url' : ''} ${className}`}>
             <YandexShare

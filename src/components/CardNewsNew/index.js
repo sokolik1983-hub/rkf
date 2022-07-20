@@ -2,7 +2,6 @@ import React, {memo, useEffect, useRef, useState} from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import {Link} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
-import ls from "local-storage";
 import Card from "../Card";
 import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import {formatText} from "../../utils";
@@ -16,8 +15,9 @@ import {linkForUserType} from "../../utils/linkForUserType";
 import {nameForUserType} from "../../utils/nameForUserType";
 import CardGallery from "../CardGallery";
 import {Gallery} from "../Gallery";
-
+import {connectAuthUserInfo} from "../../pages/Login/connectors";
 import "./index.scss";
+
 
 const CardNewsNew = ({
     id,
@@ -58,13 +58,14 @@ const CardNewsNew = ({
     user_type,
     isFederation,
     is_halfbreed,
-    is_all_cities
+    is_all_cities,
+    user_info
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     const [isOpenControls, setIsOpenControls] = useState(false);
     const [showPublication, setShowPublication] = useState(false);
-    const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
+    const {alias: userAlias = ''} = user_info;
     const isMobile = useIsMobile(1080);
     const ref = useRef(null);
 
@@ -75,13 +76,13 @@ const CardNewsNew = ({
     }, []);
 
     const squareStyle = () =>{
-    return {
-        height: '100%',
-        width: '100%',
-        objectFit: 'cover',
-        cursor: 'pointer'
-    }
-};
+        return {
+            height: '100%',
+            width: '100%',
+            objectFit: 'cover',
+            cursor: 'pointer'
+        }
+    };
 
     const imagesArray = pictures?.filter(picture => !!picture && !!Object.keys(picture).length).map(picture => ({
         src: picture.picture_link,
@@ -101,6 +102,7 @@ const CardNewsNew = ({
                                     card="cardnewsnew"
                                     data="cardnewsnew"
                                     logo={logo_link}
+                                    canEdit={canEdit}
                                     name={user_type === 1 ? `${first_name} ${last_name}` : name}
                                     userType={user_type}
                                 />
@@ -355,4 +357,4 @@ const CardNewsNew = ({
     )
 };
 
-export default memo(CardNewsNew);
+export default memo(connectAuthUserInfo(CardNewsNew));

@@ -146,7 +146,7 @@ const authReducer = createReducer(authInitialState, {
         };
     },
     [actiontypes.UPDATE_USER_INFO](state, action) {
-        const user_info = action.data;
+        const user_info = {...action.data};
 
         saveUserInfo(user_info);
 
