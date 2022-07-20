@@ -162,6 +162,12 @@
       background-image: url("/static/icons/ico-contact-phone2.svg");
     }
 
+    &-socials {
+      & a {
+        display: inline-block;
+      }
+    }
+
     &-socials:before {
       background-image: url("/static/icons/social/network.svg");
     }

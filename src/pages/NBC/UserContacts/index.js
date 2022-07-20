@@ -92,25 +92,14 @@ const UserContacts = ({
                 {social_networks && !!social_networks.length &&
                     <div className="user-contacts__info-socials">
                         <span>Соцсети:&nbsp;</span>
-                        {social_networks.map(item => (
-                                item.description ?
-                                    <Fragment key={item.id}>
-                                        <a href={item.site}
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                        >
-                                            {item.description}
-                                        </a>&nbsp;&nbsp;
-                                    </Fragment> :
-                                    <Fragment key={item.id}>
-                                        <a href={item.site}
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                        >
-                                            {item.site}
-                                        </a>
-                                    </Fragment>
-                        ))}
+                            {social_networks.map(item => (
+                                <a href={item.site}
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                >
+                                    {item.description ? item.description : item.site}
+                                </a>
+                            ))}
                     </div>
                 }
             </Collapse>

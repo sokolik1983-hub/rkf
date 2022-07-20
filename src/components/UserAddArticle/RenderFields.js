@@ -471,7 +471,7 @@ const RenderFields = ({ fields,
                     }
                     <SubmitButton
                         type="submit"
-                        className={`article-create-form__button ${(!isCategoryId && content) || formik.isValid ? 'active' : ''}`}
+                        className={`article-create-form__button ${(!isCategoryId && content) || formik.isValid ? ' _active' : ''}`}
                     >
                         Опубликовать
                     </SubmitButton>

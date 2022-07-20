@@ -16,15 +16,11 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
             .then(url => setUrl(url));
     },[]);
 
-    const openInNewTab = () => {
-        window.open(url, '_blank', 'noopener,noreferrer');
-    };
-
     return (
         <>
             {!!docId && <div className="FormInput">
                 <label>{showLabel ? label : "\u00a0"}</label>
-                <Button onClick={e => openInNewTab()}>Посмотреть</Button>
+                <a className="form-file__link" href={url} target="_blank">Посмотреть</a>
             </div>}
         </>
     )
