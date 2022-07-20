@@ -114,26 +114,26 @@ const NBCInvite = ({ alias }) => {
                 <div className="club-info__left">
                     <div className="club-info__inner">
                         <p className="club-info__title">Клуб</p>
-                        <Link to={`/club/${data?.club_alias}`}>{data?.club_name}</Link>
+                        <Link to={`/club/${data.club_alias}`}>{data.club_name}</Link>
                     </div>
                     <div className="club-info__inner">
                         <p className="club-info__title">Город&nbsp;проведения&nbsp;выставки</p>
-                        <p>{data?.exhibition_city}</p>
+                        <p>{data.exhibition_city}</p>
                     </div>
                 </div>
                 <div className="club-info__right">
                     <div className="club-info__inner">
                         <p className="club-info__title">Мероприятие</p>
-                        <Link to={`/exhibitions/${id}`}>{data?.exhibition_name}</Link>
+                        <Link to={`/exhibitions/${id}`}>{data.exhibition_name}</Link>
                     </div>
                     <div className="club-info__inner date">
                         <div className="club-info__inner">
                             <p className="club-info__title">Дата начала</p>
-                            <p>{formatDate(data?.exhibition_date_start)}</p>
+                            <p>{formatDate(data.exhibition_date_start)}</p>
                         </div>
                         <div className="club-info__inner">
                             <p className="club-info__title">Дата окончания</p>
-                            <p>{formatDate(data?.exhibition_date_end)}</p>
+                            <p>{formatDate(data.exhibition_date_end)}</p>
                         </div>
                     </div>
                 </div>

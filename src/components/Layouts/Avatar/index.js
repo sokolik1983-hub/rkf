@@ -1,18 +1,20 @@
-import React, { useState } from "react";
-import { CSSTransition } from "react-transition-group";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { pencil, trash } from "@progress/kendo-svg-icons";
+import React, {memo, useState} from "react";
+import {CSSTransition} from "react-transition-group";
+import {SvgIcon} from "@progress/kendo-react-common";
+import {pencil, trash} from "@progress/kendo-svg-icons";
 import LightTooltip from "../../LightTooltip";
 import InitialsAvatar from "../../InitialsAvatar";
-import { getInitials } from "../../../utils/getInitials";
-import { DEFAULT_IMG } from "../../../appConfig";
+import {getInitials} from "../../../utils/getInitials";
+import {DEFAULT_IMG} from "../../../appConfig";
 import ClientAvatar from "../../ClientAvatar";
 import EditAvatar from "../../EditAvatar";
 import ModalDeleteAvatar from "../UserInfo/ModalDeleteAvatar";
-import { isFederationAlias } from "../../../utils";
+import {isFederationAlias} from "../../../utils";
+import {connectAuthUserInfo} from "../../../pages/Login/connectors";
 
 
 const Avatar = ({
+    user_info,
     alias,
     canEdit,
     card,
@@ -22,17 +24,18 @@ const Avatar = ({
     name,
     open,
     subclass,
-    updateInfo,
-    userType,
+    userType
 }) => {
+    const [hover, setHover] = useState(false);
+    const [modalType, setModalType] = useState('');
 
-const [hover, setHover] = useState(false);
-const [modalType, setModalType] = useState('');
+    const {logo_link} = user_info || {};
+    const logoLink = canEdit ? logo_link : logo;
 
     switch (data) {
         case 'canEdit':
             return(
-                <div className={logo ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
+                <div className={logoLink ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
                      onMouseEnter={() => setHover(true)}
                      onMouseLeave={() => setHover(false)}
                      onTouchStart={() => {
@@ -62,7 +65,7 @@ const [modalType, setModalType] = useState('');
                                     </button>
                                 </LightTooltip>
                             </CSSTransition>
-                            {logo &&
+                            {logoLink &&
                                 <CSSTransition
                                     classNames="user-info__transition"
                                     in={hover}
@@ -86,8 +89,8 @@ const [modalType, setModalType] = useState('');
                             }
                         </>
                     }
-                    {logo ?
-                        <img className="user-info__logo" src={logo} alt="logo"/>
+                    {logoLink ?
+                        <img className="user-info__logo" src={logoLink} alt="logo"/>
                         :
                         (userType === 3) ?
                             <img className="user-info__logo" src={DEFAULT_IMG.clubAvatar} alt="logo"/>
@@ -103,15 +106,12 @@ const [modalType, setModalType] = useState('');
                     {modalType === 'edit' &&
                         <EditAvatar
                             setModalType={setModalType}
-                            avatar={logo}
                             pageBanner={false}
-                            name={name}
                         />
                     }
                     {modalType === 'delete' &&
                         <ModalDeleteAvatar
                             closeModal={() => setModalType('')}
-                            updateInfo={updateInfo}
                             pageBanner={false}
                         />
                     }
@@ -119,177 +119,127 @@ const [modalType, setModalType] = useState('');
             );
 
         case 'logo':
-            return(
-                <>
-                    {logo ?
-                        <div className={`widget-login__${subclass} ${open && ' _active'}`}
-                             style={{backgroundImage: `url(${logo})`}}
+            return logoLink ?
+                <div className={`widget-login__${subclass}${open ? ' _active' : ''}`}
+                     style={{backgroundImage: `url(${logoLink})`}}
+                />
+                :
+                (userType === 1 || userType === 4 || userType === 7) ?
+                    <div className={`widget-login__${subclass}${open ? ' _active' : ''}`}>
+                        <InitialsAvatar
+                            card={card}
+                            name={userType === 1 ? getInitials(name) : name}
                         />
-                        :
-                        (userType === 1 || userType === 4 || userType === 7) ?
-                            <div className={`widget-login__${subclass} ${open && ' _active'}`}>
-                                {
-                                    alert('1111111111111111111111')
-                                }
-                                <InitialsAvatar
-                                    card={card}
-                                    name={userType === 1 ? getInitials(name) : name}
-                                />
-                            </div>
-                            :
-                            <div className={`widget-login__${subclass} ${open && ' _active'}`}
-                                 style={{backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`}}
-                            />
-                    }
-                </>
-            );
+                    </div>
+                    :
+                    <div className={`widget-login__${subclass} ${open && ' _active'}`}
+                         style={{backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`}}
+                    />
 
         case 'nkp':
-            return(
-                <>
-                    {logo ?
-                        <span className="card-organization__logo"
-                              style={{ backgroundImage: `url(${ logo || DEFAULT_IMG.clubAvatar })`}}
-                        />
-                        :
-                        <InitialsAvatar
-                            id={id}
-                            card={card}
-                            name={name}
-                        />
-                    }
-                </>
-            );
+            return logoLink ?
+                <span className="card-organization__logo"
+                      style={{backgroundImage: `url(${logoLink})`}}
+                />
+                :
+                <InitialsAvatar
+                    id={id}
+                    card={card}
+                    name={name}
+                />
 
         case 'organization':
-            return(
-                <>
-                    {(userType === 3 || userType === 5) ?
-                        <img src={logo || DEFAULT_IMG.clubAvatar} alt="logo"/>
-                        :
-                        logo ?
-                            <img src={logo} alt="logo"/>
-                            :
-                            <InitialsAvatar
-                                id={id}
-                                card={card}
-                                name={name}
-                            />
-                    }
-                </>
-            );
+            return logoLink ?
+                <img src={logoLink} alt="logo"/>
+                :
+                (userType === 3 || userType === 5) ?
+                    <img src={DEFAULT_IMG.clubAvatar} alt="logo"/>
+                    :
+                    <InitialsAvatar
+                        id={id}
+                        card={card}
+                        name={name}
+                    />
 
         case 'header':
-            return(
-                <>
-                    {logo ?
-                        <img src={logo} className={subclass} alt="logo" />
-                        :
-                        <InitialsAvatar
-                            card={card}
-                            name={name}
-                        />
-                    }
-                </>
-            );
+            return logoLink ?
+                <img src={logoLink} className={subclass} alt="logo" />
+                :
+                <InitialsAvatar
+                    card={card}
+                    name={name}
+                />
 
         case 'article':
-            return(
-                <>
-                    {logo && logo !== "/static/icons/default/default_avatar.svg" ?
-                        <ClientAvatar
-                            size={40}
-                            avatar={logo}
-                        />
-                        :
-                        (userType === 4 || userType === 1 || userType === 7) ?
-                            <InitialsAvatar
-                                card={card}
-                                name={name}
-                            />
-                            :
-                            <ClientAvatar
-                                size={40}
-                                avatar={"/static/icons/default/club-avatar-new.png"}
-                            />
-                    }
-                </>
-            );
+            return logoLink && logoLink !== "/static/icons/default/default_avatar.svg" ?
+                <ClientAvatar
+                    size={40}
+                    avatar={logoLink}
+                />
+                :
+                (userType === 4 || userType === 1 || userType === 7) ?
+                    <InitialsAvatar
+                        card={card}
+                        name={name}
+                    />
+                    :
+                    <ClientAvatar
+                        size={40}
+                        avatar={"/static/icons/default/club-avatar-new.png"}
+                    />
 
         case 'mobile-user-menu':
-            return(
-                <>
-                    {logo ?
-                        <img src={logo} alt="menu-logo" />
-                        :
-                        userType === 3 ?
-                            <img src={'/static/icons/default/club-avatar.svg'} alt="menu-logo" />
-                            :
-                            <InitialsAvatar
-                                card={card}
-                                name={name}
-                            />
-                    }
-                </>
-            );
+            return logoLink ?
+                <img src={logoLink} alt="menu-logo" />
+                :
+                userType === 3 ?
+                    <img src={'/static/icons/default/club-avatar.svg'} alt="menu-logo" />
+                    :
+                    <InitialsAvatar
+                        card={card}
+                        name={name}
+                    />
 
         case 'cardnewsnew':
-            return(
-                <>
-                    {logo ?
-                        <div className="card-news-new__left-logo"
-                             style={{background: `url(${logo}) center center/cover no-repeat`}}
+            return logoLink ?
+                <div className="card-news-new__left-logo"
+                     style={{background: `url(${logoLink}) center center/cover no-repeat`}}
+                />
+                :
+                (userType === 1 || userType === 4 || userType === 7) ?
+                    <div className="card-news-new__left-logo">
+                        <InitialsAvatar
+                            card={card}
+                            name={name}
                         />
-                        :
-                        (userType === 1 || userType === 4 || userType === 7) ?
-                            <div className="card-news-new__left-logo">
-                                <InitialsAvatar
-                                    card={card}
-                                    name={name}
-                                />
-                            </div>
-                            :
-                            <div className="card-news-new__left-logo"
-                                 style={{background: `url(${DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`}}
-                            />
-                    }
-                </>
-            );
+                    </div>
+                    :
+                    <div className="card-news-new__left-logo"
+                         style={{background: `url(${DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`}}
+                    />
 
         case 'nursery-docs':
-            return(
-                <>
-                    {logo || userType === 3 || !userType ?
-                        <div className="top-component__logo"
-                             style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }}
-                        />
-                        :
-                        <InitialsAvatar
-                            card={card}
-                            name={name}
-                        />
-                    }
-                </>
-            );
+            return logoLink || userType === 3 || !userType ?
+                <div className="top-component__logo"
+                     style={{backgroundImage: `url(${logoLink || DEFAULT_IMG.clubAvatar})`}}
+                />
+                :
+                <InitialsAvatar
+                    card={card}
+                    name={name}
+                />
 
         case 'specialist-card':
-            return(
-                <>
-                    {logo
-                        ?
-                        <span className="card-specialists__photo"
-                              to={logo}
-                              style={{ backgroundImage: `url(${logo})` }}
-                        />
-                        :
-                        <InitialsAvatar
-                            id={id}
-                            card={card}
-                            name={name}
-                        />
-                    }
-                </>
-            );
+            return logoLink ?
+                <span className="card-specialists__photo"
+                      style={{backgroundImage: `url(${logoLink})`}}
+                />
+                :
+                <InitialsAvatar
+                    id={id}
+                    card={card}
+                    name={name}
+                />
 
         default:
             return(
@@ -302,4 +252,4 @@ const [modalType, setModalType] = useState('');
     }
 };
 
-export default Avatar;
+export default memo(connectAuthUserInfo(Avatar));

@@ -229,6 +229,9 @@
           min-width: 80px;
 
           &-wrap {
+            position: relative;
+            bottom: 50%;
+            transform: translateY(100%);
             padding-top: 0;
             padding-bottom: 0;
           }

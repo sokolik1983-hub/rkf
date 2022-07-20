@@ -49,7 +49,6 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [allSelected, setAllSelected] = useState(false);
     const [editInfo, setEditInfo] = useState(null);
-    const [edit, setEdit] = useState(false);
     const isOpenFilters = useSelector(state => state.layout.isOpenFilters)
 
     const { alias } = useParams();

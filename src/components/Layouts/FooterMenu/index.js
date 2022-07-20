@@ -9,8 +9,8 @@ import {connectAuthVisible} from "../../../pages/Authorization/connectors";
 import {connectShowFilters} from "../connectors";
 import {blockContent} from "../../../utils/blockContent";
 import {checkAliasUrl} from "../../../utils/checkAliasUrl";
-
 import "./footerMenu.scss";
+
 
 const FooterMenu = ({isAuthenticated, setShowFilters}) => {
     const [open, setOpen] = useState(false);
