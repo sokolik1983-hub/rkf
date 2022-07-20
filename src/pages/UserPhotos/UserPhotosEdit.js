@@ -37,7 +37,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
     const [selectedImages, setSelectedImages] = useState([]);
     const [allSelected, setAllSelected] = useState(false);
     const [startElement, setStartElement] = useState(1);
-    const alias = match.params.id;
+    const alias = match.params.alias;
     const isMobile = useIsMobile(1080);
     const params = useParams();
 

@@ -42,7 +42,7 @@ const CustomAvatarEditor = ({user_info, updateUserInfo, setModalType, onSubmitSu
         }, data => {
             if(data) {
                 if(!owner) {
-                    let userInfo = user_info;
+                    let userInfo = {...user_info};
 
                     if(pageBanner) {
                         userInfo.headliner_link = data;

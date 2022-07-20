@@ -35,7 +35,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
     const [images, setImages] = useState([]);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [startElement, setStartElement] = useState(1);
-    const alias = match.params.id;
+    const alias = match.params.alias;
     const isMobile = useIsMobile(1080);
     const params = useParams();
 

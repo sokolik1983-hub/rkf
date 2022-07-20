@@ -1,5 +1,5 @@
 import React, {memo, useState, useEffect, useRef} from "react";
-import {useLocation, useRouteMatch} from "react-router-dom";
+import {useLocation, useParams, useRouteMatch} from "react-router-dom";
 import {useSelector} from "react-redux";
 import PopupModal from "../PopupModal";
 import Card from "../Card";
@@ -39,6 +39,12 @@ const MenuComponentNew = () => {
 
     const isMobile = useIsMobile(1080);
     const location = useLocation();
+    // const params = useParams();
+    // const match = useRouteMatch();
+    //
+    // console.log('location', location);
+    // console.log('params', params);
+    // console.log('match', match);
     const url = location.pathname.split('/')[1];
     const linkAlias = location.pathname.split('/')[2];
     const addLink = location.pathname.split('/')[3];
@@ -55,7 +61,7 @@ const MenuComponentNew = () => {
     const isExhibitionPage = useRouteMatch();
 
     const deleteNotification = currentPageNav => {
-        return currentPageNav?.filter(item => (item.title !== 'Уведомления') && item); //что за бред?
+        return currentPageNav?.filter(item => item.title !== 'Уведомления');
     };
 
     const getMenu = (url, linkAlias) => {
@@ -94,15 +100,11 @@ const MenuComponentNew = () => {
         }
         Request({ //подтягиваем инфу о юзере, на странице которого находимся (нужно для моб. меню)
             url:
-                url === "nbc" ?
-                    endpointGetNBCInfo + linkAlias :
-                        url === "club" ?
-                        endpointGetClubInfo + linkAlias :
-                            url === "kennel" ?
-                                endpointGetNurseryInfo + linkAlias :
-                                url === "user" ?
-                                    endpointGetUserInfo + linkAlias :
-                                    endpointGetClubInfo + linkAlias
+                url === "nbc" ? endpointGetNBCInfo + linkAlias :
+                url === "club" ? endpointGetClubInfo + linkAlias :
+                url === "kennel" ? endpointGetNurseryInfo + linkAlias :
+                url === "user" ? endpointGetUserInfo + linkAlias :
+                endpointGetClubInfo + linkAlias
         }, data => {
             setCurrentPageUserInfo({...data });
         }, error => {
