@@ -65,7 +65,7 @@ const CardNewsNew = ({
     const [collapsed, setCollapsed] = useState(false);
     const [isOpenControls, setIsOpenControls] = useState(false);
     const [showPublication, setShowPublication] = useState(false);
-    const {alias: userAlias = ''} = user_info;
+    const {alias: userAlias = ''} = user_info || {};
     const isMobile = useIsMobile(1080);
     const ref = useRef(null);
 
