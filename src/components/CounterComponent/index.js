@@ -13,7 +13,12 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
 
     const linkForExhibitionsJudges = (judgeInfo) => {
         const judgeLink = judgeInfo?.map(item => `JudgeIds=${item.judge_id}`).join('&');
-        return `/exhibitions?${judgeLink}`;
+        return `/exhibitions?${judgeLink}&DateFrom=2019-01-01&DateTo=${new Date().getFullYear() + 5}-01-01`;
+    };
+
+    const linkForExhibitionsClub = (profileAlias) => {
+        const clubLink = profileAlias.replace('club/', '');
+        return `/exhibitions?Alias=${clubLink}&DateFrom=2019-01-01&DateTo=${new Date().getFullYear() + 5}-01-01`;
     };
 
     return (
@@ -69,14 +74,14 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
                         </div>
                     </div>
                 }
-                {counters.exhibitions_count >= 0 &&
+                {(judgeInfo?.length || profileAlias.search('user') !== 1) && counters.exhibitions_count >= 0 &&
                     <NavLink
                         exact to={judgeInfo ?
                             linkForExhibitionsJudges(judgeInfo) :
                                 breeds ?
                                     linkForExhibitionsNBC(breeds) :
                                          !!profileAlias.match(/club/) ?
-                                             `/exhibitions?Alias=${profileAlias.replace('club/', '')}` :
+                                             linkForExhibitionsClub(profileAlias) :
                                                 `/exhibitions?Alias=${profileAlias}`
                     }
                         title="Мероприятия"
