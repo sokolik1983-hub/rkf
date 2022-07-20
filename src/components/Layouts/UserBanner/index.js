@@ -14,12 +14,14 @@ const UserBanner = ({user_info, link, canEdit}) => {
     const [hover, setHover] = useState(false);
     const [modalType, setModalType] = useState('');
 
-    const {headliner_link} = user_info;
+    const {headliner_link} = user_info || {};
     const bannerLink = canEdit ? headliner_link : link;
+
+    console.log('bannerLink', bannerLink);
 
     return (
         <Card
-            className={`user-banner${bannerLink ? ' _custom_banner' : ''}`}
+            className={`user-banner${bannerLink && bannerLink !== '' ? ' _custom_banner' : ''}`}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             onTouchStart={()=> {
@@ -65,7 +67,7 @@ const UserBanner = ({user_info, link, canEdit}) => {
                     }
                 </>
             }
-            {headliner_link &&
+            {bannerLink &&
                 <div className="user-banner__img" style={{background: `url(${bannerLink}) no-repeat center / cover`}} />
             }
             {modalType === 'edit' &&
