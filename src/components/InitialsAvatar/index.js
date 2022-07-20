@@ -23,14 +23,16 @@ const InitialsAvatar = ({card, id, name}) => {
     };
 
     const getInitialName = () => {
-        let firstName;
-        let lastName;
+        let firstName = '';
+        let lastName = '';
+
+        const user_info = useSelector(state => state.authentication.user_info);
 
         !!name && (name = name.replace(/["-'.)(]/g, '').replace('  ', ' ').trim());
 
-        if (!name) {
-            firstName = useSelector(state => state.authentication.user_info.first_name ? state.authentication.user_info.first_name : state.authentication.user_info.name.split(' ')[0]).replace(/["-']/g, '');
-            lastName = useSelector(state => state.authentication.user_info.last_name ? state.authentication.user_info.last_name : state.authentication.user_info.name.split(' ')[1]);
+        if (!name && user_info) {
+            firstName = user_info.first_name ? user_info.first_name : user_info.name.split(' ')[0].replace(/["']/g, '');
+            lastName = user_info.last_name ? user_info.last_name : user_info.name.split(' ')[1];
         } else if (name && name.split(' ').length > 1) {
             firstName = name.split(' ')[0];
             lastName = name.split(' ')[1];
@@ -38,7 +40,8 @@ const InitialsAvatar = ({card, id, name}) => {
             firstName = name.split('')[0];
             lastName = name.split('')[1];
         }
-        return firstName[0] + lastName[0]
+
+        return (name || user_info) ? firstName[0] + lastName[0] : '';
     };
 
     return (
