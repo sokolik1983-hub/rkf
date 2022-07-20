@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "components/Button";
+import { Link } from "react-router-dom";
 import { apiPedigreeDocumentEndpoint, apiLitterDocumentEndpoint } from "../../config.js";
 
 const DocLink = ({ docId, label, showLabel, distinction }) => {
@@ -16,15 +16,13 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
             .then(url => setUrl(url));
     },[]);
 
-    const openInNewTab = () => {
-        window.open(url, '_blank', 'noopener,noreferrer');
-    };
+    useEffect()
 
     return (
         <>
             {!!docId && <div className="FormInput">
                 <label>{showLabel ? label : "\u00a0"}</label>
-                <Button onClick={e => openInNewTab()}>Посмотреть</Button>
+                <Link className="form-file__link" to={url}>Посмотреть</Link>
             </div>}
         </>
     )
