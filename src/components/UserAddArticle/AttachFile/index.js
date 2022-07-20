@@ -281,7 +281,7 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
             </NotificationGroup>
             {alert &&
                 <Alert
-                    text="11111111"
+                    text="Ошибка! Нельзя загрузить больше 3 файлов."
                     okButton={true}
                     autoclose={1.5}
                     onOk={() => {

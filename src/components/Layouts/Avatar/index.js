@@ -128,6 +128,9 @@ const [modalType, setModalType] = useState('');
                         :
                         (userType === 1 || userType === 4 || userType === 7) ?
                             <div className={`widget-login__${subclass} ${open && ' _active'}`}>
+                                {
+                                    alert('1111111111111111111111')
+                                }
                                 <InitialsAvatar
                                     card={card}
                                     name={userType === 1 ? getInitials(name) : name}
