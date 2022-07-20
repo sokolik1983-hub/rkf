@@ -204,7 +204,7 @@
     &__content {
       padding: 12px 10px 10px 10px;
       display: block;
-      @media (max-width: 768px) {
+      @media (max-width: 560px) {
         width: 100%;
       }
     }
@@ -436,8 +436,13 @@
         display: none;
       }
 
+      &__container {
+        min-height: 40px;
+      }
+
       .user-info__logo-wrap {
         position: absolute;
+        margin-top: 8px;
       }
 
       .UserActionControls {

@@ -21,7 +21,7 @@ const buildUrlParams = filter => {
                     key === 'TypeIds' ||
                     key === 'BreedIds' ||
                     key === 'CityIds' ||
-                    key === 'TypeIds' ||
+                    key === 'JudgeIds' ||
                     key === 'PaymentFormTypeIds' ||
                     key === 'RegionIds') {
                     if (filter[key].length) {
@@ -68,7 +68,7 @@ export const getFiltersFromUrl = () => {
                 key === 'RankIds' ||
                 key === 'TypeIds' ||
                 key === 'BreedIds' ||
-                key === 'TypeIds' ||
+                key === 'JudgeIds' ||
                 key === 'PaymentFormTypeIds' ||
                 key === 'RegionIds')
             {
@@ -101,6 +101,7 @@ export const getEmptyFilters = (alias = null) => ({
     BreedIds: [],
     RegionIds: [],
     TypeIds: [],
+    JudgeIds: [],
     PaymentFormTypeIds: [],
     CategoryId: 0,
     DateFrom: formatDateToString(new Date()),

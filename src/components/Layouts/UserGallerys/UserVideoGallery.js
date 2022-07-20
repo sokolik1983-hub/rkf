@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import getYouTubeID from "get-youtube-id";
-import getYoutubeTitle from "get-youtube-title";
-import Loading from "../../Loading";
+import { metadata } from "youtube-metadata-from-url";
+import { CSSTransition } from "react-transition-group";
 import Card from "../../Card";
 import Alert from "../../Alert";
-import LightTooltip from "../../LightTooltip";
+import Loading from "../../Loading";
 import { VideoModal } from "../../Modal";
+import LightTooltip from "../../LightTooltip";
 import { AddVideoModal } from "../../Gallery";
-import { Request } from "../../../utils/request";
 import { DEFAULT_IMG } from "../../../appConfig";
-import { CSSTransition } from "react-transition-group";
+import { Request } from "../../../utils/request";
 import useIsMobile from "../../../utils/useIsMobile";
 import useStickyState from "../../../utils/useStickyState";
+
 import "./index.scss";
 
 
@@ -59,27 +60,25 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
 
     const addVideo = link => {
         const id = getYouTubeID(link);
-
-        getYoutubeTitle(id, async (err, title) => {
-            if (err) {
+        metadata(`https://youtu.be/${id}`)
+            .then(function(json){
+                Request({
+                    url: '/api/videogallery/youtube_link',
+                    method: 'POST',
+                    data: JSON.stringify({
+                        name: json.title,
+                        video_id: id
+                    })
+                }, () => {
+                getVideo()
+                    .then(() => setAlert({
+                        title: 'Видеозапись добавлена',
+                        autoclose: 1.5,
+                        onOk: () => setAlert(null)}
+                    ));
+                }, error => handleError(error));
+            }, function(err) {
                 handleError(err);
-                return;
-            }
-
-            await Request({
-                url: `/api/videogallery/youtube_link`,
-                method: 'POST',
-                data: JSON.stringify({
-                    name: title,
-                    video_id: id
-                })
-            }, data => {
-                getVideo().then(() => setAlert({
-                    title: `Видеозапись добавлена`,
-                    autoclose: 1.5,
-                    onOk: () => setAlert(null)
-                }));
-            }, error => handleError(error));
         });
     };
 

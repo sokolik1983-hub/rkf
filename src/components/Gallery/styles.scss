@@ -142,11 +142,9 @@
         &:last-child {
             position: absolute;
             right: 0;
-            left: auto;
             > figcaption {
                 position: absolute;
                 top: 3px;
-                right: 50px;
             }
         }
     }

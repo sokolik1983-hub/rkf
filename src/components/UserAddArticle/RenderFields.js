@@ -1,5 +1,6 @@
 import React, {memo, useState, useEffect} from "react";
 import getYouTubeID from "get-youtube-id";
+import { metadata } from "youtube-metadata-from-url";
 import {connect} from "formik";
 import {trash} from "@progress/kendo-svg-icons";
 import {SvgIcon} from "@progress/kendo-react-common";
@@ -54,15 +55,14 @@ const RenderFields = ({
     userType,
     setContent,
     loadPictures,
-    setLoadPictures
+    setLoadPictures,
+    content
 }) => {
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
-
-    const {content} = formik.values;
 
     useEffect(() => {
         Request({ url: '/api/article/article_ad_types' },
@@ -108,6 +108,31 @@ const RenderFields = ({
             loadPictures.splice(index, 1);
             setLoadPictures([...loadPictures]);
         }
+    }
+
+    const addVideoLink = link => {
+        const id = getYouTubeID(link);
+        metadata(`https://youtu.be/${id}`)
+            .then((json) => {
+                formik.setFieldValue('video_id', id);
+                formik.setFieldValue('video_link', link);
+                formik.setFieldValue('video_name', json.title);
+                formik.values.content === '' && setContent(json.title);
+                setVideoLink(link);})
+            .catch((error) => console.log(error));
+    };
+
+    const removeVideoLink = () => {
+        formik.setFieldValue('video_id', '');
+        formik.setFieldValue('video_link', '');
+        formik.setFieldValue('video_name', '');
+        setVideoLink('');
+    };
+
+    const deleteDocument = index => {
+        if (window.confirm('Вы действительно хотите удалить этот файл?')) {
+            setDocuments([...documents].filter((item, i) => i !== index));
+        }
     };
 
     const handleKeyDown = e => {
@@ -124,7 +149,7 @@ const RenderFields = ({
                 text = text.replace(x, '');
             });
 
-        formik.setFieldValue('content', text);
+        setContent(text);
     };
 
     const addRow = () => {
@@ -465,7 +490,7 @@ const RenderFields = ({
                     </ul>
                 </div>
             }
-            {focus &&
+            {(focus || content) &&
                 <div className="article-create-form__button-wrap">
                     {!content && (!!loadPictures?.length || !!videoLink) &&
                         <span className="article-create-form__text-error">
@@ -474,7 +499,7 @@ const RenderFields = ({
                     }
                     <SubmitButton
                         type="submit"
-                        className={`article-create-form__button${formik.isValid ? ' active' : ''}`}
+                        className={`article-create-form__button${(!isCategoryId && content) || formik.isValid ? ' active' : ''}`}
                     >
                         Опубликовать
                     </SubmitButton>

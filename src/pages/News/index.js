@@ -151,7 +151,7 @@ const NewsPage = ({
                                 {!isEdit &&
                                     <button className="back-button" onClick={() => history.goBack()}>Назад</button>
                                 }
-                                {canEdit &&
+                                {canEdit && !news?.is_article_request &&
                                     <div className="news__right" >
                                         <div className="news__head-control">
                                             <button
