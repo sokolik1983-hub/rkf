@@ -9,9 +9,9 @@ import FormUpload from "./components/FormUpload";
 import Loading from "../../../components/Loading";
 import { getHeaders, Request } from "../../../utils/request";
 import DocumentItemReadOnly from "../../UploadedDocuments/components/DocumentItemReadOnly";
+import Alert from "../../Alert";
 
 import "./index.scss";
-import Alert from "../../Alert";
 
 const AttachFile = ({ documents, categories, setDocuments, setCategories, closeModal, isFederation }) => {
     const [formProps, setFormProps] = useState(null);
