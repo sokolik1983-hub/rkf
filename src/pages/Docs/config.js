@@ -22,6 +22,7 @@ const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
 const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
 const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 const apiClubApplicationFormEndpoint = '/api/requests/get_rkf_document/getrkfdocumentrequestdocument';
+const endpointGetFederations = '/api/clubs/Federation';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -39,16 +40,7 @@ const idNumber = (name, o = null) => mixed().when(name, {
 })
 const lat = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей' })
 const latOptional = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей', excludeEmptyString: true })
-const file = () => string()/*() => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf',
-        (async f => (f instanceof File) && [
-            "image/png",
-            "image/jpeg",
-            "application/pdf"
-        ].includes(await (fileType.fromBlob(f).then(x => x.mime).catch(e => e))) || !f)
-    )
-window.ft = fileType
-*/
-//console.log(file().validate(""))//console.log(file().validateSync("1234"))//, lat().validateSync("123"), idNumber("id", reqIfCash(file())).validateSync("123"))
+const file = () => string();
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     id: number(),
@@ -104,7 +96,6 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
     biometric_card_document: file(),
     personal_data_document: file(),
     comment: string(),
-    //request_extract_from_verk_document: file(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {
@@ -216,20 +207,6 @@ const commonValidationSchema = {
     status_id: number(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
-    /*
-    last_name: string().required(reqText),
-    first_name: string().required(reqText),
-    second_name: string(),
-    index: string().required(reqText),
-    city_id: number().required(reqText).typeError(reqText),
-    street: string().required(reqText),
-    house: string().required(reqText),
-    building: string(),
-    flat: string(),
-    phone: string().required(reqText),
-    email: string().required(reqText).email(reqEmail),
-    */
-
     cash_payment: boolean().required(reqText),
     payment_document: reqIfCash(idNumber('payment_document_id', file())),
     payment_date: reqIfCash(),
@@ -293,7 +270,6 @@ const emptyPedigreeDeclarant = {
     litter_or_request_number: '',
     biometric_card_document: '',
     personal_data_document: '',
-    //request_extract_from_verk_document: '',
     chip_number: '',
     documents: []
 };
@@ -375,6 +351,7 @@ export {
     apiStampCodesEndpoint,
     apiClubDeclarantsEndpoint,
     apiClubApplicationFormEndpoint,
+    endpointGetFederations,
 };
 
 export const clubNav = alias => {
