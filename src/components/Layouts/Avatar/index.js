@@ -29,7 +29,7 @@ const Avatar = ({
     const [hover, setHover] = useState(false);
     const [modalType, setModalType] = useState('');
 
-    const {logo_link} = user_info;
+    const {logo_link} = user_info || {};
     const logoLink = canEdit ? logo_link : logo;
 
     switch (data) {
