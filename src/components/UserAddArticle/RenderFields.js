@@ -1,6 +1,6 @@
 import React, {memo, useState, useEffect} from "react";
 import getYouTubeID from "get-youtube-id";
-import { metadata } from "youtube-metadata-from-url";
+import {metadata} from "youtube-metadata-from-url";
 import {connect} from "formik";
 import {trash} from "@progress/kendo-svg-icons";
 import {SvgIcon} from "@progress/kendo-react-common";
@@ -108,31 +108,6 @@ const RenderFields = ({
             loadPictures.splice(index, 1);
             setLoadPictures([...loadPictures]);
         }
-    }
-
-    const addVideoLink = link => {
-        const id = getYouTubeID(link);
-        metadata(`https://youtu.be/${id}`)
-            .then((json) => {
-                formik.setFieldValue('video_id', id);
-                formik.setFieldValue('video_link', link);
-                formik.setFieldValue('video_name', json.title);
-                formik.values.content === '' && setContent(json.title);
-                setVideoLink(link);})
-            .catch((error) => console.log(error));
-    };
-
-    const removeVideoLink = () => {
-        formik.setFieldValue('video_id', '');
-        formik.setFieldValue('video_link', '');
-        formik.setFieldValue('video_name', '');
-        setVideoLink('');
-    };
-
-    const deleteDocument = index => {
-        if (window.confirm('Вы действительно хотите удалить этот файл?')) {
-            setDocuments([...documents].filter((item, i) => i !== index));
-        }
     };
 
     const handleKeyDown = e => {
@@ -171,12 +146,22 @@ const RenderFields = ({
     };
 
     const addVideoLink = link => {
-        formik.setFieldValue('video_link', link);
-        setVideoLink(link);
+        const id = getYouTubeID(link);
+        metadata(`https://youtu.be/${id}`)
+            .then((json) => {
+                formik.setFieldValue('video_id', id);
+                formik.setFieldValue('video_link', link);
+                formik.setFieldValue('video_name', json.title);
+                formik.values.content === '' && setContent(json.title);
+                setVideoLink(link);
+            })
+            .catch((error) => console.log(error));
     };
 
     const removeVideoLink = () => {
+        formik.setFieldValue('video_id', '');
         formik.setFieldValue('video_link', '');
+        formik.setFieldValue('video_name', '');
         setVideoLink('');
     };
 
@@ -343,7 +328,7 @@ const RenderFields = ({
                         <FormField className="article-create-form__input-sex_new" {...fields.dog_sex_type_id} />
                         <FormField className="article-create-form__input-color_new" {...fields.dog_color} />
                         <FormField className="article-create-form__input-age_new" {...fields.dog_age} />
-                        <CustomNumber cName=" article-create-form__input-cost_new" {...fields.advert_cost} maxLength={10}  />
+                        <CustomNumber cName="article-create-form__input-cost_new" {...fields.advert_cost} maxLength={10}  />
                         {!isMating &&
                             <CustomNumber cName="article-create-form__input-puppies_new" {...fields.advert_number_of_puppies} />
                         }
