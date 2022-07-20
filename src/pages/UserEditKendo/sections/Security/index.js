@@ -100,7 +100,14 @@ const Security = ({setFormModified, history, handleSuccess, handleError}) => {
 
     const validateConfirmPassword = values => {
         const newPassword = getter('new_password');
+        const oldPassword = getter('old_password');
         const confirmPassword = getter('confirm_password');
+
+        if (newPassword(values) && oldPassword(values) === newPassword(values)) {
+            return {
+                confirm_password: "Новый пароль совпадает со старым"
+            };
+        }
 
         if (newPassword(values) && confirmPassword(values) && newPassword(values) === confirmPassword(values)) {
             return {};
