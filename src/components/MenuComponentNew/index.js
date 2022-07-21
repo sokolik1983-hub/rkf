@@ -259,6 +259,10 @@ const MenuComponentNew = () => {
         }
     }, [currentPageUserInfo]);
 
+    useEffect(() => {
+        console.log('currentPageUserInfo', currentPageUserInfo);
+    }, [])
+
     return isMobile ?
         <>
             <button onClick={() => setOpenUserMenu(!openUserMenu)}
