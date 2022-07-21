@@ -32,8 +32,6 @@ const UserHeader = ({
     const [shareAlert, setShareAlert] = useState(false);
     const shareOk = () => setShareAlert(false);
 
-    console.log('isAuthenticated', isAuthenticated)
-
     const setUserType = (user, alias) => {
         if (alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo') {
             return 'Федерация';
