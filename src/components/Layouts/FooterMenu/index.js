@@ -68,11 +68,13 @@ const FooterMenu = ({isAuthenticated, setShowFilters}) => {
                         </NavLink>
                     </>
                 }
-                <div className={checkAliasUrl(pathname, alias) === null ? 'more_btn-hide' : 'class-for-grid4'}
-                     onClick={hideWidgetLoginPopup}
-                >
-                    <MenuComponentNew />
-                </div>
+                {isAuthenticated &&
+                    <div className={checkAliasUrl(pathname, alias) === null ? 'more_btn-hide' : 'class-for-grid4'}
+                         onClick={hideWidgetLoginPopup}
+                    >
+                        <MenuComponentNew />
+                    </div>
+                }
             </div>
             <ZlineWidget
                 isModalShow={showZlineModal}
