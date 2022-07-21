@@ -47,6 +47,7 @@ const ModalDeleteAvatar = ({user_info, updateUserInfo, closeModal, pageBanner, o
             }
 
             closeModal();
+            blockContent();
         }, error => {
             handleError(error);
         });
