@@ -118,7 +118,6 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
 
     const onAdd = (event) => {
         const { newState } = event;
-        console.log('newState', newState);
         if ((attachedDocuments.length + newState.length) <= 3) {
             formProps.onChange('documents', { value: newState })
         } else {
