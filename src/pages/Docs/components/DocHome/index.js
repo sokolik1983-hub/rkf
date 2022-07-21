@@ -73,7 +73,7 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
         {!authorizedAccess
             ? <Loading />
             : <>
-                {!membershipPaid && <CardMessage>
+                <CardMessage>
                     <h3>Уважаемые пользователи портала RKF.ONLINE!</h3>
                     <p>Ввиду того, что некоторые посетители офиса РКФ регулярно пропускают время своей записи,
                         не отменив ее и не освободив тем самым «окно» для других желающих, мы вынуждены ввести
@@ -81,7 +81,7 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                         на посещение офиса РКФ и не отменили ее в личном кабинете, на следующие 30 дней
                         возможность зарегистрироваться на прием будет для вас ограничена.
                         Просим своевременно отменять запись в случае невозможности ею воспользоваться!</p>
-                </CardMessage>}
+                </CardMessage>
                 <Card className={litter ? `` : `_inactive`}>
                     <div className="documents-page__icon litter-icon" />
                     <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
