@@ -1,24 +1,24 @@
-import React, { Fragment, useState, useRef } from "react";
-import { Collapse } from "react-collapse";
-import {getPhoneString} from "../../../utils/getPhoneString";
+import React, {useState, useRef } from "react";
+import {Collapse} from "react-collapse";
 import Card from "../../../components/Card"
 import Counter from "../../../components/CounterComponent";
-
+import {getPhoneString} from "../../../utils/getPhoneString";
 import "./index.scss";
 
+
 const UserContacts = ({
-                          alias,
-                          bank_comment,
-                          emails,
-                          phones,
-                          social_networks,
-                          web_site,
-                          name,
-                          owner_name,
-                          owner_position,
-                          city_name,
-                          counters,
-                          breeds,
+    alias,
+    bank_comment,
+    emails,
+    phones,
+    social_networks,
+    web_site,
+    name,
+    owner_name,
+    owner_position,
+    city_name,
+    counters,
+    breeds
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isHidden, setIsHidden] = useState(true);
@@ -29,9 +29,9 @@ const UserContacts = ({
         setIsOpen(!isOpen);
     };
 
-    if (isHidden && CollapseRef && CollapseRef.current) {
+    if(isHidden && CollapseRef && CollapseRef.current) {
         CollapseRef.current.content.offsetHeight > 130 && setIsHidden(false);
-    };
+    }
 
     const mainEmail = emails && emails.filter(item => item.contact_type_id === 2)[0];
     const mainPhone = phones && phones.filter(item => item.contact_type_id === 1)[0];
@@ -43,12 +43,13 @@ const UserContacts = ({
                     <h4 className="user-contacts__info-title">Контакты</h4>
                     {city_name && <span className="user-contacts__info-city">{city_name}</span>}
                 </div>
-                {owner_name
-                    ? <p className="user-contacts__info-owner">
+                {owner_name ?
+                    <p className="user-contacts__info-owner">
                         <span>{owner_position || 'Руководитель'}:&nbsp;</span>
                         <span>{owner_name}</span>
                     </p>
-                    : <p className="user-contacts__info-owner"><span>Руководитель:&nbsp;</span><span>Не указан</span></p>
+                    :
+                    <p className="user-contacts__info-owner"><span>Руководитель:&nbsp;</span><span>Не указан</span></p>
                 }
                 {mainEmail ?
                     <div className="user-contacts__info-email">
@@ -57,16 +58,18 @@ const UserContacts = ({
                             <a href={`mailto:${mainEmail.value}`}>{mainEmail.value}</a>
                         </p>
                     </div>
-                    : <div className="user-contacts__info-email"><p><span>E-mail:&nbsp;</span>Не указан</p></div>
+                    :
+                    <div className="user-contacts__info-email"><p><span>E-mail:&nbsp;</span>Не указан</p></div>
                 }
-                {mainPhone || phones
-                    ? <div className="user-contacts__info-phone">
+                {mainPhone || phones ?
+                    <div className="user-contacts__info-phone">
                         <p>
                             <span>{'Телефон'}:&nbsp;</span>
                             <span>{getPhoneString(mainPhone, phones)}</span>
                         </p>
                     </div>
-                    : <div className="user-contacts__info-phone"><p><span>Телефон:&nbsp;</span><span>Не указан</span></p></div>
+                    :
+                    <div className="user-contacts__info-phone"><p><span>Телефон:&nbsp;</span><span>Не указан</span></p></div>
                 }
                 {name &&
                     <p className="user-contacts__info-name">
@@ -117,4 +120,4 @@ const UserContacts = ({
     );
 };
 
-export default React.memo(UserContacts);
+export default UserContacts;

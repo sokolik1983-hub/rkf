@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import * as LoadableModules from './appModules';
 
 const SERVER = 'http://dev.uep24.ru';
@@ -9,8 +9,6 @@ const LOGIN_URL = '/auth/login';
 const REGISTRATION_URL = '/auth/registration';
 
 const IS_DEV_MODE = process.env.NODE_ENV === 'development';
-
-const DISABLE_SHARE_IN_DEV = process.env.NODE_ENV === 'development';
 
 export const MOMENT_LOCALE_DEFINITION = {
     week: {
@@ -24,11 +22,142 @@ export const MOMENT_LOCALE_DEFINITION = {
     weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
 };
 
+const WEEKDAYS = [
+    {
+        'id': 1,
+        'name': 'Понедельник',
+        'short_name': 'Пн',
+        'name_eng': 'Monday',
+        'short_name_eng': 'Mo',
+        'week_day_number': 1
+    },
+    {
+        'id': 2,
+        'name': 'Вторник',
+        'short_name': 'Вт',
+        'name_eng': 'Tuesday',
+        'short_name_eng': 'Tu',
+        'week_day_number': 2
+    },
+    {
+        'id': 3,
+        'name': 'Среда',
+        'short_name': 'Ср',
+        'name_eng': 'Wednesday',
+        'short_name_eng': 'We',
+        'week_day_number': 3
+    },
+    {
+        'id': 4,
+        'name': 'Четверг',
+        'short_name': 'Чт',
+        'name_eng': 'Thursday',
+        'short_name_eng': 'Th',
+        'week_day_number': 4
+    },
+    {
+        'id': 5,
+        'name': 'Пятница',
+        'short_name': 'Пт',
+        'name_eng': 'Friday',
+        'short_name_eng': 'Fr',
+        'week_day_number': 5
+    },
+    {
+        'id': 6,
+        'name': 'Суббота',
+        'short_name': 'Сб',
+        'name_eng': 'Saturday',
+        'short_name_eng': 'Sa',
+        'week_day_number': 6
+    },
+    {
+        'id': 7,
+        'name': 'Воскресенье',
+        'short_name': 'Вс',
+        'name_eng': 'Sunday',
+        'short_name_eng': 'Su',
+        'week_day_number': 7
+    }
+];
+
+const WEEKDAYS_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
+const MONTHS = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь'
+];
+
 const appRoutes = [
     {
         exact: true,
         path: '/',
         component: LoadableModules.LoadableHomePage
+    },
+    {
+        exact: true,
+        path: '/search',
+        component: LoadableModules.LoadableSearchPage
+    },
+    {
+        exact: true,
+        path: '/organizations',
+        component: LoadableModules.LoadableOrganizations
+    },
+    {
+        exact: true,
+        path: '/exhibitions',
+        component: LoadableModules.LoadableExhibitions
+    },
+    {
+        exact: true,
+        path: '/specialists',
+        component: LoadableModules.LoadableSpecialists
+    },
+    {
+        exact: true,
+        path: '/base-search',
+        component: LoadableModules.LoadableBaseSearch
+    },
+    {
+        exact: true,
+        path: '/about',
+        component: LoadableModules.LoadableAboutPage
+    },
+    {
+        exact: true,
+        path: '/clubs-map',
+        component: LoadableModules.LoadableMapPage
+    },
+    {
+        exact: true,
+        path: '/Politika_PDn.pdf',
+        component: LoadableModules.LoadablePersonalDataProcessingPolicyPage
+    },
+    {
+        exact: true,
+        path: '/reports',
+        component: LoadableModules.LoadableReports
+    },
+    {
+        exact: true,
+        path: '/bank-details',
+        component: LoadableModules.LoadableBankDetails
+    },
+    {
+        exact: true,
+        path: '/recovery',
+        component: LoadableModules.LoadablePasswordRecovery
     },
     {
         exact: true,
@@ -42,39 +171,45 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/clubs-map',
-        component: LoadableModules.LoadableMapPage
+        path: '/not-confirmed',
+        component: LoadableModules.LoadableNotConfirmed
+    },
+    {
+        exact: false,
+        path: '/client',
+        component: LoadableModules.LoadableClient
     },
     {
         exact: true,
-        path: '/about',
-        component: LoadableModules.LoadableAboutPage
+        path: '/auth/login',
+        component: LoadableModules.LoadableLogin
     },
     {
         exact: true,
-        path: '/Politika_PDn.pdf',
-        component: LoadableModules.LoadablePersonalDataProcessingPolicyPage
+        path: '/auth/registration/activate',
+        component: LoadableModules.LoadableRegistrationActivate
     },
     {
         exact: true,
-        path: '/search',
-        component: LoadableModules.LoadableSearchPage
+        path: '/auth/registration',
+        component: LoadableModules.LoadableRegistration
+    },
+    {
+        exact: false,
+        path: '/shared/document/puppycard/',
+        component: LoadableModules.LoadableMetricsDocPage
     },
     {
         exact: true,
-        path: '/base-search',
-        component: LoadableModules.LoadableBaseSearch
+        path: '/referee/:id/:type',
+        component: LoadableModules.LoadableReferee
     },
     {
         exact: true,
-        path: '/bank-details',
-        component: LoadableModules.LoadableBankDetails
+        path: ['/club/:route/news-feed/:id?', '/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:alias/news-feed/:id?', '/nbc/:alias/news-feed/:id?'],
+        component: LoadableModules.LoadableNewsFeed
     },
-    {
-        exact: true,
-        path: '/organizations',
-        component: LoadableModules.LoadableOrganizations
-    },
+    //ФЕДЕРАЦИИ
     {
         exact: true,
         path: '/rkf',
@@ -102,46 +237,6 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/exhibitions',
-        component: LoadableModules.LoadableExhibitions
-    },
-    {
-        exact: true,
-        path: '/exhibitions/:id/edit',
-        component: LoadableModules.LoadableExhibitionEdit
-    },
-    {
-        exact: true,
-        path: '/referee/:id/:type',
-        component: LoadableModules.LoadableReferee
-    },
-    {
-        exact: true,
-        path: '/exhibitions/:id',
-        component: LoadableModules.LoadableExhibition
-    },
-    {
-        exact: true,
-        path: '/club/exhibitions/:id/edit',
-        component: LoadableModules.LoadableExhibitionEdit
-    },
-    {
-        exact: true,
-        path: '/club/exhibitions/:id',
-        component: LoadableModules.LoadableExhibition
-    },
-    {
-        exact: true,
-        path: '/specialists',
-        component: LoadableModules.LoadableSpecialists
-    },
-    {
-        exact: true,
-        path: '/educationals/:id',
-        component: LoadableModules.LoadableEducational
-    },
-    {
-        exact: true,
         path: '/news/:id/edit',
         component: LoadableModules.LoadableNews
     },
@@ -152,153 +247,39 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/club/educationals/:id',
+        path: '/exhibitions/:id/edit',
+        component: LoadableModules.LoadableExhibitionEdit
+    },
+    {
+        exact: true,
+        path: '/exhibitions/:id',
+        component: LoadableModules.LoadableExhibition
+    },
+    {
+        exact: true,
+        path: '/docs/:id',
+        component: LoadableModules.LoadableDocumentsPage
+    },
+    {
+        exact: true,
+        path: '/details-viewer/:id',
+        component: LoadableModules.LoadableDetailsViewer
+    },
+    {
+        exact: true,
+        path: '/pedigree-viewer/:id',
+        component: LoadableModules.LoadablePedigreeViewer
+    },
+    {
+        exact: true,
+        path: '/educationals/:id',
         component: LoadableModules.LoadableEducational
     },
+
     {
         exact: true,
-        path: '/club/news/:id/edit',
-        component: LoadableModules.LoadableNews
-    },
-    {
-        exact: true,
-        path: '/club/news/:id',
-        component: LoadableModules.LoadableNews
-    },
-    {
-        exact: true,
-        path: '/reports',
-        component: LoadableModules.LoadableReports
-    },
-    {
-        exact: true,
-        path: '/recovery',
-        component: LoadableModules.LoadablePasswordRecovery
-    },
-    {
-        exact: true,
-        path: '/auth/login',
-        component: LoadableModules.LoadableLogin
-    },
-    {
-        exact: true,
-        path: '/auth/registration/activate',
-        component: LoadableModules.LoadableRegistrationActivate
-    },
-    {
-        exact: true,
-        path: '/auth/registration',
-        component: LoadableModules.LoadableRegistration
-    },
-    {
-        exact: true,
-        path: '/not-confirmed',
-        component: LoadableModules.LoadableNotConfirmed
-    },
-    {
-        exact: true,
-        path: '/kennel/activation',
-        component: LoadableModules.LoadableNurseryActivation
-    },
-    {
-        exact: true,
-        path: '/kennel/:id',
-        component: LoadableModules.LoadableNurseryPage
-    },
-    {
-        exact: false,
-        path: '/kennel/:id/documents',
-        component: LoadableModules.LoadableNurseryDocuments
-    },
-    {
-        exact: true,
-        path: '/user/:route',
-        component: LoadableModules.LoadableUserPage
-    },
-    {
-        exact: true,
-        path: '/nbc/:alias',
-        component: LoadableModules.LoadableNBCPage
-    },
-    {
-        exact: false,
-        path: '/nbc/:alias/edit',
-        component: LoadableModules.LoadableNBCPageEdit
-    },
-    {
-        exact: true,
-        path: '/nbc/:alias/gallery',
-        component: LoadableModules.LoadableNBCGallery
-    },
-    {
-        exact: true,
-        path: '/nbc/:alias/gallery/edit',
-        component: LoadableModules.LoadableNBCGalleryEdit
-    },
-    {
-        exact: true,
-        path: '/nbc/:alias/gallery/:album?',
-        component: LoadableModules.LoadableNBCGallery
-    },
-    {
-        exact: true,
-        path: '/nbc/:alias/gallery/:album?/edit',
-        component: LoadableModules.LoadableNBCGalleryEdit
-    },
-    {
-        exact: true,
-        path: '/nbc/:alias/video',
-        component: LoadableModules.LoadableNBCVideo
-    },
-    {
-        exact: false,
-        path: '/nbc/:alias/documents/',
-        component: LoadableModules.LoadableNBCDocuments
-    },
-    {
-        exact: false,
-        path: '/nbc/:alias/uploaded-documents/',
-        component: LoadableModules.LoadableNBCUploadedDocuments
-    },
-    {
-        exact: true,
-        path: '/user/:id/video',
-        component: LoadableModules.LoadableUserVideo
-    },
-    {
-        exact: true,
-        path: '/user/:id/gallery',
-        component: LoadableModules.LoadableUserGallery
-    },
-    {
-        exact: true,
-        path: '/user/:id/gallery/edit',
-        component: LoadableModules.LoadableUserGalleryEdit
-    },
-    {
-        exact: true,
-        path: '/user/:id/gallery/:album?/edit',
-        component: LoadableModules.LoadableUserGalleryEdit
-    },
-    {
-        exact: true,
-        path: '/user/:id/gallery/:album?',
-        component: LoadableModules.LoadableUserGallery
-    },
-    {
-        exact: false,
-        path: '/user/:id/documents',
-        component: LoadableModules.LoadableUserDocuments
-    },
-    {
-        exact: false,
-        path: '/user/:id/edit',
-        component: LoadableModules.LoadableUserEdit
-    },
-    {
-        exact: false,
-        path: '/client',
-        component: LoadableModules.LoadableClient
+        path: '/:route/news',
+        component: LoadableModules.LoadableClubNews
     },
     {
         exact: true,
@@ -314,6 +295,68 @@ const appRoutes = [
         exact: true,
         path: '/:id/video',
         component: LoadableModules.LoadableClubVideo
+    },
+    {
+        exact: false,
+        path: '/:route/documents',
+        component: LoadableModules.LoadableDocs
+    },
+    {
+        exact: true,
+        path: '/:route/document-status',
+        component: LoadableModules.LoadableDocumentStatus
+    },
+    {
+        exact: true,
+        path: '/:route/document-status/:query',
+        component: LoadableModules.LoadableDocumentStatus
+    },
+    {
+        exact: false,
+        path: '/:route/uploaded-documents/',
+        component: LoadableModules.LoadableClubUploadedDocuments
+    },
+    //КЛУБЫ
+    {
+        exact: true,
+        path: '/club/news/:id/edit',
+        component: LoadableModules.LoadableNews
+    },
+    {
+        exact: true,
+        path: '/club/news/:id',
+        component: LoadableModules.LoadableNews
+    },
+    {
+        exact: true,
+        path: '/club/exhibitions/:id/edit',
+        component: LoadableModules.LoadableExhibitionEdit
+    },
+    {
+        exact: true,
+        path: '/club/exhibitions/:id',
+        component: LoadableModules.LoadableExhibition
+    },
+    {
+        exact: true,
+        path: '/club/docs/:id',
+        component: LoadableModules.LoadableDocumentsPage
+    },
+    {
+        exact: true,
+        path: '/club/details-viewer/:id',
+        component: LoadableModules.LoadableDetailsViewer
+    },
+    {
+        exact: true,
+        path: '/club/educationals/:id',
+        component: LoadableModules.LoadableEducational
+    },
+
+    {
+        exact: true,
+        path: '/club/:route/news',
+        component: LoadableModules.LoadableClubNews
     },
     {
         exact: true,
@@ -332,8 +375,40 @@ const appRoutes = [
     },
     {
         exact: false,
-        path: '/kennel/:id/edit',
-        component: LoadableModules.LoadableNurseryEdit
+        path: '/club/:route/documents',
+        component: LoadableModules.LoadableDocs
+    },
+    {
+        exact: true,
+        path: '/club/:route/document-status',
+        component: LoadableModules.LoadableDocumentStatus
+    },
+    {
+        exact: true,
+        path: '/club/:route/document-status/:query',
+        component: LoadableModules.LoadableDocumentStatus
+    },
+    {
+        exact: false,
+        path: '/club/:route/uploaded-documents/',
+        component: LoadableModules.LoadableClubUploadedDocuments
+    },
+    {
+        exact: true,
+        path: '/club/:route',
+        component: LoadableModules.LoadableClubPage
+    },
+    //ПИТОМНИКИ
+    {
+        exact: true,
+        path: '/kennel/activation',
+        component: LoadableModules.LoadableNurseryActivation
+    },
+
+    {
+        exact: true,
+        path: '/kennel/:route/news',
+        component: LoadableModules.LoadableNurseryNews
     },
     {
         exact: true,
@@ -351,99 +426,14 @@ const appRoutes = [
         component: LoadableModules.LoadableNurseryVideo
     },
     {
-        exact: true,
-        path: '/:route/news',
-        component: LoadableModules.LoadableClubNews
-    },
-    {
-        exact: true,
-        path: '/club/:route/news',
-        component: LoadableModules.LoadableClubNews
-    },
-    {
-        exact: true,
-        path: '/kennel/:route/news',
-        component: LoadableModules.LoadableNurseryNews
-    },
-    {
-        exact: true,
-        path: ['/club/:route/news-feed/:id?', '/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?', '/nbc/:alias/news-feed/:id?'],
-        component: LoadableModules.LoadableNewsFeed
-    },
-    {
         exact: false,
-        path: '/club/:route/documents',
-        component: LoadableModules.LoadableDocs
-    },
-    {
-        exact: true,
-        path: '/club/:route/document-status',
-        component: LoadableModules.LoadableDocumentStatus
-    },
-    {
-        exact: false,
-        path: '/:route/documents',
-        component: LoadableModules.LoadableDocs
-    },
-    {
-        exact: true,
-        path: '/:route/document-status',
-        component: LoadableModules.LoadableDocumentStatus
+        path: '/kennel/:id/documents',
+        component: LoadableModules.LoadableNurseryDocuments
     },
     {
         exact: true,
         path: '/kennel/:route/document-status',
         component: LoadableModules.LoadableNurseryDocumentStatus
-    },
-    {
-        exact: true,
-        path: '/:route/document-status/:query',
-        component: LoadableModules.LoadableDocumentStatus
-    },
-    {
-        exact: true,
-        path: '/docs/:id',
-        component: LoadableModules.LoadableDocumentsPage
-    },
-    {
-        exact: true,
-        path: '/details-viewer/:id',
-        component: LoadableModules.LoadableDetailsViewer
-    },
-    {
-        exact: true,
-        path: '/club/:route/document-status/:query',
-        component: LoadableModules.LoadableDocumentStatus
-    },
-    {
-        exact: true,
-        path: '/club/docs/:id',
-        component: LoadableModules.LoadableDocumentsPage
-    },
-    {
-        exact: true,
-        path: '/club/details-viewer/:id',
-        component: LoadableModules.LoadableDetailsViewer
-    },
-    {
-        exact: true,
-        path: '/pedigree-viewer/:id',
-        component: LoadableModules.LoadablePedigreeViewer
-    },
-    {
-        exact: false,
-        path: '/:route/uploaded-documents/',
-        component: LoadableModules.LoadableClubUploadedDocuments
-    },
-    {
-        exact: true,
-        path: '/club/:route',
-        component: LoadableModules.LoadableClubPage
-    },
-    {
-        exact: false,
-        path: '/club/:route/uploaded-documents/',
-        component: LoadableModules.LoadableClubUploadedDocuments
     },
     {
         exact: false,
@@ -452,13 +442,105 @@ const appRoutes = [
     },
     {
         exact: false,
-        path: '/user/:route/uploaded-documents/',
+        path: '/kennel/:id/edit',
+        component: LoadableModules.LoadableNurseryEdit
+    },
+    {
+        exact: true,
+        path: '/kennel/:id',
+        component: LoadableModules.LoadableNurseryPage
+    },
+    //нкп
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery/:album?/edit',
+        component: LoadableModules.LoadableNBCGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery/:album?',
+        component: LoadableModules.LoadableNBCGallery
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery/edit',
+        component: LoadableModules.LoadableNBCGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery',
+        component: LoadableModules.LoadableNBCGallery
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/video',
+        component: LoadableModules.LoadableNBCVideo
+    },
+    {
+        exact: false,
+        path: '/nbc/:alias/documents/',
+        component: LoadableModules.LoadableNBCDocuments
+    },
+    {
+        exact: false,
+        path: '/nbc/:alias/uploaded-documents/',
+        component: LoadableModules.LoadableNBCUploadedDocuments
+    },
+    {
+        exact: false,
+        path: '/nbc/:alias/edit',
+        component: LoadableModules.LoadableNBCPageEdit
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias',
+        component: LoadableModules.LoadableNBCPage //LoadableNKPPage
+    },
+    //ФИЗИК
+    {
+        exact: true,
+        path: '/user/:alias/gallery/:album?/edit',
+        component: LoadableModules.LoadableUserGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/user/:alias/gallery/:album?',
+        component: LoadableModules.LoadableUserGallery
+    },
+    {
+        exact: true,
+        path: '/user/:alias/gallery/edit',
+        component: LoadableModules.LoadableUserGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/user/:alias/gallery',
+        component: LoadableModules.LoadableUserGallery
+    },
+    {
+        exact: true,
+        path: '/user/:alias/video',
+        component: LoadableModules.LoadableUserVideo
+    },
+    {
+        exact: false,
+        path: '/user/:alias/documents',
+        component: LoadableModules.LoadableUserDocuments
+    },
+    {
+        exact: false,
+        path: '/user/:alias/uploaded-documents/',
         component: LoadableModules.LoadableUserUploadedDocuments
     },
     {
         exact: false,
-        path: '/shared/document/puppycard/',
-        component: LoadableModules.LoadableMetricsDocPage
+        path: '/user/:alias/edit',
+        component: LoadableModules.LoadableUserEdit
+    },
+    {
+        exact: true,
+        path: '/user/:alias',
+        component: LoadableModules.LoadableUserPage
     },
 ];
 
@@ -610,53 +692,6 @@ const mainNav = [
     // }
 ];
 
-const widgetLoginIcon = {
-        editProfile: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clipPath="url(#clip0_1624_566)">
-                        <path d="M7.89983 11.9311L4.33176 11.6682L4.06885 8.10015L11.4679 0.701086C12.3818 -0.212842 13.9718 -0.212842 14.8983 0.701086L15.2989 1.10171C16.2379 2.04068 16.2379 3.58059 15.2989 4.53207L7.89983 11.9311ZM5.5086 10.5039L7.42409 10.6416L14.41 3.6557C14.8607 3.205 14.8607 2.45383 14.41 2.00312L14.0094 1.60249C13.5712 1.16431 12.795 1.16431 12.3568 1.60249L5.35836 8.58841L5.5086 10.5039Z" fill="#8F989D"/>
-                        <path d="M12.795 16H3.20501C1.43975 16 0 14.5728 0 12.795V3.20501C0 1.43975 1.43975 0 3.20501 0H7.31142C7.66197 0 7.9374 0.27543 7.9374 0.625978C7.9374 0.976526 7.66197 1.25196 7.31142 1.25196H3.20501C2.12833 1.25196 1.25196 2.12833 1.25196 3.20501V12.795C1.25196 13.8717 2.12833 14.748 3.20501 14.748H12.795C13.8717 14.748 14.748 13.8717 14.748 12.795V8.68858C14.748 8.33803 15.0235 8.0626 15.374 8.0626C15.7246 8.0626 16 8.33803 16 8.68858V12.795C16 14.5728 14.5728 16 12.795 16Z" fill="#8F989D"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_1624_566">
-                        <rect width="16" height="16" fill="white"/>
-                        </clipPath>
-                        </defs>
-                    </svg>,
-        lk: <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14.1206 16.0251C13.7698 16.0251 13.4941 15.7494 13.4941 15.3986C13.4941 15.0478 13.7698 14.7721 14.1206 14.7721C14.4714 14.7721 14.7471 14.4965 14.7471 14.1457V1.8794C14.7471 1.52858 14.4714 1.25294 14.1206 1.25294H1.8794C1.52858 1.25294 1.25294 1.52858 1.25294 1.8794V14.1457C1.25294 14.4965 1.52858 14.7721 1.8794 14.7721H4.98669C5.33751 14.7721 5.61316 15.0478 5.61316 15.3986C5.61316 15.7494 5.33751 16.0251 4.98669 16.0251H1.8794C0.839467 16.0251 0 15.1856 0 14.1457V1.8794C0 0.839468 0.839467 0 1.8794 0H14.1206C15.1605 0 16 0.839468 16 1.8794V14.1457C16 15.1856 15.1605 16.0251 14.1206 16.0251Z" fill="#8F989D"/>
-                <path d="M6.74073 16.9272C5.47527 16.9272 4.5481 16.1504 4.5481 15.1606V3.05719C4.5481 2.3806 4.88639 1.46596 6.49015 0.927194L6.61544 0.902135L14.1706 0.0125504C14.5089 -0.0375671 14.8222 0.21302 14.8723 0.563842C14.9099 0.902135 14.6718 1.21537 14.321 1.26549L6.82844 2.14254C6.13932 2.3806 5.80103 2.69383 5.80103 3.05719V15.148C5.80103 15.3861 6.17691 15.6617 6.67809 15.6617L14.2458 14.7471C14.5966 14.697 14.8974 14.9476 14.9475 15.2984C14.9851 15.6367 14.747 15.9499 14.3962 16L6.74073 16.9272C6.75326 16.9272 6.75326 16.9272 6.74073 16.9272Z" fill="#8F989D"/>
-            </svg>,
-        profile: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clipPath="url(#clip0_2382_941)">
-                    <path d="M12.7384 16.0001H3.26152C2.38767 16.0001 1.67383 15.2863 1.67383 14.4247V5.95703H14.3261V14.4247C14.3261 15.2863 13.6123 16.0001 12.7384 16.0001ZM2.9046 7.1878V14.4247C2.9046 14.6216 3.0646 14.7693 3.26152 14.7693H12.7384C12.9354 14.7693 13.0954 14.6093 13.0954 14.4247V7.1878H2.9046Z" fill="#8F989D"/>
-                    <path d="M15.3849 8.1476C15.2249 8.1476 15.0772 8.08606 14.9541 7.96298L8.25876 1.31683C8.11107 1.18145 7.88953 1.18145 7.75414 1.31683L1.05876 7.96298C0.812605 8.19683 0.431066 8.19683 0.184912 7.96298C-0.0612415 7.72914 -0.0489338 7.33529 0.184912 7.08914L6.8803 0.442984C7.49568 -0.172401 8.50491 -0.172401 9.1203 0.442984L15.8157 7.08914C16.0618 7.32298 16.0618 7.71683 15.8157 7.96298C15.7049 8.09837 15.5449 8.1476 15.3849 8.1476Z" fill="#8F989D"/>
-                </g>
-                <defs>
-                    <clipPath id="clip0_2382_941">
-                        <rect width="16" height="16" fill="white"/>
-                    </clipPath>
-                </defs>
-            </svg>,
-        exitInClub: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clipPath="url(#clip0_1624_625)">
-                            <path d="M12.7384 16H3.26152C2.38767 16 1.67383 15.2861 1.67383 14.4246V5.95691H14.3261V14.4246C14.3261 15.2861 13.6123 16 12.7384 16ZM2.9046 7.18768V14.4246C2.9046 14.6215 3.0646 14.7692 3.26152 14.7692H12.7384C12.9354 14.7692 13.0954 14.6092 13.0954 14.4246V7.18768H2.9046Z" fill="#8F989D"/>
-                            <path d="M15.3847 8.14769C15.2247 8.14769 15.077 8.08615 14.9539 7.96307L8.25851 1.31692C8.11082 1.18154 7.88928 1.18154 7.7539 1.31692L1.05851 7.96307C0.812361 8.19692 0.430822 8.19692 0.184668 7.96307C-0.0614856 7.72923 -0.0491779 7.33538 0.184668 7.08923L6.88005 0.443075C7.49544 -0.172309 8.50467 -0.172309 9.12005 0.443075L15.8154 7.08923C16.0616 7.32308 16.0616 7.71692 15.8154 7.96307C15.7047 8.09846 15.5447 8.14769 15.3847 8.14769Z" fill="#8F989D"/>
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_1624_625">
-                                <rect width="16" height="16" fill="white"/>
-                            </clipPath>
-                        </defs>
-                    </svg>
-    ,
-        exit: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.4195 16H1.88531C0.842105 16 0 15.1605 0 14.1206V1.8794C0 0.839467 0.842105 0 1.88531 0H10.4195C10.7714 0 11.0479 0.275646 11.0479 0.626468C11.0479 0.97729 10.7714 1.25294 10.4195 1.25294H1.88531C1.53339 1.25294 1.25687 1.52858 1.25687 1.8794V14.1206C1.25687 14.4714 1.53339 14.7471 1.88531 14.7471H10.4195C10.7714 14.7471 11.0479 15.0227 11.0479 15.3735C11.0479 15.7244 10.7714 16 10.4195 16Z" fill="#8F989D"/>
-                    <path d="M15.3716 8.63273H6.209C5.85708 8.63273 5.58057 8.35708 5.58057 8.00626C5.58057 7.65544 5.85708 7.37979 6.209 7.37979H15.3716C15.7235 7.37979 16 7.65544 16 8.00626C16 8.35708 15.711 8.63273 15.3716 8.63273Z" fill="#8F989D"/>
-                    <path d="M10.9221 13.419C10.7587 13.419 10.5954 13.3563 10.4822 13.231C10.2309 12.9804 10.2309 12.592 10.4822 12.3414L14.6676 8.16915C14.7305 8.10651 14.743 8.03133 14.743 7.99374C14.743 7.95615 14.7305 7.88098 14.6676 7.81833L10.4822 3.65858C10.2309 3.40799 10.2309 3.01958 10.4822 2.769C10.7336 2.51841 11.1232 2.51841 11.3746 2.769L15.56 6.94127C15.8491 7.22945 15.9999 7.60533 15.9999 8.00627C15.9999 8.40721 15.8491 8.78309 15.56 9.07127L11.3746 13.2435C11.2489 13.3563 11.0855 13.419 10.9221 13.419Z" fill="#8F989D"/>
-                </svg>,
-
-    };
-
 const footerNav = [
     {
         id: 1,
@@ -789,86 +824,55 @@ const footerNav = [
                 d='M15.8529 11.0765C15.7813 10.8972 15.7017 10.7258 15.6142 10.5621C14.5398 8.6528 6.30271 8.6528 5.22832 10.5621C4.15392 12.4714 3 19.5943 3 19.5943'
                 stroke='#90999E' strokeWidth='1.32' strokeMiterlimit='10' strokeLinejoin='round' />
         </svg>
-
-
     }
 ];
 
-const WEEKDAYS = [
-    {
-        'id': 1,
-        'name': 'Понедельник',
-        'short_name': 'Пн',
-        'name_eng': 'Monday',
-        'short_name_eng': 'Mo',
-        'week_day_number': 1
-    },
-    {
-        'id': 2,
-        'name': 'Вторник',
-        'short_name': 'Вт',
-        'name_eng': 'Tuesday',
-        'short_name_eng': 'Tu',
-        'week_day_number': 2
-    },
-    {
-        'id': 3,
-        'name': 'Среда',
-        'short_name': 'Ср',
-        'name_eng': 'Wednesday',
-        'short_name_eng': 'We',
-        'week_day_number': 3
-    },
-    {
-        'id': 4,
-        'name': 'Четверг',
-        'short_name': 'Чт',
-        'name_eng': 'Thursday',
-        'short_name_eng': 'Th',
-        'week_day_number': 4
-    },
-    {
-        'id': 5,
-        'name': 'Пятница',
-        'short_name': 'Пт',
-        'name_eng': 'Friday',
-        'short_name_eng': 'Fr',
-        'week_day_number': 5
-    },
-    {
-        'id': 6,
-        'name': 'Суббота',
-        'short_name': 'Сб',
-        'name_eng': 'Saturday',
-        'short_name_eng': 'Sa',
-        'week_day_number': 6
-    },
-    {
-        'id': 7,
-        'name': 'Воскресенье',
-        'short_name': 'Вс',
-        'name_eng': 'Sunday',
-        'short_name_eng': 'Su',
-        'week_day_number': 7
-    }
-];
+const widgetLoginIcon = {
+    editProfile: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clipPath="url(#clip0_1624_566)">
+            <path d="M7.89983 11.9311L4.33176 11.6682L4.06885 8.10015L11.4679 0.701086C12.3818 -0.212842 13.9718 -0.212842 14.8983 0.701086L15.2989 1.10171C16.2379 2.04068 16.2379 3.58059 15.2989 4.53207L7.89983 11.9311ZM5.5086 10.5039L7.42409 10.6416L14.41 3.6557C14.8607 3.205 14.8607 2.45383 14.41 2.00312L14.0094 1.60249C13.5712 1.16431 12.795 1.16431 12.3568 1.60249L5.35836 8.58841L5.5086 10.5039Z" fill="#8F989D"/>
+            <path d="M12.795 16H3.20501C1.43975 16 0 14.5728 0 12.795V3.20501C0 1.43975 1.43975 0 3.20501 0H7.31142C7.66197 0 7.9374 0.27543 7.9374 0.625978C7.9374 0.976526 7.66197 1.25196 7.31142 1.25196H3.20501C2.12833 1.25196 1.25196 2.12833 1.25196 3.20501V12.795C1.25196 13.8717 2.12833 14.748 3.20501 14.748H12.795C13.8717 14.748 14.748 13.8717 14.748 12.795V8.68858C14.748 8.33803 15.0235 8.0626 15.374 8.0626C15.7246 8.0626 16 8.33803 16 8.68858V12.795C16 14.5728 14.5728 16 12.795 16Z" fill="#8F989D"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_1624_566">
+                <rect width="16" height="16" fill="white"/>
+            </clipPath>
+        </defs>
+    </svg>,
+    lk: <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.1206 16.0251C13.7698 16.0251 13.4941 15.7494 13.4941 15.3986C13.4941 15.0478 13.7698 14.7721 14.1206 14.7721C14.4714 14.7721 14.7471 14.4965 14.7471 14.1457V1.8794C14.7471 1.52858 14.4714 1.25294 14.1206 1.25294H1.8794C1.52858 1.25294 1.25294 1.52858 1.25294 1.8794V14.1457C1.25294 14.4965 1.52858 14.7721 1.8794 14.7721H4.98669C5.33751 14.7721 5.61316 15.0478 5.61316 15.3986C5.61316 15.7494 5.33751 16.0251 4.98669 16.0251H1.8794C0.839467 16.0251 0 15.1856 0 14.1457V1.8794C0 0.839468 0.839467 0 1.8794 0H14.1206C15.1605 0 16 0.839468 16 1.8794V14.1457C16 15.1856 15.1605 16.0251 14.1206 16.0251Z" fill="#8F989D"/>
+        <path d="M6.74073 16.9272C5.47527 16.9272 4.5481 16.1504 4.5481 15.1606V3.05719C4.5481 2.3806 4.88639 1.46596 6.49015 0.927194L6.61544 0.902135L14.1706 0.0125504C14.5089 -0.0375671 14.8222 0.21302 14.8723 0.563842C14.9099 0.902135 14.6718 1.21537 14.321 1.26549L6.82844 2.14254C6.13932 2.3806 5.80103 2.69383 5.80103 3.05719V15.148C5.80103 15.3861 6.17691 15.6617 6.67809 15.6617L14.2458 14.7471C14.5966 14.697 14.8974 14.9476 14.9475 15.2984C14.9851 15.6367 14.747 15.9499 14.3962 16L6.74073 16.9272C6.75326 16.9272 6.75326 16.9272 6.74073 16.9272Z" fill="#8F989D"/>
+    </svg>,
+    profile: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clipPath="url(#clip0_2382_941)">
+            <path d="M12.7384 16.0001H3.26152C2.38767 16.0001 1.67383 15.2863 1.67383 14.4247V5.95703H14.3261V14.4247C14.3261 15.2863 13.6123 16.0001 12.7384 16.0001ZM2.9046 7.1878V14.4247C2.9046 14.6216 3.0646 14.7693 3.26152 14.7693H12.7384C12.9354 14.7693 13.0954 14.6093 13.0954 14.4247V7.1878H2.9046Z" fill="#8F989D"/>
+            <path d="M15.3849 8.1476C15.2249 8.1476 15.0772 8.08606 14.9541 7.96298L8.25876 1.31683C8.11107 1.18145 7.88953 1.18145 7.75414 1.31683L1.05876 7.96298C0.812605 8.19683 0.431066 8.19683 0.184912 7.96298C-0.0612415 7.72914 -0.0489338 7.33529 0.184912 7.08914L6.8803 0.442984C7.49568 -0.172401 8.50491 -0.172401 9.1203 0.442984L15.8157 7.08914C16.0618 7.32298 16.0618 7.71683 15.8157 7.96298C15.7049 8.09837 15.5449 8.1476 15.3849 8.1476Z" fill="#8F989D"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_2382_941">
+                <rect width="16" height="16" fill="white"/>
+            </clipPath>
+        </defs>
+    </svg>,
+    exitInClub: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clipPath="url(#clip0_1624_625)">
+            <path d="M12.7384 16H3.26152C2.38767 16 1.67383 15.2861 1.67383 14.4246V5.95691H14.3261V14.4246C14.3261 15.2861 13.6123 16 12.7384 16ZM2.9046 7.18768V14.4246C2.9046 14.6215 3.0646 14.7692 3.26152 14.7692H12.7384C12.9354 14.7692 13.0954 14.6092 13.0954 14.4246V7.18768H2.9046Z" fill="#8F989D"/>
+            <path d="M15.3847 8.14769C15.2247 8.14769 15.077 8.08615 14.9539 7.96307L8.25851 1.31692C8.11082 1.18154 7.88928 1.18154 7.7539 1.31692L1.05851 7.96307C0.812361 8.19692 0.430822 8.19692 0.184668 7.96307C-0.0614856 7.72923 -0.0491779 7.33538 0.184668 7.08923L6.88005 0.443075C7.49544 -0.172309 8.50467 -0.172309 9.12005 0.443075L15.8154 7.08923C16.0616 7.32308 16.0616 7.71692 15.8154 7.96307C15.7047 8.09846 15.5447 8.14769 15.3847 8.14769Z" fill="#8F989D"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_1624_625">
+                <rect width="16" height="16" fill="white"/>
+            </clipPath>
+        </defs>
+    </svg>
+    ,
+    exit: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.4195 16H1.88531C0.842105 16 0 15.1605 0 14.1206V1.8794C0 0.839467 0.842105 0 1.88531 0H10.4195C10.7714 0 11.0479 0.275646 11.0479 0.626468C11.0479 0.97729 10.7714 1.25294 10.4195 1.25294H1.88531C1.53339 1.25294 1.25687 1.52858 1.25687 1.8794V14.1206C1.25687 14.4714 1.53339 14.7471 1.88531 14.7471H10.4195C10.7714 14.7471 11.0479 15.0227 11.0479 15.3735C11.0479 15.7244 10.7714 16 10.4195 16Z" fill="#8F989D"/>
+        <path d="M15.3716 8.63273H6.209C5.85708 8.63273 5.58057 8.35708 5.58057 8.00626C5.58057 7.65544 5.85708 7.37979 6.209 7.37979H15.3716C15.7235 7.37979 16 7.65544 16 8.00626C16 8.35708 15.711 8.63273 15.3716 8.63273Z" fill="#8F989D"/>
+        <path d="M10.9221 13.419C10.7587 13.419 10.5954 13.3563 10.4822 13.231C10.2309 12.9804 10.2309 12.592 10.4822 12.3414L14.6676 8.16915C14.7305 8.10651 14.743 8.03133 14.743 7.99374C14.743 7.95615 14.7305 7.88098 14.6676 7.81833L10.4822 3.65858C10.2309 3.40799 10.2309 3.01958 10.4822 2.769C10.7336 2.51841 11.1232 2.51841 11.3746 2.769L15.56 6.94127C15.8491 7.22945 15.9999 7.60533 15.9999 8.00627C15.9999 8.40721 15.8491 8.78309 15.56 9.07127L11.3746 13.2435C11.2489 13.3563 11.0855 13.419 10.9221 13.419Z" fill="#8F989D"/>
+    </svg>,
 
-const WEEKDAYS_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-
-const MONTHS = [
-    'Январь',
-    'Февраль',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Август',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь'
-];
+};
 
 const DEFAULT_IMG = {
     uploadAvatar: '/static/icons/default/club-avatar-new.png',
@@ -936,7 +940,6 @@ const responsiveSliderConfig = [
 
 export {
     IS_DEV_MODE,
-    DISABLE_SHARE_IN_DEV,
     WEEKDAYS,
     WEEKDAYS_SHORT,
     MONTHS,
