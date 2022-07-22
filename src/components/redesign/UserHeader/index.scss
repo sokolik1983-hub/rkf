@@ -238,6 +238,11 @@
         @media (max-width: 990px) {
           right: 50%;
         }
+        &.not-auth {
+          @media (max-width: 990px) {
+            right: 0%;
+          }
+        }
         @media (max-width: 560px) {
           right: 0;
         }
