@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { PromiseRequest } from "utils/request";
-import Loading from "../../../../components/Loading";
-import Alert from "../../../../components/Alert";
-import Card from "../../../../components/Card";
+import React, { memo, useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import List from "components/List";
+import Card from "../../../../components/Card";
+import List from "../../../../components/List";
+import Alert from "../../../../components/Alert";
+import Button from "../../../../components/Button";
+import Loading from "../../../../components/Loading";
 import BreedsFilterKendo from "../../../../components/kendo/Filters/BreedsFilter";
 import CitiesFilterKendo from "../../../../components/kendo/Filters/CitiesFilter";
+import { PromiseRequest } from "../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../appConfig";
-import Button from "../../../../components/Button";
-import './index.scss';
+
+import "./index.scss";
+
 
 const PublicationSearch = ({ cardClicked }) => {
     const [items, setItems] = useState([]);
@@ -119,7 +121,7 @@ const PublicationSearch = ({ cardClicked }) => {
     };
 
     return (
-        <Card className={`publication-search${cardClicked === 6 ? ` _active_card` : ''}`} id="publication-search-anchor">
+        <Card className={`publication-search${cardClicked === 6 && ' _active_card'}`} id="publication-search-anchor">
             <div className="search-form__image publication-search"/>
             <div className="publication-search__text_wrap">
             <h3>Поиск по объявлениям</h3>
@@ -135,10 +137,16 @@ const PublicationSearch = ({ cardClicked }) => {
                         value={min_price}
                         title="Цена от"
                         placeholder="от"
-                        disabled={loading || status ? true : false}
+                        disabled={loading || status}
+                        required
                     />
                     {min_price &&
-                        <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleMinPriceClear} />}
+                        <button
+                            className={`search-form__cancel${status && ' _hide'}`}
+                            type="button"
+                            onClick={handleMinPriceClear}
+                        />
+                    }
                 </div>
                 <div className="search-form__wrap search-form__wrap-with_but">
                     <input
@@ -149,11 +157,18 @@ const PublicationSearch = ({ cardClicked }) => {
                         value={max_price}
                         title="Цена до"
                         placeholder="до"
-                        disabled={loading || status ? true : false}
+                        disabled={loading || status}
+                        required
                     />
                     {max_price &&
-                        <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleMaxPriceClear} />}
-                    {status ? <div className="search-form__button--clear">
+                        <button
+                            className={`search-form__cancel${status && ' _hide'}`}
+                            type="button"
+                            onClick={handleMaxPriceClear}
+                        />
+                    }
+                    {status ?
+                        <div className="search-form__button--clear">
                             <button
                                 type="button"
                                 disabled={loading}
@@ -192,29 +207,29 @@ const PublicationSearch = ({ cardClicked }) => {
                     />
                 </div>
             </div>
-            {
-                loading || (newsLoading && !items.length)
-                    ? <Loading centered={false} />
-                    : <div className="search-form__result">
-                        <InfiniteScroll
-                            dataLength={items.length}
-                            next={items.length && getNextResults}
-                            hasMore={hasMore}
-                            loader={newsLoading && <Loading centered={false} />}
-                            endMessage={!newsLoading && <div className="user-news__content">
-                                <h4 className="user-news__text">Публикаций больше нет</h4>
-                                <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
-                            </div>
-                            }
-                        >
-                            <List
-                                list={items}
-                                listNotFound={false}
-                                listClass="user-news"
-                                isFullDate={true}
-                            />
-                        </InfiniteScroll>
-                    </div>
+            {loading || (newsLoading && !items.length) ?
+                <Loading centered={false} />
+                :
+                <div className="search-form__result">
+                    <InfiniteScroll
+                        dataLength={items.length}
+                        next={items.length && getNextResults}
+                        hasMore={hasMore}
+                        loader={newsLoading && <Loading centered={false} />}
+                        endMessage={!newsLoading && <div className="user-news__content">
+                            <h4 className="user-news__text">Публикаций больше нет</h4>
+                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
+                        </div>
+                        }
+                    >
+                        <List
+                            list={items}
+                            listNotFound={false}
+                            listClass="user-news"
+                            isFullDate={true}
+                        />
+                    </InfiniteScroll>
+                </div>
             }
             {alert &&
                 <Alert
@@ -228,4 +243,4 @@ const PublicationSearch = ({ cardClicked }) => {
     );
 }
 
-export default React.memo(PublicationSearch);
+export default memo(PublicationSearch);

@@ -56,6 +56,8 @@
 
     @media (max-width: 600px) {
       &:first-child {
+        margin-right: 25px;
+        padding-right: 0;
         padding-left: 0;
       }
     }

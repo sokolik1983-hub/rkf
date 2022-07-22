@@ -136,16 +136,35 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    & p {
-      position: relative;
+
+      & p {
+        position: relative;
+      }
+
       & svg {
         margin-left: 5px;
+
         @media (max-width: 400px) {
           position: absolute;
         }
       }
+  }
+
+  &__name-wrap {
+    display: inline-flex;
+
+    @media (max-width: 1079px) {
+      p {
+        display: inline-grid;
+        line-height: 22px;
+      }
+
+      svg {
+        margin-top: auto;
+      }
     }
   }
+
   &__transition {
     &-enter,
     &-appear {

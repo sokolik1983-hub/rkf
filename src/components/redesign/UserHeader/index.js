@@ -85,7 +85,7 @@ const UserHeader = ({
                                     }
                                     <div className="user-header__container">
                                         <h3 className="user-header__name">{name}</h3>
-                                        <Share/>
+                                        <Share className={!isAuthenticated ? 'not-auth' : ''}/>
                                     </div>
                                     <div className="user-header__user-org">
                                         <p className="user-header__user">
