@@ -5,9 +5,9 @@ import Avatar from "../Avatar";
 import Share from "../../Share";
 import UserActionControls from "../../../components/UserActionControls";
 import {connectAuthVisible} from "../../../pages/Login/connectors";
+import useIsMobile from "../../../utils/useIsMobile";
 
 import "./index.scss";
-
 
 const UserInfo = ({
     isAuthenticated,
@@ -25,6 +25,7 @@ const UserInfo = ({
     onError,
     judgeInfo,
 }) => {
+    const isMobile = useIsMobile(350);
 
     return (
         <>
@@ -41,7 +42,7 @@ const UserInfo = ({
                     {share_link 
                         ?
                             <div className="user-info__with-share" >
-                                <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}{last_name ? ' ' + last_name : ''}{(!!judgeInfo?.length && judgeInfo[0].description !== null) && judgeIcon}</p>
+                                <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}{isMobile && <br />}{last_name ? ' ' + last_name : ''}{(!!judgeInfo?.length && judgeInfo[0].description !== null) && judgeIcon}</p>
                                 <Share url={share_link}
                                         className={!first_name && !last_name
                                                         ? '_no_share_name'
