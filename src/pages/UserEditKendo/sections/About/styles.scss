@@ -110,25 +110,35 @@
                 }
             }
         }
+
         .FormEditorTextarea {
             border-radius: 4px;
+
             &__counter {
                 color: #72839c;
             }
+
             p > span, strong {
                 font-size: 16px !important;
             }
+
+            .k-toolbar {
+                div > button > span {
+                    display: none;
+                }
+            }
         }
+
         .d-sm-block {
             @media (max-width: 860px) {
                 display: none!important;
             }
         }
+
         .d-block {
             @media (max-width: 860px) {
                 display: block!important;
             }
         }
     }
-
 }
