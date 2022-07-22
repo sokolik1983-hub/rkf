@@ -1,5 +1,5 @@
 import React, {memo, useState, useEffect, useRef} from "react";
-import {useLocation, useParams, useRouteMatch} from "react-router-dom";
+import {useLocation, useRouteMatch} from "react-router-dom";
 import {useSelector} from "react-redux";
 import PopupModal from "../PopupModal";
 import Card from "../Card";
@@ -39,12 +39,7 @@ const MenuComponentNew = () => {
 
     const isMobile = useIsMobile(1080);
     const location = useLocation();
-    // const params = useParams();
-    // const match = useRouteMatch();
-    //
-    // console.log('location', location);
-    // console.log('params', params);
-    // console.log('match', match);
+
     const url = location.pathname.split('/')[1];
     const linkAlias = location.pathname.split('/')[2];
     const addLink = location.pathname.split('/')[3];

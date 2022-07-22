@@ -494,7 +494,7 @@ const appRoutes = [
     {
         exact: true,
         path: '/nbc/:alias',
-        component: LoadableModules.LoadableNBCPage
+        component: LoadableModules.LoadableNBCPage //LoadableNKPPage
     },
     //ФИЗИК
     {
@@ -824,8 +824,6 @@ const footerNav = [
                 d='M15.8529 11.0765C15.7813 10.8972 15.7017 10.7258 15.6142 10.5621C14.5398 8.6528 6.30271 8.6528 5.22832 10.5621C4.15392 12.4714 3 19.5943 3 19.5943'
                 stroke='#90999E' strokeWidth='1.32' strokeMiterlimit='10' strokeLinejoin='round' />
         </svg>
-
-
     }
 ];
 
