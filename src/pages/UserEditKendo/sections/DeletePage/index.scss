@@ -28,7 +28,7 @@
     }
 
     .k-button {
-        background-color: #00C48C !important;
+        background-color: #3366ff !important;
         border: none !important;
     }
 
@@ -67,12 +67,14 @@
 }
 
 .Modal__body {
-    .btn, .k-button {
-        width: 154px;
-        height: 38px;
-    }
+    section {
+        .btn, .k-button {
+            width: 154px;
+            height: 38px;
+        }
 
-    .k-button, .btn-danger {
-        background-color: #00C48C !important;
+        .k-button, .btn-danger {
+            background-color: #3366ff !important;
+        }
     }
 }
