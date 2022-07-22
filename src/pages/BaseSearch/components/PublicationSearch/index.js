@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { memo, useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Card from "../../../../components/Card";
 import List from "../../../../components/List";
@@ -243,4 +243,4 @@ const PublicationSearch = ({ cardClicked }) => {
     );
 }
 
-export default React.memo(PublicationSearch);
+export default memo(PublicationSearch);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Card from "../../../../components/Card";
 import Alert from "../../../../components/Alert";
@@ -151,4 +151,4 @@ const StampSearch = ({cardClicked}) => {
     );
 }
 
-export default React.memo(StampSearch);
+export default memo(StampSearch);
