@@ -79,10 +79,11 @@ const CardNews = forwardRef(({
                             </Link>
                             <span className="card-news__club-name">
                                 <span className="_flex">
-                                    <Link to={user === 4 ?
-                                        `/kennel/${alias}` : user === 1 ?
-                                            `/user/${alias}` : user === 7 ?
-                                                `/nbc/${alias}` : `/${alias}`}>
+                                    <Link to={user === 3 ?
+                                        `/club/${alias}` :user === 4 ?
+                                            `/kennel/${alias}` : user === 1 ?
+                                                `/user/${alias}` : user === 7 ?
+                                                    `/nbc/${alias}` : `/${alias}`}>
                                         {(user === 3 || user === 4 || user === 5) &&
                                             <>
                                                 <span>
