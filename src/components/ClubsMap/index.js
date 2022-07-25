@@ -134,17 +134,14 @@ const ClubsMap = ({fullScreen, isOpenFilters}) => {
                                 regions={regions}
                                 region_ids={targetRegion}
                                 onChange={handleChangeRegion}
-                                startOpen
                             />
                             <CitiesFilter
                                 loading={loading}
                                 cities={cities}
                                 city_ids={targetCity}
                                 onChange={handleChangeCity}
-                                startOpen
                             />
                             <OrganizationsFilter
-                                startOpen
                                 onChange={handleChangeOrganization}
                             />
                             <CopyrightInfo withSocials={true} />
