@@ -486,15 +486,15 @@ const appRoutes = [
         path: '/nbc/:alias/uploaded-documents/',
         component: LoadableModules.LoadableNBCUploadedDocuments
     },
+    // {
+    //     exact: false,
+    //     path: '/nbc/:alias/edit',
+    //     component: LoadableModules.LoadableNBCPageEdit
+    // },
     {
-        exact: false,
-        path: '/nbc/:alias/edit',
-        component: LoadableModules.LoadableNBCPageEdit
-    },
-    {
-        exact: true,
+        exact: false, //true
         path: '/nbc/:alias',
-        component: LoadableModules.LoadableNBCPage //LoadableNKPPage
+        component: LoadableModules.LoadableNKPPage //LoadableNBCPage
     },
     //ФИЗИК
     {

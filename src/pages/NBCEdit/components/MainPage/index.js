@@ -10,8 +10,7 @@ const MyComponent = ({
         alias,
         formik,
         web_site,
-        comment,
-        history,
+        comment
 }) => {
 
     return (
@@ -26,10 +25,7 @@ const MyComponent = ({
                 <FormField {...web_site} />
             </FormGroup>
             <div className="main-info">
-                <UploadDocsEditPage
-                    clubAlias={alias}
-                    history={history}
-                />
+                <UploadDocsEditPage />
             </div>
             <SubmitButton>Сохранить</SubmitButton>
             {formik.errors && !!Object.keys(formik.errors).length
