@@ -26,6 +26,7 @@ const UserInfo = ({
     onError,
     judgeInfo,
 }) => {
+    const isMobile = useIsMobile(600);
 
     return (
         <>
@@ -42,13 +43,12 @@ const UserInfo = ({
                     {share_link 
                         ?
                             <div className="user-info__with-share" >
-                                <div className="user-info__name-wrap">
-                                    <p>
-                                        <span>{first_name || 'Аноним'}&nbsp;</span>
-                                        <span>{last_name ? last_name : ''}</span>
-                                    </p>
+                                <p title={first_name || 'Аноним'}>
+                                    {first_name || 'Аноним'}
+                                    {isMobile && <br />}
+                                    {last_name ? ' ' + last_name : ''}
                                     {(!!judgeInfo?.length && judgeInfo[0].description !== null) && judgeIcon}
-                                </div>
+                                </p>
                                 <Share url={share_link}
                                         className={!first_name && !last_name
                                                         ? '_no_share_name'

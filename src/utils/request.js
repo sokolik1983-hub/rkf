@@ -50,8 +50,9 @@ export const Request = async (options, onSuccess, onError) => {
                 onError(error);
             }
 
-            if(error.response && 
-                ((error.response.status === 403 && userType === 4) || error.response.status === 401)) {
+            if(error.response &&
+                //закомментировано до введения новойстраницы НКП, для временного предотвращения разлогиневания питомника при просмотре НКП
+                (/*(error.response.status === 403 && userType === 4) ||*/ error.response.status === 401)) {
                 store.dispatch({type: LOGOUT});
                 history.replace(LOGIN_URL);
             }
