@@ -121,7 +121,7 @@ const PublicationSearch = ({ cardClicked }) => {
     };
 
     return (
-        <Card className={`publication-search${cardClicked === 6 && ' _active_card'}`} id="publication-search-anchor">
+        <Card className={`publication-search${cardClicked === 6 ? ' _active_card' : ''}`} id="publication-search-anchor">
             <div className="search-form__image publication-search"/>
             <div className="publication-search__text_wrap">
             <h3>Поиск по объявлениям</h3>
@@ -142,7 +142,7 @@ const PublicationSearch = ({ cardClicked }) => {
                     />
                     {min_price &&
                         <button
-                            className={`search-form__cancel${status && ' _hide'}`}
+                            className={`search-form__cancel${status ? ' _hide' : ''}`}
                             type="button"
                             onClick={handleMinPriceClear}
                         />
@@ -162,7 +162,7 @@ const PublicationSearch = ({ cardClicked }) => {
                     />
                     {max_price &&
                         <button
-                            className={`search-form__cancel${status && ' _hide'}`}
+                            className={`search-form__cancel${status ? ' _hide' : ''}`}
                             type="button"
                             onClick={handleMaxPriceClear}
                         />

@@ -56,7 +56,7 @@ const StampSearch = ({cardClicked}) => {
     };
 
     return (
-        <Card id="stamp-search-anchor" className={cardClicked === 4 && `_active_card`}>
+        <Card id="stamp-search-anchor" className={cardClicked === 4 ? `_active_card` : ''}>
             <div className="search-form__image stamp-search"/>
             <div className="search-form__text_wrap">
             <h3>Поиск клуба/питомника по клейму</h3>
@@ -77,7 +77,7 @@ const StampSearch = ({cardClicked}) => {
                     />
                     {stamp_code &&
                         <button
-                            className={`search-form__cancel${status && ' _hide'}`}
+                            className={`search-form__cancel${status ? ' _hide' : ''}`}
                             type="button"
                             onClick={handleStampCodeClear}
                         />
