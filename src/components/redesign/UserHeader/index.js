@@ -59,7 +59,12 @@ const UserHeader = ({
                 <div className="user-header__info">
                     <div className="user-header__wrap">
                         <div className="user-header__inner">
-                            <section className={`user-header__name-wrap${setUserType(user, alias) === 'Федерация' && canEdit ? ' _editable' : ''}${checkIsFed(alias) ? ' fed-style' : ''}`}>
+                            <section className={
+                                `user-header__name-wrap
+                                    ${setUserType(user, alias) === 'Федерация' && canEdit ? ' _editable' : ''}
+                                    ${checkIsFed(alias) ? ' fed-style' : ''}`
+                                }
+                            >
                                 <div className="user-header__user-wrap">
                                     {setUserType(user, alias) === 'Федерация' &&
                                         <div className="user-header__federation"/>

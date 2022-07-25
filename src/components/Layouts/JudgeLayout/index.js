@@ -186,13 +186,13 @@ const JudgeLayout = () => {
                                         }
                                     </div>
                                     {
-                                        (!!judgeAddInfo?.contests?.length || judgeAddInfo?.opened_groups_and_breeds?.length) &&
+                                        (!!judgeAddInfo?.contests?.length || !!judgeAddInfo?.opened_groups_and_breeds?.length) &&
                                         <div className="judge-info__box">
                                                 <div className="judge-info__add-info">
                                                     <p>Группа, номер стандарта, название породы:</p>
                                                     <ul>
                                                         {
-                                                            judgeAddInfo?.opened_groups_and_breeds?.length ?
+                                                            !!judgeAddInfo?.opened_groups_and_breeds?.length ?
                                                                 judgeAddInfo.opened_groups_and_breeds.map((item, i) => <li key={i}>{item}</li>) :
                                                                 <li>ВСЕ ПОРОДЫ / ALL BREEDS</li>
                                                         }
