@@ -39,7 +39,6 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
     const isMobile = useIsMobile(1080);
     const params = useParams();
 
-
     useEffect(() => {
         (() => getUserInfo())();
     }, [alias]);
