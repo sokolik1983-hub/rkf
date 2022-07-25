@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Request } from "../../../../utils/request";
-import Loading from "../../../../components/Loading";
-import Alert from "../../../../components/Alert";
+import React, { memo, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Card from "../../../../components/Card";
-import CardOrganization from "../../../../components/CardOrganization";
+import Alert from "../../../../components/Alert";
 import Button from "../../../../components/Button";
-import '../FoundInfo/index.scss';
+import Loading from "../../../../components/Loading";
+import CardOrganization from "../../../../components/CardOrganization";
+import { Request } from "../../../../utils/request";
+
+import "../FoundInfo/index.scss";
 
 
 const StampSearch = ({cardClicked}) => {
@@ -71,21 +72,26 @@ const StampSearch = ({cardClicked}) => {
                         value={stamp_code}
                         title="Введите 3 латинских символа"
                         placeholder="Введите код клейма"
-                        disabled={loading || status ? true : false}
+                        disabled={loading || status}
                         required
                     />
                     {stamp_code &&
-                        <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear} />}
+                        <button
+                            className={`search-form__cancel${status && ' _hide'}`}
+                            type="button"
+                            onClick={handleStampCodeClear}
+                        />
+                    }
                 </div>
                 {status ? <div className="search-form__button--clear">
-                    <button
-                        type="button"
-                        disabled={loading}
-                        onClick={handleReset}
-                    >
-                        <span></span>
-                    </button>
-                </div>
+                        <button
+                            type="button"
+                            disabled={loading}
+                            onClick={handleReset}
+                        >
+                            <span></span>
+                        </button>
+                    </div>
                     :
                     <div className="search-form__button">
                         <Button
@@ -95,44 +101,43 @@ const StampSearch = ({cardClicked}) => {
                         >
                             Поиск
                         </Button>
-                    </div>}
-
-            </form>
-            {
-                loading
-                    ? <Loading centered={false} />
-                    : status && <div className="search-form__result">
-                        {status.status === 1 ?
-                            <>
-                                <p>{status.message}</p>
-                                {status.organizations.map((org, index) => {
-                                    return (
-                                        <CardOrganization
-                                            key={index + org.name}
-                                            alias={org.alias}
-                                            logo={org.logo}
-                                            name={org.name}
-                                            user_type={org.user_type}
-                                            is_active={org.is_active}
-                                            is_active_member={org.is_active_member}
-                                            city_name={org.city_name}
-                                            city_id={org.city_id}
-                                            owner_name={org.owner_name}
-                                            owner_position={org.owner_position}
-                                            federation_name={org.federation_name}
-                                            federation_alias={org.federation_alias}
-                                            content={org.content}
-                                            phones={org.phones}
-                                            mails={org.mails}
-                                            breeds={org.breeds}
-                                        />
-                                    );
-                                })
-                                }
-                            </>
-                            : ``}
-                        {status.status === 2 ? <p>Данные о регистрации отсутствуют</p> : ``}
                     </div>
+                }
+            </form>
+            {loading ?
+                <Loading centered={false} />
+                :
+                status && <div className="search-form__result">
+                    {status.status === 1 &&
+                        <>
+                            <p>{status.message}</p>
+                            {status.organizations.map((org, index) => {
+                                return (
+                                    <CardOrganization
+                                        key={index + org.name}
+                                        alias={org.alias}
+                                        logo={org.logo}
+                                        name={org.name}
+                                        user_type={org.user_type}
+                                        is_active={org.is_active}
+                                        is_active_member={org.is_active_member}
+                                        city_name={org.city_name}
+                                        city_id={org.city_id}
+                                        owner_name={org.owner_name}
+                                        owner_position={org.owner_position}
+                                        federation_name={org.federation_name}
+                                        federation_alias={org.federation_alias}
+                                        content={org.content}
+                                        phones={org.phones}
+                                        mails={org.mails}
+                                        breeds={org.breeds}
+                                    />
+                                );
+                            })}
+                        </>
+                    }
+                    {status.status === 2 && <p>Данные о регистрации отсутствуют</p>}
+                </div>
             }
             {alert &&
                 <Alert
@@ -146,4 +151,4 @@ const StampSearch = ({cardClicked}) => {
     );
 }
 
-export default React.memo(StampSearch);
+export default memo(StampSearch);

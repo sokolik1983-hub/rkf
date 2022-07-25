@@ -9,6 +9,7 @@ import useIsMobile from "../../../utils/useIsMobile";
 
 import "./index.scss";
 
+
 const UserInfo = ({
     isAuthenticated,
     logo_link,
@@ -25,7 +26,7 @@ const UserInfo = ({
     onError,
     judgeInfo,
 }) => {
-    const isMobile = useIsMobile(350);
+    const isMobile = useIsMobile(600);
 
     return (
         <>

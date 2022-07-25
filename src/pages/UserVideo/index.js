@@ -32,7 +32,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const [videos, setVideos] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
     const params = useParams();
-    const alias = match.params.id;
+    const alias = match.params.alias;
     const isMobile = useIsMobile(1080);
 
     useEffect(() => {

@@ -316,3 +316,9 @@ export const LoadableMetricsDocPage = Loadable({
     loader: () => import('./pages/MetricsDocPage'),
     loading: Loading
 });
+
+
+export const LoadableNKPPage = Loadable({
+    loader: () => import('./pages/NKP'),
+    loading: Loading
+});

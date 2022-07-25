@@ -1,15 +1,15 @@
-import React from "react";
+import React, {memo} from "react";
 import NBCLayout from "../../components/Layouts/NBCLayout";
 import Content from "./Content";
-
 import "./index.scss"
 
-const NBCPage = (props) => {
+
+const NBCPage = props => {
     return (
-            <NBCLayout {...props}>
-                <Content />
-            </NBCLayout>
+        <NBCLayout {...props}>
+            <Content />
+        </NBCLayout>
     )
 };
 
-export default React.memo(NBCPage);
+export default memo(NBCPage);

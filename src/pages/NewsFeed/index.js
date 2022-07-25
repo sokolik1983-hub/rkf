@@ -42,8 +42,6 @@ const Content = props => { //Дополнительные props берутся �
 
     blockContent(showFilter);
 
-    console.log(showMustRead, activeCategoryId);
-
     useEffect(() => {
         activeCategoryId === 5 && setShowMustRead(true)
     }, [])

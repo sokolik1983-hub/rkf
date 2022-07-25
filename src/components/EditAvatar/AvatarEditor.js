@@ -22,7 +22,7 @@ const CustomAvatarEditor = ({user_info, updateUserInfo, setModalType, onSubmitSu
         logo_link = ''
     } = user_info;
 
-    const [image, setImage] = useState(pageBanner ? headliner_link : logo_link);
+    const [image, setImage] = useState(pageBanner ? headliner_link : owner ? owner : logo_link);
     const [position, setPosition] = useState({x: 0.5, y: 0.5});
     const [scale, setScale] = useState(1);
     const [rotate, setRotate] = useState(0);
@@ -42,7 +42,7 @@ const CustomAvatarEditor = ({user_info, updateUserInfo, setModalType, onSubmitSu
         }, data => {
             if(data) {
                 if(!owner) {
-                    let userInfo = user_info;
+                    let userInfo = {...user_info};
 
                     if(pageBanner) {
                         userInfo.headliner_link = data;
