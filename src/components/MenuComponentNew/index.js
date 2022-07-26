@@ -39,6 +39,7 @@ const MenuComponentNew = () => {
 
     const isMobile = useIsMobile(1080);
     const location = useLocation();
+
     const url = location.pathname.split('/')[1];
     const linkAlias = location.pathname.split('/')[2];
     const addLink = location.pathname.split('/')[3];
@@ -55,7 +56,7 @@ const MenuComponentNew = () => {
     const isExhibitionPage = useRouteMatch();
 
     const deleteNotification = currentPageNav => {
-        return currentPageNav?.filter(item => (item.title !== 'Уведомления') && item); //что за бред?
+        return currentPageNav?.filter(item => item.title !== 'Уведомления');
     };
 
     const getMenu = (url, linkAlias) => {
@@ -94,15 +95,11 @@ const MenuComponentNew = () => {
         }
         Request({ //подтягиваем инфу о юзере, на странице которого находимся (нужно для моб. меню)
             url:
-                url === "nbc" ?
-                    endpointGetNBCInfo + linkAlias :
-                        url === "club" ?
-                        endpointGetClubInfo + linkAlias :
-                            url === "kennel" ?
-                                endpointGetNurseryInfo + linkAlias :
-                                url === "user" ?
-                                    endpointGetUserInfo + linkAlias :
-                                    endpointGetClubInfo + linkAlias
+                url === "nbc" ? endpointGetNBCInfo + linkAlias :
+                url === "club" ? endpointGetClubInfo + linkAlias :
+                url === "kennel" ? endpointGetNurseryInfo + linkAlias :
+                url === "user" ? endpointGetUserInfo + linkAlias :
+                endpointGetClubInfo + linkAlias
         }, data => {
             setCurrentPageUserInfo({...data });
         }, error => {

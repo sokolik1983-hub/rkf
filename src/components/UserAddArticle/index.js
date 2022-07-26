@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {memo, useState} from "react";
 import {number, object, string, array} from "yup";
 import ls from "local-storage";
 import Card from "../Card";
@@ -7,11 +7,10 @@ import {Form} from "../Form";
 import {useFocus} from "../../shared/hooks";
 import RenderFields from "./RenderFields";
 import {newsArticleFormConfig} from "./config";
-
 import "./index.scss";
 
 
-const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInfo}) => {
+const AddArticle = ({logo, setNeedRequest, userPage, profileInfo, setProfileInfo}) => {
     const [isAd, setIsAd] = useState(false);
     const [isCheckedAddTypes, setIsCheckedAddTypes] = useState(false);
     const [isMust, setIsMust] = useState(false);
@@ -23,7 +22,7 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     const [loadFile, setLoadFile] = useState(false);
     const [isCategoryId, setIsCategoryId] = useState(null);
     const [isHalfBreed, setIsHalfBreed] = useState(false);
-    const { focus, setFocused, setBlured } = useFocus(false);
+    const {focus, setFocused, setBlured} = useFocus(false);
     const [activeElem, setActiveElem] = useState(null);
     const [isAllCities, setIsAllCities] = useState(false);
     const [isTypeId, setIsTypeId] = useState(null);
@@ -192,4 +191,4 @@ const AddArticle = ({ logo, setNeedRequest, userPage, profileInfo, setProfileInf
     )
 };
 
-export default React.memo(AddArticle);
+export default memo(AddArticle);

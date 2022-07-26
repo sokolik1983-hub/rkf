@@ -35,7 +35,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
     const [images, setImages] = useState([]);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [startElement, setStartElement] = useState(1);
-    const alias = match.params.id;
+    const alias = match.params.alias;
     const isMobile = useIsMobile(1080);
     const params = useParams();
 
@@ -74,7 +74,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
     const getImages = async startElem => {
         setImagesLoading(true);
         return Request({
-            url: `/api/photogallery/gallery?alias=${params.id}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`
+            url: `/api/photogallery/gallery?alias=${params.alias}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`
         }, data => {
             if (data.photos.length) {
                 const modifiedNews = data.photos.map(p => {

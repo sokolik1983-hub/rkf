@@ -5,14 +5,14 @@ import Aside from "../../components/Layouts/Aside";
 import CitiesFilter from "../Filters/CitiesFilter";
 import RegionsFilter from "../Filters/RegionsFilter";
 import CopyrightInfo from "../CopyrightInfo";
-import useIsMobile from "../../utils/useIsMobile";
 import {Request} from "../../utils/request";
 import OrganizationsFilter from "./components/OrganizationsFilter";
+import {connectShowFilters} from "../Layouts/connectors";
 
 import "./style.scss";
 
 
-const ClubsMap = ({fullScreen}) => {
+const ClubsMap = ({fullScreen, isOpenFilters}) => {
     const [data, setData] = useState([]);
     const [cities, setCities] = useState([]);
     const [regions, setRegions] = useState([]);
@@ -22,8 +22,6 @@ const ClubsMap = ({fullScreen}) => {
     const [targetZoom, setTargetZoom] = useState(10);
     const [targetRegion, setTargetRegion] = useState([42]);
     const [targetCoords, setTargetCoords] = useState([55.755819, 37.617644]);
-
-    const isMobile = useIsMobile(1080);
 
     const getOrganizations = async () => {
         await Request({
@@ -128,7 +126,7 @@ const ClubsMap = ({fullScreen}) => {
                 />
             </Map>
             {fullScreen &&
-                <Aside className="map-page__right">
+                <Aside className={`map-page__right${isOpenFilters ? ' _open' : ''}`}>
                     <StickyBox offsetTop={60}>
                         <div className='map-page__filters'>
                             <RegionsFilter
@@ -136,17 +134,14 @@ const ClubsMap = ({fullScreen}) => {
                                 regions={regions}
                                 region_ids={targetRegion}
                                 onChange={handleChangeRegion}
-                                startOpen={!isMobile}
                             />
                             <CitiesFilter
                                 loading={loading}
                                 cities={cities}
                                 city_ids={targetCity}
                                 onChange={handleChangeCity}
-                                startOpen={!isMobile}
                             />
                             <OrganizationsFilter
-                                startOpen={!isMobile}
                                 onChange={handleChangeOrganization}
                             />
                             <CopyrightInfo withSocials={true} />
@@ -157,4 +152,4 @@ const ClubsMap = ({fullScreen}) => {
         </YMaps>
 };
 
-export default memo(ClubsMap);
+export default connectShowFilters(memo(ClubsMap));

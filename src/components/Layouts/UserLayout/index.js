@@ -40,7 +40,7 @@ const UserLayout = ({   profile_id,
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [checkLink, setCheckLink] = useState(false);
-    const { route: alias, id } = useParams();
+    const { alias, id } = useParams();
     const isMobile = useIsMobile(1080);
 
     useEffect(() => {

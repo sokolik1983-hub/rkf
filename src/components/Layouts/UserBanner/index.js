@@ -17,7 +17,6 @@ const UserBanner = ({user_info, link, canEdit}) => {
     const {headliner_link} = user_info || {};
     const bannerLink = canEdit ? headliner_link : link;
 
-
     return (
         <Card
             className={`user-banner${bannerLink && bannerLink !== '' ? ' _custom_banner' : ''}`}

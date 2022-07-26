@@ -41,8 +41,8 @@ const Schedule = ({ work_time }) => {
                             </li>
                         ))}
                     </ul>
-                    {work_time
-                        .sort((a, b) => a.week_day_id - b.week_day_id)
+                    {work_time &&
+                        work_time.sort((a, b) => a.week_day_id - b.week_day_id)
                         .map((day, index) => (
                             <FormGroup inline key={index}>
                                 <span className="nursery-schedule__days-form-day">
