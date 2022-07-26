@@ -101,7 +101,7 @@
   &__name {
     text-decoration: none;
     line-height: 20px;
-    white-space: nowrap;
+    //white-space: nowrap;
     margin-bottom: 5px;
     text-overflow: ellipsis;
     display: block;
@@ -127,7 +127,7 @@
         flex-direction: column;
         justify-content: center;
         margin-bottom: 10px;
-        height: 70px;
+        min-height: 70px;
       }
 
       & > div {
