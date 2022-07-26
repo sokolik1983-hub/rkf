@@ -17,11 +17,11 @@ import { formatText } from "../../../../utils";
 import { Request } from "../../../../utils/request";
 import { formatDateTime } from "../../../../utils/datetime";
 import { linkForUserType } from "../../../../utils/linkForUserType";
-
-import "./index.scss";
 import CardGallery from "../../../../components/CardGallery";
 import {Gallery} from "../../../../components/Gallery";
 import useIsMobile from "../../../../utils/useIsMobile";
+
+import "./index.scss";
 
 const NewsFeedItem = forwardRef(({
     id,
