@@ -64,7 +64,7 @@ const Filters = ({
     const goToLink = (cities, currentCityIds) => {
         if(currentExhibRegions.length  === 0) {
             setExhibitionCities(startCities);
-            setFiltersToUrl({CityIds: []});
+            setFiltersToUrl({CityIds: []}, true);
         } else {
             const newArr = [];
             cities.map(item => item.value).forEach(item => {
@@ -190,8 +190,8 @@ const Filters = ({
             setFiltersToUrl({ RankIds: newArr});
         } else {
             setCurrentRanks([]);
-            setFiltersToUrl({ RankIds: [] });
-        };
+            setFiltersToUrl({ RankIds: [] }, true);
+        }
     }, [currentTypes, ranks]);
 
     return (
