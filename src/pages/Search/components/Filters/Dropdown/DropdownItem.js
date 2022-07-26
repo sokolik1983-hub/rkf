@@ -174,7 +174,7 @@ const DropdownItem = ({
                             filter === 'rank' && ranks && ranks.length ?
                                 <RankFilter
                                     ranks={ranks}
-                                    rank_id={filtersValue.rank_id}
+                                    rank_ids={filtersValue.rank_id}
                                     onChange={filter => {
                                         setFiltersToUrl({rank_id: filter});
                                     }}
