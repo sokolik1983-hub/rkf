@@ -64,7 +64,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
     const getImages = async (startElem = 1) => {
         setImagesLoading(true);
         await Request({
-            url: `/api/photogallery/gallery?alias=${params.id}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`
+            url: `/api/photogallery/gallery?alias=${params.alias}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`
         }, data => {
             if (data.photos.length) {
                 const modifiedNews = data.photos.map(p => {
@@ -213,10 +213,10 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                         <Card>
                                             <div className="NurseryGallery__breadcrumbs wrap">
                                                 <div>
-                                                    <Link className="btn-backward" to={`/user/${params.id}/`}>
+                                                    <Link className="btn-backward" to={`/user/${params.alias}/`}>
                                                         <span>&lsaquo;</span> Личная страница</Link> /
                                                     <Link className="btn-backward"
-                                                        to={`/user/${params.id}/gallery`}> Фотогалерея</Link>
+                                                        to={`/user/${params.alias}/gallery`}> Фотогалерея</Link>
                                                     {album ? <> / <Link className="btn-backward"
                                                         to={`/user/${alias}/gallery/${params.album}`}>{album.name}</Link></> : ''}
                                                     &nbsp;/&nbsp;Редактирование

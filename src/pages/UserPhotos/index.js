@@ -71,6 +71,9 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
         setLoading(false);
     };
 
+    console.log("canEdit", canEdit)
+    console.log("album", album)
+
     const getImages = async startElem => {
         setImagesLoading(true);
         return Request({
@@ -115,7 +118,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
     const getAlbums = (page = 0) => {
         setImagesLoading(true);
         return Request({
-            url: `/api/photogallery/albums?alias=${params.id}`
+            url: `/api/photogallery/albums?alias=${params.alias}`
         }, (albums) => {
             setAlbums(albums);
             setImagesLoading(false);
