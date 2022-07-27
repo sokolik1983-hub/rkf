@@ -1,0 +1,103 @@
+.nbc-edit {
+  &__inner {
+    display: flex;
+    width: 100%;
+    @media (max-width: 560px) {
+      flex-direction: column-reverse;
+    }
+
+    &-left {
+      margin-right: 16px;
+      width: 100%;
+      h3 {
+        margin-top: 3px;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: normal;
+        color: #030404;
+        border-bottom: 1px solid #E5E5E5;
+      }
+    }
+
+    &-right {
+      flex-grow: 1;
+      min-width: 230px;
+      width: 230px;
+      @media (max-width: 680px) {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        position: fixed;
+        top: 62px;
+        right: 0;
+        z-index: 99;
+        padding: 16px;
+        background: #fff;
+        border-radius: 5px 0 0 5px;
+        transform: translateX(100%);
+        transition: all 0.2s ease-out;
+        &._open {
+          transform: translateX(0);
+          .Card {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+
+    &-list {
+      list-style: none;
+      li {
+        margin-top: 10px;
+      }
+    }
+
+    &-item {
+      cursor: pointer;
+      color: #72839c;
+      svg {
+        height: 18px;
+        vertical-align: middle;
+      }
+      span {
+        vertical-align: middle;
+        margin-left: 6px;
+      }
+      &:hover,
+      &.active {
+        color: #3366ff;
+        transition: all 0.2s linear;
+        & > svg > path,
+        & > svg > g > path {
+          fill: #3366ff;
+        }
+      }
+    }
+  }
+
+  &__is-valid {
+    display: flex;
+    justify-content: center;
+    text-align: right;
+    color: red;
+  }
+
+  .ProfileEditPageControls__save {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    width: 154px;
+    height: 38px;
+    background: #3366FF;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FFF;
+    &:hover {
+      box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+    }
+  }
+}

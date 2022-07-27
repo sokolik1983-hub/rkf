@@ -10,17 +10,16 @@ import Alert from "../../components/Alert";
 import Layout from "../../components/Layouts";
 
 const Content = ({
-                     isOpenFilters,
-                     setShowFilters,
-                     transformValues,
-                     handleSuccess,
-                     handleError,
-                     initialValues,
-                     showAlert,
-                     loading,
-                     nbcInfo
-                 }) => {
-
+    isOpenFilters,
+    setShowFilters,
+    transformValues,
+    handleSuccess,
+    handleError,
+    initialValues,
+    showAlert,
+    loading,
+    nbcInfo
+}) => {
     return (
         <Layout layoutWithFilters>
             <AuthOrLogin>
@@ -50,7 +49,6 @@ const Content = ({
                 </div>
             </AuthOrLogin>
         </Layout>
-
     );
 };
 

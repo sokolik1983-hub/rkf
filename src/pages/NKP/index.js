@@ -13,6 +13,7 @@ import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGal
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import NKPMain from "./pages/Main";
+import NKPEdit from "./pages/Edit";
 import {BANNER_TYPES} from "../../appConfig";
 import {Request} from "../../utils/request";
 import useIsMobile from "../../utils/useIsMobile";
@@ -115,10 +116,12 @@ const NKP = ({history, user_info, updateUserInfo}) => {
                 <div className="nbc-page__content">
                     {NBCInfo &&
                         <>
-                            <UserBanner
-                                link={NBCInfo?.headliner_link}
-                                canEdit={isMyPage}
-                            />
+                            {!history.location.pathname.split('/').includes('edit') &&
+                                <UserBanner
+                                    link={NBCInfo?.headliner_link}
+                                    canEdit={isMyPage}
+                                />
+                            }
                             {isMobile &&
                                 <UserHeader
                                     user="nbc"
@@ -132,11 +135,13 @@ const NKP = ({history, user_info, updateUserInfo}) => {
                                 />
                             }
                             <Switch>
-                                {/*<Route*/}
-                                {/*    exact={true}*/}
-                                {/*    path='/nbc/:route/documents/'*/}
-                                {/*    component={() => <ExhibitionsCards alias={alias}/>}*/}
-                                {/*/>*/}
+                                {isMyPage &&
+                                    <Route
+                                        exact={true}
+                                        path="/nbc/:alias/edit"
+                                        component={() => <NKPEdit isMobile={isMobile}/>}
+                                    />
+                                }
                                 <Route
                                     component={() =>
                                         <NKPMain

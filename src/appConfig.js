@@ -492,7 +492,7 @@ const appRoutes = [
         component: LoadableModules.LoadableNBCPageEdit
     },
     {
-        exact: true,
+        exact: true, //false
         path: '/nbc/:alias',
         component: LoadableModules.LoadableNBCPage //LoadableNKPPage
     },

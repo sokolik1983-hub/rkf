@@ -16,7 +16,7 @@ import './index.scss';
 
 loadMessages(ruMessages, 'ru');
 
-const UploadDocsEditPage = ({ clubAlias, history }) => {
+const UploadDocsEditPage = () => {
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
     const clubId = useSelector(state => state.authentication.profile_id);
     const [loaded, setLoaded] = useState(false);
@@ -98,8 +98,6 @@ const UploadDocsEditPage = ({ clubAlias, history }) => {
                                      {
                                          <AdditionalDocuments
                                              documents={formRenderProps.valueGetter('documents')}
-                                             history={history}
-                                             clubAlias={clubAlias}
                                              handleError={handleError}
                                              formRenderProps={formRenderProps}
                                              getDocuments={getDocuments}
