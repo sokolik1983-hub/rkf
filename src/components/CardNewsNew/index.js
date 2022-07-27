@@ -16,8 +16,8 @@ import {nameForUserType} from "../../utils/nameForUserType";
 import CardGallery from "../CardGallery";
 import {Gallery} from "../Gallery";
 import {connectAuthUserInfo} from "../../pages/Login/connectors";
-import "./index.scss";
 
+import "./index.scss";
 
 const CardNewsNew = ({
     id,

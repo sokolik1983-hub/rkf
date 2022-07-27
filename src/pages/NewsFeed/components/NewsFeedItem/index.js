@@ -17,6 +17,9 @@ import { formatText } from "../../../../utils";
 import { Request } from "../../../../utils/request";
 import { formatDateTime } from "../../../../utils/datetime";
 import { linkForUserType } from "../../../../utils/linkForUserType";
+import CardGallery from "../../../../components/CardGallery";
+import {Gallery} from "../../../../components/Gallery";
+import useIsMobile from "../../../../utils/useIsMobile";
 
 import "./index.scss";
 
@@ -79,9 +82,23 @@ const NewsFeedItem = forwardRef(({
     const [showPhoto, setShowPhoto] = useState(false);
     const [isChecked, setIsChecked] = useState(checkedAll);
     const {picture_link} = photos?.length && photos[0];
-
     const ref = useRef(null);
     const userLink = linkForUserType(user_type, alias);
+    const isMobile = useIsMobile(1080);
+    const squareStyle = () =>{
+        return {
+            height: '100%',
+            width: '100%',
+            objectFit: 'cover',
+            cursor: 'pointer'
+        }
+    };
+    const imagesArray = photos?.filter(picture => !!picture && !!Object.keys(picture).length).map(picture => ({
+        src: picture.picture_link,
+        thumbnail: (photos.length > 4 && picture.picture_short_link) ? picture.picture_short_link : picture.picture_link,
+        thumbnailWidth: 320,
+        thumbnailHeight: 174,
+    }));
 
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100) || videoLink) setCanCollapse(true);
@@ -305,19 +322,33 @@ const NewsFeedItem = forwardRef(({
                         }
                     </div>
                     {(picture_link || video_link) &&
-                        <div className="news-feed-item__media">
-                            {photos?.length &&
-                                photos.map(photo =>
-                                    <div className="news-feed-item__photo"
-                                         style={{ backgroundImage: `url(${photo.picture_link})` }}
-                                         onClick={() => setShowPhoto(true)}
-                                    />
+                        <div className="card-news-new__media">
+                            {!!photos?.length &&
+                                (!showPhoto ?
+                                        (isMobile ? <CardGallery
+                                                images={imagesArray}
+                                            /> :
+                                            <div className={`card-news-new__media-wrap _${photos.length}`}>
+                                                <Gallery
+                                                    items={imagesArray}
+                                                    enableImageSelection={false}
+                                                    imageCountSeparator="&nbsp;из&nbsp;"
+                                                    tileViewportStyle={squareStyle}
+                                                    thumbnailStyle={squareStyle}
+                                                    backdropClosesModal={true}
+                                                />
+                                            </div>)
+                                        :
+                                        <div className="card-news-new__photo-wrap __all">
+                                            {photos.map((picture, index) =>
+                                                <img className="card-news-new__photo" src={picture.picture_link} alt="" key={index}/>
+                                            )}
+                                        </div>
                                 )
                             }
                             {video_link &&
-                                <div className="news-feed-item__video">
+                                <div className="card-news-new__video">
                                     <iframe
-                                        className="news__video"
                                         src={video_link}
                                         title="YouTube Video"
                                         frameBorder="0"
