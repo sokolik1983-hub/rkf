@@ -257,6 +257,7 @@
         .ReactGridGallery_tile-icon-bar div {
             visibility: visible!important;
             &:after {
+                display: none;
                 content: 'Выбрать';
                 position: absolute;
                 color: #fff;
