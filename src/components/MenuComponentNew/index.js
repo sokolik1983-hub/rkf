@@ -251,7 +251,7 @@ const MenuComponentNew = () => {
 
         if(currentPageUserInfo?.user_type === 1 && currentPageUserInfo?.open_roles[0]?.name === 'Судья') {
             isUserProfilePage ?
-                setCurrentPageNav(judgeNav(linkAlias)) :
+                setCurrentPageNav(judgeNav(userAlias)) :
                 setCurrentPageNav(deleteNotification(judgeNav(linkAlias)));
         }
     }, [currentPageUserInfo]);
