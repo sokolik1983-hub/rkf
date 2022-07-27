@@ -27,10 +27,9 @@
       right: 0;
       z-index: 99;
       margin: 0;
-      // padding: 5px 0 65px 20px;
       padding: 16px;
       background-color: #fff;
-      height: calc(100% - 120px);
+      height: calc(100% - 100px);
       overflow-y: auto;
       visibility: hidden;
       transform: translateX(100%);
@@ -41,9 +40,6 @@
         transform: translateX(0);
       }
     }
-    //@media (max-width: 560px) {
-    //  top: 70px;
-    //}
   }
   &__content {
     width: calc(100% - 316px);

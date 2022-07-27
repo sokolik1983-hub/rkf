@@ -33,7 +33,6 @@ import RegionsFilter from '../../../../components/Filters/RegionsFilter';
 
 import './index.scss';
 
-
 const Filters = ({
     organization_type,
     federation_ids,
