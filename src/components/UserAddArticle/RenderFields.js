@@ -53,16 +53,18 @@ const RenderFields = ({
     setIsAllCities,
     name,
     userType,
+    profileInfo,
     setContent,
     loadPictures,
     setLoadPictures,
-    content
 }) => {
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
     const [cityLabel, setCityLabel] = useState('');
     const isMobile = useIsMobile();
+
+    const {content} = formik.values;
 
     useEffect(() => {
         Request({ url: '/api/article/article_ad_types' },
@@ -101,6 +103,13 @@ const RenderFields = ({
         formik.setFieldValue('pictures', loadPictures);
     }, [loadPictures, isCheckedAddTypes, isAd]);
 
+    useEffect(() => {
+        setTimeout(() => {
+            formik.setFieldValue('content', '');
+        }, 50);
+
+    }, [profileInfo.counters.publications_count])
+
     const handleClose = picture => {
         const index = loadPictures.indexOf(picture);
 
@@ -124,7 +133,7 @@ const RenderFields = ({
                 text = text.replace(x, '');
             });
 
-        setContent(text);
+        formik.setFieldValue('content', text);
     };
 
     const addRow = () => {
@@ -243,7 +252,6 @@ const RenderFields = ({
                                         checked={isAd}
                                         onChange={() => {
                                             setContent(content);
-
                                             if (isAd) {
                                                 setIsAd(false);
                                                 setIsMust(false);
@@ -253,7 +261,7 @@ const RenderFields = ({
                                                 setIsMust(false);
                                                 setIsCheckedAddTypes(false);
                                                 setIsCategoryId(1);
-                                            }
+                                            };
                                         }}
                                     />
                                     <CustomCheckbox
@@ -263,17 +271,16 @@ const RenderFields = ({
                                         checked={isCheckedAddTypes}
                                         onChange={() => {
                                             setContent(content);
-
                                             if (isCheckedAddTypes) {
                                                 setIsCheckedAddTypes(false);
                                                 setIsMust(false);
-                                                setIsCategoryId(false);
+                                                setIsCategoryId(null);
                                             } else if (!isCheckedAddTypes) {
                                                 setIsCheckedAddTypes(true);
                                                 setIsMust(false);
                                                 setIsAd(false);
                                                 setIsCategoryId(2);
-                                            }
+                                            };
                                         }}
                                     />
                                 </>
