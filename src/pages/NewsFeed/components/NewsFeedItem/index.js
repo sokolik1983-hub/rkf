@@ -328,7 +328,7 @@ const NewsFeedItem = forwardRef(({
                                         (isMobile ? <CardGallery
                                                 images={imagesArray}
                                             /> :
-                                            <div className={`card-news-new__media-wrap -${photos.length}`}>
+                                            <div className={`card-news-new__media-wrap _${photos.length}`}>
                                                 <Gallery
                                                     items={imagesArray}
                                                     enableImageSelection={false}
