@@ -2,8 +2,8 @@ import React, { memo, useMemo, useState } from "react";
 import SwipeTabs from "../../../../../../components/SwipeTabs";
 import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
 import { Sorting } from "../Sorting";
-import "./index.scss";
 
+import "./index.scss";
 
 const ListFilter = ({
         CityIds,
