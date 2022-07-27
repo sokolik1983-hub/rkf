@@ -471,11 +471,11 @@ const appRoutes = [
         path: '/nbc/:alias/gallery',
         component: LoadableModules.LoadableNBCGallery
     },
-    {
-        exact: true,
-        path: '/nbc/:alias/video',
-        component: LoadableModules.LoadableNBCVideo
-    },
+    // {
+    //     exact: true,
+    //     path: '/nbc/:alias/video',
+    //     component: LoadableModules.LoadableNBCVideo
+    // },
     {
         exact: false,
         path: '/nbc/:alias/documents/',
@@ -486,15 +486,15 @@ const appRoutes = [
         path: '/nbc/:alias/uploaded-documents/',
         component: LoadableModules.LoadableNBCUploadedDocuments
     },
+    // {
+    //     exact: false,
+    //     path: '/nbc/:alias/edit',
+    //     component: LoadableModules.LoadableNBCPageEdit
+    // },
     {
-        exact: false,
-        path: '/nbc/:alias/edit',
-        component: LoadableModules.LoadableNBCPageEdit
-    },
-    {
-        exact: true, //false
+        exact: false, //true
         path: '/nbc/:alias',
-        component: LoadableModules.LoadableNBCPage //LoadableNKPPage
+        component: LoadableModules.LoadableNKPPage //LoadableNBCPage
     },
     //ФИЗИК
     {

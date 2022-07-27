@@ -153,7 +153,7 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
             {showModal && modalType === 'addVideo' &&
                 <AddVideoModal
                     showModal={showModal}
-                    setShowModal={() => {
+                    onClose={() => {
                         setModalType('');
                         setShowModal(false);
                     }}

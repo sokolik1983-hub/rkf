@@ -254,38 +254,35 @@
         }
       }
     }
+  &__logo-wrap {
+    padding: 10px;
+  }
+  &__logo {
+    width: 100%;
+  }
+  &__wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    &__logo-wrap {
-      padding: 10px;
-    }
+  & > div {
+    width: 100%;
+  }
 
-    &__logo {
-      width: 100%;
-    }
+  & > div > div, & > div > section > div {
+    display: flex;
+  }
 
-    &__wrap {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-    & > div {
-      width: 100%;
-    }
-
-    & > div > div, & > div > section > div {
-      display: flex;
-    }
-
-    @media (min-width: 561px) and (max-width: 990px) {
-      .widget-login__button-wrap {
-        position: relative;
-        bottom: 23px;
-        margin: 0 0 0 auto;
-        width: 40%;
-      }
+  @media (min-width: 561px) and (max-width: 990px) {
+    .widget-login__button-wrap {
+      position: relative;
+      bottom: 23px;
+      margin: 0 0 0 auto;
+      width: 40%;
     }
   }
+}
   &__user {
     display: flex;
     font-weight: normal;
@@ -396,21 +393,18 @@
       line-height: 1;
     }
   }
-}
-
-div.user-header__user {
-  display: flex;
-  margin-left: 5px;
-  align-items: center;
-}
-// что здесь делают эти стили???
-.redesign {
   .widget-login__button-wrap {
     padding: 10px 0 0 0;
     @media (max-width: 560px) {
       border-top: 1px solid #E5E5E5;
     }
   }
+}
+
+div.user-header__user {
+  display: flex;
+  margin-left: 5px;
+  align-items: center;
 }
 
 .container {
