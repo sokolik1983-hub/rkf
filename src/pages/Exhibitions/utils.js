@@ -90,7 +90,7 @@ export const getFiltersFromUrl = () => {
 export const setFiltersToUrl = (filters, initial = false) => {
     const newFilters = getFiltersFromUrl() ? { ...getFiltersFromUrl(), ...filters } : filters;
     const targetUrl = (`/exhibitions${buildUrlParams(newFilters)}`);
-    initial ? history.replace(targetUrl) : history.URLSearchParams(targetUrl);
+    initial ? history.replace(targetUrl) : history.push(targetUrl);
 };
 
 export const getEmptyFilters = (alias = null) => ({
