@@ -5,6 +5,7 @@ import MaskedInput from "../../../../../../components/Form/Field/MaskedInput";
 import LightTooltip from "../../../../../../components/LightTooltip";
 import Button from "../../../../../../components/Button";
 import {editFormFields} from "../../config";
+import "./index.scss";
 
 
 const Contact = ({formik, name, title, className}) => {
@@ -64,8 +65,7 @@ const Contact = ({formik, name, title, className}) => {
                                             arrayHelpers.remove(i);
                                         }
                                     }}
-                                >
-                                </Button>
+                                />
                             </LightTooltip>
                         </FormGroup>
                     )}

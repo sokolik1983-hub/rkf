@@ -1,0 +1,123 @@
+.contacts-array {
+  margin-bottom: 16px;
+  h4 {
+    margin-bottom: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #253c5e;
+  }
+  &__checkbox-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0 0 5px;
+    @media (max-width: 760px) {
+      display: none;
+    }
+    & > span, & > div {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 16px;
+      text-align: center;
+      color: #B9B9B9;
+      position: relative;
+      top: -10px;
+    }
+    .custom-checkbox__label {
+      height: 26px;
+      width: 18px;
+      padding: 0;
+    }
+  }
+  &__controls {
+    position: relative;
+  }
+  .FormGroup {
+    display: grid;
+    grid-template-columns: 5% 28% 43% 9% 5%;
+    grid-template-rows: 55px;
+    gap: 3%;
+    @media (max-width: 900px) {
+      grid-template-columns: 5% 37% 35% 7% 5%;
+    }
+    @media (max-width: 760px) {
+      grid-template-columns: 75% 22%;
+      margin-bottom: 24px;
+    }
+    .FormInput__input {
+      width: 100%;
+      display: inline-block;
+      &__error {
+        left: 0;
+        bottom: 0;
+      }
+    }
+    input[type='tel'], .FormInput--text, .FormInput--email {
+      display: block;
+      margin: 0;
+      &:nth-child(1) {
+        grid-column: 2 / 3;
+        @media (max-width: 760px) {
+          grid-column: 1 / 2;
+        }
+      }
+      &:nth-child(2) {
+        @media (max-width: 760px) {
+          grid-column: 1 / 3;
+        }
+      }
+    }
+    input[type='tel'] {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 400;
+      letter-spacing: .2px;
+      color: #72839C;
+      border-radius: 6px;
+      border: 1px solid #EBF0F2;
+      background-color: white;
+      padding: 12px 14px;
+      margin-bottom: 5px;
+    }
+  }
+  .btn-mini {
+    position: absolute;
+    top: -38px;
+    left: 15px;
+    height: 18px;
+    width: 18px;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    border: none;
+    border-radius: 50%;
+    background: url("/static/icons/add-blue.svg") no-repeat center / contain;
+    @media (max-width: 760px) {
+      top: -112px;
+      right: 0;
+      left: auto;
+    }
+  }
+  &__button-delete {
+    padding: 0;
+    margin: 18px 0 0 5px;
+    width: 15px;
+    height: 18px;
+    cursor: pointer;
+    background: url('/static/icons/delete-red.svg');
+    background-size: cover;
+    border: none;
+    transition: all 0.2s linear;
+    &:hover {
+      box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+    }
+    @media (max-width: 760px) {
+      margin: 17px 0 0 10px;
+      grid-row: 1 / 2;
+      grid-column: 2 / 3;
+    }
+  }
+}

@@ -4,8 +4,7 @@ import StickyBox from "react-sticky-box";
 import Card from "../../../../components/Card";
 import MainSection from "./sections/MainSection";
 import ContactsSection from "./sections/ContactsSection";
-// import ContactsPage from './components/ContactsPage';
-// import BankInfo from "./components/BankInfo";
+import BankSection from "./sections/BankSection";
 import {sections} from "./config";
 
 
@@ -20,8 +19,6 @@ const RenderFields = ({formik, isOpenFilters, setShowFilters}) => {
         }
     };
 
-    console.log(formik.values)
-
     return (
         <div className="nbc-edit__inner">
             <div className="nbc-edit__inner-left">
@@ -31,27 +28,11 @@ const RenderFields = ({formik, isOpenFilters, setShowFilters}) => {
                 {activeSection === 1 &&
                     <ContactsSection errors={formik.errors}/>
                 }
-
-                {/*{activeSection === 0 ? <MainPage*/}
-                {/*        name={name}*/}
-                {/*        alias={alias}*/}
-                {/*        formik={formik}*/}
-                {/*        web_site={web_site}*/}
-                {/*        comment={comment}*/}
-                {/*    /> :*/}
-                {/*    activeSection === 1 ? <ContactsPage*/}
-                {/*            formik={formik}*/}
-                {/*            social_networks={social_networks}*/}
-                {/*            phones={phones}*/}
-                {/*            emails={emails}*/}
-                {/*            // randomKeyGenerator={randomKeyGenerator}*/}
-                {/*        /> :*/}
-                {/*        activeSection === 2 && <BankInfo*/}
-                {/*            bank_comment={bank_comment}*/}
-                {/*        />*/}
-                {/*}*/}
+                {activeSection === 2 &&
+                    <BankSection errors={formik.errors}/>
+                }
             </div>
-            <div className={`nbc-edit__inner-right${isOpenFilters ? " _open" : ""}`}>
+            <div className={`nbc-edit__inner-right${isOpenFilters ? ' _open' : ''}`}>
                 <StickyBox offsetTop={60}>
                     <Card>
                         <span className="nbc-edit__profile-label">Профиль</span>

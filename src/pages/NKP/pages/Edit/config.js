@@ -84,28 +84,28 @@ export const editForm = {
 
 export const editFormFields = {
     name: {
-        name: "name",
-        disabled: true,
-        label: "Название НКП",
+        name: 'name',
+        label: 'Название НКП',
+        disabled: true
     },
     alias: {
-        name: "alias",
-        disabled: true,
-        label: "rkf.online/nbc/",
+        name: 'alias',
+        label: 'rkf.online/nbc/',
+        disabled: true
     },
     comment: {
-        name: "comment",
-        label: "Краткая информация о НКП",
+        name: 'comment',
+        label: 'Краткая информация о НКП',
         fieldType: 'textarea',
         rows: 6,
         maxLength: '1500'
     },
     web_site: {
-        name: "web_site",
-        label: "Адрес сайта",
+        name: 'web_site',
+        label: 'Адрес сайта'
     },
     bank_comment: {
-        name: "bank_comment",
+        name: 'bank_comment',
         fieldType: 'textarea',
         rows: 6,
         maxLength: '1500'
@@ -113,21 +113,18 @@ export const editFormFields = {
     phones: [
         {
             mask: DEFAULT_PHONE_INPUT_MASK,
-            label: 'Телефон',
             type: 'tel',
             placeholder: '+7(___)___-__-__',
-            title: 'Формат номера: +7(999)999-99-99',
+            title: 'Формат номера: +7(999)999-99-99'
         }
     ],
     emails: [
         {
-            label: 'E-mail',
             type: 'email',
-            placeholder: 'Введите e-mail',
+            placeholder: 'Введите e-mail'
         }
     ],
     social_networks: [],
-    documents: []
 };
 
 export const defaultValues = {
@@ -152,10 +149,5 @@ export const defaultValues = {
         site: '',
         description: '',
         social_network_type_id: 1
-    }],
-    documents: [{
-        id: null,
-        name: '',
-        url: ''
     }]
 };
