@@ -82,7 +82,6 @@ const NewsFeedItem = forwardRef(({
     const [showPhoto, setShowPhoto] = useState(false);
     const [isChecked, setIsChecked] = useState(checkedAll);
     const {picture_link} = photos?.length && photos[0];
-
     const ref = useRef(null);
     const userLink = linkForUserType(user_type, alias);
     const isMobile = useIsMobile(1080);
@@ -329,7 +328,7 @@ const NewsFeedItem = forwardRef(({
                                         (isMobile ? <CardGallery
                                                 images={imagesArray}
                                             /> :
-                                            <div className={`card-news-new__media-wrap _${photos.length}`}>
+                                            <div className={`card-news-new__media-wrap -${photos.length}`}>
                                                 <Gallery
                                                     items={imagesArray}
                                                     enableImageSelection={false}

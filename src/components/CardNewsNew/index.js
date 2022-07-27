@@ -16,8 +16,8 @@ import {nameForUserType} from "../../utils/nameForUserType";
 import CardGallery from "../CardGallery";
 import {Gallery} from "../Gallery";
 import {connectAuthUserInfo} from "../../pages/Login/connectors";
-import "./index.scss";
 
+import "./index.scss";
 
 const CardNewsNew = ({
     id,
@@ -292,7 +292,7 @@ const CardNewsNew = ({
                                     (isMobile ? <CardGallery
                                         images={imagesArray}
                                     /> :
-                                        <div className={`card-news-new__media-wrap _${pictures.length}`}>
+                                        <div className={`card-news-new__media-wrap -${pictures.length}`}>
                                             <Gallery
                                                 items={imagesArray}
                                                 enableImageSelection={false}

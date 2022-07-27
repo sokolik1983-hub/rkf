@@ -54,7 +54,7 @@
       }
     }
     &-wrap {
-      &._1 {
+      &-1 {
         .ReactGridGallery {
           display: flex;
           justify-content: center;
@@ -70,7 +70,7 @@
           }
         }
       }
-      &._2 {
+      &-2 {
         .ReactGridGallery {
           display: flex;
           flex-direction: row;
@@ -84,7 +84,7 @@
           }
         }
       }
-      &._3 {
+      &-3 {
         .ReactGridGallery {
           display: grid;
           grid-template-areas:
@@ -100,7 +100,7 @@
           }
         }
       }
-      &._4 {
+      &-4 {
         .ReactGridGallery {
           display: grid;
           grid-template-areas:
@@ -116,7 +116,7 @@
           }
         }
       }
-      &._5 {
+      &-5 {
         .ReactGridGallery {
           display: grid;
           grid-template-areas:
