@@ -72,7 +72,7 @@ const ReplaceRegistry = ({distinction, profileType}) => {
             {!standardView ?
                 <Card className="club-documents-status__popup">
                     <div className="club-documents-status__controls">
-                        {registry && !isMobile &&
+                        {registry &&
                             <button
                                 className="club-documents-status__control club-documents-status__control--registryIcon"
                                 onClick={() => setShowModal(true)}
@@ -129,7 +129,7 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                     {documents && !!documents.length ?
                         <div className="club-documents-status__inner">
                             <div className="club-documents-status__controls _patella_controls">
-                                {registry && !isMobile &&
+                                {registry &&
                                     <button
                                         className="club-documents-status__control club-documents-status__control--registryIcon"
                                         onClick={() => setShowModal(true)}
@@ -190,7 +190,7 @@ const ReplaceRegistry = ({distinction, profileType}) => {
                 >
                     <TableModal
                         documents={registry}
-                        fullScreen
+                        fullScreen={!isMobile}
                     />
                 </Modal>
             }
