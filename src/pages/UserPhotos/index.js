@@ -71,9 +71,6 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
         setLoading(false);
     };
 
-    console.log("canEdit", canEdit)
-    console.log("album", album)
-
     const getImages = async startElem => {
         setImagesLoading(true);
         return Request({

@@ -64,7 +64,7 @@ const UserContacts = ({
                 {mainPhone || phones ?
                     <div className="user-contacts__info-phone">
                         <p>
-                            <span>{'Телефон'}:&nbsp;</span>
+                            <span>Телефон:&nbsp;</span>
                             <span>{getPhoneString(mainPhone, phones)}</span>
                         </p>
                     </div>
