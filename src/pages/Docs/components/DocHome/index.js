@@ -82,7 +82,7 @@ const DocumentCards = ({ clubAlias, authorizedAccess, membershipPaid }) => {
                         возможность зарегистрироваться на прием будет для вас ограничена.
                         Просим своевременно отменять запись в случае невозможности ею воспользоваться!</p>
                 </CardMessage>
-                <Card className={litter ? `` : `_inactive`}>
+                <Card className={`card${litter ? `` : ` _inactive`}`}>
                     <div className="documents-page__icon litter-icon" />
                     <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
                     <p>
