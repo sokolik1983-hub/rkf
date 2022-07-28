@@ -256,13 +256,6 @@
     .edit-gallery__wrap {
         .ReactGridGallery_tile-icon-bar div {
             visibility: visible!important;
-            &:after {
-                display: none;
-                content: 'Выбрать';
-                position: absolute;
-                color: #fff;
-                -webkit-text-stroke: .5px grey;
-            }
         }
     }
 }
