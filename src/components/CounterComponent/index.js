@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import {Link, NavLink} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./styles.scss";
 
@@ -75,7 +75,7 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
                     </div>
                 }
                 {(judgeInfo?.length || profileAlias.search('user') !== 1) && counters.exhibitions_count >= 0 &&
-                    <NavLink
+                    <Link
                         exact to={judgeInfo ?
                             linkForExhibitionsJudges(judgeInfo) :
                                 breeds ?
@@ -94,7 +94,7 @@ const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
                                 Мероприятия
                             </div>
                         </div>
-                    </NavLink>
+                    </Link>
                 }
             </div>
         </div>
