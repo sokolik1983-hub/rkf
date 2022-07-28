@@ -192,7 +192,7 @@ const JudgeLayout = () => {
                                                     <p>Группа, номер стандарта, название породы:</p>
                                                     <ul>
                                                         {
-                                                            !!judgeAddInfo?.opened_groups_and_breeds?.length ?
+                                                            judgeAddInfo?.opened_groups_and_breeds?.length ?
                                                                 judgeAddInfo.opened_groups_and_breeds.map((item, i) => <li key={i}>{item}</li>) :
                                                                 <li>ВСЕ ПОРОДЫ / ALL BREEDS</li>
                                                         }
