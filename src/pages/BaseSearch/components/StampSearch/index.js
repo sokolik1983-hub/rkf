@@ -56,7 +56,7 @@ const StampSearch = ({cardClicked}) => {
     };
 
     return (
-        <Card id="stamp-search-anchor" className={cardClicked === 4 ? `_active_card` : ''}>
+        <Card id="stamp-search-anchor" className={`card${cardClicked === 4 ? ` _active_card` : ''}`}>
             <div className="search-form__image stamp-search"/>
             <div className="search-form__text_wrap">
             <h3>Поиск клуба/питомника по клейму</h3>
@@ -112,27 +112,25 @@ const StampSearch = ({cardClicked}) => {
                         <>
                             <p>{status.message}</p>
                             {status.organizations.map((org, index) => {
-                                return (
-                                    <CardOrganization
-                                        key={index + org.name}
-                                        alias={org.alias}
-                                        logo={org.logo}
-                                        name={org.name}
-                                        user_type={org.user_type}
-                                        is_active={org.is_active}
-                                        is_active_member={org.is_active_member}
-                                        city_name={org.city_name}
-                                        city_id={org.city_id}
-                                        owner_name={org.owner_name}
-                                        owner_position={org.owner_position}
-                                        federation_name={org.federation_name}
-                                        federation_alias={org.federation_alias}
-                                        content={org.content}
-                                        phones={org.phones}
-                                        mails={org.mails}
-                                        breeds={org.breeds}
-                                    />
-                                );
+                                return <CardOrganization
+                                    key={index + org.name}
+                                    alias={org.alias}
+                                    logo={org.logo}
+                                    name={org.name}
+                                    user_type={org.user_type}
+                                    is_active={org.is_active}
+                                    is_active_member={org.is_active_member}
+                                    city_name={org.city_name}
+                                    city_id={org.city_id}
+                                    owner_name={org.owner_name}
+                                    owner_position={org.owner_position}
+                                    federation_name={org.federation_name}
+                                    federation_alias={org.federation_alias}
+                                    content={org.content}
+                                    phones={org.phones}
+                                    mails={org.mails}
+                                    breeds={org.breeds}
+                                />
                             })}
                         </>
                     }

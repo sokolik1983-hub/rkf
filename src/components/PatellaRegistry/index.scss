@@ -141,7 +141,7 @@
 
     @media (max-width: 500px) {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center!important;
     }
   }
 
@@ -224,6 +224,9 @@
         display: inline-block;
         margin-right: 10px;
         background: url(/static/icons/registryIcon.svg) no-repeat center / cover;
+      }
+      @media (max-width: 550px) {
+        margin: 0 10px 0 0;
       }
     }
 

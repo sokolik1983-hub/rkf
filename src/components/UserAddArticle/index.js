@@ -1,4 +1,4 @@
-import React, {memo, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import {number, object, string, array} from "yup";
 import ls from "local-storage";
 import Card from "../Card";
@@ -132,6 +132,7 @@ const AddArticle = ({logo, setNeedRequest, userPage, profileInfo, setProfileInfo
         }
     };
 
+
     return (
         <Card className="add-article">
             <Form
@@ -147,6 +148,7 @@ const AddArticle = ({logo, setNeedRequest, userPage, profileInfo, setProfileInfo
             >
                 <RenderFields
                     fields={newsArticleFormConfig.fields}
+                    profileInfo={profileInfo}
                     logo={logo}
                     isAd={isAd}
                     setIsAd={setIsAd}

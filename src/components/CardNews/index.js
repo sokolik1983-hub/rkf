@@ -85,15 +85,13 @@ const CardNews = forwardRef(({
                                                 `/user/${alias}` : user === 7 ?
                                                     `/nbc/${alias}` : `/${alias}`}>
                                         {(user === 3 || user === 4 || user === 5) &&
-                                            <>
-                                                <span>
-                                                    {user === 3 ?
-                                                        'Клуб' : user === 4 ?
-                                                            'Питомник' : user === 5 ?
-                                                                'Федерация' : user === 7 ?
-                                                                    'НКП' :''}
-                                                </span>&nbsp;
-                                            </>
+                                            <span>
+                                                {user === 3 ?
+                                                    'Клуб' : user === 4 ?
+                                                        'Питомник' : user === 5 ?
+                                                            'Федерация' : user === 7 ?
+                                                                'НКП' :''}
+                                            </span>
                                         }
                                         {user === 1 ? first_name + ' ' + last_name : name}
                                     </Link>

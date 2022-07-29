@@ -85,7 +85,7 @@ const Table = ({ documents, fullScreen }) => {
         <>
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale="ru">
-                    {documents && <>
+                    {documents &&
                         <Grid
                             data={process(documents, gridData)}
                             rowRender={rowRender}
@@ -94,7 +94,7 @@ const Table = ({ documents, fullScreen }) => {
                             {...gridData}
                             onDataStateChange={handleGridDataChange}
                             style={{ height: '600px', width: 'auto', margin: '0 auto' }}>
-                            <GridColumn width={fullScreen ? '60px' : '60px'} title="Опции"
+                            <GridColumn width={'60px'} title="Опции"
                                 cell={props => optionsCell(props.dataItem)}
                                 headerCell={() => headerCell()}/>
                             <GridColumn field="document_short_name"
@@ -102,13 +102,13 @@ const Table = ({ documents, fullScreen }) => {
                                 width={fullScreen ? '120px' : '100px'} />
                             <GridColumn field="dog_breed_name"
                                 title="Порода"
-                                width={fullScreen ? '150px' : '80px'} />
+                                width={'150'} />
                             <GridColumn field="dog_name"
                                 title="Кличка"
-                                width={fullScreen ? '260px' : '80px'} />
+                                width={fullScreen ? '260px' : '150px'} />
                             <GridColumn field="rkf_number"
                                 title="№ РКФ"
-                                width={fullScreen ? '80px' : '80px'} />
+                                width={'80px'} />
                             <GridColumn field="cert_number"
                                 title="Номер сертификата (пателла, дисплазия, рабочий племенной)"
                                 width={fullScreen ? '140px' : '100px'} />
@@ -121,7 +121,7 @@ const Table = ({ documents, fullScreen }) => {
                             <GridColumn field="complition_date"
                                 title="Дата печати диплома"
                                 width={fullScreen ? '100px' : '80px'} />
-                        </Grid></>
+                        </Grid>
                     }
                     <GridPDFExport
                         fileName={`Реестр от ${moment(new Date()).format(`DD_MM_YYYY`)}`}
