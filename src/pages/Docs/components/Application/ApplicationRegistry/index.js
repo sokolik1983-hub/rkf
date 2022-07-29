@@ -77,7 +77,7 @@ const ApplicationRegistry = () => {
                             <Link className="user-documents-status__control user-documents-status__control--resetIcon"
                                   to={`/${alias}/documents/application/registry`}
                             >
-                                Вернуться к списку11111111111
+                                Вернуться к списку
                             </Link>
                         }
                         <button
