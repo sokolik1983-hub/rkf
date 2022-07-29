@@ -1,67 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, {memo, useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import getYouTubeID from "get-youtube-id";
-import { metadata } from "youtube-metadata-from-url";
-import { CSSTransition } from "react-transition-group";
+import {metadata} from "youtube-metadata-from-url";
+import {CSSTransition} from "react-transition-group";
+import Loading from "../../Loading";
 import Card from "../../Card";
 import Alert from "../../Alert";
-import Loading from "../../Loading";
-import { VideoModal } from "../../Modal";
 import LightTooltip from "../../LightTooltip";
-import { AddVideoModal } from "../../Gallery";
-import { DEFAULT_IMG } from "../../../appConfig";
-import { Request } from "../../../utils/request";
+import {VideoModal} from "../../Modal";
+import {AddVideoModal} from "../../Gallery";
+import {DEFAULT_IMG} from "../../../appConfig";
+import {Request} from "../../../utils/request";
 import useIsMobile from "../../../utils/useIsMobile";
 import useStickyState from "../../../utils/useStickyState";
-
 import "./index.scss";
 
 
-const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
-    const [videos, setVideos] = useState([]);
+const UserVideoGallery = ({alias, pageLink, canEdit}) => {
     const [loading, setLoading] = useState(true);
+    const [videos, setVideos] = useState([]);
+    const [videoFrame, setVideoFrame] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
-    const [alert, setAlert] = useState(null);
-    const [videoFrame, setVideoFrame] = useState(null);
-    const [isOpen, setIsOpen] = useStickyState(true, "is_video_gallery_open");
+    const [alertData, setAlertData] = useState(null);
+    const [isOpen, setIsOpen] = useStickyState(true, 'is_video_gallery_open');
     const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => getVideo())();
     }, []);
 
-    const handleError = e => {
-        let errorText;
-        if (e.response) {
-            errorText = e.response.data.errors
-                ? Object.values(e.response.data.errors)
-                : `${e.response.status} ${e.response.statusText}`;
-        } else {
-            errorText = 'запрос не выполнен'
-        }
-        setAlert({
-            title: `Ошибка: ${errorText}`,
-            text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
-            autoclose: 7.5,
-            onOk: () => setAlert(null)
-        });
-    };
-
     const getVideo = async () => {
         setLoading(true);
+
         await Request({
-            url: `/api/videogallery/gallery?alias=${alias}&element_count=2`,
+            url: `/api/videogallery/gallery?alias=${alias}&element_count=2`
         }, data => {
-            setVideos(data);
+            if(data) {
+                setVideos(data);
+            }
         }, error => handleError(error));
+
         setLoading(false);
     };
 
     const addVideo = link => {
         const id = getYouTubeID(link);
+
         metadata(`https://youtu.be/${id}`)
-            .then(function(json){
+            .then(json => {
                 Request({
                     url: '/api/videogallery/youtube_link',
                     method: 'POST',
@@ -70,21 +57,42 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
                         video_id: id
                     })
                 }, () => {
-                getVideo()
-                    .then(() => setAlert({
-                        title: 'Видеозапись добавлена',
-                        autoclose: 1.5,
-                        onOk: () => setAlert(null)}
-                    ));
+                    getVideo()
+                        .then(() => setAlertData({
+                            title: 'Видеозапись добавлена',
+                            autoclose: 1.5,
+                            onOk: () => setAlertData(null)}
+                        ));
                 }, error => handleError(error));
-            }, function(err) {
+            }, err => {
                 handleError(err);
+            });
+    };
+
+    const handleError = e => {
+        let errorText;
+
+        if (e.response) {
+            errorText = e.response.data.errors
+                ? Object.values(e.response.data.errors)
+                : `${e.response.status} ${e.response.statusText}`;
+        } else {
+            errorText = 'запрос не выполнен'
+        }
+
+        setAlertData({
+            title: `Ошибка: ${errorText}`,
+            text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
+            autoclose: 7.5,
+            onOk: () => setAlertData(null)
         });
     };
 
     if (!loading && !videos.length && isMobile) {
-        return null
-    } else return (
+        return null;  //а этот компонент на мобиле вообще отображается?
+    }
+
+    return (
         <Card className="user-gallery _video">
             <div className="user-gallery__header">
                 <Link to={pageLink}><h4 className="user-gallery__title">Видеозаписи</h4></Link>
@@ -103,7 +111,7 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
                     }
                     <span className="user-gallery__cutoff"></span>
                     <span
-                        className={`user-gallery__chevron ${isOpen ? `_dropdown_open` : ``}`}
+                        className={`user-gallery__chevron${isOpen ? ' _dropdown_open' : ''}`}
                         onClick={() => setIsOpen(!isOpen)}>
                     </span>
                 </div>
@@ -133,7 +141,11 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
                                 </div>
                             ) :
                             <div className="user-gallery__disabled">
-                                <img className="user-gallery__disabled-img" src={DEFAULT_IMG.emptyVideoGallery} alt="У вас нет видеозаписей" />
+                                <img
+                                    className="user-gallery__disabled-img"
+                                    src={DEFAULT_IMG.emptyVideoGallery}
+                                    alt="У вас нет видеозаписей"
+                                />
                             </div>
                     }
                 </div>
@@ -148,8 +160,9 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
                     }}
                     className="user-gallery__modal"
                 >
-                    <div dangerouslySetInnerHTML={{ __html: videoFrame }} />
-                </VideoModal>}
+                    <div dangerouslySetInnerHTML={{__html: videoFrame}} />
+                </VideoModal>
+            }
             {showModal && modalType === 'addVideo' &&
                 <AddVideoModal
                     showModal={showModal}
@@ -159,9 +172,9 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
                     }}
                     onSuccess={addVideo}
                 />}
-            {alert && <Alert {...alert} />}
+            {alertData && <Alert {...alertData} />}
         </Card>
     )
 };
 
-export default React.memo(UserVideoGallery);
+export default memo(UserVideoGallery);

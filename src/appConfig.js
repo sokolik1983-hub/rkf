@@ -456,21 +456,21 @@ const appRoutes = [
         path: '/nbc/:alias/gallery/:album?/edit',
         component: LoadableModules.LoadableNBCGalleryEdit
     },
-    {
-        exact: true,
-        path: '/nbc/:alias/gallery/:album?',
-        component: LoadableModules.LoadableNBCGallery
-    },
+    // {
+    //     exact: true,
+    //     path: '/nbc/:alias/gallery/:album?',
+    //     component: LoadableModules.LoadableNBCGallery
+    // },
     {
         exact: true,
         path: '/nbc/:alias/gallery/edit',
         component: LoadableModules.LoadableNBCGalleryEdit
     },
-    {
-        exact: true,
-        path: '/nbc/:alias/gallery',
-        component: LoadableModules.LoadableNBCGallery
-    },
+    // {
+    //     exact: true,
+    //     path: '/nbc/:alias/gallery',
+    //     component: LoadableModules.LoadableNBCGallery
+    // },
     // {
     //     exact: true,
     //     path: '/nbc/:alias/video',

@@ -1,23 +1,36 @@
-import React, {useState} from "react";
-import { Link, useParams } from "react-router-dom";
+import React, {memo, useState} from "react";
+import {Link, useParams} from "react-router-dom";
 import Gallery from "react-grid-gallery";
-import { AddPhotoModal } from "./components/ImageUpload/AddPhotoModal";
-import GalleryAlbums from './components/GalleryAlbums';
-import { DEFAULT_IMG } from "../../appConfig";
+import {AddPhotoModal} from "./components/ImageUpload/AddPhotoModal";
+import GalleryAlbums from "./components/GalleryAlbums";
+import {DEFAULT_IMG} from "../../appConfig";
 import {blockContent} from "../../utils/blockContent";
-import './styles.scss';
+import "./styles.scss";
 
 
-const GalleryComponent = ({ items, albums, album, match, withLoading = true, getAlbums, getImages, canEdit, alias, isClub = false, isUser = false, isNBC, ...rest }) => {
+const GalleryComponent = ({
+    items,
+    albums,
+    album,
+    withLoading = true,
+    getAlbums,
+    getImages,
+    canEdit,
+    alias,
+    isClub = false,
+    isUser = false,
+    isNBC = false,
+    ...rest
+}) => {
     const [showModal, setShowModal] = useState(false);
-    let params = useParams();
+    const params = useParams();
     const isAlbum = !!params.album;
 
     const handleAddPhoto = () => {
         setShowModal(true);
     };
 
-    const onModalClose = (e) => {
+    const onModalClose = e => {
         if (showModal && (!e.target.closest('.Alert'))) {
             setShowModal(false);
             blockContent(false);
@@ -33,7 +46,11 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
     return (
         <div className="ReactGridGallery__wrap">
             {albums && !!albums.length && !isAlbum &&
-                <GalleryAlbums albums={albums} match={match} getAlbums={getAlbums} canEdit={canEdit} />
+                <GalleryAlbums
+                    albums={albums}
+                    getAlbums={getAlbums}
+                    canEdit={canEdit}
+                />
             }
             {albums && !!albums.length &&
                 <div className="ReactGridGallery__controls">
@@ -44,9 +61,10 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
                                 <Link
                                     className="ReactGridGallery__controls-link"
                                     to={isClub ? `/club/${alias}/gallery/edit` :
-                                        isUser ? `/user/${alias}/gallery/edit` :
+                                            isUser ? `/user/${alias}/gallery/edit` :
                                             isNBC ? `/nbc/${alias}/gallery/edit` :
-                                                `/kennel/${alias}/gallery/edit`}
+                                            `/kennel/${alias}/gallery/edit`
+                                    }
                                 >
                                     <div className="ReactGridGallery__controls-link__icon">
                                         <svg width="15" height="15" viewBox="0 0 19 19" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
@@ -91,4 +109,4 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
     )
 };
 
-export default GalleryComponent;
+export default memo(GalleryComponent);

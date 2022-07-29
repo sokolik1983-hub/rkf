@@ -20,12 +20,12 @@ import {Request} from "../../utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import {connectAuthUserInfo} from "../Login/connectors";
 import "./index.scss";
+import ImageGalleryPage from "./pages/ImageGallery";
 
 
 const NKP = ({history, user_info, updateUserInfo}) => {
     const [loading, setLoading] = useState(true);
     const [NBCInfo, setNBCInfo] = useState(null);
-    const [needUpdateVideo, setNeedUpdateVideo] = useState(true);
     const {alias: pageAlias} = useParams();
     const {alias: userAlias} = user_info || {};
     const isMyPage = pageAlias === userAlias;
@@ -66,7 +66,7 @@ const NKP = ({history, user_info, updateUserInfo}) => {
         setLoading(false);
     },[pageAlias]);
 
-    const updateSubscription = useCallback(isSubscribed => {
+    const updateSubscription = useCallback(isSubscribed => {//здесь нельзя обновлять стэйт!
         setNBCInfo(prev => ({
             ...prev,
             subscribed: isSubscribed
@@ -110,8 +110,6 @@ const NKP = ({history, user_info, updateUserInfo}) => {
                                         alias={NBCInfo.alias}
                                         pageLink={`/nbc/${NBCInfo.alias}/video`}
                                         canEdit={isMyPage}
-                                        needUpdate={needUpdateVideo}
-                                        onUpdateSucces={() => setNeedUpdateVideo(false)}
                                     />
                                     <CopyrightInfo withSocials={true} />
                                 </div>
@@ -140,14 +138,38 @@ const NKP = ({history, user_info, updateUserInfo}) => {
                         <Switch>
                             <Route
                                 exact={true}
+                                path="/nbc/:alias/gallery/:album"
+                                component={() =>
+                                    <ImageGalleryPage
+                                        canEdit={isMyPage}
+                                    />
+                                }
+                            />
+                            <Route
+                                exact={true}
+                                path="/nbc/:alias/gallery"
+                                component={() =>
+                                    <ImageGalleryPage
+                                        canEdit={isMyPage}
+                                    />
+                                }
+                            />
+                            <Route
+                                exact={true}
                                 path="/nbc/:alias/video"
-                                component={() => <VideoGalleryPage canEdit={isMyPage}/>}
+                                component={() =>
+                                    <VideoGalleryPage
+                                        canEdit={isMyPage}
+                                    />
+                                }
                             />
                             {isMyPage &&
                                 <Route
                                     exact={true}
                                     path="/nbc/:alias/edit"
-                                    component={() => <NKPEdit isMobile={isMobile}/>}
+                                    component={() =>
+                                        <NKPEdit isMobile={isMobile}/>
+                                    }
                                 />
                             }
                             <Route

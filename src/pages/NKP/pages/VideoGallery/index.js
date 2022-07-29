@@ -45,10 +45,10 @@ const VideoGalleryPage = ({canEdit}) => {
         setLoading(false);
     };
 
-    const getNextVideos = () => {
+    const getNextVideos = async () => {
         if (hasMore) {
             setStartElement(startElement + 15);
-            (() => getVideos(startElement + 15))();
+            await getVideos(startElement + 15);
         }
     };
 

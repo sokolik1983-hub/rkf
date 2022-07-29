@@ -41,7 +41,7 @@ const VideoGallery = ({items, getVideos, setStartElement, setShowAlert, handleDe
                         title: 'Видеозапись добавлена',
                         autoclose: 1.5,
                         onOk: () => setShowAlert(null)
-                    })
+                    });
                 }, error => handleError(error));
             }, err => {
                 handleError(err);
