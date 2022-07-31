@@ -43,7 +43,7 @@ export const getEmptyFilters = () => ({
     activated: true,
     active_member: false,
     not_activated: false,
-    is_popular: false,
+    sortType: 1,
 });
 
 export const getFiltersFromUrl = () => {

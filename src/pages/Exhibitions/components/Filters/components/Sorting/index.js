@@ -9,10 +9,8 @@ export const Sorting = ({ isOpen, setIsOpen, setSortId }) => {
     /*
         типы сортировок:
         1 - по умолчанию
-        2 - по алфавиту (по алфавиту от а до я)
-        3 - по алф  наоборот
-        4 - подтверждённые
-        5 - по популярности
+        2 - по популярности
+        3 - прошедшие
     */
 
     const sortItems = useMemo(() => {
@@ -25,27 +23,19 @@ export const Sorting = ({ isOpen, setIsOpen, setSortId }) => {
             },
             {
                 id: 1,
-                title: 'По алфавиту',
-                header: 'По алфавиту',
-                sortType: [2, 3],
-            },
-            {
-                id: 2,
-                title: 'Подтвержденные',
-                header: 'По активности',
-                sortType: 4,
-            },
-            {
-                id: 3,
                 title: 'По популярности',
                 header: 'По популярности',
-                sortType: 5,
+                sortType: 2,
+            },
+            {
+                id: 1,
+                title: 'Прошедшие',
+                header: 'Прошедшие',
+                sortType: 2,
             },
         ];
     }, []);
 
-    const [isAlphabetAZ, setIsAlphabetAZ] = useState(false);
-    const [isAlphabetZA, setIsAlphabetZA] = useState(false);
     const [nameOfSort, setNameOfSort] = useState('Сортировка');
 
     const location = useLocation();
@@ -64,32 +54,8 @@ export const Sorting = ({ isOpen, setIsOpen, setSortId }) => {
         })
 
         if (urlSortType !== filterType) {
-            if (itemId === 1) {
-                if ( !isAlphabetAZ && !isAlphabetZA) {
-                    setIsAlphabetAZ(true);
-
-                    setFiltersToUrl({ sortType: filterType[0] });
-                    setSortId(filterType[0])
-                } else if (isAlphabetAZ) {
-                    setIsAlphabetAZ(false);
-                    setIsAlphabetZA(true);
-
-                    setFiltersToUrl({ sortType: filterType[1] });
-                    setSortId(filterType[1])
-                } else {
-                    setIsAlphabetZA(false);
-                    setIsAlphabetAZ(true);
-
-                    setFiltersToUrl({ sortType: filterType[0] });
-                    setSortId(filterType[0])
-                }
-            } else {
-                isAlphabetAZ && setIsAlphabetAZ(false);
-                isAlphabetZA && setIsAlphabetZA(false);
-
-                setFiltersToUrl({ sortType: filterType });
-                setSortId(filterType)
-            }
+            setFiltersToUrl({ sortType: filterType });
+            setSortId(filterType);
         }
 
         setIsOpen(!isOpen);
@@ -130,9 +96,6 @@ export const Sorting = ({ isOpen, setIsOpen, setSortId }) => {
                             onClick={ () => handleChange(item.id) }
                         >
                             <span>{ item.title }</span>
-                            { item.id === 1 &&
-                                <span className={ `alphabet-icon${ isAlphabetZA ? ' _reverse' : '' }` }/>
-                            }
                         </li>
                     ) }
                 </ul>
