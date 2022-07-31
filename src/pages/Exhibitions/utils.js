@@ -105,7 +105,7 @@ export const getEmptyFilters = (alias = null) => ({
     CategoryId: 0,
     DateFrom: formatDateToString(new Date()),
     DateTo: null,
-    IsPopular: false,
+    sortType: 1,
 });
 
 export const getInitialFilters = () => {

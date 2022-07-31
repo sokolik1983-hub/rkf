@@ -57,7 +57,8 @@ export const getEmptyFilters = () => ({
     price_from: '',
     price_to: '',
     activated: false,
-    active_member: false
+    active_member: false,
+    sortType: 1,
 });
 
 export const getFiltersFromUrl = () => {
@@ -84,7 +85,7 @@ export const getFiltersFromUrl = () => {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else if(key === 'activated' || key === 'active_member') {
                 filtersFromUrl[key] = value === 'true';
-            } else if(key === 'search_type' || key === 'specialist_classification_id') {
+            } else if(key === 'search_type' || key === 'specialist_classification_id' || key === 'sortType') {
                 filtersFromUrl[key] = +value;
             } else if(key === 'rank_id') {
                 filtersFromUrl[key] = JSON.parse('[' + value + ']');
@@ -99,6 +100,7 @@ export const getFiltersFromUrl = () => {
             }
         });
     }
+    console.log('filters', filters)
 
     return filters;
 };

@@ -19,7 +19,6 @@ const NewsFilters = ({
     setShowFilters,
     isOpenFilters,
     regions,
-    changeIsPopular,
     untouchableMode,
 }) => (
     <aside className={`news-filters${isOpenFilters ? ' _open' : ''}`}>

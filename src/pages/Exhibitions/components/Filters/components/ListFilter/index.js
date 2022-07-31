@@ -1,8 +1,8 @@
 import React, {memo, useMemo, useState} from 'react';
 import SwipeTabs from '../../../../../../components/SwipeTabs';
 import {setFiltersToUrl} from '../../../../utils';
-import CustomCheckbox from '../../../../../../components/Form/CustomCheckbox';
 import {scrollFunc} from "../../../../../../utils/scrollToContent";
+import { Sorting } from "../../../../../../components/Sorting";
 
 import './index.scss';
 
@@ -18,7 +18,7 @@ const ListFilter = ({
 }) => {
     const clientWidth = window.innerWidth;
 
-    const [isFilter, setIsFilter] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const tabItems = useMemo(() => {
         return [
@@ -37,13 +37,8 @@ const ListFilter = ({
 
         if (type === 3) {
             setFiltersToUrl({CityIds: []});
-        };
+        }
         scrollFunc(scrollRef);
-    };
-
-    const handleFilter = () => {
-        setIsFilter(!isFilter);
-        setFiltersToUrl({IsPopular: !isFilter})
     };
 
     const checkIos = () => {
@@ -83,28 +78,20 @@ const ListFilter = ({
                        </button>
                    }
                 </div>
-                <CustomCheckbox
-                    id="need-filter"
-                    label="Сортировка"
-                    checked={!!isFilter}
-                    onChange={handleFilter}
-                    cName="sorting-filter"
+                <Sorting
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    pageName="exhibitions"
+                    setFilters={setFiltersToUrl}
                 />
             </div>
-            {!isFilter ? <SwipeTabs
+            <SwipeTabs
                 items={tabItems}
                 activeTabIndex={tabItems.findIndex(item => item.type === +categoryId)}
                 onChange={item => {
                     handleClick(item);
                 }}
-            /> :
-            <CustomCheckbox
-                id="most-liked"
-                label="По популярности"
-                checked={!!isFilter}
-                onChange={handleFilter}
-                cName="like-filter"
-            />}
+            />
         </div>
     );
 };
