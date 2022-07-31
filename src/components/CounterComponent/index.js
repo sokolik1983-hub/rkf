@@ -1,15 +1,25 @@
-import React from "react";
-import {Link, NavLink} from "react-router-dom";
+import React, { memo } from "react";
+import { Link } from "react-router-dom";
 
 import "./styles.scss";
 
-const Counter = ({ counters, profileAlias, breeds }) => {
+const Counter = ({ counters, profileAlias, breeds, judgeInfo }) => {
     const alias = profileAlias.search('kennel') === 1 || profileAlias.search('user') === 1 ? profileAlias : `/${profileAlias}`;
 
     const linkForExhibitionsNBC = (breeds) => {
         const addBreedsToLink = breeds?.map(obj => `BreedIds=${obj.breed_id}`).join().replaceAll(',', '&');
         return `/exhibitions?${addBreedsToLink}`;
-    }
+    };
+
+    const linkForExhibitionsJudges = (judgeInfo) => {
+        const judgeLink = judgeInfo?.map(item => `JudgeIds=${item.judge_id}`).join('&');
+        return `/exhibitions?${judgeLink}&DateFrom=2019-01-01&DateTo=${new Date().getFullYear() + 5}-01-01`;
+    };
+
+    const linkForExhibitionsClub = (profileAlias) => {
+        const clubLink = profileAlias.replace('club/', '');
+        return `/exhibitions?Alias=${clubLink}&DateFrom=2019-01-01&DateTo=${new Date().getFullYear() + 5}-01-01`;
+    };
 
     return (
         !!counters &&
@@ -64,14 +74,15 @@ const Counter = ({ counters, profileAlias, breeds }) => {
                         </div>
                     </div>
                 }
-                {
-                    (!!counters.exhibitions_count || counters.exhibitions_count === 0) &&
-                    <NavLink
-                        exact to={breeds ?
-                        linkForExhibitionsNBC(breeds) :
-                             !!profileAlias.match(/club/) ?
-                                 `/exhibitions?Alias=${profileAlias.replace('club/', '')}` :
-                                    `/exhibitions?Alias=${profileAlias}`
+                {(judgeInfo?.length || profileAlias.search('user') !== 1) && counters.exhibitions_count >= 0 &&
+                    <Link
+                        exact to={judgeInfo ?
+                            linkForExhibitionsJudges(judgeInfo) :
+                                breeds ?
+                                    linkForExhibitionsNBC(breeds) :
+                                         !!profileAlias.match(/club/) ?
+                                             linkForExhibitionsClub(profileAlias) :
+                                                `/exhibitions?Alias=${profileAlias}`
                     }
                         title="Мероприятия"
                     >
@@ -83,11 +94,11 @@ const Counter = ({ counters, profileAlias, breeds }) => {
                                 Мероприятия
                             </div>
                         </div>
-                    </NavLink>
+                    </Link>
                 }
             </div>
         </div>
     )
 };
 
-export default Counter;
+export default memo(Counter);

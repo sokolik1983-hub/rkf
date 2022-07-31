@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import { AddVideoModal } from "components/Gallery";
-import { VideoModal } from "components/Modal";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import getYoutubeTitle from 'get-youtube-title';
-import { PromiseRequest } from 'utils/request';
+import getYouTubeID from "get-youtube-id";
+import { metadata } from "youtube-metadata-from-url";
+import { VideoModal } from "../Modal";
 import { DEFAULT_IMG } from "../../appConfig";
-import getYouTubeID from 'get-youtube-id';
-import {blockContent} from "../../utils/blockContent";
-import './styles.scss';
+import { Request } from "../../utils/request";
+import { blockContent } from "../../utils/blockContent";
+import { AddVideoModal } from "../../components/Gallery";
+
+import "./styles.scss";
+
 
 const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, handleDeleteVideo, handleError, canEdit, alias, isClub = false }) => {
     const [showModal, setShowModal] = useState(false);
@@ -19,28 +21,27 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
 
     const onVideoAddSuccess = link => {
         const id = getYouTubeID(link);
-        getYoutubeTitle(id, function (err, title) {
-            if (err) {
+        metadata(`https://youtu.be/${id}`)
+            .then(function(json){
+                Request({
+                    url: '/api/videogallery/youtube_link',
+                    method: 'POST',
+                    data: JSON.stringify({
+                        name: json.title,
+                        video_id: id
+                    })
+                }, () => {
+                    setStartElement(1);
+                    getVideos(1);
+                    setShowAlert({
+                        title: 'Видеозапись добавлена',
+                        autoclose: 1.5,
+                        onOk: () => setShowAlert(false)
+                    })
+                }, error => handleError(error));
+            }, function(err) {
                 handleError(err);
-                return;
-            }
-            PromiseRequest({
-                url: `/api/videogallery/youtube_link`,
-                method: 'POST',
-                data: JSON.stringify({
-                    name: title,
-                    video_id: id
-                })
-            }).then(() => {
-                setStartElement(1);
-                getVideos(1);
-                setShowAlert({
-                    title: `Видеозапись добавлена`,
-                    autoclose: 1.5,
-                    onOk: () => setShowAlert(false)
-                })
-            }).catch(error => handleError(error))
-        })
+        });
     };
 
     const VideoGalleryItem = ({ item }) => {

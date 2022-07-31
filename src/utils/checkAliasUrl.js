@@ -13,16 +13,11 @@ export function checkAliasUrl(pathname, alias) {
         || pathname === '/auth/registration'
         || pathname === '/specialists';
 
-
-
     if (exceptionUrl) {
         return alias ? alias ? !exceptionUrl : pathname : null;
-    } else if (pathname.search('kennel') === 1 || pathname.search('user') === 1 || pathname.search('club') === 1) {
+    } else if (pathname.search('kennel') === 1 || pathname.search('user') === 1 || pathname.search('club') === 1 || pathname.search('nbc')) {
         return pathname.split('/')[2];
     } else {
         return pathname.split('/')[1];
     }
-
 }
-
-

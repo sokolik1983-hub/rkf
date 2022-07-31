@@ -3,6 +3,10 @@
     @media (max-width: 768px) {
             width: 100%;
           }
+    @media (max-width: 560px) {
+        width: 100%;
+        border-top: 1px solid #E5E5E5;
+    }
     .k-icon {
         position: absolute;
         left: 55px;

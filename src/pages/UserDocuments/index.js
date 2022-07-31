@@ -9,7 +9,7 @@ import './index.scss';
 
 const UserDocuments = ({history, match, is_active_profile, isAuthenticated}) => {
     const userAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
-    const isVisible = isAuthenticated && is_active_profile && match.params.id === userAlias;
+    const isVisible = isAuthenticated && is_active_profile && match.params.alias === userAlias;
 
     if(!isVisible) history.goBack();
 

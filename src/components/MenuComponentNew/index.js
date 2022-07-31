@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useRef} from "react";
-import {isFederationAlias} from "../../utils";
+import React, {memo, useState, useEffect, useRef} from "react";
 import {useLocation, useRouteMatch} from "react-router-dom";
 import {useSelector} from "react-redux";
-import useIsMobile from "../../utils/useIsMobile";
-import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo, endpointGetNBCInfo} from "./config";
-import {Request} from "../../utils/request";
+import PopupModal from "../PopupModal";
+import Card from "../Card";
+import Menu from "./components/Menu";
+import HeaderMobileMenu from "./components/HeaderMobileMenu";
 import {clubNav} from "../../pages/Club/config";
 import {kennelNav} from "../../pages/Nursery/config";
 import {NBCNav, NBCNavDocs} from "../Layouts/NBCLayout/config";
@@ -13,12 +13,13 @@ import {federationNav} from "../../pages/Federation/config";
 import {clubNav as clubNavDocs} from "../../pages/Docs/config";
 import {kennelNav as kennelNavDocs} from "../../pages/NurseryDocuments/config";
 import {userNav as userNavDocs} from "../../pages/UserDocuments/config";
-import PopupModal from "../PopupModal";
+import {isFederationAlias} from "../../utils";
+import {Request} from "../../utils/request";
+import useIsMobile from "../../utils/useIsMobile";
+import {endpointGetUserInfo, endpointGetNurseryInfo, endpointGetClubInfo, endpointGetNBCInfo} from "./config";
 import {endpointGetExhibition} from "../../pages/Exhibition/config";
-import {Menu} from "./components/Menu";
-import HeaderMobileMenu from "./components/HeaderMobileMenu";
-
 import "./styles.scss";
+
 
 const MenuComponentNew = () => {
     const [exhibAlias, setExhibAlias] = useState(null);
@@ -38,6 +39,7 @@ const MenuComponentNew = () => {
 
     const isMobile = useIsMobile(1080);
     const location = useLocation();
+
     const url = location.pathname.split('/')[1];
     const linkAlias = location.pathname.split('/')[2];
     const addLink = location.pathname.split('/')[3];
@@ -53,23 +55,27 @@ const MenuComponentNew = () => {
 
     const isExhibitionPage = useRouteMatch();
 
-    const deleteNotification = (currentPageNav) => {
-        return currentPageNav?.filter(item => (item.title !== 'Уведомления') && item);
-    }
+    const deleteNotification = currentPageNav => {
+        return currentPageNav?.filter(item => item.title !== 'Уведомления');
+    };
 
     const getMenu = (url, linkAlias) => {
-        return isFederationAlias(url) ?
-            federationNav(url) :
-            ((url === 'club' || url === 'client') && linkAlias) ?
-                isFederationAlias(linkAlias) ?
-                    federationNav(linkAlias) :
-                        clubNav(linkAlias) :
-                        (url === 'kennel' && linkAlias) ?
-                            kennelNav(linkAlias) :
-                            (url === 'nbc' && linkAlias) ?
-                                NBCNav(linkAlias) :
-                                userNav(linkAlias)
-    }
+        let menu = [];
+
+        if(isFederationAlias(url)) {
+            menu = federationNav(url);
+        } else  if((url === 'club' || url === 'client') && linkAlias) {
+            menu = isFederationAlias(linkAlias) ? federationNav(linkAlias) : clubNav(linkAlias);
+        } else if(url === 'kennel' && linkAlias) {
+            menu = kennelNav(linkAlias);
+        } else if(url === 'nbc' && linkAlias) {
+            menu = NBCNav(linkAlias);
+        } else {
+            menu = userNav(linkAlias);
+        }
+
+        return menu;
+    };
 
     const getMenuInfoCurrentUserPage = (url, linkAlias, isUserDocuments) => {
         if(isUserDocuments) { //подтягиваем меню юзера, на странице которого находимся
@@ -78,6 +84,9 @@ const MenuComponentNew = () => {
             (userType === 4) && setCurrentPageNav(kennelNavDocs(userAlias));
             (userType === 7) && setCurrentPageNav(NBCNavDocs(userAlias));
         } else {
+            if(url === '') { //если находимся на главной странице, чекаем залогиненого юзера
+                url = checkUserType(userType);
+            }
             setCurrentPageNav(isUserProfilePage ?
                 getMenu(url, linkAlias)
                 :
@@ -86,15 +95,11 @@ const MenuComponentNew = () => {
         }
         Request({ //подтягиваем инфу о юзере, на странице которого находимся (нужно для моб. меню)
             url:
-                url === "nbc" ?
-                    endpointGetNBCInfo + linkAlias :
-                        url === "club" ?
-                        endpointGetClubInfo + linkAlias :
-                            url === "kennel" ?
-                                endpointGetNurseryInfo + linkAlias :
-                                url === "user" ?
-                                    endpointGetUserInfo + linkAlias :
-                                    endpointGetClubInfo + linkAlias
+                url === "nbc" ? endpointGetNBCInfo + linkAlias :
+                url === "club" ? endpointGetClubInfo + linkAlias :
+                url === "kennel" ? endpointGetNurseryInfo + linkAlias :
+                url === "user" ? endpointGetUserInfo + linkAlias :
+                endpointGetClubInfo + linkAlias
         }, data => {
             setCurrentPageUserInfo({...data });
         }, error => {
@@ -203,10 +208,9 @@ const MenuComponentNew = () => {
     }, [fedDetails, fedFeesId, currentPageUserInfo]);//подтягиваем линки для документов федераций
 
     useEffect(() => {
-        if(url === 'client' || (isFederationAlias(url) && currentPageNav)) {
+        if(url === 'client' || (isFederationAlias(url) && currentPageNav) || currentPageUserInfo?.id === 1) {
             if(currentPageUserInfo?.club_alias === 'rkf' || currentPageUserInfo?.club_alias === 'rkf-online') {
-                const newNavWithoutDocLinks = currentPageNav.filter(item =>(item.id !== 7 && item.id !== 8));
-                setCurrentPageNav(newNavWithoutDocLinks);
+                setCurrentPageNav(currentPageNav);
             } else {
                 //На странице документов личного кабинета федерации, цеплялись ссылки от пдф документов основного меню, поэтому ставим условие
                 const newNavWithDocLinks = (linkAlias === 'documents') ?
@@ -247,7 +251,7 @@ const MenuComponentNew = () => {
 
         if(currentPageUserInfo?.user_type === 1 && currentPageUserInfo?.open_roles[0]?.name === 'Судья') {
             isUserProfilePage ?
-                setCurrentPageNav(judgeNav(linkAlias)) :
+                setCurrentPageNav(judgeNav(userAlias)) :
                 setCurrentPageNav(deleteNotification(judgeNav(linkAlias)));
         }
     }, [currentPageUserInfo]);
@@ -273,26 +277,24 @@ const MenuComponentNew = () => {
                         currentPageUserInfo={currentPageUserInfo}
                         userType={userType}
                     />
-                    <ul className="menu-component-new__list">
-                        <Menu
-                            currentPageNav={currentPageNav}
-                            setOpenUserMenu={setOpenUserMenu}
-                            currentPageUserInfo={currentPageUserInfo}
-                            isMobile
-                            openUserMenu={openUserMenu}
-                        />
-                    </ul>
+                    <Menu
+                        currentPageNav={currentPageNav}
+                        setOpenUserMenu={setOpenUserMenu}
+                        currentPageUserInfo={currentPageUserInfo}
+                        openUserMenu={openUserMenu}
+                    />
                 </div>
             </PopupModal>
         </>
         :
-        <Menu
-            currentPageNav={currentPageNav}
-            setOpenUserMenu={setOpenUserMenu}
-            isMobile={false}
-            currentPageUserInfo={currentPageUserInfo}
-            openUserMenu={openUserMenu}
-        />
+        <Card>
+            <Menu
+                currentPageNav={currentPageNav}
+                setOpenUserMenu={setOpenUserMenu}
+                currentPageUserInfo={currentPageUserInfo}
+                openUserMenu={openUserMenu}
+            />
+        </Card>
 };
 
-export default MenuComponentNew;
+export default memo(MenuComponentNew);

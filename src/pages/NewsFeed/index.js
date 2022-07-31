@@ -31,6 +31,7 @@ const Layout = props => {
 const Content = props => { //Дополнительные props берутся из Layout. Это неочевидно и лучше так не делать.
     const {
         showMustRead,
+        setShowMustRead,
         notificationUrlIndex,
         activeCategoryId,
         showFilter,
@@ -40,6 +41,10 @@ const Content = props => { //Дополнительные props берутся �
     } = props;
 
     blockContent(showFilter);
+
+    useEffect(() => {
+        activeCategoryId === 5 && setShowMustRead(true)
+    }, [])
 
     return (
         <>

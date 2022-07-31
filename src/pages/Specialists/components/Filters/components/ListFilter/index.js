@@ -4,7 +4,6 @@ import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
 import { Sorting } from "../../../../../../components/Sorting";
 import "./index.scss";
 
-
 const ListFilter = ({
         CityIds,
         RegionIds,

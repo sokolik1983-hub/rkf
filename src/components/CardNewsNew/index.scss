@@ -58,6 +58,8 @@
         .ReactGridGallery {
           display: flex;
           justify-content: center;
+          max-height: 770px;
+
           &_tile {
             width: 100%;
             height: auto;
@@ -188,6 +190,9 @@
     align-items: flex-start;
     text-align: right;
     margin: 0 10px 5px 10px;
+    @media (max-width: 600px) {
+      margin: 0 10px 15px 10px;
+    }
     &-control {
       position: relative;
 

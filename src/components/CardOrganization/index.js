@@ -79,11 +79,10 @@ const CardOrganization = (props) => {
                                                             ) &&
                                                             <>
                                                                 <span>
-                                                                    { user_type === 3 ? 'Клуб' :
-                                                                        user_type === 4 ? 'Питомник' :
-                                                                            user_type === 7 ? 'НКП' : '' }
+                                                                    { user_type === 3 ? 'Клуб ' :
+                                                                        user_type === 4 ? 'Питомник ' :
+                                                                            user_type === 7 ? 'НКП ' : '' }
                                                                 </span>
-                                                                &nbsp;
                                                             </>
                                                         }
                                                         <span>{ name || 'Название отсутствует' }</span>

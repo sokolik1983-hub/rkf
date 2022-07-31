@@ -90,9 +90,10 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
         >
             <div className="delete-page-modal__content">
                 {loading ?
-                    <Loading centered={false}/> :
+                    <Loading centered={false}/>
+                    :
                     isAnswer ?
-                        <>
+                        <section>
                             <p className="delete-page-modal__describe">
                                 Вы уверены, что хотите безвозвратно удалить <br/>
                                 Вашу страницу на Цифровой Платформе <br/>
@@ -114,9 +115,10 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
                                     Удалить
                                 </Button>
                             </div>
-                        </> :
+                        </section>
+                        :
                         deleteConfirm ?
-                            <>
+                            <section>
                                 <p className="delete-page-modal__describe">
                                     Ваша страница будет удалена <br/>
                                     <b>{date}</b>
@@ -138,8 +140,8 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
                                         }}
                                     >Закрыть</Button>
                                 </div>
-                            </> :
-                            <>
+                            </section> :
+                            <section>
                                 <p className="delete-page-modal__describe">
                                     Ваша страница не будет удалена. <br/>
                                     Мы рады, что Вы остаетесь с нами!
@@ -154,7 +156,7 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
                                         }}
                                     >Закрыть</Button>
                                 </div>
-                            </>
+                            </section>
                 }
             </div>
             {alert && <Alert {...alert} />}

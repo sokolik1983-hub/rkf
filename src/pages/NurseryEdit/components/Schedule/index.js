@@ -3,7 +3,7 @@ import { connect, FieldArray } from 'formik';
 import Card from '../../../../components/Card';
 import { FormField, FormGroup } from '../../../../components/Form';
 import SubmitButton from '../../../../components/Form/SubmitButton';
-import {days} from '../../config';
+import {WEEKDAYS} from '../../../../appConfig';
 
 import './styles.scss';
 
@@ -30,23 +30,23 @@ const Schedule = ({ work_time }) => {
             render={arrayHelpers => (
                 <div>
                     <ul className="nursery-schedule__days">
-                        {days.map(day => (
+                        {WEEKDAYS.map(day => (
                             <li className="nursery-schedule__days-item" key={day.id}>
                                 <button
                                     type="button"
                                     className={`nursery-schedule__days-btn${work_time.find(item => item.week_day_id === day.id) ? " _active" : ""}`}
                                     onClick={() => handleDayClick(day.id, arrayHelpers)}>
-                                    {day.name}
+                                    {day.short_name}
                                 </button>
                             </li>
                         ))}
                     </ul>
-                    {work_time
-                        .sort((a, b) => a.week_day_id - b.week_day_id)
+                    {work_time &&
+                        work_time.sort((a, b) => a.week_day_id - b.week_day_id)
                         .map((day, index) => (
                             <FormGroup inline key={index}>
                                 <span className="nursery-schedule__days-form-day">
-                                    {days.find(item => item.id === day.week_day_id).fullName}
+                                    {WEEKDAYS.find(item => item.id === day.week_day_id).name}
                                 </span>
                                 <FormField
                                     label="Время работы с"

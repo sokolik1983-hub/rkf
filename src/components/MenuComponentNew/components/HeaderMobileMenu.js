@@ -1,111 +1,90 @@
-import React, {useEffect, useState} from "react";
+import React, {memo} from "react";
+import {Link} from "react-router-dom";
 import Avatar from "../../Layouts/Avatar";
 
 
 const HeaderMobileMenu = ({currentPageUserInfo, userType}) => {
-    const [linkForName, setLinkForName] = useState('');
-    const [name, setName] = useState(null);
-    const [headliner, setHeadliner] = useState('');
-    const [logoLink, setLogoLink] = useState('');
-
-    const getMeLinkForName = () => {
+    const getLinkForName = () => {
         switch(currentPageUserInfo?.user_type || userType) {
             case 7:
-                setLinkForName(`/nbc/${currentPageUserInfo?.alias}`);
-                break;
+                return `/nbc/${currentPageUserInfo?.alias}`;
             case 5:
-                setLinkForName(`/${currentPageUserInfo?.club_alias}`);
-                break;
+                return `/${currentPageUserInfo?.club_alias}`;
             case 4:
-                setLinkForName(`/kennel/${currentPageUserInfo?.alias}`);
-                break;
+                return `/kennel/${currentPageUserInfo?.alias}`;
             case 3:
-                if(currentPageUserInfo?.club_alias === "rkf") {
-                    setLinkForName("/rkf")
-                } else {
-                    setLinkForName(`/club/${currentPageUserInfo?.club_alias}`);
+                if(currentPageUserInfo?.club_alias === 'rkf') {
+                    return '/rkf';
                 }
-                break;
+
+                return `/club/${currentPageUserInfo?.club_alias}`;
             case 1:
-                setLinkForName(`/user/${currentPageUserInfo?.alias}`);
-                break;
+                return `/user/${currentPageUserInfo?.alias}`;
             default:
-                break;
+                return '';
         }
     };
 
-    const getMeName = () => {
+    const getName = () => {
         switch(currentPageUserInfo?.user_type || userType) {
             case 1:
-                setName(`${currentPageUserInfo?.personal_information.first_name} ${currentPageUserInfo?.personal_information.last_name}`);
-                break;
+                return `${currentPageUserInfo?.personal_information.first_name} ${currentPageUserInfo?.personal_information.last_name}`;
             case 4:
-                setName(`${currentPageUserInfo?.name}`);
-                break;
+                return `${currentPageUserInfo?.name}`;
             case 3:
                 if(currentPageUserInfo?.club_alias === "rkf") {
-                    setName(`${currentPageUserInfo?.federation_name}`);
-                } else {
-                    setName(`${currentPageUserInfo?.short_name}`);
+                    return `${currentPageUserInfo?.federation_name}`;
                 }
-                break;
+
+                return `${currentPageUserInfo?.short_name}`;
             case 5:
-                setName(`${currentPageUserInfo?.federation_name}`);
-                break;
+                return `${currentPageUserInfo?.federation_name}`;
             case 7:
-                setName(`${currentPageUserInfo?.name}`);
-                break;
+                return `${currentPageUserInfo?.name}`;
             default:
-                break;
+                return '';
         }
     };
 
-    const getMeHeadliner = () => {
-        if (currentPageUserInfo?.headliner_link) {
-            setHeadliner(currentPageUserInfo.headliner_link);
-        } else if(currentPageUserInfo?.club_alias === "rkf") {
-            setHeadliner("/static/images/slider/1.jpg");
-        } else {
-            setHeadliner("/static/images/noimg/no-banner.png");
+    const getHeadlinerLink = () => {
+        if(currentPageUserInfo?.headliner_link) {
+            return currentPageUserInfo.headliner_link;
+        } else if(currentPageUserInfo?.club_alias === 'rkf') {
+            return '/static/images/slider/1.jpg';
         }
+
+        return '/static/images/noimg/no-banner.png';
     };
 
-    const getMeLogoLink = () => {
+    const getLogoLink = () => {
         if(currentPageUserInfo?.logo_link) {
-            setLogoLink(currentPageUserInfo.logo_link);
-        } else {
-            setLogoLink(null);
+            return currentPageUserInfo.logo_link;
         }
-    };
 
-    useEffect(() => {
-        getMeLogoLink();
-        getMeHeadliner();
-        getMeName();
-        getMeLinkForName();
-    }, [currentPageUserInfo]);
+        return '';
+    };
 
     return (
         <>
             <div className="menu-component-new__bg-wrap">
-                <img src={headliner} alt="menu-background" />
+                <img src={getHeadlinerLink()} alt="menu-background" />
                 <div className="menu-component-new__userpic">
                     <Avatar
                         card="mobile-user-menu"
                         data="mobile-user-menu"
-                        logo={logoLink}
-                        name={`${name}`}
+                        logo={getLogoLink()}
+                        name={getName()}
                         userType={currentPageUserInfo?.user_type === 3 ? 3 : {userType}}
                     />
                 </div>
             </div>
             <div className="menu-component-new__alias-name">
-                <a href={linkForName}>
-                    {name}
-                </a>
+                <Link to={getLinkForName}>
+                    {getName()}
+                </Link>
             </div>
         </>
     );
 };
 
-export default HeaderMobileMenu;
+export default memo(HeaderMobileMenu);

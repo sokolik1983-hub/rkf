@@ -85,17 +85,10 @@ export const Sorting = ({
     }
 
     if (urlSortType && (urlSortType !== activeTypeId)) {
-        console.log('urlSortType', urlSortType)
-        console.log('activeTypeId', activeTypeId)
         setActiveTypeId(urlSortType);
 
         items.forEach(item => {
-            console.log('-----')
-            console.log('item.sortType', item.type)
-            console.log('item.header', item.header)
             if (item.sortType === urlSortType) {
-                console.log('!!!!!!!!!     ')
-
                 setNameOfSort(item.header);
             }
         })

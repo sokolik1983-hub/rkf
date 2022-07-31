@@ -100,7 +100,6 @@ export const getFiltersFromUrl = () => {
             }
         });
     }
-    console.log('filters', filters)
 
     return filters;
 };

@@ -119,7 +119,7 @@ const ApplicationRegistry = () => {
                                         Вернуться к списку
                                     </Link>
                                 }
-                                {registry && !isMobile && <button
+                                {registry && <button
                                     className="club-documents-status__control club-documents-status__control--registryIcon"
                                     onClick={() => setShowModal(true)}
                                     disabled={exporting}
@@ -170,7 +170,7 @@ const ApplicationRegistry = () => {
                 >
                     <TableModal
                         documents={registry}
-                        fullScreen
+                        fullScreen={!isMobile}
                     />
                 </Modal>
             }

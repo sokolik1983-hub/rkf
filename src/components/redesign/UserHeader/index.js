@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {memo, useState} from "react";
 import {Link} from "react-router-dom";
 import Avatar from "../../Layouts/Avatar";
 import Card from "../../../components/Card";
@@ -6,10 +6,13 @@ import Alert from "../../../components/Alert";
 import Share from "../../../components/Share";
 import {ActiveUserMark, FederationChoiceMark} from "../../Marks";
 import UserActionControls from "../../../components/UserActionControls";
-
+import {checkIsFed} from "../../../utils/checkIsFed";
+import {connectAuthVisible} from "../../../pages/Login/connectors";
 import "./index.scss";
 
+
 const UserHeader = ({
+    isAuthenticated,
     user,
     userType,
     logo,
@@ -21,14 +24,12 @@ const UserHeader = ({
     onSubscriptionUpdate,
     federationName,
     federationAlias,
-    isFederation = false,
     active_rkf_user,
     active_member,
-    isAuthenticated,
-    canEdit,
+    canEdit
 }) => {
-
     const [shareAlert, setShareAlert] = useState(false);
+
     const shareOk = () => setShareAlert(false);
 
     const setUserType = (user, alias) => {
@@ -58,26 +59,38 @@ const UserHeader = ({
                 <div className="user-header__info">
                     <div className="user-header__wrap">
                         <div className="user-header__inner">
-                            <section
-                                className={`user-header__name-wrap${setUserType(user, alias) === 'Федерация' && canEdit ? ' _editable' : ''}`}>
+                            <section className={
+                                `user-header__name-wrap
+                                    ${setUserType(user, alias) === 'Федерация' && canEdit ? ' _editable' : ''}
+                                    ${checkIsFed(alias) ? ' fed-style' : ''}`
+                                }
+                            >
                                 <div className="user-header__user-wrap">
                                     {setUserType(user, alias) === 'Федерация' &&
-                                        <div className="user-header__federation"/>}
-                                    {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
-                                        <div className='user-header-link'>
-                                            <Link to={`/${federationAlias}`}
-                                                  className={name.length > 50
-                                                      ? "user-header__federation long-bottom"
-                                                      : name.length > 30
-                                                          ? "user-header__federation middle-bottom"
-                                                          : "user-header__federation"}>
+                                        <div className="user-header__federation"/>
+                                    }
+                                    {federationName &&
+                                        federationAlias &&
+                                        alias !== 'rkf' &&
+                                        alias !== 'rfss' &&
+                                        alias !== 'rfls' &&
+                                        alias !== 'rfos' &&
+                                        alias !== 'oankoo' &&
+                                        <div className="user-header-link">
+                                            <Link
+                                                to={`/${federationAlias}`}
+                                                className={name.length > 50 ? 'user-header__federation long-bottom' :
+                                                    name.length > 30 ? 'user-header__federation middle-bottom' :
+                                                    'user-header__federation'
+                                                }
+                                            >
                                                 {federationName}
                                             </Link>
                                         </div>
                                     }
                                     <div className="user-header__container">
                                         <h3 className="user-header__name">{name}</h3>
-                                        <Share/>
+                                        <Share className={!isAuthenticated ? 'not-auth' : ''}/>
                                     </div>
                                     <div className="user-header__user-org">
                                         <p className="user-header__user">
@@ -93,35 +106,29 @@ const UserHeader = ({
                                         </div>
                                     </div>
                                 </div>
-
                             </section>
-                            {
-                                canEdit &&
+                            {canEdit &&
                                 <div className="widget-login__button-wrap">
                                     <Link
                                         to={`/${
-                                            setUserType(user, alias) === 'Питомник' ?
-                                            'kennel' :
-                                                setUserType(user, alias) === 'НКП' ?
-                                                    'nbc' : 'client'
-                                        }/${alias}/edit`
-                                    }
+                                                setUserType(user, alias) === 'Питомник' ? 'kennel' :
+                                                setUserType(user, alias) === 'НКП' ? 'nbc' : 'client'
+                                            }/${alias}/edit`
+                                        }
                                         className="widget-login__button"
                                     >
                                         Редактировать профиль
                                     </Link>
                                 </div>
                             }
-                            {
-                                !canEdit && isAuthenticated && <>
-                                    <UserActionControls
-                                        userType={3}
-                                        subscribed_id={profileId}
-                                        subscribed={subscribed}
-                                        member={member}
-                                        onSubscriptionUpdate={onSubscriptionUpdate}
-                                    />
-                                </>
+                            {!canEdit && isAuthenticated &&
+                                <UserActionControls
+                                    userType={3}
+                                    subscribed_id={profileId}
+                                    subscribed={subscribed}
+                                    member={member}
+                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                />
                             }
                         </div>
                     </div>
@@ -139,4 +146,4 @@ const UserHeader = ({
     )
 };
 
-export default React.memo(UserHeader);
+export default memo(connectAuthVisible(UserHeader));

@@ -1,5 +1,4 @@
 import React, {memo, useRef, useState} from "react";
-import {useSelector} from "react-redux";
 import Dropzone from "react-dropzone";
 import AvatarEditor from "react-avatar-editor";
 import {Slider} from "@material-ui/core";
@@ -8,44 +7,61 @@ import Alert from "../Alert";
 import Avatar from "../Layouts/Avatar";
 import LightTooltip from "../LightTooltip";
 import {Request} from "../../utils/request";
-import ls from "local-storage";
-
+import {DEFAULT_IMG} from "../../appConfig";
+import {connectAuthUserInfo} from "../../pages/Login/connectors";
 import "./index.scss";
 
 
-const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, pageBanner, canvasWidth, owner, name }) => {
-    const [image, setImage] = useState(avatar || '');
-    const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
+const CustomAvatarEditor = ({user_info, updateUserInfo, setModalType, onSubmitSuccess, pageBanner, canvasWidth, owner}) => {
+    const {
+        user_type,
+        name,
+        first_name,
+        last_name,
+        headliner_link = '',
+        logo_link = ''
+    } = user_info;
+
+    const [image, setImage] = useState(pageBanner ? headliner_link : owner ? owner : logo_link);
+    const [position, setPosition] = useState({x: 0.5, y: 0.5});
     const [scale, setScale] = useState(1);
     const [rotate, setRotate] = useState(0);
     const [editorErrors, setEditorErrors] = useState([]);
+
     const editor = useRef(null);
-    const reduxUserType = useSelector(state => state.authentication.user_info.user_type);
-    const reduxUserName = name ? name : useSelector(state => state.authentication.user_info.name);
-    const UPLOAD_AVATAR = `/static/icons/default/club-avatar-new.png`;
-    const OWNER_DEFAULT_AVATAR = '/static/images/noimg/icon-no-image.svg';
-    const BANNER_DEFAULT_AVATAR = '/static/images/noimg/no-banner.png';
-    const currentLink = pageBanner ? '/api/headerpicture/full_v3' : owner ? '/api/nbcownerpicture' : '/api/avatar/full_v3';
+
+    const userName = name || `${last_name} ${first_name}`;
 
     const handleSubmit = async () => {
         await Request({
-            url: currentLink,
+            url: pageBanner ? '/api/headerpicture/full_v3' : owner ? '/api/nbcownerpicture' : '/api/avatar/full_v3',
             method: 'POST',
             data: {
                 data: editor.current.getImageScaledToCanvas().toDataURL('image/jpeg', 1)
             }
         }, data => {
-            if (data) {
-                userType === 'club' && onSubmitSuccess({ image_link: data });
-                !pageBanner && !owner && ls.set('user_info', { ...ls.get('user_info'), logo_link: data });
+            if(data) {
+                if(!owner) {
+                    let userInfo = {...user_info};
+
+                    if(pageBanner) {
+                        userInfo.headliner_link = data;
+                    } else {
+                        userInfo.logo_link = data;
+                    }
+
+                    updateUserInfo(userInfo);
+                }
+
+                if(onSubmitSuccess) {
+                    onSubmitSuccess({image_link: data});
+                }
+
                 setModalType('');
-                window.location.reload();
             }
-        },
-            error => {
-                console.log(error);
-            }
-        )
+        }, error => {
+            console.log(error);
+        })
     };
 
     const handleError = () => {
@@ -66,7 +82,7 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                     onDropAccepted={acceptedFiles => setImage(acceptedFiles[0])}
                     onDropRejected={handleError}
                 >
-                    {({ getRootProps, getInputProps }) => (
+                    {({getRootProps, getInputProps}) => (
                         <div className="avatar-editor__wrap-canvas" {...getRootProps()}>
                             <AvatarEditor
                                 ref={editor}
@@ -79,18 +95,17 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
                                 borderRadius={pageBanner ? 0 : 166}
                                 image={image}
                                 className="avatar-editor__canvas"
-                                style={(image && reduxUserType !== 1 && reduxUserType !== 4 && reduxUserType !== 7) ?
+                                style={(image && user_type !== 1 && user_type !== 4 && user_type !== 7) ?
                                     {} : (owner) ?
-                                        { background: `url(${OWNER_DEFAULT_AVATAR}) no-repeat center / cover` } :
+                                        {background: `url(${DEFAULT_IMG.ownerAvatar}) no-repeat center / cover` } :
                                         pageBanner ?
-                                            { background: `url(${BANNER_DEFAULT_AVATAR}) no-repeat center / cover`} :
-                                            { background: `url(${UPLOAD_AVATAR}) no-repeat center / cover` }}
+                                            {background: `url(${DEFAULT_IMG.bannerAvatar}) no-repeat center / cover`} :
+                                            {background: `url(${DEFAULT_IMG.uploadAvatar}) no-repeat center / cover`}}
                             />
-                            {
-                                !image && (reduxUserType === 1 || reduxUserType === 4 || reduxUserType === 7) && !owner && !pageBanner &&
+                            {!image && (user_type === 1 || user_type === 4 || user_type === 7) && !owner && !pageBanner &&
                                 <Avatar
                                     card="editor"
-                                    name={(reduxUserType === 4 || reduxUserType === 7) ? reduxUserName : null}
+                                    name={(user_type === 4 || user_type === 7) ? userName : null}
                                 />
                             }
                             <div className="avatar-editor__add-file">
@@ -154,4 +169,4 @@ const CustomAvatarEditor = ({ avatar, setModalType, userType, onSubmitSuccess, p
     )
 };
 
-export default memo(CustomAvatarEditor);
+export default memo(connectAuthUserInfo(CustomAvatarEditor));

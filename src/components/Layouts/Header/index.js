@@ -72,18 +72,12 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
                 }
                 <div className="header__widgets">
                     {isAuthenticated &&
-                        <>
-                            <div className={withFilters || pathname === '/' ?
-                                    'header__widgets-notifications-wrap'
-                                    :
-                                    'header__widgets-notifications-wrap-nofilters'}
-                                 onClick={hideSideMenu}
-                            >
-                                <Notifications open={openWidgets}
-                                               setOpen={setOpenWidgets}
-                                />
-                            </div>
-                        </>
+                        <div
+                            className={`header__widgets-notifications-wrap${!(withFilters || pathname === '/') && '-nofilters'}`}
+                            onClick={hideSideMenu}
+                        >
+                            <Notifications open={openWidgets} setOpen={setOpenWidgets}/>
+                        </div>
                     }
                     {!isAuthenticated && isMobile &&
                         <div className={`header__widgets--feedback${login_page ? ' __hidden' : ''}`}>
@@ -121,10 +115,11 @@ const Header = ({isAuthenticated, isOpenFilters, setShowFilters}) => {
                                     </svg>
                                 }
                             </div>
-                            <span className={`header__filters-menu ${isOpenFilters ? ' _active' : ''}`}>
-                                {pathname.match (/uploaded-documents/) ?
-                                    (isOpenFilters ? 'Закрыть' : 'Категории') :
-                                    (isOpenFilters ? 'Закрыть' : 'Фильтр')
+                            <span className={`header__filters-menu${isOpenFilters ? ' _active' : ''}`}>
+                                {isOpenFilters ? 'Закрыть' :
+                                    pathname.match(/uploaded-documents/) ? 'Категории' :
+                                    pathname.match(/edit/) ? 'Разделы' :
+                                    'Фильтр'
                                 }
                             </span>
                         </div> :

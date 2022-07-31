@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-import Loading from '../../../../components/Loading';
-import Modal from '../../../../components/Modal';
-import Alert from '../../../../components/Alert';
-import { Request } from '../../../../utils/request';
-import ls from 'local-storage';
-import {blockContent} from '../../../../utils/blockContent';
+import React, {memo, useState} from "react";
+import Loading from "../../../../components/Loading";
+import Modal from "../../../../components/Modal";
+import Alert from "../../../../components/Alert";
+import {Request} from "../../../../utils/request";
+import {blockContent} from "../../../../utils/blockContent";
+import {connectAuthUserInfo} from "../../../../pages/Login/connectors";
+import "./index.scss";
 
-import './index.scss';
 
-
-const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
+const ModalDeleteAvatar = ({user_info, updateUserInfo, closeModal, pageBanner, owner}) => {
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
-    const currentLink = pageBanner ? '/api/headerpicture' : owner ? '/api/nbcownerpicture' : '/api/avatar';
 
     const handleError = e => {
         if (e.response) {
@@ -31,16 +29,28 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
 
     const deleteAvatar = async () => {
         setLoading(true);
-            await Request({
-                url: currentLink,
-                method: 'DELETE'
-            }, () => {
-                closeModal();
-                !pageBanner && !owner && ls.set('user_info', { ...ls.get('user_info'), logo_link: '' });
-                window.location.reload();
-            }, error => {
-                handleError(error);
-            });
+
+        await Request({
+            url: pageBanner ? '/api/headerpicture' : owner ? '/api/nbcownerpicture' : '/api/avatar',
+            method: 'DELETE'
+        }, () => {
+            if(!owner) {
+                let userInfo = user_info;
+
+                if(pageBanner) {
+                    userInfo.headliner_link = '';
+                } else {
+                    userInfo.logo_link = '';
+                }
+
+                updateUserInfo(userInfo);
+            }
+
+            closeModal();
+            blockContent();
+        }, error => {
+            handleError(error);
+        });
 
         setLoading(false);
     };
@@ -48,7 +58,7 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
     const handleClose = () => {
         closeModal();
         blockContent();
-    }
+    };
 
     return (
         <Modal
@@ -56,29 +66,16 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
             showModal={true}
             handleClose={handleClose}
             handleX={handleClose}
-            headerName={pageBanner ?
-                "Удаление заставки" :
-                "Удаление аватара"
-        }>
+            headerName={pageBanner ? 'Удаление заставки' : 'Удаление аватара'}
+        >
             <div className="delete-avatar-modal__content">
                 {loading ?
                     <Loading centered={false} /> :
                     <>
-
-                            {
-                                pageBanner
-                                ?
-                                    <p className="delete-avatar-modal__describe">
-                                    Вы уверены, что хотите удалить <br />
-                                Вашу заставку?
-                                    </p>
-                                :
-                                    <p className="delete-avatar-modal__describe">
-                                        Вы уверены, что хотите удалить <br />
-                                        Ваш аватар?
-                                    </p>
-                            }
-
+                        <p className="delete-avatar-modal__describe">
+                            Вы уверены, что хотите удалить <br />
+                            {pageBanner ? 'Вашу заставку?' : 'Ваш аватар?'}
+                        </p>
                         <div className="k-form-buttons">
                             <button
                                 className="btn btn-light"
@@ -103,4 +100,4 @@ const ModalDeleteAvatar = ({ closeModal, updateInfo, pageBanner, owner }) => {
     )
 };
 
-export default React.memo(ModalDeleteAvatar);
+export default memo(connectAuthUserInfo(ModalDeleteAvatar));

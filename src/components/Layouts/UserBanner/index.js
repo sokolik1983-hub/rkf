@@ -1,22 +1,25 @@
-import React, {useState} from 'react';
-import { CSSTransition } from 'react-transition-group';
-import { SvgIcon } from '@progress/kendo-react-common';
-import { pencil, trash } from '@progress/kendo-svg-icons';
-import Card from '../../Card';
-import LightTooltip from '../../LightTooltip';
-import EditAvatar from '../../EditAvatar';
-import ModalDeleteAvatar from '../UserInfo/ModalDeleteAvatar';
+import React, {memo, useState} from "react";
+import {CSSTransition} from "react-transition-group";
+import {SvgIcon} from "@progress/kendo-react-common";
+import {pencil, trash} from "@progress/kendo-svg-icons";
+import Card from "../../Card";
+import LightTooltip from "../../LightTooltip";
+import EditAvatar from "../../EditAvatar";
+import ModalDeleteAvatar from "../UserInfo/ModalDeleteAvatar";
+import {connectAuthUserInfo} from "../../../pages/Login/connectors";
+import "./index.scss";
 
-import './index.scss';
 
-
-const UserBanner = ({ link, canEdit, updateInfo }) => {
+const UserBanner = ({user_info, link, canEdit}) => {
     const [hover, setHover] = useState(false);
     const [modalType, setModalType] = useState('');
 
+    const {headliner_link} = user_info || {};
+    const bannerLink = canEdit ? headliner_link : link;
+
     return (
         <Card
-            className={`user-banner ${link ? ` _custom_banner` : ``}`}
+            className={`user-banner${bannerLink && bannerLink !== '' ? ' _custom_banner' : ''}`}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             onTouchStart={()=> {
@@ -42,7 +45,7 @@ const UserBanner = ({ link, canEdit, updateInfo }) => {
                             </button>
                         </LightTooltip>
                     </CSSTransition>
-                    {link &&
+                    {bannerLink &&
                         <CSSTransition
                             in={hover}
                             timeout={350}
@@ -62,19 +65,23 @@ const UserBanner = ({ link, canEdit, updateInfo }) => {
                     }
                 </>
             }
-            {link &&
-                <div className="user-banner__img" style={{ background: `url(${link}) no-repeat center / cover` }} />
+            {bannerLink &&
+                <div className="user-banner__img" style={{background: `url(${bannerLink}) no-repeat center / cover`}} />
             }
-            {modalType === 'edit' && <EditAvatar
-                setModalType={setModalType}
-                avatar={link}
-                pageBanner
-            />}
+            {modalType === 'edit' &&
+                <EditAvatar
+                    setModalType={setModalType}
+                    pageBanner
+                />
+            }
             {modalType === 'delete' &&
-                <ModalDeleteAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} pageBanner/>
+                <ModalDeleteAvatar
+                    closeModal={() => setModalType('')}
+                    pageBanner
+                />
             }
         </Card>
     )
 };
 
-export default React.memo(UserBanner);
+export default memo(connectAuthUserInfo(UserBanner));

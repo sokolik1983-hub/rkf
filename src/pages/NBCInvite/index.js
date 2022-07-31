@@ -8,7 +8,6 @@ import { Request } from "../../utils/request";
 
 import "./index.scss";
 
-
 const NBCInvite = ({ alias }) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
@@ -115,26 +114,26 @@ const NBCInvite = ({ alias }) => {
                 <div className="club-info__left">
                     <div className="club-info__inner">
                         <p className="club-info__title">Клуб</p>
-                        <Link to={`/club/${alias}`}>{data?.club_name}</Link>
+                        <Link to={`/club/${data.club_alias}`}>{data.club_name}</Link>
                     </div>
                     <div className="club-info__inner">
                         <p className="club-info__title">Город&nbsp;проведения&nbsp;выставки</p>
-                        <p>{data?.exhibition_city}</p>
+                        <p>{data.exhibition_city}</p>
                     </div>
                 </div>
                 <div className="club-info__right">
                     <div className="club-info__inner">
                         <p className="club-info__title">Мероприятие</p>
-                        <p>{data?.exhibition_name}</p>
+                        <Link to={`/exhibitions/${id}`}>{data.exhibition_name}</Link>
                     </div>
                     <div className="club-info__inner date">
                         <div className="club-info__inner">
                             <p className="club-info__title">Дата начала</p>
-                            <p>{formatDate(data?.exhibition_date_start)}</p>
+                            <p>{formatDate(data.exhibition_date_start)}</p>
                         </div>
                         <div className="club-info__inner">
                             <p className="club-info__title">Дата окончания</p>
-                            <p>{formatDate(data?.exhibition_date_end)}</p>
+                            <p>{formatDate(data.exhibition_date_end)}</p>
                         </div>
                     </div>
                 </div>
@@ -159,8 +158,7 @@ const NBCInvite = ({ alias }) => {
                 {!!rejected.length && rejected.map(item =>
                     <div className="rejected-judges" key={item}>
                         <div className="rejected-judges__title">
-                            <p>{item[0]}</p>
-                            <p>, причина отказа</p>
+                            <p>{item[0]}<span>, причина отказа</span></p>
                         </div>
                         <input
                             type="text"
@@ -186,8 +184,7 @@ const NBCInvite = ({ alias }) => {
                 {listJudges.map(item => item.nbc_invite_status === 3 && !!item.nbc_invite_comment &&
                     <div className="rejected-judges" key={item}>
                         <div className="rejected-judges__title">
-                            <p>{`${item.judge_last_name} ${item.judge_name} ${item.judge_second_name}` }</p>
-                            <p>, причина отказа</p>
+                            <p>{`${item.judge_last_name} ${item.judge_name} ${item.judge_second_name}` }<span>, причина отказа</span></p>
                         </div>
                         <input
                             type="text"

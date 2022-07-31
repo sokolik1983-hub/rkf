@@ -23,7 +23,12 @@ import MenuComponentNew from "../../MenuComponentNew";
 
 import './index.scss';
 
-const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, setShowFilters, isOpenFilters }) => {
+const UserLayout = ({   profile_id,
+                        is_active_profile,
+                        isAuthenticated,
+                        children,
+                        match
+}) => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
@@ -35,12 +40,13 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children, 
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [checkLink, setCheckLink] = useState(false);
-    const { route: alias, id } = useParams();
+    const { alias, id } = useParams();
     const isMobile = useIsMobile(1080);
 
     useEffect(() => {
         (() => getUserInfo())();
-    }, []);
+        return () => setNeedRequest(true);
+    }, [match]);
 
     useEffect(() => {
         userInfo?.profile_id &&

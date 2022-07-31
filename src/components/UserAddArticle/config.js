@@ -16,6 +16,12 @@ export const newsArticleFormConfig = {
         video_link: {
             name: 'video_link'
         },
+        video_id: {
+            name: 'video_id'
+        },
+        video_name: {
+            name: 'video_name'
+        },
         advert_breed_id: {
             name: 'advert_breed_id',
             label: 'Порода',

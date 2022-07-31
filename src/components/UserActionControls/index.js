@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { DropDownButton } from '@progress/kendo-react-buttons';
+import { DropDownButton } from "@progress/kendo-react-buttons";
 import { Request } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
+
 import "./styles.scss";
 
 const UserActionControls = ({ subscribed_id, subscribed, member, onSubscriptionUpdate, onSuccess, onError, isTopComponent }) => {
@@ -42,10 +43,10 @@ const UserActionControls = ({ subscribed_id, subscribed, member, onSubscriptionU
 
     return <section className="UserActionControls">
         <button disabled className="UserActionControls__message-btn">Написать сообщение</button>
-        <div style={{ display: 'flex' }}>
+        <div className="_flex">
             <button
                 className="UserActionControls__subscribe-btn"
-                disabled={member ? true : false}
+                disabled={!!member}
                 onClick={handleItemClick}
             >
                 <span className={`UserActionControls__subscribe-text ${subscribed ? '_subscribed' : ''}`}>
@@ -54,7 +55,7 @@ const UserActionControls = ({ subscribed_id, subscribed, member, onSubscriptionU
             </button>
             <DropDownButton
                 text="Ещё&nbsp;&nbsp;&nbsp;&nbsp;"
-                icon={`k-icon ${open ? `k-i-arrow-chevron-up` : `k-i-arrow-chevron-down`}`}
+                icon={`k-icon ${open ? 'k-i-arrow-chevron-up' : 'k-i-arrow-chevron-down'}`}
                 popupSettings={{ popupClass: 'UserActionControls__dropdown', popupAlign: popup, anchorAlign: anchor }}
                 items={[
                     { text: 'Пожаловаться', disabled: true }

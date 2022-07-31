@@ -28,11 +28,12 @@ export const sections = {
     }
 };
 
-export const days = [{
-    id: 1,
-    name: 'Пн',
-    fullName: 'Понедельник'
-},
+export const days = [
+    {
+        id: 1,
+        name: 'Пн',
+        fullName: 'Понедельник'
+    },
     {
         id: 2,
         name: 'Вт',

@@ -49,7 +49,7 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [allSelected, setAllSelected] = useState(false);
     const [editInfo, setEditInfo] = useState(null);
-    const [edit, setEdit] = useState(false);
+    const isOpenFilters = useSelector(state => state.layout.isOpenFilters)
 
     const { alias } = useParams();
     const aliasRedux = useSelector(state => state?.authentication?.user_info?.alias);
@@ -293,120 +293,122 @@ const NBCLayout = ({ newsFeed, ...props } ) => {
     return (
         loading ?
             <Loading /> :
-                <div className="redesign">
-                    <Container className="content nbc-page">
-                        <div className="nbc-page__content-wrap">
-                            <Aside className="nbc-page__info">
-                                <StickyBox offsetTop={60}>
-                                    <div className="nbc-page__info-inner">
-                                        {!isMobile && nbcInfo &&
-                                            <>
-                                                <UserHeader
-                                                    user='nbc'
-                                                    logo={nbcInfo.logo_link}
-                                                    name={nbcInfo.name || 'Название НКП отсутствует'}
-                                                    alias={nbcInfo.alias}
-                                                    profileId={nbcProfileId}
-                                                    canEdit={canEdit}
-                                                    subscribed={nbcInfo.subscribed}
-                                                    onSubscriptionUpdate={onSubscriptionUpdate}
-                                                    isAuthenticated={isAuthenticated}
-                                                />
-                                                <PhotoComponent
-                                                    photo={nbcInfo.owner_photo}
-                                                    name={nbcInfo.owner_name}
-                                                    position={nbcInfo.owner_position}
-                                                    canEdit={canEdit}
-                                                />
-                                                <MenuComponentNew />
-                                            </>
-                                        }
-                                        {!isMobile && nbcInfo &&
-                                            <>
-                                                <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
-                                                <UserPhotoGallery
-                                                    alias={alias}
-                                                    pageLink={`/nbc/${alias}/gallery`}
-                                                    canEdit={canEdit}
-                                                />
-                                                <UserVideoGallery
-                                                    alias={alias}
-                                                    pageLink={`/nbc/${alias}/video`}
-                                                    canEdit={canEdit}
-                                                />
-                                                <CopyrightInfo withSocials={true} />
-                                            </>
-                                        }
-                                    </div>
-                                </StickyBox>
-                            </Aside>
-                            <div className="nbc-page__content">
-                                {!newsFeed && location.pathname.indexOf('edit') === -1 &&
-                                    <UserBanner
-                                        link={nbcInfo?.headliner_link}
-                                        canEdit={canEdit}
-                                        updateInfo={getNBCInfo}
-                                    />
-                                }
-                                {isMobile && nbcInfo && !newsFeed &&
-                                    <UserHeader
-                                        user='nbc'
-                                        logo={nbcInfo.logo_link}
-                                        name={nbcInfo.name || 'Название НКП отсутствует'}
-                                        alias={nbcInfo.alias}
-                                        profileId={nbcProfileId}
-                                        canEdit={canEdit}
-                                        subscribed={nbcInfo.subscribed}
-                                        onSubscriptionUpdate={onSubscriptionUpdate}
-                                        isAuthenticated={isAuthenticated}
-                                    />
-                                }
-                                {React.cloneElement(children,
-                                    {
-                                        isMobile,
-                                        nbcInfo: nbcInfo,
-                                        canEdit,
-                                        getNBCInfo: getNBCInfo,
-                                        alias: alias,
-                                        nbcProfileId: nbcProfileId,
-                                        onSubscriptionUpdate: onSubscriptionUpdate,
-                                        isAuthenticated,
-                                        setNeedRequest: setNeedRequest,
-                                        setNBCInfo: setNBCInfo,
-                                        needRequest: needRequest,
-                                        handleAlbumDelete: handleAlbumDelete,
-                                        getImages: getImages,
-                                        getNextImages: getNextImages,
-                                        getAlbums: getAlbums,
-                                        handleError: handleError,
-                                        params: params,
-                                        images: images,
-                                        album: album,
-                                        setStartElement: setStartElement,
-                                        showAlert: showAlert,
-                                        imagesLoading: imagesLoading,
-                                        hasMore: hasMore,
-                                        pageLoaded: pageLoaded,
-                                        albums: albums,
-                                        location: location,
-                                        onAlbumAddSuccess: onAlbumAddSuccess,
-                                        handleDelete: handleDelete,
-                                        selectedImages: selectedImages,
-                                        setSelectedImages: setSelectedImages,
-                                        setImages: setImages,
-                                        onSelectImage: onSelectImage,
-                                        onSelectAll: onSelectAll,
-                                        allSelected: allSelected,
-                                        handleSuccess: handleSuccess,
-                                        transformValues: transformValues,
-                                        initialValues: initialValues,
-                                        editInfo: editInfo,
+            <div className="redesign">
+                <Container className="content nbc-page">
+                    <div className="nbc-page__content-wrap">
+                        <Aside className="nbc-page__info">
+                            <StickyBox offsetTop={60}>
+                                <div className="nbc-page__info-inner">
+                                    {!isMobile && nbcInfo &&
+                                        <>
+                                            <UserHeader
+                                                user='nbc'
+                                                logo={nbcInfo.logo_link}
+                                                name={nbcInfo.name || 'Название НКП отсутствует'}
+                                                alias={nbcInfo.alias}
+                                                profileId={nbcProfileId}
+                                                canEdit={canEdit}
+                                                subscribed={nbcInfo.subscribed}
+                                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                                isAuthenticated={isAuthenticated}
+                                            />
+                                            <PhotoComponent
+                                                photo={nbcInfo.owner_photo}
+                                                name={nbcInfo.owner_name}
+                                                position={nbcInfo.owner_position}
+                                                canEdit={canEdit}
+                                            />
+                                            <MenuComponentNew />
+                                        </>
                                     }
-                                )}
-                            </div>
+                                    {!isMobile && nbcInfo &&
+                                        <>
+                                            <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
+                                            <UserPhotoGallery
+                                                alias={alias}
+                                                pageLink={`/nbc/${alias}/gallery`}
+                                                canEdit={canEdit}
+                                            />
+                                            <UserVideoGallery
+                                                alias={alias}
+                                                pageLink={`/nbc/${alias}/video`}
+                                                canEdit={canEdit}
+                                            />
+                                            <CopyrightInfo withSocials={true} />
+                                        </>
+                                    }
+                                </div>
+                            </StickyBox>
+                        </Aside>
+                        <div className="nbc-page__content">
+                            {!newsFeed && location.pathname.indexOf('edit') === -1 &&
+                                <UserBanner
+                                    link={nbcInfo?.headliner_link}
+                                    canEdit={canEdit}
+                                    updateInfo={getNBCInfo}
+                                />
+                            }
+                            {isMobile && nbcInfo && !newsFeed &&
+                                <UserHeader
+                                    user='nbc'
+                                    logo={nbcInfo.logo_link}
+                                    name={nbcInfo.name || 'Название НКП отсутствует'}
+                                    alias={nbcInfo.alias}
+                                    profileId={nbcProfileId}
+                                    canEdit={canEdit}
+                                    subscribed={nbcInfo.subscribed}
+                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                    isAuthenticated={isAuthenticated}
+                                />
+                            }
+                            {React.cloneElement(children,
+                                {
+                                    isMobile,
+                                    nbcInfo: nbcInfo,
+                                    canEdit,
+                                    getNBCInfo: getNBCInfo,
+                                    alias: alias,
+                                    nbcProfileId: nbcProfileId,
+                                    onSubscriptionUpdate: onSubscriptionUpdate,
+                                    isAuthenticated,
+                                    setNeedRequest: setNeedRequest,
+                                    setNBCInfo: setNBCInfo,
+                                    needRequest: needRequest,
+                                    handleAlbumDelete: handleAlbumDelete,
+                                    getImages: getImages,
+                                    getNextImages: getNextImages,
+                                    getAlbums: getAlbums,
+                                    handleError: handleError,
+                                    params: params,
+                                    images: images,
+                                    album: album,
+                                    setStartElement: setStartElement,
+                                    showAlert: showAlert,
+                                    imagesLoading: imagesLoading,
+                                    hasMore: hasMore,
+                                    pageLoaded: pageLoaded,
+                                    albums: albums,
+                                    location: location,
+                                    onAlbumAddSuccess: onAlbumAddSuccess,
+                                    handleDelete: handleDelete,
+                                    selectedImages: selectedImages,
+                                    setSelectedImages: setSelectedImages,
+                                    setImages: setImages,
+                                    onSelectImage: onSelectImage,
+                                    onSelectAll: onSelectAll,
+                                    allSelected: allSelected,
+                                    handleSuccess: handleSuccess,
+                                    transformValues: transformValues,
+                                    initialValues: initialValues,
+                                    editInfo: editInfo,
+                                    isOpenFilters: isOpenFilters,
+                                    setShowFilters: setShowFilters,
+                                }
+                            )}
                         </div>
-                    </Container>
-                </div>
+                    </div>
+                </Container>
+            </div>
     )
 };
 

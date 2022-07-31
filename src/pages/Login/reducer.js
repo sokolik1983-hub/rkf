@@ -95,7 +95,15 @@ const authInitialState = {
 
 const authReducer = createReducer(authInitialState, {
     [actiontypes.LOGIN_SUCCESS](state, action) {
-        const { access_token, is_active_profile, personal_office_access, user_info, profile_id, account_type, api_key: helpdesk_api_key } = action.data;
+        const {
+            access_token,
+            is_active_profile,
+            personal_office_access,
+            user_info,
+            profile_id,
+            account_type,
+            api_key: helpdesk_api_key
+        } = action.data;
         const accountType = loadAccountType();
 
         saveApiKey(access_token);
@@ -118,7 +126,7 @@ const authReducer = createReducer(authInitialState, {
             access_token
         };
     },
-    [actiontypes.LOGOUT](state, action) {
+    [actiontypes.LOGOUT](state) {
         clearApiKey();
         clearUserInfo();
         clearIsActiveProfile();
@@ -135,6 +143,16 @@ const authReducer = createReducer(authInitialState, {
             account_type: null,
             user_info: null,
             helpdesk_api_key: null
+        };
+    },
+    [actiontypes.UPDATE_USER_INFO](state, action) {
+        const user_info = {...action.data};
+
+        saveUserInfo(user_info);
+
+        return {
+            ...state,
+            user_info
         };
     }
 });

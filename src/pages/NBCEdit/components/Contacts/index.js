@@ -4,15 +4,10 @@ import {editForm} from "../../config";
 import Button from "../../../../components/Button";
 import {FormField, FormGroup} from "../../../../components/Form";
 import MaskedInput from "../../../../components/Form/Field/MaskedInput";
-
 import "./styles.scss";
 
 
-const Contacts = ({
-                      phones,
-                      emails,
-                      errors,
-}) => {
+const Contacts = ({phones, emails, errors}) => {
     const [countPhone, setCountPhone] = useState(true);
     const [countEmail, setCountEmail] = useState(true);
     const [isChangePhones, setIsChangePhones] = useState(false);
@@ -41,10 +36,12 @@ const Contacts = ({
             return false;
         }
     };
+
     const checkForCount = () => {
         phones.filter(({contact_type_id}) => contact_type_id === 1).length > 2 && setCountPhone(false) && setIsChangePhones(false);
         emails.filter(({contact_type_id}) => contact_type_id === 2).length > 2 && setCountEmail(false) && setIsChangeEmails(false);
     };
+
     const handleChangePhone = (index) => {
         phones.map(elem => elem.is_main = false);
         phones[index].is_main = true;
@@ -115,7 +112,7 @@ const Contacts = ({
         <FieldArray
             name="emails"
             render={arrayHelpers => (
-                <div className="Contacts">
+                <div className="Contacts email">
                     <h4>E-mail</h4>
                     {emails?.map(({contact_type_id, value}, index) => (
                         (contact_type_id !== 1) &&
