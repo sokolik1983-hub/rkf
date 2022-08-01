@@ -110,7 +110,7 @@ const ApplicationRegistry = () => {
                     </div>
                     {documents && !!documents.length
                         ? <div className="user-documents-status__inner">
-                            <div className="user-documents-status__controls">
+                            <div className="user-documents-status__controls  request-documents">
                                 {document_id &&
                                     <Link
                                         className="user-documents-status__control user-documents-status__control--resetIcon"

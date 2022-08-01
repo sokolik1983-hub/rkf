@@ -1,4 +1,9 @@
 .search-page {
+  &__filter-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   &__content {
     &-filter {
       padding: 10px 10px 0;
@@ -39,7 +44,9 @@
         padding-top: 5px;
       }
     }
+  }
 
-
+  & .sorting__dropdown-menu {
+    width: 200px;
   }
 }

@@ -58,8 +58,8 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
 
     const getSearchResults = async startElem => {
         await Request({
-            url: buildSearchUrl(filtersValue, startElem, needCount, needFilter)
-        }, data => {
+            url: buildSearchUrl(filtersValue, startElem, needCount, needFilter)},
+        data => {
             let newFilters = [...filters];
 
             if(data.counts && data.counts.length) {
