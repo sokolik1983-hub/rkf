@@ -3,7 +3,6 @@
 
     &__filters {
         display: flex;
-        margin-bottom: 20px;
         @media (max-width: 640px) {
             flex-direction: column;
         }
@@ -70,6 +69,9 @@
             margin-right: 10px;
         }
         &__result {
+            h3 {
+                margin-top: 20px;
+            }
             .card-news__head {
                 width: 95%;
             }
