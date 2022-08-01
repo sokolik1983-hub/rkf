@@ -93,6 +93,9 @@
       margin-right: auto;
       padding-bottom: 10px;
       padding-left: 14px;
+      @media (max-width: 600px) {
+        padding-left: 0;
+      }
     }
 
     .sorting-filter {
