@@ -117,10 +117,12 @@
       text-overflow: ellipsis;
       white-space: pre-line;
       display: flex;
+      @media (max-width: 550px) {
+        display: inline;
+      }
       @media (max-width: 400px) {
         font-size: 16px;
         line-height: 20px;
-        display: inline;
       }
     }
     & > *:not(:last-child) {
