@@ -173,10 +173,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             }
         );
 
-        // for (var pair of data.entries()) {
-        //     console.log(pair[0] + ', ' + pair[1]);
-        // }
-
         await Request({
             url: '/api/clubs/ClubActivationRequest',
             method: "POST",
