@@ -69,9 +69,9 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
             :
             <Card className="user-documents-status">
                 <div className="user-documents-status__head">
-                    <Link className="btn-backward" to={userType === 'user' ? `/user/${alias}/documents` : `/nbc/${alias}/documents`}>Личный кабинет</Link>
+                    <Link className="btn-backward" to={`/${userType}/${alias}/documents`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    Приглашения на мероприятия
+                    Приглашения на мероприятия1111
                 </div>
                 {documents && !!documents.length
                     ? <div className="user-documents-status__inner">
