@@ -47,9 +47,6 @@
   &__content {
     width: 100%;
     order: 1;
-    .NurseryGallery__no-images {
-      display: none;
-    }
     @media (max-width: 990px) {
       margin-left: 0;
     }
