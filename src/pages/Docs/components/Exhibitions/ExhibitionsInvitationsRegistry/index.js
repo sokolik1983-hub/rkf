@@ -71,7 +71,7 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
                 <div className="user-documents-status__head">
                     <Link className="btn-backward" to={`/${userType}/${alias}/documents`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    Приглашения на мероприятия1111
+                    Приглашения на мероприятия
                 </div>
                 {documents && !!documents.length
                     ? <div className="user-documents-status__inner">
