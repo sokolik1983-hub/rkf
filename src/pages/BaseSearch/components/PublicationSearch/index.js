@@ -211,6 +211,7 @@ const PublicationSearch = ({ cardClicked }) => {
                 <Loading centered={false} />
                 :
                 <div className="search-form__result">
+                    {!!items.length && <h3>Результаты поиска</h3>}
                     <InfiniteScroll
                         dataLength={items.length}
                         next={items.length && getNextResults}

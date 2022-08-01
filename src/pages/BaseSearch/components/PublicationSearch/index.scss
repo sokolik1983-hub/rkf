@@ -3,6 +3,7 @@
 
     &__filters {
         display: flex;
+        margin-bottom: 20px;
         @media (max-width: 640px) {
             flex-direction: column;
         }
@@ -36,11 +37,11 @@
             color: #253C5E!important;
         }
     }
-    &__text_wrap {
-        @media (min-width: 1080px) {
-            display: flow-root;
-        }
-    }
+    //&__text_wrap {
+        //@media (min-width: 1080px) {
+            //display: flow-root;
+        //}
+    //}
     &__price {
         position: relative;
         top: 15px;
@@ -72,6 +73,11 @@
         max-width: 433px;
         &__wrap:first-of-type {
             margin-right: 10px;
+        }
+        &__result {
+            .card-news__head {
+                width: 95%;
+            }
         }
     }
     .search-form__wrap-with_but {
