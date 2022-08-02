@@ -1,21 +1,20 @@
 import React from "react";
-import Modal from "components/Modal";
-import AddVideoLink from "components/UserAddArticle/AddVideoLink";
+import Modal from "../../../Modal";
+import AddVideoLink from "../../../UserAddArticle/AddVideoLink";
 import {blockContent} from "../../../../utils/blockContent";
 
-export const AddVideoModal = ({ showModal, setShowModal, onSuccess }) => {
-    return (
-        <Modal showModal={showModal}
-               handleClose={() => {
-                   setShowModal(false);
-                   blockContent(false);
-               }}
-               headerName="Добавить видеозапись"
-               iconName="icon-youtube-white">
-            <AddVideoLink
-                setVideoLink={onSuccess}
-                closeModal={() => setShowModal(false)}
-            />
-        </Modal>
-    );
-};
+
+export const AddVideoModal = ({ showModal, onClose, onSuccess }) => (
+    <Modal showModal={showModal}
+           handleClose={() => {
+               onClose();
+               blockContent(false);
+           }}
+           headerName="Добавить видеозапись"
+           iconName="icon-youtube-white">
+        <AddVideoLink
+            setVideoLink={onSuccess}
+            closeModal={() => onClose()}
+        />
+    </Modal>
+);

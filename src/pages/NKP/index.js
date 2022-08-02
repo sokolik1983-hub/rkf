@@ -14,11 +14,13 @@ import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGal
 import CopyrightInfo from "../../components/CopyrightInfo";
 import NKPMain from "./pages/Main";
 import NKPEdit from "./pages/Edit";
+import VideoGalleryPage from "./pages/VideoGallery";
 import {BANNER_TYPES} from "../../appConfig";
 import {Request} from "../../utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import {connectAuthUserInfo} from "../Login/connectors";
 import "./index.scss";
+import ImageGalleryPage from "./pages/ImageGallery";
 
 
 const NKP = ({history, user_info, updateUserInfo}) => {
@@ -45,6 +47,7 @@ const NKP = ({history, user_info, updateUserInfo}) => {
                 //записать в Редакс (чтобы потом использовать эту инфу в меню)
 
                 //обновление картинок в Редаксе и localstorage
+                //добавить ещё alias
                 if(isMyPage) {
                     const {logo_link, headliner_link} = user_info;
 
@@ -64,7 +67,7 @@ const NKP = ({history, user_info, updateUserInfo}) => {
         setLoading(false);
     },[pageAlias]);
 
-    const updateSubscription = useCallback(isSubscribed => {
+    const updateSubscription = useCallback(isSubscribed => {//здесь нельзя обновлять стэйт!
         setNBCInfo(prev => ({
             ...prev,
             subscribed: isSubscribed
@@ -75,87 +78,118 @@ const NKP = ({history, user_info, updateUserInfo}) => {
     return loading ?
         <Loading/> :
         <Container className="content nbc-page">
-            <div className="nbc-page__content-wrap">
-                {!isMobile && NBCInfo &&
-                    <Aside className="nbc-page__info">
-                        <StickyBox offsetTop={60}>
-                            <div className="nbc-page__info-inner">
-                                <UserHeader
-                                    user="nbc"
-                                    logo={NBCInfo.logo_link}
-                                    name={NBCInfo.name || 'Название НКП отсутствует'}
-                                    alias={NBCInfo.alias}
-                                    profileId={NBCInfo.profile_id}
-                                    canEdit={isMyPage}
-                                    subscribed={NBCInfo.subscribed}
-                                    onSubscriptionUpdate={updateSubscription}
-                                />
-                                <PhotoComponent
-                                    photo={NBCInfo.owner_photo}
-                                    name={NBCInfo.owner_name}
-                                    position={NBCInfo.owner_position}
-                                    canEdit={isMyPage}
-                                />
-                                <MenuComponentNew />
-                                <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
-                                <UserPhotoGallery
-                                    alias={NBCInfo.alias}
-                                    pageLink={`/nbc/${NBCInfo.alias}/gallery`}
-                                    canEdit={isMyPage}
-                                />
-                                <UserVideoGallery
-                                    alias={NBCInfo.alias}
-                                    pageLink={`/nbc/${NBCInfo.alias}/video`}
-                                    canEdit={isMyPage}
-                                />
-                                <CopyrightInfo withSocials={true} />
-                            </div>
-                        </StickyBox>
-                    </Aside>
-                }
-                <div className="nbc-page__content">
-                    {NBCInfo &&
-                        <>
-                            {!history.location.pathname.split('/').includes('edit') &&
-                                <UserBanner
-                                    link={NBCInfo?.headliner_link}
-                                    canEdit={isMyPage}
-                                />
-                            }
-                            {isMobile &&
-                                <UserHeader
-                                    user="nbc"
-                                    logo={NBCInfo.logo_link}
-                                    name={NBCInfo.name || 'Название НКП отсутствует'}
-                                    alias={NBCInfo.alias}
-                                    profileId={NBCInfo.profile_id}
-                                    canEdit={isMyPage}
-                                    subscribed={NBCInfo.subscribed}
-                                    onSubscriptionUpdate={updateSubscription}
-                                />
-                            }
-                            <Switch>
-                                {isMyPage &&
-                                    <Route
-                                        exact={true}
-                                        path="/nbc/:alias/edit"
-                                        component={() => <NKPEdit isMobile={isMobile}/>}
+            {NBCInfo &&
+                <div className="nbc-page__content-wrap">
+                    {!isMobile &&
+                        <Aside className="nbc-page__info">
+                            <StickyBox offsetTop={60}>
+                                <div className="nbc-page__info-inner">
+                                    <UserHeader
+                                        user="nbc"
+                                        logo={NBCInfo.logo_link}
+                                        name={NBCInfo.name || 'Название НКП отсутствует'}
+                                        alias={NBCInfo.alias}
+                                        profileId={NBCInfo.profile_id}
+                                        canEdit={isMyPage}
+                                        subscribed={NBCInfo.subscribed}
+                                        onSubscriptionUpdate={updateSubscription}
                                     />
-                                }
+                                    <PhotoComponent
+                                        photo={NBCInfo.owner_photo}
+                                        name={NBCInfo.owner_name}
+                                        position={NBCInfo.owner_position}
+                                        canEdit={isMyPage}
+                                    />
+                                    <MenuComponentNew />
+                                    <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
+                                    <UserPhotoGallery
+                                        alias={NBCInfo.alias}
+                                        pageLink={`/nbc/${NBCInfo.alias}/gallery`}
+                                        canEdit={isMyPage}
+                                    />
+                                    <UserVideoGallery
+                                        alias={NBCInfo.alias}
+                                        pageLink={`/nbc/${NBCInfo.alias}/video`}
+                                        canEdit={isMyPage}
+                                    />
+                                    <CopyrightInfo withSocials={true} />
+                                </div>
+                            </StickyBox>
+                        </Aside>
+                    }
+                    <div className="nbc-page__content">
+                        {!history.location.pathname.split('/').includes('edit') &&
+                            <UserBanner
+                                link={NBCInfo?.headliner_link}
+                                canEdit={isMyPage}
+                            />
+                        }
+                        {isMobile &&
+                            <UserHeader
+                                user="nbc"
+                                logo={NBCInfo.logo_link}
+                                name={NBCInfo.name || 'Название НКП отсутствует'}
+                                alias={NBCInfo.alias}
+                                profileId={NBCInfo.profile_id}
+                                canEdit={isMyPage}
+                                subscribed={NBCInfo.subscribed}
+                                onSubscriptionUpdate={updateSubscription}
+                            />
+                        }
+                        <Switch>
+                            {isMyPage &&
                                 <Route
+                                    exact={true}
+                                    path="/nbc/:alias/gallery/:album?/edit"
                                     component={() =>
-                                        <NKPMain
-                                            NBCInfo={NBCInfo}
-                                            canEdit={isMyPage}
-                                            isMobile={isMobile}
+                                        <ImageGalleryPage
+                                            canEdit={true}
+                                            isEditPage={true}
                                         />
                                     }
                                 />
-                            </Switch>
-                        </>
-                    }
+                            }
+                            <Route
+                                exact={true}
+                                path="/nbc/:alias/gallery/:album?"
+                                component={() =>
+                                    <ImageGalleryPage
+                                        canEdit={isMyPage}
+                                        isEditPage={false}
+                                    />
+                                }
+                            />
+                            <Route
+                                exact={true}
+                                path="/nbc/:alias/video"
+                                component={() =>
+                                    <VideoGalleryPage
+                                        canEdit={isMyPage}
+                                    />
+                                }
+                            />
+                            {isMyPage &&
+                                <Route
+                                    exact={true}
+                                    path="/nbc/:alias/edit"
+                                    component={() =>
+                                        <NKPEdit isMobile={isMobile}/>
+                                    }
+                                />
+                            }
+                            <Route
+                                component={() =>
+                                    <NKPMain
+                                        NBCInfo={NBCInfo}
+                                        canEdit={isMyPage}
+                                        isMobile={isMobile}
+                                    />
+                                }
+                            />
+                        </Switch>
+                    </div>
                 </div>
-            </div>
+            }
         </Container>
 };
 
