@@ -1,8 +1,7 @@
 import React, { memo, useMemo, useState } from "react";
 import SwipeTabs from "../../../../../../components/SwipeTabs";
 import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
-import { Sorting } from "../Sorting";
-
+import { Sorting } from "../../../../../../components/Sorting";
 import "./index.scss";
 
 const ListFilter = ({
@@ -20,7 +19,6 @@ const ListFilter = ({
     }, []);
 
     const [isOpen, setIsOpen] = useState(false);
-    const [sortId, setSortId] = useState(1);
 
     const handleChange = (id) => {
         setIsOpen(false);
@@ -30,7 +28,6 @@ const ListFilter = ({
             RegionIds: RegionIds,
             CityIds: CityIds,
             SearchTypeId: id,
-            sortType: sortId,
         });
     }
 
@@ -39,7 +36,12 @@ const ListFilter = ({
         <div className="specialists-page__list-filter">
             <div className="specialists-page__list-filter_header">
                 <h4 className="list-filter__title">Судьи и специалисты</h4>
-                <Sorting isOpen={isOpen} setIsOpen={setIsOpen} setSortId={setSortId} />
+                <Sorting
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    pageName="specialists"
+                    setFilters={setFiltersToUrl}
+                />
             </div>
 
             <SwipeTabs

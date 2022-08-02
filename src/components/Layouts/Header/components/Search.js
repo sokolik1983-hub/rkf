@@ -15,7 +15,7 @@ const Search = ({ withFilters, hideSideMenu }) => {
         const urlPath = location.pathname;
 
         return urlPath === '/organizations' ? 100 :
-                urlPath === '/' ? 200 :
+                (urlPath === '/' || urlPath === '/base-search') ? 200 :
                 urlPath === '/exhibitions' ? 300 :
                 urlPath === '/specialists' ? 400 : getSearchTypeIdFromUrl();
     }

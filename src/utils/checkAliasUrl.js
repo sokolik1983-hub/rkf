@@ -1,21 +1,29 @@
-export function checkAliasUrl(pathname, alias) {
+export function checkAliasUrl(pathname) {
 
     const exceptionUrl =
-        pathname === '/organizations'
-        || pathname === '/exhibitions'
-        || pathname === '/search'
-        || pathname === '/base-search'
-        || pathname === ''
+        pathname === ''
         || pathname === '/'
         || pathname === '/about'
-        || pathname === '/uploaded-documents'
         || pathname === '/auth/login'
         || pathname === '/auth/registration'
-        || pathname === '/specialists';
+        || pathname === '/auth/registration/activate'
+        || pathname === '/base-search'
+        || pathname === '/confirm-password-failed'
+        || pathname === '/confirm-password-success'
+        || pathname === '/exhibitions'
+        || pathname === '/not-confirmed'
+        || pathname === '/organizations'
+        || pathname === '/recovery'
+        || pathname === '/search'
+        || pathname === '/specialists'
+        || pathname === '/uploaded-documents';
 
     if (exceptionUrl) {
-        return alias ? alias ? !exceptionUrl : pathname : null;
-    } else if (pathname.search('kennel') === 1 || pathname.search('user') === 1 || pathname.search('club') === 1 || pathname.search('nbc')) {
+        return false;
+    } else if (pathname.search('kennel')
+            || pathname.search('user')
+            || pathname.search('club')
+            || pathname.search('nbc')) {
         return pathname.split('/')[2];
     } else {
         return pathname.split('/')[1];

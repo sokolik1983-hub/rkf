@@ -27,7 +27,7 @@ const NewsList = ({isFullDate = true}) => {
         cities: getLSCities(),
         activeType: null,
         isAdvert: null,
-        is_popular: false
+        sortType: 1,
     });
 
     const scrollRef = useRef();
@@ -87,7 +87,7 @@ const NewsList = ({isFullDate = true}) => {
             path += '&is_advert=false';
         }
 
-        path += `&is_popular=${newsFilter.is_popular}`;
+        path += `&sortType=${newsFilter.sortType}`;
 
         return path;
     };
@@ -183,8 +183,8 @@ const NewsList = ({isFullDate = true}) => {
         setStartElement(1);
     };
 
-    const changeIsPopular = value => {
-        setNewsFilter({...newsFilter, is_popular: value});
+    const changeSortType = value => {
+        setNewsFilter({...newsFilter, sortType: value});
     };
 
     return (
@@ -204,7 +204,7 @@ const NewsList = ({isFullDate = true}) => {
                 <PublicationFilter
                     changeTypeFilters={changeTypeFilters}
                     activeType={activeType}
-                    changeIsPopular={changeIsPopular}
+                    changeSortType={changeSortType}
                 />
                 <ul className="news-list__content">
                     {news && !!news.length && news.map(item => (
@@ -242,7 +242,6 @@ const NewsList = ({isFullDate = true}) => {
                 changeTypeFilters={changeTypeFilters}
                 changeCityFilter={changeCityFilter}
                 changeRegionFilter={changeRegionFilter}
-                changeIsPopular={changeIsPopular}
                 untouchableMode={untouchableMode}
             />
         </div>

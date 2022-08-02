@@ -69,7 +69,7 @@ const ExhibitionsInventionsRegistry = ({ alias, userType }) => {
             :
             <Card className="user-documents-status">
                 <div className="user-documents-status__head">
-                    <Link className="btn-backward" to={`/nbc/${alias}/documents`}>Личный кабинет</Link>
+                    <Link className="btn-backward" to={`/${userType}/${alias}/documents`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     Приглашения на мероприятия
                 </div>

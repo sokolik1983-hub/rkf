@@ -3,6 +3,7 @@
 
   &__controls {
     top: 0!important;
+    margin-top: 0!important;
   }
   &__disclaimer {
     font-weight: normal;
@@ -17,7 +18,7 @@
     line-height: 32px;
     border-bottom: 1px solid #cbcbcb;
     @media (max-width: 560px) {
-      margin-bottom: 16px;
+      margin-bottom: 10px!important;
       font-size: 16px;
       line-height: 24px;
     }
@@ -106,14 +107,3 @@
     margin-left: 40px;
   }
 }
-//.status-table__modal {
-//  .Modal__inner {
-//    padding: 0;
-//  }
-//  .Modal__close {
-//    right: 24px !important;
-//    width: 16px;
-//    height: 16px;
-//    top: 35px;
-//  }
-//}

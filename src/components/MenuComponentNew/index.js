@@ -43,6 +43,7 @@ const MenuComponentNew = () => {
     const url = location.pathname.split('/')[1];
     const linkAlias = location.pathname.split('/')[2];
     const addLink = location.pathname.split('/')[3];
+
     const isUserProfilePage = (
         userAlias === url
         || userAlias === linkAlias
@@ -249,7 +250,10 @@ const MenuComponentNew = () => {
             }
         }
 
-        if(currentPageUserInfo?.user_type === 1 && currentPageUserInfo?.open_roles[0]?.name === 'Судья') {
+        if(currentPageUserInfo?.user_type === 1 &&
+            currentPageUserInfo?.open_roles[0]?.name === 'Судья' &&
+            addLink !== 'documents')
+        {
             isUserProfilePage ?
                 setCurrentPageNav(judgeNav(userAlias)) :
                 setCurrentPageNav(deleteNotification(judgeNav(linkAlias)));
