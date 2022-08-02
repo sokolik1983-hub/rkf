@@ -451,31 +451,31 @@ const appRoutes = [
         component: LoadableModules.LoadableNurseryPage
     },
     //нкп
-    // {
-    //     exact: true,
-    //     path: '/nbc/:alias/gallery/:album?/edit',
-    //     component: LoadableModules.LoadableNBCGalleryEdit
-    // },
-    // {
-    //     exact: true,
-    //     path: '/nbc/:alias/gallery/:album?',
-    //     component: LoadableModules.LoadableNBCGallery
-    // },
-    // {
-    //     exact: true,
-    //     path: '/nbc/:alias/gallery/edit',
-    //     component: LoadableModules.LoadableNBCGalleryEdit
-    // },
-    // {
-    //     exact: true,
-    //     path: '/nbc/:alias/gallery',
-    //     component: LoadableModules.LoadableNBCGallery
-    // },
-    // {
-    //     exact: true,
-    //     path: '/nbc/:alias/video',
-    //     component: LoadableModules.LoadableNBCVideo
-    // },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery/:album?/edit',
+        component: LoadableModules.LoadableNBCGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery/:album?',
+        component: LoadableModules.LoadableNBCGallery
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery/edit',
+        component: LoadableModules.LoadableNBCGalleryEdit
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/gallery',
+        component: LoadableModules.LoadableNBCGallery
+    },
+    {
+        exact: true,
+        path: '/nbc/:alias/video',
+        component: LoadableModules.LoadableNBCVideo
+    },
     {
         exact: false,
         path: '/nbc/:alias/documents/',
@@ -486,15 +486,15 @@ const appRoutes = [
         path: '/nbc/:alias/uploaded-documents/',
         component: LoadableModules.LoadableNBCUploadedDocuments
     },
-    // {
-    //     exact: false,
-    //     path: '/nbc/:alias/edit',
-    //     component: LoadableModules.LoadableNBCPageEdit
-    // },
     {
-        exact: false, //true
+        exact: false,
+        path: '/nbc/:alias/edit',
+        component: LoadableModules.LoadableNBCPageEdit
+    },
+    {
+        exact: true, //false
         path: '/nbc/:alias',
-        component: LoadableModules.LoadableNKPPage //LoadableNBCPage
+        component: LoadableModules.LoadableNBCPage //LoadableNKPPage
     },
     //ФИЗИК
     {
