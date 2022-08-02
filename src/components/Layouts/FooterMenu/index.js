@@ -67,7 +67,7 @@ const FooterMenu = ({isAuthenticated, setShowFilters}) => {
                         </NavLink>
                     </>
                 }
-                <div className={checkAliasUrl(pathname) ? 'more_btn-hide' : 'class-for-grid4'}
+                <div className={checkAliasUrl(pathname) ? 'class-for-grid4' : 'more_btn-hide'}
                      onClick={hideWidgetLoginPopup}
                 >
                     <MenuComponentNew />
