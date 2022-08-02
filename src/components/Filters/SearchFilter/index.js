@@ -32,7 +32,6 @@ const SearchFilter = ({
                     searchTabActiveName === 'Публикации' ? 'publications' : 'specialists';
 
     useEffect(() => {
-        console.log('sortType', sortType)
         filtersSearchType = searchTabId === 1 ? 100 : searchTabId === 2 ? 300 : searchTabId === 3 ? 200 : 400;
         (!additionalFilterInUrl || (additionalFilterInUrl && isMenuChanges)) &&
             history.push(`/search?string_filter=${searchValue.trim()}&sortType=${sortType}&search_type=${filtersSearchType}`)
