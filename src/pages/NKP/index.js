@@ -47,6 +47,7 @@ const NKP = ({history, user_info, updateUserInfo}) => {
                 //записать в Редакс (чтобы потом использовать эту инфу в меню)
 
                 //обновление картинок в Редаксе и localstorage
+                //добавить ещё alias
                 if(isMyPage) {
                     const {logo_link, headliner_link} = user_info;
 
@@ -136,21 +137,25 @@ const NKP = ({history, user_info, updateUserInfo}) => {
                             />
                         }
                         <Switch>
+                            {isMyPage &&
+                                <Route
+                                    exact={true}
+                                    path="/nbc/:alias/gallery/:album?/edit"
+                                    component={() =>
+                                        <ImageGalleryPage
+                                            canEdit={true}
+                                            isEditPage={true}
+                                        />
+                                    }
+                                />
+                            }
                             <Route
                                 exact={true}
-                                path="/nbc/:alias/gallery/:album"
+                                path="/nbc/:alias/gallery/:album?"
                                 component={() =>
                                     <ImageGalleryPage
                                         canEdit={isMyPage}
-                                    />
-                                }
-                            />
-                            <Route
-                                exact={true}
-                                path="/nbc/:alias/gallery"
-                                component={() =>
-                                    <ImageGalleryPage
-                                        canEdit={isMyPage}
+                                        isEditPage={false}
                                     />
                                 }
                             />
