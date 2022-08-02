@@ -1,6 +1,5 @@
 import React, {memo, useState, useEffect} from "react";
 import {NavLink, Link, useLocation, withRouter} from "react-router-dom";
-import ls from "local-storage";
 import MenuComponentNew from "../../MenuComponentNew";
 import WidgetLogin from "../Header/components/WidgetLogin";
 import ZlineWidget from "../../ZLineWidget";
@@ -9,6 +8,7 @@ import {connectAuthVisible} from "../../../pages/Authorization/connectors";
 import {connectShowFilters} from "../connectors";
 import {blockContent} from "../../../utils/blockContent";
 import {checkAliasUrl} from "../../../utils/checkAliasUrl";
+
 import "./footerMenu.scss";
 
 
@@ -16,7 +16,6 @@ const FooterMenu = ({isAuthenticated, setShowFilters}) => {
     const [open, setOpen] = useState(false);
     const [showZlineModal, setShowZlineModal] = useState(false);
     const {pathname} = useLocation();
-    const {alias} = ls.get('user_info') || {};
 
     useEffect(() => {
         if(showZlineModal || open ) {
@@ -68,7 +67,7 @@ const FooterMenu = ({isAuthenticated, setShowFilters}) => {
                         </NavLink>
                     </>
                 }
-                <div className={checkAliasUrl(pathname, alias) === null ? 'more_btn-hide' : 'class-for-grid4'}
+                <div className={checkAliasUrl(pathname) ? 'more_btn-hide' : 'class-for-grid4'}
                      onClick={hideWidgetLoginPopup}
                 >
                     <MenuComponentNew />

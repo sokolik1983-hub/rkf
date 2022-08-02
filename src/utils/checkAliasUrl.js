@@ -1,4 +1,4 @@
-export function checkAliasUrl(pathname, alias) {
+export function checkAliasUrl(pathname) {
 
     const exceptionUrl =
         pathname === ''
@@ -19,8 +19,11 @@ export function checkAliasUrl(pathname, alias) {
         || pathname === '/uploaded-documents';
 
     if (exceptionUrl) {
-        return alias && !exceptionUrl ? pathname : null;
-    } else if (pathname.search('kennel') === 1 || pathname.search('user') === 1 || pathname.search('club') === 1 || pathname.search('nbc')) {
+        return false;
+    } else if (pathname.search('kennel')
+            || pathname.search('user')
+            || pathname.search('club')
+            || pathname.search('nbc')) {
         return pathname.split('/')[2];
     } else {
         return pathname.split('/')[1];
