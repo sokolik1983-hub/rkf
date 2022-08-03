@@ -12,7 +12,7 @@ import {connectAuthUserInfo} from "../../pages/Login/connectors";
 import "./index.scss";
 
 
-const CustomAvatarEditor = ({user_info, updateUserInfo, setModalType, onSubmitSuccess, pageBanner, canvasWidth, owner}) => {
+const CustomAvatarEditor = ({user_info, updateUserInfo, setModalType, onSubmitSuccess, pageBanner, canvasWidth, owner, avatar}) => {
     const {
         user_type,
         name,
@@ -51,6 +51,8 @@ const CustomAvatarEditor = ({user_info, updateUserInfo, setModalType, onSubmitSu
                     }
 
                     updateUserInfo(userInfo);
+                } else {
+                    window.location.reload();
                 }
 
                 if(onSubmitSuccess) {
@@ -97,7 +99,7 @@ const CustomAvatarEditor = ({user_info, updateUserInfo, setModalType, onSubmitSu
                                 className="avatar-editor__canvas"
                                 style={(image && user_type !== 1 && user_type !== 4 && user_type !== 7) ?
                                     {} : (owner) ?
-                                        {background: `url(${DEFAULT_IMG.ownerAvatar}) no-repeat center / cover` } :
+                                        {background: `url(${avatar ? avatar : DEFAULT_IMG.ownerAvatar}) no-repeat center / cover` } :
                                         pageBanner ?
                                             {background: `url(${DEFAULT_IMG.bannerAvatar}) no-repeat center / cover`} :
                                             {background: `url(${DEFAULT_IMG.uploadAvatar}) no-repeat center / cover`}}

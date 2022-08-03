@@ -78,7 +78,7 @@ const PhotoComponent = ({photo, name, position, canEdit}) => {
                 <EditAvatar
                     setModalType={setModalType}
                     avatar={photo}
-                    owner={photo}
+                    owner
                 />}
             {modalType === "delete-owner" &&
                 <ModalDeleteAvatar

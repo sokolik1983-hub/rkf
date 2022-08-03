@@ -44,6 +44,8 @@ const ModalDeleteAvatar = ({user_info, updateUserInfo, closeModal, pageBanner, o
                 }
 
                 updateUserInfo(userInfo);
+            } else {
+                window.location.reload();
             }
 
             closeModal();
